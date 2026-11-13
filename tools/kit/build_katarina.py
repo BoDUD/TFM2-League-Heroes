@@ -28,7 +28,11 @@ E owns no slot, its cooldown is a caster flag; the add-on addons/league_katarina
           a dagger up: it lands at her feet w_fall ticks later (a 1-tick anchor at her feet, its landing a `Delayed`
           there), and she gains w_ms% move speed fading in three steps over w_fall ticks.
   ult     R Death Lotus (死亡莲华): a `Targeting` cast on `EnemyChampionRecentlyAttacked` (r_range). She channels r_t
-          ticks (`CasterAnimation` holds her): every r_p ticks a dagger flies at each enemy champion within r_r: r_dmg +
+          ticks (`CasterAnimation` holds her): every r_p ticks a dagger flies at up to r_n enemy champions within r_r
+          (League: "up to 3 of the closest nearby enemy champions"; a counter on her, k1 -> k2 -> k3, read once per
+          champion the volley's area finds, stops the volley after r_n - the first r_n the engine finds, not
+          the nearest: data cannot sort by distance; until 2026-11-14 every champion in reach, four or five in a
+          team fight): r_dmg +
           r_ap% AP magic damage in r_t / r_p equal parts and r_gw% healing cut (grievous wounds) for r_gw_t. Crowd
           control on her ends the channel at the next check (league_malzahar R's breaks); so does nobody in reach for
           two volleys running (the champions walked out: League's player would move on). Cast only within r_range
@@ -74,6 +78,9 @@ P = {
     # ult: R Death Lotus (League: 550 radius, 2.5 s, 15 daggers at up to 3 champions, 25-50 + 19% AP each, 60% GW)
     "r_cd": 3600, "r_range": 30000, "r_tgt": "EnemyChampion", "r_r": 50000, "r_t": 150, "r_p": 10, "r_brk": 10, "r_dmg": 650, "r_ap": 350,
     "r_gw": 60, "r_gw_t": 180, "r_speed": 6000, "r_y": -3000, "r_track": 30, "r_ring": 30,
+    # League's Death Lotus throws at "up to 3 of the closest nearby enemy champions"; every champion in reach got a
+    # dagger here (the user, 2026-11-14, on the list of differences from League: 「全改吧」). 0 = no cap, as before
+    "r_n": 3,
     # voice
     "vo_gap": 240,
     # 1 = the copy for addons/league_katarina: no takedown window (its passive league_katarina:blades resets Q, W and
@@ -353,7 +360,17 @@ def build(p):
     # every volley that finds a champion keeps r_seen up two volleys long; a check every r_p ticks from the second
     # volley on ends the channel when it lapsed (nobody in reach twice running: the champions walked out - League's
     # player would move and cancel it; the AI would stand there spinning at nothing)
-    volley = sw("r_ch", around(p["r_r"], "EnemyChampion", [knife, refresh("r_seen", 2 * p["r_p"] + 1)]))
+    throw = [knife, refresh("r_seen", 2 * p["r_p"] + 1)]
+    if p["r_n"]:
+        # at most r_n champions a volley: the area's effects run champion by champion, each one climbing the counter
+        # r_k1 .. r_k<n> on her before its dagger; with the last step up the rest of the volley gets none
+        ks = [f"r_k{i}" for i in range(1, p["r_n"] + 1)]
+        climb = flag(ks[0], 2)
+        for prev, nxt in zip(ks, ks[1:]):
+            climb = sw(prev, flag(nxt, 2), climb)
+        volley = sw("r_ch", combine(*rm(*ks), around(p["r_r"], "EnemyChampion", [sw(ks[-1], NONE, combine(climb, *throw))])))
+    else:
+        volley = sw("r_ch", around(p["r_r"], "EnemyChampion", throw))
     stop = combine(*rm("r_ch"), {"type": "RemoveCasterAnimation", "name": "ult"})
     idle_end = sw("r_ch", sw("r_seen", NONE, stop))
     marks = sw("r_ch", around(p["r_r"], "EnemyChampion", [track()]))

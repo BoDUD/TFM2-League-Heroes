@@ -3499,6 +3499,18 @@
                                                   {
                                                     "type": "TargetSfx",
                                                     "name": "league_syndra_e_stun"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_syndra_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -70
+                                                    }
                                                   }
                                                 ]
                                               },
@@ -3782,6 +3794,18 @@
                                     {
                                       "type": "ViewEffect",
                                       "name": "league_syndra_e_hit"
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_syndra_e_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 83
+                                          }
+                                        },
+                                        "move_speed_mult": -70
+                                      }
                                     }
                                   ]
                                 },
@@ -4086,6 +4110,18 @@
                                               {
                                                 "type": "TargetSfx",
                                                 "name": "league_syndra_e_stun"
+                                              },
+                                              {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_syndra_e_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 150
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -70
+                                                }
                                               }
                                             ]
                                           },
@@ -4768,6 +4804,18 @@
                                                                 {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_e_stun"
+                                                                },
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_syndra_e_slow",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 150
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -70
+                                                                  }
                                                                 }
                                                               ]
                                                             },
@@ -5064,6 +5112,18 @@
                                                   {
                                                     "type": "ViewEffect",
                                                     "name": "league_syndra_e_hit"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_syndra_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 83
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -70
+                                                    }
                                                   }
                                                 ]
                                               },
@@ -5576,6 +5636,18 @@
                                                   {
                                                     "type": "TargetSfx",
                                                     "name": "league_syndra_e_stun"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_syndra_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -70
+                                                    }
                                                   }
                                                 ]
                                               },
@@ -5893,6 +5965,18 @@
                                   {
                                     "type": "ViewEffect",
                                     "name": "league_syndra_e_hit"
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_syndra_e_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 83
+                                        }
+                                      },
+                                      "move_speed_mult": -70
+                                    }
                                   }
                                 ]
                               },
@@ -6326,53 +6410,11 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_syndra_s4",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_syndra_r_pen"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_syndra_r_pen",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 1
-                                                }
-                                              },
-                                              "magic_resistance_penetration": 100
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "ApAttack",
-                                        "damage": 52,
-                                        "attack_ratio": 18,
-                                        "hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_syndra_r_pen"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "ApAttack",
-                                    "damage": 52,
-                                    "attack_ratio": 18,
-                                    "hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
+                                  "type": "ApAttack",
+                                  "damage": 52,
+                                  "attack_ratio": 18,
+                                  "hp_ratio": 0,
+                                  "attack_effect_type": "Target"
                                 }
                               },
                               {
@@ -6387,6 +6429,21 @@
                                 "effect": {
                                   "type": "TargetSfx",
                                   "name": "league_syndra_r_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_syndra_s4",
+                                  "effect_buff": {
+                                    "type": "Native",
+                                    "effect_ref": "league_syndra:execute"
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               }
                             ]
@@ -6416,53 +6473,11 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_syndra_s4",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_syndra_r_pen"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_syndra_r_pen",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 1
-                                                }
-                                              },
-                                              "magic_resistance_penetration": 100
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "ApAttack",
-                                        "damage": 52,
-                                        "attack_ratio": 18,
-                                        "hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_syndra_r_pen"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "ApAttack",
-                                    "damage": 52,
-                                    "attack_ratio": 18,
-                                    "hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
+                                  "type": "ApAttack",
+                                  "damage": 52,
+                                  "attack_ratio": 18,
+                                  "hp_ratio": 0,
+                                  "attack_effect_type": "Target"
                                 }
                               },
                               {
@@ -6477,6 +6492,21 @@
                                 "effect": {
                                   "type": "TargetSfx",
                                   "name": "league_syndra_r_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_syndra_s4",
+                                  "effect_buff": {
+                                    "type": "Native",
+                                    "effect_ref": "league_syndra:execute"
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               }
                             ]
@@ -6506,53 +6536,11 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_syndra_s4",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_syndra_r_pen"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_syndra_r_pen",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 1
-                                                }
-                                              },
-                                              "magic_resistance_penetration": 100
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "ApAttack",
-                                        "damage": 52,
-                                        "attack_ratio": 18,
-                                        "hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_syndra_r_pen"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "ApAttack",
-                                    "damage": 52,
-                                    "attack_ratio": 18,
-                                    "hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
+                                  "type": "ApAttack",
+                                  "damage": 52,
+                                  "attack_ratio": 18,
+                                  "hp_ratio": 0,
+                                  "attack_effect_type": "Target"
                                 }
                               },
                               {
@@ -6567,6 +6555,21 @@
                                 "effect": {
                                   "type": "TargetSfx",
                                   "name": "league_syndra_r_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_syndra_s4",
+                                  "effect_buff": {
+                                    "type": "Native",
+                                    "effect_ref": "league_syndra:execute"
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               }
                             ]
@@ -6599,53 +6602,11 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_syndra_s4",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_syndra_r_pen"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_syndra_r_pen",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 1
-                                                  }
-                                                },
-                                                "magic_resistance_penetration": 100
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "ApAttack",
-                                          "damage": 52,
-                                          "attack_ratio": 18,
-                                          "hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_syndra_r_pen"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "ApAttack",
-                                      "damage": 52,
-                                      "attack_ratio": 18,
-                                      "hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
+                                    "type": "ApAttack",
+                                    "damage": 52,
+                                    "attack_ratio": 18,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   }
                                 },
                                 {
@@ -6660,6 +6621,21 @@
                                   "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_syndra_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_syndra_s4",
+                                    "effect_buff": {
+                                      "type": "Native",
+                                      "effect_ref": "league_syndra:execute"
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 }
                               ]
@@ -6697,53 +6673,11 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_syndra_s4",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_syndra_r_pen"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_syndra_r_pen",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 1
-                                                  }
-                                                },
-                                                "magic_resistance_penetration": 100
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "ApAttack",
-                                          "damage": 52,
-                                          "attack_ratio": 18,
-                                          "hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_syndra_r_pen"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "ApAttack",
-                                      "damage": 52,
-                                      "attack_ratio": 18,
-                                      "hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
+                                    "type": "ApAttack",
+                                    "damage": 52,
+                                    "attack_ratio": 18,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   }
                                 },
                                 {
@@ -6758,6 +6692,21 @@
                                   "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_syndra_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_syndra_s4",
+                                    "effect_buff": {
+                                      "type": "Native",
+                                      "effect_ref": "league_syndra:execute"
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 }
                               ]
@@ -6795,53 +6744,11 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_syndra_s4",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_syndra_r_pen"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_syndra_r_pen",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 1
-                                                  }
-                                                },
-                                                "magic_resistance_penetration": 100
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "ApAttack",
-                                          "damage": 52,
-                                          "attack_ratio": 18,
-                                          "hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_syndra_r_pen"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "ApAttack",
-                                      "damage": 52,
-                                      "attack_ratio": 18,
-                                      "hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
+                                    "type": "ApAttack",
+                                    "damage": 52,
+                                    "attack_ratio": 18,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   }
                                 },
                                 {
@@ -6856,6 +6763,21 @@
                                   "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_syndra_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_syndra_s4",
+                                    "effect_buff": {
+                                      "type": "Native",
+                                      "effect_ref": "league_syndra:execute"
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 }
                               ]
@@ -6893,53 +6815,11 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_syndra_s4",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_syndra_r_pen"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_syndra_r_pen",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 1
-                                                  }
-                                                },
-                                                "magic_resistance_penetration": 100
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "ApAttack",
-                                          "damage": 52,
-                                          "attack_ratio": 18,
-                                          "hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_syndra_r_pen"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "ApAttack",
-                                      "damage": 52,
-                                      "attack_ratio": 18,
-                                      "hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
+                                    "type": "ApAttack",
+                                    "damage": 52,
+                                    "attack_ratio": 18,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   }
                                 },
                                 {
@@ -6954,6 +6834,21 @@
                                   "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_syndra_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_syndra_s4",
+                                    "effect_buff": {
+                                      "type": "Native",
+                                      "effect_ref": "league_syndra:execute"
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 }
                               ]
@@ -7164,53 +7059,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -7225,6 +7078,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -7254,53 +7122,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -7315,6 +7141,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -7344,53 +7185,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -7405,6 +7204,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -7437,53 +7251,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -7498,6 +7270,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -7535,53 +7322,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -7596,6 +7341,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -7633,53 +7393,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -7694,6 +7412,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -7731,53 +7464,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -7792,6 +7483,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -8178,53 +7884,11 @@
                                                             {
                                                               "casting_type": "Targeting",
                                                               "effect": {
-                                                                "type": "SwitchByBuff",
-                                                                "buff_name": "league_syndra_s4",
-                                                                "effect_buff": {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_syndra_r_pen",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 1
-                                                                              }
-                                                                            },
-                                                                            "magic_resistance_penetration": 100
-                                                                          },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    },
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_syndra_r_pen"
-                                                                    }
-                                                                  ]
-                                                                },
-                                                                "effect_none": {
-                                                                  "type": "ApAttack",
-                                                                  "damage": 52,
-                                                                  "attack_ratio": 18,
-                                                                  "hp_ratio": 0,
-                                                                  "attack_effect_type": "Target"
-                                                                }
+                                                                "type": "ApAttack",
+                                                                "damage": 52,
+                                                                "attack_ratio": 18,
+                                                                "hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
                                                               }
                                                             },
                                                             {
@@ -8239,6 +7903,21 @@
                                                               "effect": {
                                                                 "type": "TargetSfx",
                                                                 "name": "league_syndra_r_hit"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_syndra_s4",
+                                                                "effect_buff": {
+                                                                  "type": "Native",
+                                                                  "effect_ref": "league_syndra:execute"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
                                                               }
                                                             }
                                                           ]
@@ -8268,53 +7947,11 @@
                                                             {
                                                               "casting_type": "Targeting",
                                                               "effect": {
-                                                                "type": "SwitchByBuff",
-                                                                "buff_name": "league_syndra_s4",
-                                                                "effect_buff": {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_syndra_r_pen",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 1
-                                                                              }
-                                                                            },
-                                                                            "magic_resistance_penetration": 100
-                                                                          },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    },
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_syndra_r_pen"
-                                                                    }
-                                                                  ]
-                                                                },
-                                                                "effect_none": {
-                                                                  "type": "ApAttack",
-                                                                  "damage": 52,
-                                                                  "attack_ratio": 18,
-                                                                  "hp_ratio": 0,
-                                                                  "attack_effect_type": "Target"
-                                                                }
+                                                                "type": "ApAttack",
+                                                                "damage": 52,
+                                                                "attack_ratio": 18,
+                                                                "hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
                                                               }
                                                             },
                                                             {
@@ -8329,6 +7966,21 @@
                                                               "effect": {
                                                                 "type": "TargetSfx",
                                                                 "name": "league_syndra_r_hit"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_syndra_s4",
+                                                                "effect_buff": {
+                                                                  "type": "Native",
+                                                                  "effect_ref": "league_syndra:execute"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
                                                               }
                                                             }
                                                           ]
@@ -8358,53 +8010,11 @@
                                                             {
                                                               "casting_type": "Targeting",
                                                               "effect": {
-                                                                "type": "SwitchByBuff",
-                                                                "buff_name": "league_syndra_s4",
-                                                                "effect_buff": {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_syndra_r_pen",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 1
-                                                                              }
-                                                                            },
-                                                                            "magic_resistance_penetration": 100
-                                                                          },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    },
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_syndra_r_pen"
-                                                                    }
-                                                                  ]
-                                                                },
-                                                                "effect_none": {
-                                                                  "type": "ApAttack",
-                                                                  "damage": 52,
-                                                                  "attack_ratio": 18,
-                                                                  "hp_ratio": 0,
-                                                                  "attack_effect_type": "Target"
-                                                                }
+                                                                "type": "ApAttack",
+                                                                "damage": 52,
+                                                                "attack_ratio": 18,
+                                                                "hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
                                                               }
                                                             },
                                                             {
@@ -8419,6 +8029,21 @@
                                                               "effect": {
                                                                 "type": "TargetSfx",
                                                                 "name": "league_syndra_r_hit"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_syndra_s4",
+                                                                "effect_buff": {
+                                                                  "type": "Native",
+                                                                  "effect_ref": "league_syndra:execute"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
                                                               }
                                                             }
                                                           ]
@@ -8451,53 +8076,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -8512,6 +8095,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -8549,53 +8147,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -8610,6 +8166,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -8647,53 +8218,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -8708,6 +8237,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -8745,53 +8289,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -8806,6 +8308,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -8912,53 +8429,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -8973,6 +8448,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -9002,53 +8492,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -9063,6 +8511,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -9092,53 +8555,11 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_syndra_s4",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_syndra_r_pen"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_syndra_r_pen",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              },
-                                                                              "magic_resistance_penetration": 100
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 52,
-                                                                        "attack_ratio": 18,
-                                                                        "hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_syndra_r_pen"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "ApAttack",
-                                                                    "damage": 52,
-                                                                    "attack_ratio": 18,
-                                                                    "hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
+                                                                  "type": "ApAttack",
+                                                                  "damage": 52,
+                                                                  "attack_ratio": 18,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
                                                                 }
                                                               },
                                                               {
@@ -9153,6 +8574,21 @@
                                                                 "effect": {
                                                                   "type": "TargetSfx",
                                                                   "name": "league_syndra_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_syndra_s4",
+                                                                  "effect_buff": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_syndra:execute"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               }
                                                             ]
@@ -9185,53 +8621,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -9246,6 +8640,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -9283,53 +8692,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -9344,6 +8711,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -9381,53 +8763,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -9442,6 +8782,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -9479,53 +8834,11 @@
                                                                 {
                                                                   "casting_type": "Targeting",
                                                                   "effect": {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_syndra_s4",
-                                                                    "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_syndra_r_pen"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_syndra_r_pen",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 1
-                                                                                  }
-                                                                                },
-                                                                                "magic_resistance_penetration": 100
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 52,
-                                                                          "attack_ratio": 18,
-                                                                          "hp_ratio": 0,
-                                                                          "attack_effect_type": "Target"
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_syndra_r_pen"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 52,
-                                                                      "attack_ratio": 18,
-                                                                      "hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
+                                                                    "type": "ApAttack",
+                                                                    "damage": 52,
+                                                                    "attack_ratio": 18,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 },
                                                                 {
@@ -9540,6 +8853,21 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_syndra_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_syndra_s4",
+                                                                    "effect_buff": {
+                                                                      "type": "Native",
+                                                                      "effect_ref": "league_syndra:execute"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 }
                                                               ]
@@ -9753,6 +9081,14 @@
     {
       "type": "Animated",
       "name": "league_syndra_w_slow",
+      "anim": "asset/league/effects/league_syndra_fx",
+      "tag": "w_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_syndra_e_slow",
       "anim": "asset/league/effects/league_syndra_fx",
       "tag": "w_slow",
       "repeat": true,

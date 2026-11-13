@@ -131,6 +131,14 @@
                 "name": "league_lux_q_cast"
               },
               {
+                "type": "RemoveCasterBuff",
+                "name": "league_lux_q_n1"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_lux_q_n2"
+              },
+              {
                 "type": "LinearProjectile",
                 "name": "league_lux_q_orb",
                 "speed": 2000,
@@ -147,90 +155,101 @@
                   {
                     "casting_type": "Targeting",
                     "effect": {
-                      "type": "ApAttack",
-                      "damage": 80,
-                      "attack_ratio": 75
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Bind",
-                      "duration": 90
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_lux_q_bind"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_lux_mark"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddBuff",
-                      "buff_state": {
-                        "name": "league_marks_lux_lit",
-                        "duration": {
-                          "Time": {
-                            "tick": 300
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_lux_q_hit"
-                    }
-                  }
-                ],
-                "end_effects": []
-              },
-              {
-                "type": "LinearProjectile",
-                "name": "league_lux_q_seen",
-                "speed": 2000,
-                "range": 130000,
-                "penetrate": true,
-                "y_offset": -2800,
-                "applied_target": "EnemyChampion",
-                "shape": {
-                  "Circle": {
-                    "radius": 14000
-                  }
-                },
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_lux_q_combo"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_lux_q_combo",
-                        "duration": {
-                          "Time": {
-                            "tick": 90
-                          }
-                        }
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_lux_q_n2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
                       },
-                      "only_to_enemy": false
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_lux_q_n1",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_lux_q_n2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 70
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_lux_q_n1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 70
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          {
+                            "type": "ApAttack",
+                            "damage": 80,
+                            "attack_ratio": 75
+                          },
+                          {
+                            "type": "Bind",
+                            "duration": 90
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_lux_q_bind"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_lux_mark"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_marks_lux_lit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_lux_q_hit"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": true,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_lux_q_combo"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_lux_q_combo",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 90
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     }
                   }
                 ],
@@ -274,6 +293,14 @@
                 "name": "league_lux_q_cast"
               },
               {
+                "type": "RemoveCasterBuff",
+                "name": "league_lux_q_n1"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_lux_q_n2"
+              },
+              {
                 "type": "LinearProjectile",
                 "name": "league_lux_q_orb",
                 "speed": 2000,
@@ -290,90 +317,101 @@
                   {
                     "casting_type": "Targeting",
                     "effect": {
-                      "type": "ApAttack",
-                      "damage": 80,
-                      "attack_ratio": 75
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Bind",
-                      "duration": 90
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_lux_q_bind"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_lux_mark"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddBuff",
-                      "buff_state": {
-                        "name": "league_marks_lux_lit",
-                        "duration": {
-                          "Time": {
-                            "tick": 300
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_lux_q_hit"
-                    }
-                  }
-                ],
-                "end_effects": []
-              },
-              {
-                "type": "LinearProjectile",
-                "name": "league_lux_q_seen",
-                "speed": 2000,
-                "range": 130000,
-                "penetrate": true,
-                "y_offset": -2800,
-                "applied_target": "EnemyChampion",
-                "shape": {
-                  "Circle": {
-                    "radius": 14000
-                  }
-                },
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_lux_q_combo"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_lux_q_combo",
-                        "duration": {
-                          "Time": {
-                            "tick": 90
-                          }
-                        }
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_lux_q_n2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
                       },
-                      "only_to_enemy": false
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_lux_q_n1",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_lux_q_n2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 70
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_lux_q_n1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 70
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          {
+                            "type": "ApAttack",
+                            "damage": 80,
+                            "attack_ratio": 75
+                          },
+                          {
+                            "type": "Bind",
+                            "duration": 90
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_lux_q_bind"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_lux_mark"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_marks_lux_lit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_lux_q_hit"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": true,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_lux_q_combo"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_lux_q_combo",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 90
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     }
                   }
                 ],

@@ -368,7 +368,7 @@
               "type": "LinearProjectile",
               "name": "league_nautilus_q_anchor",
               "penetrate": false,
-              "applied_target": "EnemyChampion",
+              "applied_target": "EnemyWithoutTower",
               "applied_effects": [
                 {
                   "casting_type": "Targeting",
@@ -391,6 +391,13 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
+                    "type": "Stun",
+                    "duration": 60
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
                     "type": "ViewEffect",
                     "name": "league_nautilus_q_hit"
                   }
@@ -405,14 +412,10 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": true,
                     "effects": [
                       {
                         "type": "Combine",

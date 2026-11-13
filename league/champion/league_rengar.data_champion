@@ -903,6 +903,73 @@
                             }
                           }
                         ]
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_rengar_qs_twin",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_rengar_rival_hit",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 40
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rengar_k_a"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_rengar_k_a",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 3,
+                                  "period": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_rengar_k_a"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -1259,6 +1326,73 @@
                               }
                             }
                           ]
+                        },
+                        {
+                          "type": "TargetProjectile",
+                          "name": "league_rengar_qs_twin",
+                          "speed": 100000,
+                          "y_offset": 0,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_rengar_rival_hit",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 40
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_rengar_k_a"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_rengar_k_a",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 40
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasted",
+                                    "casted_type": "Heal",
+                                    "duration": 3,
+                                    "period": 1,
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_rengar_k_a"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
                         }
                       ]
                     },
@@ -1561,63 +1695,144 @@
           }
         },
         {
-          "type": "Delayed",
-          "tick": 21,
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_rengar_k_a",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_rengar_k_a"
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_khazix_seen",
-                    "effect_buff": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_rengar_trophy",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
+              "type": "Delayed",
+              "tick": 21,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_rengar_k_a",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_rengar_k_a"
                       },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": [
-                          {
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_khazix_seen",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rengar_trophy",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rengar_trophy",
+                                  "duration": "Permanent",
+                                  "attack_mult": 15
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_rengar_t_trophy"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_rengar_vo_khazix"
+                              }
+                            ]
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rengar_bt1",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rengar_bt2",
+                          "effect_buff": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rengar_bt3",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rengar_bt4",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_rengar_bt5",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_rengar_bt5",
+                                    "duration": "Permanent",
+                                    "attack_mult": 5
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              },
+                              "effect_none": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rengar_bt4",
+                                  "duration": "Permanent",
+                                  "attack_mult": 5
+                                },
+                                "only_to_enemy": false
+                              }
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_rengar_bt3",
+                                "duration": "Permanent",
+                                "attack_mult": 3
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          "effect_none": {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_rengar_trophy",
+                              "name": "league_rengar_bt2",
                               "duration": "Permanent",
-                              "attack_mult": 15
+                              "attack_mult": 1
                             },
                             "only_to_enemy": false
-                          },
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_rengar_t_trophy"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_rengar_vo_khazix"
                           }
-                        ]
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rengar_bt1",
+                            "duration": "Permanent",
+                            "attack_mult": 1
+                          },
+                          "only_to_enemy": false
+                        }
                       }
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -2639,6 +2854,75 @@
                                               "type": "Combine",
                                               "effects": []
                                             }
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_rengar_bt1",
+                                            "effect_buff": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rengar_bt2",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_rengar_bt3",
+                                                "effect_buff": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_rengar_bt4",
+                                                  "effect_buff": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_rengar_bt5",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_rengar_bt5",
+                                                        "duration": "Permanent",
+                                                        "attack_mult": 5
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_rengar_bt4",
+                                                      "duration": "Permanent",
+                                                      "attack_mult": 5
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                },
+                                                "effect_none": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rengar_bt3",
+                                                    "duration": "Permanent",
+                                                    "attack_mult": 3
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rengar_bt2",
+                                                  "duration": "Permanent",
+                                                  "attack_mult": 1
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_rengar_bt1",
+                                                "duration": "Permanent",
+                                                "attack_mult": 1
+                                              },
+                                              "only_to_enemy": false
+                                            }
                                           }
                                         ]
                                       },
@@ -2919,6 +3203,75 @@
                                             "effect_none": {
                                               "type": "Combine",
                                               "effects": []
+                                            }
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_rengar_bt1",
+                                            "effect_buff": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rengar_bt2",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_rengar_bt3",
+                                                "effect_buff": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_rengar_bt4",
+                                                  "effect_buff": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_rengar_bt5",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_rengar_bt5",
+                                                        "duration": "Permanent",
+                                                        "attack_mult": 5
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_rengar_bt4",
+                                                      "duration": "Permanent",
+                                                      "attack_mult": 5
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                },
+                                                "effect_none": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rengar_bt3",
+                                                    "duration": "Permanent",
+                                                    "attack_mult": 3
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rengar_bt2",
+                                                  "duration": "Permanent",
+                                                  "attack_mult": 1
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_rengar_bt1",
+                                                "duration": "Permanent",
+                                                "attack_mult": 1
+                                              },
+                                              "only_to_enemy": false
                                             }
                                           }
                                         ]
@@ -3617,5 +3970,6 @@
       "repeat": true,
       "z": 4
     }
-  ]
+  ],
+  "stack_skill_index": 2
 }

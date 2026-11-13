@@ -14,7 +14,10 @@ everyone in the zone):
           slow for q_slow_t ticks; a wide twin with no picture finds the next enemy behind it while q_win ticks last
           (q_speed x q_win units on): that one takes the damage and a q_stun-tick stun, and so does the first,
           q_win + 1 ticks after its hit (a Delayed queued on it reads the `q_two` flag the second hit set). No
-          second unit: the slow only (no walls in TFM2 - League also stuns against terrain).
+          second unit: the slow only (data cannot read walls - League also stuns against terrain: "If the bolt
+          hits terrain or a second enemy". The add-on's copy, native=1, does since 2026-11-14: the first hit runs
+          `league_bard:bind`, which looks for a wall of the map's grid - or the 5v5 map's edge - within
+          q_speed x q_win behind the unit on the bolt's line and sets `q_two` itself, and `q_wall` for the sound).
   skill2  W Caretaker's Shrine + E Magical Journey: a `Targeting` cast on `EnemyChampion` (w_range), so it comes in
           fights only (league_janna E's way). With E off its own cooldown (`e_cd`, e_cd_t ticks) and Bard dived -
           two enemy champions within e_near or one within e_close - E opens the door: he travels e_speed x e_tick
@@ -279,17 +282,27 @@ def build(p):
         sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), sfx("p_meep"), meep)))), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Cosmic Binding
+    # League: "If the bolt hits terrain or a second enemy" both are stunned; the stun against terrain was missing
+    # ("no walls in TFM2": data cannot read them). The user, 2026-11-14, on the list of differences from League:
+    # 「全改吧」 - the add-on reads the map's walls for his door already, so in its copy the first hit asks
+    # `league_bard:bind`: a wall cell (or the 5v5 map's edge) within q_speed x q_win behind the unit on the bolt's
+    # line - the stretch the hidden twin searches for the second enemy - puts `q_two` on him, and the Delayed below
+    # stuns the first unit as it does for a second enemy; `q_wall` plays the binding sound on it (a second enemy's
+    # own hit plays it otherwise). The main pack's Q is unchanged: still the second enemy only.
+    wall = [{"type": "Native", "effect_ref": f"{ID}:bind"}] if p["native"] else []
+    wall_sfx = [sw("q_wall", tsfx("q_bind"))] if p["native"] else []
     first = sw("q_first", NONE, combine(
-        flag("q_first", p["q_win"] + 30), flag("q_window", p["q_win"]), flag("q_wait", 1),
+        flag("q_first", p["q_win"] + 30), flag("q_window", p["q_win"]), flag("q_wait", 1), *wall,
         magic(p["q_dmg"], p["q_ap"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
         view("q_hit"), tsfx("q_hit"),
-        delayed(p["q_win"] + 1, sw("q_two", combine({"type": "Stun", "duration": p["q_stun"]}, view("q_bind"))))))
+        delayed(p["q_win"] + 1, sw("q_two", combine({"type": "Stun", "duration": p["q_stun"]}, view("q_bind"),
+                                                    *wall_sfx)))))
     second = sw("q_wait", NONE, sw("q_window", combine(
         *rm("q_window"), flag("q_two", p["q_win"] + 4),
         magic(p["q_dmg"], p["q_ap"]), {"type": "Stun", "duration": p["q_stun"]}, view("q_hit"), view("q_bind"),
         tsfx("q_bind"))))
     skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower", flat(combine(
-        r_check, *rm("q_first", "q_window", "q_two"), sfx("q_cast"), sfx("vo_q"),
+        r_check, *rm("q_first", "q_window", "q_two", *(["q_wall"] if p["native"] else [])), sfx("q_cast"), sfx("vo_q"),
         line("q_seek", p["q_speed"], p["q_reach"], p["q_twin"], p["q_y"], "EnemyWithoutTower", True, [second]),
         line("q_bolt", p["q_speed"], p["q_reach"], p["q_rad"], p["q_y"], "EnemyWithoutTower", True, [first]))))
 
@@ -369,9 +382,12 @@ def build(p):
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",
+                            # q_speed / q_win: not read by the passive - the add-on's `league_bard:bind` has them as
+                            # constants and its unit test checks them against these (how far the bolt looks for a wall)
                             "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_reach", "e_fly", "e_ride",
                                                          "e_near", "e_close", "e_ms", "e_ms_t", "e_chase_r",
-                                                         "r_range", "r_arm_range", "r_r", "r_t", "r_lag", "r_travel")}}
+                                                         "r_range", "r_arm_range", "r_r", "r_t", "r_lag", "r_travel",
+                                                         "q_speed", "q_win")}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

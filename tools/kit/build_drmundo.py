@@ -11,9 +11,10 @@ with fixed numbers, maximum-health shares and his own hit count, and the add-on 
           feared or charmed) that gives him p_imm ticks of `cc_immune`, lays p_cd and drops a chem-tank where he
           stands (a hidden lob, the canister lands p_fly ticks later): a zone (p_can_t ticks, armed after p_arm) that he
           picks up by walking over it - p_heal + p_heal_ad% AD health and the passive's cooldown cut to p_cut% - and an
-          enemy champion stepping on it breaks it. League blocks the control and costs 7% current health; the data
-          can only end it (at most 3 ticks late) and cannot take a share of current health, so it costs nothing.
-          With native=1 the add-on blocks it on the tick it lands, takes 7% of current health and walks him to the tank.
+          enemy champion stepping on it breaks it. League blocks the control and costs 4% current health (7% before
+          V12.23); the data can only end it (at most 3 ticks late) and cannot take a share of current health, so it
+          costs nothing. With native=1 the add-on blocks it on the tick it lands, takes 4% of current health (7% until
+          2026-11-14) and walks him to the tank.
   attack  A cleaver chop (atk_st). E Blunt Force Trauma (钝器创伤) is folded in: League's passive AD from bonus health is
           in his AD growth; with e_cd gone his next attack is the bat swing (attack_e): e_dmg + e_hp% of his maximum health more (2026-10-22, the user: 「蒙多加成怎么是攻击力不是生命值」 - the damage
           ratios read his maximum health, `hp_ratio`; the heals stay on AD, no heal effect has a health part), and a
@@ -27,13 +28,16 @@ with fixed numbers, maximum-health shares and his own hit count, and the add-on 
           the saw leaves for where the target stood 8 ticks before (dodgeable, league_tahmkench Q's lock) and stops on
           the first unit: q_dmg + q_ap% AP magic, slow q_slow% for q_slow_t, he heals q_heal; on a champion (a twin
           on the same line) q_thp% of its maximum health more as true damage (League: 20% of current health, magic) and
-          q_heal_c more health. With native=1 the add-on deals q_pct% of the champion's real current health (at
-          least q_dmg) instead of q_thp.
+          q_heal_c more health. The cast costs q_cost health (League: 50-90, half of it back on a hit, all of it on a
+          champion: q_heal and q_heal_c are the two halves). With native=1 the add-on deals q_pct% of the champion's
+          real current health (at least q_dmg) instead of q_thp, and takes the cost straight off his health.
   skill2  W Heart Zapper (心脏电击器): cast with an enemy unit within w_rad: w_n pulses w_per ticks apart zap every enemy
           unit round him (w_tick + w_hp% of his maximum health, magic); every g_per ticks a check that finds his 1-point hit sensor broken
           (any damage since the last check, league_sett's sensor) queues a grey-health heal of w_g for the end; at the end the
           final zap (w_end + w_end_hp% of his maximum health, magic) - a champion in it pays every queued heal in full, only minions or monsters
-          half, nothing in it nothing. With native=1 the add-on stores w_store% of the real damage taken and heals it.
+          half, nothing in it nothing. The cast costs w_cost% of his maximum health (League: 8% of current health).
+          With native=1 the add-on stores w_store% of the real damage taken and heals it, and takes w_cost_n% of his
+          current health as the cost.
   ult     R Maximum Dosage (极限剂量), cast at the right moment (the user's rule 「看好时机」): the slot arms it (r_arm ticks);
           each of his actions while armed fires it when his damage count reached h{r_need} and an enemy champion stands
           within r_n: a shield of h_sens points with a WithShield flag, read on his attacks, Q and W - broken, he
@@ -85,7 +89,20 @@ P = {
     # q_w: the engine hits a unit only when its centre is within the circle at a tick (no body, game 0.7.1): 3200 needed a
     # dead-centre pass; League's 120-wide saw plus a champion's body is about 8000 (2026-11-06)
     "q_cd": 260, "q_range": 70000, "q_dur": 26, "q_at": 11, "q_speed": 6500, "q_w": 8000, "q_dmg": 140, "q_ap": 0,
-    "q_thp": 9, "q_pct": 20, "q_slow": 40, "q_slow_t": 120, "q_heal": 20, "q_heal_c": 40,
+    "q_thp": 9, "q_pct": 20, "q_slow": 40, "q_slow_t": 120, "q_heal": 30, "q_heal_c": 30,
+    # League's Mundo pays health for his abilities (no mana): Q "50 / 60 / 70 / 80 / 90 Health" and "heals for 50% of
+    # the health cost, increased to 100% against champions or monsters"; W "8% current health"; E 10-70 health (not
+    # done: E rides the attack here). Until 2026-11-14 Q cost nothing and healed 20 on a hit, 60 on a champion (the
+    # user, on the list of differences from League: 「全改吧」). q_cost: paid as the cast starts - true damage to himself
+    # under a 1-tick `undying` (a cost never kills); q_heal is the half every hit gives back, q_heal_c the other half
+    # on a champion (data cannot tell a monster from a minion: half for both). w_cost: % of his MAXIMUM health in the
+    # main pack (nothing in data reads current health); the add-on's copy takes League's w_cost_n% of his CURRENT
+    # health in league_drmundo:zap, and Q's q_cost in league_drmundo:pay - straight off his health, no damage event.
+    # In the main pack a cost is damage like any other: his hit sensor's shield takes it first and pays it back at the
+    # next read, so it also counts a little toward the danger R waits for.
+    # Classic sim, top, seeds 1-8: +0.30 -> +0.82 (+-0.4), 77.8 -> 76.3 Q a game, health healed 10488 -> 15412: he
+    # pays about 6500 a game and most of it comes back through regeneration that was wasted at full health before.
+    "q_cost": 60, "w_cost": 6, "w_cost_n": 8,
     # W Heart Zapper (League: 4 s, 20-80 + 7% bonus hp... a second round him, 75% of damage taken stored as grey
     # health, healed 100% if the end zap hits a champion, else 50%; cd 17-13 s)
     "w_cd": 900, "w_rad": 22000, "w_anim": 14, "w_n": 12, "w_per": 20, "g_per": 30, "w_tick": 10, "w_hp": 1,
@@ -297,7 +314,7 @@ def build(p):
     shake = combine(flag("p_cd", p["p_cd"]), flag("p_imm", p["p_imm"], cc_immune=True), cview("p_shake"), sfx("p_shake"),
                     voice("vo_p", p), lob("p_drop", p["p_fly"], 30000, "AllyOnlySelf", canister))
     checker = casted(LIFE, 3, [pick(1, "AllyChampionInCC", sw("p_cd", NONE, shake))])
-    if nat:     # the add-on clears the control on the tick it lands, takes 7% of current health and lays p_drop_n:
+    if nat:     # the add-on clears the control on the tick it lands, takes 4% of current health and lays p_drop_n:
         # the same 3-tick check drops the tank (the zones, the pickup and the cooldown cut stay data)
         checker = casted(LIFE, 3, [sw("p_drop_n", combine(*rm("p_drop_n"), shake))])
     life = sw("life", NONE, combine(flag("life", LIFE), arm_sensor, on_me(checker)))
@@ -331,6 +348,11 @@ def build(p):
                       combine(pre, sw("e_cd", plain, bonk)), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Infected Bonesaw
+    def cost(flat=0, pct=0):
+        """A health cost: flat + pct% of his maximum health as true damage to himself, never a killing blow."""
+        return on_me(flag("pay", 1, undying=True),
+                     {"type": "FixedAttack", "damage": flat, "attack_ratio": 0, "hp_ratio": 0, "target_hp_ratio": pct})
+
     on_champ = combine(maxhp(p["q_thp"]) if not nat else native("saw"),
                        on_me(heal(p["q_heal_c"]), cview("q_heal")), sfx("q_heal"))
     q_hits = [magic(p["q_dmg"], p["q_ap"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
@@ -340,7 +362,8 @@ def build(p):
                   line("q_twin", p["q_speed"], rng, p["q_w"], "EnemyChampion", False, [on_champ]))
     aim = lob("q_aim", 8, rng, "EnemyWithoutTower", [saw])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(pre, sfx("q"), voice("vo_q", p), delayed(p["q_at"] - 9, aim)))
+                   combine(pre, (native("pay") if nat else cost(flat=p["q_cost"])) if p["q_cost"] else None, sfx("q"),
+                           voice("vo_q", p), delayed(p["q_at"] - 9, aim)))
 
     # ------------------------------------------------------------------ skill2: W Heart Zapper
     # each pulse: zap round him; his W sensor broken since the last pulse -> a grey heal queued for the end
@@ -363,7 +386,9 @@ def build(p):
                 native("zap_end") if nat else None))))
     # the pulses and the end are queued on him (on_me): queued on the cast's target, a minion that died meanwhile
     # dropped the end's own 1-tick check and the full heal never came
-    zap = combine(pre_light, refresh("w_on", w_end_t + 2), anim("skill2", p["w_anim"]), cview("w_start"), sfx("w"),
+    # the cost before the W sensor is armed (it is damage: taken after, it would read as a hit on him)
+    w_pay = cost(pct=p["w_cost"]) if p["w_cost"] and not nat else None
+    zap = combine(pre_light, w_pay, refresh("w_on", w_end_t + 2), anim("skill2", p["w_anim"]), cview("w_start"), sfx("w"),
                   voice("vo_w", p), w_arm, native("zap") if nat else None,
                   zaps, on_me(*greys, final))
     skill2 = action("skill2", p["w_anim"], p["w_cd"], 1, p["w_rad"], "Targeting", "EnemyWithoutTower", zap)
@@ -407,7 +432,8 @@ def build(p):
     if nat:
         kit["passive"] = {"passive_ref": "league_drmundo:pleases",
                           "params": {k: p[k] for k in ("p_cd", "q_dmg", "q_pct", "e_dmg", "e_hp", "e_miss", "e_bonus",
-                                                       "hp", "hp_g", "w_store", "r_low", "r_burst", "r_miss")}}
+                                                       "hp", "hp_g", "w_store", "r_low", "r_burst", "r_miss",
+                                                       "q_cost", "w_cost_n")}}
     return kit
 
 

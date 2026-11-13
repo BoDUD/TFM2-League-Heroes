@@ -43,6 +43,16 @@ NATIVE = {
     "ja": ("【茂み版】", "復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後",
            "茂みの中、復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後"),
 }
+# lang -> (the main pack's Bonetooth Necklace wording in the ult's tooltip, the add-on's: League's takedowns, once per
+# champion, kept through death - src/lib.rs counts them from the kill log)
+BONE = {
+    "zh-hans": ("：击杀英雄得一枚战利品（最多5枚），", "：击杀或助攻每个敌方英雄各得一枚战利品（最多5枚，阵亡不丢），"),
+    "zh-hant": ("：擊殺英雄得一枚戰利品（最多5枚），", "：擊殺或助攻每個敵方英雄各得一枚戰利品（最多5枚，陣亡不丟），"),
+    "en": (": each champion he kills is a Trophy (up to 5), ",
+           ": a takedown on each enemy champion is a Trophy (up to 5, kept through death), "),
+    "ko": (": 챔피언 처치마다 전리품(최대 5개), ", ": 적 챔피언마다 처치 관여 시 전리품 1개(최대 5개, 사망해도 유지), "),
+    "ja": ("：チャンピオンを倒すたびトロフィー（最大5個）、", "：敵チャンピオンごとにキル関与でトロフィー1個（最大5個、デスでも保持）、"),
+}
 
 
 def lp(path):
@@ -73,6 +83,11 @@ def main():
     if len(aim) != 1 or len(reads) != 1 or aim[0] > reads[0]:
         sys.exit("the copy's attack must run league_rengar_bush:aim once, before it reads league_rengar_ready")
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
+    # the Bonetooth Necklace: no Trophy from the data's kill check in the copy (the passive gives them), its numbers in
+    # the passive's params
+    if '"league_rengar_bt1"' in text or sorted(champion["passive"]["params"]) != ["bt1", "bt2", "bt3", "bt4", "bt5", "leap_range"]:
+        sys.exit("the copy must leave the Trophies (league_rengar_bt1..5) to the passive and hand it bt1..bt5")
+    champion["ult"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".ult"
 
     values = setup.values(p)
     texts = {}
@@ -81,7 +96,13 @@ def main():
         if attack.count(old) != 1:
             sys.exit(f"{lang}: the main pack's passive text changed ({old!r} not found once): update NATIVE")
         texts[lang] = (lead + attack.replace(old, new)).format(**values)
-    long = {lang: setup.shown_length(t) for lang, t in texts.items()
+    ults = {}
+    for lang, (old, new) in BONE.items():
+        ult = setup.TEXT[lang]["ult"]
+        if ult.count(old) != 1:
+            sys.exit(f"{lang}: the main pack's Bonetooth text changed ({old!r} not found once): update BONE")
+        ults[lang] = ult.replace(old, new).format(**values)
+    long = {f"{lang}.{k}": setup.shown_length(t) for k, tab in (("attack", texts), ("ult", ults)) for lang, t in tab.items()
             if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
@@ -99,11 +120,12 @@ def main():
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang]}}} for lang in main_text},
+        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang], "ult": ults[lang]}}} for lang in main_text},
                            ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
-    print("tooltip lengths", {lang: f"{setup.shown_length(t)}/{setup.TOOLTIP_MAX[lang]}" for lang, t in texts.items()})
+    print("tooltip lengths", {f"{lang}.{k}": f"{setup.shown_length(t)}/{setup.TOOLTIP_MAX[lang]}"
+                              for k, tab in (("attack", texts), ("ult", ults)) for lang, t in tab.items()})
 
 
 if __name__ == "__main__":

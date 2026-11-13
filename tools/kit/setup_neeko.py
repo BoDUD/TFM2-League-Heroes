@@ -58,7 +58,7 @@ TEXT = {
                  mag("q2_dmg", "q2_ratio") + "魔法伤害。",
         "skill2": "投出一团贯穿的倒刺，路径上的敌人受到" + mag("e_dmg", "e_ratio") + "魔法伤害并被" + R + "禁锢" + E + t("{e_root}秒") +
                   "。穿过英雄后，后面的英雄多被禁锢" + t("{e_add}秒") + "。",
-        "ult": "蓄力" + t("{r_charge}秒") + "，获得" + G + "护盾" + E + "（附近每个敌方英雄额外{r_sh_c}），然后跃起" + R + "击飞" + E +
+        "ult": "蓄力" + t("{r_charge}秒") + "，然后跃起" + R + "击飞" + E +
                "周围敌人，落地造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + R + "晕眩" + E + t("{r_stun}秒") + "。",
         "names": ("盛开花种", "缠结倒刺", "怒放"),
     },
@@ -70,7 +70,7 @@ TEXT = {
                  mag("q2_dmg", "q2_ratio") + "魔法傷害。",
         "skill2": "擲出一團貫穿的刺花，路徑上的敵人受到" + mag("e_dmg", "e_ratio") + "魔法傷害並被" + R + "定身" + E + t("{e_root}秒") +
                   "。穿過英雄後，後面的英雄多被定身" + t("{e_add}秒") + "。",
-        "ult": "蓄力" + t("{r_charge}秒") + "，獲得" + G + "護盾" + E + "（附近每個敵方英雄額外{r_sh_c}），然後躍起" + R + "擊飛" + E +
+        "ult": "蓄力" + t("{r_charge}秒") + "，然後躍起" + R + "擊飛" + E +
                "周圍敵人，落地造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + R + "暈眩" + E + t("{r_stun}秒") + "。",
         "names": ("爆裂艷花", "螺旋刺花", "萬紫千紅"),
     },
@@ -83,7 +83,7 @@ TEXT = {
         "skill2": "Flings a piercing tangle of barbs, dealing " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E + " and " + R +
                   "rooting" + E + " every enemy on the line for " + t("{e_root}s") + ". Champions past the first are rooted " +
                   t("{e_add}s") + " longer.",
-        "ult": "Charges for " + t("{r_charge}s") + " behind a " + G + "shield" + E + " ({r_sh_c} more per nearby enemy champion), then "
+        "ult": "Charges for " + t("{r_charge}s") + ", then "
                "leaps, " + R + "knocking up" + E + " enemies around her, and lands for " + mag("r_dmg", "r_ratio") + " " + M +
                "magic damage" + E + ", " + R + "stunning" + E + " them for " + t("{r_stun}s") + ".",
         "names": ("Blooming Burst", "Tangle-Barbs", "Pop Blossom"),
@@ -96,7 +96,7 @@ TEXT = {
                  mag("q2_dmg", "q2_ratio") + " 마법 피해.",
         "skill2": "관통하는 가시 덩어리를 던져 직선상의 적에게 " + mag("e_dmg", "e_ratio") + " 마법 피해를 입히고 " + t("{e_root}초") + " " +
                   R + "속박" + E + ". 챔피언을 지난 뒤 맞은 챔피언은 " + t("{e_add}초") + " 더 속박.",
-        "ult": t("{r_charge}초") + " 동안 힘을 모으며 " + G + "보호막" + E + "(주변 적 챔피언마다 {r_sh_c} 추가)을 얻고, 뛰어올라 주변 적을 " +
+        "ult": t("{r_charge}초") + " 동안 힘을 모은 뒤 뛰어올라 주변 적을 " +
                R + "에어본" + E + "시킨 뒤 착지해 " + mag("r_dmg", "r_ratio") + " 마법 피해와 " + t("{r_stun}초") + " " + R + "기절" + E + ".",
         "names": ("꽃망울 폭발", "칭칭올가미", "만개"),
     },
@@ -108,7 +108,7 @@ TEXT = {
                  mag("q2_dmg", "q2_ratio") + "の魔法ダメージ。",
         "skill2": "貫通するトゲの塊を投げ、直線上の敵に" + mag("e_dmg", "e_ratio") + "の魔法ダメージと" + t("{e_root}秒") + R + "移動不能" + E +
                   "。チャンピオンを通過した後は" + t("{e_add}秒") + "長くなる。",
-        "ult": t("{r_charge}秒") + "力を溜めて" + G + "シールド" + E + "（周囲の敵チャンピオン1体ごとに{r_sh_c}追加）を得て跳び上がり、周囲の敵を" +
+        "ult": t("{r_charge}秒") + "力を溜めて跳び上がり、周囲の敵を" +
                R + "打ち上げ" + E + "、着地で" + mag("r_dmg", "r_ratio") + "の魔法ダメージと" + t("{r_stun}秒") + R + "スタン" + E + "。",
         "names": ("弾ける花弁", "からまれ！", "ポップブロッサム"),
     },
@@ -129,7 +129,7 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("w_dmg", "w_ratio", "w_ms", "q_dmg", "q_ratio", "q2_dmg", "q2_ratio", "e_dmg", "e_ratio",
-                           "r_sh_c", "r_dmg", "r_ratio")}
+                           "r_dmg", "r_ratio")}
     for k in ("w_ms_t", "e_root", "e_add", "r_charge", "r_stun"):
         v[k] = secs(p[k])
     return v

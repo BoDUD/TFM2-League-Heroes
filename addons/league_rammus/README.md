@@ -43,3 +43,7 @@
 ## 0.1.2：AI 贴脸的 Q 改成普攻（2026-11-06）
 
 11-06 的日志：`OPEN` 好了（40 次开球里 27 次撞上，滚了 3–70 tick），可还有 20/41（.prev）和 16/42（.log）次 `ROLL hit ... after 0 ticks`（空隙 -509 到 -25000，身子早就叠在一起），每次后面都是 `ROLL over after 0 ticks, 0 rolled`——全是游戏的 AI 自己对已经贴着他的人放的 Q，没有一次在 `OPEN` 之后。`open_from` 只在 30000–45000 开球，近处的 Q 一直留给 AI。现在 `league_rammus:open` 看到 AI 的 Q 点的是一个已经贴着他的敌方英雄（两个身子的空隙在 `q_touch` 3000 以内，`point_blank`）：改成普攻他，Q 留着——等敌人离开 30000 以上再由 `OPEN`（或 AI 自己从远处）放出去滚过去，同这份 README 上面「先滚过去」的本意。对小兵、野怪的 Q 照旧（清野时贴脸 Q 也有伤害）。日志 `Q HELD: the AI's Powerball at #id against him (gap g) - attacking instead, Q kept for a run-up`（同一个人 60 tick 内一串一行）；`ROLL hit` 里注明撞上的是 `(champion)` 还是 `(unit)`。下一局看 `after 0 ticks` 该只剩 `(unit)`。
+
+## 0.1.3：Q 撞上加 0.4 秒眩晕（2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟的动力冲刺撞上敌人还会眩晕 0.4 秒（「stunned and revealed for 0.4 seconds」），主包加上了（`q_stun` 24 tick）；副本跟着主包重新生成，本包自己的 Q 说明加上「眩晕 0.4 秒」。本包的代码没改。

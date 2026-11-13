@@ -56,8 +56,8 @@ TEXT = {
         "name": "拉莫斯",
         "attack": "翻身撞击。" + O + "锥刺甲壳" + E + "：普攻多造成" + shell("p_dmg", "p_ap", "p_hp") + "魔法伤害。" + O + "尖刺防御" + E +
                   "：敌方英雄靠近时蜷起来，" + A + "{w_t}秒" + E + "内双抗+{w_def}%，反弹{w_ref}%受到的伤害。",
-        "skill": "缩成球滚向目标，撞上时对周围造成" + mag("q_dmg", "q_ap") + "魔法伤害，" + R + "击退" + E + "并" + R + "减速{q_slow}%" + E +
-                 A + "{q_slow_t}秒" + E + "。",
+        "skill": "缩成球滚向目标，撞上时对周围造成" + mag("q_dmg", "q_ap") + "魔法伤害，" + R + "击退" + E + "、" + R + "眩晕" + E + A +
+                 "{q_stun}秒" + E + "并" + R + "减速{q_slow}%" + E + A + "{q_slow_t}秒" + E + "。",
         "skill2": R + "嘲讽" + E + "一名敌方英雄" + A + "{e_taunt}秒" + E + "。",
         "ult": "跳起砸向敌方英雄，对区域造成" + mag("r_dmg", "r_ap") + "魔法伤害并" + R + "减速{r_slow}%" + E + "，之后余震{r_pulses}次；"
                "刚滚完动力冲刺时，中心的敌人再受一次冲刺伤害并" + R + "击飞{r_up}秒" + E + "。",
@@ -67,8 +67,8 @@ TEXT = {
         "name": "拉姆斯",
         "attack": "翻身撞擊。" + O + "錐刺甲殼" + E + "：普攻多造成" + shell("p_dmg", "p_ap", "p_hp") + "魔法傷害。" + O + "尖刺防禦" + E +
                   "：敵方英雄靠近時蜷起來，" + A + "{w_t}秒" + E + "內雙抗+{w_def}%，反彈{w_ref}%受到的傷害。",
-        "skill": "縮成球滾向目標，撞上時對周圍造成" + mag("q_dmg", "q_ap") + "魔法傷害，" + R + "擊退" + E + "並" + R + "緩速{q_slow}%" + E +
-                 A + "{q_slow_t}秒" + E + "。",
+        "skill": "縮成球滾向目標，撞上時對周圍造成" + mag("q_dmg", "q_ap") + "魔法傷害，" + R + "擊退" + E + "、" + R + "暈眩" + E + A +
+                 "{q_stun}秒" + E + "並" + R + "緩速{q_slow}%" + E + A + "{q_slow_t}秒" + E + "。",
         "skill2": R + "嘲諷" + E + "一名敵方英雄" + A + "{e_taunt}秒" + E + "。",
         "ult": "跳起砸向敵方英雄，對區域造成" + mag("r_dmg", "r_ap") + "魔法傷害並" + R + "緩速{r_slow}%" + E + "，之後餘震{r_pulses}次；"
                "剛滾完動力衝刺時，中心的敵人再受一次衝刺傷害並" + R + "擊飛{r_up}秒" + E + "。",
@@ -80,8 +80,8 @@ TEXT = {
                   "magic damage" + E + " more. " + O + "Defensive Ball Curl" + E + ": with an enemy champion close he curls up: for " + A +
                   "{w_t}s" + E + " +{w_def}% armour and magic resist, and {w_ref}% of the damage he takes is returned.",
         "skill": "Curls into a ball and rolls at the target; on impact nearby enemies take " + mag("q_dmg", "q_ap") + " " + M +
-                 "magic damage" + E + ", are " + R + "knocked back" + E + " and " + R + "slowed {q_slow}%" + E + " for " + A + "{q_slow_t}s" +
-                 E + ".",
+                 "magic damage" + E + ", are " + R + "knocked back" + E + ", " + R + "stunned" + E + " for " + A + "{q_stun}s" + E +
+                 " and " + R + "slowed {q_slow}%" + E + " for " + A + "{q_slow_t}s" + E + ".",
         "skill2": R + "Taunts" + E + " an enemy champion for " + A + "{e_taunt}s" + E + ".",
         "ult": "Leaps onto an enemy champion: the area takes " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E + " and is " + R +
                "slowed {r_slow}%" + E + ", then {r_pulses} aftershocks. Right after a Powerball the centre also takes Powerball's damage "
@@ -94,7 +94,7 @@ TEXT = {
                   "몸 말아 웅크리기" + E + ": 적 챔피언이 가까우면 웅크려 " + A + "{w_t}초" + E + " 동안 방어력·마법 저항력 +{w_def}%, "
                   "받은 피해의 {w_ref}% 반사.",
         "skill": "몸을 말아 대상에게 굴러가 부딪히면 주변 적에게 " + mag("q_dmg", "q_ap") + " 마법 피해, " + R + "밀쳐내기" + E + ", " + A +
-                 "{q_slow_t}초" + E + " " + R + "{q_slow}% 둔화" + E + ".",
+                 "{q_stun}초" + E + " " + R + "기절" + E + ", " + A + "{q_slow_t}초" + E + " " + R + "{q_slow}% 둔화" + E + ".",
         "skill2": "적 챔피언 하나를 " + A + "{e_taunt}초" + E + " " + R + "도발" + E + ".",
         "ult": "적 챔피언에게 뛰어올라 내려찍어 범위에 " + mag("r_dmg", "r_ap") + " 마법 피해와 " + R + "{r_slow}% 둔화" + E + ", 이어서 여진 "
                "{r_pulses}회. 대회전 직후라면 중심의 적은 대회전 피해를 한 번 더 받고 " + R + "{r_up}초 에어본" + E + ".",
@@ -104,8 +104,8 @@ TEXT = {
         "name": "ラムス",
         "attack": "体当たり。" + O + "トゲトゲ" + E + "：通常攻撃に" + shell("p_dmg", "p_ap", "p_hp") + "の魔法ダメージ追加。" + O + "かたくなる" +
                   E + "：敵チャンピオンが近いと丸まり、" + A + "{w_t}秒" + E + "物防・魔防+{w_def}%、受けたダメージの{w_ref}%を反射。",
-        "skill": "丸まって対象へ転がり、ぶつかると周りの敵に" + mag("q_dmg", "q_ap") + "の魔法ダメージ、" + R + "ノックバック" + E + "と" + A +
-                 "{q_slow_t}秒" + E + "の" + R + "{q_slow}%スロウ" + E + "。",
+        "skill": "丸まって対象へ転がり、ぶつかると周りの敵に" + mag("q_dmg", "q_ap") + "の魔法ダメージ、" + R + "ノックバック" + E + "、" + A +
+                 "{q_stun}秒" + E + R + "スタン" + E + "と" + A + "{q_slow_t}秒" + E + "の" + R + "{q_slow}%スロウ" + E + "。",
         "skill2": "敵チャンピオン1体を" + A + "{e_taunt}秒" + E + R + "挑発" + E + "。",
         "ult": "敵チャンピオンへ跳び上がって叩きつけ、範囲に" + mag("r_dmg", "r_ap") + "の魔法ダメージと" + R + "{r_slow}%スロウ" + E + "、続けて"
                "余震{r_pulses}回。ころころの直後なら中心の敵はころころのダメージをもう一度受け" + R + "{r_up}秒ノックアップ" + E + "。",
@@ -141,7 +141,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("p_dmg", "p_ap", "p_hp", "w_def", "w_ref", "q_dmg", "q_ap", "q_slow", "r_dmg", "r_ap",
                            "r_slow", "r_pulses")}
-    for k in ("w_t", "q_slow_t", "e_taunt", "r_up"):
+    for k in ("w_t", "q_slow_t", "e_taunt", "r_up", "q_stun"):
         v[k] = secs(p[k])
     return v
 

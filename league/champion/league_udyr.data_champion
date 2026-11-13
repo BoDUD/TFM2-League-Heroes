@@ -588,49 +588,57 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
-          "effects": [
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_udyr_st_q",
-              "effect_buff": {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_udyr_q_wk",
-                  "duration": {
-                    "Time": {
-                      "tick": 2
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_aw_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_udyr_st_q",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_udyr_q_wk",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
                     }
-                  }
+                  },
+                  "only_to_enemy": false
                 },
-                "only_to_enemy": false
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
               },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_udyr_q_go",
-              "effect_buff": {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_udyr_q_wk",
-                  "duration": {
-                    "Time": {
-                      "tick": 2
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_udyr_q_go",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_udyr_q_wk",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
                     }
-                  }
+                  },
+                  "only_to_enemy": false
                 },
-                "only_to_enemy": false
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
           "type": "RemoveCasterBuff",
@@ -642,6 +650,27 @@
           "effect_buff": {
             "type": "Combine",
             "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_aw_cd"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_aw_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 1800
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
               {
                 "type": "Combine",
                 "effects": [
@@ -1004,29 +1033,37 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
-          "effects": [
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_udyr_st_e",
-              "effect_buff": {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_udyr_e_wk",
-                  "duration": {
-                    "Time": {
-                      "tick": 2
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_aw_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_udyr_st_e",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_udyr_e_wk",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
                     }
-                  }
+                  },
+                  "only_to_enemy": false
                 },
-                "only_to_enemy": false
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
           "type": "SwitchByBuff",
@@ -1034,6 +1071,27 @@
           "effect_buff": {
             "type": "Combine",
             "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_aw_cd"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_aw_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 1800
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
               {
                 "type": "Combine",
                 "effects": [

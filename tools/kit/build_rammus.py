@@ -16,7 +16,8 @@ slot - the watch curls him up in fights (league_jarvaniv's Golden Aegis the same
           league_annie's Molten Shield). w_cd counts from the cast (League's 7 s from the end: w_t + 7 s).
   skill   Q Powerball (动力冲刺), `Targeting` on `EnemyWithoutTower` (q_range): he curls into the ball (skill, q_curl
           ticks), then rolls at the target (`MoveToTarget` q_speed, skill_roll held) until he hits it: q_dmg + q_ap% AP
-          to every enemy within q_r, knocked back (Knockback q_kb_speed x q_kb_t = League's 125 units) and slowed
+          to every enemy within q_r, knocked back (Knockback q_kb_speed x q_kb_t = League's 125 units), stunned
+          q_stun ticks (League: "stunned and revealed for 0.4 seconds"; added 2026-11-14) and slowed
           q_slow% for q_slow_t; he bounces out of the ball (skill_hit) and keeps `q_on` for r_link ticks. League's ball
           rolls for up to 6 s, accelerating, wherever the player steers it: data cannot change the walk or idle
           picture while he moves, so the main pack rolls only inside the skill; the add-on rolls League's way (the
@@ -76,6 +77,9 @@ P = {
     # 125, slow 40-80% 1 s, cd 12-6)
     "q_cd": 420, "q_range": 45000, "q_curl": 12, "q_speed": 4000, "q_roll": 120, "q_end": 14, "q_r": 18000,
     "q_dmg": 110, "q_ap": 110, "q_slow": 40, "q_slow_t": 60, "q_kb_speed": 2500, "q_kb_t": 5,
+    # League's Powerball also stuns what it hits: "stunned and revealed for 0.4 seconds" (the user, 2026-11-14, on the
+    # list of differences from League: 「全改吧」; before: the knock-back and the slow only)
+    "q_stun": 24,
     # E Frenzying Taunt (League: 325 range, taunt 1.2-2.0 s, cast 0.25 s, cd 12)
     "e_cd": 720, "e_range": 32500, "e_dur": 20, "e_rel": 5, "e_taunt": 90,
     # R Soaring Slam (League: 800 range (+ move speed), 100-300 + 60% AP r 400, slow 40-80% 1.5 s, 3 aftershocks over
@@ -259,6 +263,7 @@ def build(p):
              around(p["q_r"], "EnemyWithoutTower", [ap(p["q_dmg"], p["q_ap"]),
                                                      {"type": "Knockback", "speed": p["q_kb_speed"],
                                                       "tick": p["q_kb_t"]},
+                                                     {"type": "Stun", "duration": p["q_stun"]},
                                                      slow("q_slow", p["q_slow"], p["q_slow_t"]), view("q_hit")]),
              around(p["q_r"], "EnemyChampion", marked)]
     if nat:

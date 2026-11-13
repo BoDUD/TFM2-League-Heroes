@@ -3490,6 +3490,18 @@
                                                   {
                                                     "type": "TargetSfx",
                                                     "name": "league_syndra_e_stun"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_syndra_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -70
+                                                    }
                                                   }
                                                 ]
                                               },
@@ -3773,6 +3785,18 @@
                                     {
                                       "type": "ViewEffect",
                                       "name": "league_syndra_e_hit"
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_syndra_e_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 83
+                                          }
+                                        },
+                                        "move_speed_mult": -70
+                                      }
                                     }
                                   ]
                                 },
@@ -4077,6 +4101,18 @@
                                               {
                                                 "type": "TargetSfx",
                                                 "name": "league_syndra_e_stun"
+                                              },
+                                              {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_syndra_e_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 150
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -70
+                                                }
                                               }
                                             ]
                                           },
@@ -4605,6 +4641,18 @@
                                                               {
                                                                 "type": "TargetSfx",
                                                                 "name": "league_syndra_e_stun"
+                                                              },
+                                                              {
+                                                                "type": "AddBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_syndra_e_slow",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 150
+                                                                    }
+                                                                  },
+                                                                  "move_speed_mult": -70
+                                                                }
                                                               }
                                                             ]
                                                           },
@@ -4900,6 +4948,18 @@
                                                   {
                                                     "type": "ViewEffect",
                                                     "name": "league_syndra_e_hit"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_syndra_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 83
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -70
+                                                    }
                                                   }
                                                 ]
                                               },
@@ -5258,6 +5318,18 @@
                                                 {
                                                   "type": "TargetSfx",
                                                   "name": "league_syndra_e_stun"
+                                                },
+                                                {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_syndra_e_slow",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 150
+                                                      }
+                                                    },
+                                                    "move_speed_mult": -70
+                                                  }
                                                 }
                                               ]
                                             },
@@ -5574,6 +5646,18 @@
                                   {
                                     "type": "ViewEffect",
                                     "name": "league_syndra_e_hit"
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_syndra_e_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 83
+                                        }
+                                      },
+                                      "move_speed_mult": -70
+                                    }
                                   }
                                 ]
                               },
@@ -9434,6 +9518,14 @@
     {
       "type": "Animated",
       "name": "league_syndra_w_slow",
+      "anim": "asset/league/effects/league_syndra_fx",
+      "tag": "w_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_syndra_e_slow",
       "anim": "asset/league/effects/league_syndra_fx",
       "tag": "w_slow",
       "repeat": true,

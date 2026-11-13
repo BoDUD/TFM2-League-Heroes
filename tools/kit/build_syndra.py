@@ -13,8 +13,11 @@ Transcendent by level / R armed until she has spheres):
           caster buffs, so the upgrades come by level, re-read every life (league_viktor's probe): her attacks probe
           her attack against the level table (mages buy only ability power, so her attack is atk + atk_g a level).
           lv_q: Q deals q_champ% more to champions (s1); lv_w: W adds w_true% of its damage as true damage (s2);
-          lv_e: E's cone widens (e_cos_evo) and the spheres' stun circle grows (e_stun_evo) (s3); lv_r: R's spheres
-          ignore magic resistance (s4; League's execute below 15% health reads a share of health no effect has).
+          lv_e: E's cone widens (e_cos_evo), the spheres' stun circle grows (e_stun_evo) and the enemies E hits are
+          slowed e_slow% for e_slow_t ticks after the knock-back or the stun (s3; League's 80 Splinters); lv_r: R's spheres
+          ignore magic resistance (s4; League's execute below 15% health reads a share of health no effect has - the
+          add-on's copy has it: its spheres deal plain magic damage and the native effect league_syndra:execute
+          kills the champion a sphere leaves under r_exec% of its maximum health, 2026-11-14).
   attack  A homing dark bolt from her hand (physical 100% AD).
   skill   Q Dark Sphere (暗黑法球): a `Targeting` cast on `EnemyWithoutTower` (q_range). A hidden lob lands q_fall ticks
           later where the target stood (dodgeable; the landing point shows q_form meanwhile): q_dmg + q_ratio% AP magic
@@ -76,9 +79,18 @@ P = {
     "e_cd": 840, "e_range": 70000, "e_anim": 24, "e_rel": 8, "e_gap": 30, "e_fly": 2, "e_len": 70000, "e_w": 9000,
     "e_cos": 880, "e_cos_evo": 740, "e_dmg": 45, "e_ratio": 45, "e_kb_speed": 1500, "e_kb_t": 8,
     "e_reach": 90000, "e_stun_r": 24000, "e_stun_evo": 30000, "e_stun": 75, "e_orb": 30, "e_orb_ratio": 30,
+    # the upgraded E also slows (League, 80 Splinters: "slow enemies hit by 70% for 1.25 seconds", after the knock-back,
+    # or after the stun when a pushed sphere hit them; the user, 2026-11-14, on the list of differences from League:
+    # 「全改吧」 - before, the upgrade only widened the cone and the spheres' stun circle)
+    "e_slow": 70, "e_slow_t": 75,
     # ult: R Unleashed Power (League: 675 range, 3 + spheres (max 7) x 90-170 + 17% AP, cd 120-80 s)
     "r_cd": 4200, "r_slot": 75000, "r_min": 2, "r_arm": 480, "r_hold": 180, "r_poll": 10, "r_anim": 40, "r_rel": 14,
     "r_gap": 5, "r_speed": 4200, "r_y": -3000, "r_dmg": 52, "r_ratio": 18,
+    # the add-on's copy only (League: Unleashed Power will "execute the target if it would damage them to below 15% of
+    # their maximum health"; the user, 2026-11-14, on the list of differences from League: 「全改吧」): from lv_r each
+    # sphere that leaves its champion under r_exec% of its maximum health kills it, in place of the main pack's
+    # spheres that ignore magic resistance (src/lib.rs R_EXEC, checked by make_override.py)
+    "r_exec": 15,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -282,11 +294,13 @@ def build(p, native=False):
     life = sw("init", NONE, combine(flag("init", None), refresh("pr_quiet", p["pr_quiet"]), *rm("pr_cd")))
 
     # ------------------------------------------------------------------ the spheres
-    def pushed(radius):
+    def pushed(radius, evo=False):
         """A sphere's zone, every 2 ticks on the enemies round it: while e_go stands (2 ticks: one application) and she
-        is within e_reach of the sphere, E has pushed it into them."""
+        is within e_reach of the sphere, E has pushed it into them. `evo`: the upgraded E's slow, once the stun ends."""
         hit = [{"type": "Stun", "duration": p["e_stun"]}, magic(p["e_orb"], p["e_orb_ratio"]), view("e_stun"),
                tsfx("e_stun")]
+        if evo:
+            hit.append(buff("e_slow", p["e_stun"] + p["e_slow_t"], move_speed_mult=-p["e_slow"]))
         near = combine(*rm("e_near"), pick(p["e_reach"], "AllyOnlySelf", refresh("e_near", 1), fp=True),
                        sw("e_near", combine(*hit)), *rm("e_near"))
         return zone("orb", radius, p["orb_t"], 2, 2, "EnemyWithoutTower", [sw("e_go", near)])
@@ -300,21 +314,23 @@ def build(p, native=False):
 
     def sphere():
         """A sphere where the lob landed: its picture, its zone and the count on her."""
-        return [view("orb"), sw("s3", pushed(p["e_stun_evo"]), pushed(p["e_stun_r"])), count_in()]
+        return [view("orb"), sw("s3", pushed(p["e_stun_evo"], True), pushed(p["e_stun_r"])), count_in()]
 
     # ------------------------------------------------------------------ E Scatter the Weak
-    def cone(cos):
+    def cone(cos, evo=False):
+        hit = [magic(p["e_dmg"], p["e_ratio"]), {"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]},
+               view("e_hit")]
+        if evo:   # the upgraded E's slow, once the knock-back ends
+            hit.append(buff("e_slow", p["e_kb_t"] + p["e_slow_t"], move_speed_mult=-p["e_slow"]))
         return {"type": "RangeEffect", "shape": {"DirDot": {"radius": p["e_len"], "range": cos}},
-                "target": "EnemyWithoutTower", "apply_type": {"Forward": {"offset": 1000}},
-                "effects": [magic(p["e_dmg"], p["e_ratio"]), {"type": "Knockback", "speed": p["e_kb_speed"],
-                                                               "tick": p["e_kb_t"]}, view("e_hit")]}
+                "target": "EnemyWithoutTower", "apply_type": {"Forward": {"offset": 1000}}, "effects": hit}
 
     def e_fire():
         # the picture: a line that hits nothing, from her toward the target; its view is drawn at the line's middle
         # (the simulation's spawn event: x, y = the midpoint of from -> to), so a 1000-unit line puts the picture's
         # centre on her and the wave is drawn in the right half of its canvas
         return combine(sfx("e_cast"), ray("e_wave", 1000, p["e_w"], 14, 1, "Ally", []),
-                       sw("s3", cone(p["e_cos_evo"]), cone(p["e_cos"])),
+                       sw("s3", cone(p["e_cos_evo"], True), cone(p["e_cos"])),
                        delayed(p["e_fly"], sfx("e_push"), refresh("e_go", 2)))
 
     def e_cast():
@@ -378,6 +394,9 @@ def build(p, native=False):
     def shot():
         hit = [sw("s4", true_magic("r_pen", p["r_dmg"], p["r_ratio"]), magic(p["r_dmg"], p["r_ratio"])),
                view("r_hit"), tsfx("r_hit")]
+        if native:   # League's execute in place of the ignored magic resistance (the add-on reads the health)
+            hit = [magic(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"),
+                   sw("s4", {"type": "Native", "effect_ref": "league_syndra:execute"})]
         return combine(sfx("r_launch"), homing("r_orb", p["r_speed"], p["r_y"], "EnemyChampion", hit))
 
     def fire():
@@ -425,7 +444,7 @@ def build(p, native=False):
     views_e = [E("a_hit"), E("q_form", BIG, -2, **LATE), E("q_blast", BIG, -1, **LATE), E("q_hit"),
                E("orb", BIG, 1, **LATE), E("w_land", BIG, -1, **LATE), E("w_hit"), E("e_hit"), E("e_stun"),
                E("r_cast", BIG, 3), E("r_hit"), E("evo", FX, 3, **LATE)]
-    views_b = [B_("w_slow", FX, -1)]
+    views_b = [B_("w_slow", FX, -1), B_("e_slow", FX, -1, "w_slow")]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_syndra:grab",

@@ -3235,15 +3235,15 @@
                                     },
                                     {
                                       "type": "RangeProjectile",
-                                      "name": "league_tristana_r_zone",
+                                      "name": "league_tristana_r_dmg",
                                       "shape": {
                                         "Circle": {
-                                          "radius": 20000
+                                          "radius": 1000
                                         }
                                       },
                                       "delay": 1,
                                       "apply": 1,
-                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_target": "EnemyChampion",
                                       "applied_effects": [
                                         {
                                           "casting_type": "Targeting",
@@ -3255,7 +3255,21 @@
                                             "target_hp_ratio": 0,
                                             "attack_effect_type": "Target"
                                           }
-                                        },
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RangeProjectile",
+                                      "name": "league_tristana_r_zone",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 20000
+                                        }
+                                      },
+                                      "delay": 1,
+                                      "apply": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
@@ -3642,15 +3656,15 @@
                         },
                         {
                           "type": "RangeProjectile",
-                          "name": "league_tristana_r_zone",
+                          "name": "league_tristana_r_dmg",
                           "shape": {
                             "Circle": {
-                              "radius": 20000
+                              "radius": 1000
                             }
                           },
                           "delay": 1,
                           "apply": 1,
-                          "applied_target": "EnemyWithoutTower",
+                          "applied_target": "EnemyChampion",
                           "applied_effects": [
                             {
                               "casting_type": "Targeting",
@@ -3662,7 +3676,21 @@
                                 "target_hp_ratio": 0,
                                 "attack_effect_type": "Target"
                               }
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_tristana_r_zone",
+                          "shape": {
+                            "Circle": {
+                              "radius": 20000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
                             {
                               "casting_type": "Targeting",
                               "effect": {
