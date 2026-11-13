@@ -58,7 +58,8 @@ TEXT = {
                   R + "禁锢{e_root_t}秒" + E + "。" + O + "连招扑脸定身" + E + "：扑击命中英雄后" + A + "{lp_t}秒" + E + "内的E必中，" + R +
                   "禁锢{e_combo_t}秒" + E + "。",
         "ult": "对交战中的英雄发动：伪装" + A + "{r_inv}秒" + E + "，移速+{r_ms}%，下次攻击为扑击，额外造成" + phy("r") + "伤害，" + R + "护甲-{r_shred}%" +
-               E + A + "{r_shred_t}秒" + E + "。" + O + "连招R一套" + E + "：R→扑击→E禁锢→Q。",
+               E + A + "{r_shred_t}秒" + E + "。" + O + "连招R一套" + E + "：R→扑击→E禁锢→Q。" + O + "骨齿项链" + E +
+               "：击杀英雄得一枚战利品（最多5枚），攻击力最多+{bt_max}%。",
         "names": ("战争咆哮", "套索打击", "狩猎律动"),
     },
     "zh-hant": {
@@ -72,7 +73,8 @@ TEXT = {
                   R + "定身{e_root_t}秒" + E + "。" + O + "連招撲臉定身" + E + "：撲擊命中英雄後" + A + "{lp_t}秒" + E + "內的E必中，" + R +
                   "定身{e_combo_t}秒" + E + "。",
         "ult": "對交戰中的英雄發動：偽裝" + A + "{r_inv}秒" + E + "，跑速+{r_ms}%，下次攻擊為撲擊，額外造成" + phy("r") + "傷害，" + R + "護甲-{r_shred}%" +
-               E + A + "{r_shred_t}秒" + E + "。" + O + "連招R一套" + E + "：R→撲擊→E定身→Q。",
+               E + A + "{r_shred_t}秒" + E + "。" + O + "連招R一套" + E + "：R→撲擊→E定身→Q。" + O + "骨牙項鍊" + E +
+               "：擊殺英雄得一枚戰利品（最多5枚），攻擊力最多+{bt_max}%。",
         "names": ("怒獅戰吼", "狩獵拋繩", "血性獵殺"),
     },
     "en": {
@@ -88,7 +90,8 @@ TEXT = {
                   ": within " + A + "{lp_t}s" + E + " of a leap onto a champion the bola cannot miss and " + R + "roots {e_combo_t}s" + E + ".",
         "ult": "On a champion in a fight: camouflaged for " + A + "{r_inv}s" + E + ", +{r_ms}% move speed; his next attack is a leap for " +
                phy("r") + " more and " + R + "-{r_shred}% armour" + E + " for " + A + "{r_shred_t}s" + E + ". " + O + "Combo R one-shot" + E +
-               ": R, leap, rooting E, Savagery.",
+               ": R, leap, rooting E, Savagery. " + O + "Bonetooth Necklace" + E + ": each champion he kills is a Trophy (up to 5), "
+               "up to +{bt_max}% attack.",
         "names": ("Battle Roar", "Bola Strike", "Thrill of the Hunt"),
     },
     "ko": {
@@ -103,7 +106,8 @@ TEXT = {
                   "강화" + E + ": " + R + "{e_root_t}초 속박" + E + ". " + O + "연계 도약-E" + E + ": 챔피언에게 도약한 뒤 " + A + "{lp_t}초" + E +
                   " 안의 E는 반드시 맞고 " + R + "{e_combo_t}초 속박" + E + ".",
         "ult": "교전 중인 챔피언에게: " + A + "{r_inv}초" + E + " 위장, 이동 속도 +{r_ms}%, 다음 공격은 도약으로 " + phy("r") + "의 추가 피해와 " + A +
-               "{r_shred_t}초" + E + " " + R + "방어력 -{r_shred}%" + E + ". " + O + "연계 R 원콤" + E + ": R→도약→E 속박→Q.",
+               "{r_shred_t}초" + E + " " + R + "방어력 -{r_shred}%" + E + ". " + O + "연계 R 원콤" + E + ": R→도약→E 속박→Q. " + O +
+               "뼈이빨 목걸이" + E + ": 챔피언 처치마다 전리품(최대 5개), 공격력 최대 +{bt_max}%.",
         "names": ("전투의 포효", "올가미 투척", "사냥의 전율"),
     },
     "ja": {
@@ -117,7 +121,8 @@ TEXT = {
                   "{e_root_t}秒スネア" + E + "。" + O + "コンボ跳躍E" + E + "：チャンピオンへの跳躍後" + A + "{lp_t}秒" + E + "以内のEは必中で" + R +
                   "{e_combo_t}秒スネア" + E + "。",
         "ult": "交戦中のチャンピオンに：" + A + "{r_inv}秒" + E + "カモフラージュ、移動速度+{r_ms}%、次の攻撃は跳躍で" + phy("r") + "追加、" + A +
-               "{r_shred_t}秒" + E + R + "物理防御-{r_shred}%" + E + "。" + O + "コンボR一撃" + E + "：R→跳躍→Eスネア→Q。",
+               "{r_shred_t}秒" + E + R + "物理防御-{r_shred}%" + E + "。" + O + "コンボR一撃" + E + "：R→跳躍→Eスネア→Q。" + O +
+               "骨牙の首飾り" + E + "：チャンピオンを倒すたびトロフィー（最大5個）、攻撃力最大+{bt_max}%。",
         "names": ("狩りの雄叫び", "鉄球の投げ縄", "狩猟本能"),
     },
 }
@@ -160,6 +165,7 @@ def values(p):
             "we_heal", "e_dmg", "e_ratio", "e_slow", "r_ms", "r_dmg", "r_ratio", "r_shred")
     v = {k: p[k] for k in keys}
     v["leap_ratio"] = 100 + p["leap_ratio"]
+    v["bt_max"] = sum(p[f"bt{i}"] for i in range(1, 6))
     v.update({k: secs(p[k]) for k in ("quiet", "q_cd", "we_cc_t", "e_slow_t", "e_root_t", "lp_t", "e_combo_t", "r_inv",
                                        "r_shred_t")})
     return v

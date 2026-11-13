@@ -14,6 +14,13 @@ TFM2 has three active slots: League's Savagery (an empowered attack) runs on its
           (native=1 keeps all of the above too, 2026-11-03) and, through league_rengar_bush:aim at the head of the attack,
           sets it aside as the range-less `ready_kept` while he swings at a tower or the nexus (the landing is on
           EnemyWithoutTower: a pounce there hit nothing), giving it back for the next unit he attacks.
+  Bonetooth Necklace (骨齿项链, 2026-11-14): a champion his own hit kills (the kill check) is a Trophy, up to five:
+          `bt1`..`bt5`, `Permanent` caster flags whose attack_mult add up to 1 / 2 / 5 / 10 / 15% (the kills of his
+          attack, pounce, Savagery and bola - not the roar's; League: a takedown
+          within 3 s of damaging the champion, once per unique champion, 1 / 4 / 9 / 16 / 25% of his bonus AD). Data
+          keeps nothing through his death and cannot tell one champion from another, so the main pack's Trophies are
+          his own kills of any champion and are lost with his life; the add-on's copy leaves them to its passive:
+          takedowns from the kill log (kills and assists), once per enemy champion, kept through death.
   Ferocity (凶残值): f1..f4 caster stacks (fero_t ticks, renewed by each gain): a point for each Savagery, roar, bola
           and pounce; at four the next Savagery / roar / bola is empowered and spends them.
   attack  The blade swing, the hit on tick a_st. Savagery (野蛮打击, automatic): the first attack after q_cd is the Q
@@ -94,6 +101,12 @@ P = {
     "rv_t": 40, "seen_t": 60, "t_bonus": 15, "near_r": 60000,
     # takedowns: league_jinx's kill check
     "k_hold": 40, "k_read": 4,
+    # Bonetooth Necklace (the wiki: a takedown on an enemy champion "within 3 seconds of damaging them" gives a Trophy
+    # "once per unique champion and up to 5"; "Trophies grant bonus attack damage equal to 1% - 36% (based on Trophies)
+    # bonus AD" - 1 / 4 / 9 / 16 / 25%, the sixth is Kha'Zix's head, t_bonus above). The user, 2026-11-14, on the list
+    # of differences from League: 「全改吧」; before: no Trophies but Kha'Zix's. bt<i>: the attack% the i-th Trophy adds -
+    # 1 / 2 / 5 / 10 / 15% of his whole attack in all (his bonus attack is about 60% of it with items)
+    "bt1": 1, "bt2": 1, "bt3": 3, "bt4": 5, "bt5": 5,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_rengar_bush: its native passive readies the pounce in brush, its native effect keeps
@@ -252,6 +265,14 @@ def build(p):
                                                                  cview("t_trophy"), sfx("vo_khazix"))), raw=True)
     rival_mark = buff("league_rengar_rival_hit", p["rv_t"], raw=True)
 
+    def bone():
+        """One more Trophy of the Bonetooth Necklace: the lowest bt<i> he does not hold yet (its attack for good). The
+        add-on's copy has none here: its passive counts takedowns per champion and keeps them through death."""
+        out = NONE
+        for i in range(5, 0, -1):
+            out = sw(f"bt{i}", out, flag(f"bt{i}", None, attack_mult=p[f"bt{i}"]))
+        return NONE if p["native"] else out
+
     def kill_check(src, read=True):
         """On a hit enemy champion, around its damage: the flag before, the living target's clear after, the read on
         him later (a Kha'Zix kill gives the trophy). Each source keeps its own flag (league_tristana W); read=False
@@ -263,7 +284,7 @@ def build(p):
         return refresh(k, p["k_hold"]), combine(*after)
 
     def kill_read(src):
-        return sw(f"k_{src}", combine(*rm(f"k_{src}"), trophy))
+        return sw(f"k_{src}", combine(*rm(f"k_{src}"), trophy, bone()))
 
     def champ_twin(name, src, extra=(), read=True):
         """An invisible twin of a hit that reaches only champions: the rival's mark, the kill check, extras."""
@@ -278,9 +299,11 @@ def build(p):
         speed = refresh("qe_as", p["qe_as_t"], attack_speed_mult=p["qe_as"]) if emp else \
             refresh("q_as", p["q_as_t"], attack_speed_mult=p["q_as"])
         return combine(anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
+                       # the slam can kill too: its own champion twin (the rip's, 3 ticks later, never reaches a body)
                        delayed(lead + p["q_slam_at"] - 1, homing("q_slam", 100000, 0, "Enemy",
                                                                   [attack(p["q_s_dmg"], p["q_s_ratio"]), view("q_slam"),
-                                                                   tsfx("q_hit")])),
+                                                                   tsfx("q_hit")]),
+                               champ_twin("qs_twin", "a", read=False)),
                        delayed(lead + p["q_rip_at"] - 1, homing("q_rip", 100000, 0, "Enemy",
                                                                  [attack(dmg, ratio), view("q_rip"),
                                                                   tsfx("q_emp" if emp else "q_hit")]),
@@ -315,13 +338,19 @@ def build(p):
     # EnemyWithoutTower, so a pounce there dashed in and hit nothing - and gives it back for the next unit he attacks
     aim = [{"type": "Native", "effect_ref": "league_rengar_bush:aim"}] if p["native"] else []
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
+                      # the kill's read is queued on him (on_me): a `Delayed` straight in the action is queued on the
+                      # attack's target, and one on a dead unit runs only its pictures and sounds - no AddCasterBuff
+                      # (champion-data section 4), so until 2026-11-14 a kill by his attack or pounce played the
+                      # Kha'Zix trophy's picture without its attack (classic-engine trace: the flag read, nothing added)
                       combine(life, act, rival, *aim, choose,
-                              delayed(max(p["a_st"], p["q_rip_at"], p["leap_at"]) + p["k_read"], kill_read("a"))),
+                              on_me(delayed(max(p["a_st"], p["q_rip_at"], p["leap_at"]) + p["k_read"], kill_read("a")))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: W Battle Roar
     def roar(emp):
         h = p["we_heal"] if emp else 100
+        # (no kill check on the roar: it would add 64 nodes to a slot the game copies every tick - a kill by the roar
+        # is no Trophy in the main pack; the add-on counts takedowns from the kill log)
         return combine(cview("w_roar"), sfx("w_emp" if emp else "w"),
                        around(p["w_r"], "EnemyWithoutTower", [attack(p["w_dmg"], p["w_ratio"]), view("a_hit")]),
                        around(p["w_r"], "EnemyChampion", [rival_mark]),
@@ -386,7 +415,8 @@ def build(p):
                B_("r_mark", "r_mark", FX, 4)]
     extra = {}
     if p["native"]:
-        extra["passive"] = {"passive_ref": "league_rengar_bush:bush", "params": {"leap_range": p["leap_range"]}}
+        extra["passive"] = {"passive_ref": "league_rengar_bush:bush",
+                            "params": {"leap_range": p["leap_range"], **{f"bt{i}": p[f"bt{i}"] for i in range(1, 6)}}}
     return {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

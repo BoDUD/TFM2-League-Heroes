@@ -22,8 +22,8 @@ the passive Inherent Glamour as an add-on; 「有连招要做连招」). TFM2 ha
           root): a champion-only twin lays `e_big` on its first champion, and every later champion it reaches is
           rooted e_add ticks more (a second `Bind` when the first ends).
   ult     R Pop Blossom (怒放): a `Targeting` cast on `EnemyChampion` (r_range). She gathers herself for r_charge
-          ticks, shielded r_sh + r_sh_r% AP and r_sh_c more for every enemy champion within r_r (League: a shield
-          for each champion near); then she springs up - the enemies round her are knocked up r_air ticks - and
+          ticks (no shield: League took it away in V13.9, here it stayed until 2026-11-14: 80 + 30% AP and 40 more
+          for every enemy champion near, 2.5 s); then she springs up - the enemies round her are knocked up r_air ticks - and
           lands on the champion's spot (`MoveToTarget`): r_dmg + r_ratio% AP and a r_stun-tick stun round her (r_r).
   combos  E -> Q (缠结倒刺禁锢 -> 盛开花种): the barbs' champion twin opens `e_combo` for e_combo ticks; a Q cast in it is
           lobbed onto a champion in crowd control (normally the one just rooted) and bursts in q_fast ticks.
@@ -54,8 +54,9 @@ BIG = "asset/league/effects/league_neeko_big"
 # League's Neeko (16.20, CommunityDragon neeko.bin): 610 +104 hp, 48 AD, 21 +5.2 armour, 30 mr, 340 move, 550 range,
 # attack speed 0.625. Q: 800 range, 80-280 + 50% AP, blooms twice more 40-160 + 20% AP each, 0.75 s apart; cd 9-7. W
 # passive: every third attack +50-200 + 60% AP magic and 10-47.5% move speed 1 s. E: 1000 range, 80-255 + 60% AP, root
-# 0.7-1.7 s, 2.0-3.25 s once it passed a champion; cd 12-10. R: 1.25 s charge, a shield 75-200 + 40-140 a champion,
-# 0.6 s leap knocking up, 150-1150 + 120% AP? (bin: 150/350/550 + ...) and a 0.75 s stun round her; cd 120-90.
+# 0.7-1.7 s, 2.0-3.25 s once it passed a champion; cd 12-10. R: 1.25 s charge (no shield since V13.9: "No longer
+# shields her ... after starting the windup"), 0.6 s leap knocking up, 150/350/550 + 120% AP and a 0.75 s stun round
+# her; cd 120-90.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9; league_zyra 900 +95
     # hp, 70 +6 attack, 18 +7 def)
@@ -74,7 +75,10 @@ P = {
     "e_dmg": 90, "e_ratio": 60, "e_root": 60, "e_add": 45, "e_y": 5000,
     # R Pop Blossom
     "r_cd": 2100, "r_range": 45000, "r_charge": 45, "r_dur": 30, "r_speed": 3500, "r_at": 2, "r_r": 40000,
-    "r_sh": 80, "r_sh_r": 30, "r_sh_c": 40, "r_sh_t": 150, "r_air": 20, "r_dmg": 260, "r_ratio": 115, "r_stun": 50,
+    # no shield while she charges (League's current Pop Blossom, the wiki: "The wind up has no special interactions";
+    # the user, 2026-11-14, on the list of differences from League: 「全改吧」; before: r_sh 80 + r_sh_r 30% AP and
+    # r_sh_c 40 a champion near for r_sh_t 150 ticks)
+    "r_air": 20, "r_dmg": 260, "r_ratio": 115, "r_stun": 50,
     "vo_gap": 600,
     # 1 = the copy for addons/league_neeko: the passive league_neeko:glamour (the disguise; League: 2 s out of combat to
     # take it on, 6 s after it breaks, 20% magic penetration 4 s after a damaging cast breaks it) and its picture p_poof
@@ -291,9 +295,7 @@ def build(p):
                    {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 20000,
                     "end_effects": [delayed(p["r_at"], alive(*land))]})
     ult = action("ult", p["r_charge"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(decoy(p["r_dmg"], p["r_ratio"], ap), sfx("r"), sfx("r_sh"), voice("vo_r", p), cview("r_charge"),
-                         on_me(shield(p["r_sh"], p["r_sh_r"], p["r_sh_t"])),
-                         around(p["r_r"], "EnemyChampion", [on_me(shield(p["r_sh_c"], 0, p["r_sh_t"]))]),
+                 combine(decoy(p["r_dmg"], p["r_ratio"], ap), sfx("r"), voice("vo_r", p), cview("r_charge"),
                          delayed(p["r_charge"] - 1, alive(leap))))
 
     # ------------------------------------------------------------------ views (the step-3 effects pack)

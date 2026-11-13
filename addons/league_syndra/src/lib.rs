@@ -12,6 +12,11 @@
 //!   小龙 `serpen`），挂上 `w_unit`，把它击飞（期间不能行动）并沿路径逐 tick 摆到位置上（`entity_set_pos`）：先以 `w_lift_speed`
 //!   飞到她身前 `HOLD` 处举着，第 `w_rel` tick（数据出手的那一刻）起 `w_fly` tick 飞到目标脚下（目标走动就跟着他的位置）。
 //!
+//! 0.1.3（2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：R「能量倾泻」的斩杀。英雄联盟里卓尔不凡满 100 层
+//! 碎片后，能量倾泻会斩杀被打到最大生命 15% 以下的英雄；主包读不到生命，9 级起改成法球无视魔抗。副本的 9 级法球是普通魔法
+//! 伤害，每颗打中后调原生效果 `league_syndra:execute`：这颗法球的伤害结算完，目标的生命低于最大生命的 `R_EXEC`% 就处决
+//! （真实伤害，击杀算辛德拉的）。日志 `R EXECUTE #n`。
+//!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量，服务端预模拟和你看的那场各算各的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_syndra.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
@@ -41,6 +46,9 @@ pub const SLOTS: [&str; 4] = ["o1", "o2", "o3", "o4"];
 pub const DRAGONS: [&str; 2] = ["epic_monster", "serpen"];
 /// 举着时在她身前多远（朝投掷目标的方向）。
 pub const HOLD: f64 = 12_000.0;
+/// R 的斩杀线：法球打完后目标的生命低于最大生命的这么多 % 就处决（英雄联盟 15%；主包参数表 P 的 `r_exec`，
+/// `make_override.py` 核对两边一样）。
+pub const R_EXEC: usize = 15;
 
 // ===================== 日志 =====================
 
@@ -228,6 +236,12 @@ pub fn lift_ticks(p: &Params, d: f64) -> usize {
     ((d / p.w_lift_speed.max(1) as f64).ceil() as usize).clamp(1, most)
 }
 
+/// Unleashed Power's execute: a sphere left its champion under `R_EXEC`% of its maximum health (League: "below 15% of
+/// their maximum health"). A dead target (hp 0) is not executed again.
+pub fn executes(hp: usize, max: usize) -> bool {
+    hp > 0 && hp * 100 < R_EXEC * max
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -403,6 +417,39 @@ impl StablePassive for Grab {
     }
 }
 
+// ===================== 原生效果：R 的斩杀 =====================
+
+static EXECUTES: Mutex<usize> = Mutex::new(0);
+
+/// A sphere of Unleashed Power hit `input`'s champion (the copy calls this after the sphere's own damage, from level
+/// lv_r): under the line it dies - enough true damage for its shields too, the kill is hers.
+fn execute(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        return;
+    }
+    let target = input.target_id;
+    let Some((hp, max)) = sim.get_entity(target).filter(|e| e.is_alive() && e.is_champion()).map(|e| e.hp()) else { return };
+    if !executes(hp, max) {
+        return;
+    }
+    sim.deal_damage_typed(caster, target, hp + max, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+    let n = {
+        let mut n = EXECUTES.lock().unwrap_or_else(|e| e.into_inner());
+        *n += 1;
+        *n
+    };
+    if n <= 60 || n % 25 == 0 {
+        wlog(format!("{} R EXECUTE #{n}: {} at hp {hp}/{max}, under {R_EXEC}%", head(sim, caster), who(sim, target)));
+    }
+}
+
+struct Execute;
+impl StableEffectType for Execute {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        execute(sim, caster, input);
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -411,7 +458,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Syndra: Force of Will lifts a minion or monster when no sphere is counted, not the dragons) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Syndra: Force of Will lifts a minion or monster when no sphere is counted, not the dragons; Unleashed Power executes under {R_EXEC}% health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -419,6 +466,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:grab"), Grab::default());
+    module.add_native_effect(format!("{ID}:execute"), Execute);
     host.log(LogLevel::Info, "league_syndra v1 loaded (Syndra's W lifts minions and monsters).");
 }
 
@@ -498,6 +546,17 @@ mod tests {
         assert!(first.0 > hold.0 && first.0 < at.0);
         assert_eq!(h.place(&p, 100 + p.w_rel + p.w_fly - 1), Some(at));
         assert_eq!(h.place(&p, 100 + p.w_rel + p.w_fly), None);
+    }
+
+    #[test]
+    fn unleashed_power_executes_under_fifteen_percent() {
+        // League: "execute the target if it would damage them to below 15% of their maximum health"
+        assert_eq!(R_EXEC, 15);
+        assert!(executes(149, 1000));
+        assert!(!executes(150, 1000), "at the line it lives");
+        assert!(!executes(151, 1000));
+        assert!(!executes(0, 1000), "already dead");
+        assert!(executes(1, 7));
     }
 
     #[test]

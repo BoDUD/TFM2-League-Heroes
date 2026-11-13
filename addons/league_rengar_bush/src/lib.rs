@@ -31,6 +31,13 @@
 //! 时候挑，中间别的比赛建图读了另一种模式，两边就用上不同的草丛；现在只看地图本身，每次跑同一局都挑同一张。
 //! 合集 `league_addons` 里一个 mod 只能有一个地图钩子：合集用 [`BushReader::read`] 和卡密尔的读墙一起调用。
 //!
+//! 0.2.3（2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：**骨齿项链**。英雄联盟：他打过（3 秒内）的敌方
+//! 英雄阵亡——击杀或助攻——得一枚战利品，每个英雄只算一次，最多 5 枚，战利品给额外攻击力。主包只认他自己打出最后一击的
+//! 英雄击杀（数据的击杀检查），分不出是不是同一个英雄，阵亡时连同别的 buff 一起清掉。副本不在数据里给战利品，由本包的
+//! 被动每 tick 读击杀记录：他所在的队伍击杀、击杀者或助攻者里有他的分路，被击杀的那个敌方英雄（按分路记）还没给过，就挂上
+//! 下一枚 `league_rengar_bt<n>`（永久，攻击力 +`bt<n>`%，数字来自 `passive.params`）。阵亡不丢：复活时把已有的几枚重新挂上。
+//! 日志 `TROPHY`。
+//!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_rengar_bush.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //! 每种行先写 `LOG_FIRST` 条、之后每 `LOG_EVERY` 条一条（屏幕上那场每条都写）：`INTO` / `OUT OF`（进出草丛）、`READY`、
@@ -164,11 +171,13 @@ pub struct Params {
     pub leap_range: usize,
     /// 打架时走出草丛多少 tick 后去掉草丛给的就绪。
     pub grace: usize,
+    /// 骨齿项链：第 1..5 枚战利品各加多少 % 攻击力（主包参数表的 `bt1`..`bt5`）。
+    pub bt: [usize; 5],
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { leap_range: 25000, grace: 20 }
+        Self { leap_range: 25000, grace: 20, bt: [1, 1, 3, 5, 5] }
     }
 }
 
@@ -183,6 +192,11 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "leap_range" => p.leap_range = v,
             "grace" => p.grace = v,
+            "bt1" => p.bt[0] = v,
+            "bt2" => p.bt[1] = v,
+            "bt3" => p.bt[2] = v,
+            "bt4" => p.bt[3] = v,
+            "bt5" => p.bt[4] = v,
             _ => {}
         }
     }
@@ -596,11 +610,41 @@ impl StableEffectType for AimFx {
     }
 }
 
+// ===================== 骨齿项链 =====================
+
+/// The Trophies' caster flags: the main pack's names (its data gives them for his own kills; the add-on's copy leaves
+/// them to this passive).
+pub const TROPHIES: [&str; 5] =
+    ["league_rengar_bt1", "league_rengar_bt2", "league_rengar_bt3", "league_rengar_bt4", "league_rengar_bt5"];
+
+/// The enemy champion (its lane) this kill is a takedown of for the champion of `lane` in `team`: he made the kill or
+/// is among its assists (League: a takedown on a champion he damaged in the last 3 s).
+pub fn takedown(k: &KillLogV1, team: usize, lane: u32) -> Option<u32> {
+    let assisted = k.assist_positions.iter().take((k.assist_count as usize).min(4)).any(|&a| a == lane);
+    (k.killer_team == team && (k.killer_position == lane || assisted)).then_some(k.killed_position)
+}
+
+/// A new Trophy: "once per unique champion and up to 5" (League) - `held`: the lanes of the champions already taken.
+pub fn new_trophy(held: &[u32], victim: u32) -> bool {
+    held.len() < TROPHIES.len() && !held.contains(&victim)
+}
+
+/// The i-th Trophy (0-based) hung on him: for good, its share of attack.
+fn hang_trophy(sim: &mut StableSim<'_>, me: usize, i: usize, pct: usize) {
+    let mut b = BuffV1::named(TROPHIES[i]);
+    b.attack_mult = pct as i32;
+    sim.entity_remove_buff(me, TROPHIES[i]);
+    sim.add_buff(me, &b);
+}
+
 // ===================== 被动 =====================
 
 #[derive(Clone, Default)]
 struct Bush {
     p: Params,
+    /// 骨齿项链：已经拿过战利品的敌方英雄（分路），击杀记录读到第几条。
+    trophies: Vec<u32>,
+    kills_seen: usize,
     /// 身上的就绪归本包管（[`still_mine`]）。
     mine: bool,
     /// 走出草丛的 tick 数。
@@ -620,6 +664,37 @@ struct Bush {
     tally_next: usize,
 }
 
+impl Bush {
+    /// The Bonetooth Necklace: the kill log's new entries - a takedown of his on an enemy champion not taken yet is a
+    /// Trophy (hung at once while he lives, at his respawn otherwise).
+    fn bonetooth(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize, alive: bool, team: usize, shown: bool) {
+        let n = sim.kill_log_count();
+        if n <= self.kills_seen {
+            self.kills_seen = n;
+            return;
+        }
+        let lane = sim.get_player(player).and_then(|p| p.lane()).map(|l| l.code());
+        for i in self.kills_seen..n {
+            let (Some(k), Some(lane)) = (sim.kill_log_at(i), lane) else { continue };
+            let Some(victim) = takedown(&k, team, lane) else { continue };
+            if !new_trophy(&self.trophies, victim) {
+                continue;
+            }
+            self.trophies.push(victim);
+            let held = self.trophies.len();
+            if alive {
+                hang_trophy(sim, me, held - 1, self.p.bt[held - 1]);
+            }
+            if let Some(c) = counted("trophy", shown) {
+                let total: usize = self.p.bt[..held].iter().sum();
+                wlog(format!("{} TROPHY {held} of {}: a takedown on the enemy champion of lane {victim} (+{total}% attack in all{}) #{c}",
+                             head(sim, me), TROPHIES.len(), if alive { "" } else { ", hung at his respawn" }));
+            }
+        }
+        self.kills_seen = n;
+    }
+}
+
 impl StablePassive for Bush {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
@@ -629,7 +704,11 @@ impl StablePassive for Bush {
         self.p = parse_params(params_json);
     }
 
-    fn on_spawn(&mut self, _sim: &mut StableSim<'_>, _player: usize, _entity: usize) {
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
+        // the Trophies are kept through death (League): the new unit gets the ones he holds again
+        for i in 0..self.trophies.len().min(TROPHIES.len()) {
+            hang_trophy(sim, entity, i, self.p.bt[i]);
+        }
         // a respawn is a new unit with no buffs (and on_update never runs on a dead tick)
         self.mine = false;
         self.out_for = 0;
@@ -640,10 +719,11 @@ impl StablePassive for Bush {
         self.source = Source::Other;
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, team, (x, y)) = (e.is_alive(), e.team(), (e.pos().0 as f64, e.pos().1 as f64));
         let (tick, shown) = (sim.tick(), on_screen(sim));
+        self.bonetooth(sim, player, me, alive, team, shown);
         if self.bushes.is_none() {
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
@@ -802,6 +882,36 @@ mod tests {
         assert_eq!(parse_params(r#"{"leap_range":25000}"#), Params::default());
         assert_eq!(parse_params("{}"), Params::default());
         assert_eq!(parse_params(r#"{"leap_range":30000,"junk":7}"#).leap_range, 30000);
+        assert_eq!(parse_params(r#"{"bt1":2,"bt2":3,"bt3":4,"bt4":5,"bt5":6}"#).bt, [2, 3, 4, 5, 6]);
+    }
+
+    #[test]
+    fn a_trophy_for_each_enemy_champion_he_takes_down_once() {
+        // League: a takedown (kill or assist), "once per unique champion and up to 5"
+        let k = |killer_team, killer_position, killed_position, assists: &[u32]| {
+            let mut a = [0u32; 4];
+            a[..assists.len()].copy_from_slice(assists);
+            KillLogV1 { tick: 100, killer_team, killer_position, killed_position, assist_count: assists.len() as u32,
+                        assist_positions: a }
+        };
+        // he is team 0's lane 1: his kill, his assist, a kill of his team without him, the enemy's kill
+        assert_eq!(takedown(&k(0, 1, 3, &[]), 0, 1), Some(3));
+        assert_eq!(takedown(&k(0, 2, 4, &[0, 1]), 0, 1), Some(4));
+        assert_eq!(takedown(&k(0, 2, 4, &[0]), 0, 1), None);
+        assert_eq!(takedown(&k(1, 1, 2, &[1]), 0, 1), None);
+        // the assist slots past assist_count are not read (they hold lane 0 by default)
+        assert_eq!(takedown(&k(0, 2, 4, &[]), 0, 0), None);
+        // once per champion, five at most
+        let mut held = vec![];
+        for v in [3, 3, 4, 0, 1, 2, 2] {
+            if new_trophy(&held, v) {
+                held.push(v);
+            }
+        }
+        assert_eq!(held, vec![3, 4, 0, 1, 2]);
+        assert!(!new_trophy(&held, 9), "five at most");
+        assert!(TROPHIES.iter().all(|t| t.len() <= BUFF_NAME_CAP));
+        assert_eq!(Params::default().bt.iter().sum::<usize>(), 15);
         // `aim` gives a kept readiness back with the default range: the copy's own must be the same
         assert!(COPY.contains(&format!("\"leap_range\": {}", Params::default().leap_range)), "run make_override.py");
     }

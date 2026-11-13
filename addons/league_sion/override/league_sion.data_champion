@@ -287,6 +287,13 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
+                                        "type": "Stun",
+                                        "duration": 75
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
                                         "type": "ViewEffect",
                                         "name": "league_sion_q_hit"
                                       }
@@ -389,6 +396,13 @@
                                   "effect": {
                                     "type": "Airborne",
                                     "duration": 50
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Stun",
+                                    "duration": 75
                                   }
                                 },
                                 {
