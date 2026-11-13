@@ -123,23 +123,30 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   game's balance patches read). A kit script does `build = range_buffs.wrap(build)`; a new marker goes into
   RANGE_BUFFS (`--write` regenerates league.dll's table, `--check` in CI fails on any buff left with `range`).
   #702 had folded league_kogmaw's W into a 65000 attack for a day; W is League's again (55000, +18000).
-- **Keep what an attack does to its own caster out of the attack's cast: put it under the projectile's hit**
-  *(league_ai_watch, 2026-11-13: the game AI's own attack orders at champions per alive minute)*. The kits' "on me"
-  is `RangeEffect` target `AllyOnlySelf`, a circle of radius 1000 round the caster (an automatic W, a count, a kit's
-  polling aura). league_draven's automatic W sat in his attack's top `Combine`, run when the axe is thrown, and the AI
-  ordered him to attack a champion 0.16 times a minute (marksmen 4.5-7) while he still last-hit and cast; moved
-  under his hidden twin projectile's hit and nothing else changed, in game: 6.5. Heroes whose only such area sits
-  under a projectile's hit attack normally (league_sivir 4.48, league_varus 4.85, league_kalista 5.63,
-  league_alistar 4.90). Of the 30 heroes measured with the area at cast time 19 were under 1.75 (league_aurelionsol
-  0.06 in 168 games, league_azir 0.07, league_ahri 0.13, league_swain 0.21, league_anivia 0.26, league_kaisa 0.60,
-  league_sejuani 0.83) - but 11 were not (league_belveth 5.26 with league_aurelionsol's very attack skeleton,
-  league_senna, league_seraphine, league_wukong, league_renekton, league_blitzcrank ...), so the area at cast time
-  is not the whole rule, and what the engine reads was not found. **What does not help:** league.dll's
-  `league:range` node in such an attack - tried on 62 heroes on 2026-11-13 because the 7 heroes with both the area
-  and the node looked normal: no change in game (league_aurelionsol 0.03, league_azir 0.06, league_ahri 0.10,
-  league_swain 0.13), the 7 were a coincidence. Nor is it the AI's picture of the attack: its decision trace
-  (league_ai_trace) gives these heroes' attacks the right reach, damage in most evaluations, as many `Attack` picks
-  at champions and the same fight verdicts as anybody's - the attack just does not start (docs/native_ai.md).
+- **Keep what an attack does to its own caster out of the attack's cast: put it under a projectile's hit**
+  *(league_ai_watch, 2026-11-13: the game AI's own attack orders at champions per alive minute; three rounds in
+  the game)*. The kits' "on me" is `RangeEffect` target `AllyOnlySelf`, a circle of radius 1000 round the caster
+  (an automatic W or E, a count, the start of a kit's polling aura). Run when the attack is thrown - anywhere in
+  the attack's effect outside a projectile's hit - it took the attack away from the AI: league_aurelionsol 0.06
+  (168 games), league_azir 0.07, league_ahri 0.13, league_draven 0.16, league_swain 0.21 (357), league_anivia
+  0.26, league_kaisa 0.60, league_sejuani 0.83, against 4.5-7 for marksmen and 2.3-3.3 for mages; they last-hit
+  and cast as usual. Moved under a projectile's hit and nothing else changed, the attacks came back:
+  league_draven's W under his twin's hit 0.16 -> 6.5; the block wrapped where it stood in a hidden homing
+  projectile at the attack's target (`<id>_a_self`, speed 60000, no view) league_kaisa 0.60 -> 5.51 (91 games),
+  league_azir 0.07 -> 1.91 (66), league_sejuani 0.83 -> 2.36, league_ahri 0.13 -> 2.61, league_anivia 0.26 ->
+  1.60, with the skills cast as often as before and untouched heroes of the pattern where they were. So: in a
+  new kit put it under the attack's own projectile's hit (or a twin's); for the kits there are, the packers do
+  the wrap (`tools/kit/attack_self.py`: 52 heroes on 2026-11-13; `--check` in CI lists them) - the installed
+  file has the hidden projectile, the repository's does not; a hand-copied `.data_champion` skips it. The tool
+  leaves a hero alone when the move could change his kit: another cast-time effect reads in the same tick what
+  the block writes (league_aatrox, league_quinn, league_nocturne ...), or the attack's own damage can land before
+  the hidden projectile does (a direct `Attack`, a fast melee blow: league_leesin, league_xinzhao,
+  league_tryndamere ...; a projectile at a dead target hits nothing, the block would be lost on killing blows) -
+  22 heroes, to be done by hand. **What does not help:** league.dll's `league:range` node in such an attack
+  (tried on 62 heroes: league_aurelionsol 0.03, league_azir 0.06 afterwards). What the engine reads was not
+  found: the AI's decision trace gives these attacks the right reach, damage, picks and fight verdicts
+  (docs/native_ai.md), and eleven heroes with the area at cast time were never neglected (league_belveth 5.26
+  with league_aurelionsol's very skeleton, league_senna ...).
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).

@@ -149,7 +149,7 @@ marksman's - but this is what the AI reads from a hero's data, with the RVAs of 
   (league_marks 0.1.5 / 0.1.6) made no difference. league_ult_press 0.6.5 works round it (a marksman the AI neglects
   pokes whoever stands in her own range).
 
-## 2026-11-13: the AI will not attack champions with some heroes (open)
+## 2026-11-13: the AI will not attack champions with some heroes (fixed by a move, the cause open)
 
 The Kai'Sa question above, a step further. league_ai_watch 0.3.0 counts an attack when the attack's cooldown starts,
 by the target of the AI's last attack order; five launches, per alive minute at champions: marksmen 4.5-7, mages
@@ -157,8 +157,14 @@ by the target of the AI's last attack order; five launches, per alive minute at 
 0.16, Swain 0.21 (357 games), Anivia 0.26, Aatrox 0.38, Kai'Sa 0.60, Sejuani 0.83 - who all last-hit and cast as
 usual.
 
-- **One change is proven in game:** Draven's automatic W - a `RangeEffect` on himself run from the attack's top
+- **The fix, proven in game twice:** Draven's automatic W - a `RangeEffect` on himself run from the attack's top
   `Combine` when the axe is thrown - moved under his hidden twin projectile's hit, nothing else changed: 0.16 -> 6.5.
+  Then the same for seven heroes of different shapes, the block wrapped where it stood in a hidden homing
+  projectile at the attack's target (a tick later; a new career's presims): Kai'Sa 0.60 -> 5.51 (91 games), Azir
+  0.07 -> 1.91 (66), Sejuani 0.83 -> 2.36 (11), Ahri 0.13 -> 2.61 (5), Anivia 0.26 -> 1.60 (3), Aurelion Sol 0.06
+  -> 1.08 (1); untouched heroes of the pattern flat (Orianna 0.18 in 64 games, Xin Zhao 0.95 in 77), skills cast
+  as often as before. The packers now do it for every hero it is safe for (`tools/kit/attack_self.py`, 52
+  heroes; 22 are left for a hand: a same-tick reader of the block, or the attack's own damage landing first).
   Stripped attacks (one projectile with `Attack`) did the same for Kai'Sa (0.60 -> 4.9, 88 games) and Ahri (0.13 ->
   3.9). Heroes whose only area on themselves sits under a projectile's hit are normal (Sivir, Varus, Kalista,
   Alistar, Mordekaiser, Nautilus).
