@@ -46,7 +46,9 @@ and the slot lays it again its first try): without it Q -> R bounced him from le
           when `r_cd` and `r_open` allow. R -> W: the last bounce bursts Unstable Matter and leaves W ready again.
 The add-on copy (--native, addons/league_zac): the passive league_zac:split decides the split (the copy shows it:
 `split_go` / `split_end` flags, a 2-tick watch hung once a life by his attack: the melt, the puddle held every 30 ticks,
-the reform).
+the reform). It also makes R's knock back League's own, once per enemy: every landing leaves a 3-tick mark on whom it
+hit (`r_m1` the first landing's, `r_m2` the later ones'), and the passive gives an enemy first met by a later landing
+the knock back and the rest of the full damage (its params r_kb, r_kb_t, r_dmg, r_ap, r_k).
 Timings: tools/art/rig_zac.py's frames (a frame's start in ticks = ms x 0.06): the attack's punch at a_hit 11 of
 atk_dur 28; Q's grab leaves at q_rel 8 of q_dur 24, the slam lands q_slam_at 8 into skill_slam's 18; E's wind-up is
 e_wind 36 (the arms planted, the pull), skill2_fly held while he flies, skill2_land e_land 16; R's hop r_air 25 (the
@@ -290,7 +292,11 @@ def build(p):
 
     # ------------------------------------------------------------------ R Let's Bounce! (the ult and the controller)
     # A pulse on him every r_gap ticks is one bounce; the ladder h1..h3 counts them, `r_fin` marks the last.
-    land = [anim("ult_land", p["r_land"]), sfx("r_land"), cview("r_land"),
+    # the add-on's copy: whom this landing hits (League knocks every enemy back on ITS first hit; the passive keeps the
+    # list of a cast and gives a later landing's newcomers the knock back and the full damage)
+    marks = [sw("r_first", around(p["r_r"], "EnemyWithoutTower", buff("r_m1", 3)),
+                around(p["r_r"], "EnemyWithoutTower", buff("r_m2", 3)))] if p["native"] else []
+    land = [*marks, anim("ult_land", p["r_land"]), sfx("r_land"), cview("r_land"),
             # the first landing kicks them back (away from him: he landed beyond them, so toward where he came from);
             # the others only hurt and slow (League: no knock back after an enemy's first hit)
             sw("r_first",
@@ -419,7 +425,8 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_zac:split", "params": {
-            "split_t": p["split_t"], "split_cd": p["split_cd"], "split_hp": p["split_hp"]}}
+            "split_t": p["split_t"], "split_cd": p["split_cd"], "split_hp": p["split_hp"],
+            "r_kb": p["r_kb"], "r_kb_t": p["r_kb_t"], "r_dmg": p["r_dmg"], "r_ap": p["r_ap"], "r_k": p["r_k"]}}
     return {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
