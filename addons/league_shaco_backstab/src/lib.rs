@@ -16,7 +16,8 @@
 //! 伤害比本人高，可以被打死，死了或者到时间就爆炸，放出三个小魔盒。稳定 mod API 有 `spawn_unit`（公用部分在 `summon.rs`）：
 //!
 //! - 副本的 R 出手时给萨科挂 `R_ASK`（3 tick）。被动看到就在他身旁选一个点（[`beside`]：离他 `SIDE`，横在他和最近的敌方
-//!   英雄的连线旁边、和他并排，每次换一边——原版引擎自己的召唤物也是出现在召唤者身边 20000 处），排一个原生效果
+//!   英雄的连线旁边、和他并排，每次换一边——原版引擎自己的召唤物也是出现在召唤者身边 20000 处；不会选到场上所有单位
+//!   围成的范围之外，那一边出了范围就用另一边，见 [`summon::inside`]），排一个原生效果
 //!   `:clone`（`spawn_unit` 在原生效果里调，别的 mod 已经这样用过）。
 //! - `:clone` 生成一个叫 `league_shaco` 的单位（应该就按他自己的图画，高清帧在内——要在游戏里看），属性照他此刻的
 //!   （[`clone_spec`]：攻击、防御、移速一样，生命上限一样、当前生命也设成一样），普攻照他的普攻（距离、间隔、出手时刻），
@@ -564,7 +565,12 @@ impl Backstab {
                     .filter(|u| u.team() != team && u.is_champion() && u.is_alive())
                     .map(|u| pos(&u))
                     .min_by(|a, b| len(sub(*a, here)).total_cmp(&len(sub(*b, here))));
-                let at = beside(here, toward, self.clones);
+                // never outside the box round the units the engine holds (a point off the map's grid is not for a pilot
+                // to try): of his two sides the one that keeps its distance there, the usual one first
+                let field = summon::field(sim);
+                let (a, b) = (summon::inside(field, beside(here, toward, self.clones)),
+                              summon::inside(field, beside(here, toward, self.clones + 1)));
+                let at = if len(sub(b, here)) > len(sub(a, here)) + 1.0 { b } else { a };
                 let queued = sim.queue_effect(&fx("clone"), AttackTypeV1::Skill, me, &at_input(at), 1);
                 if !queued {
                     make_clone(sim, me, at, "queue_effect refused: spawned by the passive");
@@ -959,14 +965,14 @@ mod tests {
     }
 
     /// Shaco #0 (team 0) has walked right to (300000, 300000); Garen #1 (team 1) stands 50000 east of him, an enemy
-    /// minion #2 far to the north; a player each.
+    /// minion #2 far to the south; a player each.
     fn world() -> (World, Backstab) {
         log_file();
         let mut w = World::default();
         let mut shaco = champion("league_shaco", 0, 300_000.0 - 30.0 * 1_100.0, 300_000.0);
         (shaco.hp, shaco.max) = (600, 1000);
         w.units = vec![shaco, champion("league_garen", 1, 350_000.0, 300_000.0),
-                       unit("melee_minion", EntityKindV1::Minion, 1, 300_000.0, 100_000.0, 300)];
+                       unit("melee_minion", EntityKindV1::Minion, 1, 300_000.0, 500_000.0, 300)];
         w.players = vec![MPlayer { team: 0, champion: 0, gold: 500, cs: 10, kills: 0, deal: 0 },
                          MPlayer { team: 1, champion: GAREN, gold: 700, cs: 20, kills: 1, deal: 0 }];
         let mut me = Backstab::default();
@@ -1010,6 +1016,25 @@ mod tests {
     /// The blasts so far: (tick, target, amount) of his magic damage of the blast's size.
     fn blasts(w: &World, ap: usize) -> Vec<(usize, usize)> {
         w.damage.iter().filter(|d| d.1 == 0 && d.4 == DamageTypeV1::Ap.code() && d.3 == boom_damage(ap)).map(|d| (d.0, d.2)).collect()
+    }
+
+    #[test]
+    fn the_clone_never_appears_outside_the_field() {
+        // Garen west of him: the first clone's side is north of him - but he is the northernmost of all, so that
+        // point lies outside the box round everybody: the other side it is
+        let (mut w, mut me) = world();
+        w.units[GAREN].x = 250_000.0;
+        cast_r(&mut w);
+        run(&mut w, &mut me, 3);
+        assert_eq!(w.spawns.len(), 1);
+        assert_eq!(w.spawns[0].at, (300_000, 314_000));
+        // everybody on one row: no room on either side, the clone appears where he stands (ground for sure)
+        let (mut w, mut me) = world();
+        (w.units[2].x, w.units[2].y) = (100_000.0, 300_000.0);
+        cast_r(&mut w);
+        run(&mut w, &mut me, 3);
+        assert_eq!(w.spawns.len(), 1);
+        assert_eq!(w.spawns[0].at, (300_000, 300_000));
     }
 
     #[test]

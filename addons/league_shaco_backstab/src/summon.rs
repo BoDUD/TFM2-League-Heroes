@@ -162,6 +162,28 @@ pub fn spawn(sim: &mut StableSim<'_>, summoner: usize, team: usize, at: Pt, spec
     (id != summoner).then_some(id)
 }
 
+/// The box round every entity the simulation holds now, ((least x, least y), (most x, most y)): ground the engine
+/// itself keeps units on. `None` with no entity.
+pub fn field(sim: &StableSim<'_>) -> Option<(Pt, Pt)> {
+    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| at_of(&e)).fold(None, |b: Option<(Pt, Pt)>, p| {
+        Some(match b {
+            None => (p, p),
+            Some((lo, hi)) => ((lo.0.min(p.0), lo.1.min(p.1)), (hi.0.max(p.0), hi.1.max(p.1))),
+        })
+    })
+}
+
+/// `at` moved into `field` (with none: only never off the top or left edge). A spawn point worked out sideways from
+/// somebody can lie off the map's grid; what the engine does with a unit out there is not known, so none is asked
+/// for. The walls inside the field are not known here.
+pub fn inside(field: Option<(Pt, Pt)>, at: Pt) -> Pt {
+    let at = (at.0.max(0.0), at.1.max(0.0));
+    match field {
+        Some((lo, hi)) => (at.0.max(lo.0).min(hi.0), at.1.max(lo.1).min(hi.1)),
+        None => at,
+    }
+}
+
 /// The name of the short buff on the summoner that hands a new unit's id to his passive.
 pub fn handoff(prefix: &str, id: usize) -> String {
     format!("{prefix}:{id}")
@@ -542,6 +564,18 @@ fn gain_text(before: Option<u64>, now: Option<u64>, over: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_spawn_point_stays_in_the_field() {
+        let field = Some(((100.0, 200.0), (900.0, 800.0)));
+        assert_eq!(inside(field, (500.0, 500.0)), (500.0, 500.0));
+        assert_eq!(inside(field, (50.0, 900.0)), (100.0, 800.0));
+        assert_eq!(inside(field, (1_000.0, 100.0)), (900.0, 200.0));
+        assert_eq!(inside(field, (-5.0, f64::NAN)), (100.0, 200.0));
+        // a field of one point; no field at all: only the top and left edges
+        assert_eq!(inside(Some(((7.0, 9.0), (7.0, 9.0))), (500.0, -3.0)), (7.0, 9.0));
+        assert_eq!(inside(None, (-5.0, 12.0)), (0.0, 12.0));
+    }
 
     #[test]
     fn the_knobs_are_off_unless_the_file_says_so() {
