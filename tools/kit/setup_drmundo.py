@@ -55,9 +55,9 @@ TEXT = {
         "name": "蒙多医生",
         "attack": O + "想去哪就去哪" + E + "：首次被控后免控" + A + "{p_imm}秒" + E + "并丢下药罐，捡起回复" + PH + "。" +
                   O + "大力行医" + E + "：每" + A + "{e_cd}秒" + E + "一次普攻额外造成" + EB + "伤害，打死的单位被打飞，撞伤身后的敌人。",
-        "skill": "扔出骨锯，命中第一个单位造成" + M + "{q_dmg}" + E + M + "魔法伤害" + E + "，" + R + "减速{q_slow}%" + E + A + "{q_slow_t}秒" + E +
-                 "并回复" + G + "{q_heal}" + E + "生命；命中英雄额外造成其最大生命{q_thp}%真实伤害、多回复" + G + "{q_heal_c}" + E + "。",
-        "skill2": "电击身边的敌人" + A + "{w_t}秒" + E + "（每" + A + "{w_per}秒" + E + WT + "），挨打时积攒灰色生命；结束时电击造成" + WE +
+        "skill": "消耗{q_cost}生命扔出骨锯，命中第一个单位造成" + M + "{q_dmg}" + E + M + "魔法伤害" + E + "，" + R + "减速{q_slow}%" + E + A + "{q_slow_t}秒" + E +
+                 "并返还" + G + "{q_heal}" + E + "生命；命中英雄额外造成其最大生命{q_thp}%真实伤害、再返还" + G + "{q_heal_c}" + E + "。",
+        "skill2": "消耗最大生命{w_cost}%，电击身边的敌人" + A + "{w_t}秒" + E + "（每" + A + "{w_per}秒" + E + WT + "），挨打时积攒灰色生命；结束时电击造成" + WE +
                   "，命中英雄回复全部灰色生命，只命中小兵回复一半。",
         "ult": "被围攻时给自己注射：立即回复" + RH + "生命，" + A + "{r_t}秒" + E + "内最大生命+{r_hp}、每秒回复" + G + "{r_regen}" + E + "生命、移速+{r_ms}%。",
         "names": ("病毒屠刀", "电击疗法", "极限剂量"),
@@ -66,9 +66,9 @@ TEXT = {
         "name": "蒙多醫生",
         "attack": O + "想去哪就去哪" + E + "：首次被控後免控" + A + "{p_imm}秒" + E + "並丟下藥罐，撿起回復" + PH + "。" +
                   O + "鈍擊創傷" + E + "：每" + A + "{e_cd}秒" + E + "一次普攻額外造成" + EB + "傷害，打死的單位被打飛，撞傷身後的敵人。",
-        "skill": "扔出骨鋸，命中第一個單位造成" + M + "{q_dmg}" + E + M + "魔法傷害" + E + "，" + R + "緩速{q_slow}%" + E + A + "{q_slow_t}秒" + E +
-                 "並回復" + G + "{q_heal}" + E + "生命；命中英雄額外造成其最大生命{q_thp}%真實傷害、多回復" + G + "{q_heal_c}" + E + "。",
-        "skill2": "電擊身邊的敵人" + A + "{w_t}秒" + E + "（每" + A + "{w_per}秒" + E + WT + "），挨打時累積灰色生命；結束時電擊造成" + WE +
+        "skill": "消耗{q_cost}生命扔出骨鋸，命中第一個單位造成" + M + "{q_dmg}" + E + M + "魔法傷害" + E + "，" + R + "緩速{q_slow}%" + E + A + "{q_slow_t}秒" + E +
+                 "並返還" + G + "{q_heal}" + E + "生命；命中英雄額外造成其最大生命{q_thp}%真實傷害、再返還" + G + "{q_heal_c}" + E + "。",
+        "skill2": "消耗最大生命{w_cost}%，電擊身邊的敵人" + A + "{w_t}秒" + E + "（每" + A + "{w_per}秒" + E + WT + "），挨打時累積灰色生命；結束時電擊造成" + WE +
                   "，命中英雄回復全部灰色生命，只命中小兵回復一半。",
         "ult": "被圍攻時替自己注射：立即回復" + RH + "生命，" + A + "{r_t}秒" + E + "內最大生命+{r_hp}、每秒回復" + G + "{r_regen}" + E + "生命、跑速+{r_ms}%。",
         "names": ("病毒骨鋸", "心臟電擊器", "最大劑量"),
@@ -78,10 +78,10 @@ TEXT = {
         "attack": O + "Goes Where He Pleases" + E + ": after the first crowd control on him he is immune for " + A + "{p_imm}s" + E +
                   " and drops a chem-tank; picking it up heals " + PH + ". " + O + "Blunt Force Trauma" + E + ": every " + A + "{e_cd}s" + E +
                   " an attack deals " + EB + " more; a unit it kills is flung, hurting enemies behind it.",
-        "skill": "Throws his bone saw at the first unit hit: " + M + "{q_dmg} magic damage" + E + ", a " + R + "{q_slow}% slow" + E + " for " + A +
-                 "{q_slow_t}s" + E + " and " + G + "{q_heal}" + E + " health back. A champion also takes {q_thp}% of its max health as true damage and heals him " +
-                 G + "{q_heal_c}" + E + " more.",
-        "skill2": "Zaps nearby enemies for " + A + "{w_t}s" + E + " (" + WT + " every " + A + "{w_per}s" + E + "), storing grey health as he is hit. The final zap deals " +
+        "skill": "Costs {q_cost} health. Throws his bone saw at the first unit hit: " + M + "{q_dmg} magic damage" + E + ", a " + R + "{q_slow}% slow" + E + " for " + A +
+                 "{q_slow_t}s" + E + " and " + G + "{q_heal}" + E + " health back. A champion also takes {q_thp}% of its max health as true damage and gives " +
+                 G + "{q_heal_c}" + E + " more back.",
+        "skill2": "Costs {w_cost}% of his max health. Zaps nearby enemies for " + A + "{w_t}s" + E + " (" + WT + " every " + A + "{w_per}s" + E + "), storing grey health as he is hit. The final zap deals " +
                   WE + ": hitting a champion heals all the grey health, only minions half.",
         "ult": "Doses himself when cornered: heals " + RH + " at once and for " + A + "{r_t}s" + E + " gains {r_hp} max health, " + G + "{r_regen}" + E +
                " health a second and {r_ms}% move speed.",
@@ -91,9 +91,9 @@ TEXT = {
         "name": "문도 박사",
         "attack": O + "가고 싶은 데로 간다" + E + ": 처음 군중 제어를 받으면 " + A + "{p_imm}초" + E + " 면역, 화학 통을 떨어뜨려 주우면 " + PH + " 회복. " +
                   O + "둔기에 의한 외상" + E + ": " + A + "{e_cd}초" + E + "마다 기본 공격이 " + EB + " 추가 피해, 처치한 유닛을 날려 뒤의 적에게 피해.",
-        "skill": "뼈톱을 던져 첫 대상에게 " + M + "{q_dmg} 마법 피해" + E + ", " + A + "{q_slow_t}초" + E + " " + R + "{q_slow}% 둔화" + E + ", " + G + "{q_heal}" + E +
+        "skill": "체력 {q_cost} 소모. 뼈톱을 던져 첫 대상에게 " + M + "{q_dmg} 마법 피해" + E + ", " + A + "{q_slow_t}초" + E + " " + R + "{q_slow}% 둔화" + E + ", " + G + "{q_heal}" + E +
                  " 회복. 챔피언이면 최대 체력 {q_thp}% 고정 피해와 " + G + "{q_heal_c}" + E + " 추가 회복.",
-        "skill2": A + "{w_t}초" + E + " 동안 주변 적을 감전 (" + A + "{w_per}초" + E + "마다 " + WT + "), 맞을 때 회색 체력 저장. 마지막 감전 " + WE +
+        "skill2": "최대 체력의 {w_cost}% 소모. " + A + "{w_t}초" + E + " 동안 주변 적을 감전 (" + A + "{w_per}초" + E + "마다 " + WT + "), 맞을 때 회색 체력 저장. 마지막 감전 " + WE +
                   ": 챔피언 적중 시 회색 체력 전부, 미니언만 적중 시 절반 회복.",
         "ult": "포위되면 스스로 투약: 즉시 " + RH + " 회복, " + A + "{r_t}초" + E + " 동안 최대 체력 +{r_hp}, 초당 " + G + "{r_regen}" + E + " 회복, 이동 속도 +{r_ms}%.",
         "names": ("오염된 뼈톱", "심장 전기 충격", "최대 투여량"),
@@ -102,9 +102,9 @@ TEXT = {
         "name": "ドクター・ムンド",
         "attack": O + "気ままな往診" + E + "：最初の行動妨害の後" + A + "{p_imm}秒" + E + "無効、薬缶を落とし拾うと" + PH + "回復。" +
                   O + "野蛮な痛み" + E + "：" + A + "{e_cd}秒" + E + "毎に通常攻撃が" + EB + "追加ダメージ、倒した敵を吹き飛ばし後ろの敵に当てる。",
-        "skill": "骨ノコギリを投げ最初の敵に" + M + "{q_dmg}魔法ダメージ" + E + "と" + R + "{q_slow}%スロウ" + E + "（" + A + "{q_slow_t}秒" + E + "）、" + G +
+        "skill": "体力{q_cost}を消費。骨ノコギリを投げ最初の敵に" + M + "{q_dmg}魔法ダメージ" + E + "と" + R + "{q_slow}%スロウ" + E + "（" + A + "{q_slow_t}秒" + E + "）、" + G +
                  "{q_heal}" + E + "回復。チャンピオンなら最大体力{q_thp}%の確定ダメージと" + G + "{q_heal_c}" + E + "追加回復。",
-        "skill2": A + "{w_t}秒" + E + "周囲を感電（" + A + "{w_per}秒" + E + "毎に" + WT + "）、被弾でグレー体力を蓄積。最後の電撃" + WE +
+        "skill2": "最大体力の{w_cost}%を消費。" + A + "{w_t}秒" + E + "周囲を感電（" + A + "{w_per}秒" + E + "毎に" + WT + "）、被弾でグレー体力を蓄積。最後の電撃" + WE +
                   "：チャンピオンに当たれば全回復、ミニオンのみなら半分。",
         "ult": "囲まれると自ら投与：即" + RH + "回復、" + A + "{r_t}秒" + E + "最大体力+{r_hp}、毎秒" + G + "{r_regen}" + E + "回復、移動速度+{r_ms}%。",
         "names": ("骨切りノコギリ", "心臓ビリビリ", "マキシマム投与"),
@@ -132,7 +132,8 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("p_heal", "p_heal_ad", "e_dmg", "e_hp", "q_dmg", "q_slow", "q_heal", "q_thp", "q_heal_c",
-                           "w_tick", "w_hp", "w_end", "w_end_hp", "r_heal", "r_heal_ad", "r_hp", "r_regen", "r_ms")}
+                           "w_tick", "w_hp", "w_end", "w_end_hp", "r_heal", "r_heal_ad", "r_hp", "r_regen", "r_ms",
+                           "q_cost", "w_cost")}
     v.update({k: secs(p[k]) for k in ("p_imm", "e_cd", "q_slow_t", "w_per", "r_t")})
     v["w_t"] = secs(p["w_n"] * p["w_per"])
     return v
