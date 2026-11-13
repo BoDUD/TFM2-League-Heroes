@@ -66,7 +66,9 @@
 //! - 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」）：**墙一直带到墙外**。日志里墙倒的时候被带走
 //!   的英雄大多还在阿兹尔这边几万远，一次都没被墙挡过：强制位移没把他带到墙外，他落在墙这边，墙反倒把他挡在阿兹尔这边。
 //!   强制位移会半路停：被别人的控制按住（眩晕、定身、击飞……宿主这时停下强制位移）、他自己的位移技能把它顶掉、带着韧性
-//!   （4+6 的出装里 66 个英雄有 20%～30% 韧性的装备，引擎的控制时长按韧性缩短，强制位移的路就短一截）。现在墙记着带的每个人
+//!   （4+6 的出装里 66 个英雄有 20%～30% 韧性的装备；引擎把每种控制的时长按目标的韧性缩短，x (100 - 韧性) / 100，强制位移也
+//!   一样：.claude/skills/tfm2-hero-mod/references/champion-data.md，读的 game_core）。英雄联盟的位移不吃韧性：现在强制位移按
+//!   他的韧性把时长放长（`push_rules::full_ticks`），缩短以后正好走满（墙带人、反推绕到身后都是）。现在墙还记着带的每个人
 //!   （`Ride`：落点、要走的路），被动每 tick 看一眼（`ride_tick`）：还在位移、被按住就等；走完了还没到墙外那条线就把剩下的路
 //!   再推一次（`next_push`），直到到了、推不动了（`PUSH_GAIN`：撞到地形）、往回跑出去很远（闪现、冲刺，不追）、推满
 //!   `MAX_PUSHES` 次或者墙倒了。每个人第一次落地记一行 `LANDED`（带了多远、还差多远、身上的韧性、为什么），补推过的
@@ -84,6 +86,7 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+use push_rules::{force_move_full, held, toughness};
 
 pub mod combo;
 
@@ -814,9 +817,6 @@ pub const PUSH_GAIN: f64 = 2_000.0;
 pub const RAN_BACK: f64 = 10_000.0;
 /// 0.2.5：一个人最多补推几次（韧性每次都截一截，剩下的路一次比一次短）。
 pub const MAX_PUSHES: usize = 6;
-/// 0.2.5：按住一个单位、宿主会停下他的强制位移的控制（李青的 HELD）：这时等着，不补推。
-const HELD: [CcKindV1; 6] =
-    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
 
 pub type Pt = (f64, f64);
 
@@ -1059,19 +1059,11 @@ fn immune(u: &StableEntity<'_, '_>) -> bool {
     (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune)
 }
 
-/// 0.2.5：被按住（[`HELD`]）：宿主停下他的强制位移。
-fn held(u: &StableEntity<'_, '_>) -> bool {
-    (0..u.cc_count()).any(|i| u.cc_at(i).is_some_and(|c| HELD.iter().any(|k| k.code() == c.kind)))
-}
 
-/// 0.2.5：他身上所有效果的韧性加起来（4+6 的装备、符文、技能）。
-fn toughness(u: &StableEntity<'_, '_>) -> usize {
-    (0..u.buff_count()).filter_map(|i| u.buff_at(i)).map(|b| b.toughness).sum()
-}
 
 /// 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人」）：墙带着的人每 tick 看一眼（他的被动里，墙立着的时候）。还在强制位移、
-/// 被按住就等着；走完了还没到墙外那条落点线就把剩下的路再推一次（`next_push`）：韧性截短了、别人的控制打断了、他自己的位移
-/// 技能顶掉了，原来都落在墙这边，墙再把他挡在阿兹尔这边。到了、推不动、跑回去、推满了、墙倒了就不带了，`carried` 落地，
+/// 被按住就等着；走完了还没到墙外那条落点线就把剩下的路再推一次（`next_push`）：别人的控制打断了、他自己的位移技能
+/// 顶掉了（韧性截短的那一截 `push_rules` 已经放长补上），原来都落在墙这边，墙再把他挡在阿兹尔这边。到了、推不动、跑回去、推满了、墙倒了就不带了，`carried` 落地，
 /// 墙按他现在在哪边挡他。英雄第一次落地记 `LANDED`，补推过的结束时记 `RIDE`。
 fn ride_tick(sim: &mut StableSim<'_>, me: usize, w: &mut Standing, tick: usize) {
     let mut ids: Vec<usize> = w.rides.keys().copied().collect();
@@ -1142,7 +1134,8 @@ fn shove(sim: &mut StableSim<'_>, id: usize, at: Pt, (dest, _, ticks, speed): (P
     cc.dx = (dest.0 - at.0).round() as i64;
     cc.dy = (dest.1 - at.1).round() as i64;
     cc.speed = speed as u64;
-    sim.apply_cc(id, &cc);
+    // 0.2.5: as long again as his tenacity cuts it
+    force_move_full(sim, id, cc);
 }
 
 /// 墙冲锋的那几 tick（每 tick，他的被动里）：本包自己扫墙的路线（`swept`，和数据那道墙一样的圆心、半径、速度），扫到的
@@ -1295,7 +1288,8 @@ impl StableEffectType for Behind {
         cc.dx = dx.round() as i64;
         cc.dy = dy.round() as i64;
         cc.speed = ((len / ticks as f64).ceil() as u64).max(1);
-        sim.apply_cc(me, &cc);
+        // 0.2.5: his own tenacity cuts his dash too
+        force_move_full(sim, me, cc);
         if let Some(k) = tally(sim, "behind") {
             wlog(format!("{} BEHIND #{k}: from {} round the target at {} to {} ({:.0} in {ticks} ticks), his team {}",
                          head(sim, me), pt(here), pt(target), pt(spot), len,
@@ -2675,4 +2669,5 @@ mod tests {
         assert!(ride_left(&w, plan.0).abs() < 1e-6);
         assert!((ride_left(&w, (130_000.0, 100_000.0)) - plan.1).abs() < 1e-6);
     }
+
 }
