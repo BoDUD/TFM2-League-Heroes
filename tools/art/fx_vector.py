@@ -46,6 +46,8 @@ import numpy as np
 EPS_J = (1.0e-4, 0.37e-4)      # sample jitter (x, y): a centre exactly on a 45-degree edge falls one way, everywhere alike
 CLAMP = 0.44                   # |d| at most this (a vertex never reaches a pixel centre)
 K_CONVEX = 0.10355             # (sqrt(2) - 1) / 4: a crack's offset for each convex end (area-true chamfer)
+NEAR_MISS = 1.25               # an ellipse missing a vertex's corridor by less than this (in pixels) ...
+NEAR_SHARE = 0.04              # ... at more than this share of a loop's vertices is not that loop's shape
 COUNT = {"ellipse": 0, "squeezed": 0}   # what the last redraws did (a survey's counters): loops snapped to an ellipse, thin
 #                                        pixels redrawn as their squares after a squeeze
 
@@ -319,7 +321,13 @@ def fit_ellipse(x, y, nx, ny, rounds=4):
         if np.abs(step).max() < 1e-4:
             break
     d, ok = _ellipse_d(par, x, y, nx, ny)
-    return d, ok & (np.abs(d) < 0.5), tuple(par)
+    inl = ok & (np.abs(d) < 0.5)
+    # a vertex the ellipse misses by a little says the loop is not an ellipse (an oval with flatter sides, a lens): only
+    # clear features (a knot on a ring, a spike: far off) may stand out of one
+    near = ~inl & ok & (np.abs(d) < NEAR_MISS)
+    if near.mean() > NEAR_SHARE:
+        return None
+    return d, inl, tuple(par)
 
 
 def smooth_level(mx, my, nx, ny, turn, bridge, pinch, start, length, window=7, iters=6, pull=0.02, corner_run=3, bend=0.86,
@@ -369,6 +377,12 @@ def smooth_level(mx, my, nx, ny, turn, bridge, pinch, start, length, window=7, i
                             pin[[(c - 1) % ln, c, (c + 1) % ln]] = True
                         else:
                             sh[(c - 1) % ln] = sh[c] = True
+                            # an arm: a straight 1-px line, two or more long, standing on a body that spreads both
+                            # ways at its foot (a star's arm on its core, a bar on a band) keeps its square foot too
+                            lf, lb = rl[(c + 1) % ln], rl[(c - 1) % ln]
+                            ef, bb = (c + lf) % ln, (c - 1 - lb) % ln
+                            if max(lf, lb) >= 2 and t[ef] == -g and t[bb] == -g:
+                                sh[ef] = sh[bb] = True
                     else:
                         groups.append(s + (rs + np.arange(rn)) % ln)
             # stretches of stairs: the turns between one pair of like turns and the next
@@ -676,11 +690,11 @@ def redraw_labels(lab, rank, P, window=7, iters=6, pull=0.02, corner_run=3, bend
     return dense
 
 
-def block_grid(arr):
+def block_grid(arr, min_px=40):
     """(k, oy, ox) when the frame is a picture enlarged k times before it became the frame (k x k blocks from (oy, ox)),
-    else (1, 0, 0)"""
+    else (1, 0, 0). A frame of fewer than min_px drawn pixels says nothing by itself (a few specks)."""
     m = arr[..., 3] > 0
-    if m.sum() < 40:
+    if m.sum() < min_px:
         return 1, 0, 0
     h, w = m.shape
     for k in (3, 2):
@@ -698,12 +712,17 @@ def block_grid(arr):
     return 1, 0, 0
 
 
-def redraw(arr, P=2, pal=None, rank=None, symmetric=True, **kw):
-    """a 1x frame (RGBA uint8, alpha 0 or 255) redrawn P times finer -> RGBA uint8 (h * P, w * P)"""
+def redraw(arr, P=2, pal=None, rank=None, symmetric=True, grid=None, **kw):
+    """a 1x frame (RGBA uint8, alpha 0 or 255) redrawn P times finer -> RGBA uint8 (h * P, w * P). grid: the enlargement
+    of the tag's other frames - a frame of a few specks that is made of the same blocks is read on that grid too."""
     h, w = arr.shape[:2]
     if not (arr[..., 3] > 0).any():
         return np.zeros((h * P, w * P, 4), np.uint8)
     k, oy, ox = block_grid(arr)
+    if k == 1 and grid and grid > 1:
+        k2, oy2, ox2 = block_grid(arr, min_px=1)
+        if k2 == grid:
+            k, oy, ox = k2, oy2, ox2
     if k > 1:
         # the picture it was enlarged from, redrawn k * P times finer and put back on the frame's grid
         top, left = (k - oy) % k, (k - ox) % k
@@ -711,7 +730,7 @@ def redraw(arr, P=2, pal=None, rank=None, symmetric=True, **kw):
         a = np.zeros((H2, W2, 4), np.uint8)
         a[top:top + h, left:left + w] = arr
         small = a[::k, ::k]
-        big = redraw(small, P * k, pal, rank, False, **kw)
+        big = redraw(small, P * k, pal, rank, False, None, **kw)
         out = big[top * P:(top + h) * P, left * P:(left + w) * P]
     else:
         if pal is None:
@@ -741,12 +760,15 @@ def redraw_tag(frames, P=2, **kw):
     pal = tag_palette(frames)
     labs = [to_labels(a, pal) for a in frames if (a[..., 3] > 0).any()]
     rank = rank_order(labs, len(pal)) if labs else None
+    # the tag's enlargement: what most of its frames with enough pixels to tell are made of
+    ks = [block_grid(a)[0] for a in frames if (a[..., 3] > 0).sum() >= 40]
+    grid = max(set(ks), key=ks.count) if ks else 1
     cache = {}
     out = []
     for a in frames:
         key = (a.shape, a.tobytes())
         if key not in cache:
-            cache[key] = redraw(a, P, pal, rank, **kw)
+            cache[key] = redraw(a, P, pal, rank, grid=grid, **kw)
         out.append(cache[key])
     return out
 

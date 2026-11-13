@@ -1,0 +1,47 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_gragas_fx",
+   "tag": "q_barrel",
+   "file": "league_gragas_fx/q_barrel.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     3,
+     3
+    ],
+    [
+     23,
+     17
+    ],
+    [
+     23,
+     17
+    ],
+    [
+     23,
+     17
+    ],
+    [
+     23,
+     17
+    ]
+   ],
+   "of_1x": "4b4457fddecff26c4556ed16a03cddbd45b6248b3f3a84d50f3ef7edcf6b5fd6",
+   "by": "fx_vector 2",
+   "sha256": "c19cd7d05d25a8148c90d760c799bbd71fd8e3e01c9599a3fd817ec689b901f0",
+   "note": "batch 01 enlarged 2026-11-14"
+  }
+ ]
+}

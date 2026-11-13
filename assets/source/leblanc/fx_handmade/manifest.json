@@ -1,0 +1,105 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_leblanc_big",
+   "tag": "rw_blast",
+   "file": "league_leblanc_big/rw_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     27,
+     23
+    ],
+    [
+     39,
+     53
+    ],
+    [
+     47,
+     73
+    ],
+    [
+     59,
+     97
+    ],
+    [
+     47,
+     69
+    ],
+    [
+     47,
+     49
+    ],
+    [
+     23,
+     21
+    ]
+   ],
+   "of_1x": "d836ea635be2f314d8160315ad66367663bb677af0630c129aff3482f8281790",
+   "by": "fx_vector 2",
+   "sha256": "7e46e8166b78ff939f2cf43e037e16f6f18e993512dcc4e8c5a9fdc8715e9f4c",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_leblanc_big",
+   "tag": "w_blast",
+   "file": "league_leblanc_big/w_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     27,
+     23
+    ],
+    [
+     39,
+     53
+    ],
+    [
+     47,
+     73
+    ],
+    [
+     59,
+     97
+    ],
+    [
+     47,
+     69
+    ],
+    [
+     47,
+     49
+    ],
+    [
+     23,
+     21
+    ]
+   ],
+   "of_1x": "bbaaaa1e53f4b918971c05d4d9478d2459e9aeb481e234f473efe323525ca29b",
+   "by": "fx_vector 2",
+   "sha256": "5642b2805f9dffc211bb2e1c01302af264712573433f514e9bbeae56bf5e26fc",
+   "note": "batch 01 enlarged 2026-11-14"
+  }
+ ]
+}

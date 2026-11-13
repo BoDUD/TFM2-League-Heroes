@@ -3,6 +3,91 @@
  "items": [
   {
    "sheet": "league_yasuo_big",
+   "tag": "eq",
+   "file": "league_yasuo_big/eq.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     43,
+     43
+    ],
+    [
+     49,
+     47
+    ],
+    [
+     51,
+     35
+    ],
+    [
+     55,
+     47
+    ],
+    [
+     45,
+     43
+    ]
+   ],
+   "of_1x": "82696c02aafb60a2fa91840f9695f81f5ab330d15710a32811de6c91560fde68",
+   "by": "fx_vector 2",
+   "sha256": "5ffd15215a0c459bb186631cf4c8902e60b3e8d82461e344243745ac0d9c9b4e",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "eq3",
+   "file": "league_yasuo_big/eq3.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     49,
+     41
+    ],
+    [
+     53,
+     31
+    ],
+    [
+     55,
+     105
+    ],
+    [
+     51,
+     105
+    ],
+    [
+     49,
+     101
+    ],
+    [
+     45,
+     65
+    ]
+   ],
+   "of_1x": "0009c8dbc80f1ebfef30b4dbadc046b4b46d063fe5e6b35618a7a4974b8e86a1",
+   "by": "fx_vector 2",
+   "sha256": "e7fefff81f399c2685755da5043cec59ca1ee123a2ed6130f72358b4c705ffa1",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
    "tag": "tornado",
    "file": "league_yasuo_big/tornado.png",
    "ppu": 2,
