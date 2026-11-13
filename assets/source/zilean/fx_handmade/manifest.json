@@ -50,6 +50,81 @@
    "by": "fx_vector 3",
    "sha256": "d1c1af0228e827da6142525ee8589c92f3fd091bee8f543826aab69ffd1c4b16",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zilean_big",
+   "tag": "r_cast",
+   "file": "league_zilean_big/r_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     29
+    ],
+    [
+     37,
+     33
+    ],
+    [
+     37,
+     33
+    ],
+    [
+     39,
+     33
+    ],
+    [
+     37,
+     31
+    ]
+   ],
+   "of_1x": "8c5ed8adcec7d656fc5232398e6b5ae725abd4b347cf91b694be8bcd133aae6f",
+   "by": "fx_vector 3",
+   "sha256": "59dc91dffd9609dfb338314e94ac866ad84f4bf29bd3ba2547ef2bd76ea9d297",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zilean_fx",
+   "tag": "q_bomb_on",
+   "file": "league_zilean_fx/q_bomb_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     15,
+     31
+    ],
+    [
+     13,
+     29
+    ],
+    [
+     15,
+     31
+    ],
+    [
+     13,
+     29
+    ]
+   ],
+   "of_1x": "87affe45768830815b9da864b6894eb91aed673503b388f0ddadf38d930567b2",
+   "by": "fx_vector 3",
+   "sha256": "76dcb082364c5b65ab509549750c45897193df9d0cfb09fe4d40b585f403d6cf",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }

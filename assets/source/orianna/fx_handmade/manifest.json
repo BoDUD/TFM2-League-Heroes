@@ -108,6 +108,31 @@
   },
   {
    "sheet": "league_orianna_fx",
+   "tag": "ball_ground",
+   "file": "league_orianna_fx/ball_ground.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     15,
+     23
+    ],
+    [
+     15,
+     23
+    ]
+   ],
+   "of_1x": "59372fdb8fa1b6a24bc94dfd4c581255a3c4cc228612e3953f42e36a8d667044",
+   "by": "fx_vector 3",
+   "sha256": "5831f8b6e32a6b64f00cb4bf779087bdc467780c4e6defd654f8c2c350a2e942",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
    "tag": "e_shield",
    "file": "league_orianna_fx/e_shield.png",
    "ppu": 2,

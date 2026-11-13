@@ -100,6 +100,71 @@
    "by": "fx_vector 2",
    "sha256": "5642b2805f9dffc211bb2e1c01302af264712573433f514e9bbeae56bf5e26fc",
    "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_leblanc_big",
+   "tag": "w_pad",
+   "file": "league_leblanc_big/w_pad.png",
+   "ppu": 2,
+   "frames": 10,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     27,
+     29
+    ],
+    [
+     27,
+     27
+    ],
+    [
+     29,
+     29
+    ],
+    [
+     29,
+     35
+    ],
+    [
+     29,
+     35
+    ],
+    [
+     29,
+     33
+    ],
+    [
+     27,
+     35
+    ],
+    [
+     25,
+     33
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     15,
+     23
+    ]
+   ],
+   "of_1x": "4a0555278b512adbb0973e43b33e925b927f3b51da571fc66ad5f81c9e158418",
+   "by": "fx_vector 3",
+   "sha256": "c11a392e1580e9d8622b370561f797ddf1a70633f4193906e54d928274b79791",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }

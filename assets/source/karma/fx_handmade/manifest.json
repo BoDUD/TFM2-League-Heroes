@@ -103,6 +103,46 @@
   },
   {
    "sheet": "league_karma_fx",
+   "tag": "e_land",
+   "file": "league_karma_fx/e_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     15,
+     31
+    ],
+    [
+     19,
+     39
+    ],
+    [
+     19,
+     39
+    ],
+    [
+     19,
+     45
+    ],
+    [
+     19,
+     39
+    ]
+   ],
+   "of_1x": "0cfa8c41efaebd752b6d8bfa92e145769f4493ee847ab2f6aede7250c29fb17c",
+   "by": "fx_vector 3",
+   "sha256": "c351f5f36ffb0307eb620abf396c23e249b49d73ce7c985e7ae23d2373ef91bc",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_karma_fx",
    "tag": "e_on",
    "file": "league_karma_fx/e_on.png",
    "ppu": 2,

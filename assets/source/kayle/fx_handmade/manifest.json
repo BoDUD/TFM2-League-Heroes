@@ -1,0 +1,100 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_kayle_big",
+   "tag": "q_blast",
+   "file": "league_kayle_big/q_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     9,
+     13
+    ],
+    [
+     17,
+     29
+    ],
+    [
+     37,
+     19
+    ],
+    [
+     51,
+     25
+    ],
+    [
+     45,
+     23
+    ],
+    [
+     25,
+     19
+    ],
+    [
+     17,
+     11
+    ]
+   ],
+   "of_1x": "c6872d8beca8718b5904f75029b806b8270064d30cdfb6c7dffa58de75e37490",
+   "by": "fx_vector 3",
+   "sha256": "f80ee76bbd1d40c4a5666196c6add502698c90321c2cb639ff4e234f7d3ac21f",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "r_invuln",
+   "file": "league_kayle_big/r_invuln.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     81
+    ],
+    [
+     29,
+     81
+    ],
+    [
+     29,
+     83
+    ],
+    [
+     29,
+     81
+    ],
+    [
+     29,
+     83
+    ]
+   ],
+   "of_1x": "0cbe934c7a68a29c69c47366374c27f6b3fdcb65d3d1a7979abd24c19f3ad9de",
+   "by": "fx_vector 3",
+   "sha256": "906cbfcb037267f8d4adef024729d2d1ce656af4aa4c42ae986f28bfcc4d13e4",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

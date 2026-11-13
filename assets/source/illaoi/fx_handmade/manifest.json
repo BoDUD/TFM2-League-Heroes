@@ -3,6 +3,41 @@
  "items": [
   {
    "sheet": "league_illaoi_fx",
+   "tag": "e_echo",
+   "file": "league_illaoi_fx/e_echo.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     7,
+     7
+    ],
+    [
+     13,
+     13
+    ],
+    [
+     19,
+     19
+    ],
+    [
+     23,
+     23
+    ]
+   ],
+   "of_1x": "8c8efd371633bb160bdc7de01ca82b8190a9a94f9b634f53207bd9b19a8c0565",
+   "by": "fx_vector 3",
+   "sha256": "8b4ef2451ff55c9c94d25644e3b1203e07502a496e691f923501b6cf805984da",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_illaoi_fx",
    "tag": "e_spirit",
    "file": "league_illaoi_fx/e_spirit.png",
    "ppu": 2,

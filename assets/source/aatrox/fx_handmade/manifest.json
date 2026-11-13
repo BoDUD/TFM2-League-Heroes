@@ -3,6 +3,197 @@
  "items": [
   {
    "sheet": "league_aatrox_big",
+   "tag": "q2_tele",
+   "file": "league_aatrox_big/q2_tele.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "11f394887b5f66835b50470adaca09051f2068658adda59561188ea9ecc16f3b",
+   "by": "fx_vector 3",
+   "sha256": "bcb45542bf59cd10893fa9bfb07473bd5ada0d1a749c499710bba72165da9641",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q2_tele_b",
+   "file": "league_aatrox_big/q2_tele_b.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "36e320720cb4b9b1b8bac3cc38388a83287f24f243548c2c941e3d0ffa47089c",
+   "by": "fx_vector 3",
+   "sha256": "40a0efa22e25f36d431a4c8b71d76513653523009389576a3f94bde649524994",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q2_tele_c",
+   "file": "league_aatrox_big/q2_tele_c.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "f66dfb0005ae1f8a5791b16e1b106c6b0ed21a2a58943405aed3c984a4cef0e5",
+   "by": "fx_vector 3",
+   "sha256": "06efeb075dda96b58571044168fb380e7f3d9fa9e73da13ae75334b14d51a1d2",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_tele",
+   "file": "league_aatrox_big/q3_tele.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ]
+   ],
+   "of_1x": "bbf3447bfdfc30426ef5ec0ee83c8d1cd79277412ca352d2610057fa953b0510",
+   "by": "fx_vector 3",
+   "sha256": "30d23ba3dd969bdfb045117edab1f01a34fc96e8681fff52d6d204a536603bec",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_tele_b",
+   "file": "league_aatrox_big/q3_tele_b.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ]
+   ],
+   "of_1x": "6953561f204c934e75cfa9d9a1fed39f12bd13f491912d5e2a6d7170a83be600",
+   "by": "fx_vector 3",
+   "sha256": "9818b5f8d7c571d4a0c659ee8024d306a1357d2a3e4be8094df0570895e9b589",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
    "tag": "q3_tele_c",
    "file": "league_aatrox_big/q3_tele_c.png",
    "ppu": 2,
@@ -134,6 +325,52 @@
    "by": "fx_vector 3",
    "sha256": "052ed9698e6b184996201e6418fd4b94818bca1ab764d92ea57c30e194a9a8fa",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_fx",
+   "tag": "r_feared",
+   "file": "league_aatrox_fx/r_feared.png",
+   "ppu": 2,
+   "frames": 15,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     21,
+     27
+    ],
+    [
+     21,
+     27
+    ],
+    [
+     21,
+     27
+    ],
+    [
+     21,
+     27
+    ]
+   ],
+   "of_1x": "3d80cadc32e4a7118ca10d36687d697a4d0345cad62118d2bcdbbec8fcc42563",
+   "by": "fx_vector 3",
+   "sha256": "8508ea7a302d82d09aadc43f607ee0d1ce848235d41ef4dde25f80c3ea9ccee3",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }

@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_rammus_big",
+   "tag": "r_shock",
+   "file": "league_rammus_big/r_shock.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     21,
+     31
+    ],
+    [
+     43,
+     39
+    ],
+    [
+     65,
+     47
+    ],
+    [
+     75,
+     47
+    ]
+   ],
+   "of_1x": "06b4b5aa29dda2a2bf2f75697c65af3fb7c0100be108f55e834555bb8f70243f",
+   "by": "fx_vector 3",
+   "sha256": "8d78531e764ad92923a09ef433d1402d9b9d6c384a18ae6bbae9dfd2a9c04274",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

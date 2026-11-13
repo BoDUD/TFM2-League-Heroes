@@ -3,6 +3,36 @@
  "items": [
   {
    "sheet": "league_ziggs_big",
+   "tag": "e_field",
+   "file": "league_ziggs_big/e_field.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     53,
+     45
+    ],
+    [
+     53,
+     45
+    ],
+    [
+     53,
+     45
+    ]
+   ],
+   "of_1x": "e02e76f6789b5495a2647c383db855ce86bef42e5b6592ed559e98555476537f",
+   "by": "fx_vector 3",
+   "sha256": "da8575c3e3f94a5d1a6aeb017adc1dd6e1668aeccd6337d9224c5c51bf93baa4",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ziggs_big",
    "tag": "r_warn",
    "file": "league_ziggs_big/r_warn.png",
    "ppu": 2,

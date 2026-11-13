@@ -43,6 +43,46 @@
   },
   {
    "sheet": "league_skarner_fx",
+   "tag": "p_burst",
+   "file": "league_skarner_fx/p_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     9,
+     33
+    ],
+    [
+     21,
+     43
+    ],
+    [
+     23,
+     43
+    ],
+    [
+     25,
+     41
+    ],
+    [
+     23,
+     29
+    ]
+   ],
+   "of_1x": "bbf8ba6f7ddb57e37a180baaf5127743e7a2a6e1f9569e817388952177378935",
+   "by": "fx_vector 3",
+   "sha256": "18387c9c98accad3d204a9c6864584649b1ea9a4b4588515bfc80bb7971f3994",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_skarner_fx",
    "tag": "w_shield",
    "file": "league_skarner_fx/w_shield.png",
    "ppu": 2,

@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nidalee_fx",
+   "tag": "e_heal",
+   "file": "league_nidalee_fx/e_heal.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     23
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     17,
+     37
+    ],
+    [
+     19,
+     37
+    ],
+    [
+     17,
+     33
+    ],
+    [
+     17,
+     23
+    ]
+   ],
+   "of_1x": "ecc0a11242ec820969bad137b2167ae29149637ff078400f7f3a92f1b5b04f9c",
+   "by": "fx_vector 3",
+   "sha256": "87443dec454d202a4337dda6da10245f45c3dc86b0ef84c06f7a2605ed7d968d",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

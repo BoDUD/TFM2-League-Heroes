@@ -3,6 +3,41 @@
  "items": [
   {
    "sheet": "league_senna_fx",
+   "tag": "r_sh",
+   "file": "league_senna_fx/r_sh.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     27,
+     61
+    ],
+    [
+     31,
+     47
+    ],
+    [
+     33,
+     37
+    ],
+    [
+     31,
+     47
+    ]
+   ],
+   "of_1x": "80e1b58005a53da30f5af68b862350d0d0d6ee2b134b85896e90374fbbcb43e5",
+   "by": "fx_vector 3",
+   "sha256": "cbe05a42cfcd840f4df888baccf4bb2e05aea05af7fdeeb2ca2e50b51d1c90e5",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_senna_fx",
    "tag": "r_shield",
    "file": "league_senna_fx/r_shield.png",
    "ppu": 2,

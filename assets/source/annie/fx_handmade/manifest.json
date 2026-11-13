@@ -158,6 +158,51 @@
   },
   {
    "sheet": "league_annie_fx",
+   "tag": "e_shield",
+   "file": "league_annie_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     53
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     27,
+     53
+    ]
+   ],
+   "of_1x": "55e90d14ae7f45b7e7e7871b004e9619a9b17d17308745343e3600ca21a4ef0e",
+   "by": "fx_vector 3",
+   "sha256": "44198620044d67f70bcb800eabd8ba33e596e291da4ae4a745b2f4f744e5ab17",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_annie_fx",
    "tag": "q_ball",
    "file": "league_annie_fx/q_ball.png",
    "ppu": 2,

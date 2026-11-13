@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_malzahar_big",
+   "tag": "q_rift",
+   "file": "league_malzahar_big/q_rift.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     25
+    ],
+    [
+     39,
+     25
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     43,
+     25
+    ],
+    [
+     35,
+     25
+    ]
+   ],
+   "of_1x": "1183ddf3b102e7441ff986e28820d76ed3883da7ea113e4dbbeb9f6f6057fb13",
+   "by": "fx_vector 3",
+   "sha256": "d6ec46b21188a4da60510096ea6d659656f99d165b107fd96ac2031305d969ff",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_malzahar_big",
    "tag": "r_pool",
    "file": "league_malzahar_big/r_pool.png",
    "ppu": 2,

@@ -2,6 +2,161 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_nautilus_big",
+   "tag": "e_wave1",
+   "file": "league_nautilus_big/e_wave1.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     9,
+     29
+    ],
+    [
+     15,
+     33
+    ],
+    [
+     19,
+     33
+    ],
+    [
+     23,
+     37
+    ],
+    [
+     23,
+     33
+    ]
+   ],
+   "of_1x": "515ecf9587c3fd01c5a108819bc804b54eaf03e196e9a97204bec265ae4d6026",
+   "by": "fx_vector 3",
+   "sha256": "5aa4787794852734e901e9cd1dd9378f82d585674e6f79de2d3eb2b5004d1561",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nautilus_big",
+   "tag": "e_wave2",
+   "file": "league_nautilus_big/e_wave2.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     15,
+     29
+    ],
+    [
+     19,
+     33
+    ],
+    [
+     21,
+     35
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     19,
+     31
+    ]
+   ],
+   "of_1x": "9ceda9d13be302fead082089852dda1414cf64cb3384ef02efd3742754596343",
+   "by": "fx_vector 3",
+   "sha256": "ff0a36943359ce4b8e99a0a2749f253210803eff6e4044fe4f40637a1c354c83",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nautilus_big",
+   "tag": "e_wave3",
+   "file": "league_nautilus_big/e_wave3.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     39
+    ],
+    [
+     31,
+     45
+    ],
+    [
+     35,
+     47
+    ],
+    [
+     45,
+     49
+    ],
+    [
+     37,
+     43
+    ]
+   ],
+   "of_1x": "e4d7c3afd6c7b3f1fdc291088b4f5641608aff333ecbcfb8cbe0da122d86f4bb",
+   "by": "fx_vector 3",
+   "sha256": "2105b83f39ecc207832013bfdfbd6c35348d5c57ffa5d595fa3b1ff0a8767c13",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nautilus_fx",
+   "tag": "w_hit",
+   "file": "league_nautilus_fx/w_hit.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     7,
+     29
+    ],
+    [
+     13,
+     29
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     11,
+     31
+    ]
+   ],
+   "of_1x": "43ea4c2935ebb5eb09687a7708bcc36c4e99c74bd76a2bfd9a415e6db51f470f",
+   "by": "fx_vector 3",
+   "sha256": "3b9de03b4098635c83a10b92c9854fedd6d0561e31870d177848b88602ff8028",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
    "sheet": "league_nautilus_fx",
    "tag": "w_on",
    "file": "league_nautilus_fx/w_on.png",

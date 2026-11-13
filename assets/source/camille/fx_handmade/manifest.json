@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_camille_fx",
+   "tag": "r_mark",
+   "file": "league_camille_fx/r_mark.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     29,
+     31
+    ],
+    [
+     29,
+     31
+    ],
+    [
+     29,
+     33
+    ],
+    [
+     29,
+     31
+    ]
+   ],
+   "of_1x": "3cce2838e8627a988b56980ab29a3b56ea758f52a9bcff5ce661ac7fb0350b79",
+   "by": "fx_vector 3",
+   "sha256": "24d4ef2ed96d73379f7b8294070fd8468a45b334744dfd8a34e41e9dd6c56e84",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

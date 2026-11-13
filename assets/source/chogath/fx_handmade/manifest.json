@@ -40,6 +40,36 @@
    "by": "fx_vector 3",
    "sha256": "8532161eeac046796e31751d26b3e8c33c2b7f79527039d11b259168b0379a5b",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_fx",
+   "tag": "w_hit",
+   "file": "league_chogath_fx/w_hit.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     7,
+     35
+    ],
+    [
+     17,
+     45
+    ],
+    [
+     17,
+     45
+    ]
+   ],
+   "of_1x": "ebc181fd5d0d82f0522bf5584de11538d38734a682900c90cbc615f14d00d801",
+   "by": "fx_vector 3",
+   "sha256": "d3fb17db0249698bc2c373d22304ad2776c4ea6c507f7a6fb15598384d13c411",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }

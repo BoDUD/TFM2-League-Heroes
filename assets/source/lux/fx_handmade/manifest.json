@@ -61,6 +61,65 @@
    "note": "batch 02 rings and zones 2026-11-14"
   },
   {
+   "sheet": "league_lux_fx",
+   "tag": "shield",
+   "file": "league_lux_fx/shield.png",
+   "ppu": 2,
+   "frames": 12,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     27,
+     51
+    ],
+    [
+     29,
+     53
+    ],
+    [
+     33,
+     53
+    ],
+    [
+     27,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     31,
+     55
+    ],
+    [
+     23,
+     47
+    ]
+   ],
+   "of_1x": "744c798d640ab53ccfe932b227761774966c64748bfd92d3335425c88ff6a340",
+   "by": "fx_vector 3",
+   "sha256": "ec058a2a65c73d6ebe598647ed267fe550bc88807c27772aabeb7f41d9dc98df",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
    "sheet": "league_lux_r",
    "tag": "beam",
    "file": "league_lux_r/beam.png",

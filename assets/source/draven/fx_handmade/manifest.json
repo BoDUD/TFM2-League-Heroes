@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_draven_fx",
+   "tag": "q_zone",
+   "file": "league_draven_fx/q_zone.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     27,
+     33
+    ],
+    [
+     29,
+     33
+    ],
+    [
+     27,
+     33
+    ],
+    [
+     25,
+     33
+    ],
+    [
+     25,
+     33
+    ],
+    [
+     27,
+     31
+    ],
+    [
+     29,
+     35
+    ]
+   ],
+   "of_1x": "550f8145f06cd574e98d0d6bd07f91df8b22c784c53237f2e0bec3d89ef7ca78",
+   "by": "fx_vector 3",
+   "sha256": "4234a4ecbe3ffb873b8d767248dda8d77cbc65a216a4009c2abb352da0a3f65f",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

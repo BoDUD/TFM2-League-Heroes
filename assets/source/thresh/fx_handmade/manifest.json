@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_thresh_fx",
+   "tag": "w_shield",
+   "file": "league_thresh_fx/w_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     61
+    ],
+    [
+     33,
+     61
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ]
+   ],
+   "of_1x": "204a3cacc0347224f89ab12cb0c018dfb745c5fce7faa6cb2250f2e86288d4bb",
+   "by": "fx_vector 3",
+   "sha256": "03dec1379a79c8981020ed4bdc02f5694754026ed5c199925590a0ddf9ce80a9",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

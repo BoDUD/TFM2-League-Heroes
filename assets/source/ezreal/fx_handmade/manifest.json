@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ezreal_fx",
+   "tag": "w_stick",
+   "file": "league_ezreal_fx/w_stick.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     23
+    ],
+    [
+     21,
+     23
+    ],
+    [
+     15,
+     27
+    ],
+    [
+     19,
+     25
+    ],
+    [
+     17,
+     19
+    ]
+   ],
+   "of_1x": "e87b1dc233426c72b8f074dcf9ae254a4f24e6735caccbae0b0ac4ab5ec39180",
+   "by": "fx_vector 3",
+   "sha256": "38db1383f79a7a0fd4e6a06f7c078c62d10791db37919fa1985a23ddd19a9af9",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

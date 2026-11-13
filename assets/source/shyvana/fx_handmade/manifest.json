@@ -43,6 +43,46 @@
   },
   {
    "sheet": "league_shyvana_big",
+   "tag": "q2_wave",
+   "file": "league_shyvana_big/q2_wave.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     29,
+     35
+    ],
+    [
+     31,
+     35
+    ],
+    [
+     31,
+     35
+    ],
+    [
+     33,
+     35
+    ],
+    [
+     31,
+     35
+    ]
+   ],
+   "of_1x": "8ad86b12314052d8285b68d2b86784f775b0b720ccce1df278956d0a2c8ee0e0",
+   "by": "fx_vector 3",
+   "sha256": "d522eefc7f9978356a83340b1f3496c11b5a18e8dce6517192a525e011f01b21",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
    "tag": "w_aegis",
    "file": "league_shyvana_big/w_aegis.png",
    "ppu": 2,

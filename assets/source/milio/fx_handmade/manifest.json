@@ -2,6 +2,41 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_milio_fx",
+   "tag": "e_on",
+   "file": "league_milio_fx/e_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     23,
+     43
+    ],
+    [
+     23,
+     43
+    ],
+    [
+     23,
+     43
+    ],
+    [
+     23,
+     43
+    ]
+   ],
+   "of_1x": "3301579790ae5acc3c0fd5201808d1010880d5e4e675c72405662adff8465f10",
+   "by": "fx_vector 3",
+   "sha256": "c874eb854881c9f2457530121060b71c01c223a258edebd0f208bc6468bc1610",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
    "sheet": "league_milio_fx_big",
    "tag": "w_fire",
    "file": "league_milio_fx_big/w_fire.png",

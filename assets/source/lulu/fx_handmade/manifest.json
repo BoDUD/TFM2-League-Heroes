@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_lulu_fx",
+   "tag": "e_land",
+   "file": "league_lulu_fx/e_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     11,
+     25
+    ],
+    [
+     15,
+     29
+    ],
+    [
+     15,
+     45
+    ],
+    [
+     13,
+     45
+    ],
+    [
+     9,
+     37
+    ]
+   ],
+   "of_1x": "a0ab5d156ba424063146c4db73ddb267ca6966ac357a2a3d7c31cf8820d4803c",
+   "by": "fx_vector 3",
+   "sha256": "fa2e5edc309daf2262753b342c245161f58f64064394f5adf357f6b3072108c6",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

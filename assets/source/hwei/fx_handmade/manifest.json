@@ -45,6 +45,46 @@
    "by": "fx_vector 3",
    "sha256": "02f0735b7980f0c49c3aeeb5a37c54473fa1568adc85d2cb17b19b6e3a8f1a4f",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_hwei_fx",
+   "tag": "w_shield",
+   "file": "league_hwei_fx/w_shield.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     17,
+     23
+    ],
+    [
+     21,
+     43
+    ],
+    [
+     23,
+     45
+    ],
+    [
+     21,
+     45
+    ],
+    [
+     19,
+     41
+    ]
+   ],
+   "of_1x": "b7d0a1aefbec5aa6d3afac70886176d915979c331ab7d2bb5a51c203ac01d86f",
+   "by": "fx_vector 3",
+   "sha256": "8e1596821397ad811a8f02b40905127db8e747162e2c349afadbf5d02916f2dd",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }

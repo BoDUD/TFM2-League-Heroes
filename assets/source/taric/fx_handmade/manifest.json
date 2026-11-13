@@ -55,6 +55,41 @@
    "by": "fx_vector 3",
    "sha256": "243d9426820351078c01b7062371ba1eeef485072c3f074a3fdfa26f6ef5809d",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_taric_fx",
+   "tag": "w_link",
+   "file": "league_taric_fx/w_link.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     39,
+     31
+    ],
+    [
+     37,
+     31
+    ],
+    [
+     39,
+     27
+    ],
+    [
+     39,
+     29
+    ]
+   ],
+   "of_1x": "c664ac771b64ef2fd7b3b8d832a8873935bc062e6524b94f495a3ae61fa3c5ca",
+   "by": "fx_vector 3",
+   "sha256": "8e2fd387ad8bdf7c7020297b8227f00da3a59c8b550df04528e1a5d28e0b331d",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }

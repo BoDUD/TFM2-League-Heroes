@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nilah_fx",
+   "tag": "eq_hit",
+   "file": "league_nilah_fx/eq_hit.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     5,
+     33
+    ],
+    [
+     11,
+     39
+    ],
+    [
+     13,
+     39
+    ],
+    [
+     13,
+     41
+    ]
+   ],
+   "of_1x": "63c26b66a0384407966ea5955552313fcc252232da3802d40bacfcce23e2daf2",
+   "by": "fx_vector 3",
+   "sha256": "2ddd81bacc04afe121e88b1732c44dcd9497d426a2b35a6db2191c3f34fe7701",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

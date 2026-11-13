@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_kalista_big",
+   "tag": "e_cast",
+   "file": "league_kalista_big/e_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     39,
+     43
+    ],
+    [
+     39,
+     53
+    ],
+    [
+     35,
+     51
+    ],
+    [
+     33,
+     53
+    ],
+    [
+     37,
+     13
+    ]
+   ],
+   "of_1x": "9f2941fc56d77abc1083419ef5b16d61f42c6a5d53ad90f3dd85cae9858d134b",
+   "by": "fx_vector 3",
+   "sha256": "d935a05f8ae1cf48d902b4b5cf5f8011c23d030e471508c7fdb96876aee73374",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_kalista_big",
    "tag": "r_fly",
    "file": "league_kalista_big/r_fly.png",
    "ppu": 2,

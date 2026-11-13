@@ -55,6 +55,51 @@
    "by": "fx_vector 2",
    "sha256": "9fcde8ef316250473831d0b5035312ad3a6e8cb20c2d0131584bd91373717a7d",
    "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_teemo_sym",
+   "tag": "stealth",
+   "file": "league_teemo_sym/stealth.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     53,
+     53
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     53,
+     53
+    ]
+   ],
+   "of_1x": "84e01bf8c1ba073f55e39f572dc08a80c78723d42b00899dfc22221551ba9200",
+   "by": "fx_vector 3",
+   "sha256": "1166a16675975a4d458d6e21a2009dc673e1d5de7dc228ff62382ade50b3c52f",
+   "note": "batch 03 rings and zones 2026-11-14"
   }
  ]
 }
