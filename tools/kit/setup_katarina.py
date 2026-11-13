@@ -62,7 +62,7 @@ TEXT = {
                  "就绪且匕首旁有敌方英雄时，瞬步到匕首处。",
         "skill2": O + "瞬步" + E + "就绪时先瞬步到敌方英雄身边，造成" + mag("e") + M + "魔法伤害" + E + "（冷却" + A + "{e_cd}秒" + E + "）；再把匕首抛向空中，" + A +
                   "{w_fall}秒" + E + "后落地，获得逐渐衰减的" + W + "移速+{w_ms}%" + E + "。",
-        "ult": "原地旋转引导" + A + "{r_t}秒" + E + "，向周围的敌方英雄连续掷出匕首，共造成" + mag("r") + M + "魔法伤害" + E + "并使其" + C + "治疗效果-{r_gw}%" + E +
+        "ult": "原地旋转引导" + A + "{r_t}秒" + E + "，向周围最多{r_n}名敌方英雄连续掷出匕首，共造成" + mag("r") + M + "魔法伤害" + E + "并使其" + C + "治疗效果-{r_gw}%" + E +
                "。受到控制时中断。",
         "names": ("弹射之刃", "伺机待发", "死亡莲华"),
     },
@@ -74,7 +74,7 @@ TEXT = {
                  "就緒且匕首旁有敵方英雄時，瞬步到匕首處。",
         "skill2": O + "瞬步" + E + "就緒時先瞬步到敵方英雄身邊，造成" + mag("e") + M + "魔法傷害" + E + "（冷卻" + A + "{e_cd}秒" + E + "）；再把匕首拋向空中，" + A +
                   "{w_fall}秒" + E + "後落地，獲得逐漸衰減的" + W + "跑速+{w_ms}%" + E + "。",
-        "ult": "原地旋轉引導" + A + "{r_t}秒" + E + "，向周圍的敵方英雄連續擲出匕首，共造成" + mag("r") + M + "魔法傷害" + E + "並使其" + C + "治療效果-{r_gw}%" + E +
+        "ult": "原地旋轉引導" + A + "{r_t}秒" + E + "，向周圍最多{r_n}名敵方英雄連續擲出匕首，共造成" + mag("r") + M + "魔法傷害" + E + "並使其" + C + "治療效果-{r_gw}%" + E +
                "。受到控制時中斷。",
         "names": ("彈射利刃", "備戰", "死亡蓮花"),
     },
@@ -88,7 +88,7 @@ TEXT = {
         "skill2": "If " + O + "Shunpo" + E + " is ready she first blinks to an enemy champion for " + mag("e") + " " + M + "magic damage" + E + " (cooldown " + A +
                   "{e_cd}s" + E + "); then tosses a dagger into the air that lands after " + A + "{w_fall}s" + E + ", gaining " + W + "{w_ms}% move speed" + E +
                   " that decays.",
-        "ult": "Channels for " + A + "{r_t}s" + E + ", throwing daggers at nearby enemy champions for " + mag("r") + " " + M + "magic damage" + E + " in total and " + C +
+        "ult": "Channels for " + A + "{r_t}s" + E + ", throwing daggers at up to {r_n} nearby enemy champions for " + mag("r") + " " + M + "magic damage" + E + " in total and " + C +
                "{r_gw}% reduced healing" + E + ". Crowd control interrupts it.",
         "names": ("Bouncing Blade", "Preparation", "Death Lotus"),
     },
@@ -100,7 +100,7 @@ TEXT = {
                  "가 준비되고 단검 근처에 적 챔피언이 있으면 단검으로 순보.",
         "skill2": O + "순보" + E + "가 준비되면 먼저 적 챔피언에게 순보해 " + mag("e") + " " + M + "마법 피해" + E + "(대기시간 " + A + "{e_cd}초" + E + "); 이후 단검을 공중에 "
                   "던져 " + A + "{w_fall}초" + E + " 뒤 떨어지며 점차 감소하는 " + W + "이동 속도 +{w_ms}%" + E + ".",
-        "ult": A + "{r_t}초" + E + " 동안 정신을 집중해 주변 적 챔피언에게 단검을 던져 총 " + mag("r") + " " + M + "마법 피해" + E + "와 " + C + "치유 감소 {r_gw}%" + E +
+        "ult": A + "{r_t}초" + E + " 동안 정신을 집중해 주변 적 챔피언 최대 {r_n}명에게 단검을 던져 총 " + mag("r") + " " + M + "마법 피해" + E + "와 " + C + "치유 감소 {r_gw}%" + E +
                ". 군중 제어 시 중단.",
         "names": ("단검 투척", "준비", "죽음의 연꽃"),
     },
@@ -112,7 +112,7 @@ TEXT = {
                  "瞬歩" + E + "が使用可能で短剣の近くに敵チャンピオンがいれば短剣へ瞬歩。",
         "skill2": O + "瞬歩" + E + "が使用可能なら先に敵チャンピオンへ瞬歩し" + mag("e") + "の" + M + "魔法ダメージ" + E + "（CD" + A + "{e_cd}秒" + E + "）。短剣を宙に投げ" +
                   A + "{w_fall}秒" + E + "後に落下、減衰する" + W + "移動速度+{w_ms}%" + E + "。",
-        "ult": A + "{r_t}秒" + E + "間詠唱し、周囲の敵チャンピオンに短剣を投げ続け合計" + mag("r") + "の" + M + "魔法ダメージ" + E + "と" + C + "回復量-{r_gw}%" + E +
+        "ult": A + "{r_t}秒" + E + "間詠唱し、周囲の敵チャンピオン最大{r_n}体に短剣を投げ続け合計" + mag("r") + "の" + M + "魔法ダメージ" + E + "と" + C + "回復量-{r_gw}%" + E +
                "。行動妨害で中断。",
         "names": ("バウンドナイフ", "プリペレーション", "デスロータス"),
     },
@@ -135,7 +135,7 @@ def secs(t):
 
 
 def values(p):
-    v = {k: p[k] for k in ("q_dmg", "q_ap", "q_bn", "p_dmg", "p_ap", "e_dmg", "e_ap", "w_ms", "r_dmg", "r_ap", "r_gw")}
+    v = {k: p[k] for k in ("q_dmg", "q_ap", "q_bn", "p_dmg", "p_ap", "e_dmg", "e_ap", "w_ms", "r_dmg", "r_ap", "r_gw", "r_n")}
     v.update({k: secs(p[k]) for k in ("p_win", "d_life", "e_short", "e_cd", "w_fall", "r_t")})
     return v
 
