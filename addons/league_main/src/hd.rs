@@ -835,15 +835,18 @@ pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_
 ///
 /// Bel'Veth's true form (the user, 2026-11-14: 「阿尔卑斯的变为真身是不是要做个变形啊 和联盟一样」 - 「卑尔维斯」, picked
 /// 「先变大再张翼」 of the three ways): League's Endless Banquet turns her into a bigger body with the wings spread; here her R was the
-/// stats and a purple glow only. The first half is this row - 18 % bigger while `league_belveth_r_on` is on her (15 s,
+/// stats and a purple glow only. The first half is this row - bigger while `league_belveth_r_on` is on her (15 s,
 /// renewed by a takedown; the main pack's data and the add-on league_belveth's copy both give it under this name),
-/// grown over a second: on her SIZES 0.85 that is the size her model was drawn at (0.85 x 1.18 = 1.00; standing,
-/// spikes to claws, 41 x 43 game px -> 48 x 50). Her shadow and the glow on the ground stay as they are (not her
-/// sheet). The second half - the spread-wings body as her own frames in true form - waits for its pictures
-/// (docs/heroes/league_belveth.md); with them the wings carry the bigger outline and this factor is judged again.
+/// grown over a second. Her shadow and the glow on the ground stay as they are (not her sheet). The second half is
+/// her sheet's `r_` tags (tools/art/rig_belveth.py TRUE: hovering with both wings spread, from the poses Codex had
+/// drawn) played by the add-on league_belveth (0.2.0, src/view.rs) while the same buff is on her. 18 % at first, for
+/// the folded body alone (0.85 x 1.18 = 1.00, the size her model was drawn at: standing, spikes to claws, 41 x 43
+/// game px -> 48 x 50); 10 % with the wings, which carry the bigger outline themselves - the stance 48 game px tall
+/// and 51 wide at her 0.85, 53 x 57 grown (Volibear's storm form, 52 tall, is what the user took; his 61 was
+/// 「实在太大了」). Without the add-on she grows the same 10 % folded.
 pub const FORMS: &[(&str, &[&str], f32, f32)] =
     &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25),
-      ("league_belveth", &["league_belveth_r_on"], 1.18, 1.0)];
+      ("league_belveth", &["league_belveth_r_on"], 1.10, 1.0)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_heimerdinger's turrets, league_leblanc_clone (below) and the rest
@@ -1166,20 +1169,27 @@ mod tests {
     }
 
     /// Bel'Veth's form row: her true form's buff under the same name in the main pack's data and in the add-on
-    /// league_belveth's copy of it (the copy replaces the main pack's when the add-on is on - she grows either way),
-    /// and with her base size the true form is the size her model was drawn at.
+    /// league_belveth's copy of it (the copy replaces the main pack's when the add-on is on - she grows either way);
+    /// grown she is no bigger than her model was drawn (her base size was cut for being big); and the spread-wings
+    /// frames the add-on plays under that buff are in her sheet, each with its dense twin (this DLL draws those).
     #[test]
     fn belveth_grows_in_her_true_form() {
         let main = include_str!("../../../league/champion/league_belveth.data_champion");
         let addon = include_str!("../../league_belveth/override/league_belveth.data_champion");
         let (_, buffs, s, t) = *FORMS.iter().find(|f| f.0 == "league_belveth").expect("Bel'Veth grows in her true form");
-        assert_eq!((buffs, s, t), (&["league_belveth_r_on"][..], 1.18, 1.0));
+        assert_eq!((buffs, s, t), (&["league_belveth_r_on"][..], 1.10, 1.0));
         for (data, whose) in [(main, "the main pack"), (addon, "the add-on's copy")] {
             assert!(data.contains("\"name\": \"league_belveth_r_on\""), "{whose} never gives her the true form's buff");
         }
         let base = SIZES.iter().find(|r| r.0 == "league_belveth").expect("Bel'Veth's base size").1;
-        assert!((base * s - 1.0).abs() < 0.01, "true form x{:.3} of the drawn model", base * s);
+        assert!(base * s > base && base * s <= 1.0, "true form x{:.3} of the drawn model", base * s);
         assert_eq!(FORMS.iter().filter(|f| f.0 == "league_belveth").count(), 1);
+        let fanim = include_str!("../../../league/champions/league_belveth#anim.fanim");
+        for tag in ["idle", "run", "hit", "attack", "skill", "skill2"] {
+            for name in [format!("r_{tag}"), format!("hd_r_{tag}")] {
+                assert!(fanim.contains(&format!("\"{name}\":")), "{name} is not in her sheet");
+            }
+        }
     }
 
     /// The text of every flat object (no brace inside it: a view, a ViewEffect) of a .data_champion holding `needle`.
