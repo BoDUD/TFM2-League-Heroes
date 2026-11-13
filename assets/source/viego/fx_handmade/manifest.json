@@ -71,6 +71,41 @@
   },
   {
    "sheet": "league_viego_big",
+   "tag": "p_on",
+   "file": "league_viego_big/p_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     69
+    ],
+    [
+     35,
+     69
+    ],
+    [
+     35,
+     69
+    ],
+    [
+     35,
+     69
+    ]
+   ],
+   "of_1x": "ca6186eb22b168e3afe4296d362e20dd565fa385bff955947796494f40c278d5",
+   "by": "fx_vector 3",
+   "sha256": "5723275405c66f8a58af42b3427a685db0d56996af09370a069cb6c871b8fed7",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_big",
    "tag": "p_take",
    "file": "league_viego_big/p_take.png",
    "ppu": 2,

@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nasus_big",
+   "tag": "r_on",
+   "file": "league_nasus_big/r_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     59
+    ],
+    [
+     71,
+     67
+    ],
+    [
+     71,
+     75
+    ],
+    [
+     71,
+     83
+    ],
+    [
+     71,
+     75
+    ],
+    [
+     71,
+     59
+    ]
+   ],
+   "of_1x": "776f398798edad8d0209ec418fb29fb23a9ac4388049f2ec6f642162dc2bda49",
+   "by": "fx_vector 3",
+   "sha256": "c90cbfdf5df11b2c19fcddf3d3f0cdc3614ae16ec499b5593015704316f6fb0e",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

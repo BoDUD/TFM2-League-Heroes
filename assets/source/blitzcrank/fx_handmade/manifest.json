@@ -50,6 +50,51 @@
    "by": "fx_vector 3",
    "sha256": "05b0d75e1e9e28eaf510399a47c91f5230ed34947f063c98a2186b7ba1485d2f",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_blitzcrank_fx",
+   "tag": "mb_on",
+   "file": "league_blitzcrank_fx/mb_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     59
+    ],
+    [
+     55,
+     65
+    ],
+    [
+     55,
+     71
+    ],
+    [
+     55,
+     65
+    ],
+    [
+     55,
+     63
+    ],
+    [
+     55,
+     61
+    ]
+   ],
+   "of_1x": "a33315bcbee7f72b998b56c4dfd334e8395484168541d695cca37dc4e8f2f808",
+   "by": "fx_vector 3",
+   "sha256": "7d06b7f4f60e7ce41eeff3bb642fe8168125e39a984730d7593e14ce8e101646",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

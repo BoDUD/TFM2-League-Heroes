@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_yone_fx",
+   "tag": "q_ready",
+   "file": "league_yone_fx/q_ready.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     45
+    ],
+    [
+     39,
+     47
+    ],
+    [
+     39,
+     49
+    ],
+    [
+     39,
+     49
+    ]
+   ],
+   "of_1x": "59980328414b9cfe1b9d272b110de02fce8e3b4c498649665993ed9e2e5def2f",
+   "by": "fx_vector 3",
+   "sha256": "4b2087c9b794903f3621d8f94b26e45efad74f177bbd5097f5996c651f98218b",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

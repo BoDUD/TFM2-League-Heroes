@@ -2,6 +2,96 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_nilah_big",
+   "tag": "w_ally",
+   "file": "league_nilah_big/w_ally.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     61
+    ],
+    [
+     45,
+     61
+    ],
+    [
+     51,
+     59
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     51,
+     57
+    ]
+   ],
+   "of_1x": "10d16ec283571e3f6f0f2f28916be15dc0a3582b1e655b126c44c4844a2a7595",
+   "by": "fx_vector 3",
+   "sha256": "3eb5d786655ae25794d17bbe50b54e65e7589ae9f38f13375acfed50c40b8828",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
+   "tag": "w_on",
+   "file": "league_nilah_big/w_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     69
+    ],
+    [
+     51,
+     69
+    ],
+    [
+     55,
+     67
+    ],
+    [
+     51,
+     67
+    ],
+    [
+     51,
+     67
+    ],
+    [
+     55,
+     65
+    ]
+   ],
+   "of_1x": "bbb6737d989a394a4fe8106f1caf8068560ac46190e9c8631bbc342cf2ecd6b4",
+   "by": "fx_vector 3",
+   "sha256": "1b052471fd173f25587cbb432376f82964b9434ffb977d4e92e2bb2a23a7b309",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
    "sheet": "league_nilah_fx",
    "tag": "eq_hit",
    "file": "league_nilah_fx/eq_hit.png",
@@ -35,6 +125,41 @@
    "by": "fx_vector 3",
    "sha256": "2ddd81bacc04afe121e88b1732c44dcd9497d426a2b35a6db2191c3f34fe7701",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_fx",
+   "tag": "q_on",
+   "file": "league_nilah_fx/q_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     41,
+     51
+    ]
+   ],
+   "of_1x": "50ef8e7b25abc47398ee736d150f828d515658d2f81e2b775971c59445d8dd89",
+   "by": "fx_vector 3",
+   "sha256": "0efdb2c610f90070cc77bf681c1b2f3432233e108946382fb4596f033bb43389",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

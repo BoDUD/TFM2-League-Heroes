@@ -125,6 +125,61 @@
    "by": "fx_vector 2",
    "sha256": "ff3dc9baa5f3969acaafa9f019c9a296f68e7521a6379e251883c9fa76e48fa0",
    "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_leona_fx",
+   "tag": "eclipse",
+   "file": "league_leona_fx/eclipse.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     33,
+     69
+    ],
+    [
+     31,
+     69
+    ],
+    [
+     31,
+     69
+    ],
+    [
+     29,
+     69
+    ],
+    [
+     33,
+     69
+    ],
+    [
+     31,
+     69
+    ],
+    [
+     31,
+     69
+    ],
+    [
+     31,
+     69
+    ]
+   ],
+   "of_1x": "9166531f8d194847484f089f1eb2fcd1a8645f260a0baf21d9b0960c7a35cbe2",
+   "by": "fx_vector 3",
+   "sha256": "7af3a520263765f8b41844a76889c5530fc752cf3e8b89e1ae876f27c32fce8e",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

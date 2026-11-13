@@ -72,6 +72,41 @@
    "note": "batch 02 rings and zones 2026-11-14"
   },
   {
+   "sheet": "league_sivir_big",
+   "tag": "e_remove",
+   "file": "league_sivir_big/e_remove.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     63
+    ],
+    [
+     49,
+     59
+    ],
+    [
+     47,
+     67
+    ],
+    [
+     47,
+     59
+    ]
+   ],
+   "of_1x": "06b169a27466d874dcaa223d1d757503278ad806cc694f5b673914485619fc69",
+   "by": "fx_vector 3",
+   "sha256": "296cf60f3f543e6d2ccf5377a8e41f12b97afda9ec0d224059464a26d2080e93",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
    "sheet": "league_sivir_fx",
    "tag": "r_loop",
    "file": "league_sivir_fx/r_loop.png",

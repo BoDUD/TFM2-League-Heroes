@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_rakan_fx",
+   "tag": "e_on",
+   "file": "league_rakan_fx/e_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     23,
+     45
+    ],
+    [
+     21,
+     47
+    ],
+    [
+     21,
+     43
+    ],
+    [
+     23,
+     45
+    ],
+    [
+     21,
+     45
+    ],
+    [
+     23,
+     45
+    ]
+   ],
+   "of_1x": "948f4b9438895bc67a4bc3f5420942de3adf1b5835d86895883460f2c84e8c82",
+   "by": "fx_vector 3",
+   "sha256": "e388336071345c7b34081b687e49817c4f89ee9fc406f62903917cc9aeac6f5d",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
    "tag": "e_shield",
    "file": "league_rakan_fx/e_shield.png",
    "ppu": 2,
@@ -90,6 +135,76 @@
    "by": "fx_vector 3",
    "sha256": "32696b71a5e06b0db79ce4f564432fa2439211d4668f22442e116b9eaeca1bd3",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "q_heal",
+   "file": "league_rakan_fx/q_heal.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     33,
+     27
+    ],
+    [
+     33,
+     27
+    ],
+    [
+     33,
+     29
+    ],
+    [
+     31,
+     35
+    ]
+   ],
+   "of_1x": "318e896cbbbc0fa2f11286aa9e06dec8dacb910b151d808595788aa16376be3d",
+   "by": "fx_vector 3",
+   "sha256": "c5ffc99c5f5a44d6a65ec2f906078a81bab7078ae580867595013513405cc7c7",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "r_on",
+   "file": "league_rakan_fx/r_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     89,
+     39
+    ],
+    [
+     91,
+     37
+    ],
+    [
+     93,
+     37
+    ],
+    [
+     93,
+     37
+    ]
+   ],
+   "of_1x": "36565edb7a3520e25e920680e1983339ef0ab1673288b99cc2124b1efb6c5543",
+   "by": "fx_vector 3",
+   "sha256": "bd51746f62404e35cb29772f37e893adeff243c160626e99f1f2f372367109ec",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

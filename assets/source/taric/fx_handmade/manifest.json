@@ -58,6 +58,41 @@
   },
   {
    "sheet": "league_taric_fx",
+   "tag": "r_invuln",
+   "file": "league_taric_fx/r_invuln.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     31,
+     65
+    ],
+    [
+     33,
+     63
+    ],
+    [
+     31,
+     63
+    ],
+    [
+     33,
+     63
+    ]
+   ],
+   "of_1x": "f73fd46717beb9e1c66e3b916ec53ce34d82812a843599ffa6aa1297f4db753b",
+   "by": "fx_vector 3",
+   "sha256": "1b4f9d6b148e6a10d692f8ee101d8758c5fda441927b0615dda6f1b38e0d30b6",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_taric_fx",
    "tag": "w_link",
    "file": "league_taric_fx/w_link.png",
    "ppu": 2,

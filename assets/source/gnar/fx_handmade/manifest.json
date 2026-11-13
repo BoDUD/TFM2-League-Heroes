@@ -83,6 +83,41 @@
   },
   {
    "sheet": "league_gnar_fx",
+   "tag": "full",
+   "file": "league_gnar_fx/full.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     33
+    ],
+    [
+     33,
+     37
+    ],
+    [
+     35,
+     37
+    ],
+    [
+     35,
+     47
+    ]
+   ],
+   "of_1x": "6386427619a4756ddc9a07122f606e06fc1c61db44c26f122ada0295e6e6010e",
+   "by": "fx_vector 3",
+   "sha256": "c9668e130139d6cd0021f236800a336620a79745d96bd4b83ca7ff5c37bcfb1b",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_gnar_fx",
    "tag": "q_catch",
    "file": "league_gnar_fx/q_catch.png",
    "ppu": 2,

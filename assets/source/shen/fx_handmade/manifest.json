@@ -3,6 +3,41 @@
  "items": [
   {
    "sheet": "league_shen_big",
+   "tag": "r_ch",
+   "file": "league_shen_big/r_ch.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     37,
+     79
+    ],
+    [
+     37,
+     83
+    ],
+    [
+     37,
+     83
+    ],
+    [
+     37,
+     81
+    ]
+   ],
+   "of_1x": "9828f881517b58b4ffb0f05552e63d19c576a866a47f23b50287a74201025653",
+   "by": "fx_vector 3",
+   "sha256": "25a65749f6dcf0cd9dc01d6ad5791162fc3edaf7ff983bae7599e4e7329dbf85",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_big",
    "tag": "r_shield",
    "file": "league_shen_big/r_shield.png",
    "ppu": 2,

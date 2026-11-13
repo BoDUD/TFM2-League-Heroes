@@ -2,6 +2,41 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_drmundo_big",
+   "tag": "w_on",
+   "file": "league_drmundo_big/w_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     55,
+     55
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     55,
+     53
+    ],
+    [
+     55,
+     53
+    ]
+   ],
+   "of_1x": "f1b731c03e53f0b0c77359bbc4e8f2b7661d5420f9ca8d17e777e2f800181ca7",
+   "by": "fx_vector 3",
+   "sha256": "29bbb3630e62dce86c4377e5285f713cc948e7461a823dddd201ce0354574383",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
    "sheet": "league_drmundo_fx",
    "tag": "p_shake",
    "file": "league_drmundo_fx/p_shake.png",

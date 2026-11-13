@@ -58,6 +58,46 @@
   },
   {
    "sheet": "league_janna_fx",
+   "tag": "e_cast",
+   "file": "league_janna_fx/e_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     39
+    ],
+    [
+     27,
+     53
+    ],
+    [
+     31,
+     55
+    ],
+    [
+     33,
+     59
+    ],
+    [
+     31,
+     51
+    ]
+   ],
+   "of_1x": "41074a9b723ce0cb47b0ce43d1008e954576d282606a2f9da9971a82e063be07",
+   "by": "fx_vector 3",
+   "sha256": "c54fc06e7c903a51ec310c2de2ba009a183262bb7e95acdcc668ca15782aaf1a",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_janna_fx",
    "tag": "storm",
    "file": "league_janna_fx/storm.png",
    "ppu": 2,

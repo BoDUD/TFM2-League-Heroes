@@ -35,6 +35,41 @@
    "by": "fx_vector 3",
    "sha256": "2fa42aa52c85939fcbd0b586400c0bceaa1a906f296378c2b859088faaa442ad",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_jax_fx",
+   "tag": "e_stance",
+   "file": "league_jax_fx/e_stance.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     65,
+     43
+    ],
+    [
+     65,
+     43
+    ],
+    [
+     65,
+     43
+    ],
+    [
+     65,
+     41
+    ]
+   ],
+   "of_1x": "750c03066ad74c54f303b7daa6f42d99c41a539b927825a91093a44c5ca02af8",
+   "by": "fx_vector 3",
+   "sha256": "1454ce83b280b86b4f0126bf86d673bd97a1c5d151610bc6053595b4499fb1c2",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

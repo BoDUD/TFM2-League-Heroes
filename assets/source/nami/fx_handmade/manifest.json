@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nami_fx",
+   "tag": "e_blessing",
+   "file": "league_nami_fx/e_blessing.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     29,
+     43
+    ],
+    [
+     27,
+     49
+    ],
+    [
+     29,
+     39
+    ],
+    [
+     27,
+     45
+    ]
+   ],
+   "of_1x": "3f2b120e6df0afb982a7a851fbf9d5faeb8adf2fa048b273eb8eb7c59efb4419",
+   "by": "fx_vector 3",
+   "sha256": "54a9d38b31737e17d370db70975fe29307f32ade4b26fbf5fbf7213d243ae51c",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

@@ -70,6 +70,41 @@
    "by": "fx_vector 3",
    "sha256": "7955431d1ac4841d21b50313ff7031e73376bdcd120fd235516baebdfa289ba2",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sett_fx",
+   "tag": "w_remove",
+   "file": "league_sett_fx/w_remove.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     39,
+     63
+    ],
+    [
+     45,
+     65
+    ],
+    [
+     43,
+     55
+    ],
+    [
+     29,
+     41
+    ]
+   ],
+   "of_1x": "b33c1be6c1785c6359fb60031210f262fed6f81661dcbfb56aac839143248136",
+   "by": "fx_vector 3",
+   "sha256": "fc488ceb84a5319e1e69906c5034e50d840b7e8c3dbe93fbc4413a6328e3aaa9",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

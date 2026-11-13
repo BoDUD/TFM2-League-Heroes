@@ -45,6 +45,41 @@
    "by": "fx_vector 3",
    "sha256": "6d518d36cf15692e25e554dcc22f2fa4ab6af86977e12a016eae7da2f7587ce5",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_fx",
+   "tag": "e_def",
+   "file": "league_pantheon_fx/e_def.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     79
+    ]
+   ],
+   "of_1x": "67270cd18c63267d267a30e458cb1a8ab887da8dafaa7780409d04d48669ee9f",
+   "by": "fx_vector 3",
+   "sha256": "1bcd550450baf56244b013ac6c0bb1c371d55dfad19b960c3f7e838b50e86d00",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

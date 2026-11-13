@@ -85,6 +85,41 @@
    "by": "fx_vector 3",
    "sha256": "f96d0b66974f2ecd7489de310b3df695634b05003d46782d4318a42ebc6ed4e5",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_fx",
+   "tag": "w_hunt",
+   "file": "league_warwick_fx/w_hunt.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     53,
+     35
+    ],
+    [
+     53,
+     35
+    ],
+    [
+     51,
+     33
+    ],
+    [
+     53,
+     33
+    ]
+   ],
+   "of_1x": "48a9f8a52c2553daacb4c7e5132d64b70d641172a763936f5d41850e77e344b4",
+   "by": "fx_vector 3",
+   "sha256": "49e9279823a53295f8ab7c56e68567595300d8c942bea48a0d8d43be005e986a",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

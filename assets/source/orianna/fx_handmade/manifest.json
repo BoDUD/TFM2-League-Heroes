@@ -133,6 +133,47 @@
   },
   {
    "sheet": "league_orianna_fx",
+   "tag": "ball_side",
+   "file": "league_orianna_fx/ball_side.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    0,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     33
+    ],
+    [
+     51,
+     35
+    ],
+    [
+     47,
+     35
+    ],
+    [
+     51,
+     31
+    ],
+    [
+     47,
+     31
+    ]
+   ],
+   "of_1x": "ee39a045bd85252247e53b5e7437b8805987fd8193a3b9f0d7a79a3bb196cf69",
+   "by": "fx_vector 3",
+   "sha256": "b8656ba70916a532b94e6d2c1a0a860cbdbc0131397f3b797c81a1505b03bcc3",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
    "tag": "e_shield",
    "file": "league_orianna_fx/e_shield.png",
    "ppu": 2,

@@ -2,6 +2,41 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_braum_big",
+   "tag": "e_on",
+   "file": "league_braum_big/e_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     45
+    ],
+    [
+     35,
+     55
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     37,
+     55
+    ]
+   ],
+   "of_1x": "c82e4bb1a91e6e8dde8a64271ff3f181b6c277e36fbbd36770e98a62b1436748",
+   "by": "fx_vector 3",
+   "sha256": "9fbfe02a1a677c4f379c0595d920cbc91e0ac062e0420fa911dc7789a9ddef2d",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
    "sheet": "league_braum_fx",
    "tag": "e_raise",
    "file": "league_braum_fx/e_raise.png",

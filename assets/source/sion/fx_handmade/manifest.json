@@ -2,6 +2,76 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_sion_big",
+   "tag": "p_zombie",
+   "file": "league_sion_big/p_zombie.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     57,
+     73
+    ],
+    [
+     55,
+     73
+    ],
+    [
+     57,
+     71
+    ],
+    [
+     55,
+     75
+    ]
+   ],
+   "of_1x": "4077a02f3011618556cda149b4efab2168acd15b38fd4256a331445654fae700",
+   "by": "fx_vector 3",
+   "sha256": "a2ebc52ce5991e976c164bbf4f3c21db63572e17b6aa8039da7e7e4d4f343224",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_sion_big",
+   "tag": "w_sh",
+   "file": "league_sion_big/w_sh.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     47,
+     75
+    ],
+    [
+     51,
+     77
+    ],
+    [
+     47,
+     75
+    ],
+    [
+     51,
+     79
+    ]
+   ],
+   "of_1x": "c9de8eef5fcc75dbc8456749ca25a04db57ee59385e1f4b3d893b3bd65c1074a",
+   "by": "fx_vector 3",
+   "sha256": "761c77aaae8447a3df7fad277f3e552189b7fa2a640a1b0fa4af37771ea4a72b",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
    "sheet": "league_sion_fx",
    "tag": "e_hit",
    "file": "league_sion_fx/e_hit.png",

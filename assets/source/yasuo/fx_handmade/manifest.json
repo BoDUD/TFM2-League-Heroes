@@ -250,6 +250,51 @@
    "by": "fx_vector 1",
    "sha256": "44eadd78b4d056730b8bca1d262710522da3c601811305ee0effa9ccef6be756",
    "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_fx",
+   "tag": "q_ready",
+   "file": "league_yasuo_fx/q_ready.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     27
+    ],
+    [
+     27,
+     27
+    ],
+    [
+     27,
+     27
+    ],
+    [
+     27,
+     27
+    ],
+    [
+     29,
+     25
+    ],
+    [
+     29,
+     27
+    ]
+   ],
+   "of_1x": "204247cb42419a4e8cef5f81c23a7bad507bccd8abc291fd5db29126f0d85a77",
+   "by": "fx_vector 3",
+   "sha256": "2a6d7cf54d6476d68cb38e8ef54649fb3aaa0e691a57532781f5aa12b9bb3b8e",
+   "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
 }

@@ -195,6 +195,41 @@
   },
   {
    "sheet": "league_sona_fx",
+   "tag": "pc_tempo",
+   "file": "league_sona_fx/pc_tempo.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     43,
+     31
+    ],
+    [
+     43,
+     31
+    ],
+    [
+     43,
+     31
+    ],
+    [
+     43,
+     31
+    ]
+   ],
+   "of_1x": "ac33204bb85efc07722d2ad50dcb805733e6b2da31dcd5c9581adf7fbe5837a9",
+   "by": "fx_vector 3",
+   "sha256": "7908453b4044186314036dd1eed558614305bc8ff5c33991d8f6fcb0a7c3bb56",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_sona_fx",
    "tag": "w_mel",
    "file": "league_sona_fx/w_mel.png",
    "ppu": 2,

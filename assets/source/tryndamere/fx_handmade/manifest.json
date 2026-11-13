@@ -1,0 +1,75 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_tryndamere_big",
+   "tag": "r_rage",
+   "file": "league_tryndamere_big/r_rage.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     67,
+     71
+    ],
+    [
+     69,
+     75
+    ],
+    [
+     69,
+     61
+    ],
+    [
+     67,
+     67
+    ]
+   ],
+   "of_1x": "01abf0f5dbcb25d56325d300a83758e994c9a27324500057312a636686127945",
+   "by": "fx_vector 3",
+   "sha256": "fb7ef27dd7423aefb45851e216bcc5de20e1a0d19c128e5ae7cee3a137cce20c",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_tryndamere_fx",
+   "tag": "f_5",
+   "file": "league_tryndamere_fx/f_5.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     55,
+     47
+    ],
+    [
+     55,
+     59
+    ],
+    [
+     59,
+     63
+    ],
+    [
+     55,
+     65
+    ]
+   ],
+   "of_1x": "36a64a84e0d40f154781f35c40c905cdb71ec5d679a7c921a8a97f79f8aa0d9a",
+   "by": "fx_vector 3",
+   "sha256": "07a36a345253aff1168f3da6bb142a8980b0c34f064abfe38a9146a93cf6a43e",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}
