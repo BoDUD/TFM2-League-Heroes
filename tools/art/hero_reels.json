@@ -52,7 +52,7 @@
   "league_zaahen": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "ult"]},
   "league_aurora": {"idle": [["attack", [0]], ["skill", [2]]]},
   "league_nunu": {"idle": [["skill2", [0, 1]], ["attack", [0]]]},
-  "league_azir": {"idle": [["attack", [0]], ["ult", [0]]]},
+  "league_azir": {"idle": [["attack", [0, 1]], ["ult", [0, 1]]]},
   "league_zac": {"idle": [["attack", [0]], ["ult", [0]]]},
   "league_singed": {"idle": [["skill2", [0]], ["ult", [0]]]},
   "league_taliyah": {"idle": [["attack", [0]], ["ult", [1]]]},
