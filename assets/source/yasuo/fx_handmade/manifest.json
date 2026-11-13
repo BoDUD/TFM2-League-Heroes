@@ -1,0 +1,170 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado",
+   "file": "league_yasuo_big/tornado.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     41
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     23,
+     41
+    ],
+    [
+     25,
+     41
+    ],
+    [
+     23,
+     41
+    ],
+    [
+     27,
+     41
+    ]
+   ],
+   "of_1x": "12227cc876042888d97bc77cddb4d81820bdfc913b2306156822c618d26bf698",
+   "by": "fx_vector 1",
+   "sha256": "ceade7889036e92edb3a078c36641a5fd8c79d5e6b358b405e0f003efb4a5c28",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado_0",
+   "file": "league_yasuo_big/tornado_0.png",
+   "ppu": 2,
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "sizes": [
+    [
+     27,
+     41
+    ]
+   ],
+   "of_1x": "a64f41b4224311c92399f7951d70304511833b677cd551f675c92611d5027f41",
+   "by": "fx_vector 1",
+   "sha256": "b79c96652ac645fb44067666f301807f200dedbeac27b6d3210842dddd0f4c12",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado_1",
+   "file": "league_yasuo_big/tornado_1.png",
+   "ppu": 2,
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "sizes": [
+    [
+     25,
+     39
+    ]
+   ],
+   "of_1x": "2b250c7cd7f588eb3bd4cc34974abcf676ebdb00dd10fa3b7c639bc05921d4f8",
+   "by": "fx_vector 1",
+   "sha256": "bbf750603aae1e2e7b910ef17120d399b1e31d1d80e1b159951d62f81e68a0b7",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado_2",
+   "file": "league_yasuo_big/tornado_2.png",
+   "ppu": 2,
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "sizes": [
+    [
+     23,
+     41
+    ]
+   ],
+   "of_1x": "8190dac1f8c484a84827333404645062edb936e0f4c0a5c1655da8250fd587f8",
+   "by": "fx_vector 1",
+   "sha256": "ad1a745450ed4a0401c8bea786bc4041393800af473a2ae69c77fcfe843fa5ab",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado_3",
+   "file": "league_yasuo_big/tornado_3.png",
+   "ppu": 2,
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "sizes": [
+    [
+     25,
+     41
+    ]
+   ],
+   "of_1x": "3b5a7814754df1cd4c209c182632896d8f9f15bc21500cb574a465db1ea9e8e2",
+   "by": "fx_vector 1",
+   "sha256": "e6fde0c4232069352a7c5b6782a51a8b92ab17f207c229059dbf9e173e3cc40e",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado_4",
+   "file": "league_yasuo_big/tornado_4.png",
+   "ppu": 2,
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "sizes": [
+    [
+     23,
+     41
+    ]
+   ],
+   "of_1x": "3b5f226cbec6a7d0495e45e22857925aa018fb17a3d2f31c89be76c8bf332977",
+   "by": "fx_vector 1",
+   "sha256": "21355967b82018ee2b9869411205beeba8e5fc9b79432a6fa9bbdf70af44cd79",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_yasuo_big",
+   "tag": "tornado_5",
+   "file": "league_yasuo_big/tornado_5.png",
+   "ppu": 2,
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "sizes": [
+    [
+     27,
+     41
+    ]
+   ],
+   "of_1x": "16cd917c46c346dec61fecb0ea4f55be14eade0b811beb99ba1b15bf5abbb891",
+   "by": "fx_vector 1",
+   "sha256": "44eadd78b4d056730b8bca1d262710522da3c601811305ee0effa9ccef6be756",
+   "note": "pilot 2026-11-14"
+  }
+ ]
+}

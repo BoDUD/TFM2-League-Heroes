@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_lux_r",
+   "tag": "beam",
+   "file": "league_lux_r/beam.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     339,
+     11
+    ],
+    [
+     337,
+     17
+    ],
+    [
+     339,
+     31
+    ],
+    [
+     341,
+     35
+    ],
+    [
+     341,
+     33
+    ],
+    [
+     337,
+     17
+    ]
+   ],
+   "of_1x": "9759a3234c01e0a65223ef09a4cb851909997756471548908afceb529aae4139",
+   "by": "fx_vector 1",
+   "sha256": "6356e65cc9ac27eca81f080d87c1598adb296b8b7b192be852890cff44598afb",
+   "note": "pilot 2026-11-14"
+  }
+ ]
+}

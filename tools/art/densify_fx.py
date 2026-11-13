@@ -1478,8 +1478,14 @@ def main():
     # Codex's redraws of this hero's Scale2x tags (tools/art/import_fx_redraw.py, kept in assets/source/<hero>/
     # codex_fx_redraw): over what was just written, so a rerun keeps them
     if os.path.normcase(os.path.abspath(a.out)) == os.path.normcase(os.path.abspath(fx_dir)) and a.ppu == 2:
+        if HERE not in sys.path:
+            sys.path.insert(0, HERE)      # (python -I leaves the script's folder off the path)
         import import_fx_redraw
         import_fx_redraw.apply(a.hero, log=print)
+        # ... and the tags redrawn by our own code (tools/art/fx_handmade.py, kept in assets/source/<hero>/fx_handmade):
+        # over both, so a rerun keeps them too
+        import fx_handmade
+        fx_handmade.apply(a.hero, log=print)
     if a.report:
         with open(G.lp(a.report), "w", encoding="utf-8") as f:
             json.dump(report, f, ensure_ascii=False, indent=1)

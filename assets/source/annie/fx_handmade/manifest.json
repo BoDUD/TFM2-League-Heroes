@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_annie_big",
+   "tag": "tibbers",
+   "file": "league_annie_big/tibbers.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     43,
+     85
+    ],
+    [
+     39,
+     91
+    ],
+    [
+     41,
+     83
+    ],
+    [
+     41,
+     101
+    ],
+    [
+     49,
+     85
+    ],
+    [
+     37,
+     87
+    ],
+    [
+     41,
+     87
+    ],
+    [
+     43,
+     83
+    ]
+   ],
+   "of_1x": "2d5e24868089f7be33e1c61bff64d1612cf04c6f24f501890d0dd4d14d65a926",
+   "by": "fx_vector 1",
+   "sha256": "6ea413c1f449a628a148d76a44ed6570035465910e811c0f8bcf18fb2d4518c3",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_annie_big",
+   "tag": "w_cone",
+   "file": "league_annie_big/w_cone.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     27
+    ],
+    [
+     57,
+     35
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     57,
+     47
+    ],
+    [
+     57,
+     41
+    ]
+   ],
+   "of_1x": "3ba3a498f1d5343b35cd1a686d4c7f381580590c2d1373c49ff499e4ee162723",
+   "by": "fx_vector 1",
+   "sha256": "6a7a8d53f830b8daebda470d249130fca3865d033f7b87c35e039814fb4cc167",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_annie_fx",
+   "tag": "q_ball",
+   "file": "league_annie_fx/q_ball.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     11
+    ],
+    [
+     41,
+     11
+    ],
+    [
+     41,
+     11
+    ],
+    [
+     39,
+     11
+    ]
+   ],
+   "of_1x": "7be9df1e39cecdda637a744df60a4e2cfb6fe686793e41c39f36a6ce348a35a8",
+   "by": "fx_vector 1",
+   "sha256": "6bd72b3b36e4a483b0f93c640fcee473430b5d8bf4ea04070b96fb077f925905",
+   "note": "pilot 2026-11-14"
+  }
+ ]
+}
