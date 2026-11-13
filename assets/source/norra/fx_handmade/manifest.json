@@ -1,0 +1,90 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_norra_big",
+   "tag": "r_rift",
+   "file": "tft_norra_big/r_rift.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     47
+    ]
+   ],
+   "of_1x": "f88a4225ecb7ff87ff1a9d0193fe2b29b50f42418b82060d963fd131855d934f",
+   "by": "fx_vector 4",
+   "sha256": "ef24813906999f86f92a472958abd23f7cda71d70e30103bdee5c6e94b2ed87c",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_norra_fx",
+   "tag": "w_in",
+   "file": "tft_norra_fx/w_in.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     19,
+     25
+    ],
+    [
+     27,
+     25
+    ],
+    [
+     27,
+     47
+    ],
+    [
+     27,
+     25
+    ],
+    [
+     19,
+     25
+    ]
+   ],
+   "of_1x": "a4db054d5efe6b4cfbfa84f4ad579a9771e3052f24962508bf4132ddef69abe0",
+   "by": "fx_vector 4",
+   "sha256": "5ea8b29516af6daa28f25df104e3181bdd04ed23bdd4870f35ce8c38d0455493",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

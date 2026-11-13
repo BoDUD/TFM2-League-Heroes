@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_zippy_big",
+   "tag": "r_hit",
+   "file": "tft_zippy_big/r_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     21
+    ],
+    [
+     55,
+     35
+    ],
+    [
+     55,
+     47
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     55,
+     55
+    ],
+    [
+     55,
+     55
+    ]
+   ],
+   "of_1x": "3bcc24a2a3f6cdf0b7286bc3a0bac29c53484962611db4e5c01d788a93799617",
+   "by": "fx_vector 4",
+   "sha256": "e826d4ca23f28e1005d82d827face7fc9d5e4997e7b1166aca0d8cb5af415b57",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_zippy_big",
+   "tag": "r_shield",
+   "file": "tft_zippy_big/r_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     67
+    ],
+    [
+     43,
+     67
+    ],
+    [
+     41,
+     67
+    ],
+    [
+     43,
+     67
+    ],
+    [
+     43,
+     67
+    ],
+    [
+     41,
+     67
+    ]
+   ],
+   "of_1x": "fa2958a8eee92faeee73b33dbe83743e3eb739fc75d72a009f3127756158326e",
+   "by": "fx_vector 4",
+   "sha256": "d9a740717efa0843e3af39c85abdab0e13ae91fb699d630e018dfd2c59ac3c8b",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

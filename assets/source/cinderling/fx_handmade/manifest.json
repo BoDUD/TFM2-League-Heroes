@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_cinderling_big",
+   "tag": "r_cast",
+   "file": "tft_cinderling_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     23
+    ],
+    [
+     43,
+     35
+    ],
+    [
+     57,
+     53
+    ],
+    [
+     57,
+     55
+    ],
+    [
+     53,
+     51
+    ],
+    [
+     53,
+     55
+    ]
+   ],
+   "of_1x": "505b394e5d67c3ebf2aae4f0622aae36253bc5ded5b85987d336607698ebda71",
+   "by": "fx_vector 4",
+   "sha256": "c68de6e5f0e8de58938f953e86c3254cda54a10c7947f894a03fa87485b20bb4",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}
