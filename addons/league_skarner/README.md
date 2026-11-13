@@ -26,3 +26,17 @@
 - 在 `addons/` 下 `cargo test --release -p league_skarner`：单元测试（查墙、半路停下算撞墙、伤害数字、拖的位置、名字长度、副本用到了原生效果并且参数和常数一致）。
 - 主包的斯卡纳改了以后重新跑 `python addons/league_skarner/make_override.py`（它先核对主包的 `league_skarner.data_champion` 和参数表一致、`src/lib.rs` 的常数和 P 一致；`--check` 只核对不写；文字接入前用 `--draft`）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_skarner.log`：`SPAWN`、`QUAKE`（叠层 / 战栗）、`IMPACT`（撞墙 / 没墙）、`WALL`（撞墙眩晕；`slammed into a wall the map does not show` 是半路撞上英雄造的墙）、`IMPALE`（压制 / 超过 `R_N` 个）、`DRAG`（拖着走）。
+
+## 推人吃韧性、半路停下不再算撞墙（2026-11-13）
+
+用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」。引擎把每种控制的时长按目标的韧性缩短（x (100 - 韧性) / 100，强制位移也一样：
+`.claude/skills/tfm2-hero-mod/references/champion-data.md`，读的 game_core）；4+6 的出装里 66 个英雄带 20%～30% 韧性。
+
+- **以绪塔尔冲击拖人按韧性放长**（[`push_rules`](../push_rules/src/lib.rs) `force_move_full`）：缩短以后正好拖到墙边，撞墙眩晕到点时他在墙边。
+- **半路停下只在还在拖的时候算撞墙**：拖人的标记（buff，不吃韧性）比被韧性截短的强制位移长，强制位移停了以后他站着不动，
+  2026-11-12 加的「撞上地图墙格里没有的墙」就当场砸、晕——空地上也晕。现在强制位移已经结束就不算（日志 `CARRY END`）。
+- **撞地图墙到点先看他在不在墙边**：到点还在位移就等一拍；停下了却离墙超过 `AT_WALL`（4000，身体之外）——被别人的控制打断、
+  自己的位移技能顶掉——就不砸（日志 `SHORT`）。
+- **毒刺贯体的压制不吃韧性**（英雄联盟的压制不吃韧性）：按韧性放长，拖多久压多久；被净化、变成免疫控制就放开，不再拖（`DRAG FREE`）。
+- 版本号没改（还没合并的 #734 改了它）。测试：`the_slam_needs_the_wall_right_ahead`。
+

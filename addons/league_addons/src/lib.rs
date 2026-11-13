@@ -472,8 +472,8 @@ pub extern "C" fn league_addons_eggs_showing(m: u64, s: u64, t: usize) -> u32 {
 
 /// A mod has one match hook too (set_match_hook keeps only the last): Karthus's `Respawns` (a fallen spirit's respawn
 /// cut), the League easter eggs (league_eggs), Lucian's `Aim` (the flag of the side his R fires to, read by his
-/// display hook) and the read-only macro and fight logs (league_macro_log, league_fight_log, last: they only
-/// read) all watch every tick of every simulation, called here one after the other, Karthus's first as it always ran. Set after every register, so it replaces the one karthus::register sets.
+/// display hook), push_rules' `keep_tick` (a forced move tenacity cut short finished, 2026-11-13) and the read-only macro
+/// and fight logs (league_macro_log, league_fight_log, last: they only read) all watch every tick of every simulation, called here one after the other, Karthus's first as it always ran. Set after every register, so it replaces the one karthus::register sets.
 struct BundleMatch;
 impl StableMatchHook for BundleMatch {
     fn on_match_start(&self, sim: &mut StableSim<'_>) {
@@ -486,6 +486,8 @@ impl StableMatchHook for BundleMatch {
         karthus::Respawns.on_match_tick(sim, rng_seed);
         eggs::Eggs.on_match_tick(sim, rng_seed);
         lucian::Aim.on_match_tick(sim, rng_seed);
+        // pushes and pulls ignore tenacity, as in League: a forced move tenacity cut short is finished (push_rules)
+        push_rules::keep_tick(sim);
         macro_log::Watch.on_match_tick(sim, rng_seed);
         fight_log::Watch.on_match_tick(sim, rng_seed);
     }

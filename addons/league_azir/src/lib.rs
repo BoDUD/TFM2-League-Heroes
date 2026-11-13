@@ -63,6 +63,16 @@
 //!   （`one_<r|l>_<a|b>`），副本登记成 `r_one_*` 画面；每一跳和立着的墙都是 `GUARD_COUNT`（7，英雄联盟 R 二级的人数）个单个的
 //!   禁军，站在过墙中点、垂直于冲锋方向的一条线上，横向排满墙宽（`r_half` 两边，和挡人的宽度一样），后面的先画（`guard_line`）。
 //!   副本里没有这几个画面（存档里留着的旧副本）就照旧盖三个兵一张的图（日志 `OLD COPY`）。
+//! - 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」）：**墙一直带到墙外**。日志里墙倒的时候被带走
+//!   的英雄大多还在阿兹尔这边几万远，一次都没被墙挡过：强制位移没把他带到墙外，他落在墙这边，墙反倒把他挡在阿兹尔这边。
+//!   强制位移会半路停：被别人的控制按住（眩晕、定身、击飞……宿主这时停下强制位移）、他自己的位移技能把它顶掉、带着韧性
+//!   （4+6 的出装里 66 个英雄有 20%～30% 韧性的装备；引擎把每种控制的时长按目标的韧性缩短，x (100 - 韧性) / 100，强制位移也
+//!   一样：.claude/skills/tfm2-hero-mod/references/champion-data.md，读的 game_core）。英雄联盟的位移不吃韧性：现在强制位移按
+//!   他的韧性把时长放长（`push_rules::full_ticks`），缩短以后正好走满（墙带人、反推绕到身后都是）。现在墙还记着带的每个人
+//!   （`Ride`：落点、要走的路），被动每 tick 看一眼（`ride_tick`）：还在位移、被按住就等；走完了还没到墙外那条线就把剩下的路
+//!   再推一次（`next_push`），直到到了、推不动了（`PUSH_GAIN`：撞到地形）、往回跑出去很远（闪现、冲刺，不追）、推满
+//!   `MAX_PUSHES` 次或者墙倒了。每个人第一次落地记一行 `LANDED`（带了多远、还差多远、身上的韧性、为什么），补推过的
+//!   结束时记一行 `RIDE`。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -76,6 +86,7 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+use push_rules::{force_move_full, held, toughness};
 
 pub mod combo;
 
@@ -798,6 +809,14 @@ pub const CARRY_MAX_SPEED: usize = 12_000;
 /// 本包扫到一个单位后等这么多 tick 再带走：数据那道墙（伤害在它身上）先打中他，带走以后它追不上（它的圆心还比本包算的
 /// 偏一点：经典模拟器里飞行物从他身上 5000 外出发）。
 pub const SWEEP_LAG: usize = 2;
+/// 0.2.5：离墙外那条落点线（沿冲锋方向）不到这么远就算带到了。
+pub const LAND_NEAR: f64 = 1_500.0;
+/// 0.2.5：补推一次至少要往前带这么远，不然就是地形挡着（强制位移撞墙会停），不再补。
+pub const PUSH_GAIN: f64 = 2_000.0;
+/// 0.2.5：比墙打中他时离落点还远这么多：他自己闪现、冲刺跑回去了，不追。
+pub const RAN_BACK: f64 = 10_000.0;
+/// 0.2.5：一个人最多补推几次（韧性每次都截一截，剩下的路一次比一次短）。
+pub const MAX_PUSHES: usize = 6;
 
 pub type Pt = (f64, f64);
 
@@ -871,6 +890,34 @@ pub struct Standing {
     pub moved: usize,
     pub took: Vec<usize>,
     pub skipped: Vec<usize>,
+    /// 0.2.5：正被带着的单位（`ride_tick` 看他们到没到）。
+    pub rides: HashMap<usize, Ride>,
+}
+
+/// 0.2.5：墙正带着的一个单位：落点、墙打中他时要走的路、上一次推之前还差多远、补推了几次、哪个 tick 打中的、是不是英雄。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Ride {
+    pub dest: Pt,
+    pub planned: f64,
+    pub left: f64,
+    pub pushes: usize,
+    pub since: usize,
+    pub champ: bool,
+}
+
+/// 0.2.5：带人的强制位移走完了以后怎么办（`next_push`）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Next {
+    /// 到墙外了。
+    Landed,
+    /// 还差一段：再推。
+    Push,
+    /// 补推了也没往前挪（地形挡着）。
+    Stuck,
+    /// 比墙打中他时离落点还远：自己跑回去了。
+    RanBack,
+    /// 推满 `MAX_PUSHES` 次了。
+    Spent,
 }
 
 /// 墙立在哪：数据那道墙最后一跳停下的地方（从他站的地方朝目标 r_len），r_len / r_speed tick 后立住，再立 r_hold tick。
@@ -881,7 +928,7 @@ pub fn standing(p: &Params, from: Pt, to: Pt, tick: usize, right: bool) -> Stand
     Standing { start: from, launch: tick, speed: p.r_speed.max(1), reach: p.r_w as f64,
                mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
                sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), once: Vec::new(), pending: HashMap::new(), moved: 0,
-               took: Vec::new(), skipped: Vec::new() }
+               took: Vec::new(), skipped: Vec::new(), rides: HashMap::new() }
 }
 
 /// 冲锋的墙在 `tick` 的圆心：和数据那道墙一样从 `start` 每 tick `speed` 朝冲锋方向走，冲到立住的地方停下。
@@ -906,6 +953,7 @@ pub fn take(w: &mut Standing, id: usize, at: Pt, champ: bool, now: usize) -> Opt
     }
     let plan = carry_plan(w, at, now, w.speed)?;
     w.carried.insert(id, now + plan.2 + 2);
+    w.rides.insert(id, Ride { dest: plan.0, planned: plan.1, left: plan.1, pushes: 0, since: now, champ });
     w.once.push(id);
     w.pending.remove(&id);
     w.moved += 1;
@@ -935,6 +983,27 @@ pub fn carry_plan(w: &Standing, at: Pt, now: usize, wall_speed: usize) -> Option
     let ticks = ((len / fast as f64).ceil() as usize).max(1);
     let speed = (len / ticks as f64).ceil() as usize;
     Some(((at.0 + w.dir.0 * len, at.1 + w.dir.1 * len), len, ticks, speed))
+}
+
+/// 0.2.5：在 `at` 的单位离墙外那条落点线还差多远（沿冲锋方向；带到了是 0 或负数）。
+pub fn ride_left(w: &Standing, at: Pt) -> f64 {
+    WALL_THICK + CARRY_PAST - along(w, at)
+}
+
+/// 0.2.5：带人的强制位移走完了，他离落点线还差 `left`，上一次推之前差 `before`，墙打中他时差 `planned`，补推过 `pushes` 次。
+/// 第一次落地（`pushes` 是 0）就算一步没动也再推一次（宿主没执行那一下）；补推过的没往前挪 `PUSH_GAIN` 就是地形挡着。
+pub fn next_push(left: f64, before: f64, planned: f64, pushes: usize) -> Next {
+    if left <= LAND_NEAR {
+        Next::Landed
+    } else if left > planned + RAN_BACK {
+        Next::RanBack
+    } else if pushes >= MAX_PUSHES {
+        Next::Spent
+    } else if pushes > 0 && before - left < PUSH_GAIN {
+        Next::Stuck
+    } else {
+        Next::Push
+    }
 }
 
 /// 被带走的人落地后在墙的哪一边：到了墙里或墙外就是墙那一边（+1，之后墙挡着他回不来）；离墙还远（被地形挡住）就是
@@ -990,13 +1059,83 @@ fn immune(u: &StableEntity<'_, '_>) -> bool {
     (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune)
 }
 
+
+
+/// 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人」）：墙带着的人每 tick 看一眼（他的被动里，墙立着的时候）。还在强制位移、
+/// 被按住就等着；走完了还没到墙外那条落点线就把剩下的路再推一次（`next_push`）：别人的控制打断了、他自己的位移技能
+/// 顶掉了（韧性截短的那一截 `push_rules` 已经放长补上），原来都落在墙这边，墙再把他挡在阿兹尔这边。到了、推不动、跑回去、推满了、墙倒了就不带了，`carried` 落地，
+/// 墙按他现在在哪边挡他。英雄第一次落地记 `LANDED`，补推过的结束时记 `RIDE`。
+fn ride_tick(sim: &mut StableSim<'_>, me: usize, w: &mut Standing, tick: usize) {
+    let mut ids: Vec<usize> = w.rides.keys().copied().collect();
+    ids.sort_unstable();
+    for id in ids {
+        let Some(ride) = w.rides.get(&id).copied() else { continue };
+        let Some((at, busy, immune_now, tough)) = sim.get_entity(id).filter(|u| u.is_alive())
+            .map(|u| (at_of(&u), flying(&u) || held(&u), immune(&u), toughness(&u))) else {
+            w.rides.remove(&id);
+            continue;
+        };
+        let down = tick >= w.until;
+        if busy && !down {
+            // still moving, or held: he lands later
+            w.carried.insert(id, tick + 1);
+            continue;
+        }
+        let left = ride_left(w, at);
+        let next = next_push(left, ride.left, ride.planned, ride.pushes);
+        let push = next == Next::Push && !immune_now && !down;
+        if ride.champ && ride.pushes == 0 {
+            if let Some(k) = tally(sim, "land") {
+                let why = match next {
+                    _ if down => "the wall is down: left where he is".to_string(),
+                    _ if immune_now && next == Next::Push => "immune to crowd control now: left there".to_string(),
+                    Next::Landed => "past the wall".to_string(),
+                    Next::Push => format!("pushed on {left:.0}"),
+                    Next::RanBack => "ran back (a dash or a flash): left alone".to_string(),
+                    Next::Stuck | Next::Spent => "left there".to_string(),
+                };
+                wlog(format!("{} LANDED #{k} #{id}: carried {:.0} of {:.0} in {} ticks, {left:.0} short of past the wall \
+                              (toughness {tough}): {why}", head(sim, me), ride.planned - left, ride.planned,
+                             tick.saturating_sub(ride.since)));
+            }
+        }
+        if push {
+            let speed = CARRY_MAX_SPEED.max(w.speed);
+            let ticks = ((left / speed as f64).ceil() as usize).max(1);
+            let speed = (left / ticks as f64).ceil() as usize;
+            let dest = (at.0 + w.dir.0 * left, at.1 + w.dir.1 * left);
+            shove(sim, id, at, (dest, left, ticks, speed));
+            w.rides.insert(id, Ride { left, pushes: ride.pushes + 1, ..ride });
+            w.carried.insert(id, tick + ticks + 2);
+            continue;
+        }
+        w.rides.remove(&id);
+        w.carried.insert(id, tick);
+        if ride.champ && ride.pushes > 0 {
+            if let Some(k) = tally(sim, "ride") {
+                let why = match next {
+                    _ if down => "the wall is down",
+                    Next::Landed => "past the wall",
+                    Next::Stuck => "no further: the map in the way",
+                    Next::RanBack => "ran back",
+                    Next::Spent => "pushed as often as it goes",
+                    Next::Push => "immune to crowd control now",
+                };
+                wlog(format!("{} RIDE #{k} #{id}: {why} after {} more push(es), {left:.0} short (toughness {tough})",
+                             head(sim, me), ride.pushes));
+            }
+        }
+    }
+}
+
 /// 用强制位移把 `id` 带到计划的落点（`carry_plan`：速度 x tick 就是那段距离）。
 fn shove(sim: &mut StableSim<'_>, id: usize, at: Pt, (dest, _, ticks, speed): (Pt, f64, usize, usize)) {
     let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
     cc.dx = (dest.0 - at.0).round() as i64;
     cc.dy = (dest.1 - at.1).round() as i64;
     cc.speed = speed as u64;
-    sim.apply_cc(id, &cc);
+    // 0.2.5: as long again as his tenacity cuts it
+    force_move_full(sim, id, cc);
 }
 
 /// 墙冲锋的那几 tick（每 tick，他的被动里）：本包自己扫墙的路线（`swept`，和数据那道墙一样的圆心、半径、速度），扫到的
@@ -1056,6 +1195,7 @@ fn walls_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, p: &
         if tick <= w.from + SWEEP_LAG {
             sweep(sim, me, team, tick, w);
         }
+        ride_tick(sim, me, w, tick);
         if tick < w.from {
             continue;
         }
@@ -1148,7 +1288,8 @@ impl StableEffectType for Behind {
         cc.dx = dx.round() as i64;
         cc.dy = dy.round() as i64;
         cc.speed = ((len / ticks as f64).ceil() as u64).max(1);
-        sim.apply_cc(me, &cc);
+        // 0.2.5: his own tenacity cuts his dash too
+        force_move_full(sim, me, cc);
         if let Some(k) = tally(sim, "behind") {
             wlog(format!("{} BEHIND #{k}: from {} round the target at {} to {} ({:.0} in {ticks} ticks), his team {}",
                          head(sim, me), pt(here), pt(target), pt(spot), len,
@@ -2501,4 +2642,32 @@ mod tests {
         assert!(!fanim.contains(&format!("\"tether_{}\":", TETHER_MAX + 2)));
         assert!(copy.contains("\"anim\": \"asset/league_azir/effects/league_azir_tether\""));
     }
+
+    /// 2026-11-13 「沙皇的反推 好像推不到人」: a carry that stops short (tenacity, others' crowd control, his own dash) is
+    /// pushed on until he is past the wall; not through the map, not after one who ran back, not for ever.
+    #[test]
+    fn a_carry_cut_short_is_pushed_on() {
+        // past the landing line (or nearly): there
+        assert_eq!(next_push(0.0, 50_000.0, 50_000.0, 0), Next::Landed);
+        assert_eq!(next_push(LAND_NEAR, 50_000.0, 50_000.0, 3), Next::Landed);
+        // the first landing short - a third cut by tenacity, or not moved at all (the host did not run it): pushed on
+        assert_eq!(next_push(17_000.0, 50_000.0, 50_000.0, 0), Next::Push);
+        assert_eq!(next_push(50_000.0, 50_000.0, 50_000.0, 0), Next::Push);
+        // a push on that gained: again; one that gained less than PUSH_GAIN: the map in the way
+        assert_eq!(next_push(5_000.0, 17_000.0, 50_000.0, 1), Next::Push);
+        assert_eq!(next_push(16_000.0, 17_000.0, 50_000.0, 1), Next::Stuck);
+        // ran back past where the wall found him: left alone; and never more than MAX_PUSHES
+        assert_eq!(next_push(50_000.0 + RAN_BACK + 1.0, 50_000.0, 50_000.0, 0), Next::RanBack);
+        assert_eq!(next_push(5_000.0, 9_000.0, 50_000.0, MAX_PUSHES), Next::Spent);
+        // the wall keeps what it carries: where to, how far, from when
+        let p = Params::default();
+        let mut w = standing(&p, (100_000.0, 100_000.0), (130_000.0, 100_000.0), 1000, true);
+        let plan = take(&mut w, 7, (130_000.0, 100_000.0), true, 1005).expect("short of the wall: carried");
+        let ride = w.rides[&7];
+        assert_eq!((ride.dest, ride.planned, ride.left, ride.pushes, ride.since, ride.champ), (plan.0, plan.1, plan.1, 0, 1005, true));
+        // the landing line is where the plan ends
+        assert!(ride_left(&w, plan.0).abs() < 1e-6);
+        assert!((ride_left(&w, (130_000.0, 100_000.0)) - plan.1).abs() < 1e-6);
+    }
+
 }
