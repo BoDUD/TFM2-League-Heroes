@@ -41,7 +41,8 @@ recommended option - W fires by itself at the ball sharing Q's icon, R waits for
           wherever the ball is, it fires once an enemy champion stands within r_r of it (r_rule 2, 0.124.2; the user:
           「发条的大招条件太苛刻」 - before, two champions or one his team was fighting with no second within r_iso: 11
           shockwaves in 18 windows of 4 simulated games, now 17 in 20). r_delay ticks after the cast (League: 0.5 s) r_dmg + r_ap% AP to every enemy within r_r, flung
-          toward the ball and through it (`Pull` r_pull x r_pull_t at the ball's spot; League: 325 units). Unused, the
+          toward the ball and through it (`Pull` r_pull x r_pull_t at the ball's spot; League: 325 units) and stunned
+          r_stun ticks (League: 0.75 s). Unused, the
           window ends with the cooldown capped (r_reset).
 """
 import argparse
@@ -83,6 +84,9 @@ P = {
     # R (League: 225-475 + 110% AP radius 415 after 0.5 s, flung 325 units, cd 110-80 s)
     "r_cd": 4200, "r_slot": 90000, "r_arm": 360, "r_reset": 4900, "r_delay": 30, "r_r": 42000, "r_iso": 70000,
     "r_dmg": 250, "r_ap": 100, "r_pull": 2400, "r_pull_t": 12, "r_anim": 36,
+    # League's shockwave also stuns for 0.75 s (the user, 2026-11-14, on the list of differences from League: 「全改吧」;
+    # the flung enemies used to walk straight off)
+    "r_stun": 45,
     # when R fires (the user, 2026-10-16: 「发条的大招条件太苛刻」): 0 = two enemy champions within r_r of the ball, or one
     # his team is fighting with no second one within r_iso (0.122.0); 1 = two, or one his team is fighting; 2 = any enemy
     # champion within r_r. The add-on's copy (native 1) fires for two or a kill whatever this says: its AI hook
@@ -302,7 +306,7 @@ def build(p):
     def r_fire(here):
         """The shockwave: the picture now (its blast frame r_delay ticks in), the blow and the fling r_delay later."""
         hits = [magic(p["r_dmg"], p["r_ap"]), {"type": "Pull", "speed": p["r_pull"], "tick": p["r_pull_t"]},
-                view("r_hit"), tsfx("r_hit")]
+                {"type": "Stun", "duration": p["r_stun"]}, view("r_hit"), tsfx("r_hit")]
         if here:
             blow = [view("r_wave"), delayed(p["r_delay"], zone("r_dmg", p["r_r"], "EnemyWithoutTower", hits))]
         else:

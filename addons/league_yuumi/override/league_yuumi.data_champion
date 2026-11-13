@@ -1080,8 +1080,8 @@
           },
           "effect_none": {
             "type": "ApAttack",
-            "damage": 110,
-            "attack_ratio": 35,
+            "damage": 275,
+            "attack_ratio": 88,
             "hp_ratio": 0,
             "can_crit": false
           }
@@ -1200,8 +1200,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 275,
+                          "attack_ratio": 88,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -1214,10 +1214,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 255
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -1328,8 +1328,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 275,
+                          "attack_ratio": 88,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -1342,10 +1342,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 255
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -1463,8 +1463,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -1477,10 +1477,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 210
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -1591,8 +1591,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -1605,10 +1605,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 210
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -1726,8 +1726,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -1740,10 +1740,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 165
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -1759,27 +1759,6 @@
                         "effect": {
                           "type": "TargetSfx",
                           "name": "league_yuumi_r_hit"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Bind",
-                          "duration": 75
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "AddBuff",
-                          "buff_state": {
-                            "name": "league_yuumi_r_root",
-                            "duration": {
-                              "Time": {
-                                "tick": 75
-                              }
-                            }
-                          }
                         }
                       }
                     ],
@@ -1875,8 +1854,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -1889,10 +1868,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 165
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -1908,27 +1887,6 @@
                         "effect": {
                           "type": "TargetSfx",
                           "name": "league_yuumi_r_hit"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Bind",
-                          "duration": 75
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "AddBuff",
-                          "buff_state": {
-                            "name": "league_yuumi_r_root",
-                            "duration": {
-                              "Time": {
-                                "tick": 75
-                              }
-                            }
-                          }
                         }
                       }
                     ],
@@ -2031,8 +1989,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -2045,10 +2003,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 120
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -2159,8 +2117,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -2173,10 +2131,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 120
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -2294,8 +2252,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -2308,10 +2266,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 75
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -2422,8 +2380,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 110,
-                          "attack_ratio": 35,
+                          "damage": 68,
+                          "attack_ratio": 22,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
@@ -2436,10 +2394,10 @@
                             "name": "league_yuumi_r_slow",
                             "duration": {
                               "Time": {
-                                "tick": 45
+                                "tick": 75
                               }
                             },
-                            "move_speed_mult": -20
+                            "move_speed_mult": -10
                           }
                         }
                       },
@@ -2782,14 +2740,6 @@
       "name": "league_yuumi_q_eslow",
       "anim": "asset/league/effects/league_yuumi_fx",
       "tag": "q_eslow",
-      "repeat": true,
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_yuumi_r_root",
-      "anim": "asset/league/effects/league_yuumi_fx",
-      "tag": "r_root",
       "repeat": true,
       "z": 1
     }

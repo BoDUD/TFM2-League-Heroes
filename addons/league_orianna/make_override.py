@@ -46,7 +46,7 @@ NATIVE = {
         "skill2": "【附加包】球从它所在的位置飞向最危险的队友（自己更危险时回到身边），提供" + G + "{e_sh}" + E + " + " + APi + G +
                   "{e_ap}%护盾" + E + "，路过的敌人受到" + mag("e_dmg", "e_dap") + M + "魔法伤害" + E + "。带球者+{e_def}护甲和魔抗。",
         "ult": "【附加包】待命" + A + "{r_arm}秒" + E + "，球附近有2个敌方英雄或能击杀1个时放出冲击波：造成" +
-               mag("r_dmg", "r_ap") + M + "魔法伤害" + E + "并把敌人" + R + "甩向球" + E + "。AI会先用Q把球扔进人堆。",
+               mag("r_dmg", "r_ap") + M + "魔法伤害" + E + "，把敌人" + R + "甩向球" + E + "并" + R + "眩晕" + E + "{r_stun}秒。AI会先用Q把球扔进人堆。",
     },
     "zh-hant": {
         "skill": "【擴充包】球從它所在的位置飛到敵方英雄最密集處並停留，造成" + mag("q_dmg", "q_ap") + M + "魔法傷害" + E + "。" + O +
@@ -55,7 +55,7 @@ NATIVE = {
         "skill2": "【擴充包】球從它所在的位置飛向最危險的隊友（自己更危險時回到身邊），提供" + G + "{e_sh}" + E + " + " + APi + G +
                   "{e_ap}%護盾" + E + "，路過的敵人受到" + mag("e_dmg", "e_dap") + M + "魔法傷害" + E + "。帶球者+{e_def}護甲和魔抗。",
         "ult": "【擴充包】待命" + A + "{r_arm}秒" + E + "，球附近有2個敵方英雄或能擊殺1個時放出脈衝：造成" +
-               mag("r_dmg", "r_ap") + M + "魔法傷害" + E + "並把敵人" + R + "甩向球" + E + "。AI會先用Q把球扔進人堆。",
+               mag("r_dmg", "r_ap") + M + "魔法傷害" + E + "，把敵人" + R + "甩向球" + E + "並" + R + "暈眩" + E + "{r_stun}秒。AI會先用Q把球扔進人堆。",
     },
     "en": {
         "skill": "[Add-on] The Ball flies from where it is into the thickest group of enemy champions and stays, dealing " +
@@ -68,7 +68,7 @@ NATIVE = {
                   "Armor and Magic Resist.",
         "ult": "[Add-on] Waits up to " + A + "{r_arm}s" + E + " for two enemy champions near the Ball (or one it kills),"
                " then the Ball sends out a shockwave: " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E +
-               ", enemies " + R + "flung toward the Ball" + E + ". The AI throws the Ball into the crowd with Q first.",
+               ", enemies " + R + "flung toward the Ball" + E + " and " + R + "stunned" + E + " for {r_stun}s. The AI throws the Ball into the crowd with Q first.",
     },
     "ko": {
         "skill": "[확장] 공이 있는 곳에서 적 챔피언이 가장 많이 모인 곳으로 날아가 남고 " + mag("q_dmg", "q_ap") + "의 " + M + "마법 피해" + E + ". " + O +
@@ -78,7 +78,7 @@ NATIVE = {
                   "{e_ap}% 보호막" + E + ", 지나가는 적에게 " + mag("e_dmg", "e_dap") + "의 " + M + "마법 피해" + E +
                   ". 공을 가진 자는 방어력·마법 저항력 +{e_def}.",
         "ult": "[확장] 최대 " + A + "{r_arm}초" + E + " 동안 공 근처에 적 챔피언이 2명(또는 처치 가능한 1명) 있으면 충격파: " +
-               mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E + ", 적을 공 쪽으로 " + R + "날려 보냅니다" + E +
+               mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E + ", 적을 공 쪽으로 " + R + "날려 보내고" + E + " {r_stun}초 " + R + "기절" + E +
                ". AI는 먼저 Q로 공을 적이 모인 곳에 던집니다.",
     },
     "ja": {
@@ -89,7 +89,7 @@ NATIVE = {
                   "{e_ap}%のシールド" + E + "、通り道の敵に" + mag("e_dmg", "e_dap") + "の" + M + "魔法ダメージ" + E +
                   "。持ち主は物理・魔法防御+{e_def}。",
         "ult": "【拡張】最大" + A + "{r_arm}秒" + E + "待機し、ボールの近くに敵チャンピオンが2体（または倒せる1体）いれば衝撃波：" +
-               mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "、敵をボールへ" + R + "引き寄せる" + E +
+               mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "、敵をボールへ" + R + "引き寄せ" + E + "{r_stun}秒" + R + "スタン" + E +
                "。AIは先にQでボールを敵の密集地へ投げる。",
     },
 }

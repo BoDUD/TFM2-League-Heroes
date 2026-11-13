@@ -933,6 +933,13 @@
                                                                                                                         {
                                                                                                                           "casting_type": "Targeting",
                                                                                                                           "effect": {
+                                                                                                                            "type": "Stun",
+                                                                                                                            "duration": 45
+                                                                                                                          }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "casting_type": "Targeting",
+                                                                                                                          "effect": {
                                                                                                                             "type": "ViewEffect",
                                                                                                                             "name": "league_orianna_r_hit"
                                                                                                                           }
@@ -2180,6 +2187,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -3439,6 +3453,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -4688,6 +4709,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -5947,6 +5975,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -7196,6 +7231,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -8455,6 +8497,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -9704,6 +9753,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -10963,6 +11019,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -12212,6 +12275,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -13788,6 +13858,13 @@
                                                                                                                         {
                                                                                                                           "casting_type": "Targeting",
                                                                                                                           "effect": {
+                                                                                                                            "type": "Stun",
+                                                                                                                            "duration": 45
+                                                                                                                          }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "casting_type": "Targeting",
+                                                                                                                          "effect": {
                                                                                                                             "type": "ViewEffect",
                                                                                                                             "name": "league_orianna_r_hit"
                                                                                                                           }
@@ -15035,6 +15112,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -16294,6 +16378,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -17543,6 +17634,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -18802,6 +18900,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -20051,6 +20156,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -21310,6 +21422,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -22559,6 +22678,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -23818,6 +23944,13 @@
                                                                                                                             {
                                                                                                                               "casting_type": "Targeting",
                                                                                                                               "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
                                                                                                                                 "type": "ViewEffect",
                                                                                                                                 "name": "league_orianna_r_hit"
                                                                                                                               }
@@ -25067,6 +25200,13 @@
                                                                                                                                 "type": "Pull",
                                                                                                                                 "speed": 2400,
                                                                                                                                 "tick": 12
+                                                                                                                              }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "casting_type": "Targeting",
+                                                                                                                              "effect": {
+                                                                                                                                "type": "Stun",
+                                                                                                                                "duration": 45
                                                                                                                               }
                                                                                                                             },
                                                                                                                             {
@@ -26830,6 +26970,13 @@
                                                                                                                                                   {
                                                                                                                                                     "casting_type": "Targeting",
                                                                                                                                                     "effect": {
+                                                                                                                                                      "type": "Stun",
+                                                                                                                                                      "duration": 45
+                                                                                                                                                    }
+                                                                                                                                                  },
+                                                                                                                                                  {
+                                                                                                                                                    "casting_type": "Targeting",
+                                                                                                                                                    "effect": {
                                                                                                                                                       "type": "ViewEffect",
                                                                                                                                                       "name": "league_orianna_r_hit"
                                                                                                                                                     }
@@ -27714,6 +27861,13 @@
                                                                                                                                                       "type": "Pull",
                                                                                                                                                       "speed": 2400,
                                                                                                                                                       "tick": 12
+                                                                                                                                                    }
+                                                                                                                                                  },
+                                                                                                                                                  {
+                                                                                                                                                    "casting_type": "Targeting",
+                                                                                                                                                    "effect": {
+                                                                                                                                                      "type": "Stun",
+                                                                                                                                                      "duration": 45
                                                                                                                                                     }
                                                                                                                                                   },
                                                                                                                                                   {
@@ -28608,6 +28762,10 @@
                                                                     "type": "Pull",
                                                                     "speed": 2400,
                                                                     "tick": 12
+                                                                  },
+                                                                  {
+                                                                    "type": "Stun",
+                                                                    "duration": 45
                                                                   },
                                                                   {
                                                                     "type": "ViewEffect",
