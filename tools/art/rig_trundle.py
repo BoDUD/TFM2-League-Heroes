@@ -44,26 +44,48 @@ LIFT = {"w_roar": 12}          # rows off the ground: the leap (the pack's 6 squ
 
 # The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
 # 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): polygons in each pose picture's own squares.
-# The club raised behind him turns a quarter about his grip - one of the grid's exact turns, so it is the same club
-# square for square, held up over his head on the way down; the arm reaching out slides along itself back under the
-# shoulder guard; the club flung away in the death flies on by itself; the club trailing behind him in the run bobs,
-# its far end two or three rows up and down by whole columns (ppu_rig.sway's shape). The head and the body are in no
-# part.
+# The ice club turns about his grip - a quarter turn is one of the grid's exact turns (the same club square for
+# square); any other angle is turned RotSprite's way (inbetween.spin: only the club's own colours, its outline tidied
+# after); an arm turns the same way about the corner where it leaves the shoulder guard or the body, so its root stays
+# hidden under them; the club flung away in the death tumbles on by itself, and comes down under his hand a beat
+# after he slumps (turned about its butt end); the two legs of a contact step turn about the hips toward each other
+# (the run's half strides). The head and the rest of the body are in no part.
 VPAD = 60                      # squares a moved part may leave its pose picture's box by (the club turned about his grip)
 PARTS = {
     "a_wind": {"club": [[(0, 0), (58, 0), (63, 36), (63, 40), (62, 40), (62, 49), (48, 49), (40, 46), (0, 46)]]},
+    "a_smash": {"club": [[(88, 58), (137, 58), (137, 96), (81, 96), (81, 77), (85, 77), (85, 70), (88, 66)]]},
+    "q_rear": {"arm": [[(106, 44), (138, 44), (138, 76), (106, 76)]]},
+    "w_roar": {"arm": [[(115, 0), (138, 0), (138, 36), (130, 38), (124, 44), (120, 48), (115, 48), (115, 46), (116, 46),
+                        (116, 40), (117, 40), (117, 35), (116, 35), (116, 31), (115, 31)]],
+               "club": [(0, 52, 43, 52), (0, 53, 47, 54), (0, 55, 46, 57), (0, 58, 49, 105)]},
+    "q_chomp": {"club": [[(0, 22), (48, 22), (48, 30), (53, 30), (53, 36), (50, 36), (50, 49), (47, 50), (40, 56),
+                          (30, 68), (20, 76), (0, 76)]]},
+    "e_swing": {"club": [[(0, 12), (53, 12), (53, 26), (48, 34), (42, 60), (0, 60)]]},
     "e_raise": {"club": [[(12, 0), (70, 0), (70, 47), (30, 50), (24, 53), (20, 54), (17, 54), (17, 50), (12, 47)]],
                 "butt": [(0, 56, 7, 66)]},
+    "r_rise": {"arm": [[(107, 34), (118, 34), (118, 28), (138, 28), (138, 62), (108, 62), (107, 56)]]},
     "r_reach": {"arm": [[(104, 14), (138, 14), (138, 50), (104, 50)]]},
     "d_fall": {"club": [[(0, 0), (64, 0), (64, 54), (52, 54), (52, 50), (44, 46), (0, 46)]]},
-    "run1": {"club": [[(0, 10), (69, 10), (69, 24), (64, 38), (44, 60), (0, 60)]]},
-    "run2": {"club": [[(0, 24), (57, 24), (57, 82), (0, 82)]]},
-    "run3": {"club": [[(0, 26), (50, 26), (50, 40), (42, 50), (42, 80), (0, 80)]]},
-    "run4": {"club": [[(0, 24), (56, 24), (56, 82), (0, 82)]]},
+    "d_down": {"club": [(0, 43, 35, 57), (0, 58, 37, 58), (0, 59, 38, 59), (0, 60, 39, 60), (0, 61, 41, 61),
+                        (0, 62, 42, 62), (0, 63, 46, 63), (0, 64, 51, 64), (0, 65, 56, 65), (0, 66, 59, 66),
+                        (0, 67, 61, 70), (0, 71, 58, 74)]},
+    "run1": {"back": [[(60, 44), (92, 44), (100, 46), (113, 46), (113, 52), (104, 54), (104, 62), (96, 70), (86, 74),
+                       (60, 74)]],
+             "front": [[(128, 46), (140, 44), (152, 46), (153, 62), (170, 64), (170, 84), (128, 84), (124, 70),
+                        (124, 58)]]},
+    "run3": {"back": [[(44, 44), (66, 44), (72, 42), (80, 44), (84, 48), (84, 54), (80, 60), (76, 66), (60, 70),
+                       (44, 70)]],
+             "front": [[(96, 48), (104, 46), (118, 50), (120, 60), (132, 66), (132, 80), (98, 80), (94, 66),
+                        (94, 56)]]},
 }
-# the run: the column by his fist where the trailing club's bob starts (nothing moves there; its far end the most)
-CLUB_AT = {"run1": 62, "run2": 48, "run3": 40, "run4": 48}
-GRIP = {"a_wind": (63, 44), "e_raise": (17, 52)}   # the corner in his fist each pose's club turns about
+# the point each pose's part turns about: the corner in his fist for a club; for an arm or a leg the corner where it
+# leaves the body on the side it turns away from, so the rest of its root swings in under the body and no gap opens
+AT = {("a_wind", "club"): (63, 44), ("a_smash", "club"): (85, 72), ("q_rear", "arm"): (106, 48),
+      ("w_roar", "arm"): (114, 22), ("w_roar", "club"): (48, 54),
+      ("q_chomp", "club"): (50, 26), ("e_swing", "club"): (54, 20), ("e_raise", "club"): (17, 52),
+      ("r_rise", "arm"): (107, 56), ("r_reach", "arm"): (104, 27), ("d_fall", "club"): (30, 26),
+      ("d_down", "club"): (60, 67),
+      ("run1", "back"): (108, 48), ("run1", "front"): (130, 48), ("run3", "back"): (84, 48), ("run3", "front"): (97, 50)}
 
 
 def lp(path):
@@ -109,19 +131,20 @@ class Canvas:
             self._head = IB.shared_head(self.d, HEAD, (PK.HW, PK.HH), [load_pose(n)[:2] for n in PK.POSES])
         return self._head
 
-    def frame(self, name, dx=0, lift=None, flash=False, moves=(), turns=(), sway=()):
+    def frame(self, name, dx=0, lift=None, flash=False, moves=(), turns=(), spins=()):
         """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
         moves [(part, (dx, dy), how)] - parts of the pose (PARTS) moved by whole squares, "under" the rest of him or
         "over" it; turns [(part, corner, quarters, how)] - a part turned by quarter turns about a square corner;
-        sway [(part, x0, x1, k, attach)] - a part's columns lifted 0..k rows along its length."""
+        spins [(part, point, degrees, how)] - a part turned clockwise by any angle about a point (RotSprite's way),
+        then moved if `moves` names it too."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, LIFT.get(name, 0) if lift is None else lift)
-        if moves or turns or sway:
+        if moves or turns or spins:
             hx, hy = load_pose(name)[1]
             head = np.zeros(d.shape[:2], bool)
             head[hy:hy + PK.HH, hx:hx + PK.HW] = self.head()
-            d = IB.vary(d, PARTS[name], self.outline, moves, sway, None, head, VPAD, name, turns)
+            d = IB.vary(d, PARTS[name], self.outline, moves, (), None, head, VPAD, name, turns, spins)
             left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
@@ -137,63 +160,82 @@ class Canvas:
 # from 200 ms (q_hit 12); the Frozen Domain's hop (tag `w`) 233 ms = w_dur 14; Pillar of Ice 400 ms = e_dur 24, the club
 # raised as the pillar rises on e_rel 10 (167 ms); Subjugate 500 ms = r_dur 30, the hand reaching out on r_rel 14 (233 ms)
 #
-# The in-betweens (2026-11-14: his attack and Chomp played 3 different pictures, the hop, the Pillar and Subjugate 2,
-# the run 4, the death 3): each span above is shared out over more frames (inbetween.spans: whole ms, none under 50),
-# so every action is as long as it was and its strike still begins on its millisecond - the smash at 183, the bite at
-# 200, the leap at 100, the raise at 167, the reach at 233, the slump at 400.
+# The in-betweens (2026-11-14: his attack and Chomp played 3 different poses, the hop, the Pillar and Subjugate 2, the
+# death 2 and a flash, the run 4): each span above is shared out over more frames (inbetween.spans: whole ms, none
+# under 50), so every action is as long as it was and its strike still begins on its millisecond - the smash at 183,
+# the bite at 200, the leap at 100, the raise at 167, the reach at 233, the slump at 400; the run's four steps each
+# keep their 150 ms, the second half of each a half stride. A frame that is only its neighbour moved whole is no new
+# pose: one stays only where the move is the motion (the lunge of a strike, the knock-back, the fall), and never more
+# than two frames of one drawing follow each other.
 MS = {"idle": [1000], "run": IB.spans(*[(150, 2)] * 4),
       "attack": IB.spans((183, 3), (200, 3, (6, 7, 7)), (84, 1)),
-      "skill": IB.spans((200, 3), (200, 3, (6, 7, 7)), (67, 1)),
-      "w": IB.spans((100, 2), (133, 2)),
+      "skill": IB.spans((200, 3), (200, 2, (6, 14)), (67, 1)),
+      "w": IB.spans((100, 1), (133, 2)),
       "skill2": IB.spans((167, 2), (233, 3)),
-      "ult": IB.spans((233, 3), (267, 4, (5, 6, 7, 8))),
+      "ult": IB.spans((233, 2), (267, 3, (6, 7, 14))),
       "hit": [100, 100], "dead": IB.spans((400, 4, (7, 8, 11, 14)), (900, 3, (7, 8, 75)))}
 
 
 def actions(C):
     f = C.frame
 
-    def under(**parts):
-        return [(part, off, "under") for part, off in parts.items()]
+    def spin(name, part, degrees, how="under"):
+        """The pose's part turned clockwise by `degrees` about its point (AT)."""
+        return [(part, AT[(name, part)], degrees, how)]
     out = {}
     out["idle"] = [f("idle")]
-    # run (League's Run: contact, passing, contact on the other leg, passing; the club trailing out behind him): each
-    # of the four drawn steps twice - landed, the club's far end dipping after him (bouncing up where it already
-    # drags on the ground); his weight coming up through the passing pose, the club swinging up (no new legs drawn:
-    # they still change four times a cycle)
-    def club(name, k):
-        return [("club", 0, CLUB_AT[name], k, "right")]
-    out["run"] = [f("run1"), f("run1", sway=club("run1", -3)), f("run2", lift=1, sway=club("run2", 1)),
-                  f("run2", lift=2, sway=club("run2", 3)), f("run3"), f("run3", sway=club("run3", 2)),
-                  f("run4", lift=1, sway=club("run4", 1)), f("run4", lift=2, sway=club("run4", 3))]
-    # attack (Attack1: the club swung up over his head, smashed down before him, back): the club up behind him, drawn
-    # further back, turned up over his head on its way down; smashed down a step ahead, settling, held; the idle
-    out["attack"] = [f("a_wind"), f("a_wind", dx=-3), f("a_wind", dx=-1, turns=[("club", GRIP["a_wind"], 1, "under")]),
-                     f("a_smash", dx=4), f("a_smash", dx=2), f("a_smash"), f("idle")]
+    # run (League's Run: contact, passing, contact on the other leg, passing; the club trailing out behind him): the
+    # four drawn steps, and between each two a half stride - the contact step next to it with its legs closing (after
+    # a contact) or not yet open (before one), at a height between the two steps'
+    def stride(name, k, lift):
+        """A contact pose with both legs turned k degrees toward each other about the hips and drawn up under him as
+        far as they would reach under the ground, the figure `lift` rows up: a half stride."""
+        d, _, ground = load_pose(name)
+        up = {}
+        for part, sign in (("front", 1), ("back", -1)):
+            layer = IB.spin(d, IB.part_mask(d.shape, PARTS[name][part]), AT[(name, part)], sign * k, C.outline, VPAD)
+            low = int(np.nonzero((layer[..., 3] > 0).any(1))[0].max()) + 1 - VPAD
+            up[part] = max(0, low - ground - lift)
+        return f(name, lift=lift, spins=spin(name, "front", k) + spin(name, "back", -k),
+                 moves=[("front", (0, -up["front"]), "under"), ("back", (0, -up["back"]), "under")])
+    out["run"] = [f("run1"), stride("run1", 12, 1), f("run2"), stride("run3", 20, 4),
+                  f("run3"), stride("run3", 12, 2), f("run4"), stride("run1", 20, 2)]
+    # attack (Attack1: the club swung up over his head, smashed down before him, back): the club up behind him, turned
+    # a quarter up over his head, coming down before him as he steps in; smashed down a step ahead, bounced, at rest;
+    # the idle
+    out["attack"] = [f("a_wind"), f("a_wind", dx=-1, turns=[("club", AT[("a_wind", "club")], 1, "under")]),
+                     f("a_smash", dx=-1, spins=spin("a_smash", "club", -45)),
+                     f("a_smash", dx=3), f("a_smash", dx=1, spins=spin("a_smash", "club", -15)), f("a_smash"),
+                     f("idle")]
     # Chomp (Spell1 bite: rearing up, lunging in with the jaws, back): rising out of the hunch (the ult's first pose),
-    # reared up, drawn back; lunging in a step long, settling, held; the idle
-    out["skill"] = [f("r_rise"), f("q_rear"), f("q_rear", dx=-3),
-                    f("q_chomp", dx=4), f("q_chomp", dx=2), f("q_chomp"), f("idle")]
+    # rearing with the arm still coming up, reared; lunging in a step long with the club thrown up behind him, bitten;
+    # the idle
+    out["skill"] = [f("r_rise"), f("q_rear", spins=spin("q_rear", "arm", 28)), f("q_rear"),
+                    f("q_chomp", dx=4, spins=spin("q_chomp", "club", 14)), f("q_chomp"), f("idle")]
     # the Frozen Domain (Spell2 cast_hop, the passive's hop after a bite on a champion: crouched, leaping up roaring):
-    # crouched, drawn back; off the ground, at the top of the leap
-    out["w"] = [f("w_crouch"), f("w_crouch", dx=-3), f("w_roar", lift=5), f("w_roar")]
-    # Pillar of Ice (Spell3 cast_wave: the club swung across, raised high): the swing drawn back, across; his arm up
-    # with the club still on its way round (a quarter turn behind), raised a step back, held
-    out["skill2"] = [f("e_swing", dx=-3), f("e_swing"),
-                     f("e_raise", turns=[("club", GRIP["e_raise"], 3, "under")], moves=[("butt", (0, 0), "gone")]),
-                     f("e_raise", dx=-2), f("e_raise")]
-    # Subjugate (Spell4: rising out of the hunch, reaching out to drain): rising, risen, drawn back; the arm shooting
-    # out, reached a step ahead, held, the arm easing in
-    out["ult"] = [f("r_rise"), f("r_rise", dx=-2), f("r_rise", dx=-3),
-                  f("r_reach", moves=under(arm=(-6, 2))), f("r_reach", dx=3), f("r_reach"),
-                  f("r_reach", moves=under(arm=(-3, 1)))]
+    # crouched; off the ground with his fist on its way up and the club still swinging down behind him; at the top of
+    # the leap
+    out["w"] = [f("w_crouch"),
+                f("w_roar", lift=5, spins=spin("w_roar", "arm", 35) + spin("w_roar", "club", 22)), f("w_roar")]
+    # Pillar of Ice (Spell3 cast_wave: the club swung across, raised high): the club on its way across, swung; his arm
+    # up with the club a quarter turn behind, half way up, raised
+    out["skill2"] = [f("e_swing", spins=spin("e_swing", "club", -32)), f("e_swing"),
+                     f("e_raise", turns=[("club", AT[("e_raise", "club")], 3, "under")], moves=[("butt", (0, 0), "gone")]),
+                     f("e_raise", spins=spin("e_raise", "club", -42), moves=[("butt", (0, 0), "gone")]), f("e_raise")]
+    # Subjugate (Spell4: rising out of the hunch, reaching out to drain): rising, the hand coming up; the arm on its
+    # way out in two steps, reached
+    out["ult"] = [f("r_rise"), f("r_rise", spins=spin("r_rise", "arm", -24)),
+                  f("r_reach", spins=spin("r_reach", "arm", 38)), f("r_reach", spins=spin("r_reach", "arm", 17)),
+                  f("r_reach")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
-    # death (Death: knocked back, the club flung away; slumped on the ground): struck, flung back with the club flying
-    # on away from him; dropping, down, still
-    out["dead"] = [f("d_fall", flash=True), f("d_fall", dx=-3, lift=3, moves=[("club", (-4, -3), "over")]),
-                   f("d_fall", dx=-5, lift=4, moves=[("club", (-9, -5), "over")]),
-                   f("d_fall", dx=-6, lift=1, moves=[("club", (-13, -4), "over")]),
-                   f("d_down", lift=4), f("d_down", lift=1), f("d_down")]
+    # death (Death: knocked back, the club flung away; slumped on the ground): struck, flung back and up with the club
+    # tumbling on away from him; dropping with the club's head still up, nearly down, still
+    out["dead"] = [f("d_fall", flash=True),
+                   f("d_fall", dx=-3, lift=3, spins=spin("d_fall", "club", -25, "over"), moves=[("club", (-4, -3), "over")]),
+                   f("d_fall", dx=-5, lift=4, spins=spin("d_fall", "club", -55, "over"), moves=[("club", (-9, -5), "over")]),
+                   f("d_fall", dx=-6, lift=1, turns=[("club", AT[("d_fall", "club")], 3, "over")], moves=[("club", (-13, -4), "over")]),
+                   f("d_down", lift=4, spins=spin("d_down", "club", 18)),
+                   f("d_down", lift=1, spins=spin("d_down", "club", 8)), f("d_down")]
     return out
 
 
