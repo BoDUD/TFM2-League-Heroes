@@ -1,0 +1,90 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_shyvana_big",
+   "tag": "d_q2_wave",
+   "file": "league_shyvana_big/d_q2_wave.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     39,
+     43
+    ],
+    [
+     41,
+     43
+    ],
+    [
+     43,
+     45
+    ],
+    [
+     41,
+     43
+    ],
+    [
+     39,
+     43
+    ]
+   ],
+   "of_1x": "65453caa49c41c75906ca00a1b2ae3a9388c42cd53da5a30601c99e9af7598de",
+   "by": "fx_vector 3",
+   "sha256": "a7d75216fb16ec071111a8f320454dc0fc60ce94f678adcd4b39d4b83ba523db",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
+   "tag": "w_aegis",
+   "file": "league_shyvana_big/w_aegis.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     61
+    ],
+    [
+     45,
+     63
+    ],
+    [
+     45,
+     63
+    ],
+    [
+     45,
+     61
+    ],
+    [
+     45,
+     61
+    ],
+    [
+     45,
+     61
+    ]
+   ],
+   "of_1x": "c0abaef599dd6b7d9c5cf29f291f30853a8f3cc1c091a88820be0b009617bb54",
+   "by": "fx_vector 3",
+   "sha256": "a0856cc20e34d314753e18383d83d0bfc7dc06df6d40148a51c71dbd36f8f48a",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

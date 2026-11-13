@@ -1,0 +1,105 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ekko_big",
+   "tag": "q_field",
+   "file": "league_ekko_big/q_field.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     37
+    ],
+    [
+     39,
+     47
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     35,
+     45
+    ],
+    [
+     23,
+     37
+    ]
+   ],
+   "of_1x": "e5d83d19ab8af735216c87de98b9cf25807fc246e65bacdd2186ca55806a5e1b",
+   "by": "fx_vector 3",
+   "sha256": "29cdee7453cefa57a51c73771b74e6c722f550682cae49e69827dca7ac9d5293",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ekko_big",
+   "tag": "r_arrive",
+   "file": "league_ekko_big/r_arrive.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     51,
+     55
+    ],
+    [
+     45,
+     49
+    ],
+    [
+     69,
+     61
+    ],
+    [
+     71,
+     65
+    ],
+    [
+     71,
+     63
+    ],
+    [
+     71,
+     59
+    ],
+    [
+     63,
+     59
+    ],
+    [
+     49,
+     51
+    ]
+   ],
+   "of_1x": "562ce49ce7c83e90c8d0d49eaeabbbad6146274dff031e6d13698c698c14949f",
+   "by": "fx_vector 3",
+   "sha256": "5a82191857e4436de127b636a18f584bee55c736380b0e95447665080b6c595b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

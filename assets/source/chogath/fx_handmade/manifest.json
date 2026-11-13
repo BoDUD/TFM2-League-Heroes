@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_chogath_big",
+   "tag": "r_grow",
+   "file": "league_chogath_big/r_grow.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     55,
+     37
+    ],
+    [
+     59,
+     39
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     55,
+     55
+    ],
+    [
+     49,
+     49
+    ]
+   ],
+   "of_1x": "a851d1316b21e3817583623037d940e33f5f7aae3e86a7c5f9b1a29a61e7adc1",
+   "by": "fx_vector 3",
+   "sha256": "8532161eeac046796e31751d26b3e8c33c2b7f79527039d11b259168b0379a5b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

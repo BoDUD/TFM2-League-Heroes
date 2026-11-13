@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_bard_big",
+   "tag": "r_mark",
+   "file": "league_bard_big/r_mark.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     43
+    ],
+    [
+     69,
+     47
+    ],
+    [
+     69,
+     49
+    ],
+    [
+     69,
+     51
+    ],
+    [
+     69,
+     51
+    ],
+    [
+     71,
+     51
+    ]
+   ],
+   "of_1x": "5e9ade26827694a7ca74e1ec73ee4e300576cc7b3ddb1bbfa6b65f3fc680f671",
+   "by": "fx_vector 3",
+   "sha256": "ec95f6370a581f3a1336b3d590cb7ffdbe08357622bf76af1f322e60eae1a451",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

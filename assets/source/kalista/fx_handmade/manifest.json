@@ -1,0 +1,44 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_kalista_big",
+   "tag": "r_fly",
+   "file": "league_kalista_big/r_fly.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     31,
+     63
+    ],
+    [
+     29,
+     61
+    ],
+    [
+     31,
+     63
+    ],
+    [
+     29,
+     61
+    ]
+   ],
+   "of_1x": "9412e905325d8dd7e2e19244a0e8ca4c05b4555a830eb7054564089fa4861061",
+   "by": "fx_vector 3",
+   "sha256": "00cc51442dcf1a8e2e16d46b3d147c41ae5c86f88a836633c946b7ae4d45163b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

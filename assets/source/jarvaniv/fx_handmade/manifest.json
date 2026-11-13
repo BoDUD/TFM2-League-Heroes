@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_jarvaniv_fx",
+   "tag": "w_on",
+   "file": "league_jarvaniv_fx/w_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     33,
+     65
+    ],
+    [
+     35,
+     65
+    ],
+    [
+     33,
+     65
+    ],
+    [
+     31,
+     65
+    ]
+   ],
+   "of_1x": "ea981a898a34c6f62967fd580056657565c0753d54b9646ebdab47095784491f",
+   "by": "fx_vector 3",
+   "sha256": "e0ee54546875965b0d1a87830e96931c7816fec49c6e256ab6b4c1676a6d6924",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

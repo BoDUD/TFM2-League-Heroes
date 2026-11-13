@@ -3,6 +3,61 @@
  "items": [
   {
    "sheet": "league_annie_big",
+   "tag": "r_ring",
+   "file": "league_annie_big/r_ring.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     69,
+     51
+    ],
+    [
+     67,
+     51
+    ],
+    [
+     65,
+     51
+    ],
+    [
+     61,
+     51
+    ],
+    [
+     63,
+     51
+    ],
+    [
+     67,
+     51
+    ],
+    [
+     67,
+     51
+    ],
+    [
+     71,
+     51
+    ]
+   ],
+   "of_1x": "ef8a1a1a4ab65c61a0e5a8d9b98495f17db65248fac9dab392771aa47f24155a",
+   "by": "fx_vector 3",
+   "sha256": "75b66508cc14a47e8df658d59f6c2d7cc07155a67feedf521330993cc21d20a2",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_annie_big",
    "tag": "tibbers",
    "file": "league_annie_big/tibbers.png",
    "ppu": 2,

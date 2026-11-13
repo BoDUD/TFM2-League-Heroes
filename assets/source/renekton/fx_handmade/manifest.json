@@ -1,0 +1,60 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_renekton_big",
+   "tag": "r_cast",
+   "file": "league_renekton_big/r_cast.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     75,
+     25
+    ],
+    [
+     75,
+     25
+    ],
+    [
+     75,
+     79
+    ],
+    [
+     75,
+     95
+    ],
+    [
+     75,
+     75
+    ],
+    [
+     75,
+     67
+    ],
+    [
+     75,
+     27
+    ],
+    [
+     73,
+     23
+    ]
+   ],
+   "of_1x": "15cb4925f60ddb00a133f7715c32ee21db961064e5f64f938b876f082364e1c2",
+   "by": "fx_vector 3",
+   "sha256": "66f865a687799eb841be3b08937df260372a7587207349b47a14463d8da0588b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

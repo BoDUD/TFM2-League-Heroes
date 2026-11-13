@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_hwei_big",
+   "tag": "w_pool",
+   "file": "league_hwei_big/w_pool.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     31
+    ],
+    [
+     35,
+     35
+    ],
+    [
+     35,
+     37
+    ],
+    [
+     35,
+     39
+    ],
+    [
+     35,
+     39
+    ],
+    [
+     35,
+     35
+    ]
+   ],
+   "of_1x": "735260bd0e4ba7f7f31a102ce69cb3a8b3e9c36c20a122faeb2f37edd6197eb1",
+   "by": "fx_vector 3",
+   "sha256": "02f0735b7980f0c49c3aeeb5a37c54473fa1568adc85d2cb17b19b6e3a8f1a4f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

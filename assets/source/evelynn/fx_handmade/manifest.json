@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_evelynn_big",
+   "tag": "sh_in",
+   "file": "league_evelynn_big/sh_in.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     37,
+     23
+    ],
+    [
+     39,
+     31
+    ],
+    [
+     39,
+     51
+    ],
+    [
+     39,
+     57
+    ],
+    [
+     35,
+     59
+    ]
+   ],
+   "of_1x": "7ca187b2043ba88444ce209b27dd65ed320ee36a6973c7c9018febd2e54392fd",
+   "by": "fx_vector 3",
+   "sha256": "4007b96d89919c281aa63375f35c7d5ce023eea186dda796605d4faaf7470a6d",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

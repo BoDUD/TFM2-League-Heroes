@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_illaoi_fx",
+   "tag": "e_spirit",
+   "file": "league_illaoi_fx/e_spirit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     55
+    ],
+    [
+     25,
+     55
+    ],
+    [
+     25,
+     57
+    ],
+    [
+     25,
+     63
+    ],
+    [
+     25,
+     63
+    ],
+    [
+     25,
+     57
+    ]
+   ],
+   "of_1x": "f48aed8e27bfe20637f3dfc09ec2a43899dcfe1d772c9edf16c1252a298571b4",
+   "by": "fx_vector 3",
+   "sha256": "13889a6fc2b45ce8d989c20f2785d2ab91837ae4b12996f667f079f8befb8748",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

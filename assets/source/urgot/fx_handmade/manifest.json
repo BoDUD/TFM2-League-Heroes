@@ -1,0 +1,85 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_urgot_big",
+   "tag": "r_fear",
+   "file": "league_urgot_big/r_fear.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     15,
+     37
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     61,
+     37
+    ],
+    [
+     85,
+     37
+    ],
+    [
+     85,
+     37
+    ],
+    [
+     71,
+     37
+    ]
+   ],
+   "of_1x": "9d9577aca5d5fe040a59f1cc8986b9d231865107b941955fffb9712a12a868b2",
+   "by": "fx_vector 3",
+   "sha256": "04d8528a197b3337a58dcf207ac873ef2e76d0eef3a7d1c734d25988ce0ccf81",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_urgot_fx",
+   "tag": "w_on",
+   "file": "league_urgot_fx/w_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     47,
+     33
+    ],
+    [
+     47,
+     33
+    ],
+    [
+     47,
+     33
+    ],
+    [
+     47,
+     33
+    ]
+   ],
+   "of_1x": "30e371de6ca16b79534ea6663c2acf0950ca97f6ca3590b90651c14584b6c581",
+   "by": "fx_vector 3",
+   "sha256": "d61ad569edc9e4e6474abfa8b256e3118f8e7fe41f850544dec0f7f204a87ae0",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

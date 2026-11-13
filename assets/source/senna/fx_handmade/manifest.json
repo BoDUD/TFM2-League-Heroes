@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_senna_fx",
+   "tag": "r_shield",
+   "file": "league_senna_fx/r_shield.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     33,
+     53
+    ],
+    [
+     33,
+     53
+    ],
+    [
+     33,
+     51
+    ],
+    [
+     33,
+     51
+    ]
+   ],
+   "of_1x": "83fba9171d64223b1b9ae393c120bc533ec0438b13c78f9561c7c0e15acf871f",
+   "by": "fx_vector 3",
+   "sha256": "4c08f8d75c3e4fb2a837e5c836ee783d24e7e67d6a33be640fdcececc1c19605",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

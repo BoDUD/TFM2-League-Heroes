@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_kassadin_fx",
+   "tag": "q_shield",
+   "file": "league_kassadin_fx/q_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     57
+    ],
+    [
+     35,
+     61
+    ],
+    [
+     41,
+     61
+    ],
+    [
+     39,
+     61
+    ],
+    [
+     39,
+     61
+    ],
+    [
+     37,
+     57
+    ]
+   ],
+   "of_1x": "1a1dd597c449675850f15c8805f7eadfee5adb5d9035423bdd296f36d1a5ff7e",
+   "by": "fx_vector 3",
+   "sha256": "fb2c2fcf5fe54884b36038f324f7e841bfeb28821d887d9f568dc02b9e645c02",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

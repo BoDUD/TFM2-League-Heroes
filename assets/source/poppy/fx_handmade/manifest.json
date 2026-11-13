@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_poppy_fx",
+   "tag": "p_shown",
+   "file": "league_poppy_fx/p_shown.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     25,
+     45
+    ],
+    [
+     25,
+     45
+    ],
+    [
+     25,
+     45
+    ],
+    [
+     25,
+     45
+    ]
+   ],
+   "of_1x": "944208c93181ce0cd9cf00d6822d0ab00237738d77bfa1c747c89286de586ef8",
+   "by": "fx_vector 3",
+   "sha256": "9ec961af6f3baaf8de6d33d65958a65ba0d5cb0933b8a804341796764a0c8374",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

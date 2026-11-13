@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_rell_big",
+   "tag": "r_on",
+   "file": "league_rell_big/r_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     67,
+     35
+    ],
+    [
+     65,
+     35
+    ],
+    [
+     65,
+     35
+    ],
+    [
+     65,
+     35
+    ],
+    [
+     63,
+     35
+    ],
+    [
+     67,
+     35
+    ]
+   ],
+   "of_1x": "df0d9a03043e5c21963759ee5c9fcaf350bd2258097ac2f37a4635e4f27e8275",
+   "by": "fx_vector 3",
+   "sha256": "56640ace6991540b1bf3921c4110b8925aee7437953230e8051cf0cba77f8927",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_fiddlesticks_big",
+   "tag": "r_mark",
+   "file": "league_fiddlesticks_big/r_mark.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     89,
+     67
+    ],
+    [
+     89,
+     73
+    ],
+    [
+     89,
+     73
+    ],
+    [
+     91,
+     73
+    ],
+    [
+     89,
+     73
+    ],
+    [
+     89,
+     73
+    ],
+    [
+     91,
+     73
+    ],
+    [
+     91,
+     77
+    ]
+   ],
+   "of_1x": "8d74d63f9e98af18ef3042b25697f74d86215c99153435b1ffb87c5d38c969d0",
+   "by": "fx_vector 3",
+   "sha256": "6e1a487af78d2eac0437593575f2e3228b7d609ddc92f1a4821e160af9c982fb",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_fiddlesticks_sym",
+   "tag": "r_storm",
+   "file": "league_fiddlesticks_sym/r_storm.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     91,
+     101
+    ],
+    [
+     91,
+     101
+    ],
+    [
+     91,
+     101
+    ],
+    [
+     91,
+     101
+    ],
+    [
+     91,
+     101
+    ],
+    [
+     91,
+     101
+    ]
+   ],
+   "of_1x": "cc85c5ee86471a21d9f277ffa1d436cd96d760e192b545e3824d6ca36aa3bd9f",
+   "by": "fx_vector 3",
+   "sha256": "6ca51edff4c863fd49111d75a274c7dddf822d18e38a7adc50f2f9b63ff47fd1",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

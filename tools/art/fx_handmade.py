@@ -9,7 +9,8 @@
     python -I tools/art/fx_handmade.py --drop SHEET:TAG [...]                              # forget a stored tag
 
 --redraw: every 1x frame of the tag is redrawn PPU 2 by fx_vector.redraw_tag (the same drawing, its boundaries traced and
-smoothed inside the corridor its pixels leave them: fx_vector.py's notes) and kept as
+smoothed inside the corridor its pixels leave them: fx_vector.py's notes), laid over the Scale2x twin densify_fx.py
+gives it (draw_tag: a game pixel the redraw leaves as its plain square is that twin's), and kept as
 assets/source/<hero>/fx_handmade/<sheet>/<tag>.png - the tag's distinct dense frames side by side, each centred in a cell
 twice the tag's largest 1x frame - with an entry in that folder's manifest.json: the frames' order, each distinct frame's
 1x size, and a hash of the tag's 1x frames. What is stored is the PICTURE, not the recipe: a later change of fx_vector.py
@@ -43,7 +44,7 @@ import fx_vector as V  # noqa: E402
 G = D.G
 PPU = 2
 STORE = "fx_handmade"
-BY = "fx_vector 2"          # what drew a stored tag (raise the number when the redraw's rules change)
+BY = "fx_vector 3"          # what drew a stored tag (raise the number when the redraw's rules change)
 
 
 def hero_of(sheet):
@@ -156,6 +157,25 @@ def checks(frames, dense, P=PPU):
 
 
 # ------------------------------------------------------------------ drawing and keeping
+def draw_tag(sheet, tag, frames, **kw):
+    """A tag's frames redrawn (fx_vector.redraw_tag) - and, wherever the redraw left a game pixel as its plain square,
+    that pixel as the twin densify_fx.py gives it (Scale2x: a small dot's corners cut, a solid area's steps halved - what
+    is in the game now; its squares for a tag fx_x2_tags.txt keeps square). The redraw is a layer over that twin: a
+    pixel it has nothing to say about is never squarer than it was."""
+    how = D.x2_tags().get((sheet, tag))
+    new = V.redraw_tag([a for a, _ in frames], PPU, **kw)
+    out = []
+    for (a, _), g in zip(frames, new):
+        h, w = a.shape[:2]
+        base = D.square(a, PPU) if how == "square" else D.finer(a, PPU)
+        plain = (g.reshape(h, PPU, w, PPU, 4) == a[:, None, :, None, :]).all(-1).all(axis=(1, 3))
+        m = np.repeat(np.repeat(plain, PPU, 0), PPU, 1)
+        g = g.copy()
+        g[m] = base[m]
+        out.append(g)
+    return out
+
+
 def redraw(keys, note="", log=print, **kw):
     """draw the tags (sheet:tag), keep their strips and manifest entries; -> the heroes touched"""
     heroes = set()
@@ -166,7 +186,7 @@ def redraw(keys, note="", log=print, **kw):
         if tag not in tags or "hd_" + tag not in tags:
             sys.exit(f"{key}: no such tag (or no hd_ twin) in the sheet")
         frames = tags[tag]
-        dense = V.redraw_tag([a for a, _ in frames], PPU, **kw)
+        dense = draw_tag(sheet, tag, frames, **kw)
         wrong = checks(frames, dense)
         if wrong:
             sys.exit(f"{key}: not stored - " + "; ".join(wrong))

@@ -1,0 +1,85 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_belveth_big",
+   "tag": "e_storm",
+   "file": "league_belveth_big/e_storm.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     45
+    ],
+    [
+     57,
+     45
+    ],
+    [
+     57,
+     45
+    ],
+    [
+     55,
+     47
+    ],
+    [
+     57,
+     47
+    ],
+    [
+     55,
+     47
+    ]
+   ],
+   "of_1x": "5a50df149d89d208fa5657e0d64d3b1b747d170c2390e19f03c56228f626233c",
+   "by": "fx_vector 3",
+   "sha256": "6904aa4e7d43290ac08816c31ca3b650c7322ca6556fb56c7c3201231ea7301f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_belveth_fx",
+   "tag": "r_aura",
+   "file": "league_belveth_fx/r_aura.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     45,
+     63
+    ],
+    [
+     47,
+     67
+    ]
+   ],
+   "of_1x": "7c49b048dbce2838aed7eeded2bf1453222e90f1f7ede6a16441cc040995d2dc",
+   "by": "fx_vector 3",
+   "sha256": "25724a4cbbf88383d427cbcb13e7172b2a4a57561a92fcb2085ed5c284b90010",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

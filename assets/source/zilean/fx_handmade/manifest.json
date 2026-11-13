@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_zilean_big",
+   "tag": "q_boom",
+   "file": "league_zilean_big/q_boom.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     25,
+     21
+    ],
+    [
+     39,
+     37
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     57,
+     47
+    ],
+    [
+     55,
+     35
+    ],
+    [
+     45,
+     31
+    ],
+    [
+     35,
+     25
+    ]
+   ],
+   "of_1x": "9a32af786ad84461997bb46f18cea6d36d5d704912e56501a12b54d6219f41f8",
+   "by": "fx_vector 3",
+   "sha256": "d1c1af0228e827da6142525ee8589c92f3fd091bee8f543826aab69ffd1c4b16",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

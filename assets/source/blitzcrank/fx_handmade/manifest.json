@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_blitzcrank_big",
+   "tag": "r_field",
+   "file": "league_blitzcrank_big/r_field.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     61,
+     53
+    ],
+    [
+     121,
+     73
+    ],
+    [
+     127,
+     87
+    ],
+    [
+     119,
+     81
+    ],
+    [
+     119,
+     65
+    ],
+    [
+     117,
+     69
+    ],
+    [
+     101,
+     51
+    ]
+   ],
+   "of_1x": "dde10733985d8041290c03c5a991b8c3d570483bb01d9476a5299d4d5bd5818f",
+   "by": "fx_vector 3",
+   "sha256": "05b0d75e1e9e28eaf510399a47c91f5230ed34947f063c98a2186b7ba1485d2f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

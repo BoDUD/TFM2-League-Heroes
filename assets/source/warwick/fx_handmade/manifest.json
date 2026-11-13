@@ -1,0 +1,90 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_warwick_big",
+   "tag": "e_howl",
+   "file": "league_warwick_big/e_howl.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     43
+    ],
+    [
+     65,
+     57
+    ],
+    [
+     89,
+     59
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     87,
+     57
+    ],
+    [
+     83,
+     57
+    ]
+   ],
+   "of_1x": "47ede697d99a450741695b1fade7f543d6b8f39aa220270fc3075d9621ee0202",
+   "by": "fx_vector 3",
+   "sha256": "5eba972dce802f877814f1e6cd644fbf77f1cbd218d66bfb1b11f849f52c4900",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_fx",
+   "tag": "q_heal",
+   "file": "league_warwick_fx/q_heal.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     31
+    ],
+    [
+     45,
+     29
+    ],
+    [
+     43,
+     41
+    ],
+    [
+     43,
+     65
+    ],
+    [
+     43,
+     27
+    ]
+   ],
+   "of_1x": "5c41c1c7d03c7cc3c2662f025d25356d576116ae3552fac2a36303563e56576a",
+   "by": "fx_vector 3",
+   "sha256": "f96d0b66974f2ecd7489de310b3df695634b05003d46782d4318a42ebc6ed4e5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

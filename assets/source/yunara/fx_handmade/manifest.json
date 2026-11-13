@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_yunara_big",
+   "tag": "r_burst",
+   "file": "league_yunara_big/r_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     1,
+     27
+    ],
+    [
+     17,
+     45
+    ],
+    [
+     43,
+     69
+    ],
+    [
+     53,
+     83
+    ],
+    [
+     53,
+     85
+    ],
+    [
+     53,
+     85
+    ]
+   ],
+   "of_1x": "9295593f5898a57412d73336cd2e50212a4d654d6ad3b8252e86c3bd3ffad5a1",
+   "by": "fx_vector 3",
+   "sha256": "d9202bd6c9fdb72d1a9dfb991eb778d5cff0af282e0cae12a32c3a7743652fae",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

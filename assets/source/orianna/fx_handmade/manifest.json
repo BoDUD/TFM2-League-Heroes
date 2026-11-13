@@ -62,6 +62,51 @@
    "note": "pilot 2026-11-14"
   },
   {
+   "sheet": "league_orianna_big",
+   "tag": "w_ring",
+   "file": "league_orianna_big/w_ring.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     39
+    ],
+    [
+     49,
+     49
+    ],
+    [
+     51,
+     61
+    ],
+    [
+     51,
+     61
+    ],
+    [
+     51,
+     59
+    ],
+    [
+     57,
+     57
+    ]
+   ],
+   "of_1x": "123ffe2a80ab52deb0fbb8b05bc76a63b22a32fae215cccdf1db1739bcaff3c2",
+   "by": "fx_vector 3",
+   "sha256": "b00e23e04fa9aa38b71c81d8938db2f671b8e96e34a6792c497e58ed18bb86b4",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
    "sheet": "league_orianna_fx",
    "tag": "e_shield",
    "file": "league_orianna_fx/e_shield.png",

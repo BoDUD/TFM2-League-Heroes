@@ -1,0 +1,139 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_tele_c",
+   "file": "league_aatrox_big/q3_tele_c.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ]
+   ],
+   "of_1x": "02a969ce037471d4b24551baba9928a0310cfae233472f3e5c262f9eb40b6348",
+   "by": "fx_vector 3",
+   "sha256": "1049d683078d7fc2be3720dde46b2ec34a4e8c59c0ee21778b30709eb2b08b7c",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "r_aura",
+   "file": "league_aatrox_big/r_aura.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    0
+   ],
+   "sizes": [
+    [
+     49,
+     51
+    ],
+    [
+     49,
+     51
+    ],
+    [
+     51,
+     51
+    ],
+    [
+     51,
+     51
+    ],
+    [
+     49,
+     51
+    ]
+   ],
+   "of_1x": "f7a9c54e1a716f3d35322e56169e60045f70b6f6a70fcd29b853ba2465b8bed8",
+   "by": "fx_vector 3",
+   "sha256": "b4094c92853c46fefe33982fc53b4a57748e528fd214946f33c1241aeab18bba",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "w_ring",
+   "file": "league_aatrox_big/w_ring.png",
+   "ppu": 2,
+   "frames": 19,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     41
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     69,
+     63
+    ]
+   ],
+   "of_1x": "6f4af745f345f03ef6efa460abacc50157853f493ba29c69a49a904d8a8aab6d",
+   "by": "fx_vector 3",
+   "sha256": "052ed9698e6b184996201e6418fd4b94818bca1ab764d92ea57c30e194a9a8fa",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

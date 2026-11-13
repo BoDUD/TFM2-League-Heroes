@@ -1,0 +1,181 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_lissandra_big",
+   "tag": "r_field",
+   "file": "league_lissandra_big/r_field.png",
+   "ppu": 2,
+   "frames": 20,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     61,
+     47
+    ],
+    [
+     61,
+     47
+    ],
+    [
+     61,
+     47
+    ],
+    [
+     61,
+     47
+    ]
+   ],
+   "of_1x": "573202ced02cb3cc812d00e627e62f763c978f12f2d4f3b00a64fc42d6a69ff6",
+   "by": "fx_vector 3",
+   "sha256": "0e82fdf285571177eb47bd0af159f3e98f7c25576d969a5bfb68ba4f0051b2a7",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_lissandra_big",
+   "tag": "r_self_cast",
+   "file": "league_lissandra_big/r_self_cast.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     33,
+     35
+    ],
+    [
+     33,
+     37
+    ],
+    [
+     35,
+     55
+    ],
+    [
+     35,
+     63
+    ]
+   ],
+   "of_1x": "ca3d010a08b7aedde559ef12776ffe9c542d47b5c34f709141606ba7906da446",
+   "by": "fx_vector 3",
+   "sha256": "ffb2c2ee11091852dae923e03272fd942411f871e54e764229814db4256d63a3",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_lissandra_big",
+   "tag": "w_ring",
+   "file": "league_lissandra_big/w_ring.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     61,
+     41
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     61,
+     47
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     59,
+     43
+    ]
+   ],
+   "of_1x": "1f6f142107541edc1ab6e5af27d8dd10227ddee9a3b83087a865dc531aa9d800",
+   "by": "fx_vector 3",
+   "sha256": "160015a90fdf3f8f14d6bec2505b2b8ff1399559200b32322d9c21e32e4f7dc5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_lissandra_big",
+   "tag": "w_ring_late",
+   "file": "league_lissandra_big/w_ring_late.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     61,
+     41
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     61,
+     47
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     59,
+     43
+    ]
+   ],
+   "of_1x": "1f6f142107541edc1ab6e5af27d8dd10227ddee9a3b83087a865dc531aa9d800",
+   "by": "fx_vector 3",
+   "sha256": "160015a90fdf3f8f14d6bec2505b2b8ff1399559200b32322d9c21e32e4f7dc5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

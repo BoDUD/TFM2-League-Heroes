@@ -1,0 +1,35 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_qiyana_big",
+   "tag": "r_swing",
+   "file": "league_qiyana_big/r_swing.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     37,
+     23
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     29,
+     31
+    ]
+   ],
+   "of_1x": "981cb8b57115d68a9b8760ad770d00b050778bb70ddcd043ab8a81b0bad7867c",
+   "by": "fx_vector 3",
+   "sha256": "ce1359f2df5e5e18086ba043779058fb457339a86ab802694b7edaec0b3d3a4e",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

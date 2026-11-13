@@ -1,0 +1,85 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_wave_1",
+   "file": "league_aurelionsol_big/r_wave_1.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     51,
+     19
+    ],
+    [
+     77,
+     33
+    ],
+    [
+     103,
+     37
+    ],
+    [
+     109,
+     31
+    ],
+    [
+     107,
+     27
+    ]
+   ],
+   "of_1x": "bb3ae2116f9460666feab10a8ef8043194408670037b48a4ab43473a8027cc78",
+   "by": "fx_vector 3",
+   "sha256": "80309b8d3e49a6ca1fdd974234f1594c4686d7ea225c5a7d45c85c9474a343f1",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_wave_2",
+   "file": "league_aurelionsol_big/r_wave_2.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     57,
+     21
+    ],
+    [
+     89,
+     37
+    ],
+    [
+     119,
+     43
+    ],
+    [
+     123,
+     35
+    ],
+    [
+     121,
+     33
+    ]
+   ],
+   "of_1x": "75d0d33ff3b175a7d98fa3457d66d02f20a740f1536724a353c3251585157283",
+   "by": "fx_vector 3",
+   "sha256": "451dcc9c40164ec5f59c6c1393329275edc352935e67e24d3054ca45387883af",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

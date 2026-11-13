@@ -1,0 +1,105 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_janna_big",
+   "tag": "r_storm",
+   "file": "league_janna_big/r_storm.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     85,
+     61
+    ],
+    [
+     85,
+     61
+    ],
+    [
+     85,
+     63
+    ],
+    [
+     85,
+     63
+    ],
+    [
+     85,
+     63
+    ],
+    [
+     85,
+     63
+    ],
+    [
+     85,
+     63
+    ],
+    [
+     85,
+     61
+    ]
+   ],
+   "of_1x": "3c5c5ec83ec7bba45fdaf56db7611b0e554aa14ac7f8dd5323ba5740bb46e2d2",
+   "by": "fx_vector 3",
+   "sha256": "ab179cfef682175d921162de8136442e068a6a8b0d10c06d8a6a68c49151e051",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_janna_fx",
+   "tag": "storm",
+   "file": "league_janna_fx/storm.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     51
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     25,
+     51
+    ],
+    [
+     25,
+     51
+    ],
+    [
+     25,
+     51
+    ]
+   ],
+   "of_1x": "0f802ba75790e3a44efa059bf219b231501f0f4efc9b1991ae10d35816ea3455",
+   "by": "fx_vector 3",
+   "sha256": "851c5ab7effd37620cb7fcc777e08b17a5c8a2644874113fcaed50b0171019a2",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

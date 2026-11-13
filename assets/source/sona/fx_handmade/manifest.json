@@ -1,0 +1,232 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_sona_big",
+   "tag": "e_aura",
+   "file": "league_sona_big/e_aura.png",
+   "ppu": 2,
+   "frames": 25,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0
+   ],
+   "sizes": [
+    [
+     93,
+     65
+    ],
+    [
+     93,
+     67
+    ],
+    [
+     91,
+     69
+    ],
+    [
+     93,
+     65
+    ],
+    [
+     95,
+     65
+    ],
+    [
+     93,
+     69
+    ]
+   ],
+   "of_1x": "332e180e12201d82381701b09e9c130c90bead23cb8ef492224476d252570d12",
+   "by": "fx_vector 3",
+   "sha256": "8be3673c07c60dc64b6b5d76a959b57ad8c1d7ea2e3c4a3b9260efe0dd4c8b1f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sona_big",
+   "tag": "q_aura",
+   "file": "league_sona_big/q_aura.png",
+   "ppu": 2,
+   "frames": 25,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0
+   ],
+   "sizes": [
+    [
+     93,
+     65
+    ],
+    [
+     93,
+     67
+    ],
+    [
+     91,
+     69
+    ],
+    [
+     93,
+     65
+    ],
+    [
+     95,
+     65
+    ],
+    [
+     93,
+     69
+    ]
+   ],
+   "of_1x": "52b5601b9ea30ace9b4df7a83370992a400bb8f4188e2515072a79bdd3d7d67f",
+   "by": "fx_vector 3",
+   "sha256": "c646c39fd690faf3f63c7ed5f4ea56f91b7e11594d18e3f7c4926d5bc95e13ad",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sona_big",
+   "tag": "w_aura",
+   "file": "league_sona_big/w_aura.png",
+   "ppu": 2,
+   "frames": 25,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0
+   ],
+   "sizes": [
+    [
+     93,
+     65
+    ],
+    [
+     93,
+     67
+    ],
+    [
+     91,
+     69
+    ],
+    [
+     93,
+     65
+    ],
+    [
+     95,
+     65
+    ],
+    [
+     93,
+     69
+    ]
+   ],
+   "of_1x": "36dd2f9c2f0736d20f3ab5f243ce6a434b34817c04851ceeb74c80a8c4512151",
+   "by": "fx_vector 3",
+   "sha256": "0f12d4e22976046b0da47607b4a49d0baa9a98fd410695265dfba23f8aebc47d",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sona_fx",
+   "tag": "w_mel",
+   "file": "league_sona_fx/w_mel.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     23,
+     35
+    ],
+    [
+     23,
+     35
+    ],
+    [
+     23,
+     35
+    ],
+    [
+     25,
+     35
+    ]
+   ],
+   "of_1x": "3f7e005f0e7b80628a9e8fedaa7b09d1672a269f32fadc60b27a56b2dfad9b0e",
+   "by": "fx_vector 3",
+   "sha256": "406ce9ab0d2700bf88577b7a08520e041504251b1cf757b715957285c06dffd3",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

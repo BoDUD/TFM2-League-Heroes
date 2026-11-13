@@ -1,0 +1,60 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ziggs_big",
+   "tag": "r_warn",
+   "file": "league_ziggs_big/r_warn.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     103,
+     63
+    ]
+   ],
+   "of_1x": "e0a557c344f120177e62f4936f1fd207ba0eb53eb444931cb3fceeaa9c63b6c7",
+   "by": "fx_vector 3",
+   "sha256": "2e526b37965baef38f37c72f4adca64c3dade3b89b6ad9383206a594d56069a6",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

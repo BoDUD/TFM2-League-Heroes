@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_jayce_big",
+   "tag": "w_field",
+   "file": "league_jayce_big/w_field.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     43,
+     39
+    ],
+    [
+     43,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     39
+    ]
+   ],
+   "of_1x": "8a8436e2afd90a3d01f19d9612f504e750ed4c2454c49311befd4046fa2f843a",
+   "by": "fx_vector 3",
+   "sha256": "20f4102dc9087a74df0bec3cf809f241473e3ea25ec4c3197a9c57f16db7c385",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_jayce_fx",
+   "tag": "guard",
+   "file": "league_jayce_fx/guard.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     25,
+     45
+    ],
+    [
+     25,
+     45
+    ],
+    [
+     23,
+     45
+    ],
+    [
+     25,
+     45
+    ]
+   ],
+   "of_1x": "7e730ce64155fdae8307e9284310c0912c692026b7306de0b4b473933ac18ab8",
+   "by": "fx_vector 3",
+   "sha256": "cbd9b47500dfb80f28c04879512e4089d10dc1143b772c8d3a4cab184b3e4ce5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}
