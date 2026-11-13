@@ -37,3 +37,16 @@
 ## 射程 buff 改成主包 league.dll 的 league:range（v0.1.4，2026-11-07）
 
 带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。
+
+## 推人吃韧性、撞墙要到墙边、裁决先击飞再推、光环不拦别人的推（2026-11-13）
+
+用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」。引擎把每种控制的时长按目标的韧性缩短（x (100 - 韧性) / 100，强制位移也一样：`.claude/skills/tfm2-hero-mod/references/champion-data.md`，读的 game_core）；4+6 的出装里 66 个英雄带 20%～30% 韧性。英雄联盟的位移不吃韧性：本包的推按韧性放长（[`push_rules`](../push_rules/src/lib.rs)），别的推（数据的击退之类）由合集每 tick 的 `push_rules::keep_tick` 补齐。
+
+- **英勇冲锋、持卫的裁决的推按韧性放长**；裁决的击飞也按韧性放长（英雄联盟的击飞不吃韧性）。
+- **E 撞墙到点先看她推的人到没到**：还在位移就等一拍；停下了却不贴着墙就不砸、不晕（日志 `SHORT`）。
+- **5v5 的裁决先击飞再推**：给正在位移的单位上击飞会把位移停掉（同一份笔记）。原来先推后击飞，推一开始就被击飞停了，一个人
+  都送不回家；数据版本来就是先击飞（「an Airborne beside the Knockback still lets it carry them - measured」）。
+- **坚定风采不拦别人的推**：原来只放过她自己推的（`league_poppy_push`），队友的击退穿过光环被当成突进击飞，击飞又把那一下推
+  打断。现在按韧性放长过的推（`push_rules::FULL`）和「在强制位移却不在放技能」的（数据的击退、拉人）都放过（`external_push`）；
+  自己的突进带着施法动作，照拦。
+- 版本号没改（还没合并的 #734 改它）。测试：`the_slam_needs_the_wall_and_pushes_are_no_dashes`。

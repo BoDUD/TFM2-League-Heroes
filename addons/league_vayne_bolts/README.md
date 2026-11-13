@@ -40,3 +40,14 @@
 - 在 `addons/` 下 `cargo test --release -p league_vayne_bolts`；`cargo build --release -p league_vayne_bolts` 或 `-p league_addons`。
 - 圣银弩箭的数据这一半在模拟器里测过（把 Native 换成立第 3 下 / 第 1 下的标志：每下都爆 / 只出一环）；恶魔审判和找墙的 AI 只有
   单元测试（查墙、推到墙边的速度和 tick、副本里没有数据的击退、预判走位、挑谁放 E），要在游戏里看日志。
+
+## 恶魔审判吃韧性、钉墙要到墙边（2026-11-13）
+
+用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」。引擎把每种控制的时长按目标的韧性缩短（x (100 - 韧性) / 100，强制位移也一样：`.claude/skills/tfm2-hero-mod/references/champion-data.md`，读的 game_core）；4+6 的出装里 66 个英雄带 20%～30% 韧性。英雄联盟的位移不吃韧性：本包的推按韧性放长（[`push_rules`](../push_rules/src/lib.rs)），别的推（数据的击退之类）由合集每 tick 的 `push_rules::keep_tick` 补齐。
+
+- **推向墙的那一下按韧性放长**：到点正好到墙边。
+- **钉墙看他停在哪**：推的时候在他身上记下落点（`league_vayne_bolts_land:<x>:<y>`，不靠地图墙格，哪张图都一样）；到点还在位移就
+  再等一拍，停下了却离落点超过 `AT_WALL`（4000）——被别人的控制打断、自己的位移技能顶掉——就不按住，也摘掉薇恩的
+  `league_vayne_e_wall`，数据第 8 tick 的撞墙伤害和眩晕不打（日志 `SHORT`）。原来到点就按住，数据也照打，空地上也晕。
+- 没墙时的击退照旧交给引擎（合集的 `keep_tick` 补齐韧性截掉的那一截）。
+- 版本号没改（还没合并的 #734 改它）。测试：`the_pin_needs_him_at_the_landing_point`。
