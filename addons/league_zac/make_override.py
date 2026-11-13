@@ -8,7 +8,10 @@ addons/league_zac/override/league_zac.data_champion and .../text/champion.i18n: 
   * passive league_zac:split (params: split_t, split_cd, split_hp);
   * the split shown by the data (split_go / split_end flags, a 2-tick watch hung once a life by his attack);
   * the attack's tooltip points to description.league_zac_addon.attack with the add-on's wording, so the tooltip in game
-    shows whether the override took.
+    shows whether the override took;
+  * R's landings mark whom they hit (`r_m1` / `r_m2`) and the passive's params carry R's numbers: an enemy first hit by
+    a later landing is knocked back and takes the full damage (2026-11-14, League's knock back once per enemy); R's
+    tooltip points to description.league_zac_addon.ult, the main text with the add-on's sentence after it.
 Every other champion stays untouched. Run it again whenever the main pack's Zac changes.
 """
 import json
@@ -59,6 +62,16 @@ TEXT = {
 }
 
 
+# after the main pack's R text
+BOUNCE = {
+    "zh-hans": "【附加包】后几跳第一次砸到的敌人照样全额伤害并击退。",
+    "zh-hant": "【附加包】後幾跳第一次砸到的敵人照樣全額傷害並擊退。",
+    "en": " [Add-on] An enemy first hit by a later landing takes the full damage and the knock back.",
+    "ko": " [애드온] 이후 착지에 처음 맞은 적도 전체 피해를 받고 밀려납니다.",
+    "ja": "【アドオン】2回目以降の着地で初めて当たった敵も全ダメージとノックバック。",
+}
+
+
 def lp(path):
     """Windows long-path form: the repo can sit deep under the user's profile."""
     path = os.path.abspath(path)
@@ -79,10 +92,19 @@ def main():
     if champion.get("passive", {}).get("passive_ref") != "league_zac:split" or "split_go" not in json.dumps(champion):
         sys.exit("the copy does not call the add-on: update this script")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{TEXT_ID}.attack"
+    marks = json.dumps(champion["ult"]) + json.dumps(champion["skill"]) + json.dumps(champion["attack"])
+    if "league_zac_r_m1" not in marks or "league_zac_r_m2" not in marks or "r_kb" not in champion["passive"]["params"]:
+        sys.exit("R's landing marks or its numbers are not in the copy: update this script")
+    champion["ult"]["description"] = f"#asset/base/text/champion?description.{TEXT_ID}.ult"
 
     values = setup.values(p)
     values.update(split_t=setup.secs(p["split_t"]), split_cd=setup.secs(p["split_cd"]), split_hp=p["split_hp"])
     texts = {lang: {k: (LEAD[lang] + t[k]).format(**values) for k in t} for lang, t in TEXT.items()}
+    for lang in texts:
+        ult = setup.TEXT[lang]["ult"] + BOUNCE[lang]
+        if setup.shown_length(ult) > setup.TOOLTIP_MAX[lang]:
+            sys.exit(f"{lang}: R's tooltip too long ({setup.shown_length(ult)} > {setup.TOOLTIP_MAX[lang]})")
+        texts[lang]["ult"] = ult.format(**values)
     long = {f"{lang}.{k}": setup.shown_length(LEAD[lang] + TEXT[lang][k]) for lang in TEXT for k in TEXT[lang]
             if setup.shown_length(LEAD[lang] + TEXT[lang][k]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:

@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_veigar_power": {
-        "attack": "普攻射出暗能量弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>超凡邪力<>：技能每命中一名敌方英雄，永久获得<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 点法术强度<>；<#ff9028ff>黑暗祭祀<>每击杀一个单位 +1，击杀敌方英雄 +5。【扩展包】死后保留。"
+        "attack": "普攻射出暗能量弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>超凡邪力<>：技能每命中一名敌方英雄，永久获得<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 点法术强度<>；<#ff9028ff>黑暗祭祀<>每击杀一个单位 +1，击杀敌方英雄 +5。【扩展包】死后保留。",
+        "skill2": "在敌方英雄处扭曲空间，<#ffb900ff>0.4秒<>后形成持续<#ffb900ff>3秒<>的牢笼，【扩展包】碰到牢笼边缘的敌人（站在里面不动的不算）<#ef5350ff>眩晕<><#ffb900ff>1秒<>（每人一次）。随后 <#ff9028ff>黑暗物质<> 砸向牢笼中心，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_veigar_power": {
-        "attack": "普攻射出暗能量彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>極度邪惡能量<>：技能每命中一名敵方英雄，永久獲得<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 點魔法強度<>；<#ff9028ff>黑暗祭祀<>每擊殺一個單位 +1，擊殺敵方英雄 +5。【擴充包】死後保留。"
+        "attack": "普攻射出暗能量彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>極度邪惡能量<>：技能每命中一名敵方英雄，永久獲得<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 點魔法強度<>；<#ff9028ff>黑暗祭祀<>每擊殺一個單位 +1，擊殺敵方英雄 +5。【擴充包】死後保留。",
+        "skill2": "在敵方英雄處扭曲空間，<#ffb900ff>0.4秒<>後形成持續<#ffb900ff>3秒<>的牢籠，【擴充包】碰到牢籠邊緣的敵人（站在裡面不動的不算）<#ef5350ff>暈眩<><#ffb900ff>1秒<>（每人一次）。隨後 <#ff9028ff>黑暗物質<> 砸向牢籠中心，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       }
     }
   },
   "en": {
     "description": {
       "league_veigar_power": {
-        "attack": "Basic attacks fire a dark bolt dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Phenomenal Evil Power<>: every spell hit on an enemy champion permanently grants <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 Ability Power<>; every unit killed by <#ff9028ff>Baleful Strike<> +1, every champion he kills +5. [Add-on] Kept through death."
+        "attack": "Basic attacks fire a dark bolt dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Phenomenal Evil Power<>: every spell hit on an enemy champion permanently grants <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 Ability Power<>; every unit killed by <#ff9028ff>Baleful Strike<> +1, every champion he kills +5. [Add-on] Kept through death.",
+        "skill2": "Veigar twists space round an enemy champion: <#ffb900ff>0.4s<> later a cage forms for <#ffb900ff>3s<>, <#ef5350ff>stunning<> [Add-on] each enemy that touches its edge (not one who stays inside) for <#ffb900ff>1s<> (once each). Then <#ff9028ff>Dark Matter<> falls on its centre for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>."
       }
     }
   },
   "ko": {
     "description": {
       "league_veigar_power": {
-        "attack": "기본 공격은 암흑 구체를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>극악무도<>: 스킬이 적 챔피언에게 적중할 때마다 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력이 1<> 영구히 증가합니다. <#ff9028ff>사악한 일격<>(으)로 유닛을 처치하면 +1, 챔피언을 처치하면 +5. [확장팩] 사망해도 유지됩니다."
+        "attack": "기본 공격은 암흑 구체를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>극악무도<>: 스킬이 적 챔피언에게 적중할 때마다 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력이 1<> 영구히 증가합니다. <#ff9028ff>사악한 일격<>(으)로 유닛을 처치하면 +1, 챔피언을 처치하면 +5. [확장팩] 사망해도 유지됩니다.",
+        "skill2": "적 챔피언 주위의 공간을 비틀어 <#ffb900ff>0.4초<> 뒤 <#ffb900ff>3초<> 동안 유지되는 우리를 만들고, [확장팩] 가장자리에 닿은 적을(안에 가만히 있는 적은 제외) <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킵니다(각 1회). 이어서 <#ff9028ff>암흑 물질<>이 중심에 떨어져 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<>의 <#a974ffff>마법 피해<>를 입힙니다."
       }
     }
   },
   "ja": {
     "description": {
       "league_veigar_power": {
-        "attack": "通常攻撃は闇の弾を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>偉大なる悪の力<>：スキルが敵チャンピオンに命中するたび<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力が1<>永続的に増加。<#ff9028ff>イーヴィルストライク<>でユニットを倒すと+1、チャンピオンを倒すと+5。【拡張】デスでも失わない。"
+        "attack": "通常攻撃は闇の弾を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>偉大なる悪の力<>：スキルが敵チャンピオンに命中するたび<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力が1<>永続的に増加。<#ff9028ff>イーヴィルストライク<>でユニットを倒すと+1、チャンピオンを倒すと+5。【拡張】デスでも失わない。",
+        "skill2": "敵チャンピオンの周囲の空間を歪め、<#ffb900ff>0.4秒<>後に<#ffb900ff>3秒<>間の檻を作り、【拡張】縁に触れた敵を（中で動かない敵は除く）<#ffb900ff>1秒<><#ef5350ff>スタン<>（各1回）。続いて<#ff9028ff>ダークマター<>が中心に落ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。"
       }
     }
   }

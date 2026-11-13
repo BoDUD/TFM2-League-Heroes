@@ -8,7 +8,9 @@ set per stance; 「有连招要做连招」). TFM2 has three active slots: Wildi
 `st_e` / `st_r`; none = his plain guard, League's Boar), set by its ability and taken off by the others; death clears
 it. Every action reads it and plays the stance's own tags (q_* / e_* / r_*, CasterAnimation); idle, run, hit and death
 are the add-on's view swap (league_gnar's way). Awakened (League's recast with ultimate benefits): Q or E cast while he
-already stands in its stance (a 2-tick `*_wk` flag says so, so the branch is written once).
+already stands in its stance (a 2-tick `*_wk` flag says so, so the branch is written once) - and, as League's Awakened
+Spirit, on one cooldown the two share (`aw_cd`, aw_cd ticks from an awakened cast: until it is over Q and E are the
+plain ones, whatever stance or combo window holds).
   passive Bridge Between (众灵纽带): every ability gives his next two attacks p_as% attack speed (`p2` -> `p1`, p_t
           ticks). Iron Mantle (坚铁甲胄, W, the Boar): the first ability after w_icd ticks (`w_icd` caster flag) also
           shields him w_sh + w_sh_r% AD for w_sh_t ticks and his next two attacks heal him w_heal + w_heal_r% AD each
@@ -79,6 +81,11 @@ P = {
     "r2_range": 60000, "r2_speed": 6000, "r2_r": 12000, "r2_dmg": 60, "r2_ratio": 60, "r2_slow": 40, "r2_slow_t": 90,
     # the combo windows (E -> Q, Q -> R)
     "win_q": 300, "win_r": 240,
+    # Awakened Spirit: League's Awaken has ONE cooldown for all his abilities (wiki V26.09: "50 / 40 / 30 / 20 (based on
+    # level)" seconds); until 2026-11-14 every second cast of a stance (and every Q in E's window) was awakened, with
+    # nothing between (the user, on the list of differences from League: 「全改吧」). R's unleash at the storm's end is
+    # the ult slot's own, as before.
+    "aw_cd": 1800,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -226,8 +233,9 @@ def spend(x, t, each, last=()):
 
 
 def awake(st, wk, extra=None):
-    """A 2-tick `wk` flag when he already stands in `st` (or `extra`, a combo window, holds): read once below."""
-    return combine(sw(st, flag(wk, 2)), sw(extra, flag(wk, 2)) if extra else None)
+    """A 2-tick `wk` flag when he already stands in `st` (or `extra`, a combo window, holds) and Awakened Spirit is not
+    on its cooldown (`aw_cd`): read once below."""
+    return sw("aw_cd", NONE, combine(sw(st, flag(wk, 2)), sw(extra, flag(wk, 2)) if extra else None))
 
 
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False, key=None):
@@ -267,8 +275,8 @@ def build(p, native=False):
     claws = lambda as_: combine(refresh("q_as", p["q_t"], attack_speed_mult=as_), *rm("q1"), refresh("q2", p["q_t"]))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(awake("st_q", "q_wk", "q_go"), *rm("q_go"),
-                           sw("q_wk", combine(claws(p["q_as2"]), refresh("q_lit", p["q_t"]), cview("q_wake"),
-                                              sfx("q_wake")),
+                           sw("q_wk", combine(refresh("aw_cd", p["aw_cd"]), claws(p["q_as2"]),
+                                              refresh("q_lit", p["q_t"]), cview("q_wake"), sfx("q_wake")),
                               combine(claws(p["q_as"]), *rm("q_lit"), cview("q_on"), sfx("q"))),
                            *rm("q_wk"), enter("st_q"), ability, voice("vo_q", p)))
 
@@ -281,7 +289,8 @@ def build(p, native=False):
                    {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 20000, "end_effects": land})
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
                     combine(awake("st_e", "e_wk"),
-                            sw("e_wk", combine(refresh("e_ms", p["e_t"], move_speed_mult=p["e_ms2"]),
+                            sw("e_wk", combine(refresh("aw_cd", p["aw_cd"]),
+                                               refresh("e_ms", p["e_t"], move_speed_mult=p["e_ms2"]),
                                                refresh("e_imm", p["e_imm"], cc_immune=True), cview("e_wake"),
                                                sfx("e_wake")),
                                combine(refresh("e_ms", p["e_t"], move_speed_mult=p["e_ms"]), cview("e_on"), sfx("e"))),

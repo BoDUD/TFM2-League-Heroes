@@ -2450,26 +2450,14 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "Knockback",
-                                                                        "speed": 2000,
-                                                                        "tick": 12
+                                                                        "speed": 400,
+                                                                        "tick": 60
                                                                       }
                                                                     ]
                                                                   },
                                                                   "effect_none": {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 26000
-                                                                      }
-                                                                    },
-                                                                    "target": "EnemyWithoutTower",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Airborne",
-                                                                        "duration": 20
-                                                                      }
-                                                                    ]
+                                                                    "type": "Combine",
+                                                                    "effects": []
                                                                   }
                                                                 },
                                                                 {
@@ -3105,26 +3093,14 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "Knockback",
-                                                                                "speed": 2000,
-                                                                                "tick": 12
+                                                                                "speed": 400,
+                                                                                "tick": 60
                                                                               }
                                                                             ]
                                                                           },
                                                                           "effect_none": {
-                                                                            "type": "RangeEffect",
-                                                                            "shape": {
-                                                                              "Circle": {
-                                                                                "radius": 26000
-                                                                              }
-                                                                            },
-                                                                            "target": "EnemyWithoutTower",
-                                                                            "apply_type": "AroundCaster",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Airborne",
-                                                                                "duration": 20
-                                                                              }
-                                                                            ]
+                                                                            "type": "Combine",
+                                                                            "effects": []
                                                                           }
                                                                         },
                                                                         {
@@ -7032,26 +7008,14 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "Knockback",
-                                                                        "speed": 2000,
-                                                                        "tick": 12
+                                                                        "speed": 400,
+                                                                        "tick": 60
                                                                       }
                                                                     ]
                                                                   },
                                                                   "effect_none": {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 26000
-                                                                      }
-                                                                    },
-                                                                    "target": "EnemyWithoutTower",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Airborne",
-                                                                        "duration": 20
-                                                                      }
-                                                                    ]
+                                                                    "type": "Combine",
+                                                                    "effects": []
                                                                   }
                                                                 },
                                                                 {
@@ -7687,26 +7651,14 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "Knockback",
-                                                                                "speed": 2000,
-                                                                                "tick": 12
+                                                                                "speed": 400,
+                                                                                "tick": 60
                                                                               }
                                                                             ]
                                                                           },
                                                                           "effect_none": {
-                                                                            "type": "RangeEffect",
-                                                                            "shape": {
-                                                                              "Circle": {
-                                                                                "radius": 26000
-                                                                              }
-                                                                            },
-                                                                            "target": "EnemyWithoutTower",
-                                                                            "apply_type": "AroundCaster",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Airborne",
-                                                                                "duration": 20
-                                                                              }
-                                                                            ]
+                                                                            "type": "Combine",
+                                                                            "effects": []
                                                                           }
                                                                         },
                                                                         {
@@ -8447,26 +8399,14 @@
                                         "effects": [
                                           {
                                             "type": "Knockback",
-                                            "speed": 2000,
-                                            "tick": 12
+                                            "speed": 400,
+                                            "tick": 60
                                           }
                                         ]
                                       },
                                       "effect_none": {
-                                        "type": "RangeEffect",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 26000
-                                          }
-                                        },
-                                        "target": "EnemyWithoutTower",
-                                        "apply_type": "AroundCaster",
-                                        "effects": [
-                                          {
-                                            "type": "Airborne",
-                                            "duration": 20
-                                          }
-                                        ]
+                                        "type": "Combine",
+                                        "effects": []
                                       }
                                     },
                                     {
@@ -9102,26 +9042,14 @@
                                                 "effects": [
                                                   {
                                                     "type": "Knockback",
-                                                    "speed": 2000,
-                                                    "tick": 12
+                                                    "speed": 400,
+                                                    "tick": 60
                                                   }
                                                 ]
                                               },
                                               "effect_none": {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 26000
-                                                  }
-                                                },
-                                                "target": "EnemyWithoutTower",
-                                                "apply_type": "AroundCaster",
-                                                "effects": [
-                                                  {
-                                                    "type": "Airborne",
-                                                    "duration": 20
-                                                  }
-                                                ]
+                                                "type": "Combine",
+                                                "effects": []
                                               }
                                             },
                                             {
