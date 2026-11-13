@@ -76,7 +76,7 @@ TEXT = {
         "skill2": "蓄力" + t("{e_wind}秒") + "后把自己弹向目标，落地造成" + mag("e_dmg", "e_ap") + " + 自身最大生命{e_hp}%魔法伤害并" +
                   cc("击飞") + "周围敌人" + t("{e_up}秒") + "。",
         "ult": "不可阻挡地连跳{r_n}次，每次落地造成" + mag("r_dmg", "r_ap") + "魔法伤害（之后每次{r_k}%）并" + cc("减速") +
-               "{r_slow}%；第一跳越过目标把敌人" + cc("击退") + "回自己那边，之后每跳" + cc("击飞") + t("{r_up}秒") + "。",
+               "{r_slow}%；第一跳越过目标把敌人" + cc("击退") + "回自己那边" + t("{r_kb_t}秒") + "，之后每跳只有伤害和减速。",
         "names": ("延伸打击", "橡筋弹弓", "动感弹球"),
     },
     "zh-hant": {
@@ -89,7 +89,7 @@ TEXT = {
         "skill2": "蓄力" + t("{e_wind}秒") + "後把自己彈向目標，落地造成" + mag("e_dmg", "e_ap") + " + 自身最大生命{e_hp}%魔法傷害並" +
                   cc("擊飛") + "周圍敵人" + t("{e_up}秒") + "。",
         "ult": "無法阻擋地連跳{r_n}次，每次落地造成" + mag("r_dmg", "r_ap") + "魔法傷害（之後每次{r_k}%）並" + cc("緩速") +
-               "{r_slow}%；第一跳越過目標把敵人" + cc("擊退") + "回自己那邊，之後每跳" + cc("擊飛") + t("{r_up}秒") + "。",
+               "{r_slow}%；第一跳越過目標把敵人" + cc("擊退") + "回自己那邊" + t("{r_kb_t}秒") + "，之後每跳只有傷害和緩速。",
         "names": ("橡膠飛拳", "必殺黏星", "活蹦亂跳！"),
     },
     "en": {
@@ -105,7 +105,7 @@ TEXT = {
                   " + {e_hp}% of his max health magic damage and a " + t("{e_up}s") + " " + cc("knock-up") + " round him.",
         "ult": "Bounces {r_n} times, unstoppable: each landing deals " + mag("r_dmg", "r_ap") + " magic damage (the later "
                "ones {r_k}%) and a {r_slow}% " + cc("slow") + ". The first leaps past the target and " + cc("knocks") +
-               " enemies back toward his side; the others " + cc("knock up") + " for " + t("{r_up}s") + ".",
+               " enemies back toward his side over " + t("{r_kb_t}s") + "; the others only damage and slow.",
         "names": ("Stretching Strikes", "Elastic Slingshot", "Let's Bounce!"),
     },
     "ko": {
@@ -120,8 +120,8 @@ TEXT = {
         "skill2": t("{e_wind}초") + " 동안 힘을 모은 뒤 대상에게 날아가 착지하며 " + mag("e_dmg", "e_ap") +
                   " + 자신 최대 체력의 {e_hp}% 마법 피해와 주변 적 " + t("{e_up}초") + " " + cc("에어본") + ".",
         "ult": "저지 불가 상태로 {r_n}번 튀어 오르며, 착지할 때마다 " + mag("r_dmg", "r_ap") + " 마법 피해(이후 {r_k}%), {r_slow}% " +
-               cc("둔화") + ". 첫 착지는 대상을 넘어 적을 자기 쪽으로 " + cc("밀쳐내고") + ", 이후 " + t("{r_up}초") + " " +
-               cc("에어본") + ".",
+               cc("둔화") + ". 첫 착지는 대상을 넘어 적을 " + t("{r_kb_t}초") + "에 걸쳐 자기 쪽으로 " + cc("밀쳐내고") +
+               ", 이후 착지는 피해와 둔화만 줍니다.",
         "names": ("탄성 주먹", "새총 발사", "바운스!"),
     },
     "ja": {
@@ -136,8 +136,8 @@ TEXT = {
         "skill2": t("{e_wind}秒") + "力をためて対象へ飛び、着地で" + mag("e_dmg", "e_ap") + "+自身の最大体力の{e_hp}%の魔法ダメージと周囲の敵を" +
                   t("{e_up}秒") + cc("ノックアップ") + "。",
         "ult": "阻止不能で{r_n}回跳ね、着地ごとに" + mag("r_dmg", "r_ap") + "の魔法ダメージ（2回目以降{r_k}%）と{r_slow}%" +
-               cc("スロウ") + "。最初は対象を飛び越え敵を自分側へ" + cc("ノックバック") + "、以降は" + t("{r_up}秒") +
-               cc("ノックアップ") + "。",
+               cc("スロウ") + "。最初は対象を飛び越え敵を" + t("{r_kb_t}秒") + "かけて自分側へ" + cc("ノックバック") +
+               "、以降はダメージとスロウのみ。",
         "names": ("スライムパンチ", "ブッ飛びスライム", "レッツバウンス！"),
     },
 }
@@ -160,7 +160,7 @@ def secs(tk):
 def values(p):
     v = {k: p[k] for k in ("w_dmg", "w_ap", "w_pct", "b_heal", "b_heal_ap", "q_dmg", "q_ap", "q_hp", "q_slow", "e_dmg",
                            "e_ap", "e_hp", "r_n", "r_dmg", "r_ap", "r_k", "r_slow")}
-    for k in ("w_cd", "q_hold", "q_up", "e_wind", "e_up", "r_up"):
+    for k in ("w_cd", "q_hold", "q_up", "e_wind", "e_up", "r_kb_t"):
         v[k] = secs(p[k])
     return v
 

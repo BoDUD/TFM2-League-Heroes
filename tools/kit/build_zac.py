@@ -35,10 +35,12 @@ and the slot lays it again its first try): without it Q -> R bounced him from le
           unstoppable (`cc_immune`); each lands r_air ticks after it starts for r_dmg + r_ap% AP (later bounces x r_k%)
           and r_slow% for r_slow_t within r_r. The first dashes through an enemy champion within r_range + 25000 (the
           AI casts from its range plus both bodies) to 15000 beyond it (`RushMoveToBack` r_rush from r_rush_at,
-          league_leesin's insec) and its landing kicks them back away from him (`Knockback` r_kb x r_kb_t), toward
-          where he came from - League's first bounce, the carry back to his team (the user, 2026-10-24: 「大招应该也能
-          抱一个人回来」); the others hop onto an enemy champion within r_hop (or in place) for an r_up-tick knock-up, so
-          he follows the one he kicked.
+          league_leesin's insec) and its landing kicks them back away from him (`Knockback` r_kb x r_kb_t: League's
+          knock back over 1 s), toward where he came from - League's first bounce, the carry back to his team (the
+          user, 2026-10-24: 「大招应该也能抱一个人回来」); the others hop onto an enemy champion within r_hop (or in
+          place), so he follows the one he kicked - they only hurt (x r_k%) and slow, as League's later hits on an
+          enemy do (until 2026-11-14 each of them knocked up for 20 ticks; the data cannot tell a first hit on a new
+          enemy from a later one, so an enemy the first landing missed is never knocked back).
   combos  E -> W: the landing bursts Unstable Matter at once (its cooldown starting over). E -> Q: a champion knocked up by
           the landing is caught by Q at once when `q_cd` is off. Q -> R: the slam of a flung champion starts R on it
           when `r_cd` and `r_open` allow. R -> W: the last bounce bursts Unstable Matter and leaves W ready again.
@@ -98,8 +100,14 @@ P = {
     "e_up": 30, "e_land": 16, "e_w_at": 2, "e_q_at": 8,
     # ult: R Let's Bounce!
     "r_cd": 3600, "r_range": 40000, "r_n": 4, "r_gap": 37, "r_hop": 30000, "r_speed": 3000, "r_r": 26000,
-    "r_dmg": 90, "r_ap": 50, "r_k": 50, "r_up": 20, "r_slow": 25, "r_slow_t": 60, "r_land": 12, "r_air": 25,
-    "r_move_at": 5, "r_rush": 7000, "r_rush_at": 12, "r_kb": 2000, "r_kb_t": 12,
+    "r_dmg": 90, "r_ap": 50, "r_k": 50, "r_slow": 25, "r_slow_t": 60, "r_land": 12, "r_air": 25,
+    "r_move_at": 5, "r_rush": 7000, "r_rush_at": 12,
+    # League's Let's Bounce! (wiki V26.15): the first hit on an enemy "knocks them back over 1 second", "ones beyond the
+    # first deal 50% damage to them and do not apply the knock back". Until 2026-11-14 (the user, on the list of
+    # differences from League: 「全改吧」) the first landing pushed 2000 x 12 ticks and every later one knocked up
+    # 20 ticks; now the first pushes the same 24000 over League's second (400 x 60) and the later ones only hurt and
+    # slow. kd.py --lane 1 --seeds 1-8: +1.61 before, +0.59 with the knock-ups gone and the short push, +2.27 = P.
+    "r_kb": 400, "r_kb_t": 60,
     # Cell Division's revive, the add-on's (League: 4 bloblets, revive with 10-50% health, cd 300 s)
     "split_t": 360, "split_cd": 18000, "split_hp": 40, "split_def": 20, "split_in": 18, "split_out": 18,
     # his spoken lines, at most one every vo_gap ticks
@@ -283,11 +291,10 @@ def build(p):
     # ------------------------------------------------------------------ R Let's Bounce! (the ult and the controller)
     # A pulse on him every r_gap ticks is one bounce; the ladder h1..h3 counts them, `r_fin` marks the last.
     land = [anim("ult_land", p["r_land"]), sfx("r_land"), cview("r_land"),
-            # the first landing kicks them back (away from him: he landed beyond them, so toward where he came from),
-            # the others knock them up
+            # the first landing kicks them back (away from him: he landed beyond them, so toward where he came from);
+            # the others only hurt and slow (League: no knock back after an enemy's first hit)
             sw("r_first",
-               around(p["r_r"], "EnemyWithoutTower", {"type": "Knockback", "speed": p["r_kb"], "tick": p["r_kb_t"]}),
-               around(p["r_r"], "EnemyWithoutTower", {"type": "Airborne", "duration": p["r_up"]})),
+               around(p["r_r"], "EnemyWithoutTower", {"type": "Knockback", "speed": p["r_kb"], "tick": p["r_kb_t"]})),
             sw("r_first", combine(*rm("r_first"), around(p["r_r"], "EnemyWithoutTower", ap(p["r_dmg"], p["r_ap"]))),
                around(p["r_r"], "EnemyWithoutTower", ap(p["r_dmg"] * p["r_k"] // 100, p["r_ap"] * p["r_k"] // 100))),
             around(p["r_r"], "EnemyWithoutTower",
