@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_pyke_big",
+   "tag": "r_strike",
+   "file": "league_pyke_big/r_strike.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     55,
+     31
+    ],
+    [
+     57,
+     31
+    ],
+    [
+     59,
+     31
+    ],
+    [
+     59,
+     31
+    ],
+    [
+     57,
+     31
+    ]
+   ],
+   "of_1x": "e3f41f51cce7bc351db447189c97979695e5b926c557f8c73e8b404ea3210f8c",
+   "by": "fx_vector 4",
+   "sha256": "6294758efb6b69fde571cb6abb4bc1147c711e56f30f032264a4f402003c3c46",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  }
+ ]
+}

@@ -44,7 +44,7 @@ import fx_vector as V  # noqa: E402
 G = D.G
 PPU = 2
 STORE = "fx_handmade"
-BY = "fx_vector 3"          # what drew a stored tag (raise the number when the redraw's rules change)
+BY = "fx_vector 4"          # what drew a stored tag (raise the number when the redraw's rules change)
 
 
 def hero_of(sheet):

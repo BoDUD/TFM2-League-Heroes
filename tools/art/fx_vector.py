@@ -384,7 +384,15 @@ def smooth_level(mx, my, nx, ny, turn, bridge, pinch, start, length, window=7, i
                             if max(lf, lb) >= 2 and t[ef] == -g and t[bb] == -g:
                                 sh[ef] = sh[bb] = True
                     else:
-                        groups.append(s + (rs + np.arange(rn)) % ln)
+                        # a wider arm: an end 2 or 3 pixels wide with straight sides two or more long, on a body that
+                        # spreads both ways at its foot (a star whose arms are 2 px wide) - its end and its foot stay
+                        # as drawn too; any other extremal run keeps its mean height
+                        lf, lb = rl[(rs + rn) % ln], rl[(rs - 1) % ln]
+                        ef, bb = (rs + rn - 1 + lf) % ln, (rs - 1 - lb) % ln
+                        if rn <= 3 and min(lf, lb) >= 2 and t[ef] == -t0 and t[bb] == -t0:
+                            sh[(rs - 1) % ln] = sh[(rs + rn - 1) % ln] = sh[ef] = sh[bb] = True
+                        else:
+                            groups.append(s + (rs + np.arange(rn)) % ln)
             # stretches of stairs: the turns between one pair of like turns and the next
             tn = np.nonzero(t != 0)[0]
             if len(tn) >= 2:

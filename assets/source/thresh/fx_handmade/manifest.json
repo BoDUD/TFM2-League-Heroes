@@ -2,6 +2,56 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_thresh_big",
+   "tag": "e_sweep",
+   "file": "league_thresh_big/e_sweep.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     63,
+     49
+    ],
+    [
+     65,
+     59
+    ],
+    [
+     67,
+     59
+    ],
+    [
+     67,
+     59
+    ],
+    [
+     67,
+     59
+    ],
+    [
+     67,
+     55
+    ],
+    [
+     63,
+     51
+    ]
+   ],
+   "of_1x": "e7fd5bd7d01db8afceabd70152e04be8d671498315a357d004efb415d7c45b4a",
+   "by": "fx_vector 4",
+   "sha256": "1f68b5128989c1c72bc3c51dbada4c89df368ca044539aa977d5593d523afc56",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
    "sheet": "league_thresh_fx",
    "tag": "w_shield",
    "file": "league_thresh_fx/w_shield.png",

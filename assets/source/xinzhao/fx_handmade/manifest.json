@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_xinzhao_big",
+   "tag": "r_sweep",
+   "file": "league_xinzhao_big/r_sweep.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     59
+    ],
+    [
+     73,
+     59
+    ],
+    [
+     77,
+     57
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     51
+    ]
+   ],
+   "of_1x": "1853a1a59e3bbaf23ffe36391c1a26501996508bae000809640ef8fba0bb4aaf",
+   "by": "fx_vector 4",
+   "sha256": "5b74759c1d939f45ea65d72e4b02e228aaeb3fa479b32c94fa51167339acaa09",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  }
+ ]
+}

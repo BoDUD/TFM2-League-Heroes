@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_renekton_big",
+   "tag": "q_spin_e",
+   "file": "league_renekton_big/q_spin_e.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     13
+    ],
+    [
+     75,
+     21
+    ],
+    [
+     75,
+     33
+    ],
+    [
+     73,
+     23
+    ],
+    [
+     73,
+     23
+    ],
+    [
+     63,
+     15
+    ]
+   ],
+   "of_1x": "0e61a426bf9e0077b81c49a6e758a81ab036b6c04d6451bc90b90c5aa015f36a",
+   "by": "fx_vector 4",
+   "sha256": "a2caf60ac256e758ae05888ab06756f0420fbcf260cbbd571abc8872d22ef7a7",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_renekton_big",
    "tag": "r_cast",
    "file": "league_renekton_big/r_cast.png",
    "ppu": 2,

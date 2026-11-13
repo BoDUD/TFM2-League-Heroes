@@ -3,6 +3,93 @@
  "items": [
   {
    "sheet": "league_nilah_big",
+   "tag": "eq_spin",
+   "file": "league_nilah_big/eq_spin.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     41,
+     33
+    ],
+    [
+     53,
+     39
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     57,
+     39
+    ],
+    [
+     57,
+     23
+    ]
+   ],
+   "of_1x": "2a506b4827ac86928d7dc52b6f5954e3f845ea795c658f6813bf7d23a2b7562a",
+   "by": "fx_vector 4",
+   "sha256": "528131c849d54cc24a7c418aee569f25a538c4cfc5f91af6f2bf7ea0ba9e9c7b",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
+   "tag": "r_spin",
+   "file": "league_nilah_big/r_spin.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     37
+    ],
+    [
+     61,
+     49
+    ],
+    [
+     77,
+     57
+    ],
+    [
+     77,
+     65
+    ],
+    [
+     77,
+     61
+    ],
+    [
+     67,
+     55
+    ]
+   ],
+   "of_1x": "89f95095ee4199a13922021259045dd7bd97e8786b3f9884b2e3a2a4b7a5b32b",
+   "by": "fx_vector 4",
+   "sha256": "4021d007c157c295d05b30801479f2bfb4bed06b4596228a192d76797b5c0d86",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
    "tag": "w_ally",
    "file": "league_nilah_big/w_ally.png",
    "ppu": 2,

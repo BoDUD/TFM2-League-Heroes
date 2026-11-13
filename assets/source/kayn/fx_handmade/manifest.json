@@ -3,6 +3,126 @@
  "items": [
   {
    "sheet": "league_kayn_fx",
+   "tag": "q_spin",
+   "file": "league_kayn_fx/q_spin.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     43,
+     27
+    ],
+    [
+     53,
+     29
+    ],
+    [
+     53,
+     35
+    ],
+    [
+     47,
+     29
+    ],
+    [
+     53,
+     23
+    ]
+   ],
+   "of_1x": "df173ac40fa35b7cedde415df02e070863976ec48a3361741f8949229b262d2d",
+   "by": "fx_vector 4",
+   "sha256": "b25e0a0ca153998f6fe41d546ebae73eee7285f2c3c95c4b8a01677ce8f6f320",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
+   "tag": "q_spin_d",
+   "file": "league_kayn_fx/q_spin_d.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     43,
+     27
+    ],
+    [
+     53,
+     29
+    ],
+    [
+     53,
+     35
+    ],
+    [
+     47,
+     29
+    ],
+    [
+     53,
+     23
+    ]
+   ],
+   "of_1x": "11d5b986199048c944c8fd2b196ac4d8179601fe94bdb342463250c2108b90c6",
+   "by": "fx_vector 4",
+   "sha256": "e4e6e0300739476ab1d04435b56f516f2515768a28fa05e9d8aa49cc393e09cd",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
+   "tag": "q_spin_s",
+   "file": "league_kayn_fx/q_spin_s.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     43,
+     27
+    ],
+    [
+     53,
+     29
+    ],
+    [
+     53,
+     35
+    ],
+    [
+     47,
+     29
+    ],
+    [
+     53,
+     23
+    ]
+   ],
+   "of_1x": "090ad5112a7cb65bc11e4df37fc624d6e7f0dba5de2748ffa5cf58c25e0461f3",
+   "by": "fx_vector 4",
+   "sha256": "3182ebc6fefa3ede9a133e1b7767172f390a15d5785a85233ba015f115faf70f",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
    "tag": "wall_aura_d",
    "file": "league_kayn_fx/wall_aura_d.png",
    "ppu": 2,
