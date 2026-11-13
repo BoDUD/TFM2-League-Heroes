@@ -9,7 +9,9 @@ add-on addons/league_tryndamere_rage, which reads his health - the data pack kee
           attack). The stacks fall off one at a time (league_jax Relentless Assault: all of f_1..f_n are on, the top one
           f_top ticks, every lower one f_step more), so Fury lasts f_top ticks after his last hit and then drains a stack
           every f_step. A crit is the engine's: 2x on the attack (League 175%), never on E.
-          Q Bloodlust's passive (attack damage by missing health: nothing reads health) is in his base attack.
+          Q Bloodlust's passive (attack damage by missing health: nothing reads health) is in his base attack. The
+          add-on's copy takes n_q_base% of his attack and its growth out again and its passive gives up to n_q_ad% of
+          his attack by missing health, the most at n_q_at% missing (League: the most at 90% missing).
   attack  A melee swing (100% AD, crits). It also runs the danger check while R is armed (league_kayle R): the hit
           sensor (league_sett's Grit: a 1-point shield and a `WithShield` flag; hit since the last check -> one level of
           h_1..h_n, each h_t ticks) and the count of enemy champions within d_near (two 3-tick flags, read a tick later).
@@ -61,6 +63,12 @@ P = {
     # the native add-on (addons/league_tryndamere_rage) instead: R below n_r_hp% health (or n_burst% lost in n_burst_t
     # ticks, n_burst_left% left), Q below n_q_hp% with R not armed - an enemy champion within n_near
     "n_near": 50000, "n_r_hp": 15, "n_q_hp": 30, "n_burst": 35, "n_burst_left": 40, "n_burst_t": 60,
+    # Q Bloodlust's passive in the add-on (League, wiki V26.06: "bonus attack damage based on his missing health, up to a
+    # maximum amount at 90% missing health", 20-80 by rank on 66 + 4 a level; the user, on the list of differences from
+    # League, 2026-11-14: 「全改吧」): the copy's attack and its growth are n_q_base% lower (86 +17 -> 81 +16) and the
+    # passive adds n_q_ad% x missing / n_q_at of his attack - even at 27% missing, -6% at full health, +13% from 90%
+    # missing. Native code: the classic simulations cannot run it, so the numbers are the neutral ones, not tuned.
+    "n_q_ad": 20, "n_q_at": 90, "n_q_base": 6,
     # skill: E Spinning Slash (League: 660 dash, 75-155 + 130% bonus AD + 80% AP, cd 12-8 s minus crit refunds)
     "e_cd": 480, "e_range": 45000, "e_dur": 16, "e_st": 2, "e_speed": 4000, "e_tick": 12, "e_rad": 15000,
     "e_dmg": 100, "e_ratio": 160,
@@ -278,14 +286,18 @@ def build(p, native=False):
     views_e = [E("a_hit", FX, 2), E("e_spin", BIG, 2), E("e_hit", FX, 2), E("w_shout", BIG, 2), E("w_hit", FX, 3),
                E("r_cast", BIG, 2, **LATE), E("q_heal", FX, 2, **LATE)]
     views_b = [B_(f"f_{F}", FX, -1), B_("r_rage", BIG, -1), B_("w_weak", FX, 3), B_("w_slow", FX, -1)]
+    # the add-on's copy: Bloodlust's share of his attack comes from its passive, by missing health
+    atk, atk_g = p["atk"], p["atk_g"]
+    if native:
+        atk, atk_g = (round(v * (100 - p["n_q_base"]) / 100) for v in (atk, atk_g))
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
-        "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
+        "stat": {"attack": atk, "magic_power": 0, "hp": p["hp"], "defence": p["def"],
                  "magic_resistance": p["mr"], "move_speed": p["ms"], "hp_regen": p["regen"], "stack": 0,
                  "crit_chance": 0},
-        "growth": {"attack": p["atk_g"], "magic_power": 0, "hp": p["hp_g"], "defence": p["def_g"],
+        "growth": {"attack": atk_g, "magic_power": 0, "hp": p["hp_g"], "defence": p["def_g"],
                    "magic_resistance": p["mr_g"], "move_speed": p["ms_g"], "hp_regen": p["regen_g"], "stack": 0,
                    "crit_chance": 0},
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
@@ -295,7 +307,8 @@ def build(p, native=False):
         keys = ["f_n", "f_crit", "f_top", "f_step", "r_t", "r_q_at", "r_anim", "q_heal", "q_heal_ratio", "q_per",
                 "q_per_ratio", "q_cd", "q_anim"]
         params = {k: int(p[k]) for k in keys}
-        params.update({k[2:]: int(p[k]) for k in ("n_near", "n_r_hp", "n_q_hp", "n_burst", "n_burst_left", "n_burst_t")})
+        params.update({k[2:]: int(p[k]) for k in ("n_near", "n_r_hp", "n_q_hp", "n_burst", "n_burst_left", "n_burst_t",
+                                                  "n_q_ad", "n_q_at")})
         kit["passive"] = {"passive_ref": "league_tryndamere_rage:guard", "params": params}
     # the red-side pass (tools/fix/red_side_caster_fx.py): pictures with a front and a back drawn into his frames,
     # the rest made symmetric - the same changes on every build, the add-on's copy included
