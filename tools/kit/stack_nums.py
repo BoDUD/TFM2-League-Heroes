@@ -85,6 +85,10 @@ STACKS = [
      "top": 100, "cap": 100, "skill": 2, "label": "希瓦娜「魔龙降世」龙怒（100 = 满）"},
     {"hero": "league_tryndamere", "ladder": "league_tryndamere_f_", "rungs": 5, "step": 20, "cap": 100, "skill": 0,
      "label": "泰达米尔「战斗狂怒」怒气"},
+    # the Bonetooth Necklace's trophies (2026-11-14, with League's necklace itself): the main kit and league_rengar_bush
+    # both hang league_rengar_bt1..bt5 one after another, so the highest rung on him is the count
+    {"hero": "league_rengar", "ladder": "league_rengar_bt", "rungs": 5, "cap": 5, "skill": 2,
+     "label": "雷恩加尔「骨齿项链」战利品"},
     # the add-on's Silver Serpents in hand (2026-11-12, the user: 「船长银蛇币的系统能做吗」): league_gangplank writes
     # league_gangplank_sv_<n> (its unit test serpent_count_on_the_panel)
     {"hero": "league_gangplank", "ladder": "league_gangplank_sv_", "rungs": 9999, "cap": 9999, "skill": 2,

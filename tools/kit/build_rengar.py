@@ -57,6 +57,7 @@ import argparse
 import json
 import os
 import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
+import stack_nums  # noqa: E402  (league.dll's stack number in the champion panel: the necklace's trophies)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -442,6 +443,9 @@ def nodes(o):
 # every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
 # (tools/kit/range_buffs.py, 2026-11-07)
 build = range_buffs.wrap(build)
+
+# the Bonetooth Necklace's trophies as the number beside the skill icons (tools/kit/stack_nums.py, 2026-11-14)
+build = stack_nums.wrap(build)
 
 
 def main():
