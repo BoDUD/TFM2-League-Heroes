@@ -48,7 +48,7 @@ TEXT = {
     "zh-hans": {
         "name": "辛德拉",
         "attack": "被动" + O + "卓尔不凡" + E + "：" + A + "{lv_q}" + E + "级Q对英雄伤害+{q_champ}%，" + A + "{lv_w}" + E + "级W附带" +
-                  Wh + "{w_true}%真实伤害" + E + "，" + A + "{lv_e}" + E + "级E范围更大，" + A + "{lv_r}" + E + "级R的法球无视魔抗。",
+                  Wh + "{w_true}%真实伤害" + E + "，" + A + "{lv_e}" + E + "级E范围更大并" + R + "减速{e_slow}%" + E + "，" + A + "{lv_r}" + E + "级R的法球无视魔抗。",
         "skill": "召唤暗黑法球，对周围敌人造成" + mag("q_dmg", "q_ratio") + M + "魔法伤害" + E + "。法球留在原地" + A + "{orb_t}秒" +
                  E + "。",
         "skill2": "先用" + O + "驱使念力" + E + "把法球掷向敌方英雄，造成" + mag("w_dmg", "w_ratio") + M + "魔法伤害" + E + "并" + R +
@@ -61,7 +61,7 @@ TEXT = {
     "zh-hant": {
         "name": "星朵拉",
         "attack": "被動" + O + "卓越" + E + "：" + A + "{lv_q}" + E + "級Q對英雄傷害+{q_champ}%，" + A + "{lv_w}" + E + "級W附帶" + Wh +
-                  "{w_true}%真實傷害" + E + "，" + A + "{lv_e}" + E + "級E範圍更大，" + A + "{lv_r}" + E + "級R的星體無視魔抗。",
+                  "{w_true}%真實傷害" + E + "，" + A + "{lv_e}" + E + "級E範圍更大並" + R + "緩速{e_slow}%" + E + "，" + A + "{lv_r}" + E + "級R的星體無視魔抗。",
         "skill": "召喚黑暗星體，對周圍敵人造成" + mag("q_dmg", "q_ratio") + M + "魔法傷害" + E + "。星體留在原地" + A + "{orb_t}秒" +
                  E + "。",
         "skill2": "先用" + O + "意志之力" + E + "把星體擲向敵方英雄，造成" + mag("w_dmg", "w_ratio") + M + "魔法傷害" + E + "並" + R +
@@ -75,7 +75,7 @@ TEXT = {
         "name": "Syndra",
         "attack": "Passive " + O + "Transcendent" + E + ": at level " + A + "{lv_q}" + E + " Dark Sphere deals {q_champ}% more to "
                   "champions, at " + A + "{lv_w}" + E + " Force of Will adds " + Wh + "{w_true}% true damage" + E + ", at " + A +
-                  "{lv_e}" + E + " Scatter the Weak grows, at " + A + "{lv_r}" + E + " Unleashed Power ignores Magic Resist.",
+                  "{lv_e}" + E + " Scatter the Weak grows and " + R + "slows {e_slow}%" + E + ", at " + A + "{lv_r}" + E + " Unleashed Power ignores Magic Resist.",
         "skill": "A Dark Sphere deals " + mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + " around it and stays for " + A +
                  "{orb_t}s" + E + ".",
         "skill2": "First " + O + "Force of Will" + E + " throws a sphere at an enemy champion for " + mag("w_dmg", "w_ratio") + " " + M +
@@ -89,7 +89,7 @@ TEXT = {
     "ko": {
         "name": "신드라",
         "attack": "기본 지속 효과 " + O + "초월" + E + ": " + A + "{lv_q}" + E + "레벨 Q 챔피언 피해 +{q_champ}%, " + A + "{lv_w}" + E +
-                  "레벨 W " + Wh + "고정 피해 {w_true}%" + E + " 추가, " + A + "{lv_e}" + E + "레벨 E 범위 증가, " + A + "{lv_r}" + E +
+                  "레벨 W " + Wh + "고정 피해 {w_true}%" + E + " 추가, " + A + "{lv_e}" + E + "레벨 E 범위 증가·" + R + "둔화 {e_slow}%" + E + ", " + A + "{lv_r}" + E +
                   "레벨 R 구체가 마법 저항력 무시.",
         "skill": "어둠 구체가 주변 적에게 " + mag("q_dmg", "q_ratio") + "의 " + M + "마법 피해" + E + ". 구체는 " + A + "{orb_t}초" + E +
                  " 동안 남음.",
@@ -103,7 +103,7 @@ TEXT = {
     "ja": {
         "name": "シンドラ",
         "attack": "パッシブ " + O + "絶大なる魔力" + E + "：" + A + "{lv_q}" + E + "レベルでQのチャンピオンへのダメージ+{q_champ}%、" + A +
-                  "{lv_w}" + E + "レベルでWに" + Wh + "{w_true}%確定ダメージ" + E + "、" + A + "{lv_e}" + E + "レベルでE拡大、" + A +
+                  "{lv_w}" + E + "レベルでWに" + Wh + "{w_true}%確定ダメージ" + E + "、" + A + "{lv_e}" + E + "レベルでE拡大と" + R + "{e_slow}%スロウ" + E + "、" + A +
                   "{lv_r}" + E + "レベルでRが魔法防御無視。",
         "skill": "ダークスフィアが周囲の敵に" + mag("q_dmg", "q_ratio") + "の" + M + "魔法ダメージ" + E + "。スフィアは" + A +
                  "{orb_t}秒" + E + "残る。",
@@ -144,7 +144,7 @@ CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
 def values(p):
     v = {k: p[k] for k in ("lv_q", "lv_w", "lv_e", "lv_r", "q_champ", "w_true", "q_dmg", "q_ratio", "w_dmg", "w_ratio",
-                           "w_slow", "e_dmg", "e_ratio", "r_dmg", "r_ratio")}
+                           "w_slow", "e_dmg", "e_ratio", "r_dmg", "r_ratio", "e_slow")}
     for k in ("orb_t", "e_stun"):
         v[k] = secs(p[k])
     return v
