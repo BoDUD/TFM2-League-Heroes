@@ -8,7 +8,6 @@ publish = false
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-push_rules = { path = "../push_rules" }
 mod-api-stable = { path = "../vendor/mod-api-stable" }
 
 

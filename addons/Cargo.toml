@@ -3,7 +3,7 @@
 # (the add-on bundle players subscribe to, league_addons/README.md). The stable mod API is vendored
 # once in vendor/mod-api-stable (the game's mod-sdk-stable, ABI level 9). game_places (the game's places found at run
 # time) and hd_engine (the dense frames league.dll and tft.dll share) are libraries the DLLs link, no mods themselves; so is push_rules
-# (pushes and pulls that outlast the target's tenacity, every add-on that moves an enemy).
+# (what the add-ons that push or pull an enemy ask about a unit: held, still moving).
 [workspace]
 members = ["league_*", "tft", "game_places", "hd_engine", "lol_audio", "push_rules"]
 resolver = "2"

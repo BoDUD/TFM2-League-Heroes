@@ -356,9 +356,7 @@ fn shove(sim: &mut StableSim<'_>, target: usize, dir: Pt, len: f64, speed: usize
     cc.dx = (dir.0 * len).round() as i64;
     cc.dy = (dir.1 * len).round() as i64;
     cc.speed = speed as u64;
-    // 2026-11-13: lengthened by his tenacity (the engine cuts every crowd control by it, forced moves too), so he
-    // reaches the wall when the slam is due
-    push_rules::force_move_full(sim, target, cc);
+    sim.apply_cc(target, &cc);
     ticks
 }
 
@@ -487,9 +485,7 @@ fn impale(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     if !sim.get_entity(target).is_some_and(|e| e.is_alive()) || cc_immune(sim, target) {
         return;
     }
-    // 2026-11-13: League's suppression ignores tenacity - lengthened by it, it lasts the drag
-    let sup = push_rules::full_ticks(R_SUP, push_rules::toughness_of(sim, target)).unwrap_or(0);
-    sim.apply_cc(target, &CcV1::stun(sup as u64));
+    sim.apply_cc(target, &CcV1::stun(R_SUP as u64));
     retimed(sim, target, &n("r_held"), R_SUP);
     retimed(sim, target, &dragged_name(me), R_SUP);
     if let Some(k) = counted("impale") {
@@ -615,10 +611,17 @@ impl Sovereign {
         }
         // 2026-11-13: cleansed, or immune now: no longer suppressed, no longer dragged
         if !push_rules::held_id(sim, foe) || cc_immune(sim, foe) {
+            let left = sim.get_entity(foe)
+                .and_then(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == dragged_name(me)))
+                .map_or(0, |b| b.duration_tick);
             self.dragged.remove(&foe);
             sim.entity_remove_buff(foe, &dragged_name(me));
-            if let Some(k) = counted("drag free") {
-                wlog(format!("{} DRAG FREE #{foe}: no longer suppressed (cleansed or immune), let go #{k}", head(sim, me)));
+            // the last tick or two of a drag that ran its time are no cleanse
+            if left > 3 {
+                if let Some(k) = counted("drag free") {
+                    wlog(format!("{} DRAG FREE #{foe}: no longer suppressed {left} ticks before the drag ends (cleansed, immune \
+                                  or the stun cut short), let go #{k}", head(sim, me)));
+                }
             }
             return;
         }

@@ -402,8 +402,11 @@ still about 13000 short of its centre, not once he is behind it *(measured in th
 marker effect, league_leesin R, 2026-09-29)*. `Teleport` copies
 the target unit's coordinates (`Targeting`) or the cast point (`Position`) onto the caster and does
 nothing for `Direction`. `Airborne` on a unit that is already airborne keeps the longer of the two
-remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100),
-and airborne also cancels the target's dash.
+remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100)
+*(read from 0.5.1's game_core)* - **but not a forced move in game 0.7.2** *(measured 2026-11-13: 70 carries by
+league_azir's wall, each `ForceMove` lengthened by 1 / (1 - toughness), went exactly that much too far - 1.13x at
+toughness 10, 1.45x at 30, 2.00x at 50, 2.84x at 65; never lengthen a push for tenacity)*; airborne also cancels the
+target's dash.
 `MoveTo` in a `Targeting` action dashes all the way to where the target stood when the dash began: its
 `range` does not cap the distance *(measured in the SDK simulation for league_ekko E: speed 3000, range
 15000, dashes of 12500 to 54000 units that each ended on the target's spot)*.
