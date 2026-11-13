@@ -153,7 +153,7 @@
                         "type": "LinearProjectile",
                         "name": "league_morgana_q_orb",
                         "penetrate": false,
-                        "applied_target": "EnemyWithoutTower",
+                        "applied_target": "EnemyChampion",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
@@ -365,7 +365,7 @@
                 "type": "LinearProjectile",
                 "name": "league_morgana_q_orb",
                 "penetrate": false,
-                "applied_target": "EnemyWithoutTower",
+                "applied_target": "EnemyChampion",
                 "applied_effects": [
                   {
                     "casting_type": "Targeting",
