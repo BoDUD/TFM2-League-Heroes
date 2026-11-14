@@ -1512,6 +1512,13 @@
       "tag": "r_ring",
       "z": -2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_annie_q_tib_bye",
+      "anim": "asset/league/champions/league_annie_tibbers",
+      "tag": "dead",
+      "z": -1
     }
   ],
   "view_buffs": [

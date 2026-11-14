@@ -284,7 +284,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_reksai.png" width="32"> | [雷克塞](docs/heroes/league_reksai.md)<br>Rek'Sai | 打野 | 女王之怒 · 遁地 · 大招 虚空猛冲 | [雷克塞附加包](addons/league_reksai/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_rengar.png" width="32"> | [雷恩加尔](docs/heroes/league_rengar.md)<br>Rengar | 打野 | 战争咆哮 · 套索打击 · 大招 狩猎律动 | [雷恩加尔草丛附加包](addons/league_rengar_bush/README.md) | PPU 1.48 |
 | <img src="docs/heroes/img/league_sejuani.png" width="32"> | [瑟庄妮](docs/heroes/league_sejuani.md)<br>Sejuani | 打野 | 极寒突袭 · 凛冬之怒 · 大招 极冰寒狱 | [瑟庄妮附加包](addons/league_sejuani/README.md) | PPU 2 |
-| <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科背刺附加包](addons/league_shaco_backstab/README.md) | PPU 2.12 |
+| <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科附加包：背刺看朝向、幻像是真的单位](addons/league_shaco_backstab/README.md) | PPU 2.12 |
 | <img src="docs/heroes/img/league_shyvana.png" width="32"> | [希瓦娜](docs/heroes/league_shyvana.md)<br>Shyvana | 打野 | 焚焰打击 · 爆炎吐息 · 大招 魔龙降世 | [希瓦娜附加包](addons/league_shyvana/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_skarner.png" width="32"> | [斯卡纳](docs/heroes/league_skarner.md)<br>Skarner | 打野 | 撼地 · 以绪塔尔冲击 · 大招 毒刺贯体 | [斯卡纳附加包](addons/league_skarner/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_trundle.png" width="32"> | [特朗德尔](docs/heroes/league_trundle.md)<br>Trundle | 打野 | 利齿撕咬 · 寒冰之柱 · 大招 强权至上 | [特朗德尔附加包](addons/league_trundle/README.md) | PPU 2 |
@@ -313,7 +313,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_ahri.png" width="32"> | [阿狸](docs/heroes/league_ahri.md)<br>Ahri | 中单 | 被动 摄魂夺魄 · 欺诈宝珠 · 魅惑妖术 · 大招 灵魄突袭 | [阿狸附加包](addons/league_ahri/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_akali.png" width="32"> | [阿卡丽](docs/heroes/league_akali.md)<br>Akali | 中单 | 被动 我流忍法！潜龙印 · 我流奥义！寒影 · 我流奥义！隼舞 · 大招 我流秘奥义！表里杀缭乱 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](addons/league_executes/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_anivia.png" width="32"> | [艾尼维亚](docs/heroes/league_anivia.md)<br>Anivia | 中单 | 寒冰闪耀 · 霜寒刺骨 · 大招 冰川风暴 | [艾尼维亚附加包](addons/league_anivia/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_annie.png" width="32"> | [安妮](docs/heroes/league_annie.md)<br>Annie | 中单 | 被动 嗜火 · 碎裂之火 · 焚烧 · 大招 提伯斯之怒 | [安妮附加包：Q 返还、提伯斯换目标](addons/league_annie_q/README.md) | PPU 2.2 |
+| <img src="docs/heroes/img/league_annie.png" width="32"> | [安妮](docs/heroes/league_annie.md)<br>Annie | 中单 | 被动 嗜火 · 碎裂之火 · 焚烧 · 大招 提伯斯之怒 | [安妮附加包：Q 返还、提伯斯是真的单位](addons/league_annie_q/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_aurelionsol.png" width="32"> | [奥瑞利安·索尔](docs/heroes/league_aurelionsol.md)<br>Aurelion Sol | 中单 | 星河冲荡 · 星芒凝汇 · 大招 星天落瀑 | [奥瑞利安·索尔附加包](addons/league_aurelionsol/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_aurora.png" width="32"> | [阿萝拉](docs/heroes/league_aurora.md)<br>Aurora | 中单 | 飞去来咒 · 怪奇喷涌 · 大招 双界合一 | [阿萝拉附加包](addons/league_aurora/README.md) | PPU 2.25 |
 | <img src="docs/heroes/img/league_azir.png" width="32"> | [阿兹尔](docs/heroes/league_azir.md)<br>Azir | 中单 | 狂沙猛攻 · 流沙移形 · 大招 禁军之墙 | [阿兹尔附加包](addons/league_azir/README.md) | PPU 1.5 |
