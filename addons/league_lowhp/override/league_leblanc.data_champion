@@ -748,8 +748,16 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_leblanc_p_clone"
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_leblanc_p_unit",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "CasterViewEffect",
+                        "name": "league_leblanc_p_clone"
+                      }
                     },
                     {
                       "type": "Sfx",
@@ -2064,8 +2072,16 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_leblanc_p_clone"
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_leblanc_p_unit",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "CasterViewEffect",
+                        "name": "league_leblanc_p_clone"
+                      }
                     },
                     {
                       "type": "Sfx",
