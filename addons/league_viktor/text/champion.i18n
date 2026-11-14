@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_viktor_addon": {
+        "attack": "【附加包】被动<#ff9028ff>光荣进化<>：补到小兵、野怪各得<#ffb900ff>1<>个海克斯碎片，参与击杀英雄得<#ffb900ff>20<>个，每<#ffb900ff>40<>个按顺序强化：E附带余波，Q护盾更强并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速30%<>，Q、E和风暴首击<#ef5350ff>减速20%<>，风暴转移后变大、持续更久。",
+        "skill2": "【附加包】先在敌方英雄脚下放<#ff9028ff>重力场<>：<#ffb900ff>0.75秒<>后生效，<#ef5350ff>减速35%<>，在场里待满<#ffb900ff>1秒<>的敌人<#ef5350ff>晕眩1.5秒<>（每人一次）。再从目标处向后方射出海克斯射线，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_viktor_addon": {
+        "attack": "【附加包】被動<#ff9028ff>榮光進化<>：補到小兵、野怪各得<#ffb900ff>1<>個海克斯碎片，參與擊殺英雄得<#ffb900ff>20<>個，每<#ffb900ff>40<>個依序強化：E附帶餘波，Q護盾更強並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速30%<>，Q、E和風暴首擊<#ef5350ff>緩速20%<>，風暴轉移後變大、持續更久。",
+        "skill2": "【附加包】先在敵方英雄腳下放<#ff9028ff>萬有引力產生裝置<>：<#ffb900ff>0.75秒<>後生效，<#ef5350ff>緩速35%<>，在場內待滿<#ffb900ff>1秒<>的敵人<#ef5350ff>暈眩1.5秒<>（每人一次）。再從目標處向後方射出海克斯科技射線，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_viktor_addon": {
+        "attack": "[Add-on] Passive <#ff9028ff>Glorious Evolution<>: <#ffb900ff>1<> Hex Fragment for each minion or monster he kills, <#ffb900ff>20<> for a champion takedown; every <#ffb900ff>40<> evolves the next spell: Hextech Ray's aftershock, Siphon Power's bigger shield and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>, Q, E and the storm's first strike <#ef5350ff>slowing 20%<>, the storm growing and lasting longer when it moves on.",
+        "skill2": "[Add-on] First a <#ff9028ff>Gravity Field<> under an enemy champion arms after <#ffb900ff>0.75s<> and <#ef5350ff>slows 35%<>; an enemy that stays in it <#ffb900ff>1s<> is <#ef5350ff>stunned for 1.5s<> (once each). Then a Hextech Ray from the target on away from him deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_viktor_addon": {
+        "attack": "[애드온] 기본 지속 효과 <#ff9028ff>영광스러운 진화<>: 미니언·몬스터 처치 <#ffb900ff>1<>개, 챔피언 관여 <#ffb900ff>20<>개의 헥스 조각, <#ffb900ff>40<>개마다 차례로 강화: E 여진, Q 보호막 강화와 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<>, Q·E·폭풍 첫 타격 <#ef5350ff>20% 둔화<>, 폭풍이 옮겨 가면 커지고 더 오래 유지.",
+        "skill2": "[애드온] 먼저 적 챔피언 발밑에 <#ff9028ff>중력장<>: <#ffb900ff>0.75초<> 뒤 작동해 <#ef5350ff>35% 둔화<>, 안에 <#ffb900ff>1초<> 머문 적 <#ef5350ff>기절 1.5초<>(각자 한 번). 이어서 대상에서 뒤쪽으로 마법공학 광선이 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_viktor_addon": {
+        "attack": "【アドオン】パッシブ <#ff9028ff>グロリアス・エヴォリューション<>：ミニオン・モンスター<#ffb900ff>1<>個、キル関与<#ffb900ff>20<>個のヘクスの欠片、<#ffb900ff>40<>個毎に順に強化：Eに余波、Qのシールド強化と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>、Q・E・嵐の初撃が<#ef5350ff>20%スロウ<>、嵐が移ると大きく長持ち。",
+        "skill2": "【アドオン】まず敵チャンピオンの足元に<#ff9028ff>グラビティフィールド<>：<#ffb900ff>0.75秒<>後に発動し<#ef5350ff>35%スロウ<>、中に<#ffb900ff>1秒<>留まった敵を<#ef5350ff>1.5秒スタン<>（各1回）。続けて対象から奥へレイが<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。"
+      }
+    }
+  }
+}
