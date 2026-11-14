@@ -1220,9 +1220,9 @@ IGNORED = {   # emitter fields the renderer reads past (drawn without them)
 }
 
 
-def survey(lol=LOL, skin=0, log=print):
+def survey(lol=LOL, skin=0, grep=""):
     """every champion's skin: how many of its emitters the renderer draws as they are, draws without some feature, or
-    does not draw (and why)."""
+    does not draw (and why); `grep` keeps the systems whose name holds it (\"_base_\": the base skin's own)."""
     import collections
     import glob
     root = os.path.join(lol, "Game", "DATA", "FINAL", "Champions")
@@ -1242,6 +1242,8 @@ def survey(lol=LOL, skin=0, log=print):
             continue
         tot["champions"] += 1
         for name, f in v.systems.items():
+            if grep and grep.lower() not in name.lower():
+                continue
             tot["systems"] += 1
             for e in (f.get("complexEmitterDefinitionData") or []) + (f.get("simpleEmitterDefinitionData") or []):
                 if not isinstance(e, dict):
@@ -1335,7 +1337,7 @@ def main():
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
     if a.survey:
-        tot, why, ign, prims, fails = survey(a.lol)
+        tot, why, ign, prims, fails = survey(a.lol, grep=a.grep)
         live = tot["emitters"] - tot["disabled"] - tot["other skins (keywords)"]
         print(f"{tot['champions']} champions, {tot['systems']} systems, {tot['emitters']} emitters "
               f"({tot['disabled']} disabled, {tot['other skins (keywords)']} for other skins) -> {live} live")
