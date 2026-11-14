@@ -55,7 +55,7 @@
 
 ### 萨科附加包：背刺看朝向、幻像和惊吓魔盒是真的单位
 
-[萨科附加包：背刺看朝向、幻像和惊吓魔盒是真的单位](../../addons/league_shaco_backstab/README.md)：`league_shaco_backstab` v0.3.0
+[萨科附加包：背刺看朝向、幻像和惊吓魔盒是真的单位](../../addons/league_shaco_backstab/README.md)：`league_shaco_backstab` v0.3.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

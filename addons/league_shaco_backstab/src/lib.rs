@@ -537,8 +537,9 @@ struct Backstab {
     me: usize,
     /// The tick a clone was asked for, while its handoff is awaited.
     wait: Option<usize>,
-    /// A handed-over unit not yet read as one: (id, the tick it was asked for, looks so far).
-    fresh: Option<(usize, usize, usize)>,
+    /// A handed-over unit not yet read as a settled one: (id, the tick it was asked for, looks so far, the tick its
+    /// handoff was taken).
+    fresh: Option<(usize, usize, usize, usize)>,
     clone: Option<Live>,
     wake: Option<summon::Wake>,
     clones: usize,
@@ -597,7 +598,7 @@ impl Backstab {
             if let Some(id) = summon::take_handoff(sim, me, R_UID) {
                 // its time counted from the ask - the spawn is a tick or two later, so a blast queued by that count
                 // (`:end`, when he is dead) comes a tick or two early, never after the unit is gone
-                (self.wait, self.fresh) = (None, Some((id, since, 0)));
+                (self.wait, self.fresh) = (None, Some((id, since, 0, tick)));
             } else if tick > since + ASK_WAIT {
                 self.wait = None;
                 if let Some(k) = tally(sim, "clone none") {
@@ -606,12 +607,18 @@ impl Backstab {
                 }
             }
         }
-        if let Some((id, born, tries)) = self.fresh {
+        if let Some((id, born, tries, seen)) = self.fresh {
+            // a new unit reads max health 1 and every stat 1 on its spawn tick and the next, and a health set then is
+            // lost (game 0.7.2's presims; summon.rs's Unit::settled): it is looked at a tick after its handoff at the
+            // soonest and dressed once its health cap reads (league_neeko's W)
+            if tick <= seen {
+                return;
+            }
             match summon::Unit::look(sim, id, self.clones + 1, born, CLONE_LIFE, team, player) {
-                Ok((mut unit, line)) => {
+                Ok((mut unit, line)) if unit.settled() || tries + 1 >= LOOK_TRIES => {
                     self.fresh = None;
                     self.clones += 1;
-                    // dressed here, where it reads as a unit: +50 % damage taken, his own health now
+                    // dressed here, where it reads as a settled unit: +50 % damage taken, his own health now
                     let mut worse = BuffV1::named(CLONE_BUFF);
                     worse.damaged_amplify = CLONE_TAKES;
                     sim.add_buff(id, &worse);
@@ -624,8 +631,8 @@ impl Backstab {
                     sim.play_view_effect(APPEAR_VIEW, me, &on, 0, 0, 0);
                     sim.play_sfx(APPEAR_SFX, me, &on);
                     if let Some(k) = tally(sim, "clone look") {
-                        wlog(format!("{} CLONE #{} LOOK #{k}: {line}; given +{CLONE_TAKES}% damage taken; health to his own \
-                                      {hp_goal}: {}", head(sim, me), self.clones,
+                        wlog(format!("{} CLONE #{} LOOK #{k}: {line}{}; given +{CLONE_TAKES}% damage taken; health to his own \
+                                      {hp_goal}: {}", head(sim, me), self.clones, unit.unsettled_note(tries + 1),
                                      if set { "set" } else if hp_goal >= had { "it has no more" } else { "entity_set_hp REFUSED" }));
                     }
                     self.clone = Some(Live { unit, hp_goal, dressed: false });
@@ -638,7 +645,7 @@ impl Backstab {
                                       ({why}) - the flag is off, the clone rides on the target as before", head(sim, me)));
                     }
                 }
-                Err(_) => self.fresh = Some((id, born, tries + 1)),
+                _ => self.fresh = Some((id, born, tries + 1, seen)),
             }
             return;
         }
@@ -655,8 +662,12 @@ impl Backstab {
             }
             match live.unit.step(sim, Some(here)) {
                 summon::Step::Alive(line) => {
-                    if let (Some(line), Some(k)) = (line, tally(sim, "clone unit")) {
-                        wlog(format!("{} CLONE #{n} #{k}: {line}", head(sim, me)));
+                    // counted only when there is a line (a count every tick let the presims' first 40 and every 200th
+                    // go by ticks, not lines: hardly a line a second got through)
+                    if let Some(line) = line {
+                        if let Some(k) = tally(sim, "clone unit") {
+                            wlog(format!("{} CLONE #{n} #{k}: {line}", head(sim, me)));
+                        }
                     }
                     self.clone = Some(live);
                 }
@@ -957,6 +968,8 @@ mod tests {
         // tick or two later: a unit gone by LOST_AGE takes the flag off before the data looks
         assert!(3 + LOST_AGE < 12);
         assert!(ASK_WAIT + LOOK_TRIES < 12);
+        // looked at a tick after the handoff at the soonest (a new unit settles first): still told before the data looks
+        assert!(3 + 1 + LOOK_TRIES < 12);
         assert!(UID_TICKS > 2);
         assert!(CLONE_LIFE + FLAG_MORE > CLONE_LIFE);
         assert!(END_BEFORE >= 1 && END_BEFORE < summon::TIME_SLACK + 2);
@@ -1190,6 +1203,27 @@ mod tests {
         assert!(w.has(w.spawns[0].gave.unwrap(), CLONE_BUFF));
         run(&mut w, &mut me, 320);
         assert_eq!(blasts(&w, 30).len(), 1);
+    }
+
+    #[test]
+    fn a_clone_that_reads_unsettled_at_first_is_dressed_once_its_numbers_read() {
+        // game 0.7.2: a new unit reads max health 1 and every stat 1 on its spawn tick and the next, and a health set
+        // then is overwritten as it settles (World::settle). Dressed then, the clone would have 1 health or his full cap.
+        let (mut w, mut me) = world();
+        w.settle = 2;
+        let t0 = cast_r(&mut w);
+        run(&mut w, &mut me, 12);
+        let clone = w.spawns[0].gave.unwrap();
+        let s = w.spawns[0].tick;
+        assert!(w.has(0, R_UNIT) && me.clone.is_some(), "no clone on the books {} ticks after the cast", w.tick - t0);
+        assert_eq!((w.units[clone].hp, w.units[clone].max), (600, 1000), "not his health");
+        assert!(w.has(clone, CLONE_BUFF));
+        // taken on once it settled: two ticks after its spawn
+        assert_eq!(me.clone.as_ref().map(|l| l.unit.settled()), Some(true));
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        let look = text.lines().find(|l| l.contains(" CLONE #") && l.contains(" LOOK #") && l.contains(&format!("t={} ", s + 2)));
+        assert!(look.is_some_and(|l| l.contains("hp 1000/1000 attack 100") && l.contains("health to his own 600: set")
+                                      && !l.contains("still reads")), "{look:?}");
     }
 
     #[test]

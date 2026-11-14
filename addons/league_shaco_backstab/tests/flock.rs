@@ -190,6 +190,44 @@ fn no_unit_an_unreadable_one_and_a_host_out_of_room() {
 }
 
 #[test]
+fn a_unit_is_taken_on_once_it_has_settled() {
+    // game 0.7.2: a new unit reads max health 1 and every stat 1 on its spawn tick and the next (World::settle)
+    let mut w = world();
+    w.settle = 2;
+    let mut f: Flock<u32> = Flock::new(PREFIX, 6, LIFE);
+    f.ask(w.tick, LIFE, 5);
+    assert_eq!(effect(&mut w, 2, (340_000.0, 300_000.0)), 2);
+    let spawned = w.tick;
+    // the spawn tick and the next: handed over, not on the books yet (nothing for the caller to dress)
+    for _ in 0..2 {
+        let ev = tick(&mut w, &mut f);
+        assert!(looks(&ev).is_empty() && f.live.is_empty(), "{ev:?}");
+        assert_eq!((f.waiting(), f.out()), (0, 2));
+    }
+    // settled: both taken on, their numbers their own
+    let ev = tick(&mut w, &mut f);
+    assert_eq!(looks(&ev).len(), 2, "{ev:?}");
+    assert_eq!(w.tick - 1, spawned + 2);
+    for e in &ev {
+        if let Event::Look { line, .. } = e {
+            assert!(line.contains("hp 150/150 attack 20") && !line.contains("still reads"), "{line}");
+        }
+    }
+    assert!(f.live.iter().all(|m| m.unit.settled() && m.unit.max == 150 && m.extra == 5));
+    // one that never settles in FLOCK_LOOKS looks is taken on all the same, and the line says so
+    let mut w = world();
+    w.settle = 1_000;
+    let mut f: Flock<u32> = Flock::new(PREFIX, 6, LIFE);
+    f.ask(w.tick, LIFE, 0);
+    effect(&mut w, 1, (340_000.0, 300_000.0));
+    let ev: Vec<Event<u32>> = (0..FLOCK_LOOKS + 2).flat_map(|_| tick(&mut w, &mut f)).collect();
+    let lines: Vec<&String> = ev.iter().filter_map(|e| match e { Event::Look { line, .. } => Some(line), _ => None }).collect();
+    assert_eq!(lines.len(), 1, "{ev:?}");
+    assert!(lines[0].ends_with(&format!(" (its health cap still reads 1 after {FLOCK_LOOKS} looks)")), "{}", lines[0]);
+    assert!(!ev.iter().any(|e| matches!(e, Event::Lost { .. } | Event::NoUnit { .. })));
+}
+
+#[test]
 fn the_summoners_death_hands_over_every_living_unit() {
     let mut w = world();
     let mut f: Flock<u32> = Flock::new(PREFIX, 6, LIFE);

@@ -18,6 +18,10 @@
 //! - 好几个单位（第二轮，2026-11-14，[`Flock`]）：一个召唤者同时有几个单位时（雾行者、虚空蜂、狗群），被动里的一本有上限的账：
 //!   要了几批、交接过来几个（一 tick 的交接一起取，[`take_handoffs`]）、活着的每 tick 看一眼，事情一件件交给调用的一方
 //!   （[`Event`]）。上面这些单个单位的函数没改，两个试点照旧用。
+//! - 等单位「站稳」（2026-11-14，游戏 0.7.2 预模拟的日志）：新单位生成那一拍和下一拍最大生命、攻击、防御、移速都读成 1，那时
+//!   设的生命会被盖掉（悟空的分身一拍后设成 1 血，再一拍读到 1851/1851）。[`Unit::settled`]：最大生命读出来了才算站稳；
+//!   [`Flock`] 等它站稳才给 [`Event::Look`]（调用的一方这时才给它挂东西），`FLOCK_LOOKS` 次还没站稳就照样接手、行末注明。
+//!   单个单位的调用方各自等（妮蔻 W 的做法：交接后至少等一拍，再等它站稳）。
 //!
 //! 引擎自己的召唤物（食尸鬼、熊、幻影）在 `EntityKindV1::Summon` 里；它们的图有 idle / run / attack / hit / dead 五个动作。
 
@@ -413,6 +417,19 @@ impl Unit {
         (self.hp, self.low, self.line_hp) = (hp, hp, hp);
     }
 
+    /// Its numbers read as its own. A new unit reads max health 1 and attack / defences / speed 1 on its spawn tick and
+    /// the next, and what is set on it then may be overwritten as it settles (game 0.7.2's presims, 2026-11-14: Wukong's
+    /// clone read `hp 1851/1 attack 1 def 1 mr 1 speed 1` a tick after its spawn, its health set to 1 then, and
+    /// 1851/1851 a tick later): it is looked at and dressed once its health cap reads.
+    pub fn settled(&self) -> bool {
+        self.max > 1
+    }
+
+    /// The look line's word on a unit taken on before it settled (its looks ran out): empty for a settled one.
+    pub fn unsettled_note(&self, looks: usize) -> String {
+        if self.settled() { String::new() } else { format!(" (its health cap still reads {} after {looks} looks)", self.max) }
+    }
+
     /// Ticks since it was spawned.
     pub fn age(&self, tick: usize) -> usize {
         tick.saturating_sub(self.born)
@@ -572,8 +589,8 @@ fn gain_text(before: Option<u64>, now: Option<u64>, over: &str) -> String {
 // 发生的事（[`Event`]）；写日志、给单位穿衣服（buff、生命）、它没了以后做什么，都由调用的一方做。上面那些单个单位的函数
 // 一个字没改：萨科的幻像和安妮的提伯斯照旧用它们。
 
-/// Ticks a flock waits for an ask's handoff, and looks a handed-over unit gets to read as one (the pilots' ASK_WAIT and
-/// LOOK_TRIES).
+/// Ticks a flock waits for an ask's handoff, and looks a handed-over unit gets to read as a settled one (the pilots'
+/// ASK_WAIT and LOOK_TRIES).
 pub const FLOCK_WAIT: usize = 4;
 pub const FLOCK_LOOKS: usize = 5;
 /// Asks kept waiting at once, and gone units whose wake is watched at once (the oldest goes first).
@@ -621,8 +638,8 @@ pub struct Member<T> {
 pub enum Event<T> {
     /// No unit came within `FLOCK_WAIT` ticks of the ask made at tick `asked`.
     NoUnit { asked: usize, what: T },
-    /// Unit `id` read as one and is on the books now (`line`: what it read back as): the caller dresses it. Its stepping
-    /// starts next tick.
+    /// Unit `id` read as a settled one ([`Unit::settled`]; or its `FLOCK_LOOKS` looks ran out, said at the end of `line`)
+    /// and is on the books now (`line`: what it read back as): the caller dresses it. Its stepping starts next tick.
     Look { id: usize, n: usize, line: String },
     /// The id a handoff named never read as a unit in `FLOCK_LOOKS` ticks.
     Lost { id: usize, why: String, what: T },
@@ -755,18 +772,21 @@ impl<T: Clone + Default> Flock<T> {
         let mut looked = Vec::new();
         for mut f in std::mem::take(&mut self.fresh) {
             match Unit::look(sim, f.id, self.count + 1, f.born, f.life, team, player) {
-                Ok((unit, line)) => {
+                // taken on once it has settled (Unit::settled: its first ticks read 1 for everything, and what the
+                // caller dresses it with then may be lost), or when its looks run out
+                Ok((unit, line)) if unit.settled() || f.tries + 1 >= FLOCK_LOOKS => {
                     self.count += 1;
                     if self.live.len() >= self.cap {
                         let member = self.live.remove(0);
                         ev.push(Event::LetGo { member });
                     }
+                    let line = format!("{line}{}", unit.unsettled_note(f.tries + 1));
                     ev.push(Event::Look { id: f.id, n: unit.n, line });
                     looked.push(f.id);
                     self.live.push(Member { unit, extra: f.what });
                 }
                 Err(why) if f.tries + 1 >= FLOCK_LOOKS => ev.push(Event::Lost { id: f.id, why, what: f.what }),
-                Err(_) => {
+                Ok(_) | Err(_) => {
                     f.tries += 1;
                     self.fresh.push(f);
                 }
