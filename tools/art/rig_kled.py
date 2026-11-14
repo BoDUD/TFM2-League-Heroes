@@ -33,6 +33,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "kled"
@@ -44,6 +45,35 @@ HEAD_X_FOOT = 11               # the head box's left column in hd/foot.png (desi
                                # moved 4 by design_kled_model.head_swap: found by matching)
 DX_HAND = {}                   # squares a pose is moved by hand after its anchor
 FOOT = {"f_wind", "f_chop", "f_aim", "f_recoil", "f_run1", "f_run2", "f_run3", "d_fall", "d_down", "foot"}
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): boxes in each pose picture's own squares.
+# The axe turns about the fist that holds it (inbetween.spin: the head and the shaft past the fist); the axe knocked
+# out of his hand in the death tumbles on by itself; the bear trap's rope is a line one square thick, so it only
+# slides along itself by whole squares, back in under his hand (the trap on its way out, reeled in); the pistol arm
+# turns about the elbow. Kled's head, Skaarl and the rest of the body are in no part.
+VPAD = 34                      # squares a moved part may leave its pose picture's box by
+PARTS = {
+    "a_wind": {"axe": [(0, 0, 19, 33)]},
+    "a_chop": {"axe": [(86, 22, 109, 22), (83, 23, 109, 25), (86, 26, 109, 39), (87, 40, 109, 40), (85, 41, 109, 41),
+                       (88, 42, 109, 43), (89, 44, 109, 44), (90, 45, 109, 45), (91, 46, 109, 46), (92, 47, 109, 47),
+                       (93, 48, 109, 48), (96, 49, 109, 50)]},
+    "q_throw": {"rope": [(65, 24, 107, 42)]},
+    "q_yank": {"rope": [(47, 37, 56, 37), (47, 38, 62, 38), (47, 39, 72, 39), (56, 40, 80, 40), (63, 41, 83, 41),
+                        (73, 42, 83, 42), (84, 36, 97, 47)]},
+    "e_lunge": {"axe": [(91, 8, 114, 40)]},
+    "e_slash": {"axe": [(0, 18, 23, 46)]},
+    "r_charge": {"axe": [(90, 16, 105, 40)]},
+    "d_fall": {"axe": [(55, 0, 98, 32)]},
+    "f_wind": {"axe": [(0, 38, 29, 61)]},
+    "f_chop": {"axe": [(50, 38, 78, 59)]},
+    "f_recoil": {"gun": [(65, 22, 80, 41)]},
+}
+# the point each pose's part turns about: the fist on the axe, the flying axe's middle, the pistol arm's elbow
+AT = {("a_wind", "axe"): (17, 35), ("a_chop", "axe"): (84, 22), ("e_lunge", "axe"): (90, 28),
+      ("e_slash", "axe"): (25, 36), ("r_charge", "axe"): (89, 33), ("d_fall", "axe"): (76, 16),
+      ("f_wind", "axe"): (31, 44), ("f_chop", "axe"): (47, 46), ("f_recoil", "gun"): (66, 40)}
 
 
 def lp(path):
@@ -106,10 +136,17 @@ class Canvas:
         left += DX_HAND.get(name, 0) + dx
         return d, (left, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def frame(self, name, dx=0, lift=0, flash=False, moves=(), spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        moves [(part, (dx, dy), how)] - parts of the pose (PARTS) moved by whole squares, "under" the rest of them or
+        "over" it; spins [(part, point, degrees, how)] - a part turned clockwise by any angle about a point, then
+        moved if `moves` names it too. Everything of the pose that is in none of its parts is checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if moves or spins:
+            d = IB.vary(d, PARTS[name], self.outline, moves, (), None, None, VPAD, name, (), spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -124,34 +161,78 @@ class Canvas:
 # q_rel 8 (133 ms), then the rope pulled in; E 400 ms = e_dur 24, the dash starting on e_go 5 (83 ms), the back-slash;
 # R 667 ms = r_dur 40, the charge starting on r_go 12 (200 ms), Skaarl sprinting; on foot: the axe swing as the attack's,
 # Pocket Pistol 400 ms = p_dur 24, fired on p_rel 8 (133 ms) and blown back
-MS = {"idle": [1000], "run": [140] * 4, "attack": [183, 150, 100], "skill": [133, 100, 167], "skill2": [83, 150, 167],
-      "ult": [200, 156, 156, 155], "hit": [100, 100], "dead": [140, 200, 300, 600],
-      "f_idle": [1000], "f_run": [130] * 3, "f_attack": [183, 150, 100], "f_skill": [133, 150, 117], "f_hit": [100, 100]}
+#
+# The in-betweens (2026-11-14: the attacks played 3 poses, the trap, Jousting and the pistol 2, the charge 3, the death
+# 2 and a flash): each span above is shared out over more frames (inbetween.spans: whole ms, none under 50), so every
+# action is as long as it was and its strike still begins on its millisecond - the chop at 183, the trap leaving at
+# 133 and yanked from 233, the dash at 83 and the back-slash at 233, the charge at 200, the shot at 133, the slump at
+# 340. A frame that is only its neighbour moved whole is no new pose: one stays only where the move is the motion
+# (the lunge of a strike, the recoil, the fall), never more than two frames of one drawing in a row. The runs are
+# the drawn steps as they were.
+CHOP = IB.spans((183, 3), (150, 3), (100, 1))
+MS = {"idle": [1000], "run": [140] * 4, "attack": CHOP,
+      "skill": IB.spans((133, 2), (100, 1), (167, 3)),
+      "skill2": IB.spans((83, 1), (150, 2), (167, 3)),
+      "ult": IB.spans((200, 2), (156, 1), (156, 1), (155, 1)), "hit": [100, 100],
+      "dead": IB.spans((340, 4, (7, 8, 9, 10)), (900, 2, (8, 82))),
+      "f_idle": [1000], "f_run": [130] * 3, "f_attack": CHOP,
+      "f_skill": IB.spans((133, 1), (150, 2, (6, 9)), (117, 1)), "f_hit": [100, 100]}
 
 
 def actions(C):
     f = C.frame
+
+    def spin(name, part, degrees, how="under"):
+        """The pose's part turned clockwise by `degrees` about its point (AT)."""
+        return [(part, AT[(name, part)], degrees, how)]
+
+    def under(**parts):
+        return [(part, off, "under") for part, off in parts.items()]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Run1_base: Skaarl's bird-like stride, the near leg then the far one)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
-    # attack (Attack1: Kled rising with the axe up, chopping down in front of Skaarl, back)
-    out["attack"] = [f("a_wind"), f("a_chop"), f("idle")]
-    # Bear Trap on a Rope (Spell1 -> Spell1_2: the trap thrown on its rope, the rope yanked in)
-    out["skill"] = [f("q_throw"), f("q_throw"), f("q_yank")]
-    # Jousting (Spell3: Skaarl dashing, Kled's back-slash)
-    out["skill2"] = [f("e_lunge"), f("e_lunge"), f("e_slash")]
-    # Chaaaaaaaarge!!! (Spell4: Skaarl sprinting flat out, Kled yelling with the axe ahead)
-    out["ult"] = [f("r_charge"), f("run2"), f("r_charge"), f("run4")]
+    # attack (Attack1: Kled rising with the axe up, chopping down in front of Skaarl, back): the axe swung further back,
+    # up, Skaarl already down under him with the axe still coming over; chopped a step ahead, the axe bounced, at
+    # rest; the idle
+    out["attack"] = [f("a_wind", spins=spin("a_wind", "axe", -14)), f("a_wind"),
+                     f("a_chop", dx=-1, spins=spin("a_chop", "axe", -40)),
+                     f("a_chop", dx=2), f("a_chop", spins=spin("a_chop", "axe", -10)), f("a_chop"), f("idle")]
+    # Bear Trap on a Rope (Spell1 -> Spell1_2: the trap thrown on its rope, the rope yanked in): the trap leaving his
+    # hand, half way out; out; the rope yanked - the trap coming back in two steps
+    out["skill"] = [f("q_throw", moves=under(rope=(-24, -1))), f("q_throw", moves=under(rope=(-11, 0))),
+                    f("q_throw"),
+                    f("q_yank"), f("q_yank", moves=under(rope=(-14, -1))), f("q_yank", moves=under(rope=(-28, -3)))]
+    # Jousting (Spell3: Skaarl dashing, Kled's back-slash): the axe raised as Skaarl springs; levelled, held ahead in
+    # the dash; the back-slash - the axe coming over his head in two steps, slashed back
+    out["skill2"] = [f("e_lunge", spins=spin("e_lunge", "axe", -28)),
+                     f("e_lunge", spins=spin("e_lunge", "axe", -10)), f("e_lunge"),
+                     f("e_slash", spins=spin("e_slash", "axe", 60)), f("e_slash", spins=spin("e_slash", "axe", 25)),
+                     f("e_slash")]
+    # Chaaaaaaaarge!!! (Spell4: Skaarl sprinting flat out, Kled yelling with the axe ahead): the axe swung up and
+    # brought down ahead as he yells; then the sprint
+    out["ult"] = [f("r_charge", spins=spin("r_charge", "axe", -32)), f("r_charge", spins=spin("r_charge", "axe", -12)),
+                  f("run2"), f("r_charge"), f("run4")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
-    # death (Rider_Death, mounted too: Kled hit and losing the axe, slumped on the ground)
-    out["dead"] = [f("d_fall", flash=True), f("d_fall"), f("d_down"), f("d_down")]
+    # death (Rider_Death, mounted too: Kled hit and losing the axe, slumped on the ground): struck, knocked back with
+    # the axe tumbling on away from him; dropping, slumped
+    out["dead"] = [f("d_fall", flash=True),
+                   f("d_fall", dx=-2, lift=2, spins=spin("d_fall", "axe", 40, "over"), moves=[("axe", (5, -4), "over")]),
+                   f("d_fall", dx=-4, lift=3, spins=spin("d_fall", "axe", 85, "over"), moves=[("axe", (10, -6), "over")]),
+                   f("d_fall", dx=-5, lift=1, spins=spin("d_fall", "axe", 135, "over"), moves=[("axe", (14, -3), "over")]),
+                   f("d_down", lift=3), f("d_down")]
     # on foot (Skaarl fled)
     out["f_idle"] = [f("foot")]
     out["f_run"] = [f("f_run1"), f("f_run2"), f("f_run3")]
-    out["f_attack"] = [f("f_wind"), f("f_chop"), f("foot")]
-    # Pocket Pistol (Rider_Spell1_1: the gun out and fired, the recoil blowing him back)
-    out["f_skill"] = [f("f_aim"), f("f_recoil"), f("f_recoil", dx=-2)]
+    # the axe swung further back, back, his body already in the chop with the axe still coming over; chopped a step
+    # ahead, the axe bounced, at rest; the idle
+    out["f_attack"] = [f("f_wind", spins=spin("f_wind", "axe", 14)), f("f_wind"),
+                       f("f_chop", dx=-1, spins=spin("f_chop", "axe", -45)),
+                       f("f_chop", dx=2), f("f_chop", spins=spin("f_chop", "axe", -10)), f("f_chop"), f("foot")]
+    # Pocket Pistol (Rider_Spell1_1: the gun out and fired, the recoil blowing him back): aimed; fired with the gun
+    # still level, kicked up as he is blown back; further back
+    out["f_skill"] = [f("f_aim"), f("f_recoil", dx=1, spins=spin("f_recoil", "gun", 22)), f("f_recoil", dx=-1),
+                      f("f_recoil", dx=-3)]
     out["f_hit"] = [f("foot", dx=-2, flash=True), f("foot", dx=-1)]
     return out
 
