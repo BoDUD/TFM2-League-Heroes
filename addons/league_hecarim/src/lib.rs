@@ -11,10 +11,15 @@
 //! 两层），用 `entity_reduce_cooldown` 只把暴走这一格的冷却减掉 `CUT` × 层数（每层 0.75 秒，冲锋不动）。层数按放的那一刻算
 //! （这一下打中得的那层算到下一次）。落地回旋（R、E -> R 的那一下暴走）不进冷却，也就不减。
 //!
+//! 冷却在动作结束时才开始走（champion-data.md 布兰德 R 那一段："the cooldown starts when the action ends"）：暴走的动作
+//! `Q_ACTION` tick，这一下的层第 `Q_HIT` tick 就挂上了，冷却跳起来时身上已经是这一下得的层。所以被动每 tick 记下层数
+//! （最近 `HISTORY` tick），冷却跳起时取跳起前 `Q_ACTION` tick（这次暴走放出去的那一刻）的层数（[`stacks_before`]，
+//! 0.1.0 复审）；冷却要是在出手时就跳（经典引擎），那一刻往前 `Q_ACTION` tick 的层数也还是这次之前的。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_hecarim.log`，每次启动游戏重写，上一次的留在 .prev.log：`SPAWN`、
 //! `RAMPAGE`（放暴走时几层、冷却减到多少），限了条数。
 
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -35,6 +40,11 @@ pub const STACK_1: &str = "league_hecarim_q1";
 pub const STACK_2: &str = "league_hecarim_q2";
 /// 每层缩短的冷却（英雄联盟 0.75 秒）。
 pub const CUT: usize = 45;
+/// 暴走的动作多长、第几 tick 挂上这一下的层（主包参数表的 q_dur、q_at，`make_override.py` 核对）。
+pub const Q_ACTION: usize = 24;
+pub const Q_HIT: usize = 9;
+/// 记多少 tick 的层数。
+const HISTORY: usize = Q_ACTION + 8;
 
 // ===================== 日志 =====================
 
@@ -118,6 +128,13 @@ pub fn cut_for(stacks: usize) -> usize {
     CUT * stacks
 }
 
+/// 冷却在 `jump` 这一 tick 跳起：这次暴走放出去之前的层数——`history`（(tick, 层数)，从早到晚）里 `jump - Q_ACTION` 那一 tick
+/// （或它之前最近记下的一个）的层数；那么早的没记下（刚出生）就是 0。
+pub fn stacks_before(history: &VecDeque<(usize, usize)>, jump: usize) -> usize {
+    let at = jump.saturating_sub(Q_ACTION);
+    history.iter().rev().find(|(t, _)| *t <= at).map_or(0, |(_, n)| *n)
+}
+
 fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
     (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
 }
@@ -128,6 +145,8 @@ fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
 struct Rampage {
     /// 上一 tick 暴走的剩余冷却。
     last: usize,
+    /// 最近 `HISTORY` tick 每 tick 的层数 (tick, 层数)。
+    history: VecDeque<(usize, usize)>,
 }
 
 impl StablePassive for Rampage {
@@ -137,20 +156,31 @@ impl StablePassive for Rampage {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.last = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Skill)).map_or(0, |c| c.remaining);
+        self.history.clear();
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Hecarim (player {player})", head(sim, me)));
         }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
-        let Some((cd, n)) = sim.get_entity(me).filter(|e| e.is_alive()).and_then(|e| {
+        let now = sim.tick();
+        let Some((cd, held)) = sim.get_entity(me).filter(|e| e.is_alive()).and_then(|e| {
             let n = stacks(has_buff(&e, STACK_1), has_buff(&e, STACK_2));
             e.cooldown(SkillSlotV1::Skill).map(|c| (c.remaining, n))
         }) else {
             return;
         };
+        self.history.push_back((now, held));
+        while self.history.len() > HISTORY {
+            self.history.pop_front();
+        }
         let was = std::mem::replace(&mut self.last, cd);
-        if !cast(was, cd) || n == 0 {
+        if !cast(was, cd) {
+            return;
+        }
+        // the stacks he had when this Rampage went out, not the one its own hit just gave
+        let n = stacks_before(&self.history, now);
+        if n == 0 {
             return;
         }
         let cut = cut_for(n);
@@ -158,8 +188,8 @@ impl StablePassive for Rampage {
         let after = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Skill)).map_or(cd, |c| c.remaining);
         self.last = after;
         if let Some(k) = counted("rampage") {
-            wlog(format!("{} RAMPAGE #{k}: {n} stacks, cooldown {cd} -> {after} (-{cut}){}", head(sim, me),
-                         if ok { "" } else { " (refused)" }));
+            wlog(format!("{} RAMPAGE #{k}: {n} stacks before the cast ({held} now), cooldown {cd} -> {after} (-{cut}){}",
+                         head(sim, me), if ok { "" } else { " (refused)" }));
         }
     }
 }
@@ -217,6 +247,42 @@ mod tests {
         assert_eq!(cut_for(2), 90);
         // the main pack's 4 s Rampage: 3.25 s with one stack, 2.5 s with two (League: 1.75 s at its three)
         assert_eq!(240 - cut_for(2), 150);
+    }
+
+    /// What the passive has recorded up to tick `upto` round a Rampage cast at `start` whose hit lays a stack on
+    /// `start + Q_HIT` (`before` stacks until then).
+    fn history_of(before: usize, start: usize, upto: usize) -> VecDeque<(usize, usize)> {
+        let mut h = VecDeque::new();
+        for t in start.saturating_sub(HISTORY)..=upto {
+            h.push_back((t, if t >= start + Q_HIT { (before + 1).min(2) } else { before }));
+            while h.len() > HISTORY {
+                h.pop_front();
+            }
+        }
+        h
+    }
+
+    #[test]
+    fn the_first_rampage_of_a_fight_keeps_its_whole_cooldown() {
+        // 0 stacks when it goes out; its own hit gives the first one before the cooldown jumps at the action's end
+        let h = history_of(0, 1_000, 1_000 + Q_ACTION + 1);
+        assert_eq!(h.back(), Some(&(1_000 + Q_ACTION + 1, 1)), "the stack is on him when the cooldown jumps");
+        assert_eq!(stacks_before(&h, 1_000 + Q_ACTION), 0);
+        assert_eq!(cut_for(stacks_before(&h, 1_000 + Q_ACTION)), 0, "full cooldown");
+        // one tick late (the passive sees the jump on the next tick): still the stacks before the cast
+        assert_eq!(stacks_before(&h, 1_000 + Q_ACTION + 1), 0);
+        // the second, with one stack before it: 0.75 s off, not 1.5
+        let h = history_of(1, 2_000, 2_000 + Q_ACTION);
+        assert_eq!(stacks_before(&h, 2_000 + Q_ACTION), 1);
+        // two before it (the cap): 1.5 s off
+        let h = history_of(2, 3_000, 3_000 + Q_ACTION);
+        assert_eq!(cut_for(stacks_before(&h, 3_000 + Q_ACTION)), 90);
+        // the cooldown jumping at the cast (the classic engine): the count before it too
+        let h = history_of(1, 4_000, 4_000 + 1);
+        assert_eq!(stacks_before(&h, 4_000 + 1), 1);
+        // nothing that old remembered (just spawned): 0
+        assert_eq!(stacks_before(&VecDeque::from(vec![(50, 2)]), 60), 0);
+        assert!(Q_HIT < Q_ACTION);
     }
 
     #[test]

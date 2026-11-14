@@ -10,6 +10,7 @@
 
 - 副本（`override/`，`make_override.py` 从 `tools/kit/build_hecarim.py` 生成，先核对参数表和主包一字不差）技能一字不改，只加本包的被动 `league_hecarim:rampage`，暴走的说明换成本包的。
 - 被动每 tick 读他技能（暴走）的剩余冷却：跳起来了（刚放了暴走）就看这时身上的层数——主包的旗子 `league_hecarim_q1`（一层）、`league_hecarim_q2`（两层）——用 `entity_reduce_cooldown` 只把暴走这一格减掉 `CUT`（45 tick = 0.75 秒）× 层数，毁灭冲锋不动。层数按放的那一刻算（这一下打中得的那层算到下一次）；落地回旋（R、E → R 的那一下暴走）不进冷却，也就不减。
+- 冷却在动作结束时才开始走（champion-data.md 布兰德 R 那一段）：暴走的动作 24 tick（`Q_ACTION`，主包的 q_dur），这一下的层第 9 tick（`Q_HIT`，q_at）就挂上了，冷却跳起来时身上已经多了这一层。所以被动每 tick 记下层数（最近 32 tick），冷却跳起时取往前 `Q_ACTION` tick——这次暴走放出去的那一刻——的层数：一场仗的第一个暴走（0 层）冷却是满的 4 秒。
 - 没做：英雄联盟最多 3 层、每层只多 3% 伤害；这里主包是 2 层、每层 +20%（主包调好的数）。
 
 ## 在游戏里测
