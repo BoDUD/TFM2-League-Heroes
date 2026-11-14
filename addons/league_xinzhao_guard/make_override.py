@@ -10,7 +10,9 @@ the same kit with three changes -
   * passive = the add-on's league_xinzhao_guard:guard with {"far": r_far}: while the guard is on, the damage from an
     attacker farther than r_far (League's 450 units, R's own sweep radius) is given back as it lands;
   * R's tooltip points to description.league_xinzhao_guard.ult (a "test build" lead, so the tooltip in game shows
-    whether the override took): the main pack's R text with the last sentence (the reduction) replaced.
+    whether the override took): the main pack's R text with the last sentence (the reduction) replaced;
+  * E's (skill, Three Talon Strike folded in) tooltip points to description.league_xinzhao_guard.skill (0.1.3): the main
+    pack's text and one sentence, each thrust cutting his other cooldowns by a second (the passive does it).
 Every other champion stays untouched. Run it again whenever the main pack's Xin Zhao changes.
 """
 import json
@@ -26,7 +28,17 @@ import setup_xinzhao as setup  # noqa: E402
 
 MOD_ID = "league_xinzhao_guard"
 TEXT_KEY = "description.league_xinzhao_guard.ult"
+SKILL_KEY = "description.league_xinzhao_guard.skill"
+# E's text (0.1.3): the lead and the sentence added to the main pack's
+SKILL_LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[애드온] ", "ja": "【アドオン】"}
 A, E = setup.A, setup.E
+SKILL_MORE = {
+    "zh-hans": "每一下让他别的技能冷却缩短" + A + "1秒" + E + "。",
+    "zh-hant": "每一下讓他別的技能冷卻縮短" + A + "1秒" + E + "。",
+    "en": " Each cuts his other abilities' cooldowns by " + A + "1s" + E + ".",
+    "ko": " 매 공격마다 다른 스킬 재사용 대기시간 " + A + "1초" + E + " 감소.",
+    "ja": "1回ごとに他のスキルのクールダウンを" + A + "1秒" + E + "短縮。",
+}
 # lang -> (the lead, where the main pack's last sentence starts, the new last sentence)
 NATIVE = {
     "zh-hans": ("【远程免伤测试版】", "之后", "之后" + A + "{r_t}秒" + E + "内，横扫范围外的敌人对他造成的伤害全部免疫。"),
@@ -62,6 +74,7 @@ def main():
     if "league_xinzhao_r_guard" not in json.dumps(champion["ult"]):
         sys.exit("R no longer puts on league_xinzhao_r_guard (the buff the add-on looks for): update this script")
     champion["ult"]["description"] = "#asset/base/text/champion?" + TEXT_KEY
+    champion["skill"]["description"] = "#asset/base/text/champion?" + SKILL_KEY
 
     values = setup.values(p)
     texts = {}
@@ -70,7 +83,8 @@ def main():
         if ult.count(cut) != 1:
             sys.exit(f"{lang}: the main pack's R text changed (cut {cut!r} not found once): update NATIVE")
         texts[lang] = (lead + ult.split(cut)[0] + tail).format(**values)
-    long = {lang: setup.shown_length(t) for lang, t in texts.items()
+    skills = {lang: SKILL_LEAD[lang] + setup.TEXT[lang]["skill"].format(**values) + SKILL_MORE[lang] for lang in NATIVE}
+    long = {lang: setup.shown_length(t) for lang, t in list(texts.items()) + list(skills.items())
             if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
@@ -85,7 +99,7 @@ def main():
     missing = set(main_text) - set(texts)
     if missing:
         sys.exit("no test-build text for %s" % sorted(missing))
-    text = {lang: {"description": {MOD_ID: {"ult": texts[lang]}}} for lang in main_text}
+    text = {lang: {"description": {MOD_ID: {"ult": texts[lang], "skill": skills[lang]}}} for lang in main_text}
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:

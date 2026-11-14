@@ -16,6 +16,17 @@
 //! 地面弧光、刺客之道的音效和台词（台词照主包隔 `vo_gap`），落地后加速 `e_haste`% `e_haste_t` tick（主包的 `e_haste`，画面也是主包的）。
 //! 宿主没挪他（撞墙停了）时逐 tick 自己走一步（`entity_set_pos`，凯隐穿墙的做法）。
 //!
+//! 刀锋之末的伤口记在每个英雄身上（0.1.8，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟
+//! "Each time Talon's abilities deal physical damage to champions and large monsters, they apply a stack of Wound"，
+//! 叠满 3 层后他的下一次普攻让**那个人**流血，流血期间他不再叠层。主包的数据读不到目标身上的层数，伤口记在泰隆自己
+//! 身上（劫被动的写法），换目标时会带着层数流血下一个被普攻的人。副本（build_talon.py 的 native=1）里：
+//! - 技能打中英雄调用原生效果 `league_talon_vault:wound`（目标 = 被打中的英雄）：在他身上叠 `WOUND` 一层（最多
+//!   `WOUND_MAX`，每层 `WOUND_T` tick，每次命中全部刷新），挂主包的伤口画面 `league_talon_p_wound`；他在流血
+//!   （`BLEED`）就不叠。
+//! - 普攻打中调用 `league_talon_vault:edge`（目标 = 被打中的单位）：他身上有 `WOUND_MAX` 层就清掉、挂 `BLEED`
+//!   （`BLEED_T` tick）、给泰隆挂 3 tick 的 `GO`，数据当 tick（读不到就下一 tick）读到它就让这个人流血（主包的流血）；
+//!   不满的层数刷新时间（英雄联盟：普攻也刷新）。主包按泰隆身上的层数、10 秒冷却（`p_cd`）；英雄联盟没有冷却，副本也没有。
+//!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量（日志的计数除外），服务端预模拟和你看的那场各算各的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_talon_vault.log`，每次启动游戏重写：你看的那场（观战、回放）
 //! 每一行都记；服务端的预模拟（每次启动几百场，每场的被动都是新的）每种先记 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行；
@@ -74,6 +85,20 @@ pub const PREY_HP: usize = 60;
 pub const OUT_HP: usize = 70;
 /// 追击：落点和目标这么远内（除目标外）最多一名敌方英雄。
 pub const CROWD_R: f64 = 35_000.0;
+
+/// 刀锋之末（伤口记在被打中的英雄身上）：副本调用的两个原生效果。
+pub const WOUND_FX: &str = "league_talon_vault:wound";
+pub const EDGE_FX: &str = "league_talon_vault:edge";
+/// 英雄身上的伤口（每层一个 buff 实例）、流血中（不再叠层）、给数据读的流血旗子（泰隆身上）、主包的伤口画面。
+pub const WOUND: &str = "league_talon_vault_w";
+pub const BLEED: &str = "league_talon_vault_bl";
+pub const GO: &str = "league_talon_p_go";
+pub const GO_T: usize = 3;
+pub const WOUND_PIC: &str = "league_talon_p_wound";
+/// 主包参数表 P 的 p_t（伤口留多久）、p_bleed（流血多久）：`make_override.py` 核对；英雄联盟最多 3 层。
+pub const WOUND_T: usize = 300;
+pub const BLEED_T: usize = 120;
+pub const WOUND_MAX: usize = 3;
 
 // ===================== 日志 =====================
 
@@ -446,6 +471,90 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
     None
 }
 
+// ===================== 刀锋之末 =====================
+
+/// 一次技能命中：原来 `had` 层、正在流血（`bleeding`）时叠完是几层（`None`：不叠）。
+pub fn wound_after(had: usize, bleeding: bool) -> Option<usize> {
+    (!bleeding).then(|| (had + 1).min(WOUND_MAX))
+}
+
+/// 一次普攻命中：原来 `had` 层时流不流血（满层就流，层清掉）。
+pub fn edge_bleeds(had: usize) -> bool {
+    had >= WOUND_MAX
+}
+
+fn wounds_on(sim: &StableSim<'_>, id: usize) -> usize {
+    sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == WOUND).count())
+}
+
+/// 把 `id` 身上的伤口换成 `n` 层（时间重新算），画面跟着。
+fn set_wounds(sim: &mut StableSim<'_>, id: usize, n: usize) {
+    sim.entity_remove_buff(id, WOUND);
+    sim.entity_remove_buff(id, WOUND_PIC);
+    for _ in 0..n {
+        sim.add_buff(id, &BuffV1::timed(WOUND, WOUND_T));
+    }
+    if n > 0 {
+        sim.add_buff(id, &BuffV1::timed(WOUND_PIC, WOUND_T));
+    }
+}
+
+fn unit_input(input: &InputTargetV1) -> Option<usize> {
+    (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)).then_some(input.target_id)
+}
+
+/// 技能打中一个英雄：在他身上叠一层伤口（流血中不叠）。
+fn wound(sim: &mut StableSim<'_>, talon: usize, input: InputTargetV1) {
+    let Some(t) = unit_input(&input) else { return };
+    if !sim.get_entity(t).is_some_and(|e| e.is_alive()) {
+        return;
+    }
+    let had = wounds_on(sim, t);
+    let bleeding = has_buff(sim, t, BLEED);
+    let Some(now) = wound_after(had, bleeding) else {
+        if let Some(k) = tally(sim, "wound bleeding") {
+            wlog(format!("{} WOUND #{t}: bleeding, no wound #{k}", head(sim, talon)));
+        }
+        return;
+    };
+    set_wounds(sim, t, now);
+    if let Some(k) = tally(sim, "wound") {
+        wlog(format!("{} WOUND #{t}: {had} -> {now} #{k}", head(sim, talon)));
+    }
+}
+
+/// 普攻打中一个单位：他有满层伤口就流血（数据读 `GO`），不满的刷新时间。
+fn edge(sim: &mut StableSim<'_>, talon: usize, input: InputTargetV1) {
+    let Some(t) = unit_input(&input) else { return };
+    if !sim.get_entity(t).is_some_and(|e| e.is_alive()) {
+        return;
+    }
+    let had = wounds_on(sim, t);
+    if had == 0 {
+        return;
+    }
+    if !edge_bleeds(had) {
+        set_wounds(sim, t, had);
+        return;
+    }
+    set_wounds(sim, t, 0);
+    sim.entity_remove_buff(t, BLEED);
+    sim.add_buff(t, &BuffV1::timed(BLEED, BLEED_T));
+    sim.entity_remove_buff(talon, GO);
+    sim.add_buff(talon, &BuffV1::timed(GO, GO_T));
+    if let Some(k) = tally(sim, "bleed") {
+        wlog(format!("{} BLEED #{t}: {had} wounds -> bleeding {BLEED_T} ticks #{k}", head(sim, talon)));
+    }
+}
+
+struct Fx(fn(&mut StableSim<'_>, usize, InputTargetV1));
+
+impl StableEffectType for Fx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        (self.0)(sim, caster, input);
+    }
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -709,7 +818,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Talon's Assassin's Path over the map's walls: out when outnumbered or low, after a champion behind a wall) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Talon's Assassin's Path over the map's walls: out when outnumbered or low, after a champion behind a wall; Blade's End wounds on each champion) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -717,7 +826,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:path"), Path::default());
-    host.log(LogLevel::Info, "league_talon_vault v1 loaded (Talon's Assassin's Path vaults over walls).");
+    module.add_native_effect(WOUND_FX, Fx(wound));
+    module.add_native_effect(EDGE_FX, Fx(edge));
+    host.log(LogLevel::Info, "league_talon_vault v1 loaded (Talon's Assassin's Path vaults over walls, wounds per target).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -734,6 +845,33 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// League: a wound a spell hit on that champion (up to 3, none while it bleeds); at 3 his next attack on it bleeds
+    /// it and takes them.
+    #[test]
+    fn wounds_stack_on_each_champion_and_the_third_bleeds() {
+        assert_eq!(wound_after(0, false), Some(1));
+        assert_eq!(wound_after(2, false), Some(3));
+        assert_eq!(wound_after(3, false), Some(3));
+        assert_eq!(wound_after(1, true), None);
+        assert!(!edge_bleeds(0) && !edge_bleeds(2) && edge_bleeds(3));
+        for s in [WOUND, BLEED, GO, WOUND_PIC] {
+            assert!(s.len() <= BUFF_NAME_CAP, "{s}");
+        }
+    }
+
+    /// The copy: every spell's wound and the attack's edge are the natives, no wound count on him left; the bleed reads
+    /// `GO` (twice: the hit's tick, a tick later).
+    #[test]
+    fn the_copy_counts_wounds_on_the_target() {
+        let copy = include_str!("../override/league_talon.data_champion");
+        for gone in ["\"league_talon_p_1\"", "\"league_talon_p_3\"", "\"league_talon_p_cd\""] {
+            assert!(!copy.contains(gone), "{gone} is still in the copy");
+        }
+        assert!(copy.matches(&format!("\"effect_ref\": \"{WOUND_FX}\"")).count() >= 5, "the spells' wounds");
+        assert_eq!(copy.matches(&format!("\"effect_ref\": \"{EDGE_FX}\"")).count(), 1, "the attack's edge");
+        assert_eq!(copy.matches(&format!("\"buff_name\": \"{GO}\"")).count(), 2, "the bleed's two reads");
+    }
 
     fn at(cx: f64, cy: f64) -> (f64, f64) {
         (cx * CELL, cy * CELL)

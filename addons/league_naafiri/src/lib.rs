@@ -13,8 +13,17 @@
 //!   旁边有我方英雄）或者团战（身边两名以上我方英雄、射程里两名以上敌方英雄）时开大，扑最该扑的那个；不满足时 AI 想开大
 //!   就改成普攻原目标。再扑（`r_again`）时扑射程里生命最少的英雄。自己按大招前先看解锁和冷却（league_addons 的规矩）。
 //! - 显示钩子（[`view`]）：暴吼的 `league_naafiri_pack4` 期间她的动作换成图里四只狗的 `p4_*` 版本。
+//! - **狗群是真的单位（0.2.0，2026-11-14；用户：「召唤物的全做啊 剩下的一批英雄也做了啊」）**：主包里两只伙伴画在她自己的
+//!   每一帧里，伤害是她每次命中时的一口撕咬。英雄联盟里伙伴是跟着她、自己打、能被打死的小狼，死了过一会儿再来，和她一起
+//!   阵亡。稳定 mod API 的 `spawn_unit`（公用部分在萨科附加包的 `summon.rs`，一个召唤者好几个单位用它的 `Flock`）：她出生时被动
+//!   排原生效果 `:hound` 在她身后生成 `PACK_N` 只 `league_naafiri_packmate`（[`packmate_spec`]），被打死的过 `HOUND_RESPAWN`
+//!   tick 再来，到时间（`HOUND_LIFE`）的马上换一只；暴吼（`league_naafiri_pack4` 挂上）时再来 `CALL_N` 只，留到暴吼结束
+//!   （`:call`）。有单位以后她身上一直挂着 `SOLO`：副本的数据读它，不再放狗群的撕咬和扑上去挂着的那一套，显示钩子把她的动作
+//!   换成图里没有狗的 `solo_*` 版本。她阵亡时把她的狗放逐到它们的时间结束（`entity_banish`：看不见、打不到、不能动——没有让单位
+//!   消失的接口）。生成不了（宿主没有这个接口、失败、测试开关关了、读不成单位）就不挂 `SOLO`，和今天一模一样。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_naafiri.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_naafiri.log`，每次启动游戏重写；狗群的行以 `HOUND` 开头。
+//! 测试开关：日志旁边的 `league_naafiri.cfg`（`summon.rs`：`unit=off` / `still=1` / `name=`）。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -24,6 +33,11 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod view;
+
+#[path = "../../league_shaco_backstab/src/summon.rs"]
+pub mod summon;
+
+use summon::{Event, Flock, Pt};
 
 const ID: &str = "league_naafiri";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -469,12 +483,32 @@ impl StablePlayerAi for UltAi {
 
 // ===================== 被动：击杀 / 助攻 -> 再扑 =====================
 
-#[derive(Clone, Default)]
+#[derive(Clone)]
 pub struct Pack {
     p: Params,
     resets: usize,
     /// Her spawns in this simulation (the params go into the first one's line only, 0.1.2).
     spawns: usize,
+    /// 0.2.0: her own unit, her packmates as units, the pack hounds asked for and not yet come, whether they are units
+    /// (`SOLO` on her), the tick the missing ones are asked for, the roar seen last tick.
+    me: usize,
+    hounds: Flock<HoundBook>,
+    pending: usize,
+    units: bool,
+    next_ask: usize,
+    roared: bool,
+    /// 0.2.1: the batches asked for and not all come yet (one ask of the flock each: the units one tick's queued effects
+    /// bring are handed over together, to the oldest waiting ask - league_elise's way); the roar's two, asked for as soon
+    /// as no ask of the flock is waiting (two batches waiting at once would get each other's units).
+    batches: Vec<Batch>,
+    call_due: bool,
+}
+
+impl Default for Pack {
+    fn default() -> Self {
+        Pack { p: Params::default(), resets: 0, spawns: 0, me: 0, hounds: Flock::new(H_UID, HOUND_CAP, HOUND_LIFE), pending: 0,
+               units: false, next_ask: 0, roared: false, batches: Vec::new(), call_due: false }
+    }
 }
 
 impl Pack {
@@ -516,6 +550,9 @@ impl StablePassive for Pack {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        // a new life: the old one's packmates are out of play (banished at her death) - a new pack comes at once
+        self.let_go(sim, me, "Naafiri respawned");
+        (self.me, self.next_ask, self.roared) = (me, sim.tick(), false);
         keep_params(sim, me, &self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         self.spawns += 1;
@@ -527,7 +564,31 @@ impl StablePassive for Pack {
         }
     }
 
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
+        // League's packmates die with her: banished until their time (a dead champion's passive does not run)
+        let me = self.me;
+        self.banish_all(sim, me);
+        self.let_go(sim, me, "Naafiri died");
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        let Some((alive, team, here)) = sim.get_entity(me).map(|e| (e.is_alive(), e.team(), summon::at_of(&e))) else { return };
+        if alive {
+            self.me = me;
+            self.pack_tick(sim, player, me, team, here);
+        }
+    }
+
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
+        self.hooked(sim, "on_attack", entity, target, Some(*damage));
+    }
+
+    fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, victim: usize) {
+        self.hooked(sim, "on_unit_kill", entity, victim, None);
+    }
+
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
+        self.hooked(sim, "on_kill", me, victim, None);
         if sim.get_entity(victim).is_some_and(|v| v.is_champion()) {
             self.takedown(sim, me, &format!("killed #{victim}"));
         }
@@ -562,6 +623,437 @@ impl StableEffectType for Q2 {
     }
 }
 
+// ===================== 狗群作为单位（0.2.0） =====================
+
+/// Her attack's interval and reach, The Call of the Pack's time (the main pack's atk_cd, atk_range, roar_t; make_override.py
+/// checks them against P).
+pub const ATK_CD: usize = 58;
+pub const ATK_RANGE: usize = 23_000;
+pub const ROAR_T: usize = 300;
+/// Each packmate's bite: half the riding pack's (two of them), PK_DMG / 2 + PK_RATIO / 2 % of her attack, at her own pace.
+pub const HOUND_HIT: usize = 4;
+pub const HOUND_HIT_AD: usize = 6;
+/// The unit sheet's attack: ticks long and the tick the bite lands (tools/art/unit_naafiri_packmate.py: 420 ms, the bite
+/// 170 ms in).
+pub const HOUND_ACT: usize = 25;
+pub const HOUND_LANDS: usize = 10;
+/// The unit name: the game draws it from asset/base/aseprite_resources/champions/<name>, which mod.override_info sends to
+/// the main pack's league/champions/league_naafiri_packmate.
+pub const PACKMATE: &str = "league_naafiri_packmate";
+/// `PACK_N` packmates (League: 2-5 by level; the main pack draws two), each `HOUND_LIFE` ticks at a time (League: no end
+/// but her death - a new one takes the place of one timed out), back `HOUND_RESPAWN` ticks after one is killed (League's
+/// passive cooldown, 30-10 s by level); `CALL_N` more in The Call of the Pack, for its time (League: +2 for the hunt).
+/// `HOUND_HP_PCT` % of her health cap (League: 80-336 against her 610-2395), `HOUND_DEF_PCT` % of her armour and magic
+/// resistance (League: 0-35 against 28-108), her move speed and reach (League: hers).
+pub const PACK_N: usize = 2;
+pub const CALL_N: usize = 2;
+pub const HOUND_LIFE: usize = 3_600;
+pub const HOUND_RESPAWN: usize = 900;
+pub const HOUND_HP_PCT: usize = 13;
+pub const HOUND_DEF_PCT: usize = 30;
+/// They come out this far behind her (away from the nearest enemy champion), a quarter turn apart.
+pub const HOUND_SPREAD: f64 = 14_000.0;
+/// On her while her packmates are units: the copy's data plays no pack bite and no riding pack, the view hook her solo_*.
+pub const SOLO: &str = "league_naafiri_solo";
+pub const H_UID: &str = "league_naafiri_h_uid";
+/// Packmates on the books at once; ticks SOLO is laid for (renewed every tick); the handoff buffs.
+pub const HOUND_CAP: usize = 8;
+const SOLO_TICKS: usize = 30;
+const UID_TICKS: usize = 6;
+/// A unit gone within this many ticks was never really there.
+pub const LOST_AGE: usize = 6;
+/// Ticks between looks for missing packmates when nothing else holds them back.
+const ASK_EVERY: usize = 30;
+
+/// The test knobs (`league_naafiri.cfg` beside the log), read once.
+static KNOBS: LazyLock<summon::Knobs> = LazyLock::new(|| summon::Knobs::read(&LOG_PATH.with_extension("cfg")));
+
+/// Lines of each kind of the units' a launch (league_shaco_backstab's): the server's presims the first 40, then every 200th;
+/// the match on screen all.
+static COUNTS: LazyLock<Mutex<std::collections::HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(Default::default()));
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let shown = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= 40 || *n % 200 == 0).then_some(*n)
+}
+
+/// A packmate from her numbers now (`stat`, her health cap `max_hp`), living `life` ticks.
+pub fn packmate_spec(stat: &StatV1, max_hp: usize, life: usize) -> summon::Spec {
+    summon::Spec {
+        name: PACKMATE.to_string(),
+        life,
+        stat: StatV1 { attack: stat.attack, magic_power: 0, hp: (max_hp * HOUND_HP_PCT / 100).max(1),
+                       defence: stat.defence * HOUND_DEF_PCT / 100, magic_resistance: stat.magic_resistance * HOUND_DEF_PCT / 100,
+                       move_speed: stat.move_speed, hp_regen: 0, stack: 0, crit_chance: 0 },
+        attack: UnitAttackV1 { attack_ratio: HOUND_HIT_AD, attack: HOUND_HIT, range: ATK_RANGE, cooltime: ATK_CD, duration: HOUND_ACT,
+                               start_timing: HOUND_LANDS, cancelable: false, attack_type: AttackTypeV1::BaseAttack.code() },
+    }
+}
+
+/// Where packmate `k` comes out: `HOUND_SPREAD` behind her at `here` (away from `foe`, the nearest enemy champion; none:
+/// as if one stood east of her), the k-th an eighth of a turn to one side or the other.
+pub fn hound_spot(here: Pt, foe: Option<Pt>, k: usize) -> Pt {
+    let toward = foe.map(|f| (f.1 - here.1).atan2(f.0 - here.0)).unwrap_or(0.0);
+    let side = if k % 2 == 0 { 1.0 } else { -1.0 } * std::f64::consts::FRAC_PI_4 * (1 + k / 2) as f64;
+    let a = toward + std::f64::consts::PI + side;
+    ((here.0 + HOUND_SPREAD * a.cos()).max(0.0), (here.1 + HOUND_SPREAD * a.sin()).max(0.0))
+}
+
+/// One packmate for Naafiri `me` at `at` for `life` ticks, handed to her passive by a `<H_UID>:<id>` buff. -> its id.
+fn make_hound(sim: &mut StableSim<'_>, me: usize, at: Pt, life: usize, what: &str, by: &str) -> Option<usize> {
+    let (team, stat, max) = sim.get_entity(me).map(|e| (e.team(), e.stat(), e.hp().1))?;
+    let spec = packmate_spec(&stat, max, life).with(&KNOBS);
+    let at = summon::inside(summon::field(sim), at);
+    match summon::spawn(sim, me, team, at, &spec) {
+        Some(id) => {
+            sim.add_buff(me, &BuffV1::timed(&summon::handoff(H_UID, id), UID_TICKS));
+            if let Some(k) = tally(sim, "hound spawn") {
+                wlog(format!("{} HOUND SPAWN #{k} ({what}, {by}): unit #{id} for team {team} at {}: {}", head(sim, me), summon::pt(at),
+                             spec.shown()));
+            }
+            Some(id)
+        }
+        None => {
+            if let Some(k) = tally(sim, "hound fail") {
+                wlog(format!("{} HOUND SPAWN FAILED #{k} ({what}, {by}): spawn_unit gave no unit for '{}' at {}", head(sim, me),
+                             spec.name, summon::pt(at)));
+            }
+            None
+        }
+    }
+}
+
+fn spot_of(input: &InputTargetV1, sim: &StableSim<'_>, caster: usize) -> Option<Pt> {
+    if InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Pos) {
+        return Some((input.x as f64, input.y as f64));
+    }
+    sim.get_entity(caster).map(|e| summon::at_of(&e))
+}
+
+fn at_input(at: Pt) -> InputTargetV1 {
+    InputTargetV1::pos(at.0.round().max(0.0) as u64, at.1.round().max(0.0) as u64)
+}
+
+/// `:hound` - one of her pack (the passive queues one for each missing); the input is where it comes out.
+struct HoundFx;
+
+impl StableEffectType for HoundFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if let Some(at) = spot_of(&input, sim, caster) {
+            make_hound(sim, caster, at, HOUND_LIFE, "her pack", "the queued effect");
+        }
+    }
+}
+
+/// `:call` - one of the two The Call of the Pack brings, for the roar's time.
+struct CallFx;
+
+impl StableEffectType for CallFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if let Some(at) = spot_of(&input, sim, caster) {
+            make_hound(sim, caster, at, ROAR_T, "the call", "the queued effect");
+        }
+    }
+}
+
+/// Which packmates these are.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Hound {
+    /// Her pack: back after a while when killed.
+    #[default]
+    Pack,
+    /// The two The Call of the Pack brings for its time.
+    Call,
+}
+
+/// A packmate as the passive keeps it.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct HoundBook {
+    pub kind: Hound,
+}
+
+/// Packmates asked for in one tick (one ask of the flock): the tick, which kind, how many, how many not come yet (come:
+/// read as a unit, or given up as never one).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Batch {
+    pub tick: usize,
+    pub kind: Hound,
+    pub n: usize,
+    pub left: usize,
+}
+
+/// A batch some of whose units never came by now (a spawn refused or the host out of room: no ask is left to time out
+/// for them) is closed this many ticks after its ask: the flock's wait for the handoffs and its looks, and two more.
+pub const BATCH_WAIT: usize = summon::FLOCK_WAIT + summon::FLOCK_LOOKS + 2;
+
+fn kind_text(kind: Hound) -> &'static str {
+    if kind == Hound::Pack { "her pack" } else { "the call" }
+}
+
+impl Pack {
+    /// The pack hounds alive on the books.
+    fn pack_alive(&self) -> usize {
+        self.hounds.live.iter().filter(|m| m.extra.kind == Hound::Pack).count()
+    }
+
+    /// `n` packmates asked for (`kind`), the `first`-th to come now and on: one ask of the flock, a queued effect each
+    /// (all in this tick, so their units are handed over together).
+    #[allow(clippy::too_many_arguments)]
+    fn ask_batch(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, here: Pt, kind: Hound, first: usize, n: usize) {
+        if n == 0 {
+            return;
+        }
+        let foe = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && u.is_champion() && u.is_alive())
+            .map(|u| summon::at_of(&u))
+            .min_by(|a, b| summon::dist(*a, here).total_cmp(&summon::dist(*b, here)));
+        let (effect, life) = if kind == Hound::Pack { ("hound", HOUND_LIFE) } else { ("call", ROAR_T) };
+        let tick = sim.tick();
+        self.hounds.ask(tick, life, HoundBook { kind });
+        self.batches.push(Batch { tick, kind, n, left: n });
+        if kind == Hound::Pack {
+            self.pending += n;
+        }
+        let (mut spots, mut refused) = (Vec::new(), 0);
+        for k in first..first + n {
+            let at = hound_spot(here, foe, k);
+            spots.push(summon::pt(at));
+            if !sim.queue_effect(&format!("{ID}:{effect}"), AttackTypeV1::Skill, me, &at_input(at), 1) {
+                refused += 1;
+                make_hound(sim, me, at, life, kind_text(kind), "queue_effect refused: spawned by the passive");
+            }
+        }
+        if let Some(k) = tally(sim, "hound ask") {
+            wlog(format!("{} HOUND ASK #{k}: {n} of {} at {} ({HOUND_SPREAD:.0} behind her){}", head(sim, me),
+                         if kind == Hound::Pack { "her pack" } else { "the call's two" }, spots.join(" "),
+                         if refused == 0 { String::new() } else { format!(" - queue_effect REFUSED {refused} times") }));
+        }
+    }
+
+    /// One of a batch of `kind` came (read as a unit) or never will (given up): the oldest batch of that kind not all
+    /// come yet counts it.
+    fn came(&mut self, kind: Hound) {
+        if kind == Hound::Pack {
+            self.pending = self.pending.saturating_sub(1);
+        }
+        if let Some(k) = self.batches.iter().position(|b| b.kind == kind && b.left > 0) {
+            self.batches[k].left -= 1;
+            if self.batches[k].left == 0 {
+                self.batches.remove(k);
+            }
+        }
+    }
+
+    /// The batch asked for at `asked` (`kind`) is over with `left` of it never come: they are not waited for any more
+    /// (her pack's: the next ask a while off, as when one is killed).
+    fn never_came(&mut self, tick: usize, kind: Hound, asked: usize) -> usize {
+        let Some(k) = self.batches.iter().position(|b| b.kind == kind && b.tick == asked)
+            .or_else(|| self.batches.iter().position(|b| b.kind == kind)) else { return 0 };
+        let b = self.batches.remove(k);
+        if kind == Hound::Pack {
+            self.pending = self.pending.saturating_sub(b.left);
+            self.next_ask = self.next_ask.max(tick + HOUND_RESPAWN);
+        }
+        b.left
+    }
+
+    /// No pack hound comes (or none is left): back to the pack drawn on her.
+    fn units_off(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str) {
+        if self.units {
+            self.units = false;
+            sim.entity_remove_buff(me, SOLO);
+            wlog(format!("{} HOUND SOLO OFF: {why} - the pack is drawn on her and bites with her hits as before", head(sim, me)));
+        }
+    }
+
+    /// The pack's part of a tick: the roar's two, the missing ones, the flock, SOLO.
+    fn pack_tick(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize, team: usize, here: Pt) {
+        let tick = sim.tick();
+        let roar = has_buff(sim, me, PACK4);
+        if !KNOBS.off {
+            // one batch at a time (0.2.1): summon.rs gives all the handoffs of a tick to the oldest waiting ask, so a
+            // batch asked while another's units are still awaited would be handed the other's. 0.2.0 asked for each
+            // hound on its own: both came in one tick, went to the first ask, and the second timed out - a HOUND NONE
+            // line for a hound that had come, and the next ask HOUND_RESPAWN ticks off.
+            if roar && !self.roared && self.units {
+                self.call_due = true;
+            }
+            if !roar {
+                self.call_due = false;
+            }
+            if self.call_due && self.hounds.waiting() == 0 {
+                self.call_due = false;
+                self.ask_batch(sim, me, team, here, Hound::Call, PACK_N, CALL_N);
+            }
+            if tick >= self.next_ask && self.hounds.waiting() == 0 {
+                let have = self.pack_alive() + self.pending;
+                if have < PACK_N {
+                    self.ask_batch(sim, me, team, here, Hound::Pack, have, PACK_N - have);
+                }
+                self.next_ask = tick + ASK_EVERY;
+            }
+        } else if tick >= self.next_ask && self.spawns <= 1 {
+            self.next_ask = usize::MAX;
+            if let Some(k) = tally(sim, "hound off") {
+                wlog(format!("{} HOUND OFF #{k}: unit=off in the test knobs - the pack is drawn on her as before", head(sim, me)));
+            }
+        }
+        self.roared = roar;
+        for ev in self.hounds.tick(sim, me, team, player, Some(here)) {
+            match ev {
+                Event::NoUnit { asked, what } => {
+                    let left = self.never_came(tick, what.kind, asked);
+                    if let Some(k) = tally(sim, "hound none") {
+                        wlog(format!("{} HOUND NONE #{k}: none of the {left} packmates of {} asked for at t={asked} came within {} \
+                                      ticks{}", head(sim, me), kind_text(what.kind), summon::FLOCK_WAIT,
+                                     if what.kind == Hound::Pack { format!(" - asked again in {HOUND_RESPAWN} ticks") } else { String::new() }));
+                    }
+                    if self.pack_alive() == 0 && self.pending == 0 {
+                        self.units_off(sim, me, "no packmate came");
+                    }
+                }
+                Event::Look { id, n, line } => {
+                    let kind = self.hounds.get(id).map_or(Hound::Pack, |m| m.extra.kind);
+                    self.came(kind);
+                    if kind == Hound::Pack {
+                        if !self.units {
+                            self.units = true;
+                            wlog(format!("{} HOUND SOLO ON: her packmates are units - her solo frames, no pack bites in the data",
+                                         head(sim, me)));
+                        }
+                    }
+                    if let Some(k) = tally(sim, "hound look") {
+                        wlog(format!("{} HOUND #{n} LOOK #{k} ({}): {line}", head(sim, me),
+                                     if kind == Hound::Pack { "her pack" } else { "the call" }));
+                    }
+                }
+                Event::Lost { id, why, what } => {
+                    self.came(what.kind);
+                    if what.kind == Hound::Pack {
+                        self.next_ask = self.next_ask.max(tick + HOUND_RESPAWN);
+                    }
+                    if let Some(k) = tally(sim, "hound lost") {
+                        wlog(format!("{} HOUND LOST #{k}: the unit #{id} spawn_unit named never read as one in {} ticks ({why})",
+                                     head(sim, me), summon::FLOCK_LOOKS));
+                    }
+                    if self.pack_alive() == 0 && self.pending == 0 {
+                        self.units_off(sim, me, "the packmate never read as a unit");
+                    }
+                }
+                Event::Line { n, line, .. } => {
+                    if let Some(k) = tally(sim, "hound unit") {
+                        wlog(format!("{} HOUND #{n} #{k}: {line}", head(sim, me)));
+                    }
+                }
+                Event::Over { member, end } => {
+                    let n = member.unit.n;
+                    let pack = member.extra.kind == Hound::Pack;
+                    let back = if !pack {
+                        String::new()
+                    } else if end.fate == summon::Fate::Killed {
+                        self.next_ask = self.next_ask.max(tick + HOUND_RESPAWN);
+                        format!(" - another comes in {HOUND_RESPAWN} ticks")
+                    } else {
+                        self.next_ask = tick;
+                        " - another takes its place now".to_string()
+                    };
+                    if let Some(k) = tally(sim, "hound over") {
+                        wlog(format!("{} HOUND #{n} OVER #{k} ({}): {}{back}", head(sim, me),
+                                     if pack { "her pack" } else { "the call" }, end.text));
+                    }
+                    if pack && end.age <= LOST_AGE && self.pack_alive() == 0 && self.pending == 0 {
+                        self.units_off(sim, me, &format!("the packmate was gone {} ticks after it was asked for", end.age));
+                    }
+                }
+                Event::LetGo { member } => {
+                    if let Some(k) = tally(sim, "hound let go") {
+                        wlog(format!("{} HOUND #{} LET GO #{k}: {HOUND_CAP} packmates on the books - the unit #{} is out there, no \
+                                      longer watched", head(sim, me), member.unit.n, member.unit.id));
+                    }
+                }
+                Event::Wake { n, line } => {
+                    if let Some(k) = tally(sim, "hound wake") {
+                        wlog(format!("{} HOUND #{n} WAKE #{k}: {line}", head(sim, me)));
+                    }
+                }
+            }
+        }
+        // a batch only some of which came (a spawn refused, the host out of room): its ask was answered, so nothing else
+        // tells that the rest never will
+        let late: Vec<Batch> = self.batches.iter().filter(|b| b.left > 0 && tick > b.tick + BATCH_WAIT).copied().collect();
+        for b in late {
+            let left = self.never_came(tick, b.kind, b.tick);
+            if let Some(k) = tally(sim, "hound short") {
+                wlog(format!("{} HOUND SHORT #{k}: {left} of the {} packmates of {} asked for at t={} never came{}", head(sim, me),
+                             b.n, kind_text(b.kind), b.tick,
+                             if b.kind == Hound::Pack { format!(" - asked again in {HOUND_RESPAWN} ticks") } else { String::new() }));
+            }
+            if self.pack_alive() == 0 && self.pending == 0 {
+                self.units_off(sim, me, "the packmates asked for never came");
+            }
+        }
+        if self.units {
+            sim.entity_remove_buff(me, SOLO);
+            sim.add_buff(me, &BuffV1::timed(SOLO, SOLO_TICKS));
+        }
+    }
+
+    /// Her packmates die with her: each banished until its time (no API ends a unit early).
+    fn banish_all(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let tick = sim.tick();
+        let ids: Vec<(usize, usize, usize)> = self.hounds.live.iter().map(|m| (m.unit.id, m.unit.n, m.unit.left(tick))).collect();
+        if ids.is_empty() {
+            return;
+        }
+        let mut done = Vec::new();
+        for (id, n, left) in &ids {
+            let alive = sim.get_entity(*id).is_some_and(|e| e.is_alive());
+            let ok = alive && sim.entity_banish(me, *id, (*left).max(1), "", "");
+            done.push(format!("#{n} (unit #{id}, {left} ticks) {}", if ok { "banished" } else if alive { "REFUSED" } else { "gone" }));
+        }
+        if let Some(k) = tally(sim, "hound banish") {
+            wlog(format!("{} HOUND BANISH #{k}: Naafiri died - her packmates go with her: {}", head(sim, me), done.join(", ")));
+        }
+    }
+
+    /// Everything of her packmates off the books (she died or a new life began).
+    fn let_go(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str) {
+        let gone = self.hounds.orphans();
+        (self.pending, self.call_due) = (0, false);
+        self.batches.clear();
+        if self.units {
+            self.units = false;
+            sim.entity_remove_buff(me, SOLO);
+        }
+        if !gone.is_empty() {
+            if let Some(k) = tally(sim, "hound orphan") {
+                wlog(format!("{} HOUND ORPHAN #{k}: {why} - {} packmates off the books", head(sim, me), gone.len()));
+            }
+        }
+    }
+
+    /// A line for a hook that fired while packmates of hers are out.
+    fn hooked(&self, sim: &StableSim<'_>, hook: &str, entity: usize, other: usize, damage: Option<usize>) {
+        if self.hounds.live.is_empty() {
+            return;
+        }
+        let who = match self.hounds.get(entity) {
+            Some(m) => format!("the packmate #{}", m.unit.n),
+            None if entity == self.me => "Naafiri".to_string(),
+            None => "neither Naafiri nor a packmate of hers".to_string(),
+        };
+        if let Some(k) = tally(sim, "hound hook") {
+            wlog(format!("{} HOUND HOOK #{k} {hook}: entity #{entity} ({who}) -> #{other}{}", head(sim, self.me),
+                         damage.map(|d| format!(", damage {d}")).unwrap_or_default()));
+        }
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -570,15 +1062,25 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Naafiri: the second dagger's execute, the pounce again on every takedown, a smart ult, four hounds in the roar) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Naafiri: the second dagger's execute, the pounce again on every takedown, a smart ult, four hounds in the roar, \
+         the packmates units of their own) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
         host.abi_level(),
         LOG_PATH.display()
     ));
+    wlog(format!(
+        "HOUNDS: her packmates are units ('{}', spawn_unit) - {}; {PACK_N} for {HOUND_LIFE} ticks at a time ({} + {}% of her attack a \
+         bite, {HOUND_HP_PCT}% of her health), back {HOUND_RESPAWN} ticks after one is killed, {CALL_N} more in the roar; her solo_* \
+         frames while they are units. Test knobs ({}): {}",
+        KNOBS.name.as_deref().unwrap_or(PACKMATE), if KNOBS.off { "OFF by the test knobs: the pack is drawn on her as before" } else { "ON" },
+        HOUND_HIT, HOUND_HIT_AD, LOG_PATH.with_extension("cfg").display(), KNOBS.shown()
+    ));
     module.add_native_passive(format!("{ID}:pack"), Pack::default());
     module.add_native_effect(format!("{ID}:q2"), Q2);
+    module.add_native_effect(format!("{ID}:hound"), HoundFx);
+    module.add_native_effect(format!("{ID}:call"), CallFx);
     module.add_player_input_ai(UltAi::default());
     view::install_once();
     host.log(LogLevel::Info, "league_naafiri loaded (Naafiri's execute, takedown recast, smart ult and four hounds).");
@@ -594,6 +1096,10 @@ fn init(host: &StableHost) -> StableMod {
 // league_addons compiles this file as one of its modules and registers it with the others
 #[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 10);
+
+#[cfg(test)]
+#[path = "../../league_shaco_backstab/src/summon_mock.rs"]
+mod mock;
 
 #[cfg(test)]
 mod tests {
@@ -669,5 +1175,282 @@ mod tests {
             assert!(nf(x).len() <= BUFF_NAME_CAP);
         }
         assert_eq!(nf("pack4"), PACK4);
+    }
+
+    // ---- 0.2.0: the packmates as units ----
+
+    #[test]
+    fn the_packmates_are_built_from_her_numbers() {
+        let hers = StatV1 { attack: 200, magic_power: 0, hp: 900, defence: 60, magic_resistance: 40, move_speed: 1150, hp_regen: 3,
+                            stack: 0, crit_chance: 0 };
+        let s = packmate_spec(&hers, 2000, HOUND_LIFE);
+        assert_eq!((s.name.as_str(), s.life), ("league_naafiri_packmate", 3600));
+        assert_eq!(s.stat, StatV1 { attack: 200, magic_power: 0, hp: 260, defence: 18, magic_resistance: 12, move_speed: 1150,
+                                    hp_regen: 0, stack: 0, crit_chance: 0 });
+        // a bite: 4 + 6 % of 200 = 16, at her pace; two of them: the riding pack's 8 + 12 % on each of her attacks
+        let a = s.attack;
+        assert_eq!(a.attack + s.stat.attack * a.attack_ratio / 100, 16);
+        assert_eq!(2 * HOUND_HIT, PK_DMG);
+        assert_eq!(2 * HOUND_HIT_AD, PK_RATIO);
+        assert_eq!((a.range, a.cooltime, a.duration, a.start_timing), (23_000, 58, 25, 10));
+        assert!(a.start_timing < a.duration && a.duration < a.cooltime);
+        assert_eq!(packmate_spec(&StatV1::default(), 0, 1).stat.hp, 1);
+        for name in [SOLO, &summon::handoff(H_UID, usize::MAX)] {
+            assert!(name.starts_with("league_naafiri_") && name.len() <= BUFF_NAME_CAP, "{name}");
+        }
+    }
+
+    #[test]
+    fn the_pack_comes_out_behind_her() {
+        let here = (300_000.0, 300_000.0);
+        // the enemy east of her: both west of her, one each side of the line
+        let (a, b) = (hound_spot(here, Some((400_000.0, 300_000.0)), 0), hound_spot(here, Some((400_000.0, 300_000.0)), 1));
+        for p in [a, b] {
+            assert!((summon::dist(p, here) - HOUND_SPREAD).abs() < 1.0);
+            assert!(p.0 < here.0, "{p:?} not behind her");
+        }
+        assert!((a.1 - here.1) * (b.1 - here.1) < 0.0, "both on one side");
+        assert!(hound_spot((5_000.0, 5_000.0), Some((90_000.0, 5_000.0)), 0).0 >= 0.0);
+    }
+
+    #[test]
+    fn the_copy_leaves_the_pack_drawn_on_her_behind_solo() {
+        let copy = include_str!("../override/league_naafiri.data_champion");
+        // every pack bite pair (the attack's three, Q's, E's, the ult's four) and the riding pack of Q (and the ult's two)
+        assert_eq!(copy.matches(&format!("\"buff_name\": \"{SOLO}\"")).count(), 9 * 2 + 3);
+    }
+
+    // ---- the packmates on the mock world (summon_mock.rs: our guess of the host, to check this side's logic) ----
+
+    use super::mock::{champion, MPlayer, World};
+
+    const GAREN: usize = 1;
+
+    fn log_file() -> std::path::PathBuf {
+        static SET: std::sync::Once = std::sync::Once::new();
+        let path = std::env::temp_dir().join(format!("league_naafiri_test_{}.log", std::process::id()));
+        SET.call_once(|| {
+            std::env::set_var("LEAGUE_NAAFIRI_LOG", &path);
+            let _ = std::fs::remove_file(&path);
+            let _ = std::fs::remove_file(path.with_extension("cfg"));
+        });
+        path
+    }
+
+    /// Naafiri #0 (team 0, attack 200, 2000 health) at (300000, 300000); Garen #1 60000 east of her; two more far off (the
+    /// field round them all); a player each for the champions.
+    fn world() -> (World, Pack) {
+        log_file();
+        let mut w = World::default();
+        let mut naafiri = champion("league_naafiri", 0, 300_000.0, 300_000.0);
+        (naafiri.hp, naafiri.max, naafiri.stat.attack) = (2000, 2000, 200);
+        let mut garen = champion("league_garen", 1, 360_000.0, 300_000.0);
+        (garen.hp, garen.max) = (50_000, 50_000);
+        w.units = vec![naafiri, garen, champion("league_darius", 1, 600_000.0, 600_000.0), champion("league_ahri", 0, 100_000.0, 100_000.0)];
+        w.players = vec![MPlayer { team: 0, champion: 0, ..Default::default() }, MPlayer { team: 1, champion: GAREN, ..Default::default() }];
+        let mut me = Pack::default();
+        w.sim(|sim| me.on_spawn(sim, 0, 0));
+        (w, me)
+    }
+
+    fn tick(w: &mut World, me: &mut Pack) {
+        for (name, caster, input) in w.due() {
+            w.sim(|sim| match name.as_str() {
+                "league_naafiri:hound" => HoundFx.apply(sim, 0, caster, input),
+                "league_naafiri:call" => CallFx.apply(sim, 0, caster, input),
+                other => panic!("an effect nobody registered: {other}"),
+            });
+        }
+        if w.units[0].hp > 0 {
+            w.sim(|sim| me.on_update(sim, 0, 0, 0));
+        }
+        w.step();
+    }
+
+    fn run(w: &mut World, me: &mut Pack, n: usize) {
+        for _ in 0..n {
+            tick(w, me);
+        }
+    }
+
+    fn hounds(w: &World) -> Vec<usize> {
+        w.spawns.iter().filter(|s| s.name == PACKMATE).filter_map(|s| s.gave).collect()
+    }
+
+    #[test]
+    fn her_pack_comes_with_her_bites_and_comes_back() {
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 4);
+        let ids = hounds(&w);
+        assert_eq!(ids.len(), PACK_N);
+        assert!(w.spawns.iter().all(|s| s.life as usize == HOUND_LIFE && s.summoner == 0 && s.team == 0));
+        assert!(w.spawns.iter().all(|s| (s.at.0 as f64) < 300_000.0), "the pack comes out behind her");
+        assert!(w.has(0, SOLO) && me.units);
+        // they bite Garen: 4 + 6 % of 200 = 16
+        run(&mut w, &mut me, 200);
+        for id in &ids {
+            let bites = w.dealt(*id, DamageTypeV1::Ad);
+            assert!(!bites.is_empty() && bites.iter().all(|b| *b == (GAREN, 16)), "{bites:?}");
+        }
+        // one killed: SOLO stays, another comes HOUND_RESPAWN ticks later
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, HOUND_RESPAWN - 10);
+        assert_eq!(hounds(&w).len(), PACK_N);
+        assert!(w.has(0, SOLO));
+        run(&mut w, &mut me, 20 + ASK_EVERY);
+        assert_eq!(hounds(&w).len(), PACK_N + 1);
+        assert_eq!(me.pack_alive(), PACK_N);
+    }
+
+    #[test]
+    fn the_roar_brings_two_more_for_its_time() {
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 10);
+        w.units[0].buffs.push((BuffV1::timed(PACK4, ROAR_T), ROAR_T));
+        run(&mut w, &mut me, 5);
+        let call: Vec<_> = w.spawns.iter().filter(|s| s.life as usize == ROAR_T).collect();
+        assert_eq!(call.len(), CALL_N);
+        assert_eq!(me.hounds.live.len(), PACK_N + CALL_N);
+        run(&mut w, &mut me, ROAR_T + 10);
+        assert_eq!(me.pack_alive(), PACK_N);
+        assert_eq!(me.hounds.live.len(), PACK_N, "the call's two outlived the roar");
+    }
+
+    #[test]
+    fn a_batch_comes_in_one_tick_with_no_ask_left_to_time_out() {
+        // 0.2.0 asked for each hound on its own: both came in one tick, both went to the first ask, the second timed out
+        // (HOUND NONE) and pushed the next ask HOUND_RESPAWN ticks off
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 1);
+        assert_eq!(me.batches, vec![Batch { tick: w.tick - 1, kind: Hound::Pack, n: PACK_N, left: PACK_N }]);
+        assert_eq!((me.hounds.waiting(), me.pending), (1, PACK_N), "one ask of the flock for the batch");
+        run(&mut w, &mut me, 20);
+        assert_eq!(hounds(&w).len(), PACK_N);
+        assert!(me.batches.is_empty() && me.pending == 0 && me.hounds.waiting() == 0, "{:?}", me.batches);
+        assert!(me.next_ask <= w.tick + ASK_EVERY, "the next ask pushed {} ticks off", me.next_ask - w.tick);
+        assert!(me.hounds.live.iter().all(|m| m.extra.kind == Hound::Pack));
+    }
+
+    #[test]
+    fn a_batch_short_of_a_unit_is_closed_and_the_missing_one_asked_for_later() {
+        let (mut w, mut me) = world();
+        w.spawn_left = Some(1);
+        run(&mut w, &mut me, BATCH_WAIT + 4);
+        assert_eq!((me.pack_alive(), me.pending), (1, 0));
+        assert!(me.batches.is_empty() && me.units && w.has(0, SOLO));
+        let asked_at = me.next_ask;
+        assert!(asked_at > w.tick + HOUND_RESPAWN - 20, "the missing one asked for again at once");
+        w.spawn_left = None;
+        while w.tick <= asked_at {
+            tick(&mut w, &mut me);
+        }
+        run(&mut w, &mut me, 5);
+        assert_eq!((me.pack_alive(), hounds(&w).len()), (PACK_N, PACK_N));
+    }
+
+    #[test]
+    fn the_roar_and_a_missing_packmate_are_asked_for_one_after_the_other() {
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 10);
+        let ids = hounds(&w);
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, 2);
+        // the missing one due in the very tick the roar starts
+        me.next_ask = w.tick;
+        w.units[0].buffs.push((BuffV1::timed(PACK4, ROAR_T), ROAR_T));
+        run(&mut w, &mut me, 10);
+        assert_eq!(w.spawns.iter().filter(|s| s.life as usize == ROAR_T).count(), CALL_N);
+        assert_eq!(w.spawns.iter().filter(|s| s.life as usize == HOUND_LIFE).count(), PACK_N + 1);
+        // each unit on the books as what it was asked for: the call's two live ROAR_T, her pack HOUND_LIFE
+        for m in &me.hounds.live {
+            let life = w.spawns.iter().find(|s| s.gave == Some(m.unit.id)).map(|s| s.life as usize);
+            assert_eq!(life, Some(if m.extra.kind == Hound::Call { ROAR_T } else { HOUND_LIFE }), "{:?}", m.extra);
+        }
+        assert_eq!((me.pack_alive(), me.hounds.live.len()), (PACK_N, PACK_N + CALL_N));
+        assert!(me.batches.is_empty() && me.pending == 0);
+    }
+
+    #[test]
+    fn her_pack_dies_with_her_and_a_new_one_comes_with_her_next_life() {
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 10);
+        let ids = hounds(&w);
+        (w.units[0].hp, w.units[0].died) = (0, Some(w.tick));
+        w.sim(|sim| me.on_dead(sim, 0));
+        assert_eq!(w.banishes.len(), PACK_N);
+        assert!(w.banishes.iter().all(|b| ids.contains(&b.2) && b.1 == 0 && b.3 > HOUND_LIFE - 20));
+        assert!(me.hounds.is_empty() && !me.units);
+        // banished: they do nothing and nobody hits them
+        let before = w.damage.len();
+        run(&mut w, &mut me, 100);
+        assert_eq!(w.damage.len(), before);
+        // her next life: a new champion entity, a new pack
+        let mut again = champion("league_naafiri", 0, 100_000.0, 300_000.0);
+        (again.hp, again.max) = (2000, 2000);
+        w.units.push(again);
+        let me2 = w.units.len() - 1;
+        w.players[0].champion = me2;
+        w.sim(|sim| me.on_spawn(sim, 0, me2));
+        for _ in 0..4 {
+            for (name, caster, input) in w.due() {
+                w.sim(|sim| match name.as_str() {
+                    "league_naafiri:hound" => HoundFx.apply(sim, 0, caster, input),
+                    _ => CallFx.apply(sim, 0, caster, input),
+                });
+            }
+            w.sim(|sim| me.on_update(sim, 0, 0, me2));
+            w.step();
+        }
+        assert_eq!(hounds(&w).len(), 2 * PACK_N);
+        assert!(w.has(me2, SOLO));
+    }
+
+    #[test]
+    fn no_unit_from_the_host_keeps_the_pack_drawn_on_her() {
+        for case in 0..3 {
+            let (mut w, mut me) = world();
+            match case {
+                0 => w.has_spawn = false,
+                1 => w.spawn_ok = false,
+                _ => w.spawn_never = true,
+            }
+            run(&mut w, &mut me, 20);
+            assert!(!w.has(0, SOLO) && !me.units, "case {case}: SOLO without packmates");
+            // and it does not ask again every tick
+            let asked = w.spawns.len();
+            run(&mut w, &mut me, 200);
+            assert_eq!(w.spawns.len(), asked, "case {case}");
+        }
+    }
+
+    #[test]
+    fn the_log_tells_the_packs_whole_lives() {
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 100);
+        let ids = hounds(&w);
+        let mut dealt = 16;
+        w.sim(|sim| me.on_attack(sim, 0, ids[0], GAREN, &mut dealt));
+        w.players[1].gold += 3;
+        w.hurt(ids[1], 1_000_000);
+        run(&mut w, &mut me, 100);
+        (w.units[0].hp, w.units[0].died) = (0, Some(w.tick));
+        w.sim(|sim| me.on_dead(sim, 0));
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        let mine: Vec<&str> = text.lines().filter(|l| l.contains(" HOUND")).collect();
+        let has = |what: &str| mine.iter().any(|l| l.contains(what));
+        for what in [
+            "HOUND ASK #", "2 of her pack at (", "(14000 behind her)",
+            "HOUND SPAWN #", "(her pack, the queued effect): unit #4 for team 0 at (", "'league_naafiri_packmate' for 3600 ticks, attack \
+             200 ap 0 hp 260 def 6 mr 6 speed 1100; hits 4 + 6% of its attack, range 23000, every 58 ticks (25 long, lands at 10)",
+            "HOUND SOLO ON: her packmates are units", "HOUND #1 LOOK #", "(her pack): #4 reads back as name 'league_naafiri_packmate'",
+            " of 3600 ticks, at (", "near it: champion #1 league_garen",
+            "HOUND HOOK #", "on_attack: entity #4 (the packmate #1) -> #1, damage 16",
+            "OVER #", "KILLED after ", "p1 gold +3", "another comes in 900 ticks",
+            "HOUND BANISH #", "Naafiri died - her packmates go with her: #1 (unit #4, ", " banished",
+        ] {
+            assert!(has(what), "missing {what:?} in the log:\n{}", mine.join("\n"));
+        }
+        assert!(mine.iter().all(|l| l.starts_with("[view m=7 s=1] t=")));
+        assert!(mine.iter().map(|l| l.len()).max().unwrap() < 700);
     }
 }

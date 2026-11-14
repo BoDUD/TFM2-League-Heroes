@@ -85,8 +85,10 @@ P = {
     # R Stranglethorns (League: 700 range, radius 575, 180-350 +70% AP, knock-up 1 s after 2 s, cd 110-90)
     # the thicket's radius 32000 -> 44000 (the user, 2026-10-20: 「R技能范围做大点」; League's 575 is her attack range), back to
     # 32000 on 2026-10-21 (「杰拉德大招范围太大了点吧？」「改到3w2」)
+    # 32000 -> 38000 on 2026-11-14 (the user: 「婕拉的大招范围大小改了没有 … 按照联盟的比例缩小点扩大」): League's 575
+    # against Neeko's 600, our 40000; the thicket's picture follows (tools/art/zyra_thicket_size.py: crisp, dense twins)
     # R's cooldown 35 -> 50 s, the pack's median ult (2026-10-21: 「大招CD这么快？」「婕拉的」)
-    "r_cd": 3000, "r_range": 70000, "r_dur": 37, "r_rel": 10, "r_r": 32000, "r_dmg": 180, "r_ratio": 70,
+    "r_cd": 3000, "r_range": 70000, "r_dur": 37, "r_rel": 10, "r_r": 38000, "r_dmg": 180, "r_ratio": 70,
     "r_knock": 120, "r_air": 60, "r_rage": 300,
     "vo_gap": 600,
     # the add-on (addons/league_zyra): seeds on the ground and the plants they grow (League: seeds every 13-9 s by level,

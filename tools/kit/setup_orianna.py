@@ -56,7 +56,7 @@ TEXT = {
         "skill2": "把球送给离敌人最近的队友（被贴身时给自己），提供" + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%护盾" + E + "，路过的敌人受到" +
                   mag("e_dmg", "e_dap") + M + "魔法伤害" + E + "。带球者+{e_def}护甲和魔抗。",
         "ult": "待命" + A + "{r_arm}秒" + E + "，球附近有敌方英雄时放出冲击波：造成" + mag("r_dmg", "r_ap") +
-               M + "魔法伤害" + E + "并把敌人" + R + "甩向球" + E + "。",
+               M + "魔法伤害" + E + "，把敌人" + R + "甩向球" + E + "并" + R + "眩晕" + E + "{r_stun}秒。",
         "names": ("指令：攻击", "指令：防卫", "指令：冲击波"),
     },
     "zh-hant": {
@@ -69,7 +69,7 @@ TEXT = {
         "skill2": "把球送給離敵人最近的隊友（被貼身時給自己），提供" + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%護盾" + E + "，路過的敵人受到" +
                   mag("e_dmg", "e_dap") + M + "魔法傷害" + E + "。帶球者+{e_def}護甲和魔抗。",
         "ult": "待命" + A + "{r_arm}秒" + E + "，球附近有敵方英雄時放出脈衝：造成" + mag("r_dmg", "r_ap") +
-               M + "魔法傷害" + E + "並把敵人" + R + "甩向球" + E + "。",
+               M + "魔法傷害" + E + "，把敵人" + R + "甩向球" + E + "並" + R + "暈眩" + E + "{r_stun}秒。",
         "names": ("指令：貫穿", "指令：守護", "終極指令：脈衝"),
     },
     "en": {
@@ -85,7 +85,7 @@ TEXT = {
                   "magic damage" + E + " to enemies on the way. Its holder gains {e_def} Armor and Magic Resist.",
         "ult": "Waits up to " + A + "{r_arm}s" + E + " for an enemy champion near the Ball, then the Ball"
                " sends out a shockwave: " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E + ", enemies " + R +
-               "flung toward the Ball" + E + ".",
+               "flung toward the Ball" + E + " and " + R + "stunned" + E + " for {r_stun}s.",
         "names": ("Command: Attack", "Command: Protect", "Command: Shockwave"),
     },
     "ko": {
@@ -98,7 +98,7 @@ TEXT = {
         "skill2": "적에게 가장 가까운 아군에게 공을 보내(적이 붙으면 자신) " + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}% 보호막" + E +
                   ", 지나가는 적에게 " + mag("e_dmg", "e_dap") + "의 " + M + "마법 피해" + E + ". 공을 가진 자는 방어력·마법 저항력 +{e_def}.",
         "ult": "최대 " + A + "{r_arm}초" + E + " 동안 공 근처에 적 챔피언이 오면 충격파: " +
-               mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E + ", 적을 공 쪽으로 " + R + "날려 보냅니다" + E + ".",
+               mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E + ", 적을 공 쪽으로 " + R + "날려 보내고" + E + " {r_stun}초 " + R + "기절" + E + ".",
         "names": ("명령: 공격", "명령: 보호", "명령: 충격파"),
     },
     "ja": {
@@ -111,7 +111,7 @@ TEXT = {
         "skill2": "敵に最も近い味方へボールを送り（敵に詰められたら自分）、" + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%のシールド" + E +
                   "、通り道の敵に" + mag("e_dmg", "e_dap") + "の" + M + "魔法ダメージ" + E + "。持ち主は物理・魔法防御+{e_def}。",
         "ult": "最大" + A + "{r_arm}秒" + E + "待機し、ボールの近くに敵チャンピオンがいれば衝撃波：" +
-               mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "、敵をボールへ" + R + "引き寄せる" + E + "。",
+               mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "、敵をボールへ" + R + "引き寄せ" + E + "{r_stun}秒" + R + "スタン" + E + "。",
         "names": ("オーダー: 攻撃", "オーダー: 防御", "オーダー: ショックウェーブ"),
     },
 }
@@ -145,7 +145,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("p_dmg", "p_ap", "q_dmg", "q_ap", "w_dmg", "w_ap", "w_slow", "w_haste", "e_sh", "e_ap",
                            "e_dmg", "e_dap", "e_def", "r_dmg", "r_ap")}
-    for k in ("p_t", "r_arm"):
+    for k in ("p_t", "r_arm", "r_stun"):
         v[k] = secs(p[k])
     return v
 

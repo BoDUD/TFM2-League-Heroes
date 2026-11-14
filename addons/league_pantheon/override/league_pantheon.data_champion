@@ -3203,6 +3203,10 @@
                                           "name": "league_pantheon_r_arm"
                                         },
                                         {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_pantheon_r_broke"
+                                        },
+                                        {
                                           "type": "Combine",
                                           "effects": [
                                             {
@@ -3217,8 +3221,7 @@
                                                   "Time": {
                                                     "tick": 62
                                                   }
-                                                },
-                                                "cc_immune": true
+                                                }
                                               },
                                               "only_to_enemy": false
                                             }
@@ -3277,8 +3280,58 @@
                                               }
                                             },
                                             {
-                                              "type": "CasterInvisible",
-                                              "tick": 60
+                                              "type": "AddCasted",
+                                              "casted_type": "Heal",
+                                              "duration": 60,
+                                              "period": 3,
+                                              "effects": [
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_pantheon_r_broke",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyChampionInCC",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_pantheon_r_broke"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_pantheon_r_broke",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 64
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterAnimation",
+                                                            "name": "ult"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
                                             }
                                           ]
                                         },
@@ -3320,256 +3373,282 @@
                                                         "name": "league_pantheon_r_ch"
                                                       },
                                                       {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "CasterAnimation",
-                                                            "name": "ult_leap",
-                                                            "tick": 17
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_pantheon_r_leap"
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_pantheon_r_jump"
-                                                          },
-                                                          {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_pantheon_vo_cd",
-                                                            "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": []
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_pantheon_r_broke",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_pantheon_r_broke"
                                                             },
-                                                            "effect_none": {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "AddCasterBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_pantheon_vo_cd",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 600
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  "only_to_enemy": false
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_pantheon_r_cut",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 3
+                                                                  }
                                                                 },
-                                                                {
-                                                                  "type": "Sfx",
-                                                                  "name": "league_pantheon_vo_r_leap"
-                                                                }
-                                                              ]
+                                                                "ult_cooldown_mult": 500
+                                                              },
+                                                              "only_to_enemy": false
                                                             }
-                                                          },
-                                                          {
-                                                            "type": "RangeEffect",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1000
-                                                              }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "CasterAnimation",
+                                                              "name": "ult_leap",
+                                                              "tick": 17
                                                             },
-                                                            "target": "AllyOnlySelf",
-                                                            "apply_type": "AroundCaster",
-                                                            "effects": [
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 17,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Banish",
-                                                                    "duration": 23
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "ParabolicProjectile",
-                                                            "name": "league_pantheon_r_spot",
-                                                            "travel_time": 20,
-                                                            "range": 960000,
-                                                            "range_effect_name": "league_pantheon_r_mark",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1
-                                                              }
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_pantheon_r_leap"
                                                             },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": [],
-                                                            "end_effects": [
-                                                              {
-                                                                "type": "RangeProjectile",
-                                                                "name": "league_pantheon_r_spear",
-                                                                "shape": {
-                                                                  "Circle": {
-                                                                    "radius": 32000
-                                                                  }
-                                                                },
-                                                                "delay": 1,
-                                                                "apply": 1,
-                                                                "applied_target": "EnemyWithoutTower",
-                                                                "applied_effects": [
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "Attack",
-                                                                      "damage": 80,
-                                                                      "attack_ratio": 100,
-                                                                      "hp_ratio": 0,
-                                                                      "target_hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "AddBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_pantheon_r_slow",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 120
-                                                                          }
-                                                                        },
-                                                                        "move_speed_mult": -50
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "ViewEffect",
-                                                                      "name": "league_pantheon_r_sp_hit"
-                                                                    }
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_pantheon_r_spear"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "ParabolicProjectile",
-                                                            "name": "league_pantheon_r_fall",
-                                                            "travel_time": 40,
-                                                            "range": 960000,
-                                                            "range_effect_name": "league_pantheon_r_spear",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1
-                                                              }
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_pantheon_r_jump"
                                                             },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": [],
-                                                            "end_effects": [
-                                                              {
-                                                                "type": "Teleport"
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_pantheon_vo_cd",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
                                                               },
-                                                              {
-                                                                "type": "CasterAnimation",
-                                                                "name": "ult_land",
-                                                                "tick": 30
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_pantheon_r_land"
-                                                              },
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 5,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "ViewEffect",
-                                                                    "name": "league_pantheon_r_land"
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeProjectile",
-                                                                    "name": "league_pantheon_r_core",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 12000
-                                                                      }
-                                                                    },
-                                                                    "delay": 1,
-                                                                    "apply": 1,
-                                                                    "applied_target": "EnemyWithoutTower",
-                                                                    "applied_effects": [
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 150,
-                                                                          "attack_ratio": 0,
-                                                                          "hp_ratio": 0,
-                                                                          "can_crit": false,
-                                                                          "attack_effect_type": "Target"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ViewEffect",
-                                                                          "name": "league_pantheon_r_hit"
-                                                                        }
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeProjectile",
-                                                                    "name": "league_pantheon_r_edge",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 32000
-                                                                      }
-                                                                    },
-                                                                    "delay": 1,
-                                                                    "apply": 1,
-                                                                    "applied_target": "EnemyWithoutTower",
-                                                                    "applied_effects": [
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 150,
-                                                                          "attack_ratio": 0,
-                                                                          "hp_ratio": 0,
-                                                                          "can_crit": false,
-                                                                          "attack_effect_type": "Target"
-                                                                        }
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
+                                                              "effect_none": {
                                                                 "type": "Combine",
                                                                 "effects": [
                                                                   {
-                                                                    "type": "RemoveCasterBuff",
-                                                                    "name": "league_pantheon_pw"
-                                                                  },
-                                                                  {
                                                                     "type": "AddCasterBuff",
                                                                     "buff_state": {
-                                                                      "name": "league_pantheon_pw",
-                                                                      "duration": "Permanent"
+                                                                      "name": "league_pantheon_vo_cd",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 600
+                                                                        }
+                                                                      }
                                                                     },
                                                                     "only_to_enemy": false
+                                                                  },
+                                                                  {
+                                                                    "type": "Sfx",
+                                                                    "name": "league_pantheon_vo_r_leap"
                                                                   }
                                                                 ]
-                                                              },
-                                                              {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_pantheon_p_ready"
                                                               }
-                                                            ]
-                                                          }
-                                                        ]
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1000
+                                                                }
+                                                              },
+                                                              "target": "AllyOnlySelf",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 17,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Banish",
+                                                                      "duration": 23
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "ParabolicProjectile",
+                                                              "name": "league_pantheon_r_spot",
+                                                              "travel_time": 20,
+                                                              "range": 960000,
+                                                              "range_effect_name": "league_pantheon_r_mark",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1
+                                                                }
+                                                              },
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [],
+                                                              "end_effects": [
+                                                                {
+                                                                  "type": "RangeProjectile",
+                                                                  "name": "league_pantheon_r_spear",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 32000
+                                                                    }
+                                                                  },
+                                                                  "delay": 1,
+                                                                  "apply": 1,
+                                                                  "applied_target": "EnemyWithoutTower",
+                                                                  "applied_effects": [
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "Attack",
+                                                                        "damage": 80,
+                                                                        "attack_ratio": 100,
+                                                                        "hp_ratio": 0,
+                                                                        "target_hp_ratio": 0,
+                                                                        "attack_effect_type": "Target"
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_pantheon_r_slow",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 120
+                                                                            }
+                                                                          },
+                                                                          "move_speed_mult": -50
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "ViewEffect",
+                                                                        "name": "league_pantheon_r_sp_hit"
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_pantheon_r_spear"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "ParabolicProjectile",
+                                                              "name": "league_pantheon_r_fall",
+                                                              "travel_time": 40,
+                                                              "range": 960000,
+                                                              "range_effect_name": "league_pantheon_r_spear",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1
+                                                                }
+                                                              },
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [],
+                                                              "end_effects": [
+                                                                {
+                                                                  "type": "Teleport"
+                                                                },
+                                                                {
+                                                                  "type": "CasterAnimation",
+                                                                  "name": "ult_land",
+                                                                  "tick": 30
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_pantheon_r_land"
+                                                                },
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 5,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_pantheon_r_land"
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeProjectile",
+                                                                      "name": "league_pantheon_r_core",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 12000
+                                                                        }
+                                                                      },
+                                                                      "delay": 1,
+                                                                      "apply": 1,
+                                                                      "applied_target": "EnemyWithoutTower",
+                                                                      "applied_effects": [
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ApAttack",
+                                                                            "damage": 150,
+                                                                            "attack_ratio": 0,
+                                                                            "hp_ratio": 0,
+                                                                            "can_crit": false,
+                                                                            "attack_effect_type": "Target"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_pantheon_r_hit"
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeProjectile",
+                                                                      "name": "league_pantheon_r_edge",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 32000
+                                                                        }
+                                                                      },
+                                                                      "delay": 1,
+                                                                      "apply": 1,
+                                                                      "applied_target": "EnemyWithoutTower",
+                                                                      "applied_effects": [
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ApAttack",
+                                                                            "damage": 150,
+                                                                            "attack_ratio": 0,
+                                                                            "hp_ratio": 0,
+                                                                            "can_crit": false,
+                                                                            "attack_effect_type": "Target"
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_pantheon_pw"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_pantheon_pw",
+                                                                        "duration": "Permanent"
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "CasterViewEffect",
+                                                                  "name": "league_pantheon_p_ready"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
                                                       }
                                                     ]
                                                   },
@@ -3584,256 +3663,282 @@
                                                         "name": "league_pantheon_r_ch"
                                                       },
                                                       {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "CasterAnimation",
-                                                            "name": "ult_leap",
-                                                            "tick": 17
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_pantheon_r_leap"
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_pantheon_r_jump"
-                                                          },
-                                                          {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_pantheon_vo_cd",
-                                                            "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": []
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_pantheon_r_broke",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_pantheon_r_broke"
                                                             },
-                                                            "effect_none": {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "AddCasterBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_pantheon_vo_cd",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 600
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  "only_to_enemy": false
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_pantheon_r_cut",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 3
+                                                                  }
                                                                 },
-                                                                {
-                                                                  "type": "Sfx",
-                                                                  "name": "league_pantheon_vo_r_leap"
-                                                                }
-                                                              ]
+                                                                "ult_cooldown_mult": 500
+                                                              },
+                                                              "only_to_enemy": false
                                                             }
-                                                          },
-                                                          {
-                                                            "type": "RangeEffect",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1000
-                                                              }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "CasterAnimation",
+                                                              "name": "ult_leap",
+                                                              "tick": 17
                                                             },
-                                                            "target": "AllyOnlySelf",
-                                                            "apply_type": "AroundCaster",
-                                                            "effects": [
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 17,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Banish",
-                                                                    "duration": 23
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "ParabolicProjectile",
-                                                            "name": "league_pantheon_r_spot",
-                                                            "travel_time": 20,
-                                                            "range": 960000,
-                                                            "range_effect_name": "league_pantheon_r_mark",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1
-                                                              }
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_pantheon_r_leap"
                                                             },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": [],
-                                                            "end_effects": [
-                                                              {
-                                                                "type": "RangeProjectile",
-                                                                "name": "league_pantheon_r_spear",
-                                                                "shape": {
-                                                                  "Circle": {
-                                                                    "radius": 32000
-                                                                  }
-                                                                },
-                                                                "delay": 1,
-                                                                "apply": 1,
-                                                                "applied_target": "EnemyWithoutTower",
-                                                                "applied_effects": [
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "Attack",
-                                                                      "damage": 80,
-                                                                      "attack_ratio": 100,
-                                                                      "hp_ratio": 0,
-                                                                      "target_hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "AddBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_pantheon_r_slow",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 120
-                                                                          }
-                                                                        },
-                                                                        "move_speed_mult": -50
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "ViewEffect",
-                                                                      "name": "league_pantheon_r_sp_hit"
-                                                                    }
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_pantheon_r_spear"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "ParabolicProjectile",
-                                                            "name": "league_pantheon_r_fall",
-                                                            "travel_time": 40,
-                                                            "range": 960000,
-                                                            "range_effect_name": "league_pantheon_r_spear",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1
-                                                              }
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_pantheon_r_jump"
                                                             },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": [],
-                                                            "end_effects": [
-                                                              {
-                                                                "type": "Teleport"
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_pantheon_vo_cd",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
                                                               },
-                                                              {
-                                                                "type": "CasterAnimation",
-                                                                "name": "ult_land",
-                                                                "tick": 30
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_pantheon_r_land"
-                                                              },
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 5,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "ViewEffect",
-                                                                    "name": "league_pantheon_r_land"
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeProjectile",
-                                                                    "name": "league_pantheon_r_core",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 12000
-                                                                      }
-                                                                    },
-                                                                    "delay": 1,
-                                                                    "apply": 1,
-                                                                    "applied_target": "EnemyWithoutTower",
-                                                                    "applied_effects": [
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 150,
-                                                                          "attack_ratio": 0,
-                                                                          "hp_ratio": 0,
-                                                                          "can_crit": false,
-                                                                          "attack_effect_type": "Target"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ViewEffect",
-                                                                          "name": "league_pantheon_r_hit"
-                                                                        }
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeProjectile",
-                                                                    "name": "league_pantheon_r_edge",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 32000
-                                                                      }
-                                                                    },
-                                                                    "delay": 1,
-                                                                    "apply": 1,
-                                                                    "applied_target": "EnemyWithoutTower",
-                                                                    "applied_effects": [
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 150,
-                                                                          "attack_ratio": 0,
-                                                                          "hp_ratio": 0,
-                                                                          "can_crit": false,
-                                                                          "attack_effect_type": "Target"
-                                                                        }
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
+                                                              "effect_none": {
                                                                 "type": "Combine",
                                                                 "effects": [
                                                                   {
-                                                                    "type": "RemoveCasterBuff",
-                                                                    "name": "league_pantheon_pw"
-                                                                  },
-                                                                  {
                                                                     "type": "AddCasterBuff",
                                                                     "buff_state": {
-                                                                      "name": "league_pantheon_pw",
-                                                                      "duration": "Permanent"
+                                                                      "name": "league_pantheon_vo_cd",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 600
+                                                                        }
+                                                                      }
                                                                     },
                                                                     "only_to_enemy": false
+                                                                  },
+                                                                  {
+                                                                    "type": "Sfx",
+                                                                    "name": "league_pantheon_vo_r_leap"
                                                                   }
                                                                 ]
-                                                              },
-                                                              {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_pantheon_p_ready"
                                                               }
-                                                            ]
-                                                          }
-                                                        ]
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1000
+                                                                }
+                                                              },
+                                                              "target": "AllyOnlySelf",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 17,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Banish",
+                                                                      "duration": 23
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "ParabolicProjectile",
+                                                              "name": "league_pantheon_r_spot",
+                                                              "travel_time": 20,
+                                                              "range": 960000,
+                                                              "range_effect_name": "league_pantheon_r_mark",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1
+                                                                }
+                                                              },
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [],
+                                                              "end_effects": [
+                                                                {
+                                                                  "type": "RangeProjectile",
+                                                                  "name": "league_pantheon_r_spear",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 32000
+                                                                    }
+                                                                  },
+                                                                  "delay": 1,
+                                                                  "apply": 1,
+                                                                  "applied_target": "EnemyWithoutTower",
+                                                                  "applied_effects": [
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "Attack",
+                                                                        "damage": 80,
+                                                                        "attack_ratio": 100,
+                                                                        "hp_ratio": 0,
+                                                                        "target_hp_ratio": 0,
+                                                                        "attack_effect_type": "Target"
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_pantheon_r_slow",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 120
+                                                                            }
+                                                                          },
+                                                                          "move_speed_mult": -50
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "ViewEffect",
+                                                                        "name": "league_pantheon_r_sp_hit"
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_pantheon_r_spear"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "ParabolicProjectile",
+                                                              "name": "league_pantheon_r_fall",
+                                                              "travel_time": 40,
+                                                              "range": 960000,
+                                                              "range_effect_name": "league_pantheon_r_spear",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1
+                                                                }
+                                                              },
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [],
+                                                              "end_effects": [
+                                                                {
+                                                                  "type": "Teleport"
+                                                                },
+                                                                {
+                                                                  "type": "CasterAnimation",
+                                                                  "name": "ult_land",
+                                                                  "tick": 30
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_pantheon_r_land"
+                                                                },
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 5,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_pantheon_r_land"
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeProjectile",
+                                                                      "name": "league_pantheon_r_core",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 12000
+                                                                        }
+                                                                      },
+                                                                      "delay": 1,
+                                                                      "apply": 1,
+                                                                      "applied_target": "EnemyWithoutTower",
+                                                                      "applied_effects": [
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ApAttack",
+                                                                            "damage": 150,
+                                                                            "attack_ratio": 0,
+                                                                            "hp_ratio": 0,
+                                                                            "can_crit": false,
+                                                                            "attack_effect_type": "Target"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_pantheon_r_hit"
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeProjectile",
+                                                                      "name": "league_pantheon_r_edge",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 32000
+                                                                        }
+                                                                      },
+                                                                      "delay": 1,
+                                                                      "apply": 1,
+                                                                      "applied_target": "EnemyWithoutTower",
+                                                                      "applied_effects": [
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ApAttack",
+                                                                            "damage": 150,
+                                                                            "attack_ratio": 0,
+                                                                            "hp_ratio": 0,
+                                                                            "can_crit": false,
+                                                                            "attack_effect_type": "Target"
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_pantheon_pw"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_pantheon_pw",
+                                                                        "duration": "Permanent"
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "CasterViewEffect",
+                                                                  "name": "league_pantheon_p_ready"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
                                                       }
                                                     ]
                                                   }

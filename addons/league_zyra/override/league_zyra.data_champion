@@ -28,7 +28,7 @@
       "pl_lo": 20,
       "pl_hi": 100,
       "pl_ratio": 12,
-      "r_r": 32000,
+      "r_r": 38000,
       "r_rage": 300,
       "q_delay": 30,
       "q_fast": 4,
@@ -434,100 +434,121 @@
                                       ]
                                     },
                                     {
-                                      "type": "ViewEffect",
-                                      "name": "league_zyra_t_plant"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_zyra_t_grow"
-                                    },
-                                    {
-                                      "type": "RangePeriodProjectile",
-                                      "name": "league_zyra_t_spit",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 50000
-                                        }
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_zyra_p_unit",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_zyra_q_land",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 3
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
                                       },
-                                      "tick": 300,
-                                      "period": 60,
-                                      "first_delay": 20,
-                                      "applied_target": "EnemyWithoutTower",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_zyra_t_shot",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_zyra_t_plant"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_zyra_t_grow"
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_zyra_t_spit",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 50000
+                                              }
                                             },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_zyra_t_shot",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 1
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
+                                            "tick": 300,
+                                            "period": 60,
+                                            "first_delay": 20,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_zyra_rage",
+                                                  "buff_name": "league_zyra_t_shot",
                                                   "effect_buff": {
                                                     "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "ApAttack",
-                                                        "damage": 30,
-                                                        "attack_ratio": 18,
-                                                        "hp_ratio": 0,
-                                                        "can_crit": false
-                                                      },
-                                                      {
-                                                        "type": "ViewEffect",
-                                                        "name": "league_zyra_t_hit"
-                                                      },
-                                                      {
-                                                        "type": "TargetSfx",
-                                                        "name": "league_zyra_t_hit"
-                                                      }
-                                                    ]
+                                                    "effects": []
                                                   },
                                                   "effect_none": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "ApAttack",
-                                                        "damage": 20,
-                                                        "attack_ratio": 12,
-                                                        "hp_ratio": 0,
-                                                        "can_crit": false
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_zyra_t_shot",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
                                                       },
                                                       {
-                                                        "type": "ViewEffect",
-                                                        "name": "league_zyra_t_hit"
-                                                      },
-                                                      {
-                                                        "type": "TargetSfx",
-                                                        "name": "league_zyra_t_hit"
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_zyra_rage",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "ApAttack",
+                                                              "damage": 30,
+                                                              "attack_ratio": 18,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zyra_t_hit"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zyra_t_hit"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "ApAttack",
+                                                              "damage": 20,
+                                                              "attack_ratio": 12,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zyra_t_hit"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zyra_t_hit"
+                                                            }
+                                                          ]
+                                                        }
                                                       }
                                                     ]
                                                   }
                                                 }
-                                              ]
-                                            }
+                                              }
+                                            ],
+                                            "end_effects": []
                                           }
-                                        }
-                                      ],
-                                      "end_effects": []
+                                        ]
+                                      }
                                     }
                                   ]
                                 }
@@ -620,100 +641,121 @@
                                       ]
                                     },
                                     {
-                                      "type": "ViewEffect",
-                                      "name": "league_zyra_t_plant"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_zyra_t_grow"
-                                    },
-                                    {
-                                      "type": "RangePeriodProjectile",
-                                      "name": "league_zyra_t_spit",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 50000
-                                        }
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_zyra_p_unit",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_zyra_q_land",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 3
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
                                       },
-                                      "tick": 300,
-                                      "period": 60,
-                                      "first_delay": 20,
-                                      "applied_target": "EnemyWithoutTower",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_zyra_t_shot",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_zyra_t_plant"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_zyra_t_grow"
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_zyra_t_spit",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 50000
+                                              }
                                             },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_zyra_t_shot",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 1
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
+                                            "tick": 300,
+                                            "period": 60,
+                                            "first_delay": 20,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_zyra_rage",
+                                                  "buff_name": "league_zyra_t_shot",
                                                   "effect_buff": {
                                                     "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "ApAttack",
-                                                        "damage": 30,
-                                                        "attack_ratio": 18,
-                                                        "hp_ratio": 0,
-                                                        "can_crit": false
-                                                      },
-                                                      {
-                                                        "type": "ViewEffect",
-                                                        "name": "league_zyra_t_hit"
-                                                      },
-                                                      {
-                                                        "type": "TargetSfx",
-                                                        "name": "league_zyra_t_hit"
-                                                      }
-                                                    ]
+                                                    "effects": []
                                                   },
                                                   "effect_none": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "ApAttack",
-                                                        "damage": 20,
-                                                        "attack_ratio": 12,
-                                                        "hp_ratio": 0,
-                                                        "can_crit": false
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_zyra_t_shot",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
                                                       },
                                                       {
-                                                        "type": "ViewEffect",
-                                                        "name": "league_zyra_t_hit"
-                                                      },
-                                                      {
-                                                        "type": "TargetSfx",
-                                                        "name": "league_zyra_t_hit"
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_zyra_rage",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "ApAttack",
+                                                              "damage": 30,
+                                                              "attack_ratio": 18,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zyra_t_hit"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zyra_t_hit"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "ApAttack",
+                                                              "damage": 20,
+                                                              "attack_ratio": 12,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zyra_t_hit"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zyra_t_hit"
+                                                            }
+                                                          ]
+                                                        }
                                                       }
                                                     ]
                                                   }
                                                 }
-                                              ]
-                                            }
+                                              }
+                                            ],
+                                            "end_effects": []
                                           }
-                                        }
-                                      ],
-                                      "end_effects": []
+                                        ]
+                                      }
                                     }
                                   ]
                                 }
@@ -983,124 +1025,145 @@
                         "applied_effects": [],
                         "end_effects": [
                           {
-                            "type": "ViewEffect",
-                            "name": "league_zyra_v_plant"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_zyra_v_grow"
-                          },
-                          {
-                            "type": "RangePeriodProjectile",
-                            "name": "league_zyra_v_lash",
-                            "shape": {
-                              "Circle": {
-                                "radius": 32000
-                              }
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_zyra_p_unit",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_zyra_e_land",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 3
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
                             },
-                            "tick": 300,
-                            "period": 60,
-                            "first_delay": 20,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_zyra_v_shot",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_zyra_v_plant"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_zyra_v_grow"
+                                },
+                                {
+                                  "type": "RangePeriodProjectile",
+                                  "name": "league_zyra_v_lash",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 32000
+                                    }
                                   },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_zyra_v_shot",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
+                                  "tick": 300,
+                                  "period": 60,
+                                  "first_delay": 20,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_zyra_rage",
+                                        "buff_name": "league_zyra_v_shot",
                                         "effect_buff": {
                                           "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "ApAttack",
-                                              "damage": 30,
-                                              "attack_ratio": 18,
-                                              "hp_ratio": 0,
-                                              "can_crit": false
-                                            },
-                                            {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_zyra_v_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 60
-                                                  }
-                                                },
-                                                "move_speed_mult": -30
-                                              }
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_zyra_v_hit"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_zyra_v_hit"
-                                            }
-                                          ]
+                                          "effects": []
                                         },
                                         "effect_none": {
                                           "type": "Combine",
                                           "effects": [
                                             {
-                                              "type": "ApAttack",
-                                              "damage": 20,
-                                              "attack_ratio": 12,
-                                              "hp_ratio": 0,
-                                              "can_crit": false
-                                            },
-                                            {
-                                              "type": "AddBuff",
+                                              "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_zyra_v_slow",
+                                                "name": "league_zyra_v_shot",
                                                 "duration": {
                                                   "Time": {
-                                                    "tick": 60
+                                                    "tick": 1
                                                   }
-                                                },
-                                                "move_speed_mult": -30
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_zyra_rage",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 30,
+                                                    "attack_ratio": 18,
+                                                    "hp_ratio": 0,
+                                                    "can_crit": false
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zyra_v_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 60
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -30
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_zyra_v_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_zyra_v_hit"
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 20,
+                                                    "attack_ratio": 12,
+                                                    "hp_ratio": 0,
+                                                    "can_crit": false
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zyra_v_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 60
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -30
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_zyra_v_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_zyra_v_hit"
+                                                  }
+                                                ]
                                               }
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_zyra_v_hit"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_zyra_v_hit"
                                             }
                                           ]
                                         }
                                       }
-                                    ]
-                                  }
+                                    }
+                                  ],
+                                  "end_effects": []
                                 }
-                              }
-                            ],
-                            "end_effects": []
+                              ]
+                            }
                           }
                         ]
                       }
@@ -1306,7 +1369,7 @@
                             "name": "league_zyra_r_burst",
                             "shape": {
                               "Circle": {
-                                "radius": 32000
+                                "radius": 38000
                               }
                             },
                             "delay": 1,
@@ -1345,7 +1408,7 @@
                                 "name": "league_zyra_r_snap",
                                 "shape": {
                                   "Circle": {
-                                    "radius": 32000
+                                    "radius": 38000
                                   }
                                 },
                                 "delay": 1,

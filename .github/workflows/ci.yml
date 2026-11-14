@@ -82,6 +82,13 @@ jobs:
           python -I addons/league_yasuo_wall/make_override.py --check
           python -I addons/league_kayle/make_override.py --check
           python -I addons/league_rumble/make_override.py --check
+          python -I addons/league_viktor/make_override.py --check
+          python -I addons/league_shyvana/make_override.py --check
+          python -I addons/league_soraka/make_override.py --check
+          python -I addons/league_leona/make_override.py --check
+          python -I addons/league_nami/make_override.py --check
+          python -I addons/league_alistar/make_override.py --check
+          python -I addons/league_hecarim/make_override.py --check
       - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
         run: python -I tools/kit/attack_self.py --check
       - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)
@@ -97,6 +104,11 @@ jobs:
           python -I tools/kit/stack_nums.py --check
           python -I tools/art/fx_kindred_hunt.py --check
           python -I tools/art/gangplank_sv_fx.py --check
+          python -I tools/art/zyra_thicket_size.py --check
+          python -I tools/art/fx_lillia_roll.py --check
+          python -I tools/art/hover_aatrox.py --check
+          python -I tools/art/unit_malzahar_voidling.py --check
+          python -I tools/art/unit_elise_spiderling.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places -p push_rules
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges

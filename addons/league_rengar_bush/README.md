@@ -67,3 +67,26 @@
 ## 射程 buff 改成主包 league.dll 的 league:range（v0.2.2，2026-11-07）
 
 带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。本包原生代码补回 / 挂上的 buff 也不再带 `range`。
+
+## 骨齿项链（v0.2.3，2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟：击杀或助攻一个 3 秒内打过的敌方英雄得一枚战利品，每个英雄只算一次、最多 5 枚，战利品给额外攻击力。主包只认他自己打出最后一击的英雄击杀（数据的击杀检查），阵亡清零，同一个英雄可以重复给。
+
+- 副本（`build_rengar.py` 的 native=1）不在数据里给战利品，`passive.params` 多了 `bt1`…`bt5`（每一枚加多少 % 攻击力，累计 1 / 2 / 5 / 10 / 15%）。
+- 被动每 tick 读击杀记录里新的几条：他这一队击杀、击杀者或助攻者里有他的分路，被击杀的那个敌方英雄（按分路记）还没给过，就挂上下一枚 `league_rengar_bt<n>`（永久，攻击力 +`bt<n>`%）。阵亡不丢：他死着的时候拿到的、以前拿到的，复活时一起挂回去。
+- 大招的说明（副本自己的 `ult` 键）写成「击杀或助攻每个敌方英雄各得一枚战利品（最多 5 枚，阵亡不丢）」。
+- 日志 `TROPHY 2 of 5: a takedown on the enemy champion of lane 3 (+2% attack in all)`。测试 `a_trophy_for_each_enemy_champion_he_takes_down_once`。
+
+经典引擎跑不了原生代码；下一局看 `TROPHY` 行的枚数和击杀、助攻对不对得上。
+
+## 战争咆哮按英雄联盟回血、解控（v0.2.4，2026-11-14）
+
+同一张清单（「全改吧」）。英雄联盟（V26.05）：W 回复「最近 1.5 秒受到的伤害的 50%」（"Rengar stores 50% of the post-mitigation damage he has taken in the last 1.5 seconds"，野怪打的 100%），强化版「Rengar cleanses himself from all crowd control」。主包的数据读不到受到的伤害、也去不掉身上的控制：固定回复 40 + 50% 攻击力，强化版回复翻倍、1.5 秒免控。
+
+- 副本（`build_rengar.py` 的 native=1）的 W 不在数据里回血，咆哮时挂 2 tick 的 `league_rengar_w_mend`；强化版的 `league_rengar_we_cc` 只是画面（不带 `cc_immune`）。
+- 被动的 `on_damaged` 记下最近 90 tick（`ROAR_WINDOW`）受到的每一下和是不是野怪打的；看到 `w_mend` 就回复其中的 50%（野怪的全部，`roar_heal`），摘掉标记。`we_cc` 挂上的那一 tick 清掉他身上的控制（`entity_clear_cc`）。
+- W 的说明换成副本自己的 `skill` 键（「回复最近 1.5 秒受到伤害的 50%（野怪的全部）。强化：解除身上的控制」）。
+- 主包和副本都加了英雄联盟的「强化技能加速」：残暴满 4 点放出的强化技能（Q、W、E）移速 +40%，1.5 秒（英雄联盟按等级 30 / 40 / 50%，数据读不到等级，取中间那档）。
+- 日志 `ROAR: healed 330 - half of 660 taken in the last 90 ticks`、`CLEANSE: the empowered roar cleared 1 crowd control effect(s)`。测试 `the_roar_heals_half_the_last_one_and_a_half_seconds`。
+
+经典引擎跑不了原生代码；下一局看 `ROAR` 行回了多少、`CLEANSE` 有没有在被控时出现。

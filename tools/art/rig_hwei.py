@@ -114,6 +114,27 @@ def cocked(d):
     return fig, (HEAD[0] + ox, HEAD[1] + oy), int(feet)
 
 
+# The in-betweens (tools/art/inbetween.py's rule; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补
+# 参考联盟的动画」): the brush turned in his hand - brush_hwei.normalize, the way every pose already carries the design's
+# brush and the attack's cocked frame turns it (to_deg): the pose's brush at its json grip and direction taken away and
+# the design's drawn at the new direction, the fingers laid back over it. Nothing else of the pose moves. BUTTED: the
+# poses whose brush shows its butt behind the hand (design_hwei_poses.BRUSH).
+BUTTED = {n for n, s in DP.BRUSH.items() if s.get("butt")}
+
+
+def brushed(name, deg):
+    """A pose with its brush turned to `deg` (0 = down, 90 = forward) in his hand -> (picture, head box top-left,
+    ground row), as cocked()."""
+    import math
+    d, (hx, hy), ground, meta = load_pose(name, meta_too=True)
+    g, a = meta["brush"]["grip"], math.radians(meta["brush"]["deg"])
+    u = (math.sin(a), math.cos(a))
+    spec = dict(grip=(g[0], g[1]), tip=(g[0] + BR.TIP * u[0], g[1] + BR.TIP * u[1]),
+                butt=(g[0] + BR.BUTT * u[0], g[1] + BR.BUTT * u[1]) if name in BUTTED else None, to_deg=deg)
+    fig, _, (ox, oy) = BR.normalize(d, spec)
+    return fig, (hx + ox, hy + oy), int(ground + oy)
+
+
 class Canvas:
     def __init__(self):
         self.d = load("idle.png")
@@ -127,23 +148,26 @@ class Canvas:
         self.rig = R.Rig(D, pad=(70, 80, 60, 12))      # room for the brush swung behind and before him, the leaps
         self.outline = D.outline
 
-    def placed(self, name, dx=0, lift=0):
-        """(picture, its top-left on the canvas, its json or None)."""
+    def placed(self, name, dx=0, lift=0, deg=None):
+        """(picture, its top-left on the canvas, its json or None); deg: the brush turned in his hand (brushed)."""
         rig = self.rig
         meta = None
         if name == "idle":
             d, (hx, hy), ground = self.d, HEAD, self.d.shape[0]
         elif name == "cocked":
             d, (hx, hy), ground = self.cock
+        elif deg is not None:
+            d, (hx, hy), ground = brushed(name, deg)
         else:
             d, (hx, hy), ground, meta = load_pose(name, meta_too=True)
         return d, (rig.ox + HEAD[0] - hx + dx, rig.GY - ground - lift), meta
 
-    def frame(self, name, dx=0, lift=0, flash=False, brush=None):
-        """A pose on the canvas; brush: (grip on the canvas, direction) of a brush lying on the ground, drawn behind him."""
+    def frame(self, name, dx=0, lift=0, flash=False, brush=None, deg=None):
+        """A pose on the canvas; brush: (grip on the canvas, direction) of a brush lying on the ground, drawn behind
+        him; deg: the pose's brush turned to it in his hand (an in-between)."""
         rig = self.rig
         can = rig.canvas()
-        d, (left, top), _ = self.placed(name, dx, lift)
+        d, (left, top), _ = self.placed(name, dx, lift, deg)
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -167,10 +191,14 @@ class Canvas:
 # attack 450 ms = atk_dur 27, the ink flicked on the flick frame (a_rel 10 = 167 ms; the flick from 100 ms);
 # Disaster's three and Torment's three 500 ms = q_dur / e_dur 30, the paint released on the swing (q_rel / e_rel 12 =
 # 200 ms; the swing from 140 ms); ult 600 ms = r_dur 36, the canvas flung on the fling (r_rel 14 = 233 ms, from 220 ms)
-MS = {"idle": [1000], "run": [140] * 4, "attack": [100, 120, 130, 100],
-      "skill": [140, 160, 200], "skill_w": [140, 160, 200], "skill_e": [140, 160, 200],
-      "skill2": [140, 160, 200], "skill2_q": [140, 160, 200], "skill2_e": [140, 160, 200],
-      "ult": [120, 100, 180, 200], "hit": [100, 100], "dead": [140, 200, 300, 600]}
+#
+# The in-betweens (2026-11-14: each spell's swing was its wind-up, then the strike shown twice): each span above is
+# shared out over more frames (whole ms, none under 50) with the brush on its way - so every action is as long as it
+# was and its release still begins on its millisecond (the flick at 100, the swings at 140, the fling at 220).
+MS = {"idle": [1000], "run": [140] * 4, "attack": [100, 60, 60, 130, 100],
+      "skill": [70, 70, 80, 80, 100, 100], "skill_w": [70, 70, 80, 80, 100, 100], "skill_e": [70, 70, 80, 80, 100, 100],
+      "skill2": [140, 80, 80, 100, 100], "skill2_q": [70, 70, 80, 80, 100, 100], "skill2_e": [70, 70, 80, 80, 100, 100],
+      "ult": [120, 100, 90, 90, 200], "hit": [100, 100], "dead": [140, 200, 300, 600]}
 
 
 def actions(C):
@@ -180,22 +208,37 @@ def actions(C):
     # run (League's RunSlow: contact, passing, contact on the other leg, passing; the brush trailing in his hand)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]     # each on its support foot: the passing frames stand taller
     # attack (League's Attack01: the brush cocked up in his hand, flicked forward - the ink - held, back)
-    out["attack"] = [f("cocked", dx=-1), f("a_flick", dx=1), f("a_flick", dx=1), f("idle")]
+    # (cocked; the flick with the brush still up, flicked, following through; back)
+    out["attack"] = [f("cocked", dx=-1), f("a_flick", dx=1, deg=135), f("a_flick", dx=1), f("a_flick", dx=1, deg=80),
+                     f("idle")]
     # Subject: Disaster - Devastating Fire (Spell1Q: the brush raised high, swung down and forward - the fireball)
-    out["skill"] = [f("q_wind", dx=-1), f("q_throw", dx=2), f("q_throw", dx=2)]
+    # (the brush coming up, raised; swung with the brush still high, down, following through, back down)
+    out["skill"] = [f("q_wind", dx=-1, deg=85), f("q_wind", dx=-1), f("q_throw", dx=2, deg=90), f("q_throw", dx=2),
+                    f("q_throw", dx=2, deg=38), f("q_throw", dx=2)]
     # Severing Bolt (Spell1W: up on his toes with the brush raised straight up, then the deep lunge pointing down)
-    out["skill_w"] = [f("qw_raise", lift=2), f("qw_point", dx=2), f("qw_point", dx=2)]
+    # (the brush rising, straight up; the lunge with the brush still high, pointing, past, pointing)
+    out["skill_w"] = [f("qw_raise", lift=2, deg=140), f("qw_raise", lift=2), f("qw_point", dx=2, deg=110),
+                      f("qw_point", dx=2), f("qw_point", dx=2, deg=50), f("qw_point", dx=2)]
     # Molten Fissure (Spell1E: a leap with the brush held point down, the crouch stabbing it into the ground)
-    out["skill_e"] = [f("qe_raise", lift=4), f("qe_slam", dx=1), f("qe_slam", dx=1)]
+    # (springing up, at the top; the crouch with the brush still straight down, stabbed, bounced, stabbed)
+    out["skill_e"] = [f("qe_raise", lift=1), f("qe_raise", lift=4), f("qe_slam", dx=1, deg=15), f("qe_slam", dx=1),
+                      f("qe_slam", dx=1, deg=50), f("qe_slam", dx=1)]
     # Subject: Torment - Gaze of the Abyss (Spell3W: the brush lifted in his hand, then the arm raised high, held while
     # the eye opens over the target)
-    out["skill2"] = [f("cocked", dx=-1), f("ew_high"), f("ew_high")]
+    # (cocked; the arm up with the brush still coming round, raised, past the top, raised)
+    out["skill2"] = [f("cocked", dx=-1), f("ew_high", deg=115), f("ew_high"), f("ew_high", deg=165), f("ew_high")]
     # Grim Visage (Spell3Q: the brush raised, then flicked forward - the visage flies)
-    out["skill2_q"] = [f("q_wind", dx=-1), f("a_flick", dx=1), f("a_flick", dx=1)]
+    # (the brush coming up, raised; the flick with the brush still up, flicked, following through, flicked)
+    out["skill2_q"] = [f("q_wind", dx=-1, deg=85), f("q_wind", dx=-1), f("a_flick", dx=1, deg=135), f("a_flick", dx=1),
+                       f("a_flick", dx=1, deg=80), f("a_flick", dx=1)]
     # Crushing Maw (Spell3E: the brush raised, chopped down forward - the jaws snap)
-    out["skill2_e"] = [f("ew_high", dx=-1), f("ee_swing", dx=2), f("ee_swing", dx=2)]
+    # (the brush coming up, raised; chopped with the brush still high, down, following through, down)
+    out["skill2_e"] = [f("ew_high", dx=-1, deg=115), f("ew_high", dx=-1), f("ee_swing", dx=2, deg=100),
+                       f("ee_swing", dx=2), f("ee_swing", dx=2, deg=34), f("ee_swing", dx=2)]
     # Spiraling Despair (Spell4: arms spread wide with the brush out, the canvas flung forward, held)
-    out["ult"] = [f("r_open", dx=-1), f("r_open"), f("r_fling", dx=2), f("r_fling", dx=2)]
+    # (the arms opening with the brush still low, open; flung with the brush still up, flung, following through)
+    out["ult"] = [f("r_open", dx=-1, deg=60), f("r_open"), f("r_fling", dx=2, deg=100), f("r_fling", dx=2),
+                  f("r_fling", dx=2, deg=55)]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (League's Death: the stagger with the brush dropped, down on one knee); the brush lies where it lies in the
     # kneel in every frame (the stagger's own was cut by the legs redo)

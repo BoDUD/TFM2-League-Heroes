@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.195.0"
+      "version": ">=0.362.0"
     }
   ],
-  "description": "Test build of Ivern as in League (needs League of Legends Heroes): replaces the main pack's Ivern so Brushmaker's brush is a real brush where it grew - the allies standing in it get the attack bonus, Rengar can pounce from it (with Rengar's add-on) and Qiyana takes grass from it (with Qiyana's add-on). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-22",
+  "description": "Test build of Ivern as in League (needs League of Legends Heroes): replaces the main pack's Ivern so Brushmaker's brush is a real brush where it grew - the allies standing in it get the attack bonus, Rengar can pounce from it (with Rengar's add-on) and Qiyana takes grass from it (with Qiyana's add-on). Daisy (0.2.0) is a unit of her own through the mod API's spawn_unit: after she drops on the champion (the main pack's drop and knock-up) she stands behind him, walks, punches (25 + 20% of his ability power), every third punch in a row on the same champion slams for more and knocks up, can be killed and lasts 8 seconds; a host that gives no unit keeps her riding on the champion. Needs the main pack's sheet league/champions/league_ivern_daisy. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_ivern",
   "mod_type": "native",
-  "name": "League Heroes: Ivern's brush for Rengar and Qiyana (test)",
-  "version": "0.1.1"
+  "name": "League Heroes: Ivern's brush for Rengar and Qiyana and Daisy as a unit (test)",
+  "version": "0.2.1"
 }

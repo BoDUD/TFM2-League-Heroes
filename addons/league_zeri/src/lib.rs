@@ -16,6 +16,13 @@
 //! - **偷盾**：她的伤害（普攻、技能都算，`on_attack`）打到带护盾的敌人时，被护盾挡下的部分的 `steal`% 变成她自己的护盾，
 //!   持续 `steal_t` tick（英雄联盟 45%、3 秒），挂上护盾的图 `league_zeri_p_shv`。
 //!
+//! - **走路充电**（0.1.8，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」，再说「接着做」）：英雄联盟的
+//!   内能迁转 "generates 1 charge for every 40 units she travels by any means"（满 100）。主包只有每次普攻充一格（她的普攻树
+//!   正在被另一边量，一点不能动），所以本包每 tick 量她走了多远（一 tick 超过 `JUMP` 的算回城、复活这种瞬移，不算），每攒够
+//!   `p_walk`（一格 = 100 / `p_need` = 20 电 = 英雄联盟 800 码，按地图比例 ×64）就替她把电池充一格：挂上主包的下一格旗子
+//!   `league_zeri_c1`..`c<p_need - 1>`，最后一格换成 `league_zeri_p_full`（播主包的充满画面和声音），和普攻充的是同一组
+//!   旗子，下一次普攻照主包的数据打电击弹。满了就不再攒。
+//!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局的对局状态，服务端预模拟和你看的
 //! 那场各算各的（激光效果只读参数）。
 //! 0.1.1（2026-10-19，用户：「泽丽突然没伤害」）：每 30 秒（对局时间）一行 `DMG 30s`：这 30 秒她打出的伤害（`on_attack`，
@@ -52,6 +59,8 @@ pub const CELL: f64 = 32_000.0;
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
 /// 沿脉冲走过的线段每隔多远看一次墙。
 pub const STEP: f64 = 1_000.0;
+/// 走路充电：一 tick 走了超过这么远是瞬移（回城、复活、传送），不算走路（她的 E 一 tick 冲不到这么远）。
+pub const JUMP: f64 = 40_000.0;
 /// 激光投射物的速度（每 tick）。
 pub const LASER_SPEED: u64 = 20_000;
 
@@ -125,6 +134,9 @@ pub struct Params {
     pub w_slow: usize,
     pub w_slow_t: usize,
     pub w_lw: usize,
+    /// 电池几格充满（主包的 p_need：c1..c<p_need - 1> 再 p_full）、走多远充一格（0.1.8）。
+    pub p_need: usize,
+    pub p_walk: usize,
 }
 
 impl Default for Params {
@@ -139,6 +151,8 @@ impl Default for Params {
             w_slow: 35,
             w_slow_t: 120,
             w_lw: 9_000,
+            p_need: 5,
+            p_walk: 51_200,
         }
     }
 }
@@ -161,6 +175,8 @@ pub fn parse_params(json: &str) -> Params {
             "w_slow" => p.w_slow = v,
             "w_slow_t" => p.w_slow_t = v,
             "w_lw" => p.w_lw = v,
+            "p_need" => p.p_need = v,
+            "p_walk" => p.p_walk = v,
             _ => {}
         }
     }
@@ -287,6 +303,28 @@ pub fn laser_end(from: (f64, f64), dir: (f64, f64), len: f64) -> (f64, f64) {
 }
 
 /// 偷到多少护盾：被护盾挡下的那部分（伤害和护盾取小）的 `steal`%。
+/// 走路充电（0.1.8）：攒着的 `walked` 加上这一 tick 走的 `moved`（超过 `JUMP` 是瞬移，不算），每满 `step` 充一格：
+/// (还攒着的, 充几格)。
+pub fn walk(walked: f64, moved: f64, step: f64) -> (f64, usize) {
+    if step <= 0.0 {
+        return (0.0, 0);
+    }
+    let w = walked + if moved <= JUMP { moved } else { 0.0 };
+    let n = (w / step).floor();
+    (w - n * step, n as usize)
+}
+
+/// 电池现在第几格（`have(k)`：她身上有没有第 k 格的旗子 `c<k>`；`full`：有没有 `p_full`），充一格以后：
+/// `None` = 已经满了；`Some((摘掉第几格, 挂上第几格))`，第几格 0 = 没有，`need` = 换成 `p_full`。
+pub fn next_rung(have: impl Fn(usize) -> bool, full: bool, need: usize) -> Option<(usize, usize)> {
+    if full {
+        return None;
+    }
+    let need = need.max(2);
+    let k = (1..need).find(|&k| have(k)).unwrap_or(0);
+    Some((k, (k + 1).min(need)))
+}
+
 pub fn stolen(damage: usize, shield: usize, steal: usize) -> usize {
     damage.min(shield) * steal / 100
 }
@@ -497,9 +535,55 @@ struct Battery {
     steals: usize,
     diag: Diag,
     tally: Tally,
+    /// 走路充电（0.1.8）：上一 tick 她在哪、攒着走了多远、走路充了几格。
+    last_at: Option<(f64, f64)>,
+    walked: f64,
+    walk_rungs: usize,
 }
 
 impl Battery {
+    /// Charge by moving (0.1.8): what she travelled this tick goes into `walked`; every `p_walk` puts the next rung of the
+    /// main pack's ladder on her (`c1`..`c<p_need - 1>`, then `p_full`), the same flags her attacks climb.
+    fn walk(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let at = pos(sim, me);
+        let moved = match (self.last_at, at) {
+            (Some(a), Some(b)) => dist(a, b),
+            _ => 0.0,
+        };
+        self.last_at = at;
+        if has_buff(sim, me, &zr("p_full")) {
+            self.walked = 0.0; // full: nothing is stored (League's cap)
+            return;
+        }
+        let (left, rungs) = walk(self.walked, moved, self.p.p_walk as f64);
+        self.walked = left;
+        for _ in 0..rungs {
+            let need = self.p.p_need.max(2);
+            let full = has_buff(sim, me, &zr("p_full"));
+            let Some((off, on)) = next_rung(|k| has_buff(sim, me, &zr(&format!("c{k}"))), full, need) else {
+                self.walked = 0.0;
+                return;
+            };
+            if off > 0 {
+                sim.entity_remove_buff(me, &zr(&format!("c{off}")));
+            }
+            let me_at = InputTargetV1::target(me);
+            if on >= need {
+                sim.add_buff(me, &BuffV1::named(&zr("p_full")));
+                sim.play_view_effect(&zr("p_ready"), me, &me_at, 0, 0, 0);
+                sim.play_sfx(&zr("ready"), me, &me_at);
+            } else {
+                sim.add_buff(me, &BuffV1::named(&zr(&format!("c{on}"))));
+            }
+            self.walk_rungs += 1;
+            if on_screen(sim) || counted("walk") {
+                let what = if on >= need { "full".to_string() } else { format!("rung {on}") };
+                wlog(format!("{} WALK #{}: {} travelled -> {what} (from rung {off})", head(sim, me), self.walk_rungs,
+                             self.p.p_walk));
+            }
+        }
+    }
+
     fn grid(&mut self, sim: &StableSim<'_>, me: usize) -> Grid {
         if self.grid.is_none() {
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
@@ -606,6 +690,8 @@ impl StablePassive for Battery {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.pulse = None;
         self.done_until = 0;
+        self.last_at = None;
+        self.walked = 0.0;
         // every spawn of every presim's Zeri: the launch's count (0.1.4; 888 lines on 11-01)
         if on_screen(sim) || counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -631,8 +717,10 @@ impl StablePassive for Battery {
         if !alive(sim, me) {
             self.tally.dead += 1;
             self.pulse = None;
+            self.last_at = None;
             return;
         }
+        self.walk(sim, me);
         if self.pulse.is_some() {
             if !self.track(sim, me) {
                 self.pulse = None;
@@ -696,6 +784,8 @@ impl StablePassive for Battery {
 
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
         self.pulse = None;
+        self.last_at = None;
+        self.walked = 0.0;
     }
 }
 
@@ -738,7 +828,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Zeri: Ultrashock Laser off walls, Living Battery steals shields) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Zeri: Ultrashock Laser off walls, Living Battery steals shields and charges as she moves) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -747,7 +837,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:battery"), Battery::default());
     module.add_native_effect(format!("{ID}:laser"), Laser);
-    host.log(LogLevel::Info, "league_zeri v1 loaded (Zeri's wall laser and shield steal).");
+    host.log(LogLevel::Info, "league_zeri v1 loaded (Zeri's wall laser, shield steal and charge by moving).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -771,6 +861,35 @@ mod tests {
         let want = ["DMG 30s: 270 dealt - E on 70 (70 on champions, 1 hits), R on 0 (0 on champions, 0 hits),",
                     " plain 200 (90 on champions, 3 hits); attacks started 4 (1 charged); dead 0 ticks"];
         assert_eq!(t.line(), want.concat());
+    }
+
+    #[test]
+    fn walking_charges_a_rung_every_p_walk_and_teleports_do_not_count() {
+        assert_eq!(walk(0.0, 1_000.0, 51_200.0), (1_000.0, 0));
+        let (left, n) = walk(50_000.0, 2_000.0, 51_200.0);
+        assert_eq!(n, 1);
+        assert!((left - 800.0).abs() < 1e-6);
+        assert_eq!(walk(10_000.0, 500_000.0, 51_200.0), (10_000.0, 0), "a recall or respawn is no walk");
+        assert_eq!(walk(0.0, 39_000.0, 10_000.0).1, 3, "a dash counts (by any means)");
+        assert_eq!(walk(5.0, 5.0, 0.0), (0.0, 0));
+    }
+
+    #[test]
+    fn a_rung_climbs_the_main_pack_s_ladder_to_full() {
+        let none = |_: usize| false;
+        assert_eq!(next_rung(none, false, 5), Some((0, 1)));
+        assert_eq!(next_rung(|k| k == 2, false, 5), Some((2, 3)));
+        assert_eq!(next_rung(|k| k == 4, false, 5), Some((4, 5)), "the last rung becomes p_full");
+        assert_eq!(next_rung(none, true, 5), None, "full: nothing more");
+        // walking 1000 a tick (her move speed): the whole pack (five rungs) in 256 ticks
+        let mut w = 0.0;
+        let mut rungs = 0;
+        for _ in 0..256 {
+            let (l, n) = walk(w, 1_000.0, 51_200.0);
+            w = l;
+            rungs += n;
+        }
+        assert_eq!(rungs, 5);
     }
 
     #[test]

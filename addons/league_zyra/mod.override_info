@@ -6,5 +6,21 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_zyra/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_zyra_spitter#sheet": {
+    "remapping": "asset/league/champions/league_zyra_spitter#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_zyra_spitter#anim": {
+    "remapping": "asset/league/champions/league_zyra_spitter#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_zyra_lasher#sheet": {
+    "remapping": "asset/league/champions/league_zyra_lasher#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_zyra_lasher#anim": {
+    "remapping": "asset/league/champions/league_zyra_lasher#anim",
+    "type": "override"
   }
 }

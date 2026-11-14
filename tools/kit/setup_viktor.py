@@ -54,13 +54,13 @@ TEXT = {
     "zh-hans": {
         "name": "维克托",
         "attack": "被动" + O + "光荣进化" + E + "：" + A + "{lv_e}" + E + "级E附带余波，" + A + "{lv_q}" + E + "级Q护盾更强并" + SPi + Wh +
-                  "加速{q_ms}%" + E + "，" + A + "{lv_w}" + E + "级技能命中" + R + "减速{evo_slow}%" + E + "，" + A + "{lv_r}" + E +
-                  "级风暴变大、转移后持续更久。",
+                  "加速{q_ms}%" + E + "，" + A + "{lv_w}" + E + "级Q、E和风暴首击" + R + "减速{evo_slow}%" + E + "，" + A + "{lv_r}" + E +
+                  "级风暴转移后变大、持续更久。",
         "skill": "能量弹造成" + mag("q_dmg", "q_ratio") + M + "魔法伤害" + E + "，获得" + shd("q_sh", "q_sh_ratio") + S + "护盾" + E +
                  "；" + A + "{q_buff_t}秒" + E + "内下次普攻额外造成" + mag("q_aa", "q_aa_ratio") + M + "魔法伤害" + E + "。",
-        "skill2": "先在敌方英雄脚下放" + O + "重力场" + E + "：" + R + "减速{w_slow}%" + E + "，" + A + "{w_stun_at}秒" + E +
-                  "后场内敌人" + R + "晕眩{w_stun}秒" + E + "。再从目标处向后方射出海克斯射线，造成" + mag("e_dmg", "e_ratio") + M +
-                  "魔法伤害" + E + "。",
+        "skill2": "先在敌方英雄脚下放" + O + "重力场" + E + "：" + A + "{w_arm}秒" + E + "后生效，" + R + "减速{w_slow}%" + E + "，" + A +
+                  "{w_stun_at}秒" + E + "后场内敌人" + R + "晕眩{w_stun}秒" + E + "。再从目标处向后方射出海克斯射线，造成" +
+                  mag("e_dmg", "e_ratio") + M + "魔法伤害" + E + "。",
         "ult": "风暴落在敌方英雄身上，造成" + mag("r_dmg", "r_ratio") + M + "魔法伤害" + E + "，之后" + A + "{r_runs}秒" + E +
                "每秒对周围敌人造成" + mag("r_tick", "r_tick_ratio") + M + "魔法伤害" + E + "，目标阵亡就转移到附近英雄。",
         "names": ("虹吸能量", "海克斯射线", "奥术风暴"),
@@ -68,13 +68,13 @@ TEXT = {
     "zh-hant": {
         "name": "維克特",
         "attack": "被動" + O + "榮光進化" + E + "：" + A + "{lv_e}" + E + "級E附帶餘波，" + A + "{lv_q}" + E + "級Q護盾更強並" + SPi + Wh +
-                  "加速{q_ms}%" + E + "，" + A + "{lv_w}" + E + "級技能命中" + R + "緩速{evo_slow}%" + E + "，" + A + "{lv_r}" + E +
-                  "級風暴變大、轉移後持續更久。",
+                  "加速{q_ms}%" + E + "，" + A + "{lv_w}" + E + "級Q、E和風暴首擊" + R + "緩速{evo_slow}%" + E + "，" + A + "{lv_r}" + E +
+                  "級風暴轉移後變大、持續更久。",
         "skill": "能量彈造成" + mag("q_dmg", "q_ratio") + M + "魔法傷害" + E + "，獲得" + shd("q_sh", "q_sh_ratio") + S + "護盾" + E +
                  "；" + A + "{q_buff_t}秒" + E + "內下次普攻額外造成" + mag("q_aa", "q_aa_ratio") + M + "魔法傷害" + E + "。",
-        "skill2": "先在敵方英雄腳下放" + O + "萬有引力產生裝置" + E + "：" + R + "緩速{w_slow}%" + E + "，" + A + "{w_stun_at}秒" + E +
-                  "後場內敵人" + R + "暈眩{w_stun}秒" + E + "。再從目標處向後方射出海克斯科技射線，造成" + mag("e_dmg", "e_ratio") +
-                  M + "魔法傷害" + E + "。",
+        "skill2": "先在敵方英雄腳下放" + O + "萬有引力產生裝置" + E + "：" + A + "{w_arm}秒" + E + "後生效，" + R + "緩速{w_slow}%" + E +
+                  "，" + A + "{w_stun_at}秒" + E + "後場內敵人" + R + "暈眩{w_stun}秒" + E + "。再從目標處向後方射出海克斯科技射線，造成" +
+                  mag("e_dmg", "e_ratio") + M + "魔法傷害" + E + "。",
         "ult": "風暴落在敵方英雄身上，造成" + mag("r_dmg", "r_ratio") + M + "魔法傷害" + E + "，之後" + A + "{r_runs}秒" + E +
                "每秒對周圍敵人造成" + mag("r_tick", "r_tick_ratio") + M + "魔法傷害" + E + "，目標陣亡就轉移到附近英雄。",
         "names": ("能量守恆", "海克斯科技射線", "奧術風暴"),
@@ -83,14 +83,15 @@ TEXT = {
         "name": "Viktor",
         "attack": "Passive " + O + "Glorious Evolution" + E + ": at level " + A + "{lv_e}" + E + " Hextech Ray leaves an aftershock, at " +
                   A + "{lv_q}" + E + " Siphon Power's shield grows and gives " + SPi + Wh + "{q_ms}% Move Speed" + E + ", at " + A +
-                  "{lv_w}" + E + " his spells " + R + "slow {evo_slow}%" + E + ", at " + A + "{lv_r}" + E + " the storm grows and "
-                  "lasts longer when it moves on.",
+                  "{lv_w}" + E + " Q, E and the storm's first strike " + R + "slow {evo_slow}%" + E + ", at " + A + "{lv_r}" + E +
+                  " the storm grows and lasts longer when it moves on.",
         "skill": "A bolt deals " + mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + " and gives him a " + shd("q_sh", "q_sh_ratio") +
                  " " + S + "shield" + E + "; his next attack within " + A + "{q_buff_t}s" + E + " deals " + mag("q_aa", "q_aa_ratio") +
                  " bonus " + M + "magic damage" + E + ".",
-        "skill2": "First a " + O + "Gravity Field" + E + " under an enemy champion " + R + "slows {w_slow}%" + E + " and " + R +
-                  "stuns" + E + " enemies still inside after " + A + "{w_stun_at}s" + E + " for " + A + "{w_stun}s" + E + ". Then a "
-                  "Hextech Ray from the target on away from him deals " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E + ".",
+        "skill2": "First a " + O + "Gravity Field" + E + " under an enemy champion arms after " + A + "{w_arm}s" + E + ", " + R +
+                  "slows {w_slow}%" + E + " and " + R + "stuns" + E + " enemies still inside " + A + "{w_stun_at}s" + E + " after it lands for " +
+                  A + "{w_stun}s" + E + ". Then a Hextech Ray from the target on away from him deals " + mag("e_dmg", "e_ratio") + " " + M +
+                  "magic damage" + E + ".",
         "ult": "A storm lands on an enemy champion for " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E + ", then deals " +
                mag("r_tick", "r_tick_ratio") + " " + M + "magic damage" + E + " a second round him for " + A + "{r_runs}s" + E +
                ", moving on to a champion near when he dies.",
@@ -99,13 +100,13 @@ TEXT = {
     "ko": {
         "name": "빅토르",
         "attack": "기본 지속 효과 " + O + "영광스러운 진화" + E + ": " + A + "{lv_e}" + E + "레벨 E에 여진, " + A + "{lv_q}" + E +
-                  "레벨 Q 보호막 강화와 " + SPi + Wh + "이동 속도 {q_ms}%" + E + ", " + A + "{lv_w}" + E + "레벨 스킬 적중 시 " + R +
-                  "{evo_slow}% 둔화" + E + ", " + A + "{lv_r}" + E + "레벨 폭풍이 커지고 옮겨 가면 더 오래 유지.",
+                  "레벨 Q 보호막 강화와 " + SPi + Wh + "이동 속도 {q_ms}%" + E + ", " + A + "{lv_w}" + E + "레벨 Q·E·폭풍 첫 타격 적중 시 " + R +
+                  "{evo_slow}% 둔화" + E + ", " + A + "{lv_r}" + E + "레벨 폭풍이 옮겨 가면 커지고 더 오래 유지.",
         "skill": "에너지 탄이 " + mag("q_dmg", "q_ratio") + "의 " + M + "마법 피해" + E + ", " + shd("q_sh", "q_sh_ratio") + "의 " + S +
                  "보호막" + E + ". " + A + "{q_buff_t}초" + E + " 안의 다음 기본 공격이 " + mag("q_aa", "q_aa_ratio") + "의 추가 " + M +
                  "마법 피해" + E + ".",
-        "skill2": "먼저 적 챔피언 발밑에 " + O + "중력장" + E + ": " + R + "{w_slow}% 둔화" + E + ", " + A + "{w_stun_at}초" + E +
-                  " 뒤 안에 남은 적 " + R + "기절 {w_stun}초" + E + ". 이어서 대상에서 뒤쪽으로 마법공학 광선이 " +
+        "skill2": "먼저 적 챔피언 발밑에 " + O + "중력장" + E + ": " + A + "{w_arm}초" + E + " 뒤 작동해 " + R + "{w_slow}% 둔화" + E +
+                  ", 떨어지고 " + A + "{w_stun_at}초" + E + " 뒤 안에 남은 적 " + R + "기절 {w_stun}초" + E + ". 이어서 대상에서 뒤쪽으로 마법공학 광선이 " +
                   mag("e_dmg", "e_ratio") + "의 " + M + "마법 피해" + E + ".",
         "ult": "적 챔피언에게 폭풍을 떨어뜨려 " + mag("r_dmg", "r_ratio") + "의 " + M + "마법 피해" + E + ", 이후 " + A + "{r_runs}초" +
                E + " 동안 매초 주변 적에게 " + mag("r_tick", "r_tick_ratio") + "의 " + M + "마법 피해" + E + ". 대상이 죽으면 근처 " +
@@ -115,13 +116,13 @@ TEXT = {
     "ja": {
         "name": "ビクター",
         "attack": "パッシブ " + O + "グロリアス・エヴォリューション" + E + "：" + A + "{lv_e}" + E + "レベルでEに余波、" + A + "{lv_q}" + E +
-                  "レベルでQのシールド強化と" + SPi + Wh + "移動速度{q_ms}%" + E + "、" + A + "{lv_w}" + E + "レベルでスキルが" + R +
-                  "{evo_slow}%スロウ" + E + "、" + A + "{lv_r}" + E + "レベルで嵐が大きく、移ると長持ち。",
+                  "レベルでQのシールド強化と" + SPi + Wh + "移動速度{q_ms}%" + E + "、" + A + "{lv_w}" + E + "レベルでQ・E・嵐の初撃が" + R +
+                  "{evo_slow}%スロウ" + E + "、" + A + "{lv_r}" + E + "レベルで嵐が移ると大きく長持ち。",
         "skill": "エネルギー弾が" + mag("q_dmg", "q_ratio") + "の" + M + "魔法ダメージ" + E + "、" + shd("q_sh", "q_sh_ratio") + "の" + S +
                  "シールド" + E + "。" + A + "{q_buff_t}秒" + E + "以内の次の通常攻撃が" + mag("q_aa", "q_aa_ratio") + "の追加" + M +
                  "魔法ダメージ" + E + "。",
-        "skill2": "まず敵チャンピオンの足元に" + O + "グラビティフィールド" + E + "：" + R + "{w_slow}%スロウ" + E + "、" + A +
-                  "{w_stun_at}秒" + E + "後に中の敵を" + R + "{w_stun}秒スタン" + E + "。続けて対象から奥へレイが" +
+        "skill2": "まず敵チャンピオンの足元に" + O + "グラビティフィールド" + E + "：" + A + "{w_arm}秒" + E + "後に発動し" + R +
+                  "{w_slow}%スロウ" + E + "、" + A + "{w_stun_at}秒" + E + "後に中の敵を" + R + "{w_stun}秒スタン" + E + "。続けて対象から奥へレイが" +
                   mag("e_dmg", "e_ratio") + "の" + M + "魔法ダメージ" + E + "。",
         "ult": "敵チャンピオンに嵐を落とし" + mag("r_dmg", "r_ratio") + "の" + M + "魔法ダメージ" + E + "、その後" + A + "{r_runs}秒" + E +
                "毎秒周囲の敵に" + mag("r_tick", "r_tick_ratio") + "の" + M + "魔法ダメージ" + E + "。対象が倒れると近くのチャンピオンへ移る。",
@@ -160,8 +161,9 @@ def values(p):
     v = {k: p[k] for k in ("lv_e", "lv_q", "lv_w", "lv_r", "q_ms", "evo_slow", "q_dmg", "q_ratio", "q_sh", "q_sh_ratio",
                            "q_aa", "q_aa_ratio", "w_slow", "e_dmg", "e_ratio", "r_dmg", "r_ratio", "r_tick", "r_tick_ratio",
                            "r_runs")}
-    for k in ("q_buff_t", "q_sh_t", "w_stun_at", "w_stun"):
+    for k in ("q_buff_t", "q_sh_t", "w_arm", "w_stun"):
         v[k] = secs(p[k])
+    v["w_stun_at"] = secs(p["w_arm"] + p["w_stun_at"])     # from the landing: the arming, then the fifth stack
     return v
 
 

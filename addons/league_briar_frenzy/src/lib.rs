@@ -12,6 +12,13 @@
 //! - **血狂锁定（AI 钩子 `league_briar_frenzy:lock`）**：她身上有血莽 `FRENZY` 或 `HEMA` 时，AI 要普攻、走路、回城都改成普攻
 //!   ——彻底血狂时打猎物，否则打 `LOCK_R` 内最近的敌方英雄，没有就打最近的敌人；放技能不拦。
 //!
+//! - **猩红诅咒的另一半（0.1.4，2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）**：英雄联盟里她每个技能
+//!   "5% current Health"，没有生命回复，而 "increases healing from all sources by 0% – 40% (based on missing health)"。
+//!   主包把这两条都去掉了（数据读不到当前生命）。副本里：三个技能（冲头、惊吼、毙除）出手时调 `league_briar_frenzy:cost`
+//!   ——直接扣当前生命的 `COST_PCT`%，至少留 1 点（耗血不会把自己耗死，也不是伤害）；她自己的三种回血（流血每一跳、
+//!   噬击、惊吼蓄力）换成 `league_briar_frenzy:mend_bleed` / `mend_snack` / `mend_scream`：主包的数值按已损生命放大，
+//!   满血 +0%，空血 +`MEND_MAX`%（[`mended`]）。彻底血狂的生命偷取是 buff 上的数，没有放大。日志 `COST`、`MEND` 行。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_briar_frenzy.log`。0.1.1：`FRENZY LOCK` 带上
 //! `[kind m= s=]`，一次血狂换了目标才记一行，和 `SPAWN` 一样整个游戏一个计数（预模拟先记 40 行、之后每 200 行一行，你看的
 //! 那场每行都记）。
@@ -49,6 +56,15 @@ pub const HEMA_MAX: usize = 900;
 pub const HEMA_STATS: (i32, i32, i32, i32, i32) = (70, 45, 20, 20, 10);
 pub const LOCK_R: u64 = 50_000;
 pub const UNIT_R: u64 = 30_000;
+/// 0.1.4：每个技能耗当前生命的 %（英雄联盟 V26.03 起 5%，之前 6%）。
+pub const COST_PCT: usize = 5;
+/// 0.1.4：空血时回血多出的 %（英雄联盟："0% – 40% (based on missing health)"）。
+pub const MEND_MAX: usize = 40;
+/// 主包里她自己的三种回血（固定值、攻击力 %）：流血每一跳、噬击、惊吼蓄力的每一次。`make_override.py` 按这三组数把副本里的
+/// `Heal` 换成对应的原生效果，对不上就停。
+pub const MEND_BLEED: (usize, usize) = (1, 1);
+pub const MEND_SNACK: (usize, usize) = (20, 20);
+pub const MEND_SCREAM: (usize, usize) = (6, 4);
 
 // ===================== 日志 =====================
 
@@ -160,6 +176,69 @@ fn hema_buff(ticks: usize) -> BuffV1 {
     let mut b = BuffV1::timed(HEMA, ticks);
     (b.attack_speed_mult, b.move_speed_mult, b.defence, b.magic_resistance, b.vamp) = HEMA_STATS;
     b
+}
+
+// ===================== 猩红诅咒：技能耗血、血越少回得越多 =====================
+
+/// 一个技能耗多少：当前生命的 `COST_PCT`%，至少给她留 1 点。
+pub fn cast_cost(hp: usize) -> usize {
+    (hp * COST_PCT / 100).min(hp.saturating_sub(1))
+}
+
+/// 这一次回多少：主包的 `flat` + `ratio`% 攻击力，按已损生命放大（满血 +0%，空血 +`MEND_MAX`%）。按百分之一点算再取整：
+/// 满血时和数据的 `Heal` 一样（1 + 1% × 150 攻击 = 2.5 -> 2），流血一跳这样的小数也吃得到放大（半血 2.5 × 1.2 = 3）。
+pub fn mended(flat: usize, ratio: usize, attack: usize, hp: usize, max: usize) -> usize {
+    let missing = if max == 0 { 0 } else { (max - hp.min(max)) * 100 / max };
+    (flat * 100 + ratio * attack) * (100 + MEND_MAX * missing / 100) / 10_000
+}
+
+/// 副本里每个技能出手时：扣当前生命的 `COST_PCT`%（直接改生命：不是伤害，不被护盾挡）。
+fn cost(sim: &mut StableSim<'_>, me: usize, _: InputTargetV1) {
+    let Some(hp) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp().0) else { return };
+    let cost = cast_cost(hp);
+    if cost > 0 {
+        sim.entity_set_hp(me, hp - cost);
+    }
+    if let Some(k) = noted("cost", on_screen(sim)) {
+        wlog(format!("{} COST: {cost} of {hp} hp #{k}", head(sim, me)));
+    }
+}
+
+/// 副本里她自己的回血（主包的 `Heal` 换成这个）：按已损生命放大后回给她。
+fn mend(sim: &mut StableSim<'_>, me: usize, what: &'static str, (flat, ratio): (usize, usize)) {
+    let Some(e) = sim.get_entity(me).filter(|e| e.is_alive()) else { return };
+    let ((hp, max), attack) = (e.hp(), e.stat().attack);
+    let heal = mended(flat, ratio, attack, hp, max);
+    if heal > 0 {
+        sim.heal(me, me, heal);
+    }
+    // the bleed ticks several times a second: only the bigger heals are logged
+    if what != "bleed" {
+        if let Some(k) = noted("mend", on_screen(sim)) {
+            wlog(format!("{} MEND {what}: {heal} at {hp}/{max} hp ({} + {}% of {attack} AD at full health) #{k}",
+                         head(sim, me), flat, ratio));
+        }
+    }
+}
+
+struct Step(fn(&mut StableSim<'_>, usize, InputTargetV1));
+impl StableEffectType for Step {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        (self.0)(sim, caster, input);
+    }
+}
+
+/// One of her three heals (its name for the log, the main pack's flat amount and AD ratio). The AI is told what the
+/// data's `Heal` told it - the amount at full health - so the copy's actions score as the main pack's do.
+struct Mend(&'static str, (usize, usize));
+impl StableEffectType for Mend {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        mend(sim, caster, self.0, self.1);
+    }
+
+    fn expected_heal(&self, caster_stat: &StatV1) -> usize {
+        mended(self.1 .0, self.1 .1, caster_stat.attack, 1, 1)
+    }
 }
 
 // ===================== 被动 =====================
@@ -331,7 +410,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Briar's E stuns on walls, her frenzy locks on, her ult lasts while the prey lives) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Briar's E stuns on walls, her frenzy locks on, her ult lasts while the prey lives, her abilities cost health and she heals more the lower she is) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -339,6 +418,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:frenzy"), Frenzy::default());
+    module.add_native_effect(format!("{ID}:cost"), Step(cost));
+    module.add_native_effect(format!("{ID}:mend_bleed"), Mend("bleed", MEND_BLEED));
+    module.add_native_effect(format!("{ID}:mend_snack"), Mend("snack", MEND_SNACK));
+    module.add_native_effect(format!("{ID}:mend_scream"), Mend("scream", MEND_SCREAM));
     module.add_player_input_ai(Lock::default());
     host.log(LogLevel::Info, "league_briar_frenzy v1 loaded (Briar: wall stun, frenzy lock, ult on the prey).");
 }
@@ -382,6 +465,46 @@ mod tests {
         assert_eq!(logged.len(), LOG_FIRST + 3);
         assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
         assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    /// 0.1.4: Crimson Curse's other half - 5% of current health a cast, healing up to 40% more by missing health.
+    #[test]
+    fn a_cast_costs_health_but_never_her_last_point() {
+        assert_eq!(cast_cost(1000), 50);
+        assert_eq!(cast_cost(100), 5);
+        assert_eq!(cast_cost(19), 0, "5% of 19 rounds to nothing");
+        assert_eq!(cast_cost(1), 0);
+        assert_eq!(cast_cost(0), 0);
+    }
+
+    #[test]
+    fn the_lower_she_is_the_more_she_heals() {
+        // full health: the data's own heal (1 + 1% of 150 AD = 2.5 -> 2; Snack Attack 20 + 20% of 150 = 50)
+        assert_eq!(mended(1, 1, 150, 1000, 1000), 2);
+        assert_eq!(mended(20, 20, 150, 1000, 1000), 50);
+        // half health: +20%
+        assert_eq!(mended(1, 1, 150, 500, 1000), 3);
+        assert_eq!(mended(20, 20, 150, 500, 1000), 60);
+        // nearly dead: +40% at most
+        assert_eq!(mended(20, 20, 150, 0, 1000), 70);
+        assert_eq!(mended(6, 4, 150, 100, 1000), 16);   // 12 x 1.36
+        // more health than her maximum (a buff ran out), or no maximum at all: no bonus, no panic
+        assert_eq!(mended(20, 20, 150, 1200, 1000), 50);
+        assert_eq!(mended(20, 20, 150, 0, 0), 50);
+        // what the AI is told: the heal at full health, the data's own number
+        let stat = StatV1 { attack: 150, ..StatV1::default() };
+        assert_eq!(Mend("snack", MEND_SNACK).expected_heal(&stat), 50);
+        assert_eq!(Mend("scream", MEND_SCREAM).expected_heal(&stat), 12);
+    }
+
+    #[test]
+    fn the_copy_pays_and_mends_natively() {
+        let copy = include_str!("../override/league_briar.data_champion");
+        for r in ["cost", "mend_bleed", "mend_snack", "mend_scream"] {
+            assert!(copy.contains(&format!("\"effect_ref\": \"{ID}:{r}\"")), "the copy never calls {ID}:{r}");
+        }
+        assert!(!copy.contains("\"type\": \"Heal\""), "a data Heal is left in the copy");
+        assert_eq!(copy.matches(&format!("\"effect_ref\": \"{ID}:cost\"")).count(), 3, "one cost a skill");
     }
 
     #[test]

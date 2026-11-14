@@ -83,14 +83,20 @@ RESTYLE = {
     # = 2.9 -> 3, 11.5 x 1.98 x (1 / 0.95 - 1 / 1.05) = 2.3 -> 2; faces x 1.00 / 1.15 and x 0.95 / 1.05 about the soles
     # then (game 0.6.4, 2026-10-14) 「铁男模型太小」「铁男到110%吧」: Mordekaiser 110 % - 11 x 2.0 x (1 / 1.10 - 1 / 1.15)
     # = 0.9 -> 1 square down from the 115 % frames, face (1, -27) x 1.10 about the soles
+    # palette_fit (2026-11-14, E's in-betweens from his own frames): the crisp palette still fit on E's three drawn frames
+    # as they were (rig_braum.py's orig strip before them), so no other frame of his changes colour
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
+                  palette_fit={"skill2": "braum/skill2_palette_orig"},
                   lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(2, -40)),  # (a hair under: the pivot's row keeps its square)
     # 「铁男的走路步伐感觉有点大啊」: Codex's run had the soles 42 and 47.5 game px apart in its two striding frames (the
     # idle's 31), brought together here (narrow) until 2026-10-22; the run rig_mordekaiser.py draws since (「铁男的走路也要
     # 改」: League's walk on the stand's own leg armour) keeps them within RUN_SPAN itself. palette_fit: the crisp palette
-    # still fit on Codex's run as it was (its four frames, unnarrowed), so no other frame of his changes colour
+    # still fit on Codex's run as it was (its four frames, unnarrowed), so no other frame of his changes colour; and on
+    # each in-between tag's frames as they were before its in-betweens (rig_mordekaiser.py KEYS, 2026-11-14)
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
-                        palette_fit={"run": "mordekaiser/codex_run/run_palette_orig"},
+                        palette_fit={"run": "mordekaiser/codex_run/run_palette_orig",
+                                     **{t: f"mordekaiser/palette_keys/mordekaiser_{t}"
+                                        for t in ("attack", "skill", "skill2", "ult", "dead")}},
                         crisp=dict(contrast=1.0, keep="teal"),
                         face_to=(-1, -42)),   # helmet and eyes ((1, -30) cropped his chest, 2026-10-20)
     # 「飞机像泽丽那样变大点」
@@ -675,7 +681,10 @@ RESTYLE = {
     # 2026-11-11: 85 % in game (「亚恒模型在局内偏大了」, hd.rs SIZES): 11.5 x 1.75 x (1 / 0.85 - 1) = 3.6 -> 4 squares
     # lower; the face point x 0.85 from the soles (1, -41 -> -35). Written by moving his committed strips 4 rows down
     # (this table's other steps now close more pinholes than when they were made), so a rerun lands them here too
-    "zaahen": dict(ppu=1.75, edge=1, pinholes=True, lift_sq=-4, face_to=(1, -35)),
+    # 2026-11-14: that move kept every frame's size and moved its picture 4 rows down inside it; lift_sq moves the
+    # pivot before the frame is sized, so a rerun came out up to 2 rows shorter and shifted: drop_sq does the move
+    # itself (after the frame is sized), and the pipeline reproduces the committed strips byte for byte
+    "zaahen": dict(ppu=1.75, edge=1, pinholes=True, drop_sq=4, face_to=(1, -35)),
     # Lee Sin (2026-10-26, 「下一个英雄重做盲僧」): Codex's picture traced from his sprite read on its own squares (68 x 86,
     # design_leesin_hd.py: 86 rows / 2.1 = his 41); every action Codex's whole-frame redraw of his old frame read onto
     # the design at the zoom his head gives (tools/art/casts_leesin_hd.py), so no density change
@@ -1456,6 +1465,8 @@ def close_pinholes(grown, n, colour, most=2, before=None):
         now, _ = ndimage.label(~op)
         outside = now == now[0, 0]
     for j, sz in enumerate(sizes, 1):
+        if sz > most and before is None:               # a see-through gap of the pose: left open (the rule before
+            continue                                   # `before` came in - league_skarner's arched tails, rumble, zaahen)
         h = lb == j
         if sz > most and before is not None and (h & open_before).any():
             way = way_out(h, ring, outside)
@@ -1970,10 +1981,22 @@ def restyle(hero, spec, write=True, only=None):
 EXACT = ("idle", "idle_base")
 
 
+def dropped(f, n):
+    """A sized frame's picture moved n rows down inside it (drop_sq: league_zaahen's 85 %, done on his committed strips
+    by hand on 2026-11-11); a picture that would lose a row at the bottom gets n clear rows more at both ends first,
+    so its pivot stays the frame's centre."""
+    if (f[-n:, :, 3] > 0).any():
+        f = np.pad(f, ((n, n), (0, 0), (0, 0)))
+    out = np.zeros_like(f)
+    out[n:] = f[:-n]
+    return out
+
+
 def framed(hero, out, sheet, new_ppu):
     """The restyled frames on their frames (the 1x idle padded where the idle needs more width). -> ({tag: frames},
     pad columns)."""
     k = new_ppu
+    drop = RESTYLE.get(hero, {}).get("drop_sq", 0)
     pad = 0
     while True:
         ok, res = True, {}
@@ -1988,6 +2011,8 @@ def framed(hero, out, sheet, new_ppu):
                 if f is None:
                     ok = False
                     break
+                if drop:
+                    f = dropped(f, drop)
                 frames.append((f, ms))
             if not ok:
                 break

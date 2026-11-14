@@ -7,6 +7,9 @@ redraw of his old frame read onto it at the median of the zooms his height, his 
 The old frames that repeat another (pack_twistedfate_actions.SAME) take that drawing; idle_base is the design held still (the
 idle is hero_reels' reel of action snippets). Skill's native body cells drawn and Q's card fan baked back on; attack_fx1 the copy twistedfate_bake.json makes (rig_akali_hd's frames()). The idle and the ban/pick card are cut from the actions by
 tools/art/hero_reels.py.
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「能改就想办法改 全都要改」): W's start gets his throwing arm on its way out (turned about the shoulder), the gate's channel
+the back panel of his coat flaring up and down by whole columns (INB) - everything else of a cast checked unchanged.
 
     python tools/art/rig_twistedfate_hd.py --review DIR     # every tag at 3x + GIFs
     python tools/art/rig_twistedfate_hd.py                  # orig strips + the 1x sheet
@@ -26,6 +29,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_twistedfate_hd as CA  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pack_twistedfate_actions as PK  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_rengar_hd as RG  # noqa: E402
@@ -88,6 +92,37 @@ def pad_for(D, casts):
     return left, right, top, 6
 
 
+# The in-betweens (2026-11-14: W's start - the kit's 10 ticks, 167 ms - was two drawings, the gate's 1.5 s channel the
+# crouch and then one drawing held five times, 1250 ms): INB tag -> ([(cast, how)], ms), how None (the cast as it is) or
+# ("spin", part, (x, y), degrees clockwise) / ("sway", part, x0, x1, k, attach) on INB_PARTS (boxes in the cast's own
+# squares; inbetween.vary: the part's root under the rest of him, every other square checked unchanged). W: the arm
+# thrown out turned 45 deg down about the corner where it leaves the coat (half way from the hip). The gate: the coat's
+# back panel behind his legs lifted at its free end 2 / 4 rows (only up: lowered, its top would part from the coat above
+# it), 125 ms a picture, still 1500 in all.
+VPAD = 30
+INB_PARTS = {"skill2_2": {"arm": [(47, 49, 73, 64)]}, "ult_gate_2": {"coat": [(2, 76, 21, 97)]}}
+_FLARE = {k: ("sway", "coat", 2, 21, k, "right") for k in (2, 4)}
+INB = {"skill2": ([("skill2_1", None), ("skill2_2", ("spin", "arm", (47.0, 51.0), 45)), ("skill2_2", None)],
+                  IB.spans((167, 3))),
+       "ult_gate": ([("ult_gate_1", None)] + [("ult_gate_2", _FLARE.get(k)) for k in (0, 2, 4, 2, 0, 2, 4, 2, 0, 2)],
+                    IB.spans((250, 1), *[(125, 1)] * 10))}
+
+
+def inb_frame(rig, casts, name, how):
+    """A cast on the grid, varied by `how` (INB) when it is not None."""
+    d, x, y = casts[name]
+    if how:
+        kind, part = how[0], how[1]
+        o = tuple(int(v) for v in rig.D.outline)
+        if kind == "spin":
+            d = IB.vary(d, {part: INB_PARTS[name][part]}, o, spins=[(part, how[2], how[3], "under")], pad=VPAD,
+                        name=f"{name} {how}")
+        else:
+            d = IB.vary(d, {part: INB_PARTS[name][part]}, o, sway=[(part, *how[2:])], pad=VPAD, name=f"{name} {how}")
+        x, y = x - VPAD, y - VPAD
+    return RG.on_grid(rig, d, x, y)
+
+
 def body_timing(tag, sheet):
     """The frames' durations before the bake: a baked tag's native cells', else the sheet's (rig_akali_hd's)."""
     if tag in PK.BAKED:
@@ -109,6 +144,9 @@ def frames(rig, casts):
         ms = body_timing(tag, sheet) if tag != "idle_base" else [m for _, m in sheet[tag]]
         if tag == "idle_base":
             fr = [RG.on_grid(rig, rig.D.d0, 0, 0) for _ in ms]             # (held still: the design)
+        elif tag in INB:
+            seq, ms = INB[tag]
+            fr = [inb_frame(rig, casts, n, h) for n, h in seq]
         else:
             fr = []
             for k in range(1, len(ms) + 1):
@@ -124,7 +162,7 @@ def frames(rig, casts):
     acts = rig.bake(out)
     acts["idle"] = list(acts["idle_base"])
     for t in sheet:
-        if t in ("idle", "bp"):
+        if t in ("idle", "bp") or t in INB:                    # (the in-betweens' tags: their own frames)
             continue
         if t not in acts or [round(m) for _, m in acts[t]] != [round(m) for _, m in sheet[t]]:
             sys.exit(f"{t}: frames or timing differ from the sheet")

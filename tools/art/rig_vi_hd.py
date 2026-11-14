@@ -7,6 +7,9 @@ redraw of her old frame read onto it at the median of the zooms her height, her 
 The old frames that repeat another (pack_vi_actions.SAME) take that drawing; idle_base is the design held still (the
 idle is hero_reels' reel of action snippets). Skill_dash's native body cells drawn and Q's dash picture baked back on; skill_fx1 / ult_fx1 the copies vi_bake.json makes (rig_akali_hd's frames()). The idle and the ban/pick card are cut from the actions by
 tools/art/hero_reels.py.
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「能改就想办法改 全都要改」): Q's charge and R's dash get a frame after each drawing with her hair waved by whole columns (INB),
+everything else of the picture checked unchanged.
 
     python tools/art/rig_vi_hd.py --review DIR     # every tag at 3x + GIFs
     python tools/art/rig_vi_hd.py                  # orig strips + the 1x sheet
@@ -26,6 +29,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_vi_hd as CA  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pack_vi_actions as PK  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_rengar_hd as RG  # noqa: E402
@@ -88,6 +92,72 @@ def pad_for(D, casts):
     return left, right, top, 6
 
 
+# The in-betweens (2026-11-14: R's cast is the kit's 8 ticks, 133 ms in two frames - a third would be under 50 ms -, so
+# the eye stays on the dash after it, six running drawings at 125 ms; Q's charge was four drawings at 125 ms): after
+# each drawing the same drawing with her hair (by its own colours inside WAVE's box - her armour's pink stripes lie
+# outside it -, with the outline squares that edge only hair or air) waved by whole columns, nothing at the column where
+# it leaves her head and k rows at its free end (positive: lifted): Q's hair flares up 4 as she charges, the dash's
+# swings 4 lower (one frame 4 higher: lowered, its tip would come apart) - hair under her raised arm only moves away
+# from it. INB: tag -> ([(cast, waved)], ms). Q keeps its drawings at 0 / 125 / 250 / 375 and puts its in-betweens on
+# vi_bake.json's own boundaries (its charge effect changes every 100 ms), so skill_fx1 gets no piece under 50 ms that it
+# did not have; the dash keeps its 125 ms a drawing.
+VPAD = 30
+HAIR = [(232, 54, 124), (249, 100, 164), (205, 40, 105), (170, 27, 83), (141, 19, 67), (116, 16, 56), (176, 60, 102),
+        (91, 17, 47)]
+WAVE = {"skill_1": ((4, 0, 26, 25), 8, 26, 4), "skill_2": ((0, 0, 23, 26), 4, 23, 4),
+        "skill_3": ((0, 0, 19, 33), 0, 19, 4), "skill_4": ((0, 0, 20, 26), 0, 20, 4),
+        "ult_dash_1": ((0, 0, 49, 41), 0, 49, -4), "ult_dash_2": ((0, 0, 35, 36), 0, 35, -4),
+        "ult_dash_3": ((0, 0, 40, 34), 0, 40, -4), "ult_dash_4": ((0, 0, 36, 34), 0, 36, -4),
+        "ult_dash_5": ((0, 0, 39, 34), 0, 39, 4), "ult_dash_6": ((0, 0, 41, 36), 0, 41, -4)}
+INB = {"skill": ([(f"skill_{k}", w) for k in range(1, 5) for w in (False, True)],
+                 IB.spans((125, 2, [2, 3]), (125, 2, [3, 2]), (125, 2, [2, 3]), (125, 2, [3, 2]))),
+       "ult_dash": ([(f"ult_dash_{k}", w) for k in range(1, 7) for w in (False, True)], IB.spans(*[(125, 2)] * 6))}
+
+
+def hair_in(d, box):
+    """Her hair's squares inside the box (x0, y0, x1, y1): its colours, and the near-black squares edging them where
+    nothing but hair, outline and air is next to them (the hair's outline, two or three squares thick in places; a line
+    between the hair and something else stays with that)."""
+    x0, y0, x1, y1 = box
+    rgb, op = d[..., :3].astype(int), d[..., 3] > 0
+    inb = np.zeros(op.shape, bool)
+    inb[max(0, y0):y1 + 1, max(0, x0):x1 + 1] = True
+    hair = op & inb & np.any([(rgb == c).all(-1) for c in HAIR], axis=0)
+    dark = op & inb & (IB.lum(d[..., :3]) < IB.DARK)
+    other = op & ~hair & ~dark
+    near = lambda m: np.pad(m, 1)[2:, 1:-1] | np.pad(m, 1)[:-2, 1:-1] | np.pad(m, 1)[1:-1, 2:] | np.pad(m, 1)[1:-1, :-2]
+    inc = hair.copy()
+    for _ in range(3):
+        add = dark & near(inc) & ~near(other) & ~inc
+        if not add.any():
+            break
+        inc |= add
+    return inc
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y), boxes for inbetween.vary."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
+def hair_waved(rig, casts, name, waved):
+    """A cast on the grid, its hair waved (WAVE) when `waved` (inbetween.vary: the rest checked unchanged)."""
+    d, x, y = casts[name]
+    if waved:
+        box, x0, x1, k = WAVE[name]
+        d = IB.vary(d, {"hair": runs(hair_in(d, box))}, tuple(int(v) for v in rig.D.outline),
+                    sway=[("hair", x0, x1, k, "right")], pad=VPAD, name=f"{name} hair {k}")
+        x, y = x - VPAD, y - VPAD
+    return RG.on_grid(rig, d, x, y)
+
+
 def body_timing(tag, sheet):
     """The frames' durations before the bake: a baked tag's native cells', else the sheet's (rig_akali_hd's)."""
     if tag in PK.BAKED:
@@ -101,7 +171,8 @@ def frames(rig, casts):
     effects on again (rig.bake) and makes its copies (the *_fx1 tags), as the 1x sheet was made."""
     sheet = R.sheet_of(HERO)
     with open(R.lp(os.path.join(R.ROOT, "assets", "source", "native", f"{HERO}_bake.json")), encoding="utf-8") as f:
-        copies = {e["into"] for e in json.load(f)["items"] if "from" in e}
+        src = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
+    copies = set(src)
     out = {}
     for tag in sheet:
         if tag in ("idle", "bp") or tag in copies:
@@ -109,6 +180,9 @@ def frames(rig, casts):
         ms = body_timing(tag, sheet) if tag != "idle_base" else [m for _, m in sheet[tag]]
         if tag == "idle_base":
             fr = [RG.on_grid(rig, rig.D.d0, 0, 0) for _ in ms]             # (held still: the design)
+        elif tag in INB:
+            seq, ms = INB[tag]
+            fr = [hair_waved(rig, casts, n, w) for n, w in seq]
         else:
             fr = []
             for k in range(1, len(ms) + 1):
@@ -124,7 +198,7 @@ def frames(rig, casts):
     acts = rig.bake(out)
     acts["idle"] = list(acts["idle_base"])
     for t in sheet:
-        if t in ("idle", "bp"):
+        if t in ("idle", "bp") or t in INB or src.get(t) in INB:      # (the in-betweens' tags: their own frames)
             continue
         if t not in acts or [round(m) for _, m in acts[t]] != [round(m) for _, m in sheet[t]]:
             sys.exit(f"{t}: frames or timing differ from the sheet")

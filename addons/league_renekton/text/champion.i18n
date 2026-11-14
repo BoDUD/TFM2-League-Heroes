@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_renekton": {
-        "attack": "【低血怒气测试版】近战挥砍。被动<#ff9028ff>怒之领域<>：普攻和技能命中积攒怒气（最多5层，<#ffb900ff>8秒<>没积攒就清空）；满层时下一个技能被强化并耗尽怒气。生命低于<#ffb900ff>50%<>时怒气积攒+50%。"
+        "attack": "【低血怒气测试版】近战挥砍。被动<#ff9028ff>怒之领域<>：普攻和技能命中积攒怒气（最多5层，<#ffb900ff>8秒<>没积攒就清空）；满层时下一个技能被强化并耗尽怒气。生命低于<#ffb900ff>50%<>时怒气积攒+50%。",
+        "skill2": "冲过敌方英雄造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，接<#ff9028ff>冷酷捕猎<>：连砍两刀，<#ef5350ff>眩晕<><#ffb900ff>0.75秒<>（强化三刀、<#ffb900ff>1.5秒<>，第一刀打碎护盾）；Q 好了接 Q，再冲一次，强化时削甲25%。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_renekton": {
-        "attack": "【殘血怒氣測試版】近戰揮砍。被動<#ff9028ff>怒不可遏<>：普攻和技能命中累積怒氣（最多5層，<#ffb900ff>8秒<>沒累積就清空）；滿層時下一個技能被強化並耗盡怒氣。生命低於<#ffb900ff>50%<>時怒氣累積+50%。"
+        "attack": "【殘血怒氣測試版】近戰揮砍。被動<#ff9028ff>怒不可遏<>：普攻和技能命中累積怒氣（最多5層，<#ffb900ff>8秒<>沒累積就清空）；滿層時下一個技能被強化並耗盡怒氣。生命低於<#ffb900ff>50%<>時怒氣累積+50%。",
+        "skill2": "衝過敵方英雄造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，接<#ff9028ff>庖丁解牛<>：連砍兩刀，<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>（強化三刀、<#ffb900ff>1.5秒<>，第一刀打碎護盾）；Q 好了接 Q，再衝一次，強化時削甲25%。"
       }
     }
   },
   "en": {
     "description": {
       "league_renekton": {
-        "attack": "[Low-health Fury test build] Melee slashes. Passive <#ff9028ff>Reign of Anger<>: hits build Fury (up to 5 stacks, lost after <#ffb900ff>8s<> without a gain); at full Fury his next skill is empowered and spends it. Below <#ffb900ff>50%<> health he builds Fury 50% faster."
+        "attack": "[Low-health Fury test build] Melee slashes. Passive <#ff9028ff>Reign of Anger<>: hits build Fury (up to 5 stacks, lost after <#ffb900ff>8s<> without a gain); at full Fury his next skill is empowered and spends it. Below <#ffb900ff>50%<> health he builds Fury 50% faster.",
+        "skill2": "Dashes through an enemy champion for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, then <#ff9028ff>Ruthless Predator<>: two strikes and a <#ef5350ff>stun<> of <#ffb900ff>0.75s<> (empowered: three, <#ffb900ff>1.5s<>, the first breaking shields); Q if ready, then a second dash that, empowered, shreds 25% armour."
       }
     }
   },
   "ko": {
     "description": {
       "league_renekton": {
-        "attack": "[빈사 분노 테스트판] 근접 베기. 기본 지속 효과 <#ff9028ff>분노의 지배<>: 공격과 스킬 적중으로 분노 축적(최대 5중첩, <#ffb900ff>8초<> 동안 쌓지 않으면 사라짐). 가득 차면 다음 스킬이 강화되고 분노를 소모. 체력이 <#ffb900ff>50%<> 미만이면 분노 획득 +50%."
+        "attack": "[빈사 분노 테스트판] 근접 베기. 기본 지속 효과 <#ff9028ff>분노의 지배<>: 공격과 스킬 적중으로 분노 축적(최대 5중첩, <#ffb900ff>8초<> 동안 쌓지 않으면 사라짐). 가득 차면 다음 스킬이 강화되고 분노를 소모. 체력이 <#ffb900ff>50%<> 미만이면 분노 획득 +50%.",
+        "skill2": "적 챔피언을 관통 돌진해 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, 이어서 <#ff9028ff>무자비한 포식자<>: 2회 베기와 <#ffb900ff>0.75초<> <#ef5350ff>기절<>(강화: 3회, <#ffb900ff>1.5초<>, 첫 베기가 보호막 파괴). Q가 있으면 Q, 다시 돌진, 강화 시 방어력 25% 감소."
       }
     }
   },
   "ja": {
     "description": {
       "league_renekton": {
-        "attack": "【瀕死憤怒テスト版】近接斬撃。パッシブ <#ff9028ff>激情の支配<>：攻撃とスキルの命中で憤怒を蓄積（最大5スタック、<#ffb900ff>8秒<>増えないと消失）。最大で次のスキルが強化され憤怒を消費。体力<#ffb900ff>50%<>未満で憤怒の蓄積+50%。"
+        "attack": "【瀕死憤怒テスト版】近接斬撃。パッシブ <#ff9028ff>激情の支配<>：攻撃とスキルの命中で憤怒を蓄積（最大5スタック、<#ffb900ff>8秒<>増えないと消失）。最大で次のスキルが強化され憤怒を消費。体力<#ffb900ff>50%<>未満で憤怒の蓄積+50%。",
+        "skill2": "敵チャンピオンを突き抜け<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>、続けて<#ff9028ff>メッタ斬り<>：2回斬り<#ffb900ff>0.75秒<><#ef5350ff>スタン<>（強化：3回、<#ffb900ff>1.5秒<>、初撃でシールド破壊）。Qがあれば Q、再突進、強化で物防25%低下。"
       }
     }
   }

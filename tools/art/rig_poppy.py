@@ -16,6 +16,12 @@ pivots; nothing is drawn again at another angle.
 Parts: the hammer (a rigid prop, laid once straight - see HAFT), the near fist (drawn over the haft), the near forearm,
 the near and far lower legs (the copper knee guards and the boots, rows LEG_TOP on: they part there); the rest is the
 body (the head and pigtails, the far arm with its fist at her waist, the armour, the hips).
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「能改就想办法改 全都要改」): the same straight hammer turned about her fist by any angle (inbetween.spin, RotSprite's way:
+only its own colours, the outline closed again) for the frames between its quarter turns - on its way from overhead to
+forward, dipping on past it as a blow lands, bouncing off the ground after a slam, on its way back down to standing,
+trailing up and down behind her in the charge; the fist, the forearm and the grip part of the way between the two key
+poses. Nothing of her body is drawn again.
 """
 import argparse
 import os
@@ -28,6 +34,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet  # noqa: E402
 
@@ -65,6 +72,7 @@ HEAD = (41, 54, 0, 15)                # the flanges' lower rows and the head, mo
 HEAD_DX = -1
 RED, DARK = (206, 40, 47), (145, 20, 31)
 GRIP = (6.0, 30.5)                    # the fist's middle on the haft (the hammer turns about it)
+SPIN_AT = [(6.5, 30.5), (6.5, 30.5), (6.0, 30.5), (6.0, 31.0)]   # where rot 0-3 really turn it (Form.hammer_at)
 FIST = [(range(28, 33), (4, 9)), ((33,), (7, 9))]
 FOREARM = [((31,), (10, 15)), ((32,), (10, 15)), ((33,), (10, 15)), ((34,), (8, 16)), ((35,), (10, 16)),
            ((36,), (12, 16)), ((37,), (13, 16))]
@@ -153,12 +161,26 @@ class Form:
             self._ham[key] = lay
         return self._ham[key]
 
+    def hammer_at(self, deg, grip=GRIP[1]):
+        """The in-betweens' hammer: as hammer() but turned `deg` degrees counter-clockwise, any angle (90 = rot 1),
+        RotSprite's way (inbetween.spin on the straight hammer). The quarter turns' floor puts each about its own point
+        (rot 1 about the square centre GRIP + (0.5, 0), rot 2 about GRIP, rot 3 about GRIP + (0, 0.5): SPIN_AT), so an
+        angle between two of them turns about the point between theirs - the haft does not jump half a square."""
+        key = ("deg", deg, grip)
+        if key not in self._ham:
+            src = np.roll(self.L["hammer"], int(round(GRIP[1] - grip)), axis=0)
+            q, t = int(deg % 360 // 90), (deg % 90) / 90.0
+            (x0, y0), (x1, y1) = SPIN_AT[q], SPIN_AT[(q + 1) % 4]
+            about = (P + x0 + (x1 - x0) * t, P + y0 + (y1 - y0) * t)
+            self._ham[key] = IB.spin(src, src[..., 3] > 0, about, -deg, tuple(int(v) for v in self.D.outline), pad=0)
+        return self._ham[key]
+
     def pose(self, crouch=0, whole=(0, 0), fist=(0, 0), arm=(0, 0), rot=0, grip=GRIP[1], ham=None, legs=None,
-             leg_layers=None, no_hammer=False, hammer_over=False, fill=True):
+             leg_layers=None, no_hammer=False, hammer_over=False, fill=True, deg=None):
         """crouch: rows the body (with the arm and fist) sets down onto the lower legs; whole: the whole figure; fist /
         arm: the near fist and forearm moved (the fist carries the hammer); rot / grip: the hammer turned about the
         fist / slid in it; ham: the hammer moved apart from the fist (it stands on the ground while she crouches);
-        legs: ((near dx, dy), (far dx, dy))."""
+        legs: ((near dx, dy), (far dx, dy)); deg: the hammer turned by any angle instead of rot (hammer_at)."""
         if crouch < 0:
             raise ValueError("the body never lifts off the legs")
         wx, wy = whole
@@ -168,7 +190,8 @@ class Form:
         legs_l = leg_layers if leg_layers is not None else [(L["far_leg"], dict(dx=wx + flx, dy=wy + fly)),
                                                              (L["near_leg"], dict(dx=wx + nlx, dy=wy + nly))]
         hx, hy = (ux + fist[0], uy + fist[1]) if ham is None else (wx + ham[0], wy + ham[1])
-        ham_l = [] if no_hammer else [(self.hammer(rot, grip), dict(dx=hx, dy=hy))]
+        ham = self.hammer(rot, grip) if deg is None else self.hammer_at(deg, grip)
+        ham_l = [] if no_hammer else [(ham, dict(dx=hx, dy=hy))]
         layers = [*([] if hammer_over else ham_l), *legs_l, (L["body"], dict(dx=ux, dy=uy)),
                   (L["forearm"], dict(dx=ux + arm[0], dy=uy + arm[1])), *(ham_l if hammer_over else []),
                   (L["fist"], dict(dx=ux + fist[0], dy=uy + fist[1]))]
@@ -216,10 +239,36 @@ def up(dy=0):
     return dict(rot=2, grip=RAISE, fist=(0, dy), arm=(0, dy))
 
 
+def mid(a, b, deg, t=0.5, **kw):
+    """An in-between of the hammer's swing from the pose a to the pose b (dicts as up() / fwd() / BACK give): the hammer
+    at `deg` degrees (Form.hammer_at), the fist, the forearm and the grip t of the way from a's to b's (whole squares /
+    rows); kw adds crouch, whole, hammer_over, or sets the grip itself."""
+    lerp = lambda u, v: int(round(u + (v - u) * t))
+    fa, fb = a.get("fist", (0, 0)), b.get("fist", (0, 0))
+    aa, ab = a.get("arm", (0, 0)), b.get("arm", (0, 0))
+    ga, gb = a.get("grip", GRIP[1]), b.get("grip", GRIP[1])
+    out = dict(deg=deg, fist=(lerp(fa[0], fb[0]), lerp(fa[1], fb[1])), arm=(lerp(aa[0], ab[0]), lerp(aa[1], ab[1])),
+               grip=ga + (gb - ga) * t)
+    out.update(kw)
+    return out
+
+
+def turned(pose_kw, deg):
+    """A key pose with only its hammer turned to `deg` degrees (a blow dipping on past level, a bounce off the ground)."""
+    out = {k: v for k, v in pose_kw.items() if k != "rot"}
+    out["deg"] = deg
+    return out
+
+
 # ms per frame; the kit's ticks (tools/kit/build_poppy.py) come from these: the attack's blow at 200 ms (tick 12,
 # frame 3), Q's slam at 200 ms (q_rel 12), R's swing 133 ms after the charge (r_rel 8), the tap's at 133 (r_tap_rel 8)
-MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [90, 110, 120, 60, 53], "skill": [100, 100, 140, 127],
-      "skill2": [90, 90, 87], "ult_charge": [83, 84] * 4, "ult": [70, 63, 120, 114], "ult_tap": [133, 120, 80],
+# The in-betweens (2026-11-14): each span shared out over more frames (inbetween.spans: whole ms, none under 50), so
+# every action is as long as it was and its blow still lands on its millisecond (200, 200, 133, 133); E (e_anim 16 ticks,
+# the charge moves her - no tick on a frame) is shared out evenly.
+MS = {"idle": [150] * 8, "run": [100] * 8, "attack": IB.spans((90, 1), (110, 2), (180, 2, [2, 1]), (53, 1)),
+      "skill": IB.spans((100, 1), (100, 2), (140, 2), (127, 2)), "skill2": IB.spans((267, 5)),
+      "ult_charge": [83, 84] * 4, "ult": IB.spans((70, 1), (63, 1), (120, 2), (114, 2)),
+      "ult_tap": IB.spans((133, 2), (120, 2), (80, 1)),
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 
 
@@ -232,26 +281,37 @@ def frames_all(F):
     out["idle"] = [p(crouch=c, **stand) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
     # auto attack (League's poppy_attack1/2: a big swing of the hammer): drawn back level at the hip, swung up over
     # her head, down in front of her (the blow, frame 3), held, back upright
-    out["attack"] = [p(whole=(-1, 0), **BACK), p(**up(-2)), p(crouch=1, whole=(2, 0), **fwd()),
-                     p(crouch=1, whole=(2, 0), **fwd()), p()]
+    # (in-betweens: the hammer on its way from overhead to forward, and dipping on past level as the blow lands)
+    out["attack"] = [p(whole=(-1, 0), **BACK), p(**up(-2)), p(crouch=1, whole=(1, 0), **mid(up(-2), fwd(), 135)),
+                     p(crouch=1, whole=(2, 0), **fwd()), p(crouch=1, whole=(2, 0), **turned(fwd(), 75)), p()]
     # Q Hammer Shock (League's poppy_spell1: the hammer swung high and slammed into the ground in front of her):
     # raised, higher, the slam - crouched low, the head in front at her knees - and up
-    out["skill"] = [p(crouch=1, **up(-1)), p(**up(-3)), p(crouch=3, whole=(2, 0), **fwd(dy=7, ady=3)),
-                    p(crouch=1, whole=(1, 0), **fwd(dy=3, ady=1))]
+    # (in-betweens: on its way down, bouncing off the ground, on its way back down to standing)
+    slam, rise = fwd(dy=7, ady=3), fwd(dy=3, ady=1)
+    out["skill"] = [p(crouch=1, **up(-1)), p(**up(-3)), p(crouch=2, whole=(1, 0), **mid(up(-3), slam, 135)),
+                    p(crouch=3, whole=(2, 0), **slam), p(crouch=3, whole=(2, 0), **turned(slam, 100)),
+                    p(crouch=1, whole=(1, 0), **rise), p(crouch=1, whole=(1, 0), **mid(rise, {}, 45, hammer_over=True, grip=GRIP[1]))]
     # E Heroic Charge (League's poppy_spell3: she runs at the target, the hammer level behind her): crouched with the
     # hammer back, the lunge, landing low
-    out["skill2"] = [p(crouch=2, **BACK), p(whole=(3, -1), legs=((1, -1), (1, -1)), **BACK),
-                     p(crouch=2, whole=(4, 0), **BACK)]
+    # (in-betweens: the hammer trailing up as she springs, down as she lands)
+    lunge = dict(whole=(3, -1), legs=((1, -1), (1, -1)))
+    out["skill2"] = [p(crouch=2, **BACK), p(**lunge, **turned(BACK, 250)), p(**lunge, **BACK),
+                     p(crouch=2, whole=(4, 0), **turned(BACK, 290)), p(crouch=2, whole=(4, 0), **BACK)]
     # R Keeper's Verdict: the charge - the hammer whirled round her fist, twice in the charge's 40 ticks (the user,
     # 2026-10-21: 「波比放大招没有转动锤子的动作 你想办法帮我加」 - held high and shaking a row, the charge read as no
     # action at all): overhead, swung forward level, down by her foot, drawn back level, the hammer's own quarter turns
     # about the fist and the attack's / Q's poses, so nothing is redrawn; the release follows from overhead
     out["ult_charge"] = [p(crouch=1, **up(-2)), p(crouch=1, **fwd()), p(), p(crouch=1, **BACK)] * 2
     # the release (Poppy_Spell4_Charged: swung over and forward with all her weight): overhead, forward, held, back
-    out["ult"] = [p(crouch=1, **up(-2)), p(crouch=2, whole=(3, 0), **fwd()), p(crouch=2, whole=(3, 0), **fwd()),
-                  p(crouch=1, whole=(1, 0))]
+    # (in-betweens: on its way over, dipping on past level, on its way back down to standing - the blow at 133 ms now
+    # on the forward frame itself)
+    out["ult"] = [p(crouch=1, **up(-2)), p(crouch=2, whole=(2, 0), **mid(up(-2), fwd(), 135)),
+                  p(crouch=2, whole=(3, 0), **fwd()), p(crouch=2, whole=(3, 0), **turned(fwd(), 76)),
+                  p(crouch=1, whole=(2, 0), **mid(fwd(), {}, 45, hammer_over=True, grip=GRIP[1])), p(crouch=1, whole=(1, 0))]
     # the quick tap (Poppy_Spell4_Instant): raised, the slam low in front (Q's), up
-    out["ult_tap"] = [p(crouch=1, **up(-2)), p(crouch=3, whole=(2, 0), **fwd(dy=7, ady=3)), p(crouch=1)]
+    # (in-betweens: on its way down, bouncing off the ground)
+    out["ult_tap"] = [p(crouch=1, **up(-2)), p(crouch=2, whole=(1, 0), **mid(up(-2), slam, 135)),
+                      p(crouch=3, whole=(2, 0), **slam), p(crouch=3, whole=(2, 0), **turned(slam, 100)), p(crouch=1)]
     out["hit"] = [R.flash(p(whole=(-2, 0), **stand)), p(whole=(-1, 0), **stand)]
 
     # the death (League's poppy_death: the hammer drops and she falls back): staggering, low, the hammer falling away

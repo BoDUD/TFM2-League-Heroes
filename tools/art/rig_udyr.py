@@ -35,6 +35,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 from rig_wukong import CutDesign as _Cut, P, pad  # noqa: E402
 
 HERO = "udyr"
@@ -400,9 +401,12 @@ def feet_mid(d):
     return (xs.min() + xs.max() + 1) / 2
 
 
-def place(S, name, dx=0, lift=0, flash=False):
+def place(S, name, dx=0, lift=0, flash=False, moves=(), sway=()):
     """Pose `name` on stance S's canvas: its head box on the design's head box (a tipped head: its feet's middle on the
-    design's), moved dx squares, its lowest square on the ground row (lift rows over it)."""
+    design's), moved dx squares, its lowest square on the ground row (lift rows over it). The in-betweens
+    (tools/art/inbetween.py vary), the pose placed as it is whole: moves [(part, (dx, dy), how)] - a punching arm
+    (PARTS) slid along itself in under his shoulder; sway [(part, x0, x1, k, attach)] - the phoenix's feathered arms
+    beaten (their columns lifted 0..k rows toward the tips). Everything of the pose in no part is checked unchanged."""
     st = S[POSE_STANCE[name]]
     rig = st.rig
     d, (hx, hy) = load_pose(name)
@@ -414,11 +418,31 @@ def place(S, name, dx=0, lift=0, flash=False):
         left = rig.ox + cx - hx + dx
     ys = np.nonzero((d[..., 3] > 0).any(1))[0]
     top = rig.GY - (ys.max() + 1) - lift
+    if moves or sway:
+        d = IB.vary(d, PARTS[name], st.D.outline, moves, sway, None, None, VPAD, name)
+        left, top = left - VPAD, top - VPAD
     y0, x0 = max(0, top), max(0, left)
     y1, x1 = min(rig.CH, top + d.shape[0]), min(rig.CW, left + d.shape[1])
     can[y0:y1, x0:x1] = d[y0 - top:y1 - top, x0 - left:x1 - left]
     can[rig.GY:] = 0
     return R.flash(can) if flash else can
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): the punching arm of the plain and the
+# phoenix blows (slid along itself in under his shoulder: the punch still on its way, drawn back after it) and the
+# phoenix's two feathered arms in the ult (beaten by their columns, a wing's beat), boxes in the pose picture's own
+# squares, far from his head. Each stance's attack is its own drawing, so there is nothing to derive between stances;
+# the four deaths share the plain poses and are as they were. The bear's swipe (its claw streaks are baked on it) and
+# the ram's hook (its arms cross his horns) are as they were.
+VPAD = 30
+PARTS = {"a_punch": {"arm": [(43, 10, 90, 27)]}, "r_thrust": {"arm": [(60, 28, 130, 52)]},
+         "r_flap": {"lwing": [(0, 5, 28, 30)], "rwing": [(54, 5, 110, 28)]}}
+
+
+def beat(k):
+    """The phoenix's feathered arms beaten: their tips k rows up (negative: down), nothing at the shoulders."""
+    return [("lwing", 0, 28, k, "right"), ("rwing", 54, 79, k, "left")]
 
 
 def design_frame(S, x, dx=0, lift=0, flash=False):
@@ -429,13 +453,17 @@ def design_frame(S, x, dx=0, lift=0, flash=False):
 # ms per frame; the kit's ticks (tools/kit/build_udyr.py) come from these (a frame's start in ticks = ms x 0.06):
 # attacks 30 ticks with the blow on frame 2 (a_hit 9 ticks = 150 ms falls in it), the Q cast 12 ticks, the E cast 10, the
 # stunning blow 24 (its slam frame from 135 ms: e_hit 8), the R cast 24 (the storm's first pulse at 10 = 167 ms, frame 3)
-MS = {"idle": [400, 400], "run": [150] * 4, "attack": [70, 150, 140, 140], "hit": [100, 100],
+#
+# The in-betweens (2026-11-14): the blows' 150 ms after the guard shared out (the punch on its way, landed - the hit at
+# 150 ms falls on the landed frame), the drawn-back frame in the 140 ms after; the ult's three risen frames beat the wings.
+# Every action is as long as it was and its frames still begin on their milliseconds.
+MS = {"idle": [400, 400], "run": [150] * 4, "attack": [70, 75, 75, 140, 140], "hit": [100, 100],
       "dead": [100, 180, 260, 700],
       "q_idle": [400, 400], "q_run": [140] * 4, "q_attack": [70, 150, 140, 140], "skill": [70, 80, 50],
       "q_hit": [100, 100], "q_dead": [100, 180, 260, 700],
       "e_idle": [400, 400], "e_run": [110] * 4, "e_attack": [70, 150, 140, 140], "e_stun": [60, 75, 130, 85, 50],
       "skill2": [90, 77], "e_hit": [100, 100], "e_dead": [100, 180, 260, 700],
-      "r_idle": [400, 400], "r_run": [150] * 4, "r_attack": [70, 150, 140, 140], "ult": [80, 80, 90, 80, 70],
+      "r_idle": [400, 400], "r_run": [150] * 4, "r_attack": [70, 75, 75, 140, 140], "ult": [80, 80, 90, 80, 70],
       "r_hit": [100, 100], "r_dead": [100, 180, 260, 700]}
 
 
@@ -452,11 +480,14 @@ def frames_all(S):
     out["e_run"] = [place(S, n, dx=1) for n in ("e_run1", "e_run2", "e_run3", "e_run4")]
     out["r_run"] = [place(S, n) for n in ("r_run1", "r_run2", "r_run3", "r_run4")]
     # the attacks: the guard, the blow (a lunge forward), held, back to the guard
-    out["attack"] = [design_frame(S, ""), place(S, "a_punch", dx=2), place(S, "a_punch", dx=2), design_frame(S, "")]
+    out["attack"] = [design_frame(S, ""), place(S, "a_punch", dx=2, moves=[("arm", (-8, 0), "under")]),
+                     place(S, "a_punch", dx=2), place(S, "a_punch", dx=2, moves=[("arm", (-4, 0), "under")]),
+                     design_frame(S, "")]
     out["q_attack"] = [place(S, "q_wind", dx=-1), place(S, "q_swipe", dx=2), place(S, "q_swipe", dx=2),
                        design_frame(S, "q_")]
     out["e_attack"] = [design_frame(S, "e_"), place(S, "e_hook", dx=2), place(S, "e_hook", dx=2), design_frame(S, "e_")]
-    out["r_attack"] = [design_frame(S, "r_"), place(S, "r_thrust", dx=2), place(S, "r_thrust", dx=2),
+    out["r_attack"] = [design_frame(S, "r_"), place(S, "r_thrust", dx=2, moves=[("arm", (-10, 0), "under")]),
+                       place(S, "r_thrust", dx=2), place(S, "r_thrust", dx=2, moves=[("arm", (-5, 0), "under")]),
                        design_frame(S, "r_")]
     # the casts: the bear's roar (League's Spell1_activate), the ram's stamp (Spell3), the stunning leap and slam
     # (Spell3_enhanced_attack), the phoenix taking wing (Spell4)
@@ -464,8 +495,8 @@ def frames_all(S):
     out["skill2"] = [place(S, "e_stomp"), design_frame(S, "e_")]
     out["e_stun"] = [place(S, "e_leap", lift=4), place(S, "e_leap", dx=1, lift=8), place(S, "e_slam", dx=3),
                      place(S, "e_slam", dx=3), design_frame(S, "e_", dx=1)]
-    out["ult"] = [place(S, "r_crouch"), place(S, "r_flap", lift=4), place(S, "r_flap", lift=8), place(S, "r_flap", lift=4),
-                  design_frame(S, "r_")]
+    out["ult"] = [place(S, "r_crouch"), place(S, "r_flap", lift=4, sway=beat(-4)),
+                  place(S, "r_flap", lift=8, sway=beat(4)), place(S, "r_flap", lift=4), design_frame(S, "r_")]
     return out
 
 

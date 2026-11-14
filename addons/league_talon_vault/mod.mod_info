@@ -11,10 +11,10 @@
       "version": ">=0.88.1"
     }
   ],
-  "description": "Test build of Talon's Assassin's Path over the map's walls (needs League of Legends Heroes): replaces the main pack's Talon so he vaults over a jungle wall to escape when outnumbered or low on health, or over one onto an enemy champion behind it, as in League. Where no wall is near, the main pack's open-ground vault stays. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-10",
+  "description": "Test build of Talon's Assassin's Path over the map's walls (needs League of Legends Heroes): replaces the main pack's Talon so he vaults over a jungle wall to escape when outnumbered or low on health, or over one onto an enemy champion behind it, as in League. Where no wall is near, the main pack's open-ground vault stays. Blade's End's wounds are counted on each champion his spells hit, as in League: three on one and his next attack on it makes it bleed (the main pack counts them on him, with a 10-second cooldown). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_talon_vault",
   "mod_type": "native",
   "name": "League Heroes: Talon's Assassin's Path over walls (test)",
-  "version": "0.1.6"
+  "version": "0.1.8"
 }

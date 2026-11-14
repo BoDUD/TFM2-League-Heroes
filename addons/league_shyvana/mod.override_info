@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_shyvana": {
+    "remapping": "asset/league_shyvana/override/league_shyvana",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_shyvana/text/champion",
+    "type": "merge"
+  }
+}

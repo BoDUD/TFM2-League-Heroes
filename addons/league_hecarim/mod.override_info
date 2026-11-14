@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_hecarim": {
+    "remapping": "asset/league_hecarim/override/league_hecarim",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_hecarim/text/champion",
+    "type": "merge"
+  }
+}

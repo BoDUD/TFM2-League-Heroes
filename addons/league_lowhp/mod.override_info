@@ -14,5 +14,13 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_lowhp/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_lissandra_thrall#sheet": {
+    "remapping": "asset/league/champions/league_lissandra_thrall#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_lissandra_thrall#anim": {
+    "remapping": "asset/league/champions/league_lissandra_thrall#anim",
+    "type": "override"
   }
 }

@@ -9,11 +9,18 @@ TFM2 has three active slots: H-28G Evolution Turret (Q) is `skill`, CH-2 Electro
           `ViewEffect` whose tag lasts that life. Three slots a / b / c (league_caitlyn's traps): Q takes the first
           whose `t<s>_busy` flag is gone, so at most three stand. A slot fires every t_per ticks at ONE enemy: three
           zones on the same spot, the first on `EnemyChampionInCC` (the beam, tb_dmg + tb_ratio% AP: League's charged
-          beam, here at the champion E or R holds), then `EnemyChampion`, then `EnemyWithoutTower` (a cannon shot,
-          t_dmg + t_ratio% AP); the first that reaches an enemy lays the slot's 1-tick `t<s>_shot`, the others read it.
+          beam, here at the champion E or R holds), then `EnemyChampion` while W has charged the beam (wcx, below: the
+          beam, and the charge is spent), then `EnemyChampion`, then `EnemyWithoutTower` (a cannon shot, t_dmg +
+          t_ratio% AP); the first that reaches an enemy lays the slot's 1-tick `t<s>_shot`, the others read it.
   attack  a hextech bolt (100% AD) homing on `Enemy` (towers too), released on a_rel.
           W Hextech Micro-Rockets ride every third attack (flags a_one / a_two count them): w_n rockets w_gap ticks
-          apart at the attack's target, w_dmg + w_ratio% AP each.
+          apart at the attack's target, w_dmg + w_ratio% AP each. A rocket that hits an enemy champion while a turret
+          of his stands (t<s>_busy) charges the beam one step (2026-11-14, the user's 「接着做」; League: "Every rocket
+          hitting an enemy champion grants 20% beam charge to all turrets within 1000 range", five for a full one):
+          caster flags wc1 .. wc<wc_n - 1>, then wcx (full) - the next turret shot at a champion is the beam. The
+          champion test is a 1-range `RandomTarget {EnemyChampion, from_projectile}` in the rocket's hit. One charge
+          for all his turrets (data keeps no per-turret count, nor League's 1.1% a second: a turret here lives 10 s),
+          each step lasting a turret's life (t_life) from the rocket that laid it.
           Combo E -> W (the user: 「有连招要做连招」; League's Heimerdinger stuns with E and lands the whole W on the
           stunned champion): the grenade's champion-only twin opens the caster flag e_combo for e_combo ticks on a
           stun; the next attack inside it looks for a champion in crowd control within atk_range + 15000 (normally the
@@ -91,6 +98,9 @@ P = {
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 88, "a_rel": 10, "a_speed": 4500, "a_y": 5000, "w_y": -36000,
     # W Hextech Micro-Rockets on every third attack (League: 5 rockets, 50-150 + 55% AP, 90-270 on one champion)
     "w_n": 5, "w_gap": 3, "w_dmg": 10, "w_ratio": 7, "w_speed": 3500, "e_combo": 90, "w_reach": 15000,
+    # rockets on enemy champions to charge the beam (League: 20% a rocket, 5 for 100%; 2026-11-14 「接着做」 - before,
+    # only a champion in crowd control drew the beam, which stays: the user's 「有连招要做连招」, E / R -> Q)
+    "wc_n": 5,
     # Q turrets (League: 3 turrets, 525 range, 7-23 + 35% AP a shot, the beam 40-120 + 55% AP; placed within 350)
     "q_cd": 240, "q_range": 60000, "q_dur": 36, "q_rel": 16, "q_place": 20000, "q_speed": 4000,
     "t_life": 600, "t_per": 50, "t_first": 40, "t_r": 50000, "t_dmg": 6, "t_ratio": 4, "tb_dmg": 18, "tb_ratio": 14,
@@ -266,7 +276,10 @@ def build(p):
         """A turret's three zones (beam on a champion in crowd control, then a champion, then anything), one enemy
         a period: the first zone that reaches one lays `shot` for a tick and the others read it."""
         fire = lambda hit: sw(shot, NONE, combine(flag(shot, 1), *hit))
+        # W's full charge (wcx) turns the shot at a champion into the beam and is spent by it
+        charged = sw("wcx", sw(shot, NONE, combine(flag(shot, 1), *rm("wcx"), *beam)))
         return [field(name + "_cc", r, life, per, first, [fire(beam)], "EnemyChampionInCC"),
+                field(name + "_wc", r, life, per, first, [charged], "EnemyChampion"),
                 field(name + "_ch", r, life, per, first, [fire(cannon)], "EnemyChampion"),
                 field(name + "_all", r, life, per, first, [fire(cannon)]),
                 # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
@@ -284,9 +297,21 @@ def build(p):
     stand = (lambda k: [{"type": "Native", "effect_ref": f"league_heimerdinger:{k}"}]) if native else (lambda k: [])
 
     # ------------------------------------------------------------------ attack: the bolt, W's rockets every third
+    def climb():
+        """one more rocket on an enemy champion: the beam's charge one step up (wc1 .. wc<wc_n - 1>, then wcx: full),
+        each step for a turret's life (League's charge is the turrets': it goes with them)"""
+        step = flag("wc1", p["t_life"])
+        for k in range(1, p["wc_n"]):
+            up = flag("wcx", p["t_life"]) if k == p["wc_n"] - 1 else flag(f"wc{k + 1}", p["t_life"])
+            step = sw(f"wc{k}", combine(*rm(f"wc{k}"), up), step)
+        return sw("wcx", NONE, step)
+    # only while a turret of his stands (League: the charge goes to the turrets near): a 1-tick flag from the slots
+    stands = combine(*(sw(f"t{s}_busy", flag("t_up", 1)) for s in SLOTS), sw("t_up", climb()), *rm("t_up"))
+    charge = pick(1, "EnemyChampion", stands, here=True)
+
     def rockets(target, k=p["w_n"], gap=p["w_gap"]):
         shots = [delayed(i * gap, homing("w_rocket", target,
-                                         [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")],
+                                         [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit"), charge],
                                          p["w_speed"], p["w_y"])) for i in range(k)]
         return [sfx("w"), *shots]
     count = sw("a_two", combine(*rm("a_two"), *rockets("EnemyWithoutTower")),

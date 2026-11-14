@@ -6,5 +6,13 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_illaoi/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_illaoi_tentacle_body#sheet": {
+    "remapping": "asset/league/champions/league_illaoi_tentacle_body#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_illaoi_tentacle_body#anim": {
+    "remapping": "asset/league/champions/league_illaoi_tentacle_body#anim",
+    "type": "override"
   }
 }

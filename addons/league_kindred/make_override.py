@@ -63,19 +63,19 @@ ATTACK = {
 # R's tooltip: the add-on's rule (src/lib.rs DANGER_HP 30 %, BURST 30 % in BURST_T 60 ticks, an enemy champion close)
 ULT = {
     "zh-hans": "法阵范围内有友方英雄（队友或她自己）快要阵亡时（生命低于" + A + "30%" + E + "或" + A + "1秒" + E +
-               "内被打掉三成，且敌方英雄在旁），祝福身边区域：" + A + "{r_t}秒" + E + "内其中的友方英雄不会阵亡，结束时回复" +
+               "内被打掉三成，且敌方英雄在旁），祝福身边区域：" + A + "{r_t}秒" + E + "内其中的英雄敌我都不会阵亡，结束时都回复" +
                setup.HEAL + "生命。",
     "zh-hant": "法陣範圍內有友方英雄（隊友或她自己）快要陣亡時（生命低於" + A + "30%" + E + "或" + A + "1秒" + E +
-               "內被打掉三成，且敵方英雄在旁），祝福身邊區域：" + A + "{r_t}秒" + E + "內其中的友方英雄不會陣亡，結束時回復" +
+               "內被打掉三成，且敵方英雄在旁），祝福身邊區域：" + A + "{r_t}秒" + E + "內其中的英雄敵我都不會陣亡，結束時都回復" +
                setup.HEAL + "生命。",
     "en": "When an allied champion in her circle - a teammate or herself - is about to die (below " + A + "30%" + E +
           " health, or 30% lost within " + A + "1s" + E + ", with an enemy champion close), she blesses the ground around "
-          "her: for " + A + "{r_t}s" + E + " allied champions in it cannot die, and when it ends they heal " + setup.HEAL + ".",
+          "her: for " + A + "{r_t}s" + E + " nobody in it, ally or enemy, can die, and when it ends they all heal " + setup.HEAL + ".",
     "ko": "원 안의 아군 챔피언(아군 또는 자신)이 죽기 직전일 때(체력 " + A + "30%" + E + " 미만이거나 " + A + "1초" + E +
-          " 안에 30% 이상 잃고 적 챔피언이 가까이 있을 때) 주변을 축복: " + A + "{r_t}초" + E + " 동안 안의 아군 챔피언은 죽지 않고, "
-          "끝날 때 " + setup.HEAL + " 회복.",
+          " 안에 30% 이상 잃고 적 챔피언이 가까이 있을 때) 주변을 축복: " + A + "{r_t}초" + E + " 동안 안에서는 아군도 적도 죽지 않고, "
+          "끝날 때 모두 " + setup.HEAL + " 회복.",
     "ja": "円の中の味方チャンピオン（味方か自身）が倒れそうな時（体力" + A + "30%" + E + "未満か" + A + "1秒" + E +
-          "で30%以上失い、敵チャンピオンが近い時）周囲を祝福：" + A + "{r_t}秒" + E + "間、中の味方チャンピオンは倒れず、終了時に" +
+          "で30%以上失い、敵チャンピオンが近い時）周囲を祝福：" + A + "{r_t}秒" + E + "間、中では敵も味方も倒れず、終了時に全員" +
           setup.HEAL + "回復。",
 }
 

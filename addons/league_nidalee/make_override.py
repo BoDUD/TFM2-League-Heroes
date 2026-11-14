@@ -7,12 +7,15 @@ Rebuilds Nidalee with tools/kit/build_nidalee.py (its parameter table P), checks
 league/champion/league_nidalee.data_champion byte for byte (so the copy never drifts from the shipped kit), and writes
 addons/league_nidalee/override/league_nidalee.data_champion and .../text/champion.i18n: the build with native=1 -
   * everything of the main pack's kit plus passive league_nidalee:prowl (params: the brush speed numbers);
+  * (0.1.5) Takedown's bite asks the add-on's league_nidalee:takedown first (the missing-health bonus); P's cq_* must
+    be src/lib.rs's TD_* numbers, and the skill's tooltip says it;
   * the attack's, skill's and R's tooltips point to description.league_nidalee_prowl.* with the add-on's wording, so the
     tooltips in game show whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Nidalee changes.
 """
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -27,22 +30,36 @@ HERO = "league_nidalee"
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[애드온] ", "ja": "【アドオン】"}
 SWAP = {
     "zh-hans": {"attack": [("期间移速+{p_ms}%。", "期间移速+{p_ms}%；草丛里和离开后{brush_t}秒移速+{brush_ms}%（附近有敌方英雄+{brush_near_ms}%）。")],
-                "skill": [("投出标枪", "向线上没被挡的英雄投出标枪")],
+                "skill": [("投出标枪", "向线上没被挡的英雄投出标枪"),
+                          ("对捕猎目标+{cq_h}%。", "对捕猎目标+{cq_h}%，目标每损失1%生命再+1%~1.75%（随等级）。")],
                 "ult": [("扑向英雄", "扑向被捕猎或血量最低的英雄")]},
     "zh-hant": {"attack": [("期間跑速+{p_ms}%。", "期間跑速+{p_ms}%；草叢裡和離開後{brush_t}秒跑速+{brush_ms}%（附近有敵方英雄+{brush_near_ms}%）。")],
-                "skill": [("擲出標槍", "向線上沒被擋的英雄擲出標槍")],
+                "skill": [("擲出標槍", "向線上沒被擋的英雄擲出標槍"),
+                          ("對狩獵目標+{cq_h}%。", "對狩獵目標+{cq_h}%，目標每損失1%生命再+1%~1.75%（隨等級）。")],
                 "ult": [("撲向英雄", "撲向被狩獵或血量最低的英雄")]},
     "en": {"attack": [("(+{p_ms}% move speed).", "(+{p_ms}% move speed); in brush and {brush_t}s after it +{brush_ms}% move speed "
                                                   "(+{brush_near_ms}% with an enemy champion near).")],
-           "skill": [("throws a javelin", "throws a javelin at a champion with a clear line")],
+           "skill": [("throws a javelin", "throws a javelin at a champion with a clear line"),
+                     ("+{cq_h}% on the hunted.", "+{cq_h}% on the hunted, +1-1.75% (by level) per 1% of the target's missing health.")],
            "ult": [("pounces on a champion", "pounces on the hunted or the lowest champion")]},
     "ko": {"attack": [("(이동 속도 +{p_ms}%).", "(이동 속도 +{p_ms}%); 수풀 안과 나온 뒤 {brush_t}초 이동 속도 +{brush_ms}% (근처 적 챔피언 +{brush_near_ms}%).")],
-           "skill": [("창을 던져", "막히지 않은 챔피언에게 창을 던져")],
+           "skill": [("창을 던져", "막히지 않은 챔피언에게 창을 던져"),
+                     ("사냥 대상 +{cq_h}%.", "사냥 대상 +{cq_h}%, 대상이 잃은 체력 1%당 +1~1.75%(레벨에 따라).")],
            "ult": [("챔피언에게 도약해", "사냥 대상이나 체력이 가장 낮은 챔피언에게 도약해")]},
     "ja": {"attack": [("（移動速度+{p_ms}%）。", "（移動速度+{p_ms}%）；草むらの中と出て{brush_t}秒移動速度+{brush_ms}%（近くに敵チャンピオンで+{brush_near_ms}%）。")],
-           "skill": [("槍を投げ", "遮られていないチャンピオンへ槍を投げ")],
+           "skill": [("槍を投げ", "遮られていないチャンピオンへ槍を投げ"),
+                     ("狩る相手に+{cq_h}%。", "狩る相手に+{cq_h}%、対象の減少体力1%毎に+1~1.75%（レベルで）。")],
            "ult": [("チャンピオンへ飛びかかり", "狩る相手か体力の最も低いチャンピオンへ飛びかかり")]},
 }
+
+
+def rust_const(name):
+    """A `pub const NAME: usize = 40;` of the add-on's src/lib.rs."""
+    with open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8") as f:
+        m = re.search(r"pub const " + name + r": usize = ([0-9_]+);", f.read())
+    if not m:
+        sys.exit(f"src/lib.rs has no {name}: update this script")
+    return int(m.group(1).replace("_", ""))
 
 
 def lp(path):
@@ -61,7 +78,12 @@ def main():
         shipped = f.read()
     if dumps_main(kit.build(p)) != shipped:
         sys.exit("the main pack's league_nidalee differs from build_nidalee.P: rebuild it first")
+    td = tuple(rust_const(k) for k in ("TD_DMG", "TD_AD", "TD_MDMG", "TD_AP", "TD_HUNT"))
+    if td != (p["cq_dmg"], 100 + p["cq_ad"], p["cq_mdmg"], p["cq_ap"], p["cq_h"]):
+        sys.exit(f"src/lib.rs's TD_* {td} are not P's Takedown (cq_dmg, 100 + cq_ad, cq_mdmg, cq_ap, cq_h): update them")
     champion = kit.build(dict(p, native=1))
+    if json.dumps(champion).count('"league_nidalee:takedown"') != 1:
+        sys.exit("the copy's bite does not ask league_nidalee:takedown once: update this script")
     if champion.get("passive", {}).get("passive_ref") != "league_nidalee:prowl":
         sys.exit("the copy does not call the add-on: update this script")
     for slot in ("attack", "skill", "ult"):

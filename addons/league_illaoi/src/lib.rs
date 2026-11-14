@@ -20,6 +20,15 @@
 //!   （每节 `LINK_STEP` 远，投射物画面会转向）。他走出离灵魂 `e_leash` 外，或灵魂的 `e_t` tick 到了，就去掉
 //!   `e_spirit`、挂 `e_vessel`（`e_vt` tick），播灵魂碎裂，身边长一条触手。
 //!
+//! - **触手有了身体（0.3.0，2026-11-14；用户：「召唤物的全做啊 剩下的一批英雄也做了啊」）**：英雄联盟的触手能被敌人的普攻打掉，
+//!   刚长出来的 2 秒选不中，自己不出手（只听她的技能）。这里原来触手是一串画面，打不到。稳定 mod API 的 `spawn_unit`（公用部分
+//!   在萨科附加包的 `summon.rs`）：每长一条触手排原生效果 `:tentacle`，在它长的地方生成一个「身体」单位（`league_illaoi_tentacle_body`，
+//!   [`tentacle_spec`]：移速 1 不会走、攻击够不着任何人——触手不自己出手，生命是她上限的 `TENTACLE_HP_PCT`%），冒出来的那几 tick
+//!   放逐着（看不见、选不中：英雄联盟的 2 秒），这时照旧放冒出来的画面；之后不再放摆动、沉下去的画面（身体自己的动作）。抽打照旧
+//!   由本包打（抽打的画面在目标身上），从身体现在站的地方算够不够得着；身体被打掉，这条触手就没了；被新的挤掉时把身体放逐到它的
+//!   时间结束（没有让单位消失的接口），照旧放沉下去的画面。生成不了（宿主没有这个接口、失败、测试开关 `unit=off`、读不成单位）
+//!   就和以前一样是画面。日志里 `TENTACLE` 开头的行。
+//!
 //! 每个计时都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_illaoi.log`，每次启动游戏重写，上一次的留在 .prev.log。
@@ -34,6 +43,11 @@ use mod_api_stable::*;
 #[path = "../../league_camille_wall/src/maps.rs"]
 mod maps;
 pub mod souls;
+
+#[path = "../../league_shaco_backstab/src/summon.rs"]
+pub mod summon;
+
+use summon::{Event, Flock};
 
 const ID: &str = "league_illaoi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -437,6 +451,111 @@ struct Tentacle {
     /// 下一段摆动画面、自己下一次抽（灵魂、躯壳、大招）的 tick。
     sway: usize,
     next: usize,
+    /// 0.3.0: its body (a unit of the flock).
+    unit: Option<usize>,
+}
+
+// ===================== 触手的身体（0.3.0） =====================
+
+/// The body's unit name: the game draws it from asset/base/aseprite_resources/champions/<name>, which mod.override_info
+/// sends to the main pack's league/champions/<name> (tools/art/unit_illaoi_tentacle.py: the tentacle's dense squares as
+/// plain frames, the size it has on screen today). Not the effect sheet's name: league.dll finds dense frames by the
+/// resource's last name alone, and league_illaoi_tentacle is a registered EFFECTS row.
+pub const TENTACLE_BODY: &str = "league_illaoi_tentacle_body";
+pub const T_UID: &str = "league_illaoi_t_uid";
+/// League (wiki, 2026-11-14): a tentacle dies to enemy basic attacks, a few of them; here a share of her health cap a few
+/// champion attacks take, no armour, no magic resistance.
+pub const TENTACLE_HP_PCT: usize = 20;
+/// Its attack reaches nowhere (a tentacle strikes only on her abilities' word): it never swings on its own.
+pub const TENTACLE_REACH: usize = 1;
+const UID_TICKS: usize = 6;
+/// Bodies on the books at once (t_most and the Leap of Faith's, with room); a body gone within this many ticks was never
+/// really there.
+const BODY_CAP: usize = 10;
+pub const LOST_AGE: usize = 6;
+
+/// The test knobs (`league_illaoi.cfg` beside the log), read once.
+static KNOBS: LazyLock<summon::Knobs> = LazyLock::new(|| summon::Knobs::read(&LOG_PATH.with_extension("cfg")));
+
+/// Lines of each kind of the bodies' a launch (league_shaco_backstab's): the server's presims the first 40, then every
+/// 200th; the match on screen all.
+static COUNTS: LazyLock<Mutex<std::collections::HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(Default::default()));
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let shown = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= 40 || *n % 200 == 0).then_some(*n)
+}
+
+/// A tentacle's body from her numbers now (`stat`, her health cap `max_hp`) for `life` ticks: move speed 1, an attack
+/// that reaches nowhere and harms nobody.
+pub fn tentacle_spec(stat: &StatV1, max_hp: usize, life: usize) -> summon::Spec {
+    summon::Spec {
+        name: TENTACLE_BODY.to_string(),
+        life,
+        stat: StatV1 { attack: 0, magic_power: stat.magic_power, hp: (max_hp * TENTACLE_HP_PCT / 100).max(1), defence: 0, magic_resistance: 0,
+                       move_speed: 1, hp_regen: 0, stack: 0, crit_chance: 0 },
+        attack: UnitAttackV1 { attack_ratio: 0, attack: 0, range: TENTACLE_REACH, cooltime: 600, duration: 12, start_timing: 6,
+                               cancelable: false, attack_type: AttackTypeV1::BaseAttack.code() },
+    }
+}
+
+/// `:tentacle` - a tentacle's body where it grows (the input), for the life the input's queued delay leaves (the passive
+/// hands the ticks over through `LIVES`); banished while its rise picture plays.
+struct TentacleFx;
+
+/// The lives the passive asked for, by (sim seed, her, spot): the effect takes its own.
+static LIVES: Mutex<Vec<((u64, usize, u64, u64), usize)>> = Mutex::new(Vec::new());
+
+impl StableEffectType for TentacleFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Pos) {
+            return;
+        }
+        let key = (sim.seed(), caster, input.x, input.y);
+        let life = {
+            let mut all = LIVES.lock().unwrap_or_else(|e| e.into_inner());
+            let k = all.iter().position(|(k, _)| *k == key);
+            k.map(|k| all.remove(k).1)
+        };
+        let Some(life) = life else { return };
+        let Some((team, stat, max)) = sim.get_entity(caster).map(|e| (e.team(), e.stat(), e.hp().1)) else { return };
+        let spec = tentacle_spec(&stat, max, life).with(&KNOBS);
+        let spot = (input.x as f64, input.y as f64);
+        match summon::spawn(sim, caster, team, spot, &spec) {
+            Some(id) => {
+                sim.add_buff(caster, &BuffV1::timed(&summon::handoff(T_UID, id), UID_TICKS));
+                // League's: untargetable while it rises (here the rise picture's RISE_T ticks, unseen too)
+                let hidden = sim.entity_banish(caster, id, RISE_T.saturating_sub(1).max(1), "", "");
+                if let Some(k) = tally(sim, "body spawn") {
+                    wlog(format!("{} TENTACLE SPAWN #{k}: unit #{id} for team {team} at {}, banished while it rises: {}: {}",
+                                 head(sim, caster), summon::pt(spot), if hidden { "yes" } else { "REFUSED" }, spec.shown()));
+                }
+            }
+            None => {
+                if let Some(k) = tally(sim, "body fail") {
+                    wlog(format!("{} TENTACLE SPAWN FAILED #{k}: spawn_unit gave no unit for '{}' at {} - the tentacle's pictures as \
+                                  before", head(sim, caster), spec.name, summon::pt(spot)));
+                }
+            }
+        }
+    }
+}
+
+/// Her tentacles' bodies, as her passive keeps them.
+#[derive(Clone)]
+struct Bodies {
+    flock: Flock<()>,
+}
+
+impl Default for Bodies {
+    fn default() -> Self {
+        Bodies { flock: Flock::new(T_UID, BODY_CAP, 3_600) }
+    }
 }
 
 #[derive(Clone, Debug)]
@@ -482,6 +601,8 @@ struct Prophet {
     n_q: usize,
     n_refused: usize,
     next_report: usize,
+    /// 0.3.0: her tentacles' bodies.
+    b: Bodies,
 }
 
 struct Unit {
@@ -580,8 +701,11 @@ impl Prophet {
         while self.tentacles.len() >= self.p.t_most {
             let old = self.tentacles.remove(0);
             sim.play_view_effect(&il("tentacle_sink"), me, &at(old.pos), 0, 0, 0);
+            self.put_away(sim, me, &old, "pushed out by a new one");
         }
-        self.tentacles.push(Tentacle { pos, until: life_end(tick, self.p.t_long), sway: tick + RISE_T, next: tick + self.p.t_first });
+        let until = life_end(tick, self.p.t_long);
+        self.tentacles.push(Tentacle { pos, until, sway: tick + RISE_T, next: tick + self.p.t_first, unit: None });
+        self.ask_body(sim, me, pos, until.saturating_sub(tick) + SINK_T);
         sim.play_view_effect(&il("tentacle_rise"), me, &at(pos), 0, 0, 0);
         sim.play_view_effect(&il("p_spawn"), me, &at(pos), 0, 0, 0);
         sim.play_sfx(&il("p_spawn"), me, &at(pos));
@@ -592,6 +716,122 @@ impl Prophet {
         if self.n_grown <= 20 || self.n_grown % 50 == 0 {
             wlog(format!("{} GROW #{} ({why}): at ({:.0}, {:.0}){}, {} standing", head(sim, me), self.n_grown, pos.0, pos.1,
                          if edge.is_some() { " on a wall's edge" } else { " beside her" }, self.tentacles.len()));
+        }
+    }
+
+    /// A body for the tentacle growing at `pos`, living `life` ticks (to the end of its sink): `:tentacle` queued.
+    fn ask_body(&mut self, sim: &mut StableSim<'_>, me: usize, pos: (f64, f64), life: usize) {
+        if KNOBS.off {
+            return;
+        }
+        let input = at(pos);
+        {
+            let mut all = LIVES.lock().unwrap_or_else(|e| e.into_inner());
+            all.push(((sim.seed(), me, input.x, input.y), life));
+            if all.len() > 64 {
+                all.remove(0);
+            }
+        }
+        if !sim.queue_effect(&format!("{ID}:tentacle"), AttackTypeV1::Skill, me, &input, 1) {
+            TentacleFx.apply(sim, 0, me, input);
+        }
+    }
+
+    /// A tentacle gone before its time (pushed out): its body banished to the end of its life (no API ends a unit).
+    fn put_away(&mut self, sim: &mut StableSim<'_>, me: usize, t: &Tentacle, why: &str) {
+        let Some(id) = t.unit else { return };
+        let tick = sim.tick();
+        let left = self.b.flock.get(id).map_or(0, |m| m.unit.left(tick));
+        let ok = left > 0 && sim.get_entity(id).is_some_and(|e| e.is_alive()) && sim.entity_banish(me, id, left, "", "");
+        if let Some(k) = tally(sim, "body away") {
+            wlog(format!("{} TENTACLE AWAY #{k}: {why} - the body #{id} banished for its last {left} ticks: {}", head(sim, me),
+                         if ok { "yes" } else { "REFUSED or gone" }));
+        }
+    }
+
+    /// Where a tentacle's body stands now (its unit alive under its id), if it has one.
+    fn body_at(&self, sim: &StableSim<'_>, t: &Tentacle) -> Option<(f64, f64)> {
+        let id = t.unit?;
+        let m = self.b.flock.get(id)?;
+        sim.get_entity(id).filter(|e| e.is_alive() && e.name().unwrap_or_default() == m.unit.name).map(|e| fpos(e.pos()))
+    }
+
+    /// The bodies' part of a tick: the flock looked at; a body linked to its tentacle; a destroyed one takes it.
+    fn bodies_tick(&mut self, sim: &mut StableSim<'_>, me: usize, player: usize, team: usize, here: (f64, f64)) {
+        let tick = sim.tick();
+        for ev in self.b.flock.tick(sim, me, team, player, Some(here)) {
+            match ev {
+                Event::NoUnit { .. } => {}
+                Event::Look { id, n, line } => {
+                    let (spot, born) = self.b.flock.get(id).map_or(((0.0, 0.0), tick), |m| (m.unit.at, m.unit.born));
+                    // the live game (2026-11-14): what is done to a unit on its spawn tick may be overwritten - still seen
+                    // while it rises: banished again for the rest of the rise
+                    let hide = (born + RISE_T).saturating_sub(tick);
+                    let again = hide > 1 && sim.get_entity(id).is_some_and(|e| e.is_targetable()) && sim.entity_banish(me, id, hide - 1, "", "");
+                    let t = self.tentacles.iter_mut().filter(|t| t.unit.is_none() && t.until > tick)
+                        .min_by(|a, b| dist(a.pos, spot).total_cmp(&dist(b.pos, spot)))
+                        .filter(|t| dist(t.pos, spot) <= 3_000.0);
+                    let linked = t.map(|t| t.unit = Some(id)).is_some();
+                    let wall = self.walls.as_ref().is_some_and(|w| w.is_wall(spot.0, spot.1));
+                    if let Some(k) = tally(sim, "body look") {
+                        wlog(format!("{} TENTACLE #{n} LOOK #{k}: {line}; in a wall cell: {}{}{}", head(sim, me), if wall { "YES" } else { "no" },
+                                     if linked { "" } else { " - NO tentacle of hers stands there: it only stands" },
+                                     if again { format!(" - targetable while it rises: banished again for {} ticks", hide - 1) } else { String::new() }));
+                    }
+                }
+                Event::Lost { id, why, .. } => {
+                    if let Some(k) = tally(sim, "body lost") {
+                        wlog(format!("{} TENTACLE LOST #{k}: the unit #{id} spawn_unit named never read as one in {} ticks ({why}) - \
+                                      the tentacle's pictures as before", head(sim, me), summon::FLOCK_LOOKS));
+                    }
+                }
+                Event::Line { n, line, .. } => {
+                    if let Some(k) = tally(sim, "body unit") {
+                        wlog(format!("{} TENTACLE #{n} #{k}: {line}", head(sim, me)));
+                    }
+                }
+                Event::Over { member, end } => {
+                    let id = member.unit.id;
+                    let mut then = String::new();
+                    if end.fate == summon::Fate::Killed {
+                        let before = self.tentacles.len();
+                        self.tentacles.retain(|t| t.unit != Some(id));
+                        if self.tentacles.len() < before {
+                            then = " - the tentacle is gone: it lashes no more".to_string();
+                        }
+                    }
+                    if let Some(k) = tally(sim, "body over") {
+                        wlog(format!("{} TENTACLE #{} OVER #{k}: {}{then}", head(sim, me), member.unit.n, end.text));
+                    }
+                }
+                Event::LetGo { member } => {
+                    if let Some(k) = tally(sim, "body let go") {
+                        wlog(format!("{} TENTACLE #{} LET GO #{k}: {BODY_CAP} bodies on the books - the unit #{} is out there, no \
+                                      longer watched", head(sim, me), member.unit.n, member.unit.id));
+                    }
+                }
+                Event::Wake { n, line } => {
+                    if let Some(k) = tally(sim, "body wake") {
+                        wlog(format!("{} TENTACLE #{n} WAKE #{k}: {line}", head(sim, me)));
+                    }
+                }
+            }
+        }
+    }
+
+    /// A line for a hook that fired while bodies of hers are out.
+    fn hooked(&self, sim: &StableSim<'_>, hook: &str, me: usize, entity: usize, other: usize, damage: Option<usize>) {
+        if self.b.flock.live.is_empty() {
+            return;
+        }
+        let who = match self.b.flock.get(entity) {
+            Some(m) => format!("the tentacle's body #{}", m.unit.n),
+            None if entity == me => "Illaoi".to_string(),
+            None => "neither Illaoi nor a tentacle of hers".to_string(),
+        };
+        if let Some(k) = tally(sim, "body hook") {
+            wlog(format!("{} TENTACLE HOOK #{k} {hook}: entity #{entity} ({who}) -> #{other}{}", head(sim, me),
+                         damage.map(|d| format!(", damage {d}")).unwrap_or_default()));
         }
     }
 
@@ -618,11 +858,16 @@ impl Prophet {
         let tick = sim.tick();
         let mut gone = Vec::new();
         for t in self.tentacles.iter_mut() {
+            // with a body: its own sway and sink (the body ends then too)
             if tick >= t.until {
-                gone.push(t.pos);
+                if t.unit.is_none() {
+                    gone.push(t.pos);
+                }
             } else if tick >= t.sway {
                 t.sway += SWAY_T;
-                sim.play_view_effect(&il("tentacle_sway"), me, &at(t.pos), 0, 0, 0);
+                if t.unit.is_none() {
+                    sim.play_view_effect(&il("tentacle_sway"), me, &at(t.pos), 0, 0, 0);
+                }
             }
         }
         self.tentacles.retain(|t| tick < t.until);
@@ -771,7 +1016,11 @@ impl Prophet {
         let per = if fast { self.p.r_per } else { self.p.t_per };
         let reach = self.p.t_r as f64;
         let mut hits = Vec::new();
-        for t in self.tentacles.iter_mut() {
+        let now_at: Vec<Option<(f64, f64)>> = self.tentacles.iter().map(|t| self.body_at(sim, t)).collect();
+        for (t, body) in self.tentacles.iter_mut().zip(now_at) {
+            if let Some(b) = body {
+                t.pos = b; // pushed, pulled: it reaches from where its body stands
+            }
             if t.next > tick {
                 continue;
             }
@@ -809,6 +1058,11 @@ impl StablePassive for Prophet {
     /// 她打中敌人：Q（并进被动）好了就让够得着的触手抽他一下（下一 tick，不在这一下里面再打）；灵魂分担伤害（带着灵魂的
     /// 英雄每一下多算 e_echo%）。
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, damage: &mut usize) {
+        if self.b.flock.get(me).is_some() {
+            // a tentacle's body named as the attacker (its own swing reaches nowhere, so this would be the engine's word)
+            self.hooked(sim, "on_attack", me, me, target, Some(*damage));
+            return;
+        }
         if *damage == 0 {
             return;
         }
@@ -836,10 +1090,11 @@ impl StablePassive for Prophet {
         }
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let (team, attack, pos, alive, level) = (e.team(), e.stat().attack, fpos(e.pos()), e.is_alive(), e.level());
         let tick = sim.tick();
+        self.bodies_tick(sim, me, player, team, pos);
         let us = units(sim, team);
         if alive {
             self.timer(sim, me, &us, pos, level as usize);
@@ -882,8 +1137,16 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    wlog(format!(
+        "TENTACLES: her tentacles have bodies of their own ('{TENTACLE_BODY}', spawn_unit: move speed 1, an attack that reaches \
+         nowhere, {TENTACLE_HP_PCT}% of her health, banished while they rise) - {}; the add-on lashes as before, a destroyed body \
+         takes its tentacle. Test knobs ({}): {}",
+        if KNOBS.off { "OFF by the test knobs: the tentacles are pictures as before" } else { "ON" },
+        LOG_PATH.with_extension("cfg").display(), KNOBS.shown()
+    ));
     module.add_native_passive(format!("{ID}:prophet"), Prophet::default());
     module.add_native_effect(format!("{ID}:noop"), Noop);
+    module.add_native_effect(format!("{ID}:tentacle"), TentacleFx);
     host.log(LogLevel::Info, "league_illaoi loaded (tentacles on the walls, Test of Spirit's echo and leash).");
 }
 
@@ -897,6 +1160,10 @@ fn init(host: &StableHost) -> StableMod {
 // league_addons compiles this file as one of its modules and registers it with the others
 #[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 10);
+
+#[cfg(test)]
+#[path = "../../league_shaco_backstab/src/summon_mock.rs"]
+mod mock;
 
 #[cfg(test)]
 mod tests {
@@ -1021,5 +1288,162 @@ mod tests {
         assert!((l[0].0 .0 - 5000.0).abs() < 1e-6 && (l[2].0 .0 - 25000.0).abs() < 1e-6);
         assert_eq!(l[1].1, (1.0, 0.0));
         assert!(tether_links((0.0, 0.0), (1000.0, 0.0), LINK_STEP).is_empty());
+    }
+
+    // ---- 0.3.0: the tentacles' bodies ----
+
+    #[test]
+    fn the_bodies_are_built_from_her_numbers() {
+        let hers = StatV1 { attack: 120, magic_power: 0, hp: 1500, defence: 50, magic_resistance: 40, move_speed: 1000, hp_regen: 4,
+                            stack: 0, crit_chance: 0 };
+        let b = tentacle_spec(&hers, 2500, 3_618);
+        assert_eq!((b.name.as_str(), b.life), (TENTACLE_BODY, 3_618));
+        assert_eq!(b.stat, StatV1 { attack: 0, magic_power: 0, hp: 500, defence: 0, magic_resistance: 0, move_speed: 1, hp_regen: 0,
+                                    stack: 0, crit_chance: 0 });
+        assert_eq!((b.attack.attack, b.attack.attack_ratio, b.attack.range), (0, 0, TENTACLE_REACH));
+        assert_eq!(tentacle_spec(&StatV1::default(), 0, 1).stat.hp, 1);
+        assert!(summon::handoff(T_UID, usize::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    use super::mock::{champion, MPlayer, World};
+
+    const GAREN: usize = 1;
+
+    fn log_file() -> std::path::PathBuf {
+        static SET: std::sync::Once = std::sync::Once::new();
+        let path = std::env::temp_dir().join(format!("league_illaoi_test_{}.log", std::process::id()));
+        SET.call_once(|| {
+            std::env::set_var("LEAGUE_ILLAOI_LOG", &path);
+            let _ = std::fs::remove_file(&path);
+            let _ = std::fs::remove_file(path.with_extension("cfg"));
+        });
+        path
+    }
+
+    /// Illaoi #0 (team 0, 2500 health) at (300000, 300000); Garen #1 20000 east of her; two more far off.
+    fn world() -> (World, Prophet) {
+        log_file();
+        let mut w = World::default();
+        let mut illaoi = champion("league_illaoi", 0, 300_000.0, 300_000.0);
+        (illaoi.hp, illaoi.max) = (2500, 2500);
+        let mut garen = champion("league_garen", 1, 320_000.0, 300_000.0);
+        (garen.hp, garen.max) = (50_000, 50_000);
+        w.units = vec![illaoi, garen, champion("league_darius", 1, 600_000.0, 600_000.0), champion("league_ahri", 0, 100_000.0, 100_000.0)];
+        w.players = vec![MPlayer { team: 0, champion: 0, ..Default::default() }, MPlayer { team: 1, champion: GAREN, ..Default::default() }];
+        let mut me = Prophet::default();
+        me.configure("{}");
+        me.next_grow = usize::MAX;
+        w.sim(|sim| me.on_spawn(sim, 0, 0));
+        (w, me)
+    }
+
+    fn tick(w: &mut World, me: &mut Prophet) {
+        for (name, caster, input) in w.due() {
+            w.sim(|sim| match name.as_str() {
+                "league_illaoi:tentacle" => TentacleFx.apply(sim, 0, caster, input),
+                "league_illaoi:noop" => {}
+                other => panic!("an effect nobody registered: {other}"),
+            });
+        }
+        w.sim(|sim| me.on_update(sim, 0, 0, 0));
+        w.step();
+    }
+
+    fn run(w: &mut World, me: &mut Prophet, n: usize) {
+        for _ in 0..n {
+            tick(w, me);
+        }
+    }
+
+    fn grow(w: &mut World, me: &mut Prophet, at: (f64, f64)) {
+        w.sim(|sim| {
+            let us = units(sim, 0);
+            me.grow(sim, 0, &us, at, at, "a test");
+        });
+    }
+
+    fn bodies(w: &World) -> Vec<usize> {
+        w.spawns.iter().filter(|s| s.name == TENTACLE_BODY).filter_map(|s| s.gave).collect()
+    }
+
+    #[test]
+    fn a_tentacle_gets_a_body_that_rises_unseen_and_lashes_from_where_it_stands() {
+        let (mut w, mut me) = world();
+        grow(&mut w, &mut me, (310_000.0, 300_000.0));
+        let spot = me.tentacles[0].pos;
+        run(&mut w, &mut me, 3);
+        let ids = bodies(&w);
+        assert_eq!(ids.len(), 1);
+        let s = &w.spawns[0];
+        assert_eq!((s.at, s.stat.move_speed), ((spot.0.round() as u64, spot.1.round() as u64), 1));
+        assert_eq!(s.life as usize, life_end(1000, me.p.t_long) - 1000 + SINK_T);
+        assert!(w.banishes.iter().any(|b| b.2 == ids[0] && b.3 == RISE_T - 1), "not hidden while it rises");
+        assert_eq!(w.viewed(&il("tentacle_rise")), 1, "the rise is the picture");
+        assert_eq!(me.tentacles[0].unit, Some(ids[0]));
+        // no sway pictures: the body sways
+        run(&mut w, &mut me, 200);
+        assert_eq!(w.viewed(&il("tentacle_sway")), 0);
+        // Harsh Lesson on Garen: it lashes him (her physical damage)
+        w.units[GAREN].buffs.push((BuffV1::timed(&il("w_mark"), 120), 120));
+        run(&mut w, &mut me, 5);
+        assert!(w.dealt(0, DamageTypeV1::Ad).iter().any(|d| d.0 == GAREN));
+        assert!(w.damage.iter().filter(|d| d.1 == ids[0]).all(|d| d.3 == 0), "the body swung for real");
+        // destroyed: the tentacle is gone
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, 3);
+        assert!(me.tentacles.is_empty());
+    }
+
+    #[test]
+    fn a_tentacle_pushed_out_puts_its_body_away() {
+        let (mut w, mut me) = world();
+        for k in 0..me.p.t_most {
+            grow(&mut w, &mut me, (310_000.0 + 20_000.0 * k as f64, 300_000.0));
+            run(&mut w, &mut me, 3);
+        }
+        let first = bodies(&w)[0];
+        let banished = w.banishes.len();
+        grow(&mut w, &mut me, (250_000.0, 300_000.0));
+        assert_eq!(w.banishes.len(), banished + 1);
+        let b = w.banishes.last().unwrap();
+        assert!(b.2 == first && b.3 > 1000, "{:?}", b);
+        assert_eq!(w.viewed(&il("tentacle_sink")), 1, "the sink picture where it stood");
+    }
+
+    #[test]
+    fn no_body_from_the_host_keeps_the_pictures() {
+        for case in 0..3 {
+            let (mut w, mut me) = world();
+            match case {
+                0 => w.has_spawn = false,
+                1 => w.spawn_ok = false,
+                _ => w.spawn_never = true,
+            }
+            grow(&mut w, &mut me, (310_000.0, 300_000.0));
+            run(&mut w, &mut me, 200);
+            assert!(me.tentacles[0].unit.is_none(), "case {case}");
+            assert!(w.viewed(&il("tentacle_sway")) > 0, "case {case}: no sway picture");
+        }
+    }
+
+    #[test]
+    fn the_log_tells_the_bodies_lives() {
+        let (mut w, mut me) = world();
+        grow(&mut w, &mut me, (310_000.0, 300_000.0));
+        run(&mut w, &mut me, 70);
+        let ids = bodies(&w);
+        w.players[1].gold += 4;
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, 10);
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        let mine: Vec<&str> = text.lines().filter(|l| l.contains(" TENTACLE")).collect();
+        let has = |what: &str| mine.iter().any(|l| l.contains(what));
+        for what in [
+            "TENTACLE SPAWN #", "banished while it rises: yes: 'league_illaoi_tentacle_body' for ", "attack 0 ap 30 hp 500 def 0 mr 0 speed 1",
+            "TENTACLE #1 LOOK #", "#4 reads back as name 'league_illaoi_tentacle_body'", "; in a wall cell: ",
+            "OVER #", "KILLED after ", "p1 gold +4", "the tentacle is gone: it lashes no more",
+        ] {
+            assert!(has(what), "missing {what:?} in the log:\n{}", mine.join("\n"));
+        }
     }
 }

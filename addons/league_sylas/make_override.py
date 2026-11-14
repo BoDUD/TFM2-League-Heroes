@@ -327,6 +327,16 @@ def foreign_natives(o, out=None):
 TFT_FX = "asset/tft/effects/"
 OWN_FX = "asset/league_sylas/effects/"
 
+# Views a champion's own file no longer has, because the champion now draws that look another way, while Sylas, who has
+# none of that champion's frames, still needs them for the stolen ult: name -> (list, view).
+# - Aatrox hovers through World Ender on frames of his own (league.dll's LOOKS, 2026-11-14 kit S4a), so his file dropped
+#   the wing aura's view (it doubled the wings over the hovering body); Sylas's stolen World Ender keeps the aura.
+KEPT_VIEWS = {
+    "league_aatrox_r_look": ("view_buffs", {"type": "Animated", "name": "league_aatrox_r_look",
+                                            "anim": "asset/league/effects/league_aatrox_big", "tag": "r_aura",
+                                            "repeat": True, "z": -1}),
+}
+
 
 def key(cid):
     """The hero's name in steal_<name>: a League champion without league_, a TFT hero as it is (tft_powder)."""
@@ -371,6 +381,10 @@ def own_ults():
                     elif anim.startswith("asset/tft/"):
                         sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/effects sheets are copied")
                     views[kind].append(v)
+        for name, (kind, v) in KEPT_VIEWS.items():
+            if name in used and name not in seen:
+                seen.add(name)
+                views[kind].append(dict(v))
         stolen.append((key(c["id"]), tree))
     return stolen, views, sheets
 

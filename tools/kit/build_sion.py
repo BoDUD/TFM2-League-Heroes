@@ -13,7 +13,9 @@ native add-on addons/league_sion):
   skill   Q Decimating Smash (残虐猛击): a `Position` cast on `EnemyWithoutTower` (q_range, waves and camps too). He
           charges q_ch ticks in place (the axe raised, a line on the ground in front of him, q_len long, half-width
           q_w); crowd control on him (checked every q_brk ticks) breaks it. Then the slam: every enemy on the line takes
-          q_dmg + q_ratio% AD and is knocked up q_up ticks (League: a full charge knocks up and stuns 1.25-1.75 s).
+          q_dmg + q_ratio% AD, is knocked up q_up ticks and stunned q_stun ticks from the hit (League, charged for at
+          least 1 s: "knocking them up for 0.5 - 1 ... seconds" and "stunning them for 1.25 - 2.25 ... seconds"; the
+          stun, League's shortest, came on 2026-11-14 - the charge itself stays fixed).
   skill2  E Roar of the Slayer (杀手怒吼) and W Soul Furnace (灵魂熔炉) share the slot, each on its own cooldown (caster
           flags e_cd and w_cd; the slot waits only s2_cd). A `Direction` cast on `EnemyWithoutTower` (e_range):
           - E ready: the roar flies e_len (`LinearProjectile`, through minions as League's knocked-back minion does):
@@ -80,6 +82,11 @@ P = {
     # Q Decimating Smash (League: cd 11-6 s, up to 2 s charge, 30-110 + 45-75% AD -> 90-330 + 135-225% AD, cone 720)
     "q_cd": 420, "q_range": 34000, "q_ch": 40, "q_brk": 10, "q_rel": 24, "q_hit": 7, "q_len": 50000, "q_w": 10000,
     "q_dmg": 140, "q_ratio": 180, "q_up": 50,
+    # League's charged smash stuns as well as knocks up: "stunning them for 1.25 - 2.25 (based on channel time)
+    # seconds" (the wiki, V26.22; the user, 2026-11-14, on the list of differences from League: 「全改吧」). Here the one
+    # fixed charge gets League's shortest stun, counted from the hit like League's (the knock-up runs inside it);
+    # before: the knock-up alone (0.83 s). The charge levels (0-2 s, range and damage growing) are not made
+    "q_stun": 75,
     # combo E -> Q: the roar on an enemy champion opens e_combo for e_combo ticks (= e_slow_t); Q cast inside it charges
     # q_qc ticks instead of q_ch (League: E's slow, then the charged smash lands on the slowed champion)
     "e_combo": 120, "q_qc": 20,
@@ -301,6 +308,7 @@ def build(p):
                        delayed(p["q_hit"], sfx("q_hit"),
                                band("q_slam", p["q_w"], p["q_len"], 31, 1, "EnemyWithoutTower",
                                     [attack(p["q_dmg"], p["q_ratio"]), {"type": "Airborne", "duration": p["q_up"]},
+                                     {"type": "Stun", "duration": p["q_stun"]},
                                      view("q_hit")])),
                        delayed(p["q_rel"], anim("idle", rest)) if rest > 0 else None)
         return combine(anim("skill_charge", ch),

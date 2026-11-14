@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_soraka_addon": {
+        "skill2": "【附加包】消耗自身<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6%最大生命值<>（不会致死），为一名其他友方英雄回复<#6aff55ff>200<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%法术强度<>的<#6aff55ff>生命值<>。带<#ff9028ff>活力焕发<>时不消耗生命值，目标也获得<#ff9028ff>活力焕发<>。施放后<#ffb900ff>2秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>。被动<#ff9028ff>拯救<>：朝附近生命低于<#ffb900ff>40%<>的友方英雄走去时<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高90%<>。",
+        "ult": "【附加包】<#ff9028ff>祈愿<>：为全图所有友方英雄（包括自己）回复<#6aff55ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#6aff55ff>生命值<>。生命低于<#ffb900ff>40%<>的多回复<#6aff55ff>50%<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_soraka_addon": {
+        "skill2": "【附加包】消耗自身<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6%最大生命<>（不會致死），為一名其他友方英雄回復<#6aff55ff>200<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%魔法強度<>的<#6aff55ff>生命<>。帶<#ff9028ff>回春<>時不消耗生命，目標也獲得<#ff9028ff>回春<>。施放後<#ffb900ff>2秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速提高30%<>。被動<#ff9028ff>群星指路<>：朝附近生命低於<#ffb900ff>40%<>的友方英雄走去時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速提高90%<>。",
+        "ult": "【附加包】<#ff9028ff>祈願<>：為全圖所有友方英雄（包括自己）回復<#6aff55ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#6aff55ff>生命<>。生命低於<#ffb900ff>40%<>的多回復<#6aff55ff>50%<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_soraka_addon": {
+        "skill2": "[Add-on] Spends <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% of her max health<> (never fatal) to heal another allied champion for <#6aff55ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<>. With <#ff9028ff>Rejuvenation<> it costs no health and the target gains Rejuvenation too. <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<> for <#ffb900ff>2s<> after casting. Passive <#ff9028ff>Salvation<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>90% Move Speed<> while heading for a nearby allied champion below <#ffb900ff>40%<> health.",
+        "ult": "[Add-on] <#ff9028ff>Wish<>: Restores <#6aff55ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#6aff55ff>health<> to every allied champion on the map, Soraka included. Those below <#ffb900ff>40%<> health are healed <#6aff55ff>50%<> more."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_soraka_addon": {
+        "skill2": "[애드온] <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 6%<>를 소모해(죽지 않음) 다른 아군 챔피언 하나의 <#6aff55ff>체력을 200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> 회복시킵니다. <#ff9028ff>별의 가호<> 중에는 체력 소모 없음, 대상도 <#ff9028ff>별의 가호<> 획득. 사용 후 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가. 기본 지속 효과 <#ff9028ff>구원<>: 체력 <#ffb900ff>40%<> 미만인 근처 아군에게 다가갈 때 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 90%<> 증가.",
+        "ult": "[애드온] <#ff9028ff>기원<>: 거리와 관계없이 모든 아군 챔피언(소라카 포함)의 <#6aff55ff>체력을 220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<>만큼 회복시킵니다. 체력이 <#ffb900ff>40%<> 미만인 대상은 <#6aff55ff>50%<> 더 회복합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_soraka_addon": {
+        "skill2": "【アドオン】<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の6%<>を消費し（倒れることはない）、自分以外の味方チャンピオン1体の<#6aff55ff>体力を200<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>回復する。<#ff9028ff>「再生」<>中は体力を消費せず、対象にも<#ff9028ff>「再生」<>を付与。発動後<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が30%<>増加。パッシブ<#ff9028ff>救済の足音<>：体力<#ffb900ff>40%<>未満の近くの味方へ向かう間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度+90%<>。",
+        "ult": "【アドオン】<#ff9028ff>星に願いを<>：距離に関係なく、すべての味方チャンピオン（ソラカを含む）の<#6aff55ff>体力を220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>回復する。体力<#ffb900ff>40%<>未満の対象は<#6aff55ff>50%<>多く回復。"
+      }
+    }
+  }
+}

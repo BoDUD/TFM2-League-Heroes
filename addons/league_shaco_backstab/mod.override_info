@@ -6,5 +6,13 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_shaco_backstab/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_shaco_jack#sheet": {
+    "remapping": "asset/league/champions/league_shaco_jack#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_shaco_jack#anim": {
+    "remapping": "asset/league/champions/league_shaco_jack#anim",
+    "type": "override"
   }
 }

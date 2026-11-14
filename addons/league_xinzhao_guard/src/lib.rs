@@ -11,6 +11,13 @@
 //! 0.1.0 加到最大生命就停，满血、快满血时挡掉的伤害漏了进去（一次启动 230 下里 11 下、721 点）。超过上限的那一截（`refunded`
 //! 的第二个数）记下来，这一下扣完以后再加回去：同一拍的下一下伤害来的时候（那时上一下已经扣了），或者下一拍。
 //!
+//! **三重爪击缩短别的冷却**（0.1.3，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」，再说「接着做」）：英雄联盟
+//! 的三重爪击（Q，V26.21）每一下 "reduce his other abilities' current cooldowns by 1 second"。主包的三下是他普攻树里的旗子
+//! `league_xinzhao_q_1` → `q_2` → `q_3`（E 冲锋挂上第一个，每一下摘掉自己、挂上下一个；他的普攻树正在被另一边量，一点不能动），
+//! 所以本包不碰普攻：被动每 tick 看他身上是哪一个旗子（[`q_state`]），1 → 2、2 → 3、3 → 没有（不是到时消失）就是刚打出了一下
+//! （[`strike`]），用 `entity_reduce_cooldown` 把他的 E（技能，Q 并在里面）、W（技能 2）、R 当前的冷却各减 `Q_CUT`（60 tick）。
+//! E 冲锋重新挂上第一个旗子不算。数据的三下照旧。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_xinzhao_guard.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //! 0.1.2：每种行整个启动一个计数（league_yasuo_wall 0.1.2 的做法：服务器的预演先记 40 行、之后每 100 行记一行，你看的那场每行都记，
 //! 行末 `#k`）；以前一行都不限（11-08 一次启动 4303 行 BLOCK、519 行 BACK）。
@@ -31,6 +38,13 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_xinzhao_guard") {
     None => env!("CARGO_PKG_VERSION"),
 };
 const GUARD: &str = "league_xinzhao_r_guard";
+/// 三重爪击的三个旗子（主包普攻树里的，同时只有一个）。
+pub const Q_FLAGS: [&str; 3] = ["league_xinzhao_q_1", "league_xinzhao_q_2", "league_xinzhao_q_3"];
+/// 每一下给别的技能减的冷却（英雄联盟 1 秒）和减哪几格（E 带着 Q、W、R）。
+pub const Q_CUT: usize = 60;
+pub const Q_SLOTS: [SkillSlotV1; 3] = [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult];
+/// 旗子还剩这么多 tick 以上就没了：是打出去的那一下摘的，不是到时消失。
+const Q_LIVE: usize = 3;
 
 // ===================== 日志 =====================
 
@@ -161,6 +175,28 @@ pub fn paid_back(hp: usize, max: usize, owed: usize) -> usize {
     hp.saturating_add(owed).min(max)
 }
 
+/// 他身上的三重爪击：(第几下的旗子 1..=3，0 = 没有, 它还剩几 tick)。
+/// 他的 buff 一个一个看、名字按 `&str` 比，不为每个 buff 造一个 String（每 tick 都跑；league_renata 的 `any_buff` 说过：
+/// 先把 buff 收集起来曾占合集后台模拟一半的时间）。
+pub fn q_state(buffs: impl Iterator<Item = BuffV1>) -> (usize, usize) {
+    for b in buffs {
+        if let Some(i) = Q_FLAGS.iter().position(|f| *f == b.name()) {
+            return (i + 1, b.duration_tick);
+        }
+    }
+    (0, 0)
+}
+
+/// 上一 tick 和这一 tick 的 [`q_state`]：刚打出了第几下（1 -> 2、2 -> 3，或者 3 没了而且不是到时消失）。E 重新挂上第一个、
+/// 旗子到时消失都不算。
+pub fn strike(was: (usize, usize), now: (usize, usize)) -> Option<usize> {
+    match (was.0, now.0) {
+        (1, 2) | (2, 3) => Some(was.0),
+        (3, 0) if was.1 > Q_LIVE => Some(3),
+        _ => None,
+    }
+}
+
 fn guarded(sim: &StableSim<'_>, id: usize) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == GUARD))
 }
@@ -172,9 +208,37 @@ struct Guard {
     p: Params,
     /// 挡掉的伤害里生命上限放不下的那一截（0.1.1）：这一下扣完血以后加回去（下一下伤害来时或下一拍）。
     owed: usize,
+    /// 上一 tick 的三重爪击（[`q_state`]，0.1.3）。
+    q: (usize, usize),
 }
 
 impl Guard {
+    /// Three Talon Strike (0.1.3): a thrust just thrown (his flags moved on) takes `Q_CUT` off his other cooldowns.
+    fn talons(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let Some(now) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| {
+            q_state((0..e.buff_count()).filter_map(|i| e.buff_at(i)))
+        }) else {
+            self.q = (0, 0);
+            return;
+        };
+        let was = std::mem::replace(&mut self.q, now);
+        let Some(k) = strike(was, now) else { return };
+        let before: Vec<usize> = Q_SLOTS
+            .iter()
+            .map(|&s| sim.get_entity(me).and_then(|e| e.cooldown(s)).map_or(0, |c| c.remaining))
+            .collect();
+        for &s in &Q_SLOTS {
+            sim.entity_reduce_cooldown(me, s, Q_CUT);
+        }
+        let after: Vec<usize> = Q_SLOTS
+            .iter()
+            .map(|&s| sim.get_entity(me).and_then(|e| e.cooldown(s)).map_or(0, |c| c.remaining))
+            .collect();
+        if let Some(n) = tally(sim, "talon") {
+            wlog(format!("{} TALON {k}/3: E / W / R cooldowns {before:?} -> {after:?} (-{Q_CUT} each) #{n}", head(sim, me)));
+        }
+    }
+
     /// The blocked hits before now have landed: give back what his maximum health could not hold when they were blocked.
     fn pay_back(&mut self, sim: &mut StableSim<'_>, me: usize) {
         if self.owed == 0 {
@@ -201,11 +265,13 @@ impl StablePassive for Guard {
 
     fn on_spawn(&mut self, _: &mut StableSim<'_>, _: usize, _: usize) {
         self.owed = 0;
+        self.q = (0, 0);
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         // every hit of the last tick has landed by now
         self.pay_back(sim, me);
+        self.talons(sim, me);
     }
 
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, attacker: usize, damage: usize) {
@@ -237,6 +303,7 @@ impl StablePassive for Guard {
 
     fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
         self.owed = 0;
+        self.q = (0, 0);
     }
 }
 
@@ -248,7 +315,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Crescent Guard blocks the damage from afar) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Crescent Guard blocks the damage from afar; Three Talon Strike cuts his other cooldowns) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -256,7 +323,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:guard"), Guard::default());
-    host.log(LogLevel::Info, "league_xinzhao_guard v1 loaded (Xin Zhao's R blocks the damage from afar).");
+    host.log(LogLevel::Info, "league_xinzhao_guard v1 loaded (Xin Zhao's R blocks the damage from afar, Three Talon Strike cuts his other cooldowns).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -281,6 +348,34 @@ mod tests {
         assert_eq!(logged.len(), LOG_FIRST + 3);
         assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
         assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn each_thrust_thrown_is_a_strike_the_flags_running_out_are_not() {
+        let st = |v: &[(&str, usize)]| q_state(v.iter().map(|(n, t)| BuffV1::timed(n, *t)));
+        assert_eq!(st(&[("league_xinzhao_e_as", 200), ("league_xinzhao_q_2", 240)]), (2, 240));
+        assert_eq!(st(&[("league_xinzhao_r_guard", 9)]), (0, 0));
+        // E arms the first (from nothing, or again mid-way): no strike
+        assert_eq!(strike((0, 0), (1, 240)), None);
+        assert_eq!(strike((2, 100), (1, 240)), None);
+        // the three thrusts
+        assert_eq!(strike((1, 230), (2, 240)), Some(1));
+        assert_eq!(strike((2, 200), (3, 240)), Some(2));
+        assert_eq!(strike((3, 180), (0, 0)), Some(3));
+        // a flag running out
+        assert_eq!(strike((3, 2), (0, 0)), None);
+        assert_eq!(strike((1, 1), (0, 0)), None);
+        assert_eq!(strike((2, 50), (0, 0)), None, "only the third thrust takes the last flag");
+        assert_eq!(Q_CUT, 60, "League: 1 second a thrust");
+    }
+
+    #[test]
+    fn the_copy_still_carries_the_three_talon_flags_and_points_e_to_the_add_on_text() {
+        let copy = include_str!("../override/league_xinzhao.data_champion").replace("\r\n", "\n");
+        for f in Q_FLAGS {
+            assert!(copy.contains(&format!("\"name\": \"{f}\"")), "the main pack's Three Talon Strike flag {f} is gone");
+        }
+        assert!(copy.contains("description.league_xinzhao_guard.skill"));
     }
 
     #[test]

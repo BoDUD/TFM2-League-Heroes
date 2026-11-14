@@ -40,7 +40,7 @@
   },
   "attack": {
     "action_name": "attack",
-    "description": "#asset/base/text/champion?description.league_nautilus.attack",
+    "description": "#asset/base/text/champion?description.league_nautilus_wall.attack",
     "duration": 28,
     "cooltime": 80,
     "start_timing": 13,
@@ -73,206 +73,153 @@
           "name": "league_nautilus_a_hit"
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_nautilus_q_land",
-          "effect_buff": {
-            "type": "TargetProjectile",
-            "name": "league_nautilus_p_twin",
-            "speed": 100000,
-            "y_offset": 0,
-            "applied_target": "EnemyChampion",
-            "applied_effects": [
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "Bind",
-                  "duration": 50
-                }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_nautilus_p_root",
-                    "duration": {
-                      "Time": {
-                        "tick": 50
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "ApAttack",
-                  "damage": 20,
-                  "attack_ratio": 30,
-                  "hp_ratio": 0,
-                  "can_crit": false,
-                  "attack_effect_type": "Target"
-                }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "ViewEffect",
-                  "name": "league_nautilus_p_hit"
-                }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "TargetSfx",
-                  "name": "league_nautilus_p"
-                }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
-                  },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
+          "type": "TargetProjectile",
+          "name": "league_nautilus_p_twin",
+          "speed": 100000,
+          "y_offset": 0,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Native",
+                "effect_ref": "league_nautilus:stagger"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_nautilus_p_go",
+                "effect_buff": {
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "Combine",
+                      "type": "RemoveCasterBuff",
+                      "name": "league_nautilus_p_go"
+                    },
+                    {
+                      "type": "Bind",
+                      "duration": 50
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_nautilus_p_root",
+                        "duration": {
+                          "Time": {
+                            "tick": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "ApAttack",
+                      "damage": 20,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "can_crit": false,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_nautilus_p_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_nautilus_p"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
                       "effects": [
                         {
                           "type": "RemoveCasterBuff",
-                          "name": "league_nautilus_p_cd"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_nautilus_p_cd",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                          "name": "league_nautilus_q_land"
                         }
                       ]
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_nautilus_q_land"
                     }
                   ]
-                }
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_nautilus_p_cd",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": []
-            },
-            "effect_none": {
-              "type": "TargetProjectile",
-              "name": "league_nautilus_p_twin",
-              "speed": 100000,
-              "y_offset": 0,
-              "applied_target": "EnemyChampion",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Bind",
-                    "duration": 50
-                  }
                 },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_nautilus_p_root",
-                      "duration": {
-                        "Time": {
-                          "tick": 50
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ApAttack",
-                    "damage": 20,
-                    "attack_ratio": 30,
-                    "hp_ratio": 0,
-                    "can_crit": false,
-                    "attack_effect_type": "Target"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_nautilus_p_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_nautilus_p"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
+                "effect_none": {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_nautilus_p_go",
+                      "effect_buff": {
                         "type": "Combine",
                         "effects": [
                           {
                             "type": "RemoveCasterBuff",
-                            "name": "league_nautilus_p_cd"
+                            "name": "league_nautilus_p_go"
                           },
                           {
-                            "type": "AddCasterBuff",
+                            "type": "Bind",
+                            "duration": 50
+                          },
+                          {
+                            "type": "AddBuff",
                             "buff_state": {
-                              "name": "league_nautilus_p_cd",
+                              "name": "league_nautilus_p_root",
                               "duration": {
                                 "Time": {
-                                  "tick": 360
+                                  "tick": 50
                                 }
                               }
+                            }
+                          },
+                          {
+                            "type": "ApAttack",
+                            "damage": 20,
+                            "attack_ratio": 30,
+                            "hp_ratio": 0,
+                            "can_crit": false,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_nautilus_p_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_nautilus_p"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
                             },
-                            "only_to_enemy": false
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_nautilus_q_land"
+                              }
+                            ]
                           }
                         ]
                       },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_nautilus_q_land"
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
+              }
             }
-          }
+          ]
         },
         {
           "type": "SwitchByBuff",
@@ -386,6 +333,13 @@
                   "effect": {
                     "type": "Grab",
                     "speed": 2500
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Stun",
+                    "duration": 60
                   }
                 },
                 {

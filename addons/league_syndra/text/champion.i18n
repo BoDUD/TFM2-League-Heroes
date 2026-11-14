@@ -2,6 +2,7 @@
   "zh-hans": {
     "description": {
       "league_syndra": {
+        "attack": "被动<#ff9028ff>卓尔不凡<>：<#ffb900ff>3<>级Q对英雄伤害+25%，<#ffb900ff>5<>级W附带<#ffffffff>20%真实伤害<>，<#ffb900ff>7<>级E范围更大并<#ef5350ff>减速70%<>，<#ffb900ff>9<>级R斩杀生命被打到15%以下的英雄。",
         "skill2": "先用<#ff9028ff>驱使念力<>把法球（没有时举起附近的小兵或野怪，大小龙除外）掷向敌方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。再锥形击退敌人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，被推开的法球使附近敌人<#ef5350ff>晕眩1.25秒<>。"
       }
     }
@@ -9,6 +10,7 @@
   "zh-hant": {
     "description": {
       "league_syndra": {
+        "attack": "被動<#ff9028ff>卓越<>：<#ffb900ff>3<>級Q對英雄傷害+25%，<#ffb900ff>5<>級W附帶<#ffffffff>20%真實傷害<>，<#ffb900ff>7<>級E範圍更大並<#ef5350ff>緩速70%<>，<#ffb900ff>9<>級R斬殺生命被打到15%以下的英雄。",
         "skill2": "先用<#ff9028ff>意志之力<>把星體（沒有時舉起附近的小兵或野怪，大小龍除外）擲向敵方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。再錐形擊退敵人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，被推開的星體使附近敵人<#ef5350ff>暈眩1.25秒<>。"
       }
     }
@@ -16,6 +18,7 @@
   "en": {
     "description": {
       "league_syndra": {
+        "attack": "Passive <#ff9028ff>Transcendent<>: at level <#ffb900ff>3<> Dark Sphere deals 25% more to champions, at <#ffb900ff>5<> Force of Will adds <#ffffffff>20% true damage<>, at <#ffb900ff>7<> Scatter the Weak grows and <#ef5350ff>slows 70%<>, at <#ffb900ff>9<> Unleashed Power executes champions it brings under 15% health.",
         "skill2": "First <#ff9028ff>Force of Will<> throws a sphere (with none, the nearest minion or monster - never a dragon) at an enemy champion for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 30%<>. Then a cone deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and knocks enemies back; spheres pushed <#ef5350ff>stun<> enemies near them for <#ffb900ff>1.25s<>."
       }
     }
@@ -23,6 +26,7 @@
   "ko": {
     "description": {
       "league_syndra": {
+        "attack": "기본 지속 효과 <#ff9028ff>초월<>: <#ffb900ff>3<>레벨 Q 챔피언 피해 +25%, <#ffb900ff>5<>레벨 W <#ffffffff>고정 피해 20%<> 추가, <#ffb900ff>7<>레벨 E 범위 증가·<#ef5350ff>둔화 70%<>, <#ffb900ff>9<>레벨 R이 체력 15% 미만으로 만든 챔피언 처형.",
         "skill2": "먼저 <#ff9028ff>의지의 힘<>으로 적 챔피언에게 구체(없으면 근처 미니언·몬스터, 용 제외)를 던져 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>30% 둔화<>. 이어서 부채꼴로 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>와 밀쳐내기, 밀려난 구체 주변 적 <#ef5350ff>기절 1.25초<>."
       }
     }
@@ -30,6 +34,7 @@
   "ja": {
     "description": {
       "league_syndra": {
+        "attack": "パッシブ <#ff9028ff>絶大なる魔力<>：<#ffb900ff>3<>レベルでQのチャンピオンへのダメージ+25%、<#ffb900ff>5<>レベルでWに<#ffffffff>20%確定ダメージ<>、<#ffb900ff>7<>レベルでE拡大と<#ef5350ff>70%スロウ<>、<#ffb900ff>9<>レベルでRが体力15%未満にしたチャンピオンを処刑。",
         "skill2": "まず<#ff9028ff>ダークフォース<>でスフィア（なければ近くのミニオンかモンスター、ドラゴン除く）を敵チャンピオンに投げ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。続けて扇状に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>とノックバック、押されたスフィアが周囲の敵を<#ef5350ff>1.25秒スタン<>。"
       }
     }

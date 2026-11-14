@@ -38,6 +38,16 @@
 
 ## 最近的改动
 
+2026-11-11 到 11-14：
+
+- **和英雄联盟对齐**（[#766](https://github.com/BoDUD/TFM2-League-Heroes/pull/766)，用户：「全改吧」）：一大批英雄的技能机制按英雄联盟改（新附加包索拉卡、蕾欧娜、娜美、阿利斯塔、赫卡里姆；璐璐大招让目标变大、亚托克斯大灭期间悬空扇翅、莉莉娅的种子落地后滚、奎桑提全盛压血线、派克灰血等）；召唤物做成真的单位（约里克、玛尔扎哈、纳亚菲利、伊莉丝、黑默丁格、婕拉、俄洛伊、萨科、悟空、乐芙兰、妮蔻……），虚空虫和小蜘蛛用代码重画；58 位动作太少的英雄补帧。
+- **技能特效高清**：联盟和云顶全部英雄的技能特效加 PPU 2 高清帧，553 个 tag 由我们自己的代码重描（[#730](https://github.com/BoDUD/TFM2-League-Heroes/pull/730)）；婕拉大招、纳亚菲利、普朗克银蛇币、俄洛伊的灵魂、吸血鬼 Q 也补上（[#766](https://github.com/BoDUD/TFM2-League-Heroes/pull/766)）。
+- **AI 不平A的英雄**：普攻里对自己放的那一块挪到命中后，再加第二种载体（[#764](https://github.com/BoDUD/TFM2-League-Heroes/pull/764) [#765](https://github.com/BoDUD/TFM2-League-Heroes/pull/765)）；被 AI 冷落的射手自己走 A（[#751](https://github.com/BoDUD/TFM2-League-Heroes/pull/751)）；按韧性放长推人的改动撤回（[#763](https://github.com/BoDUD/TFM2-League-Heroes/pull/763) [#764](https://github.com/BoDUD/TFM2-League-Heroes/pull/764)）；克格莫死后虚空分身放慢到看得清（[#765](https://github.com/BoDUD/TFM2-League-Heroes/pull/765)）。
+- **适配游戏 0.7.2**（[#744](https://github.com/BoDUD/TFM2-League-Heroes/pull/744) [#746](https://github.com/BoDUD/TFM2-League-Heroes/pull/746) [#748](https://github.com/BoDUD/TFM2-League-Heroes/pull/748)）。
+- **大小龙**：龙魂特效、元素峡谷地形、山脉碎石、云端风道（[#745](https://github.com/BoDUD/TFM2-League-Heroes/pull/745) [#747](https://github.com/BoDUD/TFM2-League-Heroes/pull/747) [#749](https://github.com/BoDUD/TFM2-League-Heroes/pull/749) [#753](https://github.com/BoDUD/TFM2-League-Heroes/pull/753) [#755](https://github.com/BoDUD/TFM2-League-Heroes/pull/755)）。
+- **其他**：冰鸟的蛋、奥恩锻造（[#741](https://github.com/BoDUD/TFM2-League-Heroes/pull/741) [#742](https://github.com/BoDUD/TFM2-League-Heroes/pull/742) [#750](https://github.com/BoDUD/TFM2-League-Heroes/pull/750)）；亚恒、卑尔维斯、深红锋喙鸟、特朗德尔局内缩到 85%（[#743](https://github.com/BoDUD/TFM2-League-Heroes/pull/743) [#754](https://github.com/BoDUD/TFM2-League-Heroes/pull/754) [#756](https://github.com/BoDUD/TFM2-League-Heroes/pull/756)）；亚恒按英雄联盟改（[#758](https://github.com/BoDUD/TFM2-League-Heroes/pull/758)）；普朗克银蛇币（[#757](https://github.com/BoDUD/TFM2-League-Heroes/pull/757)）；斯卡纳穿墙（[#760](https://github.com/BoDUD/TFM2-League-Heroes/pull/760)）；泰隆 BP 格（[#761](https://github.com/BoDUD/TFM2-League-Heroes/pull/761)）；卡西奥佩娅不穿鞋（[#762](https://github.com/BoDUD/TFM2-League-Heroes/pull/762)）；11-12 日志修复（[#759](https://github.com/BoDUD/TFM2-League-Heroes/pull/759)）。
+- **进行中（还没合并）**：召唤师峡谷地图兼容（[#734](https://github.com/BoDUD/TFM2-League-Heroes/pull/734)，暂停中）：附加包同时兼容原版地图和 Rin 的召唤师峡谷 α。这个 PR 还会删掉下面那组比赛 AI 钩子，合并前它们照旧在。
+
 2026-10-29 到 11-10 合并了约 120 个 PR，按类别列（编号是 PR）：
 
 - **英雄模型用 PPU 重做**（Codex 画设计图和整帧动作，读回成高清帧，登记进 `league.dll`）：
@@ -67,9 +77,6 @@
   - 加射程改走官方的 `range_adjust`（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)）；区域 `first_delay` 从 0 改成 1（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）；英雄死后不再反复触发（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。
   - 存档里英雄副本的迁移工具（[#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#647](https://github.com/BoDUD/TFM2-League-Heroes/pull/647)）；`pose_ref` 读皮肤真正的隐藏名单（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)）；撤掉 Mac 版（[#642](https://github.com/BoDUD/TFM2-League-Heroes/pull/642)）。
   - 每天按对局日志修 bug（[#618](https://github.com/BoDUD/TFM2-League-Heroes/pull/618) [#632](https://github.com/BoDUD/TFM2-League-Heroes/pull/632) [#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#659](https://github.com/BoDUD/TFM2-League-Heroes/pull/659) [#674](https://github.com/BoDUD/TFM2-League-Heroes/pull/674) [#685](https://github.com/BoDUD/TFM2-League-Heroes/pull/685) [#692](https://github.com/BoDUD/TFM2-League-Heroes/pull/692) [#699](https://github.com/BoDUD/TFM2-League-Heroes/pull/699) [#718](https://github.com/BoDUD/TFM2-League-Heroes/pull/718) [#721](https://github.com/BoDUD/TFM2-League-Heroes/pull/721)）。
-- **进行中（还没合并）**：
-  - 全部英雄的技能特效改成 PPU 2 高清帧，并接入 Codex 重画（[#730](https://github.com/BoDUD/TFM2-League-Heroes/pull/730)）。
-  - 召唤师峡谷地图兼容（[#734](https://github.com/BoDUD/TFM2-League-Heroes/pull/734)）。这个 PR 同时删掉了上面那组比赛 AI 钩子。
 
 下面 [踩坑记录](#踩坑记录) 一节是这段时间吃过的亏。
 
@@ -239,7 +246,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_urgot.png" width="32"> | [厄加特](docs/heroes/league_urgot.md)<br>Urgot | 上单 | 腐蚀电荷 · 鄙弃 · 大招 超越死亡的恐惧 | [厄加特附加包](addons/league_urgot/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_vladimir.png" width="32"> | [弗拉基米尔](docs/heroes/league_vladimir.md)<br>Vladimir | 上单 | 被动 血色契约 · 鲜血转换 · 血之潮汐 · 大招 血之瘟疫 | [弗拉基米尔残血血池附加包](addons/league_vladimir_pool/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_volibear.png" width="32"> | [沃利贝尔](docs/heroes/league_volibear.md)<br>Volibear | 上单 | 擂首一击 · 霹天雳地 · 大招 天声震落 | [沃利贝尔附加包](addons/league_volibear/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包](addons/league_yorick/README.md) | PPU 1.75 |
+| <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包：坟照英雄联盟挖、雾行者和室女是真的单位](addons/league_yorick/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_zaahen.png" width="32"> | [亚恒](docs/heroes/league_zaahen.md)<br>Zaahen | 上单 | 暗裔长刀 · 厄影回锋 · 大招 大赦 | [亚恒附加包](addons/league_zaahen/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/tft_brock.png" width="32"> | [岩宝](docs/heroes/tft_brock.md)<br>Brock（tft 包） | 上单 | 巨岩投掷 · 苔藤缠握 · 大招 震地猛击 | — | PPU 1.16 |
 | <img src="docs/heroes/img/tft_elderdragon.png" width="32"> | [远古巨龙](docs/heroes/tft_elderdragon.md)<br>Elder Dragon（tft 包） | 上单 | 烈焰吐息 · 龙翼风暴 · 大招 绝伦火热 | — | PPU 2.84 |
@@ -261,12 +268,12 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_briar.png" width="32"> | [贝蕾亚](docs/heroes/league_briar.md)<br>Briar | 打野 | 被动 猩红诅咒 · 冲头 · 惊吼 · 大招 毙除 | [贝蕾亚附加包](addons/league_briar_frenzy/README.md) | PPU 2.94 |
 | <img src="docs/heroes/img/league_diana.png" width="32"> | [黛安娜](docs/heroes/league_diana.md)<br>Diana | 打野 | 被动 月银之刃 · 新月打击 · 月神冲刺 · 大招 月之降临 | [目标标记附加包](addons/league_marks/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_ekko.png" width="32"> | [艾克](docs/heroes/league_ekko.md)<br>Ekko | 打野 | 被动 Z型驱动共振 · 时间卷曲器 · 相位俯冲 · 大招 时空断裂 | [艾克时间倒转附加包](addons/league_ekko_rewind/README.md) | PPU 1.94 |
-| <img src="docs/heroes/img/league_elise.png" width="32"> | [伊莉丝](docs/heroes/league_elise.md)<br>Elise | 打野 | 神经毒素 / 剧毒之蜇 · 结茧 / 盘丝 · 大招 蜘蛛形态 | [伊莉丝附加包](addons/league_elise/README.md) | PPU 1.8 |
+| <img src="docs/heroes/img/league_elise.png" width="32"> | [伊莉丝](docs/heroes/league_elise.md)<br>Elise | 打野 | 神经毒素 / 剧毒之蜇 · 结茧 / 盘丝 · 大招 蜘蛛形态 | [伊莉丝附加包：整身变蜘蛛、挑目标、小蜘蛛是真的单位](addons/league_elise/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_evelynn.png" width="32"> | [伊芙琳](docs/heroes/league_evelynn.md)<br>Evelynn | 打野 | 憎恨之刺 · 引诱 · 大招 最终抚慰 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](addons/league_executes/README.md) | PPU 2.78 |
 | <img src="docs/heroes/img/league_fiddlesticks.png" width="32"> | [费德提克](docs/heroes/league_fiddlesticks.md)<br>Fiddlesticks | 打野 | 被动 巫骇草人 · 恐惧 · 五骨丰登 · 大招 群鸦风暴 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_gragas.png" width="32"> | [古拉加斯](docs/heroes/league_gragas.md)<br>Gragas | 打野 | 滚动酒桶 · 肉弹冲击 · 大招 爆破酒桶 | [古拉加斯大招智能落点附加包](addons/league_gragas/README.md) | PPU 1.45 |
 | <img src="docs/heroes/img/league_graves.png" width="32"> | [格雷福斯](docs/heroes/league_graves.md)<br>Graves | 打野 | 穷途末路 · 快速拔枪 · 大招 终极爆弹 | [格雷福斯附加包](addons/league_graves/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_hecarim.png" width="32"> | [赫卡里姆](docs/heroes/league_hecarim.md)<br>Hecarim | 打野 | 暴走 · 毁灭冲锋 · 大招 暗影冲击 | — | PPU 1.8 |
+| <img src="docs/heroes/img/league_hecarim.png" width="32"> | [赫卡里姆](docs/heroes/league_hecarim.md)<br>Hecarim | 打野 | 暴走 · 毁灭冲锋 · 大招 暗影冲击 | [赫卡里姆附加包](addons/league_hecarim/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_ivern.png" width="32"> | [艾翁](docs/heroes/league_ivern.md)<br>Ivern | 打野 | 种豆得瓜 · 根深敌固 · 大招 小菊！ | [艾翁附加包](addons/league_ivern/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_jarvaniv.png" width="32"> | [嘉文四世](docs/heroes/league_jarvaniv.md)<br>Jarvan IV | 打野 | 德邦军旗 · 巨龙撞击 · 大招 天崩地裂 | [嘉文四世附加包](addons/league_jarvaniv/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_kayn.png" width="32"> | [凯隐](docs/heroes/league_kayn.md)<br>Kayn | 打野 | 巨镰横扫 · 利刃纵贯 · 大招 裂舍影 | [凯隐「暗裔魔镰」附加包](addons/league_kayn_form/README.md) | PPU 1.8 |
@@ -275,7 +282,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_leesin.png" width="32"> | [李青](docs/heroes/league_leesin.md)<br>Lee Sin | 打野 | 被动 疾风骤雨 · 天音波 · 天雷破 · 大招 猛龙摆尾 | [盲僧 W 位移附加包](addons/league_leesin_hop/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_lillia.png" width="32"> | [莉莉娅](docs/heroes/league_lillia.md)<br>Lillia | 打野 | 被动 梦满枝 · 飞花挞 · 流涡种 · 大招 夜阑谣 | [莉莉娅梦尘与昏睡附加包](addons/league_lillia/README.md) | PPU 2.62 |
 | <img src="docs/heroes/img/league_masteryi.png" width="32"> | [易](docs/heroes/league_masteryi.md)<br>Master Yi | 打野 | 被动 双重打击 · 阿尔法突袭 · 无极剑道 · 大招 高原血统 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.23 |
-| <img src="docs/heroes/img/league_naafiri.png" width="32"> | [纳亚菲利](docs/heroes/league_naafiri.md)<br>Naafiri | 打野 | 暗裔犬牙 · 剔骨本能 · 大招 猎狗血性 | [纳亚菲利附加包](addons/league_naafiri/README.md) | PPU 1.5 |
+| <img src="docs/heroes/img/league_naafiri.png" width="32"> | [纳亚菲利](docs/heroes/league_naafiri.md)<br>Naafiri | 打野 | 暗裔犬牙 · 剔骨本能 · 大招 猎狗血性 | [纳亚菲利附加包：斩杀、再扑、聪明开大、狗群是真的单位](addons/league_naafiri/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_nidalee.png" width="32"> | [奈德丽](docs/heroes/league_nidalee.md)<br>Nidalee | 打野 | 标枪投掷 / 推倒 · 野性奔腾 / 猛扑 · 大招 美洲狮形态 | [奈德丽附加包](addons/league_nidalee/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_nocturne.png" width="32"> | [魔腾](docs/heroes/league_nocturne.md)<br>Nocturne | 打野 | 被动 暗影之刃 · 梦魇之径 · 无言恐惧 · 大招 鬼影重重 | [魔腾黑暗附加包](addons/league_nocturne_dark/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_nunu.png" width="32"> | [努努和威朗普](docs/heroes/league_nunu.md)<br>Nunu & Willump | 打野 | 史上最大雪球！ · 雪球飞射 · 大招 绝对零度 | — | PPU 1.37 |
@@ -285,7 +292,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_reksai.png" width="32"> | [雷克塞](docs/heroes/league_reksai.md)<br>Rek'Sai | 打野 | 女王之怒 · 遁地 · 大招 虚空猛冲 | [雷克塞附加包](addons/league_reksai/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_rengar.png" width="32"> | [雷恩加尔](docs/heroes/league_rengar.md)<br>Rengar | 打野 | 战争咆哮 · 套索打击 · 大招 狩猎律动 | [雷恩加尔草丛附加包](addons/league_rengar_bush/README.md) | PPU 1.48 |
 | <img src="docs/heroes/img/league_sejuani.png" width="32"> | [瑟庄妮](docs/heroes/league_sejuani.md)<br>Sejuani | 打野 | 极寒突袭 · 凛冬之怒 · 大招 极冰寒狱 | [瑟庄妮附加包](addons/league_sejuani/README.md) | PPU 2 |
-| <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科背刺附加包](addons/league_shaco_backstab/README.md) | PPU 2.12 |
+| <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科附加包：背刺看朝向、幻像和惊吓魔盒是真的单位](addons/league_shaco_backstab/README.md) | PPU 2.12 |
 | <img src="docs/heroes/img/league_shyvana.png" width="32"> | [希瓦娜](docs/heroes/league_shyvana.md)<br>Shyvana | 打野 | 焚焰打击 · 爆炎吐息 · 大招 魔龙降世 | [希瓦娜附加包](addons/league_shyvana/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_skarner.png" width="32"> | [斯卡纳](docs/heroes/league_skarner.md)<br>Skarner | 打野 | 撼地 · 以绪塔尔冲击 · 大招 毒刺贯体 | [斯卡纳附加包](addons/league_skarner/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_trundle.png" width="32"> | [特朗德尔](docs/heroes/league_trundle.md)<br>Trundle | 打野 | 利齿撕咬 · 寒冰之柱 · 大招 强权至上 | [特朗德尔附加包](addons/league_trundle/README.md) | PPU 2 |
@@ -314,7 +321,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_ahri.png" width="32"> | [阿狸](docs/heroes/league_ahri.md)<br>Ahri | 中单 | 被动 摄魂夺魄 · 欺诈宝珠 · 魅惑妖术 · 大招 灵魄突袭 | [阿狸附加包](addons/league_ahri/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_akali.png" width="32"> | [阿卡丽](docs/heroes/league_akali.md)<br>Akali | 中单 | 被动 我流忍法！潜龙印 · 我流奥义！寒影 · 我流奥义！隼舞 · 大招 我流秘奥义！表里杀缭乱 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](addons/league_executes/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_anivia.png" width="32"> | [艾尼维亚](docs/heroes/league_anivia.md)<br>Anivia | 中单 | 寒冰闪耀 · 霜寒刺骨 · 大招 冰川风暴 | [艾尼维亚附加包](addons/league_anivia/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_annie.png" width="32"> | [安妮](docs/heroes/league_annie.md)<br>Annie | 中单 | 被动 嗜火 · 碎裂之火 · 焚烧 · 大招 提伯斯之怒 | [安妮附加包：Q 返还、提伯斯换目标](addons/league_annie_q/README.md) | PPU 2.2 |
+| <img src="docs/heroes/img/league_annie.png" width="32"> | [安妮](docs/heroes/league_annie.md)<br>Annie | 中单 | 被动 嗜火 · 碎裂之火 · 焚烧 · 大招 提伯斯之怒 | [安妮附加包：Q 返还、提伯斯是真的单位](addons/league_annie_q/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_aurelionsol.png" width="32"> | [奥瑞利安·索尔](docs/heroes/league_aurelionsol.md)<br>Aurelion Sol | 中单 | 星河冲荡 · 星芒凝汇 · 大招 星天落瀑 | [奥瑞利安·索尔附加包](addons/league_aurelionsol/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_aurora.png" width="32"> | [阿萝拉](docs/heroes/league_aurora.md)<br>Aurora | 中单 | 飞去来咒 · 怪奇喷涌 · 大招 双界合一 | [阿萝拉附加包](addons/league_aurora/README.md) | PPU 2.25 |
 | <img src="docs/heroes/img/league_azir.png" width="32"> | [阿兹尔](docs/heroes/league_azir.md)<br>Azir | 中单 | 狂沙猛攻 · 流沙移形 · 大招 禁军之墙 | [阿兹尔附加包](addons/league_azir/README.md) | PPU 1.5 |
@@ -323,7 +330,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_corki.png" width="32"> | [库奇](docs/heroes/league_corki.md)<br>Corki | 中单 | 磷光炸弹 · 格林机枪 · 大招 火箭轰击 | [库奇智能火箭 + 脱身方向附加包](addons/league_corki/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_fizz.png" width="32"> | [菲兹](docs/heroes/league_fizz.md)<br>Fizz | 中单 | 被动 伶俐斗士 · 淘气打击 · 古灵精怪 · 大招 巨鲨强袭 | — | PPU 1.81 |
 | <img src="docs/heroes/img/league_galio.png" width="32"> | [加里奥](docs/heroes/league_galio.md)<br>Galio | 中单 | 战争罡风 · 正义冲拳 · 大招 英雄登场 | [加里奥附加包](addons/league_galio/README.md) | PPU 1.65 |
-| <img src="docs/heroes/img/league_heimerdinger.png" width="32"> | [黑默丁格](docs/heroes/league_heimerdinger.md)<br>Heimerdinger | 中单 | H-28 G 进化炮台 · CH-2电子风暴手雷 · 大招 升级！！！ | [黑默丁格附加包](addons/league_heimerdinger/README.md) | PPU 1.2 |
+| <img src="docs/heroes/img/league_heimerdinger.png" width="32"> | [黑默丁格](docs/heroes/league_heimerdinger.md)<br>Heimerdinger | 中单 | H-28 G 进化炮台 · CH-2电子风暴手雷 · 大招 升级！！！ | [黑默丁格附加包：炮台射击、塔边加速、炮台有了身体](addons/league_heimerdinger/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_hwei.png" width="32"> | [彗](docs/heroes/league_hwei.md)<br>Hwei | 中单 | 主题：灾 · 主题：悚 · 大招 焚心绚华绘 | — | PPU 1.5 |
 | <img src="docs/heroes/img/league_karthus.png" width="32"> | [卡尔萨斯](docs/heroes/league_karthus.md)<br>Karthus | 中单 | 荒芜 · 亵渎 · 大招 安魂曲 | [卡尔萨斯附加包](addons/league_karthus/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_kassadin.png" width="32"> | [卡萨丁](docs/heroes/league_kassadin.md)<br>Kassadin | 中单 | 虚无法球 · 能量脉冲 · 大招 虚空行走 | [卡萨丁附加包](addons/league_kassadin/README.md) | PPU 2.42 |
@@ -332,7 +339,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_lissandra.png" width="32"> | [丽桑卓](docs/heroes/league_lissandra.md)<br>Lissandra | 中单 | 被动 冰脉驱役 · 寒冰碎片 · 冰霜之环 · 大招 冰封陵墓 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_locke.png" width="32"> | [洛克](docs/heroes/league_locke.md)<br>Locke | 中单 | 伏魔三钉 · 灰猎无影 · 大招 万魔狱 | [洛克附加包](addons/league_locke/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_lux.png" width="32"> | [拉克丝](docs/heroes/league_lux.md)<br>Lux | 中单 | 被动 光芒四射 · 光之束缚 · 透光奇点 · 大招 终极闪光 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.2 |
-| <img src="docs/heroes/img/league_malzahar.png" width="32"> | [玛尔扎哈](docs/heroes/league_malzahar.md)<br>Malzahar | 中单 | 被动 虚空穿越 · 煞星幻象 / 虚空虫群 · 虚空召唤 · 大招 冥府之握 | [玛尔扎哈附加包](addons/league_malzahar/README.md) | PPU 1.38 |
+| <img src="docs/heroes/img/league_malzahar.png" width="32"> | [玛尔扎哈](docs/heroes/league_malzahar.md)<br>Malzahar | 中单 | 被动 虚空穿越 · 煞星幻象 / 虚空虫群 · 虚空召唤 · 大招 冥府之握 | [玛尔扎哈附加包：虚空穿越、幻象跳转、虚空蜂是真的单位](addons/league_malzahar/README.md) | PPU 1.38 |
 | <img src="docs/heroes/img/league_neeko.png" width="32"> | [妮蔻](docs/heroes/league_neeko.md)<br>Neeko | 中单 | 盛开花种 · 缠结倒刺 · 大招 怒放 | [妮蔻附加包](addons/league_neeko/README.md) | PPU 2.5 |
 | <img src="docs/heroes/img/league_orianna.png" width="32"> | [奥莉安娜](docs/heroes/league_orianna.md)<br>Orianna | 中单 | 指令：攻击 · 指令：防卫 · 大招 指令：冲击波 | [奥莉安娜附加包](addons/league_orianna/README.md) | PPU 2.25 |
 | <img src="docs/heroes/img/league_ryze.png" width="32"> | [瑞兹](docs/heroes/league_ryze.md)<br>Ryze | 中单 | 被动 奥术专精 · 超负荷 · 符文禁锢 · 大招 曲境折跃 | — | PPU 1.66 |
@@ -345,14 +352,14 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_veigar.png" width="32"> | [维迦](docs/heroes/league_veigar.md)<br>Veigar | 中单 | 被动 超凡邪力 · 黑暗祭祀 · 扭曲空间 · 大招 能量爆裂 | [维迦法强常驻附加包](addons/league_veigar_power/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_velkoz.png" width="32"> | [维克兹](docs/heroes/league_velkoz.md)<br>Vel'Koz | 中单 | 等离子裂变 · 构造分解 · 大招 生命形态瓦解射线 | [维克兹附加包](addons/league_velkoz/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_vex.png" width="32"> | [薇古丝](docs/heroes/league_vex.md)<br>Vex | 中单 | 寒心波云 · 溟濛渐染 · 大招 愁煞 | [薇古丝附加包](addons/league_vex/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_viktor.png" width="32"> | [维克托](docs/heroes/league_viktor.md)<br>Viktor | 中单 | 被动 光荣进化 · 虹吸能量 · 海克斯射线 · 大招 奥术风暴 | — | PPU 1.81 |
+| <img src="docs/heroes/img/league_viktor.png" width="32"> | [维克托](docs/heroes/league_viktor.md)<br>Viktor | 中单 | 被动 光荣进化 · 虹吸能量 · 海克斯射线 · 大招 奥术风暴 | [维克托附加包](addons/league_viktor/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_xerath.png" width="32"> | [泽拉斯](docs/heroes/league_xerath.md)<br>Xerath | 中单 | 被动 法力澎湃 · 奥能脉冲 · 冲击法球 · 大招 奥术仪式 | — | PPU 1.55 |
 | <img src="docs/heroes/img/league_yasuo.png" width="32"> | [亚索](docs/heroes/league_yasuo.md)<br>Yasuo | 中单 | 被动 浪客之道 · 斩钢闪 · 踏前斩 · 大招 狂风绝息斩 | [亚索风之障壁附加包](addons/league_yasuo_wall/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_yone.png" width="32"> | [永恩](docs/heroes/league_yone.md)<br>Yone | 中单 | 被动 狩人之道 · 错玉切 · 凛神斩 · 大招 封尘绝念斩 | [永恩 R 附加包](addons/league_yone_r/README.md) | PPU 2.19 |
 | <img src="docs/heroes/img/league_zed.png" width="32"> | [劫](docs/heroes/league_zed.md)<br>Zed | 中单 | 影奥义！分身 · 影奥义！诸刃 · 大招 禁奥义！瞬狱影杀阵 | [劫读血附加包](addons/league_zed_mark/README.md) | PPU 1.62 |
 | <img src="docs/heroes/img/league_ziggs.png" width="32"> | [吉格斯](docs/heroes/league_ziggs.md)<br>Ziggs | 中单 | 弹跳炸弹 · 海克斯爆破雷区 · 大招 科学的地狱火炮 | [吉格斯附加包](addons/league_ziggs/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_zoe.png" width="32"> | [佐伊](docs/heroes/league_zoe.md)<br>Zoe | 中单 | 飞星乱入！ · 催眠气泡 · 大招 折返跃迁 | [佐伊附加包](addons/league_zoe/README.md) | PPU 2.64 |
-| <img src="docs/heroes/img/league_zyra.png" width="32"> | [婕拉](docs/heroes/league_zyra.md)<br>Zyra | 中单 | 致命棘刺 · 缠绕之根 · 大招 绞杀之藤 | [婕拉附加包](addons/league_zyra/README.md) | PPU 1.7 |
+| <img src="docs/heroes/img/league_zyra.png" width="32"> | [婕拉](docs/heroes/league_zyra.md)<br>Zyra | 中单 | 致命棘刺 · 缠绕之根 · 大招 绞杀之藤 | [婕拉附加包：种子、植物、光合作用、植物有了身体](addons/league_zyra/README.md) | PPU 1.7 |
 | <img src="docs/heroes/img/tft_alune.png" width="32"> | [拉露恩](docs/heroes/tft_alune.md)<br>Alune（tft 包） | 中单 | 月之降临 · 月华 · 大招 月曜降临 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_aoshin.png" width="32"> | [敖兴](docs/heroes/tft_aoshin.md)<br>Ao Shin（tft 包） | 中单 | 雷息 · 腾云 · 大招 闪电暴雨 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_nomsy.png" width="32"> | [诺姆希](docs/heroes/tft_nomsy.md)<br>Nomsy（tft 包） | 中单 | 火球！ · 龙息 · 大招 龙神飞升 | — | PPU 2.6 |
@@ -401,18 +408,18 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
-| <img src="docs/heroes/img/league_alistar.png" width="32"> | [阿利斯塔](docs/heroes/league_alistar.md)<br>Alistar | 辅助 | 被动 凯旋怒吼 · 大地粉碎 · 野蛮冲撞 · 大招 坚定意志 | — | PPU 1.73 |
+| <img src="docs/heroes/img/league_alistar.png" width="32"> | [阿利斯塔](docs/heroes/league_alistar.md)<br>Alistar | 辅助 | 被动 凯旋怒吼 · 大地粉碎 · 野蛮冲撞 · 大招 坚定意志 | [阿利斯塔附加包](addons/league_alistar/README.md) | PPU 1.73 |
 | <img src="docs/heroes/img/league_bard.png" width="32"> | [巴德](docs/heroes/league_bard.md)<br>Bard | 辅助 | 被动 旅者的召唤 · 星界束缚 · 游神圣坛 / 神奇旅程 · 大招 调和命运 | [巴德「神奇旅程」穿墙门附加包](addons/league_bard/README.md) | — |
 | <img src="docs/heroes/img/league_blitzcrank.png" width="32"> | [布里茨](docs/heroes/league_blitzcrank.md)<br>Blitzcrank | 辅助 | 被动 法力屏障 · 机械飞爪 · 能量铁拳 · 大招 静电力场 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 1.79 |
 | <img src="docs/heroes/img/league_braum.png" width="32"> | [布隆](docs/heroes/league_braum.md)<br>Braum | 辅助 | 寒冬之咬 · 坚不可摧 · 大招 冰川裂隙 | 布隆附加包 | PPU 1.98 |
 | <img src="docs/heroes/img/league_janna.png" width="32"> | [迦娜](docs/heroes/league_janna.md)<br>Janna | 辅助 | 被动 顺风而行 · 飓风呼啸 · 风暴之眼 · 大招 复苏季风 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_karma.png" width="32"> | [卡尔玛](docs/heroes/league_karma.md)<br>Karma | 辅助 | 心灵烈焰 · 坚定不移 · 大招 梵咒 | — | PPU 2.2 |
-| <img src="docs/heroes/img/league_leona.png" width="32"> | [蕾欧娜](docs/heroes/league_leona.md)<br>Leona | 辅助 | 被动 日光 · 破晓之盾 · 天顶之刃 · 大招 日炎耀斑 | — | PPU 1.5 |
+| <img src="docs/heroes/img/league_leona.png" width="32"> | [蕾欧娜](docs/heroes/league_leona.md)<br>Leona | 辅助 | 被动 日光 · 破晓之盾 · 天顶之刃 · 大招 日炎耀斑 | [蕾欧娜附加包](addons/league_leona/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_lulu.png" width="32"> | [璐璐](docs/heroes/league_lulu.md)<br>Lulu | 辅助 | 闪耀长枪 · 奇思妙想 · 大招 狂野生长 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | PPU 1.79 |
 | <img src="docs/heroes/img/league_maokai.png" width="32"> | [茂凯](docs/heroes/league_maokai.md)<br>Maokai | 辅助 | 荆棘重击 · 扭曲突刺 · 大招 自然之握 | [茂凯附加包](addons/league_maokai/README.md) | PPU 1.3 |
 | <img src="docs/heroes/img/league_milio.png" width="32"> | [米利欧](docs/heroes/league_milio.md)<br>Milio | 辅助 | 被动 热情洋溢！ · 火爆飞踢 · 融融情谊 / 依依不舍 · 大招 生生不息 | [米利欧附加包](addons/league_milio/README.md) | PPU 2.21 |
 | <img src="docs/heroes/img/league_morgana.png" width="32"> | [莫甘娜](docs/heroes/league_morgana.md)<br>Morgana | 辅助 | 被动 灵魂吸取 · 暗之禁锢 · 黑暗之盾 · 大招 灵魂镣铐 | — | PPU 1.5 |
-| <img src="docs/heroes/img/league_nami.png" width="32"> | [娜美](docs/heroes/league_nami.md)<br>Nami | 辅助 | 被动 踏浪之行 · 冲击之潮 · 碧波之牢 · 大招 怒涛之啸 | — | PPU 1.5 |
+| <img src="docs/heroes/img/league_nami.png" width="32"> | [娜美](docs/heroes/league_nami.md)<br>Nami | 辅助 | 被动 踏浪之行 · 冲击之潮 · 碧波之牢 · 大招 怒涛之啸 | [娜美附加包](addons/league_nami/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_nautilus.png" width="32"> | [诺提勒斯](docs/heroes/league_nautilus.md)<br>Nautilus | 辅助 | 疏通航道 · 泰坦之怒 · 大招 深海冲击 | [诺提勒斯钩墙附加包](addons/league_nautilus/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_poppy.png" width="32"> | [波比](docs/heroes/league_poppy.md)<br>Poppy | 辅助 | 圣锤猛击 · 英勇冲锋 · 大招 持卫的裁决 | [波比附加包](addons/league_poppy/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_pyke.png" width="32"> | [派克](docs/heroes/league_pyke.md)<br>Pyke | 辅助 | 被动 溺水之幸 · 透骨尖钉 · 魅影浪洄 · 大招 涌泉之恨 | [派克精确斩杀附加包](addons/league_pyke/README.md) | PPU 1.78 |
@@ -422,7 +429,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_senna.png" width="32"> | [赛娜](docs/heroes/league_senna.md)<br>Senna | 辅助 | 黑暗洞灭 · 无尽厮守 · 大招 暗影燎原 | [赛娜黑雾常驻附加包](addons/league_senna_mist/README.md) | PPU 1.87 |
 | <img src="docs/heroes/img/league_seraphine.png" width="32"> | [萨勒芬妮](docs/heroes/league_seraphine.md)<br>Seraphine | 辅助 | 被动 星光漫射 · 清籁穿云 · 增幅节拍 · 大招 炫音返场 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_sona.png" width="32"> | [娑娜](docs/heroes/league_sona.md)<br>Sona | 辅助 | 被动 能量和弦 · 英勇赞美诗 · 坚毅咏叹调 · 大招 狂舞终乐章 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | PPU 3.88 |
-| <img src="docs/heroes/img/league_soraka.png" width="32"> | [索拉卡](docs/heroes/league_soraka.md)<br>Soraka | 辅助 | 流星坠落 · 星之灌注 · 大招 祈愿 | — | PPU 2.2 |
+| <img src="docs/heroes/img/league_soraka.png" width="32"> | [索拉卡](docs/heroes/league_soraka.md)<br>Soraka | 辅助 | 流星坠落 · 星之灌注 · 大招 祈愿 | [索拉卡附加包](addons/league_soraka/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_tahmkench.png" width="32"> | [塔姆](docs/heroes/league_tahmkench.md)<br>Tahm Kench | 辅助 | 巨舌鞭笞 · 深渊潜航 · 大招 大快朵颐 | [塔姆附加包](addons/league_tahmkench/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_taric.png" width="32"> | [塔里克](docs/heroes/league_taric.md)<br>Taric | 辅助 | 被动 正气凌人 · 炫光 · 星光之触 · 大招 宇宙之辉 | — | PPU 1.55 |
 | <img src="docs/heroes/img/league_thresh.png" width="32"> | [锤石](docs/heroes/league_thresh.md)<br>Thresh | 辅助 | 被动 厄运钟摆 · 死亡判决 · 厄运钟摆 · 大招 幽冥监牢 | [锤石灯笼附加包](addons/league_thresh_lantern/README.md) | PPU 2.48 |

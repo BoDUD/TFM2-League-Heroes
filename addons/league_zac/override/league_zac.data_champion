@@ -13,7 +13,12 @@
     "params": {
       "split_t": 360,
       "split_cd": 18000,
-      "split_hp": 40
+      "split_hp": 40,
+      "r_kb": 400,
+      "r_kb_t": 60,
+      "r_dmg": 90,
+      "r_ap": 50,
+      "r_k": 50
     }
   },
   "sprite": "asset/league/champions/league_zac",
@@ -2431,6 +2436,56 @@
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_zac_r_first",
+                                                                  "effect_buff": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_zac_r_m1",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 3
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_zac_r_m2",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 3
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                {
                                                                   "type": "CasterAnimation",
                                                                   "name": "ult_land",
                                                                   "tick": 12
@@ -2458,26 +2513,14 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "Knockback",
-                                                                        "speed": 2000,
-                                                                        "tick": 12
+                                                                        "speed": 400,
+                                                                        "tick": 60
                                                                       }
                                                                     ]
                                                                   },
                                                                   "effect_none": {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 26000
-                                                                      }
-                                                                    },
-                                                                    "target": "EnemyWithoutTower",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Airborne",
-                                                                        "duration": 20
-                                                                      }
-                                                                    ]
+                                                                    "type": "Combine",
+                                                                    "effects": []
                                                                   }
                                                                 },
                                                                 {
@@ -3086,6 +3129,56 @@
                                                                       "type": "Combine",
                                                                       "effects": [
                                                                         {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_zac_r_first",
+                                                                          "effect_buff": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_zac_r_m1",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 3
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_zac_r_m2",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 3
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        },
+                                                                        {
                                                                           "type": "CasterAnimation",
                                                                           "name": "ult_land",
                                                                           "tick": 12
@@ -3113,26 +3206,14 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "Knockback",
-                                                                                "speed": 2000,
-                                                                                "tick": 12
+                                                                                "speed": 400,
+                                                                                "tick": 60
                                                                               }
                                                                             ]
                                                                           },
                                                                           "effect_none": {
-                                                                            "type": "RangeEffect",
-                                                                            "shape": {
-                                                                              "Circle": {
-                                                                                "radius": 26000
-                                                                              }
-                                                                            },
-                                                                            "target": "EnemyWithoutTower",
-                                                                            "apply_type": "AroundCaster",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Airborne",
-                                                                                "duration": 20
-                                                                              }
-                                                                            ]
+                                                                            "type": "Combine",
+                                                                            "effects": []
                                                                           }
                                                                         },
                                                                         {
@@ -4909,7 +4990,7 @@
   },
   "ult": {
     "action_name": "idle",
-    "description": "#asset/base/text/champion?description.league_zac.ult",
+    "description": "#asset/base/text/champion?description.league_zac_addon.ult",
     "duration": 3,
     "cooltime": 90,
     "start_timing": 1,
@@ -7292,6 +7373,56 @@
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_zac_r_first",
+                                                                  "effect_buff": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_zac_r_m1",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 3
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_zac_r_m2",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 3
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                {
                                                                   "type": "CasterAnimation",
                                                                   "name": "ult_land",
                                                                   "tick": 12
@@ -7319,26 +7450,14 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "Knockback",
-                                                                        "speed": 2000,
-                                                                        "tick": 12
+                                                                        "speed": 400,
+                                                                        "tick": 60
                                                                       }
                                                                     ]
                                                                   },
                                                                   "effect_none": {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 26000
-                                                                      }
-                                                                    },
-                                                                    "target": "EnemyWithoutTower",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Airborne",
-                                                                        "duration": 20
-                                                                      }
-                                                                    ]
+                                                                    "type": "Combine",
+                                                                    "effects": []
                                                                   }
                                                                 },
                                                                 {
@@ -7947,6 +8066,56 @@
                                                                       "type": "Combine",
                                                                       "effects": [
                                                                         {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_zac_r_first",
+                                                                          "effect_buff": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_zac_r_m1",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 3
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_zac_r_m2",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 3
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        },
+                                                                        {
                                                                           "type": "CasterAnimation",
                                                                           "name": "ult_land",
                                                                           "tick": 12
@@ -7974,26 +8143,14 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "Knockback",
-                                                                                "speed": 2000,
-                                                                                "tick": 12
+                                                                                "speed": 400,
+                                                                                "tick": 60
                                                                               }
                                                                             ]
                                                                           },
                                                                           "effect_none": {
-                                                                            "type": "RangeEffect",
-                                                                            "shape": {
-                                                                              "Circle": {
-                                                                                "radius": 26000
-                                                                              }
-                                                                            },
-                                                                            "target": "EnemyWithoutTower",
-                                                                            "apply_type": "AroundCaster",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Airborne",
-                                                                                "duration": 20
-                                                                              }
-                                                                            ]
+                                                                            "type": "Combine",
+                                                                            "effects": []
                                                                           }
                                                                         },
                                                                         {
@@ -8707,6 +8864,56 @@
                                   "type": "Combine",
                                   "effects": [
                                     {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_zac_r_first",
+                                      "effect_buff": {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 26000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_zac_r_m1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 3
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 26000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_zac_r_m2",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 3
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
                                       "type": "CasterAnimation",
                                       "name": "ult_land",
                                       "tick": 12
@@ -8734,26 +8941,14 @@
                                         "effects": [
                                           {
                                             "type": "Knockback",
-                                            "speed": 2000,
-                                            "tick": 12
+                                            "speed": 400,
+                                            "tick": 60
                                           }
                                         ]
                                       },
                                       "effect_none": {
-                                        "type": "RangeEffect",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 26000
-                                          }
-                                        },
-                                        "target": "EnemyWithoutTower",
-                                        "apply_type": "AroundCaster",
-                                        "effects": [
-                                          {
-                                            "type": "Airborne",
-                                            "duration": 20
-                                          }
-                                        ]
+                                        "type": "Combine",
+                                        "effects": []
                                       }
                                     },
                                     {
@@ -9362,6 +9557,56 @@
                                           "type": "Combine",
                                           "effects": [
                                             {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_zac_r_first",
+                                              "effect_buff": {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "target": "EnemyWithoutTower",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zac_r_m1",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 3
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "target": "EnemyWithoutTower",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zac_r_m2",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 3
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
                                               "type": "CasterAnimation",
                                               "name": "ult_land",
                                               "tick": 12
@@ -9389,26 +9634,14 @@
                                                 "effects": [
                                                   {
                                                     "type": "Knockback",
-                                                    "speed": 2000,
-                                                    "tick": 12
+                                                    "speed": 400,
+                                                    "tick": 60
                                                   }
                                                 ]
                                               },
                                               "effect_none": {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 26000
-                                                  }
-                                                },
-                                                "target": "EnemyWithoutTower",
-                                                "apply_type": "AroundCaster",
-                                                "effects": [
-                                                  {
-                                                    "type": "Airborne",
-                                                    "duration": 20
-                                                  }
-                                                ]
+                                                "type": "Combine",
+                                                "effects": []
                                               }
                                             },
                                             {

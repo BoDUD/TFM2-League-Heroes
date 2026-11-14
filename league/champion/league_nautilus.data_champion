@@ -391,6 +391,13 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
+                    "type": "Stun",
+                    "duration": 60
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
                     "type": "ViewEffect",
                     "name": "league_nautilus_q_hit"
                   }

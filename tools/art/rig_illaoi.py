@@ -38,6 +38,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import strips as G  # noqa: E402
 import pack_illaoi_poses as PK  # noqa: E402
@@ -117,10 +118,21 @@ class Canvas:
             d, (hx, hy), ground = load_pose(name)
         return d, (rig.ox + HEAD[0] - hx + dx, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def frame(self, name, dx=0, lift=0, flash=False, moves=(), spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        moves [(part, (dx, dy), how)] - parts of the pose (PARTS) moved by whole squares, "under" the rest of her or
+        "over" it; spins [(part, point, degrees, how)] - a part turned clockwise by any angle about a point, then moved
+        if `moves` names it too. The head and everything of the pose in none of its parts are checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if moves or spins:
+            hx, hy = load_pose(name)[1]
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            d = IB.vary(d, without(d, parts_of(name, d), head), self.outline, moves, (), None, head, VPAD, name, (),
+                        spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -128,6 +140,71 @@ class Canvas:
             sys.exit(f"{name}: {int((~ok).sum())} squares off the canvas (pad the rig)")
         can[ty, tx] = d[ys, xs]
         return R.flash(can) if flash else can
+
+    def head(self):
+        """The head's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (HEAD_W, HEAD_H),
+                                        [load_pose(n)[:2] for n in POSES])
+        return self._head
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): polygons / boxes in each pose picture's own
+# squares. The idol she swings one-handed turns with the arm about her shoulder (inbetween.spin: the join hidden under
+# the collar); the idol held out in both hands slides along her arms in under her (drawn in); the idol knocked out of
+# her hands in the death tumbles on by itself (its own piece of the picture: IDOL_AT, a square of it). Her head (the bun,
+# the hair, the face: pack_illaoi_poses.HEAD) and the rest of her are in no part: they never change.
+HEAD_W, HEAD_H = PK.HEAD[3] - PK.HEAD[2], PK.HEAD[1] - PK.HEAD[0]
+POSES = ["a_raise", "a_slam", "w_jump", "w_land", "e_thrust", "e_yank", "r_crouch", "r_leap", "r_slam", "run1", "run2",
+         "run3", "run4", "d_stagger", "d_slump"]
+VPAD = 34                      # squares a moved part may leave its pose picture's box by
+PARTS = {
+    "a_raise": {"idol": [[(0, 0), (26, 0), (26, 22), (24, 26), (30, 33), (34, 37), (34, 41), (30, 42), (26, 40),
+                          (18, 33), (0, 33)]]},
+    "r_leap": {"idol": [[(0, 0), (28, 0), (28, 24), (30, 34), (33, 39), (33, 45), (27, 46), (14, 42), (0, 36)]]},
+    "e_thrust": {"idol": [[(46, 0), (86, 0), (86, 40), (57, 40), (57, 33), (46, 33)]]},
+}
+IDOL_AT = {"d_stagger": (14, 14)}  # a square of the flying idol: the piece of the picture it is
+# the point the swung idol turns about (square corners): the corner where her arm leaves the collar on the side it
+# turns away from (so its root swings in under her and no gap opens); the flying idol about its middle
+PIVOT = {("a_raise", "ccw"): (34, 36), ("a_raise", "cw"): (30, 42), ("r_leap", "ccw"): (33, 38),
+         ("r_leap", "cw"): (28, 45), ("d_stagger", "ccw"): (14, 16)}
+
+
+def parts_of(name, d):
+    """PARTS of a pose, with the flying idol (IDOL_AT) as the piece of the picture it is."""
+    out = dict(PARTS.get(name, {}))
+    if name in IDOL_AT:
+        from scipy import ndimage
+        lab, _ = ndimage.label(d[..., 3] > 0, structure=np.ones((3, 3)))
+        x, y = IDOL_AT[name]
+        out["idol"] = [runs(lab == lab[y, x])]
+    return out
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y) - boxes for inbetween.part_mask."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
+def without(d, parts, head):
+    """Each part's mask less the head's squares (her raised arm lies against her hair, and a polygon's edge may take a
+    square more than its vertices say), as row runs for inbetween.vary."""
+    out = {}
+    for k, items in parts.items():
+        flat = []
+        for it in items:
+            flat += it if isinstance(it, list) and it and isinstance(it[0], tuple) and len(it[0]) == 4 else [it]
+        out[k] = runs(IB.part_mask(d.shape, flat) & ~head)
+    return out
 
 
 def ms_of(tick):
@@ -140,29 +217,60 @@ def ms_of(tick):
 # Test of Spirit 500 ms = e_dur 30, the ghost tentacle off the idol thrust out (e_rel 12 = 200 ms; the thrust to 250 ms),
 # then the yank; Leap of Faith 667 ms = r_dur 40, the crouch, the leap, the idol smashed down (r_at 26 = 433 ms; the
 # slam from 430 ms)
-MS = {"idle": [1000], "run": [140] * 4, "attack": [200, 150, 100, 50], "skill": [120, 180, 200],
-      "skill2": [250, 250], "ult": [150, 280, 237], "hit": [100, 100], "dead": [140, 200, 300, 600]}
+#
+# The in-betweens (2026-11-14: the attack played 3 poses, E 2, the leap and the ult 3 each, the death 2 and a flash):
+# each span above is shared out over more frames (inbetween.spans: whole ms, none under 50), so every action is as
+# long as it was and its strike still begins on its millisecond - the slam at 200 (the idol landing at 233) and the
+# idle at 450, the leap at 120 and the landing at 300, the yank at 250, the leap at 150 and the slam at 430, the slump
+# at 340. A frame that is only its neighbour moved whole is no new pose: one stays only where the move is the motion
+# (the slam's lunge, the hop's arc, the fall). The run and the hit are as they were.
+MS = {"idle": [1000], "run": [140] * 4, "attack": IB.spans((200, 3), (250, 2), (50, 1)),
+      "skill": IB.spans((120, 1), (180, 2), (200, 2)),
+      "skill2": IB.spans((250, 3), (250, 3)), "ult": IB.spans((150, 1), (280, 3), (237, 2)), "hit": [100, 100],
+      "dead": IB.spans((340, 3, (4, 5, 8)), (900, 2, (8, 92)))}
 
 
 def actions(C):
     f = C.frame
+
+    def spin(name, degrees, how="under"):
+        """The pose's idol turned clockwise by `degrees` (negative: counter-clockwise) about its point (PIVOT)."""
+        return [("idol", PIVOT[(name, "cw" if degrees > 0 else "ccw")], degrees, how)]
+
+    def drawn(dx):
+        """The idol held out in both hands slid dx squares along her arms (in under her)."""
+        return [("idol", (dx, 0), "under")]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Run1: contact, passing, contact on the other leg, passing; the idol carried low at her side). The
     # head over the ground row 61 / 62 / 61 / 62 (the readbacks stand it at 59 / 60 / 61 / 61: Codex's legs differ by a
     # row or two), so the head bobs a row, the passing frames higher
     out["run"] = [f("run1", lift=2), f("run2", lift=2), f("run3"), f("run4", lift=1)]
-    # attack (League's attack2: the idol swung up behind her, then smashed down before her, back)
-    out["attack"] = [f("a_raise", dx=-1), f("a_slam", dx=2), f("a_slam", dx=2), f("idle")]
-    # Harsh Lesson (Spell2: the crouch, the leap with the idol up - the data's dash - and the landing pressing it down)
-    out["skill"] = [f("r_crouch"), f("w_jump"), f("w_land", dx=2)]     # w_jump's ground row holds its hop
-    # Test of Spirit (Spell3: the idol thrust out - the ghost tentacle flies - then yanked back to her chest)
-    out["skill2"] = [f("e_thrust", dx=1), f("e_yank", dx=-1)]
-    # Leap of Faith (Spell4: the crouch, the high leap with the idol raised, kneeling as it is smashed down)
-    out["ult"] = [f("r_crouch"), f("r_leap"), f("r_slam", dx=2)]
+    # attack (League's attack2: the idol swung up behind her, then smashed down before her, back): the idol coming up
+    # from her side, swung up behind her, coming over her head; smashed down a step ahead, at rest; the idle
+    out["attack"] = [f("a_raise", dx=-1, spins=spin("a_raise", -20)), f("a_raise", dx=-1),
+                     f("a_raise", dx=-1, spins=spin("a_raise", 40)), f("a_slam", dx=4), f("a_slam", dx=2), f("idle")]
+    # Harsh Lesson (Spell2: the crouch, the leap with the idol up - the data's dash - and the landing pressing it down):
+    # the crouch; springing up, at the top; dropping onto the target, landed
+    out["skill"] = [f("r_crouch"), f("w_jump", lift=-5), f("w_jump"),     # w_jump's ground row holds its hop
+                    f("w_land", dx=2, lift=5), f("w_land", dx=2)]
+    # Test of Spirit (Spell3: the idol thrust out - the ghost tentacle flies - then yanked back to her chest): the idol
+    # at her chest (the yank's pose), half out, thrust out; pulled back in two steps, at her chest
+    out["skill2"] = [f("e_yank", dx=-1), f("e_thrust", dx=1, moves=drawn(-6)), f("e_thrust", dx=1),
+                     f("e_thrust", dx=1, moves=drawn(-6)), f("e_thrust", dx=1, moves=drawn(-12)), f("e_yank", dx=-1)]
+    # Leap of Faith (Spell4: the crouch, the high leap with the idol raised, kneeling as it is smashed down): the crouch;
+    # rising with the idol coming up from her side, at the top with it raised behind her, coming over her head; smashed
+    # down a step ahead, kneeling
+    out["ult"] = [f("r_crouch"), f("r_leap", lift=-4, spins=spin("r_leap", -25)), f("r_leap"),
+                  f("r_leap", spins=spin("r_leap", 35)), f("r_slam", dx=4), f("r_slam", dx=2)]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
-    # death (League's Death: knocked back, the idol flying off; slumped down sitting by it)
-    out["dead"] = [f("d_stagger", dx=-1, flash=True), f("d_stagger", dx=-2), f("d_slump", dx=-2), f("d_slump", dx=-2)]
+    # death (League's Death: knocked back, the idol flying off; slumped down sitting by it): struck; knocked back with
+    # the idol tumbling on away from her; dropping, slumped
+    out["dead"] = [f("d_stagger", dx=-1, flash=True),
+                   f("d_stagger", dx=-3, lift=1, spins=spin("d_stagger", -30, "over"), moves=[("idol", (-4, 5), "over")]),
+                   f("d_stagger", dx=-4, lift=2, spins=spin("d_stagger", -70, "over"),
+                     moves=[("idol", (-7, 12), "over")]),
+                   f("d_slump", dx=-2, lift=3), f("d_slump", dx=-2)]
     return out
 
 

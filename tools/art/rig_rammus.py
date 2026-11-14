@@ -16,6 +16,11 @@ ground); the other three stand on the same point and ground.
 Parts of the side design: the near arm (hanging in front of the belly, claws at the bottom; it turns about its
 shoulder), the two feet (the bottom rows, split between the claws); the rest is the body (the shell, the head, the
 harness, the belly, the far arm).
+The in-betweens (the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「动画你觉得少的地方就想办法补」): every curl-up and uncurl passes through the crouch with the near arm swung forward (a
+quarter turn about the shoulder, half way between hanging and the curl's raised claws); the lying death kicks its feet;
+the curl's walk (c_run) steps the curl design's own feet (cut where they leave the body) instead of hopping the whole
+curl.
 """
 import argparse
 import os
@@ -63,6 +68,9 @@ ARM_BOX = (21, 39, 17, 27)            # rows / cols the near arm lies in (the cl
 SHOULDER = (22.5, 23.5)               # (x, y) the arm turns about
 FOOT_ROW = 40                         # the feet: rows FOOT_ROW to the soles, split at FOOT_X
 FOOT_X = 21
+CURL_FOOT_ROW = 37                    # the curl design's feet: rows CURL_FOOT_ROW to the soles, split between the claws
+CURL_FOOT_X = 26                      # (far foot up to this column, near foot right of it); laid under the rest
+CURL_STRIDE = 3                       # columns each foot is ahead / behind on a step of the curl's walk
 
 
 def is_skin(c):
@@ -124,15 +132,30 @@ class Form:
         self.rig = R.Rig(D, pad=rig_pad)
         self.L = {k: pad(D.layer(k)) for k in D.order}
         self.other = {n: self.placed(load(f"{n}.png")) for n in ("idle", "ball", "curl")}
+        curl = load("curl.png")
+        yy, xx = np.mgrid[0:curl.shape[0], 0:curl.shape[1]]
+        feet = yy >= CURL_FOOT_ROW
+        cut = {"far": feet & (xx <= CURL_FOOT_X), "near": feet & (xx > CURL_FOOT_X), "rest": ~feet}
+        self.curl_parts = {k: self.placed(np.where(m[..., None], curl, 0).astype(np.uint8), ref=curl)
+                           for k, m in cut.items()}
 
-    def placed(self, d):
-        """Another design in a padded layer of the side design's size, standing on the same point and ground."""
+    def placed(self, d, ref=None):
+        """Another design in a padded layer of the side design's size, standing on the same point and ground (ref: the
+        whole design a part `d` was cut from, which places it)."""
+        ref = d if ref is None else ref
         lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
-        ys = np.nonzero((d[..., 3] > 0).any(1))[0]
+        ys = np.nonzero((ref[..., 3] > 0).any(1))[0]
         top = P + self.D.ground - (ys.max() + 1)
-        left = P + self.D.px - stand_col(d)
+        left = P + self.D.px - stand_col(ref)
         lay[top:top + d.shape[0], left:left + d.shape[1]] = d
         return lay
+
+    def curl_step(self, body, near, far):
+        """The curl design with its feet stepped: the far and near feet (CURL_FOOT_ROW down, split at CURL_FOOT_X)
+        moved (dx, dy) each, the rest moved `body` and laid over them."""
+        L = self.curl_parts
+        return R.compose(self.rig, [(L["far"], dict(dx=far[0], dy=far[1])), (L["near"], dict(dx=near[0], dy=near[1])),
+                                    (L["rest"], dict(dx=body[0], dy=body[1]))])
 
     def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, feet=None, fill=True):
         """crouch: rows the body (with the arm) sets down onto the feet; whole: the whole figure; arm: the near arm
@@ -225,12 +248,16 @@ def tries(F):
 # ------------------------------------------------------------------------------------------------- the actions
 FWD = dict(arm_rot=1, arm=(0, 8))     # the near arm swung forward, level under his face (never across it)
 BACK = dict(arm_rot=3, arm=(-1, 6))   # the near arm drawn back, level behind the belly
+DEAD_KICK = 3                         # columns the lying death's feet kick to either side
 
-# ms per frame; the kit's ticks (tools/kit/build_rammus.py) come from these
+# ms per frame; the kit's ticks (tools/kit/build_rammus.py) come from these. The in-betweens (2026-11-14) keep every
+# action's length and the ticks the kit reads: Q still curls in 200 (now 4 x 50: crouch, arm forward, curl, ball), E
+# still rears up at 70 (the rearing curl's 100 now 50 + the arm-forward crouch 50 on the way down), W still 267, the
+# uncurls (skill_hit, ult_land) still 233 with the ball's 80 first
 MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [90, 90, 60, 80, 80, 100],
-      "skill": [60, 70, 70], "skill_roll": [60] * 4, "skill_hit": [80, 80, 73],
-      "skill2": [70, 70, 100, 93], "skill_w": [80, 90, 97],
-      "ult": [100, 100, 100, 100, 100, 100], "ult_land": [80, 80, 73],
+      "skill": [50, 50, 50, 50], "skill_roll": [60] * 4, "skill_hit": [80, 50, 50, 53],
+      "skill2": [70, 70, 50, 50, 93], "skill_w": [80, 60, 127],
+      "ult": [100, 100, 100, 100, 100, 100], "ult_land": [80, 50, 50, 53],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
       "b_idle": [200, 200], "b_run": [60] * 4, "b_hit": [100, 100],
       "c_idle": [300, 300], "c_run": [100] * 4, "c_hit": [100, 100]}
@@ -261,35 +288,47 @@ def frames_all(F):
         return shift(R.lie(rig, p(), k, dx=dx, sink=0), 0, -up)
     out["attack"] = [p(crouch=2, whole=(-1, 0)), tumble(3, 3, 4), tumble(2, 6, 3), tumble(1, 5, 1), p(whole=(2, 0)),
                      p()]
-    # Q Powerball (League's rammus_spell1_windup: he tucks in and curls up into the ball): crouched, curled, the ball
-    out["skill"] = [p(crouch=2), F.whole("curl"), F.ball()]
+    # Q Powerball (League's rammus_spell1_windup: he tucks in and curls up into the ball): crouched, the near arm swung
+    # forward on its way up (the in-between, 2026-11-14), curled, the ball
+    out["skill"] = [p(crouch=2), p(crouch=2, **FWD), F.whole("curl"), F.ball()]
     # the roll: the ball a quarter turn clockwise each frame (rolling to the right)
     out["skill_roll"] = [F.ball(k) for k in (0, 3, 2, 1)]
-    # the hit: the ball bounces back off the target, he uncurls
-    out["skill_hit"] = [F.ball(3, dx=-2, up=4), F.whole("curl", dx=-1), p(whole=(-1, 0))]
+    # the hit: the ball bounces back off the target, he uncurls (the arm coming down through forward), standing
+    out["skill_hit"] = [F.ball(3, dx=-2, up=4), F.whole("curl", dx=-1), p(crouch=2, whole=(-1, 0), **FWD),
+                        p(whole=(-1, 0))]
     # E Frenzying Taunt (League's rammus_spell3: he rears up with his claws raised): crouched, reared up in the curl's
-    # raised arms (the taunt, frame 2), higher, down
-    out["skill2"] = [p(crouch=2), F.whole("curl", dy=-2), F.whole("curl", dy=-3), p()]
-    # W Defensive Ball Curl (League's Rammus_channel): crouched, curled, held
-    out["skill_w"] = [p(crouch=2), F.whole("curl"), F.whole("curl")]
+    # raised arms (the taunt, frame 2), higher, the arm coming down through forward, down
+    out["skill2"] = [p(crouch=2), F.whole("curl", dy=-2), F.whole("curl", dy=-3), p(crouch=2, **FWD), p()]
+    # W Defensive Ball Curl (League's Rammus_channel): crouched, the arm swung forward, curled and held (the add-on's
+    # c_idle goes on from it)
+    out["skill_w"] = [p(crouch=2), p(crouch=2, **FWD), F.whole("curl")]
     # R Soaring Slam (League's Spell4_Jump: he curls up, leaps high as the ball and comes down on them)
     out["ult"] = [p(crouch=2), F.whole("curl"), F.ball(0, up=6), F.ball(3, up=12), F.ball(2, up=16),
                   F.ball(1, up=10)]
-    out["ult_land"] = [F.ball(0), F.whole("curl"), p()]
+    out["ult_land"] = [F.ball(0), F.whole("curl"), p(crouch=2, **FWD), p()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
 
     # the death (League's rammus_death: he topples back onto his shell, belly up): staggering, crouched, falling back
-    # (a quarter turn), on his back (half a turn, the spikes in the ground), a bounce, lying
-    def lying(k, sink, dx):
-        return R.lie(rig, p(fill=True), k, dx=dx, sink=sink)
+    # (a quarter turn), on his back (half a turn, the spikes in the ground), a bounce, his feet kicking in the air both
+    # ways (whole squares sideways: the in-betweens, 2026-11-14 - before, the same lying picture three times), lying
+    def lying(k, sink, dx, feet=None):
+        return R.lie(rig, p(fill=True, feet=feet), k, dx=dx, sink=sink)
+    kick = DEAD_KICK
     out["dead"] = [p(whole=(-1, 0)), p(crouch=2, whole=(-2, 0)), lying(1, 0, -4), lying(2, 8, -5), lying(2, 6, -5),
-                   lying(2, 8, -5), lying(2, 8, -5), lying(2, 8, -5)]
+                   lying(2, 8, -5, feet=((kick, 0), (-kick, 0))), lying(2, 8, -5, feet=((-kick, 0), (kick, 0))),
+                   lying(2, 8, -5)]
     # the add-on's forms (addons/league_rammus): the ball standing / rolling / hit, the curl standing / walking / hit
     out["b_idle"] = [F.ball(), F.ball()]
     out["b_run"] = [F.ball(k) for k in (0, 3, 2, 1)]
     out["b_hit"] = [F.ball(dx=-2, flash=True), F.ball(dx=-1)]
     out["c_idle"] = [F.whole("curl"), F.whole("curl")]
-    out["c_run"] = [F.whole("curl"), F.whole("curl", dx=1, dy=-1), F.whole("curl"), F.whole("curl", dx=-1, dy=-1)]
+    # the curl's walk: the curl rocking as before (up a row and a column forward / back on the passing frames), its
+    # own feet stepping under it (2026-11-14; it was the whole curl hopping, one picture): the near foot ahead and the
+    # far one behind, passing (the far one lifted a row), the other way round, passing (the near one lifted); a planted
+    # foot goes up with the rock as the whole curl did, so the bottom row moves as before
+    s = CURL_STRIDE
+    out["c_run"] = [F.curl_step((0, 0), (s, 0), (-s, 0)), F.curl_step((1, -1), (0, -1), (1, -2)),
+                    F.curl_step((0, 0), (-s, 0), (s, 0)), F.curl_step((-1, -1), (-1, -2), (0, -1))]
     out["c_hit"] = [F.whole("curl", dx=-2, flash=True), F.whole("curl", dx=-1)]
     return out
 

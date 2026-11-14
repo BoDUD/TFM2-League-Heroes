@@ -295,7 +295,7 @@
     "start_timing": 12,
     "cancelable": false,
     "range": 70000,
-    "casting_type": "Direction",
+    "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
@@ -313,43 +313,53 @@
           "delay": 17,
           "apply": 14,
           "applied_target": "EnemyWithoutTower",
-          "applied_effects": [
+          "applied_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Attack",
-                "damage": 40,
-                "attack_ratio": 100
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "AddBuff",
-                "buff_state": {
-                  "name": "league_ashe_frost",
-                  "duration": {
-                    "Time": {
-                      "tick": 90
-                    }
-                  },
-                  "move_speed_mult": -25
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 80000,
+                  "range": 743
                 }
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_ashe_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "league_ashe_w_hit"
-              }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 100
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_ashe_frost",
+                    "duration": {
+                      "Time": {
+                        "tick": 90
+                      }
+                    },
+                    "move_speed_mult": -25
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_ashe_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_ashe_w_hit"
+                }
+              ]
             }
           ]
         }

@@ -56,8 +56,8 @@ TEXT = {
                  mag("q_edmg", "q_eap") + "，减速{q_eslow}%。",
         "skill2": O + "悠米出动！" + E + "：附身在交战中的队友身上" + A + "{w_t}秒" + E + "（不可选取、跟着他走，照样能放摸鱼飞弹和魔典终章），他每秒回复" +
                   grn("w_heal", "w_hap") + "生命。" + O + "旺盛精力" + E + "：给他" + grn("e_sh", "e_ap") + "护盾，攻速+{e_as}%、移速+{e_ms}%。",
-        "ult": "翻开魔典连发{r_n}道波纹，每道造成" + mag("r_dmg", "r_ap") + "魔法伤害并减速，沿途友军回复" + grn("r_heal", "r_hap") +
-               "生命；第{r_root_k}道" + R + "定身" + E + A + "{r_root}秒" + E + "。",
+        "ult": "翻开魔典连发{r_n}道波纹：第一道造成" + mag("r_dmg", "r_ap") + "魔法伤害，之后每道{r_more}%；每道" + R + "减速" + E +
+               "{r_slow}%（可叠到{r_slow_max}%），沿途友军回复" + grn("r_heal", "r_hap") + "生命。",
         "names": ("摸鱼飞弹", "悠米出动！", "魔典终章"),
     },
     "zh-hant": {
@@ -68,8 +68,8 @@ TEXT = {
                  mag("q_edmg", "q_eap") + "，緩速{q_eslow}%。",
         "skill2": O + "飛撲抱抱！" + E + "：附身在交戰中的隊友身上" + A + "{w_t}秒" + E + "（無法被選取、跟著他走，照樣能放奇幻圖騰和最終篇章），他每秒回復" +
                   grn("w_heal", "w_hap") + "生命。" + O + "蹦蹦衝刺" + E + "：給他" + grn("e_sh", "e_ap") + "護盾，攻速+{e_as}%、移速+{e_ms}%。",
-        "ult": "翻開魔典連發{r_n}道波紋，每道造成" + mag("r_dmg", "r_ap") + "魔法傷害並緩速，沿途友軍回復" + grn("r_heal", "r_hap") +
-               "生命；第{r_root_k}道" + R + "定身" + E + A + "{r_root}秒" + E + "。",
+        "ult": "翻開魔典連發{r_n}道波紋：第一道造成" + mag("r_dmg", "r_ap") + "魔法傷害，之後每道{r_more}%；每道" + R + "緩速" + E +
+               "{r_slow}%（可疊到{r_slow_max}%），沿途友軍回復" + grn("r_heal", "r_hap") + "生命。",
         "names": ("奇幻圖騰", "飛撲抱抱！", "最終篇章"),
     },
     "en": {
@@ -82,8 +82,9 @@ TEXT = {
         "skill2": O + "You and Me!" + E + ": attaches to an ally in the fight for " + A + "{w_t}s" + E + " (untargetable, moving with him, still casting Prowling Projectile and Final Chapter); he heals " +
                   grn("w_heal", "w_hap") + " a second. " + O + "Zoomies" + E + ": he gets a " + grn("e_sh", "e_ap") + " shield, +{e_as}% attack "
                   "speed and +{e_ms}% move speed.",
-        "ult": "Opens the book and sends {r_n} waves: each deals " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E + " and slows, and heals "
-               "allies on its way " + grn("r_heal", "r_hap") + "; wave {r_root_k} " + R + "roots" + E + " for " + A + "{r_root}s" + E + ".",
+        "ult": "Opens the book and sends {r_n} waves: the first deals " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E + ", each later one "
+               "{r_more}% of it; every wave " + R + "slows" + E + " {r_slow}% more (up to {r_slow_max}%) and heals allies on its way " +
+               grn("r_heal", "r_hap") + ".",
         "names": ("Prowling Projectile", "You and Me!", "Final Chapter"),
     },
     "ko": {
@@ -94,8 +95,8 @@ TEXT = {
                  mag("q_edmg", "q_eap") + ", {q_eslow}% 둔화.",
         "skill2": O + "너랑 유미랑!" + E + ": 싸우는 아군에게 " + A + "{w_t}초" + E + " 붙는다(대상 지정 불가, 함께 이동, 사르르탄과 대단원 사용 가능). 아군은 초당 " +
                   grn("w_heal", "w_hap") + " 회복. " + O + "슈우우웅" + E + ": 보호막 " + grn("e_sh", "e_ap") + ", 공격 속도 +{e_as}%, 이동 속도 +{e_ms}%.",
-        "ult": "책을 펼쳐 파동 {r_n}개를 보낸다. 파동마다 " + mag("r_dmg", "r_ap") + " 마법 피해와 둔화, 닿은 아군 " + grn("r_heal", "r_hap") +
-               " 회복. {r_root_k}번째 파동은 " + A + "{r_root}초" + E + " " + R + "속박" + E + ".",
+        "ult": "책을 펼쳐 파동 {r_n}개를 보낸다. 첫 파동 " + mag("r_dmg", "r_ap") + " 마법 피해, 이후 파동은 그 {r_more}%. 파동마다 " + R + "둔화" + E +
+               " {r_slow}%(최대 {r_slow_max}%), 닿은 아군 " + grn("r_heal", "r_hap") + " 회복.",
         "names": ("사르르탄", "너랑 유미랑!", "대단원"),
     },
     "ja": {
@@ -106,8 +107,8 @@ TEXT = {
                  mag("q_edmg", "q_eap") + "、{q_eslow}%スロウ。",
         "skill2": O + "ユー＆ミー！" + E + "：戦闘中の味方に" + A + "{w_t}秒" + E + "くっつく（対象指定不可、一緒に移動、きまぐれミサイルとファイナルチャプターは使える）。味方は毎秒" +
                   grn("w_heal", "w_hap") + "回復。" + O + "バビューン！" + E + "：シールド" + grn("e_sh", "e_ap") + "、攻撃速度+{e_as}%、移動速度+{e_ms}%。",
-        "ult": "本を開き波を{r_n}つ放つ。1つごとに" + mag("r_dmg", "r_ap") + "の魔法ダメージとスロウ、通った味方を" + grn("r_heal", "r_hap") +
-               "回復。{r_root_k}つ目は" + A + "{r_root}秒" + E + R + "スネア" + E + "。",
+        "ult": "本を開き波を{r_n}つ放つ。最初の波は" + mag("r_dmg", "r_ap") + "の魔法ダメージ、以降はその{r_more}%。波ごとに" + R + "スロウ" + E +
+               "{r_slow}%（最大{r_slow_max}%）、通った味方を" + grn("r_heal", "r_hap") + "回復。",
         "names": ("きまぐれミサイル", "ユー＆ミー！", "ファイナルチャプター"),
     },
 }
@@ -128,8 +129,9 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("p_dmg", "p_ap", "p_heal", "p_hap", "q_dmg", "q_ap", "q_slow", "q_edmg", "q_eap", "q_eslow",
                            "w_heal", "w_hap", "e_sh", "e_ap", "e_as", "e_ms", "r_n", "r_dmg", "r_ap", "r_heal", "r_hap",
-                           "r_root_k")}
-    for k in ("p_cd", "q_t1", "w_t", "r_root"):
+                           "r_more", "r_slow")}
+    v["r_slow_max"] = p["r_slow"] * p["r_n"]
+    for k in ("p_cd", "q_t1", "w_t"):
         v[k] = secs(p[k])
     return v
 

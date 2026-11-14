@@ -10,7 +10,8 @@ mod.mod_info (VERSION, Sejuani named). Only her keys change in the shared files.
 Names: Data Dragon 16.21.1 - zh_CN 瑟庄妮 (北地之怒): 北地之怒; 极寒突袭, 凛冬之怒, 永冻领域, 极冰寒狱; zh_TW 史瓦妮: 北境之怒;
 極地衝刺, 凜冬狂怒, 永恆凍土, 冰河籠牢; ja セジュアニ: 極北の激憤; 猪突凍進, 氷河の怒り, 永久凍土, グレイシャルプリズン; ko 세주아니:
 혹한의 분노; 혹한의 맹습, 혹한의 서릿발, 만년 서리, 빙하 감옥.
-Slots: skill = Arctic Assault, skill2 = Winter's Wrath, ult = Glacial Prison; Fury of the North (the Frost Armour, the
+Slots: skill = Arctic Assault, skill2 = Winter's Wrath, ult = Glacial Prison (its storm's burst after r_storm
+ticks since 2026-11-14: League's shatter); Fury of the North (the Frost Armour, the
 shatter) and Permafrost (four Frost stacks freeze) in the attack's text. The texts say the main pack's rules (the add-on's
 copy has its own: addons/league_sejuani/make_override.py). No combo sentence in any text (the user's rule: the combos
 are the README's).
@@ -66,7 +67,8 @@ TEXT = {
         "skill2": "链枷先横扫一圈造成" + mag("w1_dmg", "w1_ap") + "，再往前砸出一道冰造成" + mag("w2_dmg", "w2_ap") +
                   "魔法伤害，都" + cc("减速") + "{w_slow}%" + t("{w_slow_t}秒") + "。",
         "ult": "甩出冰套索，第一个敌方英雄受到" + mag("r_dmg", "r_ap") + "魔法伤害并被" + cc("眩晕") + t("{r_stun}秒") +
-               "；落点冰风暴" + cc("减速") + "周围敌人{r_slow}%，持续" + t("{r_storm}秒") + "。",
+               "；落点冰风暴" + cc("减速") + "周围敌人{r_slow}%，" + t("{r_storm}秒") + "后碎裂，圈内其他敌人受到" +
+               mag("r2_dmg", "r2_ap") + "魔法伤害并" + cc("减速") + "{r2_slow}%" + t("{r2_slow_t}秒") + "。",
         "names": ("极寒突袭", "凛冬之怒", "极冰寒狱"),
     },
     "zh-hant": {
@@ -77,7 +79,8 @@ TEXT = {
         "skill2": "鏈枷先橫掃一圈造成" + mag("w1_dmg", "w1_ap") + "，再往前砸出一道冰造成" + mag("w2_dmg", "w2_ap") +
                   "魔法傷害，都" + cc("緩速") + "{w_slow}%" + t("{w_slow_t}秒") + "。",
         "ult": "甩出冰套索，第一個敵方英雄受到" + mag("r_dmg", "r_ap") + "魔法傷害並被" + cc("暈眩") + t("{r_stun}秒") +
-               "；落點冰風暴" + cc("緩速") + "周圍敵人{r_slow}%，持續" + t("{r_storm}秒") + "。",
+               "；落點冰風暴" + cc("緩速") + "周圍敵人{r_slow}%，" + t("{r_storm}秒") + "後碎裂，圈內其他敵人受到" +
+               mag("r2_dmg", "r2_ap") + "魔法傷害並" + cc("緩速") + "{r2_slow}%" + t("{r2_slow_t}秒") + "。",
         "names": ("極地衝刺", "凜冬狂怒", "冰河籠牢"),
     },
     "en": {
@@ -92,7 +95,8 @@ TEXT = {
                   mag("w2_dmg", "w2_ap") + " magic damage, each " + cc("slowing") + " {w_slow}% for " + t("{w_slow_t}s") + ".",
         "ult": "Throws her ice bola: the first enemy champion takes " + mag("r_dmg", "r_ap") + " magic damage and is " +
                cc("stunned") + " for " + t("{r_stun}s") + "; an ice storm there " + cc("slows") + " the enemies round it "
-               "{r_slow}% for " + t("{r_storm}s") + ".",
+               "{r_slow}% and shatters after " + t("{r_storm}s") + ": the other enemies inside take " +
+               mag("r2_dmg", "r2_ap") + " magic damage and are " + cc("slowed") + " {r2_slow}% for " + t("{r2_slow_t}s") + ".",
         "names": ("Arctic Assault", "Winter's Wrath", "Glacial Prison"),
     },
     "ko": {
@@ -105,7 +109,9 @@ TEXT = {
         "skill2": "철퇴로 주변을 휩쓸어 " + mag("w1_dmg", "w1_ap") + ", 이어서 앞으로 얼음을 내리쳐 " + mag("w2_dmg", "w2_ap") +
                   " 마법 피해, 각각 " + t("{w_slow_t}초") + " 동안 {w_slow}% " + cc("둔화") + ".",
         "ult": "얼음 볼라를 던져 첫 적 챔피언에게 " + mag("r_dmg", "r_ap") + " 마법 피해와 " + t("{r_stun}초") + " " +
-               cc("기절") + "; 그 자리의 얼음 폭풍이 " + t("{r_storm}초") + " 동안 주변 적 {r_slow}% " + cc("둔화") + ".",
+               cc("기절") + "; 그 자리의 얼음 폭풍이 주변 적을 {r_slow}% " + cc("둔화") + "시키고 " + t("{r_storm}초") +
+               " 후 부서져 안의 다른 적에게 " + mag("r2_dmg", "r2_ap") + " 마법 피해와 " + t("{r2_slow_t}초") +
+               " 동안 {r2_slow}% " + cc("둔화") + ".",
         "names": ("혹한의 맹습", "혹한의 서릿발", "빙하 감옥"),
     },
     "ja": {
@@ -118,7 +124,9 @@ TEXT = {
         "skill2": "フレイルで周囲を薙ぎ" + mag("w1_dmg", "w1_ap") + "、続けて前方へ氷を叩きつけ" + mag("w2_dmg", "w2_ap") +
                   "の魔法ダメージ、それぞれ" + t("{w_slow_t}秒") + "{w_slow}%" + cc("スロウ") + "。",
         "ult": "氷のボーラを投げ、最初の敵チャンピオンに" + mag("r_dmg", "r_ap") + "の魔法ダメージと" + t("{r_stun}秒") +
-               cc("スタン") + "；その場の氷嵐が" + t("{r_storm}秒") + "周囲の敵を{r_slow}%" + cc("スロウ") + "。",
+               cc("スタン") + "；その場の氷嵐が周囲の敵を{r_slow}%" + cc("スロウ") + "、" + t("{r_storm}秒") +
+               "後に砕けて範囲内の他の敵に" + mag("r2_dmg", "r2_ap") + "の魔法ダメージと" + t("{r2_slow_t}秒") +
+               "{r2_slow}%" + cc("スロウ") + "。",
         "names": ("猪突凍進", "氷河の怒り", "グレイシャルプリズン"),
     },
 }
@@ -138,8 +146,8 @@ def secs(tk):
 
 def values(p):
     v = {k: p[k] for k in ("fa_def", "f_n", "e_dmg", "e_ap", "sh_pct", "q_dmg", "q_ap", "w1_dmg", "w1_ap", "w2_dmg",
-                           "w2_ap", "w_slow", "r_dmg", "r_ap", "r_slow")}
-    for k in ("e_stun", "q_up", "w_slow_t", "r_stun", "r_storm"):
+                           "w2_ap", "w_slow", "r_dmg", "r_ap", "r_slow", "r2_dmg", "r2_ap", "r2_slow")}
+    for k in ("e_stun", "q_up", "w_slow_t", "r_stun", "r_storm", "r2_slow_t", "f_im"):
         v[k] = secs(p[k])
     return v
 

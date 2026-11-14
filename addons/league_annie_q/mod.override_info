@@ -6,5 +6,13 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_annie_q/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_annie_tibbers#sheet": {
+    "remapping": "asset/league/champions/league_annie_tibbers#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_annie_tibbers#anim": {
+    "remapping": "asset/league/champions/league_annie_tibbers#anim",
+    "type": "override"
   }
 }

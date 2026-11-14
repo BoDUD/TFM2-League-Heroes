@@ -104,105 +104,102 @@
                     "type": "TargetSfx",
                     "name": "league_talon_a_hit"
                   }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Native",
+                    "effect_ref": "league_talon_vault:edge"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_talon_p_go",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_talon_p_go"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_talon_p_bleed"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_talon_p_bleed"
+                        },
+                        {
+                          "type": "AddCasted",
+                          "casted_type": "Bleed",
+                          "duration": 121,
+                          "period": 20,
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 6,
+                              "attack_ratio": 20,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Delayed",
+                      "tick": 1,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_talon_p_go",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_talon_p_go"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_talon_p_bleed"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_talon_p_bleed"
+                              },
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Bleed",
+                                "duration": 121,
+                                "period": 20,
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 6,
+                                    "attack_ratio": 20,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_talon_p_3",
-              "effect_buff": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_talon_p_cd",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "TargetProjectile",
-                  "name": "league_talon_p_hit",
-                  "speed": 100000,
-                  "y_offset": 0,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_talon_p_bleed"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_talon_p_bleed"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddCasted",
-                        "casted_type": "Bleed",
-                        "duration": 121,
-                        "period": 20,
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 6,
-                            "attack_ratio": 20,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "target": "AllyOnlySelf",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_talon_p_1"
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_talon_p_2"
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_talon_p_3"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_talon_p_cd",
-                              "duration": {
-                                "Time": {
-                                  "tick": 600
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
             },
             {
               "type": "Combine",
@@ -399,144 +396,8 @@
                         {
                           "casting_type": "Targeting",
                           "effect": {
-                            "type": "AddBuff",
-                            "buff_state": {
-                              "name": "league_talon_p_wound",
-                              "duration": {
-                                "Time": {
-                                  "tick": 300
-                                }
-                              }
-                            }
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "RangeEffect",
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "target": "AllyOnlySelf",
-                            "apply_type": "AroundCaster",
-                            "effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_talon_p_3",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_talon_p_3"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_talon_p_3",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 300
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_talon_p_2",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_talon_p_2"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_talon_p_3"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_talon_p_3",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_talon_p_1",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_talon_p_1"
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_talon_p_2"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_talon_p_2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_talon_p_1"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_talon_p_1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            ]
+                            "type": "Native",
+                            "effect_ref": "league_talon_vault:wound"
                           }
                         }
                       ],
@@ -563,144 +424,8 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_talon_p_wound",
-                      "duration": {
-                        "Time": {
-                          "tick": 300
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_talon_p_3",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_talon_p_3"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_talon_p_3",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 300
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_talon_p_2",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_talon_p_2"
-                              },
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_talon_p_3"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_talon_p_3",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 300
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_talon_p_1",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_talon_p_1"
-                                },
-                                {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_talon_p_2"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_talon_p_2",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 300
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_talon_p_1"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_talon_p_1",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 300
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    ]
+                    "type": "Native",
+                    "effect_ref": "league_talon_vault:wound"
                   }
                 }
               ],
@@ -891,144 +616,8 @@
                                       {
                                         "casting_type": "Targeting",
                                         "effect": {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_talon_p_wound",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_talon_p_3",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_talon_p_3"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_talon_p_3",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 300
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_talon_p_2",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_talon_p_2"
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_talon_p_3"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_talon_p_3",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 300
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                "effect_none": {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_talon_p_1",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_talon_p_1"
-                                                      },
-                                                      {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_talon_p_2"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_talon_p_2",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 300
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      }
-                                                    ]
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_talon_p_1"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_talon_p_1",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 300
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          ]
+                                          "type": "Native",
+                                          "effect_ref": "league_talon_vault:wound"
                                         }
                                       }
                                     ]
@@ -1401,144 +990,8 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_talon_p_wound",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "RangeEffect",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "target": "AllyOnlySelf",
-                                        "apply_type": "AroundCaster",
-                                        "effects": [
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_talon_p_3",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_talon_p_3"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_talon_p_3",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 300
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_talon_p_2",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_talon_p_2"
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_talon_p_3"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_talon_p_3",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 300
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_talon_p_1",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_talon_p_1"
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_talon_p_2"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_talon_p_2",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 300
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_talon_p_1"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_talon_p_1",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 300
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            }
-                                          }
-                                        ]
+                                        "type": "Native",
+                                        "effect_ref": "league_talon_vault:wound"
                                       }
                                     }
                                   ]
@@ -2030,144 +1483,8 @@
                                   {
                                     "casting_type": "Targeting",
                                     "effect": {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_talon_p_wound",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 300
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "RangeEffect",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "target": "AllyOnlySelf",
-                                      "apply_type": "AroundCaster",
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_talon_p_3",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_talon_p_3"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_talon_p_3",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 300
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_talon_p_2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_talon_p_2"
-                                                },
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_talon_p_3"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_talon_p_3",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 300
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_talon_p_1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_talon_p_1"
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_talon_p_2"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_talon_p_2",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 300
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_talon_p_1"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_talon_p_1",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 300
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            }
-                                          }
-                                        }
-                                      ]
+                                      "type": "Native",
+                                      "effect_ref": "league_talon_vault:wound"
                                     }
                                   }
                                 ]
@@ -2540,144 +1857,8 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_talon_p_wound",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 300
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 1000
-                                      }
-                                    },
-                                    "target": "AllyOnlySelf",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_talon_p_3",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_talon_p_3"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_talon_p_3",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_talon_p_2",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_talon_p_2"
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_talon_p_3"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_talon_p_3",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 300
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_talon_p_1",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_talon_p_1"
-                                                },
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_talon_p_2"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_talon_p_2",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 300
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_talon_p_1"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_talon_p_1",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 300
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      }
-                                    ]
+                                    "type": "Native",
+                                    "effect_ref": "league_talon_vault:wound"
                                   }
                                 }
                               ]
@@ -3511,141 +2692,8 @@
               "apply_type": "AroundCaster",
               "effects": [
                 {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_talon_p_wound",
-                    "duration": {
-                      "Time": {
-                        "tick": 300
-                      }
-                    }
-                  }
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
-                  },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_talon_p_3",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_talon_p_3"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_talon_p_3",
-                              "duration": {
-                                "Time": {
-                                  "tick": 300
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_talon_p_2",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_talon_p_2"
-                            },
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_talon_p_3"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_talon_p_3",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 300
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_talon_p_1",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_talon_p_1"
-                              },
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_talon_p_2"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_talon_p_2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 300
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_talon_p_1"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_talon_p_1",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 300
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  ]
+                  "type": "Native",
+                  "effect_ref": "league_talon_vault:wound"
                 }
               ]
             }
@@ -3757,141 +2805,8 @@
                           "apply_type": "AroundCaster",
                           "effects": [
                             {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_talon_p_wound",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 300
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 1000
-                                }
-                              },
-                              "target": "AllyOnlySelf",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_talon_p_3",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_talon_p_3"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_talon_p_3",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_talon_p_2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_talon_p_2"
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_talon_p_3"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_talon_p_3",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_talon_p_1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_talon_p_1"
-                                          },
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_talon_p_2"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_talon_p_2",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 300
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_talon_p_1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_talon_p_1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
+                              "type": "Native",
+                              "effect_ref": "league_talon_vault:wound"
                             }
                           ]
                         },
@@ -4150,141 +3065,8 @@
                         "apply_type": "AroundCaster",
                         "effects": [
                           {
-                            "type": "AddBuff",
-                            "buff_state": {
-                              "name": "league_talon_p_wound",
-                              "duration": {
-                                "Time": {
-                                  "tick": 300
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "type": "RangeEffect",
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "target": "AllyOnlySelf",
-                            "apply_type": "AroundCaster",
-                            "effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_talon_p_3",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_talon_p_3"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_talon_p_3",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 300
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_talon_p_2",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_talon_p_2"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_talon_p_3"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_talon_p_3",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_talon_p_1",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_talon_p_1"
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_talon_p_2"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_talon_p_2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_talon_p_1"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_talon_p_1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            ]
+                            "type": "Native",
+                            "effect_ref": "league_talon_vault:wound"
                           }
                         ]
                       },

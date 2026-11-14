@@ -1234,7 +1234,7 @@
                             "name": "league_zyra_r_burst",
                             "shape": {
                               "Circle": {
-                                "radius": 32000
+                                "radius": 38000
                               }
                             },
                             "delay": 1,
@@ -1273,7 +1273,7 @@
                                 "name": "league_zyra_r_snap",
                                 "shape": {
                                   "Circle": {
-                                    "radius": 32000
+                                    "radius": 38000
                                   }
                                 },
                                 "delay": 1,

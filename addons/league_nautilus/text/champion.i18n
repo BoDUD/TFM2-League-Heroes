@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_nautilus_wall": {
-        "skill": "【钩墙版】抛出铁锚，钩中第一个敌方英雄，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，并把双方拉向彼此。锚先撞到墙时把自己拉到墙边，返还一半冷却。"
+        "skill": "【钩墙版】抛出铁锚，钩中第一个敌方英雄（穿过小兵和野怪），造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>，把双方拉向彼此。锚先撞到墙时把自己拉到墙边，返还一半冷却。",
+        "attack": "【钩墙版】<#ff9028ff>排山倒海<>：普攻敌方英雄时将其<#ef5350ff>禁锢0.83秒<>，并额外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>，同一个英雄<#ffb900ff>6秒<>内不再触发。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_nautilus_wall": {
-        "skill": "【鉤牆版】拋出鐵錨，鉤中第一個敵方英雄，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，並把雙方拉向彼此。錨先撞到牆時把自己拉到牆邊，返還一半冷卻。"
+        "skill": "【鉤牆版】拋出鐵錨，鉤中第一個敵方英雄（穿過小兵和野怪），造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>，把雙方拉向彼此。錨先撞到牆時把自己拉到牆邊，返還一半冷卻。",
+        "attack": "【鉤牆版】<#ff9028ff>沉重打擊<>：普攻敵方英雄時將其<#ef5350ff>定身0.83秒<>，並額外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>，同一個英雄<#ffb900ff>6秒<>內不再觸發。"
       }
     }
   },
   "en": {
     "description": {
       "league_nautilus_wall": {
-        "skill": "[Wall build] Throws his anchor at the first enemy champion: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, and the two are pulled toward each other. If the anchor strikes a wall first, he pulls himself to it and gets half the cooldown back."
+        "skill": "[Wall build] Throws his anchor at the first enemy champion (it passes minions and monsters): <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, a <#ffb900ff>1s<> <#ef5350ff>stun<>, and the two are pulled toward each other. If the anchor strikes a wall first, he pulls himself to it and gets half the cooldown back.",
+        "attack": "[Wall build] <#ff9028ff>Staggering Blow<>: his attack on an enemy champion <#ef5350ff>roots it 0.83s<> and deals <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> more; not again on the same champion for <#ffb900ff>6s<>."
       }
     }
   },
   "ko": {
     "description": {
       "league_nautilus_wall": {
-        "skill": "[벽 갈고리] 닻을 던져 처음 맞은 적 챔피언에게 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 입히고 서로를 끌어당김. 닻이 먼저 벽에 박히면 벽으로 끌려가고 재사용 대기시간의 절반을 돌려받음."
+        "skill": "[벽 갈고리] 닻을 던져 처음 맞은 적 챔피언(미니언·몬스터는 통과)에게 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1초<> <#ef5350ff>기절<>을 입히고 서로를 끌어당김. 닻이 먼저 벽에 박히면 벽으로 끌려가고 재사용 대기시간의 절반을 돌려받음.",
+        "attack": "[벽 갈고리] <#ff9028ff>강력한 일격<>: 적 챔피언을 기본 공격하면 <#ef5350ff>0.83초 속박<>하고 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>를 추가로 입힘. 같은 챔피언에게는 <#ffb900ff>6초<> 동안 발동하지 않음."
       }
     }
   },
   "ja": {
     "description": {
       "league_nautilus_wall": {
-        "skill": "【壁フック】錨を投げ、最初に当たった敵チャンピオンに<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、互いを引き寄せる。錨が先に壁に刺さると壁まで自分を引き寄せ、クールダウンの半分が戻る。"
+        "skill": "【壁フック】錨を投げ、最初に当たった敵チャンピオン（ミニオン・モンスターは素通り）に<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>スタン<>、互いを引き寄せる。錨が先に壁に刺さると壁まで自分を引き寄せ、クールダウンの半分が戻る。",
+        "attack": "【壁フック】<#ff9028ff>鉄の錨<>：敵チャンピオンへの通常攻撃で<#ef5350ff>0.83秒スネア<>し、<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>を追加。同じチャンピオンには<#ffb900ff>6秒<>発動しない。"
       }
     }
   }

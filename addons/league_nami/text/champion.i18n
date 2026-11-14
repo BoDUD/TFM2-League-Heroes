@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_nami_addon": {
+        "skill": "【附加包】<#ff9028ff>冲击之潮<>：水流先治疗身边一名友方英雄（没有则治疗自己）<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 法术强度<>的<#6aff55ff>生命值<>，再弹向附近敌人造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法术强度<>的<#a974ffff>魔法伤害<>，不会弹回娜美。<#ff9028ff>唤潮之佑<>：被治疗者<#ffb900ff>6秒<>内<#ffb900ff>3次<>命中各多造成<#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速25%<>（<#ffb900ff>1秒<>）。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_nami_addon": {
+        "skill": "【附加包】<#ff9028ff>跳躍水柱<>：水柱先治療身邊一名友方英雄（沒有則治療自己）<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 魔法強度<>的<#6aff55ff>生命<>，再彈向附近敵人造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 魔法強度<>的<#a974ffff>魔法傷害<>，不會彈回娜米。<#ff9028ff>深海恩賜<>：被治療者<#ffb900ff>6秒<>內<#ffb900ff>3次<>命中各多造成<#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速25%<>（<#ffb900ff>1秒<>）。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_nami_addon": {
+        "skill": "[Add-on] <#ff9028ff>Ebb and Flow<>: water first heals an allied champion beside Nami (herself if none) for <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% Ability Power<>, then bounces to a nearby enemy for <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% Ability Power<> <#a974ffff>magic damage<>; it never bounces back to Nami. <#ff9028ff>Tidecaller's Blessing<>: the healed one's next <#ffb900ff>3<> hits in <#ffb900ff>6s<> deal <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> more <#a974ffff>magic damage<>, <#ef5350ff>slowing<> 25% for <#ffb900ff>1s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_nami_addon": {
+        "skill": "[애드온] <#ff9028ff>밀물 썰물<>: 물줄기가 먼저 곁의 아군 챔피언(없으면 나미 자신)의 <#6aff55ff>체력을 70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 35%<> 회복하고, 근처 적에게 튕겨 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 45%<> <#a974ffff>마법 피해<>를 입힙니다. 나미에게 되돌아오지 않습니다. <#ff9028ff>파도 소환사의 축복<>: 회복된 아군의 <#ffb900ff>6초<>간 <#ffb900ff>3회<> 적중이 <#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 추가 <#a974ffff>마법 피해<>와 <#ef5350ff>25% 둔화<>(<#ffb900ff>1초<>)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_nami_addon": {
+        "skill": "【アドオン】<#ff9028ff>潮の流れ<>：水流がまず近くの味方チャンピオン（いなければ自分）の<#6aff55ff>体力を70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の35%<>回復し、跳ねて近くの敵に<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の45%<>の<#a974ffff>魔法ダメージ<>。ナミには戻らない。<#ff9028ff>潮使いの祝福<>：回復した味方の<#ffb900ff>6秒<>間の<#ffb900ff>3回<>の命中が<#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の追加<#a974ffff>魔法ダメージ<>と<#ef5350ff>25%スロウ<>（<#ffb900ff>1秒<>）。"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_shyvana_addon": {
+        "ult": "【附加包】<#ff9028ff>龙怒<>攒满时化身魔龙，飞向敌方英雄并沿途喷火，造成<#a974ffff>100+4%最大生命值<>魔法伤害并使其<#ef5350ff>恐惧<><#ffb900ff>0.75秒<>。魔龙持续<#ffb900ff>15秒<>，生命+30%。<#ff9028ff>龙鳞铁衣<>：参与击杀英雄、击杀史诗野怪+<#ffb900ff>3<>层，大型野怪+<#ffb900ff>1<>层，每层护甲和魔抗+<#ffb900ff>0.3<>，永久。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_shyvana_addon": {
+        "ult": "【附加包】<#ff9028ff>龍怒<>集滿時化身為龍，飛向敵方英雄並沿途噴火，造成<#a974ffff>100+4%最大生命值<>魔法傷害並使其<#ef5350ff>恐懼<><#ffb900ff>0.75秒<>。龍形持續<#ffb900ff>15秒<>，生命+30%。<#ff9028ff>真龍鱗甲<>：參與擊殺英雄、擊殺史詩野怪+<#ffb900ff>3<>層，大型野怪+<#ffb900ff>1<>層，每層護甲和魔抗+<#ffb900ff>0.3<>，永久。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_shyvana_addon": {
+        "ult": "[Add-on] With full <#ff9028ff>Dragon Fury<> she becomes a dragon and flies at an enemy champion breathing fire: <#a974ffff>100 + 4% of her max health<> magic damage and <#ef5350ff>fear<> for <#ffb900ff>0.75s<>. The dragon lasts <#ffb900ff>15s<> with +30% health. <#ff9028ff>Scalemail<>: champion takedowns and epic monsters give <#ffb900ff>3<> stacks, large monsters <#ffb900ff>1<>; each stack is +<#ffb900ff>0.3<> armour and magic resist for good."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_shyvana_addon": {
+        "ult": "[확장] <#ff9028ff>용의 분노<>가 가득 차면 용으로 변해 적 챔피언에게 날아가며 불을 뿜어 <#a974ffff>100 + 최대 체력의 4%<> 마법 피해와 <#ffb900ff>0.75초<> <#ef5350ff>공포<>. 용의 모습 <#ffb900ff>15초<>, 체력 +30%. <#ff9028ff>미늘갑옷<>: 챔피언 처치 관여·에픽 몬스터 <#ffb900ff>3<>중첩, 대형 몬스터 <#ffb900ff>1<>중첩, 중첩당 방어력과 마법 저항력 +<#ffb900ff>0.3<>(영구)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_shyvana_addon": {
+        "ult": "【拡張】<#ff9028ff>ドラゴンフューリー<>が満ちるとドラゴンに変身し、敵チャンピオンへ飛びながら炎を吐いて<#a974ffff>100+最大体力の4%<>の魔法ダメージと<#ffb900ff>0.75秒<>の<#ef5350ff>フィアー<>。ドラゴンは<#ffb900ff>15秒<>、体力+30%。<#ff9028ff>スケールメイル<>：キル関与・エピックモンスターで<#ffb900ff>3<>、大型モンスターで<#ffb900ff>1<>スタック、各物防と魔防+<#ffb900ff>0.3<>（永続）。"
+      }
+    }
+  }
+}

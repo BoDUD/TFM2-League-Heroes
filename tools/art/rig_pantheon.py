@@ -41,6 +41,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
+import inbetween as IB  # noqa: E402
 import strips as G  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "pantheon")
@@ -82,13 +83,16 @@ TABLE = {
     "skill_throw": [("skill_1", 0, 0, 100), ("skill_throw_2", 0, 0, 140), ("skill_throw_2", WHIP, 0, 80),
                     ("skill_throw_4", 0, 0, 90), ("skill_throw_5", 0, 0, 90), ("skill_throw_6", 0, 0, 100)],
     "skill2": [(f"skill2_{k}", 0, 0, ms) for k, ms in zip(range(1, 7), (60, 60, 60, 70, 90, 100))],
-    "e_hold": [("e_hold_2", -DRAW, 0, 125), ("e_hold_2", 0, 0, 125), ("e_hold_4", -DRAW, 0, 125),
+    # (the drawn-back copies with the cape fluttering down / up: CAPE)
+    "e_hold": [("e_hold_2", -DRAW, 0, 125, (1, 4)), ("e_hold_2", 0, 0, 125), ("e_hold_4", -DRAW, 0, 125, (3, 4)),
                ("e_hold_4", 0, 0, 125)],
-    "e_bash": [("e_bash_2", 0, 0, 60), ("e_bash_3", 0, 0, 60), ("e_bash_3", BASH, 0, 90), ("e_bash_3", 2, 0, 80),
-               ("e_bash_5", 0, 0, 90)],
-    "ult": [(f"ult_{k}", 0, 0, ms) for k, ms in zip(range(1, 5), (100, 100, 150, 650))],
+    "e_bash": [("e_bash_2", 0, 0, 60), ("e_bash_3", 0, 0, 60), ("e_bash_3", BASH, 0, 90, (1, 4)),
+               ("e_bash_3", 2, 0, 80, (3, 4)), ("e_bash_5", 0, 0, 90)],
+    # (the crouch before the leap held 650 ms: now five frames, the cape fluttering on the last four: CAPE)
+    "ult": [("ult_1", 0, 0, 100), ("ult_2", 0, 0, 100), ("ult_3", 0, 0, 150), ("ult_4", 0, 0, 130)]
+    + [("ult_4", 0, 0, 130, (k, 5)) for k in range(1, 5)],
     "ult_leap": [(f"ult_leap_{k}", 0, -LEAP[k - 1], ms) for k, ms in zip(range(1, 4), (80, 80, 120))],
-    "ult_land": [("ult_land_1", 0, 0, 80), ("ult_land_2", 0, 0, 120), ("ult_land_2", 0, -RISE, 150),
+    "ult_land": [("ult_land_1", 0, 0, 80), ("ult_land_2", 0, 0, 120), ("ult_land_2", 0, -RISE, 150, (1, 4)),
                  (IDLE_SRC, 0, 0, 150)],
     # 8 frames (2026-10-19 frame audit, the pack's deaths have 8): the first lying picture also 4 squares above the
     # ground before it lands and 1 after (a bounce)
@@ -302,12 +306,57 @@ def shrunk(frames, idle, scale):
     return [(on_canvas(a, frames[0][0]), ms) for a, ms in SF.apply_tag(cf, plan)]
 
 
+# The cape waved (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): where an action held
+# one of Codex's pictures - R's crouch before the leap (650 ms), E's channel loop and the bash (pictures drawn back or
+# moved by whole squares), the landing's rise - his cape flutters: its whole columns in the box CAPE (x0, y0, x1, y1:
+# its free end, left of where it leaves his shoulders) lifted CAPE_AMP t sin(phase - pi t) rows, t from 0 at the box's
+# right column to 1 at its left (a wave travelling to its tip, rig_sylas's chain); the cape is its blues and the
+# outline two deep round them where it edges nothing else, laid behind the rest of him (inbetween.repose), everything
+# else checked unchanged. A TABLE row's 5th item: (step, steps a cycle) -> phase = 2 pi step / steps.
+CAPE = {"ult_4": (25, 94, 56, 119), "e_hold_2": (20, 100, 56, 123), "e_hold_4": (20, 100, 54, 122),
+        "ult_land_2": (20, 104, 50, 128), "e_bash_3": (18, 90, 58, 111)}
+CAPE_AMP = 4
+
+
+def cape_mask(a, box):
+    x0, y0, x1, y1 = box
+    op = a[..., 3] > 0
+    rgb = a[..., :3].astype(int)
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    inside = np.zeros(op.shape, bool)
+    inside[y0:y1 + 1, x0:x1 + 1] = True
+    blue = op & (b > r + 25) & (b > g + 10) & inside
+    dark = op & (0.299 * r + 0.587 * g + 0.114 * b < 45)
+    other = op & ~blue & ~dark                               # gold, skin, the spear: what the cape is not
+    edges_other = ndimage.binary_dilation(other, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], bool))
+    line = dark & ndimage.binary_dilation(blue, structure=np.ones((3, 3)), iterations=2) & ~edges_other
+    return (blue | line) & inside
+
+
+def cape_waved(a, src, step, steps):
+    """A strip frame with its cape (cape_mask in CAPE[src]) at `step` of a `steps`-frame cycle of the travelling wave."""
+    x0, _, x1, _ = CAPE[src]
+    m = cape_mask(a, CAPE[src])
+    H, W = a.shape[:2]
+    dy = np.zeros((H, W), int)
+    for x in range(W):
+        t = min(max((x1 - x) / (x1 - x0), 0.0), 1.0)
+        dy[:, x] = -int(round(CAPE_AMP * t * np.sin(2 * np.pi * step / steps - np.pi * t)))
+    out = IB.repose(a, [(m, (np.zeros((H, W), int), dy), "under")], OUTLINE)
+    if not IB.kept(a, out, 0, but=m):
+        sys.exit(f"{src} cape step {step}: the wave changed him outside the cape")
+    return out
+
+
 def actions():
     out = {"idle": idle_frames(), "hit": hit_frames()}
     out["run"] = shrunk([(tidy(shift(frame(f"run_{k}"), dx, 0)), RUN_MS) for k, dx in RUN_ORDER], out["idle"],
                         RUN_SCALE)
     for tag, rows in TABLE.items():
-        out[tag] = [(tidy(shift(frame(src), dx, dy)), ms) for src, dx, dy, ms in rows]
+        out[tag] = []
+        for src, dx, dy, ms, *wave in rows:
+            a = cape_waved(frame(src), src, *wave[0]) if wave else frame(src)
+            out[tag].append((tidy(shift(a, dx, dy)), ms))
     return {t: out[t] for t in ORDER}
 
 

@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_alistar": {
+    "remapping": "asset/league_alistar/override/league_alistar",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_alistar/text/champion",
+    "type": "merge"
+  }
+}

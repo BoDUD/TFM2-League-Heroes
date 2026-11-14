@@ -1507,10 +1507,6 @@
           "name": "league_neeko_r"
         },
         {
-          "type": "Sfx",
-          "name": "league_neeko_r_sh"
-        },
-        {
           "type": "SwitchByBuff",
           "buff_name": "league_neeko_vo_cd",
           "effect_buff": {
@@ -1542,56 +1538,6 @@
         {
           "type": "CasterViewEffect",
           "name": "league_neeko_r_charge"
-        },
-        {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 1000
-            }
-          },
-          "target": "AllyOnlySelf",
-          "apply_type": "AroundCaster",
-          "effects": [
-            {
-              "type": "Shield",
-              "amount": 80,
-              "attack_ratio": 0,
-              "ap_ratio": 30,
-              "tick": 150
-            }
-          ]
-        },
-        {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 40000
-            }
-          },
-          "target": "EnemyChampion",
-          "apply_type": "AroundCaster",
-          "effects": [
-            {
-              "type": "RangeEffect",
-              "shape": {
-                "Circle": {
-                  "radius": 1000
-                }
-              },
-              "target": "AllyOnlySelf",
-              "apply_type": "AroundCaster",
-              "effects": [
-                {
-                  "type": "Shield",
-                  "amount": 40,
-                  "attack_ratio": 0,
-                  "ap_ratio": 0,
-                  "tick": 150
-                }
-              ]
-            }
-          ]
         },
         {
           "type": "Delayed",

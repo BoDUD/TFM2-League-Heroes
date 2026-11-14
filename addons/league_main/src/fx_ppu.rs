@@ -6,7 +6,7 @@
 //! effects, buffs and projectiles alike, so hd.rs lists them in EFFECTS, DRAWN_EFFECTS and full_effects() (dense
 //! only where the buff and projectile pictures are shrunk too: hd_engine Table::full_effects).
 
-/// (sheet, PPU, its .fanim) - 377 sheets
+/// (sheet, PPU, its .fanim) - 382 sheets
 pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_aatrox_big", 2.0, include_str!("../../../league/effects/league_aatrox_big#anim.fanim")),
     ("league_aatrox_fx", 2.0, include_str!("../../../league/effects/league_aatrox_fx#anim.fanim")),
@@ -90,6 +90,7 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_galio_fx", 2.0, include_str!("../../../league/effects/league_galio_fx#anim.fanim")),
     ("league_gangplank_big", 2.0, include_str!("../../../league/effects/league_gangplank_big#anim.fanim")),
     ("league_gangplank_fx", 2.0, include_str!("../../../league/effects/league_gangplank_fx#anim.fanim")),
+    ("league_gangplank_sv", 2.0, include_str!("../../../league/effects/league_gangplank_sv#anim.fanim")),
     ("league_garen_buffs", 2.0, include_str!("../../../league/effects/league_garen_buffs#anim.fanim")),
     ("league_garen_hits", 2.0, include_str!("../../../league/effects/league_garen_hits#anim.fanim")),
     ("league_garen_r", 2.0, include_str!("../../../league/effects/league_garen_r#anim.fanim")),
@@ -112,6 +113,7 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_hwei_fx", 2.0, include_str!("../../../league/effects/league_hwei_fx#anim.fanim")),
     ("league_illaoi_big", 2.0, include_str!("../../../league/effects/league_illaoi_big#anim.fanim")),
     ("league_illaoi_fx", 2.0, include_str!("../../../league/effects/league_illaoi_fx#anim.fanim")),
+    ("league_illaoi_souls", 2.0, include_str!("../../../league/effects/league_illaoi_souls#anim.fanim")),
     ("league_irelia_big", 2.0, include_str!("../../../league/effects/league_irelia_big#anim.fanim")),
     ("league_irelia_fx", 2.0, include_str!("../../../league/effects/league_irelia_fx#anim.fanim")),
     ("league_ivern_big", 2.0, include_str!("../../../league/effects/league_ivern_big#anim.fanim")),
@@ -200,6 +202,8 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_mordekaiser_fx", 2.0, include_str!("../../../league/effects/league_mordekaiser_fx#anim.fanim")),
     ("league_morgana_big", 2.0, include_str!("../../../league/effects/league_morgana_big#anim.fanim")),
     ("league_morgana_fx", 2.0, include_str!("../../../league/effects/league_morgana_fx#anim.fanim")),
+    ("league_naafiri_big", 2.0, include_str!("../../../league/effects/league_naafiri_big#anim.fanim")),
+    ("league_naafiri_fx", 2.0, include_str!("../../../league/effects/league_naafiri_fx#anim.fanim")),
     ("league_nami_big", 2.0, include_str!("../../../league/effects/league_nami_big#anim.fanim")),
     ("league_nami_fx", 2.0, include_str!("../../../league/effects/league_nami_fx#anim.fanim")),
     ("league_nasus_big", 2.0, include_str!("../../../league/effects/league_nasus_big#anim.fanim")),
@@ -385,4 +389,5 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_zoe_fx", 2.0, include_str!("../../../league/effects/league_zoe_fx#anim.fanim")),
     ("league_zyra_big", 2.0, include_str!("../../../league/effects/league_zyra_big#anim.fanim")),
     ("league_zyra_fx", 2.0, include_str!("../../../league/effects/league_zyra_fx#anim.fanim")),
+    ("league_zyra_thicket", 2.0, include_str!("../../../league/effects/league_zyra_thicket#anim.fanim")),
 ];

@@ -1961,6 +1961,10 @@
           ]
         },
         {
+          "type": "Native",
+          "effect_ref": "league_drmundo:pay"
+        },
+        {
           "type": "Sfx",
           "name": "league_drmundo_q"
         },
@@ -2060,7 +2064,7 @@
                             "effects": [
                               {
                                 "type": "Heal",
-                                "amount": 20,
+                                "amount": 30,
                                 "attack_ratio": 0,
                                 "ap_ratio": 0,
                                 "heal_type": "Caster"
@@ -2120,7 +2124,7 @@
                                 "effects": [
                                   {
                                     "type": "Heal",
-                                    "amount": 40,
+                                    "amount": 30,
                                     "attack_ratio": 0,
                                     "ap_ratio": 0,
                                     "heal_type": "Caster"
@@ -3607,7 +3611,9 @@
       "w_store": 75,
       "r_low": 60,
       "r_burst": 15,
-      "r_miss": 25
+      "r_miss": 25,
+      "q_cost": 60,
+      "w_cost_n": 8
     }
   }
 }

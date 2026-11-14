@@ -504,8 +504,8 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 56,
-                                    "attack_ratio": 210,
+                                    "damage": 52,
+                                    "attack_ratio": 195,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -529,8 +529,8 @@
                               "buff_name": "league_nidalee_hunt",
                               "effect_buff": {
                                 "type": "ApAttack",
-                                "damage": 72,
-                                "attack_ratio": 86,
+                                "damage": 67,
+                                "attack_ratio": 80,
                                 "hp_ratio": 0,
                                 "can_crit": false,
                                 "attack_effect_type": "Target"

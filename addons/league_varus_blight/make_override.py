@@ -7,7 +7,12 @@ addons/league_varus_blight/override/league_varus.data_champion and .../text/cham
   * the attack's Blight ladder (SwitchByBuff league_varus_b_3 .. 1 adding a caster buff) swapped for the native effect
     league_varus_blight:stack; Q's and E's pop ladders (FixedAttack target_hp_ratio 3 / 6 / 9) for :pop, R's for :pop_r;
     R's "fill to 3" block for :fill (the add-on keeps the stacks on the target, src/lib.rs);
-  * the attack's tooltip pointing to description.league_varus_blight.attack with "on each champion" added.
+  * R's one spread (the zone league_varus_r_spread: a root on every champion round the first one) calling the native
+    effect :spread on each champion instead - it roots only the ones not yet infected, fills their Blight and sends
+    the corruption on from each of them (2026-11-14, League: it spreads until there are no new targets). The zone's
+    numbers are checked against src/lib.rs's SPREAD_T / SPREAD_R / ROOT2;
+  * the attack's tooltip pointing to description.league_varus_blight.attack with "on each champion" added, R's to
+    description.league_varus_blight.ult with the add-on's sentence after the main text.
 Every other champion stays untouched. Run it again whenever the main pack's Varus changes (--check: compare only).
 """
 import argparse
@@ -26,6 +31,14 @@ TEXT_KEY = "description." + MOD_ID + "." + SLOT
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[확장] ", "ja": "【拡張】"}
 Y, E = "<#ffb900ff>", "<>"
+# after the main pack's R text
+SPREAD = {
+    "zh-hans": "【附加包】被禁锢的英雄也叠满枯萎，并继续向他们附近的英雄扩散，直到没有新目标。",
+    "zh-hant": "【附加包】被定身的英雄也疊滿荒蕪，並繼續向他們附近的英雄擴散，直到沒有新目標。",
+    "en": " [Add-on] Those rooted get full Blight too, and it spreads on from each of them until no new champion is near.",
+    "ko": " [확장] 속박된 챔피언도 역병 3중첩이 되고, 그들 주변의 챔피언에게 계속 퍼집니다.",
+    "ja": "【拡張】スネアされた敵も枯死3つになり、その周囲のチャンピオンへさらに広がる。",
+}
 SWAPS = {
     "zh-hans": ("（最多3层）", "（最多3层，每个英雄各算各的）"),
     "zh-hant": ("（最多3層）", "（最多3層，每個英雄各算各的）"),
@@ -61,6 +74,46 @@ def native(name):
     return {"type": "Native", "effect_ref": MOD_ID + ":" + name}
 
 
+def consts():
+    """src/lib.rs's numbers for the spread (the code roots, waits and reaches by them)."""
+    with open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8") as f:
+        src = f.read()
+    return {k: int(re.search(r"pub const " + k + r": usize = (\d+);", src).group(1)) for k in ("SPREAD_T", "SPREAD_R", "ROOT2")}
+
+
+def spread_on(ult):
+    """R's one spread: each champion in it goes to the native :spread. Checks the zone is the one the code replaces."""
+    c = consts()
+    T = lambda e: {"casting_type": "Targeting", "effect": e}
+    N = HERO + "_"
+    found = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            if o.get("type") == "Delayed" and any(isinstance(e, dict) and e.get("name") == N + "r_spread"
+                                                  and e.get("type") == "RangeProjectile" for e in o["effects"]):
+                found.append(o)
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(ult)
+    if len(found) != 1:
+        sys.exit(f"R's spread found {len(found)} times: update this script")
+    wait = found[0]
+    zone = next(e for e in wait["effects"] if e.get("type") == "RangeProjectile")
+    want = [T({"type": "Bind", "duration": c["ROOT2"]}),
+            T({"type": "AddBuff", "buff_state": {"name": N + "r_bind", "duration": {"Time": {"tick": c["ROOT2"]}}}}),
+            T({"type": "ViewEffect", "name": N + "r_spread_hit"}), T({"type": "ViewEffect", "name": B + "v3"}),
+            T({"type": "TargetSfx", "name": N + "r_spread"})]
+    if wait["tick"] != c["SPREAD_T"] or zone["shape"] != {"Circle": {"radius": c["SPREAD_R"]}} \
+            or zone["applied_target"] != "EnemyChampion" or zone["applied_effects"] != want:
+        sys.exit("R's spread is not the one src/lib.rs replaces (SPREAD_T / SPREAD_R / ROOT2, its effects): update both")
+    zone["applied_effects"] = [T(native("spread"))]
+
+
 def build():
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8-sig") as f:
         champion = json.load(f)
@@ -89,7 +142,9 @@ def build():
     left = [x for x in re.findall(r'"buff_name": "(' + B + r'[123])"', json.dumps(champion))]
     if left:
         sys.exit(f"Blight checks left in the copy: {left}")
+    spread_on(champion["ult"])
     champion[SLOT]["description"] = "#asset/base/text/champion?" + TEXT_KEY
+    champion["ult"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".ult"
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     texts = {}
@@ -101,7 +156,11 @@ def build():
         texts[lang] = LEAD[lang] + t.replace(old, new)
         if shown_length(texts[lang]) > TOOLTIP_MAX[lang]:
             sys.exit(f"{lang}: tooltip too long ({shown_length(texts[lang])} > {TOOLTIP_MAX[lang]})")
-    text = {lang: {"description": {MOD_ID: {SLOT: texts[lang]}}} for lang in main_text}
+    ults = {lang: tab["description"][HERO]["ult"] + SPREAD[lang] for lang, tab in main_text.items()}
+    long = {lang: shown_length(t) for lang, t in ults.items() if shown_length(t) > TOOLTIP_MAX[lang]}
+    if long:
+        sys.exit(f"R's tooltip too long: {long}")
+    text = {lang: {"description": {MOD_ID: {SLOT: texts[lang], "ult": ults[lang]}}} for lang in main_text}
     return champion, text
 
 

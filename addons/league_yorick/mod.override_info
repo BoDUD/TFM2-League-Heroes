@@ -6,5 +6,21 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_yorick/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_yorick_walker#sheet": {
+    "remapping": "asset/league/champions/league_yorick_walker#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_yorick_walker#anim": {
+    "remapping": "asset/league/champions/league_yorick_walker#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_yorick_maiden#sheet": {
+    "remapping": "asset/league/champions/league_yorick_maiden#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_yorick_maiden#anim": {
+    "remapping": "asset/league/champions/league_yorick_maiden#anim",
+    "type": "override"
   }
 }

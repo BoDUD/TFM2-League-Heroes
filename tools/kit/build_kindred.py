@@ -39,7 +39,8 @@ into Lamb's frames; his bites and his pounce are pictures on the targets.
           least one enemy champion within r_near of him (r_cprobe / r_ccount / r_c1); or, once the fight has gone on (her
           last r_fight champion hits each within f_t ticks of the one before), a random allied champion within r_reach
           (her too) with r_need or more enemy champions within r_near of him (r_probe / r_count / r_n1 -> r_n2). The save:
-          the zone round her on r_at (r_r, r_t ticks): every r_per ticks the allied champions in it get r_per + 2 ticks
+          the zone round her on r_at (r_r, r_t ticks): every r_per ticks the allied champions in it - and, as in
+          League, the enemy units in it (a twin zone, `r_safe_e`; they heal too when it ends) - get r_per + 2 ticks
           of `undying` (League: health stops at 10%) - and the cast itself gives the allied champions within r_r of
           her undying until then (2026-11-07: 12% of the saves died in the windup) - the first the tick after it
           lands (first_delay 1: a zone's
@@ -318,12 +319,19 @@ def build(p):
     safe = field("r_field", p["r_r"], p["r_t"], p["r_per"], 1, "AllyChampion",
                  [buff("r_safe", p["r_per"] + 2, undying=True)],
                  end=[heal_ally(p["r_heal"], p["r_heal_ad"]), view("r_heal"), tsfx("r_heal")])
+    # League's Lamb's Respite holds EVERY unit in the circle at 10% health - the enemies too (champions, minions,
+    # monsters) - and heals whoever stands in it when it ends; until 2026-11-14 the circle was her side's alone (the
+    # user, on the list of differences from League: 「全改吧」). The enemies' twin: the same zone on `EnemyWithoutTower`
+    # (no turret, as League), their undying under its own name (the add-on reads `r_safe` on her allies only).
+    foes = field("r_field_e", p["r_r"], p["r_t"], p["r_per"], 1, "EnemyWithoutTower",
+                 [buff("r_safe_e", p["r_per"] + 2, undying=True)],
+                 end=[heal_ally(p["r_heal"], p["r_heal_ad"]), view("r_heal"), tsfx("r_heal")])
     # 2026-11-07's logs: 59 of ~480 saves came too late - the champion died 0-21 ticks after the cast, in her windup
     # before the circle lands on r_at (League's Lamb's Respite holds at once). The cast itself gives every allied
     # champion within r_r of her (her too) undying until the circle's own first one; the circle still lands on r_at.
     bridge = around(p["r_r"], "AllyChampion", [buff("r_safe", p["r_at"] + p["r_per"] + 2, undying=True)])
     save = combine(bridge, on_me(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
-                                 delayed(p["r_at"], cview("r_zone"), anchor("r_anchor", [safe]))))
+                                 delayed(p["r_at"], cview("r_zone"), anchor("r_anchor", [safe, foes]))))
     go = combine(*rm("r_armed"), save)
 
     def danger(lob, zone, count, need_flag, name):

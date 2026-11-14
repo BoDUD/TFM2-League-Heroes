@@ -9,11 +9,15 @@ addons/league_talon_vault/override/league_talon.data_champion and .../text/champ
   * passive = the add-on's league_talon_vault:path with the E numbers of P;
   * the e_wall buff picture (the vault's arc under him while the passive vaults him);
   * the attack's tooltip (it carries Assassin's Path) points to description.league_talon_vault.attack with the
-    add-on's wording, so the tooltip in game shows whether the override took.
+    add-on's wording, so the tooltip in game shows whether the override took;
+  * (0.1.8) Blade's End counted on each champion: native=1 makes every spell's wound the add-on's
+    league_talon_vault:wound and the attack's hit league_talon_vault:edge (src/lib.rs); P's p_t / p_bleed must be
+    src/lib.rs's WOUND_T / BLEED_T, and the attack's tooltip says the wounds are on the champion hit.
 Every other champion stays untouched. Run it again whenever the main pack's Talon changes.
 """
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -41,6 +45,26 @@ NATIVE = {
 }
 
 
+# Blade's End (0.1.8): lang -> (the main pack's words, the add-on's): the wounds on the champion hit
+EDGE = {
+    "zh-hans": ("技能命中英雄叠一层伤口", "技能命中英雄在他身上叠一层伤口"),
+    "zh-hant": ("技能命中英雄疊一層傷口", "技能命中英雄在他身上疊一層傷口"),
+    "en": ("his spells wound champions they hit; at 3 wounds his next attack makes it",
+           "his spells wound each champion they hit; at 3 his next attack on it makes it"),
+    "ko": ("스킬이 챔피언에게 적중하면 상처 1중첩", "스킬이 적중한 챔피언마다 상처 1중첩"),
+    "ja": ("スキルがチャンピオンに命中すると傷を1つ", "スキルが命中したチャンピオンごとに傷を1つ"),
+}
+
+
+def rust_const(name):
+    """A `pub const NAME: usize = 300;` of the add-on's src/lib.rs."""
+    with open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8") as f:
+        m = re.search(r"pub const " + name + r": usize = ([0-9_]+);", f.read())
+    if not m:
+        sys.exit(f"src/lib.rs has no {name}: update this script")
+    return int(m.group(1).replace("_", ""))
+
+
 def lp(path):
     """Windows long-path form: the repo can sit deep under the user's profile."""
     path = os.path.abspath(path)
@@ -57,6 +81,8 @@ def main():
         shipped = f.read()
     if dumps_main(kit.build(p)) != shipped:
         sys.exit("the main pack's league_talon differs from build_talon.P: rebuild it first")
+    if (p["p_t"], p["p_bleed"]) != (rust_const("WOUND_T"), rust_const("BLEED_T")):
+        sys.exit("P's p_t / p_bleed are not src/lib.rs's WOUND_T / BLEED_T: update them")
     champion = kit.build(dict(p, native=1))
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":path":
         sys.exit("the copy has no league_talon_vault:path passive: update this script")
@@ -70,7 +96,10 @@ def main():
         t = setup.TEXT[lang]["attack"]
         if t.count(old) != 1:
             sys.exit(f"{lang} attack: the main pack's text changed ({old!r} not found once): update NATIVE")
-        texts[lang] = {"attack": (lead + t.replace(old, new)).format(**values)}
+        e_old, e_new = EDGE[lang]
+        if t.count(e_old) != 1:
+            sys.exit(f"{lang} attack: the main pack's Blade's End text changed ({e_old!r} not found once): update EDGE")
+        texts[lang] = {"attack": (lead + t.replace(old, new).replace(e_old, e_new)).format(**values)}
     long = {f"{lang}.attack": setup.shown_length(d["attack"]) for lang, d in texts.items()
             if setup.shown_length(d["attack"]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:

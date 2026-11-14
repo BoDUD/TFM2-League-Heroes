@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_leona": {
+    "remapping": "asset/league_leona/override/league_leona",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_leona/text/champion",
+    "type": "merge"
+  }
+}

@@ -68,6 +68,10 @@ P = {
     # passive: Living Battery (League: charged attack 90-200 + 110% AP + 1-11% max hp; shield steal 45% 3 s; haste 10% 1.5 s)
     "p_need": 5, "p_speed": 8000, "p_dmg": 40, "p_ap": 100, "p_hp": 4, "p_slow": 40, "p_slow_t": 30,
     "p_sh": 40, "p_sh_r": 30, "p_sh_t": 180, "p_haste": 10, "p_haste_t": 90, "p_steal": 45,
+    # the add-on's charge by moving (League: "1 charge for every 40 units she travels by any means", 100 charge full): a
+    # rung of the pack is 100 / (p_need) = 20 charge = 800 units, x64 (the 5v5 map 960000 against the Rift's 15000) - the
+    # user's 「全改吧」 of 2026-11-14 (native only: the data counts no distance)
+    "p_walk": 51200,
     # skill: W Ultrashock Laser (League: 30-230 + 120% AD, slow 25-55% 2 s, 1200 range, laser 1500, cd 12-8 s)
     "w_cd": 600, "w_range": 90000, "w_dur": 30, "w_rel": 16, "w_speed": 9000, "w_len": 110000, "w_r": 6000,
     "w_dmg": 60, "w_ratio": 110, "w_slow": 35, "w_slow_t": 120, "w_laser": 100000, "w_cos": 990, "w_lw": 9000,
@@ -414,7 +418,8 @@ def build(p, native=False):
         kit["passive"] = {"passive_ref": "league_zeri:battery",
                           "params": {"steal": p["p_steal"], "steal_t": p["p_sh_t"], "w_laser": p["w_laser"],
                                      "w_speed": p["w_speed"], "w_dmg": p["w_dmg"], "w_ratio": p["w_ratio"],
-                                     "w_slow": p["w_slow"], "w_slow_t": p["w_slow_t"], "w_lw": p["w_lw"]}}
+                                     "w_slow": p["w_slow"], "w_slow_t": p["w_slow_t"], "w_lw": p["w_lw"],
+                                     "p_need": p["p_need"], "p_walk": p["p_walk"]}}
     return kit
 
 

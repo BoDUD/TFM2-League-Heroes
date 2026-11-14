@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.210.0"
+      "version": ">=0.364.0"
     }
   ],
-  "description": "Test build of three low-health triggers as in League (needs League of Legends Heroes): Blitzcrank's Mana Barrier at 30% health, LeBlanc's Mirror Image at 40% and Lissandra's self-encasing ult at 35% (the main pack fires them when two or more enemy champions are close, since data cannot read health). Lissandra's thralls also rise from any enemy champion dying near her (the main pack's only from her own kills) and lunge at the nearest enemy as they shatter. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-06",
+  "description": "Test build of three low-health triggers as in League (needs League of Legends Heroes): Blitzcrank's Mana Barrier at 30% health, LeBlanc's Mirror Image at 40% and Lissandra's self-encasing ult at 35% (the main pack fires them when two or more enemy champions are close, since data cannot read health). Lissandra's thralls also rise from any enemy champion dying near her (the main pack's only from her own kills) and lunge at the nearest enemy as they shatter. LeBlanc's clone (0.3.0) is a unit of its own through the mod API's spawn_unit: drawn from her own sheet where she stood, with her health then, it goes for the enemies with attacks that do nothing, can be attacked and killed, and lasts about 5 seconds; a host that gives no unit plays the main pack's picture there. 0.3.1: Lissandra's thralls are units of their own through the mod API's spawn_unit - each walks after the enemies at her pace, cannot be hurt, and shatters from where it walked; a host that gives no unit keeps the thrall's picture and its lunge from the corpse. Needs the main pack's sheet league/champions/league_lissandra_thrall. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_lowhp",
   "mod_type": "native",
   "name": "League Heroes: Blitzcrank, LeBlanc and Lissandra on low health (test)",
-  "version": "0.2.6"
+  "version": "0.3.2"
 }

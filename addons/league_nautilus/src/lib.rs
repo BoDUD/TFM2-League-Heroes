@@ -6,12 +6,21 @@
 //!
 //! - `hook`：沿 Q 的方向从他脚下往前找，`q_reach` 内先碰到敌方英雄（离锚的路线 `q_rad` + 身体以内）就什么都不做——主包的锚会
 //!   钩住他；先碰到墙（引擎的碰撞墙，5v5 地图野区的 90 格，卡蜜尔附加包的 `maps.rs`）就按锚飞到墙的时间排一个 `pull`。
+//!   主包的锚穿过小兵和野怪，所以这里也只看英雄。0.1.6（2026-11-14）曾跟着主包按英雄联盟改成「停在第一个敌人身上」（小兵、
+//!   野怪也算）；模拟里他明显变弱，用户看了以后同一天说「泰坦的钩子恢复穿过小兵」，0.1.7 改回只看英雄（钩中的眩晕留着）。
 //! - `pull`：锚咬在墙上：他被拉到墙边（强制位移，速度 `q_dash`，停在离墙 `GAP` 处），播主包的 skill_pull 动作、钩墙音效和
 //!   钩中的水花，Q 冷却返还一半（`skill_cooldown_mult` +100 的 3 tick buff：剩下的冷却封顶到冷却时间的一半；W+E 若剩得更多
 //!   也一起封顶，引擎没有只给一个技能的字段；`ult_cooldown_mult` -100 让大招不跟着封顶，0.1.2）。之后每 tick 看一次（`watch`），宿主没挪他就逐 tick 自己走一步。
 //!   拉的途中（终点、上一 tick 在哪、看到哪一 tick）记在 [`WATCHES`] 里，按（这份模拟的编号、他），排的 `watch` 只带终点
 //!   （0.1.4：以前塞在排队输入里，排队后丢了，`watch` 第一 tick 就收手）。
 //! - 被硬控、死了就不拉。比 `HOOK_MIN` 近的墙不钩（拉不出样子）。
+//!
+//! 排山倒海每个英雄各算 6 秒（0.1.8，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟 "This
+//! effect cannot occur on the same target more than once every few seconds"（每个目标 6 秒）。主包的数据读不到目标身上的
+//! 标记，冷却算在他自己身上（定住一个人后 6 秒内谁都不定）。副本（build_nautilus.py 的 native=1）里普攻打中英雄的那一下
+//! （主包的英雄替身）先调用原生效果 `league_nautilus:stagger`：这个英雄 `P_REST_T` tick 内没被定过（身上没有 `P_REST`），或
+//! 诺提勒斯身上有 Q 的连招标记 `q_land`（钩中的人下一下普攻必定住，用户要的连招），就给他挂 `P_REST`、给诺提勒斯挂 3 tick 的
+//! `P_GO`；数据当 tick（读不到就下一 tick）读到它才定住、补伤害。还是只对英雄（小兵、野怪照主包不定）。
 //!
 //! 数字从英雄数据的 `passive.params` 来不了（这一招没有被动），所以和主包 P 表的值写在这里（`Q_*`），主包改了这里一起改
 //! （`tests::the_numbers_match_the_kit` 读主包的数据核对）。
@@ -45,6 +54,13 @@ fn nt(x: &str) -> String {
 
 // ===================== 数值（主包 build_nautilus.P） =====================
 
+/// 排山倒海：副本调用的原生效果；英雄身上「定过了」的标记和它留多久（主包 P 的 `p_cd`，测试核对）；给数据读的旗子。
+pub const STAGGER: &str = "league_nautilus:stagger";
+pub const P_REST: &str = "league_nautilus_p_rest";
+pub const P_REST_T: usize = 360;
+pub const P_GO: &str = "league_nautilus_p_go";
+pub const P_GO_T: usize = 3;
+
 /// 墙格的边长（世界单位）。
 pub const CELL: f64 = 32_000.0;
 /// 锚飞多远、多快、多宽（q_reach、q_speed、q_rad）。
@@ -54,7 +70,7 @@ pub const Q_RAD: f64 = 10_000.0;
 /// 拉过去的速度（q_dash）和动作时长（q_anim）。
 pub const Q_DASH: f64 = 2_500.0;
 pub const Q_ANIM: u64 = 24;
-/// 敌方英雄的身体半径（够得着锚的路线就算会被钩住）。
+/// 敌方单位的身体半径（够得着锚的路线就算会被钩住）。
 pub const BODY: f64 = 6_000.0;
 /// 沿路线找墙的步长。
 pub const STEP: f64 = 500.0;
@@ -196,26 +212,26 @@ pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
         .map(|(i, _)| i)
 }
 
-/// 锚沿路线先碰到的是什么：敌方英雄（主包的锚会钩他）、墙（`Some(停点, 锚飞的距离)`），或什么都没有。
+/// 锚沿路线先碰到的是什么：敌方单位（主包的锚会钩它）、墙（`Some(停点, 锚飞的距离)`），或什么都没有。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Hit {
-    Champion,
+    Unit,
     Wall((f64, f64), f64),
     Nothing,
 }
 
-/// 沿 Q 的方向：`foes` 里离路线 `Q_RAD + BODY` 以内、在墙前的敌方英雄先被钩；否则 `Q_REACH` 内的墙（不近于 `HOOK_MIN`）。
+/// 沿 Q 的方向：`foes`（敌方英雄）里离路线 `Q_RAD + BODY` 以内、在墙前的先被钩；否则 `Q_REACH` 内的墙（不近于 `HOOK_MIN`）。
 pub fn trace(g: &Grid, from: (f64, f64), dir: (f64, f64), foes: &[(f64, f64)]) -> Hit {
     let wall = g.first_wall(from, dir, Q_REACH);
     let limit = wall.unwrap_or(Q_REACH);
-    let hits_champion = foes.iter().any(|f| {
+    let hits_unit = foes.iter().any(|f| {
         let v = (f.0 - from.0, f.1 - from.1);
         let along = v.0 * dir.0 + v.1 * dir.1;
         let across = (v.0 * dir.1 - v.1 * dir.0).abs();
         along > 0.0 && along <= limit && across <= Q_RAD + BODY
     });
-    if hits_champion {
-        return Hit::Champion;
+    if hits_unit {
+        return Hit::Unit;
     }
     match wall {
         Some(t) if t >= HOOK_MIN => {
@@ -356,7 +372,7 @@ pub fn watching(w: &Watch, here: (f64, f64), tick: usize) -> Watching {
 
 // ===================== 三步 =====================
 
-/// 锚飞出去的那一 tick（主包 Q 的 `q_at`）：看路线上先碰到英雄还是墙。
+/// 锚飞出去的那一 tick（主包 Q 的 `q_at`）：看路线上先碰到敌人还是墙。
 fn hook(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let Some(here) = alive_at(sim, caster) else { return };
     let Some(dir) = input_dir(&input).or_else(|| {
@@ -389,7 +405,7 @@ fn hook(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
             wlog(format!("{} HOOK the wall: from {} toward ({:.2},{:.2}), wall at {:.0}, pulled to {} in {} ticks", head(sim, caster), pt(here), dir.0, dir.1, t, pt(stop), flight));
             queue(sim, "pull", caster, InputTargetV1::pos(stop.0.round().max(0.0) as u64, stop.1.round().max(0.0) as u64), flight);
         }
-        Hit::Champion => {}
+        Hit::Unit => {}
         Hit::Nothing => {}
     }
 }
@@ -465,6 +481,53 @@ enum Step {
     Watch,
 }
 
+// ===================== 排山倒海：每个英雄各算 =====================
+
+/// 这一下定不定：这个英雄没在 `P_REST` 里（`rested` 否），或 Q 的连招（`q_land`）。
+pub fn staggers(rested: bool, q_land: bool) -> bool {
+    q_land || !rested
+}
+
+static STAGGER_LINES: AtomicU64 = AtomicU64::new(0);
+
+fn stagger(sim: &mut StableSim<'_>, naut: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        return;
+    }
+    let target = input.target_id;
+    let has = |sim: &StableSim<'_>, id: usize, name: &str| {
+        sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+    };
+    if !sim.get_entity(target).is_some_and(|e| e.is_alive()) {
+        return;
+    }
+    let rested = has(sim, target, P_REST);
+    let q_land = has(sim, naut, &nt("q_land"));
+    let go = staggers(rested, q_land);
+    if go {
+        sim.entity_remove_buff(target, P_REST);
+        sim.add_buff(target, &BuffV1::timed(P_REST, P_REST_T));
+        sim.entity_remove_buff(naut, P_GO);
+        sim.add_buff(naut, &BuffV1::timed(P_GO, P_GO_T));
+    }
+    let n = STAGGER_LINES.fetch_add(1, Ordering::Relaxed) + 1;
+    let shown = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    if shown || n <= 40 || n % 100 == 0 {
+        let what = if !go { "rested, no root" } else if rested { "the Q combo: rooted though rested" } else { "rooted" };
+        wlog(format!("{} STAGGER #{n} on #{target}: {what}", head(sim, naut)));
+    }
+}
+
+struct Stagger;
+
+impl StableEffectType for Stagger {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        stagger(sim, caster, input);
+    }
+}
+
 struct Stage(Step);
 
 impl StableEffectType for Stage {
@@ -483,7 +546,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back; an enemy champion before the wall is the data's catch; Staggering Blow rests on each champion) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -493,6 +556,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:hook"), Stage(Step::Hook));
     module.add_native_effect(format!("{ID}:pull"), Stage(Step::Pull));
     module.add_native_effect(format!("{ID}:watch"), Stage(Step::Watch));
+    module.add_native_effect(STAGGER, Stagger);
     host.log(LogLevel::Info, "league_nautilus v1 loaded (Nautilus's Dredge Line hooks walls).");
 }
 
@@ -539,10 +603,19 @@ mod tests {
     }
 
     #[test]
+    fn the_main_pack_anchor_passes_minions_again() {
+        // 0.1.7: the copy's anchor targets enemy champions only (q_block 0), so only champions before the wall are
+        // the data's catch - `hook` looks at champions alone (u.is_champion())
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_nautilus.py");
+        let src = std::fs::read_to_string(path).expect("build_nautilus.py");
+        assert!(src.contains("\"q_block\": 0,"), "build_nautilus.P's q_block is not 0: hook must count minions again");
+    }
+
+    #[test]
     fn a_champion_before_the_wall_is_hooked_by_the_main_pack() {
         let g = wall();
         let from = at(3.0, 4.5);
-        assert_eq!(trace(&g, from, (1.0, 0.0), &[at(4.0, 4.6)]), Hit::Champion);
+        assert_eq!(trace(&g, from, (1.0, 0.0), &[at(4.0, 4.6)]), Hit::Unit);
         // a champion behind him, or off the line, or past the wall: the wall
         assert!(matches!(trace(&g, from, (1.0, 0.0), &[at(2.0, 4.5)]), Hit::Wall(..)));
         assert!(matches!(trace(&g, from, (1.0, 0.0), &[at(4.0, 6.5)]), Hit::Wall(..)));
@@ -571,6 +644,29 @@ mod tests {
             assert!(src.contains(&format!("\"{key}\": {}", v as u64)), "{key} is not {v} in build_nautilus.P");
         }
         assert!(src.contains(&format!("\"q_anim\": {Q_ANIM}")));
+        assert!(src.contains(&format!("\"p_cd\": {P_REST_T}")), "p_cd is not P_REST_T in build_nautilus.P");
+    }
+
+    /// League: once per target every 6 s; Q's combo (the hooked champion rooted by the next attack) whatever its rest.
+    #[test]
+    fn staggering_blow_rests_on_each_champion() {
+        assert!(staggers(false, false));
+        assert!(!staggers(true, false));
+        assert!(staggers(true, true));
+        assert!(staggers(false, true));
+        for x in [P_REST, P_GO] {
+            assert!(x.len() <= BUFF_NAME_CAP, "{x}");
+        }
+    }
+
+    /// The copy: the champion twin asks the add-on, the root reads `P_GO` (in the tick and a tick later), no rest on him.
+    #[test]
+    fn the_copy_roots_by_the_targets_rest() {
+        let copy = include_str!("../override/league_nautilus.data_champion");
+        assert_eq!(copy.matches(&format!("\"effect_ref\": \"{STAGGER}\"")).count(), 1);
+        assert_eq!(copy.matches(&format!("\"buff_name\": \"{P_GO}\"")).count(), 2);
+        assert!(!copy.contains("\"league_nautilus_p_cd\""), "the copy still rests on him");
+        assert!(copy.contains("\"type\": \"Bind\""), "the root is the data's");
     }
 
     #[test]

@@ -113,11 +113,17 @@ pub struct Params {
     pub split_t: usize,
     pub split_cd: usize,
     pub split_hp: usize,
+    /// R Let's Bounce!: the knock back (speed x ticks), a landing's damage (flat + % AP) and the later landings' share (%).
+    pub r_kb: usize,
+    pub r_kb_t: usize,
+    pub r_dmg: usize,
+    pub r_ap: usize,
+    pub r_k: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Params { split_t: 360, split_cd: 18000, split_hp: 40 }
+        Params { split_t: 360, split_cd: 18000, split_hp: 40, r_kb: 400, r_kb_t: 60, r_dmg: 90, r_ap: 50, r_k: 50 }
     }
 }
 
@@ -132,6 +138,11 @@ pub fn parse_params(json: &str) -> Params {
             "split_t" => p.split_t = v,
             "split_cd" => p.split_cd = v,
             "split_hp" => p.split_hp = v,
+            "r_kb" => p.r_kb = v,
+            "r_kb_t" => p.r_kb_t = v,
+            "r_dmg" => p.r_dmg = v,
+            "r_ap" => p.r_ap = v,
+            "r_k" => p.r_k = v,
             _ => {}
         }
     }
@@ -154,6 +165,34 @@ pub fn other_undying(names_undying: &[(String, bool)]) -> bool {
     names_undying.iter().any(|(name, undying)| *undying && !ours(name))
 }
 
+// ===================== R 动感弹球：每个敌人只在第一次被砸中时击退 =====================
+
+/// 副本里每次落地给砸到的敌人挂的记号（3 tick）：第一跳的、之后几跳的。
+pub const R_FIRST: &str = "league_zac_r_m1";
+pub const R_LATER: &str = "league_zac_r_m2";
+/// 这么久没有新的记号，这次大招就算结束（四跳共 148 tick，下一次大招在 60 秒冷却之后）。
+pub const R_CAST_GAP: usize = 200;
+
+/// 这一 tick 身上有记号的敌人 `marked`（编号，是不是之后几跳的记号）里，哪些是这次大招第一次被砸中、而且是被之后几跳
+/// 砸中的（数据只给第一跳做了击退和全额伤害）；`hit` 是这次大招已经砸过的人，会被更新。
+pub fn newcomers(hit: &mut Vec<usize>, marked: &[(usize, bool)]) -> Vec<usize> {
+    let mut out = Vec::new();
+    for &(id, later) in marked {
+        if !hit.contains(&id) {
+            hit.push(id);
+            if later {
+                out.push(id);
+            }
+        }
+    }
+    out
+}
+
+/// 之后几跳只打了 `r_k`%：第一次被砸中的人补上剩下的（魔法伤害，减免前）。
+pub fn rest_of_the_blow(p: &Params, ap: usize) -> usize {
+    (p.r_dmg + p.r_ap * ap / 100) * (100usize.saturating_sub(p.r_k)) / 100
+}
+
 // ===================== 被动 =====================
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
@@ -171,9 +210,52 @@ struct Split {
     next_guard: usize,
     /// 这条命里见过他 1 血以上（0.6.4 开局第 0 tick 读到的血量是 0，那不是致命伤）。
     alive_seen: bool,
+    /// 这次大招已经砸过的敌人，和最后一次看到落地记号的 tick。
+    r_hit: Vec<usize>,
+    r_seen: usize,
 }
 
 impl Split {
+    /// R's landings: an enemy a later landing hits for the first time this cast is knocked back and takes the rest of
+    /// the full damage, as League's first hit on every enemy (the data does it for the first landing only).
+    fn bounce(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
+        let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
+        let marked: Vec<(usize, bool)> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && u.is_alive())
+            .filter_map(|u| {
+                let mut found = None;
+                for b in (0..u.buff_count()).filter_map(|i| u.buff_at(i)) {
+                    match b.name() {
+                        R_FIRST => found = found.or(Some(false)),
+                        R_LATER => found = Some(true),
+                        _ => {}
+                    }
+                }
+                found.map(|later| (u.id(), later))
+            })
+            .collect();
+        if marked.is_empty() {
+            return;
+        }
+        if now > self.r_seen + R_CAST_GAP {
+            self.r_hit.clear();
+        }
+        self.r_seen = now;
+        let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power.max(0) as usize);
+        let rest = rest_of_the_blow(&self.p, ap);
+        for id in newcomers(&mut self.r_hit, &marked) {
+            sim.entity_knockback(me, id, self.p.r_kb, self.p.r_kb_t);
+            if rest > 0 {
+                sim.deal_damage_typed(me, id, rest, DamageTypeV1::Ap, AttackTypeV1::Skill);
+            }
+            if let Some(k) = counted("bounce") {
+                wlog(format!("{} BOUNCE #{k}: #{id} first hit by a later landing - knocked back {} x {} ticks, +{rest} magic",
+                             head(sim, me), self.p.r_kb, self.p.r_kb_t));
+            }
+        }
+    }
+
     fn guard(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
         if now < self.next_guard {
             return;
@@ -243,6 +325,7 @@ impl StablePassive for Split {
             return;
         }
         let (hp, _) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
+        self.bounce(sim, me, now);
         if let Some(t0) = self.split {
             if now >= t0 + self.p.split_t {
                 self.reform(sim, me);
@@ -280,7 +363,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Zac: Cell Division's revive) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Zac: Cell Division's revive; Let's Bounce! knocks each enemy back once) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -312,9 +395,40 @@ mod tests {
     fn params_from_the_kit() {
         let q = parse_params(r#"{"split_cd":18000,"split_hp":40,"split_t":360}"#);
         assert_eq!(q, Params::default());
+        let q = parse_params(r#"{"r_ap":40,"r_dmg":80,"r_k":60,"r_kb":500,"r_kb_t":48}"#);
+        assert_eq!((q.r_kb, q.r_kb_t, q.r_dmg, q.r_ap, q.r_k), (500, 48, 80, 40, 60));
         let q = parse_params(r#"{"split_t":300}"#);
         assert_eq!(q.split_t, 300);
         assert_eq!(q.split_cd, 18000);
+    }
+
+    #[test]
+    fn each_enemy_is_knocked_back_on_its_first_hit_only() {
+        // League: "ones beyond the first deal 50% damage to them and do not apply the knock back"
+        let mut hit = Vec::new();
+        // the first landing (the data knocks back and deals the full blow): nobody left for the passive
+        assert_eq!(newcomers(&mut hit, &[(7, false), (8, false)]), Vec::<usize>::new());
+        // the same marks a tick later, then the second landing on #7 again and on #9 for the first time
+        assert_eq!(newcomers(&mut hit, &[(7, false), (8, false)]), Vec::<usize>::new());
+        assert_eq!(newcomers(&mut hit, &[(7, true), (9, true)]), vec![9]);
+        assert_eq!(newcomers(&mut hit, &[(7, true), (9, true)]), Vec::<usize>::new(), "the mark's second tick");
+        // the third landing: #9 again (no second knock back), #8 again
+        assert_eq!(newcomers(&mut hit, &[(9, true), (8, true)]), Vec::<usize>::new());
+        assert_eq!(hit, vec![7, 8, 9]);
+        let p = Params::default();
+        assert_eq!(rest_of_the_blow(&p, 100), 70, "the other half of 90 + 50% AP");
+        assert_eq!(rest_of_the_blow(&Params { r_k: 100, ..p }, 100), 0);
+        assert!(R_FIRST.len() <= BUFF_NAME_CAP && R_LATER.len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn the_bounces_numbers_are_the_kits() {
+        let text = include_str!("../override/league_zac.data_champion");
+        let at = text.find("\"passive_ref\": \"league_zac:split\"").expect("the passive in the override");
+        let body = &text[at..];
+        let json = &body[body.find('{').unwrap()..=body.find('}').unwrap()];
+        assert_eq!(parse_params(json), Params::default(), "{json}");
+        assert!(text.contains(R_FIRST) && text.contains(R_LATER), "the landings' marks in the override");
     }
 
     #[test]

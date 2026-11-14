@@ -98,7 +98,9 @@ impl<'a> Table<'a> {
     /// a row, `end`. A hero's or an effect's line ends with its .fanim's length in bytes and the .fanim follows it as it
     /// is, then a line end. Numbers are Rust's shortest form of the f32, read back the same. The full effects
     /// ([`Table::full_effects`]) are left out: only an engine that shrinks their buff and projectile pictures may draw
-    /// them dense, so they go through [`FULL_ENV`]'s door alone ([`Table::to_text_full`]).
+    /// them dense, so they go through [`FULL_ENV`]'s door alone ([`Table::to_text_full`]). A wildcard form row
+    /// ([`crate::hd::ANY`]) is a `form` row with `*` for its id: every host since form rows came in (2026-11-02) reads
+    /// it, an older one leaves it out as a row of an id it did not register.
     pub fn to_text(&self) -> String {
         self.text(false)
     }
@@ -454,6 +456,7 @@ mod tests {
     host!(UNUSED, unused_door, unused_full);
     host!(FULL_HOST, full_host_door, full_host_full);
     host!(PLAIN_HOST, plain_host_door, plain_host_full);
+    host!(ANY_HOST, any_host_door, any_host_full);
 
     /// tft's table with a full effect (an effect sheet with dense twins whose buff and projectile pictures need the
     /// newer engine)
@@ -537,6 +540,50 @@ mod tests {
         assert!(Table::parse(&text.replacen("size tft_odd", "size  tft_odd", 1)).is_err());
         assert!(Table::parse("hello\n").is_err());
         assert!(Table::parse(&format!("{MAGIC} {PROTOCOL}\nend\n")).unwrap_err().contains("no pack"));
+    }
+
+    /// A wildcard form row ([`crate::hd::ANY`]: league.dll's Lulu row, any unit under her Wild Growth drawn bigger) goes
+    /// in the text as a `form` row like any other: the protocol and the grammar are unchanged and a table without one
+    /// is the text it was. A host of this engine registers it through either door. An older host's door reads the same
+    /// rows - the parse is the one form rows came with (2026-11-02, untouched since) - and its registration kept a form
+    /// row only for an id the table brought: it takes the whole table, every hero and effect dense, and leaves the row
+    /// out (Lulu's ally only not grown there). A host from before form rows refused league.dll's table already
+    /// (Volibear's row, 2026-11-01): nothing new.
+    #[test]
+    fn a_wildcard_form_row_reaches_new_hosts_and_old_ones_leave_it_out() {
+        use crate::hd::{Heroes, ANY};
+        let mut t = league();
+        t.forms.push((ANY, vec!["league_lulu_r_on"], 1.15, 0.5));
+        let text = t.to_text();
+        assert!(text.contains("\nform * 1.15 0.5 league_lulu_r_on\n"), "{text}");
+        assert_eq!((protocol_of(&text), PROTOCOL), (Some(1), 1));
+        assert_eq!(Table::parse(&text), Ok(t.clone()));
+        assert_eq!(Table::parse_full(&t.to_text_full()), Ok(t.clone()));
+        // without the row: the text as before, byte for byte
+        assert_eq!(text.replacen("form * 1.15 0.5 league_lulu_r_on\n", "", 1), league().to_text());
+        // a host of this engine, through its door
+        let rows = (t.heroes.len() + t.effects.len()) as i32;
+        assert_eq!(any_host_door(text.as_ptr(), text.len()), rows);
+        let h = ANY_HOST.heroes();
+        assert_eq!(h.any_forms().map(|f| (f.1, f.2, f.3)).collect::<Vec<_>>(), vec![(&["league_lulu_r_on"][..], 1.15, 0.5)]);
+        assert!(h.get("league_yasuo").is_some() && h.get("league_chogath").is_some());
+        // an older host: the same parse, its registration's form filter (the ids the table brought) - the table whole,
+        // the wildcard row alone left out
+        let parsed = Table::parse(&text).expect("an older host's door reads it");
+        let (old, came) = Heroes::default().and(&parsed);
+        assert_eq!(came.len() as i32, rows, "every hero and effect registered: no refusal");
+        let old_forms: Vec<_> = parsed.forms.iter().filter(|f| came.contains(&f.0)).collect();
+        assert_eq!(old_forms.len(), parsed.forms.len() - 1);
+        assert!(old_forms.iter().all(|f| f.0 != ANY));
+        assert!(old.get("league_yasuo").is_some() && old.get(ANY).is_none());
+        // and from a guest of this engine to a host of this engine (tft.dll hosting league.dll): the row comes in
+        let env = TestEnv::default();
+        let me = process_tag();
+        env.set(&host_value(&me, any_host_door as Door as usize, "tft.dll 0.62.0"));
+        let r = start_with(&env, &Registry::new(), &me, &t, "league.dll 0.9.57", unused_door, unused_full,
+                           || panic!("a guest hooks nothing"));
+        assert!(matches!(r, Role::Guest { .. }), "{r:?}");
+        assert_eq!(ANY_HOST.heroes().any_forms().count(), 1, "the same row again: kept once");
     }
 
     #[test]

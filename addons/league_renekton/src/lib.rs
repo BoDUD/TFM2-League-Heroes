@@ -18,6 +18,11 @@
 //! 以前每个雷克顿每 30 秒还写一行 `WATCH`（积攒了几次、低血多给了几次），是为了回答 README 里「还没在游戏里看过日志」：
 //! 2026-10-30 两次启动的日志（league_renekton.log 和 .prev.log）里有 279 行 ANGER，生命全在 50% 以下（两行写着 50% 是
 //! 49.5–50 四舍五入），低血多给的那一阶确实在发生，问题已经回答，WATCH 就去掉了（它占日志的 79–85%）。
+//!
+//! 0.1.4（2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：**强化冷酷捕猎打碎护盾**。英雄联盟（V26.22）：
+//! 强化的 W「completely destroying damage-mitigating shields on the target upon the first strike if they are not a
+//! monster」。数据去不掉别人身上的护盾；副本里强化 W 的第一下在伤害之前调本包的原生效果 `league_renekton:rend`，
+//! 它清掉目标身上所有护盾（`entity_clear_shield`，野怪不算）。主包没有这一条。日志 `REND`。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -248,6 +253,42 @@ impl StablePassive for Anger {
     }
 }
 
+// ===================== 强化冷酷捕猎：打碎护盾 =====================
+
+/// A unit whose shields the empowered Ruthless Predator's first strike breaks: anything but a monster (League V26.22:
+/// "completely destroying damage-mitigating shields on the target upon the first strike if they are not a monster").
+pub fn rends(kind: Option<EntityKindV1>) -> bool {
+    !matches!(kind, Some(EntityKindV1::Jungle | EntityKindV1::Epic | EntityKindV1::Serpen))
+}
+
+/// The copy's native `league_renekton:rend`, on the empowered W's first strike before its damage: the target's shields
+/// go.
+fn rend(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        return;
+    }
+    let target = input.target_id;
+    let Some((kind, shield)) = sim.get_entity(target).filter(|e| e.is_alive()).map(|e| (e.kind(), e.shield())) else {
+        return;
+    };
+    if !rends(kind) || shield == 0 {
+        return;
+    }
+    let n = sim.entity_clear_shield(target);
+    if let Some(k) = tally(sim, "rend") {
+        wlog(format!("{} REND #{k}: the empowered W's first strike broke {n} shield layer(s), {shield} in all, on #{target}",
+                     head(sim, caster)));
+    }
+}
+
+struct Rend;
+
+impl StableEffectType for Rend {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        rend(sim, caster, input);
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -256,7 +297,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Reign of Anger: +50% Fury below half health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Reign of Anger: +50% Fury below half health; the empowered W breaks shields) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -264,6 +305,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:anger"), Anger::default());
+    module.add_native_effect(format!("{ID}:rend"), Rend);
     host.log(LogLevel::Info, "league_renekton v1 loaded (Renekton's Fury +50% below half health).");
 }
 
@@ -317,6 +359,17 @@ mod tests {
         let p = Params::default();
         assert_eq!(step(&p, 4, 5, 20.0, 1), (2, false));
         assert_eq!(step(&p, 5, 5, 20.0, 2), (2, false));
+    }
+
+    /// The copy (make_override.py writes it): the empowered W's first strike calls `rend` before its damage.
+    const COPY: &str = include_str!("../override/league_renekton.data_champion");
+
+    #[test]
+    fn the_empowered_ws_first_strike_breaks_shields() {
+        assert!(rends(Some(EntityKindV1::Champion)) && rends(Some(EntityKindV1::Minion)) && rends(None));
+        assert!(!rends(Some(EntityKindV1::Jungle)) && !rends(Some(EntityKindV1::Epic)));
+        // once in the copy (the empowered W's first strike), named as registered
+        assert_eq!(COPY.matches(&format!("\"{ID}:rend\"")).count(), 1, "run make_override.py");
     }
 
     #[test]

@@ -203,6 +203,18 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the standing poses' legs drawn again at the design's chibi length) at the user's 1.5 squares a game pixel (60 game
     // rows mushroom to soles: 「艾翁蘑菇顶到脚底 40 游戏像素 … PPU 1.5，只做四分之三侧面」), so no SIZES row
     ("league_ivern", 1.5, include_str!("../../../league/champions/league_ivern#anim.fanim")),
+    // Daisy as a unit of her own (league_ivern 0.2.0 spawns `league_ivern_daisy`, 2026-11-14 summons round 2; the user:
+    // 「召唤物的全做啊」): her unit sheet carries hd_ twins at the PPU her effect pictures are drawn at, so the unit is as
+    // sharp as the riding pictures were (without this row: 1x, the same size, coarser). A unit, not a hero: no .data_champion
+    ("league_ivern_daisy", 1.333, include_str!("../../../league/champions/league_ivern_daisy#anim.fanim")),
+    // Malzahar's voidling and Elise's spiderling as units of their own (league_malzahar / league_elise 0.2.0 spawn
+    // `league_malzahar_voidling` / `league_elise_spiderling`, 2026-11-14 summons round 2), redrawn the same day by code
+    // (the user: 「马尔扎哈和蜘蛛的召唤物画高清点啊 现在像什么 一个不像虫子 一个不像蜘蛛 模糊不清」): a void bug 22 game px
+    // long and a spider 16 across, shapes sampled once a game pixel and twice (tools/art/unit_malzahar_voidling.py,
+    // unit_elise_spiderling.py, unit_draw.py) - PPU 2, the effects' density, every hd_ frame exactly twice its 1x frame.
+    // Units, not heroes: no .data_champion
+    ("league_malzahar_voidling", 2.0, include_str!("../../../league/champions/league_malzahar_voidling#anim.fanim")),
+    ("league_elise_spiderling", 2.0, include_str!("../../../league/champions/league_elise_spiderling#anim.fanim")),
     // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
@@ -831,13 +843,47 @@ pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_
 /// seconds from the cast and shrunk back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the
 /// 12 s storm form after the landing (`league_volibear_r_form`), main pack data both. 1.35 at first; 1.15 at the user's
 /// word (2026-11-02: 「开大模型变的实在太大了」 - 61 game px against Darius' and Garen's 42, his own 45 already the
-/// tallest of them; 1.15: 52)
+/// tallest of them; 1.15: 52).
+///
+/// Bel'Veth's true form (the user, 2026-11-14: 「阿尔卑斯的变为真身是不是要做个变形啊 和联盟一样」 - 「卑尔维斯」, picked
+/// 「先变大再张翼」 of the three ways): League's Endless Banquet turns her into a bigger body with the wings spread; here her R was the
+/// stats and a purple glow only. The first half is this row - bigger while `league_belveth_r_on` is on her (15 s,
+/// renewed by a takedown; the main pack's data and the add-on league_belveth's copy both give it under this name),
+/// grown over a second. Her shadow and the glow on the ground stay as they are (not her sheet). The second half is
+/// her sheet's `r_` tags (tools/art/rig_belveth.py TRUE: hovering with both wings spread, from the poses Codex had
+/// drawn) played by the add-on league_belveth (0.2.0, src/view.rs) while the same buff is on her. 18 % at first, for
+/// the folded body alone (0.85 x 1.18 = 1.00, the size her model was drawn at: standing, spikes to claws, 41 x 43
+/// game px -> 48 x 50); 10 % with the wings, which carry the bigger outline themselves - the stance 47 game px tall
+/// and 52 wide at her 0.85, 52 x 58 grown (Volibear's storm form, 52 tall, is what the user took; his 61 was
+/// 「实在太大了」). Without the add-on she grows the same 10 % folded.
+///
+/// Renekton's Dominus (the user, 2026-11-14, on the list of differences from League: 「全改吧」): League's R makes him
+/// 20 % bigger for its 15 s; here 「体型不变，脚下一圈沙暴」. 20 % while `league_renekton_r_on` is on him (10 s, main pack
+/// data), grown over half a second: standing 39 game px tall -> 47 (his 69 across with the tail and the blade -> 83).
+/// League's +25 attack range and wider Cull the Meek in Dominus are not made (a node more in his attack tree and twice
+/// the areas in a skill tree the game copies every tick, for a picture that would not widen).
 pub const FORMS: &[(&str, &[&str], f32, f32)] =
-    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25)];
+    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25),
+      ("league_belveth", &["league_belveth_r_on"], 1.10, 1.0),
+      ("league_renekton", &["league_renekton_r_on"], 1.20, 0.5)];
+
+/// Any unit drawn bigger while a buff of this pack is on it, whoever it is - base heroes, the tft pack's, this pack's with
+/// dense frames or not (hd_engine's wildcard form rows, `hd_engine::hd::ANY`): (the buffs - any one of them, the size,
+/// seconds to grow to it and to shrink back), about the soles like FORMS. A hero that grows by himself as well (a FORMS
+/// or GROWTH row) is drawn at the larger of the two, not their product.
+///
+/// Lulu's Wild Growth (the user, 2026-11-14, on the list of differences from League: 「全改吧」): League's R gives the
+/// ally it lands on "bonus health and 40% increased size" for 7 s; here the health, the knock-up and the slowing aura
+/// but no size. `league_lulu_r_on` is the buff on the grown champion for those 7 s (420 ticks, tools/kit/build_lulu.py
+/// grow(): an AddBuff on him, not on her), under the same name in the add-ons' copies that cast it (league_support_pick's
+/// Lulu, league_sylas's stolen R). 15 % over half a second, not League's 40 %: League's 35 % on Volibear's own R was
+/// 「实在太大了」 (61 game px) and 15 % was kept (52, 2026-11-02), and Wild Growth may land on any hero - the tallest
+/// standing 45-48 game px come out at 52-55, the median 41 at 47 (Renekton's Dominus grows his 39 to 47).
+pub const ANY_FORMS: &[(&[&str], f32, f32)] = &[(&["league_lulu_r_on"], 1.15, 0.5)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_heimerdinger's turrets, league_leblanc_clone (below) and the rest
-/// (league_zyra_thicket was one until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」; league_yuumi_ride,
+/// (league_zyra_thicket was one until 2026-10-21, a plain 1x sheet after 「婕拉的大招特效局内怎么这么模糊」, dense again since 2026-11-14 through fx_ppu.rs - crisp 1x + exact 2x twins, tools/art/zyra_thicket_size.py; league_yuumi_ride,
 /// the cat on the head of the ally Yuumi rides, until 2026-11-05 - see DRAWN_EFFECTS). Looked up like the heroes
 /// (hd_engine/src/lookup.rs); the battlefield's entity scale (hd_engine/src/view.rs) never meets them - they are no
 /// entity's body.
@@ -1079,7 +1125,11 @@ pub fn table() -> Table<'static> {
         heroes: HEROES.to_vec(),
         sizes: SIZES.to_vec(),
         growth: GROWTH.to_vec(),
-        forms: FORMS.iter().map(|&(id, buffs, size, secs)| (id, buffs.to_vec(), size, secs)).collect(),
+        forms: FORMS
+            .iter()
+            .map(|&(id, buffs, size, secs)| (id, buffs.to_vec(), size, secs))
+            .chain(ANY_FORMS.iter().map(|&(buffs, size, secs)| (hd_engine::hd::ANY, buffs.to_vec(), size, secs)))
+            .collect(),
         effects: EFFECTS.iter().chain(crate::fx_ppu::SHEETS).copied().collect(),
         drawn_effects: DRAWN_EFFECTS.iter().copied().chain(full_effects()).collect(),
         ui_sizes: UI_SIZES.to_vec(),
@@ -1152,7 +1202,8 @@ mod tests {
         assert!(GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
         let h = Heroes::of(&[&table()]);
         assert_eq!(h.growth, GROWTH.to_vec());
-        assert_eq!(h.forms, FORMS.to_vec());
+        let any = ANY_FORMS.iter().map(|&(buffs, size, secs)| (hd_engine::hd::ANY, buffs, size, secs));
+        assert_eq!(h.forms, FORMS.iter().copied().chain(any).collect::<Vec<_>>());
         assert_eq!(h.drawn_effects, DRAWN_EFFECTS.iter().copied().chain(full_effects()).collect::<Vec<_>>());
         assert_eq!(h.full_effects, full_effects());
         assert_eq!(h.packs, vec!["league"]);
@@ -1169,6 +1220,76 @@ mod tests {
             assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
         }
         assert!(FORMS.iter().all(|f| !GROWTH.iter().any(|g| g.0 == f.0)), "a hero grows one way");
+    }
+
+    /// Bel'Veth's form row: her true form's buff under the same name in the main pack's data and in the add-on
+    /// league_belveth's copy of it (the copy replaces the main pack's when the add-on is on - she grows either way);
+    /// grown she is no bigger than her model was drawn (her base size was cut for being big); and the spread-wings
+    /// frames the add-on plays under that buff are in her sheet, each with its dense twin (this DLL draws those).
+    #[test]
+    fn belveth_grows_in_her_true_form() {
+        let main = include_str!("../../../league/champion/league_belveth.data_champion");
+        let addon = include_str!("../../league_belveth/override/league_belveth.data_champion");
+        let (_, buffs, s, t) = *FORMS.iter().find(|f| f.0 == "league_belveth").expect("Bel'Veth grows in her true form");
+        assert_eq!((buffs, s, t), (&["league_belveth_r_on"][..], 1.10, 1.0));
+        for (data, whose) in [(main, "the main pack"), (addon, "the add-on's copy")] {
+            assert!(data.contains("\"name\": \"league_belveth_r_on\""), "{whose} never gives her the true form's buff");
+        }
+        let base = SIZES.iter().find(|r| r.0 == "league_belveth").expect("Bel'Veth's base size").1;
+        assert!(base * s > base && base * s <= 1.0, "true form x{:.3} of the drawn model", base * s);
+        assert_eq!(FORMS.iter().filter(|f| f.0 == "league_belveth").count(), 1);
+        let fanim = include_str!("../../../league/champions/league_belveth#anim.fanim");
+        for tag in ["idle", "run", "hit", "attack", "skill", "skill2"] {
+            for name in [format!("r_{tag}"), format!("hd_r_{tag}")] {
+                assert!(fanim.contains(&format!("\"{name}\":")), "{name} is not in her sheet");
+            }
+        }
+    }
+
+    /// Every form row's buffs are buffs the hero's main pack data gives under that name, the hero is a dense one of
+    /// this table, and no hero has two rows (Renekton's Dominus, League's 20 %).
+    #[test]
+    fn every_form_row_reads_a_buff_of_its_hero() {
+        let t = table();
+        for (i, &(id, buffs, size, secs)) in FORMS.iter().enumerate() {
+            assert!(t.heroes.iter().any(|h| h.0 == id), "{id} is no dense hero of this pack");
+            assert!(FORMS[..i].iter().all(|f| f.0 != id), "{id} has two form rows");
+            assert!(size > 1.0 && size <= 1.35 && secs > 0.0, "{id}: x{size} over {secs} s");
+            let path = format!("{}/../../league/champion/{id}.data_champion", env!("CARGO_MANIFEST_DIR"));
+            let data = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{path}: {e}"));
+            for b in buffs {
+                assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives {id} {b}");
+            }
+        }
+        assert_eq!(FORMS.iter().find(|f| f.0 == "league_renekton").map(|f| (f.2, f.3)), Some((1.20, 0.5)));
+    }
+
+    /// Lulu's Wild Growth grows whoever it lands on (a wildcard form row): her R's buff on the champion, an AddBuff (the
+    /// target's, not hers) of 7 s under that name in her main pack data and in every add-on copy that casts it; no
+    /// bigger than Volibear's own R was kept at; it reaches the engine as a wildcard row and goes through the table's
+    /// text - an older host leaves it out without refusing the table (hd_engine src/share.rs).
+    #[test]
+    fn lulus_wild_growth_grows_any_hero() {
+        assert_eq!(ANY_FORMS, &[(&["league_lulu_r_on"][..], 1.15, 0.5)]);
+        let volibear = FORMS.iter().find(|f| f.0 == "league_volibear").unwrap().2;
+        for &(buffs, size, secs) in ANY_FORMS {
+            assert!(size > 1.0 && size <= volibear && secs > 0.0, "x{size} over {secs} s");
+            assert!(buffs.iter().all(|b| !FORMS.iter().any(|f| f.1.contains(b)) && !GROWTH.iter().any(|g| g.1 == *b)));
+        }
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        for kit in ["league/champion/league_lulu.data_champion", "addons/league_support_pick/override/league_lulu.data_champion",
+                    "addons/league_sylas/override/league_sylas.data_champion"] {
+            let data = std::fs::read_to_string(root.join(kit)).unwrap_or_else(|e| panic!("{kit}: {e}"));
+            let flat: String = data.split_whitespace().collect();
+            let given = "{\"type\":\"AddBuff\",\"buff_state\":{\"name\":\"league_lulu_r_on\",\"duration\":{\"Time\":{\"tick\":420}}";
+            assert!(flat.contains(given), "{kit}: no 7 s AddBuff league_lulu_r_on (the grown champion's)");
+            assert!(!flat.contains("\"AddCasterBuff\",\"buff_state\":{\"name\":\"league_lulu_r_on\""), "{kit}");
+        }
+        let t = table();
+        let row = t.forms.iter().filter(|f| f.0 == hd_engine::hd::ANY).collect::<Vec<_>>();
+        assert_eq!(row.len(), 1);
+        assert!(t.to_text().contains("\nform * 1.15 0.5 league_lulu_r_on\n"));
+        assert_eq!(Heroes::of(&[&t]).any_forms().count(), 1);
     }
 
     /// The text of every flat object (no brace inside it: a view, a ViewEffect) of a .data_champion holding `needle`.

@@ -1552,61 +1552,14 @@
                               "effects": [
                                 {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_ivern_d2",
+                                  "buff_name": "league_ivern_d_unit",
                                   "effect_buff": {
                                     "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_ivern_d1"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_ivern_d2"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_ivern_r_slam"
-                                          },
-                                          {
-                                            "type": "Delayed",
-                                            "tick": 24,
-                                            "effects": [
-                                              {
-                                                "type": "ApAttack",
-                                                "damage": 65,
-                                                "attack_ratio": 50,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              },
-                                              {
-                                                "type": "Airborne",
-                                                "duration": 50
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ivern_r_shock"
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ivern_r_hit"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_ivern_r_slam"
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
+                                    "effects": []
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_ivern_d1",
+                                    "buff_name": "league_ivern_d2",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
@@ -1615,30 +1568,34 @@
                                           "name": "league_ivern_d1"
                                         },
                                         {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_ivern_d2",
-                                            "duration": "Permanent"
-                                          },
-                                          "only_to_enemy": false
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_ivern_d2"
                                         },
                                         {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "ViewEffect",
-                                              "name": "league_ivern_r_punch"
+                                              "name": "league_ivern_r_slam"
                                             },
                                             {
                                               "type": "Delayed",
-                                              "tick": 21,
+                                              "tick": 24,
                                               "effects": [
                                                 {
                                                   "type": "ApAttack",
-                                                  "damage": 25,
-                                                  "attack_ratio": 20,
+                                                  "damage": 65,
+                                                  "attack_ratio": 50,
                                                   "hp_ratio": 0,
                                                   "can_crit": false
+                                                },
+                                                {
+                                                  "type": "Airborne",
+                                                  "duration": 50
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ivern_r_shock"
                                                 },
                                                 {
                                                   "type": "ViewEffect",
@@ -1646,7 +1603,7 @@
                                                 },
                                                 {
                                                   "type": "TargetSfx",
-                                                  "name": "league_ivern_r_punch"
+                                                  "name": "league_ivern_r_slam"
                                                 }
                                               ]
                                             }
@@ -1655,47 +1612,98 @@
                                       ]
                                     },
                                     "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_ivern_d1",
-                                            "duration": "Permanent"
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_ivern_d1",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_ivern_d1"
                                           },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_ivern_r_punch"
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_ivern_d2",
+                                              "duration": "Permanent"
                                             },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 21,
-                                              "effects": [
-                                                {
-                                                  "type": "ApAttack",
-                                                  "damage": 25,
-                                                  "attack_ratio": 20,
-                                                  "hp_ratio": 0,
-                                                  "can_crit": false
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_ivern_r_hit"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_ivern_r_punch"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_ivern_r_punch"
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 21,
+                                                "effects": [
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 25,
+                                                    "attack_ratio": 20,
+                                                    "hp_ratio": 0,
+                                                    "can_crit": false
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_ivern_r_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_ivern_r_punch"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_ivern_d1",
+                                              "duration": "Permanent"
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_ivern_r_punch"
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 21,
+                                                "effects": [
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 25,
+                                                    "attack_ratio": 20,
+                                                    "hp_ratio": 0,
+                                                    "can_crit": false
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_ivern_r_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_ivern_r_punch"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
                                     }
                                   }
                                 }
@@ -1711,8 +1719,16 @@
                               "period": 481,
                               "effects": [
                                 {
-                                  "type": "ViewEffect",
-                                  "name": "league_ivern_r_bye"
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ivern_d_unit",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "ViewEffect",
+                                    "name": "league_ivern_r_bye"
+                                  }
                                 }
                               ]
                             }
@@ -1797,6 +1813,20 @@
                                   }
                                 }
                               ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_ivern_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 3
+                                  }
+                                }
+                              }
                             }
                           }
                         ]

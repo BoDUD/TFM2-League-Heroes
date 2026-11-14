@@ -4185,6 +4185,27 @@
                                     "effects": []
                                   }
                                 }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Delayed",
+                                  "tick": 117,
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_sejuani_r_spare",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 7
+                                          }
+                                        },
+                                        "damaged_reduce": 100
+                                      }
+                                    }
+                                  ]
+                                }
                               }
                             ],
                             "end_effects": [
@@ -4225,7 +4246,54 @@
                                     }
                                   }
                                 ],
-                                "end_effects": []
+                                "end_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 170,
+                                      "attack_ratio": 80,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_sejuani_r_chill",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        },
+                                        "move_speed_mult": -80
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_sejuani_sh_hit"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 120,
+                                "effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_sejuani_r_burst"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "league_sejuani_sh_hit"
+                                  }
+                                ]
                               }
                             ],
                             "speed": 12000,
@@ -4355,6 +4423,14 @@
       "tag": "r_storm",
       "z": -1,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_sejuani_r_burst",
+      "anim": "asset/league/effects/league_sejuani_big",
+      "tag": "w_sweep",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
@@ -4377,6 +4453,14 @@
     {
       "type": "Animated",
       "name": "league_sejuani_r_slow",
+      "anim": "asset/league/effects/league_sejuani_fx",
+      "tag": "slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_sejuani_r_chill",
       "anim": "asset/league/effects/league_sejuani_fx",
       "tag": "slow",
       "repeat": true,

@@ -4920,14 +4920,6 @@
       "tag": "w_slowed",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_aatrox_r_look",
-      "anim": "asset/league/effects/league_aatrox_big",
-      "tag": "r_aura",
-      "repeat": true,
-      "z": -1
     }
   ]
 }

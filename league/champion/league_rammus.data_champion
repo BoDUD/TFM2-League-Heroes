@@ -705,6 +705,10 @@
                                 "tick": 5
                               },
                               {
+                                "type": "Stun",
+                                "duration": 24
+                              },
+                              {
                                 "type": "AddBuff",
                                 "buff_state": {
                                   "name": "league_rammus_q_slow",

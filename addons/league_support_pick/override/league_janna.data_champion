@@ -21,7 +21,7 @@
     "hp": 900,
     "defence": 20,
     "magic_resistance": 20,
-    "move_speed": 1000,
+    "move_speed": 1080,
     "hp_regen": 0,
     "stack": 0,
     "crit_chance": 0

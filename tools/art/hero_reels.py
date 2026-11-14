@@ -25,6 +25,9 @@ in its own action. Per hero, and per form idle (c_idle, m_idle ... with that for
   hd_ frames at the hero's UI size): an action frame that spills out of the card more than the idle does holds the
   frame before it; an action whose first frame or more than 40 % of frames spill is left out.
 
+A summoned unit's sheet (no <pack>/champion/<id>.data_champion and only the tags a unit plays - idle, run, attack, hit,
+dead: league_annie_tibbers, league_yorick_walker ... made by tools/art/unit_*.py) is no hero's and is never touched.
+
 A hero's first run adds tags to its .fanim (idle_base, bp and their hd_ / lo_ copies): run
 addons/league_viego_soul/make_override.py after it, so Viego's soul table lists them (its test
 every_soul_has_its_sheets_tags wants each sheet's tags exactly).
@@ -54,6 +57,8 @@ PACKS = ("league", "tft")
 PICKS = os.path.join(HERE, "hero_reels.json")
 PREFIXES = ("", "hd_", "lo_")
 CORE = ("attack", "skill", "skill2", "ult")
+# a summoned unit's whole sheet (unit_sheet: skipped - the engine's own summons, base `ghoul`, play these five)
+UNIT_TAGS = ("idle", "run", "attack", "hit", "dead")
 CW, CH, S = 131, 88, 2.2          # the ban/pick card's canvas and scale (bp_card_audit.py)
 # a card frame may lose this much more past the card's sides than the idle does, and this much over its top (a weapon's
 # tip; a leap loses more): (a card that clips its picture - banpick_center set -, one that does not and so draws over
@@ -106,8 +111,11 @@ class Hero:
         bc = view.get("banpick_center")
         self.by, self.clip = (bc["y"], True) if bc else (-12, False)
         self.card = S * UI_SIZES.get(hid, 1.0)       # 1x frames' pixels -> card pixels
-        self.forms = sorted({t[:-4] for t in self.anims if t.endswith("_idle") and not t.startswith(("hd_", "lo_"))
-                             and t != "idle"} - {""}, key=len, reverse=True)
+        # longest first (a form's prefix may begin with a shorter one's); forms as long as each other in the order
+        # their idles stand in the sheet - a set's order is random per run, and a fresh sheet's _base tags were
+        # written in it (league_udyr's q_ / e_ / r_ came out in a new order on every rebuild)
+        idles = [t for t in self.anims if t.endswith("_idle") and not t.startswith(("hd_", "lo_")) and t != "idle"]
+        self.forms = sorted({t[:-4] for t in idles} - {""}, key=lambda f: (-len(f), idles.index(f + "idle")))
         self._masks = {}
 
     def frames(self, tag):
@@ -361,6 +369,18 @@ def rewrite(h, p):
     return json.dumps({"anims": anims}, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
 
+def unit_sheet(pack, hid):
+    """A summoned unit's sheet, not a hero's (the add-ons spawn units through the mod API's spawn_unit under such a name:
+    league_annie_tibbers, league_yorick_walker, ...): no <pack>/champion/<id>.data_champion, and only the tags a unit
+    plays (UNIT_TAGS, also as hd_ / lo_). It has no idle reel and no ban/pick card, so it is left as its own tool wrote
+    it. A hero's form sheet (league_kayn_darkin ...) has no .data_champion either but carries the hero's actions: kept."""
+    if os.path.exists(lp(os.path.join(REPO, pack, "champion", hid + ".data_champion"))):
+        return False
+    with open(lp(os.path.join(REPO, pack, "champions", hid + "#anim.fanim")), "rb") as f:
+        tags = json.loads(f.read().decode("utf-8-sig"))["anims"]
+    return all(re.sub(r"^(hd_|lo_)", "", t) in UNIT_TAGS for t in tags)
+
+
 def heroes(only=None):
     out = []
     for pack in PACKS:
@@ -370,7 +390,7 @@ def heroes(only=None):
         for fn in sorted(os.listdir(lp(cdir))):
             if fn.endswith("#anim.fanim"):
                 hid = fn.split("#")[0]
-                if only is None or hid in only or hid.split("_", 1)[1] in only:
+                if (only is None or hid in only or hid.split("_", 1)[1] in only) and not unit_sheet(pack, hid):
                     out.append((pack, hid))
     return out
 

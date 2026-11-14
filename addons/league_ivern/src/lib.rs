@@ -26,6 +26,9 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+/// Daisy a unit of her own (0.2.0).
+pub mod daisy;
+
 const ID: &str = "league_ivern";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
 /// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
@@ -194,6 +197,8 @@ struct Brushmaker {
     p: Params,
     brushes: Vec<Brush>,
     grown: usize,
+    /// R: Daisy as a unit (0.2.0, src/daisy.rs).
+    daisy: daisy::Daisy,
 }
 
 impl StablePassive for Brushmaker {
@@ -210,9 +215,29 @@ impl StablePassive for Brushmaker {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             wlog(format!("{} SPAWN: the add-on's Ivern (player {player}, team {team}), {:?}", head(sim, me), self.p));
         }
+        self.daisy.spawned(sim, me);
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+        self.daisy.dead(sim, player);
+    }
+
+    // While Daisy is a unit, what the engine tells his passive (summon.rs: do a summon's hits come here, and under whose
+    // id?) - her punches heard here are counted for her third-punch slam
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
+        self.daisy.hooked(sim, "on_attack", entity, target, Some(*damage));
+    }
+
+    fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, victim: usize) {
+        self.daisy.hooked(sim, "on_kill", entity, victim, None);
+    }
+
+    fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, victim: usize) {
+        self.daisy.hooked(sim, "on_unit_kill", entity, victim, None);
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        self.daisy.update(sim, player, me);
         let tick = sim.tick();
         let new = if has_buff(sim, me, &iv("w_new")) {
             sim.entity_remove_buff(me, &iv("w_new"));
@@ -263,15 +288,16 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Ivern: Brushmaker's brush a real brush - Rengar pounces from it, Qiyana takes grass from it) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Ivern: Brushmaker's brush a real brush - Rengar pounces from it, Qiyana takes grass from it; Daisy a unit of her own) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
         host.abi_level(),
         LOG_PATH.display()
     ));
+    daisy::register(module);
     module.add_native_passive(format!("{ID}:brush"), Brushmaker::default());
-    host.log(LogLevel::Info, "league_ivern loaded (Brushmaker's brush: Rengar and Qiyana read it).");
+    host.log(LogLevel::Info, "league_ivern loaded (Brushmaker's brush: Rengar and Qiyana read it; Daisy a unit).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

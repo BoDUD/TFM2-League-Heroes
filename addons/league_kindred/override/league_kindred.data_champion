@@ -1600,6 +1600,62 @@
                           }
                         }
                       ]
+                    },
+                    {
+                      "type": "RangePeriodProjectile",
+                      "name": "league_kindred_r_field_e",
+                      "shape": {
+                        "Circle": {
+                          "radius": 50000
+                        }
+                      },
+                      "tick": 240,
+                      "period": 6,
+                      "first_delay": 1,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_kindred_r_safe_e",
+                              "duration": {
+                                "Time": {
+                                  "tick": 8
+                                }
+                              },
+                              "undying": true
+                            }
+                          }
+                        }
+                      ],
+                      "end_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Heal",
+                            "amount": 40,
+                            "attack_ratio": 10,
+                            "ap_ratio": 0,
+                            "heal_type": "Ally"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_kindred_r_heal"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_kindred_r_heal"
+                          }
+                        }
+                      ]
                     }
                   ]
                 }

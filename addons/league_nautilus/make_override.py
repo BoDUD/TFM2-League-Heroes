@@ -7,10 +7,13 @@ pack's league/champion/league_nautilus.data_champion byte for byte (so the copy 
 writes addons/league_nautilus/override/league_nautilus.data_champion and .../text/champion.i18n: the build with
 native=1 -
   * everything of the main pack's kit;
-  * Q's anchor also calls league_nautilus:hook as it flies (a wall on its line before any enemy champion: pulled to the
-    wall, half the cooldown back);
+  * Q's anchor also calls league_nautilus:hook as it flies (a wall on its line before any enemy champion the anchor
+    bites - it passes minions and monsters: pulled to the wall, half the cooldown back);
   * Q's tooltip points to description.league_nautilus_wall.skill with the add-on's wording, so the tooltip in game shows
-    whether the override took.
+    whether the override took;
+  * (0.1.8) Staggering Blow rests on each champion: the champion twin of the attack asks league_nautilus:stagger and the
+    root reads its flag (build_nautilus.py's native=1); the attack's tooltip points to
+    description.league_nautilus_wall.attack ("the same champion" for the rest).
 Every other champion stays untouched. Run it again whenever the main pack's Nautilus changes.
 """
 import json
@@ -36,6 +39,16 @@ NATIVE = {
 }
 
 
+# Staggering Blow's tooltip (0.1.8): lang -> (the main pack's words for the rest, the add-on's)
+REST = {
+    "zh-hans": ("，之后{A}{{p_cd}}秒{E}内不再触发。", "，同一个英雄{A}{{p_cd}}秒{E}内不再触发。"),
+    "zh-hant": ("，之後{A}{{p_cd}}秒{E}內不再觸發。", "，同一個英雄{A}{{p_cd}}秒{E}內不再觸發。"),
+    "en": (" more, then rests {A}{{p_cd}}s{E}.", " more; not again on the same champion for {A}{{p_cd}}s{E}."),
+    "ko": (" 이후 {A}{{p_cd}}초{E} 동안 발동하지 않음.", " 같은 챔피언에게는 {A}{{p_cd}}초{E} 동안 발동하지 않음."),
+    "ja": ("その後{A}{{p_cd}}秒{E}は発動しない。", "同じチャンピオンには{A}{{p_cd}}秒{E}発動しない。"),
+}
+
+
 def lp(path):
     """Windows long-path form: the repo can sit deep under the user's profile."""
     path = os.path.abspath(path)
@@ -56,13 +69,21 @@ def main():
     if "league_nautilus:hook" not in json.dumps(champion["skill"]):
         sys.exit("the copy's Q does not call league_nautilus:hook: update this script")
     champion["skill"]["description"] = "#asset/base/text/champion?description." + TEXT_ID + ".skill"
+    if json.dumps(champion["attack"]).count('"league_nautilus:stagger"') != 1 or "league_nautilus_p_cd" in json.dumps(champion):
+        sys.exit("the copy's Staggering Blow does not ask league_nautilus:stagger (or still rests on him): update this script")
+    champion["attack"]["description"] = "#asset/base/text/champion?description." + TEXT_ID + ".attack"
 
     values = setup.values(p)
     texts = {}
     for lang, (lead, extra) in NATIVE.items():
-        texts[lang] = {"skill": (lead + setup.TEXT[lang]["skill"] + extra).format(**values)}
-    long = {f"{lang}.skill": setup.shown_length(d["skill"]) for lang, d in texts.items()
-            if setup.shown_length(d["skill"]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+        old, new = (x.format(A=setup.A, E=setup.E) for x in REST[lang])
+        attack = setup.TEXT[lang]["attack"]
+        if attack.count(old) != 1:
+            sys.exit(f"{lang} attack: the main pack's Staggering Blow text changed ({old!r} not found once): update REST")
+        texts[lang] = {"skill": (lead + setup.TEXT[lang]["skill"] + extra).format(**values),
+                       "attack": (lead + attack.replace(old, new)).format(**values)}
+    long = {f"{lang}.{k}": setup.shown_length(t) for lang, d in texts.items() for k, t in d.items()
+            if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 

@@ -34,3 +34,15 @@
 - 在 `addons/` 下 `cargo test --release -p league_pyke`：单元测试（斩杀线、放不放 R、砍谁）。
 - 在 `addons/` 下 `cargo build --release -p league_pyke`（Windows）得到 `target/release/league_pyke.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，放 R 的时机要在游戏里看日志确认。
+
+## 灰血按英雄联盟（v0.1.2，2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟（V26.06）的溺水之幸：「stores 9% ... of the post-mitigation damage he takes from enemy champions」，身边有两个以上看得见的敌方英雄时 40%；没有层数、没有计时（「does not have a time limit, and will stay on his health bar until Pyke leaves enemy vision or dies」），最多到最大生命的 55%；「While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount」。主包读不到受到的伤害：1 点护盾当受击感应，被打破过就多一层（最多 5 层，8 秒不叠就消失），潜行或 3 秒没挨打时每层回 15 + 8% 攻击力。
+
+- 副本（`build_pyke.py` 的 native=1）的数据里没有感应、层数和数据的回血（普攻、W、R 里那几块都去掉了），`passive` 是本包的 `league_pyke:grey`，参数 `p_share` 9、`p_crowd` 40、`p_near` 120000（英雄联盟这个被动的 1500 码按这张地图的比例）、`p_cap` 55，来自主包参数表 P。
+- 被动的 `on_damaged`：打他的是敌方英雄，就存下这一下的 9%，120000 内有两个以上他的队伍看得见的敌方英雄时 40%；每 tick 灰血压在最大生命的 55% 和缺的生命以内（多出来的作废）。
+- 敌方队伍看不见他时（草丛里、W 的伪装、走出视野；`is_visible`）每 tick 回灰血的十分之一（至少 1，一秒内回完），开始回的那一下播主包的 `league_pyke_p_heal` 画面。阵亡清零。
+- 普攻（被动）的说明换成副本自己的 `attack` 键。英雄联盟的「穿透加成」（每点穿甲 +0.2% / +0.4%）这里没有装备，不算；上限里的「80 + 800% 额外攻击力」也一样，只用 55% 最大生命那条。
+- 日志 `GREY: unseen, healing 120 grey health (hp …; this life … stored, … healed)`。测试 `grey_health_as_in_league`。
+
+经典引擎跑不了原生代码；下一局看 `GREY` 行。主包的派克没改。

@@ -2089,6 +2089,13 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
+                              "type": "Native",
+                              "effect_ref": "league_renekton:rend"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
                               "type": "Attack",
                               "damage": 20,
                               "attack_ratio": 75,

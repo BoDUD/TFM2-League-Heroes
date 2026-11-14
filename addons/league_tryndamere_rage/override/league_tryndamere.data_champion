@@ -13,7 +13,7 @@
     "asset/league/icons/league_tryndamere_ult"
   ],
   "stat": {
-    "attack": 86,
+    "attack": 81,
     "magic_power": 0,
     "hp": 1050,
     "defence": 30,
@@ -24,7 +24,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 17,
+    "attack": 16,
     "magic_power": 0,
     "hp": 105,
     "defence": 8,
@@ -36,7 +36,7 @@
   },
   "attack": {
     "action_name": "attack",
-    "description": "#asset/base/text/champion?description.league_tryndamere.attack",
+    "description": "#asset/base/text/champion?description.league_tryndamere_rage.attack",
     "duration": 24,
     "cooltime": 62,
     "start_timing": 12,
@@ -2394,7 +2394,9 @@
       "q_hp": 30,
       "burst": 35,
       "burst_left": 40,
-      "burst_t": 60
+      "burst_t": 60,
+      "q_ad": 20,
+      "q_at": 90
     }
   },
   "stack_skill_index": 0

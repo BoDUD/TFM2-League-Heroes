@@ -15,6 +15,11 @@ design and only moved by whole squares, quarter turns about half-integer pivots 
 Parts of the idle design: the crossbow arm (the sleeve from the shoulder and the crossbow; it turns about SHOULDER),
 the near leg (image left) and the far leg (image right) from LEG_TOP down; the rest is the body (the head, the hood,
 the pauldron, the cape, the torso).
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+the ride (one picture moved up and down) with Valor's wing spread behind her beaten by its columns (RIDE_PARTS: the
+feathers' tips lifted or lowered, nothing where the wing goes on under her leg); every other square of the ride checked
+unchanged. r_beat: that beat with the group held at r_idle's first frame's height, for the add-on's ride idle (its reel,
+tools/art/hero_reels.json): only the wing moves, never higher than her crest (R_BEAT_UP), so the idle does not bob.
 """
 import argparse
 import json
@@ -28,6 +33,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import quinn_legs as QL  # noqa: E402
 from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet  # noqa: E402
 
@@ -118,6 +124,11 @@ def tinted(D, z=12):
 IDLE_HEAD = (0, 22, 13, 34)    # rows / cols of the idle's head: the visor crest to the chin, the hood
 RIDE_HEAD = (0, 19, 46, 67)
 RIDE_CLEAR = 18                # the ride head's rows cleared (below them its chin and collar meet the arm)
+# Valor's wing spread behind her in the ride (the violet and blue feathers left of column RIDE_WING_X: nothing of her is
+# there; right of it the wing goes on under her leg and stays) - beaten by inbetween.wave, its tips WING_K rows
+RIDE_WING_X = 30
+RIDE_PARTS = {"wing": [(0, 0, RIDE_WING_X, 80)]}
+VPAD = 30                      # an in-between's picture is this much bigger on every side (inbetween.vary)
 
 
 def skin(d):
@@ -159,7 +170,8 @@ class Form:
         self.D = D
         self.rig = R.Rig(D, pad=rig_pad)
         self.L = {k: pad(D.layer(k)) for k in D.order}
-        self.other = {"ride": self.placed(ride_design(D))}
+        self.ride = ride_design(D)
+        self.other = {"ride": self.placed(self.ride)}
         # League's skeleton frame by frame (tools/lol/league_joints.py assets/source/quinn/poses.json -> hd/
         # quinn_joints.json) and the legs drawn on it (tools/art/quinn_legs.py, league_riven's way): the body without its
         # legs and without the crossbow arm (a layer of its own, turned losslessly)
@@ -338,6 +350,20 @@ class Form:
         can = R.compose(self.rig, [(self.other[name], dict(dx=dx, dy=dy))])
         return R.flash(can) if flash else can
 
+    def beat(self, k, dx=0, dy=0):
+        """The ride (whole()) with Valor's wing beaten: its columns left of RIDE_WING_X lifted 0..k rows toward the
+        tips (negative: lowered; inbetween.vary - no head here, the ride's every square right of the wing checked
+        unchanged), laid where the plain ride lies."""
+        v = IB.vary(self.ride, RIDE_PARTS, self.D.outline, sway=[("wing", 0, RIDE_WING_X, k, "right")], pad=VPAD,
+                    name="ride")
+        lay = np.zeros_like(self.other["ride"])
+        ys, xs = np.nonzero(v[..., 3] > 0)
+        rys = np.nonzero((self.ride[..., 3] > 0).any(1))[0]
+        top = P + self.D.ground - (rys.max() + 1) - VPAD          # placed()'s offsets, from the plain ride
+        left = P + self.D.px - stand_col(self.ride) - VPAD
+        lay[ys + top, xs + left] = v[ys, xs]
+        return R.compose(self.rig, [(lay, dict(dx=dx, dy=dy))])
+
     ref_holes = None
     close_holes = _Form.close_holes
     MOST = _Form.MOST
@@ -393,9 +419,19 @@ RUN_HIPS = {"near": (19.5, 43.0), "far": (23.0, 43.5)}
 # ms per frame; the kit's ticks (tools/kit/build_quinn.py) come from these
 MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
       "skill": [90, 80, 100, 90, 110], "skill2": [60, 60], "e_flip": [50, 50, 50, 60, 90],
-      "ult": [80, 100, 120, 200], "ult_ride": [100] * 4, "ult_land": [70, 70, 70, 70, 100, 100],
+      "ult": [80, 100, 120, 200], "ult_ride": [50] * 8, "ult_land": [70, 70, 70, 70, 100, 100],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
-      "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100]}
+      "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100], "r_beat": [120] * 8}
+# Valor's wing tips in the ride's loops, rows up a frame (the downstroke while the group rises): ult_ride rises 6 to 9
+# and sinks to 7, r_run rises 6 9 and sinks 8 5 (2026-11-14: both were one picture moved up and down; ult_ride's four
+# 100-ms frames are eight of 50 now, r_run keeps its four)
+WING_K = {"ult_ride": (5, 4, 0, -4, -5, -3, 1, 2), "r_run": (0, -5, 1, 5),
+          # r_beat (2026-11-14): one beat from the ride's rest and back with the group held where r_idle holds it (6
+          # rows up) - only the wing moves, the idles do not bob (the user: 「上下摆动全不要了啊」); up no more than
+          # R_BEAT_UP rows, as from 4 the tips rise over her helmet's crest and the picture's top would move
+          "r_beat": (1, 3, 2, -1, -3, -5, -4, -2)}
+R_BEAT_UP = 3                   # r_beat's wing tips up at most this many rows (the picture's top stays her crest)
+R_HOLD = 6                      # rows the ride is held up in r_idle's first frame (the add-on's idle reel holds it)
 
 
 def frames_all(F):
@@ -436,8 +472,9 @@ def frames_all(F):
     # R Behind Enemy Lines (Quinn_Spell4_Channel: aimed, the crossbow let down to her hip, standing tall aiming again,
     # down on one knee with the crossbow raised as Valor comes down; she is on his back from ult_ride on)
     out["ult"] = [dr(T["ult"][0]), dr(T["ult"][1], hold=LOW_HOLD), dr(T["ult"][2], air=True), dr(T["ult"][3], **UP)]
-    # the ride (quinnvalor_run_glide): gliding, the whole group rising and falling
-    out["ult_ride"] = [F.whole("ride", dy=-d) for d in (6, 8, 9, 8)]
+    # the ride (quinnvalor_run_glide): gliding, the whole group rising and falling (6 8 9 8 rows as before, every 100 ms;
+    # the frames between them half way), Valor's wing beating down as they rise and back up (WING_K: the tips' rows)
+    out["ult_ride"] = [F.beat(k, dy=-d) for d, k in zip((6, 7, 8, 9, 9, 8, 8, 7), WING_K["ult_ride"])]
     # Skystrike (QuinnRFinale: the two loop up through the air and she drops onto them): the group whole quarter turns
     # counter-clockwise (nose up, over, down), she lands (the somersault's landing, the channel's crouch), stands
     loop = lambda k, dx, up: shift(R.lie(rig, F.whole("ride"), k, dx=dx, sink=0), 0, -up)
@@ -458,8 +495,14 @@ def frames_all(F):
                    on_floor(dr(D[2], drop=True, lean=2)), on_floor(dr(D[3], drop=True, lean=2)),
                    on_floor(dr(D[4], drop=True, lean=2)), on_floor(lying(0)), on_floor(lying(-3)), on_floor(lying(0))]
     # the add-on's ride form (addons/league_quinn): standing / moving / hit as the group gliding
-    out["r_idle"] = [F.whole("ride", dy=-d) for d in (6, 8, 8, 6)]
-    out["r_run"] = [F.whole("ride", dy=-d, dx=x) for d, x in ((6, 0), (9, 2), (8, 0), (5, -2))]
+    out["r_idle"] = [F.whole("ride", dy=-d) for d in (R_HOLD, 8, 8, R_HOLD)]
+    # the wing beat r_idle's reel plays now and then (tools/art/hero_reels.json; it was the first frame held alone, and a
+    # beat taken from ult_ride lifted the whole group 3 rows): ult_ride's beat at r_idle's height, the group never moved
+    if max(WING_K["r_beat"]) > R_BEAT_UP:
+        sys.exit(f"r_beat: the wing up more than {R_BEAT_UP} rows lifts the picture's top")
+    out["r_beat"] = [F.beat(k, dy=-R_HOLD) for k in WING_K["r_beat"]]
+    out["r_run"] = [F.beat(k, dy=-d, dx=x) if k else F.whole("ride", dy=-d, dx=x)
+                    for (d, x), k in zip(((6, 0), (9, 2), (8, 0), (5, -2)), WING_K["r_run"])]
     out["r_hit"] = [F.whole("ride", dx=-3, dy=-6, flash=True), F.whole("ride", dx=-2, dy=-6)]
     return out
 

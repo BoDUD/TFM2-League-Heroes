@@ -1,4 +1,4 @@
-# 蛮王残血开大附加包（测试版 v0.3.0）
+# 蛮王残血开大附加包（测试版 v0.3.2）
 
 0.2.2（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_tryndamere.py`，主包和副本的 JSON 由 `tools/fix/arm_refund_read.py` 改（蛮王的烘焙表在 assets/ 里，这里重建不了）），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -58,3 +58,13 @@ SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生
 - R 好着、生命低于 50%：打 35000 内最近的敌方英雄（够得着的，不追远处的人）；快死时照旧按 R，R 之后喝 Q。
 都不打敌方塔下（75000 内）的人，也不以少打多（目标身边 60000 内的敌方英雄不比他身边的我方英雄多，不死里可以多一个）。AI 自己在打（普攻、技能、往前走）照旧。日志 `FIGHT ON (raging | R ready at hp N%): the AI WalksAway|Recalls|Idles, attacking #id d away`（每 120 tick 一行）。
 同一条评论说盖伦追着满血的人越塔：AI 想放 R、被本包拦下时「走过去打」也不再走向敌方塔下的人（够得着就照旧打）。测试 `what_the_ai_does`、`he_fights_on_while_undying_and_with_r_up_when_hurt`。
+
+## 0.3.2：嗜血杀戮的被动，越残攻击力越高（2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟的嗜血杀戮被动：攻击力随已损失的生命增长，损失 90% 时到顶（wiki V26.06）。主包读不到生命，把这一份并在基础攻击力里。本包现在读生命：
+
+- 副本的基础攻击力和成长低 6%（86 +17 → 81 +16，参数 `n_q_base`）；
+- 被动 `guard` 每 tick 按生命算攻击力加成（`bloodlust`：`q_ad` 20% × 已损失 / `q_at` 90，损失 90% 以上 +20%），挂成 `league_tryndamere_q_ad`（`attack_mult`，整数百分点变了才换，阵亡时随 buff 清掉）——满血时比主包低 6%，损失 27% 时持平，损失 90% 以上高 13%；
+- 普攻的说明指到本包的 `description.league_tryndamere_rage.attack`：主包的说明后面加一句【附加包】嗜血杀戮。
+
+日志 `BLOODLUST: hp N% -> attack +M%`（每变 10 个百分点、和到顶时一行）。经典引擎的模拟跑不了原生代码，数字按「平均持平」定，没有量过；测试 `bloodlust_grows_with_missing_health`。

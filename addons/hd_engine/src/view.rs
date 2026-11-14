@@ -193,7 +193,21 @@ struct State {
     forms: Vec<(usize, f32, std::time::Instant)>,
     /// "id > hero" pairs whose update kept the body draw's value (a body swapped after the update) was logged
     kept: Vec<String>,
+    /// (entity value, size drawn, when, the row's size, its seconds) of the units a wildcard form row grows (hd::ANY:
+    /// Lulu's Wild Growth on any hero), dense or not, while they are not back at x1.00 ([`ANY_LIVE`] counts them)
+    any: Vec<(usize, f32, std::time::Instant, f32, f32)>,
+    /// (entity value, the buff on) of the wildcard-grown units, the last logged
+    any_noted: Vec<(usize, bool)>,
+    /// bodies a wildcard row grows whose sheet was not found in their draw, logged once each
+    any_missing: Vec<String>,
 }
+
+/// How many units a wildcard form row ([`State::any`]) is growing or shrinking back: with none and no such buff on a
+/// unit, its body draw goes by without the lock.
+static ANY_LIVE: AtomicUsize = AtomicUsize::new(0);
+/// Seconds a wildcard-grown unit's record outlives its last draw ([`State::any`]): past it the unit is dead or gone (and
+/// a stale one is drawn straight at its size anyway, hd::FORM_STALE).
+const ANY_DROP: f32 = 2.0;
 
 /// What the display update did with one dense entity ([`State::update_dense`]).
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -212,7 +226,7 @@ impl State {
     const fn new() -> Self {
         State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), scale_lines: 0, scaled: Vec::new(),
                 body_lines: 0, seen: Vec::new(), noted: Vec::new(), grows: Vec::new(), grow_lines: 0, forms: Vec::new(),
-                kept: Vec::new() }
+                kept: Vec::new(), any: Vec::new(), any_noted: Vec::new(), any_missing: Vec::new() }
     }
 
     /// The display update for the dense entity (`world`, `key`) whose value is at `v`, +0x1b4 holding `cur`, drawn as
@@ -473,8 +487,14 @@ unsafe extern "system" fn body_detour(out: usize, ent: usize, a3: usize, _sp: us
     IN_BODY.with(|c| c.set(was));
     // the buffs' dense pictures (before the extras go back to the game's size round them, as the effects' pairs do)
     let _ = std::panic::catch_unwind(|| unsafe { shrink_buffs(out, ent) });
-    if let Some((s, hero)) = sc {
-        let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent, s, hero) });
+    match sc {
+        Some((s, hero)) => {
+            let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent, s, hero) });
+        }
+        // a body drawn at 1x (a base hero, a pack hero without dense frames): grown only by a wildcard form row
+        None => {
+            let _ = std::panic::catch_unwind(|| unsafe { grow_plain(out, ent) });
+        }
     }
     r
 }
@@ -617,14 +637,15 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         insert(out, a, &grow);
     }
     // a hero drawn bigger, with a stack (a table's growth rows, Cho'Gath's Feast) or while his form's buff is on (a table's form
-    // rows, Volibear's Stormbringer, eased in and out): his body's own commands once more, about his soles
-    let g = if let Some(&(_, buff, per)) = hd::heroes().growth.iter().find(|g| g.0 == hero.id) {
+    // rows, Volibear's Stormbringer, eased in and out), or under a wildcard form row's buff (Lulu's Wild Growth, any hero):
+    // his body's own commands once more, about his soles - at the larger of his own and the wildcard's (hd::form_size)
+    let own = if let Some(&(_, buff, per)) = hd::heroes().growth.iter().find(|g| g.0 == hero.id) {
         let n = hd::grow_count(buff_names(ent).iter().map(String::as_str), buff);
         let g = hd::grown(per, n);
         if note_grow(&mut st, ent, n) {
             wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
         }
-        g
+        Some(g)
     } else if let Some(&(_, buffs, size, secs)) = hd::heroes().forms.iter().find(|f| f.0 == hero.id) {
         let on = buffs.iter().find(|b| stacks(ent, b) > 0);
         let now = std::time::Instant::now();
@@ -641,10 +662,12 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
                 None => wlog(format!("{}: no form buff - body x{g:.2}, back to x1.00 over {secs} s", hero.id)),
             }
         }
-        g
+        Some(g)
     } else {
-        return;
+        None
     };
+    let any = any_form(&mut st, hd::heroes(), ent, hero.id);
+    let Some(g) = hd::form_size(own, any) else { return };
     if (g - 1.0).abs() < 1e-4 {
         return;
     }
@@ -655,6 +678,111 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         .map(|i| u8::from(sprite_name(ptr + i * CMD).is_some_and(|nm| is_body(nm, hero.id))))
         .collect();
     for (a, b) in body_runs(&body).into_iter().rev() {
+        insert(out, b + 1, &back);
+        insert(out, a, &up);
+    }
+}
+
+/// The wildcard form rows' size for the unit whose entity value is `ent` this frame ([`hd::ANY`]: whoever carries one
+/// of a row's buffs - Lulu's Wild Growth on any hero): eased in from its plain size and back out like a hero's own form
+/// row ([`hd::eased_any`]), its record kept in [`State::any`] until it is back at x1.00. None: no such row, no such buff
+/// on it and no record (nothing to draw). `heroes` the registered tables' rows, `who` names it in the log (its id, or its
+/// sheet for a 1x body).
+unsafe fn any_form(st: &mut State, heroes: &hd::Heroes, ent: usize, who: &str) -> Option<f32> {
+    let on = heroes.any_forms().find_map(|f| f.1.iter().find(|b| stacks(ent, b) > 0).map(|b| (*b, f.2, f.3)));
+    let now = Instant::now();
+    // a unit not drawn for a while (dead, gone, the match over) is no longer easing anything
+    if st.any.iter().any(|a| now.duration_since(a.2).as_secs_f32() > ANY_DROP) {
+        st.any.retain(|a| now.duration_since(a.2).as_secs_f32() <= ANY_DROP);
+        ANY_LIVE.store(st.any.len(), Ordering::Release);
+    }
+    let at = st.any.iter().position(|a| a.0 == ent);
+    if on.is_none() && at.is_none() {
+        return None;
+    }
+    let prev = at.map(|i| (st.any[i].1, now.duration_since(st.any[i].2).as_secs_f32()));
+    let (size, secs) = match (on, at) {
+        (Some((_, size, secs)), _) => (size, secs),
+        (None, Some(i)) => (st.any[i].3, st.any[i].4),
+        (None, None) => return None,
+    };
+    let g = hd::eased_any(prev, on.is_some(), size, secs, hd::FRAME);
+    if let Some(i) = at {
+        st.any.remove(i);
+    }
+    if on.is_some() || (g - 1.0).abs() > 1e-4 {
+        st.any.push((ent, g, now, size, secs));
+        if st.any.len() > 64 {
+            st.any.remove(0);
+        }
+    }
+    ANY_LIVE.store(st.any.len(), Ordering::Release);
+    let state = (ent, on.is_some());
+    if !st.any_noted.contains(&state) && st.grow_lines < GROW_LINES {
+        st.any_noted.retain(|n| n.0 != ent);
+        st.any_noted.push(state);
+        if st.any_noted.len() > 64 {
+            st.any_noted.remove(0);
+        }
+        st.grow_lines += 1;
+        match on {
+            Some((b, size, secs)) => wlog(format!("{who}: {b} on (any hero) - body growing to x{size:.2} about the soles \
+                                                   over {secs} s")),
+            None => wlog(format!("{who}: the wildcard form's buff gone - body x{g:.2}, back to x1.00 over {secs} s")),
+        }
+    }
+    Some(g)
+}
+
+/// A body drawn at 1x (a base hero, a pack hero without dense frames; the entity value `ent`, the body draw's commands at
+/// `out`) grown by a wildcard form row ([`hd::ANY`]: Lulu's Wild Growth): its own sheet's commands scaled about its soles,
+/// hd::FEET game pixels under its position - the 1x frames' feet line, the base game's sprites and the packs' alike
+/// (art-spec: 11.5 px under the frame centre). A dense body is unshrink_extras's (it takes the wildcard rows too).
+unsafe fn grow_plain(out: usize, ent: usize) {
+    let heroes = hd::heroes();
+    if heroes.any_forms().next().is_none() || !plausible(ent) {
+        return;
+    }
+    // the body draw of every unit on screen passes here: nothing to do, and no lock, unless such a buff is on this one
+    // or some body is still easing back
+    let on = heroes.any_forms().any(|f| f.1.iter().any(|b| stacks(ent, b) > 0));
+    if !on && ANY_LIVE.load(Ordering::Acquire) == 0 {
+        return;
+    }
+    let Ok(mut st) = STATE.try_lock() else { return };
+    grow_plain_in(&mut st, heroes, out, ent);
+}
+
+/// [`grow_plain`] past its quick outs: the unit's body found by its resource's (or id's) sheet, its size from the
+/// wildcard rows ([`any_form`]), its own sheet's runs of commands wrapped in a scale about its soles.
+unsafe fn grow_plain_in(st: &mut State, heroes: &hd::Heroes, out: usize, ent: usize) {
+    let id = string_at(ent + NAME_PTR, ent + NAME_LEN_AT);
+    let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
+    if drawn_as(heroes, res, id).is_some() {
+        return; // drawn dense after all (its scale was not written this frame): unshrink_extras's next frame
+    }
+    let Some(body) = res.or(id).and_then(|r| r.rsplit('/').next()).and_then(|r| r.split('#').next()) else { return };
+    let Some((ptr, len)) = cmd_list(out) else { return };
+    let Some(g) = any_form(st, heroes, ent, body) else { return };
+    if (g - 1.0).abs() < 1e-4 {
+        return;
+    }
+    let kinds: Vec<u8> = (0..len).map(|i| u8::from(sprite_name(ptr + i * CMD).is_some_and(|nm| is_body(nm, body)))).collect();
+    let runs = body_runs(&kinds);
+    if runs.is_empty() {
+        if !st.any_missing.iter().any(|m| m == body) && st.grow_lines < GROW_LINES {
+            st.grow_lines += 1;
+            st.any_missing.push(body.to_string());
+            wlog(format!("{body}: grown x{g:.2} by a wildcard form, but no command of its draw is its own sheet - drawn \
+                          as it is"));
+        }
+        return;
+    }
+    let px = std::ptr::read_unaligned((ent + POS_X) as *const f32);
+    let py = std::ptr::read_unaligned((ent + POS_Y) as *const f32) - std::ptr::read_unaligned((ent + POS_LIFT) as *const f32);
+    let (sx, sy) = soles(px, py, 1.0);
+    let (up, back) = (scale_cmd(g, sx, sy, false), restore_cmd(false));
+    for (a, b) in runs.into_iter().rev() {
         insert(out, b + 1, &back);
         insert(out, a, &up);
     }
@@ -1376,6 +1504,119 @@ mod tests {
         assert_eq!(hd::grow_count([s, "league_chogath_r_stacked", "league_chogath_r_stack_x"], s), 1);
         // a display that keeps every entry: the entries themselves
         assert_eq!(hd::grow_count([s, s, s, "league_chogath_r_stack_2"], s), 3);
+    }
+
+    /// A display entity value as the hooks read it (0x200 bytes): its id and body resource Strings, its buff list
+    /// ({ptr, len} of 0x28-byte entries, each name's {ptr, len} at +8), its position. The test's own leaked memory
+    /// standing in for the game's.
+    fn fake_unit(id: &str, res: &str, buffs: &[&str], (x, y): (f32, f32)) -> usize {
+        fn leak(s: &str) -> (usize, usize) {
+            let b: &'static [u8] = Box::leak(s.as_bytes().to_vec().into_boxed_slice());
+            (b.as_ptr() as usize, b.len())
+        }
+        fn put(m: &mut [u8], at: usize, v: usize) {
+            m[at..at + 8].copy_from_slice(&v.to_le_bytes());
+        }
+        let entries: &'static mut [u8] = Box::leak(vec![0u8; buffs.len().max(1) * BUFF_SIZE].into_boxed_slice());
+        for (k, b) in buffs.iter().enumerate() {
+            let (p, n) = leak(b);
+            put(entries, k * BUFF_SIZE + 8, p);
+            put(entries, k * BUFF_SIZE + 0x10, n);
+        }
+        let ent: &'static mut [u8] = Box::leak(vec![0u8; 0x200].into_boxed_slice());
+        let ((ip, il), (rp, rl)) = (leak(id), leak(res));
+        put(ent, NAME_PTR, ip);
+        put(ent, NAME_LEN_AT, il);
+        put(ent, RES_PTR, rp);
+        put(ent, RES_LEN_AT, rl);
+        put(ent, BUFFS_PTR, entries.as_ptr() as usize);
+        put(ent, BUFFS_LEN, buffs.len());
+        ent[POS_X..POS_X + 4].copy_from_slice(&x.to_le_bytes());
+        ent[POS_Y..POS_Y + 4].copy_from_slice(&y.to_le_bytes());
+        ent.as_ptr() as usize
+    }
+
+    /// A body draw's command Vec ({cap, ptr, len}) of sprites of these sheets, with room for `room` more commands.
+    fn fake_cmds(sheets: &[&str], room: usize) -> usize {
+        let cap = sheets.len() + room;
+        let buf: &'static mut [u8] = Box::leak(vec![0u8; cap * CMD].into_boxed_slice());
+        for (i, s) in sheets.iter().enumerate() {
+            let c = &mut buf[i * CMD..(i + 1) * CMD];
+            c[..8].copy_from_slice(&CMD_SPRITE.to_le_bytes());
+            let b: &'static [u8] = Box::leak(s.as_bytes().to_vec().into_boxed_slice());
+            c[0x10..0x18].copy_from_slice(&(b.as_ptr() as usize).to_le_bytes());
+            c[0x18..0x20].copy_from_slice(&b.len().to_le_bytes());
+        }
+        let v: &'static mut [usize; 3] = Box::leak(Box::new([cap, buf.as_ptr() as usize, sheets.len()]));
+        v.as_ptr() as usize
+    }
+
+    /// The command list at `out` as words: `sprite <sheet>`, `scale x<k> @(<x>, <y>)` (the point it scales about), `restore`.
+    unsafe fn listing(out: usize) -> Vec<String> {
+        let (ptr, len) = (q(out + 8), q(out + 0x10));
+        (0..len)
+            .map(|i| {
+                let c = ptr + i * CMD;
+                match q(c) as u64 {
+                    CMD_SPRITE => format!("sprite {}", sprite_name(c).unwrap().rsplit('/').next().unwrap().split('#').next().unwrap()),
+                    t if t == scale_tag() => {
+                        let k = rf(c + 0x24);
+                        format!("scale x{k:.4} @({:.2}, {:.2})", rf(c + 8) / (1.0 - k), rf(c + 0xc) / (1.0 - k))
+                    }
+                    t if t == restore_tag() => "restore".to_string(),
+                    t => format!("{t:#x}"),
+                }
+            })
+            .collect()
+    }
+
+    /// Lulu's Wild Growth on a hero drawn at 1x (a base champion here): its own sheet's commands - not its shadow, not
+    /// the buff's picture - wrapped in a scale about its soles (FEET under its position), growing from its plain size one
+    /// frame at a time; a unit without the buff and a dense body are left alone; the record goes once it is back at x1.00
+    /// or no longer drawn.
+    #[test]
+    fn a_wildcard_form_grows_a_plain_body_about_its_soles() {
+        let mut t = hd::Table { pack: "league", ..hd::Table::default() };
+        t.heroes.push(("league_yasuo", 2.2, Box::leak(hd::tests::fanim(2.2, true).into_boxed_str())));
+        t.forms.push((hd::ANY, vec!["league_lulu_r_on"], 1.15, 0.5));
+        let heroes = hd::Heroes::of(&[&t]);
+        let mut st = State::new();
+        let res = "asset/base/aseprite_resources/champions/alchemist#anim";
+        let sheet = "asset/base/aseprite_resources/champions/alchemist#sheet";
+        let unit = fake_unit("alchemist", res, &["league_x_slow", "league_lulu_r_on"], (100.0, 50.0));
+        let out = fake_cmds(&["asset/base/x/shadow#sheet", sheet, sheet, "asset/league/effects/league_lulu_big#sheet"], 8);
+        unsafe { grow_plain_in(&mut st, &heroes, out, unit) };
+        let g = hd::eased_any(None, true, 1.15, 0.5, hd::FRAME);
+        let scale = format!("scale x{g:.4} @(100.00, {:.2})", 50.0 + hd::FEET);
+        assert_eq!(unsafe { listing(out) }, ["sprite shadow", &scale, "sprite alchemist", "sprite alchemist", "restore",
+                                             "sprite league_lulu_big"]);
+        assert_eq!(st.any.len(), 1);
+        // no such buff and no record: untouched; a dense body (unshrink_extras grows it): untouched
+        let bard = fake_unit("bard", "asset/base/aseprite_resources/champions/bard#anim", &["league_x_slow"], (0.0, 0.0));
+        let yasuo = fake_unit("league_yasuo", "asset/league/champions/league_yasuo#anim", &["league_lulu_r_on"], (0.0, 0.0));
+        for u in [bard, yasuo] {
+            let o = fake_cmds(&["asset/base/x/shadow#sheet", "asset/league/champions/league_yasuo#sheet"], 4);
+            unsafe { grow_plain_in(&mut st, &heroes, o, u) };
+            assert_eq!(unsafe { q(o + 0x10) }, 2);
+        }
+        assert_eq!(st.any.len(), 1);
+        // the buff over (the unit's list without it), 0.4 s later: back at x1.00, nothing wrapped, the record gone
+        unsafe { std::ptr::write_unaligned((unit + BUFFS_LEN) as *mut usize, 1) };
+        st.any[0].2 -= std::time::Duration::from_millis(400);
+        let out = fake_cmds(&[sheet], 4);
+        unsafe { grow_plain_in(&mut st, &heroes, out, unit) };
+        assert_eq!(unsafe { listing(out) }, ["sprite alchemist"]);
+        assert!(st.any.is_empty());
+        // its sheet not in its draw: drawn as it is, one line
+        unsafe { std::ptr::write_unaligned((unit + BUFFS_LEN) as *mut usize, 2) };
+        let out = fake_cmds(&["asset/base/x/shadow#sheet"], 4);
+        unsafe { grow_plain_in(&mut st, &heroes, out, unit) };
+        assert_eq!(unsafe { q(out + 0x10) }, 1);
+        assert_eq!(st.any_missing, vec!["alchemist".to_string()]);
+        // a unit no longer drawn: its record dropped by the next unit's draw past ANY_DROP
+        st.any[0].2 -= std::time::Duration::from_secs_f32(ANY_DROP + 0.5);
+        unsafe { grow_plain_in(&mut st, &heroes, fake_cmds(&[], 2), bard) };
+        assert!(st.any.is_empty());
     }
 
     #[test]

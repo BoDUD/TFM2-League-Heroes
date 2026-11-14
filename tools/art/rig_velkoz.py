@@ -184,6 +184,36 @@ def turned(layer, k, about):
     return out
 
 
+# The in-betweens' tentacle waves (2026-11-14): a tentacle's whole columns lifted - or, for the far one raised behind
+# him (two quarter turns: it stands up), its whole rows shifted sideways - by nothing where it leaves the carapace up to
+# k squares at its tip: inbetween.wave's shape (ppu_rig.sway) on the tentacle's own layer, so the carapace and the eye
+# are never touched; Rig.finish closes the outline where a step bares an edge. WAVES: tentacle (the far one with its
+# quarter turns) -> ("cols", tip column, last column held, the attached side) / ("rows", tip row, last row held) in
+# design squares; the squares between that and the carapace stay put (a wave begun at the root tore the upper one off
+# its root where the channel already lifts it 3 rows).
+WAVES = {"ul": ("cols", 0, 18, "right"), "ll": ("cols", 4, 26, "right"), ("lr", 2): ("rows", -1, 18)}
+
+
+def waved(layer, key, k):
+    """A tentacle's padded layer waved k squares at its tip (WAVES[key]): columns lifted (k > 0 up) or rows shifted
+    (k > 0 to the right)."""
+    spec = WAVES[key]
+    if spec[0] == "cols":
+        return R.sway(layer, P + spec[1], P + spec[2], k, spec[3])
+    _, y0, y1 = spec
+    out = np.zeros_like(layer)
+    n = max(1, y1 - y0)
+    for y in range(layer.shape[0]):
+        d = int(round(k * min(max((P + y1 - y) / n, 0.0), 1.0)))
+        if d > 0:
+            out[y, d:] = layer[y, :-d]
+        elif d < 0:
+            out[y, :d] = layer[y, -d:]
+        else:
+            out[y] = layer[y]
+    return out
+
+
 class Form:
     """The design's layers; pose() -> canvas."""
 
@@ -192,16 +222,20 @@ class Form:
         self.rig = R.Rig(D, pad=rig_pad)
         self.L = {k: pad(D.layer(k)) for k in D.order}
 
-    def pose(self, whole=(0, 0), ul=(0, 0), ll=(0, 0), lr=(0, 0), lid=0, shot=0.0, dark=0.0, flare=0.0):
+    def pose(self, whole=(0, 0), ul=(0, 0), ll=(0, 0), lr=(0, 0), lid=0, shot=0.0, dark=0.0, flare=0.0, wave=None):
         """whole: the figure (dx, dy); ul / ll: a tentacle's (dx, dy) on the body; lr: the far tentacle's (dx, dy) or
         (dx, dy, quarter turns counter-clockwise about its root: 1 thrown forward, drawn in front of the carapace's far
         edge; 2 raised behind); lid: rows the crest sets down and the jaw comes up over the eye (the shell closing, the
         death); shot: the eye lit (0..1); dark: the eye dimmed (0..1, the death); flare: the flesh rims round the eye lit
-        (0..1, Q and R charging)."""
+        (0..1, Q and R charging); wave: {tentacle: k} a tentacle waved by whole columns / rows, nothing where it leaves
+        the carapace and k squares at its tip (WAVES; the in-betweens, 2026-11-14)."""
         wx, wy = whole
         L = self.L
+        wave = wave or {}
         k = lr[2] % 4 if len(lr) > 2 else 0
         far = turned(L["lr"], k, ROOTS["lr"]) if k else L["lr"]
+        if wave.get("lr"):
+            far = waved(far, ("lr", k), wave["lr"])
         body = L["body"]
         if shot:
             body = lit(body, EYE, shot * 0.6, (255, 150, 255))
@@ -210,13 +244,15 @@ class Form:
             body, crest, jaw = (flared(a, RIMS, flare) for a in (body, crest, jaw))
         if dark:
             body, crest, jaw = (lit(a, EYES, dark, (40, 10, 50), light=True) for a in (body, crest, jaw))
-        layers = [(L["ul"], dict(dx=wx + ul[0], dy=wy + ul[1]))]
+        upper = waved(L["ul"], "ul", wave["ul"]) if wave.get("ul") else L["ul"]
+        near = waved(L["ll"], "ll", wave["ll"]) if wave.get("ll") else L["ll"]
+        layers = [(upper, dict(dx=wx + ul[0], dy=wy + ul[1]))]
         if k != 1:
             layers.append((far, dict(dx=wx + lr[0], dy=wy + lr[1])))
         layers += [(body, dict(dx=wx, dy=wy)),
                    (jaw, dict(dx=wx, dy=wy - lid)),
                    (crest, dict(dx=wx, dy=wy + lid)),
-                   (L["ll"], dict(dx=wx + ll[0], dy=wy + ll[1]))]
+                   (near, dict(dx=wx + ll[0], dy=wy + ll[1]))]
         if k == 1:
             layers.append((far, dict(dx=wx + lr[0], dy=wy + lr[1])))
         can = R.compose(self.rig, layers)
@@ -235,15 +271,20 @@ def form():
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-# ms per frame; the kit's ticks (tools/kit/build_velkoz.py) come from these (a frame's start in ticks = ms x 0.06)
+# ms per frame; the kit's ticks (tools/kit/build_velkoz.py) come from these (a frame's start in ticks = ms x 0.06). The
+# in-betweens (2026-11-14) keep them: the wind-up still 270 with the beam's frame from 180 (r_rel 11; its first 180 now
+# 3 x 60), the channel loop still 480 (each 120 now 60 + 60)
 MS = {"idle": [150] * 8, "run": [95] * 8,
       "attack": [80, 80, 70, 90, 80, 50],
       "skill": [80, 80, 90, 90, 90, 70],
       "skill2": [90, 90, 80, 120, 120],
-      "ult": [90, 90, 90],
-      "ult_loop": [120, 120, 120, 120],
+      "ult": [60, 60, 60, 90],
+      "ult_loop": [60] * 8,
       "hit": [100, 100],
       "dead": [120, 120, 140, 160, 200, 600]}
+# the channel's tentacles undulating, a frame every 60 ms (45 degrees a frame): the upper one and the near loop in
+# counter-phase, 4 squares at their tips, the far one raised behind a quarter beat apart, 3
+RAY_WAVE = [{"ul": u, "ll": -u, "lr": r} for u, r in zip((0, 3, 4, 3, 0, -3, -4, -3), (3, 2, 0, -2, -3, -2, 0, 2))]
 
 
 def frames_all(F):
@@ -287,29 +328,40 @@ def frames_all(F):
                     p()]
     # E Tectonic Disruption (League's Velkoz_Spell3: rearing up with the tentacles raised, then slamming down): rising
     # with the tentacles raised, higher, the slam down and forward (frame 3, tick 11), held low, back
+    # (held low: the tentacles following the slam through - the upper one whipping on down, the near loop bouncing up,
+    # WAVES; the in-between, 2026-11-14: it was the slam's picture again)
     out["skill2"] = [p(whole=(0, -2), ul=(0, -2), lr=(0, 0, 2), ll=(0, -1)),
                      p(whole=(-1, -3), ul=(0, -3), lr=(0, 0, 2), ll=(1, -1)),
                      p(whole=(2, 1), ul=(1, 1), ll=(1, 0)),
-                     p(whole=(2, 1), ul=(1, 1), ll=(1, 0)),
+                     p(whole=(2, 1), ul=(1, 1), ll=(1, 0), wave={"ul": -3, "ll": 3}),
                      p(whole=(1, 0))]
     # R Life Form Disintegration Ray (League's Velkoz_Spell4_in + Channel: the tentacles lifted behind him, the eye
     # charging, the beam held): ult = the wind-up (16 ticks), ult_loop = the channel, the eye pulsing, the figure bobbing
+    # In-betweens (2026-11-14): the far tentacle swinging up through forward (one quarter turn, as the attack throws
+    # it) between hanging and raised behind, the eye half way charged; in the channel each drawing twice with the
+    # tentacles undulating on (RAY_WAVE)
     out["ult"] = [p(ul=(0, -1), lr=(-1, -1), shot=0.3, flare=0.25),
+                  p(whole=(0, -1), ul=(0, -1), lr=(0, 0, 1), shot=0.42, flare=0.35),
                   p(whole=(0, -1), ul=(0, -2), lr=(0, 0, 2), shot=0.55, flare=0.45),
                   p(whole=(0, -1), ul=(0, -3), lr=(0, 0, 2), shot=0.85, flare=0.65)]
-    out["ult_loop"] = [p(whole=(0, b), ul=u, lr=(0, 0, 2), ll=l, shot=s, flare=f)
-                       for b, u, l, s, f in ((-1, (0, -3), (0, 0), 0.85, 0.65), (-2, (1, -3), (1, -1), 0.55, 0.45),
-                                             (-2, (1, -3), (1, -1), 0.85, 0.65), (-1, (0, -3), (0, 0), 0.55, 0.45))]
+    out["ult_loop"] = [p(whole=(0, b), ul=u, lr=(0, 0, 2), ll=l, shot=s, flare=f, wave=RAY_WAVE[2 * i + j])
+                       for i, (b, u, l, s, f) in enumerate(((-1, (0, -3), (0, 0), 0.85, 0.65),
+                                                            (-2, (1, -3), (1, -1), 0.55, 0.45),
+                                                            (-2, (1, -3), (1, -1), 0.85, 0.65),
+                                                            (-1, (0, -3), (0, 0), 0.55, 0.45)))
+                       for j in range(2)]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Velkoz_Death: he slumps, sinks to the ground and lies there, the eye going out): slumping,
-    # sinking with the upper tentacle falling, down on the ground, the shell closing over the eye as it goes dark
+    # sinking with the upper tentacle falling, down on the ground, the shell closing over the eye as it goes dark - the
+    # upper tentacle sagging on down as it does (WAVES, 2, 3, 4 at its tip; the in-betweens, 2026-11-14: the shell and
+    # the eye alone changed between those frames)
     down = FLOAT
     out["dead"] = [p(whole=(0, 1)),
                    p(whole=(-1, 2), ul=(1, 1), dark=0.15),
                    p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=1, dark=0.35),
-                   p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=1, dark=0.55),
-                   p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=2, dark=0.7),
-                   p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=2, dark=0.8)]
+                   p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=1, dark=0.55, wave={"ul": -2}),
+                   p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=2, dark=0.7, wave={"ul": -3}),
+                   p(whole=(-1, down), ul=(1, 2), lr=(-1, 0), lid=2, dark=0.8, wave={"ul": -4})]
     return out
 
 

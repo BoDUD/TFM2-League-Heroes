@@ -21,6 +21,8 @@
 //! 涨到 325，追得到 700 多码；11-06 的日志 42 个冰仆 31 个 45000 内一个敌人都没有），日志写上冰仆是从「死了」还是「从列表里
 //! 消失」的人身上升起的，扑空时最近的敌方英雄、单位多远。
 //!
+//! 乐芙兰的幻像（v0.3.0）是真的单位：`src/mirror.rs`（稳定 mod API 的 `spawn_unit`，萨科附加包的 `summon.rs`）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_lowhp.log`。
 
 use std::collections::HashMap;
@@ -30,6 +32,11 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+/// LeBlanc's Mirror Image clone as a unit (0.3.0).
+pub mod mirror;
+/// 0.3.1: her thralls as units (src/thralls.rs).
+pub mod thralls;
 
 const ID: &str = "league_lowhp";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -185,6 +192,7 @@ pub fn nearest_text(p: Pt, foes: &[(bool, Pt)]) -> String {
 /// 那人是怎么倒下的）。
 #[derive(Clone, Default)]
 struct Thralls {
+    bodies: thralls::Bodies,
     seen: HashMap<usize, (bool, Pt)>,
     lanes: HashMap<usize, u32>,
     rising: Vec<(usize, Pt, &'static str)>,
@@ -212,7 +220,9 @@ impl Thralls {
             for (id, p, listed_dead) in fell {
                 let logged = self.lanes.get(&id).map(|&lane| death_logged(&log, 1 - team.min(1), lane, tick));
                 let input = InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64);
-                sim.play_view_effect(THRALL_VIEW, me, &input, 0, 0, 0);
+                if !self.bodies.rise(sim, me, p, THRALL_TICKS) {
+                    sim.play_view_effect(THRALL_VIEW, me, &input, 0, 0, 0);
+                }
                 sim.play_sfx(THRALL_RISE, me, &input);
                 self.rising.push((tick + THRALL_TICKS, p, fall_text(listed_dead, logged)));
             }
@@ -227,6 +237,7 @@ impl Thralls {
         if self.lanes.len() > 256 {
             self.lanes.retain(|id, _| now.iter().any(|n| n.0 == *id)); // old lives' ids
         }
+        self.bodies.tick(sim, me, team);
         let due: Vec<(Pt, &'static str)> = self.rising.iter().filter(|r| r.0 <= tick).map(|r| (r.1, r.2)).collect();
         self.rising.retain(|r| r.0 > tick);
         for (at, how) in due {
@@ -235,7 +246,8 @@ impl Thralls {
                 .map(|u| (u.id(), u.is_champion(), (u.pos().0 as f64, u.pos().1 as f64)))
                 .collect();
             let kinds: Vec<(bool, Pt)> = foes.iter().map(|f| (f.1, f.2)).collect();
-            let p = lunge(at, &kinds, THRALL_LUNGE);
+            let from = self.bodies.shatter_from(at);
+            let p = lunge(from, &kinds, THRALL_LUNGE);
             let input = InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64);
             sim.play_view_effect(THRALL_BURST, me, &input, 0, 0, 0);
             sim.play_sfx(THRALL_BURST, me, &input);
@@ -252,9 +264,9 @@ impl Thralls {
             if self.n <= 80 {
                 // where the thrall rose from (0.2.6): one listed dead, or one gone from the list; a lunge at nothing says
                 // how far the nearest enemies stood
-                let missed = if p == at { format!(" ({})", nearest_text(at, &kinds)) } else { String::new() };
-                wlog(format!("{} THRALL #{} rose at ({:.0}, {:.0}) where {how}, lunged {:.0}, shattered: {} enemies hit for {damage}{missed}",
-                             head(sim, me), self.n, at.0, at.1, dist(at, p), hit.len()));
+                let missed = if p == from { format!(" ({})", nearest_text(from, &kinds)) } else { String::new() };
+                wlog(format!("{} THRALL #{} rose at ({:.0}, {:.0}) where {how}, walked {:.0}, lunged {:.0}, shattered: {} enemies hit for {damage}{missed}",
+                             head(sim, me), self.n, at.0, at.1, dist(at, from), dist(from, p), hit.len()));
             }
         }
     }
@@ -270,6 +282,8 @@ struct Low {
     was: bool,
     n: usize,
     thralls: Option<Thralls>,
+    /// LeBlanc's: Mirror Image's clone as a unit (0.3.0).
+    mirror: Option<mirror::Mirror>,
 }
 
 impl StablePassive for Low {
@@ -280,9 +294,32 @@ impl StablePassive for Low {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.was = false;
         wlog(format!("{} SPAWN: the add-on's {} (player {player}), low at {}%", head(sim, me), self.hero, self.pct));
+        if let Some(m) = self.mirror.as_mut() {
+            m.spawned(sim, me);
+        }
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    // While LeBlanc's clone is out, what the engine tells her passive (summon.rs: do a summon's hits come here, and under
+    // whose id?)
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
+        if let Some(m) = self.mirror.as_ref() {
+            m.hooked(sim, "on_attack", entity, target, Some(*damage));
+        }
+    }
+
+    fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, victim: usize) {
+        if let Some(m) = self.mirror.as_ref() {
+            m.hooked(sim, "on_kill", entity, victim, None);
+        }
+    }
+
+    fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, victim: usize) {
+        if let Some(m) = self.mirror.as_ref() {
+            m.hooked(sim, "on_unit_kill", entity, victim, None);
+        }
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let Some(alive) = sim.get_entity(me).map(|e| e.is_alive()) else { return };
         if let Some(t) = self.thralls.as_mut() {
             t.update(sim, me, alive);
@@ -293,6 +330,9 @@ impl StablePassive for Low {
             return;
         }
         let (hp, max) = e.hp();
+        if let Some(m) = self.mirror.as_mut() {
+            m.update(sim, player, me);
+        }
         let now = low(hp, max, self.pct);
         if now {
             sim.entity_remove_buff(me, self.flag);
@@ -310,8 +350,11 @@ impl StablePassive for Low {
     /// Her death also takes her pending thralls and what she saw (0.2.2, the 2026-11-01 review): a dead champion's update
     /// does not run, so a thrall raised just before her death shattered only at her respawn (10-60 s late, on whoever
     /// stood there by then), and an enemy who died while she was dead raised a thrall at her first update.
-    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
         self.was = false;
+        if let Some(m) = self.mirror.as_mut() {
+            m.dead(sim, player);
+        }
         if let Some(t) = self.thralls.as_mut() {
             t.rising.clear();
             t.seen.clear();
@@ -326,17 +369,25 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Blitzcrank's Mana Barrier, LeBlanc's Mirror Image, Lissandra's self-tomb on low health and her thralls) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Blitzcrank's Mana Barrier, LeBlanc's Mirror Image, Lissandra's self-tomb on low health and her thralls; LeBlanc's clone a unit) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
         host.abi_level(),
         LOG_PATH.display()
     ));
+    mirror::register(module);
     for (hero, name, flag, pct) in HEROES {
         let thralls = (name == "lissandra").then(Thralls::default);
-        module.add_native_passive(format!("{ID}:{name}"), Low { hero, flag, pct, was: false, n: 0, thralls });
+        let mirror = (name == "leblanc").then(mirror::Mirror::default);
+        module.add_native_passive(format!("{ID}:{name}"), Low { hero, flag, pct, was: false, n: 0, thralls, mirror });
     }
+    // 0.3.1: her thralls as units (src/thralls.rs)
+    wlog(format!("THRALLS: Lissandra's thralls are units ('{}', spawn_unit: her pace, no attack, cannot be hurt) - {}; they shatter \
+                  from where they walked. Test knobs ({}): {}", thralls::THRALL_UNIT,
+                 if thralls::KNOBS.off { "OFF by the test knobs: the thrall's picture as before" } else { "ON" },
+                 LOG_PATH.with_extension("cfg").display(), thralls::KNOBS.shown()));
+    module.add_native_effect(format!("{ID}:thrall"), thralls::ThrallFx);
     host.log(LogLevel::Info, "league_lowhp v1 loaded (three passives on low health).");
 }
 

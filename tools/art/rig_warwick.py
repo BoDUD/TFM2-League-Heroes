@@ -21,6 +21,11 @@ The run below was league_braum's / league_galio's approved walk for big heroes (
 走路方式这种腿就不会变形」): the design's own legs, one lifted per frame by losing its top rows and stepped forward, the body
 floating a little, the arms swinging a square against the legs, the tail swaying. Since 2026-11-01 (「狼人的走路姿势现在有点
 奇怪」) it only places the frames: the export ends with tools/art/casts_warwick_run.py writing Codex's redrawn run over it.
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+a Codex pose with a part of it moved (PARTS, in the pose's own squares): the bushy tail waved by its columns from where
+it leaves him (only its fur and the outline round it: a gauntlet or a claw in its box stays), the raised forearm turned
+about the elbow; every other square of the pose checked unchanged (no head box: Codex's own face, far from both parts).
+The design's own frames move its tail whole (pose's tail_at, up and down only, as the idle does).
 """
 import argparse
 import os
@@ -33,6 +38,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 from rig_wukong import CutDesign as _Cut, P, pad  # noqa: E402
 
 HERO = "warwick"
@@ -186,21 +192,91 @@ class Form:
         can[self.rig.GY:] = 0
         return close_cracks(can, self.D.outline)
 
-    def posed(self, name, whole=(0, 0), lift=0):
+    def posed(self, name, whole=(0, 0), lift=0, sway=(), spins=()):
         """A Codex pose (hd/pose_<name>.png, design_warwick_poses.py) standing where the design stands: the middle of its
         shorts (shorts_mid: the body's own middle, steady while the limbs swing) on the design's, its lowest row on the
-        ground - `lift` rows above it (in the air)."""
+        ground - `lift` rows above it (in the air). sway / spins (inbetween.vary, by PARTS' names): an in-between made
+        from it, placed where the pose stands."""
         d = load(f"pose_{name}.png")
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
         lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
         top = P + self.D.ground - (ys.max() + 1) - lift
         left = P + int(round(shorts_mid(self.D.d) - shorts_mid(d)))
+        if sway or spins:
+            d = IB.vary(d, parts(d, PARTS[name]), self.D.outline, (), sway, None, None, VPAD, name, spins=spins)
+            top, left = top - VPAD, left - VPAD
         x0, x1 = max(0, left), min(lay.shape[1], left + d.shape[1])
         y0, y1 = max(0, top), min(lay.shape[0], top + d.shape[0])
         lay[y0:y1, x0:x1] = d[y0 - top:y1 - top, x0 - left:x1 - left]
         can = R.compose(self.rig, [(lay, dict(dx=whole[0], dy=whole[1]))])
         can[self.rig.GY:] = 0
         return can
+
+
+# ------------------------------------------------------------------------------------------------- the in-betweens
+VPAD = 30                      # an in-between's picture is this much bigger on every side (inbetween.vary)
+# each pose's parts, in its own squares: ("fur", box) = the tail's fur in the box and the outline round it (fur_in: a
+# gauntlet, a claw or the shorts in the box stay where they are), cut square across where the tail meets his back or
+# leg; plain boxes otherwise
+PARTS = {
+    "crouch": {"tail": [("fur", (0, 0, 20, 42))]},          # raised behind him, over the near gauntlet
+    "rear": {"tail": [("fur", (0, 38, 24, 71))]},           # hanging behind, under the near gauntlet
+    "leap": {"tail": [("fur", (0, 32, 30, 50)), ("fur", (0, 51, 13, 59))]},   # streaming back over the trailing leg
+    "bite": {"tail": [("fur", (0, 0, 26, 34))]},            # raised behind him, over the near gauntlet
+    "howl": {"tail": [("fur", (0, 32, 22, 66))]},           # hanging behind the near arm
+    "strike": {"tail": [("fur", (0, 0, 30, 39))]},          # raised high behind him
+    "raise": {"tail": [("fur", (0, 58, 29, 79))],           # low behind him, under the hanging near arm
+              "forearm": [(63, 0, 82, 26)]},                # the raised far forearm: the gauntlet, the hand, the claws
+    "stagger": {"tail": [("fur", (0, 49, 37, 70))]},        # swung out behind, under the near arm
+    "lie": {"tail": [(0, 16, 40, 29)]},                     # lying on his legs (nothing else in the box)
+}
+ELBOW = {"raise": (67, 27)}    # the raised forearm turns about the elbow's inner corner (inbetween.spin)
+
+
+def fur(d):
+    """His blue fur (every blue of the design: blue well over red, not under green)."""
+    c = d[..., :3].astype(int)
+    return (d[..., 3] > 0) & (c[..., 2] > c[..., 0] + 25) & (c[..., 2] >= c[..., 1])
+
+
+def fur_in(d, box):
+    """The fur's squares in the box (x0, y0, x1, y1) and the near-black squares edging them where nothing but fur and
+    air is next to them (a line between the tail and a gauntlet lying over it stays with the gauntlet)."""
+    x0, y0, x1, y1 = box
+    op = d[..., 3] > 0
+    inb = np.zeros(op.shape, bool)
+    inb[y0:y1 + 1, x0:x1 + 1] = True
+    f = fur(d) & inb
+    dark = op & inb & (IB.lum(d[..., :3]) < IB.DARK)
+    other = op & ~fur(d) & ~dark
+    near = lambda m: np.pad(m, 1)[2:, 1:-1] | np.pad(m, 1)[:-2, 1:-1] | np.pad(m, 1)[1:-1, 2:] | np.pad(m, 1)[1:-1, :-2]
+    return f | (dark & near(f) & ~near(other))
+
+
+def parts(d, spec):
+    """PARTS' items -> row runs (x0, y, x1, y) for inbetween.vary."""
+    out = {}
+    for k, items in spec.items():
+        m = IB.part_mask(d.shape, [it for it in items if it[0] != "fur"])
+        for it in items:
+            if it[0] == "fur":
+                m |= fur_in(d, it[1])
+        runs = []
+        for y in range(m.shape[0]):
+            xs = np.nonzero(m[y])[0]
+            if not len(xs):
+                continue
+            cut = np.nonzero(np.diff(xs) > 1)[0]
+            runs += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+        out[k] = runs
+    return out
+
+
+def tail(name, k):
+    """The tail of pose `name` waved: its columns lifted 0..k rows from where it leaves him to its tip (negative:
+    lowered; inbetween.wave)."""
+    x1 = max((it[1] if it[0] == "fur" else it)[2] for it in PARTS[name]["tail"])
+    return [("tail", 0, x1, k, "right")]
 
 
 def shorts_mid(d):
@@ -217,12 +293,16 @@ def form():
 
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame; the kit's ticks (tools/kit/build_warwick.py) come from these (a frame's start in ticks = ms x 0.06)
+# The in-betweens (2026-11-14: the bite, the leap, R's dash and R's hold were one or two pictures moved or held): Q's
+# leap, the bite's getting up and the hold's raised claw split in two (inbetween.spans: whole ms, none under 50); every
+# action is as long as it was and every frame that begins a move keeps its millisecond (the leap at 70, the rakes at 0,
+# 500 and 1000).
 MS = {"idle": [150] * 8, "run": [95] * 8,
       "attack": [70, 80, 90, 90, 90, 80],
-      "skill": [70, 130], "skill_bite": [100, 100, 100],
+      "skill": IB.spans((70, 1), (130, 2)), "skill_bite": IB.spans((100, 1), (100, 1), (100, 2)),
       "skill2": [60, 90, 100, 83], "skill2_howl": [60, 85, 85, 85, 85],
       "ult": [70, 60, 90, 90, 90], "ult_dash": [83, 83, 83, 84],
-      "ult_hold": [150, 150, 200] * 3,
+      "ult_hold": IB.spans((150, 1), (150, 1), (200, 2)) * 3,
       "hit": [100, 100],
       "dead": [120, 120, 140, 160, 200, 600]}
 # the walk (league_braum / league_galio): per frame the near leg's (dx, dy, lift), the far leg's, the figure's rise, the
@@ -252,33 +332,48 @@ def frames_all(F):
     # auto attack (League's Warwick_Attack1: crouched low with the arms spread, then lunging forward and down with the
     # claws; the hit at ~150 ms = tick 9): crouched (Codex's crouch), the lunge with both claws raking down (strike:
     # the hit), held, back up
-    out["attack"] = [q("crouch"), q("crouch", whole=(1, 0)), q("strike", whole=(2, 0)), q("strike", whole=(2, 0)),
-                     p(whole=(1, 0)), p()]
+    # (the in-betweens: the tail dipping as he springs, whipping down after the rake, settling)
+    out["attack"] = [q("crouch"), q("crouch", whole=(1, 0), sway=tail("crouch", -6)), q("strike", whole=(2, 0)),
+                     q("strike", whole=(2, 0), sway=tail("strike", -6)), p(whole=(1, 0), tail_at=(0, 2)), p()]
     # Q Jaws of the Beast (League's Warwick_Spell1: reared back with the claws up and the jaws open, the leap, landed
     # low on the bite): skill = the rear and the leap (12 ticks; he flies from tick 4), skill_bite = low on the bite,
     # crouched, up again
-    out["skill"] = [q("rear"), q("leap", whole=(2, 0), lift=6)]
-    out["skill_bite"] = [q("bite", whole=(2, 0)), q("bite", whole=(1, 0)), q("crouch")]
+    # (the in-betweens: the tail swinging down in the leap, swinging on after the bite, settling as he gets up; a tail
+    # with a leg or an arm drawn over its edge only moves in under it)
+    out["skill"] = [q("rear"), q("leap", whole=(2, 0), lift=6), q("leap", whole=(2, 0), lift=6, sway=tail("leap", -6))]
+    out["skill_bite"] = [q("bite", whole=(2, 0)), q("bite", whole=(1, 0), sway=tail("bite", -6)),
+                         q("crouch", sway=tail("crouch", -5)), q("crouch")]
     # E Primal Howl (League's Warwick_Spell3: rearing up with the fists raised, then the guard): skill2 = crouched,
     # reared up with the claws before his chest, back; skill2_howl (League's Spell3_Howl: gathered low, then standing
     # tall, chest out, the jaws to the sky): crouched, standing tall (Codex's howl) and held, back
-    out["skill2"] = [q("crouch"), q("rear"), q("rear"), p()]
-    out["skill2_howl"] = [q("crouch"), q("howl"), q("howl"), q("howl"), p()]
+    # (the in-betweens: the reared-up and the howling poses held with the tail swinging)
+    out["skill2"] = [q("crouch"), q("rear"), q("rear", sway=tail("rear", 6)), p()]
+    out["skill2_howl"] = [q("crouch"), q("howl"), q("howl", sway=tail("howl", 6)), q("howl", sway=tail("howl", -5)),
+                          p()]
     # R Infinite Duress (League's Warwick_Spell4 + Spell4Dash: crouched low with the claws forward, the leap with both
     # arms raised): ult = the coil and the spring (the leap leaves at tick 8), ult_dash = in the air until he lands on
     # the champion
-    out["ult"] = [q("crouch"), q("crouch", whole=(1, 0)), q("leap", whole=(2, 0), lift=4), q("leap", whole=(3, 0), lift=7),
-                  q("leap", whole=(3, 0), lift=7)]
-    out["ult_dash"] = [q("leap", lift=k) for k in (7, 8, 7, 4)]
+    # (the in-betweens: the coiled tail dipping, then swinging down twice in the air)
+    out["ult"] = [q("crouch"), q("crouch", whole=(1, 0), sway=tail("crouch", -6)), q("leap", whole=(2, 0), lift=4),
+                  q("leap", whole=(3, 0), lift=7, sway=tail("leap", -6)),
+                  q("leap", whole=(3, 0), lift=7, sway=tail("leap", -3))]
+    out["ult_dash"] = [q("leap", lift=h, sway=tail("leap", k) if k else ())
+                       for h, k in ((7, 0), (8, -6), (7, -2), (4, -5))]
     # R's hold (League's Warwick_Spell4Hit: on top of the champion, raking down with both claws, then rearing up with
     # one claw raised high, again and again; the three claws at ticks 1 / 31 / 61): the rake (strike), held, the claw
     # raised (raise)
-    out["ult_hold"] = [q("strike"), q("strike"), q("raise")] * 3
+    # (the in-betweens: the raked-down pose held with the tail whipping down; the raised claw coming down - the forearm
+    # turned 35 degrees about the elbow - before the next rake)
+    hold = [q("strike"), q("strike", sway=tail("strike", -6)), q("raise"),
+            q("raise", spins=[("forearm", ELBOW["raise"], 35, "under")])]
+    out["ult_hold"] = [c.copy() for _ in range(3) for c in hold]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Warwick_Death: struck back with the arms flung out, then down on his belly): staggering
     # (Codex's stagger), a step back, falling flat (lie, in the air), down, a bounce, lying
-    out["dead"] = [q("stagger"), q("stagger", whole=(-1, 0)), q("lie", whole=(-2, 0), lift=4), q("lie", whole=(-2, 0)),
-                   q("lie", whole=(-2, 0), lift=1), q("lie", whole=(-2, 0))]
+    # (the in-betweens: the tail swinging up under the near arm as he staggers, flopping down as he falls and bounces)
+    out["dead"] = [q("stagger"), q("stagger", whole=(-1, 0), sway=tail("stagger", 6)),
+                   q("lie", whole=(-2, 0), lift=4, sway=tail("lie", -6)), q("lie", whole=(-2, 0)),
+                   q("lie", whole=(-2, 0), lift=1, sway=tail("lie", -4)), q("lie", whole=(-2, 0))]
     return out
 
 

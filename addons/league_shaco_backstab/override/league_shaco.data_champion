@@ -224,6 +224,13 @@
                     {
                       "casting_type": "Targeting",
                       "effect": {
+                        "type": "Native",
+                        "effect_ref": "league_shaco_backstab:shiv"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
                         "type": "ApAttack",
                         "damage": 55,
                         "attack_ratio": 70,
@@ -374,7 +381,7 @@
   },
   "skill2": {
     "action_name": "skill2",
-    "description": "#asset/base/text/champion?description.league_shaco.skill2",
+    "description": "#asset/base/text/champion?description.league_shaco_backstab.skill2",
     "duration": 20,
     "cooltime": 600,
     "start_timing": 8,
@@ -405,6 +412,10 @@
           "applied_effects": [],
           "end_effects": [
             {
+              "type": "Native",
+              "effect_ref": "league_shaco_backstab:jack"
+            },
+            {
               "type": "ViewEffect",
               "name": "league_shaco_w_land"
             },
@@ -413,8 +424,16 @@
               "tick": 10,
               "effects": [
                 {
-                  "type": "ViewEffect",
-                  "name": "league_shaco_w_box"
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_shaco_w_unit",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "ViewEffect",
+                    "name": "league_shaco_w_box"
+                  }
                 },
                 {
                   "type": "Sfx",
@@ -498,37 +517,45 @@
                   ]
                 },
                 {
-                  "type": "RangePeriodProjectile",
-                  "name": "league_shaco_w_shots",
-                  "shape": {
-                    "Circle": {
-                      "radius": 35000
-                    }
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_shaco_w_unit",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
                   },
-                  "tick": 300,
-                  "period": 30,
-                  "first_delay": 1,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 10,
-                        "attack_ratio": 12,
-                        "hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                  "effect_none": {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_shaco_w_shots",
+                    "shape": {
+                      "Circle": {
+                        "radius": 35000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_shaco_shot_hit"
+                    "tick": 300,
+                    "period": 30,
+                    "first_delay": 1,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 10,
+                          "attack_ratio": 12,
+                          "hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_shaco_shot_hit"
+                        }
                       }
-                    }
-                  ],
-                  "end_effects": []
+                    ],
+                    "end_effects": []
+                  }
                 }
               ]
             }
@@ -539,7 +566,7 @@
   },
   "ult": {
     "action_name": "ult",
-    "description": "#asset/base/text/champion?description.league_shaco.ult",
+    "description": "#asset/base/text/champion?description.league_shaco_backstab.ult",
     "duration": 24,
     "cooltime": 3000,
     "start_timing": 6,
@@ -624,266 +651,437 @@
           "only_to_enemy": false
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_shaco_r_unit"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_shaco_r_ask",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "Delayed",
           "tick": 12,
           "effects": [
             {
-              "type": "ViewEffect",
-              "name": "league_shaco_clone_in"
-            },
-            {
-              "type": "TargetSfx",
-              "name": "league_shaco_clone_in"
-            },
-            {
-              "type": "AddCasted",
-              "casted_type": "Bleed",
-              "duration": 312,
-              "period": 4,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_shaco_r_on",
-                  "effect_buff": {
-                    "type": "Combine",
+              "type": "SwitchByBuff",
+              "buff_name": "league_shaco_r_unit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_shaco_clone_in"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_shaco_clone_in"
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Bleed",
+                    "duration": 312,
+                    "period": 4,
                     "effects": [
                       {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_shaco_r_seen"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_shaco_r_seen",
-                          "duration": {
-                            "Time": {
-                              "tick": 5
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "league_shaco_r_watch",
-                        "travel_time": 1,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "Delayed",
-                            "tick": 6,
-                            "effects": [
-                              {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_shaco_r_on",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_shaco_r_seen"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_shaco_r_seen",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 5
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "ParabolicProjectile",
+                              "name": "league_shaco_r_watch",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "range_effect_name": "",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "Delayed",
+                                  "tick": 6,
+                                  "effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_shaco_r_seen",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_shaco_r_live",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_shaco_r_live"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_shaco_r_on"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_shaco_r_boom"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_shaco_r_boom"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_shaco_r_boom_d",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 30000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "EnemyWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 150,
+                                                    "attack_ratio": 100,
+                                                    "hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_shaco_r_burn"
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_shaco_r_mini"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_shaco_r_pop"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_shaco_r_md_fear_c",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 30000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Fear",
+                                                    "tick": 45
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_shaco_fear"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_shaco_fear_imm",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      },
+                                                      "cc_immune": true
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 1,
+                                              "effects": [
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_shaco_r_md_fear_o",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 30000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Fear",
+                                                        "tick": 75
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_shaco_fear"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "RangePeriodProjectile",
+                                              "name": "league_shaco_r_md_shots",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 32000
+                                                }
+                                              },
+                                              "tick": 150,
+                                              "period": 30,
+                                              "first_delay": 1,
+                                              "applied_target": "EnemyWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 8,
+                                                    "attack_ratio": 10,
+                                                    "hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_shaco_shot_hit"
+                                                  }
+                                                }
+                                              ],
+                                              "end_effects": []
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_shaco_r_pic",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_shaco_r_seen",
+                                "buff_name": "league_shaco_r_hit",
                                 "effect_buff": {
                                   "type": "Combine",
-                                  "effects": []
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_shaco_r_hit"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_shaco_r_ccd"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_shaco_r_ccd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_shaco_r_pic",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 24
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "Attack",
+                                      "damage": 10,
+                                      "attack_ratio": 40,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_shaco_clone_attack"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_shaco_clone_hit"
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 7,
+                                      "effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_shaco_bs_hit"
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_shaco_r_live",
+                                  "buff_name": "league_shaco_r_ccd",
                                   "effect_buff": {
+                                    "type": "ViewEffect",
+                                    "name": "league_shaco_clone_idle"
+                                  },
+                                  "effect_none": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_shaco_r_live"
+                                        "name": "league_shaco_r_hit"
                                       },
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_shaco_r_on"
+                                        "name": "league_shaco_r_ccd"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shaco_r_ccd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 60
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shaco_r_pic",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 24
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Attack",
+                                        "damage": 10,
+                                        "attack_ratio": 40,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
                                       },
                                       {
                                         "type": "ViewEffect",
-                                        "name": "league_shaco_r_boom"
+                                        "name": "league_shaco_clone_attack"
                                       },
                                       {
-                                        "type": "Sfx",
-                                        "name": "league_shaco_r_boom"
-                                      },
-                                      {
-                                        "type": "RangeProjectile",
-                                        "name": "league_shaco_r_boom_d",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 30000
-                                          }
-                                        },
-                                        "delay": 1,
-                                        "apply": 1,
-                                        "applied_target": "EnemyWithoutTower",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ApAttack",
-                                              "damage": 150,
-                                              "attack_ratio": 100,
-                                              "hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ViewEffect",
-                                              "name": "league_shaco_r_burn"
-                                            }
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_shaco_r_mini"
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_shaco_r_pop"
-                                      },
-                                      {
-                                        "type": "RangeProjectile",
-                                        "name": "league_shaco_r_md_fear_c",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 30000
-                                          }
-                                        },
-                                        "delay": 1,
-                                        "apply": 1,
-                                        "applied_target": "EnemyChampion",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Fear",
-                                              "tick": 45
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ViewEffect",
-                                              "name": "league_shaco_fear"
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_shaco_fear_imm",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 2
-                                                  }
-                                                },
-                                                "cc_immune": true
-                                              }
-                                            }
-                                          }
-                                        ]
+                                        "type": "TargetSfx",
+                                        "name": "league_shaco_clone_hit"
                                       },
                                       {
                                         "type": "Delayed",
-                                        "tick": 1,
+                                        "tick": 7,
                                         "effects": [
                                           {
-                                            "type": "RangeProjectile",
-                                            "name": "league_shaco_r_md_fear_o",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 30000
-                                              }
-                                            },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Fear",
-                                                  "tick": 75
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_shaco_fear"
-                                                }
-                                              }
-                                            ]
+                                            "type": "ViewEffect",
+                                            "name": "league_shaco_bs_hit"
                                           }
                                         ]
-                                      },
-                                      {
-                                        "type": "RangePeriodProjectile",
-                                        "name": "league_shaco_r_md_shots",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 32000
-                                          }
-                                        },
-                                        "tick": 150,
-                                        "period": 30,
-                                        "first_delay": 1,
-                                        "applied_target": "EnemyWithoutTower",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ApAttack",
-                                              "damage": 8,
-                                              "attack_ratio": 10,
-                                              "hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ViewEffect",
-                                              "name": "league_shaco_shot_hit"
-                                            }
-                                          }
-                                        ],
-                                        "end_effects": []
                                       }
                                     ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
                                   }
                                 }
                               }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_shaco_r_pic",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
+                            }
+                          ]
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_shaco_r_hit",
+                          "buff_name": "league_shaco_r_live",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_shaco_r_live"
+                              },
                               {
                                 "type": "RemoveCasterBuff",
                                 "name": "league_shaco_r_hit"
@@ -893,340 +1091,198 @@
                                 "name": "league_shaco_r_ccd"
                               },
                               {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_shaco_r_ccd",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 60
-                                    }
+                                "type": "RemoveCasterBuff",
+                                "name": "league_shaco_r_pic"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_shaco_r_seen"
+                              },
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "league_shaco_r_boom_lob",
+                                "travel_time": 1,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
                                   }
                                 },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_shaco_r_pic",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 24
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "Attack",
-                                "damage": 10,
-                                "attack_ratio": 40,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 0,
-                                "attack_effect_type": "Target"
-                              },
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_shaco_clone_attack"
-                              },
-                              {
-                                "type": "TargetSfx",
-                                "name": "league_shaco_clone_hit"
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 7,
-                                "effects": [
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [],
+                                "end_effects": [
                                   {
                                     "type": "ViewEffect",
-                                    "name": "league_shaco_bs_hit"
+                                    "name": "league_shaco_r_boom"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_shaco_r_boom"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "league_shaco_r_boom",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 30000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ApAttack",
+                                          "damage": 150,
+                                          "attack_ratio": 100,
+                                          "hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_shaco_r_burn"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_shaco_r_mini"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_shaco_r_pop"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "league_shaco_r_m_fear_c",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 30000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Fear",
+                                          "tick": 45
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_shaco_fear"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_shaco_fear_imm",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 2
+                                              }
+                                            },
+                                            "cc_immune": true
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "RangeProjectile",
+                                        "name": "league_shaco_r_m_fear_o",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 30000
+                                          }
+                                        },
+                                        "delay": 1,
+                                        "apply": 1,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Fear",
+                                              "tick": 75
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_shaco_fear"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "RangePeriodProjectile",
+                                    "name": "league_shaco_r_m_shots",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 32000
+                                      }
+                                    },
+                                    "tick": 150,
+                                    "period": 30,
+                                    "first_delay": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ApAttack",
+                                          "damage": 8,
+                                          "attack_ratio": 10,
+                                          "hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_shaco_shot_hit"
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": []
                                   }
                                 ]
                               }
                             ]
                           },
                           "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_shaco_r_ccd",
-                            "effect_buff": {
-                              "type": "ViewEffect",
-                              "name": "league_shaco_clone_idle"
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_shaco_r_hit"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_shaco_r_ccd"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_shaco_r_ccd",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 60
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_shaco_r_pic",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 24
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "Attack",
-                                  "damage": 10,
-                                  "attack_ratio": 40,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "league_shaco_clone_attack"
-                                },
-                                {
-                                  "type": "TargetSfx",
-                                  "name": "league_shaco_clone_hit"
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 7,
-                                  "effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_shaco_bs_hit"
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
+                            "type": "Combine",
+                            "effects": []
                           }
                         }
                       }
                     ]
-                  },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_shaco_r_live",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_shaco_r_live"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_shaco_r_hit"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_shaco_r_ccd"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_shaco_r_pic"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_shaco_r_seen"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_shaco_r_boom_lob",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "range_effect_name": "",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "applied_target": "EnemyWithoutTower",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_shaco_r_boom"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_shaco_r_boom"
-                            },
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_shaco_r_boom",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 30000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ApAttack",
-                                    "damage": 150,
-                                    "attack_ratio": 100,
-                                    "hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_shaco_r_burn"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_shaco_r_mini"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_shaco_r_pop"
-                            },
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_shaco_r_m_fear_c",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 30000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Fear",
-                                    "tick": 45
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_shaco_fear"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_shaco_fear_imm",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 2
-                                        }
-                                      },
-                                      "cc_immune": true
-                                    }
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 1,
-                              "effects": [
-                                {
-                                  "type": "RangeProjectile",
-                                  "name": "league_shaco_r_m_fear_o",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 30000
-                                    }
-                                  },
-                                  "delay": 1,
-                                  "apply": 1,
-                                  "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": [
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Fear",
-                                        "tick": 75
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ViewEffect",
-                                        "name": "league_shaco_fear"
-                                      }
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "RangePeriodProjectile",
-                              "name": "league_shaco_r_m_shots",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 32000
-                                }
-                              },
-                              "tick": 150,
-                              "period": 30,
-                              "first_delay": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ApAttack",
-                                    "damage": 8,
-                                    "attack_ratio": 10,
-                                    "hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_shaco_shot_hit"
-                                  }
-                                }
-                              ],
-                              "end_effects": []
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
                   }
-                }
-              ]
+                ]
+              }
             }
           ]
         }

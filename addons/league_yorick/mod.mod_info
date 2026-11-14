@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.217.0"
+      "version": ">=0.360.0"
     }
   ],
-  "description": "Test build of Yorick as in League (needs League of Legends Heroes): replaces the main pack's Yorick so Last Rites digs a grave for every minion or monster it kills (the main pack: every second blow on anything but a champion), and the Maiden of the Mist's bonus damage hits only the champion she follows (the main pack: any champion while she stands). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-25",
+  "description": "Test build of Yorick as in League (needs League of Legends Heroes): replaces the main pack's Yorick so Last Rites digs a grave for every minion or monster it kills (the main pack: every second blow on anything but a champion), and the Maiden of the Mist's bonus damage hits only the champion she follows (the main pack: any champion while she stands). 0.2.0: the Mist Walkers and the Maiden are units of their own through the mod API's spawn_unit - the Awakening raises three walkers round its target that walk, bite (9 + 13% of his attack) and can be killed (10 s), Mourning Mist makes them leap to the champion it strikes, and R raises the Maiden (15 s, 20 + 45% a claw) with two walkers (the main pack's are pictures and bites riding on the target); a host that gives no unit keeps the riding ones. Needs the main pack's sheets league/champions/league_yorick_walker and league_yorick_maiden. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_yorick",
   "mod_type": "native",
-  "name": "League Heroes: Yorick's graves and the Maiden's target as in League (test)",
-  "version": "0.1.1"
+  "name": "League Heroes: Yorick's graves, the Maiden's target and his walkers and Maiden as units (test)",
+  "version": "0.2.1"
 }

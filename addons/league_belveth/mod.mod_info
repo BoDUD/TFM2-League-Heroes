@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.333.0"
+      "version": ">=0.346.0"
     }
   ],
-  "description": "Test build of Bel'Veth as in League (needs League of Legends Heroes): replaces the main pack's Bel'Veth so Royal Maelstrom (the true form's storm: rooted, less damage taken, life steal) comes when she is low on health, instead of the data pack's stand-in (two enemy champions on her), which cannot read health, and her Death in Lavender attack speed stacks from takedowns stay through death (the data pack loses them when she dies). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-07",
+  "description": "Test build of Bel'Veth as in League (needs League of Legends Heroes): replaces the main pack's Bel'Veth so Royal Maelstrom (the true form's storm: rooted, less damage taken, life steal) comes when she is low on health, instead of the data pack's stand-in (two enemy champions on her), which cannot read health, and her Death in Lavender attack speed stacks from takedowns stay through death (the data pack loses them when she dies). In her true form she is drawn with her wings spread, hovering (standing, gliding, hit, attacking, Void Surge, Above and Below), instead of only growing. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_belveth",
   "mod_type": "native",
-  "name": "League Heroes: Bel'Veth's storm at low health and lavender kept (test)",
-  "version": "0.1.3"
+  "name": "League Heroes: Bel'Veth's storm at low health, lavender kept, true form's wings (test)",
+  "version": "0.2.0"
 }

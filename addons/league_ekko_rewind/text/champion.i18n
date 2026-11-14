@@ -2,6 +2,7 @@
   "zh-hans": {
     "description": {
       "league_ekko_rewind": {
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>；普攻和 E 对生命低于<#ffb900ff>30%<>的敌人追加已损失生命<#a974ffff>3%<>（每100法强 +<#a974ffff>3%<>）的<#a974ffff>魔法伤害<>。<#ff9028ff>Z型驱动共振<>：命中记层，第<#ffb900ff>3<>层追加<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<> <#ffb900ff>1.5秒<>；附近有敌方英雄时<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速 +40%<>。",
         "ult": "【附加包】回到<#ffb900ff>4秒<>前的位置，短暂无敌并回复<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#6aff55ff>生命值<>（这4秒每损失1%生命 +<#ffb900ff>4%<>，最多 +<#ffb900ff>200%<>），对落点周围的敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。残血、掉血快或回去能打到人时释放。"
       }
     }
@@ -9,6 +10,7 @@
   "zh-hant": {
     "description": {
       "league_ekko_rewind": {
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>；普攻和 E 對生命低於<#ffb900ff>30%<>的敵人追加已損失生命<#a974ffff>3%<>（每100魔法強度+<#a974ffff>3%<>）的<#a974ffff>魔法傷害<>。<#ff9028ff>共振驅動-Z<>：命中記層，第<#ffb900ff>3<>層追加<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<> <#ffb900ff>1.5秒<>；附近有敵方英雄時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速 +40%<>。",
         "ult": "【附加包】回到<#ffb900ff>4秒<>前的位置，短暫無敵並回復<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#6aff55ff>生命值<>（這4秒每損失1%生命 +<#ffb900ff>4%<>，最多 +<#ffb900ff>200%<>），對落點周圍的敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。殘血、掉血快或回去能打到人時施放。"
       }
     }
@@ -16,6 +18,7 @@
   "en": {
     "description": {
       "league_ekko_rewind": {
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>, plus <#a974ffff>3%<> (+<#a974ffff>3%<> per 100 AP) of the missing health as <#a974ffff>magic damage<> to enemies below <#ffb900ff>30%<> health (E's strike too). <#ff9028ff>Z-Drive Resonance<>: every <#ffb900ff>3rd<> hit of attacks and spells deals an extra <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<> and <#ef5350ff>slows<> by 40% for <#ffb900ff>1.5s<>; near an enemy champion Ekko gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>.",
         "ult": "[Add-on] Ekko snaps back to where he was <#ffb900ff>4s<> ago, briefly invulnerable, heals <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#6aff55ff>health<> (+<#ffb900ff>4%<> per 1% health lost in those 4s, up to +<#ffb900ff>200%<>) and deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<> to enemies around his arrival point. Cast when low, after a burst, or to land on enemies."
       }
     }
@@ -23,6 +26,7 @@
   "ko": {
     "description": {
       "league_ekko_rewind": {
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히며, 체력 <#ffb900ff>30%<> 미만인 적에게 잃은 체력의 <#a974ffff>3%<>(주문력 100당 +<#a974ffff>3%<>) <#a974ffff>마법 피해<>를 더 입힙니다. <#ff9028ff>Z 드라이브 공진<>: 적중마다 중첩, <#ffb900ff>3<>번째 중첩은 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 더 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>40% 둔화<>. 적 챔피언 근처에서 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 40% 증가<>.",
         "ult": "[확장] <#ffb900ff>4초<> 전의 위치로 되돌아갑니다. 잠시 무적이 되며 <#6aff55ff>체력<>을 <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> 회복하고(그 4초 동안 잃은 체력 1%당 +<#ffb900ff>4%<>, 최대 +<#ffb900ff>200%<>), 도착 지점 주변의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입힙니다. 체력이 낮거나 급격히 잃었거나 적에게 착지할 수 있을 때 사용합니다."
       }
     }
@@ -30,6 +34,7 @@
   "ja": {
     "description": {
       "league_ekko_rewind": {
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>、体力<#ffb900ff>30%<>未満の敵には減少体力の<#a974ffff>3%<>（魔力100毎に+<#a974ffff>3%<>）の<#a974ffff>魔法ダメージ<>を追加。<#ff9028ff>ゼロ・ドライブ<>：命中毎にスタック、<#ffb900ff>3<>スタック目は<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を追加し<#ffb900ff>1.5秒<>間<#ef5350ff>40%スロウ<>。敵チャンピオンが近いと<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が40%増加<>。",
         "ult": "【拡張】<#ffb900ff>4秒<>前の位置へ戻る。一瞬無敵になり<#6aff55ff>体力<>を<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>回復し（その4秒の減少体力1%ごとに+<#ffb900ff>4%<>、最大+<#ffb900ff>200%<>）、到着地点周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>を与える。瀕死、急な被弾、敵の中へ戻れる時に使う。"
       }
     }

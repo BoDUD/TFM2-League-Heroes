@@ -37,7 +37,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod surf;
 pub mod view;
+/// The game's own wall grids (league_camille_wall's, one file for every add-on that reads them).
+#[path = "../../league_camille_wall/src/maps.rs"]
+pub mod maps;
 
 const ID: &str = "league_taliyah";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -558,6 +562,8 @@ struct Weave {
     taken: Vec<(u64, u64)>,
     /// 立着的墙和挡人的账。
     b: Blocker,
+    /// 浮石冲贴着地形加速（0.2.8，[`surf`]）。
+    rock: surf::Rock,
 }
 
 /// 立着的墙和挡人要记的东西（0.2.5 单独拿出来：她死了，[`Pulse`] 接着用它挡人）。
@@ -800,6 +806,7 @@ impl StablePassive for Weave {
         self.had_lay_up = false;
         self.prev_proj.clear();
         self.pending.clear();
+        self.rock.reset();
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Taliyah (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -814,6 +821,7 @@ impl StablePassive for Weave {
         }
         if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
             self.watch(sim, me, now);
+            self.rock.tick(sim, me, now, &self.b.walls);
         } else {
             self.pending.clear();
         }
