@@ -47,7 +47,9 @@ fn mirror_image_spawns_its_clone_as_a_unit_through_the_export() {
                    ["league_lowhp:blitzcrank", "league_lowhp:leblanc", "league_lowhp:lissandra"]);
         let regs = std::slice::from_raw_parts(ex.native_effects_ptr, ex.native_effects_len);
         let fx: Effects = regs.iter().map(|e| (e.name.as_str().to_string(), e)).collect();
-        assert_eq!(fx.keys().map(|k| k.as_str()).collect::<Vec<_>>(), ["league_lowhp:thrall", "league_lowhp:mirror"]);
+        let mut keys = fx.keys().map(|k| k.as_str()).collect::<Vec<_>>();
+        keys.sort_unstable(); // a HashMap: its order is not the registration order
+        assert_eq!(keys, ["league_lowhp:mirror", "league_lowhp:thrall"]);
         let proto = &passives[1].passive;
         let passive = PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
 
