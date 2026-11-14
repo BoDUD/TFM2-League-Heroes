@@ -1120,6 +1120,28 @@
                       {
                         "type": "RemoveCasterBuff",
                         "name": "league_rengar_f4"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_rengar_fe_ms"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rengar_fe_ms",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": 40
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
                       }
                     ]
                   },
@@ -2171,6 +2193,28 @@
                       {
                         "type": "RemoveCasterBuff",
                         "name": "league_rengar_f4"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_rengar_fe_ms"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rengar_fe_ms",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": 40
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
                       }
                     ]
                   }
@@ -2958,6 +3002,28 @@
                       {
                         "type": "RemoveCasterBuff",
                         "name": "league_rengar_f4"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_rengar_fe_ms"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rengar_fe_ms",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": 40
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
                       }
                     ]
                   }

@@ -54,7 +54,7 @@ TEXT = {
         "skill2": "跃向敌方英雄，造成其{w_hp}%最大生命的伤害并" + R + "晕眩{w_stun}秒" + E + "；强化：下次普攻连刺3下。" + O + "神佑枪阵" + E +
                   "：举盾" + A + "{e_t}秒" + E + "，免疫控制、减伤{e_red}%，连刺前方后盾击造成" + phy("e_dmg", "e_ratio") + O + "物理伤害" + E + "。",
         "ult": "下蹲" + A + "{r_ch}秒" + E + "后跃起，落向交战中的敌人：长矛先砸下造成" + phy("r_sp_dmg", "r_sp_ratio") + O + "物理伤害" + E +
-               "并减速{r_slow}%，落地造成" + M + "{r_dmg}魔法伤害" + E + "（边缘减半），叠满被动。",
+               "并减速{r_slow}%，落地造成" + M + "{r_dmg}魔法伤害" + E + "（边缘减半），叠满被动。" + R + "下蹲时被控制会打断" + E + "，冷却只剩" + A + "{r_cut}秒" + E + "。",
         "names": ("贯星长枪", "斗盾跃击", "大荒星陨"),
     },
     "zh-hant": {
@@ -66,7 +66,7 @@ TEXT = {
         "skill2": "躍向敵方英雄，造成其{w_hp}%最大生命的傷害並" + R + "暈眩{w_stun}秒" + E + "；強化：下次普攻連刺3下。" + O + "聖盾猛襲" + E +
                   "：舉盾" + A + "{e_t}秒" + E + "，免疫控制、減傷{e_red}%，連刺前方後盾擊造成" + phy("e_dmg", "e_ratio") + O + "物理傷害" + E + "。",
         "ult": "蹲伏" + A + "{r_ch}秒" + E + "後躍起，落向交戰中的敵人：長矛先砸下造成" + phy("r_sp_dmg", "r_sp_ratio") + O + "物理傷害" + E +
-               "並緩速{r_slow}%，落地造成" + M + "{r_dmg}魔法傷害" + E + "（邊緣減半），疊滿被動。",
+               "並緩速{r_slow}%，落地造成" + M + "{r_dmg}魔法傷害" + E + "（邊緣減半），疊滿被動。" + R + "蹲伏時被控場會中斷" + E + "，冷卻只剩" + A + "{r_cut}秒" + E + "。",
         "names": ("彗星戰矛", "盾之躍擊", "星殞衝擊"),
     },
     "en": {
@@ -83,7 +83,7 @@ TEXT = {
                   " " + O + "physical damage" + E + ".",
         "ult": "Crouches " + A + "{r_ch}s" + E + ", leaps and falls on enemies in a fight: his spear strikes first for " +
                phy("r_sp_dmg", "r_sp_ratio") + " " + O + "physical damage" + E + " and a {r_slow}% slow, then the landing deals " +
-               M + "{r_dmg} magic damage" + E + " (half at the edge) and fills Mortal Will.",
+               M + "{r_dmg} magic damage" + E + " (half at the edge) and fills Mortal Will." + " " + R + "Crowd control during the crouch cancels it" + E + " (cooldown " + A + "{r_cut}s" + E + ").",
         "names": ("Comet Spear", "Shield Vault", "Grand Starfall"),
     },
     "ko": {
@@ -96,7 +96,7 @@ TEXT = {
                   E + ": " + A + "{e_t}초" + E + " 방패를 들어 군중 제어 면역, 피해 {e_red}% 감소, 앞을 찌른 뒤 방패로 " + phy("e_dmg", "e_ratio") +
                   "의 " + O + "물리 피해" + E + ".",
         "ult": A + "{r_ch}초" + E + " 웅크렸다 도약해 교전 중인 적에게 떨어집니다: 창이 먼저 " + phy("r_sp_dmg", "r_sp_ratio") + "의 " + O +
-               "물리 피해" + E + "와 {r_slow}% 둔화, 착지 시 " + M + "{r_dmg} 마법 피해" + E + "(가장자리 절반), 패시브 최대.",
+               "물리 피해" + E + "와 {r_slow}% 둔화, 착지 시 " + M + "{r_dmg} 마법 피해" + E + "(가장자리 절반), 패시브 최대." + " " + R + "웅크린 동안 군중 제어를 받으면 취소" + E + "(재사용 대기시간 " + A + "{r_cut}초" + E + ").",
         "names": ("혜성의 창", "방호의 도약", "거대 유성"),
     },
     "ja": {
@@ -109,7 +109,7 @@ TEXT = {
                   "イージスの猛攻" + E + "：" + A + "{e_t}秒" + E + "盾を構え、CC無効・被ダメージ{e_red}%軽減、前方を突いた後に盾で" +
                   phy("e_dmg", "e_ratio") + "の" + O + "物理ダメージ" + E + "。",
         "ult": A + "{r_ch}秒" + E + "身を屈めて跳び、交戦中の敵へ落下：槍が先に" + phy("r_sp_dmg", "r_sp_ratio") + "の" + O + "物理ダメージ" +
-               E + "と{r_slow}%スロウ、着地で" + M + "{r_dmg}の魔法ダメージ" + E + "（外側は半減）、パッシブ最大。",
+               E + "と{r_slow}%スロウ、着地で" + M + "{r_dmg}の魔法ダメージ" + E + "（外側は半減）、パッシブ最大。" + R + "屈み中に行動妨害を受けると中断" + E + "（クールダウン" + A + "{r_cut}秒" + E + "）。",
         "names": ("彗星の槍", "跳撃の盾", "偉大なる星路"),
     },
 }
@@ -151,7 +151,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("r_pen", "q_dmg", "q_ratio", "q_emp", "q_emp_ratio", "w_hp", "e_red", "e_dmg", "e_ratio",
                            "r_sp_dmg", "r_sp_ratio", "r_slow", "r_dmg")}
-    for k in ("w_stun", "e_t", "r_ch"):
+    for k in ("w_stun", "e_t", "r_ch", "r_cut"):
         v[k] = secs(p[k])
     return v
 

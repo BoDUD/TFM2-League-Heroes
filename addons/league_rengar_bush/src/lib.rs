@@ -41,6 +41,12 @@
 //! 下一枚 `league_rengar_bt<n>`（永久，攻击力 +`bt<n>`%，数字来自 `passive.params`）。阵亡不丢：复活时把已有的几枚重新挂上。
 //! 日志 `TROPHY`。
 //!
+//! 0.2.4（2026-11-14，同一张清单）：**战争咆哮**照英雄联盟。英雄联盟：W 回复「最近 1.5 秒受到的伤害的 50%」（野怪打的
+//! 100%），强化版「解除身上所有控制」。主包读不到受到的伤害，是固定回复 40 + 50% 攻击力、强化版回复翻倍并免控 1.5 秒。副本的
+//! W 不在数据里回血，咆哮时挂 2 tick 的 `league_rengar_w_mend`；本包的被动 `on_damaged` 记下最近 [`ROAR_WINDOW`] tick 受到的
+//! 每一下，看到 `w_mend` 就按 [`roar_heal`] 回血并摘掉它。强化版副本挂的 `league_rengar_we_cc` 只是画面（不免控），被动在它挂上的
+//! 那一 tick 清掉他身上的控制（`entity_clear_cc`）。日志 `ROAR`、`CLEANSE`。
+//!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_rengar_bush.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //! 每种行先写 `LOG_FIRST` 条、之后每 `LOG_EVERY` 条一条（屏幕上那场每条都写）：`INTO` / `OUT OF`（进出草丛）、`READY`、
@@ -75,6 +81,12 @@ const R_ON: &str = "league_rengar_r_on";
 const FIGHT: &str = "league_rengar_fight";
 /// 这条命出过第一下（数据的复活就绪用掉了）。
 const INIT: &str = "league_rengar_init";
+/// 副本的 W 咆哮时挂的 2 tick 标记：被动按最近 [`ROAR_WINDOW`] tick 受到的伤害回血（[`roar_heal`]），然后摘掉。
+pub const W_MEND: &str = "league_rengar_w_mend";
+/// 副本的强化 W 挂的标记（画面，不免控）：挂上的那一 tick 被动清掉他身上的控制。
+pub const WE_CC: &str = "league_rengar_we_cc";
+/// 战争咆哮算的那段时间（英雄联盟：最近 1.5 秒）。
+pub const ROAR_WINDOW: usize = 90;
 /// league_ivern 给站在艾翁草丛里的英雄挂的标记（用户 2026-10-22：「还有艾翁的W能触发雷恩加尔的跳 别忘了」）。
 const IVERN_BRUSH: &str = "league_ivern_in_brush";
 /// 地图格子的边长（世界单位，卡密尔附加包量过墙格子：30 x 32000 = 960000）。
@@ -563,6 +575,8 @@ struct Marks {
     fighting: bool,
     init: bool,
     ivern: bool,
+    roar: bool,
+    guard: bool,
 }
 
 fn marks(sim: &StableSim<'_>, me: usize) -> Marks {
@@ -576,6 +590,8 @@ fn marks(sim: &StableSim<'_>, me: usize) -> Marks {
                 FIGHT => m.fighting = true,
                 INIT => m.init = true,
                 IVERN_BRUSH => m.ivern = true,
+                W_MEND => m.roar = true,
+                WE_CC => m.guard = true,
                 _ => {}
             }
         }
@@ -639,6 +655,22 @@ impl StableEffectType for AimFx {
     }
 }
 
+// ===================== 战争咆哮 =====================
+
+/// A monster's hit (League's roar heals 100% of what monsters dealt, 50% of the rest).
+pub fn monster(kind: Option<EntityKindV1>) -> bool {
+    matches!(kind, Some(EntityKindV1::Jungle | EntityKindV1::Epic | EntityKindV1::Serpen))
+}
+
+/// Battle Roar's heal at tick `now` (League V26.05: "Rengar stores 50% of the post-mitigation damage he has taken in the
+/// last 1.5 seconds", "100% of damage taken from monsters"): `hits` are (tick, damage, from a monster).
+pub fn roar_heal(hits: &[(usize, usize, bool)], now: usize) -> usize {
+    hits.iter()
+        .filter(|h| h.0 + ROAR_WINDOW > now && h.0 <= now)
+        .map(|&(_, d, from_monster)| if from_monster { d } else { d / 2 })
+        .sum()
+}
+
 // ===================== 骨齿项链 =====================
 
 /// The Trophies' caster flags: the main pack's names (its data gives them for his own kills; the add-on's copy leaves
@@ -674,6 +706,9 @@ struct Bush {
     /// 骨齿项链：已经拿过战利品的敌方英雄（分路），击杀记录读到第几条。
     trophies: Vec<u32>,
     kills_seen: usize,
+    /// 战争咆哮：最近 [`ROAR_WINDOW`] tick 受到的每一下（tick、伤害、是不是野怪打的）；上一 tick 身上有没有强化 W 的标记。
+    hurt: std::collections::VecDeque<(usize, usize, bool)>,
+    had_guard: bool,
     /// 身上的就绪归本包管（[`still_mine`]）。
     mine: bool,
     /// 走出草丛的 tick 数。
@@ -724,6 +759,33 @@ impl Bush {
     }
 }
 
+impl Bush {
+    /// Battle Roar in the copy: the data's `w_mend` asks for League's heal (the damage of the last 1.5 s), the empowered
+    /// roar's `we_cc` appearing clears the crowd control on him.
+    fn battle_roar(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize, m: &Marks, shown: bool) {
+        if m.roar {
+            sim.entity_remove_buff(me, W_MEND);
+            let hits: Vec<(usize, usize, bool)> = self.hurt.iter().copied().collect();
+            let amount = roar_heal(&hits, tick);
+            if amount > 0 {
+                sim.heal(me, me, amount);
+            }
+            if let Some(k) = counted("roar", shown) {
+                let taken: usize = hits.iter().filter(|h| h.0 + ROAR_WINDOW > tick).map(|h| h.1).sum();
+                wlog(format!("{} ROAR: healed {amount} - half of {taken} taken in the last {ROAR_WINDOW} ticks (monsters' in full) #{k}",
+                             head(sim, me)));
+            }
+        }
+        if m.guard && !self.had_guard {
+            let n = sim.entity_clear_cc(me);
+            if let Some(k) = counted("cleanse", shown) {
+                wlog(format!("{} CLEANSE: the empowered roar cleared {n} crowd control effect(s) #{k}", head(sim, me)));
+            }
+        }
+        self.had_guard = m.guard;
+    }
+}
+
 impl StablePassive for Bush {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
@@ -746,6 +808,20 @@ impl StablePassive for Bush {
         self.had_kept = false;
         self.had_init = false;
         self.source = Source::Other;
+        self.hurt.clear();
+        self.had_guard = false;
+    }
+
+    fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _: usize, attacker: usize, damage: usize) {
+        if damage == 0 {
+            return;
+        }
+        let now = sim.tick();
+        let from_monster = sim.get_entity(attacker).is_some_and(|a| monster(a.kind()));
+        self.hurt.push_back((now, damage, from_monster));
+        while self.hurt.front().is_some_and(|h| h.0 + ROAR_WINDOW <= now) {
+            self.hurt.pop_front();
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
@@ -782,6 +858,9 @@ impl StablePassive for Bush {
         }
         let in_map_bush = map_bush(self.bushes.as_ref(), x, y, || !sim.is_visible(1 - team.min(1), me));
         let m = marks(sim, me);
+        if alive {
+            self.battle_roar(sim, me, tick, &m, shown);
+        }
         // Ivern's brush (league_ivern marks the champions standing in one, either team: League's rule)
         let in_bush = in_map_bush || m.ivern;
         if in_bush != self.was_in && alive {
@@ -951,9 +1030,25 @@ mod tests {
 
     #[test]
     fn the_copy_speaks_our_names() {
-        for name in [READY, KEPT, R_ON, FIGHT, INIT, "league_rengar_bush:aim", "league_rengar_bush:bush"] {
+        for name in [READY, KEPT, R_ON, FIGHT, INIT, W_MEND, WE_CC, "league_rengar_bush:aim", "league_rengar_bush:bush"] {
             assert!(COPY.contains(&format!("\"{name}\"")), "{name} is not in the copy: run make_override.py");
         }
+    }
+
+    #[test]
+    fn the_roar_heals_half_the_last_one_and_a_half_seconds() {
+        // League: 50% of the damage taken in the last 1.5 s, 100% of a monster's
+        let hits = [(100, 400, false), (150, 200, false), (180, 61, false), (185, 90, true)];
+        assert_eq!(roar_heal(&hits, 189), 200 + 100 + 30 + 90);
+        // tick 100 drops out at 190 (90 ticks later), 150 at 240
+        assert_eq!(roar_heal(&hits, 190), 100 + 30 + 90);
+        assert_eq!(roar_heal(&hits, 274), 90);
+        assert_eq!(roar_heal(&hits, 275), 0);
+        assert_eq!(roar_heal(&[], 50), 0);
+        assert!(monster(Some(EntityKindV1::Jungle)) && monster(Some(EntityKindV1::Epic)));
+        assert!(!monster(Some(EntityKindV1::Champion)) && !monster(Some(EntityKindV1::Minion)) && !monster(None));
+        // the copy's roar asks the passive (no heal of its own), its empowered flag no longer keeps crowd control off
+        assert!(COPY.contains(&format!("\"{W_MEND}\"")), "run make_override.py");
     }
 
     #[test]

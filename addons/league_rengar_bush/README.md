@@ -78,3 +78,15 @@
 - 日志 `TROPHY 2 of 5: a takedown on the enemy champion of lane 3 (+2% attack in all)`。测试 `a_trophy_for_each_enemy_champion_he_takes_down_once`。
 
 经典引擎跑不了原生代码；下一局看 `TROPHY` 行的枚数和击杀、助攻对不对得上。
+
+## 战争咆哮按英雄联盟回血、解控（v0.2.4，2026-11-14）
+
+同一张清单（「全改吧」）。英雄联盟（V26.05）：W 回复「最近 1.5 秒受到的伤害的 50%」（"Rengar stores 50% of the post-mitigation damage he has taken in the last 1.5 seconds"，野怪打的 100%），强化版「Rengar cleanses himself from all crowd control」。主包的数据读不到受到的伤害、也去不掉身上的控制：固定回复 40 + 50% 攻击力，强化版回复翻倍、1.5 秒免控。
+
+- 副本（`build_rengar.py` 的 native=1）的 W 不在数据里回血，咆哮时挂 2 tick 的 `league_rengar_w_mend`；强化版的 `league_rengar_we_cc` 只是画面（不带 `cc_immune`）。
+- 被动的 `on_damaged` 记下最近 90 tick（`ROAR_WINDOW`）受到的每一下和是不是野怪打的；看到 `w_mend` 就回复其中的 50%（野怪的全部，`roar_heal`），摘掉标记。`we_cc` 挂上的那一 tick 清掉他身上的控制（`entity_clear_cc`）。
+- W 的说明换成副本自己的 `skill` 键（「回复最近 1.5 秒受到伤害的 50%（野怪的全部）。强化：解除身上的控制」）。
+- 主包和副本都加了英雄联盟的「强化技能加速」：残暴满 4 点放出的强化技能（Q、W、E）移速 +40%，1.5 秒（英雄联盟按等级 30 / 40 / 50%，数据读不到等级，取中间那档）。
+- 日志 `ROAR: healed 330 - half of 660 taken in the last 90 ticks`、`CLEANSE: the empowered roar cleared 1 crowd control effect(s)`。测试 `the_roar_heals_half_the_last_one_and_a_half_seconds`。
+
+经典引擎跑不了原生代码；下一局看 `ROAR` 行回了多少、`CLEANSE` 有没有在被控时出现。

@@ -8,7 +8,9 @@ writes addons/league_renekton/override/league_renekton.data_champion and .../tex
   * passive = the add-on's league_renekton:anger with the numbers from P as its params (f_n, f_t, low = n_low,
     every = n_every): below low% health every every-th rung of Fury he gains brings one more;
   * the attack's tooltip (the passive) points to description.league_renekton.attack with a "test build" lead and the
-    below-half-health sentence, so the tooltip in game shows whether the override took.
+    below-half-health sentence, so the tooltip in game shows whether the override took;
+  * the empowered W's first strike calls league_renekton:rend before its damage (League: it destroys the target's
+    shields; 0.1.4, 2026-11-14), and skill2's tooltip is description.league_renekton.skill2 saying so.
 Every other champion stays untouched. Run it again whenever the main pack's Renekton changes.
 """
 import json
@@ -30,6 +32,15 @@ NATIVE = {
     "en": ("[Low-health Fury test build] ", " Below " + A + "{low}%" + E + " health he builds Fury 50% faster."),
     "ko": ("[빈사 분노 테스트판] ", " 체력이 " + A + "{low}%" + E + " 미만이면 분노 획득 +50%."),
     "ja": ("【瀕死憤怒テスト版】", "体力" + A + "{low}%" + E + "未満で憤怒の蓄積+50%。"),
+}
+# lang -> (the main pack's empowered-W wording in skill2's text, the add-on's: its first strike breaks shields)
+REND = {
+    "zh-hans": ("（强化三刀、" + A + "{w_stun_e}秒" + E + "）", "（强化三刀、" + A + "{w_stun_e}秒" + E + "，第一刀打碎护盾）"),
+    "zh-hant": ("（強化三刀、" + A + "{w_stun_e}秒" + E + "）", "（強化三刀、" + A + "{w_stun_e}秒" + E + "，第一刀打碎護盾）"),
+    "en": (" (empowered: three, " + A + "{w_stun_e}s" + E + ")",
+           " (empowered: three, " + A + "{w_stun_e}s" + E + ", the first breaking shields)"),
+    "ko": ("(강화: 3회, " + A + "{w_stun_e}초" + E + ")", "(강화: 3회, " + A + "{w_stun_e}초" + E + ", 첫 베기가 보호막 파괴)"),
+    "ja": ("（強化：3回、" + A + "{w_stun_e}秒" + E + "）", "（強化：3回、" + A + "{w_stun_e}秒" + E + "、初撃でシールド破壊）"),
 }
 
 
@@ -54,16 +65,35 @@ def main():
     if champion.get("passive", {}).get("passive_ref") != f"{MOD_ID}:anger":
         sys.exit("the native build has no league_renekton:anger passive: update this script")
     plain = kit.build(p)
-    if {k: v for k, v in champion.items() if k != "passive"} != plain:
-        sys.exit("the native build changes more than the passive: update this script")
+    rend = MOD_ID + ":rend"
+
+    def without_rend(o):
+        if isinstance(o, dict):
+            return {k: without_rend(v) for k, v in o.items()}
+        if isinstance(o, list):
+            # the rend sits in the strike's applied effects inside its Targeting wrapper
+            return [without_rend(v) for v in o if not (isinstance(v, dict) and rend in (
+                v.get("effect_ref"), (v.get("effect") or {}).get("effect_ref")))]
+        return o
+    if {k: without_rend(v) for k, v in champion.items() if k != "passive"} != plain:
+        sys.exit("the native build changes more than the passive and the empowered W's rend: update this script")
+    if json.dumps(champion["skill2"]).count('"' + rend + '"') != 1 or rend in json.dumps(champion["attack"]):
+        sys.exit("the copy's rend belongs once in skill2 (the empowered W's first strike): update this script")
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
+    champion["skill2"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".skill2"
 
     values = setup.values(p)
     texts = {}
     for lang, (lead, more) in NATIVE.items():
         texts[lang] = (lead + setup.TEXT[lang]["attack"] + more).format(low=p["n_low"], **values)
-    long = {lang: setup.shown_length(t) for lang, t in texts.items()
-            if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+    texts2 = {}
+    for lang, (old, new) in REND.items():
+        t = setup.TEXT[lang]["skill2"]
+        if t.count(old) != 1:
+            sys.exit(f"{lang}: the main pack's W text changed ({old!r} not found once): update REND")
+        texts2[lang] = t.replace(old, new).format(**values)
+    long = {f"{lang}.{k}": setup.shown_length(t) for k, tab in (("attack", texts), ("skill2", texts2))
+            for lang, t in tab.items() if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 
@@ -80,11 +110,12 @@ def main():
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang]}}} for lang in main_text},
-                           ensure_ascii=False, indent=2) + "\n")
+        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang], "skill2": texts2[lang]}}}
+                            for lang in main_text}, ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
-    print("tooltip lengths", {lang: f"{setup.shown_length(t)}/{setup.TOOLTIP_MAX[lang]}" for lang, t in texts.items()})
+    print("tooltip lengths", {f"{lang}.{k}": f"{setup.shown_length(t)}/{setup.TOOLTIP_MAX[lang]}"
+                              for k, tab in (("attack", texts), ("skill2", texts2)) for lang, t in tab.items()})
 
 
 if __name__ == "__main__":

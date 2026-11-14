@@ -22,7 +22,8 @@ TFM2 has three active slots: League's Savagery (an empowered attack) runs on its
           his own kills of any champion and are lost with his life; the add-on's copy leaves them to its passive:
           takedowns from the kill log (kills and assists), once per enemy champion, kept through death.
   Ferocity (凶残值): f1..f4 caster stacks (fero_t ticks, renewed by each gain): a point for each Savagery, roar, bola
-          and pounce; at four the next Savagery / roar / bola is empowered and spends them.
+          and pounce; at four the next Savagery / roar / bola is empowered and spends them, and the empowered cast
+          gives fe_ms% move speed for fe_ms_t ticks (`fe_ms`; League: 30 / 40 / 50% by level for 1.5 s, 2026-11-14).
   attack  The blade swing, the hit on tick a_st. Savagery (野蛮打击, automatic): the first attack after q_cd is the Q
           strip - a slam on tick q_slam_at (q_s_dmg + q_s_ratio% AD) and the rip on q_rip_at (q_dmg + q_ratio% AD) -
           then q_as% attack speed for q_as_t ticks. Empowered: qe_dmg + qe_ratio% AD and qe_as% for qe_as_t.
@@ -30,6 +31,9 @@ TFM2 has three active slots: League's Savagery (an empowered attack) runs on its
           to every enemy round him, a heal of w_heal + w_heal_r% AD (League heals a share of the damage he just took;
           nothing reads that, so it is a flat heal). Empowered: the heal x we_heal% and we_cc_t ticks of cc_immune
           (League's empowered roar breaks crowd control; no data effect removes it, so it keeps it off him).
+          The add-on's copy (native=1, League's roar, 2026-11-14): no heal in the data - the roar raises `w_mend`
+          (2 ticks) and league_rengar_bush:bush heals him 50% of the damage he took in the last 1.5 s (100% of a
+          monster's); empowered, `we_cc` is a plain flag (its picture) and the passive clears the crowd control on him.
   skill2  E Bola Strike (套索打击): a bola thrown on tick e_at toward the target (a line, the first unit it meets - a
           skillshot, dodgeable): e_dmg + e_ratio% AD and e_slow% slow for e_slow_t ticks. Empowered: rooted (`Bind`)
           e_root_t ticks.
@@ -80,6 +84,9 @@ P = {
     "leap_ratio": 50, "quiet": 180,
     # Ferocity (League: 4 stacks, lost one by one out of combat)
     "fero_t": 720,
+    # the empowered cast's speed (League V26.05: "30% / 40% / 50% (based on level) bonus movement speed for 1.5
+    # seconds"; the user's 「全改吧」, 2026-11-14; before: none). Data reads no level: League's middle step
+    "fe_ms": 40, "fe_ms_t": 90,
     # Savagery (League: next attack +30-150 + 0-40% AD, 40% attack speed 3 s, cd 6-4.5 s; empowered 30-240 + 30% AD,
     # 50-101% attack speed 5 s)
     "q_cd": 300, "q_dur": 29, "q_slam_at": 13, "q_rip_at": 16, "q_s_dmg": 10, "q_s_ratio": 30, "q_dmg": 30,
@@ -243,7 +250,8 @@ def build(p):
                                                sw("f1", combine(*rm("f1"), refresh("f2", p["fero_t"])),
                                                   refresh("f1", p["fero_t"])))))
 
-    spend = combine(*rm("f1", "f2", "f3", "f4"))
+    # spent by an empowered cast (Savagery, roar, bola): the four points go, the speed comes (League's passive)
+    spend = combine(*rm("f1", "f2", "f3", "f4"), refresh("fe_ms", p["fe_ms_t"], move_speed_mult=p["fe_ms"]))
 
     # ------------------------------------------------------------------ the passive's readiness
     ready = sw("ready", NONE, flag("ready", None, range=p["leap_range"]))
@@ -352,11 +360,15 @@ def build(p):
         h = p["we_heal"] if emp else 100
         # (no kill check on the roar: it would add 64 nodes to a slot the game copies every tick - a kill by the roar
         # is no Trophy in the main pack; the add-on counts takedowns from the kill log)
+        # the add-on's copy: League's heal (50% of the damage taken in the last 1.5 s) and cleanse are its passive's -
+        # `w_mend` asks for the heal, a plain `we_cc` (its picture) for the cleanse
+        mend = refresh("w_mend", 2) if p["native"] else heal(p["w_heal"] * h // 100, p["w_heal_r"] * h // 100)
+        guard = refresh("we_cc", p["we_cc_t"]) if p["native"] else refresh("we_cc", p["we_cc_t"], cc_immune=True)
         return combine(cview("w_roar"), sfx("w_emp" if emp else "w"),
                        around(p["w_r"], "EnemyWithoutTower", [attack(p["w_dmg"], p["w_ratio"]), view("a_hit")]),
                        around(p["w_r"], "EnemyChampion", [rival_mark]),
-                       heal(p["w_heal"] * h // 100, p["w_heal_r"] * h // 100), cview("w_heal"),
-                       *([refresh("we_cc", p["we_cc_t"], cc_immune=True), spend] if emp else [gain()]))
+                       mend, cview("w_heal"),
+                       *([guard, spend] if emp else [gain()]))
 
     skill = action("skill_w", p["w_dur"], p["w_cd"], 1, p["w_r"], "Targeting", "EnemyWithoutTower",
                    combine(act, rival, anim("skill_w", p["w_dur"]), voice("vo_w", p),

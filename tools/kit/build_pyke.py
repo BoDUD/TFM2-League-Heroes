@@ -12,6 +12,11 @@ the target's current health, which the data cannot read - goes to a native add-o
           him for p_calm ticks after an attack (a `Delayed` queued by every attack checks the sensor and `hurt`).
           League's "no bonus health, bonus health becomes AD" is the stat line: little health and growth, more AD
           growth.
+          The add-on's copy (native=1, addons/league_pyke, 2026-11-14): League's grey health instead - no sensor and
+          no levels in the data; its passive league_pyke:grey stores p_share% of the damage enemy champions deal him
+          (p_crowd% with two or more visible enemy champions within p_near), at most p_cap% of his maximum health and
+          his missing health, and heals it back quickly while the enemy team cannot see him (a bush, W's camouflage);
+          gone at his death.
   attack  A harpoon swing on the target, the hit a_st ticks in.
   skill   Q Bone Skewer (透骨尖钉), smart: a `Direction` cast on `EnemyWithoutTower`. An enemy champion within q_close
           -> the tap: a stab (skill_stab, q_stab_t ticks) on that champion at q_stab_at: q_dmg + q_ratio% AD and a
@@ -66,6 +71,11 @@ P = {
     "atk_range": 24000, "atk_dur": 24, "atk_cd": 55, "a_st": 12,
     # passive: grey health (League: 10% + lethality of champion damage taken in the last 4 s, healed while unseen)
     "p_lv": 5, "p_keep": 480, "p_calm": 180, "p_heal": 15, "p_heal_r": 8, "p_pulse_n": 4, "p_pulse": 12,
+    # the add-on's copy (native=1): League's grey health (V26.06: "stores 9% (+ 0.2% per 1 Lethality) of the
+    # post-mitigation damage he takes from enemy champions", "increased to 40% ... while there are two or more visible
+    # enemy champions nearby", healed "While Pyke is not visible to enemies", "an upper cap of 55% of his maximum
+    # health"; no lethality here; p_near: the passive's 1500 radius at this map's scale; the user's 「全改吧」, 2026-11-14)
+    "p_share": 9, "p_crowd": 40, "p_near": 120000, "p_cap": 55,
     # skill: Q Bone Skewer (League: tap 100-? + 60% bonus AD stab; hold 0.5-1 s, 1100 range, 70 width, 2000 speed,
     # pull 500, slow 90% 1 s, cd 10-7.5 s)
     "q_cd": 420, "q_range": 100000, "q_close": 26000, "q_stab_t": 22, "q_stab_at": 13, "q_hold": 36, "q_throw_t": 14,
@@ -84,6 +94,8 @@ P = {
     "qe_t": 150, "qe_lead": 3, "eq_t": 150, "eq_reach": 14000,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the add-on's copy (addons/league_pyke/make_override.py): the grey health is its native passive
+    "native": 0,
 }
 
 
@@ -269,6 +281,10 @@ def build(p):
     check = sw("init",
                sw("sense", NONE, combine(climb(), refresh("hurt", p["p_calm"]), *sensor())),
                combine(*sensor(), flag("init", None)))
+    if p["native"]:   # the add-on's copy: the grey health is league_pyke:grey's (no sensor, no levels, no data heal)
+        calm, check, grey_back = NONE, NONE, NONE
+    else:
+        grey_back = grey_heal()
 
     # ------------------------------------------------------------------ attack: the harpoon swing
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
@@ -323,7 +339,7 @@ def build(p):
     camo = combine({"type": "CasterInvisible", "tick": p["w_camo"]}, refresh("w_camo", p["w_camo"]),
                    refresh("w_ms", p["w_ms_t"] // 2, move_speed_mult=p["w_ms"] // 2),
                    refresh("w_ms2", p["w_ms_t"], move_speed_mult=p["w_ms"] // 2),
-                   cview("w_cast"), sfx("w_cast"), grey_heal())
+                   cview("w_cast"), sfx("w_cast"), grey_back)
     skill2 = action("skill2", 3, p["c_cd"], 1, p["c_range"], "Targeting", "EnemyChampion",
                     combine(camo, sw("q_land", combine(*rm("q_land"), delayed(p["qe_lead"], dive)),
                                      delayed(p["c_lead"], dive))))
@@ -360,8 +376,12 @@ def build(p):
                E("e_hit"), E("r_mark", BIG, -1, False), E("r_strike", BIG, 2, False), E("r_hit"),
                E("r_reset", FX, 3, False), E("p_heal", FX, 3, False)]
     views_b = [B_("q_slow", FX, -1), B_("e_stun", FX, 3)]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": "league_pyke:grey",
+                            "params": {k: p[k] for k in ("p_share", "p_crowd", "p_near", "p_cap")}}
     return {
-        "id": ID, "category": "Assassin", "tags": ["AD", "Melee", "CC"],
+        "id": ID, "category": "Assassin", "tags": ["AD", "Melee", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],

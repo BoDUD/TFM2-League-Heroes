@@ -2,6 +2,7 @@
   "zh-hans": {
     "description": {
       "league_pyke": {
+        "attack": "【附加包】鱼叉挥砍。被动<#ff9028ff>溺水之幸<>：英雄打他的伤害存下9%成灰血（身边有2个以上敌方英雄时40%），最多最大生命55%；敌人看不见他时（草丛、W潜行）迅速<#66bb6aff>回成生命<>，阵亡清零。无法靠生命成长，攻击力成长更高。",
         "ult": "【精确斩杀测试版】只对斩得死的英雄出手。X形打击：生命不高于<#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>的英雄<#ff5050ff>被处决<>，其余受到一半的<#ffffffff>真实伤害<>。英雄死在X里，派克闪到那里并<#ffb900ff>刷新大招<>。"
       }
     }
@@ -9,6 +10,7 @@
   "zh-hant": {
     "description": {
       "league_pyke": {
+        "attack": "【擴充包】魚叉揮砍。被動<#ff9028ff>血港淹禮<>：英雄打他的傷害存下9%成灰血（身邊有2個以上敵方英雄時40%），最多最大生命55%；敵人看不見他時（草叢、W潛行）迅速<#66bb6aff>回成生命<>，陣亡清零。無法靠生命成長，攻擊力成長更高。",
         "ult": "【精確斬殺測試版】只對斬得死的英雄出手。X形打擊：生命不高於<#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>的英雄<#ff5050ff>被處決<>，其餘受到一半的<#ffffffff>真實傷害<>。英雄死在X裡，派克閃到那裡並<#ffb900ff>刷新大招<>。"
       }
     }
@@ -16,6 +18,7 @@
   "en": {
     "description": {
       "league_pyke": {
+        "attack": "[Add-on] Harpoon slashes. Passive <#ff9028ff>Gift of the Drowned Ones<>: 9% of the damage champions deal him is stored as grey health (40% with two or more enemy champions near), up to 55% of his maximum health; while enemies cannot see him (brush, W's camouflage) it quickly <#66bb6aff>heals him<>; lost at death. Little health growth, more AD growth.",
         "ult": "[Exact execute test build] Cast only on a champion it kills. Strikes an X: champions at or below <#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> health are <#ff5050ff>executed<>, the rest take half of it as <#ffffffff>true damage<>. A champion dying in the X blinks him to it and <#ffb900ff>refreshes the ult<>."
       }
     }
@@ -23,6 +26,7 @@
   "ko": {
     "description": {
       "league_pyke": {
+        "attack": "[확장] 작살 공격. 기본 지속 효과 <#ff9028ff>가라앉은 자들의 축복<>: 챔피언에게 받은 피해의 9%를 회색 체력으로 저장(적 챔피언 2명 이상 근처면 40%), 최대 체력의 55%까지; 적에게 보이지 않으면(수풀, W 위장) 빠르게 <#66bb6aff>체력 회복<>, 사망 시 소멸. 체력 성장 낮음, 공격력 성장 높음.",
         "ult": "[정밀 처형 테스트판] 처형할 수 있는 챔피언에게만 사용. X자 타격: 체력이 <#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 이하인 챔피언은 <#ff5050ff>처형<>, 나머지는 그 절반의 <#ffffffff>고정 피해<>. X 안에서 챔피언이 죽으면 그곳으로 이동하고 <#ffb900ff>궁극기 초기화<>."
       }
     }
@@ -30,6 +34,7 @@
   "ja": {
     "description": {
       "league_pyke": {
+        "attack": "【拡張】銛で斬る。パッシブ <#ff9028ff>沈みし者の力<>：チャンピオンからのダメージの9%をグレー体力に（敵2体以上が近いと40%）、最大体力の55%まで；敵に見えないとき（茂み、Wの擬態）素早く<#66bb6aff>回復<>、デスで消える。体力成長は低く攻撃力成長は高い。",
         "ult": "【精密処刑テスト版】処刑できるチャンピオンにだけ使う。X字の斬撃：体力<#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>以下のチャンピオンは<#ff5050ff>処刑<>、残りはその半分の<#ffffffff>確定ダメージ<>。X内でチャンピオンが死ぬとそこへ移動し<#ffb900ff>アルティメット再使用<>。"
       }
     }

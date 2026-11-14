@@ -369,7 +369,7 @@
         "name": "希维尔",
         "attack": "被动 <#ff9028ff>敏锐疾行<>：攻击或技能命中英雄时移速+<#ffb900ff>25%<>，2秒内递减。<#ff9028ff>弹射<>：每<#ffb900ff>10秒<>下一次攻击开启<#ffb900ff>4秒<>弹射：攻速+<#ffb900ff>45%<>，攻击再弹向目标身后最多<#ffb900ff>3<>个敌人，各造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害（可暴击）。",
         "skill": "掷出十字刃，飞到尽头再飞回手中，往返都对路上所有敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害。附近有英雄时朝他所在的位置掷出（出手前锁定，可以躲开）。",
-        "skill2": "张开法术护盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能伤害和控制<>。第一次被击中时回复<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命并触发敏锐疾行，护盾再撑<#ffb900ff>1秒<>后破碎。",
+        "skill2": "张开法术护盾，最多<#ffb900ff>1.5秒<>：<#ef5350ff>免疫技能伤害和控制<>。第一次被击中时回复<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命并触发敏锐疾行，护盾再撑<#ffb900ff>1秒<>后破碎。",
         "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持续<#ffb900ff>8秒<>。狩猎期间希维尔的攻击命中英雄会缩短回旋之刃和法术护盾的冷却，弹射冷却减半；她的攻击击杀英雄时刷新狩猎。"
       },
       "league_twistedfate": {
@@ -536,7 +536,7 @@
       "league_rengar": {
         "name": "雷恩加尔",
         "attack": "<#ff9028ff>无形掠食者<>：复活、脱战<#ffb900ff>3秒<>或R后，下次攻击扑向目标造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>伤害。技能和扑击各得1点<#ff9028ff>残暴<>，满4点强化下个技能。<#ff9028ff>残忍无情<>（自动，<#ffb900ff>5秒<>）：攻击造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>伤害，攻速+40%；强化时<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>连招<>：空中Q、三Q。",
-        "skill": "咆哮，对周围敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>伤害，回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。<#ff9028ff>强化<>：回复200%，<#ffb900ff>1.5秒<>内<#ef5350ff>免疫控制<>。",
+        "skill": "咆哮，对周围敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>伤害，回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。<#ff9028ff>强化<>：回复200%，<#ffb900ff>1.5秒<>内<#ef5350ff>免疫控制<>。<#ff9028ff>强化技能<>都加速40%，持续<#ffb900ff>1.5秒<>。",
         "skill2": "掷出套索，命中首个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并<#ef5350ff>减速40%<><#ffb900ff>1.75秒<>。<#ff9028ff>强化<>：<#ef5350ff>禁锢1.75秒<>。<#ff9028ff>连招扑脸定身<>：扑击命中英雄后<#ffb900ff>1.5秒<>内的E必中，<#ef5350ff>禁锢1秒<>。",
         "ult": "对交战中的英雄发动：伪装<#ffb900ff>5秒<>，移速+40%，下次攻击为扑击，额外造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害，<#ef5350ff>护甲-25%<><#ffb900ff>4秒<>。<#ff9028ff>连招R一套<>：R→扑击→E禁锢→Q。<#ff9028ff>骨齿项链<>：击杀英雄得一枚战利品（最多5枚），攻击力最多+15%。"
       },
@@ -783,7 +783,7 @@
         "attack": "长矛突刺。<#ff9028ff>矢志不退<>：普攻命中和放技能各叠一层，<#ffb900ff>5层<>时下一个技能强化（每条命开局满层）。<#ff9028ff>大荒星陨<>被动：护甲穿透15%。",
         "skill": "近处向前突刺，远处蓄力后掷出长矛，对线上的敌人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>（掷出时第一个之后减半）。强化：额外<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>。",
         "skill2": "跃向敌方英雄，造成其7%最大生命的伤害并<#ef5350ff>晕眩1秒<>；强化：下次普攻连刺3下。<#ff9028ff>神佑枪阵<>：举盾<#ffb900ff>1.5秒<>，免疫控制、减伤60%，连刺前方后盾击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。",
-        "ult": "下蹲<#ffb900ff>1秒<>后跃起，落向交战中的敌人：长矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并减速50%，落地造成<#a974ffff>300魔法伤害<>（边缘减半），叠满被动。"
+        "ult": "下蹲<#ffb900ff>1秒<>后跃起，落向交战中的敌人：长矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并减速50%，落地造成<#a974ffff>300魔法伤害<>（边缘减半），叠满被动。<#ef5350ff>下蹲时被控制会打断<>，冷却只剩<#ffb900ff>10秒<>。"
       },
       "league_orianna": {
         "name": "奥莉安娜",
@@ -1161,7 +1161,7 @@
         "attack": "挥斧。<#ff9028ff>斯嘎尔<>替他挡伤害（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%），没了就下马：攻击-10%，不能比武、冲锋；打人攒勇气，满了上马。<#ff9028ff>暴烈秉性<>：每<#ffb900ff>10秒<>四下快攻，第四下多<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大生命6%。",
         "skill": "扔捕熊夹造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夹住英雄<#ef5350ff>减速<>40%，<#ffb900ff>1.5秒<>后再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>并<#ef5350ff>拽过来<>。下马时是<#ff9028ff>随身手枪<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往后跳。",
         "skill2": "斯嘎尔冲过目标造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害，加速50%；穿过英雄还会再冲回来一次。",
-        "ult": "带护盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）冲向敌方英雄，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%并<#ef5350ff>击退<>；身边队友加速40%。"
+        "ult": "带护盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）冲向敌方英雄，冲锋中<#ef5350ff>免控<>，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%并<#ef5350ff>击退<>；身边队友加速40%。"
       },
       "league_yorick": {
         "name": "约里克",
@@ -2451,7 +2451,7 @@
         "name": "希維爾",
         "attack": "被動 <#ff9028ff>戰鬥動能<>：攻擊或技能命中英雄時移速+<#ffb900ff>25%<>，2秒內遞減。<#ff9028ff>十字彈射<>：每<#ffb900ff>10秒<>下一次攻擊開啟<#ffb900ff>4秒<>彈射：攻速+<#ffb900ff>45%<>，攻擊再彈向目標身後最多<#ffb900ff>3<>個敵人，各造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害（可暴擊）。",
         "skill": "擲出十字刃，飛到盡頭再飛回手中，往返都對路上所有敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害。附近有英雄時朝他所在的位置擲出（出手前鎖定，可以躲開）。",
-        "skill2": "張開法術護盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能傷害和控制<>。第一次被擊中時回復<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命並觸發戰鬥動能，護盾再撐<#ffb900ff>1秒<>後破碎。",
+        "skill2": "張開法術護盾，最多<#ffb900ff>1.5秒<>：<#ef5350ff>免疫技能傷害和控制<>。第一次被擊中時回復<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命並觸發戰鬥動能，護盾再撐<#ffb900ff>1秒<>後破碎。",
         "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持續<#ffb900ff>8秒<>。狩獵期間希維爾的攻擊命中英雄會縮短迴旋之刃和法術護盾的冷卻，十字彈射冷卻減半；她的攻擊擊殺英雄時刷新狩獵。"
       },
       "league_twistedfate": {
@@ -2618,7 +2618,7 @@
       "league_rengar": {
         "name": "雷葛爾",
         "attack": "<#ff9028ff>潛行怒獅<>：復活、脫戰<#ffb900ff>3秒<>或R後，下次攻擊撲向目標造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>傷害。技能和撲擊各得1點<#ff9028ff>兇殘<>，滿4點強化下個技能。<#ff9028ff>兇殘打擊<>（自動，<#ffb900ff>5秒<>）：攻擊造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>傷害，攻速+40%；強化時<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>連招<>：空中Q、三Q。",
-        "skill": "咆哮，對周圍敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>傷害，回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。<#ff9028ff>強化<>：回復200%，<#ffb900ff>1.5秒<>內<#ef5350ff>免疫控場<>。",
+        "skill": "咆哮，對周圍敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>傷害，回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。<#ff9028ff>強化<>：回復200%，<#ffb900ff>1.5秒<>內<#ef5350ff>免疫控場<>。<#ff9028ff>強化技能<>都加速40%，持續<#ffb900ff>1.5秒<>。",
         "skill2": "擲出拋繩，命中首個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並<#ef5350ff>緩速40%<><#ffb900ff>1.75秒<>。<#ff9028ff>強化<>：<#ef5350ff>定身1.75秒<>。<#ff9028ff>連招撲臉定身<>：撲擊命中英雄後<#ffb900ff>1.5秒<>內的E必中，<#ef5350ff>定身1秒<>。",
         "ult": "對交戰中的英雄發動：偽裝<#ffb900ff>5秒<>，跑速+40%，下次攻擊為撲擊，額外造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害，<#ef5350ff>護甲-25%<><#ffb900ff>4秒<>。<#ff9028ff>連招R一套<>：R→撲擊→E定身→Q。<#ff9028ff>骨牙項鍊<>：擊殺英雄得一枚戰利品（最多5枚），攻擊力最多+15%。"
       },
@@ -2865,7 +2865,7 @@
         "attack": "長矛突刺。<#ff9028ff>凡人堅志<>：普攻命中和施放技能各疊一層，<#ffb900ff>5層<>時下一個技能強化（每條命開局滿層）。<#ff9028ff>星殞衝擊<>被動：護甲穿透15%。",
         "skill": "近處向前突刺，遠處蓄力後擲出長矛，對線上的敵人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>（擲出時第一個之後減半）。強化：額外<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>。",
         "skill2": "躍向敵方英雄，造成其7%最大生命的傷害並<#ef5350ff>暈眩1秒<>；強化：下次普攻連刺3下。<#ff9028ff>聖盾猛襲<>：舉盾<#ffb900ff>1.5秒<>，免疫控制、減傷60%，連刺前方後盾擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。",
-        "ult": "蹲伏<#ffb900ff>1秒<>後躍起，落向交戰中的敵人：長矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並緩速50%，落地造成<#a974ffff>300魔法傷害<>（邊緣減半），疊滿被動。"
+        "ult": "蹲伏<#ffb900ff>1秒<>後躍起，落向交戰中的敵人：長矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並緩速50%，落地造成<#a974ffff>300魔法傷害<>（邊緣減半），疊滿被動。<#ef5350ff>蹲伏時被控場會中斷<>，冷卻只剩<#ffb900ff>10秒<>。"
       },
       "league_orianna": {
         "name": "奧莉安娜",
@@ -3243,7 +3243,7 @@
         "attack": "揮斧。<#ff9028ff>小嘎<>替他擋傷害（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%），沒了就下馬：攻擊-10%，不能比武、衝鋒；打人攢勇氣，滿了上馬。<#ff9028ff>生性暴戾<>：每<#ffb900ff>10秒<>四下快攻，第四下多<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大生命6%。",
         "skill": "丟出捕獸夾造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夾住英雄<#ef5350ff>緩速<>40%，<#ffb900ff>1.5秒<>後再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>並<#ef5350ff>拉過來<>。下馬時是<#ff9028ff>隨身手槍<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往後跳。",
         "skill2": "小嘎衝過目標造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害，加速50%；穿過英雄還會再衝回來一次。",
-        "ult": "帶護盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）衝向敵方英雄，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%並<#ef5350ff>擊退<>；身邊隊友加速40%。"
+        "ult": "帶護盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）衝向敵方英雄，衝鋒中<#ef5350ff>免控<>，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%並<#ef5350ff>擊退<>；身邊隊友加速40%。"
       },
       "league_yorick": {
         "name": "約瑞科",
@@ -4533,7 +4533,7 @@
         "name": "Sivir",
         "attack": "Passive <#ff9028ff>Fleet of Foot<>: hitting a champion with an attack or a spell gives <#ffb900ff>25%<> move speed, fading over 2s. <#ff9028ff>Ricochet<>: every <#ffb900ff>10s<> her next attack starts <#ffb900ff>4s<> of Ricochet: +<#ffb900ff>45%<> attack speed, and each attack also bounces to up to <#ffb900ff>3<> enemies behind its target for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage (can crit).",
         "skill": "Sivir hurls her crossblade: it flies to the end of its path and back to her hand, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> to every enemy it cuts through on both passes. With a champion in reach she throws it where he stands (aimed before it leaves: it can be dodged).",
-        "skill2": "Sivir raises a spell shield for up to <#ffb900ff>3s<>: <#ef5350ff>immune to spell damage and crowd control<>. The first hit she takes heals her for <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> and triggers Fleet of Foot; the shield breaks <#ffb900ff>1s<> later.",
+        "skill2": "Sivir raises a spell shield for up to <#ffb900ff>1.5s<>: <#ef5350ff>immune to spell damage and crowd control<>. The first hit she takes heals her for <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> and triggers Fleet of Foot; the shield breaks <#ffb900ff>1s<> later.",
         "ult": "Nearby allied champions, Sivir included, gain <#ffb900ff>30%<> move speed for <#ffb900ff>8s<>. While she hunts, her attacks that hit champions take time off Boomerang Blade and Spell Shield, Ricochet comes back twice as fast, and a champion her attack kills renews the hunt."
       },
       "league_twistedfate": {
@@ -4700,7 +4700,7 @@
       "league_rengar": {
         "name": "Rengar",
         "attack": "Blade swings. <#ff9028ff>Unseen Predator<>: on respawn, after <#ffb900ff>3s<> out of combat or after R, his next attack leaps at a distant target for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>. Skills and leaps give 1 <#ff9028ff>Ferocity<>; at 4 his next skill is empowered. <#ff9028ff>Savagery<> (automatic, <#ffb900ff>5s<>): an attack for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> and +40% attack speed; empowered <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>. <#ff9028ff>Combos<>: air Q, triple Q.",
-        "skill": "Roars, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> to enemies around him and healing <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>. <#ff9028ff>Empowered<>: 200% heal and <#ef5350ff>immune to crowd control<> for <#ffb900ff>1.5s<>.",
+        "skill": "Roars, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> to enemies around him and healing <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>. <#ff9028ff>Empowered<>: 200% heal and <#ef5350ff>immune to crowd control<> for <#ffb900ff>1.5s<>. <#ff9028ff>Every empowered skill<> also gives +40% move speed for <#ffb900ff>1.5s<>.",
         "skill2": "Throws a bola: the first enemy hit takes <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> and is <#ef5350ff>slowed 40%<> for <#ffb900ff>1.75s<>. <#ff9028ff>Empowered<>: <#ef5350ff>rooted 1.75s<>. <#ff9028ff>Combo leap-E<>: within <#ffb900ff>1.5s<> of a leap onto a champion the bola cannot miss and <#ef5350ff>roots 1s<>.",
         "ult": "On a champion in a fight: camouflaged for <#ffb900ff>5s<>, +40% move speed; his next attack is a leap for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> more and <#ef5350ff>-25% armour<> for <#ffb900ff>4s<>. <#ff9028ff>Combo R one-shot<>: R, leap, rooting E, Savagery. <#ff9028ff>Bonetooth Necklace<>: each champion he kills is a Trophy (up to 5), up to +15% attack."
       },
@@ -4947,7 +4947,7 @@
         "attack": "Spear thrusts. <#ff9028ff>Mortal Will<>: attacks that land and ability casts each add a stack; at <#ffb900ff>5 stacks<> his next ability is empowered (full at the start of each life). <#ff9028ff>Grand Starfall<> passive: 15% armour penetration.",
         "skill": "Thrusts at a near target, or charges and throws the spear at a far one, dealing <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> to enemies on the line (a throw: half after the first). Empowered: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more.",
         "skill2": "Leaps at an enemy champion, dealing 7% of its max health and <#ef5350ff>stunning it 1s<>; empowered: his next attack strikes 3 times. <#ff9028ff>Aegis Assault<>: raises the shield <#ffb900ff>1.5s<>, immune to crowd control, 60% less damage, stabbing ahead, then bashes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>.",
-        "ult": "Crouches <#ffb900ff>1s<>, leaps and falls on enemies in a fight: his spear strikes first for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a 50% slow, then the landing deals <#a974ffff>300 magic damage<> (half at the edge) and fills Mortal Will."
+        "ult": "Crouches <#ffb900ff>1s<>, leaps and falls on enemies in a fight: his spear strikes first for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a 50% slow, then the landing deals <#a974ffff>300 magic damage<> (half at the edge) and fills Mortal Will. <#ef5350ff>Crowd control during the crouch cancels it<> (cooldown <#ffb900ff>10s<>)."
       },
       "league_orianna": {
         "name": "Orianna",
@@ -5325,7 +5325,7 @@
         "attack": "Axe blows. <#ff9028ff>Skaarl<> takes his damage (500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%); when he flees Kled fights on foot: -10% attack, no Jousting, no charge; hitting enemies builds courage to remount. <#ff9028ff>Violent Tendencies<>: every <#ffb900ff>10s<> four fast attacks, the fourth dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> + 6% max health more.",
         "skill": "Throws a bear trap for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; a champion caught is <#ef5350ff>slowed<> 40%, then after <#ffb900ff>1.5s<> takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> and is <#ef5350ff>yanked<> to him. On foot it is <#ff9028ff>Pocket Pistol<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, knocking him back.",
         "skill2": "Skaarl dashes through the target for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and +50% speed; through a champion he dashes back once more.",
-        "ult": "Charges an enemy champion with a shield (150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%): the ram deals <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 8% max health and <#ef5350ff>knocks it back<>; allies near him +40% speed."
+        "ult": "Charges an enemy champion with a shield (150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%), <#ef5350ff>immune to crowd control<>: the ram deals <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 8% max health and <#ef5350ff>knocks it back<>; allies near him +40% speed."
       },
       "league_yorick": {
         "name": "Yorick",
@@ -6615,7 +6615,7 @@
         "name": "시비르",
         "attack": "기본 지속 효과 <#ff9028ff>재빠른 발놀림<>: 공격이나 스킬로 챔피언을 맞히면 이동 속도 +<#ffb900ff>25%<>(2초에 걸쳐 감소). <#ff9028ff>튕기는 부메랑<>: <#ffb900ff>10초<>마다 다음 공격이 <#ffb900ff>4초<> 동안 튕기기를 켭니다: 공격 속도 +<#ffb900ff>45%<>, 공격이 대상 뒤의 적 최대 <#ffb900ff>3<>명에게 튕겨 각각 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해(치명타 가능).",
         "skill": "십자검을 던져 끝까지 날아갔다가 손으로 돌아오며, 오갈 때 모두 경로의 모든 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>. 근처에 챔피언이 있으면 그 위치로 던집니다(던지기 전에 조준: 피할 수 있음).",
-        "skill2": "최대 <#ffb900ff>3초<> 동안 주문 방어막: <#ef5350ff>스킬 피해와 군중 제어 면역<>. 처음 맞으면 체력을 <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> 회복하고 재빠른 발놀림 발동, 방어막은 <#ffb900ff>1초<> 뒤 깨집니다.",
+        "skill2": "최대 <#ffb900ff>1.5초<> 동안 주문 방어막: <#ef5350ff>스킬 피해와 군중 제어 면역<>. 처음 맞으면 체력을 <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> 회복하고 재빠른 발놀림 발동, 방어막은 <#ffb900ff>1초<> 뒤 깨집니다.",
         "ult": "주변 아군 챔피언(자신 포함) 이동 속도 +<#ffb900ff>30%<>, <#ffb900ff>8초<>. 사냥 중 챔피언을 맞힌 공격은 부메랑 검과 주문 방어막의 재사용 대기시간을 줄이고, 튕기는 부메랑은 두 배 빨리 돌아오며, 공격으로 챔피언을 처치하면 사냥이 갱신됩니다."
       },
       "league_twistedfate": {
@@ -6782,7 +6782,7 @@
       "league_rengar": {
         "name": "렝가",
         "attack": "<#ff9028ff>보이지 않는 포식자<>: 부활, <#ffb900ff>3초<> 비전투 또는 R 후 다음 공격은 멀리 도약해 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>의 피해. 스킬과 도약마다 <#ff9028ff>흉포<> 1, 4가 되면 다음 스킬 강화. <#ff9028ff>포악함<>(자동, <#ffb900ff>5초<>): 공격이 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 피해, 공격 속도 +40%; 강화 시 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>. <#ff9028ff>연계<>: 공중 Q, 트리플 Q.",
-        "skill": "포효해 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 피해를 주고 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<> 회복. <#ff9028ff>강화<>: 회복 200%, <#ffb900ff>1.5초<> 동안 <#ef5350ff>군중 제어 면역<>.",
+        "skill": "포효해 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 피해를 주고 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<> 회복. <#ff9028ff>강화<>: 회복 200%, <#ffb900ff>1.5초<> 동안 <#ef5350ff>군중 제어 면역<>. <#ff9028ff>강화 스킬<>은 모두 <#ffb900ff>1.5초<> 동안 이동 속도 +40%.",
         "skill2": "올가미를 던져 처음 맞힌 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해와 <#ffb900ff>1.75초<> <#ef5350ff>40% 둔화<>. <#ff9028ff>강화<>: <#ef5350ff>1.75초 속박<>. <#ff9028ff>연계 도약-E<>: 챔피언에게 도약한 뒤 <#ffb900ff>1.5초<> 안의 E는 반드시 맞고 <#ef5350ff>1초 속박<>.",
         "ult": "교전 중인 챔피언에게: <#ffb900ff>5초<> 위장, 이동 속도 +40%, 다음 공격은 도약으로 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 추가 피해와 <#ffb900ff>4초<> <#ef5350ff>방어력 -25%<>. <#ff9028ff>연계 R 원콤<>: R→도약→E 속박→Q. <#ff9028ff>뼈이빨 목걸이<>: 챔피언 처치마다 전리품(최대 5개), 공격력 최대 +15%."
       },
@@ -7029,7 +7029,7 @@
         "attack": "창으로 찌릅니다. <#ff9028ff>필멸자의 의지<>: 적중한 기본 공격과 스킬 사용마다 중첩, <#ffb900ff>5중첩<>이면 다음 스킬 강화(목숨마다 시작 시 최대). <#ff9028ff>거대 유성<> 패시브: 방어구 관통 15%.",
         "skill": "가까우면 앞으로 찌르고, 멀면 힘을 모아 창을 던져 선 위의 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>(던질 때 첫 적 이후 절반). 강화: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가.",
         "skill2": "적 챔피언에게 도약해 최대 체력의 7% 피해와 <#ef5350ff>1초 기절<>; 강화: 다음 기본 공격 3연타. <#ff9028ff>방패 돌격<>: <#ffb900ff>1.5초<> 방패를 들어 군중 제어 면역, 피해 60% 감소, 앞을 찌른 뒤 방패로 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>.",
-        "ult": "<#ffb900ff>1초<> 웅크렸다 도약해 교전 중인 적에게 떨어집니다: 창이 먼저 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 50% 둔화, 착지 시 <#a974ffff>300 마법 피해<>(가장자리 절반), 패시브 최대."
+        "ult": "<#ffb900ff>1초<> 웅크렸다 도약해 교전 중인 적에게 떨어집니다: 창이 먼저 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 50% 둔화, 착지 시 <#a974ffff>300 마법 피해<>(가장자리 절반), 패시브 최대. <#ef5350ff>웅크린 동안 군중 제어를 받으면 취소<>(재사용 대기시간 <#ffb900ff>10초<>)."
       },
       "league_orianna": {
         "name": "오리아나",
@@ -7407,7 +7407,7 @@
         "attack": "도끼 공격. <#ff9028ff>스칼<>이 피해를 대신 받음(500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%), 도망가면 걸어서 싸움: 공격력 -10%, 이랴!·돌격 불가; 적을 치면 용기가 쌓여 다시 탑승. <#ff9028ff>버럭버럭<>: <#ffb900ff>10초<>마다 빠른 4회 공격, 4번째 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> + 최대 체력 6%.",
         "skill": "덫을 던져 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; 걸린 챔피언 40% <#ef5350ff>둔화<>, <#ffb900ff>1.5초<> 뒤 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 후 <#ef5350ff>끌어옴<>. 걸어서는 <#ff9028ff>주머니 권총<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, 뒤로 밀려남.",
         "skill2": "스칼이 대상을 관통 돌진해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해, 이동 속도 +50%; 챔피언을 지나면 한 번 더 돌진.",
-        "ult": "보호막(150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%)을 두르고 적 챔피언에게 돌격, 부딪히면 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 최대 체력 8%와 <#ef5350ff>넉백<>; 주변 아군 이동 속도 +40%."
+        "ult": "보호막(150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%)을 두르고 적 챔피언에게 돌격(<#ef5350ff>군중 제어 면역<>), 부딪히면 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 최대 체력 8%와 <#ef5350ff>넉백<>; 주변 아군 이동 속도 +40%."
       },
       "league_yorick": {
         "name": "요릭",
@@ -8697,7 +8697,7 @@
         "name": "シヴィア",
         "attack": "パッシブ <#ff9028ff>戦駆け<>：攻撃かスキルがチャンピオンに当たると移動速度+<#ffb900ff>25%<>（2秒で減衰）。<#ff9028ff>跳刃<>：<#ffb900ff>10秒<>ごとに次の攻撃で<#ffb900ff>4秒<>跳刃：攻撃速度+<#ffb900ff>45%<>、攻撃が対象の後ろの敵最大<#ffb900ff>3<>体へ跳ね、各<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ（クリティカル可）。",
         "skill": "十字刃を投げ、端まで飛んで手元へ戻り、往復とも通り道の全ての敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>。近くにチャンピオンがいればその位置へ投げる（投げる前に狙う：避けられる）。",
-        "skill2": "最大<#ffb900ff>3秒<>スペルシールド：<#ef5350ff>スキルダメージと行動妨害を無効<>。最初に被弾すると<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>回復し戦駆けが発動、シールドは<#ffb900ff>1秒<>後に砕ける。",
+        "skill2": "最大<#ffb900ff>1.5秒<>スペルシールド：<#ef5350ff>スキルダメージと行動妨害を無効<>。最初に被弾すると<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>回復し戦駆けが発動、シールドは<#ffb900ff>1秒<>後に砕ける。",
         "ult": "周囲の味方チャンピオン（自身含む）の移動速度+<#ffb900ff>30%<>、<#ffb900ff>8秒<>。号令中、チャンピオンに当たった攻撃はブーメランブレードとスペルシールドのクールダウンを短縮し、跳刃は2倍速く戻り、攻撃でチャンピオンを倒すと号令が更新される。"
       },
       "league_twistedfate": {
@@ -8864,7 +8864,7 @@
       "league_rengar": {
         "name": "レンガー",
         "attack": "刃で攻撃。<#ff9028ff>見えざる襲撃者<>：復活時、<#ffb900ff>3秒<>非戦闘またはR後、次の攻撃で遠くの敵に飛びかかり<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>。スキルと跳躍ごとに<#ff9028ff>獰猛<>1、4で次のスキル強化。<#ff9028ff>逆上<>（自動、<#ffb900ff>5秒<>）：攻撃が<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、攻撃速度+40%；強化時<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>コンボ<>：空中Q、トリプルQ。",
-        "skill": "咆哮し周囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>、自身は<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>回復。<#ff9028ff>強化<>：回復200%、<#ffb900ff>1.5秒<><#ef5350ff>行動妨害無効<>。",
+        "skill": "咆哮し周囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>、自身は<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>回復。<#ff9028ff>強化<>：回復200%、<#ffb900ff>1.5秒<><#ef5350ff>行動妨害無効<>。<#ff9028ff>強化スキル<>はすべて<#ffb900ff>1.5秒<>移動速度+40%。",
         "skill2": "投げ縄を投げ最初の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>と<#ffb900ff>1.75秒<><#ef5350ff>40%スロウ<>。<#ff9028ff>強化<>：<#ef5350ff>1.75秒スネア<>。<#ff9028ff>コンボ跳躍E<>：チャンピオンへの跳躍後<#ffb900ff>1.5秒<>以内のEは必中で<#ef5350ff>1秒スネア<>。",
         "ult": "交戦中のチャンピオンに：<#ffb900ff>5秒<>カモフラージュ、移動速度+40%、次の攻撃は跳躍で<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>追加、<#ffb900ff>4秒<><#ef5350ff>物理防御-25%<>。<#ff9028ff>コンボR一撃<>：R→跳躍→Eスネア→Q。<#ff9028ff>骨牙の首飾り<>：チャンピオンを倒すたびトロフィー（最大5個）、攻撃力最大+15%。"
       },
@@ -9111,7 +9111,7 @@
         "attack": "槍で突く。<#ff9028ff>定命の意志<>：命中した通常攻撃とスキル使用でスタック、<#ffb900ff>5スタック<>で次のスキル強化（各ライフ開始時は最大）。<#ff9028ff>偉大なる星路<>パッシブ：物理防御貫通15%。",
         "skill": "近くなら前へ突き、遠ければ溜めて槍を投げ、線上の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>（投擲は最初の敵以降半減）。強化：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>追加。",
         "skill2": "敵チャンピオンへ跳び、最大体力の7%のダメージと<#ef5350ff>1秒スタン<>。強化：次の通常攻撃が3連撃。<#ff9028ff>イージスの猛攻<>：<#ffb900ff>1.5秒<>盾を構え、CC無効・被ダメージ60%軽減、前方を突いた後に盾で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。",
-        "ult": "<#ffb900ff>1秒<>身を屈めて跳び、交戦中の敵へ落下：槍が先に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と50%スロウ、着地で<#a974ffff>300の魔法ダメージ<>（外側は半減）、パッシブ最大。"
+        "ult": "<#ffb900ff>1秒<>身を屈めて跳び、交戦中の敵へ落下：槍が先に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と50%スロウ、着地で<#a974ffff>300の魔法ダメージ<>（外側は半減）、パッシブ最大。<#ef5350ff>屈み中に行動妨害を受けると中断<>（クールダウン<#ffb900ff>10秒<>）。"
       },
       "league_orianna": {
         "name": "オリアナ",
@@ -9489,7 +9489,7 @@
         "attack": "斧で攻撃。<#ff9028ff>スカール<>がダメージを肩代わり（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%）、逃げると徒歩で戦う：攻撃-10%、ジャウスト・突撃不可；敵を打つと勇気が溜まり再騎乗。<#ff9028ff>狂暴の宴<>：<#ffb900ff>10秒<>毎に4回の速攻、4回目<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大体力6%。",
         "skill": "トラバサミを投げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；捕えたチャンピオンを40%<#ef5350ff>スロウ<>、<#ffb900ff>1.5秒<>後に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>で<#ef5350ff>引き寄せ<>。徒歩時は<#ff9028ff>ポケットピストル<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、自分は後ろへ跳ぶ。",
         "skill2": "スカールが対象を貫いて突進し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージ、移動速度+50%；チャンピオンを貫くともう一度突進。",
-        "ult": "シールド（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）を張って敵チャンピオンへ突撃、衝突で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大体力8%と<#ef5350ff>ノックバック<>；周囲の味方の移動速度+40%。"
+        "ult": "シールド（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）を張って敵チャンピオンへ突撃（<#ef5350ff>行動妨害無効<>）、衝突で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大体力8%と<#ef5350ff>ノックバック<>；周囲の味方の移動速度+40%。"
       },
       "league_yorick": {
         "name": "ヨリック",

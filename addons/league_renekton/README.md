@@ -33,3 +33,13 @@
 - 在 `addons/` 下 `cargo build --release -p league_renekton`（Windows）得到 `target/release/league_renekton.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码。游戏里的日志 2026-10-31 看过（10-30 两次启动）：279 次 `ANGER` 都在生命 50% 以下（两行显示
   50% 是四舍五入），怒气只从 2→3、3→4、4→5 多给。
+
+## 强化冷酷捕猎打碎护盾（v0.1.4，2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟（V26.22）：强化的冷酷捕猎「completely destroying damage-mitigating shields on the target upon the first strike if they are not a monster」（法术护盾也挡不住这一下）。主包的数据去不掉别人身上的护盾，没有这一条。
+
+- 副本（`build_renekton.py` 的 native=1）里强化 W 的第一刀，在伤害之前调本包的原生效果 `league_renekton:rend`：目标身上的护盾全部清掉（`entity_clear_shield`；野怪不算，英雄联盟一样）。普攻一字没改（他的普攻正在别处量）。
+- E 的说明换成副本自己的 `skill2` 键：「强化三刀、1.5 秒，第一刀打碎护盾」。
+- 日志 `REND #n: the empowered W's first strike broke 1 shield layer(s), 230 in all`。测试 `the_empowered_ws_first_strike_breaks_shields`。
+
+经典引擎跑不了原生代码；下一局看 `REND` 行。怒气脱战 12 秒后才慢慢掉（英雄联盟）没做：怒气的计时在普攻的效果树里，普攻现在不能动。

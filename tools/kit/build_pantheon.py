@@ -35,7 +35,10 @@ recommended option - 「方案可以，全按推荐做（上单，做附加包�
           an allied champion within r_sur of it (a fight to join), and he not in crowd control. (Another enemy champion
           there was enough at first: the add-on's log, 2026-10-16, had 35 of 41 falls land with no ally near, mostly on
           two enemies, and he died within ~30 s of nearly every one - the user: 「看一下附加包的日志对不对」.)
-          Then he crouches r_ch ticks (unseen and immune to crowd control: League's first channel), leaps (a burst of
+          Then he crouches r_ch ticks (League's first channel, seen and open to crowd control since 2026-11-14: a
+          pulse every r_chk ticks marks `r_broke` when he is in crowd control, and then there is no leap - the
+          cooldown is capped at r_cut ticks, League's 30-second cooldown on a cancelled first channel; before, the
+          crouch was unseen and immune), leaps (a burst of
           light and a streak into the sky left on the spot he leaves, r_jump: League's R_Cas_Jump_Shockwave, the user
           2026-11-05 「潘森大招飞起来也没有那个联盟里的特效」; banished r_fall ticks: in the sky) and comes down where that champion stood at the leap, a ring marking it: on r_sp his
           spear strikes it first (r_sp_dmg + r_sp_ratio% AD within r_r and an r_slow% slow for r_slow_t), then he lands
@@ -87,6 +90,12 @@ P = {
     "r_cd": 3600, "r_arm": 900, "r_poll": 10, "r_reset": 4900, "r_min": 35000, "r_sur": 30000,
     "r_ch": 60, "r_fall": 40, "r_sp": 20, "r_r": 32000, "r_rc": 12000, "r_sp_dmg": 80, "r_sp_ratio": 100,
     "r_slow": 50, "r_slow_t": 120, "r_dmg": 300, "r_land": 30, "r_leap": 17, "r_hit_at": 5,
+    # League (V25.20): "Grand Starfall's first channel can be interrupted by cast-inhibiting crowd control" and "is
+    # placed on a 30-second cooldown if the first channel is canceled"; he vanishes and is immune only at the leap (the
+    # user's 「全改吧」, 2026-11-14; before: the crouch was unseen and immune to crowd control). r_chk: the crouch's
+    # check for crowd control on him; r_cut: the cooldown left after a cancel - League's 30 s of its 165 s, the same
+    # share of our 60 s (ult_cooldown_mult caps it at r_cd x 100 / (100 + m))
+    "r_chk": 3, "r_cut": 600,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_pantheon
@@ -353,12 +362,19 @@ def build(p):
                    # the spear's fall plays on the landing spot from the leap (its third frame strikes at r_sp)
                    lob("r_fall", p["r_fall"], "EnemyChampion", landing, mark="r_spear"))
 
+    # a cancelled crouch: no leap, the cooldown capped at r_cut ticks (League's 30 s)
+    cut_m = -(-p["r_cd"] * 100 // p["r_cut"]) - 100
+    cut = combine(*rm("r_broke"), flag("r_cut", 3, ult_cooldown_mult=cut_m))
+
     def fire():
-        """On the champion (the probe's hit): the crouch now, the leap at its end, both on where it stands then."""
-        return combine(*rm("r_arm"), refresh("r_ch", p["r_ch"] + 2, cc_immune=True),
-                       on_me(anim("ult", p["r_ch"]), cview("r_cast"), sfx("r"), voice("vo_r", p),
-                             {"type": "CasterInvisible", "tick": p["r_ch"]}),
-                       delayed(p["r_ch"], lives(*rm("r_ch"), leap)))
+        """On the champion (the probe's hit): the crouch now (seen, open to crowd control: a pulse marks `r_broke`
+        when he is in it), the leap at its end on where the champion stands then - unless the crouch was broken."""
+        # the crouch stops at once (its animation off); the leap's turn, at the crouch's end, reads `r_broke`
+        broke = combine(refresh("r_broke", p["r_ch"] + 4), {"type": "RemoveCasterAnimation", "name": "ult"})
+        check = casted(p["r_ch"], p["r_chk"], sw("r_broke", NONE, pick(1, "AllyChampionInCC", broke)))
+        return combine(*rm("r_arm", "r_broke"), refresh("r_ch", p["r_ch"] + 2),
+                       on_me(anim("ult", p["r_ch"]), cview("r_cast"), sfx("r"), voice("vo_r", p), check),
+                       delayed(p["r_ch"], lives(*rm("r_ch"), sw("r_broke", cut, leap))))
 
     def probe_r():
         far = pick(p["r_min"], "AllyOnlySelf", flag("r_near", 1), fp=True)

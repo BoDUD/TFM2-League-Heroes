@@ -17,6 +17,13 @@
 //! 数字是主包 tools/kit/build_pyke.py 参数表 P 的 `r_dmg`、`r_ratio`、`r_range`；`make_override.py` 生成副本时核对
 //! 这里的常数和 P 一致，不一致就停。
 //!
+//! 0.1.2（2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：**被动溺水之幸按英雄联盟**。英雄联盟
+//! （V26.06）：敌方英雄对他造成的伤害存下 9%（身边有两个以上看得见的敌方英雄时 40%）成灰血，没有层数、没有计时，最多到
+//! 最大生命的 55%（和缺的生命）；敌人看不见他的时候迅速回成生命，阵亡清零。主包读不到受到的伤害，用 1 点护盾当受击感应、
+//! 攒 5 层、3 秒没挨打或潜行时按层回血。副本（`build_pyke.py` 的 native=1）的数据里没有感应和层数，`passive` 是本包的
+//! `league_pyke:grey`（[`Grey`]）：`on_damaged` 按 [`stored`] 存，每 tick 按 [`grey_cap`] 压线，敌方队伍看不见他时（草丛、W 的
+//! 伪装、走出视野）每 tick 回 [`drain`]。日志 `GREY`。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_pyke.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -344,6 +351,141 @@ impl StableEffectType for Execute {
     }
 }
 
+// ===================== 被动：灰血 =====================
+
+/// League's grey health numbers (`passive.params`: the main pack's P `p_share`, `p_crowd`, `p_near`, `p_cap`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct GreyParams {
+    /// the share of an enemy champion's damage stored, and the share with two or more visible enemy champions near
+    pub share: usize,
+    pub crowd: usize,
+    /// how near "near" is (world units)
+    pub near: u64,
+    /// the most grey health: this % of his maximum health
+    pub cap: usize,
+}
+
+impl Default for GreyParams {
+    fn default() -> Self {
+        Self { share: 9, crowd: 40, near: 120_000, cap: 55 }
+    }
+}
+
+/// `{"p_share":9,...}` -> the numbers; missing keys keep the defaults, unknown ones are ignored.
+pub fn parse_grey(json: &str) -> GreyParams {
+    let mut p = GreyParams::default();
+    let body = json.trim().trim_start_matches('{').trim_end_matches('}');
+    for pair in body.split(',') {
+        let Some((k, v)) = pair.split_once(':') else { continue };
+        let Ok(v) = v.trim().parse::<u64>() else { continue };
+        match k.trim().trim_matches('"') {
+            "p_share" => p.share = v as usize,
+            "p_crowd" => p.crowd = v as usize,
+            "p_near" => p.near = v,
+            "p_cap" => p.cap = v as usize,
+            _ => {}
+        }
+    }
+    p
+}
+
+/// What one hit of `damage` from an enemy champion stores (League: 9%, 40% "while there are two or more visible enemy
+/// champions nearby"); `crowd` is how many there are.
+pub fn stored(damage: usize, crowd: usize, p: &GreyParams) -> usize {
+    damage * if crowd >= 2 { p.crowd } else { p.share } / 100
+}
+
+/// The grey health he can hold at `hp` of `max`: `cap`% of his maximum health ("an upper cap of 55% of his maximum
+/// health"), and no more than he is missing ("the excess grey health is lost").
+pub fn grey_cap(hp: usize, max: usize, p: &GreyParams) -> usize {
+    (max * p.cap / 100).min(max.saturating_sub(hp))
+}
+
+/// One tick's heal while unseen ("rapidly consumes his grey health to heal for the same amount"): a tenth of what is
+/// left, at least 1 - all of it within a second.
+pub fn drain(grey: usize) -> usize {
+    (grey / 10).max(1).min(grey)
+}
+
+/// The add-on's passive `league_pyke:grey` (the copy's): League's grey health.
+#[derive(Clone, Default)]
+struct Grey {
+    p: GreyParams,
+    grey: usize,
+    /// healing now (the start of each heal is logged); this life's totals
+    healing: bool,
+    stored_life: usize,
+    healed_life: usize,
+}
+
+impl StablePassive for Grey {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn configure(&mut self, params_json: &str) {
+        self.p = parse_grey(params_json);
+    }
+
+    fn on_spawn(&mut self, _sim: &mut StableSim<'_>, _player: usize, _entity: usize) {
+        // League: grey health stays "until Pyke leaves enemy vision or dies"
+        self.grey = 0;
+        self.healing = false;
+        self.stored_life = 0;
+        self.healed_life = 0;
+    }
+
+    fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, attacker: usize, damage: usize) {
+        if damage == 0 {
+            return;
+        }
+        let (Some(a), Some(m)) = (sim.get_entity(attacker), sim.get_entity(me)) else { return };
+        let team = m.team();
+        if !a.is_champion() || a.team() == team {
+            return;
+        }
+        let (mx, my) = (m.pos().0 as f64, m.pos().1 as f64);
+        let max = m.hp().1;
+        let crowd = (0..sim.champion_count())
+            .filter_map(|i| sim.get_entity(sim.champion_id_at(i)))
+            .filter(|u| u.is_alive() && u.team() != team && sim.is_visible(team, u.id()))
+            .filter(|u| (u.pos().0 as f64 - mx).hypot(u.pos().1 as f64 - my) <= self.p.near as f64)
+            .count();
+        let add = stored(damage, crowd, &self.p);
+        // the missing-health part of the cap is applied on the next tick (this hit is not off his health yet)
+        self.grey = (self.grey + add).min(max * self.p.cap / 100);
+        self.stored_life += add;
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        if !e.is_alive() {
+            self.grey = 0;
+            self.healing = false;
+            return;
+        }
+        let ((hp, max), team) = (e.hp(), e.team());
+        self.grey = self.grey.min(grey_cap(hp, max, &self.p));
+        if self.grey == 0 || sim.is_visible(1 - team.min(1), me) {
+            self.healing = false;
+            return;
+        }
+        let h = drain(self.grey);
+        if !self.healing {
+            let on_me = InputTargetV1::target(me);
+            sim.play_view_effect(&format!("{HERO}_p_heal"), me, &on_me, 0, 0, 0);
+            if sim.tick() % LOG_EVERY < 6 || self.healed_life == 0 {
+                wlog(format!("{} GREY: unseen, healing {} grey health (hp {hp}/{max}; this life {} stored, {} healed)",
+                             head(sim, me), self.grey, self.stored_life, self.healed_life));
+            }
+        }
+        self.healing = true;
+        sim.heal(me, me, h);
+        self.grey -= h;
+        self.healed_life += h;
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -352,7 +494,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Pyke's R executes for real, cast only on who it kills) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Pyke's R executes for real, cast only on who it kills; League's grey health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -361,6 +503,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:execute"), Execute);
     module.add_native_effect(format!("{ID}:after"), After);
+    module.add_native_passive(format!("{ID}:grey"), Grey::default());
     module.add_player_input_ai(UltAi::default());
     host.log(LogLevel::Info, "league_pyke v1 loaded (Pyke's R: the exact execute, cast only on a champion it kills).");
 }
@@ -408,6 +551,34 @@ mod tests {
         assert_eq!(plan(None, &[f(1, 900)], 223, true), Plan::Keep);
         // 正好等于斩杀线也处决
         assert_eq!(best_kill(&[f(4, 223)], 223), Some(f(4, 223)));
+    }
+
+    #[test]
+    fn grey_health_as_in_league() {
+        let p = GreyParams::default();
+        // 9% of an enemy champion's hit, 40% with two or more visible enemy champions near
+        assert_eq!(stored(500, 0, &p), 45);
+        assert_eq!(stored(500, 1, &p), 45);
+        assert_eq!(stored(500, 2, &p), 200);
+        // at most 55% of his maximum health and what he is missing
+        assert_eq!(grey_cap(400, 1000, &p), 550);
+        assert_eq!(grey_cap(900, 1000, &p), 100);
+        assert_eq!(grey_cap(1000, 1000, &p), 0);
+        // healed back quickly while unseen: a tenth a tick, at least 1, never more than is left
+        assert_eq!(drain(300), 30);
+        assert_eq!(drain(7), 1);
+        assert_eq!(drain(1), 1);
+        let (mut g, mut ticks) = (300, 0);
+        while g > 0 {
+            g -= drain(g);
+            ticks += 1;
+        }
+        assert!(ticks <= 60, "all of it within a second ({ticks} ticks)");
+        // the numbers come from the copy's passive params
+        assert_eq!(parse_grey(r#"{"p_cap":55,"p_crowd":40,"p_near":120000,"p_share":9}"#), p);
+        assert_eq!(parse_grey(r#"{"p_share":12,"junk":3}"#).share, 12);
+        let copy = include_str!("../override/league_pyke.data_champion");
+        assert!(copy.contains("\"league_pyke:grey\"") && !copy.contains("\"league_pyke_sense\""), "run make_override.py");
     }
 
     #[test]

@@ -36,7 +36,7 @@ NATIVE = {
         "skill2": "【附加包】跃向敌方英雄，造成其{w_hp}%最大生命的伤害并" + R + "晕眩{w_stun}秒" + E + "；强化：下次普攻连刺3下。" + O + "神佑枪阵" +
                   E + "：举盾" + A + "{e_t}秒" + E + "，免疫控制和正面伤害，连刺前方后盾击造成" + phy("e_dmg", "e_ratio") + O + "物理伤害" + E + "。",
         "ult": "【附加包】下蹲" + A + "{r_ch}秒" + E + "后跃起，落向敌人最密集的战场：长矛先砸下造成" + phy("r_sp_dmg", "r_sp_ratio") + O +
-               "物理伤害" + E + "并减速{r_slow}%，落地造成" + M + "{r_dmg}魔法伤害" + E + "（边缘减半），叠满被动。",
+               "物理伤害" + E + "并减速{r_slow}%，落地造成" + M + "{r_dmg}魔法伤害" + E + "（边缘减半），叠满被动。" + R + "下蹲时被控制会打断" + E + "，冷却只剩" + A + "{r_cut}秒" + E + "。",
     },
     "zh-hant": {
         "skill": "【擴充包】近處向前突刺，遠處蓄力後擲出長矛，對線上的敵人造成" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E +
@@ -44,7 +44,7 @@ NATIVE = {
         "skill2": "【擴充包】躍向敵方英雄，造成其{w_hp}%最大生命的傷害並" + R + "暈眩{w_stun}秒" + E + "；強化：下次普攻連刺3下。" + O + "聖盾猛襲" +
                   E + "：舉盾" + A + "{e_t}秒" + E + "，免疫控制和正面傷害，連刺前方後盾擊造成" + phy("e_dmg", "e_ratio") + O + "物理傷害" + E + "。",
         "ult": "【擴充包】蹲伏" + A + "{r_ch}秒" + E + "後躍起，落向敵人最密集的戰場：長矛先砸下造成" + phy("r_sp_dmg", "r_sp_ratio") + O +
-               "物理傷害" + E + "並緩速{r_slow}%，落地造成" + M + "{r_dmg}魔法傷害" + E + "（邊緣減半），疊滿被動。",
+               "物理傷害" + E + "並緩速{r_slow}%，落地造成" + M + "{r_dmg}魔法傷害" + E + "（邊緣減半），疊滿被動。" + R + "蹲伏時被控場會中斷" + E + "，冷卻只剩" + A + "{r_cut}秒" + E + "。",
     },
     "en": {
         "skill": "[Add-on] Thrusts at a near target, or charges and throws the spear at a far one, dealing " + phy("q_dmg", "q_ratio") +
@@ -56,7 +56,7 @@ NATIVE = {
                   phy("e_dmg", "e_ratio") + " " + O + "physical damage" + E + ".",
         "ult": "[Add-on] Crouches " + A + "{r_ch}s" + E + ", leaps and falls where the most enemies fight: his spear strikes first for " +
                phy("r_sp_dmg", "r_sp_ratio") + " " + O + "physical damage" + E + " and a {r_slow}% slow, then the landing deals " +
-               M + "{r_dmg} magic damage" + E + " (half at the edge) and fills Mortal Will.",
+               M + "{r_dmg} magic damage" + E + " (half at the edge) and fills Mortal Will." + " " + R + "Crowd control during the crouch cancels it" + E + " (cooldown " + A + "{r_cut}s" + E + ").",
     },
     "ko": {
         "skill": "[확장] 가까우면 앞으로 찌르고, 멀면 힘을 모아 창을 던져 선 위의 적에게 " + phy("q_dmg", "q_ratio") + "의 " + O + "물리 피해" +
@@ -65,7 +65,7 @@ NATIVE = {
                   "방패 돌격" + E + ": " + A + "{e_t}초" + E + " 방패를 들어 군중 제어와 정면 피해 면역, 앞을 찌른 뒤 방패로 " +
                   phy("e_dmg", "e_ratio") + "의 " + O + "물리 피해" + E + ".",
         "ult": "[확장] " + A + "{r_ch}초" + E + " 웅크렸다 도약해 적이 가장 많은 곳에 떨어집니다: 창이 먼저 " + phy("r_sp_dmg", "r_sp_ratio") +
-               "의 " + O + "물리 피해" + E + "와 {r_slow}% 둔화, 착지 시 " + M + "{r_dmg} 마법 피해" + E + "(가장자리 절반), 패시브 최대.",
+               "의 " + O + "물리 피해" + E + "와 {r_slow}% 둔화, 착지 시 " + M + "{r_dmg} 마법 피해" + E + "(가장자리 절반), 패시브 최대." + " " + R + "웅크린 동안 군중 제어를 받으면 취소" + E + "(재사용 대기시간 " + A + "{r_cut}초" + E + ").",
     },
     "ja": {
         "skill": "【拡張】近くなら前へ突き、遠ければ溜めて槍を投げ、線上の敵に" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E +
@@ -74,7 +74,7 @@ NATIVE = {
                   "イージスの猛攻" + E + "：" + A + "{e_t}秒" + E + "盾を構え、CCと正面のダメージを無効、前方を突いた後に盾で" +
                   phy("e_dmg", "e_ratio") + "の" + O + "物理ダメージ" + E + "。",
         "ult": "【拡張】" + A + "{r_ch}秒" + E + "身を屈めて跳び、敵が最も多い戦場へ落下：槍が先に" + phy("r_sp_dmg", "r_sp_ratio") + "の" + O +
-               "物理ダメージ" + E + "と{r_slow}%スロウ、着地で" + M + "{r_dmg}の魔法ダメージ" + E + "（外側は半減）、パッシブ最大。",
+               "物理ダメージ" + E + "と{r_slow}%スロウ、着地で" + M + "{r_dmg}の魔法ダメージ" + E + "（外側は半減）、パッシブ最大。" + R + "屈み中に行動妨害を受けると中断" + E + "（クールダウン" + A + "{r_cut}秒" + E + "）。",
     },
 }
 
