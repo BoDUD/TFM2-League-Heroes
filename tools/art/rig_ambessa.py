@@ -34,6 +34,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import pack_ambessa_poses as PK  # noqa: E402
 import design_ambessa_poses as DP  # noqa: E402
@@ -96,10 +97,19 @@ class Canvas:
         lift = LIFT.get(name, 0) if lift is None else lift
         return d, (rig.ox + HEAD[0] - hx + mv + dx, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=None, flash=False):
+    def frame(self, name, dx=0, lift=None, flash=False, spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        spins [(part, point, degrees, how)] - a blade (PARTS) turned clockwise by any angle about where its chain holds
+        it. The head and everything of the pose in none of its parts are checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if spins:
+            hx, hy = load_pose(name)[1]
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            d = IB.vary(d, PARTS[name], self.outline, (), (), None, head, VPAD, name, (), spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -124,6 +134,33 @@ class Canvas:
         lay[ys[ok] + y0, xs[ok] + x0] = big[ys[ok], xs[ok]]
         return lay
 
+    def head(self):
+        """The head's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (HEAD_W, HEAD_H), [load_pose(n)[:2] for n in PARTS])
+        return self._head
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): the blades at the ends of her chains, each a
+# box round the blade head in the pose picture's own squares, turned about the point where its chain holds it
+# (inbetween.spin) - the blades swinging on their chains. The chains are a square or two thick and stay as drawn; her
+# head (design_ambessa_poses.HEAD), the cape and the body are in no part: they never change.
+HEAD_W, HEAD_H = DP.HEAD[3] - DP.HEAD[2], DP.HEAD[1] - DP.HEAD[0]
+VPAD = 40                      # squares a turned blade may leave its pose picture's box by
+PARTS = {
+    "q_wind": {"lblade": [(0, 22, 31, 64)], "rblade": [(137, 26, 166, 72)]},
+    "e_lash1": {"lblade": [[(0, 44), (24, 44), (24, 62), (30, 64), (40, 68), (40, 82), (0, 82)]],
+                "rblade": [(143, 0, 166, 40)]},
+    "e_lash2": {"lblade": [(0, 0, 29, 42)], "rblade": [(113, 103, 146, 140)]},
+    "r_grab": {"ublade": [(80, 0, 113, 44)]},
+}
+# where a blade's chain holds it (square corners)
+HOLD = {("q_wind", "lblade"): (31, 45), ("q_wind", "rblade"): (138, 50),
+        ("e_lash1", "lblade"): (25, 60), ("e_lash1", "rblade"): (143, 18),
+        ("e_lash2", "lblade"): (26, 35), ("e_lash2", "rblade"): (118, 108),
+        ("r_grab", "ublade"): (91, 46)}
+
 
 # ms per frame; the kit's ticks (tools/kit/build_ambessa.py) match these (a frame's start in ticks = ms x 0.06):
 # attack 433 ms = atk_dur 26, the first blade landing on the first slash (a_hit 10 = 167 ms), the second blade after it
@@ -132,17 +169,26 @@ class Canvas:
 # 200 ms); E 400 ms = e_dur 24: the chains flung out, swung round at 167 ms (e_hit 10); W 600 ms = w_dur 36: braced until
 # the slam at w_brace 24 (400 ms); R 800 ms = r_dur 48: the lunge, the victim hoisted from the blink (r_go 8 = 133 ms),
 # slammed down at 617 ms (r_go - 1 + r_slam 30 = 37 ticks); the step 167 ms = st_dur 10
-MS = {"idle": [1000], "run": [150] * 4, "attack": [117, 116, 84, 116], "skill": [150, 250], "slam": [183, 217],
-      "skill2": [167, 233], "w": [400, 200], "ult": [133, 484, 183], "step": [167], "hit": [100, 100],
-      "dead": [140, 260, 300, 600]}
+#
+# The in-betweens (2026-11-14: Q, E and R played 2-3 poses): the spans before the strikes are shared out over more frames
+# (inbetween.spans: whole ms, none under 50), so every action is as long as it was and its strikes begin on their
+# milliseconds - the sweep at 150 (its baked half circle on that frame, BAKE), the whirl at 167, the hoist at 133 and the
+# slam at 617. The other actions are as they were.
+MS = {"idle": [1000], "run": [150] * 4, "attack": [117, 116, 84, 116], "skill": IB.spans((150, 2), (250, 1)),
+      "slam": [183, 217], "skill2": IB.spans((167, 2), (233, 2)), "w": [400, 200],
+      "ult": IB.spans((133, 1), (484, 3), (183, 1)), "step": [167], "hit": [100, 100], "dead": [140, 260, 300, 600]}
 # effects drawn into her frames: tag -> (picture, the pose frame it starts on, ms of each effect frame, top-left game px
 # from the standing point, "over" | "under")
-BAKE = {"skill": ("q_sweep", 1, [40, 50, 70, 90], (9, -46), "over"),
+BAKE = {"skill": ("q_sweep", 2, [40, 50, 70, 90], (9, -46), "over"),
         "step": ("st_dash", 0, [40, 40, 40, 47], (-42, -19), "under")}
 
 
 def actions(C):
     f = C.frame
+
+    def swing(name, **degrees):
+        """The pose's blades each turned clockwise by its degrees (negative: counter-clockwise) about its chain."""
+        return [(part, HOLD[(name, part)], deg, "under") for part, deg in degrees.items()]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's RunBase: the far foot landing, passing, the near foot landing, passing; the blades trailing)
@@ -150,15 +196,20 @@ def actions(C):
     # attack (Attack1 then Attack2: the near blade swung up and cut down, the far blade raised and swept across)
     out["attack"] = [f("a1_wind"), f("a1_slash"), f("a2_wind"), f("a2_slash")]
     # Cunning Sweep (Spell1A: crouched, the chains swung out, then flung wide as she rises into the sweep)
-    out["skill"] = [f("q_wind"), f("q_sweep")]
+    # (the blades swinging up on their chains, swung out; the sweep)
+    out["skill"] = [f("q_wind", spins=swing("q_wind", lblade=35, rblade=-35)), f("q_wind"), f("q_sweep")]
     # Sundering Slam (Spell1B: the leap with the blades high, the slam)
     out["slam"] = [f("q2_leap"), f("q2_slam")]
     # Lacerate (Spell3: the chains flung out to both sides, whirled round)
-    out["skill2"] = [f("e_lash1"), f("e_lash2")]
+    # (the blades spinning on their chains as they go out, out; round, the blades spinning on)
+    out["skill2"] = [f("e_lash1", spins=swing("e_lash1", lblade=-40, rblade=40)), f("e_lash1"), f("e_lash2"),
+                     f("e_lash2", spins=swing("e_lash2", lblade=35, rblade=35))]
     # Repudiation (Spell2: braced behind the raised blade, the slam into the ground)
     out["w"] = [f("w_guard"), f("w_slam")]
     # Public Execution (Spell4: the lunge, the victim hoisted, slammed down)
-    out["ult"] = [f("step"), f("r_grab"), f("r_slam")]
+    # (the raised blade coming up, raised, swung on over before the slam)
+    out["ult"] = [f("step"), f("r_grab", spins=swing("r_grab", ublade=-45)), f("r_grab"),
+                  f("r_grab", spins=swing("r_grab", ublade=25)), f("r_slam")]
     # Drakehound's Step (PassiveDash: the lunge forward, the chains trailing)
     out["step"] = [f("step")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
