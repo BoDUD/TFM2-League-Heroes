@@ -1,4 +1,4 @@
-# 安妮附加包（测试版 v0.3.0，可选）：Q 返还、提伯斯是真的单位
+# 安妮附加包（测试版 v0.3.1，可选）：Q 返还、提伯斯是真的单位
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」；2026-11-14 看了和英雄联盟不一样的地方的清单：「全改吧」。
 
@@ -93,3 +93,11 @@
 - `python addons/league_annie_q/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。主包里安妮改了就重跑；单位图改了也重跑（它检查挥爪那一帧的时刻和 `src/lib.rs` 的 `TIB_ACT` / `TIB_LANDS` 对得上）。
 - `python tools/art/unit_annie_tibbers.py`：重新拼单位图（`--check` 只比较，`--preview <png>` 出一张 8 倍的逐帧图）。
 - `cargo test -p league_annie_q`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。测试用的假宿主是萨科附加包的 `src/summon_mock.rs`。
+
+## 等提伯斯站稳再读他、每秒一行按行数（v0.3.1，2026-11-14）
+
+第一批真实对局数据（游戏 0.7.2 的预模拟，`league_annie_q.log`）：
+
+- 新单位生成那一拍和下一拍，最大生命、攻击、防御、移速都读成 1：提伯斯在生成那一拍被读，`TIBBERS #1 LOOK` 写的是 `hp 2124/1 attack 1 def 1 mr 1 speed 1`，看不出他的属性有没有照给的来。现在等他的最大生命读出来（萨科附加包 `summon.rs` 的 `Unit::settled`）才接手，`LOOK` 行是站稳以后的数字；5 次还没读出来就照样接手，行末写 `(its health cap still reads 1 after 5 looks)`。他身上不挂东西、不设生命，所以只晚一两拍接手（光环晚一两拍开始），别的不变。
+- 每秒一行的计数（U4 发现的）：`if let (Some(line), Some(k)) = (line, tally(..))` 每 tick 都数一次，日志里成了 `TIBBERS #1 #18418:`，预模拟里「前 40 行、之后每 200 行一行」变成按 tick 算，每秒那一行几乎出不来；现在有一行才数。
+- 测试多一个「站稳要两拍」的（假宿主 `World::settle = 2`），别的测试没改。

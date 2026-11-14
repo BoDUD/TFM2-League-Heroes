@@ -449,8 +449,12 @@ impl Tibbers {
             }
             match live.unit.step(sim, Some(here)) {
                 summon::Step::Alive(line) => {
-                    if let (Some(line), Some(k)) = (line, tally(sim, "tib unit")) {
-                        wlog(format!("{} TIBBERS #{n} #{k}: {line}", head(sim, me)));
+                    // counted only when there is a line (a count every tick let the presims' first 40 and every 200th
+                    // go by ticks, not lines: the game's logs had `TIBBERS #1 #18418:` - hardly a line a second got through)
+                    if let Some(line) = line {
+                        if let Some(k) = tally(sim, "tib unit") {
+                            wlog(format!("{} TIBBERS #{n} #{k}: {line}", head(sim, me)));
+                        }
                     }
                     if tick >= live.next_aura {
                         live.next_aura += TIB_AURA_EVERY;
@@ -532,9 +536,12 @@ impl Tibbers {
         }
         if let Stage::Fresh(id, born, tries) = b.stage {
             match summon::Unit::look(sim, id, self.n, born, TIB_UNIT_LIFE, team, player) {
-                Ok((unit, line)) => {
+                // taken on once he has settled (summon.rs's Unit::settled: a new unit reads max health 1 and every stat 1
+                // on its spawn tick and the next - game 0.7.2's presims read him `hp 2124/1 attack 1 def 1 ...` there),
+                // so his LOOK line shows the numbers he really has; when his looks run out, all the same
+                Ok((unit, line)) if unit.settled() || tries + 1 >= LOOK_TRIES => {
                     if let Some(k) = tally(sim, "tib look") {
-                        wlog(format!("{} TIBBERS #{} LOOK #{k}: {line}", head(sim, me), self.n));
+                        wlog(format!("{} TIBBERS #{} LOOK #{k}: {line}{}", head(sim, me), self.n, unit.unsettled_note(tries + 1)));
                     }
                     if let Some(old) = self.live.take() {
                         wlog(format!("{} TIBBERS #{}: the unit #{} of an earlier one is still out - no longer watched",
@@ -551,7 +558,7 @@ impl Tibbers {
                                       ticks ({why}) - he rides on #{} as before", head(sim, me), self.n, b.target));
                     }
                 }
-                Err(_) => b.stage = Stage::Fresh(id, born, tries + 1),
+                _ => b.stage = Stage::Fresh(id, born, tries + 1),
             }
         }
         if b.stage == Stage::Riding {
@@ -905,6 +912,27 @@ mod tests {
         assert!(me.live.is_none() && me.wake.is_none() && me.bear.is_none() && w.queue.is_empty());
         assert_eq!(w.viewed(TIB_BYE), 1);
         assert_eq!(me.n, 1);
+    }
+
+    #[test]
+    fn tibbers_is_taken_on_once_his_numbers_read() {
+        // game 0.7.2's presims: a new unit reads max health 1 and every stat 1 on its spawn tick and the next
+        // (World::settle) - his LOOK line read `hp 2124/1 attack 1 def 1 mr 1 speed 1`
+        let (mut w, mut me) = world();
+        w.settle = 2;
+        cast_r(&mut w, GAREN);
+        run(&mut w, &mut me, TIB_FIRST + 2);
+        assert_eq!(w.spawns.len(), 1);
+        let spawned = w.spawns[0].tick;
+        run(&mut w, &mut me, 5);
+        let live = me.live.as_ref().expect("never taken on");
+        assert!(live.unit.settled() && live.unit.max == 2280);
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        let look = text.lines().find(|l| l.contains(" TIBBERS #") && l.contains(" LOOK #") && l.contains(&format!("t={} ", spawned + 2)));
+        assert!(look.is_some_and(|l| l.contains("hp 2280/2280 attack 28 def 110") && !l.contains("still reads")), "{look:?}");
+        // his whole time all the same: the aura's eight pulses
+        run(&mut w, &mut me, TIB_UNIT_LIFE + 10);
+        assert_eq!(burned(&w, aura_damage(240)).iter().filter(|t| **t == GAREN).count(), 8);
     }
 
     #[test]
