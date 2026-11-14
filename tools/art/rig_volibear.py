@@ -32,6 +32,7 @@ from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import inbetween as IB  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import volibear_storm as VS  # noqa: E402
 from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet, vflip  # noqa: E402
@@ -165,6 +166,15 @@ def tinted(D, z=12):
 PAD = (50, 60, 80, 20)          # canvas padding round the design: left, right, top (R's leap), bottom
 POSES = ("up2", "up1", "rake", "maul")
 RUN_N = 9
+# The R's hang in three frames (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): held at
+# the top while he flies, the pounce's raised claws were one drawing for 780 ms; now the claws come down a little as he
+# hangs - each forearm (HANG_ARMS in q_pounce_2's own squares: the rows over his shoulders, the head left out) slid HANG
+# rows down along itself, behind his shoulders (inbetween.vary: everything else checked unchanged), drawn in toward the
+# crash. The leap's drawings, heights and times stay (100 / 50 / 70, the hang from 220 ms, 780 in all: 260 x 3); the
+# arms only get shorter, nothing of him grows (the user: 「开大模型变的实在太大了」).
+HANG_ARMS = {"near": [(0, 0, 19, 10), (0, 11, 15, 13)], "far": [(24, 0, 43, 10), (29, 11, 43, 13)]}
+HANG = (2, 4)
+VPAD = 8
 
 
 def placed(img, origin, H, W):
@@ -219,6 +229,13 @@ class Form:
                 img = iced(load(f"q_{key}_{n}.png"), f"q_{key}_{n}")
                 oy = img.shape[0] - D.ground + m["lift"]
                 self.Q[key].append(placed(img, (m["origin"][0], oy), D.H, D.W))
+        # the R's hang: the pounce's raised claws with both forearms slid down (HANG_ARMS), placed as the pounce is
+        img, m = iced(load("q_pounce_2.png"), "q_pounce_2"), q["pounce"][2]
+        oy = img.shape[0] - D.ground + m["lift"]
+        self.HANG = [placed(IB.vary(img, HANG_ARMS, tuple(int(c) for c in D.outline),
+                                    moves=[("near", (0, k), "under"), ("far", (0, k), "under")], pad=VPAD,
+                                    name=f"q_pounce_2 forearms {k}"), (m["origin"][0] + VPAD, oy + VPAD), D.H, D.W)
+                     for k in HANG]
         self.ref_holes = None
 
     def pose(self, crouch=0, whole=(0, 0), near=(0, 0), near_rot=0, far=(0, 0), far_rot=0, legs=None,
@@ -259,6 +276,9 @@ class Form:
     def q(self, key, n, dx=0, dy=0):
         return self.dark_slits(R.compose(self.rig, [(self.Q[key][n], dict(dx=dx, dy=dy))]))
 
+    def hang(self, n, dy=0):
+        return self.dark_slits(R.compose(self.rig, [(self.HANG[n], dict(dy=dy))]))
+
     def run(self, n, dy=0):
         """A walk frame; the slits Codex left between a thigh and an arm or the crossing legs (enclosed, not in the
         idle) closed with the outline's dark (memory gap-check)."""
@@ -287,7 +307,7 @@ def tries(F):
 # (skill: the slam lands on frame 4, 280 ms in - the kit's q_rel 17)
 MS = {"idle": [150] * 8, "run": [110] * 9, "skill_run": [80] * 8, "attack": [90, 110, 100, 120, 80],
       "attack_w": [80, 90, 100, 120, 80], "skill": [80, 90, 110, 100, 170], "skill2": [100, 120, 167, 120],
-      "ult": [100, 50, 70, 780], "ult_land": [35, 35, 160, 170], "hit": [100, 100],
+      "ult": [100, 50, 70, 260, 260, 260], "ult_land": [35, 35, 160, 170], "hit": [100, 100],
       "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 ORDER = ["idle", "run", "skill_run", "attack", "attack_w", "skill", "skill2", "ult", "ult_land", "hit", "dead"]
 
@@ -317,8 +337,10 @@ def frames_all(F):
     # poses lifted (the user, 2026-11-02: 「开大的时候没有像LOL那样跳进去的动作」「我们明显不对」 - the R stood up with
     # both arms raised 8 squares off the ground and clawed forward on landing). ult: low on all fours, rearing up,
     # rising, held at the top (about his height) while he flies; ult_land (on arrival, the kit's r_rel 4 ticks to the
-    # slam): the dive down from the height in two steps, the pound on all fours (frame 3, 70 ms in), up
-    out["ult"] = [F.q("pounce", 0), F.q("pounce", 1, dy=-10), F.q("pounce", 2, dy=-32), F.q("pounce", 2, dy=-46)]
+    # slam): the dive down from the height in two steps, the pound on all fours (frame 3, 70 ms in), up; the hang's
+    # claws drawn in a little (HANG)
+    out["ult"] = [F.q("pounce", 0), F.q("pounce", 1, dy=-10), F.q("pounce", 2, dy=-32), F.q("pounce", 2, dy=-46),
+                  F.hang(0, dy=-46), F.hang(1, dy=-46)]
     out["ult_land"] = [F.q("pounce", 3, dy=-28), F.q("pounce", 3, dy=-10), F.q("pounce", 4), p(crouch=1)]
     hit = [p(whole=(-2, 0)), p(whole=(-1, 0))]
     out["hit"] = [R.flash(hit[0]), hit[1]]
