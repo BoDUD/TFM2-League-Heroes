@@ -6,13 +6,18 @@ Kit (the user's picks, 2026-10-09: ADC, Range, kit A - League's whole kit - and 
 active slots: Caustic Spittle is `skill`, Void Ooze `skill2`, Living Artillery the `ult`; Bio-Arcane Barrage turns
 itself on (League's W has no cast time) and Icathian Surprise watches for his death.
   passive Icathian Surprise (艾卡西亚的惊喜): nothing in the data runs on a death, so each life's first action starts a
-          watch on him: an `AddCasted` (period p_watch) lobs a hidden lob onto him that flies p_watch ticks; where it
-          lands it asks `RandomTarget {range: 1, AllyOnlySelf}` (which finds no dead caster) whether he lives. The
-          AddCasted stops with him, so exactly one lob in the air finds him dead (and a flag, p_done, wakes the form once
-          while he cannot be found - a revive's untargetable lying - until a lob finds him again): there the void form wakes (his `dead`
-          strip: he rises, swells and glows) and p_fuse ticks later it bursts - p_dmg + p_ratio% AD true damage to every
-          enemy within p_r. League's form walks at the nearest enemy for 4 s; a dead body cannot walk in data, so it
-          bursts where he fell (the burst's ring shows from the start, so enemies can step out).
+          watch on him: an `AddCasted` (period p_watch) lobs a hidden lob onto him that flies p_watch + 1 ticks; where
+          it lands it asks `RandomTarget {range: 1, AllyOnlySelf}` (which finds no dead caster) whether he lives. The
+          AddCasted stops with him, so a lob in the air finds him dead (and a flag, p_done, wakes the form once while he
+          cannot be found - a revive's untargetable lying - until a lob finds him again): there his death-light shows
+          (p_wake) and the void form - a homing p_form with a hidden splash p_burst beside it at the same speed - goes
+          at a random enemy champion within p_seek and bursts on it: p_dmg + p_ratio% AD true damage to every enemy
+          within p_r. League's form walks at the nearest enemy for 4 s, then bursts. p_speed is 1000 against a
+          champion's step of about 880 a tick: at 1800 it caught the enemies by his body in 0.4 s and no one saw it (the
+          game, 2026-11-14: it woke in 413 of 452 deaths, drawn for a quarter of a second; 「死了好像是看不到炸人」).
+          Classic engine, the same 20 seeds x 15 min (10% / median / 90% in the air, blows of deaths): 1800 0.28 / 0.53
+          / 0.95 s, 15 of 27; 1100 0.30 / 0.83 / 3.08 s, 19 of 27; 1000 0.52 / 1.08 / 5.03 s, 22 of 35; 900 0.68 / 1.18 /
+          8.10 s (one chase of 11.9 s), 24 of 34.
   attack  A glob of spit (homing, physical 100% AD). Every attack turns Bio-Arcane Barrage on when it is ready.
   W       Bio-Arcane Barrage (生化弹幕, automatic): w_t ticks of +w_range attack range and w_hp% of the target's maximum
           health on every attack (`base_attack_enemy_max_hp_damage`), then w_cd. Its glow is a view buff. The range is
@@ -71,7 +76,8 @@ P = {
     # attack: the glob leaves the mouth on a_st (retimed to the strips later)
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "glob_speed": 6500, "glob_y": 0,
     # passive: Icathian Surprise (League: 4 s, 125 + 25 a level true damage, radius ~?)
-    "p_watch": 6, "p_life": 216000, "p_seek": 70000, "p_speed": 1800, "p_r": 12000, "p_dmg": 80, "p_ratio": 100,
+    # p_speed: the form's flight a tick (a champion steps ~880): 1800 caught the enemies in 0.4 s, unseen (2026-11-14)
+    "p_watch": 6, "p_life": 216000, "p_seek": 70000, "p_speed": 1000, "p_r": 12000, "p_dmg": 80, "p_ratio": 100,
     # W Bio-Arcane Barrage (League: 8 s, +130-210 range, 3-7% max health on-hit, cd 17 s)
     "w_t": 480, "w_cd": 720, "w_range": 18000, "w_hp": 5,
     # skill: Q Caustic Spittle (League: 1200 range, 90-290 + 70% AP magic, shred 16-24% 4 s, cd 8 s; passive

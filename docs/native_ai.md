@@ -164,7 +164,10 @@ usual.
   0.07 -> 1.91 (66), Sejuani 0.83 -> 2.36 (11), Ahri 0.13 -> 2.61 (5), Anivia 0.26 -> 1.60 (3), Aurelion Sol 0.06
   -> 1.08 (1); untouched heroes of the pattern flat (Orianna 0.18 in 64 games, Xin Zhao 0.95 in 77), skills cast
   as often as before. The packers now do it for every hero it is safe for (`tools/kit/attack_self.py`, 52
-  heroes; 22 are left for a hand: a same-tick reader of the block, or the attack's own damage landing first).
+  heroes). For 17 of the other 22 (a same-tick reader of the block, or the attack's own damage landing first) each
+  area goes under a hidden one-tick lob onto the caster instead (2026-11-14): Tryndamere 0.95 -> 4.32 (130 games),
+  Yasuo 1.03 -> 2.71 (26), Lee Sin 1.00 -> 1.58 (138), Kog'Maw 3.37 without it and 6.52 with it (72 / 91 presims),
+  Sylas flat (he was not neglected); the other five measured normal and stay as they are.
   Stripped attacks (one projectile with `Attack`) did the same for Kai'Sa (0.60 -> 4.9, 88 games) and Ahri (0.13 ->
   3.9). Heroes whose only area on themselves sits under a projectile's hit are normal (Sivir, Varus, Kalista,
   Alistar, Mordekaiser, Nautilus).

@@ -142,7 +142,14 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   the block writes (league_aatrox, league_quinn, league_nocturne ...), or the attack's own damage can land before
   the hidden projectile does (a direct `Attack`, a fast melee blow: league_leesin, league_xinzhao,
   league_tryndamere ...; a projectile at a dead target hits nothing, the block would be lost on killing blows) -
-  22 heroes, to be done by hand. **What does not help:** league.dll's `league:range` node in such an attack
+  22 heroes. For them the second carrier *(2026-11-14)*: each area on the caster goes under a hidden one-tick lob
+  onto himself (`RandomTarget {range: 1, AllyOnlySelf}` -> a `ParabolicProjectile` `<id>_a_self`, `travel_time` 1,
+  the area its `end_effects`, as league_draven's q_drop): it needs no enemy alive, and the buffs round the area stay
+  at the cast. Not used when the area sits inside a cast-time `AddCasted` outside any area, reads the projectile it
+  is under, or is not centred on the caster. 17 heroes; in game league_tryndamere 0.95 -> 4.32 (130 games),
+  league_yasuo 1.03 -> 2.71 (26), league_leesin 1.00 -> 1.58 (138), league_kogmaw 3.37 without it and 6.52 with it
+  (72 / 91 presims), league_sylas flat (2.72 -> 2.12, untouched heroes x0.75); the other 5 measured normal and stay
+  as they are (`KEEP`). **What does not help:** league.dll's `league:range` node in such an attack
   (tried on 62 heroes: league_aurelionsol 0.03, league_azir 0.06 afterwards). What the engine reads was not
   found: the AI's decision trace gives these attacks the right reach, damage, picks and fight verdicts
   (docs/native_ai.md), and eleven heroes with the area at cast time were never neglected (league_belveth 5.26
@@ -692,6 +699,14 @@ projectile from a dead caster, so no simulation showed it; and since her buffs f
 the slash rate and its hits are unchanged in the simulation (21 slashes in 62 R casts, 1.7 hits each, against 28 in
 70 and 1.7 before - different games past the first R). Any `Delayed` chain that deals damage, starts a projectile or
 reads a flag the cast set should be guarded the same way. Keep the action's damage readable for the AI though (an action whose every hit is behind the guard reads as 0 and crashes its battle plan - see the league_gangplank note below).
+
+**In the game a dead champion has no entity** *(league_ai_watch 0.3.1's KOG lines, 2026-11-14: league_kogmaw's
+deaths in 91 presims and one watched match)*: from the death to the respawn the player's `champion()` is None, and
+the respawned hero is a new entity (league_kogmaw #21 -> #1020) with none of the old buffs - each life's `Permanent`
+"init" flag is added again by its first action, as in the SDK. His own hooks do not run meanwhile, so an add-on that
+follows him through a death (another champion's hook) must keep his last entity id: his projectiles still in flight
+were cast by it. league_kogmaw's data-only void form (a watch lob that finds him dead) has not been seen in the game
+with or without his attack's lob; league_ai_watch 0.3.2 follows his last entity to find out why.
 
 **Which chains need the guard** *(audit of the 60 released heroes, 2026-10-07)*: what matters is what gates the
 harmful branch of a `Delayed` that runs after the caster may have died.
