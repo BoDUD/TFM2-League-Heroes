@@ -30,6 +30,9 @@ whole squares, quarter turns and mirrors; standing, the parts rebuild the design
 - Q's in-betweens (2026-11-14): the draw in five steps and the charge as League's - the string pulled a column further,
   the scarf swinging - on the charge effect's own frames (Q, MS: the tag's frames and ms are this file's, not the
   committed sheet's), so the baked copies the kit plays keep every piece at 50 ms or more.
+- The attack, E, R and the quick Q re-timed (2026-11-14): their poses had kept the old sprite's frames cut by the baked
+  flash (the full draw 16-17 ms, pieces of 3-10 ms); now each pose's frames lie on that flash's own frames (MS), every
+  pose 50 ms or more, the totals and the release ticks the kit's (RELEASE, checked when the frames are made).
 """
 import argparse
 import json
@@ -453,20 +456,32 @@ Q_SCARF = [0, -1, -2, -3, -4, -3, -2, -1, -2]
 Q = ([NOCK, held(NOCK_X - 1), drawn(0.5), held(FULL_X + 2), held(FULL_X + 1, sink=1)]
      + [held(h, sink=1, scarf=k) for h, k in zip(Q_HAND, Q_SCARF)]
      + [dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1)])
-# tags whose frames are not the committed sheet's (count and ms): the release still at 1100 (the kit's Delayed 66), 1267
-MS = {"skill": [50] * 5 + [100] * 8 + [50] + [70, 97]}
-# the tags: one pose per sheet frame (the sheet's count and timing; the release on the kit's tick)
+# the other shots re-timed (2026-11-14, the user: 「有的动画感觉只有一帧」 - they kept the old sprite's frames cut by its
+# baked flash, so the full draw played 16-17 ms, FOLLOW 13, the quick Q's half draw 20 and pieces of 3-10 ms): one pose
+# per frame, each pose's frames on the flash baked into that tag (varus_bake.json: a_flash at 167 ms 30 / 40 / 50, e_cast
+# at 183 30 / 40 / 50 / 60, r_cast at 267 40 / 50 / 60 / 70, the quick Q's q_charge_s 120 / 140 / 140 and q_fire at 400),
+# so every pose plays 50 ms or more but the rest at the very end of E (37: e_cast's end to the tag's) and of the quick Q
+# (47: q_fire's last frame, cut by the tag); a flash frame under 50 ms shares its pose with the next. Before the release
+# the draw (nock, half) and the full draw held to the kit's tick; after it the recoil (a column back, the hand flicked
+# past the chest), the settle, FOLLOW and the rest, as many as fit: R's 13 ms after r_cast and the quick Q's settle went.
+# Each tag's total and its release tick are the kit's: attack 400 / 167, E 400 / 183, R 500 / 267, quick Q 567 / 400.
+# tags whose frames are not the committed sheet's (count and ms): Q's release still at 1100 (the kit's Delayed 66), 1267
+MS = {"skill": [50] * 5 + [100] * 8 + [50] + [70, 97],
+      "attack": [50, 50, 67, 70, 50, 50, 63],
+      "skill2": [50, 50, 83, 70, 50, 60, 37],
+      "ult": [100, 67, 100, 90, 60, 83],
+      "skill_quick": [60, 60, 140, 70, 70, 70, 50, 47]}
+# the kit's release tick in each tag of MS (start_timing + 1, Q's Delayed 66 / 24): a frame must begin there
+RELEASE = {"skill": 1100, "attack": 167, "skill2": 183, "ult": 267, "skill_quick": 400}
+# the tags: one pose per frame of MS (or of the committed sheet: count and timing); the release on the kit's tick
 POSES = {
     # loosed on the kit's tick: attack 167 ms (4th frame), Q 1100 ms (14th) / 400 ms (6th), E 183 ms (4th), R 267 ms (4th)
-    "attack": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), dict(LOOSE, dx=-1, scarf=-1), LOOSE,
-               LOOSE, FOLLOW, LOW, LOW],
+    "attack": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), LOOSE, FOLLOW, LOW],
     "skill": Q,
     "skill_quick": [NOCK, drawn(0.5), drawn(1.0, sink=1), drawn(1.0, sink=1, scarf=-1), drawn(1.0, sink=1),
-                    dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1), LOOSE, FOLLOW, LOW],
-    "skill2": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), dict(LOOSE, dx=-1, scarf=-1), LOOSE,
-               LOOSE, FOLLOW, LOW, LOW],
-    "ult": [NOCK, drawn(0.5), drawn(1.0, sink=1), dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, dx=-1, scarf=-2),
-            dict(LOOSE, scarf=-1), LOOSE, LOOSE, FOLLOW, LOW],
+                    dict(LOOSE, dx=-1, scarf=-2), FOLLOW, LOW],
+    "skill2": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), LOOSE, FOLLOW, LOW],
+    "ult": [NOCK, drawn(0.5), drawn(1.0, sink=1), dict(LOOSE, dx=-1, scarf=-2), LOOSE, FOLLOW],
 }
 
 
@@ -716,6 +731,11 @@ def frames(rig):
         if tag in baked or tag in ("idle", "bp"):
             continue
         ms = MS.get(tag) or [m for _, m in sheet[tag]]
+        if tag in MS:                                   # the kit's length and release tick (the sheet holds the length)
+            ends = list(np.cumsum(ms))
+            if abs(ends[-1] - sum(m for _, m in sheet[tag])) > 1e-6 or RELEASE[tag] not in [0] + ends:
+                sys.exit(f"{tag}: MS {ms} ({ends[-1]} ms) is not the sheet's {sum(m for _, m in sheet[tag])} ms "
+                         f"with a frame from {RELEASE[tag]}")
         n = len(ms)
         if tag in POSES:
             poses = POSES[tag]
