@@ -82,6 +82,13 @@ def to_feet(f, feet=FEET):
     return shift(f, 0, feet - lowest(f)) if f[..., 3].any() else f
 
 
+def under_ground_cut(f, feet=FEET):
+    """f without the rows under the unit's ground row (a picture sinking into the ground)"""
+    out = f.copy()
+    out[C + feet + 1:] = 0
+    return out
+
+
 def centred(tags):
     """every frame trimmed to an odd size round the pivot (the exported-sheet convention); an empty one 3 x 3"""
     return {tag: [(G.centre_frame(f, -C, -C) if f[..., 3].any() else np.zeros((3, 3, 4), np.uint8), ms) for f, ms in frames]
