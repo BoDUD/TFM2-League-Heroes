@@ -38,6 +38,8 @@ pub struct MUnit {
     pub died: Option<usize>,
     /// The tick a late spawn becomes readable.
     pub from: usize,
+    /// Ticks it is banished for (untargetable, unseen, doing nothing).
+    pub banished: usize,
 }
 
 pub fn champion(name: &str, team: usize, x: f64, y: f64) -> MUnit {
@@ -60,6 +62,7 @@ pub fn champion(name: &str, team: usize, x: f64, y: f64) -> MUnit {
         next_attack: 0,
         died: None,
         from: 0,
+        banished: 0,
     }
 }
 
@@ -115,13 +118,19 @@ pub struct World {
     pub body_ticks: usize,
     pub spawn_kind: EntityKindV1,
     pub origin: SimOriginKindV1,
+    /// Units the host still gives (None: no end) - a host that runs out of room part-way through several spawns.
+    pub spawn_left: Option<usize>,
+    /// `entity_set_pos` calls (tick, entity, where) and `entity_banish` calls (tick, caster, target, ticks).
+    pub moves: Vec<(usize, usize, (u64, u64))>,
+    pub banishes: Vec<(usize, usize, usize, usize)>,
 }
 
 impl Default for World {
     fn default() -> World {
         World { tick: 1000, units: vec![], players: vec![], queue: vec![], views: vec![], sounds: vec![], damage: vec![],
                 fears: vec![], spawns: vec![], kill_log: 0, has_spawn: true, spawn_ok: true, spawn_late: false, spawn_never: false, queue_ok: true,
-                body_ticks: 0, spawn_kind: EntityKindV1::Summon, origin: SimOriginKindV1::ClientMatchView }
+                body_ticks: 0, spawn_kind: EntityKindV1::Summon, origin: SimOriginKindV1::ClientMatchView, spawn_left: None,
+                moves: vec![], banishes: vec![] }
     }
 }
 
@@ -167,7 +176,7 @@ unsafe extern "C" fn is_tower(s: *const c_void, h: EntityHandleV1) -> bool {
     u(s, h).is_some_and(|e| e.kind == EntityKindV1::Tower)
 }
 unsafe extern "C" fn targetable(s: *const c_void, h: EntityHandleV1) -> bool {
-    u(s, h).is_some_and(|e| e.targetable)
+    u(s, h).is_some_and(|e| e.targetable && e.banished == 0)
 }
 unsafe extern "C" fn kind(s: *const c_void, h: EntityHandleV1) -> u32 {
     u(s, h).map_or(u32::MAX, |e| e.kind.code())
@@ -284,9 +293,12 @@ unsafe extern "C" fn spawn_unit(s: *mut c_void, n: *const u8, len: usize, summon
     let world = w(s);
     let mut call = SpawnCall { tick: world.tick, name: text(n, len).to_string(), summoner, team, at: (x, y), life, stat: *stat,
                                attack: *attack, gave: None };
-    if !world.spawn_ok {
+    if !world.spawn_ok || world.spawn_left == Some(0) {
         world.spawns.push(call);
         return usize::MAX;
+    }
+    if let Some(n) = world.spawn_left.as_mut() {
+        *n -= 1;
     }
     let id = world.units.len();
     call.gave = Some(id);
@@ -300,6 +312,32 @@ unsafe extern "C" fn spawn_unit(s: *mut c_void, n: *const u8, len: usize, summon
     }
     world.units.push(e);
     id
+}
+unsafe extern "C" fn set_pos(s: *mut c_void, h: EntityHandleV1, x: u64, y: u64) -> bool {
+    let world = w(s);
+    let tick = world.tick;
+    let Some(id) = h.id() else { return false };
+    let Some(e) = world.units.get_mut(id).filter(|e| e.valid) else { return false };
+    (e.x, e.y) = (x as f64, y as f64);
+    world.moves.push((tick, id, (x, y)));
+    true
+}
+#[allow(clippy::too_many_arguments)]
+unsafe extern "C" fn banish(s: *mut c_void, caster: usize, h: EntityHandleV1, ticks: usize, _: *const u8, _: usize, _: *const u8,
+                            _: usize) -> bool {
+    let world = w(s);
+    let tick = world.tick;
+    let Some(id) = h.id() else { return false };
+    let Some(e) = world.units.get_mut(id).filter(|e| e.valid) else { return false };
+    e.banished = ticks;
+    world.banishes.push((tick, caster, id, ticks));
+    true
+}
+unsafe extern "C" fn champion_count(s: *const c_void) -> usize {
+    w(s).units.iter().filter(|e| e.kind == EntityKindV1::Champion).count()
+}
+unsafe extern "C" fn champion_id_at(s: *const c_void, i: usize) -> usize {
+    w(s).units.iter().enumerate().filter(|(_, e)| e.kind == EntityKindV1::Champion).nth(i).map_or(usize::MAX, |(k, _)| k)
 }
 unsafe extern "C" fn player_count(s: *const c_void) -> usize {
     w(s).players.len()
@@ -376,6 +414,10 @@ fn vtable(world: &World) -> SimVtableV1 {
     vt.play_sfx = Some(sfx);
     vt.entity_set_hp = Some(set_hp);
     vt.spawn_unit = if world.has_spawn { Some(spawn_unit) } else { None };
+    vt.entity_set_pos = Some(set_pos);
+    vt.entity_banish = Some(banish);
+    vt.champion_count = Some(champion_count);
+    vt.champion_id_at = Some(champion_id_at);
     vt.player_count = Some(player_count);
     vt.player_at = Some(player_at);
     vt.player_is_valid = Some(player_valid);
@@ -452,8 +494,12 @@ impl World {
                 self.units[i].died = Some(tick);
                 continue;
             }
+            if me.banished > 0 {
+                continue;
+            }
             let foe = self.units.iter().enumerate()
-                .filter(|(_, o)| o.valid && o.died.is_none() && o.hp > 0 && o.team != me.team && o.kind != EntityKindV1::Tower)
+                .filter(|(_, o)| o.valid && o.died.is_none() && o.hp > 0 && o.team != me.team && o.kind != EntityKindV1::Tower
+                                 && o.banished == 0)
                 .map(|(k, o)| (k, far((o.x, o.y), (me.x, me.y))))
                 .min_by(|a, b| a.1.total_cmp(&b.1));
             let Some((k, d)) = foe else { continue };
@@ -482,6 +528,7 @@ impl World {
             e.buffs.retain(|b| b.1 > 0);
             e.ccs.iter_mut().for_each(|c| c.1 = c.1.saturating_sub(1));
             e.ccs.retain(|c| c.1 > 0);
+            e.banished = e.banished.saturating_sub(1);
             if e.summoner.is_some() {
                 if !e.valid && e.died.is_none() && e.from != 0 && tick + 1 >= e.from {
                     e.valid = true;
