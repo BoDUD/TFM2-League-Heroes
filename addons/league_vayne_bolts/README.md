@@ -1,4 +1,4 @@
-# 薇恩附加包：圣银弩箭、恶魔审判撞墙（测试版 v0.2.1）
+# 薇恩附加包：圣银弩箭、恶魔审判撞墙（测试版 v0.2.3）
 
 主包 `league` 保持纯数据。数据有两件事做不到英雄联盟的样子，这个附加包用原生代码补上：
 
@@ -6,6 +6,7 @@
 |---|---|---|
 | 圣银弩箭 | 两层记在薇恩自己身上：她轮流打两个人也会凑满 3 下，在第三个被打中的人身上爆 | **同一个目标**连续挨 3 下才爆 |
 | 恶魔审判 | 每一箭推完都晕一下（数据看不到墙） | 被推到**墙上**（地图的墙格、5v5 地图的四边）才再受 30 + 35% 攻击力的伤害并眩晕 1 秒；没撞墙只击退 |
+| 终极时刻（v0.2.3） | 期间她亲手击杀英雄刷新回 8 秒（数据看不到助攻） | 期间她 3 秒内打过的英雄阵亡（击杀或助攻）就延长 4 秒，最多到原来的 8 秒 |
 
 - **圣银弩箭**：每一处判定（普攻、翻滚后的强化普攻、恶魔审判）先调用原生效果 `league_vayne_bolts:bolt`：它数**被打中的单位身上**的层数
   （`league_vayne_bolts_s`，每层 3.5 秒，每次命中刷新），给薇恩加 3 tick 的标志：第 1 下 `league_vayne_sb_r1`（一环）、
@@ -24,6 +25,8 @@
 
 - **0.2.1（2026-11-03 的日志：每次启动 30-200 次「cc immune, not moved」）**：射程里的敌方英雄全都免控（或游戏不收）时，钩子原来把游戏 AI 自己的 E 原样放过去，白交 E；现在照样拦下、改打它的目标（日志 `E HELD: nobody in reach the push works on`）。
 
+- **终极时刻**（v0.2.3）：副本去掉主包的击杀检查（普攻和恶魔审判里的 `league_vayne_kc`，她亲手击杀刷新回 8 秒），挂上被动 `league_vayne_bolts:final_hour`（`passive.params`：`extend` 240、`window` 180）：她的每一下（`on_attack`）记下打中的敌方英雄，3 秒内打过的英雄阵亡、她身上有终极时刻（`league_vayne_r`），就把它剩下的时间加 4 秒、最多 8 秒（buff 拿下来改了时间重新挂，数字原样），播主包刷新的画面和声音。大招的说明开头加【附加包】，最后一句换成参与击杀延长。
+
 ## 在游戏里测
 
 1. 主包 0.71 以上要装着并启用；本包已经编进附加包合集 `league_addons`（单独用时把 `league_vayne_bolts` 文件夹放进 `mods\`）。
@@ -31,7 +34,8 @@
 3. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_vayne_bolts.log`：`bolt on #…: 1 stack(s) before -> Ring2` 等；
    `CONDEMN #… a wall 12000 away, there in 4 ticks`（撞墙）/ `no wall within 24000, knocked back, no stun`（没墙）；
    `PIN #… held 6 ticks for the slam`（按在墙边，接着数据的撞墙伤害和眩晕）；AI：`E WALL on …: a wall 9000 behind him`（找到墙放 E）、
-   `E PEEL`（自保）、`E KILL`（收人头）、`E HELD`（没墙，留着 E 改普攻），一次按键记一行。
+   `E PEEL`（自保）、`E KILL`（收人头）、`E HELD`（没墙，留着 E 改普攻），一次按键记一行；
+   `FINAL HOUR +240 #n: champion #7 died within 180 ticks of her hit, 150 -> 390 ticks left (cap 480)`（延长），`no Final Hour on her`（她没开大）。
 
 ## 开发
 
@@ -49,3 +53,7 @@
   再等一拍，停下了却离落点超过 `AT_WALL`（4000）——被别人的控制打断、自己的位移技能顶掉——就不按住，也摘掉薇恩的
   `league_vayne_e_wall`，数据第 8 tick 的撞墙伤害和眩晕不打（日志 `SHORT`）。原来到点就按住，数据也照打，空地上也晕。
 - 版本号没改（还没合并的 #734 改它）。测试：`the_pin_needs_him_at_the_landing_point`。
+
+## 终极时刻参与击杀延长 4 秒（v0.2.3，2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」，又说「接着做」。英雄联盟里终极时刻期间，她 3 秒内打过的敌方英雄被击杀（她的击杀或助攻）就延长 4 秒，最多到原来的时长。主包只认她亲手的击杀，刷新回 8 秒。副本去掉主包的击杀检查（`league_vayne_kc`，普攻两处、恶魔审判两处），新被动 `league_vayne_bolts:final_hour` 按 `on_attack` 记下的命中判断阵亡、延长 `league_vayne_r`（`R_T` 480 由 `make_override.py` 和主包的大招核对）。大招的说明换成本包的 `description.league_vayne_bolts.ult`。
