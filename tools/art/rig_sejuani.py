@@ -28,6 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "sejuani"
@@ -82,10 +83,17 @@ class Canvas:
             left = rig.ox + self.tip - tusk_tip(d) + dx
         return d, (left, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def frame(self, name, dx=0, lift=0, flash=False, spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        spins [(part, point, degrees, how)] - the flail's ice head (PARTS) turned clockwise by any angle about the end
+        of its chain. Everything of the pose in no part is checked unchanged (her head and Bristle's lie far from the
+        ice head: no head box helper here, as league_kled)."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if spins:
+            d = IB.vary(d, PARTS[name], self.outline, (), (), None, None, VPAD, name, (), spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -100,27 +108,51 @@ class Canvas:
 # (q_go 6 = 100 ms, the rush q_t 8 = 133 ms) then the tusk toss; W 667 ms = w_dur 40: the wind-up, the sweep on w_rel1 10
 # (167 ms), the flail raised, the slam on w_rel2 26 (433 ms); R 500 ms = r_dur 30: the bola whirled, flung on r_rel 14
 # (233 ms)
-MS = {"idle": [1000], "run": [150] * 4, "attack": [183, 117, 100, 67], "skill": [100, 67, 66, 167],
-      "skill2": [167, 133, 133, 234], "ult": [233, 267], "hit": [100, 100], "dead": [140, 200, 300, 600]}
+#
+# The in-betweens (2026-11-14: the attack played 3 poses, the ult 2, the death 2 and a flash; the user:
+# 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): the flail's ice head turned about the end of its chain
+# (inbetween.spin) - the head swinging on its chain; the chain (a square or two thick), Sejuani and Bristle never
+# change. Each span above is shared out over more frames (inbetween.spans: whole ms, none under 50), so every action
+# is as long as it was and its strike still begins on its millisecond (the lash at 183, the bola at 233, the fall at
+# 340).
+VPAD = 30
+PARTS = {"a_wind": {"head": [(0, 41, 15, 63)]}, "a_smash": {"head": [(92, 7, 112, 24)]},
+         "r_wind": {"head": [(60, 0, 79, 16)]}, "r_throw": {"head": [(79, 45, 93, 64)]},
+         "d_rear": {"head": [(10, 62, 30, 80)]}}
+HOLD = {"a_wind": (12, 44), "a_smash": (94, 18), "r_wind": (60, 4), "r_throw": (83, 48), "d_rear": (14, 64)}
+MS = {"idle": [1000], "run": [150] * 4, "attack": IB.spans((183, 2), (217, 3), (67, 1)), "skill": [100, 67, 66, 167],
+      "skill2": [167, 133, 133, 234], "ult": IB.spans((233, 3), (267, 3)), "hit": [100, 100],
+      "dead": IB.spans((340, 3), (900, 2, (8, 92)))}
 
 
 def actions(C):
     f = C.frame
+
+    def swing(name, degrees):
+        """The pose's ice head turned clockwise by `degrees` (negative: counter-clockwise) about its chain's end."""
+        return [("head", HOLD[name], degrees, "under")]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Run: stretched, the front feet landing, gathered, the hind legs pushing off)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
     # attack (Attack1: the flail flung behind, lashed out forward, back)
-    out["attack"] = [f("a_wind"), f("a_smash"), f("a_smash"), f("idle")]
+    # (the head swinging behind, flung back; lashed out with the head still lagging, out, whipping past; back)
+    out["attack"] = [f("a_wind", spins=swing("a_wind", 40)), f("a_wind"), f("a_smash", spins=swing("a_smash", -35)),
+                     f("a_smash"), f("a_smash", spins=swing("a_smash", 20)), f("idle")]
     # Arctic Assault (Spell1 -> Spell1_Hit: the charge at a gallop, the tusks tossed up)
     out["skill"] = [f("run1"), f("run2"), f("run3"), f("q_toss")]
     # Winter's Wrath (Spell2_A: the wind-up and the sweep; Spell2_B: raised, slammed down ahead)
     out["skill2"] = [f("a_wind"), f("w_sweep"), f("w_raise"), f("w_slam")]
     # Glacial Prison (Spell4: the bola whirled overhead, flung)
-    out["ult"] = [f("r_wind"), f("r_throw")]
+    # (the bola whirling over her head in three turns of its head; flung with the head still swinging round, out,
+    # swinging on)
+    out["ult"] = [f("r_wind", spins=swing("r_wind", 60)), f("r_wind", spins=swing("r_wind", 120)), f("r_wind"),
+                  f("r_throw", spins=swing("r_throw", -40)), f("r_throw"), f("r_throw", spins=swing("r_throw", 25))]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (Death: Bristle rearing, Sejuani thrown off; both down)
-    out["dead"] = [f("d_rear", flash=True), f("d_rear"), f("d_down"), f("d_down")]
+    # (struck; the flail flying loose, its head tumbling on its chain; down)
+    out["dead"] = [f("d_rear", flash=True), f("d_rear", spins=swing("d_rear", 40)),
+                   f("d_rear", spins=swing("d_rear", 80)), f("d_down", lift=3), f("d_down")]
     return out
 
 
