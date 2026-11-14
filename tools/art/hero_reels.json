@@ -151,7 +151,7 @@
   "league_varus": {"idle": [["attack", [0, 1]], ["ult", [0]]]},
   "league_vayne": {"idle": [["skill2", [5]], ["attack", [0]]]},
   "league_veigar": {"idle": [["skill2", [0, 1, 2, 3]], ["attack", [0, 1, 2, 3]]]},
-  "league_velkoz": {"idle": [["attack", [0, 1, 2, 3]], ["ult", [0, 1, 2]]]},
+  "league_velkoz": {"idle": [["attack", [0, 1, 2, 3]], ["ult", [0, 1, 2, 3]]]},
   "league_vex": {"idle": [["skill2", [3, 4, 5]], ["skill", [4, 5]]]},
   "league_vi": {"idle": [["skill", [0, 2, 4]], ["attack_e", [0]]]},
   "league_viego": {"idle": [["attack", [0, 1]], ["ult", [4, 5]]]},
