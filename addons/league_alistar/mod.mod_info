@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.354.0"
+    }
+  ],
+  "description": "Alistar's Triumphant Roar as in League (needs League of Legends Heroes): the main pack's roar comes after his crowd control lands on enemy champions 3 times, because data sees no deaths around him; with this add-on he gathers Triumph stacks as in League - one for each enemy champion his crowd control lands on and for each enemy minion or monster dying near him, seven for an enemy champion or epic monster dying near him - and roars at seven (the main pack's heals). Everything else stays the main pack's. Writes a log for testing.",
+  "last_updated": "2026-11-14",
+  "mod_id": "league_alistar",
+  "mod_type": "native",
+  "name": "League Heroes: Alistar's Triumph from deaths nearby",
+  "version": "0.1.0"
+}

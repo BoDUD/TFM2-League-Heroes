@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_nami": {
+    "remapping": "asset/league_nami/override/league_nami",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_nami/text/champion",
+    "type": "merge"
+  }
+}

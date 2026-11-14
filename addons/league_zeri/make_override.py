@@ -9,7 +9,8 @@ addons/league_zeri/override/league_zeri.data_champion and .../text/champion.i18n
     passive turned it into a laser at a wall);
   * the charged shot gives no shield of its own (the steal replaces it);
   * passive = league_zeri:battery with steal, steal_t and W's numbers as its params;
-  * the attack's and W's tooltips (merged over the main text) name the shield steal and the wall.
+  * the attack's and W's tooltips (merged over the main text) name the shield steal and the wall, and walking charging
+    the pack (0.1.8).
 Every other champion stays untouched. Run it again whenever the main pack's Zeri or her text changes.
 """
 import json
@@ -27,15 +28,20 @@ HERO = "league_zeri"
 # lang -> slot -> (the main text's words, the add-on's); {steal} = P["p_steal"]
 SWAP = {
     "zh-hans": {"attack": ("，自己获得护盾和移速。", "，自己获得移速；伤害打到敌人护盾时偷取{steal}%变成自己的护盾。"),
+                "walk": ("次攻击充满电", "次攻击充满电（走路也充电）"),
                 "skill": ("先打中小兵或野怪时", "先打中小兵、野怪或撞到墙时")},
     "zh-hant": {"attack": ("，自己獲得護盾和移速。", "，自己獲得移速；傷害打到敵人護盾時偷取{steal}%變成自己的護盾。"),
+                "walk": ("次攻擊充滿電", "次攻擊充滿電（走路也充電）"),
                 "skill": ("先打中小兵或野怪時", "先打中小兵、野怪或撞到牆時")},
     "en": {"attack": (", and she gains a shield and Move Speed.",
-                      ", and she gains Move Speed. Damaging an enemy shield steals {steal}% of it as her own shield."),
+                      ", and she gains Move Speed. Hitting a shield steals {steal}% of it as hers."),
+           "walk": (" attacks charge her pack;", " attacks charge her pack (walking charges it too);"),
            "skill": ("If a minion or monster stops it,", "If a minion, a monster or a wall stops it,")},
     "ko": {"attack": (", 자신은 보호막과 이동 속도.", ", 자신은 이동 속도. 적 보호막에 피해를 주면 {steal}%를 훔쳐 자신의 보호막으로."),
+           "walk": ("번에 충전,", "번(걷기도)에 충전,"),
            "skill": ("미니언이나 몬스터에 막히면", "미니언·몬스터·벽에 막히면")},
     "ja": {"attack": ("、自身にシールドと移動速度。", "、自身に移動速度。敵シールドへのダメージの{steal}%を奪い自分のシールドに。"),
+           "walk": ("回の攻撃で充電", "回の攻撃（移動でも）で充電"),
            "skill": ("ミニオンかモンスターに当たると", "ミニオン、モンスター、壁に当たると")},
 }
 
@@ -73,10 +79,12 @@ def main():
     for lang, swaps in SWAP.items():
         d, _ = main_texts[lang]
         texts[lang] = {}
-        for slot, (old, new) in swaps.items():
-            if d[slot].count(old) != 1:
-                sys.exit(f"{lang} {slot}: the main pack's text changed ({old!r} not found once): update SWAP")
-            texts[lang][slot] = d[slot].replace(old, new.format(steal=p["p_steal"]))
+        for key, (old, new) in swaps.items():
+            slot = "attack" if key == "walk" else key       # "walk": a second swap in the attack's text (0.1.8)
+            t = texts[lang].get(slot, d[slot])
+            if t.count(old) != 1:
+                sys.exit(f"{lang} {key}: the main pack's text changed ({old!r} not found once): update SWAP")
+            texts[lang][slot] = t.replace(old, new.format(steal=p["p_steal"]))
     long = {(lang, slot): setup.shown_length(t) for lang, ts in texts.items() for slot, t in ts.items()
             if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:

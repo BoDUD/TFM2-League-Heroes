@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_soraka_addon": {
+        "ult": "【附加包】<#ff9028ff>祈愿<>：为全图所有友方英雄（包括自己）回复<#6aff55ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#6aff55ff>生命值<>。生命低于<#ffb900ff>40%<>的多回复<#6aff55ff>50%<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_soraka_addon": {
+        "ult": "【附加包】<#ff9028ff>祈願<>：為全圖所有友方英雄（包括自己）回復<#6aff55ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#6aff55ff>生命<>。生命低於<#ffb900ff>40%<>的多回復<#6aff55ff>50%<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_soraka_addon": {
+        "ult": "[Add-on] <#ff9028ff>Wish<>: Restores <#6aff55ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#6aff55ff>health<> to every allied champion on the map, Soraka included. Those below <#ffb900ff>40%<> health are healed <#6aff55ff>50%<> more."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_soraka_addon": {
+        "ult": "[애드온] <#ff9028ff>기원<>: 거리와 관계없이 모든 아군 챔피언(소라카 포함)의 <#6aff55ff>체력을 220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<>만큼 회복시킵니다. 체력이 <#ffb900ff>40%<> 미만인 대상은 <#6aff55ff>50%<> 더 회복합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_soraka_addon": {
+        "ult": "【アドオン】<#ff9028ff>星に願いを<>：距離に関係なく、すべての味方チャンピオン（ソラカを含む）の<#6aff55ff>体力を220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>回復する。体力<#ffb900ff>40%<>未満の対象は<#6aff55ff>50%<>多く回復。"
+      }
+    }
+  }
+}

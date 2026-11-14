@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_hecarim_addon": {
+        "skill": "【附加包】回旋横扫，周围敌人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>伤害。命中后获得一层<#ff9028ff>暴走<>（最多2层，<#ffb900ff>8秒<>），每层伤害+20%、Q的冷却缩短<#ffb900ff>0.75秒<>。刷野叠的层数可以带进团战。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_hecarim_addon": {
+        "skill": "【附加包】迴旋橫掃，周圍敵人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>傷害。命中後獲得一層<#ff9028ff>逸騎刃擊<>（最多2層，<#ffb900ff>8秒<>），每層傷害+20%、Q的冷卻縮短<#ffb900ff>0.75秒<>。打野疊的層數可以帶進團戰。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_hecarim_addon": {
+        "skill": "[Add-on] Spins the glaive: enemies around take <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> damage. A hit gives a <#ff9028ff>Rampage<> stack (up to 2, <#ffb900ff>8s<>), each +20% damage and <#ffb900ff>0.75s<> off Rampage's cooldown - stacks built on camps carry into a gank."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_hecarim_addon": {
+        "skill": "[애드온] 언월도를 휘둘러 주변 적에게 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>의 피해. 적중 시 <#ff9028ff>회오리 베기<> 중첩(최대 2, <#ffb900ff>8초<>), 중첩당 피해 +20%, 재사용 대기시간 <#ffb900ff>0.75초<> 감소. 정글에서 쌓은 중첩을 갱킹에 가져갑니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_hecarim_addon": {
+        "skill": "【アドオン】グレイブを振り回し周囲の敵に<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>のダメージ。命中で<#ff9028ff>ランページ<>スタック（最大2、<#ffb900ff>8秒<>）、1つごとにダメージ+20%、クールダウン<#ffb900ff>0.75秒<>短縮。"
+      }
+    }
+  }
+}

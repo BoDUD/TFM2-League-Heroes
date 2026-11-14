@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_soraka": {
+    "remapping": "asset/league_soraka/override/league_soraka",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_soraka/text/champion",
+    "type": "merge"
+  }
+}

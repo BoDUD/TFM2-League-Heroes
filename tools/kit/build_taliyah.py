@@ -264,10 +264,14 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def build(p):
+    native = bool(p["native"])
     # ------------------------------------------------------------------ passive: Rock Surfing
-    # a hit on a champion: the fight - no surf until f_t ticks after the last one (that one's Delayed puts it back)
+    # a hit on a champion: the fight - no surf until f_t ticks after the last one (that one's Delayed puts it back).
+    # The add-on's copy (native) puts no surf on her: league_taliyah's passive gives it near terrain (League's Rock
+    # Surfing, src/surf.rs: by level, built up and faded), on the same flag `surf` (its picture), off in fights
     surf = flag("surf", None, move_speed_mult=p["p_ms"])
-    fight = [*rm("surf"), refresh("fight", p["f_t"]), delayed(p["f_t"] + 1, alive(sw("fight", NONE, sw("surf", NONE, surf))))]
+    resurf = [] if native else [delayed(p["f_t"] + 1, alive(sw("fight", NONE, sw("surf", NONE, surf))))]
+    fight = [*rm("surf"), refresh("fight", p["f_t"]), *resurf]
 
     # ------------------------------------------------------------------ skill: Q Threaded Volley
     rng = p["q_range"] + 10000
@@ -325,7 +329,6 @@ def build(p):
                             sw("w_cd", NONE, w_cast("EnemyChampion"))), key="skill2")
 
     # ------------------------------------------------------------------ ult: R Weaver's Wall
-    native = bool(p["native"])
     # the add-on's copy (native): no slow and no drag - addons/league_taliyah makes the walls real terrain (it finds the
     # upright one under the champion carrying `aim` the tick `wall_up` rises, the ride's stretches from her spot toward
     # that champion the tick `lay_up` rises, snapped onto the stretches' empty zones)
@@ -386,7 +389,7 @@ def build(p):
                      homing("a_rock_c", "EnemyChampion", fight, p["a_speed"]))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(decoy(0, 100, attack), sw("own", NONE, flag("own", None)),
-                              sw("fight", NONE, sw("surf", NONE, surf)),
+                              *([] if native else [sw("fight", NONE, sw("surf", NONE, surf))]),
                               delayed(p["a_rel"] - 1, alive(pebble))),
                       atype="BaseAttack", cancel=True)
 

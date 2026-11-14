@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_leona_addon": {
+        "attack": "【附加包】普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>日光<>：蕾欧娜的技能命中的敌人挂上日光（<#ffb900ff>2.5秒<>），友方英雄的攻击或技能打中它时引爆，造成<#a974ffff>32～151<>（随她的等级）<#a974ffff>魔法伤害<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_leona_addon": {
+        "attack": "【附加包】普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>烈陽之力<>：雷歐娜的技能命中的敵人掛上烈陽（<#ffb900ff>2.5秒<>），友方英雄的攻擊或技能打中它時引爆，造成<#a974ffff>32～151<>（隨她的等級）<#a974ffff>魔法傷害<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_leona_addon": {
+        "attack": "[Add-on] Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Sunlight<>: enemies hit by Leona's abilities are marked for <#ffb900ff>2.5s<>; an allied champion's attack or ability on them detonates it for <#a974ffff>32-151<> (by her level) <#a974ffff>magic damage<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_leona_addon": {
+        "attack": "[애드온] 기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>햇빛<>: 레오나의 스킬에 맞은 적에게 <#ffb900ff>2.5초<> 동안 햇빛이 남고, 아군 챔피언의 공격이나 스킬이 맞으면 터져 <#a974ffff>32~151<>(레오나 레벨 비례) <#a974ffff>마법 피해<>를 입힙니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_leona_addon": {
+        "attack": "【アドオン】通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>サンライト<>：レオナのスキルが命中した敵に<#ffb900ff>2.5秒<>間サンライトが付き、味方チャンピオンの攻撃かスキルが当たると爆発して<#a974ffff>32～151<>（彼女のレベルに比例）の<#a974ffff>魔法ダメージ<>を与える。"
+      }
+    }
+  }
+}
