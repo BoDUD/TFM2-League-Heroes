@@ -112,7 +112,7 @@
   "league_poppy": {"idle": [["skill", [0, 1]]]},
   "league_pyke": {"idle": [["skill2", [0, 1, 2]], ["skill", [1, 2, 3]]]},
   "league_qiyana": {"idle": [["attack", [0]]]},
-  "league_quinn": {"idle": [["ult", [2]], ["skill", [0]]], "r_idle": []},
+  "league_quinn": {"idle": [["ult", [2]], ["skill", [0]]], "r_idle": [["ult_ride", [0, 1, 2, 3, 4, 5, 6, 7], "fwd"]], "bp": ["skill", "skill2", "ult", "attack"]},
   "league_rakan": {"idle": [["attack", [0]], ["attack", [5]]]},
   "league_rammus": {"idle": [["skill", [0, 1, 2, 3]], ["skill_w", [0, 1, 2]]], "b_idle": [], "c_idle": []},
   "league_reksai": {"idle": [["bite", [1, 2, 3, 4]], ["attack", [0, 1]]], "b_idle": []},
