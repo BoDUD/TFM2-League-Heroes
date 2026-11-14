@@ -18,6 +18,11 @@
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_neeko.log`，每次启动游戏重写。0.1.12：每种行整个启动一个计数
 //! （league_yasuo_wall 0.1.2 的做法：服务器的预演先记 40 行、之后每 100 行记一行，你看的那场每行都记，行末 `#k`）；`SPAWN` 的参数
 //! 一次启动只写一次（league_vladimir_pool 0.2.1 的做法）。
+//!
+//! 0.2.0（2026-11-14，用户问妮蔻有没有 W 的分身，答「加」）：W 两生花影的主动由本包自己放（[`split`]）——挨了一大口伤害、
+//! 身边有敌方英雄时她隐身 0.5 秒、加速 3 秒，脚下留下一个真的单位做分身（`spawn_unit`，也叫 `league_neeko`，她正假扮着
+//! 分身就是同一个样子），挨打 0.5 秒后消失。普攻（W 的被动在里面）和三个技能位一个字节没改。引擎要是把这个被动也给了
+//! 分身（一个叫 `league_neeko` 的召唤物），被动认出它是召唤物，什么都不做（`SPAWN ... a unit`）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -30,6 +35,8 @@ use mod_api_stable::*;
 #[path = "../../league_viego_soul/src/souls.rs"]
 #[allow(dead_code)]
 mod souls;
+/// W Shapesplitter's active, cast by the add-on, its clone a unit (0.2.0).
+pub mod split;
 pub mod view;
 
 const ID: &str = "league_neeko";
@@ -230,6 +237,15 @@ pub struct Glamour {
     count: usize,
     /// Her unit, set by every update (`on_dead` is given only the player; a respawn is a new unit).
     me: Option<usize>,
+    /// W Shapesplitter's active and its clone (0.2.0).
+    split: split::Split,
+    /// This instance was given to a unit, not to her (her clone, named like her): it does nothing.
+    unit: bool,
+}
+
+/// A summon (her clone is one, under her name): her passive, should the engine give it one, does nothing for it.
+fn is_unit(sim: &StableSim<'_>, me: usize) -> bool {
+    sim.get_entity(me).is_some_and(|e| e.kind() == Some(EntityKindV1::Summon))
 }
 
 const SLOTS: [SkillSlotV1; 3] = [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult];
@@ -298,9 +314,19 @@ impl StablePassive for Glamour {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if is_unit(sim, me) {
+            // 0.2.0: the engine gave her passive to a unit under her name (her clone): it is not her
+            self.unit = true;
+            if let Some(k) = tally(sim, "spawn unit") {
+                wlog(format!("{} SPAWN: her passive given to a unit (kind summon, '{}', player {player}) - it does nothing for it #{k}",
+                             head(sim, me), sim.get_entity(me).and_then(|e| e.name()).unwrap_or_default()));
+            }
+            return;
+        }
         self.ready = sim.tick() + self.p.p_first;
         self.me = Some(me);
         self.on = None; // a new life starts undisguised
+        self.split.spawned(sim, me);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = tally(sim, "spawn") {
             // the Params in the first SPAWN line of a launch only (0.1.12)
@@ -309,24 +335,40 @@ impl StablePassive for Glamour {
         }
     }
 
-    fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _me: usize, _attacker: usize, damage: usize) {
+    fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _me: usize, attacker: usize, damage: usize) {
         self.hurt = sim.tick();
         if let Some(on) = self.on.as_mut() {
             on.taken += damage;
+        }
+        if !self.unit {
+            let champion = sim.get_entity(attacker).is_some_and(|a| a.is_champion());
+            self.split.hurt(sim.tick(), damage, champion);
         }
     }
 
     /// Her death ends a disguise at once (0.1.1, the 2026-11-01 logs: a dead Neeko's update does not run, so the disguise
     /// outlived her and "revealed" on the respawned Neeko - a poof at the fountain, or 20 % magic pen for a disguise the screen
     /// never drew).
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+        if self.unit {
+            return;
+        }
         if let Some(me) = self.me {
             self.end(sim, me, "dead", false);
         }
         self.ready = self.ready.max(sim.tick() + self.p.p_first);
+        self.split.dead(sim, player);
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        if self.unit || is_unit(sim, me) {
+            if !std::mem::replace(&mut self.unit, true) {
+                if let Some(k) = tally(sim, "spawn unit") {
+                    wlog(format!("{} her passive runs for a unit (kind summon) - it does nothing for it #{k}", head(sim, me)));
+                }
+            }
+            return;
+        }
         self.me = Some(me);
         let t = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
@@ -348,9 +390,25 @@ impl StablePassive for Glamour {
         let mut cast = false;
         for (k, slot) in SLOTS.iter().enumerate() {
             let now = e.cooldown(*slot).map_or(0, |c| c.remaining);
-            cast |= cast_seen(self.cds[k], now);
+            let seen = cast_seen(self.cds[k], now);
+            if seen && *slot == SkillSlotV1::Ult {
+                self.split.saw_ult(t);
+            }
+            cast |= seen;
             self.cds[k] = now;
         }
+        self.glamour(sim, me, team, max_hp, held, cast);
+        // 0.2.0: W's active after the disguise's turn (a clone made in her disguise wears it too)
+        let worn = self.on.as_ref().map(|d| d.name.clone());
+        self.split.update(sim, player, me, worn.as_deref());
+    }
+}
+
+impl Glamour {
+    /// The disguise's turn of the tick (0.1.x's update): its end - a cast, crowd control, a big hit, the ally fallen -
+    /// or a new one.
+    fn glamour(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, max_hp: usize, held: bool, cast: bool) {
+        let t = sim.tick();
         if let Some(on) = &self.on {
             let ally_up = sim.get_entity(on.ally).is_some_and(|a| a.is_alive());
             if cast {
@@ -381,19 +439,22 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Neeko: Inherent Glamour, drawn as an ally) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Neeko: Inherent Glamour, drawn as an ally; W Shapesplitter cast by the add-on, its clone a unit) \
+         loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
         host.abi_level(),
         LOG_PATH.display()
     ));
+    // 0.2.0: W's active and its clone (the SPLIT line, second in the log)
+    split::register(module);
     module.add_native_passive(format!("{ID}:glamour"), Glamour::default());
     // its own DLL reads the screen clock itself; in league_addons Viego's reader feeds the shared clock
     #[cfg(not(league_bundle))]
     module.set_extension(view::ClockFeed);
     view::install_once();
-    host.log(LogLevel::Info, "league_neeko loaded (Neeko's disguise as an ally).");
+    host.log(LogLevel::Info, "league_neeko loaded (Neeko's disguise as an ally, W Shapesplitter's clone).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -456,5 +517,131 @@ mod tests {
     fn buff_names_fit() {
         assert!(PEN.len() <= BUFF_NAME_CAP);
         assert!(nk("p_poof").len() <= BUFF_NAME_CAP);
+    }
+
+    /// The log the tests write (one file for all of them: LOG_PATH is fixed at its first use), set before any line.
+    pub fn test_log() -> std::path::PathBuf {
+        static SET: std::sync::Once = std::sync::Once::new();
+        let path = std::env::temp_dir().join(format!("league_neeko_test_{}.log", std::process::id()));
+        SET.call_once(|| {
+            std::env::set_var("LEAGUE_NEEKO_LOG", &path);
+            let _ = std::fs::remove_file(&path);
+            let _ = std::fs::remove_file(path.with_extension("cfg"));
+        });
+        path
+    }
+
+    // ---- 0.2.0: her disguise with a clone of hers on the field (summon_mock.rs: our guess of the host) ----
+
+    use super::split::mock::{champion, MPlayer, World};
+
+    const ALLY: usize = 1;
+    const FOE: usize = 2;
+    const CLONE: usize = 3;
+
+    fn tick(w: &mut World, me: &mut Glamour) {
+        for (name, caster, input) in w.due() {
+            w.sim(|sim| match name.as_str() {
+                "league_neeko:split" => split::SplitFx.apply(sim, 0, caster, input),
+                other => panic!("an effect nobody registered: {other}"),
+            });
+        }
+        if w.units[0].hp > 0 {
+            w.sim(|sim| me.on_update(sim, 0, 0, 0));
+        }
+        w.step();
+    }
+
+    fn run(w: &mut World, me: &mut Glamour, n: usize) {
+        for _ in 0..n {
+            tick(w, me);
+        }
+    }
+
+    /// Neeko #0 (960 health) and Garen #1 of team 0 20000 apart, Jinx #2 of team 1 40000 east of her; the screen's sim; a
+    /// tick past her first disguise. The host's new units read unsettled for 2 ticks (game 0.7.2).
+    fn disguised() -> (World, Glamour) {
+        test_log();
+        let mut w = World { settle: 2, ..World::default() };
+        let mut nk = champion(HERO, 0, 300_000.0, 300_000.0);
+        (nk.hp, nk.max, nk.stat.hp) = (960, 960, 960);
+        w.units = vec![nk, champion("league_garen", 0, 280_000.0, 300_000.0), champion("league_jinx", 1, 340_000.0, 300_000.0)];
+        w.players = vec![MPlayer { team: 0, champion: 0, ..Default::default() }, MPlayer { team: 0, champion: ALLY, ..Default::default() },
+                         MPlayer { team: 1, champion: FOE, ..Default::default() }];
+        let mut me = Glamour::default();
+        w.sim(|sim| me.on_spawn(sim, 0, 0));
+        run(&mut w, &mut me, Params::default().p_first + 2);
+        (w, me)
+    }
+
+    fn wearing_now(w: &World, id: usize) -> Option<String> {
+        view::worn_at(7, 1, id, w.tick)
+    }
+
+    /// A hit on her as the engine reports it: the hook first, then the health.
+    fn hit(w: &mut World, me: &mut Glamour, amount: usize) {
+        w.sim(|sim| me.on_damaged(sim, 0, 0, FOE, amount));
+        w.hurt(0, amount);
+    }
+
+    // (one test: the screen's notes are shared by every test of the process, and a second one would use the same ids)
+    #[test]
+    fn a_clone_of_hers_never_breaks_or_takes_her_disguise() {
+        let (mut w, mut me) = disguised();
+        assert_eq!(me.on.as_ref().map(|d| d.name.as_str()), Some("league_garen"), "she never disguised");
+        assert_eq!(wearing_now(&w, 0).as_deref(), Some("league_garen"));
+        // a burst (16%) under her disguise's limit (35%): W, the disguise kept (W is no damaging cast), the clone in the
+        // same body
+        hit(&mut w, &mut me, 150);
+        run(&mut w, &mut me, 6);
+        assert_eq!(w.spawns.len(), 1);
+        assert_eq!((w.spawns[0].gave, w.spawns[0].name.as_str()), (Some(CLONE), HERO));
+        assert_eq!(w.units[CLONE].kind, EntityKindV1::Summon);
+        assert_eq!(me.on.as_ref().map(|d| d.name.as_str()), Some("league_garen"), "W broke her disguise");
+        assert_eq!(wearing_now(&w, 0).as_deref(), Some("league_garen"));
+        assert_eq!(wearing_now(&w, CLONE).as_deref(), Some("league_garen"), "the clone is not in her form");
+        // the clone, named like her, is never an ally to wear
+        assert!(!can_wear(HERO));
+        (w.units[ALLY].hp, w.units[ALLY].died) = (0, Some(w.tick));
+        assert_eq!(w.sim(|sim| me.pick(sim, 0, 0)), None, "she would wear her own clone");
+        (w.units[ALLY].hp, w.units[ALLY].died) = (1000, None);
+        // her passive given to the clone (if the engine does that): it does nothing - no disguise, no W, no notes
+        let mut twin = Glamour::default();
+        w.sim(|sim| twin.on_spawn(sim, 0, CLONE));
+        for _ in 0..200 {
+            w.sim(|sim| {
+                twin.on_damaged(sim, 0, CLONE, FOE, 400);
+                twin.on_update(sim, 0, 0, CLONE);
+            });
+            tick(&mut w, &mut me);
+            if w.tick % 50 == 0 {
+                assert!(twin.on.is_none() && twin.unit, "the clone's own passive disguised it");
+            }
+        }
+        assert_eq!(w.spawns.len(), 1, "the clone's passive cast W");
+        w.sim(|sim| twin.on_dead(sim, 0));
+        let text = std::fs::read_to_string(test_log()).expect("the log");
+        assert!(text.contains("SPAWN: her passive given to a unit (kind summon, 'league_neeko', player 0) - it does nothing for it"),
+                "{text}");
+        // its form ends with it; hers goes on
+        assert_eq!(wearing_now(&w, CLONE), None, "the clone's form outlived it");
+        assert_eq!(wearing_now(&w, 0).as_deref(), Some("league_garen"));
+        // a second W in the same disguise (its cooldown from the first clone's end), then her reveal: the new clone keeps
+        // her form (League: it cannot lose it)
+        run(&mut w, &mut me, split::W_CD);
+        hit(&mut w, &mut me, 150);
+        run(&mut w, &mut me, 6);
+        assert_eq!(w.spawns.len(), 2, "no second W");
+        let second = w.spawns[1].gave.unwrap();
+        assert_eq!(me.on.as_ref().map(|d| d.name.as_str()), Some("league_garen"));
+        assert_eq!(wearing_now(&w, second).as_deref(), Some("league_garen"));
+        // 150 + 150 + 40 of her 960 taken in disguise: hit through
+        hit(&mut w, &mut me, 40);
+        run(&mut w, &mut me, 2);
+        assert!(me.on.is_none(), "not hit through");
+        assert_eq!(wearing_now(&w, 0), None);
+        assert_eq!(wearing_now(&w, second).as_deref(), Some("league_garen"), "her reveal reached the clone");
+        run(&mut w, &mut me, split::W_LIFE);
+        assert_eq!(wearing_now(&w, second), None);
     }
 }
