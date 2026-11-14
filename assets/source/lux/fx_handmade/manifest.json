@@ -1,0 +1,168 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_lux_fx",
+   "tag": "e_zone",
+   "file": "league_lux_fx/e_zone.png",
+   "ppu": 2,
+   "frames": 12,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     53,
+     59
+    ],
+    [
+     53,
+     57
+    ],
+    [
+     53,
+     59
+    ],
+    [
+     53,
+     57
+    ],
+    [
+     63,
+     69
+    ],
+    [
+     65,
+     69
+    ],
+    [
+     55,
+     51
+    ],
+    [
+     39,
+     43
+    ]
+   ],
+   "of_1x": "448dc186f75604999d4389f43fc0f2f1a596eb16fb979771e4ed9cb38cbf1360",
+   "by": "fx_vector 3",
+   "sha256": "69ef14b9de93e9df84993ee90d1a54db9b546e04505847c34c4bf07a1e822605",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_lux_fx",
+   "tag": "shield",
+   "file": "league_lux_fx/shield.png",
+   "ppu": 2,
+   "frames": 12,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     27,
+     51
+    ],
+    [
+     29,
+     53
+    ],
+    [
+     33,
+     53
+    ],
+    [
+     27,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     31,
+     55
+    ],
+    [
+     23,
+     47
+    ]
+   ],
+   "of_1x": "744c798d640ab53ccfe932b227761774966c64748bfd92d3335425c88ff6a340",
+   "by": "fx_vector 3",
+   "sha256": "ec058a2a65c73d6ebe598647ed267fe550bc88807c27772aabeb7f41d9dc98df",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_lux_r",
+   "tag": "beam",
+   "file": "league_lux_r/beam.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     339,
+     11
+    ],
+    [
+     337,
+     17
+    ],
+    [
+     339,
+     31
+    ],
+    [
+     341,
+     35
+    ],
+    [
+     341,
+     33
+    ],
+    [
+     337,
+     17
+    ]
+   ],
+   "of_1x": "9759a3234c01e0a65223ef09a4cb851909997756471548908afceb529aae4139",
+   "by": "fx_vector 1",
+   "sha256": "6356e65cc9ac27eca81f080d87c1598adb296b8b7b192be852890cff44598afb",
+   "note": "pilot 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,355 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_kayle_ascend",
+   "tag": "e_blast_x",
+   "file": "league_kayle_ascend/e_blast_x.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     27,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     47,
+     51
+    ],
+    [
+     51,
+     53
+    ],
+    [
+     49,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     29,
+     51
+    ]
+   ],
+   "of_1x": "53aa34bc249d1405b7768afaed458b1bc2e6bd3dc13205e4dcb67ca8be7af749",
+   "by": "fx_vector 4",
+   "sha256": "48b82175cb40017b86408489773766449636a9317dda85cb1be2d5d78a50536a",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_ascend",
+   "tag": "wings3",
+   "file": "league_kayle_ascend/wings3.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     83,
+     99
+    ],
+    [
+     83,
+     99
+    ],
+    [
+     83,
+     99
+    ],
+    [
+     83,
+     99
+    ]
+   ],
+   "of_1x": "049a22d0ed70675a6ae35999ecd4e21c306641f46f8444402bb4e55216a5c7e3",
+   "by": "fx_vector 4",
+   "sha256": "64f5dc3b85a984d08da7dbe428c86a0c70b6932c73c10793a3bbef8c9fce40f5",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "ascend",
+   "file": "league_kayle_big/ascend.png",
+   "ppu": 2,
+   "frames": 10,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     29,
+     23
+    ],
+    [
+     29,
+     67
+    ],
+    [
+     31,
+     67
+    ],
+    [
+     43,
+     69
+    ],
+    [
+     47,
+     93
+    ],
+    [
+     45,
+     93
+    ],
+    [
+     37,
+     93
+    ],
+    [
+     39,
+     81
+    ],
+    [
+     25,
+     79
+    ],
+    [
+     15,
+     75
+    ]
+   ],
+   "of_1x": "6b1c37000a5f919ef769f2a7ed7f4a808c4033f950076ab7afcb973ed97708be",
+   "by": "fx_vector 4",
+   "sha256": "601862ff671d979f1a616c129f1bd554592380656e1c31bd01ad20ee16912146",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "e_blast",
+   "file": "league_kayle_big/e_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     31,
+     39
+    ],
+    [
+     37,
+     31
+    ],
+    [
+     41,
+     33
+    ],
+    [
+     41,
+     57
+    ],
+    [
+     39,
+     31
+    ],
+    [
+     41,
+     31
+    ],
+    [
+     33,
+     33
+    ]
+   ],
+   "of_1x": "139e6620d909e8592e81e177c678ae391288692f91176a2627de832ce4f8ae37",
+   "by": "fx_vector 4",
+   "sha256": "7b52cf31ceb54919b7f71946cd63e799876375a5a186b7f279bc5f2d155e89d5",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "q_blast",
+   "file": "league_kayle_big/q_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     9,
+     13
+    ],
+    [
+     17,
+     29
+    ],
+    [
+     37,
+     19
+    ],
+    [
+     51,
+     25
+    ],
+    [
+     45,
+     23
+    ],
+    [
+     25,
+     19
+    ],
+    [
+     17,
+     11
+    ]
+   ],
+   "of_1x": "c6872d8beca8718b5904f75029b806b8270064d30cdfb6c7dffa58de75e37490",
+   "by": "fx_vector 3",
+   "sha256": "f80ee76bbd1d40c4a5666196c6add502698c90321c2cb639ff4e234f7d3ac21f",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "r_blades",
+   "file": "league_kayle_big/r_blades.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     81,
+     37
+    ],
+    [
+     81,
+     225
+    ],
+    [
+     81,
+     197
+    ],
+    [
+     81,
+     173
+    ],
+    [
+     89,
+     193
+    ],
+    [
+     89,
+     207
+    ],
+    [
+     87,
+     165
+    ],
+    [
+     83,
+     57
+    ]
+   ],
+   "of_1x": "b2cdf99031f27e68cf8da2a231dbbfe7a09729cfe2178f2bdebd0d2bb5fbb6a7",
+   "by": "fx_vector 4",
+   "sha256": "3e8de886893599488fee30d8551921fa44fc8cab99d58da251d8e4e466ece997",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "r_invuln",
+   "file": "league_kayle_big/r_invuln.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     81
+    ],
+    [
+     29,
+     81
+    ],
+    [
+     29,
+     83
+    ],
+    [
+     29,
+     81
+    ],
+    [
+     29,
+     83
+    ]
+   ],
+   "of_1x": "0cbe934c7a68a29c69c47366374c27f6b3fdcb65d3d1a7979abd24c19f3ad9de",
+   "by": "fx_vector 3",
+   "sha256": "906cbfcb037267f8d4adef024729d2d1ce656af4aa4c42ae986f28bfcc4d13e4",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

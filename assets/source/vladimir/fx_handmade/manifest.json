@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_vladimir_big",
+   "tag": "r_cloud",
+   "file": "league_vladimir_big/r_cloud.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     13,
+     27
+    ],
+    [
+     37,
+     27
+    ],
+    [
+     53,
+     63
+    ],
+    [
+     41,
+     53
+    ],
+    [
+     37,
+     39
+    ],
+    [
+     37,
+     29
+    ],
+    [
+     25,
+     27
+    ]
+   ],
+   "of_1x": "47b4427bd544ac264f2827c47a877b576e6abe643494f9d1bc9b7a5ae56001fc",
+   "by": "fx_vector 4",
+   "sha256": "913c0b6391717a7549643ae6359d7d4b188c0dc627e6f26371a693377c192eed",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

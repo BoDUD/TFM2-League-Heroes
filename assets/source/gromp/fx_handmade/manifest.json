@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_gromp_big",
+   "tag": "r_cast",
+   "file": "tft_gromp_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     81,
+     45
+    ],
+    [
+     79,
+     61
+    ],
+    [
+     91,
+     63
+    ],
+    [
+     81,
+     71
+    ],
+    [
+     79,
+     71
+    ],
+    [
+     85,
+     71
+    ]
+   ],
+   "of_1x": "14d7c4ad500ed069eca39fb86ec2f932afc733b23d846cb196cabfc87b1c8c7d",
+   "by": "fx_vector 4",
+   "sha256": "7aa40ed976fbbf2bbd9c598c65f8b761d6f286a44fee3709f727aa076930d4fd",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

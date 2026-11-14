@@ -1,0 +1,100 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_sohm_big",
+   "tag": "r_bloom",
+   "file": "tft_sohm_big/r_bloom.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     41,
+     35
+    ],
+    [
+     57,
+     45
+    ],
+    [
+     65,
+     69
+    ],
+    [
+     63,
+     103
+    ],
+    [
+     65,
+     87
+    ],
+    [
+     63,
+     73
+    ],
+    [
+     55,
+     59
+    ]
+   ],
+   "of_1x": "3fbfa25531805c6e43ada306d5092eb4c376c084bd5d504e78cb4b37c8f0bb96",
+   "by": "fx_vector 4",
+   "sha256": "6a1f65c050959489cd0455c80576fda15441fda6ecc32b3a677a6b8046bb945b",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_sohm_fx",
+   "tag": "e_shield",
+   "file": "tft_sohm_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     21,
+     51
+    ],
+    [
+     17,
+     51
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     19,
+     51
+    ],
+    [
+     21,
+     51
+    ]
+   ],
+   "of_1x": "b6de67fc815133d6c59d60b38f859071235b0707a1184739c12ec5a96db84d76",
+   "by": "fx_vector 4",
+   "sha256": "1c270d3e9f50c14d4e4195eadc2bdc8069fd176f80101914a85eff18262d5f32",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

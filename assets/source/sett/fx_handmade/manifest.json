@@ -1,0 +1,170 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_sett_big",
+   "tag": "w_fist",
+   "file": "league_sett_big/w_fist.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     71,
+     39
+    ],
+    [
+     71,
+     39
+    ],
+    [
+     69,
+     39
+    ],
+    [
+     71,
+     43
+    ],
+    [
+     73,
+     43
+    ],
+    [
+     67,
+     43
+    ],
+    [
+     81,
+     45
+    ],
+    [
+     81,
+     43
+    ],
+    [
+     63,
+     29
+    ]
+   ],
+   "of_1x": "b7818c7862e7776449a1c4d8da26a975ddc763a2eb8d519cc429917ae8c03ab4",
+   "by": "fx_vector 4",
+   "sha256": "80af6500ff4a93db72dd0d0818d24ea76b3d7fb2a9f264f5f6a855ea27c73bc3",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_sett_fx",
+   "tag": "w_loop",
+   "file": "league_sett_fx/w_loop.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     37,
+     63
+    ],
+    [
+     37,
+     65
+    ],
+    [
+     37,
+     63
+    ],
+    [
+     39,
+     63
+    ]
+   ],
+   "of_1x": "6cf1a3bb8f6b045c02f4955c85b5a3ebc7547458974566e5827b85fff1838a94",
+   "by": "fx_vector 3",
+   "sha256": "c4918711dd322184a0209bd4133865238f5c2c8df51b95fc4a4cdf10c0d1ce2d",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sett_fx",
+   "tag": "w_pre",
+   "file": "league_sett_fx/w_pre.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     11,
+     25
+    ],
+    [
+     21,
+     27
+    ],
+    [
+     37,
+     49
+    ],
+    [
+     39,
+     63
+    ]
+   ],
+   "of_1x": "fdee88d46a9a85542a5ea4c4d91c7926b2110d3daaa550d46e78d75ff7c292bc",
+   "by": "fx_vector 3",
+   "sha256": "7955431d1ac4841d21b50313ff7031e73376bdcd120fd235516baebdfa289ba2",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sett_fx",
+   "tag": "w_remove",
+   "file": "league_sett_fx/w_remove.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     39,
+     63
+    ],
+    [
+     45,
+     65
+    ],
+    [
+     43,
+     55
+    ],
+    [
+     29,
+     41
+    ]
+   ],
+   "of_1x": "b33c1be6c1785c6359fb60031210f262fed6f81661dcbfb56aac839143248136",
+   "by": "fx_vector 3",
+   "sha256": "fc488ceb84a5319e1e69906c5034e50d840b7e8c3dbe93fbc4413a6328e3aaa9",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

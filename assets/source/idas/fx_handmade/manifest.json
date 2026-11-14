@@ -1,0 +1,185 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_idas_big",
+   "tag": "e_roar",
+   "file": "tft_idas_big/e_roar.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     43
+    ],
+    [
+     67,
+     57
+    ],
+    [
+     67,
+     63
+    ],
+    [
+     67,
+     55
+    ],
+    [
+     61,
+     51
+    ],
+    [
+     61,
+     51
+    ]
+   ],
+   "of_1x": "d00b1f78dbc3a9c84b5eda0c3d6fb579e7ebf569796af56c4e1250583637a558",
+   "by": "fx_vector 4",
+   "sha256": "500e7ae70ac4d3bbeb5e45ec2f2c35889cb2f9f3014085a938081cbafc7e6278",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_idas_fx",
+   "tag": "e_shield",
+   "file": "tft_idas_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     23,
+     53
+    ],
+    [
+     21,
+     53
+    ],
+    [
+     23,
+     53
+    ],
+    [
+     23,
+     53
+    ],
+    [
+     23,
+     53
+    ],
+    [
+     21,
+     53
+    ]
+   ],
+   "of_1x": "008463d3ba00c8958a211d4da279ae3f0204f68628fb8860c65cd375499bb420",
+   "by": "fx_vector 4",
+   "sha256": "9fdcb86ac64f337889f4dce10312ebf830fce1ad09f26c83d5394ed622bff3f0",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_idas_fx",
+   "tag": "r_shield",
+   "file": "tft_idas_fx/r_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     23,
+     51
+    ],
+    [
+     25,
+     57
+    ],
+    [
+     25,
+     53
+    ],
+    [
+     25,
+     53
+    ],
+    [
+     25,
+     51
+    ],
+    [
+     27,
+     51
+    ]
+   ],
+   "of_1x": "9aa402bea4c28146864cc40d1057b84e8e49cb05821fa65369d3c46754ef7ece",
+   "by": "fx_vector 4",
+   "sha256": "9f65c00c1357609e55119a758d35786d446592b102c3b5dd44d03630bd62fe41",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_idas_fx",
+   "tag": "r_wrap",
+   "file": "tft_idas_fx/r_wrap.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     59,
+     57
+    ],
+    [
+     59,
+     57
+    ],
+    [
+     59,
+     65
+    ],
+    [
+     59,
+     57
+    ],
+    [
+     59,
+     57
+    ],
+    [
+     59,
+     57
+    ]
+   ],
+   "of_1x": "8974aaecc400803c03fd26cdfcf5c10e31c58c9b774f798d057218d478a97d3e",
+   "by": "fx_vector 4",
+   "sha256": "2c57af053542d460b700d1124b24b275f68ddebd77c9efa60ec5269362631cd6",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

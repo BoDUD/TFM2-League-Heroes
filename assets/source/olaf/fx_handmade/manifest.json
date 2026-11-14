@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_olaf_fx",
+   "tag": "w_on",
+   "file": "league_olaf_fx/w_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     29,
+     47
+    ],
+    [
+     29,
+     47
+    ],
+    [
+     29,
+     59
+    ],
+    [
+     31,
+     59
+    ]
+   ],
+   "of_1x": "24df064fd04d17488b5d5d9873911cce281d8d68c464fc10db6a89bdede3029c",
+   "by": "fx_vector 3",
+   "sha256": "4b6b7608d9c248c7abb57b3796a7b70b43c3e3197d97490538098da983ac6757",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

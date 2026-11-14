@@ -1,0 +1,130 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_illaoi_fx",
+   "tag": "e_echo",
+   "file": "league_illaoi_fx/e_echo.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     7,
+     7
+    ],
+    [
+     13,
+     13
+    ],
+    [
+     19,
+     19
+    ],
+    [
+     23,
+     23
+    ]
+   ],
+   "of_1x": "8c8efd371633bb160bdc7de01ca82b8190a9a94f9b634f53207bd9b19a8c0565",
+   "by": "fx_vector 3",
+   "sha256": "8b4ef2451ff55c9c94d25644e3b1203e07502a496e691f923501b6cf805984da",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_illaoi_fx",
+   "tag": "e_spirit",
+   "file": "league_illaoi_fx/e_spirit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     55
+    ],
+    [
+     25,
+     55
+    ],
+    [
+     25,
+     57
+    ],
+    [
+     25,
+     63
+    ],
+    [
+     25,
+     63
+    ],
+    [
+     25,
+     57
+    ]
+   ],
+   "of_1x": "f48aed8e27bfe20637f3dfc09ec2a43899dcfe1d772c9edf16c1252a298571b4",
+   "by": "fx_vector 3",
+   "sha256": "13889a6fc2b45ce8d989c20f2785d2ab91837ae4b12996f667f079f8befb8748",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_illaoi_fx",
+   "tag": "p_heal",
+   "file": "league_illaoi_fx/p_heal.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     25
+    ],
+    [
+     35,
+     25
+    ],
+    [
+     37,
+     35
+    ],
+    [
+     35,
+     55
+    ],
+    [
+     33,
+     65
+    ],
+    [
+     35,
+     61
+    ]
+   ],
+   "of_1x": "9cf74e373a3eb3cb770b81652ea34f89d49a3e350d94385549a1e1545e8bfdc6",
+   "by": "fx_vector 3",
+   "sha256": "61eb936cc54771436f9813bfaee713ee2f7c69c929aea2df198eb55481ac04d5",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

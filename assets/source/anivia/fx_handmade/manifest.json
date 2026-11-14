@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_anivia_big",
+   "tag": "r_storm",
+   "file": "league_anivia_big/r_storm.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     43
+    ],
+    [
+     27,
+     43
+    ],
+    [
+     39,
+     43
+    ],
+    [
+     39,
+     43
+    ],
+    [
+     51,
+     43
+    ],
+    [
+     51,
+     43
+    ]
+   ],
+   "of_1x": "833a907d1e261c8fff97c957d8d3fe2708fb8c1b794beef35d27e573a49af5b0",
+   "by": "fx_vector 3",
+   "sha256": "daa07c2969bd168fa32ce7ba0ab7f7c103c1e65bd5f6cb3dbdf82a689556dbba",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_anivia_fx",
+   "tag": "r_cast",
+   "file": "league_anivia_fx/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     37,
+     23
+    ],
+    [
+     37,
+     47
+    ],
+    [
+     39,
+     79
+    ],
+    [
+     41,
+     81
+    ],
+    [
+     39,
+     77
+    ],
+    [
+     35,
+     77
+    ]
+   ],
+   "of_1x": "372cd3d07509bbe6f73ac710985808e6f89cfb63ce85dad76f2b3e9960de6c94",
+   "by": "fx_vector 4",
+   "sha256": "3f5c1f62db919d60d5bc27b3fcdfde1b46a6388bbe71523ddb864b06cd293747",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

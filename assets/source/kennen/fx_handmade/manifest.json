@@ -1,0 +1,104 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_kennen_big",
+   "tag": "r_storm",
+   "file": "league_kennen_big/r_storm.png",
+   "ppu": 2,
+   "frames": 36,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "sizes": [
+    [
+     77,
+     87
+    ],
+    [
+     101,
+     125
+    ],
+    [
+     113,
+     169
+    ],
+    [
+     109,
+     177
+    ],
+    [
+     111,
+     173
+    ],
+    [
+     111,
+     175
+    ],
+    [
+     113,
+     173
+    ],
+    [
+     115,
+     177
+    ],
+    [
+     113,
+     167
+    ],
+    [
+     115,
+     171
+    ],
+    [
+     113,
+     147
+    ],
+    [
+     89,
+     103
+    ]
+   ],
+   "of_1x": "2db018aa9a5876d910f4eec4f71118aa56b9dc8297d7ac30c452a783aee0813a",
+   "by": "fx_vector 3",
+   "sha256": "69201e9daff256ee28c6fa2598e4ea487308c3c07e2dd4bc5008829c0bffb351",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

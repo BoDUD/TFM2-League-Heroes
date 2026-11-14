@@ -1,0 +1,130 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nidalee_big",
+   "tag": "ce_swipe",
+   "file": "league_nidalee_big/ce_swipe.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     15,
+     31
+    ],
+    [
+     39,
+     27
+    ],
+    [
+     47,
+     25
+    ],
+    [
+     41,
+     23
+    ],
+    [
+     39,
+     21
+    ]
+   ],
+   "of_1x": "56051f4a955b97b9f992df98a8fba552ca12b83056b9222946cc75726f8f9c59",
+   "by": "fx_vector 4",
+   "sha256": "cc9e78517fda1481aa3d032b48b402591d28325ea2e2898ecd6763aa7dcde5c9",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_nidalee_big",
+   "tag": "r_roar",
+   "file": "league_nidalee_big/r_roar.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     29,
+     23
+    ],
+    [
+     35,
+     25
+    ],
+    [
+     43,
+     25
+    ],
+    [
+     33,
+     23
+    ],
+    [
+     27,
+     21
+    ]
+   ],
+   "of_1x": "1fc3f061bed9384293df979c4dfed0c83e234c1f25d020ddfc45cc20be869bf1",
+   "by": "fx_vector 4",
+   "sha256": "6c05422ca576f19f3fd194ac92aa6dd13b68718be5396522ec8d8d0d8745fd4a",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_nidalee_fx",
+   "tag": "e_heal",
+   "file": "league_nidalee_fx/e_heal.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     23
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     17,
+     37
+    ],
+    [
+     19,
+     37
+    ],
+    [
+     17,
+     33
+    ],
+    [
+     17,
+     23
+    ]
+   ],
+   "of_1x": "ecc0a11242ec820969bad137b2167ae29149637ff078400f7f3a92f1b5b04f9c",
+   "by": "fx_vector 3",
+   "sha256": "87443dec454d202a4337dda6da10245f45c3dc86b0ef84c06f7a2605ed7d968d",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

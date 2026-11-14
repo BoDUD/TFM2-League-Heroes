@@ -1,0 +1,115 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ksante_big",
+   "tag": "w_brace",
+   "file": "league_ksante_big/w_brace.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     79
+    ],
+    [
+     51,
+     81
+    ],
+    [
+     53,
+     79
+    ],
+    [
+     53,
+     81
+    ],
+    [
+     53,
+     79
+    ],
+    [
+     53,
+     79
+    ]
+   ],
+   "of_1x": "1f1316e9415a6a0d4b0895b73052ae52b7f4fd5f13415d0a420e4ee151ab846d",
+   "by": "fx_vector 3",
+   "sha256": "08f32040230070e2467d3a17c48b2aa33669367d6f559d785551f71010accea7",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ksante_fx",
+   "tag": "p_mark",
+   "file": "league_ksante_fx/p_mark.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     21,
+     31
+    ],
+    [
+     21,
+     31
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     19,
+     31
+    ]
+   ],
+   "of_1x": "c8e3626787f0986dbf459c0ab51a85fb967b278682287f4a7885aaf9d5b54711",
+   "by": "fx_vector 3",
+   "sha256": "dcc834466a2d096e9fcb101dd1dc37e2c72c86ff6caf60738cc65ad5165d45c5",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ksante_fx",
+   "tag": "q3_hit",
+   "file": "league_ksante_fx/q3_hit.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     13,
+     35
+    ],
+    [
+     19,
+     45
+    ],
+    [
+     17,
+     45
+    ]
+   ],
+   "of_1x": "bc9bd1b733442b0ca3b5ef8c50fbb0d990e341030dc6641b40779373827a16b4",
+   "by": "fx_vector 3",
+   "sha256": "3f4aadcac648dbd4df20330301ee70ca8041b75e633e8a4fb7aa4653d558b67c",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

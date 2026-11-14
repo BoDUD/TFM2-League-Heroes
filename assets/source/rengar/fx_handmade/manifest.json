@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_rengar_big",
+   "tag": "w_roar",
+   "file": "league_rengar_big/w_roar.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     15,
+     29
+    ],
+    [
+     35,
+     37
+    ],
+    [
+     41,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     39,
+     33
+    ]
+   ],
+   "of_1x": "8f839cc26097c4a728cbac8aebc0c83f25a377761cf7cdecc801f0a8f7d79e3b",
+   "by": "fx_vector 3",
+   "sha256": "dd09a19ff33314fd5e2c9f3dd922d217a886ab4661b723be062adcce12204653",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,190 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_sivir_big",
+   "tag": "e_loop",
+   "file": "league_sivir_big/e_loop.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     51,
+     73
+    ],
+    [
+     51,
+     69
+    ],
+    [
+     51,
+     73
+    ],
+    [
+     51,
+     73
+    ]
+   ],
+   "of_1x": "915c204d85a66fa606b0a25b17eb1aab506288501d38ca7d32c4d934a55eea32",
+   "by": "fx_vector 3",
+   "sha256": "c9a711955f121f915c4d5a6f019bf9afc14cc046e1e8186287737fd9417db0e5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sivir_big",
+   "tag": "e_pre",
+   "file": "league_sivir_big/e_pre.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     9,
+     23
+    ],
+    [
+     21,
+     35
+    ],
+    [
+     37,
+     49
+    ],
+    [
+     51,
+     65
+    ]
+   ],
+   "of_1x": "4ccbf675a20d3ffbb6519ab5650f3c4647a09cf2fd3083aabaa81c3027a3cb60",
+   "by": "fx_vector 3",
+   "sha256": "97139e95a7493858f893de67e866cb90c5a8c4a8bcfcb81faac3033da12ecfde",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_sivir_big",
+   "tag": "e_remove",
+   "file": "league_sivir_big/e_remove.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     63
+    ],
+    [
+     49,
+     59
+    ],
+    [
+     47,
+     67
+    ],
+    [
+     47,
+     59
+    ]
+   ],
+   "of_1x": "06b169a27466d874dcaa223d1d757503278ad806cc694f5b673914485619fc69",
+   "by": "fx_vector 3",
+   "sha256": "296cf60f3f543e6d2ccf5377a8e41f12b97afda9ec0d224059464a26d2080e93",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_sivir_big",
+   "tag": "r_cast",
+   "file": "league_sivir_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     53
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     65,
+     55
+    ],
+    [
+     65,
+     57
+    ],
+    [
+     61,
+     55
+    ],
+    [
+     57,
+     47
+    ]
+   ],
+   "of_1x": "c5be26bc73bdae50b23ad66dc770443d656d68baaf4365e6827f5bd1aba7f657",
+   "by": "fx_vector 4",
+   "sha256": "71efdbcb9db06eaf7db5d75d7843960488e38b99e8c052e4e0ebcdc321495f1c",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_sivir_fx",
+   "tag": "r_loop",
+   "file": "league_sivir_fx/r_loop.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     25,
+     29
+    ],
+    [
+     25,
+     29
+    ],
+    [
+     25,
+     29
+    ],
+    [
+     25,
+     29
+    ]
+   ],
+   "of_1x": "793c530c5e693d90fd920d3b8acd50e2a2173ed73cc32a980bd1cf899ba87b62",
+   "by": "fx_vector 3",
+   "sha256": "a110e2b24a00709842a7eb0c05e8d731d06f8f608651d924c68e76e3c5d64c7d",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

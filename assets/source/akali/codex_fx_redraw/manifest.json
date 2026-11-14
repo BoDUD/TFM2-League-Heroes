@@ -1,0 +1,484 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_akali_big",
+   "tag": "e_dash",
+   "file": "league_akali_big/e_dash.png",
+   "pack": 1,
+   "source_entry_index": 58,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    87,
+    29
+   ],
+   "cell_8x": [
+    696,
+    232
+   ],
+   "guide_size": [
+    3480,
+    232
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "15164e9a22415c21334fa8a2a6ec3e715140cb6db6c2659edc121c3723aa67fe"
+  },
+  {
+   "sheet": "league_akali_big",
+   "tag": "q_fan",
+   "file": "league_akali_big/q_fan.png",
+   "pack": 1,
+   "source_entry_index": 56,
+   "kind": "projectile",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    45,
+    39
+   ],
+   "cell_8x": [
+    360,
+    312
+   ],
+   "guide_size": [
+    2160,
+    312
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "558e39662b7e638aee1410a5b4812530c8437f48c500ff1ecc9db3b42a8df4dc"
+  },
+  {
+   "sheet": "league_akali_big",
+   "tag": "r_dash",
+   "file": "league_akali_big/r_dash.png",
+   "pack": 1,
+   "source_entry_index": 59,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    115,
+    33
+   ],
+   "cell_8x": [
+    920,
+    264
+   ],
+   "guide_size": [
+    5520,
+    264
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "20375d1cd138132395ab9090b100fb152321901596b98d98457c6c95aff648a2"
+  },
+  {
+   "sheet": "league_akali_big",
+   "tag": "w_smoke",
+   "file": "league_akali_big/w_smoke.png",
+   "pack": 1,
+   "source_entry_index": 57,
+   "kind": "effect",
+   "frames": 18,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "cell_1x": [
+    71,
+    57
+   ],
+   "cell_8x": [
+    568,
+    456
+   ],
+   "guide_size": [
+    5680,
+    456
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "61b2810c3528b3cdd5972865119a70dd4f4d953450a13880da7da6f2aa10c8ad"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "e2_hit",
+   "file": "league_akali_fx/e2_hit.png",
+   "pack": 1,
+   "source_entry_index": 68,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    25,
+    51
+   ],
+   "cell_8x": [
+    200,
+    408
+   ],
+   "guide_size": [
+    1000,
+    408
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "91da9c5fbf02cdeb93a82ff5ff45e9087f17c39e56ba5bc87bace84ade9e93b8"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "e_hit",
+   "file": "league_akali_fx/e_hit.png",
+   "pack": 1,
+   "source_entry_index": 66,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    17,
+    35
+   ],
+   "cell_8x": [
+    136,
+    280
+   ],
+   "guide_size": [
+    680,
+    280
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "a374b90e920ebea5a8d2e9215a98158e5eca39fc45d960ecc5a05230bd81023b"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "e_mark",
+   "file": "league_akali_fx/e_mark.png",
+   "pack": 1,
+   "source_entry_index": 67,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    13,
+    73
+   ],
+   "cell_8x": [
+    104,
+    584
+   ],
+   "guide_size": [
+    416,
+    584
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "8efd65609ad56340a1c732aa49c9a3f7909ba0219cd6ddf1873b3d3b0c764f78"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "e_shuriken",
+   "file": "league_akali_fx/e_shuriken.png",
+   "pack": 1,
+   "source_entry_index": 65,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    13,
+    11
+   ],
+   "cell_8x": [
+    104,
+    88
+   ],
+   "guide_size": [
+    416,
+    88
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "ad124116845f8e966e1f81db6078bca541ac48f6f2f2f245d80767a4495092b7"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "hit",
+   "file": "league_akali_fx/hit.png",
+   "pack": 1,
+   "source_entry_index": 60,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    19,
+    33
+   ],
+   "cell_8x": [
+    152,
+    264
+   ],
+   "guide_size": [
+    760,
+    264
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "54778e3d7dd742e932f40ad39c962c3c0c49e6c669ef42bf487c8a35605c21d1"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "p_hit",
+   "file": "league_akali_fx/p_hit.png",
+   "pack": 1,
+   "source_entry_index": 61,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    29,
+    45
+   ],
+   "cell_8x": [
+    232,
+    360
+   ],
+   "guide_size": [
+    1392,
+    360
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "cfc2051607a2237e27f5383f8af3666e30ca7111287971f62a24f09718de979f"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "p_ready",
+   "file": "league_akali_fx/p_ready.png",
+   "pack": 1,
+   "source_entry_index": 63,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    27,
+    19
+   ],
+   "cell_8x": [
+    216,
+    152
+   ],
+   "guide_size": [
+    864,
+    152
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "2d76028d58158bad42c778c35429877fa78865c295f3f72ac52c31a2a566ca97"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "p_ring",
+   "file": "league_akali_fx/p_ring.png",
+   "pack": 1,
+   "source_entry_index": 62,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    39,
+    37
+   ],
+   "cell_8x": [
+    312,
+    296
+   ],
+   "guide_size": [
+    1872,
+    296
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "325125adbb1c5d15253e8872c74ad3297e5971d0fcb80913cc7de5e32da69e08"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "q_hit",
+   "file": "league_akali_fx/q_hit.png",
+   "pack": 1,
+   "source_entry_index": 64,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    11,
+    27
+   ],
+   "cell_8x": [
+    88,
+    216
+   ],
+   "guide_size": [
+    352,
+    216
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "f040d0b9a953425c3c0e286530fbe69d1d8e4e26d7a92a9aa81bca5d0cee2e15"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "r1_hit",
+   "file": "league_akali_fx/r1_hit.png",
+   "pack": 1,
+   "source_entry_index": 69,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    31,
+    25
+   ],
+   "cell_8x": [
+    248,
+    200
+   ],
+   "guide_size": [
+    1240,
+    200
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "b9d92b03f814dde83680bdb6c23af6ae1567979ee5fd4801348bcbfeb0c65f1c"
+  },
+  {
+   "sheet": "league_akali_fx",
+   "tag": "r2_hit",
+   "file": "league_akali_fx/r2_hit.png",
+   "pack": 1,
+   "source_entry_index": 70,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    33,
+    47
+   ],
+   "cell_8x": [
+    264,
+    376
+   ],
+   "guide_size": [
+    1584,
+    376
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "ba88e6be1def130e153a475df6be7093bc1de9603093d41d4db92eac22796305"
+  }
+ ]
+}

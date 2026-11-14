@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_alistar_big",
+   "tag": "r_cast",
+   "file": "league_alistar_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     39,
+     73
+    ],
+    [
+     39,
+     97
+    ],
+    [
+     39,
+     101
+    ],
+    [
+     39,
+     89
+    ],
+    [
+     39,
+     83
+    ],
+    [
+     39,
+     73
+    ]
+   ],
+   "of_1x": "c2d25711a84961874491da72aa3171824adca6eef3be21745d0a319dab799159",
+   "by": "fx_vector 4",
+   "sha256": "a625d3140fcf44ce4ca738151889e08733c48a607d633ff5a97d60ddbf93aff6",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_briar_fx",
+   "tag": "hema",
+   "file": "league_briar_fx/hema.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     37,
+     63
+    ],
+    [
+     37,
+     69
+    ],
+    [
+     37,
+     75
+    ],
+    [
+     37,
+     67
+    ]
+   ],
+   "of_1x": "dc8dcc9ca9ada699a94cee303ed5a0974690cc2887266c4784130c20802b8a5b",
+   "by": "fx_vector 3",
+   "sha256": "c3758b4c1f7f2aca3136c00080f01a48e09dff26f153e062a5a0270e1d588f45",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

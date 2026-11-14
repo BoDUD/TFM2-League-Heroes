@@ -1,0 +1,80 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_neeko_big",
+   "tag": "q_burst",
+   "file": "league_neeko_big/q_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     19,
+     37
+    ],
+    [
+     43,
+     37
+    ],
+    [
+     43,
+     37
+    ],
+    [
+     43,
+     35
+    ],
+    [
+     31,
+     35
+    ]
+   ],
+   "of_1x": "81421b90c3e57ae539643185d1e1bbd5095fd2927629b9340f0f7163320aca3d",
+   "by": "fx_vector 4",
+   "sha256": "fc623b038054728a1143eb8f3767b9c59f329e91bbff02f43d5cb2f45f72d530",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_neeko_big",
+   "tag": "r_jump",
+   "file": "league_neeko_big/r_jump.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     17,
+     25
+    ],
+    [
+     37,
+     29
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     41,
+     25
+    ]
+   ],
+   "of_1x": "37372ec4f0e4ce8e8ebbb439e1d88ca3f50b43be8b88cc9ac150051363c99dcc",
+   "by": "fx_vector 4",
+   "sha256": "c04ebfae7230efef130230f700edbdc3d2af57c28a6dc371e64e316e6ef2eee8",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

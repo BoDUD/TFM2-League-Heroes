@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_mightymech_big",
+   "tag": "q_wave",
+   "file": "tft_mightymech_big/q_wave.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     79,
+     51
+    ],
+    [
+     87,
+     49
+    ],
+    [
+     91,
+     43
+    ]
+   ],
+   "of_1x": "07a56cfacb4078c24d74553c129ed875775cf91c403809066fb5fd5785974256",
+   "by": "fx_vector 4",
+   "sha256": "08431faf6bc0dce2597a7662a7427398a5e15b3ade5c134255768e6bb5033752",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_mightymech_big",
+   "tag": "r_slash",
+   "file": "tft_mightymech_big/r_slash.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     119,
+     13
+    ],
+    [
+     145,
+     21
+    ],
+    [
+     145,
+     21
+    ]
+   ],
+   "of_1x": "895af3e203f029a8a3328deb37821a86337e391693e45fc184837b479be41306",
+   "by": "fx_vector 4",
+   "sha256": "384e0befbb5790f343d3d0d5eb355dd0ad6c21870d80c95db13e8aef6831a9b7",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_mightymech_big",
+   "tag": "r_transform",
+   "file": "tft_mightymech_big/r_transform.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     91,
+     57
+    ],
+    [
+     89,
+     57
+    ],
+    [
+     89,
+     51
+    ]
+   ],
+   "of_1x": "7f6e56b4282f64d4652d15982953f86d8b3c61f8ae8559e8a428f98994237e4d",
+   "by": "fx_vector 4",
+   "sha256": "9ff5f5c313241a9af2bc8963d02f3e2410f91997439507c1ad7cab726fee403d",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_mightymech_fx",
+   "tag": "p_shield",
+   "file": "tft_mightymech_fx/p_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     49
+    ],
+    [
+     21,
+     49
+    ],
+    [
+     21,
+     49
+    ],
+    [
+     21,
+     49
+    ],
+    [
+     21,
+     49
+    ],
+    [
+     23,
+     49
+    ]
+   ],
+   "of_1x": "bb727df6cbc47a381b80d7b9dec5d1c619e4062ff04b329f3fa910c4ac08ffb0",
+   "by": "fx_vector 4",
+   "sha256": "ea2ff0239ca7a8d0a586f46893200ff9aa0dcfe9dd18ceb827732ad1a66305d2",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

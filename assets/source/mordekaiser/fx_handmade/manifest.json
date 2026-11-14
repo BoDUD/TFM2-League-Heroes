@@ -1,0 +1,314 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_mordekaiser_big",
+   "tag": "p_aura",
+   "file": "league_mordekaiser_big/p_aura.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     51,
+     31
+    ],
+    [
+     49,
+     31
+    ],
+    [
+     49,
+     31
+    ],
+    [
+     47,
+     31
+    ]
+   ],
+   "of_1x": "37658c645d287895f1560208747453f019c57e3b9dc510e86925e35249b3d731",
+   "by": "fx_vector 3",
+   "sha256": "bc9b7d6270b419b94b5c26ff19f1c6ae4c79f91632ae2b88eff273036a824823",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_mordekaiser_big",
+   "tag": "q_slam",
+   "file": "league_mordekaiser_big/q_slam.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     19,
+     33
+    ],
+    [
+     33,
+     33
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     53,
+     33
+    ],
+    [
+     47,
+     33
+    ],
+    [
+     53,
+     33
+    ],
+    [
+     45,
+     33
+    ]
+   ],
+   "of_1x": "a92cf5418855f49c9cd09be56239b7a13bf40966d2f98d9779eeb45fa7309ddf",
+   "by": "fx_vector 4",
+   "sha256": "e0b949c79c41370ce2438b842035dfb4f810ead9daaf7de00b6f92a247aecdd7",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_mordekaiser_big",
+   "tag": "r_realm",
+   "file": "league_mordekaiser_big/r_realm.png",
+   "ppu": 2,
+   "frames": 72,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     43,
+     37
+    ],
+    [
+     47,
+     37
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     47,
+     37
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     47,
+     37
+    ],
+    [
+     45,
+     37
+    ]
+   ],
+   "of_1x": "1cae18e6a3419134c24b00978ac6680a094c5a278437a49ad50599c4f9c56c92",
+   "by": "fx_vector 3",
+   "sha256": "e2c6810b8f83b7419b48c6ba3ecb14b915e8222e8a0c11df0f6b38c0d43d6018",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_mordekaiser_big",
+   "tag": "r_realm_loop",
+   "file": "league_mordekaiser_big/r_realm_loop.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     43,
+     37
+    ],
+    [
+     47,
+     37
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     47,
+     37
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     47,
+     37
+    ],
+    [
+     45,
+     37
+    ]
+   ],
+   "of_1x": "b2774039cd7ab2040f6584d39b0603d00bff9351b35f79ff8f2e7e6394b03aed",
+   "by": "fx_vector 3",
+   "sha256": "e2c6810b8f83b7419b48c6ba3ecb14b915e8222e8a0c11df0f6b38c0d43d6018",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_mordekaiser_fx",
+   "tag": "w_shield",
+   "file": "league_mordekaiser_fx/w_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     41
+    ],
+    [
+     21,
+     43
+    ],
+    [
+     21,
+     49
+    ],
+    [
+     25,
+     53
+    ],
+    [
+     23,
+     49
+    ],
+    [
+     17,
+     39
+    ]
+   ],
+   "of_1x": "e52557bceb10942b48dbf8ce822dc30f546f0caa019ec2e2baeb4522a5bae3a2",
+   "by": "fx_vector 3",
+   "sha256": "c74eb4e4097c399f81cf6d771cbf85962608d2202af4e3b226a6bae0309e77d4",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

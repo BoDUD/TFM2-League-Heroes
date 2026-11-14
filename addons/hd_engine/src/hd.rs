@@ -14,7 +14,7 @@
 //! by the next one.
 
 use std::collections::HashMap;
-use std::sync::atomic::{AtomicPtr, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicPtr, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 /// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
@@ -113,6 +113,24 @@ pub struct Table<'a> {
     pub drawn_effects: Vec<&'a str>,
     /// tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): id, size
     pub ui_sizes: Vec<(&'a str, f32)>,
+    /// drawn effects (in [`Table::drawn_effects`]) some of whose pictures are a kit's projectiles or buffs (2026-11-09,
+    /// the effects PPU: a hero's whole effect sheets dense). Only this engine shrinks those - a buff's in the body draw,
+    /// a projectile's in its own render (src/view.rs) - so they are dense only in the DLL that hooks the game with both
+    /// in ([`full_on`]): never handed to another DLL's engine (src/share.rs leaves them out of the text, so the protocol
+    /// is unchanged and an older host draws them at 1x), and at 1x where the projectile renders were not found.
+    pub full_effects: Vec<&'a str>,
+}
+
+static FULL_ON: AtomicBool = AtomicBool::new(false);
+
+/// Whether this process's engine shrinks projectile and buff pictures too (src/view.rs sets it once its hooks went in):
+/// until then the [`Table::full_effects`] are not looked up as dense.
+pub fn full_on() -> bool {
+    FULL_ON.load(Ordering::Acquire)
+}
+
+pub(crate) fn set_full_on(on: bool) {
+    FULL_ON.store(on, Ordering::Release);
 }
 
 /// The `"lo_..."` animation names of a .fanim.
@@ -223,6 +241,8 @@ pub struct Heroes {
     pub forms: Vec<(&'static str, &'static [&'static str], f32, f32)>,
     /// every table's drawn effects ([`Table::drawn_effects`])
     pub drawn_effects: Vec<&'static str>,
+    /// the host's own table's full effects ([`Table::full_effects`]; a guest's text never carries any)
+    pub full_effects: Vec<&'static str>,
 }
 
 impl Heroes {
@@ -260,7 +280,20 @@ impl Heroes {
         }));
         let mut drawn_effects = self.drawn_effects.clone();
         drawn_effects.extend(t.drawn_effects.iter().filter(|id| came.contains(id)).map(|id| keep(id)));
-        (Heroes { list, by_id, packs, prefixes, growth, forms, drawn_effects }, came)
+        let mut full_effects = self.full_effects.clone();
+        full_effects.extend(t.full_effects.iter().filter(|id| came.contains(id)).map(|id| keep(id)));
+        (Heroes { list, by_id, packs, prefixes, growth, forms, drawn_effects, full_effects }, came)
+    }
+
+    /// The hero a resource name is of, as the lookups take it: a full effect ([`Table::full_effects`]) only once this
+    /// engine shrinks projectile and buff pictures too ([`full_on`]) - else it is drawn at 1x, as if not registered.
+    pub fn dense_of_name(&self, name: &str) -> Option<&Hero> {
+        self.dense_of_name_if(name, full_on())
+    }
+
+    /// [`Heroes::dense_of_name`] with the full effects dense or not (`on`).
+    pub fn dense_of_name_if(&self, name: &str, on: bool) -> Option<&Hero> {
+        self.of_name(name).filter(|h| on || !self.full_effects.contains(&h.id))
     }
 
     pub fn get(&self, id: &str) -> Option<&Hero> {
@@ -355,6 +388,11 @@ pub mod checks {
         for id in others.chain(t.drawn_effects.iter().copied()) {
             assert!(seen.contains(&id), "{id}: a row for an id the table does not register");
         }
+        // a full effect is an effect sheet the node draw shrinks too (its view effects)
+        for id in &t.full_effects {
+            assert!(t.effects.iter().any(|e| e.0 == *id), "{id}: a full effect that is no effect sheet");
+            assert!(t.drawn_effects.contains(id), "{id}: a full effect not in the drawn effects");
+        }
         for (id, buffs, ..) in &t.forms {
             assert!(!buffs.is_empty(), "{id}: a form row with no buff");
             assert!(buffs.iter().all(|b| !b.is_empty() && !b.contains(char::is_whitespace)), "{id}: {buffs:?}");
@@ -424,10 +462,18 @@ pub mod checks {
         }
     }
 
-    /// The table as a guest hands it to the host (src/share.rs) is read back the same.
+    /// The table as a guest hands it to the host (src/share.rs) is read back the same - but for its full effects, which
+    /// stay out of the text ([`Table::full_effects`]).
     pub fn the_table_goes_through_the_text_unchanged(t: &Table<'_>) {
         let text = t.to_text();
-        assert_eq!(Table::parse(&text).as_ref(), Ok(t));
+        let mut sent = t.clone();
+        sent.effects.retain(|e| !t.full_effects.contains(&e.0));
+        sent.drawn_effects.retain(|id| !t.full_effects.contains(id));
+        sent.full_effects.clear();
+        assert_eq!(Table::parse(&text).as_ref(), Ok(&sent));
+        for id in &t.full_effects {
+            assert!(!text.contains(&format!(" {id} ")) && !text.contains(&format!("drawn {id}\n")), "{id} in the text");
+        }
     }
 }
 
@@ -448,6 +494,33 @@ pub(crate) mod tests {
     /// Pack `pack`'s table of `heroes` (id, PPU), each sheet a [`fanim`] with lo_ frames.
     pub(crate) fn table(pack: &'static str, heroes: &[(&'static str, f32)]) -> Table<'static> {
         Table { pack, heroes: heroes.iter().map(|&(id, ppu)| (id, ppu, keep(&fanim(ppu, true)))).collect(), ..Table::default() }
+    }
+
+    /// A full effect is dense only once this engine shrinks buff and projectile pictures too; it never goes into the
+    /// text a guest hands another DLL's engine, which then draws it at 1x (2026-11-09, the effects PPU pilot).
+    #[test]
+    fn full_effects_are_dense_only_where_their_pictures_are_all_shrunk() {
+        let mut league = table("league", &[("league_yasuo", 2.2)]);
+        league.effects.push(("league_akshan_fx", 2.0, keep(&fanim(2.0, false))));
+        league.effects.push(("league_zoe_spells", 2.0, keep(&fanim(2.0, false))));
+        league.drawn_effects.extend(["league_akshan_fx", "league_zoe_spells"]);
+        league.full_effects.push("league_akshan_fx");
+        checks::ids_are_the_packs_once(&league);
+        let h = Heroes::of(&[&league]);
+        assert_eq!(h.full_effects, vec!["league_akshan_fx"]);
+        let name = "asset/league/effects/league_akshan_fx#anim";
+        assert!(h.dense_of_name_if(name, false).is_none());
+        assert_eq!(h.dense_of_name_if(name, true).map(|x| x.id), Some("league_akshan_fx"));
+        // the other effects and the heroes as before
+        assert!(h.dense_of_name_if("asset/league/effects/league_zoe_spells#sheet", false).is_some());
+        assert!(h.dense_of_name_if("asset/league/champions/league_yasuo#anim", false).is_some());
+        // a guest's text leaves it out (its effect row and its drawn row), the rest goes through
+        checks::the_table_goes_through_the_text_unchanged(&league);
+        let text = league.to_text();
+        let sent = Table::parse(&text).unwrap();
+        assert_eq!(sent.effects.iter().map(|e| e.0).collect::<Vec<_>>(), vec!["league_zoe_spells"]);
+        assert_eq!(sent.drawn_effects, vec!["league_zoe_spells"]);
+        assert!(Heroes::of(&[&sent]).get("league_akshan_fx").is_none());
     }
 
     #[test]

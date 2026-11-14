@@ -1,0 +1,209 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_krug_big",
+   "tag": "r_rocks",
+   "file": "tft_krug_big/r_rocks.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     67,
+     87
+    ],
+    [
+     45,
+     57
+    ],
+    [
+     65,
+     55
+    ],
+    [
+     57,
+     49
+    ],
+    [
+     69,
+     47
+    ],
+    [
+     69,
+     29
+    ],
+    [
+     69,
+     29
+    ],
+    [
+     69,
+     27
+    ]
+   ],
+   "of_1x": "b915651682d84bddab5ad87fea6d0252052d01248b7d48d2303c551ee7a6e843",
+   "by": "fx_vector 4",
+   "sha256": "5305895b3ed993e597dc47f3b4b46f1a2e695b75096d7d3e190800596ef5aa8e",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_krug_fx",
+   "tag": "e_shell",
+   "file": "tft_krug_fx/e_shell.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     49,
+     61
+    ],
+    [
+     49,
+     61
+    ]
+   ],
+   "of_1x": "0e7212e3e8b239aad6f4a1287593dc9a7af46534b82862bc8263f7f7f6548a35",
+   "by": "fx_vector 4",
+   "sha256": "4e804f542516f6e2ff855199ba1b4887003c805c63a039fc28f445037caacecb",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_krug_fx",
+   "tag": "p_mini",
+   "file": "tft_krug_fx/p_mini.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     31,
+     27
+    ],
+    [
+     29,
+     27
+    ],
+    [
+     31,
+     27
+    ],
+    [
+     33,
+     27
+    ],
+    [
+     29,
+     27
+    ]
+   ],
+   "of_1x": "dfeca3aa0e97db5dc384e59bef6c1739911ade880f8e8ada1f5bbdb323b40463",
+   "by": "fx_vector 4",
+   "sha256": "420632a0b9153dcb31b7249089b3a7c166588b2d3da6c2fd1c297417219af62e",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_krug_fx",
+   "tag": "q_shield",
+   "file": "tft_krug_fx/q_shield.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     49,
+     61
+    ],
+    [
+     49,
+     59
+    ],
+    [
+     49,
+     61
+    ],
+    [
+     49,
+     61
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "57a09d83413542ee40fff149aea6c84e56a33e425b891d69043b3f0b67f08a75",
+   "by": "fx_vector 4",
+   "sha256": "b2c74f651cbe03eee3a235341ac8f37b63c342dfadb2fc64d8d1df6d482b93af",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_krug_fx",
+   "tag": "r_mark",
+   "file": "tft_krug_fx/r_mark.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     31
+    ],
+    [
+     35,
+     33
+    ],
+    [
+     35,
+     35
+    ],
+    [
+     37,
+     33
+    ],
+    [
+     37,
+     35
+    ]
+   ],
+   "of_1x": "5b778271367fb6e35ca729fe80e8cd9bbbd42b413ebb1ebe8bda23aee5a73633",
+   "by": "fx_vector 4",
+   "sha256": "17d492ef71080b400f40959f9433f3efa431736ed91eda30ea5c69dc4c5f07fa",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

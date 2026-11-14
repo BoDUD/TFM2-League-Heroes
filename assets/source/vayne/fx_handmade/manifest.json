@@ -1,0 +1,185 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_vayne_fx",
+   "tag": "r_refresh",
+   "file": "league_vayne_fx/r_refresh.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     29,
+     37
+    ],
+    [
+     35,
+     43
+    ],
+    [
+     35,
+     57
+    ],
+    [
+     33,
+     61
+    ],
+    [
+     27,
+     45
+    ]
+   ],
+   "of_1x": "7ae4bea5503832dd2fff2ee875bffffa1eed959920fc944f8f222e0ee6b6c620",
+   "by": "fx_vector 4",
+   "sha256": "b08df4cd5c9f347b14a750f6e6d938777acbeda83882062cb9deb9bde13014fa",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_vayne_fx",
+   "tag": "sb_proc",
+   "file": "league_vayne_fx/sb_proc.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     25,
+     43
+    ],
+    [
+     19,
+     31
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     35,
+     45
+    ],
+    [
+     27,
+     43
+    ],
+    [
+     33,
+     39
+    ],
+    [
+     35,
+     29
+    ]
+   ],
+   "of_1x": "0b297eea91cad02e9e31348801154613d3f845daff6208d3ecf9f940c18a7a00",
+   "by": "fx_vector 3",
+   "sha256": "275963c4df85a34cd4f3f9a8d611deaff5beba1f39b6609d264abefdce095775",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_vayne_fx",
+   "tag": "sb_ring1",
+   "file": "league_vayne_fx/sb_ring1.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     9,
+     29
+    ],
+    [
+     17,
+     35
+    ],
+    [
+     17,
+     35
+    ],
+    [
+     17,
+     35
+    ],
+    [
+     15,
+     33
+    ],
+    [
+     15,
+     33
+    ]
+   ],
+   "of_1x": "a5788a096d04af010a61d625a88a1e7fba18f9b5a42410219aa72fdc70686d64",
+   "by": "fx_vector 3",
+   "sha256": "b3c6d6f4563d467f1dbca1056614fe3e1a4b1a4da5d90abd48fd2181998919e4",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_vayne_fx",
+   "tag": "sb_ring2",
+   "file": "league_vayne_fx/sb_ring2.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     9,
+     25
+    ],
+    [
+     19,
+     37
+    ],
+    [
+     19,
+     37
+    ],
+    [
+     19,
+     37
+    ],
+    [
+     17,
+     35
+    ],
+    [
+     15,
+     35
+    ]
+   ],
+   "of_1x": "1a11ac397f383033de89ccbbc6db75571c545c2c41e5dc92f04625dc9025b537",
+   "by": "fx_vector 3",
+   "sha256": "3cd8e1a952508e41c4a5dadf600ad2eb98ae96e069daceac02a7357202a65bc0",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

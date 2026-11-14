@@ -1,0 +1,456 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_akshan_big",
+   "tag": "r_lock",
+   "file": "league_akshan_big/r_lock.png",
+   "pack": 1,
+   "source_entry_index": 71,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    41,
+    65
+   ],
+   "cell_8x": [
+    328,
+    520
+   ],
+   "guide_size": [
+    1640,
+    520
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "19c30051f5da02832d49fdb9be995ebee3cffc692db89e23a3762c50ce64f894"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "a_hit",
+   "file": "league_akshan_fx/a_hit.png",
+   "pack": 1,
+   "source_entry_index": 75,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    9,
+    33
+   ],
+   "cell_8x": [
+    72,
+    264
+   ],
+   "guide_size": [
+    288,
+    264
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "99175fed6a767ba5724ad05f4791f89513c6250b42efcb87af19336f5ef2d3c1"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "a_shot",
+   "file": "league_akshan_fx/a_shot.png",
+   "pack": 1,
+   "source_entry_index": 72,
+   "kind": "projectile",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    9,
+    3
+   ],
+   "cell_8x": [
+    72,
+    24
+   ],
+   "guide_size": [
+    216,
+    24
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "233542edee84ebd3834b1e06e89a0430bff1e3b6f02bde4fb98d8bbf1f39860d"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "e_rope",
+   "file": "league_akshan_fx/e_rope.png",
+   "pack": 1,
+   "source_entry_index": 80,
+   "kind": "projectile",
+   "frames": 1,
+   "distinct": [
+    0
+   ],
+   "cell_1x": [
+    43,
+    13
+   ],
+   "cell_8x": [
+    344,
+    104
+   ],
+   "guide_size": [
+    344,
+    104
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "14a0ad9ce3f0aaf2e71e4c75d3b3f44eb3d16937011debe09c2c756610c4e0c8"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "p_hit",
+   "file": "league_akshan_fx/p_hit.png",
+   "pack": 1,
+   "source_entry_index": 76,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    19,
+    45
+   ],
+   "cell_8x": [
+    152,
+    360
+   ],
+   "guide_size": [
+    760,
+    360
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "2b3ee44b6284068cb4f9fdfb56ed75068605232cb988c1287fd9c879285bb744"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "p_sh",
+   "file": "league_akshan_fx/p_sh.png",
+   "pack": 1,
+   "source_entry_index": 81,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    35,
+    61
+   ],
+   "cell_8x": [
+    280,
+    488
+   ],
+   "guide_size": [
+    1120,
+    488
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "02cfa2c838dba685f383a70e0c08398c786f91e3b5a0cca893b07c6ffabf2764"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "q_catch",
+   "file": "league_akshan_fx/q_catch.png",
+   "pack": 1,
+   "source_entry_index": 79,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    11,
+    35
+   ],
+   "cell_8x": [
+    88,
+    280
+   ],
+   "guide_size": [
+    264,
+    280
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "93309edbb89f6f8f5287ebfb87157be53722fd0a03145f1ec6294fd3e7cf75e7"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "q_hit",
+   "file": "league_akshan_fx/q_hit.png",
+   "pack": 1,
+   "source_entry_index": 77,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    15,
+    39
+   ],
+   "cell_8x": [
+    120,
+    312
+   ],
+   "guide_size": [
+    480,
+    312
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "ea1710a3b133deae1294aa88f8f62b9f7d7a34aafb522a73c9ba0825c142dd26"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "q_rang",
+   "file": "league_akshan_fx/q_rang.png",
+   "pack": 1,
+   "source_entry_index": 73,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    13,
+    11
+   ],
+   "cell_8x": [
+    104,
+    88
+   ],
+   "guide_size": [
+    416,
+    88
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "75052a380d36df553480cd2d22119a3ecb6f33cbfcaa4dd3fd63e3fca538cc1c"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "r_bullet",
+   "file": "league_akshan_fx/r_bullet.png",
+   "pack": 1,
+   "source_entry_index": 74,
+   "kind": "projectile",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    29,
+    7
+   ],
+   "cell_8x": [
+    232,
+    56
+   ],
+   "guide_size": [
+    696,
+    56
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "abb281e60be939674990e06a0834935f51aaefeed5d8b2844481497b23160532"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "r_hit",
+   "file": "league_akshan_fx/r_hit.png",
+   "pack": 1,
+   "source_entry_index": 78,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    31,
+    59
+   ],
+   "cell_8x": [
+    248,
+    472
+   ],
+   "guide_size": [
+    1240,
+    472
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "42e96e4fff8d4173aa8fe6f0a96900e25ce8f29b7259faac79823fa5d9c8bab4"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "r_sight",
+   "file": "league_akshan_fx/r_sight.png",
+   "pack": 1,
+   "source_entry_index": 84,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    1
+   ],
+   "cell_1x": [
+    31,
+    61
+   ],
+   "cell_8x": [
+    248,
+    488
+   ],
+   "guide_size": [
+    744,
+    488
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "a073b30d1653fd91f7ab2faa668bf3f6c3e0bca79f0928626339aa8f9a1a0db8"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "w_mark",
+   "file": "league_akshan_fx/w_mark.png",
+   "pack": 1,
+   "source_entry_index": 83,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    15,
+    73
+   ],
+   "cell_8x": [
+    120,
+    584
+   ],
+   "guide_size": [
+    480,
+    584
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "5a556721540fc27e88f4cb0a956db652893e67bfdd5c3a3413a040726a4960da"
+  },
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "w_ms",
+   "file": "league_akshan_fx/w_ms.png",
+   "pack": 1,
+   "source_entry_index": 82,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    35,
+    27
+   ],
+   "cell_8x": [
+    280,
+    216
+   ],
+   "guide_size": [
+    1120,
+    216
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "c8a48c7abd1786e9d6b3c98aa3b78c240eac77e9849b3e093c8e56e0b485d8fb"
+  },
+  {
+   "sheet": "league_akshan_rv",
+   "tag": "w_revive",
+   "file": "league_akshan_rv/w_revive.png",
+   "pack": 1,
+   "source_entry_index": 85,
+   "kind": "effect",
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "cell_1x": [
+    27,
+    121
+   ],
+   "cell_8x": [
+    216,
+    968
+   ],
+   "guide_size": [
+    1728,
+    968
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "40612928d8039e338535b025a5424923182c2bf0f97d7b2f0f28dba05cf19e36"
+  }
+ ]
+}

@@ -1,0 +1,245 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_shen_big",
+   "tag": "r_cast",
+   "file": "league_shen_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     7,
+     27
+    ],
+    [
+     37,
+     27
+    ],
+    [
+     45,
+     63
+    ],
+    [
+     45,
+     89
+    ],
+    [
+     37,
+     85
+    ],
+    [
+     25,
+     101
+    ]
+   ],
+   "of_1x": "84aa9ec942024ab71f16b64460aae04f0379cb51d54e91fc35a77a443693e278",
+   "by": "fx_vector 4",
+   "sha256": "96771dc2159bfe2594a48453da7c550fc6d96614ab407b611c29e4f87de75743",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_big",
+   "tag": "r_ch",
+   "file": "league_shen_big/r_ch.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     37,
+     79
+    ],
+    [
+     37,
+     83
+    ],
+    [
+     37,
+     83
+    ],
+    [
+     37,
+     81
+    ]
+   ],
+   "of_1x": "9828f881517b58b4ffb0f05552e63d19c576a866a47f23b50287a74201025653",
+   "by": "fx_vector 3",
+   "sha256": "25a65749f6dcf0cd9dc01d6ad5791162fc3edaf7ff983bae7599e4e7329dbf85",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_big",
+   "tag": "r_land",
+   "file": "league_shen_big/r_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     3,
+     107
+    ],
+    [
+     15,
+     107
+    ],
+    [
+     49,
+     85
+    ],
+    [
+     49,
+     77
+    ],
+    [
+     45,
+     35
+    ]
+   ],
+   "of_1x": "7596d0a893f738db095eccd30d2d3828617f8b01d0752c4e1755b82ae03b0329",
+   "by": "fx_vector 4",
+   "sha256": "842da2f85017b09fd0f19e35c672d990b297f55d0e92402569530e4d99442782",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_big",
+   "tag": "r_shield",
+   "file": "league_shen_big/r_shield.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     95
+    ],
+    [
+     45,
+     93
+    ],
+    [
+     45,
+     95
+    ],
+    [
+     45,
+     93
+    ]
+   ],
+   "of_1x": "402962caeb50f2b93ed348c588d7b1a61fd48c2fc062cd453b9bf048dc30436f",
+   "by": "fx_vector 3",
+   "sha256": "e99f2246e50a72936d751a87924af623fed0ffd10e1f5bffdcd7d2e89371595c",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_big",
+   "tag": "w_zone",
+   "file": "league_shen_big/w_zone.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     7,
+     27
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "0a761f96e8626cfc3293562a08fba09d21d47fc407dc01f6163b09d7ccccb87a",
+   "by": "fx_vector 3",
+   "sha256": "1d2c3f2402fd16e268c394daf5f5c457ce343c68043e81c428518fb218bdfe9f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_fx",
+   "tag": "p_on",
+   "file": "league_shen_fx/p_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     83
+    ],
+    [
+     45,
+     83
+    ],
+    [
+     45,
+     83
+    ],
+    [
+     45,
+     83
+    ]
+   ],
+   "of_1x": "1bd5e4e584532c0c2551dec736c523d23cd76f701c805945b1f6908d064b31bc",
+   "by": "fx_vector 3",
+   "sha256": "488269c6b0786dbd6de6d3060dbdc18b2320b1224d4db4f7c29141b6505fe6bf",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

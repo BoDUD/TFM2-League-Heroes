@@ -1,0 +1,190 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_vander_big",
+   "tag": "r_slam",
+   "file": "tft_vander_big/r_slam.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     25,
+     31
+    ],
+    [
+     59,
+     35
+    ],
+    [
+     87,
+     31
+    ],
+    [
+     85,
+     33
+    ],
+    [
+     87,
+     35
+    ],
+    [
+     87,
+     35
+    ],
+    [
+     87,
+     35
+    ],
+    [
+     83,
+     35
+    ]
+   ],
+   "of_1x": "170f4228e05626ab5977226ddc2e67588787a4a76a695aadeefb24bb9eb60728",
+   "by": "fx_vector 4",
+   "sha256": "b1950487191830a18b5531d330f635e59408ac8ebe89248a127f6b213fec166c",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_vander_fx",
+   "tag": "p_watch",
+   "file": "tft_vander_fx/p_watch.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     31
+    ],
+    [
+     35,
+     31
+    ],
+    [
+     35,
+     31
+    ],
+    [
+     35,
+     31
+    ],
+    [
+     35,
+     31
+    ],
+    [
+     35,
+     31
+    ]
+   ],
+   "of_1x": "c7cede06a2d8df1f778f63f764a80df35b55286c990859e072cac0270da24cc4",
+   "by": "fx_vector 4",
+   "sha256": "bfe0c15da11aa1afd2ca83fb47b83552e660f4e80fa98377af27ab649b16d31c",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_vander_fx",
+   "tag": "q_guard_in",
+   "file": "tft_vander_fx/q_guard_in.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     27
+    ],
+    [
+     43,
+     27
+    ],
+    [
+     43,
+     57
+    ],
+    [
+     43,
+     37
+    ],
+    [
+     43,
+     29
+    ]
+   ],
+   "of_1x": "7a5b3a3ad6e67df672fd7f8039be4c08e04a9654438531323bdd5fe3ff51b657",
+   "by": "fx_vector 4",
+   "sha256": "4fe423ad43bf8197c5adf6754c0a386e562392b863b5145d31d6c45af273c5c7",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_vander_fx",
+   "tag": "r_hold",
+   "file": "tft_vander_fx/r_hold.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     39,
+     23
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     31
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     39,
+     31
+    ],
+    [
+     39,
+     29
+    ]
+   ],
+   "of_1x": "3f9af8d242b5c3c3b75549d7ea712cfff1b8136bc9bdd717db2e38a0d8565258",
+   "by": "fx_vector 4",
+   "sha256": "43378bb50336f1ad6e1b9eb8470faf5606fee02c6c397bfef17d109729b00f00",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

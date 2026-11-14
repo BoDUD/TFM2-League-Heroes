@@ -1,0 +1,135 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_brambleback_big",
+   "tag": "e_cast",
+   "file": "tft_brambleback_big/e_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     71,
+     61
+    ],
+    [
+     69,
+     65
+    ],
+    [
+     71,
+     69
+    ],
+    [
+     69,
+     67
+    ],
+    [
+     67,
+     63
+    ]
+   ],
+   "of_1x": "012791212cb98ecd80d3d531a50eb112a9cb5875e056d9c1d1862f5408f48327",
+   "by": "fx_vector 4",
+   "sha256": "6c34a4f36ec1f22c21db53eb894000d07183195921f2164cbdc3354778e38b08",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_brambleback_big",
+   "tag": "r_cast",
+   "file": "tft_brambleback_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     73,
+     59
+    ],
+    [
+     71,
+     63
+    ],
+    [
+     73,
+     83
+    ],
+    [
+     75,
+     83
+    ],
+    [
+     71,
+     63
+    ],
+    [
+     65,
+     77
+    ]
+   ],
+   "of_1x": "16a09b691714ca93ffd5d4c94bbac62a36ad0b550afef64672fb91a3eafd0552",
+   "by": "fx_vector 4",
+   "sha256": "c36b41e6c1e9b34dc650230031432609f118161c937585c03d4668ce3da60021",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_brambleback_fx",
+   "tag": "q_hit",
+   "file": "tft_brambleback_fx/q_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     43
+    ],
+    [
+     35,
+     43
+    ],
+    [
+     41,
+     45
+    ],
+    [
+     33,
+     45
+    ],
+    [
+     29,
+     39
+    ],
+    [
+     21,
+     31
+    ]
+   ],
+   "of_1x": "edc2a55a66c2e809e1fe2b4d5eb49cc2d9057a694f2166288584c8f120f432ef",
+   "by": "fx_vector 4",
+   "sha256": "99470c5fcf4d9334db90f42ea02a903eba1cbeca7170be402cf4ad1ff95a1364",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

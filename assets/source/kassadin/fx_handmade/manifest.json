@@ -1,0 +1,145 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_kassadin_big",
+   "tag": "e_cone",
+   "file": "league_kassadin_big/e_cone.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     21
+    ],
+    [
+     43,
+     31
+    ],
+    [
+     41,
+     39
+    ],
+    [
+     43,
+     51
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     43,
+     43
+    ]
+   ],
+   "of_1x": "f8c62b26ae26e0138e0de7547f4f7b6355a07bcb1c2b009efaf4c2c5db000dbe",
+   "by": "fx_vector 4",
+   "sha256": "66b02079c44a0b1e487f821f5da3815768470884e7e6fb59de5fd5ad8225be77",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_kassadin_big",
+   "tag": "r_in",
+   "file": "league_kassadin_big/r_in.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     11,
+     45
+    ],
+    [
+     15,
+     51
+    ],
+    [
+     35,
+     39
+    ],
+    [
+     47,
+     45
+    ],
+    [
+     43,
+     41
+    ],
+    [
+     21,
+     41
+    ],
+    [
+     13,
+     31
+    ]
+   ],
+   "of_1x": "7f4c9c6733c8fb2faffa389db785ed6928d226f6c9a4fe778730b1c8c260fc15",
+   "by": "fx_vector 4",
+   "sha256": "a5b406024c7869b2f0f8d1686f11d7cfc2d6300e74bea35eb202d9dd8bcc1a76",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_kassadin_fx",
+   "tag": "q_shield",
+   "file": "league_kassadin_fx/q_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     57
+    ],
+    [
+     35,
+     61
+    ],
+    [
+     41,
+     61
+    ],
+    [
+     39,
+     61
+    ],
+    [
+     39,
+     61
+    ],
+    [
+     37,
+     57
+    ]
+   ],
+   "of_1x": "1a1dd597c449675850f15c8805f7eadfee5adb5d9035423bdd296f36d1a5ff7e",
+   "by": "fx_vector 3",
+   "sha256": "fb2c2fcf5fe54884b36038f324f7e841bfeb28821d887d9f568dc02b9e645c02",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

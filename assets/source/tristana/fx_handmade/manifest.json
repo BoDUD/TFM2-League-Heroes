@@ -1,0 +1,195 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_tristana_big",
+   "tag": "e_boom",
+   "file": "league_tristana_big/e_boom.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     27,
+     27
+    ],
+    [
+     49,
+     29
+    ],
+    [
+     47,
+     35
+    ],
+    [
+     43,
+     35
+    ],
+    [
+     43,
+     39
+    ],
+    [
+     39,
+     31
+    ],
+    [
+     39,
+     27
+    ],
+    [
+     29,
+     27
+    ]
+   ],
+   "of_1x": "aff87270101bdbb14cf9cb9a458ad0d13261f3422418b4b5a85d19a15c673033",
+   "by": "fx_vector 4",
+   "sha256": "09f41fcf9fc6e2c58f702f6acf8db0035e15c9b5b0a18f1e7064655a3748df84",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_tristana_big",
+   "tag": "r_blast",
+   "file": "league_tristana_big/r_blast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     21,
+     31
+    ],
+    [
+     29,
+     33
+    ],
+    [
+     43,
+     33
+    ],
+    [
+     39,
+     35
+    ],
+    [
+     37,
+     33
+    ],
+    [
+     31,
+     33
+    ]
+   ],
+   "of_1x": "267e5e24d287378e1f336a81a748b2b7159d1803fcb688d6b7c5d8652ba55821",
+   "by": "fx_vector 4",
+   "sha256": "68decc9f28b1ff63b8fb0e31343981271f40e0b96e836824905e9cf6e57b96e1",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_tristana_big",
+   "tag": "w_land",
+   "file": "league_tristana_big/w_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     33
+    ],
+    [
+     39,
+     37
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     37,
+     35
+    ]
+   ],
+   "of_1x": "c3890fc80947d1e82955974d69c09b6186022d5d3cf3ace25250190f0337fcfe",
+   "by": "fx_vector 4",
+   "sha256": "f9a7ed49f8f05f6af302f7c3f9eb613fad1bf271cbd6efe6a44bed75e2558e53",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_tristana_fx",
+   "tag": "p_boom",
+   "file": "league_tristana_fx/p_boom.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     23,
+     25
+    ],
+    [
+     29,
+     27
+    ],
+    [
+     35,
+     27
+    ],
+    [
+     33,
+     27
+    ],
+    [
+     31,
+     27
+    ],
+    [
+     27,
+     25
+    ]
+   ],
+   "of_1x": "d20e00b1f59bc85db7e00517d043005b47c41809ce893f138cf15502d1a066b0",
+   "by": "fx_vector 4",
+   "sha256": "40a56c645a907573c6a5e603370767ae18b24dc0d6b9a7613e2f4e2ff69cce07",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

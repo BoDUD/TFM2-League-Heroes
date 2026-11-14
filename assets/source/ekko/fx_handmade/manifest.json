@@ -1,0 +1,225 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ekko_big",
+   "tag": "q_field",
+   "file": "league_ekko_big/q_field.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     37
+    ],
+    [
+     39,
+     47
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     35,
+     45
+    ],
+    [
+     23,
+     37
+    ]
+   ],
+   "of_1x": "e5d83d19ab8af735216c87de98b9cf25807fc246e65bacdd2186ca55806a5e1b",
+   "by": "fx_vector 3",
+   "sha256": "29cdee7453cefa57a51c73771b74e6c722f550682cae49e69827dca7ac9d5293",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ekko_big",
+   "tag": "r_arrive",
+   "file": "league_ekko_big/r_arrive.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     51,
+     55
+    ],
+    [
+     45,
+     49
+    ],
+    [
+     69,
+     61
+    ],
+    [
+     71,
+     65
+    ],
+    [
+     71,
+     63
+    ],
+    [
+     71,
+     59
+    ],
+    [
+     63,
+     59
+    ],
+    [
+     49,
+     51
+    ]
+   ],
+   "of_1x": "562ce49ce7c83e90c8d0d49eaeabbbad6146274dff031e6d13698c698c14949f",
+   "by": "fx_vector 3",
+   "sha256": "5a82191857e4436de127b636a18f584bee55c736380b0e95447665080b6c595b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ekko_big",
+   "tag": "w_shatter",
+   "file": "league_ekko_big/w_shatter.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     93,
+     99
+    ],
+    [
+     91,
+     153
+    ],
+    [
+     93,
+     117
+    ],
+    [
+     89,
+     131
+    ],
+    [
+     91,
+     139
+    ],
+    [
+     89,
+     157
+    ],
+    [
+     77,
+     67
+    ]
+   ],
+   "of_1x": "64dacbba6bb9704de172d61c2cd38929cc900ee24256f68f3fa5ed62eb3c8c64",
+   "by": "fx_vector 4",
+   "sha256": "51a0a792381413a5f36cf9a27b5d3b7aa118efadaef487d7e610ff684d7c1b07",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_ekko_big",
+   "tag": "w_sphere",
+   "file": "league_ekko_big/w_sphere.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     83,
+     79
+    ],
+    [
+     83,
+     79
+    ],
+    [
+     79,
+     79
+    ],
+    [
+     79,
+     79
+    ]
+   ],
+   "of_1x": "5322ca890b730fc337bf6b986ae8fb7121c48e2db13fb6ba75bee297c1d49f1c",
+   "by": "fx_vector 4",
+   "sha256": "49a767fd2e7c8747bf445f436346bb6b7594364706a400cec54d0fddae3e663e",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_ekko_fx",
+   "tag": "w_shield",
+   "file": "league_ekko_fx/w_shield.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     53
+    ],
+    [
+     49,
+     53
+    ],
+    [
+     49,
+     53
+    ],
+    [
+     49,
+     53
+    ]
+   ],
+   "of_1x": "e9a1304732f4383ab7107d8be40a63ef884341df91b0ba8aeefd90b3a0a0ce50",
+   "by": "fx_vector 3",
+   "sha256": "cf4af9f7d173cd66f8b74c73f66d46f39629a58047b7d768d5d7f2e308318a66",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

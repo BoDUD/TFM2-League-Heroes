@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_viktor_big",
+   "tag": "w_burst",
+   "file": "league_viktor_big/w_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     57,
+     23
+    ],
+    [
+     57,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     59,
+     25
+    ]
+   ],
+   "of_1x": "39a31b50ac88808af985c4189228ad35fecb15c6e312de322d6d27b97cda7241",
+   "by": "fx_vector 4",
+   "sha256": "3f6a85f5e506b64c14232b8ccba4e2afdc4e31845f495893e6221f0491af9de2",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_viktor_big",
+   "tag": "w_field",
+   "file": "league_viktor_big/w_field.png",
+   "ppu": 2,
+   "frames": 40,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     29,
+     17
+    ],
+    [
+     59,
+     23
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     63,
+     27
+    ],
+    [
+     19,
+     17
+    ],
+    [
+     41,
+     23
+    ]
+   ],
+   "of_1x": "b4f59b60eb0f76d0aa1aa7a0baacb91389a86db6f13a8b666b9b34f884d4d2f7",
+   "by": "fx_vector 3",
+   "sha256": "91ad38062574dd338ef24ce0f350a9fcaedddddb13ea0390a0268ecfebd06119",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

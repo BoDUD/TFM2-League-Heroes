@@ -1,0 +1,80 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_rammus_big",
+   "tag": "q_burst",
+   "file": "league_rammus_big/q_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     33
+    ],
+    [
+     23,
+     31
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     41,
+     31
+    ]
+   ],
+   "of_1x": "c329ba556bc80aba3eed7e15cd3f0270233d361ebdea7507658588b0f9a66bee",
+   "by": "fx_vector 4",
+   "sha256": "77d7ffabd202701549cdc938b634a0cfab22af11e08688707da2538a4e09795b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_rammus_big",
+   "tag": "r_shock",
+   "file": "league_rammus_big/r_shock.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     21,
+     31
+    ],
+    [
+     43,
+     39
+    ],
+    [
+     65,
+     47
+    ],
+    [
+     75,
+     47
+    ]
+   ],
+   "of_1x": "06b4b5aa29dda2a2bf2f75697c65af3fb7c0100be108f55e834555bb8f70243f",
+   "by": "fx_vector 3",
+   "sha256": "8d78531e764ad92923a09ef433d1402d9b9d6c384a18ae6bbae9dfd2a9c04274",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_trundle_big",
+   "tag": "w_domain",
+   "file": "league_trundle_big/w_domain.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     15,
+     27
+    ],
+    [
+     35,
+     33
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     75,
+     47
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ]
+   ],
+   "of_1x": "d391bc85d5ff35d1094dd649ff6782c773971a08dceca6196f5048f58e2d5ea5",
+   "by": "fx_vector 4",
+   "sha256": "8ddca362ef278411cdf566e44f4e71d2fa50aab48c031de673b33bd4ad63bdd8",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_trundle_fx",
+   "tag": "w_aura",
+   "file": "league_trundle_fx/w_aura.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ]
+   ],
+   "of_1x": "2b9d789efe5956b3f5eb26cb4e4dd06dfa0f84f59a11a479660c4d6dc15f61db",
+   "by": "fx_vector 3",
+   "sha256": "3628bb11dc30aba419bc586b6ccce6a286a14a2e9440a7a0e5889e73e153ae00",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_trundle_fx",
+   "tag": "w_field",
+   "file": "league_trundle_fx/w_field.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     81,
+     49
+    ],
+    [
+     81,
+     49
+    ]
+   ],
+   "of_1x": "84f389ffd1e6ead6cd1c879832781cb5588a9d9ee082bef76b32b8983cc76126",
+   "by": "fx_vector 3",
+   "sha256": "ee3fa71c89e5ce91452b0c36cfa635bb1517fdac77741aabf9bba9a30292a6d0",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

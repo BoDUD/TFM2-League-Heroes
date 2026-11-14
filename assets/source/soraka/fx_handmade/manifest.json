@@ -1,0 +1,119 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_soraka_zone",
+   "tag": "e_field",
+   "file": "league_soraka_zone/e_field.png",
+   "ppu": 2,
+   "frames": 12,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     59,
+     69
+    ],
+    [
+     59,
+     69
+    ],
+    [
+     59,
+     69
+    ],
+    [
+     59,
+     69
+    ],
+    [
+     59,
+     69
+    ],
+    [
+     59,
+     69
+    ],
+    [
+     47,
+     61
+    ],
+    [
+     61,
+     57
+    ]
+   ],
+   "of_1x": "1a4a585ad51338ac101dbccd5463d25f48cd69091e6c71a5956f1faf28d99ca0",
+   "by": "fx_vector 1",
+   "sha256": "184e403e3f5a623fbe48410983828a018c87509ac236fff9e192a45a9193e5b2",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_soraka_zone",
+   "tag": "q_star",
+   "file": "league_soraka_zone/q_star.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     45,
+     199
+    ],
+    [
+     45,
+     175
+    ],
+    [
+     49,
+     143
+    ],
+    [
+     49,
+     103
+    ],
+    [
+     57,
+     67
+    ],
+    [
+     53,
+     63
+    ],
+    [
+     61,
+     55
+    ],
+    [
+     49,
+     63
+    ]
+   ],
+   "of_1x": "87dd4011fe2c83fb0d09d1a0fe1a67b3f72cc9a407ec94cb3e4804634c775ec8",
+   "by": "fx_vector 2",
+   "sha256": "268d4d4f00a11409ab8d06c1ba7b7c722907b96fcece0f89a36116de0ee91132",
+   "note": "batch 01 enlarged 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,123 @@
+# Effect tags the review keeps off their Codex raws: densify_fx.py Scale2x's them whatever their fits.
+# One a line: <sheet>:<tag>  # why (the user, 2026-11-09: 「别给我整的更差了 我要的是质量更好的」)
+league_ambessa_fx:w_brace  # the raw has no star sparkles on the arch (Codex added them at 1x); noisy rim
+league_ambessa_big:r_blink  # dark speckle over the smoke's top
+league_bard_big:r_free  # the egg's inner pattern is another drawing
+league_ashe_r:arrow  # the trail comes out as dotted noise
+league_ashe_r:hit  # the raw is a starburst, the 1x an ice block rising
+league_garen_sym:spin  # stippled half (the raw's faint sweep at the fill)
+league_akshan_fx:p_sh  # ring thickness jumps frame to frame, spikes the 1x has not
+league_akshan_fx:w_ms  # the feet's little wings come out as wisps
+league_ivern_big:e_burst  # the star and the orb come out as other shapes (a comb, a face)
+league_ivern_big:r_shock  # the dust comes out as scattered sticks
+league_kindred_big:w_zone  # stippled ring (the raw's faint glow)
+league_khazix_big:e_land  # the landing ring comes out as scattered speckle
+league_kled_big:dismount  # frame 1's two crisp stars come out as noise
+league_lillia_big:q_spin  # frames 5-6 break into blobs
+league_lillia_big:w_land  # scribbly where the 1x is crisp
+league_locke_fx:e_out  # more mottled than the 1x
+league_locke_fx:w_ign  # frame 4's top shape changes (an eye for the white H)
+league_locke_fx:r_mark  # more cluttered than the 1x's clean dotted ring
+league_lux_fx:ignite  # the 8 rays come out as a 4-point star with speckle
+league_mel_big:w_on  # the arc comes out broken and specked
+league_milio_fx_big:w_fire  # the fire ring comes out frayed and noisy
+league_neeko_big:q_burst  # the petals scatter into noise in frames 3-4
+league_neeko_fx:p_poof  # first and last frames sparser than the 1x
+league_nidalee_big:r_roar  # extra concentric rings; frame 5 a blocky ellipse for a dotted ring
+league_nidalee_big:cw_land  # frame 4 comes out as spiky noise
+league_nidalee_fx:cw_dust  # frame 1 nearly vanishes
+league_pyke_big:e_left  # the water crown of frames 4-5 comes out as messy spray
+league_senna_fx:r_sh  # the crown and ring of frames 2-3 scatter into noise
+league_senna_fx:r_shield  # the chunky ring comes out frayed
+league_seraphine_fx:echo  # the clean white 0 ring comes out dotted, the rainbow ring specked
+league_seraphine_fx:w_on  # the thin ring comes out bolder, its top broken
+league_seraphine_big:r_cast  # frames 5-6 sparser than the 1x
+league_singed_big:w_glue  # specked top edge
+league_sion_big:q_warn  # the white arcs are lost, the warning comes out darker
+league_smolder_big:r_mom  # the wings' outline comes out jagged
+league_smolder_big:r_fire  # the last frame loses its bright dashes
+league_sylas_big:q_cross  # the crossed chains come out specked
+league_sylas_big:r2_song  # dotted texture where the 1x is crisp
+league_sylas_fx:r2_blink  # frame 1's ring comes out specked
+league_trundle_fx:w_aura  # the ice field's white X cracks are lost
+league_trundle_fx:w_field  # ragged edges, the crack star blurred
+league_twitch_fx:q_cast  # cluttered with dark specks
+league_varus_sym:p_rage_on  # frame 3's stacked rings come out as a swirl (the 1x was mirrored)
+league_viego_big:p_take  # frames 5-6 come out as another swirl
+league_viego_big:p_on  # darker than the 1x
+league_viego_big:s_burst  # frame 1's crown comes out as a star blob; noisier
+league_viego_fx:p_end  # darker than the 1x
+league_viego_fx:p_safe  # the ring comes out thinner with gaps
+league_viktor_big:w_field  # frames 1-2's crisp cross comes out noisy
+league_viktor_big:w_burst  # specked rings
+league_viktor_big:r_land  # frame 2's patterned blob comes out as a thin ring
+league_viktor_fx:q_shield  # the thin dotted outline comes out as chunky pieces
+league_viktor_fx:evo  # specked in frame 4
+league_vladimir_fx:q_drain  # frame 2's star comes out as a swirl blob
+league_volibear_big:e_cloud  # stipple in the dark middle of frames 1-2
+league_xinzhao_sym:p_heal  # frame 4's trident pattern comes out loose (the 1x was mirrored)
+league_yuumi_fx:e_hit  # frame 1's clean arcs come out with a stipple of dots inside
+league_zeri_big:w_laser  # frame 4's white core breaks into dashes, frame 3 gets a dotted fringe
+league_zeri_fx:w_cast  # frame 3's solid bars break up with stray specks
+league_zeri_fx:e_on  # scattered white specks around the sparks
+tft_alune_big:r_warn  # TFT review (minor): rim ragged/hairy with stray specks, sparkle dots misshapen
+tft_alune_big:r_fall  # TFT review (bad): orb interior redrawn as asymmetric swirls, lost symmetry
+tft_aoshin_big:p_bolt  # TFT review (minor): clean base ring turned into a streaky splash disc
+tft_aoshin_fx:e_cast  # TFT review (bad): different drawing: symmetric rock crest and X lightning lost, speckled
+tft_aoshin_fx:e_shield  # TFT review (minor): speckled/hairy edges and stray specks around the dragons
+tft_aoshin_fx:p_storm  # TFT review (bad): colours shifted to dark blue blotches, bolts thinner, ring broken into dots
+tft_brambleback_big:e_cast  # TFT review (minor): arcs ragged with stippled white specks, flames streaky
+tft_brambleback_big:e_guard  # TFT review (minor): crown ornament lost, loose specks, less symmetric
+tft_brambleback_big:r_cast  # TFT review (bad): flames noisy/stippled, embers broken into faint specks
+tft_brambleback_fx:q_hit  # TFT review (minor): fading ring drawn thick, sparks turned into streaks, stray specks
+tft_elderdragon_big:r_slam  # TFT review (bad): flame tips blocky cyan rectangles, noisy dark blobs instead of the cyan pattern
+tft_elderdragon_big:r_vamp  # TFT review (minor): strokes thinner, bright band narrower
+tft_elderdragon_fx:p_exec  # TFT review (minor): dotted line and a gap at the beam's top end
+tft_gromp_big:q_burst  # TFT review (bad): speckled/dithered texture, central shape lost, stray specks
+tft_gromp_big:e_land  # TFT review (minor): dotted stray specks, noisier, less symmetric
+tft_gromp_big:r_fog  # TFT review (minor): symmetric bubble pattern lost, stray specks
+tft_gromp_fx:p_ap  # TFT review (bad): crisp 4-point sparkle turned into a noisy blob
+tft_idas_big:q_breath  # TFT review (bad): symmetric fire cone became a smeared asymmetric wedge, cyan edges lost
+tft_idas_fx:e_shield  # TFT review (minor): ring 1.5x thicker with ragged edges and pointed ends
+tft_idas_fx:p_burst  # TFT review (bad): streaky smears instead of mirrored chunky pieces
+tft_idas_fx:r_wrap  # TFT review (minor): a sparkle missing, corner sparkles lost
+tft_idas_fx:r_shield  # TFT review (minor): one of the two mirrored sparkles missing, fragmented flames
+tft_maddie_big:r_hit  # TFT review (minor): smoke wave's right half speckled, stray specks
+tft_maddie_fx:e_wanted  # TFT review (bad): round crosshair redrawn as a ragged broken ring, ellipse broken into dots
+tft_maddie_fx:p_bounty  # TFT review (minor): sparkle thinner, blue tails reduced to dots
+tft_meepsie_fx:e_hot  # TFT review (minor): less symmetric, noisy speck clusters
+tft_meepsie_fx:r_up  # TFT review (bad): symmetric crystal pile became speckled rubble
+tft_norra_big:r_rift  # TFT review (bad): scribbly/hairy arcs, dashed ring top, misshapen pins
+tft_norra_fx:w_in  # TFT review (minor): noisier scattered specks
+tft_renni_big:r_slam  # TFT review (minor): extra speckles, debris thinner/sparser
+tft_renni_fx:p  # TFT review (minor): frame 6 broken into tiny specks
+tft_scar_big:r_land  # TFT review (minor): hairy rock edges, stray specks, chunky pieces broken into specks
+tft_scuttlecrab_big:q_shrine  # TFT review (minor): rim waves lose the mirror symmetry, ragged edge
+tft_scuttlecrab_fx:e_shell  # TFT review (minor): dome drawn with a pointed apex, dotted specks
+tft_sentinel_big:r_slam  # TFT review (minor): frame 1 round glow became a spiky splash; zoomed picture off the original's centre
+tft_sentry_big:r_sweep  # TFT review (minor): afterimage trail thinner, hairy specks on the beam edge
+tft_sentry_fx:q_shred  # TFT review (minor): centre mark changed, shards more scattered
+tft_sentry_fx:r_shred  # TFT review (bad): extra wing flares, crossbar lost, chips recoloured
+tft_sevika_big:q_flame  # TFT review (minor): flame lopsided, dotted specks at the nozzle
+tft_sevika_big:r_kill  # TFT review (minor): right half noisy, symmetry lost
+tft_sevika_fx:p  # TFT review (minor): reel symbols changed, corner ornaments replaced
+tft_silco_big:r_warn  # TFT review (bad): symmetric ring broken into dotted specks
+tft_silco_big:r_fog  # TFT review (bad): pink crack replaced by a grey smudge, symmetry lost
+tft_silco_fx:e_shimmer  # TFT review (minor): side pieces ragged with stray specks
+tft_silco_fx:p_shield  # TFT review (minor): frame redrawn with a rounded bottom, chain as hollow rings, crown faint
+tft_sohm_fx:e_shield  # TFT review (bad): ornamental frame turned into a speckled ring, bars lost
+tft_steb_big:r_pack  # TFT review (bad): hatched hairy hole edge, '+' sparkles deformed
+tft_steb_fx:q_heal  # TFT review (minor): noisier speckled texture, hairy streaks
+tft_steb_fx:e_kill  # TFT review (minor): symmetry lost in the fade, bars became dots
+tft_steb_fx:e_rush  # TFT review (minor): flames thinner and speckled
+tft_steb_fx:r_heal  # TFT review (minor): noisier, sparser
+tft_steb_fx:r_guard  # TFT review (bad): straight pillars got ragged hairy outlines, stray specks
+tft_steb_fx:r_shield  # TFT review (minor): solid gems drawn as hollow rings
+tft_syfen_big:e_sweep  # TFT review (bad): claw a noisy smear, symmetric bits redrawn as a blob
+tft_syfen_big:r  # TFT review (bad): flames hatched/streaky, swirl lines lost, ring broken
+tft_syfen_big:p_rage  # TFT review (minor): base bar broken into dots, stray specks
+tft_vander_big:r_slam  # TFT review (minor): solid centre broken into specks, ragged dust
+tft_vander_fx:r_hold  # TFT review (bad): embers broken into specks, arcs thinner, pool speckled
+tft_violet_fx:e_dash  # TFT review (minor): noisier speckled texture, streaky spikes
+tft_zippy_big:r_hit  # TFT review (bad): symmetric flare became an asymmetric burst with dashes, sparkles fuzzy
+tft_zippy_big:r_shield  # TFT review (minor): ring band thinner, stray specks, hairy edges

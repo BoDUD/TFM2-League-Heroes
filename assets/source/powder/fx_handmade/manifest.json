@@ -1,0 +1,130 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_powder_big",
+   "tag": "e_smoke",
+   "file": "tft_powder_big/e_smoke.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     13,
+     23
+    ],
+    [
+     41,
+     23
+    ],
+    [
+     39,
+     23
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     23
+    ]
+   ],
+   "of_1x": "26841ca5d30e2f9e223f9972a39c22f0acd8f61f6a71d8f3cfbae052eb81154c",
+   "by": "fx_vector 4",
+   "sha256": "d5aeecdfeef947b58801ead47f6a5b956d0371e88e36bd57ca5322a07e1c3941",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_powder_big",
+   "tag": "r_blast",
+   "file": "tft_powder_big/r_blast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     39,
+     51
+    ],
+    [
+     43,
+     55
+    ],
+    [
+     51,
+     53
+    ],
+    [
+     53,
+     51
+    ],
+    [
+     53,
+     51
+    ],
+    [
+     53,
+     49
+    ]
+   ],
+   "of_1x": "641a59fe5dc321f02155b79f8d2b681d2eb45eff4199bf55db7cbe998d1477ca",
+   "by": "fx_vector 4",
+   "sha256": "52911f8a04e56ea34ff40ed804dd26657576b1383c4c4441f4a3852217150cee",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_powder_big",
+   "tag": "r_warn",
+   "file": "tft_powder_big/r_warn.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     23
+    ],
+    [
+     45,
+     23
+    ],
+    [
+     45,
+     23
+    ],
+    [
+     45,
+     23
+    ]
+   ],
+   "of_1x": "c0fd6b5bac932db1146fa75ac84fe40e49c6c5d7adc01c284f4c3e9b0cbcd12b",
+   "by": "fx_vector 4",
+   "sha256": "8a354966cf41f2b9cdc94f2f06b9402e81a1e3647a8a14a1f25ac2a46b2dba5b",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

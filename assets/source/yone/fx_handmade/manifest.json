@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_yone_big",
+   "tag": "w_cone",
+   "file": "league_yone_big/w_cone.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     55
+    ],
+    [
+     41,
+     63
+    ],
+    [
+     47,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     41,
+     63
+    ],
+    [
+     37,
+     57
+    ]
+   ],
+   "of_1x": "ffb9bf7a2e9e0318e7481e2d16c024fdc2ce3136cc7382591f49538acf5ca5ff",
+   "by": "fx_vector 4",
+   "sha256": "0cb344b9a49d2068db72fa5b84bea4e938cab20ffba43064925c8ffcacc9fda1",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_yone_fx",
+   "tag": "q_ready",
+   "file": "league_yone_fx/q_ready.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     45
+    ],
+    [
+     39,
+     47
+    ],
+    [
+     39,
+     49
+    ],
+    [
+     39,
+     49
+    ]
+   ],
+   "of_1x": "59980328414b9cfe1b9d272b110de02fce8e3b4c498649665993ed9e2e5def2f",
+   "by": "fx_vector 3",
+   "sha256": "4b2087c9b794903f3621d8f94b26e45efad74f177bbd5097f5996c651f98218b",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_yone_sym",
+   "tag": "shield",
+   "file": "league_yone_sym/shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ]
+   ],
+   "of_1x": "70b0c70a2c4e54122655cdfcb7466c3e7b677ffc226e5e9f8038570eaca7fb14",
+   "by": "fx_vector 4",
+   "sha256": "6954a64814f65b544a1919bfec0758c8d1cbee5f6228f40739cf28fba9bba580",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,258 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_amumu_big",
+   "tag": "e_tantrum",
+   "file": "league_amumu_big/e_tantrum.png",
+   "pack": 1,
+   "source_entry_index": 117,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    59,
+    81
+   ],
+   "cell_8x": [
+    472,
+    648
+   ],
+   "guide_size": [
+    2832,
+    648
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "ca6035704e1009c63666469e4c7e8be5ca2943417bb259ec77bd5fdb885b3c14"
+  },
+  {
+   "sheet": "league_amumu_big",
+   "tag": "r_burst",
+   "file": "league_amumu_big/r_burst.png",
+   "pack": 1,
+   "source_entry_index": 118,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    87,
+    87
+   ],
+   "cell_8x": [
+    696,
+    696
+   ],
+   "guide_size": [
+    4176,
+    696
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "d73ba879df0e61ab63729025ce00ebb6eef66e79018b603c45bdc5a96bffe89f"
+  },
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "curse",
+   "file": "league_amumu_fx/curse.png",
+   "pack": 1,
+   "source_entry_index": 122,
+   "kind": "buff",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    9,
+    73
+   ],
+   "cell_8x": [
+    72,
+    584
+   ],
+   "guide_size": [
+    432,
+    584
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "f46a932e3ac3394ab7c022a9fcce33ce01ab43133033c9e4f512d8a7635d673e"
+  },
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "despair",
+   "file": "league_amumu_fx/despair.png",
+   "pack": 1,
+   "source_entry_index": 123,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    61,
+    63
+   ],
+   "cell_8x": [
+    488,
+    504
+   ],
+   "guide_size": [
+    2928,
+    504
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "028e9be3ef0131204d64b6d5f13491b80e773211a214f80c87d664a6376c22a6"
+  },
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "hit",
+   "file": "league_amumu_fx/hit.png",
+   "pack": 1,
+   "source_entry_index": 119,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    25,
+    29
+   ],
+   "cell_8x": [
+    200,
+    232
+   ],
+   "guide_size": [
+    1000,
+    232
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "6f606c484f3fe9cf79d8ebc4156678adc9429c27ef284d09ce8b8faeb36ed500"
+  },
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "q_bandage",
+   "file": "league_amumu_fx/q_bandage.png",
+   "pack": 1,
+   "source_entry_index": 120,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    89,
+    13
+   ],
+   "cell_8x": [
+    712,
+    104
+   ],
+   "guide_size": [
+    2848,
+    104
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "a354a00557315aa8f8a1f3e4caac5dda3cdccf2c8cdab47fda57e1198f9d25ad"
+  },
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "q_wrap",
+   "file": "league_amumu_fx/q_wrap.png",
+   "pack": 1,
+   "source_entry_index": 121,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    27,
+    41
+   ],
+   "cell_8x": [
+    216,
+    328
+   ],
+   "guide_size": [
+    1296,
+    328
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "5b4dd6c44d6ac4f99390af2ea891f0b02cec7dcde9cf0b529a341922a0d77381"
+  },
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "r_wrap",
+   "file": "league_amumu_fx/r_wrap.png",
+   "pack": 1,
+   "source_entry_index": 124,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    33,
+    53
+   ],
+   "cell_8x": [
+    264,
+    424
+   ],
+   "guide_size": [
+    1584,
+    424
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "1f148cfdef0c88e158e3d57f56447b7e54a7528423abf00ecbd249b39559093f"
+  }
+ ]
+}

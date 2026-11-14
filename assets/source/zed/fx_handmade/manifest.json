@@ -1,0 +1,130 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_zed_big",
+   "tag": "e_spin",
+   "file": "league_zed_big/e_spin.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     25
+    ],
+    [
+     37,
+     35
+    ],
+    [
+     49,
+     41
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     35,
+     35
+    ]
+   ],
+   "of_1x": "02550e47ece650cc4d6385d0709ca030cfab9c9d988f2775bc88b0320c2275aa",
+   "by": "fx_vector 3",
+   "sha256": "5c62b2f5dcfd024e5f692f6fe5bff8adb5f99e23646af38b5db246778798b866",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zed_big",
+   "tag": "r_pop",
+   "file": "league_zed_big/r_pop.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     11,
+     37
+    ],
+    [
+     23,
+     45
+    ],
+    [
+     31,
+     57
+    ],
+    [
+     53,
+     49
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     23,
+     49
+    ]
+   ],
+   "of_1x": "46c7013146538a9132bd813fadd14fdc43c303ce40bc443ab67c2f96f36d2150",
+   "by": "fx_vector 4",
+   "sha256": "f3c5ba59afedfda063f3c08f697f0578269f623fc77d67e5315661565153442b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_zed_big",
+   "tag": "sh_spin",
+   "file": "league_zed_big/sh_spin.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     21,
+     29
+    ],
+    [
+     39,
+     39
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     39,
+     39
+    ],
+    [
+     31,
+     35
+    ]
+   ],
+   "of_1x": "dcb5a7bbba1cb893e2d0003abe3abb08a1d738c78e1e6bb559086092e6e4efeb",
+   "by": "fx_vector 3",
+   "sha256": "d6d31e18e4a30a09148a1b9bf8b31f3a78ee818876d1537bf489cf24a6df1f77",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

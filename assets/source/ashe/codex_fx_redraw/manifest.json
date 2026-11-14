@@ -1,0 +1,164 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_ashe_fx",
+   "tag": "arrow",
+   "file": "league_ashe_fx/arrow.png",
+   "pack": 1,
+   "source_entry_index": 187,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    33,
+    7
+   ],
+   "cell_8x": [
+    264,
+    56
+   ],
+   "guide_size": [
+    1056,
+    56
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "5e9523bc5ad9a44b9973276bd5d6e9d7580f8cee6e958e275ec1ef35f330f406"
+  },
+  {
+   "sheet": "league_ashe_fx",
+   "tag": "hit",
+   "file": "league_ashe_fx/hit.png",
+   "pack": 1,
+   "source_entry_index": 189,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    17,
+    29
+   ],
+   "cell_8x": [
+    136,
+    232
+   ],
+   "guide_size": [
+    680,
+    232
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "65f0335aa74fa61694904ea0456b88ff7e5438ab3e4115fa8871c6b07f7dda7e"
+  },
+  {
+   "sheet": "league_ashe_fx",
+   "tag": "volley",
+   "file": "league_ashe_fx/volley.png",
+   "pack": 1,
+   "source_entry_index": 188,
+   "kind": "projectile",
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "cell_1x": [
+    85,
+    101
+   ],
+   "cell_8x": [
+    680,
+    808
+   ],
+   "guide_size": [
+    4760,
+    808
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "47b3fa016c66bf4d3c50a7185bbed9730eb24c4d4bab4551eda6cb24b97d02a2"
+  },
+  {
+   "sheet": "league_ashe_r",
+   "tag": "arrow",
+   "file": "league_ashe_r/arrow.png",
+   "pack": 1,
+   "source_entry_index": 190,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    61,
+    23
+   ],
+   "cell_8x": [
+    488,
+    184
+   ],
+   "guide_size": [
+    1952,
+    184
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "abb582779a3e71f9c673fb90eb5220d103aaf25f717054dc514cff6c08e6d346"
+  },
+  {
+   "sheet": "league_ashe_r",
+   "tag": "hit",
+   "file": "league_ashe_r/hit.png",
+   "pack": 1,
+   "source_entry_index": 191,
+   "kind": "effect",
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "cell_1x": [
+    25,
+    27
+   ],
+   "cell_8x": [
+    200,
+    216
+   ],
+   "guide_size": [
+    1800,
+    216
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "783e7b7046683a8ee1bff1a4d97f45391d243bfef690001b09a18cbfc117b82e"
+  }
+ ]
+}

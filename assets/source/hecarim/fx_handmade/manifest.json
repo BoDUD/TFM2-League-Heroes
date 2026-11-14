@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_hecarim_big",
+   "tag": "q_spin",
+   "file": "league_hecarim_big/q_spin.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     59,
+     31
+    ],
+    [
+     55,
+     45
+    ],
+    [
+     55,
+     51
+    ],
+    [
+     69,
+     59
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     53,
+     45
+    ]
+   ],
+   "of_1x": "66d4ade21a9be46aff64fe549288ff9398b069d6a340e0fd148152a9c2fb055f",
+   "by": "fx_vector 4",
+   "sha256": "509420685a712cec2c56f969ad2932e20fced32902cfbb634d7ea2a2d094a3f5",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_hecarim_big",
+   "tag": "r_land",
+   "file": "league_hecarim_big/r_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     27
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     51,
+     39
+    ],
+    [
+     45,
+     35
+    ]
+   ],
+   "of_1x": "8c3b44113e736bb0d4de24b295768c58aee5808bede4e688f2c592088a15577c",
+   "by": "fx_vector 4",
+   "sha256": "b1400f02e68e2f2c1600b15e472904740c804bac0d3c4841649aebe5e7d11a29",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

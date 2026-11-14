@@ -1,0 +1,110 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_maddie_big",
+   "tag": "r_hit",
+   "file": "tft_maddie_big/r_hit.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     33,
+     65
+    ],
+    [
+     41,
+     39
+    ],
+    [
+     39,
+     49
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     39,
+     45
+    ],
+    [
+     33,
+     39
+    ],
+    [
+     39,
+     35
+    ]
+   ],
+   "of_1x": "7d1087ea20eedacc8a1674c3c9c0a8fb77733f1d72544ea3f42d33a9cf37170d",
+   "by": "fx_vector 4",
+   "sha256": "73c04e27d8e905bd22b780ee17cab618863690ef096b860ea615fdbe1ecb4624",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_maddie_big",
+   "tag": "r_sight",
+   "file": "tft_maddie_big/r_sight.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     35,
+     51
+    ],
+    [
+     29,
+     45
+    ],
+    [
+     23,
+     39
+    ],
+    [
+     17,
+     33
+    ],
+    [
+     13,
+     29
+    ],
+    [
+     11,
+     27
+    ],
+    [
+     11,
+     27
+    ],
+    [
+     5,
+     23
+    ]
+   ],
+   "of_1x": "7b3042488bafcdf4fa63706263e0762362d6d2306a24510f2439b1fd28a74a79",
+   "by": "fx_vector 4",
+   "sha256": "500cad4ca7e46b46a352c25a91ddc72a02d72c7d411ea4a0dc1bb4dd00a4a8b2",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

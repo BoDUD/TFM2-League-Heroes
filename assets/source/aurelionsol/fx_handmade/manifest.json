@@ -1,0 +1,244 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "e_hole_3",
+   "file": "league_aurelionsol_big/e_hole_3.png",
+   "ppu": 2,
+   "frames": 40,
+   "distinct": [
+    0,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     87,
+     37
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     83,
+     39
+    ]
+   ],
+   "of_1x": "42bf5e7cf6cf613db7e237e21bc46984f56349dd213c106350629ec3ec872991",
+   "by": "fx_vector 4",
+   "sha256": "7c3e03bcc9a9fcd1441f8c9400d8e204db519600e22975db61832d8d53e53f0f",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_impact_5",
+   "file": "league_aurelionsol_big/r_impact_5.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     35,
+     33
+    ],
+    [
+     95,
+     39
+    ],
+    [
+     95,
+     49
+    ],
+    [
+     91,
+     49
+    ],
+    [
+     85,
+     37
+    ]
+   ],
+   "of_1x": "6db6e822426dfb9aaf791e3d6349326cfb8b51bb5f014a78f843a91720cddbca",
+   "by": "fx_vector 4",
+   "sha256": "b7455b2630bba8774f2767520f22c35d1b19b063d586bffe686f2de3feb0b7bd",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_impact_6",
+   "file": "league_aurelionsol_big/r_impact_6.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     39,
+     35
+    ],
+    [
+     103,
+     43
+    ],
+    [
+     103,
+     53
+    ],
+    [
+     99,
+     53
+    ],
+    [
+     91,
+     39
+    ]
+   ],
+   "of_1x": "233d6c62a86a5ea231018d80db3e678531d9cb00f200cd0c4ca395c12beb29a1",
+   "by": "fx_vector 4",
+   "sha256": "e873d4199b796585e444230b044a804863f9735546478cdf2447350a4c9029dc",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_wave_1",
+   "file": "league_aurelionsol_big/r_wave_1.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     51,
+     19
+    ],
+    [
+     77,
+     33
+    ],
+    [
+     103,
+     37
+    ],
+    [
+     109,
+     31
+    ],
+    [
+     107,
+     27
+    ]
+   ],
+   "of_1x": "bb3ae2116f9460666feab10a8ef8043194408670037b48a4ab43473a8027cc78",
+   "by": "fx_vector 3",
+   "sha256": "80309b8d3e49a6ca1fdd974234f1594c4686d7ea225c5a7d45c85c9474a343f1",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_wave_2",
+   "file": "league_aurelionsol_big/r_wave_2.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     57,
+     21
+    ],
+    [
+     89,
+     37
+    ],
+    [
+     119,
+     43
+    ],
+    [
+     123,
+     35
+    ],
+    [
+     121,
+     33
+    ]
+   ],
+   "of_1x": "75d0d33ff3b175a7d98fa3457d66d02f20a740f1536724a353c3251585157283",
+   "by": "fx_vector 3",
+   "sha256": "451dcc9c40164ec5f59c6c1393329275edc352935e67e24d3054ca45387883af",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

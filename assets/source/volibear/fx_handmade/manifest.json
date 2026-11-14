@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_volibear_big",
+   "tag": "e_cloud",
+   "file": "league_volibear_big/e_cloud.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     57,
+     41
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     57,
+     41
+    ]
+   ],
+   "of_1x": "786fb218f8a3ad1d9c8bc3964a1eebcc647c2fe4598fdc2eeb025054c0ca0b2d",
+   "by": "fx_vector 4",
+   "sha256": "3be1b221ab97447039762bc14ef379f0569c367e19f50ff9aac524028b052e97",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

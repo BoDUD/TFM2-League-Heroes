@@ -1,0 +1,181 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_renata_big",
+   "tag": "r_wave",
+   "file": "league_renata_big/r_wave.png",
+   "ppu": 2,
+   "frames": 11,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     3,
+     3
+    ],
+    [
+     17,
+     33
+    ],
+    [
+     21,
+     35
+    ],
+    [
+     19,
+     33
+    ],
+    [
+     21,
+     33
+    ]
+   ],
+   "of_1x": "59d3e2b82495d8ec51df375bab61a5ae407ed05caaac7e4fa786c893647a1d4f",
+   "by": "fx_vector 4",
+   "sha256": "66c9b4af3bc8f25465574473f54aa4a7dcabc5e23d29b6ee219fb602f2493404",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_renata_fx",
+   "tag": "e_shield",
+   "file": "league_renata_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     9,
+     17
+    ],
+    [
+     27,
+     45
+    ],
+    [
+     25,
+     47
+    ],
+    [
+     25,
+     47
+    ],
+    [
+     25,
+     49
+    ]
+   ],
+   "of_1x": "31ac3bf52af42355c5879591cbaeb4b641d7d12d6791354bb81557c7eba9ce7c",
+   "by": "fx_vector 3",
+   "sha256": "b21a60dc4058ce3a2a0fcafcca16dccf5591b0fd01bf6a6f0a03c310e3d16568",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_renata_fx",
+   "tag": "r_lash",
+   "file": "league_renata_fx/r_lash.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     21,
+     31
+    ],
+    [
+     41,
+     33
+    ],
+    [
+     49,
+     35
+    ],
+    [
+     51,
+     33
+    ],
+    [
+     47,
+     33
+    ],
+    [
+     39,
+     29
+    ]
+   ],
+   "of_1x": "bf26cc4a933214751971ddcb5c0e2ade705e14a7338b1c1cd056c26d407e7b4b",
+   "by": "fx_vector 3",
+   "sha256": "e70f03de72518ff370e71b2c611ff75ff9548d3483ff49f2fa40d1c06acc2013",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_renata_fx",
+   "tag": "w_save",
+   "file": "league_renata_fx/w_save.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     29
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     23,
+     33
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     19,
+     33
+    ]
+   ],
+   "of_1x": "fdf4d471f5979bc2b8554ae01f2d2b341943357016a422f4dde948642a6c19ce",
+   "by": "fx_vector 4",
+   "sha256": "74e03c4c4b5083b95390451cfb74d9329e88795d590e0159f6cdf4893b08882b",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

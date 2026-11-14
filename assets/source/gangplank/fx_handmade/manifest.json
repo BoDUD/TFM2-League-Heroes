@@ -1,0 +1,60 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_gangplank_big",
+   "tag": "r_warn",
+   "file": "league_gangplank_big/r_warn.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     117,
+     57
+    ],
+    [
+     117,
+     57
+    ],
+    [
+     117,
+     49
+    ],
+    [
+     117,
+     51
+    ],
+    [
+     117,
+     45
+    ],
+    [
+     117,
+     45
+    ],
+    [
+     117,
+     37
+    ],
+    [
+     117,
+     37
+    ]
+   ],
+   "of_1x": "dcf6de74c331581e10427d9cc42f2af64a005f939533d934ee002b2007dd14a1",
+   "by": "fx_vector 3",
+   "sha256": "905254f0dea845a23034ab202a5af55e28a3a083eeb81e19a2bb381cef477b86",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

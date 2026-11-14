@@ -42,7 +42,13 @@
 //!
 //! 0.9.25（用户 2026-11-09：「大小龙模型呢？codex做吗 还有攻击动画」「龙魂的也都交付了 你处理完」）：src/hd.rs 登记 league_dragons
 //! 的 8 张怪物图（六种元素亚龙、远古巨龙 1.8，纳什男爵 1.5；男爵也进 DRAWN_EFFECTS，他咬中的特效在点上画）。附加包的显示钩子
-//! 把小龙 / 莫尔加德的资源名换成这些图，身体按名字找到后按 1 / PPU 画。0.9.24 是特效 PPU（#730）的。
+//! 把小龙 / 莫尔加德的资源名换成这些图，身体按名字找到后按 1 / PPU 画。
+//!
+//! 0.9.26（2026-11-09 / 11-10，特效 PPU；分支上原是 0.9.24，龙魂 #725 先合进了 0.9.25：「特效贴图做的非常粗糙 ... 能不能利用PPU来做精致一点」「继续完成别的英雄的技能特效的
+//! 修复」）：hd_engine 把高清特效图的 buff 画面（在身体绘制里）和弹道画面（Animated / ThreePhase 弹道各自的绘制函数，
+//! build.rs proj_render）也缩到 1 / PPU；tools/art/densify_fx.py 从 Codex 原图（和旧的真画稿）读出高清孪生帧的整套
+//! 特效图登记成高清（src/fx_ppu.rs，tools/art/fx_ppu_table.py 生成；hd.rs full_effects：只在本 DLL 挂钩、这些钩子都挂上时
+//! 才是高清，不交给别的 DLL 的引擎）。日志：`buff picture drawn` / `projectile picture drawn`、`full effects dense ...`。
 //!
 //! src/stacks.rs（0.9.29，用户 2026-11-11：「现在叠层数的技能英雄在游戏里看不到多少层」「不能放技能栏里面吗 和联盟一样」）：
 //! 比赛钩子每 6 tick 数一次 src/stack_table.rs 里英雄身上的层数（同名 buff 有几个、数值加起来，或梯子爬到第几级），写进他的
@@ -64,6 +70,7 @@ use mod_api_stable::*;
 #[cfg(windows)]
 mod cache;
 pub mod diverge;
+pub mod fx_ppu;
 pub mod hd;
 pub mod low_hp;
 pub mod range;
