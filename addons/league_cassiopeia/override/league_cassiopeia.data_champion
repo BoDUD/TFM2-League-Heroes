@@ -1182,6 +1182,70 @@
                             "name": "league_cassiopeia_w_land"
                           },
                           {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_cassiopeia_w_d1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_cassiopeia_w_d2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_cassiopeia_w_d3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_cassiopeia_w_d4"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_cassiopeia_w_d1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_cassiopeia_w_d2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 120
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_cassiopeia_w_d3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_cassiopeia_w_d4",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
                             "type": "RangePeriodProjectile",
                             "name": "league_cassiopeia_w_cloud",
                             "shape": {
@@ -1207,15 +1271,79 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "league_cassiopeia_w_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 20
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_cassiopeia_w_d1",
+                                  "effect_buff": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_cassiopeia_w_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 15
+                                        }
+                                      },
+                                      "move_speed_mult": -70
+                                    }
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_cassiopeia_w_d2",
+                                    "effect_buff": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_cassiopeia_w_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 15
+                                          }
+                                        },
+                                        "move_speed_mult": -60
                                       }
                                     },
-                                    "move_speed_mult": -50
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_cassiopeia_w_d3",
+                                      "effect_buff": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_cassiopeia_w_slow",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 15
+                                            }
+                                          },
+                                          "move_speed_mult": -50
+                                        }
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_cassiopeia_w_d4",
+                                        "effect_buff": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_cassiopeia_w_slow",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 15
+                                              }
+                                            },
+                                            "move_speed_mult": -40
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_cassiopeia_w_slow",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 15
+                                              }
+                                            },
+                                            "move_speed_mult": -30
+                                          }
+                                        }
+                                      }
+                                    }
                                   }
                                 }
                               },

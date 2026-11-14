@@ -17,8 +17,12 @@ attack; Noxious Blast is `skill`, Miasma `skill2`, Petrifying Gaze the `ult`.
           enemy there for q_t ticks (q_dmg + q_ratio% AP in all, every q_p ticks); a champion hit gives her q_ms%
           move speed fading in three steps over q_t (League 30-50% decaying over 3 s).
   skill2  W Miasma (剧毒迷雾), `Position` on `EnemyChampion` (w_range: a slowing zone, wasted on waves): a bolt lands in
-          w_travel ticks and the cloud lies w_t ticks in w_r: every w_p ticks w_dmg + w_ratio% AP, a w_slow% slow and
-          grounding (`BlockMoveSkill`, no dashes) for w_hold ticks, and her venom flag.
+          w_travel ticks and the cloud lies w_t ticks in w_r: every w_p ticks w_dmg + w_ratio% AP, a slow and
+          grounding (`BlockMoveSkill`, no dashes) for w_hold ticks, and her venom flag. The slow decays over the cloud's
+          life as League's (V6.9 "Slow now decays over time"): w_steps equal parts of w_t, from w_slow% down to
+          w_slow_end% - the landing sets her flags w_d1..w_d(n-1) (part k ends after k parts) and each pulse takes the
+          first one still on; each pulse's slow lasts w_slow_t (= w_p: one slow at a time, never two stacked) (the
+          user's 「全改吧」, 2026-11-14; a flat 50% before, 20 ticks every 15).
   ult     R Petrifying Gaze (石化凝视): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only arms the
           gaze for r_arm ticks (league_kayle / league_ziggs); her fangs check the moment while it lasts and gaze
           toward the fang's target: two or more enemy champions in the cone (r_range, r_cos = cos of half of League's
@@ -62,9 +66,13 @@ P = {
     # Q Noxious Blast (League: 850 range, r 200, lands 0.4 s, poison 3 s 65-205 +75% AP, +30-50% ms over 3 s, cd 3.5)
     "q_cd": 240, "q_range": 80000, "q_dur": 24, "q_rel": 8, "q_delay": 24, "q_r": 22000, "q_t": 180, "q_p": 30,
     "q_dmg": 75, "q_ratio": 60, "q_ms": 45,
-    # W Miasma (League: 700 range, clouds 5 s, 20-40 +10% AP a second, slow 40-80%, grounded, cd 24-16)
+    # W Miasma (League: 700 range, clouds 5 s, 20-40 +10% AP a second, slow 40-80% decaying over the clouds' life,
+    # grounded, cd 24-16). The slow: 70% -> 30% in 5 steps of 1 s (the same 50% on average as the flat 50% before; the
+    # user's 「全改吧」 of 2026-11-14 - League's slow decays, V6.9), w_slow_t = w_p so the pulses' slows never stack (they
+    # did: a 20-tick slow every 15 ticks doubled 5 ticks of every 15 - with the decay's 70% that made 140%, and one
+    # classic-SDK game in 240 panicked in the AI, game-core aos_ver_hamster/utils.rs:1610 divide by zero)
     "w_cd": 900, "w_range": 65000, "w_dur": 27, "w_rel": 9, "w_travel": 12, "w_r": 30000, "w_t": 300, "w_p": 15,
-    "w_dmg": 6, "w_ratio": 3, "w_slow": 50, "w_hold": 20, "w_show": 15,
+    "w_dmg": 6, "w_ratio": 3, "w_slow": 70, "w_slow_end": 30, "w_steps": 5, "w_slow_t": 15, "w_hold": 20, "w_show": 15,
     # R Petrifying Gaze (League: cone 80 deg r 850, 125-325 +75% AP, stun 2 s facing / slow 40% 2 s, cd 120-80)
     "r_cd": 3000, "r_range": 72000, "r_cos": 766, "r_near": 45000, "r_dive": 25000, "r_arm": 600, "r_wait": 240,
     "r_dur": 33, "r_rel": 15, "r_dmg": 160, "r_ratio": 70, "r_stun": 120, "r_slow": 40, "r_fly": 12, "r_y": 14000,
@@ -287,13 +295,21 @@ def build(p):
                            delayed(p["q_rel"] - 1, alive(lob("q_drop", p["q_delay"], blast_q, seen="q_warn")))))
 
     # ------------------------------------------------------------------ skill2: W Miasma
-    cloud_hit = [ap(p["w_dmg"], p["w_ratio"]), buff("w_slow", p["w_hold"], move_speed_mult=-p["w_slow"]),
+    # the slow decays: part k (of w_steps, each w_t / w_steps ticks) slows w_slow -> w_slow_end linearly; the landing
+    # sets w_d1..w_d(n-1), w_dk for k parts, and each pulse takes the first flag still on (none: the last part)
+    w_n, w_part = p["w_steps"], p["w_t"] // p["w_steps"]
+    w_slows = [round(p["w_slow"] + (p["w_slow_end"] - p["w_slow"]) * k / (w_n - 1)) for k in range(w_n)]
+    w_slow = buff("w_slow", p["w_slow_t"], move_speed_mult=-w_slows[-1])
+    for k in range(w_n - 1, 0, -1):
+        w_slow = sw(f"w_d{k}", buff("w_slow", p["w_slow_t"], move_speed_mult=-w_slows[k - 1]), w_slow)
+    w_clock = [*rm(*(f"w_d{k}" for k in range(1, w_n))), *(flag(f"w_d{k}", k * w_part) for k in range(1, w_n))]
+    cloud_hit = [ap(p["w_dmg"], p["w_ratio"]), w_slow,
                  {"type": "BlockMoveSkill", "tick": p["w_hold"]}, refresh("venom", p["w_hold"] + p["w_p"]),
                  *([buff("poison", p["w_hold"] + p["w_p"])] if nat else [])]
     # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
     cloud = field("w_cloud", p["w_r"], p["w_t"], p["w_p"], cloud_hit, first=1)
     lying = [delayed(k, view("w_field")) for k in range(0, p["w_t"], p["w_show"])]
-    bolt = lob("w_bolt", p["w_travel"], [sfx("w_land"), view("w_land"), cloud], target="EnemyChampion")
+    bolt = lob("w_bolt", p["w_travel"], [sfx("w_land"), view("w_land"), *w_clock, cloud], target="EnemyChampion")
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Position", "EnemyChampion",
                     combine(sfx("w"), voice("vo_w", p), delayed(p["w_rel"] - 1, alive(bolt)),
                             delayed(p["w_rel"] - 1 + p["w_travel"], *lying)))

@@ -56,7 +56,7 @@ TEXT = {
                   "多造成" + mag("e_bonus", "e_bratio") + "并" + G + "回复" + E + heal("e_heal") + "生命。" + O + "优雅蛇行" + E + "：移速成长更高。",
         "skill": A + "0.4秒" + E + "后在目标处炸开，敌人中毒" + A + "{q_t}秒" + E + "，共受" + mag("q_dmg", "q_ratio") + "魔法伤害；毒到英雄时她移速"
                  "+{q_ms}%，" + A + "{q_t}秒" + E + "内渐退。",
-        "skill2": "放出持续" + A + "{w_t}秒" + E + "的毒雾：每秒" + mag("w_dmg", "w_ratio") + "魔法伤害，" + R + "减速{w_slow}%、禁锢" + E +
+        "skill2": "放出持续" + A + "{w_t}秒" + E + "的毒雾：每秒" + mag("w_dmg", "w_ratio") + "魔法伤害，" + R + "减速{w_slow}%（渐降到{w_slow_end}%）、禁锢" + E +
                   "（不能用位移技能）。",
         "ult": "朝面前扇形石化凝视，造成" + mag("r_dmg", "r_ratio") + "魔法伤害：近处交战的敌人" + R + "石化{r_stun}秒" + E + "，远处的" + R +
                "减速{r_slow}%" + E + "。前方有2个以上敌方英雄或被突进时才放。",
@@ -68,7 +68,7 @@ TEXT = {
                   "多造成" + mag("e_bonus", "e_bratio") + "並" + G + "回復" + E + heal("e_heal") + "生命。" + O + "致命節奏" + E + "：移速成長更高。",
         "skill": A + "0.4秒" + E + "後在目標處炸開，敵人中毒" + A + "{q_t}秒" + E + "，共受" + mag("q_dmg", "q_ratio") + "魔法傷害；毒到英雄時她移速"
                  "+{q_ms}%，" + A + "{q_t}秒" + E + "內漸退。",
-        "skill2": "放出持續" + A + "{w_t}秒" + E + "的毒霧：每秒" + mag("w_dmg", "w_ratio") + "魔法傷害，" + R + "緩速{w_slow}%、禁錮" + E +
+        "skill2": "放出持續" + A + "{w_t}秒" + E + "的毒霧：每秒" + mag("w_dmg", "w_ratio") + "魔法傷害，" + R + "緩速{w_slow}%（漸降到{w_slow_end}%）、禁錮" + E +
                   "（不能用位移技能）。",
         "ult": "朝面前扇形石化凝視，造成" + mag("r_dmg", "r_ratio") + "魔法傷害：近處交戰的敵人" + R + "石化{r_stun}秒" + E + "，遠處的" + R +
                "緩速{r_slow}%" + E + "。前方有2個以上敵方英雄或被突進時才放。",
@@ -83,7 +83,7 @@ TEXT = {
                  mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + " in all. Poisoning a champion gives her {q_ms}% move speed, "
                  "fading over " + A + "{q_t}s" + E + ".",
         "skill2": "Releases a poison cloud for " + A + "{w_t}s" + E + ": " + mag("w_dmg", "w_ratio") + " " + M + "magic damage" + E +
-                  " a second, " + R + "{w_slow}% slow and grounded" + E + " (no dashes) inside.",
+                  " a second, " + R + "{w_slow}% slow (decaying to {w_slow_end}%) and grounded" + E + " (no dashes) inside.",
         "ult": "Gazes in a cone in front of her: " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E + "; nearby enemies in the "
                "fight are " + R + "petrified for {r_stun}s" + E + ", farther ones " + R + "slowed {r_slow}%" + E + ". Cast with 2+ enemy "
                "champions in front or when dived.",
@@ -96,7 +96,7 @@ TEXT = {
                   ": 레벨당 이동 속도 증가.",
         "skill": A + "0.4초" + E + " 뒤 대상 위치에서 폭발, 적을 " + A + "{q_t}초" + E + " 중독시켜 총 " + mag("q_dmg", "q_ratio") +
                  " 마법 피해; 챔피언 적중 시 이동 속도 +{q_ms}%, " + A + "{q_t}초" + E + "에 걸쳐 감소.",
-        "skill2": A + "{w_t}초" + E + "간 독구름: 매초 " + mag("w_dmg", "w_ratio") + " 마법 피해, " + R + "{w_slow}% 둔화, 이동 불가" + E +
+        "skill2": A + "{w_t}초" + E + "간 독구름: 매초 " + mag("w_dmg", "w_ratio") + " 마법 피해, " + R + "{w_slow}% 둔화({w_slow_end}%까지 감소), 이동 불가" + E +
                   "(돌진 불가).",
         "ult": "앞쪽 부채꼴로 응시: " + mag("r_dmg", "r_ratio") + " 마법 피해; 가까이서 싸우는 적은 " + R + "{r_stun}초 석화" + E + ", 먼 적은 " +
                R + "{r_slow}% 둔화" + E + ". 앞에 적 챔피언 2명 이상이거나 돌진당할 때 사용.",
@@ -109,7 +109,7 @@ TEXT = {
                   "：移動速度の成長が高い。",
         "skill": A + "0.4秒" + E + "後に対象地点で爆発、敵を" + A + "{q_t}秒" + E + "毒状態にし計" + mag("q_dmg", "q_ratio") + "の魔法ダメージ；"
                  "チャンピオンに命中で移動速度+{q_ms}%（" + A + "{q_t}秒" + E + "で減衰）。",
-        "skill2": A + "{w_t}秒" + E + "の毒霧：毎秒" + mag("w_dmg", "w_ratio") + "の魔法ダメージ、" + R + "{w_slow}%スロウ・移動阻害" + E +
+        "skill2": A + "{w_t}秒" + E + "の毒霧：毎秒" + mag("w_dmg", "w_ratio") + "の魔法ダメージ、" + R + "{w_slow}%スロウ（{w_slow_end}%まで減衰）・移動阻害" + E +
                   "（突進不可）。",
         "ult": "前方の扇形に魔眼：" + mag("r_dmg", "r_ratio") + "の魔法ダメージ；近くで戦う敵は" + R + "{r_stun}秒石化" + E + "、遠くの敵は" + R +
                "{r_slow}%スロウ" + E + "。前方に敵2体以上か突進された時に使う。",
@@ -141,7 +141,7 @@ def secs(t):
 
 
 def values(p):
-    v = {k: p[k] for k in ("e_dmg", "e_ratio", "e_bonus", "e_bratio", "e_heal", "q_dmg", "q_ratio", "q_ms", "w_slow",
+    v = {k: p[k] for k in ("e_dmg", "e_ratio", "e_bonus", "e_bratio", "e_heal", "q_dmg", "q_ratio", "q_ms", "w_slow", "w_slow_end",
                            "r_dmg", "r_ratio", "r_slow")}
     per_s = 60 / p["w_p"]
     v["w_dmg"], v["w_ratio"] = round(p["w_dmg"] * per_s), round(p["w_ratio"] * per_s)
