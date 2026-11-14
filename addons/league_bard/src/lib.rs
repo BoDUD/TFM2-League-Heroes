@@ -619,12 +619,13 @@ fn bind(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let target = input.target_id;
     let (Some(from), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let Some(dir) = unit((at.0 - from.0, at.1 - from.1)) else { return };
-    // this game's walls (#734: the Rift's own on Rin's Rift, else the built-in map the units stand on); only the
-    // built-in 5v5 map has the measured edges that count as terrain too
-    let Some(g) = grid_now(sim) else { return };
-    let bounds = std::ptr::eq(g, &GRIDS[0]).then_some(MOBA_BOUNDS);
+    // this game's walls (the built-in map the units stand on, as the door picks it); only the built-in 5v5 map has the
+    // measured edges that count as terrain too
+    let grids = Grid::builtin();
+    let Some(gi) = current(&grids, &unit_points(sim)) else { return };
+    let bounds = (gi == 0).then_some(MOBA_BOUNDS);
     let reach = (Q_SPEED * Q_WIN) as f64;
-    let Some(d) = wall_behind(g, bounds, at, dir, reach) else { return };
+    let Some(d) = wall_behind(&grids[gi], bounds, at, dir, reach) else { return };
     for flag in ["q_two", "q_wall"] {
         sim.entity_remove_buff(me, &bd(flag));
         sim.add_buff(me, &BuffV1::timed(&bd(flag), Q_WIN + 4));
