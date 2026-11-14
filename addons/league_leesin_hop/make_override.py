@@ -11,11 +11,17 @@ the same kit with three changes -
   * passive_skill2 = league_leesin_hop:hop: once skill2 is learned, low on health with an enemy close
     W dashes away, and an enemy champion low on health running off gets chased with a W dash;
   * skill2's and R's tooltips point to description.league_leesin_hop.* (the texts with a
-    "W dash test build" lead, so the tooltips in game show whether the override took).
+    "W dash test build" lead, so the tooltips in game show whether the override took);
+  * (0.1.17) every Resonating Strike (the MoveToTarget landing with league_leesin_q2_hit: Q's, R's QRQ chase, R's
+    RQQ strike) asks the add-on first - league_leesin_hop:q2 / q2_qrq / q2_rqq, src/lib.rs's Q2_SITES, whose numbers
+    must be the strike's own Attack - for the bonus by the target's missing health (League: +0% to +100%); Q's
+    tooltip points to description.league_leesin_hop.skill (the main pack's with that sentence). The attack is not
+    touched (another session measures it).
 Run it again whenever the main pack's Lee Sin changes.
 """
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -73,6 +79,57 @@ TEXT = {
 }
 
 
+# Q's tooltip (0.1.17): lang -> (the lead, the sentence added at its end)
+Q_TEXT = {
+    "zh-hans": ("【W位移测试版】", "回音击按目标已损失的生命加伤，最多翻倍。"),
+    "zh-hant": ("【W位移測試版】", "震驚百里按目標已損失的生命加傷，最多翻倍。"),
+    "en": ("[W dash test build] ", " Resonating Strike deals up to double damage by the target's missing health."),
+    "ko": ("[W 이동 테스트판] ", " 공명의 일격은 대상이 잃은 체력에 비례해 피해가 최대 2배까지 늘어납니다."),
+    "ja": ("【W移動試験版】", "共鳴撃は対象の減少体力に応じて最大2倍のダメージ。"),
+}
+TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
+
+
+def shown_length(text):
+    text = re.sub(r"<i#[^>]*>", "*", text)
+    return len(re.sub(r"<[^>]*>", "", text))
+
+
+def q2_sites():
+    """src/lib.rs's Q2_SITES: (dmg, ratio) -> the native's name."""
+    with open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8") as f:
+        m = re.search(r"pub const Q2_SITES: \[\(&str, usize, usize\); \d+\] = \[(.*?)\];", f.read(), re.S)
+    if not m:
+        sys.exit("src/lib.rs has no Q2_SITES: update this script")
+    return {(int(d), int(r)): MOD_ID + ":" + n for n, d, r in re.findall(r'\("([a-z0-9_]+)", (\d+), (\d+)\)', m.group(1))}
+
+
+def resonating(champion):
+    """Each Resonating Strike's landing asks its native first; returns the sites done."""
+    sites, done = q2_sites(), []
+
+    def walk(o):
+        if isinstance(o, dict):
+            if o.get("type") == "MoveToTarget" and any(isinstance(e, dict) and e.get("name") == "league_leesin_q2_hit"
+                                                       for e in o.get("end_effects", [])):
+                hits = [(e["damage"], e["attack_ratio"]) for e in o["end_effects"] if e.get("type") == "Attack"]
+                if len(hits) != 1 or hits[0] not in sites:
+                    sys.exit(f"a Resonating Strike deals {hits}, not one of src/lib.rs's Q2_SITES {sorted(sites)}: update them")
+                o["end_effects"].insert(0, {"type": "Native", "effect_ref": sites[hits[0]]})
+                done.append(sites[hits[0]])
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    for slot in ("skill", "skill2", "ult"):
+        walk(champion[slot])
+    if sorted(done) != sorted(sites.values()):
+        sys.exit(f"Resonating Strikes found {sorted(done)}, src/lib.rs's Q2_SITES {sorted(sites.values())}: update them")
+    return done
+
+
 def lp(path):
     """Windows long-path form: the repo can sit deep under the user's profile."""
     path = os.path.abspath(path)
@@ -111,7 +168,11 @@ def main():
     if champion.get("passive_skill2"):
         sys.exit("the main pack's Lee Sin has a passive_skill2 now: update this script")
     champion["passive_skill2"] = {"passive_ref": MOD_ID + ":hop", "params": {}}
-    for slot in ("skill2", "ult"):
+    attack = json.dumps(champion["attack"], sort_keys=True)
+    strikes = resonating(champion)
+    if json.dumps(champion["attack"], sort_keys=True) != attack:
+        sys.exit("the attack changed: it must stay the main pack's")
+    for slot in ("skill", "skill2", "ult"):
         champion[slot]["description"] = "#asset/base/text/champion?description.%s.%s" % (MOD_ID, slot)
 
     out = os.path.join(ADDON, "override", "league_leesin.data_champion")
@@ -124,12 +185,20 @@ def main():
     missing = [(slot, lang) for slot in TEXT for lang in main_text if lang not in TEXT[slot]]
     if missing:
         sys.exit("no W dash text for %s" % missing)
-    text = {lang: {"description": {MOD_ID: {slot: TEXT[slot][lang] for slot in TEXT}}} for lang in main_text}
+    q_text = {}
+    for lang in main_text:
+        lead, more = Q_TEXT[lang]
+        q_text[lang] = lead + main_text[lang]["description"]["league_leesin"]["skill"] + more
+        if shown_length(q_text[lang]) > TOOLTIP_MAX[lang]:
+            sys.exit(f"{lang} skill: tooltip too long ({shown_length(q_text[lang])} > {TOOLTIP_MAX[lang]})")
+    text = {lang: {"description": {MOD_ID: {"skill": q_text[lang], **{slot: TEXT[slot][lang] for slot in TEXT}}}}
+            for lang in main_text}
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(text, ensure_ascii=False, indent=2) + "\n")
-    print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT))
+    print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- Resonating Strikes:", strikes)
+    print("Q tooltip lengths", {lang: f"{shown_length(t)}/{TOOLTIP_MAX[lang]}" for lang, t in q_text.items()})
 
 
 if __name__ == "__main__":
