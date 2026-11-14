@@ -38,7 +38,7 @@
   "league_gwen": {"idle": [["ult", [0, 1, 2, 3]], ["skill2", [6]]]},
   "league_hecarim": {"idle": [["skill", [6]], ["attack", [5]]]},
   "league_heimerdinger": {"idle": [["skill", [0, 1, 2, 3]], ["attack_w", [6, 5, 4]]]},
-  "league_hwei": {"idle": [["attack", [0]], ["skill2", [0, 1]]]},
+  "league_hwei": {"idle": [["attack", [0]], ["skill2", [0, 1, 2]]]},
   "league_ivern": {"idle": [["ult", [2]], ["skill", [0]]]},
   "league_illaoi": {"idle": [["attack", [0, 1]], ["skill2", [1, 2]]]},
   "league_belveth": {"idle": [["ult", [0, 1, 2]], ["run", [1, 2]]], "r_idle": [["r_run", [1, 2]], ["r_attack", [0, 1]]], "bp": ["attack", "skill2", "ult"]},
