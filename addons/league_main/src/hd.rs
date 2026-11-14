@@ -207,6 +207,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 「召唤物的全做啊」): her unit sheet carries hd_ twins at the PPU her effect pictures are drawn at, so the unit is as
     // sharp as the riding pictures were (without this row: 1x, the same size, coarser). A unit, not a hero: no .data_champion
     ("league_ivern_daisy", 1.333, include_str!("../../../league/champions/league_ivern_daisy#anim.fanim")),
+    // Malzahar's voidling and Elise's spiderling as units of their own (league_malzahar / league_elise 0.2.0 spawn
+    // `league_malzahar_voidling` / `league_elise_spiderling`, 2026-11-14 summons round 2), redrawn the same day by code
+    // (the user: 「马尔扎哈和蜘蛛的召唤物画高清点啊 现在像什么 一个不像虫子 一个不像蜘蛛 模糊不清」): a void bug 22 game px
+    // long and a spider 16 across, shapes sampled once a game pixel and twice (tools/art/unit_malzahar_voidling.py,
+    // unit_elise_spiderling.py, unit_draw.py) - PPU 2, the effects' density, every hd_ frame exactly twice its 1x frame.
+    // Units, not heroes: no .data_champion
+    ("league_malzahar_voidling", 2.0, include_str!("../../../league/champions/league_malzahar_voidling#anim.fanim")),
+    ("league_elise_spiderling", 2.0, include_str!("../../../league/champions/league_elise_spiderling#anim.fanim")),
     // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
