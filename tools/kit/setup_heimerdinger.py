@@ -56,7 +56,8 @@ TEXT = {
         "attack": "射出一道海克斯电光。" + O + "海克斯科技微型导弹" + E + "：每第3次普攻额外射出{w_n}枚导弹，每枚造成" +
                   mag("w_dmg", "w_ratio") + "魔法伤害。",
         "skill": "放下一座炮台（最多3座）" + t("{t_life}秒") + "，每" + t("{t_per}秒") + "攻击一个敌人，造成" + mag("t_dmg", "t_ratio") +
-                 "魔法伤害；对受控制的英雄发射光束，造成" + mag("tb_dmg", "tb_ratio") + "。" + O + "海克斯科技亲和" + E +
+                 "魔法伤害；对受控制的英雄发射光束，造成" + mag("tb_dmg", "tb_ratio") + "；W命中英雄{wc_n}发后下一炮是光束。" +
+                 O + "海克斯科技亲和" + E +
                  "：在炮台旁移速+{p_ms}%。",
         "skill2": "掷出手雷，造成" + mag("e_dmg", "e_ratio") + "魔法伤害并减速{e_slow}%，正中的敌人被" + R + "眩晕" + E +
                   t("{e_stun}秒") + "。",
@@ -70,7 +71,8 @@ TEXT = {
         "attack": "射出一道海克斯電光。" + O + "高科技微型火箭" + E + "：每第3次普攻額外射出{w_n}枚火箭，每枚造成" +
                   mag("w_dmg", "w_ratio") + "魔法傷害。",
         "skill": "放下一座砲臺（最多3座）" + t("{t_life}秒") + "，每" + t("{t_per}秒") + "攻擊一個敵人，造成" + mag("t_dmg", "t_ratio") +
-                 "魔法傷害；對受控制的英雄發射光束，造成" + mag("tb_dmg", "tb_ratio") + "。" + O + "海克斯親合性" + E +
+                 "魔法傷害；對受控制的英雄發射光束，造成" + mag("tb_dmg", "tb_ratio") + "；W命中英雄{wc_n}發後下一砲是光束。" +
+                 O + "海克斯親合性" + E +
                  "：在砲臺旁跑速+{p_ms}%。",
         "skill2": "擲出手雷，造成" + mag("e_dmg", "e_ratio") + "魔法傷害並緩速{e_slow}%，正中的敵人被" + R + "暈眩" + E +
                   t("{e_stun}秒") + "。",
@@ -85,7 +87,8 @@ TEXT = {
                   "dealing " + mag("w_dmg", "w_ratio") + " " + M + "magic damage" + E + ".",
         "skill": "Sets down a turret (up to 3) for " + t("{t_life}s") + " that strikes one enemy every " + t("{t_per}s") + " for " +
                  mag("t_dmg", "t_ratio") + " " + M + "magic damage" + E + ", or beams a crowd-controlled champion for " +
-                 mag("tb_dmg", "tb_ratio") + ". " + O + "Hextech Affinity" + E + ": +{p_ms}% move speed near his turrets.",
+                 mag("tb_dmg", "tb_ratio") + " - and any champion once {wc_n} of W's rockets have hit champions. " + O +
+                 "Hextech Affinity" + E + ": +{p_ms}% move speed near his turrets.",
         "skill2": "Throws a grenade that deals " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E + " and slows by {e_slow}%; "
                   "enemies at its centre are " + R + "stunned" + E + " for " + t("{e_stun}s") + ".",
         "ult": "UPGRADE! Refreshes Q and E and empowers his next spell at a champion within " + t("{r_keep}s") + ". Q: an apex turret for " + t("{x_life}s") + ", every " +
@@ -98,7 +101,8 @@ TEXT = {
         "attack": "마법공학 전격을 쏜다. " + O + "마법공학 초소형 로켓" + E + ": 세 번째 공격마다 로켓 {w_n}발을 추가로 쏘아 발당 " +
                   mag("w_dmg", "w_ratio") + " 마법 피해.",
         "skill": "포탑을 설치한다(최대 3개, " + t("{t_life}초") + "). " + t("{t_per}초") + "마다 적 하나에게 " + mag("t_dmg", "t_ratio") +
-                 " 마법 피해, 군중 제어된 챔피언에게는 광선으로 " + mag("tb_dmg", "tb_ratio") + ". " + O + "마법공학 전문가" + E +
+                 " 마법 피해, 군중 제어된 챔피언에게는 광선으로 " + mag("tb_dmg", "tb_ratio") +
+                 "(W 로켓이 챔피언에게 {wc_n}발 맞으면 다음 포격도 광선). " + O + "마법공학 전문가" + E +
                  ": 포탑 근처에서 이동 속도 +{p_ms}%.",
         "skill2": "수류탄을 던져 " + mag("e_dmg", "e_ratio") + " 마법 피해와 {e_slow}% 둔화, 중심의 적은 " + t("{e_stun}초") + " " + R +
                   "기절" + E + ".",
@@ -112,7 +116,8 @@ TEXT = {
         "attack": "ヘクステックの電撃を撃つ。" + O + "ヘクステック小型ロケット" + E + "：3回目の通常攻撃ごとにロケット{w_n}発を追加で撃ち、1発" +
                   mag("w_dmg", "w_ratio") + "の魔法ダメージ。",
         "skill": "砲台を設置（最大3基、" + t("{t_life}秒") + "）。" + t("{t_per}秒") + "ごとに敵1体に" + mag("t_dmg", "t_ratio") +
-                 "の魔法ダメージ、行動妨害中のチャンピオンにはビームで" + mag("tb_dmg", "tb_ratio") + "。" + O + "ヘクステックの親和性" + E +
+                 "の魔法ダメージ、行動妨害中のチャンピオンにはビームで" + mag("tb_dmg", "tb_ratio") +
+                 "（Wがチャンピオンに{wc_n}発命中で次もビーム）。" + O + "ヘクステックの親和性" + E +
                  "：砲台の近くで移動速度+{p_ms}%。",
         "skill2": "グレネードを投げ" + mag("e_dmg", "e_ratio") + "の魔法ダメージと{e_slow}%スロウ、中心の敵を" + t("{e_stun}秒") + R +
                   "スタン" + E + "。",
@@ -137,7 +142,7 @@ def secs(t):
 
 
 def values(p):
-    v = {k: p[k] for k in ("w_n", "w_dmg", "w_ratio", "t_dmg", "t_ratio", "tb_dmg", "tb_ratio", "p_ms", "e_dmg", "e_ratio",
+    v = {k: p[k] for k in ("w_n", "wc_n", "w_dmg", "w_ratio", "t_dmg", "t_ratio", "tb_dmg", "tb_ratio", "p_ms", "e_dmg", "e_ratio",
                            "e_slow", "re_dmg", "re_ratio", "x_dmg", "x_ratio", "x_slow", "rw_n")}
     for k in ("t_life", "t_per", "e_stun", "re_stun", "x_life", "x_per", "r_keep"):
         v[k] = secs(p[k])

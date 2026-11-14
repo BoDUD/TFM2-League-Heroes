@@ -173,7 +173,12 @@ def main():
         sys.exit("the copy still carries the turrets' zones or lacks the native turrets: update this script")
     if not all(f'"league_heimerdinger_{k}_turret_{d}"' in text for k in "tx" for d in "rl"):
         sys.exit("the copy does not draw the side turrets: update this script")
-    champion = units(champion, consts(open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()))
+    c = consts(open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read())
+    # 0.3.1: W's rockets charge the beam in the data (the copy's attack keeps the ladder); the native turrets read and spend
+    # its top flag, src/lib.rs's WC_FULL
+    if f'"{c["WC_FULL"]}"' not in json.dumps(champion["attack"]) or f'"{HERO}_wc{p["wc_n"] - 1}"' not in json.dumps(champion["attack"]):
+        sys.exit("the copy's rockets do not climb to src/lib.rs's WC_FULL: update src/lib.rs or this script")
+    champion = units(champion, c)
     for slot in SLOTS:
         champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
 
