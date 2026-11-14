@@ -3,6 +3,7 @@
     "description": {
       "league_elise_queen": {
         "attack": "【附加包】<#ff9028ff>蜘蛛女皇<>：人形技能命中积攒小蜘蛛（最多3只）。出手前按战况切换人形（远程）和蜘蛛（近战），冷却<#ffb900ff>4秒<>。蜘蛛普攻额外造成<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并回血，变蜘蛛时小蜘蛛爬出来自己咬人（可被击杀），每口<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
+        "skill": "【附加包】人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>和目标当前生命<#ffb900ff>4%<>的<#a974ffff>魔法伤害<>。<#ff9028ff>剧毒之蜇<>：扑向敌人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>和目标已损生命<#ffb900ff>8%<>的<#a974ffff>魔法伤害<>；按生命算的部分对野怪最多<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>。",
         "skill2": "【附加包】人形：向线上没被挡的英雄吐茧造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并晕眩<#ffb900ff>1.67秒<>；冷却时放<#ff9028ff>自爆蜘蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。<#ff9028ff>盘丝<>：升空不可选中，落到血最少的英雄身上；冷却时<#ff9028ff>掠行狂暴<>，攻速+60%。",
         "ult": "【附加包】向被控住或血最少的英雄吐茧，立即化身蜘蛛并重置蜘蛛技能，盘丝落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，再施放剧毒之蜇。"
       }
@@ -12,6 +13,7 @@
     "description": {
       "league_elise_queen": {
         "attack": "【附加包】<#ff9028ff>蜘蛛女王<>：人形技能命中累積小蜘蛛（最多3隻）。出手前依戰況切換人形（遠程）和蜘蛛（近戰），冷卻<#ffb900ff>4秒<>。蜘蛛普攻額外造成<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並回血，變蜘蛛時小蜘蛛爬出來自己咬人（可被擊殺），每口<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
+        "skill": "【附加包】人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>和目標當前生命<#ffb900ff>4%<>的<#a974ffff>魔法傷害<>。<#ff9028ff>毒咬<>：撲向敵人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>和目標已損生命<#ffb900ff>8%<>的<#a974ffff>魔法傷害<>；按生命算的部分對野怪最多<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>。",
         "skill2": "【附加包】人形：向線上沒被擋的英雄吐繭造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並暈眩<#ffb900ff>1.67秒<>；冷卻時放<#ff9028ff>爆裂毒蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。<#ff9028ff>韌絲飛躍<>：升空無法選取，落到血最少的英雄身上；冷卻時<#ff9028ff>掠食者的狂喜<>，攻速+60%。",
         "ult": "【附加包】向被控住或血最少的英雄吐繭，立即化身蜘蛛並重置蜘蛛技能，韌絲飛躍落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，再施放毒咬。"
       }
@@ -21,6 +23,7 @@
     "description": {
       "league_elise_queen": {
         "attack": "[Add-on] <#ff9028ff>Spider Queen<>: human ability hits gather spiderlings (up to 3). Before each attack she switches between human (ranged) and spider (melee) as the fight needs, every <#ffb900ff>4s<> at most. Spider attacks deal <#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> more and heal her; in spider form they come out and bite on their own (killable), each <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>.",
+        "skill": "[Add-on] Human: a venom bolt for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ffb900ff>4%<> of the target's current health as <#a974ffff>magic damage<>. <#ff9028ff>Venomous Bite<>: lunges for <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ffb900ff>8%<> of its missing health as <#a974ffff>magic damage<> (the health part at most <#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> on monsters).",
         "skill2": "[Add-on] Human: a cocoon at a champion with a clear line for <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> that stuns <#ffb900ff>1.67s<>; on cooldown a <#ff9028ff>Volatile Spiderling<> for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>Rappel<>: rises out of reach and drops on the lowest champion; on cooldown <#ff9028ff>Skittering Frenzy<>, +60% attack speed.",
         "ult": "[Add-on] Spits a cocoon at the held or lowest champion, turns into the spider at once with her spider abilities reset, rappels onto it for <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and bites."
       }
@@ -30,6 +33,7 @@
     "description": {
       "league_elise_queen": {
         "attack": "[애드온] <#ff9028ff>거미 여왕<>: 인간 스킬 적중 시 새끼 거미 축적 (최대 3). 공격 전에 상황에 따라 인간(원거리)과 거미(근접) 형태를 바꾸며, 전환 대기시간 <#ffb900ff>4초<>. 거미 공격은 <#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<> 추가와 회복, 거미 형태에서 새끼 거미가 나와 스스로 물어뜯음(처치 가능), 한 번에 <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>.",
+        "skill": "[애드온] 인간: 독을 쏘아 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 대상 현재 체력 <#ffb900ff>4%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>독이빨<>: 달려들어 <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 잃은 체력 <#ffb900ff>8%<>의 <#a974ffff>마법 피해<>(체력 비례 부분은 몬스터에게 최대 <#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>).",
         "skill2": "[애드온] 인간: 막히지 않은 챔피언에게 고치로 <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.67초<> 기절; 대기 중이면 <#ff9028ff>위험한 새끼 거미<> <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>줄타기<>: 대상 지정 불가로 올라가 체력이 가장 낮은 챔피언에게 내려옴; 대기 중이면 <#ff9028ff>광란의 질주<>, 공격 속도 +60%.",
         "ult": "[애드온] 기절했거나 체력이 가장 낮은 챔피언에게 고치를 뱉고 즉시 거미로 변해 거미 스킬을 초기화, 줄타기로 내려와 <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 후 독이빨."
       }
@@ -39,6 +43,7 @@
     "description": {
       "league_elise_queen": {
         "attack": "【アドオン】<#ff9028ff>蜘蛛の女帝<>：人間のスキル命中で子蜘蛛を蓄積（最大3）。攻撃の前に戦況で人間（遠隔）と蜘蛛（近接）を切り替え、間隔<#ffb900ff>4秒<>。蜘蛛の通常攻撃は<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>追加と回復、蜘蛛形態で子蜘蛛が出て自ら噛みつく（倒せる）、1回<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
+        "skill": "【アドオン】人間：毒を放ち<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と対象の現在体力<#ffb900ff>4%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>毒牙<>：飛びかかり<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と失った体力<#ffb900ff>8%<>の<#a974ffff>魔法ダメージ<>（体力割合分はモンスターに最大<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>）。",
         "skill2": "【アドオン】人間：遮られないチャンピオンへ繭で<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>1.67秒<>スタン；クールダウン中は<#ff9028ff>子蜘蛛爆弾<>で<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>。<#ff9028ff>蜘蛛の糸<>：対象不可で上昇し体力の最も低いチャンピオンへ降下；クールダウン中は<#ff9028ff>猛食<>、攻撃速度+60%。",
         "ult": "【アドオン】拘束中か体力の最も低いチャンピオンへ繭を吐き、即座に蜘蛛に変身して蜘蛛のスキルをリセット、蜘蛛の糸で降下し<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、毒牙を放つ。"
       }

@@ -46,7 +46,9 @@ fn spider_form_spawns_her_spiderlings_and_human_form_puts_them_away() {
         assert_eq!(passives.iter().map(|p| p.name.as_str()).collect::<Vec<_>>(), ["league_elise:queen"]);
         let regs = std::slice::from_raw_parts(ex.native_effects_ptr, ex.native_effects_len);
         let fx: Effects = regs.iter().map(|e| (e.name.as_str().to_string(), e)).collect();
-        assert_eq!(fx.keys().map(|k| k.as_str()).collect::<Vec<_>>(), ["league_elise:spiderling"]);
+        let mut names: Vec<&str> = fx.keys().map(|k| k.as_str()).collect();
+        names.sort();
+        assert_eq!(names, ["league_elise:bite", "league_elise:neuro", "league_elise:spiderling"]);
         let proto = &passives[0].passive;
         let passive = PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
         let params = r#"{"ce_r":50000,"e_range":75000,"e_w":2500,"r_range":75000}"#;
@@ -86,6 +88,15 @@ fn spider_form_spawns_her_spiderlings_and_human_form_puts_them_away() {
         }
         assert_eq!(w.banishes.len(), 2);
         assert!(!w.has(0, SL_UNIT));
+        // 0.2.1: Neurotoxin's and Venomous Bite's natives through the registry, on Garen as the bolt / the bite names him
+        let before = w.dealt(0, DamageTypeV1::Ap).len();
+        let hp = w.units[1].hp;
+        let neuro = fx["league_elise:neuro"].effect;
+        w.ctx(|ctx| ((*neuro.vtable).apply.unwrap())(neuro.userdata, ctx, 0, 0, &InputTargetV1::target(1)));
+        let bite = fx["league_elise:bite"].effect;
+        w.ctx(|ctx| ((*bite.vtable).apply.unwrap())(bite.userdata, ctx, 0, 0, &InputTargetV1::target(1)));
+        let dealt = w.dealt(0, DamageTypeV1::Ap);
+        assert_eq!(dealt[before..], [(1, hp * 4 / 100), (1, (5_000 - (hp - hp * 4 / 100)) * 8 / 100)], "{dealt:?}");
         w.ctx(|ctx| ((*passive.vtable).on_dead.unwrap())(passive.userdata, ctx, 0));
         ((*passive.vtable).destroy.unwrap())(passive.userdata);
 

@@ -460,6 +460,93 @@ pub fn bites_text(turned: usize) -> String {
     }
 }
 
+// ===================== 神经毒素 / 剧毒之蜇：按当前 / 已损生命（0.2.1，2026-11-14） =====================
+//
+// 用户 2026-11-14 看了还剩下的、做得到的小项：「接着做」。英雄联盟（wiki 现行页面）：神经毒素「deals magic damage based on the
+// target's current health」，40-160 (+ 4% (+ 3% per 100 AP) of target's current health)；剧毒之蜇「deals damage based on the
+// target's missing health」，50-170 (+ 8% (+ 3% per 100 AP) of target's missing health)，魔法伤害；按生命算的那部分对野怪有
+// 上限 65-145 (+ 90% AP)。数据读不到当前生命：主包是目标最大生命的 3% / 5% 真实伤害（FixedAttack target_hp_ratio）。副本把这
+// 两块换成本包的原生效果 `:neuro` / `:bite`，放在同一下的最前面（按挨这一下之前的生命算：英雄联盟是一下打出来的）。
+
+/// The share of the target's health her Q deals: Neurotoxin (human Q) `Q_CUR` % of its current health, Venomous Bite
+/// (spider Q, and the bite of her ult's hunt) `CQ_MISS` % of its missing health, both magic. League's base shares; League
+/// adds 3 % per 100 ability power to each, while here her ability power stays in the flat part as the main pack has it
+/// (q_ap 60 %, cq_ap 70 % - League's flat parts have none), so it is not counted twice. Against monsters the share is at
+/// most `QM_DMG` + `QM_AP` % of her ability power (League: 65-145 + 90 %; the middle rank's 105 scaled like her Q's flat
+/// damage, League's 100 -> 70 here).
+pub const Q_CUR: usize = 4;
+pub const CQ_MISS: usize = 8;
+pub const QM_DMG: usize = 75;
+pub const QM_AP: usize = 90;
+/// No unit in the native's input (a move's end, should it hand over a spot): the nearest enemy this close to her.
+pub const VENOM_NEAR: f64 = 25_000.0;
+
+/// Which of her Qs a native hit is.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Venom {
+    /// Neurotoxin (human): by the target's current health.
+    Neuro,
+    /// Venomous Bite (spider, and the hunt's bite): by its missing health.
+    Bite,
+}
+
+/// The health share of `kind` on a unit with `hp` of `max` health; a `monster` (a camp, an epic monster) capped by her
+/// ability power `ap`.
+pub fn venom_damage(kind: Venom, hp: usize, max: usize, monster: bool, ap: usize) -> usize {
+    let share = match kind {
+        Venom::Neuro => hp.min(max) * Q_CUR / 100,
+        Venom::Bite => max.saturating_sub(hp) * CQ_MISS / 100,
+    };
+    if monster { share.min(QM_DMG + ap * QM_AP / 100) } else { share }
+}
+
+/// `:neuro` / `:bite` - first in Neurotoxin's bolt hit (a projectile's applied effect is given the unit it hit), in
+/// Venomous Bite's landing and in the hunt's bite.
+pub struct VenomFx(pub Venom);
+
+impl StableEffectType for VenomFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        let kind = self.0;
+        let (word, share, tag) = match kind {
+            Venom::Neuro => ("NEURO", format!("{Q_CUR}% of its current health"), "q neuro"),
+            Venom::Bite => ("BITE", format!("{CQ_MISS}% of its missing health"), "q bite"),
+        };
+        let Some((team, ap, at)) = sim.get_entity(caster).map(|e| (e.team(), e.stat().magic_power, summon::at_of(&e))) else { return };
+        let given = (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)).then_some(input.target_id);
+        let (target, found) = match given {
+            Some(id) => (Some(id), ""),
+            None => ((0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+                         .filter(|u| u.team() != team && u.is_alive() && summon::hittable(u))
+                         .map(|u| (u.id(), summon::dist(summon::at_of(&u), at)))
+                         .filter(|u| u.1 <= VENOM_NEAR)
+                         .min_by(|a, b| a.1.total_cmp(&b.1))
+                         .map(|u| u.0),
+                     " (no unit in the effect's input: the nearest enemy to her)"),
+        };
+        let seen = target.and_then(|id| sim.get_entity(id).map(|e| {
+            let (hp, max) = e.hp();
+            (id, hp, max, e.is_alive() && e.team() != team,
+             matches!(e.kind(), Some(EntityKindV1::Jungle | EntityKindV1::Epic | EntityKindV1::Serpen)))
+        }));
+        let Some((id, hp, max, true, monster)) = seen else {
+            if let Some(k) = tally(sim, tag) {
+                wlog(format!("{} Q {word} #{k}: no living enemy to hit{found} - none of the share dealt", head(sim, caster)));
+            }
+            return;
+        };
+        let dmg = venom_damage(kind, hp, max, monster, ap);
+        let full = venom_damage(kind, hp, max, false, ap);
+        if dmg > 0 {
+            sim.deal_damage_typed(caster, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        }
+        if let Some(k) = tally(sim, tag) {
+            wlog(format!("{} Q {word} #{k} on {}: hp {hp}/{max} - {share}: {dmg} magic{}{found}", head(sim, caster), who(sim, id),
+                         if dmg < full { format!(" (capped against a monster: {QM_DMG} + {QM_AP}% of her {ap} ability power)") }
+                         else { String::new() }));
+        }
+    }
+}
+
 // ===================== 被动：蜘蛛女皇（参数 + 模拟里的形态日志 + 小蜘蛛单位） =====================
 
 #[derive(Clone)]
@@ -923,7 +1010,14 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         if KNOBS.off { "OFF by the test knobs: the spiderlings bite with her attacks as before" } else { "ON" }, SL_HIT, SL_HIT_AP,
         LOG_PATH.with_extension("cfg").display(), KNOBS.shown()
     ));
+    wlog(format!(
+        "VENOM: Neurotoxin deals {Q_CUR}% of the target's current health, Venomous Bite (and the hunt's bite) {CQ_MISS}% of its \
+         missing health, magic (the copy's {ID}:neuro / :bite in place of the main pack's % of max health as true damage); \
+         against monsters at most {QM_DMG} + {QM_AP}% of her ability power."
+    ));
     view::install_once();
+    module.add_native_effect(format!("{ID}:neuro"), VenomFx(Venom::Neuro));
+    module.add_native_effect(format!("{ID}:bite"), VenomFx(Venom::Bite));
     module.add_native_passive(format!("{ID}:queen"), Queen::default());
     module.add_native_effect(format!("{ID}:spiderling"), SpiderlingFx);
     module.add_player_input_ai(AimAi);
@@ -1070,9 +1164,84 @@ mod tests {
         }
     }
 
-    use super::mock::{champion, MPlayer, World};
+    // ---- 0.2.1: Neurotoxin by current health, Venomous Bite by missing health ----
+
+    #[test]
+    fn neurotoxin_and_venomous_bite_take_leagues_shares_of_health() {
+        // League's base shares: 4 % of the current health, 8 % of the missing health
+        assert_eq!((Q_CUR, CQ_MISS), (4, 8));
+        assert_eq!(venom_damage(Venom::Neuro, 2000, 2000, false, 200), 80);
+        assert_eq!(venom_damage(Venom::Neuro, 1000, 2000, false, 200), 40);
+        assert_eq!(venom_damage(Venom::Neuro, 3000, 2000, false, 0), 80, "never more than its maximum");
+        assert_eq!(venom_damage(Venom::Bite, 2000, 2000, false, 200), 0, "a healthy target: nothing by missing health");
+        assert_eq!(venom_damage(Venom::Bite, 500, 2000, false, 200), 120);
+        assert_eq!(venom_damage(Venom::Bite, 3000, 2000, false, 200), 0);
+        // monsters: the share capped at 75 + 90 % of her ability power (League: 65-145 + 90 %)
+        assert_eq!(venom_damage(Venom::Neuro, 10_000, 10_000, true, 100), 165);
+        assert_eq!(venom_damage(Venom::Bite, 5_000, 10_000, true, 100), 165);
+        assert_eq!(venom_damage(Venom::Bite, 9_000, 10_000, true, 100), 80, "under the cap: the share itself");
+        // at the main pack's old 3 % / 5 % of the maximum as true damage the bite was bigger on a healthy target, the
+        // bolt about the same on one (4 % magic of the current health ~ 3 % true at 33 magic resistance)
+        assert!(venom_damage(Venom::Neuro, 2000, 2000, false, 0) * 100 / 133 <= 2000 * 3 / 100);
+    }
+
+    #[test]
+    fn the_copy_has_the_natives_where_the_true_damage_was() {
+        let copy = include_str!("../override/league_elise.data_champion").replace('\r', "");
+        let main = include_str!("../../../league/champion/league_elise.data_champion").replace('\r', "");
+        assert_eq!(copy.matches("\"effect_ref\": \"league_elise:neuro\"").count(), 1, "Neurotoxin's bolt");
+        assert_eq!(copy.matches("\"effect_ref\": \"league_elise:bite\"").count(), 2, "Venomous Bite and the hunt's bite");
+        assert!(!main.contains("league_elise:neuro") && !main.contains("league_elise:bite"));
+        // the main pack's % max health true damage (q_hp 3, cq_hp 5): in the main pack, gone from the copy
+        for pct in [3, 5] {
+            let ratio = format!("\"target_hp_ratio\": {pct}\n");
+            assert!(main.contains(&ratio), "{pct}");
+            assert!(!copy.contains(&ratio), "{pct}: the copy still deals the main pack's share");
+        }
+    }
+
+    use super::mock::{champion, unit, MPlayer, World};
 
     const GAREN: usize = 1;
+
+    #[test]
+    fn the_natives_deal_the_share_to_the_unit_hit() {
+        let (mut w, _) = world();
+        // the bolt's hit on Garen (50000 health, all of it): 4 % of it, magic, from her
+        w.sim(|sim| VenomFx(Venom::Neuro).apply(sim, 0, 0, InputTargetV1::target(GAREN)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap), vec![(GAREN, 2000)]);
+        assert_eq!(w.units[GAREN].hp, 48_000);
+        // the bite on him: 8 % of the 2000 he has lost
+        w.sim(|sim| VenomFx(Venom::Bite).apply(sim, 0, 0, InputTargetV1::target(GAREN)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap)[1], (GAREN, 160));
+        // a spot for input: the nearest enemy close to her, none too far
+        w.sim(|sim| VenomFx(Venom::Bite).apply(sim, 0, 0, InputTargetV1::pos(300_000, 300_000)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap).len(), 2, "Garen 30000 away was bitten");
+        w.units[GAREN].x = 310_000.0;
+        w.sim(|sim| VenomFx(Venom::Bite).apply(sim, 0, 0, InputTargetV1::pos(300_000, 300_000)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap)[2], (GAREN, (50_000 - 47_840) * 8 / 100));
+        // a monster: capped at 75 + 90 % of her 90 ability power
+        w.units.push(unit("rhino_monster", EntityKindV1::Jungle, 2, 305_000.0, 300_000.0, 20_000));
+        let camp = w.units.len() - 1;
+        w.sim(|sim| VenomFx(Venom::Neuro).apply(sim, 0, 0, InputTargetV1::target(camp)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap).last(), Some(&(camp, 75 + 81)));
+        // an ally or a dead unit: nothing
+        let n = w.damage.len();
+        w.sim(|sim| VenomFx(Venom::Neuro).apply(sim, 0, 0, InputTargetV1::target(3)));
+        w.units[GAREN].hp = 0;
+        w.units[GAREN].died = Some(w.tick);
+        w.sim(|sim| VenomFx(Venom::Neuro).apply(sim, 0, 0, InputTargetV1::target(GAREN)));
+        assert_eq!(w.damage.len(), n);
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        for what in ["Q NEURO #", "on league_garen#1: hp 50000/50000 - 4% of its current health: 2000 magic",
+                     "Q BITE #", "on league_garen#1: hp 48000/50000 - 8% of its missing health: 160 magic",
+                     " (no unit in the effect's input: the nearest enemy to her)",
+                     "on rhino_monster#4: hp 20000/20000 - 4% of its current health: 156 magic (capped against a monster: 75 + 90% \
+                      of her 90 ability power)",
+                     "no living enemy to hit"] {
+            assert!(text.contains(what), "missing {what:?} in the log:\n{text}");
+        }
+    }
 
     fn log_file() -> std::path::PathBuf {
         static SET: std::sync::Once = std::sync::Once::new();
