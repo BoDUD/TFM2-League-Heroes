@@ -16,22 +16,22 @@ hero's table as (forward, up, across) game px, up from League's floor. Numbers o
 the design, so `build` runs without the client.
 
 The build (`build`): N frames of one cycle, every frame the hero's design cut into parts and posed - no square
-drawn anew but the thighs (the design's own rows laid along the bone) and RotSprite's turns (`turned`: Scale2x three
-times, turned, each square the commonest colour of its block - only the part's own colours - the outline tidied):
-- timing: the cycle is as long as it takes the unit (move_speed / 1000 game px a tick, 60 ticks a second) to cover
-  CYCLE_HEIGHTS of its own height, the frames even (oppi's runs: 6-9 frames of 75-100 ms; ours were 105-143 ms);
-- the legs: League's sole path relative to its hip (forward x the stride, which makes the planted foot go back as
-  fast as the ground goes by - it slid by up to 1.9 body heights a cycle -, up as League; both x our leg length /
-  League's), the knee by two-bone IK, the shin and boot the design's own turned with the shin (lifted where a turned
-  heel or toe would go under the ground);
-- the body: League's pelvis bob and sway by whole squares; the upper body leant from the hips by whole rows, the lean
-  swinging with League's spine;
-- the upper body from League's joints, part by part (the user, 2026-11-15, on the first draft that only bobbed:
-  「有问题的地方你都说了还是僵硬」): the head bobbing less than the hips and nodding with League's head on its neck;
-  arms, gauntlets, a staff turned about their shoulder / hand with League's arm / staff (a gun a frame behind the body
-  and tilting with League's, the arms holding it turned to keep hold); braids bent through League's hair chain (its
-  middle and tip), a hat's tip turned with League's hat chain, hair and a robe's hem trailing the body by a beat, a
-  prop on the back one beat late, a familiar (Pix) floating on his own.
+drawn anew but the thighs (the design's own rows laid along the bone), and nothing turned but the boots:
+- timing: League's own cycle (Jinx_minigun_run 0.933 s, Vi_Run1 0.839 s) in N_FRAMES even frames (67 / 60 ms) -
+  the user on the first drafts' 8 frames of ~70 ms over 0.55 s: 「太快，像小碎步」「帧太少，不够顺」「帧和帧之间跳」;
+  the planted foot slides some (cadence over foot-lock), the stride a set share wider than League's;
+- the legs: League's sole path relative to its hip (forward x the stride, up as League; both x our leg length /
+  League's); the boot put down by its sole (Boot): turned only by multiples of STEP, one RotSprite picture per angle
+  made once, upright (the design's own squares) while planted unless the shin leans HOLD or more, lifted where a
+  turned heel or toe would go under the ground; the knee follows from the boot and the thigh is drawn to it;
+- the body: League's pelvis bob (kept to a square a frame at most) by whole squares, the upper body leant from the
+  hips by the same whole rows in every frame (a lean that changed each frame shimmered);
+- the upper body from League's joints, by whole squares only (a part turned a little more each frame is re-pixelled
+  each frame and shimmers; the user on v3: 「露露还做的不如旧版 而且手和武器严重脱节」): the head bobbing less than the
+  hips; what holds a weapon moving with it as one piece (league_jinx's gun, both hands and arms; league_vi's gauntlets
+  are her hands) - a gun a frame behind the body by a square at most -, gauntlets pumping with League's gloves;
+  braids bent through League's hair chain (its middle and tip) by whole rows, hair trailing the body by a beat, a
+  prop on the back a frame behind.
 The dense frames are all one size, centred on the pivot as the hero's other frames (hd_idle_base), the outline grown
 to the hero's KEEP (thin_outline.json) as its other frames have it; the 1x frames come from them the way
 tools/art/ppu_one.py makes them, the lo_ frames the way tools/art/ppu_hd.py does. The sheet keeps every other tag's
@@ -54,14 +54,17 @@ import ppu_rig as R  # noqa: E402
 
 G = R.G
 SAMPLES = 48
-N_FRAMES = 8
-CYCLE_HEIGHTS = 0.85    # body heights of ground a cycle covers (oppi's measured 0.9-1.2; ours were 1.05-1.9)
+N_FRAMES = 14           # frames a cycle (the user, on 8 of ~70 ms: 「帧太少，不够顺」「帧和帧之间跳」「太快，像小碎步」)
+CYCLE_HEIGHTS = 0.85    # (a cycle covering this many body heights - the first drafts' pace, too quick: unused now)
+STEP = 15               # degrees: a boot is only ever turned by a multiple of this (one picture each, held)
+HOLD = 12               # degrees: a planted boot turned less than this stands upright (the design's own boot)
 TICKS = 60              # game ticks a second
 DARK = 26               # luminance under which a square is outline (inbetween.DARK)
 
-# hero -> League's clip and the joints the build reads. cycle: one stride cycle in clip seconds (Lulu_Run.anm holds
-# four in its 2 s); tick: the graph's mTickDuration over the clip's own frame time (Lulu's 0.05 s a frame at 30 fps:
-# her cycle plays 1.5 times as long in League).
+# hero -> League's clip and the joints the build reads. cycle: one stride cycle in clip seconds (a clip may hold several:
+# Lulu_Run.anm four in its 2 s); tick: the graph's mTickDuration over the clip's own frame time (Lulu's 0.05 s a frame
+# at 30 fps plays her cycle 1.5 times as long). (league_lulu was tried and dropped from the pilot - her robe, hat and
+# staff came out deformed: 「露露还被你做变形了」 - her old run stays.)
 HEROES = {
     "jinx": dict(clip="Jinx_minigun_run", cycle=0.9333, tick=1.0,
                  joints=dict(pelvis="Pelvis", chest="Spine3", neck="Neck", head="Head",
@@ -82,14 +85,6 @@ HEROES = {
                            r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_GloveHand",
                            r_forearm="R_GloveForarm",
                            hair1="Hair1", hair2="Hair2", l_flap="L_JacketFlap", r_flap="R_JacketFlap")),
-    "lulu": dict(clip="Lulu_Run", cycle=0.5, tick=1.5,
-                 joints=dict(pelvis="Hip", spine="Spine", chest="Chest", head="Head",
-                             l_hip="L_thigh", l_knee="L_knee", l_foot="L_foot", l_toe="L_toe",
-                             r_hip="R_thigh", r_knee="R_knee", r_foot="R_foot", r_toe="R_toe",
-                             l_shoulder="L_upArm", l_elbow="L_foreArm", l_hand="L_hand",
-                             r_shoulder="R_upArm", r_elbow="R_foreArm", r_hand="R_hand",
-                             staff="Weapon", hat="hat", hat2="hat2", hat4="hat4", hat6="hat6",
-                             l_hair="L_HairB_d", r_hair="R_HairA_d", f_skirt="f_skirt", b_skirt="b_skirt")),
 }
 
 
@@ -396,6 +391,44 @@ class Canvas:
         self.z[Y, X] = z
 
 
+class Boot:
+    """A shin and boot (the design's own picture, its knee and its sole's contact point) put down by its sole: turned
+    only by multiples of STEP (each turn one RotSprite picture, made once - consecutive frames at one angle show the
+    very same squares, no shimmer), upright while planted unless the shin leans HOLD or more; the knee then follows
+    from the boot, and the thigh is drawn to it."""
+
+    def __init__(self, img, at, knee, contact, outline):
+        self.img, self.at = img, at
+        self.k0, self.c0 = np.array(knee, float), np.array(contact, float)
+        self.rest = angle_down(self.c0 - self.k0)
+        self.outline = outline
+        self.cache = {}
+
+    def turned_by(self, q):
+        if q not in self.cache:
+            self.cache[q] = turned(self.img, self.at, tuple(self.c0), tuple(self.c0), q, self.outline) if q else \
+                (self.img.copy(), self.at)
+        return self.cache[q]
+
+    def place(self, hip, l1, l2, target, ground, planted):
+        """-> (knee, boot picture, its top-left): the shin's angle from IK toward `target`, held to a multiple of
+        STEP, the boot's contact on the target (whole squares; on the ground row when planted), lifted where a turned
+        heel or toe would go under the ground."""
+        knee_ik, end = ik(hip, target, l1, l2)
+        theta = wrap180(angle_down(end - knee_ik) - self.rest)
+        q = 0 if planted and abs(theta) < HOLD else int(round(theta / STEP)) * STEP
+        img, at = self.turned_by(q)
+        sx = int(round(end[0] - self.c0[0]))
+        sy = int(round((ground if planted else end[1]) - self.c0[1]))
+        ys = np.nonzero((img[..., 3] > 0).any(1))[0]
+        under = (at[1] + sy + ys.max() + 1) - math.ceil(ground)
+        if under > 0:
+            sy -= under
+        sole = self.c0 + np.array([sx, sy])
+        knee = rot_pt(self.k0, self.c0, q) + np.array([sx, sy])
+        return np.round(knee), img, (at[0] + sx, at[1] + sy), sole
+
+
 def piece(d, m):
     ys, xs = np.nonzero(m)
     sub = d[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
@@ -419,13 +452,16 @@ class Gait:
     pelvis bob kept), reach (the stance leg straight at most this share of its length), sway (share of League's
     pelvis sway kept)."""
 
-    def __init__(self, hero, rig, ppu, n=N_FRAMES, cycle_s=None):
+    def __init__(self, hero, rig, ppu, n=None, cycle_s=None):
         self.m = Motion(hero)
+        n = n or rig.get("frames", N_FRAMES)
         self.rig, self.ppu, self.n = rig, ppu, n
         v_px = move_speed(hero) / 1000.0 * TICKS                       # game px a second
         self.v = v_px * ppu                                            # squares a second
         height = rig["height"] / ppu                                   # game px tall
-        self.cycle_s = cycle_s or round(CYCLE_HEIGHTS * height / v_px, 3)
+        # the cycle: League's own clip time (the run's cadence as League plays it), else CYCLE_HEIGHTS of ground
+        self.cycle_s = cycle_s or (self.m.cycle_s * rig.get("cycle_k", 1.0) if rig.get("cycle") == "league"
+                                   else round(CYCLE_HEIGHTS * height / v_px, 3))
         ms = int(round(self.cycle_s * 1000 / n))
         self.ms = [ms] * n
         self.cycle_s = ms * n / 1000.0
@@ -505,9 +541,10 @@ class Gait:
             hx, hy = rig["hips"][key]
             hip = np.array([hx + dx, hy + dy])
             sole = self._sole(key, ph, hip)
+            planted = sole[1] >= rig["ground"] - 0.5
             sole[1] = min(sole[1], rig["ground"])
             knee, end = ik(hip, sole, rig["thigh"][key], rig["shin"][key])
-            legs[key] = (hip, knee, end)
+            legs[key] = (hip, knee, end, planted)
         return {"ph": ph, "dy": dy, "dx": dx, "legs": legs}
 
 
@@ -536,38 +573,33 @@ class JinxRun:
                         hips={"near": (JX.RUN_HIP_X["near"], hip_y), "far": (JX.RUN_HIP_X["far"], hip_y)},
                         thigh={"near": JX.RUN_LT["near"], "far": JX.RUN_LT["far"]},
                         shin={k: float(np.hypot(*np.subtract(self.contact[k], JX.KNEE[k]))) for k in ("near", "far")},
-                        sides={"near": "l", "far": "r"}, bob=0.75, reach=0.98, sway=0.5,
-                        # the lean: columns a row over the hips, and the share of League's spine swing kept;
-                        # the head bobs (1 - head_counter) of the hips and tilts head_tilt of League's nod; the gun
-                        # stays gun_lag of where the body was a frame ago and tilts gun_tilt of League's minigun;
-                        # the braids (middle, tip) stream back by braid_base and swing braid_gain x League's chain
-                        lean=0.07, lean_gain=0.8, head_counter=0.45, head_tilt=0.3, gun_lag=1.0, gun_tilt=0.4,
+                        sides={"near": "l", "far": "r"}, bob=0.4, reach=0.98, sway=0.0,
+                        # League's own cycle (0.933 s) in `frames` frames, the stride a set share wider than League's;
+                        # the bob kept to a square a frame at most and no sideways sway: a whole-body shift of 2
+                        # squares between frames is a jump (「帧和帧之间跳」)
+                        frames=14, cycle="league", stride=1.45,
+                        # the lean: columns a row over the hips, the same in every frame; the head bobs
+                        # (1 - head_counter) of the hips; the gun unit stays gun_lag of where the body was a frame
+                        # ago (a square at most); the braids (middle, tip) stream back by braid_base and swing
+                        # braid_gain x League's chain
+                        lean=0.06, head_counter=0.45, gun_lag=1.0,
                         braid_base={"n": (-3, -8), "f": (-5, -14)}, braid_gain=2.8, fish_lag=1.0)
+        self.boots = {k: Boot(*self.legs.boot[k], JX.KNEE[k], self.contact[k], self.outline) for k in ("near", "far")}
 
-    # joints of the design (squares, edges): the shoulders, the near elbow, the hands on the gun, the neck
-    S_FAR, H_FAR = (48.5, 29.5), (64.0, 43.0)
-    S_NEAR, E_NEAR, H_NEAR = (38.0, 30.0), (31.5, 38.5), (45.0, 44.0)
-    NECK = (47.0, 27.0)
-    GUN_PIVOT = (54.0, 45.0)
+    # what holds the gun moves with it: the gun, both hands, forearms and arms are one rigid unit (the user on v3:
+    # 「手和武器严重脱节」) - nothing in it slides on another
+    GUN_UNIT = ("gun", "arm_lo", "arm_f", "arm_n")
 
     def signals(self, g, pose, i):
-        """The upper body's moves at this frame, all from League's joints (squares / degrees):
-        lean (columns a row over the hips: League's spine angle about its mean), the head's counter-bob and tilt
-        (League's head on its neck), the gun a frame behind the body and tilting with League's minigun, the braids
-        bent through League's hair chains (their middle and tip under the head, about their mean)."""
+        """The upper body's moves at this frame from League's joints, all by whole squares (no part is turned: a
+        small turn re-pixelled every frame shimmers, 「帧和帧之间跳」): the head bobbing less than the hips, the
+        gun unit a frame behind the body (at most one square), Fishbones a frame behind, the braids bent through
+        League's hair chains (their middle and tip under the head, about their mean)."""
         m, ph, s = g.m, pose["ph"], g.s
         rig = self.rig
-        sp = lambda q: angle_up(m.at("chest", q) - m.at("pelvis", q))
-        spm = float(np.mean([angle_up(r) for r in m.arr["chest"] - m.arr["pelvis"]]))
-        lean = rig["lean"] + math.tan(math.radians(rig["lean_gain"] * (sp(ph) - spm)))
-        hn = lambda q: angle_up(m.at("head", q) - m.at("neck", q))
-        hnm = float(np.mean([angle_up(r) for r in m.arr["head"] - m.arr["neck"]]))
-        tilt = -rig["head_tilt"] * wrap180(hn(ph) - hnm)        # (+ League: the face down, forward -> clockwise)
-        head_dy = -rig["head_counter"] * pose["dy"]
+        head_dy = int(round(-rig["head_counter"] * pose["dy"]))
         late = g.pose_dy_f(i, 1.0 / g.n) - pose["dy"]           # where the body was a frame ago
-        ga = lambda q: angle_up(m.at("gun_front", q) - m.at("gun_back", q))
-        gam = float(np.mean([angle_up(r) for r in m.arr["gun_front"] - m.arr["gun_back"]]))
-        gun_tilt = -rig["gun_tilt"] * wrap180(ga(ph) - gam)
+        gun_dy = int(max(-1, min(1, round(rig["gun_lag"] * late))))
         braids = {}
         for key, side in (("n", "r"), ("f", "l")):
             def off(j):
@@ -575,95 +607,56 @@ class JinxRun:
                 v0 = m.mean(f"{side}_{j}") - m.mean("head")
                 return (v[1] - v0[1]) * s
             base_mid, base_tip = rig["braid_base"][key]
-            braids[key] = (base_mid - rig["braid_gain"] * 0.5 * off("hair3"), base_tip - rig["braid_gain"] * off("hair6"))
-        return dict(lean=lean, tilt=tilt, head_dy=head_dy, gun_dy=rig["gun_lag"] * late, gun_tilt=gun_tilt,
-                    braids=braids, late=late)
+            braids[key] = (int(round(base_mid - rig["braid_gain"] * 0.5 * off("hair3"))),
+                           int(round(base_tip - rig["braid_gain"] * off("hair6"))))
+        return dict(head_dy=head_dy, gun_dy=gun_dy, fish_dy=int(round(rig["fish_lag"] * late)), braids=braids)
 
     def frame(self, g, pose, i, only=None):
         JX = self.JX
         d = self.d
         can = Canvas(d.shape, 50)
         Z = JX.Z
-        m = g.m
-        ph = pose["ph"]
         bdx, bdy = int(round(pose["dx"])), int(round(pose["dy"]))
         sg = self.signals(g, pose, i)
         hip_row = self.rig["hips"]["near"][1]
-        o = self.outline
-        hdy = int(round(sg["head_dy"]))
-        gdy = int(round(sg["gun_dy"]))
-        # the gun's move (about its pivot, then down): the hands on it go with it, the arms turn to keep hold
-        def gun_move(p):
-            q = rot_pt(p, self.GUN_PIVOT, sg["gun_tilt"])
-            return q + np.array([0.0, gdy])
-        a_far = angle_down(gun_move(self.H_FAR) - np.array(self.S_FAR)) - angle_down(
-            np.array(self.H_FAR) - np.array(self.S_FAR))
-        a_near = angle_down(gun_move(self.E_NEAR) - np.array(self.S_NEAR)) - angle_down(
-            np.array(self.E_NEAR) - np.array(self.S_NEAR))
-        kn = sg["braids"]["n"]
-        kf = sg["braids"]["f"]
+        lean = self.rig["lean"]                                   # the same rows shifted in every frame
+        kn, kf = sg["braids"]["n"], sg["braids"]["f"]
         items = []
         for name in JX.PARTS:
             if name in ("leg_r", "leg_f") or (only is not None and name not in only):
                 continue
             img, at = self.pieces[name]
             x, y = at
-            dx, dy = 0, 0
+            dy = 0
             if name == "braid_n":
                 img, (x, y) = bent(img, at, at[1] + 5, kn[0], kn[1])
-                dy = hdy
+                dy = sg["head_dy"]
             elif name == "braid_f":
                 img, (x, y) = bent(img, at, at[1] + 3, kf[0], kf[1])
-                dy = hdy
+                dy = sg["head_dy"]
             elif name == "curl":
-                x, y = x + JX.CURL_ON[0] + int(round(kf[1])), y + JX.CURL_ON[1]
-                dy = hdy
+                x, y = x + JX.CURL_ON[0] + kf[1], y + JX.CURL_ON[1]
+                dy = sg["head_dy"]
             elif name == "head":
-                if abs(sg["tilt"]) >= 0.5:
-                    img, (x, y) = turned(img, at, self.NECK, self.NECK, sg["tilt"], o)
-                dy = hdy
-            elif name in ("gun", "arm_lo"):
-                if abs(sg["gun_tilt"]) >= 0.5:
-                    img, (x, y) = turned(img, at, self.GUN_PIVOT, self.GUN_PIVOT, sg["gun_tilt"], o)
-                dy = gdy
-            elif name == "arm_f" and abs(a_far) >= 0.5:
-                img, (x, y) = turned(img, at, self.S_FAR, self.S_FAR, a_far, o)
-            elif name == "arm_n" and abs(a_near) >= 0.5:
-                img, (x, y) = turned(img, at, self.S_NEAR, self.S_NEAR, a_near, o)
+                dy = sg["head_dy"]
+            elif name in self.GUN_UNIT:
+                dy = sg["gun_dy"]
             elif name == "fish":
-                dy = int(round(sg["late"] * self.rig["fish_lag"]))
-            img, (x, y) = leant(img, (x, y), sg["lean"], hip_row)
-            items.append((Z[name], img, (x + bdx + dx, y + bdy + dy)))
+                dy = sg["fish_dy"]
+            img, (x, y) = leant(img, (x, y), lean, hip_row)
+            items.append((Z[name], img, (x + bdx, y + bdy + dy)))
         for z, img, at in sorted(items, key=lambda t: t[0]):
             can.stamp(img, at, z)
-        # the legs
+        # the legs: the boot down on its sole at a held angle, the stocking thigh from the hip to the knee it gives
         for key, zname in (("far", "leg_f"), ("near", "leg_r")):
-            hip, knee, out, oat = self.leg(g, key, pose["legs"][key])
+            hip, _, end, planted = pose["legs"][key]
+            knee, out, oat, _ = self.boots[key].place(hip, self.rig["thigh"][key], self.rig["shin"][key], end,
+                                                     self.rig["ground"], planted)
             cells = JX.fold(self.legs.thigh(key, tuple(hip), tuple(knee)))
             timg, tx, ty = JX.cells_img(cells)
             can.stamp(timg, (tx, ty), Z[zname])
             can.stamp(out, oat, Z[zname] + 0.1)
         return can
-
-    def leg(self, g, key, leg):
-        """One leg's knee and its boot turned with the shin; where the turned boot would go under the ground (a heel
-        or a toe), the sole's target is raised as much and the knee found again. -> (hip, knee, boot, its top-left)."""
-        JX = self.JX
-        hip, knee, sole = leg
-        bimg, bat = self.legs.boot[key]
-        k0 = np.array(JX.KNEE[key])
-        c0 = np.array(self.contact[key])
-        rest = angle_down(c0 - k0)
-        target = np.array(sole, float)
-        for _ in range(4):
-            out, oat = turned(bimg, bat, tuple(k0), tuple(knee), angle_down(target - knee) - rest, self.outline)
-            ys = np.nonzero((out[..., 3] > 0).any(1))[0]
-            under = (oat[1] + ys.max() + 1) - math.ceil(self.rig["ground"])
-            if under <= 0:
-                break
-            target = target - np.array([0.0, under])
-            knee, target = ik(hip, target, self.rig["thigh"][key], self.rig["shin"][key])
-        return hip, knee, out, oat
 
 
 def poly_mask(shape, pts):
@@ -687,9 +680,8 @@ class LegArt:
     rows: (mask, row0, row1) the thigh's squares; shin: (mask) the shin + boot squares; knee, contact: the shin's top
     and its sole's middle on the ground (design squares, edges)."""
 
-    def __init__(self, d, thigh_mask, rows, shin_mask, knee, contact, outline, rigid=False):
+    def __init__(self, d, thigh_mask, rows, shin_mask, knee, contact, outline):
         self.outline = outline
-        self.rigid = rigid              # a foot that only moves (Lulu's boots under her robe): never turned
         self.slices = []
         dark = (IB_lum(d[..., :3]) < DARK)
         for y in range(rows[0], rows[1] + 1):
@@ -700,6 +692,7 @@ class LegArt:
         self.knee = np.array(knee, float)
         self.contact = np.array(contact, float)
         self.rest = angle_down(self.contact - self.knee)
+        self.boot = Boot(*self.shin, knee, contact, outline)
 
     def thigh(self, H, K):
         """{(x, y): rgba} the thigh along H -> K (design squares, edges), its rows along it, the outline round it."""
@@ -732,15 +725,6 @@ class LegArt:
             img[y - y0, x - x0, :3] = np.asarray(c)[:3]
             img[y - y0, x - x0, 3] = 255
         return img, (x0, y0)
-
-    def shin_at(self, knee, sole):
-        img, at = self.shin
-        if self.rigid:                  # the boot's sole on the target, upright, by whole squares
-            dx, dy = (int(round(v)) for v in np.asarray(sole) - self.contact)
-            return img.copy(), (at[0] + dx, at[1] + dy)
-        return turned(img, at, tuple(self.knee), tuple(knee), angle_down(np.asarray(sole) - knee) - self.rest,
-                      self.outline)
-
 
 def IB_lum(rgb):
     rgb = rgb.astype(np.float32)
@@ -828,9 +812,10 @@ class PartRun:
         for z, img, at in sorted(items, key=lambda q: q[0]):
             can.stamp(img, at, z)
         for key in ("far", "near"):
-            hip, knee, sole = pose["legs"][key]
+            hip, _, end, planted = pose["legs"][key]
             art = self.legs[key]
-            knee, shin, sat = self.leg(art, key, hip, knee, sole)
+            knee, shin, sat, _ = art.boot.place(hip, self.rig["thigh"][key], self.rig["shin"][key], end,
+                                                self.rig["ground"], planted)
             z = self.Z[f"leg_{key}"]
             if self.rig.get("thighs", True):
                 timg, tat = art.thigh(hip, knee)
@@ -867,20 +852,6 @@ class PartRun:
 
     def lean(self, g, ph):
         return self.spine_lean(g, ph, self.rig.get("lean", 0.0), self.rig.get("lean_gain", 0.0))
-
-    def leg(self, art, key, hip, knee, sole):
-        """The knee and the shin turned; a turned boot that would go under the ground lifts its sole's target as
-        much and the knee is found again (JinxRun.leg)."""
-        target = np.array(sole, float)
-        for _ in range(4):
-            out, oat = art.shin_at(knee, target)
-            ys = np.nonzero((out[..., 3] > 0).any(1))[0]
-            under = (oat[1] + ys.max() + 1) - math.ceil(self.rig["ground"])
-            if under <= 0:
-                break
-            target = target - np.array([0.0, under])
-            knee, target = ik(hip, target, self.rig["thigh"][key], self.rig["shin"][key])
-        return knee, out, oat
 
     def finish(self, can):
         """Holes the moves bared inside the figure (not the design's own gaps) filled from round them; the outline
@@ -935,106 +906,29 @@ class ViRun(PartRun):
         shin = {k: float(np.hypot(*(self.legs[k].contact - self.legs[k].knee))) for k in ("far", "near")}
         self.rig = dict(ground=ground, height=ground, hips=hips, shin=shin,
                         thigh={k: total - shin[k] for k in ("far", "near")},
-                        sides={"near": "l", "far": "r"}, bob=0.7, reach=0.98, sway=0.5, lean=0.06, lean_gain=0.7,
-                        head_counter=0.45)
-
-    NECK = (28.0, 26.0)
-    SHOULDER = {"fist_near": (16.0, 25.0), "fist_far": (35.0, 24.0)}
+                        sides={"near": "l", "far": "r"}, bob=0.45, reach=0.98, sway=0.0,
+                        frames=14, cycle="league", stride=1.5,
+                        lean=0.05, head_counter=0.45, hair_trail=1.6,
+                        # squares of gauntlet move per League px of glove move against the chest (forward, up)
+                        pump={"near": (0.45, 0.55), "far": (0.35, 0.45)})
 
     def pose_parts(self, g, pose, i):
-        """The gauntlets turned about the shoulders with League's arms (and moved with its gloves), the head bobbing
-        less than the hips and nodding with League's head, her hair's free end trailing the body by a beat."""
+        """By whole squares only (no turn: 「帧和帧之间跳」): each gauntlet - the hand itself, with its forearm -
+        pumping with League's glove against her chest, the head bobbing less than the hips, her hair's free end
+        trailing the body by a beat."""
         ph, rig = pose["ph"], self.rig
-        out = {"_lean": self.spine_lean(g, ph, rig["lean"], rig["lean_gain"])}
-        for part, side, gain, move in (("fist_near", "l", 1.0, 0.35), ("fist_far", "r", 0.7, 0.3)):
-            out[part] = {"rot": (self.SHOULDER[part], self.swing(g, ph, f"{side}_shoulder", f"{side}_hand", gain)),
-                         "dx": move * self.rel(g, ph, f"{side}_hand", "chest", 0),
-                         "dy": -move * self.rel(g, ph, f"{side}_hand", "chest", 1)}
-        head_dy = -rig["head_counter"] * pose["dy"]
+        out = {}
+        for part, side, (gx, gy) in (("fist_near", "l", rig["pump"]["near"]), ("fist_far", "r", rig["pump"]["far"])):
+            out[part] = {"dx": int(round(gx * self.rel(g, ph, f"{side}_hand", "chest", 0))),
+                         "dy": int(round(-gy * self.rel(g, ph, f"{side}_hand", "chest", 1)))}
         trail = pose["dy"] - g.pose_dy_f(i, 1.5 / g.n)          # how far the body went down since 1.5 frames ago
-        tilt = 0.8 * self.swing(g, ph, "neck", "head", 1.0)
-        out["head"] = {"dy": head_dy, "rot": (self.NECK, tilt), "wave": ("lift", int(round(1.5 * trail)), 3, 21)}
+        out["head"] = {"dy": int(round(-rig["head_counter"] * pose["dy"])),
+                       "wave": ("lift", int(round(rig["hair_trail"] * trail)), 3, 21)}
+        out["_lean"] = rig["lean"]
         return out
 
 
-LULU_HAIR = [(70, 24, 102), (85, 35, 121), (41, 12, 61), (117, 58, 160), (56, 19, 82), (24, 10, 22), (35, 16, 30)]
-
-
-class LuluRun(PartRun):
-    """league_lulu: League's skipping run (Lulu_Run: two hops a cycle) on her design - her boots peeping out under
-    the robe in turn, the body hopping, the hat's curled tip and her long hair flapping with League's own hat and
-    hair joints, the staff (and her hands) a beat late, Pix floating on his own beside her."""
-    hero = "lulu"
-    ppu = 70 / 39
-    outline = (24, 10, 22)
-    PARTS = [
-        ("pix", (3, 0, 17, 16), None),
-        ("hand_free", [(54, 45), (66, 45), (66, 54), (54, 54)], None),
-        ("staff", [(48, 0), (69, 0), (69, 20), (64, 40), (61, 46), (65, 47), (66, 54), (58, 55), (56, 63), (47, 63),
-                   (43, 57), (43, 49), (51, 46), (56, 30), (60, 16), (48, 13)], None),
-        ("leg_near", (38, 65, 52, 70), None),
-        ("leg_far", (20, 65, 36, 70), None),
-        ("hair", [(4, 44), (34, 44), (34, 70), (4, 70)], {"keep": LULU_HAIR}),
-        ("hat_tip", [(0, 24), (16, 22), (26, 30), (30, 38), (30, 47), (16, 47), (0, 46)], None),
-        ("head", [(8, 9), (50, 9), (57, 20), (57, 48), (26, 49), (10, 47), (8, 20)], None),
-    ]
-    Z = {"hair": 1, "leg_far": 1.2, "leg_near": 1.4, "body": 2, "head": 3, "hat_tip": 3.1, "staff": 4,
-         "hand_free": 4.1, "pix": 5}
-    NECK = (44.0, 46.0)
-    HAT_ROOT = (27.0, 32.0)
-    STAFF_HAND = (47.0, 53.0)
-    HAND_ROOT = (55.0, 50.0)
-
-    def __init__(self):
-        super().__init__()
-        d = self.d
-        o = self.outline
-        rows = np.arange(d.shape[0])[:, None]
-        legs = {}
-        for key in ("near", "far"):
-            m = self.M[f"leg_{key}"]
-            ys, xs = np.nonzero(m)
-            cx = (xs.min() + xs.max() + 1) / 2
-            legs[key] = LegArt(d, m, (int(ys.min()) + 1, int(ys.min()) + 2), m, (cx, float(ys.min()) + 1.0),
-                               (cx, 70.0), o, rigid=True)
-        self.legs = legs
-        ground = 70.0
-        hips = {"near": (legs["near"].knee[0], 61.0), "far": (legs["far"].knee[0], 61.0)}
-        total = (ground - 61.0) * 1.04
-        shin = {k: float(np.hypot(*(legs[k].contact - legs[k].knee))) for k in ("far", "near")}
-        self.rig = dict(ground=ground, height=ground, hips=hips, shin=shin,
-                        thigh={k: total - shin[k] for k in ("far", "near")},
-                        sides={"near": "r", "far": "l"}, bob=0.5, reach=0.98, sway=0.4, lean=0.03, hop_lean=0.014,
-                        head_counter=0.35,
-                        lift=0.35, thighs=False, phase=0.06)        # (frames on landing, rising, top, falling)
-
-    def pose_parts(self, g, pose, i):
-        """The hat's curled tip turned and flapping with League's hat chain, her hair with League's hair, the head a
-        little behind the hop, the staff swinging about her hand with League's staff (and a beat late), the free hand
-        with League's, Pix on his own."""
-        ph, rig = pose["ph"], self.rig
-        late = g.pose_dy_f(i, 1.0 / g.n) - pose["dy"]           # where the body was a frame ago
-        head_dy = -rig["head_counter"] * pose["dy"]
-        # League's Lulu hops upright (her spine swings under a degree): she pitches forward as she comes down and
-        # straightens as she takes off, hop_lean columns a row for every square the body went down since a frame ago
-        out = {"_lean": rig["lean"] + rig["hop_lean"] * (-late)}
-        out["head"] = {"dy": head_dy, "rot": (self.NECK, 0.6 * self.swing(g, ph, "chest", "head", 1.0))}
-        out["hat_tip"] = {"dy": head_dy, "rot": (self.HAT_ROOT, self.swing(g, ph, "hat2", "hat6", 0.45)),
-                          "wave": ("lift", int(round(0.25 * self.rel(g, ph, "hat6", "head", 1))), 0, 27)}
-        out["hair"] = {"dy": 0.5 * head_dy, "wave": ("lift", int(round(0.3 * self.rel(g, ph, "l_hair", "head", 1))), 4, 32)}
-        out["staff"] = {"dy": 0.6 * late, "rot": (self.STAFF_HAND, self.swing(g, ph, "l_hand", "staff", 0.3))}
-        out["hand_free"] = {"dx": 0.15 * self.rel(g, ph, "r_hand", "chest", 0),
-                            "dy": -0.25 * self.rel(g, ph, "r_hand", "chest", 1)}
-        # the robe's hem trails the hop (its lower rows a beat behind the body)
-        trail = pose["dy"] - g.pose_dy_f(i, 1.5 / g.n)
-        out["body"] = {"wave": ("shear", int(round(-0.8 * trail)), 55)}
-        # Pix flies on his own: not moved with her, a slow bob and a sway of his own
-        out["pix"] = {"still": True, "dx": round(2.0 * math.sin(2 * math.pi * (ph + 0.1))),
-                      "dy": round(2.5 * math.sin(2 * math.pi * (ph + 0.3)))}
-        return out
-
-
-RUNS = {"jinx": JinxRun, "vi": ViRun, "lulu": LuluRun}
+RUNS = {"jinx": JinxRun, "vi": ViRun}
 
 
 # ================================================================================================== the sheet

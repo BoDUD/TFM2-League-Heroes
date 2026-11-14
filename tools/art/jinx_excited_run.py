@@ -20,7 +20,7 @@ where the jog's are, so the swap in mid-stride does not jump), the same height a
 (`run_x`) and the dense ones (`hd_run_x`, PPU 2.2, what the game draws through league.dll) get the same lean and trail
 at their own density; `lo_run_x` (the UI's, never played there) is `lo_run`'s own frames at the sprint's timing.
 
-The twins go in a strip under the rest of the sheet; run again, it cuts the old strip off first.
+The twins go in rows under the rest of the sheet, no wider than it; run again, it cuts the old rows off first.
 
     python tools/art/jinx_excited_run.py                  # (re)write run_x, hd_run_x, lo_run_x into her sheet
     python tools/art/jinx_excited_run.py --preview DIR    # run beside run_x (dense, 4x) -> DIR/jinx_excited_run.png
@@ -115,23 +115,30 @@ def build():
     lo = "lo_run" + SUFFIX
     for t in list(twins) + [lo]:
         anims.pop(t, None)
-    # the old strip goes: the sheet ends under the lowest frame of every other tag
+    # the old strip goes: the sheet ends under the lowest frame of every other tag (and right of the rightmost)
     bottom = max(int(round(f["data"]["y"] + f["data"]["h"])) for v in anims.values() for f in v["frames"])
-    px = px[:bottom]
+    right = max(int(round(f["data"]["x"] + f["data"]["w"])) for v in anims.values() for f in v["frames"])
+    px = px[:bottom, :right]
     frame_s = round(anims["run"]["frames"][0]["duration"] / SPRINT, 3)
     made = {t: sprint(frames(anims, px, src), k) for t, (src, k) in twins.items()}
     strip_h = max(f.shape[0] for fr in made.values() for f in fr)
-    width = max(px.shape[1], sum(f.shape[1] + 1 for fr in made.values() for f in fr))
-    sheet = np.zeros((bottom + GAP + strip_h, width, 4), np.uint8)
-    sheet[:bottom, :px.shape[1]] = px
-    x, y0 = 0, bottom + GAP
+    # the twins in rows no wider than the sheet (the 14 frames of League's run at 0.067 s in one row: 3122 wide)
+    width = max(px.shape[1], max(f.shape[1] for fr in made.values() for f in fr))
+    spots, x, y0 = [], 0, bottom + GAP
     for t, fr in made.items():
-        anims[t] = {"frames": []}
         for f in fr:
-            sheet[y0:y0 + f.shape[0], x:x + f.shape[1]] = f
-            anims[t]["frames"].append({"duration": frame_s, "data": {"x": float(x), "y": float(y0),
-                                                                      "w": float(f.shape[1]), "h": float(f.shape[0])}})
+            if x and x + f.shape[1] > width:
+                x, y0 = 0, y0 + strip_h + 1
+            spots.append((t, f, x, y0))
             x += f.shape[1] + 1
+    sheet = np.zeros((y0 + strip_h, width, 4), np.uint8)
+    sheet[:bottom, :px.shape[1]] = px
+    for t in made:
+        anims[t] = {"frames": []}
+    for t, f, x, y in spots:
+        sheet[y:y + f.shape[0], x:x + f.shape[1]] = f
+        anims[t]["frames"].append({"duration": frame_s, "data": {"x": float(x), "y": float(y),
+                                                                  "w": float(f.shape[1]), "h": float(f.shape[0])}})
     anims[lo] = {"frames": [{"duration": frame_s, "data": dict(f["data"])} for f in anims["lo_run"]["frames"]]}
     Image.fromarray(sheet, "RGBA").save(STEM + "#sheet.png", optimize=True)
     with open(path, "w", encoding="utf-8", newline="") as fh:
