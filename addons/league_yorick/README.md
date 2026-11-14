@@ -48,7 +48,8 @@
 | 日志 | 说明什么 |
 |---|---|
 | 开头第二行 `UNITS: the Mist Walkers ('league_yorick_walker') and the Maiden of the Mist ('league_yorick_maiden') are units (spawn_unit) - ON … Test knobs (…): none` | 这一版装上了，开关没动 |
-| `WALKERS ASK #n: the Awakening on #7 … at (x,y): 3 walkers asked for round it` / `MAIDEN ASK #n: Eulogy of the Isles on #7 …` | 副本的 ask 被动读到了 |
+| `WALKERS ASK #n: the Awakening on #7 … at (x,y): 3 walkers asked for round it` / `MAIDEN ASK #n: Eulogy of the Isles on #7 …` | 副本的 ask 被动读到了（行末 `(held N tick(s) …)`：压着等了几拍才发） |
+| `MAIDEN HELD #k: … - the walkers' ask of t=… still waits for its units (1 held): it goes out once that one is answered` / `WALKERS HELD #k: …` | 雾行者那本账还有要在等，这个要先压着（见下面 v0.2.1）；`HELD DROPPED` = 压太久没发，画面上是原来挂着的 |
 | `WALKERS SPAWN #n (the queued effect): 3 of 3 units [ids] … 'league_yorick_walker' for 600 ticks, attack … hp …` / `MAIDEN SPAWN #n …; her escort: 2 of 2 walkers [ids]` | `spawn_unit` 给了单位（**没有这行、而有 `SPAWN FAILED` / `NONE` / `LOST`：画面上是原来挂着的**） |
 | `WALKER #n LOOK #k (the Awakening's / the Maiden's escort): #id reads back as name … kind summon …` / `MAIDEN #n LOOK #k: …; league_yorick_r_on on Yorick and league_yorick_maiden on #7 set for her 899 ticks` | 单位读回来叫什么、算哪一类、属性对不对；室女的时间接上了没有 |
 | `MAIDEN #n DRESS #k: a tick on, league_yorick_r_on is on Yorick, league_yorick_maiden is on #7` | 标记真的挂上了（`is NOT` = 没挂上） |
@@ -66,3 +67,5 @@
 ## 雾行者和室女站稳了再接手（v0.2.1，2026-11-14）
 
 第一批真实对局数据（游戏 0.7.2 的预模拟）：新单位生成那一拍和下一拍，最大生命、攻击、防御、移速都读成 1，那时设的生命会被盖掉（悟空的分身生成后一拍读到 `hp 1851/1 attack 1 def 1 mr 1 speed 1`；玛尔扎哈的虚空蜂在生成那一拍就被读成 `hp 81/1 …`）。公用的 `Flock`（萨科附加包 0.3.1 的 `summon.rs`）现在等单位站稳（最大生命读出来）才接手：`WALKER #n LOOK` / `MAIDEN #n LOOK` 晚一两拍、是它们自己的数字（5 次还没站稳就照样接手，行末写 `(its health cap still reads 1 after 5 looks)`）。室女的 `r_on` 和她目标身上的标记在接手时挂，所以也晚一两拍。代码没改，测试没改（假宿主里单位一生成就站稳）。
+
+**雾行者一次只等一个要**（同一版，用户：「这个要修」）：唤醒的雾行者和室女的护卫记在同一本账里，一拍交接来的单位都算最早那个还在等的要的。所以唤醒的雾行者没生成出来、它还在等（4 拍）时 R 又要了护卫，护卫会被记成唤醒的（`Awake`、600 拍、出生在 Q 那一拍）：账上提前 300 拍算它没了，黑雾也不再让它扑；反过来也一样。现在雾行者那本账还有要在等时，新的 Q / R 的要先压着（`HELD`），等前一个有了结果（单位到了，或等满时间作罢）再发，目标那时站在哪就在哪生成。正常 Q 和 R 隔好几秒，压不到；压着的一般 5 拍内发出，数据在出手后 14 / 16 拍读单位的标记，来得及；超过 10 拍还发不出就放弃（`HELD DROPPED`），画面上是原来挂着的。测试 `an_ask_made_while_the_walkers_last_one_waits_keeps_its_own_units`（两个方向都测）。
