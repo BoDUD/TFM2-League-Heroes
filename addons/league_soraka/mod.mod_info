@@ -11,7 +11,7 @@
       "version": ">=0.354.0"
     }
   ],
-  "description": "Soraka's Wish as in League (needs League of Legends Heroes): the main pack's Wish heals every allied champion the same amount, because data reads nobody's health; with this add-on allied champions below 40% of their maximum health are healed 50% more, read at the moment the stars fall. Everything else stays the main pack's. Writes a log for testing.",
+  "description": "Soraka's Wish and Salvation as in League (needs League of Legends Heroes): the main pack's Wish heals every allied champion the same amount and its Salvation is a haste after W, because data reads neither anyone's health nor where she walks; with this add-on allied champions below 40% of their maximum health are healed 50% more, read at the moment the stars fall, and she gains 90% move speed while heading for a nearby allied champion below 40% health. Everything else stays the main pack's. Writes a log for testing.",
   "last_updated": "2026-11-14",
   "mod_id": "league_soraka",
   "mod_type": "native",

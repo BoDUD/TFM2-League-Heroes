@@ -403,7 +403,7 @@
   },
   "skill2": {
     "action_name": "skill2",
-    "description": "#asset/base/text/champion?description.league_soraka.skill2",
+    "description": "#asset/base/text/champion?description.league_soraka_addon.skill2",
     "duration": 35,
     "cooltime": 240,
     "start_timing": 13,
@@ -640,5 +640,14 @@
       "z": -1
     }
   ],
-  "view_buffs": []
+  "view_buffs": [],
+  "passive": {
+    "passive_ref": "league_soraka:salvation",
+    "params": {
+      "ms": 90,
+      "low": 40,
+      "reach": 250000,
+      "cone": 45
+    }
+  }
 }
