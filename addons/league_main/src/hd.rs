@@ -217,6 +217,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Units, not heroes: no .data_champion
     ("league_malzahar_voidling", 2.0, include_str!("../../../league/champions/league_malzahar_voidling#anim.fanim")),
     ("league_elise_spiderling", 2.0, include_str!("../../../league/champions/league_elise_spiderling#anim.fanim")),
+    // Kog'Maw's void form (Icathian Surprise) as a unit of its own (league_kogmaw 0.1.0 spawns `league_kogmaw_void`,
+    // 2026-11-14; the user: 「大嘴死了还是看不到炸人啊」 then 「按英雄联盟改」): his own frames - idle_base, run, attack,
+    // hit and their hd_ twins - recoloured by code into a void creature (tools/art/unit_kogmaw_void.py), so his PPU and
+    // his size exactly. A unit, not a hero: no .data_champion
+    ("league_kogmaw_void", 1.794, include_str!("../../../league/champions/league_kogmaw_void#anim.fanim")),
     // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
