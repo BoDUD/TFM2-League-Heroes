@@ -500,13 +500,49 @@ def plan_head(name):
     return PK.build(PK.POSES[name][3])["head"][0] - H_STAND
 
 
-def pose(C, name, dx=0, lift=0, flash=False):
-    """Codex's key pose standing on the pivot (moved dx), its lowest square on the ground or `lift` rows over it."""
+# Her in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+# 「能改就想办法改 全都要改」): the run was four key poses at 120 ms and the death three (the fallen pose held): after a key
+# pose the same pose with her tail swung by whole squares - its free part (TAILS: a box in the pose's own squares that
+# holds nothing but tail) waved by columns where it streams behind her or lies on the ground (nothing on the box's side
+# toward her, k rows at the tip; positive: lifted) or by rows where it stands up behind her (nothing on the box's bottom
+# row, k columns at its top; negative: to the left) - inbetween.vary checks every other square unchanged. The run's
+# tail dips and lifts 5 between the strides (the four key poses keep their legs and their 120 ms beat: the tail is what
+# travels); in the death it swings toward the ground after the stagger, curls up off it at the kneel, twitches once
+# before she lies still (never down into the ground).
+VPAD = 30
+TAILS = {"run1": ((0, 24, 19, 39), "cols"), "run2": ((0, 24, 22, 38), "cols"), "run3": ((0, 18, 24, 34), "cols"),
+         "run4": ((0, 26, 20, 40), "cols"), "stagger": ((36, 2, 64, 24), "rows"), "kneel": ((0, 38, 20, 53), "cols"),
+         "collapse": ((0, 26, 30, 39), "cols")}
+
+
+def tail_waved(a, name, k):
+    """The key pose picture a with its tail's free part swung k squares (TAILS) -> the picture VPAD bigger on every
+    side (inbetween.vary)."""
+    import inbetween as IB
+    box, how = TAILS[name]
+    outline = PD.edge_colour(a)
+    if how == "rows":
+        H, W = a.shape[:2]
+        dx = np.zeros((H, W), int)
+        for y in range(H):
+            dx[y, :] = int(round(k * min(max((box[3] - y) / (box[3] - box[1]), 0.0), 1.0)))
+        return IB.vary(a, {"tail": [box]}, outline, moves=[("tail", (dx, np.zeros((H, W), int)), "under")], pad=VPAD,
+                       name=f"{name} tail {k}")
+    return IB.vary(a, {"tail": [box]}, outline, sway=[("tail", box[0], box[2], k, "right")], pad=VPAD,
+                   name=f"{name} tail {k}")
+
+
+def pose(C, name, dx=0, lift=0, flash=False, tail=0):
+    """Codex's key pose standing on the pivot (moved dx), its lowest square on the ground or `lift` rows over it; tail:
+    its tail swung that many squares (tail_waved), the pose placed where it stands unswung."""
     a = C.poses[name]
     stand = C.pose_head[name][0] + HEAD_MID - plan_head(name)
     can = C.blank()
     ox = int(round(C.rig.CX - stand)) + dx
     oy = C.rig.GY - a.shape[0] - lift
+    if tail:
+        a = tail_waved(a, name, tail)
+        ox, oy = ox - VPAD, oy - VPAD
     ys, xs = np.nonzero(a[..., 3] > 0)
     ty, tx = ys + oy, xs + ox
     ok = (ty >= 0) & (ty < can.shape[0]) & (tx >= 0) & (tx < can.shape[1])
@@ -517,10 +553,10 @@ def pose(C, name, dx=0, lift=0, flash=False):
 
 # ------------------------------------------------------------------------------------------------- the dragon's actions
 # ms per frame; the kit's ticks (tools/kit/build_shyvana.py) come from these (a frame's start in ticks = ms x 0.06)
-MS = {"idle": [150] * 8, "hit": [100, 100], "run": [120] * 4,
+MS = {"idle": [150] * 8, "hit": [100, 100], "run": [60] * 8,
       "attack": [70, 70, 100, 80, 113], "skill": [60, 100, 120, 100, 87], "skill_b": [70, 110, 140, 90, 90],
       "skill2": [100, 130, 100, 137], "ult": [60, 90, 60, 90, 90, 90, 120], "revert": [90, 60, 80, 100, 103],
-      "dead": [120, 160, 220, 600],
+      "dead": [60, 60, 80, 80, 110, 110, 600],
       "d_idle": [150] * 8, "d_run": [100] * 8,
       "d_attack": [60, 80, 90, 90, 90, 90],
       "d_skill": [60, 80, 90, 90, 80, 70],
@@ -759,8 +795,10 @@ def human_frames(C):
     # rise again (legs and tail untouched: Mel's rule, 「上下摆动导致腿部变形」)
     out["idle"] = [h(breath=b) for b in (0, 0, 1, 1, 1, 1, 0, 0)]
     out["hit"] = [h(dx=-2, flash=True), h(dx=-1)]
-    # run (League's Run: the near foot landing, carried by it with the far knee up, the far foot landing, carried by it)
-    out["run"] = [q("run1"), q("run2"), q("run3"), q("run4")]
+    # run (League's Run: the near foot landing, carried by it with the far knee up, the far foot landing, carried by it);
+    # after each key pose its tail dipped or lifted 5 (the in-betweens: TAILS)
+    out["run"] = [q("run1"), q("run1", tail=-5), q("run2"), q("run2", tail=5), q("run3"), q("run3", tail=-5),
+                  q("run4"), q("run4", tail=5)]
     # auto attack (League's Attack1: sunk low, rising with the far claw raised over her head, the claw slashed down in
     # front - the hit - and back to standing)
     out["attack"] = [q("crouch"), q("rise"), q("slash", dx=1), q("slash"), h()]
@@ -779,8 +817,11 @@ def human_frames(C):
     # the dragon running out (League's ShyvanaDragon Spell4 out: the wings folding, the fire, her crouching out of it)
     out["revert"] = [d(far_wing=10, near_wing=12), d(far_wing=16, near_wing=20, flash=True), q("crouch", flash=True),
                      q("crouch"), h()]
-    # death (League's Death: struck back, sinking to her knees, fallen forward on her hands)
-    out["dead"] = [q("stagger"), q("kneel"), q("collapse"), q("collapse")]
+    # death (League's Death: struck back, sinking to her knees, fallen forward on her hands); the in-betweens: the raised
+    # tail swinging toward the ground after the stagger, curling up off it at the kneel, a last twitch before she lies
+    # still (the key poses still from 0 / 120 / 280 ms, lying still from 500)
+    out["dead"] = [q("stagger"), q("stagger", tail=-5), q("kneel"), q("kneel", tail=4), q("collapse"),
+                   q("collapse", tail=4), q("collapse")]
     return out
 
 
