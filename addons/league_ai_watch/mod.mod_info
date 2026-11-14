@@ -16,5 +16,5 @@
   "mod_id": "league_ai_watch",
   "mod_type": "native",
   "name": "League Heroes: champion AI log (diagnostic)",
-  "version": "0.3.1"
+  "version": "0.3.2"
 }
