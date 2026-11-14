@@ -1,0 +1,461 @@
+{
+ "about": "Scenes for tools/lol/vfx_render.py: which League VFX systems play where and when for one of our effect tags. Times are League seconds from the scene's start; `frames` gives our tag's frame starts (seconds) and `warp` maps them to League time (pairs [ours, League], linear between); positions are League units in our world (X right / the flight, Y up, Z toward the viewer); camera s = game px per League unit (see vfx_render.py).",
+ "scenes": {
+  "lux_e_zone": {
+   "champ": "Lux",
+   "about": "Lucent Singularity's field where the orb lands, then the detonation. Ours: league_lux_fx:e_zone (z -1) plays on the landing point; the zone detonates 60 ticks (1.0 s) after landing (league_lux_e_zone first_delay 60), so the field is removed at 1.0 s and the nova starts. Both systems stand 100 units above the ground (their ground layers sit at -100).",
+   "tag": [
+    "league_lux_fx",
+    "e_zone"
+   ],
+   "camera": {
+    "s": 0.0855,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     96,
+     112
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lux_Base_E_tar_aoe_green",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "kill": 5.0,
+     "speed": 5.0,
+     "about": "the field runs 5x faster: League's 5 s field (it brightens and grows over its life, the flares collapse at its end) in our 1 s"
+    },
+    {
+     "system": "Lux_Base_E_tar_nova",
+     "t": 1.0,
+     "origin": [
+      0,
+      100,
+      0
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "effects/luxskill2.aseprite",
+    "tag": "loop"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 14
+   }
+  },
+  "lux_q_orb": {
+   "champ": "Lux",
+   "about": "Light Binding in flight. Ours: league_lux_fx:q_orb, a LinearProjectile picture the game turns to the flight (drawn pointing right, centred on the head), 4 frames x 70 ms looped. Seen from straight above at sprite scale (0.2 px a unit, as our heroes are drawn; at the kit's 0.1 League's orb is a 3-px dot); the missile flies 300 units/s here instead of 1200 so its 0.5 s trails stay as long as our picture's (a projectile's picture never moves by itself). Frames from 0.55 s into the flight. The arch-shaped ground glows are left out: the picture turns with the projectile, a glow on the ground would turn too. Its sparkles (rays, hoop1 / hoop2 bokeh, Sparks_, Left / Left1 motes) are left out too: at 2 px a game px they turned the orb into confetti (tried: dev/q_orb_lod.png).",
+   "tag": [
+    "league_lux_fx",
+    "q_orb"
+   ],
+   "camera": {
+    "s": 0.2,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     72,
+     28
+    ],
+    "center": [
+     48.5,
+     14.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.55
+    ],
+    [
+     1,
+     1.55
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lux_Base_Q_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      300,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Temp_GroundGlow",
+      "Temp_GroundGlow2",
+      "Temp_GroundGlow3",
+      "rays",
+      "hoop1",
+      "hoop2",
+      "Sparks_",
+      "Left",
+      "Left1"
+     ],
+     "pixel_skip": [
+      "Trail_dark"
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "fx/luxskill.aseprite",
+    "tag": "skill"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 12
+   }
+  },
+  "lux_q_bind": {
+   "champ": "Lux",
+   "about": "Light Binding on the unit it roots. Ours: league_lux_fx:q_bind (z 1, is_follow) for the 90-tick root, 12 frames 1.38 s; League's lasts 2.5 s (rings fade in over 0.25 s, out after 2 s), played 1.8x faster. Its system stands on the unit's feet (rings at 0 and 230 units, rune bars round 130).",
+   "tag": [
+    "league_lux_fx",
+    "q_bind"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     80
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lux_Base_Q_tar",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.8
+    }
+   ],
+   "oppi": {
+    "path": "buffs/skill_buff",
+    "tag": "skill_binding"
+   },
+   "pixel": {
+    "gain": 1.5,
+    "maxmix": 0.3,
+    "k": 12
+   }
+  },
+  "lux_r_beam": {
+   "champ": "Lux",
+   "about": "Final Spark. Ours: league_lux_r:beam, the picture of a LineRangeProjectile 340 px long (turned to the cast, drawn centred on the line's middle: the caster 170 px left of the frame's centre), 6 frames over 55 ticks; the damage lands at tick 29 (0.48 s). League charges 1 s (the warning beams) and fires at 1 s: our first 0.467 s show League's first 1.0 s, the rest runs at League's pace. Seen from above, 0.1 px a unit (3400 units = 340 px); the system's origin (League's wand) 10 px in front of the caster.",
+   "tag": [
+    "league_lux_r",
+    "beam"
+   ],
+   "camera": {
+    "s": 0.1,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     344,
+     44
+    ],
+    "center": [
+     12.5,
+     22.5
+    ]
+   },
+   "warp": [
+    [
+     0,
+     0
+    ],
+    [
+     0.467,
+     1.0
+    ],
+    [
+     0.934,
+     1.467
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lux_Base_R_mis_beam",
+     "origin": [
+      0,
+      150,
+      0
+     ],
+     "target": [
+      3400,
+      150,
+      0
+     ],
+     "pixel_skip": [
+      "Burnt",
+      "Burnt1",
+      "Beam_DARK_FLASH1"
+     ]
+    }
+   ],
+   "anchor": [
+    172.5,
+    22.5
+   ],
+   "oppi": {
+    "path": "effects/luxult.aseprite",
+    "tag": "ult"
+   },
+   "pixel": {
+    "gain": 1.5,
+    "maxmix": 0.3,
+    "k": 12
+   }
+  },
+  "jinx_zap": {
+   "champ": "Jinx",
+   "about": "Zap! in flight. Ours: league_jinx_fx:zap, a LinearProjectile picture (turned to the flight), 4 frames x 50 ms looped, the head at the frame's centre and 28 px of trail behind it. Seen from above at 0.15 px a unit; the bolt flies 1300 units/s here (League: 3300) so its trails stay about our picture's length. Frames from 0.2 s into the flight.",
+   "tag": [
+    "league_jinx_fx",
+    "zap"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     80,
+     24
+    ],
+    "center": [
+     50.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.2
+    ],
+    [
+     1,
+     1.2
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Jinx_Base_W_Mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      1300,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Temp_GroundGlow",
+      "Temp_GroundGlow1",
+      "Ground_Light"
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "fx/jinx_skill2_proj",
+    "tag": "zap_proj"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 12
+   }
+  },
+  "jinx_zap_hit": {
+   "champ": "Jinx",
+   "about": "Zap! hitting a unit. Ours: league_jinx_fx:zap_hit (z 1, is_follow), 6 frames x 60 ms. League's hit system stands on the unit (its flashes 100 units up).",
+   "tag": [
+    "league_jinx_fx",
+    "zap_hit"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     64
+    ]
+   },
+   "plays": [
+    {
+     "system": "Jinx_Base_W_Tar",
+     "origin": [
+      0,
+      100,
+      0
+     ]
+    }
+   ],
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 12
+   }
+  },
+  "jinx_r_rocket": {
+   "champ": "Jinx",
+   "about": "Super Mega Death Rocket! in flight. Ours: league_jinx_big:r_rocket, a LinearProjectile picture (turned to the flight), 4 frames x 60 ms looped, 4.5 px a tick. League's rocket (a mesh) with its trail (child Jinx_Base_R_Rocket_Child) and booster, ~2000 units/s; frames 0.4 s into the flight; 0.15 px a unit. Its ground glow, shadow and ground smoke are left out (they would turn with the picture).",
+   "tag": [
+    "league_jinx_big",
+    "r_rocket"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     150,
+     40
+    ],
+    "center": [
+     110.5,
+     20.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.4
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Jinx_Base_R_Mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      2000,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Temp_GroundGlow1",
+      "Projected",
+      "FakeShadow",
+      "GoodOne",
+      "GoodOne1"
+     ]
+    },
+    {
+     "system": "Jinx_Base_R_Booster",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      2000,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Projected"
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "fx/jinxult.aseprite",
+    "tag": "ult"
+   },
+   "pixel": {
+    "gain": 1.5,
+    "maxmix": 0.3,
+    "k": 16
+   }
+  },
+  "jinx_r_blast": {
+   "champ": "Jinx",
+   "about": "Super Mega Death Rocket! exploding. Ours: league_jinx_big:r_blast (z 2) on the point hit, 8 frames x 70 ms; the kit's blast is 62 px round (League's 225 + bodies): 0.15 px a unit keeps League's fire cloud about our blast's width. The system stands on the ground.",
+   "tag": [
+    "league_jinx_big",
+    "r_blast"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     128,
+     128
+    ]
+   },
+   "plays": [
+    {
+     "system": "Jinx_Base_R_Tar",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.4
+    }
+   ],
+   "oppi": {
+    "path": "effects/jinxultexplosion.aseprite",
+    "tag": "explode"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 14
+   }
+  }
+ },
+ "spells": {
+  "lux_q": [
+   "lux_q_orb",
+   "lux_q_bind"
+  ],
+  "lux_e": [
+   "lux_e_zone"
+  ],
+  "lux_r": [
+   "lux_r_beam"
+  ],
+  "jinx_w": [
+   "jinx_zap",
+   "jinx_zap_hit"
+  ],
+  "jinx_r": [
+   "jinx_r_rocket",
+   "jinx_r_blast"
+  ]
+ }
+}
