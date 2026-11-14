@@ -54,6 +54,42 @@ pub fn grow_count<'a>(names: impl IntoIterator<Item = &'a str>, buff: &str) -> u
 /// that address or a new match, drawn straight at its size.
 pub const FORM_STALE: f32 = 0.5;
 
+/// A form row's id that stands for any unit ([`Table::forms`]): whoever carries one of the row's buffs is drawn bigger,
+/// dense frames or 1x - Lulu's Wild Growth grows the ally it lands on, any hero of any pack or the base game (league.dll
+/// 2026-11-14). In the table's text it is the row's id like any other (`form * 1.15 0.5 league_lulu_r_on`): the
+/// grammar and [`crate::PROTOCOL`] are unchanged, a table without such a row is the same text as before, and an
+/// engine from before reads the row and leaves it out the way it leaves out a row of an id it does not register
+/// ([`Heroes::and`] kept a form row only for an id the table brought) - its guest is not refused, Lulu's ally is only
+/// not grown there.
+pub const ANY: &str = "*";
+
+/// The seconds of one frame: a wildcard form's first step ([`eased_any`]).
+pub const FRAME: f32 = 1.0 / 60.0;
+
+/// [`eased`] for a wildcard form row ([`ANY`]). The engine keeps no record of a unit no such row has grown yet, so a
+/// unit first seen with the buff (`prev` None, `on`) grows from its plain size, one frame (`first` seconds) in, instead
+/// of jumping to the row's size; a stale record (a unit back on screen, or another at that address) jumps like a hero's
+/// own form; with no record and no buff it is 1.0.
+pub fn eased_any(prev: Option<(f32, f32)>, on: bool, size: f32, secs: f32, first: f32) -> f32 {
+    let target = if on { size } else { 1.0 };
+    match prev {
+        None if on => eased(Some((1.0, first)), target, size, secs),
+        _ => eased(prev, target, size, secs),
+    }
+}
+
+/// The size a body is drawn at from its own growth or form row (`own`: [`grown`] / [`eased`], None for a hero with no
+/// such row) and a wildcard form row (`any`: [`eased_any`], None when none is on him or easing back): the larger, never
+/// the two multiplied - a hero that grows by himself (Volibear's storm form, Bel'Veth's true form, Cho'Gath's Feast)
+/// is not grown twice over by Lulu's Wild Growth (the user's limits: Volibear's x1.35 was 「实在太大了」, x1.15 kept).
+/// None: nothing grows this body.
+pub fn form_size(own: Option<f32>, any: Option<f32>) -> Option<f32> {
+    match (own, any) {
+        (None, None) => None,
+        (a, b) => Some(a.unwrap_or(1.0).max(b.unwrap_or(1.0))),
+    }
+}
+
 /// The size a form's body is drawn at now: `prev` the size it was drawn at last and the seconds since (None: never
 /// drawn), `target` the row's size while a buff is on him, else 1.0. It moves toward the target by (size - 1) / secs a
 /// second (the whole way in `secs`), straight to it when never drawn or stale.
@@ -101,7 +137,8 @@ pub struct Table<'a> {
     /// body drawn that much bigger about his soles, with no cap (src/view.rs)
     pub growth: Vec<(&'a str, &'a str, f32)>,
     /// heroes drawn bigger while a buff of theirs is on them: (id, the buffs - any one of them, the size, seconds to
-    /// grow to it and to shrink back), about the soles like growth, eased in and out ([`eased`], src/view.rs)
+    /// grow to it and to shrink back), about the soles like growth, eased in and out ([`eased`], src/view.rs). A row of
+    /// id [`ANY`] grows any unit carrying one of its buffs, whoever's it is (the buffs are the pack's own)
     pub forms: Vec<(&'a str, Vec<&'a str>, f32, f32)>,
     /// effect sheets drawn dense like a hero's sheet (id, PPU, .fanim: `idle` / `hd_idle` and any more tags, each with
     /// its hd_ twin): looked up like the heroes, no entity's body
@@ -237,7 +274,7 @@ pub struct Heroes {
     prefixes: Vec<String>,
     /// every table's growth rows ([`Table::growth`])
     pub growth: Vec<(&'static str, &'static str, f32)>,
-    /// every table's form rows ([`Table::forms`])
+    /// every table's form rows ([`Table::forms`]), the wildcard ones ([`ANY`]) too
     pub forms: Vec<(&'static str, &'static [&'static str], f32, f32)>,
     /// every table's drawn effects ([`Table::drawn_effects`])
     pub drawn_effects: Vec<&'static str>,
@@ -252,7 +289,8 @@ impl Heroes {
     }
 
     /// These heroes and table `t`'s -> them and the ids `t` brought. An id registered already keeps its first row (the
-    /// host's own, the first guest's): `t`'s row of it is left out, with its growth, form and drawn-effect rows.
+    /// host's own, the first guest's): `t`'s row of it is left out, with its growth, form and drawn-effect rows. A
+    /// wildcard form row ([`ANY`]) is no id's: it comes in unless a table before brought one of the same buffs.
     pub fn and(&self, t: &Table<'_>) -> (Self, Vec<&'static str>) {
         let mut list = self.list.clone();
         let mut by_id = self.by_id.clone();
@@ -273,11 +311,18 @@ impl Heroes {
         let mut growth = self.growth.clone();
         growth.extend(t.growth.iter().filter(|g| came.contains(&g.0)).map(|&(id, buff, per)| (keep(id), keep(buff), per)));
         let mut forms = self.forms.clone();
-        forms.extend(t.forms.iter().filter(|f| came.contains(&f.0)).map(|(id, buffs, size, secs)| {
+        for (id, buffs, size, secs) in &t.forms {
+            let any = *id == ANY;
+            if !(any || came.contains(id)) {
+                continue;
+            }
+            if any && forms.iter().any(|f| f.0 == ANY && f.1.iter().eq(buffs.iter())) {
+                continue; // a wildcard row another table brought already
+            }
             let buffs: &'static [&'static str] =
                 Box::leak(buffs.iter().map(|b| keep(b)).collect::<Vec<_>>().into_boxed_slice());
-            (keep(id), buffs, *size, *secs)
-        }));
+            forms.push((if any { ANY } else { keep(id) }, buffs, *size, *secs));
+        }
         let mut drawn_effects = self.drawn_effects.clone();
         drawn_effects.extend(t.drawn_effects.iter().filter(|id| came.contains(id)).map(|id| keep(id)));
         let mut full_effects = self.full_effects.clone();
@@ -294,6 +339,11 @@ impl Heroes {
     /// [`Heroes::dense_of_name`] with the full effects dense or not (`on`).
     pub fn dense_of_name_if(&self, name: &str, on: bool) -> Option<&Hero> {
         self.of_name(name).filter(|h| on || !self.full_effects.contains(&h.id))
+    }
+
+    /// The wildcard form rows ([`ANY`]): any unit carrying one of a row's buffs is drawn bigger (src/view.rs).
+    pub fn any_forms(&self) -> impl Iterator<Item = &(&'static str, &'static [&'static str], f32, f32)> {
+        self.forms.iter().filter(|f| f.0 == ANY)
     }
 
     pub fn get(&self, id: &str) -> Option<&Hero> {
@@ -374,7 +424,9 @@ pub mod checks {
 
     /// Every hero and effect is the pack's and listed once (a second row of an id would never be registered:
     /// [`Heroes::and`]); every other row is about one of them (a growth or form row of another id is dropped there
-    /// without a word); a form row names at least one buff, each one word (the table's text: src/share.rs).
+    /// without a word) but a wildcard form row ([`ANY`]), whose buffs are the pack's own (`<pack>_...`: no other pack's
+    /// table grows units by them), each in one such row; a form row names at least one buff, each one word (the table's
+    /// text: src/share.rs).
     pub fn ids_are_the_packs_once(t: &Table<'_>) {
         let mut seen = Vec::new();
         for &(id, ..) in t.heroes.iter().chain(t.effects.iter()) {
@@ -384,7 +436,7 @@ pub mod checks {
             seen.push(id);
         }
         let others = t.sizes.iter().map(|s| s.0).chain(t.ui_sizes.iter().map(|s| s.0)).chain(t.growth.iter().map(|g| g.0));
-        let others = others.chain(t.forms.iter().map(|f| f.0));
+        let others = others.chain(t.forms.iter().map(|f| f.0).filter(|id| *id != ANY));
         for id in others.chain(t.drawn_effects.iter().copied()) {
             assert!(seen.contains(&id), "{id}: a row for an id the table does not register");
         }
@@ -393,9 +445,17 @@ pub mod checks {
             assert!(t.effects.iter().any(|e| e.0 == *id), "{id}: a full effect that is no effect sheet");
             assert!(t.drawn_effects.contains(id), "{id}: a full effect not in the drawn effects");
         }
-        for (id, buffs, ..) in &t.forms {
+        let mut wild: Vec<&str> = Vec::new();
+        for (id, buffs, size, secs) in &t.forms {
             assert!(!buffs.is_empty(), "{id}: a form row with no buff");
             assert!(buffs.iter().all(|b| !b.is_empty() && !b.contains(char::is_whitespace)), "{id}: {buffs:?}");
+            if *id == ANY {
+                assert!(buffs.iter().all(|b| b.starts_with(&format!("{}_", t.pack))), "a wildcard form row of buffs not \
+                         the {} pack's: {buffs:?}", t.pack);
+                assert!(buffs.iter().all(|b| !wild.contains(b)), "{buffs:?}: a buff in two wildcard form rows");
+                assert!(*size > 1.0 && *secs > 0.0, "a wildcard form row x{size} over {secs} s");
+                wild.extend(buffs.iter().copied());
+            }
         }
     }
 
@@ -593,6 +653,75 @@ pub(crate) mod tests {
         assert!(std::panic::catch_unwind(|| checks::every_registered_sheet_is_ppu_times_as_wide(&thin)).is_err());
         let other = table("tft", &[("league_ashe", 2.0)]);
         assert!(std::panic::catch_unwind(|| checks::ids_are_the_packs_once(&other)).is_err());
+    }
+
+    /// A wildcard form row ([`ANY`], Lulu's Wild Growth) is no hero's: it is registered whichever ids its table brought,
+    /// once for the same buffs, and the checks take it only with the pack's own buffs.
+    #[test]
+    fn a_wildcard_form_row_grows_any_unit() {
+        let mut league = table("league", &[("league_volibear", 1.2)]);
+        league.forms.push(("league_volibear", vec!["league_volibear_r_form"], 1.15, 1.25));
+        league.forms.push((ANY, vec!["league_lulu_r_on"], 1.15, 0.5));
+        checks::ids_are_the_packs_once(&league);
+        let h = Heroes::of(&[&league]);
+        assert_eq!(h.forms.len(), 2);
+        let any: Vec<_> = h.any_forms().collect();
+        assert_eq!(any.len(), 1);
+        assert_eq!((any[0].0, any[0].1, any[0].2, any[0].3), (ANY, &["league_lulu_r_on"][..], 1.15, 0.5));
+        // no id is the wildcard: no hero is found by it, and a hero's own row is still found by his id
+        assert!(h.get(ANY).is_none() && h.of_name("asset/league/champions/*#anim").is_none());
+        assert_eq!(h.forms.iter().filter(|f| f.0 == "league_volibear").count(), 1);
+        // a second table with the same wildcard row (or the same table again) adds nothing; another buff's row comes in
+        let mut again = table("league", &[("league_yasuo", 2.2)]);
+        again.forms.push((ANY, vec!["league_lulu_r_on"], 1.30, 2.0));
+        let (h2, came) = h.and(&again);
+        assert_eq!(came, vec!["league_yasuo"]);
+        assert_eq!(h2.any_forms().map(|f| f.2).collect::<Vec<_>>(), vec![1.15], "the first row of those buffs stays");
+        let mut tft = table("tft", &[("tft_norra", 2.0)]);
+        tft.forms.push((ANY, vec!["tft_norra_big"], 1.1, 1.0));
+        checks::ids_are_the_packs_once(&tft);
+        assert_eq!(h2.and(&tft).0.any_forms().count(), 2);
+        // the checks: another pack's buff, a buff in two wildcard rows, a row that does not grow
+        let mut foreign = table("tft", &[("tft_norra", 2.0)]);
+        foreign.forms.push((ANY, vec!["league_lulu_r_on"], 1.15, 0.5));
+        assert!(std::panic::catch_unwind(|| checks::ids_are_the_packs_once(&foreign)).is_err());
+        let mut twice = league.clone();
+        twice.forms.push((ANY, vec!["league_x", "league_lulu_r_on"], 1.1, 0.5));
+        assert!(std::panic::catch_unwind(|| checks::ids_are_the_packs_once(&twice)).is_err());
+        let mut flat = table("league", &[("league_yasuo", 2.2)]);
+        flat.forms.push((ANY, vec!["league_lulu_r_on"], 1.0, 0.5));
+        assert!(std::panic::catch_unwind(|| checks::ids_are_the_packs_once(&flat)).is_err());
+    }
+
+    /// A unit first seen under a wildcard row's buff grows from its plain size (no record of it yet: not a jump to the
+    /// size), eases back after it, and is drawn at the larger of its own growth and the wildcard's, never their product.
+    #[test]
+    fn a_wildcard_form_eases_from_the_units_own_size() {
+        let (size, secs) = (1.15, 0.5);
+        // first seen with the buff: one frame of the way, not the whole size
+        let g = eased_any(None, true, size, secs, FRAME);
+        assert!((g - (1.0 + 0.15 / 0.5 / 60.0)).abs() < 1e-6, "{g}");
+        // every frame on, the whole way in half a second (30 frames), then held
+        let mut g = 1.0;
+        let mut prev = None;
+        for _ in 0..31 {
+            g = eased_any(prev, true, size, secs, FRAME);
+            prev = Some((g, FRAME));
+        }
+        assert_eq!(g, size);
+        // the buff over: back at the same pace; no buff and no record: plain
+        let down = eased_any(Some((size, 0.1)), false, size, secs, FRAME);
+        assert!((down - (size - 0.03)).abs() < 1e-6, "{down}");
+        assert_eq!(eased_any(None, false, size, secs, FRAME), 1.0);
+        // a stale record (back on screen mid-way): straight at the size, as a hero's own form
+        assert_eq!(eased_any(Some((1.02, FORM_STALE + 0.1)), true, size, secs, FRAME), size);
+        // with a growth of his own: the larger of the two
+        assert_eq!(form_size(None, None), None);
+        assert_eq!(form_size(Some(1.0), None), Some(1.0));
+        assert_eq!(form_size(None, Some(1.15)), Some(1.15));
+        assert_eq!(form_size(Some(1.15), Some(1.15)), Some(1.15), "Volibear's storm form under Wild Growth: x1.15, not x1.32");
+        assert_eq!(form_size(Some(grown(0.30, 1)), Some(1.15)), Some(1.3), "Cho'Gath after a bite stays at his own x1.3");
+        assert_eq!(form_size(Some(1.0), Some(1.08)), Some(1.08));
     }
 
     #[test]

@@ -50,3 +50,7 @@
   （迷你模拟：站着被拉回、走出圈、闪现出圈、往剑魔那边走、小兵、野怪、韧性补推、剑魔阵亡、目标阵亡、重复调用、
   数据层给位置、找不到锁链；检查剑魔身上的标记在数据读的那一 tick 还在）。
 - 在 `addons/` 下 `cargo build --release -p league_aatrox_chain`（Windows）得到 `target/release/league_aatrox_chain.dll`。
+
+## 跟着主包：大灭的翅膀光环画面去掉（2026-11-14）
+
+主包的剑魔开大期间一直飘在空中（`league.dll` 的 LOOKS 表换上展开翅膀的悬停帧，`tools/art/hover_aatrox.py`），翅膀画在帧里，主包数据去掉了 `league_aatrox_r_look` 的光环画面（不然是两对翅膀）。副本跟着主包重新生成（`make_override.py`），只少了这一条画面；本包的代码和版本号没动。
