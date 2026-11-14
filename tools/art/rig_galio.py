@@ -26,6 +26,10 @@ then adds the hd_ / lo_ tags). Drawn at PPU 2.0 (76 squares crown to soles = 38 
 100 % and 1.5 squares a game pixel - the user, 2026-10-13: 「加里奥在局内看起来太小了」「而且在局内还是太高清了加里奥」
 (he was PPU 2.0 at 85 %), picked from sheets of 85-110 % and of 2.0 / 1.5 / 1.2 / 1 squares a game pixel (1 tried:
 「1太糊了 用1.5」).
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「动画你觉得少的地方就想办法补」): Hero's Entrance's take-off and its hover get frames made from Codex's own - the wings turned
+about where they leave his shoulders, the far wing above his crown waved by rows (INB), everything else of the picture
+checked unchanged.
 """
 import argparse
 import io
@@ -43,6 +47,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
 import design_galio_hd as DG  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import strips as G  # noqa: E402
 
@@ -562,6 +567,115 @@ def walk_frame(idle, near_step, far_step, rise):
     return np.roll(out, -rise, axis=0)
 
 
+# ------------------------------------------------------------------------------------------------ the in-betweens
+# 2026-11-14: Hero's Entrance's take-off was three drawings in 260 ms (r_wind 16 ticks: crouched, leaping with the wings
+# up, in the air with them spread) and the hover he holds through the channel (1.7 s) two drawings 120 ms each that
+# differ only in the wings' feathers. Codex drew no more. Made from its own frames: each wing turned about where it
+# leaves his shoulder (inbetween.spin, the root going in under the shoulder; a wing lies behind everything, so nothing
+# undrawn shows) - and the hover's far wing, whose root is behind his crown, waved by rows above the crown instead
+# (rows_wave). WINGS: (tag, drawn frame) -> {wing: (box (x0, y0, x1, y1) on the canvas, a square of the wing, the
+# point it turns about or ("rows", the row it stays on, its tip's row))}; the wing is its warm squares (gold, brown,
+# the feathers' deep brown) in the box, in the piece holding that square, with its outline up to 3 squares deep where
+# the outline does not edge the stone. INB: tag -> ([(drawn frame, {wing: degrees clockwise on screen | columns at the
+# tip}, rows the whole frame is lifted)], ms): the leap's wings 10 degrees on their way down to the spread, lifted 4 of
+# the 9 rows to the airborne frame; the spread wings 12 degrees on their way back up to the hover's; the hover beats
+# - wings out (near 8 degrees, far tip 5 columns), back, in (6 / 3) - 4 x 60, still 240 a loop.
+WING_PAD = 30
+WINGS = {
+    ("ult", 1): {"left": ((15, 3, 82, 86), (40, 40), (77, 75)), "right": ((100, 20, 150, 86), (130, 50), (106, 75))},
+    ("ult", 2): {"left": ((25, 18, 85, 86), (50, 45), (80, 73)), "right": ((108, 20, 168, 86), (140, 45), (114, 72))},
+    ("ult_loop", 0): {"far": ((80, 0, 106, 42), (95, 20), ("rows", 42, 8)),
+                      "near": ((112, 5, 160, 90), (130, 40), (121, 64))},
+    ("ult_loop", 1): {"far": ((80, 0, 106, 42), (95, 20), ("rows", 42, 8)),
+                      "near": ((112, 5, 160, 90), (130, 40), (121, 64))},
+}
+INB = {"ult": ([(0, {}, 0), (1, {}, 0), (1, {"left": -10, "right": 10}, 4), (2, {}, 0), (2, {"left": 12, "right": -12}, 0)],
+               [60, 50, 50, 50, 50]),
+       "ult_loop": ([(0, {}, 0), (0, {"far": -5, "near": 8}, 0), (1, {}, 0), (1, {"far": 3, "near": -6}, 0)],
+                    [60, 60, 60, 60])}
+
+
+def warm(a):
+    """The gold and brown squares (the wings, the crown, the trims; not the stone, not the outline)."""
+    rgb = a[..., :3].astype(int)
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    deep = (rgb.sum(-1) >= 70) & (r >= g) & (g >= b) & (r - b >= 10)        # the feathers' deep brown (44, 35, 30)
+    return (a[..., 3] > 0) & (((r > 90) & (r > b + 50)) | deep)
+
+
+def wing_mask(a, box, seed, depth=3):
+    """A wing on a canvas: its warm squares in box (x0, y0, x1, y1 incl.) in the piece holding seed (x, y), with the
+    outline round them `depth` squares deep where it does not edge the stone."""
+    x0, y0, x1, y1 = box
+    inb = np.zeros(a.shape[:2], bool)
+    inb[y0:y1 + 1, x0:x1 + 1] = True
+    lab, _ = ndimage.label(warm(a) & inb, structure=np.ones((3, 3)))
+    if not lab[seed[1], seed[0]]:
+        sys.exit(f"wing_mask: {seed} is not a wing square")
+    m = lab == lab[seed[1], seed[0]]
+    dark = (a[..., 3] > 0) & (a[..., :3].astype(int).sum(-1) < 70) & inb
+    stone = (a[..., 3] > 0) & ~warm(a) & ~dark
+    edge = ndimage.binary_dilation(stone, structure=IB.CROSS)
+    for _ in range(depth):
+        grow = ndimage.binary_dilation(m, structure=IB.CROSS) & dark & ~m & ~edge
+        if not grow.any():
+            break
+        m |= grow
+    return m
+
+
+def rows_wave(shape, y0, y1, k):
+    """The moves of a rising wing's sway (rig_aurelionsol's): its whole rows shifted sideways, nothing on row y0 and k
+    columns (negative: to the left) on row y1 at its tip, the rows past the tip going with it. -> (dx, dy) arrays."""
+    H, W = shape[:2]
+    dx = np.zeros((H, W), int)
+    for y in range(H):
+        t = min(max((y - y0) / (y1 - y0), 0.0), 1.0)
+        dx[y, :] = int(round(k * t))
+    return dx, np.zeros((H, W), int)
+
+
+def mask_runs(m):
+    """A mask as row runs (x0, y, x1, y), boxes for inbetween.vary."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut_ = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(p), y, int(q), y) for p, q in zip(np.r_[xs[0], xs[cut_ + 1]], np.r_[xs[cut_], xs[-1]])]
+    return out
+
+
+def winged(can, tag, i, turns, lift):
+    """A drawn canvas with its wings turned / waved (inbetween.vary: the rest checked unchanged), `lift` rows higher."""
+    if not turns and not lift:
+        return can.copy()
+    out = can
+    if turns:
+        spec = WINGS[(tag, i)]
+        parts = {w: mask_runs(wing_mask(can, spec[w][0], spec[w][1])) for w in turns}
+        spins, moves = [], []
+        for w, k in turns.items():
+            about = spec[w][2]
+            if about[0] == "rows":
+                moves.append((w, rows_wave(can.shape, about[1], about[2], k), "under"))
+            else:
+                spins.append((w, about, k, "under"))
+        big = IB.vary(can, parts, OUTLINE, moves=moves, spins=spins, pad=WING_PAD, name=f"{tag} {i} wings {turns}")
+        P = WING_PAD
+        inner = np.zeros(big.shape[:2], bool)
+        inner[P:-P, P:-P] = True
+        if (big[..., 3][~inner] > 0).any():
+            sys.exit(f"{tag} {i}: a turned wing leaves the canvas")
+        out = big[P:-P, P:-P].copy()
+    if lift:
+        if (out[:lift, :, 3] > 0).any():
+            sys.exit(f"{tag} {i}: lifted off the canvas")
+        out = np.roll(out, -lift, axis=0)
+    return out
+
+
 def actions():
     table, pal = lut()
     cells = json.load(open(os.path.join(CODEX, "cells.json"), encoding="utf-8"))
@@ -577,6 +691,9 @@ def actions():
            "run": [(pinholes(close_all(specks(walk_frame(idle, n_, f_, r_))), 2), WALK_MS) for n_, f_, r_ in WALK]}
     for tag in TAGS:
         out[tag] = [(frame(tag, f["index"] + 1, table, pal), f["ms"]) for f in sorted(by_tag[tag], key=lambda f: f["index"])]
+    for tag, (seq, ms_) in INB.items():                  # (the drawn frames, then the in-betweens made from them)
+        drawn = [c for c, _ in out[tag]]
+        out[tag] = [(winged(drawn[i], tag, i, turns, lift), m) for (i, turns, lift), m in zip(seq, ms_)]
     out["hit"] = [(on_canvas(d, dx=-2), 80.0), (on_canvas(d, dx=-1), 120.0)]
     return out
 
