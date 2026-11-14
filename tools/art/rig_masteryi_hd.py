@@ -7,6 +7,9 @@ whole-frame redraw of his old frame read onto it at the median of the zooms his 
 The old frames that repeat another (pack_masteryi_actions.SAME) take that drawing; idle_base is the design held still (the
 idle is hero_reels' reel of action snippets). Nothing is baked. The idle and the ban/pick card are cut from the actions
 by tools/art/hero_reels.py.
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+Alpha Strike and Highlander get frames made from their own pictures - the sword's blade turned about his grip (INB),
+everything else of the picture checked unchanged.
 
     python tools/art/rig_masteryi_hd.py --review DIR     # every tag at 3x + GIFs
     python tools/art/rig_masteryi_hd.py                  # orig strips + the 1x sheet
@@ -25,6 +28,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_masteryi_hd as CA  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pack_masteryi_actions as PK  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_rengar_hd as RG  # noqa: E402
@@ -86,6 +90,30 @@ def pad_for(D, casts):
     return left, right, top, 6
 
 
+# The in-betweens (2026-11-14: Alpha Strike was sword up, the low slash, sword up again - 200 ms, the kit's 12-tick
+# animation, its hit at the teleport -; Highlander up, the power stance, the crouch - 340 ms, the cast at 100): the
+# sword's blade (BLADE, a box in each picture's own squares, above the crossguard) turned about his grip (GRIP;
+# inbetween.spin, the blade's root going in under the hand) - on its way down from the guard to the low slash, settling
+# lower, rising back to the guard. INB: tag -> ([(picture, degrees the blade turns clockwise on screen)], ms): Alpha
+# Strike's slash now from 50 ms (60 before), Highlander's stance still from 100, the crouch from 210.
+VPAD = 30
+BLADE = {"skill_3": [(0, 0, 22, 43)], "ult_1": [(0, 0, 25, 48)], "ult_2": [(0, 34, 64, 47)], "ult_3": [(0, 38, 61, 56)]}
+GRIP = {"skill_3": (21, 46), "ult_1": (25, 51), "ult_2": (68, 41), "ult_3": (65, 44)}
+INB = {"skill": ([("skill_1", 0), ("skill_2", 0), ("skill_3", -40), ("skill_3", 0)], IB.spans((200, 4))),
+       "ult": ([("ult_1", 0), ("ult_1", -40), ("ult_2", 0), ("ult_2", -12), ("ult_3", 0), ("ult_3", 25)],
+               IB.spans((100, 2), (110, 2), (130, 2)))}
+
+
+def blade_turned(rig, casts, name, deg):
+    """A cast on the grid, its sword's blade turned `deg` (inbetween.vary: the rest checked unchanged)."""
+    d, x, y = casts[name]
+    if deg:
+        d = IB.vary(d, {"blade": BLADE[name]}, tuple(int(v) for v in rig.D.outline),
+                    spins=[("blade", GRIP[name], deg, "under")], pad=VPAD, name=f"{name} blade {deg}")
+        x, y = x - VPAD, y - VPAD
+    return RG.on_grid(rig, d, x, y)
+
+
 def frames(rig, casts):
     sheet = R.sheet_of(HERO)
     out = {}
@@ -95,6 +123,9 @@ def frames(rig, casts):
         ms = [m for _, m in sheet[tag]]
         if tag == "idle_base":
             fr = [RG.on_grid(rig, rig.D.d0, 0, 0) for _ in ms]             # (held still: the design)
+        elif tag in INB:
+            seq, ms = INB[tag]
+            fr = [blade_turned(rig, casts, n, deg) for n, deg in seq]
         else:
             fr = []
             for k in range(1, len(ms) + 1):
