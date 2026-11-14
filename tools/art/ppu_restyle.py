@@ -675,7 +675,10 @@ RESTYLE = {
     # 2026-11-11: 85 % in game (「亚恒模型在局内偏大了」, hd.rs SIZES): 11.5 x 1.75 x (1 / 0.85 - 1) = 3.6 -> 4 squares
     # lower; the face point x 0.85 from the soles (1, -41 -> -35). Written by moving his committed strips 4 rows down
     # (this table's other steps now close more pinholes than when they were made), so a rerun lands them here too
-    "zaahen": dict(ppu=1.75, edge=1, pinholes=True, lift_sq=-4, face_to=(1, -35)),
+    # 2026-11-14: that move kept every frame's size and moved its picture 4 rows down inside it; lift_sq moves the
+    # pivot before the frame is sized, so a rerun came out up to 2 rows shorter and shifted: drop_sq does the move
+    # itself (after the frame is sized), and the pipeline reproduces the committed strips byte for byte
+    "zaahen": dict(ppu=1.75, edge=1, pinholes=True, drop_sq=4, face_to=(1, -35)),
     # Lee Sin (2026-10-26, 「下一个英雄重做盲僧」): Codex's picture traced from his sprite read on its own squares (68 x 86,
     # design_leesin_hd.py: 86 rows / 2.1 = his 41); every action Codex's whole-frame redraw of his old frame read onto
     # the design at the zoom his head gives (tools/art/casts_leesin_hd.py), so no density change
@@ -1972,10 +1975,22 @@ def restyle(hero, spec, write=True, only=None):
 EXACT = ("idle", "idle_base")
 
 
+def dropped(f, n):
+    """A sized frame's picture moved n rows down inside it (drop_sq: league_zaahen's 85 %, done on his committed strips
+    by hand on 2026-11-11); a picture that would lose a row at the bottom gets n clear rows more at both ends first,
+    so its pivot stays the frame's centre."""
+    if (f[-n:, :, 3] > 0).any():
+        f = np.pad(f, ((n, n), (0, 0), (0, 0)))
+    out = np.zeros_like(f)
+    out[n:] = f[:-n]
+    return out
+
+
 def framed(hero, out, sheet, new_ppu):
     """The restyled frames on their frames (the 1x idle padded where the idle needs more width). -> ({tag: frames},
     pad columns)."""
     k = new_ppu
+    drop = RESTYLE.get(hero, {}).get("drop_sq", 0)
     pad = 0
     while True:
         ok, res = True, {}
@@ -1990,6 +2005,8 @@ def framed(hero, out, sheet, new_ppu):
                 if f is None:
                     ok = False
                     break
+                if drop:
+                    f = dropped(f, drop)
                 frames.append((f, ms))
             if not ok:
                 break
