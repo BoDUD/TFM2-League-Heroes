@@ -35,8 +35,10 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
-# champion_view (10-18 slim redo): face (4, -31) under the crown, banpick -8 (bp_card_audit rule, the gun now held lower)
-VIEW = {"face": {"x": -1, "y": -37}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
+# champion_view (10-18 slim redo): face (4, -31) under the crown, banpick -8 (bp_card_audit rule, the gun now held lower);
+# face (-1, -37) since 11-08, (1, -35) since 2026-11-14: his frames at their own 1.61 show the eye squares themselves,
+# 17.7 game px over the pivot at x 0.3 and 2.8 - on rows 4-5 of the portrait's 9 x 9 box, between the eyes
+VIEW = {"face": {"x": 1, "y": -35}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phys(d, r):

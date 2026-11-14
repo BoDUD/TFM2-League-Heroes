@@ -2,8 +2,8 @@
 """Akshan's and Wukong's actions from Codex's skin-swap frames (assets/source/<hero>/hd/act/<tag>_<i>.png,
 tools/art/import_swap_1018.py; the user approved them 2026-10-18: 「三套都可以，接进游戏」) exported like a rig: each frame on
 the hero's canvas with its soles on the ground row and its hips over the design's standing column, then ppu_rig's export
-(orig strips at the design's own density + the 1x sheet with each tag's timing). ppu_restyle (RESTYLE ppu 1.2) and ppu_hd
-take it from there.
+(orig strips at the design's own density + the 1x sheet with each tag's timing). ppu_restyle (RESTYLE: both at their
+frames' own density - Wukong 1.53 since 2026-10-29, Akshan 1.61 since 2026-11-14, the eyes) and ppu_hd take it from there.
 
     python tools/art/rig_frames_1018.py akshan|wukong [--review DIR]
 
@@ -66,8 +66,8 @@ DEAD = [("dead_0", 100), ("dead_1", 110), ("dead_2", 120), ("dead_3", 120), ("de
 # Akshan's in-betweens (2026-11-14: E's swing and R's channel, the loops the kit plays after the 0.14 s hook throw and
 # aim, were two drawings each): op parts / sway - the cape streaming off his back (the swing) and the coat tail flaring
 # at his far side (the channel) waved by whole columns, nothing where it leaves him, the tip 5 rows: the cape on its way
-# down to the next drawing's lower cape and back up after it, the coat tail fluttering (5 squares here: the restyle
-# to PPU 1.2 makes them 4). Each loop's halves keep their
+# down to the next drawing's lower cape and back up after it, the coat tail fluttering (5 squares, in the game as they
+# are: his frames go in at their own 1.61 since 2026-11-14). Each loop's halves keep their
 # milliseconds (115 / 160); the hook throw and the aim themselves (`skill2`, `ult`: 140 ms, the kit's 8-tick animations)
 # stay two frames - a third would be under 50 ms.
 VPAD = 30
