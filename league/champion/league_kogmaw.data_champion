@@ -208,7 +208,7 @@
                                                         {
                                                           "type": "TargetProjectile",
                                                           "name": "league_kogmaw_p_form",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyChampion",
                                                           "applied_effects": [
@@ -231,7 +231,7 @@
                                                         {
                                                           "type": "TargetSplashProjectile",
                                                           "name": "league_kogmaw_p_burst",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "range": 12000,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyWithoutTower",
@@ -764,7 +764,7 @@
                                                         {
                                                           "type": "TargetProjectile",
                                                           "name": "league_kogmaw_p_form",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyChampion",
                                                           "applied_effects": [
@@ -787,7 +787,7 @@
                                                         {
                                                           "type": "TargetSplashProjectile",
                                                           "name": "league_kogmaw_p_burst",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "range": 12000,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyWithoutTower",
@@ -1160,7 +1160,7 @@
                                                         {
                                                           "type": "TargetProjectile",
                                                           "name": "league_kogmaw_p_form",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyChampion",
                                                           "applied_effects": [
@@ -1183,7 +1183,7 @@
                                                         {
                                                           "type": "TargetSplashProjectile",
                                                           "name": "league_kogmaw_p_burst",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "range": 12000,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyWithoutTower",
@@ -1981,7 +1981,7 @@
                                                         {
                                                           "type": "TargetProjectile",
                                                           "name": "league_kogmaw_p_form",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyChampion",
                                                           "applied_effects": [
@@ -2004,7 +2004,7 @@
                                                         {
                                                           "type": "TargetSplashProjectile",
                                                           "name": "league_kogmaw_p_burst",
-                                                          "speed": 1800,
+                                                          "speed": 1100,
                                                           "range": 12000,
                                                           "y_offset": 5000,
                                                           "applied_target": "EnemyWithoutTower",
