@@ -358,6 +358,10 @@ def raw_rects(e, n, W, H, alpha):
     for k in YBAND_KEYS:
         if _numbers(e.get(k), 2):
             y0, y1 = e[k]
+    if alpha[int(y0):int(y1)].shape[0] == 0:   # a band the raw does not hold (Naafiri's [-2, 720], 2026-11-14): kept
+        y0, y1 = max(0, y0), min(H, y1)        # inside it - such a band only ever crashed below, no sheet changes
+        if int(y1) <= int(y0):
+            y0, y1 = 0, H
     ways.append([(k * W / n, y0, (k + 1) * W / n, y1) for k in range(n)])
     # the drawings side by side with clear gaps between them
     cols = np.nonzero(alpha[int(y0):int(y1)].max(0) >= FG)[0]
