@@ -372,7 +372,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
-| <img src="docs/heroes/img/league_akshan.png" width="32"> | [阿克尚](docs/heroes/league_akshan.md)<br>Akshan | ADC | 去而复还 · 骄行荡寇 · 大招 恩怨相抵 | [阿克尚扩展包](addons/league_akshan/README.md) | PPU 1.2 |
+| <img src="docs/heroes/img/league_akshan.png" width="32"> | [阿克尚](docs/heroes/league_akshan.md)<br>Akshan | ADC | 去而复还 · 骄行荡寇 · 大招 恩怨相抵 | [阿克尚扩展包](addons/league_akshan/README.md) | PPU 1.61 |
 | <img src="docs/heroes/img/league_aphelios.png" width="32"> | [厄斐琉斯](docs/heroes/league_aphelios.md)<br>Aphelios | ADC | 武器技能 · 月相轮转 · 大招 清辉夜凝 | [厄斐琉斯附加包](addons/league_aphelios/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_ashe.png" width="32"> | [艾希](docs/heroes/league_ashe.md)<br>Ashe | ADC | 被动 冰霜射击 · 射手的专注 · 万箭齐发 · 大招 魔法水晶箭 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_caitlyn.png" width="32"> | [凯特琳](docs/heroes/league_caitlyn.md)<br>Caitlyn | ADC | 被动 爆头 · 和平使者 · 约德尔诱捕器 · 大招 让子弹飞 | [凯特琳附加包](addons/league_caitlyn/README.md) | PPU 1.45 |
