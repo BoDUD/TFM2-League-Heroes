@@ -805,15 +805,20 @@ impl Prophet {
             match ev {
                 Event::NoUnit { .. } => {}
                 Event::Look { id, n, line } => {
-                    let spot = self.b.flock.get(id).map_or((0.0, 0.0), |m| m.unit.at);
+                    let (spot, born) = self.b.flock.get(id).map_or(((0.0, 0.0), tick), |m| (m.unit.at, m.unit.born));
+                    // the live game (2026-11-14): what is done to a unit on its spawn tick may be overwritten - still seen
+                    // while it rises: banished again for the rest of the rise
+                    let hide = (born + RISE_T).saturating_sub(tick);
+                    let again = hide > 1 && sim.get_entity(id).is_some_and(|e| e.is_targetable()) && sim.entity_banish(me, id, hide - 1, "", "");
                     let t = self.tentacles.iter_mut().filter(|t| t.unit.is_none() && t.until > tick)
                         .min_by(|a, b| dist(a.pos, spot).total_cmp(&dist(b.pos, spot)))
                         .filter(|t| dist(t.pos, spot) <= 3_000.0);
                     let linked = t.map(|t| t.unit = Some(id)).is_some();
                     let wall = self.walls.as_ref().is_some_and(|w| w.is_wall(spot.0, spot.1));
                     if let Some(k) = tally(sim, "body look") {
-                        wlog(format!("{} TENTACLE #{n} LOOK #{k}: {line}; in a wall cell: {}{}", head(sim, me), if wall { "YES" } else { "no" },
-                                     if linked { "" } else { " - NO tentacle of hers stands there: it only stands" }));
+                        wlog(format!("{} TENTACLE #{n} LOOK #{k}: {line}; in a wall cell: {}{}{}", head(sim, me), if wall { "YES" } else { "no" },
+                                     if linked { "" } else { " - NO tentacle of hers stands there: it only stands" },
+                                     if again { format!(" - targetable while it rises: banished again for {} ticks", hide - 1) } else { String::new() }));
                     }
                 }
                 Event::Lost { id, why, .. } => {
