@@ -11,10 +11,10 @@
       "version": ">=0.94.0"
     }
   ],
-  "description": "Test build of Nautilus's Dredge Line hooking walls as in League (needs League of Legends Heroes): replaces the main pack's Nautilus so an anchor that strikes a jungle wall before any enemy champion pulls him to the wall and gives back half of Q's cooldown. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-06",
+  "description": "Test build of Nautilus's Dredge Line hooking walls as in League (needs League of Legends Heroes): replaces the main pack's Nautilus so an anchor that strikes a jungle wall before any enemy champion pulls him to the wall and gives back half of Q's cooldown. Staggering Blow's 6-second rest is each champion's, as in League (the main pack's is his own: one root every 6 s). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_nautilus",
   "mod_type": "native",
   "name": "League Heroes: Nautilus's Dredge Line hooks walls (test)",
-  "version": "0.1.7"
+  "version": "0.1.8"
 }

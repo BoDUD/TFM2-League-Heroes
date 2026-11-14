@@ -19,6 +19,13 @@
 //!   峡谷作者的墙体文件（`terrain::rift_walls`，295 x 296 格、每格 60000/11），没有文件时峡谷上不知道哪里有墙，就不钩墙
 //!   （以前把 960000 以外都当成内置地图的格子外：峡谷的远半边一面墙也钩不到，近半边钩的是内置地图的墙）。
 //!
+//! 排山倒海每个英雄各算 6 秒（0.1.8，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟 "This
+//! effect cannot occur on the same target more than once every few seconds"（每个目标 6 秒）。主包的数据读不到目标身上的
+//! 标记，冷却算在他自己身上（定住一个人后 6 秒内谁都不定）。副本（build_nautilus.py 的 native=1）里普攻打中英雄的那一下
+//! （主包的英雄替身）先调用原生效果 `league_nautilus:stagger`：这个英雄 `P_REST_T` tick 内没被定过（身上没有 `P_REST`），或
+//! 诺提勒斯身上有 Q 的连招标记 `q_land`（钩中的人下一下普攻必定住，用户要的连招），就给他挂 `P_REST`、给诺提勒斯挂 3 tick 的
+//! `P_GO`；数据当 tick（读不到就下一 tick）读到它才定住、补伤害。还是只对英雄（小兵、野怪照主包不定）。
+//!
 //! 数字从英雄数据的 `passive.params` 来不了（这一招没有被动），所以和主包 P 表的值写在这里（`Q_*`），主包改了这里一起改
 //! （`tests::the_numbers_match_the_kit` 读主包的数据核对）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_nautilus.log`，每次启动游戏重写。
@@ -51,6 +58,13 @@ fn nt(x: &str) -> String {
 }
 
 // ===================== 数值（主包 build_nautilus.P） =====================
+
+/// 排山倒海：副本调用的原生效果；英雄身上「定过了」的标记和它留多久（主包 P 的 `p_cd`，测试核对）；给数据读的旗子。
+pub const STAGGER: &str = "league_nautilus:stagger";
+pub const P_REST: &str = "league_nautilus_p_rest";
+pub const P_REST_T: usize = 360;
+pub const P_GO: &str = "league_nautilus_p_go";
+pub const P_GO_T: usize = 3;
 
 /// 墙格的边长（世界单位）。
 pub const CELL: f64 = 32_000.0;
@@ -502,6 +516,53 @@ enum Step {
     Watch,
 }
 
+// ===================== 排山倒海：每个英雄各算 =====================
+
+/// 这一下定不定：这个英雄没在 `P_REST` 里（`rested` 否），或 Q 的连招（`q_land`）。
+pub fn staggers(rested: bool, q_land: bool) -> bool {
+    q_land || !rested
+}
+
+static STAGGER_LINES: AtomicU64 = AtomicU64::new(0);
+
+fn stagger(sim: &mut StableSim<'_>, naut: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        return;
+    }
+    let target = input.target_id;
+    let has = |sim: &StableSim<'_>, id: usize, name: &str| {
+        sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+    };
+    if !sim.get_entity(target).is_some_and(|e| e.is_alive()) {
+        return;
+    }
+    let rested = has(sim, target, P_REST);
+    let q_land = has(sim, naut, &nt("q_land"));
+    let go = staggers(rested, q_land);
+    if go {
+        sim.entity_remove_buff(target, P_REST);
+        sim.add_buff(target, &BuffV1::timed(P_REST, P_REST_T));
+        sim.entity_remove_buff(naut, P_GO);
+        sim.add_buff(naut, &BuffV1::timed(P_GO, P_GO_T));
+    }
+    let n = STAGGER_LINES.fetch_add(1, Ordering::Relaxed) + 1;
+    let shown = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    if shown || n <= 40 || n % 100 == 0 {
+        let what = if !go { "rested, no root" } else if rested { "the Q combo: rooted though rested" } else { "rooted" };
+        wlog(format!("{} STAGGER #{n} on #{target}: {what}", head(sim, naut)));
+    }
+}
+
+struct Stagger;
+
+impl StableEffectType for Stagger {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        stagger(sim, caster, input);
+    }
+}
+
 struct Stage(Step);
 
 impl StableEffectType for Stage {
@@ -520,7 +581,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back; an enemy champion before the wall is the data's catch) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back; an enemy champion before the wall is the data's catch; Staggering Blow rests on each champion) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -530,6 +591,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:hook"), Stage(Step::Hook));
     module.add_native_effect(format!("{ID}:pull"), Stage(Step::Pull));
     module.add_native_effect(format!("{ID}:watch"), Stage(Step::Watch));
+    module.add_native_effect(STAGGER, Stagger);
     host.log(LogLevel::Info, "league_nautilus v1 loaded (Nautilus's Dredge Line hooks walls).");
 }
 
@@ -675,6 +737,29 @@ mod tests {
             assert!(src.contains(&format!("\"{key}\": {}", v as u64)), "{key} is not {v} in build_nautilus.P");
         }
         assert!(src.contains(&format!("\"q_anim\": {Q_ANIM}")));
+        assert!(src.contains(&format!("\"p_cd\": {P_REST_T}")), "p_cd is not P_REST_T in build_nautilus.P");
+    }
+
+    /// League: once per target every 6 s; Q's combo (the hooked champion rooted by the next attack) whatever its rest.
+    #[test]
+    fn staggering_blow_rests_on_each_champion() {
+        assert!(staggers(false, false));
+        assert!(!staggers(true, false));
+        assert!(staggers(true, true));
+        assert!(staggers(false, true));
+        for x in [P_REST, P_GO] {
+            assert!(x.len() <= BUFF_NAME_CAP, "{x}");
+        }
+    }
+
+    /// The copy: the champion twin asks the add-on, the root reads `P_GO` (in the tick and a tick later), no rest on him.
+    #[test]
+    fn the_copy_roots_by_the_targets_rest() {
+        let copy = include_str!("../override/league_nautilus.data_champion");
+        assert_eq!(copy.matches(&format!("\"effect_ref\": \"{STAGGER}\"")).count(), 1);
+        assert_eq!(copy.matches(&format!("\"buff_name\": \"{P_GO}\"")).count(), 2);
+        assert!(!copy.contains("\"league_nautilus_p_cd\""), "the copy still rests on him");
+        assert!(copy.contains("\"type\": \"Bind\""), "the root is the data's");
     }
 
     #[test]

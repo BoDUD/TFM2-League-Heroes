@@ -7,6 +7,10 @@ champion in reach; the passive in the main pack; a native add-on for Q on a wall
   passive Staggering Blow (排山倒海): his attack on an enemy champion roots it p_root ticks and deals p_dmg + p_ratio% AP
           more, then rests p_cd ticks (League: once per champion every 6 s; the data reads no buff on a target, so the
           rest is his). Champions only: a champion-only twin of the attack (league_viego's) carries it.
+          native=1 (addons/league_nautilus, 2026-11-14, the user's 「全改吧」): the rest is each champion's, as in League.
+          The twin asks the add-on first (league_nautilus:stagger: that champion rested p_cd ticks, or Q's q_land combo
+          -> the flag p_go on him and a new rest on it); the root reads p_go in the hit's tick and, if it was not
+          there yet, a tick later. No p_cd on him in the copy.
   attack  The anchor swung, the hit a_st ticks in (the strip's swing frame 4).
   skill   Q Dredge Line (疏通航道): a `Direction` cast on `EnemyChampion` (q_range): on tick q_at the anchor flies
           (q_speed, q_reach) to the first enemy champion, past minions and monsters (q_block 0; League's anchor
@@ -214,9 +218,19 @@ def build(p):
     # the root rides a champion-only twin of the swing: a minion or a monster struck sets nothing off
     staggering = homing("p_twin", 100000, 0, "EnemyChampion", root)
     wrath = around(p["w_r"], "EnemyWithoutTower", [magic(p["w_dmg"], p["w_ratio"]), view("w_hit")])
-    swing = combine(sfx("a_swing"), attack(0, 100), view("a_hit"), tsfx("a_hit"),
-                    sw("q_land", staggering, sw("p_cd", NONE, staggering)),
-                    sw("w_on", wrath))
+    if p["native"]:
+        # each champion's own rest (the add-on's), the root on its flag
+        def root_go():
+            return combine(*rm("p_go"), {"type": "Bind", "duration": p["p_root"]}, buff("p_root", p["p_root"]),
+                           magic(p["p_dmg"], p["p_ratio"]), view("p_hit"), tsfx("p"), on_me(*rm("q_land")))
+        per_target = homing("p_twin", 100000, 0, "EnemyChampion",
+                            [{"type": "Native", "effect_ref": "league_nautilus:stagger"},
+                             sw("p_go", root_go(), delayed(1, sw("p_go", root_go())))])
+        swing = combine(sfx("a_swing"), attack(0, 100), view("a_hit"), tsfx("a_hit"), per_target, sw("w_on", wrath))
+    else:
+        swing = combine(sfx("a_swing"), attack(0, 100), view("a_hit"), tsfx("a_hit"),
+                        sw("q_land", staggering, sw("p_cd", NONE, staggering)),
+                        sw("w_on", wrath))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy", swing,
                       atype="BaseAttack", cancel=True)
 
