@@ -268,9 +268,29 @@
                                               "type": "SwitchByBuff",
                                               "buff_name": "league_yorick_g3",
                                               "effect_buff": {
-                                                "type": "CasterAnimation",
-                                                "name": "awaken",
-                                                "tick": 30
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "CasterAnimation",
+                                                    "name": "awaken",
+                                                    "tick": 30
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_yorick_k_unit"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_yorick_k_ask",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 3
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
                                               },
                                               "effect_none": {
                                                 "type": "CasterAnimation",
@@ -445,74 +465,87 @@
                                                                         {
                                                                           "casting_type": "Targeting",
                                                                           "effect": {
-                                                                            "type": "Combine",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Combine",
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "RemoveCasterBuff",
-                                                                                    "name": "league_yorick_k_on"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "AddCasterBuff",
-                                                                                    "buff_state": {
-                                                                                      "name": "league_yorick_k_on",
-                                                                                      "duration": {
-                                                                                        "Time": {
-                                                                                          "tick": 360
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_yorick_k_unit",
+                                                                            "effect_buff": {
+                                                                              "type": "Combine",
+                                                                              "effects": []
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_yorick_k_on"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_yorick_k_on",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 360
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          "only_to_enemy": false
                                                                                         }
-                                                                                      }
+                                                                                      ]
                                                                                     },
-                                                                                    "only_to_enemy": false
-                                                                                  }
-                                                                                ]
-                                                                              },
-                                                                              {
-                                                                                "type": "ViewEffect",
-                                                                                "name": "league_yorick_k_spawn"
-                                                                              },
-                                                                              {
-                                                                                "type": "TargetSfx",
-                                                                                "name": "league_yorick_k_spawn"
-                                                                              },
-                                                                              {
-                                                                                "type": "AddCasted",
-                                                                                "casted_type": "Fire",
-                                                                                "duration": 360,
-                                                                                "period": 60,
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "Attack",
-                                                                                    "damage": 27,
-                                                                                    "attack_ratio": 39,
-                                                                                    "hp_ratio": 0,
-                                                                                    "target_hp_ratio": 0,
-                                                                                    "attack_effect_type": "Target"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "ViewEffect",
-                                                                                    "name": "league_yorick_k_bite"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "TargetSfx",
-                                                                                    "name": "league_yorick_k_bite"
-                                                                                  }
-                                                                                ]
-                                                                              },
-                                                                              {
-                                                                                "type": "AddCasted",
-                                                                                "casted_type": "Heal",
-                                                                                "duration": 360,
-                                                                                "period": 60,
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "ViewEffect",
-                                                                                    "name": "league_yorick_k_swarm"
-                                                                                  }
-                                                                                ]
-                                                                              }
-                                                                            ]
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_yorick_k_spawn"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_yorick_k_spawn"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddCasted",
+                                                                                      "casted_type": "Fire",
+                                                                                      "duration": 360,
+                                                                                      "period": 60,
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "Attack",
+                                                                                          "damage": 27,
+                                                                                          "attack_ratio": 39,
+                                                                                          "hp_ratio": 0,
+                                                                                          "target_hp_ratio": 0,
+                                                                                          "attack_effect_type": "Target"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_yorick_k_bite"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "TargetSfx",
+                                                                                          "name": "league_yorick_k_bite"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddCasted",
+                                                                                      "casted_type": "Heal",
+                                                                                      "duration": 360,
+                                                                                      "period": 60,
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_yorick_k_swarm"
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
                                                                           }
                                                                         },
                                                                         {
@@ -1047,6 +1080,17 @@
                                                                             "only_to_enemy": false
                                                                           }
                                                                         ]
+                                                                      },
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_yorick_e_ask",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 3
+                                                                            }
+                                                                          }
+                                                                        }
                                                                       }
                                                                     ]
                                                                   }
@@ -1344,9 +1388,29 @@
                 "type": "SwitchByBuff",
                 "buff_name": "league_yorick_g3",
                 "effect_buff": {
-                  "type": "CasterAnimation",
-                  "name": "awaken",
-                  "tick": 30
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "awaken",
+                      "tick": 30
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_yorick_k_unit"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_yorick_k_ask",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      }
+                    }
+                  ]
                 },
                 "effect_none": {
                   "type": "CasterAnimation",
@@ -1521,74 +1585,87 @@
                                           {
                                             "casting_type": "Targeting",
                                             "effect": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_yorick_k_on"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_yorick_k_on",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 360
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_yorick_k_unit",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_yorick_k_on"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_yorick_k_on",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 360
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
                                                           }
-                                                        }
+                                                        ]
                                                       },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_yorick_k_spawn"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_yorick_k_spawn"
-                                                },
-                                                {
-                                                  "type": "AddCasted",
-                                                  "casted_type": "Fire",
-                                                  "duration": 360,
-                                                  "period": 60,
-                                                  "effects": [
-                                                    {
-                                                      "type": "Attack",
-                                                      "damage": 27,
-                                                      "attack_ratio": 39,
-                                                      "hp_ratio": 0,
-                                                      "target_hp_ratio": 0,
-                                                      "attack_effect_type": "Target"
-                                                    },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_yorick_k_bite"
-                                                    },
-                                                    {
-                                                      "type": "TargetSfx",
-                                                      "name": "league_yorick_k_bite"
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "AddCasted",
-                                                  "casted_type": "Heal",
-                                                  "duration": 360,
-                                                  "period": 60,
-                                                  "effects": [
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_yorick_k_swarm"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_yorick_k_spawn"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_yorick_k_spawn"
+                                                      },
+                                                      {
+                                                        "type": "AddCasted",
+                                                        "casted_type": "Fire",
+                                                        "duration": 360,
+                                                        "period": 60,
+                                                        "effects": [
+                                                          {
+                                                            "type": "Attack",
+                                                            "damage": 27,
+                                                            "attack_ratio": 39,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_yorick_k_bite"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_yorick_k_bite"
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "AddCasted",
+                                                        "casted_type": "Heal",
+                                                        "duration": 360,
+                                                        "period": 60,
+                                                        "effects": [
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_yorick_k_swarm"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
                                             }
                                           },
                                           {
@@ -2166,6 +2243,17 @@
                                               "only_to_enemy": false
                                             }
                                           ]
+                                        },
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_yorick_e_ask",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 3
+                                              }
+                                            }
+                                          }
                                         }
                                       ]
                                     }
@@ -2404,9 +2492,29 @@
                                               "type": "SwitchByBuff",
                                               "buff_name": "league_yorick_g3",
                                               "effect_buff": {
-                                                "type": "CasterAnimation",
-                                                "name": "awaken",
-                                                "tick": 30
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "CasterAnimation",
+                                                    "name": "awaken",
+                                                    "tick": 30
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_yorick_k_unit"
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_yorick_k_ask",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 3
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
                                               },
                                               "effect_none": {
                                                 "type": "CasterAnimation",
@@ -2581,74 +2689,87 @@
                                                                         {
                                                                           "casting_type": "Targeting",
                                                                           "effect": {
-                                                                            "type": "Combine",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Combine",
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "RemoveCasterBuff",
-                                                                                    "name": "league_yorick_k_on"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "AddCasterBuff",
-                                                                                    "buff_state": {
-                                                                                      "name": "league_yorick_k_on",
-                                                                                      "duration": {
-                                                                                        "Time": {
-                                                                                          "tick": 360
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_yorick_k_unit",
+                                                                            "effect_buff": {
+                                                                              "type": "Combine",
+                                                                              "effects": []
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_yorick_k_on"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_yorick_k_on",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 360
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          "only_to_enemy": false
                                                                                         }
-                                                                                      }
+                                                                                      ]
                                                                                     },
-                                                                                    "only_to_enemy": false
-                                                                                  }
-                                                                                ]
-                                                                              },
-                                                                              {
-                                                                                "type": "ViewEffect",
-                                                                                "name": "league_yorick_k_spawn"
-                                                                              },
-                                                                              {
-                                                                                "type": "TargetSfx",
-                                                                                "name": "league_yorick_k_spawn"
-                                                                              },
-                                                                              {
-                                                                                "type": "AddCasted",
-                                                                                "casted_type": "Fire",
-                                                                                "duration": 360,
-                                                                                "period": 60,
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "Attack",
-                                                                                    "damage": 27,
-                                                                                    "attack_ratio": 39,
-                                                                                    "hp_ratio": 0,
-                                                                                    "target_hp_ratio": 0,
-                                                                                    "attack_effect_type": "Target"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "ViewEffect",
-                                                                                    "name": "league_yorick_k_bite"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "TargetSfx",
-                                                                                    "name": "league_yorick_k_bite"
-                                                                                  }
-                                                                                ]
-                                                                              },
-                                                                              {
-                                                                                "type": "AddCasted",
-                                                                                "casted_type": "Heal",
-                                                                                "duration": 360,
-                                                                                "period": 60,
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "ViewEffect",
-                                                                                    "name": "league_yorick_k_swarm"
-                                                                                  }
-                                                                                ]
-                                                                              }
-                                                                            ]
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_yorick_k_spawn"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_yorick_k_spawn"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddCasted",
+                                                                                      "casted_type": "Fire",
+                                                                                      "duration": 360,
+                                                                                      "period": 60,
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "Attack",
+                                                                                          "damage": 27,
+                                                                                          "attack_ratio": 39,
+                                                                                          "hp_ratio": 0,
+                                                                                          "target_hp_ratio": 0,
+                                                                                          "attack_effect_type": "Target"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_yorick_k_bite"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "TargetSfx",
+                                                                                          "name": "league_yorick_k_bite"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddCasted",
+                                                                                      "casted_type": "Heal",
+                                                                                      "duration": 360,
+                                                                                      "period": 60,
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_yorick_k_swarm"
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
                                                                           }
                                                                         },
                                                                         {
@@ -3183,6 +3304,17 @@
                                                                             "only_to_enemy": false
                                                                           }
                                                                         ]
+                                                                      },
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_yorick_e_ask",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 3
+                                                                            }
+                                                                          }
+                                                                        }
                                                                       }
                                                                     ]
                                                                   }
@@ -3336,130 +3468,131 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "ViewEffect",
-                                  "name": "league_yorick_r_spawn"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "league_yorick_r_spawn"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_yorick_k_on"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_yorick_k_on",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yorick_m_unit",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_yorick_r_spawn"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_yorick_r_spawn"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_yorick_k_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_yorick_k_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 360
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
-                                            }
+                                            ]
                                           },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_yorick_k_spawn"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_yorick_k_spawn"
-                                    },
-                                    {
-                                      "type": "AddCasted",
-                                      "casted_type": "Fire",
-                                      "duration": 360,
-                                      "period": 60,
-                                      "effects": [
-                                        {
-                                          "type": "Attack",
-                                          "damage": 18,
-                                          "attack_ratio": 26,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_yorick_k_bite"
-                                        },
-                                        {
-                                          "type": "TargetSfx",
-                                          "name": "league_yorick_k_bite"
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "AddCasted",
-                                      "casted_type": "Heal",
-                                      "duration": 360,
-                                      "period": 60,
-                                      "effects": [
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_yorick_k_swarm"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Fire",
-                                  "duration": 600,
-                                  "period": 60,
-                                  "effects": [
-                                    {
-                                      "type": "Attack",
-                                      "damage": 20,
-                                      "attack_ratio": 45,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_yorick_r_claw"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_yorick_r_claw"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Heal",
-                                  "duration": 600,
-                                  "period": 60,
-                                  "effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_yorick_r_maiden"
-                                    }
-                                  ]
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_yorick_k_spawn"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "league_yorick_k_spawn"
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Fire",
+                                            "duration": 360,
+                                            "period": 60,
+                                            "effects": [
+                                              {
+                                                "type": "Attack",
+                                                "damage": 18,
+                                                "attack_ratio": 26,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yorick_k_bite"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yorick_k_bite"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Heal",
+                                            "duration": 360,
+                                            "period": 60,
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yorick_k_swarm"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "AddCasted",
+                                        "casted_type": "Fire",
+                                        "duration": 600,
+                                        "period": 60,
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 20,
+                                            "attack_ratio": 45,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_yorick_r_claw"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "league_yorick_r_claw"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "AddCasted",
+                                        "casted_type": "Heal",
+                                        "duration": 600,
+                                        "period": 60,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_yorick_r_maiden"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 }
                               },
                               {
@@ -3535,6 +3668,21 @@
               ]
             }
           ]
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_yorick_m_unit"
+        },
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_yorick_m_ask",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          }
         }
       ]
     }

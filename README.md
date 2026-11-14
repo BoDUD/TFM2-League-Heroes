@@ -238,7 +238,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_urgot.png" width="32"> | [厄加特](docs/heroes/league_urgot.md)<br>Urgot | 上单 | 腐蚀电荷 · 鄙弃 · 大招 超越死亡的恐惧 | [厄加特附加包](addons/league_urgot/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_vladimir.png" width="32"> | [弗拉基米尔](docs/heroes/league_vladimir.md)<br>Vladimir | 上单 | 被动 血色契约 · 鲜血转换 · 血之潮汐 · 大招 血之瘟疫 | [弗拉基米尔残血血池附加包](addons/league_vladimir_pool/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_volibear.png" width="32"> | [沃利贝尔](docs/heroes/league_volibear.md)<br>Volibear | 上单 | 擂首一击 · 霹天雳地 · 大招 天声震落 | [沃利贝尔附加包](addons/league_volibear/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包](addons/league_yorick/README.md) | PPU 1.75 |
+| <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包：坟照英雄联盟挖、雾行者和室女是真的单位](addons/league_yorick/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_zaahen.png" width="32"> | [亚恒](docs/heroes/league_zaahen.md)<br>Zaahen | 上单 | 暗裔长刀 · 厄影回锋 · 大招 大赦 | [亚恒附加包](addons/league_zaahen/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/tft_brock.png" width="32"> | [岩宝](docs/heroes/tft_brock.md)<br>Brock（tft 包） | 上单 | 巨岩投掷 · 苔藤缠握 · 大招 震地猛击 | — | PPU 1.16 |
 | <img src="docs/heroes/img/tft_elderdragon.png" width="32"> | [远古巨龙](docs/heroes/tft_elderdragon.md)<br>Elder Dragon（tft 包） | 上单 | 烈焰吐息 · 龙翼风暴 · 大招 绝伦火热 | — | PPU 2.84 |
