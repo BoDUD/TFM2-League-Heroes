@@ -16,6 +16,9 @@ stands; every square outside the part checked unchanged).
 Wukong's (2026-11-14, 「能改就想办法改 全都要改」): Codex's own frames of the delivery that had been left out for time back in
 E and W, and his tail swung by whole rows on the death's two moved copies (op parts / rows). His idle and run staffs,
 the spin, the hit, the attacks and the R cast are as they were.
+
+Akshan's eyes (2026-11-14, 「还有阿克尚的眼睛也调清晰一点」「现在看起来和两个黑洞一样」): AK_EYES puts back the eye squares
+Codex drew in every action, in his design's eye white (AK_EYE), before anything else is done to the frame.
 """
 import argparse
 import os
@@ -73,6 +76,44 @@ DEAD = [("dead_0", 100), ("dead_1", 110), ("dead_2", 120), ("dead_3", 120), ("de
 VPAD = 30
 AK_PARTS = {"skill2_2": {"cape": [(0, 12, 15, 31)]}, "skill2_3": {"cape": [(0, 33, 25, 49)]},
             "ult_2": {"coat": [(0, 30, 12, 50)]}, "ult_1": {"coat": [(0, 33, 12, 53)]}}
+
+
+# Akshan's eyes: his design (Codex's picture, assets/source/akshan/codex_slim/akshan-slim-2-clean.png) has a white square
+# in each eye beside a dark pupil. design_redo_1018.py keyed every near-white square out of the design as background, so
+# the skin-swap pack showed Codex holes there - the key's green - and Codex drew the eyes in that green in every action;
+# import_swap_1018.py / import_fix_1018.py then filled each small enclosed green speck with the darkest colour next to
+# it: black eyes (and on the 1.2 grid black blocks with the brows over them). AK_EYES: the squares of each act frame that
+# were Codex's green specks in his face (re-read from the two deliveries with the importers' own readers: every speck
+# filled in each frame listed and marked, the face's picked by eye; the others are gaps between hair strands, under the
+# arm and in the gun and stay filled); no frame gets a square Codex did not draw. A frame without one (idle_2, the falls)
+# has its eyes drawn dark. AK_EYE: the median of the picture's eye-white pixels.
+AK_EYE = (249, 249, 248)
+AK_EYES = {
+    "idle_0": [(27, 15), (31, 15)], "idle_1": [(27, 15), (31, 15)], "idle_3": [(30, 15), (34, 15)],
+    "idle_4": [(29, 14), (33, 14)],
+    "run_0": [(27, 15), (28, 15), (33, 15)], "run_1": [(27, 16)], "run_2": [(26, 16), (31, 16)], "run_3": [(29, 16)],
+    "run_4": [(30, 15), (35, 15)], "run_5": [(28, 15)], "run_6": [(26, 15), (27, 15), (32, 15)],
+    "attack_0": [(30, 12)], "attack_1": [(23, 12), (29, 14)], "attack_2": [(23, 11), (28, 11)], "attack_3": [(28, 11)],
+    "attack_4": [(22, 10), (22, 11), (27, 11)],
+    "skill1_0": [(25, 16)], "skill1_1": [(30, 14), (34, 14)], "skill1_2": [(29, 14), (30, 14)],
+    "skill1_3": [(24, 11), (25, 11)], "skill1_4": [(22, 12)],
+    "skill2_0": [(25, 18), (29, 18)], "skill2_1": [(46, 11), (46, 12), (50, 12)], "skill2_2": [(36, 13), (40, 14)],
+    "skill2_3": [(41, 18), (45, 18)], "skill2_4": [(38, 15), (39, 15), (43, 15)],
+    "ult_0": [(24, 11), (29, 11)], "ult_1": [(24, 14), (28, 14)], "ult_2": [(27, 11), (32, 11)],
+    "ult_3": [(23, 10), (28, 10)],
+    "hit_0": [(23, 15)], "dead_0": [(40, 11)], "dead_1": [(54, 11)],
+}
+
+
+def eyes_back(f, name):
+    """An act frame with its eye squares (AK_EYES) in the eye white; each must be the importers' dark fill."""
+    f = f.copy()
+    for x, y in AK_EYES.get(name, ()):
+        p = f[y, x]
+        if p[3] == 0 or int(p[0]) + int(p[1]) + int(p[2]) > 15:
+            raise SystemExit(f"{name}: ({x}, {y}) is {tuple(int(v) for v in p)}, not the importers' dark fill")
+        f[y, x] = (*AK_EYE, 255)
+    return f
 
 
 def waved(name, x1, k):
@@ -186,6 +227,8 @@ def frames(hero):
             if not os.path.isfile(lp(p)):
                 raise SystemExit(f"{tag}: {name}.png missing")
             f = np.asarray(Image.open(lp(p)).convert("RGBA"))
+            if hero == "akshan":
+                f = eyes_back(f, name)
             hip = cfg["hip"](f)                 # (on Codex's frame as drawn: the staff moved changes no hip)
             if op.get("staff"):
                 f, hip = straight[name], hip + WS.PAD
