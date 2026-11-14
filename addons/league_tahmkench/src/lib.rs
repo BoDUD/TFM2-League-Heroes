@@ -15,8 +15,7 @@
 //! - **大快朵颐灵活判断**（用户：「塔姆的R救队友的时候灵活判断 别乱放」）：AI 要放 R 时，先看身边 `R_ALLY_R` 以内的队友——生命
 //!   低于 35% 且附近有敌方英雄，或 1 秒内掉了四分之一以上生命，或被控住且身边有两个敌方英雄——挑生命最低的吞；没有就看近身
 //!   `R_REACH` 以内有没有 3 层的敌方英雄；都没有就不放（改成普攻）。吞着队友时他往己方后撤，吞着敌人时往队友那边走；吐出的
-//!   一刻把人放到他身边（队友放在他背后，敌人放在他前面），落点收进地图、躲开墙格（峡谷地图上是峡谷的大小和墙格，
-//!   `game_places::terrain`；没有墙体文件时只收进地图四边）。
+//!   一刻把人放到他身边（队友放在他背后，敌人放在他前面）。
 //! - **深渊潜航看时机**（「W也别乱放 看好时机」）：要有队友在身边；目标被控住（一个队友就够）或身边两个以上队友；落点附近的
 //!   敌方英雄不多于身边队友加一；他自己生命不低于 30%。不满足就不放（改成普攻或回到队友身边）。
 //!
@@ -27,9 +26,8 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{LazyLock, Mutex, Once};
+use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -66,7 +64,7 @@ pub const SPIT_STEP: f64 = 1_000.0;
 pub const CELL: f64 = 32_000.0;
 /// 5v5 地图四边（上下的石墙、左右的石堆）以内的可走范围（league_camille_wall 的 `MOBA_BOUNDS`）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
-/// 游戏自己的地图边长（坐标 0..MAP；峡谷的大小在它的墙格的 `bounds` 里，[`Grid::rift`]）。
+/// 地图边长（坐标 0..MAP）。
 const MAP: f64 = 960_000.0;
 /// 队友危险：生命低于这个 %，或 BURST_TICKS 里掉了 BURST % 以上。
 pub const LOW_PCT: usize = 35;
@@ -217,19 +215,15 @@ pub fn stored(grey: usize, damage: usize, store: usize, cap: usize) -> usize {
     (grey + damage * store / 100).min(cap)
 }
 
-/// 地图的墙格：游戏自己的三张图（league_camille_wall 的内置地图，Poppy、Gnar 附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5
-/// 地图另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
+/// 地图的墙格（league_camille_wall 的内置地图，Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
-    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
-    pub cell: f64,
-    pub origin: (f64, f64),
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -241,19 +235,7 @@ impl Grid {
         ]
     }
 
-    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
-    /// 算墙（整张图一格空地）。`bounds` 是峡谷的四边：吐出的落点收进峡谷，不收进游戏自己的 0..960000。
-    pub fn rift(walls: Option<&Walls>) -> Grid {
-        match walls {
-            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
-            None => {
-                let e = terrain::RIFT_EXTENT;
-                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
-            }
-        }
-    }
-
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -263,11 +245,8 @@ impl Grid {
                 return true;
             }
         }
-        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
-        if fx < 0.0 || fy < 0.0 {
-            return true;
-        }
-        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
+        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -284,8 +263,8 @@ pub fn current(grids: &[Grid], points: &[(f64, f64)]) -> Option<usize> {
         .map(|(i, _)| i)
 }
 
-/// 吐出的落点放到能站的地方（0.1.6）：先收进地图（5v5 是四边的石墙、石堆以内，峡谷是峡谷的四边），还在墙格里就从那里一步步往
-/// 他身边退（`SPIT_STEP`），退到他脚下也不行就放在他脚下。11-03 夜里 47 次吐出有 1 次出了地图：
+/// 吐出的落点放到能站的地方（0.1.6）：先收进地图（5v5 是四边的石墙、石堆以内），还在墙格里就从那里一步步往他身边退
+/// （`SPIT_STEP`），退到他脚下也不行就放在他脚下。11-03 夜里 47 次吐出有 1 次出了地图：
 /// `SPIT #19 ALLY league_braum#860 at (131327, -7960)`——他站在地图边上，背后 9000 已经在地图外（0.1.5 只把负数压成 0）。
 pub fn spit_spot(grid: &Grid, at: (f64, f64), spot: (f64, f64)) -> (f64, f64) {
     let (x0, y0, x1, y1) = grid.bounds.unwrap_or((0.0, 0.0, MAP - 1.0, MAP - 1.0));
@@ -299,33 +278,6 @@ pub fn spit_spot(grid: &Grid, at: (f64, f64), spot: (f64, f64)) -> (f64, f64) {
         }
     }
     at
-}
-
-/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格）。
-static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
-/// 这次启动第一次碰到峡谷时在日志里记一行。
-static RIFT_SEEN: Once = Once::new();
-
-/// 当前对局的墙格：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；游戏自己的地图照旧在三张内置图
-/// 里挑单位（所有活着的）站进墙里最少的那张。
-fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
-    match terrain::map_of_sim(sim) {
-        Map::Rift => {
-            RIFT_SEEN.call_once(|| {
-                wlog(format!("== Rift: the Devour spit lands on the Rift and out of its walls; {} ==", terrain::rift_status()))
-            });
-            Some(&*RIFT)
-        }
-        Map::Native => {
-            let points: Vec<(f64, f64)> = (0..sim.entity_count())
-                .filter_map(|i| sim.entity_at(i))
-                .filter(|u| u.is_alive())
-                .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
-                .collect();
-            current(&*BUILTIN, &points).map(|i| &BUILTIN[i])
-        }
-    }
 }
 
 // ===================== 小工具 =====================
@@ -675,9 +627,15 @@ impl Skin {
         let front = centre(&foes).unwrap_or((at.0 + 1.0, at.1));
         // an ally goes down behind him (away from the enemies), an enemy in front of him
         let want = if c.ally { step_away(at, front, SPIT) } else { step_away(at, front, -SPIT) };
-        // 0.1.6: on the map and out of the walls (11-03 night logs: an ally put down at y -7960); the Rift's on the Rift
-        let spot = match grid_now(sim) {
-            Some(g) => spit_spot(g, at, want),
+        // 0.1.6: on the map and out of the walls (11-03 night logs: an ally put down at y -7960)
+        let points: Vec<(f64, f64)> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_alive())
+            .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+            .collect();
+        let grids = Grid::builtin();
+        let spot = match current(&grids, &points) {
+            Some(i) => spit_spot(&grids[i], at, want),
             None => (want.0.clamp(0.0, MAP - 1.0), want.1.clamp(0.0, MAP - 1.0)),
         };
         let ok = sim.entity_set_pos(c.target, spot.0.max(0.0).round() as u64, spot.1.max(0.0).round() as u64);
@@ -1076,44 +1034,6 @@ mod tests {
         // which map: the one with the fewest units in its walls
         let grids = Grid::builtin();
         assert_eq!(current(&grids, &[(300_000.0, 300_000.0), (131_327.0, 30_000.0), (470_000.0, 110_000.0)]), Some(0));
-    }
-
-    /// 峡谷大小的假墙格：295 x 296 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
-    fn rift_walls(walls: &[(usize, usize)]) -> Walls {
-        let rows: Vec<String> = (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
-    }
-
-    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
-    fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
-        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
-        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
-        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
-    }
-
-    #[test]
-    fn on_the_rift_the_spit_lands_on_the_rift_and_out_of_its_walls() {
-        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
-        let g = Grid::rift(Some(&rift_walls(&block)));
-        // behind him a wall of the Rift past 1000000: back toward him until clear of it
-        let at = (left - 5_000.0, 1_300_000.0);
-        let q = spit_spot(&g, at, step_away(at, (left - 50_000.0, 1_300_000.0), SPIT));
-        assert!(!g.is_wall(q.0, q.1) && (left - SPIT_STEP - 1.0..=left + 1.0).contains(&q.0) && q.1 == 1_300_000.0, "{q:?}");
-        // past 960000 is open ground on the Rift: put down where meant (the game's own 5v5 pulled it in to its edge)
-        let (at, want) = ((1_100_000.0, 1_100_000.0), (1_109_000.0, 1_100_000.0));
-        assert_eq!(spit_spot(&g, at, want), want);
-        let [moba, _, _] = Grid::builtin();
-        assert_ne!(spit_spot(&moba, at, want), want);
-        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none: put down where meant
-        assert_eq!(spit_spot(&g, (470_000.0, 110_000.0), (490_000.0, 110_000.0)), (490_000.0, 110_000.0));
-        // no walls file: no wall inside, only the Rift's edges - off its edge back onto it
-        let open = Grid::rift(None);
-        assert_eq!(spit_spot(&open, at, want), want);
-        assert_eq!(spit_spot(&open, (left - 5_000.0, 1_300_000.0), (left + 4_000.0, 1_300_000.0)), (left + 4_000.0, 1_300_000.0));
-        let edge = (terrain::RIFT_EXTENT - 3_000.0, 800_000.0);
-        let q = spit_spot(&open, edge, (terrain::RIFT_EXTENT + 6_000.0, 800_000.0));
-        assert!(q.0 <= terrain::RIFT_EXTENT && q.0 >= edge.0 && !open.is_wall(q.0, q.1), "{q:?}");
     }
 
     #[test]

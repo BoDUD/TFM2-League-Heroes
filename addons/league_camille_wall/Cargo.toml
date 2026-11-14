@@ -9,7 +9,6 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
-game_places = { path = "../game_places" }
 
 
 [lints.rust]

@@ -17,11 +17,6 @@
 //! 门只开在墙上（用户：「门的逻辑不对吧 只能在墙上放吧」，英雄联盟的神奇旅程是穿过地形的单向通道）：附近没有墙就不开；穿墙
 //! 落点不在墙格里（卡蜜尔钩墙附加包的地图）、离地图边至少 `EDGE`、离起点不超过 `e_far`。
 //!
-//! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：每次看局面按这局的塔和水晶判断是哪张图
-//! （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷（1614545 见方）用峡谷作者的墙体文件
-//! （`terrain::rift_walls`，295 x 296 格、每格 60000/11），没有文件时峡谷上不知道哪里有墙，就不开门（以前拿内置地图：
-//! 960000 以外的落点都「不在地图里」，峡谷的远半边从来开不了门，近半边开在内置地图的墙上）。
-//!
 //! 开门：冷却 `e_cd_t`；他先飞到墙前（入口离墙 `ENTRY_BACK`），门在他身后贴着墙打开（buff 画面 `league_bard_e_doorb`，门的 2.5 倍）、`skill2_e` 动作 `e_anim` tick、
 //! 音效；`e_wind` tick 后他和门边 `e_ride` 内的友方英雄一起在 `e_tick` tick 内强制位移过去（队友同样的位移，那里有墙就落在
 //! 他出口旁，再不行就不带）；到了出口门在他身后打开（buff 画面 `league_bard_e_outb`），队友身上的 `league_bard_e_rideb`，都加速 `e_ms`%
@@ -38,10 +33,9 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -61,7 +55,7 @@ fn bd(x: &str) -> String {
     format!("league_bard_{x}")
 }
 
-/// 游戏自己的地图的墙格边长（世界单位）。
+/// 墙格的边长（世界单位）。
 pub const CELL: f64 = 32_000.0;
 /// 查一条直线穿不穿墙的步长。
 pub const STEP: f64 = 1_000.0;
@@ -286,51 +280,37 @@ pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 一张墙格子：`cells[y][x]`（泰隆附加包的那张），每格 `cell` 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、
-/// (0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
+/// 一张墙格子：`cells[y][x]`（泰隆附加包的那张）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
-    pub cell: f64,
-    pub origin: (f64, f64),
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0) }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect() }
     }
 
     pub fn builtin() -> [Grid; 3] {
         [Grid::from_rows(&maps::MOBA), Grid::from_rows(&maps::SINGLE_LANE), Grid::from_rows(&maps::DEATH_MATCH)]
     }
 
-    /// 峡谷的墙：有墙体文件就是文件的墙格；没有就是一格地图大小的空地（不知道哪里有墙：不开门）。
-    pub fn rift(walls: Option<&terrain::Walls>) -> Grid {
-        match walls {
-            Some(w) => Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin },
-            None => Grid { cells: vec![vec![false]], cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
-        }
-    }
-
-    /// 格子的另一角（游戏自己的地图从 (0, 0) 起，就是它的宽、高）。
     pub fn size(&self) -> (f64, f64) {
-        (self.origin.0 + self.cells.first().map_or(0, |r| r.len()) as f64 * self.cell,
-         self.origin.1 + self.cells.len() as f64 * self.cell)
+        (self.cells.first().map_or(0, |r| r.len()) as f64 * CELL, self.cells.len() as f64 * CELL)
     }
 
     /// 在地图里、离边至少 `EDGE` 吗。
     pub fn roomy(&self, p: (f64, f64)) -> bool {
         let (w, h) = self.size();
-        p.0 >= self.origin.0 + EDGE && p.1 >= self.origin.1 + EDGE && p.0 <= w - EDGE && p.1 <= h - EDGE
+        p.0 >= EDGE && p.1 >= EDGE && p.0 <= w - EDGE && p.1 <= h - EDGE
     }
 
     /// 世界坐标落在墙格里吗（地图外不算）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        let (x, y) = (x - self.origin.0, y - self.origin.1);
         if x < 0.0 || y < 0.0 {
             return false;
         }
-        let (cx, cy) = ((x / self.cell) as usize, (y / self.cell) as usize);
+        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(false)
     }
 
@@ -388,25 +368,6 @@ pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
             (inside, std::cmp::Reverse(g.walls()))
         })
         .map(|(i, _)| i)
-}
-
-/// 游戏的三张内置地图，和峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
-static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
-
-/// 这局的墙：峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
-fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
-    match terrain::map_of_sim(sim) {
-        Map::Rift => {
-            static MET: AtomicBool = AtomicBool::new(false);
-            if !MET.swap(true, Ordering::Relaxed) {
-                wlog(format!("== Rift: Magical Journey opens on the Rift's walls (from its walls file; with no file no \
-                              wall is known there and no door opens); {} ==", terrain::rift_status()));
-            }
-            Some(&*RIFT_GRID)
-        }
-        Map::Native => current(&*GRIDS, &unit_points(sim)).map(|i| &GRIDS[i]),
-    }
 }
 
 fn unit(v: (f64, f64)) -> Option<(f64, f64)> {
@@ -852,7 +813,9 @@ impl Door {
                 (x as f64, y as f64)
             })
             .min_by(|a, b| dist(here, *a).total_cmp(&dist(here, *b)));
-        let Some(g) = grid_now(sim) else { return };
+        let grids = Grid::builtin();
+        let Some(gi) = current(&grids, &unit_points(sim)) else { return };
+        let g = &grids[gi];
         let plan = if wants_out(&self.p, here, mine, &foes, allies) {
             plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|way| (way, "out".to_string()))
         } else {
@@ -907,8 +870,9 @@ impl Door {
                 }
             }
         }
-        let riders: Vec<(usize, (f64, f64))> = match grid_now(sim) {
-            Some(g) => friends.iter().filter_map(|&(id, a)| ride_exit(g, here, plan.to, a).map(|q| (id, q))).collect(),
+        let grids = Grid::builtin();
+        let riders: Vec<(usize, (f64, f64))> = match current(&grids, &unit_points(sim)) {
+            Some(gi) => friends.iter().filter_map(|&(id, a)| ride_exit(&grids[gi], here, plan.to, a).map(|q| (id, q))).collect(),
             None => Vec::new(),
         };
         let mut longest = self.send(sim, me, plan.to);
@@ -973,7 +937,8 @@ impl Door {
 
 /// 出发那一刻再看一次落点（门开着的几 tick 里地图判断可能变了）。
 fn landing_ok(sim: &StableSim<'_>, to: (f64, f64)) -> bool {
-    grid_now(sim).is_some_and(|g| g.roomy(to) && !g.is_wall(to.0, to.1))
+    let grids = Grid::builtin();
+    current(&grids, &unit_points(sim)).is_some_and(|gi| grids[gi].roomy(to) && !grids[gi].is_wall(to.0, to.1))
 }
 
 impl StablePassive for Door {
@@ -1280,99 +1245,6 @@ mod tests {
     #[test]
     fn the_moba_map_has_its_ninety_wall_cells() {
         assert_eq!(Grid::builtin()[0].walls(), 90);
-    }
-
-    /// 世界坐标的一个矩形：(左上, 右下)。
-    type Rect = ((f64, f64), (f64, f64));
-
-    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
-    /// （世界坐标的 (左上, 右下)）里的格子是墙。
-    fn rift_walls(rects: &[Rect]) -> terrain::Walls {
-        let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
-            .map(|cy| {
-                (0..295)
-                    .map(|cx| {
-                        let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
-                        let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
-                        if wall { '#' } else { '.' }
-                    })
-                    .collect()
-            })
-            .collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        terrain::Walls::from_rows(&rows, cell, origin, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
-    }
-
-    #[test]
-    fn on_the_rift_the_door_opens_on_the_rifts_walls() {
-        let p = Params::default();
-        // a wall 30000 thick in the Rift's far half, 15000 behind him; the enemy in front
-        let g = Grid::rift(Some(&rift_walls(&[((1_315_000.0, 1_100_000.0), (1_345_000.0, 1_300_000.0))])));
-        let me = (1_300_000.0, 1_200_000.0);
-        let (entry, to) = plan_exit(&p, &g, me, &[(1_280_000.0, 1_200_000.0)], None).expect("a door");
-        assert!(!g.is_wall(entry.0, entry.1) && entry.0 < 1_320_000.0 && dist(me, entry) < dist(me, to),
-                "the door at the wall's face: {entry:?}");
-        assert!(to.0 > 1_340_000.0 && !g.is_wall(to.0, to.1) && g.roomy(to) && g.blocked(me, to), "{to:?}");
-        // the game's own grid: past 960000 nothing is roomy and no wall - no door out there (the old code)
-        assert_eq!(plan_exit(&p, &Grid::builtin()[0], me, &[(1_280_000.0, 1_200_000.0)], None), None);
-        // past 960000 it is open, roomy ground on the Rift; its edge is not
-        assert!(g.roomy((1_000_000.0, 1_500_000.0)) && !g.is_wall(1_000_000.0, 1_500_000.0));
-        assert!(!g.roomy((1_607_000.0, 800_000.0)));
-        // a wall of the game's own 5v5 map is none on the Rift
-        let native = (15.5 * CELL, 3.5 * CELL);
-        assert!(Grid::builtin()[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));
-        // a hurt champion behind the Rift's wall: through it; an ally he follows lands clear of it
-        let prey = foe((1_385_000.0, 1_200_000.0), 30, 7);
-        let ((_, to), id) = plan_chase(&p, &g, me, 80, &[prey]).expect("a chase");
-        assert!(id == 7 && dist(to, prey.at) + CLOSER <= dist(me, prey.at) && !g.is_wall(to.0, to.1), "{to:?}");
-        let q = ride_exit(&g, me, to, (1_295_000.0, 1_210_000.0)).expect("the ally comes along");
-        assert!(!g.is_wall(q.0, q.1) && g.roomy(q), "{q:?}");
-    }
-
-    /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。
-    #[test]
-    fn on_the_rifts_real_walls_every_door_lands_clear_of_rock() {
-        let Some(path) = std::env::var_os(terrain::RIFT_WALLS_ENV) else { return };
-        let g = Grid::rift(Some(&terrain::load_rift_walls(&[path.into()]).unwrap()));
-        let p = Params::default();
-        // a wall on the way, sampled as `Grid::vault` does (every STEP from him: the Rift's small cells' corners fall
-        // between `blocked`'s samples)
-        let walled = |a: (f64, f64), b: (f64, f64)| {
-            let d = dist(a, b);
-            (1..).map(|k| k as f64 * STEP).take_while(|t| *t < d)
-                .any(|t| g.is_wall(a.0 + (b.0 - a.0) / d * t, a.1 + (b.1 - a.1) / d * t))
-        };
-        let (mut spots, mut doors) = (0, 0);
-        let mut y = 20_000.0;
-        while y < terrain::RIFT_EXTENT {
-            let mut x = 20_000.0;
-            while x < terrain::RIFT_EXTENT {
-                if !g.is_wall(x, y) && g.roomy((x, y)) {
-                    spots += 1;
-                    for (dx, dy) in [(10_000.0, 0.0), (-10_000.0, 0.0), (0.0, 10_000.0), (0.0, -10_000.0)] {
-                        if let Some((_, to)) = plan_exit(&p, &g, (x, y), &[(x + dx, y + dy)], None) {
-                            assert!(!g.is_wall(to.0, to.1) && g.roomy(to), "({x},{y}) -> {to:?}");
-                            assert!(walled((x, y), to), "a door crosses a wall: ({x},{y}) -> {to:?}");
-                            doors += 1;
-                        }
-                    }
-                }
-                x += 40_000.0;
-            }
-            y += 40_000.0;
-        }
-        assert!(spots > 300 && doors > 100, "{doors} doors from {spots} spots");
-    }
-
-    #[test]
-    fn on_the_rift_without_its_walls_file_no_door_opens() {
-        let p = Params::default();
-        let g = Grid::rift(None);
-        let me = (1_300_000.0, 1_200_000.0);
-        assert_eq!(plan_exit(&p, &g, me, &[(1_280_000.0, 1_200_000.0)], Some((1_500_000.0, 1_500_000.0))), None);
-        assert!(plan_chase(&p, &g, me, 80, &[foe((1_385_000.0, 1_200_000.0), 30, 7)]).is_none());
-        assert!(g.roomy((1_600_000.0, 800_000.0)) && !g.roomy((1_610_000.0, 800_000.0)));
     }
 
     #[test]

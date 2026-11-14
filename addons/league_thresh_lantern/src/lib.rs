@@ -9,18 +9,14 @@
 //! - **灯笼**：主包的灯笼（`league_thresh_w_lantern`）飞过去，到了由 `league_thresh_lantern:land` 给他主包那份护盾
 //!   （60 + 40% 锤石法强，2.5 秒，护盾画面 `league_thresh_w_shield`、声音）。
 //! - **拉回来**：他有危险、离锤石超过 `NEAR`、没被硬控时，把他拉到锤石身边（`entity_pull`，每 tick `PULL_SPEED`）。
-//! - **两张 5v5 地图**（2026-11-10）：灯笼从锤石站的地方飞出，夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏
-//!   自己的 960000 见方，Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 就从半张图的边上飞出来）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_thresh_lantern.log`。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_thresh_lantern";
@@ -47,7 +43,6 @@ pub const CROWD_R: f64 = 25_000.0;
 pub const NEAR: f64 = 15_000.0;
 pub const STOP: f64 = 8_000.0;
 pub const PULL_SPEED: usize = 3_000;
-/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
                                 CcKindV1::Charm, CcKindV1::ForceMove];
@@ -109,19 +104,6 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
-/// 这次启动已经在日志里说过峡谷了。
-static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
-
-/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
-fn map_here(sim: &StableSim<'_>) -> Map {
-    let map = map_of_sim(sim);
-    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: the lantern flies from where Thresh stands on the Rift's {:.0} square (not the game's own \
-                      {MAP:.0}); {} ==", map.extent(), rift_status()));
-    }
-    map
-}
-
 // ===================== 挑人 =====================
 
 type Pt = (f64, f64);
@@ -165,10 +147,8 @@ fn pos(e: &StableEntity<'_, '_>) -> Pt {
     (e.pos().0 as f64, e.pos().1 as f64)
 }
 
-/// A spot on `map` in whole units (the lantern's start).
-fn upos(map: Map, p: Pt) -> (u64, u64) {
-    let e = map.extent();
-    (p.0.round().clamp(0.0, e - 1.0) as u64, p.1.round().clamp(0.0, e - 1.0) as u64)
+fn upos(p: Pt) -> (u64, u64) {
+    (p.0.round().clamp(0.0, MAP - 1.0) as u64, p.1.round().clamp(0.0, MAP - 1.0) as u64)
 }
 
 fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
@@ -202,7 +182,7 @@ impl StableEffectType for Throw {
         let Some((at, allies)) = read_allies(sim, caster) else { return };
         let Some(a) = pick(at, &allies) else { return };
         let Some(team) = sim.get_entity(caster).map(|e| e.team()) else { return };
-        let (x, y) = upos(map_here(sim), at);
+        let (x, y) = upos(at);
         let spec = ProjectileSpawnV1 {
             caster_id: caster,
             team,
@@ -308,14 +288,5 @@ mod tests {
     fn far_allies_are_pulled_near_ones_not() {
         assert_eq!(pull_ticks(10_000.0), 0);
         assert_eq!(pull_ticks(44_000.0), 12);
-    }
-
-    #[test]
-    fn the_lantern_starts_where_thresh_stands_on_either_map() {
-        // the game's own map: held at its edge, as before
-        assert_eq!(upos(Map::Native, (970_000.4, -3.0)), (MAP as u64 - 1, 0));
-        // the Rift: past 960000 is where he stands, its own edge at 1614545
-        assert_eq!(upos(Map::Rift, (1_300_000.4, 1_500_000.0)), (1_300_000, 1_500_000));
-        assert_eq!(upos(Map::Rift, (2_000_000.0, 5.0)), (Map::Rift.extent() as u64 - 1, 5));
     }
 }

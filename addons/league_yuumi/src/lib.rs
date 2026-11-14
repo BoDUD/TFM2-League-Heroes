@@ -36,19 +36,14 @@
 //! `DETACH`（附在谁身上、为什么下来，ATTACH 带他那时的护盾）、`WINDOW`（为哪一招解除放逐、出没出招）、`AI casts`（每个窗口一行）、
 //! `ZOOMIES`（骑着放的 W：他的护盾从多少到多少）、`SWITCH`（从谁换到谁、为什么、两人身边几个敌人和血量）、`WATCH`（每 30 秒
 //! 一行的统计，没附身又什么都没变就不记）：你看的那场全记，服务端预模拟每种前 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行。
-//!
-//! 两张 5v5 地图（2026-11-10）：她骑在他身后、朝自家基地那边（`beside_home`）。游戏自己的地图上基地照旧是 `NEXUS`、夹在
-//! 960000 里；Rin 的召唤师峡谷（1614545 见方，`game_places::terrain::map_of_sim`）上基地读模拟里她这一队的基地（每份模拟
-//! 找一次，`Bond::place`），夹在峡谷里——以前一律朝游戏自己地图的基地、夹在 960000 里，峡谷上她被摆到离他很远的半张图边上。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 pub mod lifts;
@@ -79,8 +74,7 @@ const REPORT: usize = 1800;
 /// WATCH host steps avg 1615-1993 at move speed 1040). Out of reach of each other they never collide; banished she is
 /// unseen, and the cat on his head is his own buff's picture.
 const BESIDE: f64 = 22000.0;
-/// The two nexuses (blue, red) of the game's own map: "behind" him is toward his own (the Rift's are read from the sim:
-/// `place_of`).
+/// The two nexuses (blue, red): "behind" him is toward his own.
 const NEXUS: [(f64, f64); 2] = [(96000.0, 864000.0), (864000.0, 96000.0)];
 /// Zoomies (P's e_sh, e_ap, e_t, e_as, e_ms; a test checks them against the copy): the shield and its AP %, how long it
 /// and the haste last, the haste's attack speed and move speed %.
@@ -232,32 +226,6 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 
 fn who(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n} #{id}"))
-}
-
-/// This launch's log has told the Rift already.
-static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
-
-/// The map `sim` plays on and `team`'s nexus there: on the game's own map `NEXUS` (as before); on the Rift the nexus the
-/// sim has (its bases stand elsewhere), `NEXUS` scaled to the Rift when the sim lists none. The first Rift a launch: a
-/// line in the log.
-fn place_of(sim: &StableSim<'_>, team: usize) -> (Map, (f64, f64)) {
-    let map = map_of_sim(sim);
-    let home = NEXUS[team.min(1)];
-    if map == Map::Native {
-        return (map, home);
-    }
-    let live = (0..sim.entity_count())
-        .filter_map(|i| sim.entity_at(i))
-        .find(|e| e.team() == team && e.kind() == Some(EntityKindV1::Nexus))
-        .map(|e| (e.pos().0 as f64, e.pos().1 as f64));
-    let s = map.scale();
-    let nexus = live.unwrap_or((home.0 * s, home.1 * s));
-    if !RIFT_TOLD.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: she rides beside her host toward her team's nexus as the sim has it (team {team} at ({:.0}, \
-                      {:.0}){}), kept on the Rift's {:.0} square (not the game's own 960000); {} ==", nexus.0, nexus.1,
-                     if live.is_some() { "" } else { ", none found: the game's own scaled" }, map.extent(), rift_status()));
-    }
-    (map, nexus)
 }
 
 // ===================== 参数 =====================
@@ -422,14 +390,9 @@ fn dist(a: (u64, u64), b: (u64, u64)) -> f64 {
     (dx * dx + dy * dy).sqrt()
 }
 
-/// Her spot while riding `at` (her ally's) on the game's own map: BESIDE toward her team's nexus (`NEXUS`), inside it.
+/// Her spot while riding `at` (her ally's): BESIDE toward her team's nexus, inside the map.
 pub fn beside(at: (u64, u64), team: usize) -> (u64, u64) {
-    beside_home(at, team, NEXUS[team.min(1)], Map::Native)
-}
-
-/// Her spot while riding `at` (her ally's): BESIDE toward her team's nexus at `home`, inside `map`.
-pub fn beside_home(at: (u64, u64), team: usize, home: (f64, f64), map: Map) -> (u64, u64) {
-    let (nx, ny) = home;
+    let (nx, ny) = NEXUS[team.min(1)];
     let (x, y) = (at.0 as f64, at.1 as f64);
     let (dx, dy) = (nx - x, ny - y);
     let d = (dx * dx + dy * dy).sqrt();
@@ -439,8 +402,7 @@ pub fn beside_home(at: (u64, u64), team: usize, home: (f64, f64), map: Map) -> (
     } else {
         (dx / d, dy / d)
     };
-    let side = map.extent();
-    let clamp = |v: f64| v.clamp(0.0, side).round() as u64;
+    let clamp = |v: f64| v.clamp(0.0, 960000.0).round() as u64;
     (clamp(x + ux * BESIDE), clamp(y + uy * BESIDE))
 }
 
@@ -549,16 +511,6 @@ struct Ride {
     /// The AI hook has logged its press of this window's cast (log only: it presses every tick of the window, about 26
     /// a window - one line a window).
     told: bool,
-    /// The map and her team's nexus (`Bond::place`; None: not looked up yet, the game's own map's `beside`).
-    place: Option<(Map, (f64, f64))>,
-}
-
-/// Her spot beside `at` for the AI hook: the ride's map and nexus (`beside_home`), else the game's own (`beside`).
-fn ride_spot(place: Option<(Map, (f64, f64))>, at: (u64, u64), team: usize) -> (u64, u64) {
-    match place {
-        Some((map, home)) => beside_home(at, team, home, map),
-        None => beside(at, team),
-    }
 }
 
 /// (这份模拟的编号, 悠米的 entity id) -> 她骑在谁身上。
@@ -632,27 +584,14 @@ struct Bond {
     /// The first tick she may hop to another ally; hops so far.
     next_switch: usize,
     switches: usize,
-    /// The map and her team's nexus, found once a sim (neither moves: `place_of`).
-    place: Option<(Map, (f64, f64))>,
 }
 
 impl Bond {
-    /// The map and her team's nexus (`place_of`), looked up the first time she needs them in this sim.
-    fn place(&mut self, sim: &StableSim<'_>, team: usize) -> (Map, (f64, f64)) {
-        *self.place.get_or_insert_with(|| place_of(sim, team))
-    }
-
-    /// Her spot beside `at` (`beside_home` on this sim's map, toward her team's nexus).
-    fn spot(&mut self, sim: &StableSim<'_>, at: (u64, u64), team: usize) -> (u64, u64) {
-        let (map, home) = self.place(sim, team);
-        beside_home(at, team, home, map)
-    }
-
     fn record(&self, me: usize, cast: Option<InputKindV1>) {
         let mut r = RIDES.lock().unwrap_or_else(|e| e.into_inner());
         match self.host {
             Some(host) => {
-                r.insert((self.sim_no, me), Ride { host, cast, told: false, place: self.place });
+                r.insert((self.sim_no, me), Ride { host, cast, told: false });
             }
             None => {
                 r.remove(&(self.sim_no, me));
@@ -693,7 +632,7 @@ impl Bond {
         sim.add_buff(host, &BuffV1::named(&self.ride));
         if let Some(at) = sim.get_entity(host).map(|e| e.pos()) {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
-            let spot = self.spot(sim, at, team);
+            let spot = beside(at, team);
             sim.entity_set_pos(me, spot.0, spot.1);
         }
         self.banish(sim, me, tick);
@@ -755,7 +694,7 @@ impl Bond {
         sim.entity_remove_buff(to.id, &self.ride);
         sim.add_buff(to.id, &BuffV1::named(&self.ride));
         if let Some(at) = sim.get_entity(to.id).map(|e| e.pos()) {
-            let spot = self.spot(sim, at, team);
+            let spot = beside(at, team);
             sim.entity_set_pos(me, spot.0, spot.1);
         }
         sim.play_sfx(&yu("w_on"), me, &InputTargetV1::target(to.id));
@@ -812,7 +751,7 @@ impl Bond {
             self.detach(sim, me, "the ally is a Karthus spirit - dead in League", tick);
             return;
         }
-        let spot = self.spot(sim, at, team);
+        let spot = beside(at, team);
         sim.entity_set_pos(me, spot.0, spot.1);
         self.ridden += 1;
         if let Some(last) = self.host_at {
@@ -1080,8 +1019,8 @@ impl StablePlayerAi for Ai {
             let key = (sim_of(&sim, id), id);
             let ride = RIDES.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied()?;
             let at = sim.get_entity(ride.host)?.pos();
-            // stay on her spot behind him (walking onto his own spot pushed him: BESIDE), on this sim's map
-            let spot = ride_spot(ride.place, at, me.team());
+            // stay on her spot behind him (walking onto his own spot pushed him: BESIDE)
+            let spot = beside(at, me.team());
             let stay = InputV1::move_to(spot.0, spot.1);
             let input = match ride.cast {
                 Some(kind) => {
@@ -1180,32 +1119,6 @@ mod tests {
         }
         // toward her own nexus
         assert!(beside((480000, 480000), 0).0 < 480000 && beside((480000, 480000), 1).0 > 480000);
-    }
-
-    #[test]
-    fn on_the_rift_she_rides_toward_her_nexus_there() {
-        // red's host in the Rift's far half, red's nexus where the sim has it (top right): BESIDE behind him, past 960000
-        let red_nexus = (1_450_000.0, 160_000.0);
-        let at = (1_300_000, 300_000);
-        let b = beside_home(at, 1, red_nexus, Map::Rift);
-        assert!((dist(at, b) - BESIDE).abs() < 2.0, "{b:?}");
-        assert!(b.0 > at.0 && b.1 < at.1, "toward the Rift's red nexus: {b:?}");
-        // the game's own map's spot would hold her at its edge, far off him
-        assert!(dist(at, beside(at, 1)) > 300_000.0);
-        // blue's host by the Rift's bottom-left base: toward blue's nexus there, kept on the Rift
-        let blue_nexus = (165_000.0, 1_450_000.0);
-        let at = (250_000, 1_600_000);
-        let b = beside_home(at, 0, blue_nexus, Map::Rift);
-        assert!((dist(at, b) - BESIDE).abs() < 2.0 && b.1 < at.1 && b.1 <= Map::Rift.extent() as u64, "{b:?}");
-        // on his nexus: off to her side, inside the Rift
-        let b = beside_home((1_614_000, 0), 1, (1_614_000.0, 0.0), Map::Rift);
-        assert!(b.0 <= Map::Rift.extent() as u64 && dist((1_614_000, 0), b) > 0.0, "{b:?}");
-        // the AI hook's spot: the ride's map and nexus; none recorded yet (or the game's own map): as before
-        assert_eq!(ride_spot(Some((Map::Rift, red_nexus)), (1_300_000, 300_000), 1), beside_home((1_300_000, 300_000), 1, red_nexus, Map::Rift));
-        for (at, team) in [((480000, 480000), 0), ((96000, 864000), 1)] {
-            assert_eq!(ride_spot(None, at, team), beside(at, team));
-            assert_eq!(ride_spot(Some((Map::Native, NEXUS[team])), at, team), beside(at, team));
-        }
     }
 
     #[test]

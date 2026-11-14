@@ -17,10 +17,9 @@
 //! - **英勇冲锋撞墙才晕**（原生效果 `league_poppy:charge`，撞上目标时）：沿推的方向查墙（卡蜜尔附加包的墙格、5v5 地图的四边）：
 //!   推 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙就推到墙边，到的那一刻（被动看他身上的 `league_poppy_e_due` 到期）再受一次
 //!   `E_DMG` + `E_RATIO`% 攻击力物理伤害并眩晕 `E_STUN` tick；没碰到墙就照常推开、不晕。主包：每次推完都晕一下。
-//!   峡谷地图（Rin 的召唤师峡谷 α，`game_places::terrain`）上查峡谷的墙格（没有墙体文件时只有地图四边外算墙）。
 //! - **持卫的裁决打回泉水**（原生效果 `league_poppy:verdict`，冲击波打中英雄时）：5v5 地图上朝他自己的水晶方向强制位移
 //!   `R_FAR`（速度 `R_FAR_SPEED`，撞墙会停），一路在空中（击飞）；别的地图照数据从她身边击飞击退。主包：击飞 `R_AIR` tick
-//!   并从她身边击退 `R_KB_SPEED` x `R_KB_T`。峡谷上的水晶读场上的（他那一队的）。
+//!   并从她身边击退 `R_KB_SPEED` x `R_KB_T`。
 //! - **钢铁大使的护盾按最大生命算**（原生效果 `league_poppy:pick`，捡起圆盾时）：最大生命的 `P_SH_MIN`%（1 级）到
 //!   `P_SH_MAX`%（18 级），`P_SH_T` tick。主包：固定值 + 攻击力加成。
 //!
@@ -38,9 +37,8 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::{LazyLock, Mutex, Once};
+use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -172,23 +170,19 @@ fn unit(v: Pt) -> Option<Pt> {
     (l > 1.0).then_some((v.0 / l, v.1 / l))
 }
 
-/// 墙格的边长（世界单位，游戏自己的地图）和查墙的步长。
+/// 墙格的边长（世界单位）和查墙的步长。
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 
-/// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图另加
-/// 四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
+/// 地图的墙格（卡蜜尔附加包的内置地图，杰斯、巴德附加包同样用它）；5v5 地图另加四边。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
-    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
-    pub cell: f64,
-    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -200,19 +194,7 @@ impl Grid {
         ]
     }
 
-    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
-    /// 算墙（整张图一格空地）——撞墙的技能在峡谷上找不到墙，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
-    pub fn rift(walls: Option<&Walls>) -> Grid {
-        match walls {
-            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
-            None => {
-                let e = terrain::RIFT_EXTENT;
-                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
-            }
-        }
-    }
-
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -222,11 +204,8 @@ impl Grid {
                 return true;
             }
         }
-        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
-        if fx < 0.0 || fy < 0.0 {
-            return true;
-        }
-        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
+        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -272,23 +251,12 @@ pub fn shield_amount(max_hp: usize, level: usize) -> usize {
 
 /// 他这一方的水晶：离他的塔（还在的）平均位置近的那个；一座塔都没有就 None。
 pub fn home_nexus(towers: &[Pt]) -> Option<Pt> {
-    home_nexus_in(towers, &NEXUS)
-}
-
-/// 同 [`home_nexus`]，在 `nexuses` 里挑。
-pub fn home_nexus_in(towers: &[Pt], nexuses: &[Pt]) -> Option<Pt> {
     if towers.is_empty() {
         return None;
     }
     let k = towers.len() as f64;
     let c = (towers.iter().map(|t| t.0).sum::<f64>() / k, towers.iter().map(|t| t.1).sum::<f64>() / k);
-    nexuses.iter().copied().min_by(|a, b| dist(*a, c).total_cmp(&dist(*b, c)))
-}
-
-/// 峡谷上读不到水晶时猜的两个：游戏自己的两个按地图大小放大（两张图的朝向一样）。
-pub fn rift_nexus() -> [Pt; 2] {
-    let s = Map::Rift.scale();
-    NEXUS.map(|(x, y)| (x * s, y * s))
+    NEXUS.iter().copied().min_by(|a, b| dist(*a, c).total_cmp(&dist(*b, c)))
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -322,42 +290,12 @@ fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
         .collect()
 }
 
-/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
-static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
-/// 这次启动第一次碰到峡谷时在日志里记一行。
-static RIFT_SEEN: Once = Once::new();
-
-/// 当前地图的墙格（和它是不是 5v5）：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；游戏自己的
-/// 地图照旧在三张内置图里挑单位站进墙里最少的那张。
-fn grid_now(sim: &StableSim<'_>) -> Option<(&'static Grid, bool)> {
-    match terrain::map_of_sim(sim) {
-        Map::Rift => {
-            RIFT_SEEN.call_once(|| {
-                wlog(format!("== Rift: Heroic Charge stuns on the Rift's walls, Keeper's Verdict sends toward the nexus on the \
-                              field; {} ==", terrain::rift_status()))
-            });
-            Some((&*RIFT, true))
-        }
-        Map::Native => current(&*BUILTIN, &unit_points(sim)).map(|i| (&BUILTIN[i], i == 0)),
-    }
-}
-
-/// 场上 `team` 这一队活着的水晶。
-fn nexus_of(sim: &StableSim<'_>, team: usize) -> Option<Pt> {
-    (0..sim.entity_count())
-        .filter_map(|i| sim.entity_at(i))
-        .find(|e| e.kind() == Some(EntityKindV1::Nexus) && e.team() == team && e.is_alive())
-        .map(|e| (e.pos().0 as f64, e.pos().1 as f64))
-}
-
-/// 5v5 上他（`team`，还在的塔 `towers`）的水晶：游戏自己的地图照旧按塔挑 `NEXUS`；峡谷上读场上他那一队的水晶，读不到才按塔
-/// 挑 [`rift_nexus`]。
-fn home_of(sim: &StableSim<'_>, team: usize, towers: &[Pt]) -> Option<Pt> {
-    match terrain::map_of_sim(sim) {
-        Map::Native => home_nexus(towers),
-        Map::Rift => nexus_of(sim, team).or_else(|| home_nexus_in(towers, &rift_nexus())),
-    }
+/// 当前地图的墙格（和它是不是 5v5）。
+fn grid_now(sim: &StableSim<'_>) -> Option<(Grid, bool)> {
+    let grids = Grid::builtin();
+    let i = current(&grids, &unit_points(sim))?;
+    let moba = i == 0;
+    grids.into_iter().nth(i).map(|g| (g, moba))
 }
 
 /// 2026-11-13：离墙这么近（身体之外）才算推到了墙边。
@@ -409,7 +347,7 @@ fn charge(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let (Some(her), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let dir = unit((at.0 - her.0, at.1 - her.1)).unwrap_or((1.0, 0.0));
     let reach = (E_KB_SPEED * E_KB_T) as f64;
-    let wall = grid_now(sim).and_then(|(g, _)| wall_travel(g, at, dir, reach, body));
+    let wall = grid_now(sim).and_then(|(g, _)| wall_travel(&g, at, dir, reach, body));
     match wall {
         Some(len) => {
             let ticks = if len >= 1.0 { shove(sim, target, dir, len, E_KB_SPEED) } else { 0 };
@@ -442,7 +380,7 @@ fn verdict(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         .filter(|&t| sim.get_entity(t).is_some_and(|e| e.is_alive() && e.team() == team))
         .filter_map(|t| pos(sim, t))
         .collect();
-    let home = if moba { home_of(sim, team, &towers) } else { None };
+    let home = if moba { home_nexus(&towers) } else { None };
     match home.and_then(|h| unit((h.0 - at.0, h.1 - at.1)).map(|d| (h, d))) {
         Some((h, dir)) => {
             let len = (R_FAR as f64).min(dist(h, at));
@@ -707,57 +645,6 @@ mod tests {
         let red = [(800_000.0, 150_000.0)];
         assert_eq!(home_nexus(&red), Some(NEXUS[1]));
         assert_eq!(home_nexus(&[]), None);
-    }
-
-    /// 峡谷大小的假墙格：295 x 296 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
-    fn rift_walls(walls: &[(usize, usize)]) -> Walls {
-        let rows: Vec<String> = (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
-    }
-
-    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
-    fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
-        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
-        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
-        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
-    }
-
-    #[test]
-    fn the_rifts_walls_stop_the_carry() {
-        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
-        let g = Grid::rift(Some(&rift_walls(&block)));
-        // pushed toward a wall of the Rift past 1000000: up to it, the stun
-        let to = wall_travel(&g, (left - 15_000.0, 1_300_000.0), (1.0, 0.0), 30_000.0, 6_000.0).expect("the Rift's wall");
-        assert!((to - (15_000.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
-        // past 960000 is open ground on the Rift (the game's own grid called it all wall)
-        let far = (1_100_000.0, 1_100_000.0);
-        assert!(!g.is_wall(far.0, far.1) && Grid::builtin()[0].is_wall(far.0, far.1));
-        assert_eq!(wall_travel(&g, far, (1.0, 0.0), 30_000.0, 6_000.0), None);
-        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none
-        let at = (15.5 * CELL, 3.5 * CELL + 20_000.0);
-        assert!(wall_travel(&Grid::builtin()[0], at, (0.0, -1.0), 30_000.0, 6_000.0).is_some());
-        assert_eq!(wall_travel(&g, at, (0.0, -1.0), 30_000.0, 6_000.0), None);
-    }
-
-    #[test]
-    fn no_walls_file_only_the_rifts_edges() {
-        let g = Grid::rift(None);
-        // no wall known inside: not the game's own (row 3, columns 15-16), nothing past 960000
-        assert_eq!(wall_travel(&g, (15.5 * CELL, 3.5 * CELL + 20_000.0), (0.0, -1.0), 30_000.0, 6_000.0), None);
-        assert_eq!(wall_travel(&g, (1_200_000.0, 1_200_000.0), (1.0, 0.0), 30_000.0, 6_000.0), None);
-        // the map's edge still is one
-        let to = wall_travel(&g, (terrain::RIFT_EXTENT - 20_000.0, 800_000.0), (1.0, 0.0), 30_000.0, 6_000.0).expect("the edge");
-        assert!((to - (20_000.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
-    }
-
-    #[test]
-    fn home_on_the_rift_when_no_nexus_is_read() {
-        let [blue, red] = rift_nexus();
-        assert!(blue.1 > 1_400_000.0 && blue.0 < 200_000.0 && red.0 > 1_400_000.0 && red.1 < 200_000.0, "{blue:?} {red:?}");
-        assert_eq!(home_nexus_in(&[(300_000.0, 1_300_000.0), (500_000.0, 1_500_000.0)], &rift_nexus()), Some(blue));
-        assert_eq!(home_nexus_in(&[(1_300_000.0, 300_000.0)], &rift_nexus()), Some(red));
-        assert_eq!(home_nexus_in(&[], &rift_nexus()), None);
     }
 
     #[test]

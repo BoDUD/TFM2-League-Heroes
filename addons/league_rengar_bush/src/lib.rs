@@ -30,9 +30,6 @@
 //! 0.2.1（2026-11-06，画面和预模拟分岔的排查）：0.2.0 一样合适时取「最后读到的」——服务器的预模拟和屏幕上的比赛在不同的
 //! 时候挑，中间别的比赛建图读了另一种模式，两边就用上不同的草丛；现在只看地图本身，每次跑同一局都挑同一张。
 //! 合集 `league_addons` 里一个 mod 只能有一个地图钩子：合集用 [`BushReader::read`] 和卡密尔的读墙一起调用。
-//! 峡谷（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：Rin 的召唤师峡谷 α 在自己的 DLL 里建 5v5 地图，不经过地图
-//! 文档，也没有草丛数据（地图文档里读到的草丛是游戏自己的 5v5 地图的）。game_places 从塔和水晶看出这一局在峡谷上时
-//! （[`bushes_for`]）没有地图的草丛给的扑击，也不退回「看不见」；艾翁的草丛、数据自己的就绪（复活、脱战 3 秒、R）照旧。
 //!
 //! 0.2.3（2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：**骨齿项链**。英雄联盟：他打过（3 秒内）的敌方
 //! 英雄阵亡——击杀或助攻——得一枚战利品，每个英雄只算一次，最多 5 枚，战利品给额外攻击力。主包只认他自己打出最后一击的
@@ -58,10 +55,8 @@ use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{self as places, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_rengar_bush";
@@ -333,31 +328,7 @@ pub enum Bushes {
     Absent,
     /// 哪张地图都没读到草丛（键名不认得）：退回「敌方队伍看不见他」。
     Vision,
-    /// 峡谷：没有草丛数据，没有地图的草丛给的扑击（艾翁的草丛照样给）；不用地图文档里游戏自己的 5v5 地图的格子，也不退回
-    /// 「看不见」。
-    Rift,
 }
-
-/// 这一场的草丛：峡谷上没有（[`Bushes::Rift`]），游戏自己的地图照旧挑（[`pick_bushes`]）。
-pub fn bushes_for(map: Map, points: &[(f64, f64)], maps: &[MapGrids]) -> Bushes {
-    match map {
-        Map::Rift => Bushes::Rift,
-        Map::Native => pick_bushes(points, maps),
-    }
-}
-
-/// 他站在地图的草丛里吗（`unseen`：敌方队伍看不见他，只在退回「看不见」时问）。峡谷上、这张地图没有草丛时没有（艾翁的草丛
-/// 另看）。
-pub fn map_bush(b: Option<&Bushes>, x: f64, y: f64, unseen: impl FnOnce() -> bool) -> bool {
-    match b {
-        Some(Bushes::Grid(g)) => g.at(x, y),
-        Some(Bushes::Vision) => unseen(),
-        _ => false,
-    }
-}
-
-/// 日志里写过峡谷那一行（每次启动一次）。
-static RIFT_SAID: AtomicBool = AtomicBool::new(false);
 
 /// 当前对局的地图：站进墙里的单位最少的那张（卡密尔附加包的挑法，没有墙的地图排最后），一样少取墙多的（最「具体」的：
 /// 单线的比赛也没人站在 5v5 地图的墙里），再一样取模式编号小的；用它的草丛。它没有草丛就是没有——不借别的模式的（0.1.x 只在
@@ -830,33 +801,29 @@ impl StablePassive for Bush {
         let (tick, shown) = (sim.tick(), on_screen(sim));
         self.bonetooth(sim, player, me, alive, team, shown);
         if self.bushes.is_none() {
-            // which 5v5 map (game_places: the towers and nexuses): the Rift has no bush data
-            let map = places::map_of_sim(sim);
-            if map == Map::Rift && !RIFT_SAID.swap(true, Ordering::Relaxed) {
-                wlog(format!("== Rift: no bush data there - no pounce from the map's bushes, no vision fallback (Ivern's brush \
-                              still readies it, and the data's own: the respawn, 3 s out of combat, R); {} ==",
-                             places::rift_status()));
-            }
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.is_alive())
                 .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
                 .collect();
             let maps: Vec<MapGrids> = MAPS.lock().unwrap_or_else(|e| e.into_inner()).values().cloned().collect();
-            let b = bushes_for(map, &points, &maps);
+            let b = pick_bushes(&points, &maps);
             if let Some(k) = counted("bushes", shown) {
                 let what = match &b {
                     Bushes::Grid(g) => format!("{} bush cells", g.count()),
                     Bushes::Absent => "this map has none (another mode's map has): no pounce from bushes".to_string(),
                     Bushes::Vision => "no bush grid - ready while the enemy team cannot see him".to_string(),
-                    Bushes::Rift => "the Rift: no bush data - only Ivern's brush readies the pounce".to_string(),
                 };
                 wlog(format!("{} BUSHES: {what} #{k}", head(sim, me)));
             }
             self.bushes = Some(b);
             self.tally_next = tick + TALLY_EVERY;
         }
-        let in_map_bush = map_bush(self.bushes.as_ref(), x, y, || !sim.is_visible(1 - team.min(1), me));
+        let in_map_bush = match self.bushes.as_ref() {
+            Some(Bushes::Grid(g)) => g.at(x, y),
+            Some(Bushes::Vision) => !sim.is_visible(1 - team.min(1), me),
+            _ => false,
+        };
         let m = marks(sim, me);
         if alive {
             self.battle_roar(sim, me, tick, &m, shown);
@@ -1099,29 +1066,6 @@ mod tests {
         let here = [(CELL * 0.5, CELL * 0.5)];
         assert_eq!(pick_bushes(&here, &[moba.clone(), lane.clone()]), Bushes::Grid(lane.bushes.clone().unwrap()));
         assert_eq!(pick_bushes(&here, &[lane.clone(), moba.clone()]), Bushes::Grid(lane.bushes.clone().unwrap()));
-    }
-
-    /// 2026-11-10: the Rift has no bush data - the game's own 5v5 map's bushes (read from the document) are never used
-    /// there, nor the vision fallback; Ivern's brush still readies the pounce.
-    #[test]
-    fn on_the_rift_only_iverns_brush() {
-        let moba = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: Some(Grid::from_rows(&["#.", ".."])), mode: 0 };
-        // units past 960000 (the Rift's far half) and one in the game's own map's bush cell
-        let here = [(1_200_000.0, 300_000.0), (CELL * 0.5, CELL * 0.5)];
-        assert_eq!(bushes_for(Map::Native, &here, std::slice::from_ref(&moba)), Bushes::Grid(moba.bushes.clone().unwrap()));
-        assert_eq!(bushes_for(Map::Rift, &here, std::slice::from_ref(&moba)), Bushes::Rift);
-        assert_eq!(bushes_for(Map::Rift, &here, &[]), Bushes::Rift, "no vision fallback on the Rift");
-        // standing where the game's own map has a bush, unseen: no bush on the Rift; the grid and the fallback elsewhere
-        let (x, y) = (CELL * 0.5, CELL * 0.5);
-        assert!(!map_bush(Some(&Bushes::Rift), x, y, || true));
-        assert!(map_bush(Some(&Bushes::Grid(moba.bushes.clone().unwrap())), x, y, || false));
-        assert!(map_bush(Some(&Bushes::Vision), x, y, || true) && !map_bush(Some(&Bushes::Vision), x, y, || false));
-        // in Ivern's brush on the Rift: ready all the same
-        let p = Params::default();
-        for (ivern, want) in [(true, Step::Ready), (false, Step::Nothing)] {
-            let in_bush = map_bush(Some(&Bushes::Rift), x, y, || true) || ivern;
-            assert_eq!(step(&p, true, in_bush, false, false, 0, true), want);
-        }
     }
 
     #[test]

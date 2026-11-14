@@ -10,7 +10,7 @@
 //!   `league_maokai_sap`（和自己技能命中时一样，下一次普攻就是吸元秘术）。
 //! - **草丛里的树苗更强**：读地图的草丛格子（league_nidalee 的 bush.rs，同雷恩加尔的读法），他自己留下、在原地超过 `stand`
 //!   tick 不动的区域就是他的树苗（他别的弹道都在飞）；树苗在草丛里时每 tick 给他挂 3 tick 的 `league_maokai_e_brush`，副本的数据
-//!   据此改用更大、更痛、减速更强的爆炸。Rin 的召唤师峡谷 α 上没有草丛数据，树苗都按不在草丛里（2026-11-10）。
+//!   据此改用更大、更痛、减速更强的爆炸。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_maokai.log`，每次启动游戏重写，上一次的留在 .prev.log：`HEAL`
 //! （回了多少）、`STRUCK`（被哪名英雄的技能打中、充好吸元秘术）、`SAPLING`（树苗立在哪、在不在草丛）、`BUSHES`（这场的草丛格子）；
@@ -22,7 +22,6 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::Map;
 use mod_api_stable::*;
 
 #[path = "../../league_nidalee/src/bush.rs"]
@@ -252,17 +251,14 @@ impl StablePassive for SapMagic {
         self.was_on = on;
         // the saplings: his own zones standing still; in a bush -> e_brush on him
         if self.grid.is_none() {
-            // the Rift (game_places: its towers and nexuses) has no bush data: no sapling in brush there
-            let map = bush::match_map(sim, "no bush data there - his saplings are never in brush (the plain explosion)");
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.is_alive())
                 .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
                 .collect();
-            let g = bush::bushes_on(map, &points, &bush::maps());
+            let g = bush::pick_bushes(&points, &bush::maps());
             wlog(match &g {
                 Some(g) => format!("{} BUSHES: {} bush cells", head(sim, me), g.count()),
-                None if map == Map::Rift => format!("{} BUSHES: the Rift - no bush data, saplings never in brush", head(sim, me)),
                 None => format!("{} BUSHES: no bush grid - saplings never in brush", head(sim, me)),
             });
             self.grid = Some(g);

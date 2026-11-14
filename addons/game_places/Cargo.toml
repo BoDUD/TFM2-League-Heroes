@@ -9,4 +9,3 @@ publish = false
 # dense-frame engine (hd_engine: league.dll and tft.dll), league.dll's GPU cache hook and every add-on with a display
 # hook.
 [dependencies]
-mod-api-stable = { path = "../vendor/mod-api-stable" }

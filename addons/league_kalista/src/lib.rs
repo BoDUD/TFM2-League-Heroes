@@ -24,11 +24,6 @@
 //!   现在同一个目标同一个 tick 只记一根（`add_spear`）；E 拔矛那几下照旧在 `e_pop` 亮着时清掉。
 //!   0.2.5（2026-11-08 夜里的日志）：`e_ok` 也是数据阶梯的标记（3 根矛打中英雄就挂 240 tick），斩杀判定以前等身上的 `e_ok`
 //!   下去才再算，阶梯一挂就停 240 tick；现在只等本包自己上次挂的（`rend_until`），数据挂着的 `e_ok` 也不去缩短。
-//!   两张 5v5 地图（2026-11-10）：跳、飞都夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
-//!   Rin 的召唤师峡谷 1614545 见方），侧跳挑留在这张图上的那边；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边。
-//!   峡谷上跳、飞的每一步还要落在能站的地方（`game_places::terrain::stand_ok`：峡谷的墙往外长一格，和作者的寻路一致）：
-//!   下一步站不住就跳 / 飞到这里为止，停在上一个能站的地方（飞的队友就在那里落地击飞），从不挪进墙里——以前一步步挪进墙边、
-//!   墙里，人就卡在那里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边；游戏自己的地图上照旧。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kalista.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -38,10 +33,8 @@ use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_kalista";
@@ -64,7 +57,7 @@ pub const E_CD: &str = "league_kalista_e_cd";
 pub const E_POP: &str = "league_kalista_e_pop";
 /// 附加包自己的：「拔了能杀」的那个敌人身上挂 6 tick，AI 钩子对它按技能 2（`FateAi::rend_now`）。
 pub const E_AIM: &str = "league_kalista_e_aim";
-/// 游戏自己的 5v5 地图边长（坐标 0..MAP）；峡谷的看 `Map::extent`。
+/// 地图边长（坐标 0..MAP）。
 const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -112,20 +105,6 @@ pub(crate) fn counted(kind: &'static str) -> Option<usize> {
     let n = c.entry(kind).or_insert(0);
     *n += 1;
     (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
-}
-
-/// 这次启动已经在日志里说过峡谷了。
-static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
-
-/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
-fn map_here(sim: &StableSim<'_>) -> Map {
-    let map = map_of_sim(sim);
-    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: hops and Fate's Call flights kept on the Rift's {:.0} square, a side hop takes the side \
-                      that stays on it (not the game's own {MAP:.0}), and a hop or a flight stops at the last spot off \
-                      the Rift's walls (stand_ok); {} ==", map.extent(), rift_status()));
-    }
-    map
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -281,14 +260,8 @@ pub struct Turns {
 /// 除了追残血 / 逃跑都往后，日志 77 后 26 前，打小兵一律往后）。看攻击距离 1.4 倍内最近的敌方英雄：残血（< 40%），或者在逃
 /// （离她越来越远）而且快跑出射程（> 80% 攻击距离），就往前追；贴到射程 60% 以内、或者正冲过来，就往后拉开；其余（站着对射）
 /// 侧跳，左右交替，跳完离它一样远，接着打不用走回来。附近没有敌方英雄时看最近的其他敌方单位（小兵、野怪、塔），原地前后交替跳，
-/// 先往前；什么都没有就 None，数据照主包往后跳。hop_thr 不再用（第一版：贴近才往后跳）。游戏自己的地图上的 [`hop_choice_on`]。
-#[cfg(test)]
+/// 先往前；什么都没有就 None，数据照主包往后跳。hop_thr 不再用（第一版：贴近才往后跳）。
 pub fn hop_choice(me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params) -> Option<(Hop, HopWhy)> {
-    hop_choice_on(Map::Native, me, foes, units, turns, p)
-}
-
-/// [`hop_choice`] 在 `map` 上：侧跳挑留在这张图上的那边。
-pub fn hop_choice_on(map: Map, me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params) -> Option<(Hop, HopWhy)> {
     let range = p.atk_range as f64;
     let nearest = |list: &[Foe]| {
         list.iter().filter(|f| dist(me, f.at) <= range * REACH).min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at))).copied()
@@ -312,7 +285,7 @@ pub fn hop_choice_on(map: Map, me: Pt, foes: &[Foe], units: &[Foe], turns: Turns
     }
     // the side that stays on the map
     let len = (p.hop_v * p.hop_t) as f64;
-    let ccw = if inside(map, hop_end(me, Hop::Side(near, turns.ccw), len)) { turns.ccw } else { !turns.ccw };
+    let ccw = if on_map(hop_end(me, Hop::Side(near, turns.ccw), len)) { turns.ccw } else { !turns.ccw };
     Some((Hop::Side(near, ccw), HopWhy::Strafe))
 }
 
@@ -348,16 +321,8 @@ pub fn hop_end(me: Pt, hop: Hop, len: f64) -> Pt {
     (me.0 + d.0 * len, me.1 + d.1 * len)
 }
 
-/// 在游戏自己的地图上（坐标 0..MAP）。
-#[cfg(test)]
 pub fn on_map(p: Pt) -> bool {
-    inside(Map::Native, p)
-}
-
-/// 在 `map` 上（坐标 0..边长）。
-pub fn inside(map: Map, p: Pt) -> bool {
-    let e = map.extent();
-    (0.0..e).contains(&p.0) && (0.0..e).contains(&p.1)
+    (0.0..MAP).contains(&p.0) && (0.0..MAP).contains(&p.1)
 }
 
 /// 一名队友：玩家 id、是不是辅助、英雄位置。
@@ -422,47 +387,19 @@ pub fn landing_pick(me: Pt, foes: &[Foe], p: &Params) -> Option<Foe> {
     None
 }
 
-/// 游戏自己的地图上的 [`fly_step_on`]。
-#[cfg(test)]
+/// 飞行的一步：朝 `to` 走 `v`，到 `catch` 内就算到了（停在原地）。-> (下一步的位置, 到了没有)
 pub fn fly_step(at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
-    fly_step_on(Map::Native, at, to, v, catch)
-}
-
-/// 飞行的一步：朝 `to` 走 `v`，到 `catch` 内就算到了（停在原地），夹在 `map` 上。-> (下一步的位置, 到了没有)
-pub fn fly_step_on(map: Map, at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
     let d = dist(at, to);
     if d <= catch {
         return (at, true);
     }
     let go = v.min(d - catch * 0.5);
     let next = (at.0 + (to.0 - at.0) / d * go, at.1 + (to.1 - at.1) / d * go);
-    (clamp_on(map, next), dist(next, to) <= catch)
+    (clamp(next), dist(next, to) <= catch)
 }
 
-/// [`fly_step_on`] 挨着峡谷的墙：这一步落在站不住的地方（`ok` 说不行：运行时是 `stand_ok`，峡谷的墙往外长一格；游戏自己的地图上
-/// 总是行）就不飞了（None：他停在上一个能站的地方，就在那里落地）。已经到了 `catch` 内、原地不动的那一步不看。
-pub fn fly_step_in(map: Map, at: Pt, to: Pt, v: f64, catch: f64, ok: impl Fn(Pt) -> bool) -> Option<(Pt, bool)> {
-    let (next, arrived) = fly_step_on(map, at, to, v, catch);
-    (dist(at, to) <= catch || ok(next)).then_some((next, arrived))
-}
-
-/// 跳的一步：从 `at` 朝 `dir` 走 `step`，夹在 `map` 上；落点站不住（`ok` 说不行：运行时是 `stand_ok`，峡谷的墙往外长一格；
-/// 游戏自己的地图上总是行）就不走（None：跳到这里为止，她停在上一个能站的地方）。
-pub fn hop_step(map: Map, at: Pt, dir: Pt, step: f64, ok: impl Fn(Pt) -> bool) -> Option<Pt> {
-    let next = clamp_on(map, (at.0 + dir.0 * step, at.1 + dir.1 * step));
-    ok(next).then_some(next)
-}
-
-/// 夹在游戏自己的地图上（坐标 0..MAP-1）。
-#[cfg(test)]
 pub fn clamp(p: Pt) -> Pt {
-    clamp_on(Map::Native, p)
-}
-
-/// 夹在 `map` 上（坐标 0..边长-1）。
-pub fn clamp_on(map: Map, p: Pt) -> Pt {
-    let e = map.extent();
-    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
+    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
 }
 
 /// 拔 `n` 根矛的伤害（物理，护甲按 100 / (100 + 护甲) 算）。
@@ -657,8 +594,7 @@ impl Oath {
         if self.turns.wave_back && (tick < self.last_wave || tick - self.last_wave > WAVE_RESET) {
             self.turns.wave_back = false;
         }
-        let map = map_here(sim);
-        let choice = hop_choice_on(map, at, &fs, &us, self.turns, p);
+        let choice = hop_choice(at, &fs, &us, self.turns, p);
         // the side hop plays the hop up (hop_b), not the lunge
         let want = match choice {
             Some((Hop::Forward(_), _)) => Some(HOP_F),
@@ -703,25 +639,21 @@ impl Oath {
         }
         if let Some(h) = self.hopping.as_mut() {
             let held = hard_cc(sim, me);
-            // 峡谷上这一步落在站不住的地方（离墙比峡谷的寻路允许的近）就跳到这里为止：她停在上一个能站的地方，不进墙
-            // （游戏自己的地图上 stand_ok 总是 true，照旧跳满 hop_t 步）
-            let next = if h.left == 0 || held { None } else { hop_step(map, at, h.dir, p.hop_v as f64, |q| stand_ok(map, q)) };
-            match next {
-                Some(next) => {
-                    if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
-                        h.refused += 1;
-                    }
-                    h.left -= 1;
+            if h.left == 0 || held {
+                if let Some(k) = counted("hop_done") {
+                    let now = pos_of(sim, h.foe).map_or("gone".to_string(), |f| format!("{:.0}", dist(at, f)));
+                    wlog(format!("{} HOP DONE moved {:.0} of {} ({} steps refused{}), {now} from {} (was {:.0}) #{k}", head(sim, me),
+                                 dist(h.from, at), p.hop_v * p.hop_t, h.refused, if held { ", cut by CC" } else { "" },
+                                 who(sim, h.foe), h.was));
                 }
-                None => {
-                    if let Some(k) = counted("hop_done") {
-                        let now = pos_of(sim, h.foe).map_or("gone".to_string(), |f| format!("{:.0}", dist(at, f)));
-                        let why = if held { ", cut by CC" } else if h.left > 0 { ", stopped at the Rift's wall" } else { "" };
-                        wlog(format!("{} HOP DONE moved {:.0} of {} ({} steps refused{why}), {now} from {} (was {:.0}) #{k}",
-                                     head(sim, me), dist(h.from, at), p.hop_v * p.hop_t, h.refused, who(sim, h.foe), h.was));
-                    }
-                    self.hopping = None;
+                self.hopping = None;
+            } else {
+                let step = p.hop_v as f64;
+                let next = clamp((at.0 + h.dir.0 * step, at.1 + h.dir.1 * step));
+                if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
+                    h.refused += 1;
                 }
+                h.left -= 1;
             }
         }
     }
@@ -770,29 +702,18 @@ impl Oath {
                 return;
             };
             let to = sim.get_entity(fl.foe).filter(|e| e.is_alive()).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
-            // 峡谷上这一步落在站不住的地方就飞到这里为止：他落在上一个能站的地方、照样击飞（游戏自己的地图上 stand_ok 总是 true）
-            let mut walled = false;
             let done = match (alive, to) {
                 (true, Some(to)) if fl.ticks <= 40 => {
-                    let map = map_here(sim);
-                    match fly_step_in(map, a, to, p.r_fly_v as f64, p.r_catch as f64, |q| stand_ok(map, q)) {
-                        Some((next, arrived)) => {
-                            sim.entity_set_pos(fl.ally, next.0.round() as u64, next.1.round() as u64);
-                            arrived
-                        }
-                        None => {
-                            walled = true;
-                            true
-                        }
-                    }
+                    let (next, arrived) = fly_step(a, to, p.r_fly_v as f64, p.r_catch as f64);
+                    sim.entity_set_pos(fl.ally, next.0.round() as u64, next.1.round() as u64);
+                    arrived
                 }
                 _ => true,
             };
             if done {
                 set_flag(sim, me, R_LANDED, 6);
                 if let Some(k) = counted("fate_land") {
-                    wlog(format!("{} FATE {} landed after {} ticks{} #{k}", head(sim, me), who(sim, fl.ally), fl.ticks,
-                                 if walled { " (stopped at the Rift's wall)" } else { "" }));
+                    wlog(format!("{} FATE {} landed after {} ticks #{k}", head(sim, me), who(sim, fl.ally), fl.ticks));
                 }
                 self.flight = None;
             }
@@ -1248,7 +1169,6 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use game_places::terrain::Walls;
 
     #[test]
     fn rend_waits_while_she_casts_and_backs_off_a_run_nothing_took() {
@@ -1403,98 +1323,6 @@ mod tests {
         assert_eq!(side(t), side(Turns { ccw: true, ..t }));
         assert!(on_map(hop_end(low_edge, Hop::Side(it2, side(t)), len)));
         assert!(!on_map(hop_end(low_edge, Hop::Side(it2, !side(t)), len)));
-    }
-
-    #[test]
-    fn on_the_rift_hops_and_flights_stay_on_its_bigger_square() {
-        let p = Params::default();
-        let rift = Map::Rift.extent();
-        // past 960000 is the Rift's ground: on it, not clamped back to the game's own edge
-        assert!(inside(Map::Rift, (1_200_000.0, 1_500_000.0)) && !on_map((1_200_000.0, 1_500_000.0)));
-        assert!(!inside(Map::Rift, (rift, 10.0)) && !inside(Map::Rift, (-1.0, 10.0)));
-        assert_eq!(clamp_on(Map::Rift, (1_300_000.0, 2_000_000.0)), (1_300_000.0, rift - 1.0));
-        assert_eq!(clamp_on(Map::Native, (1_300_000.0, 5.0)), clamp((1_300_000.0, 5.0)));
-        // by the game's own far edge (y 955000): there both turns take the side on it; the Rift has room both ways
-        let edge = (500_000.0, 955_000.0);
-        let it = foe(2, (545_000.0, 955_000.0), 80);
-        let side = |map: Map, at: Pt, f: Foe, turns: Turns| match hop_choice_on(map, at, &[f], &[], turns, &p) {
-            Some((Hop::Side(_, ccw), HopWhy::Strafe)) => ccw,
-            x => panic!("{x:?}"),
-        };
-        let t = Turns::default();
-        let ccw = Turns { ccw: true, ..t };
-        assert_eq!(side(Map::Native, edge, it, t), side(Map::Native, edge, it, ccw));
-        assert_ne!(side(Map::Rift, edge, it, t), side(Map::Rift, edge, it, ccw), "the Rift: either side, by turns");
-        assert_eq!(hop_choice(edge, &[it], &[], t, &p), hop_choice_on(Map::Native, edge, &[it], &[], t, &p));
-        // at the Rift's own far edge both turns take the side that stays on it
-        let far = (1_000_000.0, rift - 5_000.0);
-        let it2 = foe(3, (1_045_000.0, far.1), 80);
-        assert_eq!(side(Map::Rift, far, it2, t), side(Map::Rift, far, it2, ccw));
-        let len = (p.hop_v * p.hop_t) as f64;
-        assert!(inside(Map::Rift, hop_end(far, Hop::Side(it2, side(Map::Rift, far, it2, t)), len)));
-        // Fate's Call flies on past 960000 on the Rift (the game's own map stops it at its edge)
-        let (from, to) = ((958_000.0, 500_000.0), (1_200_000.0, 500_000.0));
-        let (next, _) = fly_step_on(Map::Rift, from, to, p.r_fly_v as f64, p.r_catch as f64);
-        assert_eq!(next, (958_000.0 + p.r_fly_v as f64, 500_000.0));
-        assert_eq!(fly_step(from, to, p.r_fly_v as f64, p.r_catch as f64).0, (MAP - 1.0, 500_000.0));
-    }
-
-    /// A piece of the Rift as `stand_ok` sees it with the walls file (`!is_wall` on `rift_ground`): cells of 60000/11,
-    /// 40 x 40 from (1100000, 1100000) - all past the game's own 960000 - with columns 20 and 21 wall, grown by one cell
-    /// (`padded`): no hero stands at x 1203636..1225455.
-    fn rift_piece() -> Walls {
-        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
-        let rows = vec![row.as_str(); 40];
-        let e = Map::Rift.extent();
-        Walls::from_rows(&rows, 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded()
-    }
-
-    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): a hop or Fate's Call's flight moved step by step into the
-    /// Rift's walls left the hero standing stuck there. Now a step onto a spot no hero stands on ends it: the last good spot.
-    #[test]
-    fn on_the_rift_a_hop_or_a_flight_stops_at_its_walls() {
-        let p = Params::default();
-        let g = rift_piece();
-        let ok = |q: Pt| !g.is_wall(q.0, q.1);
-        let y = 1_200_000.0;
-        // past 960000 is the Rift's ground; the wall and the cell round it are not
-        assert!(ok((1_150_000.0, y)) && ok((1_250_000.0, y)));
-        assert!(!ok((1_204_000.0, y)) && !ok((1_215_000.0, y)) && !ok((1_225_000.0, y)));
-        let hop = |map: Map, from: Pt, dir: Pt, ok: &dyn Fn(Pt) -> bool| {
-            let (mut at, mut steps) = (from, 0);
-            while steps < p.hop_t {
-                let Some(next) = hop_step(map, at, dir, p.hop_v as f64, ok) else { break };
-                (at, steps) = (next, steps + 1);
-            }
-            (at, steps)
-        };
-        // a hop at the wall: 6 of its 12 steps, on her last good spot (the 7th, 1204000, is in the grown wall)
-        assert_eq!(hop(Map::Rift, (1_190_000.0, y), (1.0, 0.0), &ok), ((1_202_000.0, y), 6));
-        assert_eq!(hop_step(Map::Rift, (1_202_000.0, y), (1.0, 0.0), p.hop_v as f64, ok), None);
-        // nothing in the way on the far side: the whole hop
-        assert_eq!(hop(Map::Rift, (1_260_000.0, y), (-1.0, 0.0), &ok), ((1_236_000.0, y), 12));
-        // the game's own map: stand_ok never stops one - every step as before, held at its own edge
-        let native = |q: Pt| stand_ok(Map::Native, q);
-        assert_eq!(hop(Map::Native, (500_000.0, 500_000.0), (1.0, 0.0), &native), ((524_000.0, 500_000.0), 12));
-        assert_eq!(hop_step(Map::Native, (959_000.0, 5.0), (1.0, 0.0), 2_000.0, native), Some(clamp((961_000.0, 5.0))));
-        // Fate's Call flying the ally at an enemy across the wall: he lands on the last good spot (not there yet)
-        let (v, catch) = (p.r_fly_v as f64, p.r_catch as f64);
-        let to = (1_250_000.0, y);
-        let (mut a, mut steps) = ((1_180_000.0, y), 0);
-        while let Some((next, arrived)) = fly_step_in(Map::Rift, a, to, v, catch, ok) {
-            assert!(!arrived && steps < 40);
-            (a, steps) = (next, steps + 1);
-        }
-        assert_eq!((a, steps), ((1_202_500.0, y), 5));
-        assert!(ok(a) && dist(a, to) > catch);
-        // the step it did not take is the old one, into the wall
-        assert_eq!(fly_step_in(Map::Rift, a, to, v, catch, |_| true), Some(((1_207_000.0, y), false)));
-        // one already within the catch is not moved: landed, whatever the spot
-        assert_eq!(fly_step_in(Map::Rift, (1_210_000.0, y), (1_220_000.0, y), v, catch, ok), Some(((1_210_000.0, y), true)));
-        // the game's own map: every step of the old flight
-        let from = (0.0, 0.0);
-        let far = (60_000.0, 0.0);
-        assert_eq!(fly_step_in(Map::Native, from, far, v, catch, native), Some(fly_step(from, far, v, catch)));
     }
 
     #[test]

@@ -19,8 +19,7 @@
 //!   起飞——残血逃生、追龙息够不着的残血、飞进队友已经在打的团。起飞重置龙息的冷却（去掉主包的 `q_cd`），挂 `w_fly`
 //!   （无视地形；主包副本里飞行中的龙息没有冷却、引导 `q_t_f`、伤害 `q_fdmg`%，`w_trail` 的星尘拖尾）和起飞的星云
 //!   `w_up`，之后逐 tick 把他沿直线挪过去（`entity_set_pos`，凯莉丝塔跳的做法）：每 tick `w_v`，喷龙息（身上有主包的
-//!   `q_ch`）时减半——边飞边喷，龙息的姿势一路跟着飞；硬控、被放逐、死亡就落地。落点在墙里就飞出墙（[`flight::landing`]；
-//!   游戏自己的 5v5 地图和 Rin 的召唤师峡谷各用各的墙，见 flight.rs）。
+//!   `q_ch`）时减半——边飞边喷，龙息的姿势一路跟着飞；硬控、被放逐、死亡就落地。落点在墙里就飞出墙（[`flight::landing`]）。
 //!   AI 钩子 [`flight_ai`] 在飞行中替 AI 对够得着的敌方英雄按龙息（逃生时只喷残血的追兵），走路和普攻改成朝落点飞。
 //!   主包副本的击杀检查挂 `w_td`：剩下的冷却返还 `w_refund`%（英雄联盟 90%）。
 //!
@@ -35,10 +34,8 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
 pub mod flight;
@@ -360,8 +357,6 @@ impl StableEffectType for CoreFx {
 
 /// 游戏的三张内置地图的墙（每次看局面时按单位的位置挑当前这张）。
 static GRIDS: LazyLock<Vec<flight::Grid>> = LazyLock::new(flight::Grid::builtin);
-/// 召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
-static RIFT_GRID: LazyLock<flight::Grid> = LazyLock::new(|| flight::Grid::rift(terrain::rift_ground()));
 
 /// 这一次飞行。
 #[derive(Clone, Debug)]
@@ -413,17 +408,8 @@ fn scene(sim: &StableSim<'_>, me: usize) -> Option<flight::Scene> {
     Some(s)
 }
 
-/// 当前对局的墙：召唤师峡谷上是峡谷的（第一次遇到时日志里记一行；按这局的塔和水晶判断，`terrain::map_of_sim`），游戏
-/// 自己的地图照旧是站进墙里的活着的单位最少的那张图。
+/// 当前对局的墙：站进墙里的活着的单位最少的那张图。
 fn grid_now(sim: &StableSim<'_>) -> &'static flight::Grid {
-    if terrain::map_of_sim(sim) == Map::Rift {
-        static MET: AtomicBool = AtomicBool::new(false);
-        if !MET.swap(true, Ordering::Relaxed) {
-            wlog(format!("== Rift: Astral Flight lands clear of the Rift's walls (from its walls file; with no file only \
-                          the map's edges count); {} ==", terrain::rift_status()));
-        }
-        return &RIFT_GRID;
-    }
     let points: Vec<Pt> =
         (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive()).map(|u| pos_of(&u)).collect();
     &GRIDS[flight::current(&GRIDS, &points)]

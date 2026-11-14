@@ -19,8 +19,7 @@
 //!
 //! 恶魔审判撞墙才晕（用户 2026-11-02：「薇恩要改成不E到墙壁不能眩晕」，照英雄联盟）：主包每一箭推完都晕一下（数据看不到墙）。
 //! 副本把重箭的击退换成本包的 `league_vayne_bolts:condemn`（目标 = 被打中的英雄）：沿击退的方向查墙（卡蜜尔附加包的墙格、
-//! 5v5 地图的四边，同波比附加包的英勇冲锋；峡谷地图上是峡谷的墙格，`game_places::terrain`，没有墙体文件时只有地图四边外算墙）。
-//! 推 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙：推到墙边，给薇恩加
+//! 5v5 地图的四边，同波比附加包的英勇冲锋）。推 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙：推到墙边，给薇恩加
 //! `league_vayne_e_wall`，到墙的那一刻（`queue_effect` 排好的 `league_vayne_bolts:pin`）把他按在墙边；主包第 `E_KB_T` tick
 //! 的撞墙伤害和眩晕只在薇恩身上有这个标志时打出。没碰到墙：照主包击退，不伤不晕。
 //! AI 钩子 `league_vayne_bolts:condemn`（`ai.rs`）替游戏的 AI 找墙放 E：预判走位，谁身后有墙就对谁放；没墙时只在贴脸自保、
@@ -42,9 +41,8 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::{LazyLock, Mutex, Once};
+use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -366,25 +364,21 @@ impl StablePassive for FinalHour {
 
 pub type Pt = (f64, f64);
 
-/// 推到墙边时离墙留的距离（身体半径另算）；墙格的边长（游戏自己的地图）、查墙的步长；5v5 地图四边的可走范围（同波比附加包）。
+/// 推到墙边时离墙留的距离（身体半径另算）；墙格的边长、查墙的步长；5v5 地图四边的可走范围（同波比附加包）。
 pub const WALL_GAP: f64 = 1_000.0;
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
 
-/// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图
-/// 另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
+/// 地图的墙格（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它）；5v5 地图另加四边。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
-    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
-    pub cell: f64,
-    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -396,19 +390,7 @@ impl Grid {
         ]
     }
 
-    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
-    /// 算墙（整张图一格空地）——恶魔审判在峡谷上找不到墙，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
-    pub fn rift(walls: Option<&Walls>) -> Grid {
-        match walls {
-            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
-            None => {
-                let e = terrain::RIFT_EXTENT;
-                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
-            }
-        }
-    }
-
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -418,11 +400,8 @@ impl Grid {
                 return true;
             }
         }
-        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
-        if fx < 0.0 || fy < 0.0 {
-            return true;
-        }
-        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
+        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -503,27 +482,6 @@ pub(crate) fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
         .collect()
 }
 
-/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
-static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
-/// 这次启动第一次碰到峡谷时在日志里记一行。
-static RIFT_SEEN: Once = Once::new();
-
-/// 当前对局的墙格（`condemn` 和 AI 钩子共用）：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；
-/// 游戏自己的地图照旧在三张内置图里挑单位站进墙里最少的那张。
-pub(crate) fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
-    match terrain::map_of_sim(sim) {
-        Map::Rift => {
-            RIFT_SEEN.call_once(|| {
-                wlog(format!("== Rift: Condemn stuns on the Rift's walls and the AI looks for them there; {} ==",
-                             terrain::rift_status()))
-            });
-            Some(&*RIFT)
-        }
-        Map::Native => current(&*BUILTIN, &unit_points(sim)).map(|i| &BUILTIN[i]),
-    }
-}
-
 fn target_of(input: &InputTargetV1) -> Option<usize> {
     (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)).then_some(input.target_id)
 }
@@ -547,7 +505,8 @@ fn condemn(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
     let Some(her) = sim.get_entity(vayne).map(|e| (e.pos().0 as f64, e.pos().1 as f64)) else { return };
     let dir = unit((at.0 - her.0, at.1 - her.1)).unwrap_or((1.0, 0.0));
     let reach = (E_KB_SPEED * E_KB_T) as f64;
-    let wall = grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body));
+    let grids = Grid::builtin();
+    let wall = current(&grids, &unit_points(sim)).and_then(|i| wall_travel(&grids[i], at, dir, reach, body));
     let Some(len) = wall else {
         sim.entity_knockback(vayne, target, E_KB_SPEED, E_KB_T);
         if let Some(k) = tally(sim, "free") {
@@ -705,43 +664,6 @@ mod tests {
         assert_eq!(wall_travel(g, (480_000.0, 480_000.0), (0.0, 1.0), reach, 6_000.0), None);
         // a wall cell of the grid (row 3, columns 15-16)
         assert!(wall_travel(g, (15.5 * CELL, 3.5 * CELL + 20_000.0), (0.0, -1.0), reach, 6_000.0).is_some());
-    }
-
-    /// 峡谷大小的假墙格：295 x 296 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
-    pub(crate) fn rift_walls(walls: &[(usize, usize)]) -> Walls {
-        let rows: Vec<String> = (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
-    }
-
-    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
-    pub(crate) fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
-        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
-        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
-        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
-    }
-
-    #[test]
-    fn the_rifts_walls_stop_the_push() {
-        let reach = (E_KB_SPEED * E_KB_T) as f64;
-        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
-        let g = Grid::rift(Some(&rift_walls(&block)));
-        // pushed toward a wall of the Rift past 1000000: up to it, the stun
-        let to = wall_travel(&g, (left - 15_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0).expect("the Rift's wall");
-        assert!((to - (15_000.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
-        // past 960000 is open ground on the Rift (the game's own grid called it all wall)
-        let far = (1_100_000.0, 1_100_000.0);
-        assert!(!g.is_wall(far.0, far.1) && Grid::builtin()[0].is_wall(far.0, far.1));
-        assert_eq!(wall_travel(&g, far, (1.0, 0.0), reach, 6_000.0), None);
-        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none
-        let at = (15.5 * CELL, 3.5 * CELL + 20_000.0);
-        assert!(wall_travel(&Grid::builtin()[0], at, (0.0, -1.0), reach, 6_000.0).is_some());
-        assert_eq!(wall_travel(&g, at, (0.0, -1.0), reach, 6_000.0), None);
-        // no walls file: no wall known inside, only the map's edges
-        let open = Grid::rift(None);
-        assert_eq!(wall_travel(&open, (left - 15_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0), None);
-        assert_eq!(wall_travel(&open, at, (0.0, -1.0), reach, 6_000.0), None);
-        assert!(wall_travel(&open, (terrain::RIFT_EXTENT - 20_000.0, 800_000.0), (1.0, 0.0), reach, 6_000.0).is_some());
     }
 
     #[test]

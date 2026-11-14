@@ -14,12 +14,6 @@
 //! 本包放回，永恩的编号比他小时一直顶到 20 步的上限（2026-11-02 复查 11-01 的日志：64 次里 59 次；编号大时 107 次里 3 次，
 //! 到了的也多走 3-5 步）。
 //!
-//! 两张 5v5 地图（2026-11-10）：落点和每一步夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
-//! Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 的落点被夹回半张图的边）。峡谷上落点进了墙（离墙比
-//! 作者的寻路允许的近，`game_places::terrain::stand_ok`：峡谷的墙往外长一格）就挪到 `LAND_REACH` 内最近能站的地方
-//! （`stand_spot`）；冲的每一步落在站不住的地方就冲到这里为止、停在上一个能站的地方；被斩中的人也只拉到墙前（拉的每一步都要
-//! 能站）。以前一步步挪进墙里，人就卡在那里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边。
-//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yone_r.log`。你看的那场每行都写，服务器的预模拟每种先写
 //! `LOG_FIRST` 行、之后每 `LOG_EVERY` 次一行（见 `tally`）。
 
@@ -27,10 +21,8 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, stand_ok, stand_spot, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_yone_r";
@@ -59,9 +51,6 @@ pub const PULL_SPEED: usize = 2_000;
 pub const PULL_MAX: f64 = 16_000.0;
 /// 拉到他身前多远停（他的身体外面：停在 6000 的又被引擎推开）。
 pub const STOP: f64 = 12_000.0;
-/// 峡谷上落点进了墙时，在这么远内找最近能站的地方（`stand_spot`；他落在被斩中的人身后 `back_of` ~11000 处）。
-pub const LAND_REACH: f64 = 30_000.0;
-/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -132,20 +121,6 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
-/// This launch's log has told the Rift already.
-static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
-
-/// The map this sim plays on; the first Rift a launch, a line in the log.
-fn map_here(sim: &StableSim<'_>) -> Map {
-    let map = map_of_sim(sim);
-    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: the landing behind the last one struck and the dash's steps are kept on the Rift's {:.0} \
-                      square (not the game's own {MAP:.0}), the landing off its walls (stand_spot within {LAND_REACH:.0}), \
-                      the dash and the pull stop at the last spot off them (stand_ok); {} ==", map.extent(), rift_status()));
-    }
-    map
-}
-
 // ===================== 落脚点 =====================
 
 type Pt = (f64, f64);
@@ -154,10 +129,8 @@ fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 夹在 `map` 上（坐标 0..边长-1）。
-fn clamp(map: Map, p: Pt) -> Pt {
-    let e = map.extent();
-    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
+fn clamp(p: Pt) -> Pt {
+    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
 }
 
 /// How far past the last one struck he lands: clear of both bodies (`my_r`, `their_r`; 0 = unknown, `BODY`).
@@ -166,25 +139,13 @@ pub fn back_of(my_r: f64, their_r: f64) -> f64 {
     r(my_r).max(r(their_r)) + BEHIND_GAP
 }
 
-/// [`behind_on`] on the game's own map.
+/// Where he lands: `back` past `last` on the way from `me` (at `last` itself when they stand on one spot).
 pub fn behind(me: Pt, last: Pt, back: f64) -> Pt {
-    behind_on(Map::Native, me, last, back)
-}
-
-/// Where he lands: `back` past `last` on the way from `me` (at `last` itself when they stand on one spot), on `map`.
-pub fn behind_on(map: Map, me: Pt, last: Pt, back: f64) -> Pt {
     let d = dist(me, last);
     if d < 1.0 {
         return last;
     }
-    clamp(map, (last.0 + (last.0 - me.0) / d * back, last.1 + (last.1 - me.1) / d * back))
-}
-
-/// [`behind_on`] off the Rift's walls: the landing through `spot` - the runtime's `stand_spot(map, p, LAND_REACH)`: on the
-/// Rift the nearest spot within `LAND_REACH` a hero can stand on (the landing itself when it is one, or none is that
-/// near), the landing as it was on the game's own map.
-pub fn landing_in(map: Map, me: Pt, last: Pt, back: f64, spot: impl Fn(Pt) -> Pt) -> Pt {
-    spot(behind_on(map, me, last, back))
+    clamp((last.0 + (last.0 - me.0) / d * back, last.1 + (last.1 - me.1) / d * back))
 }
 
 /// The steps a dash of `d` may take: at SPEED a step, `STEP_SPARE` more, at most `STEP_MAX`.
@@ -197,53 +158,20 @@ pub fn last_struck(me: Pt, struck: &[(usize, Pt)]) -> Option<(usize, Pt)> {
     struck.iter().copied().max_by(|a, b| dist(me, a.1).total_cmp(&dist(me, b.1)))
 }
 
-/// [`step_on`] on the game's own map.
+/// One dash step toward `goal` (None: there, within `ARRIVE`).
 pub fn step(at: Pt, goal: Pt) -> Option<Pt> {
-    step_on(Map::Native, at, goal)
-}
-
-/// One dash step toward `goal` on `map` (None: there, within `ARRIVE`).
-pub fn step_on(map: Map, at: Pt, goal: Pt) -> Option<Pt> {
     let d = dist(at, goal);
     if d < ARRIVE {
         return None;
     }
     let s = SPEED.min(d);
-    Some(clamp(map, (at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s)))
-}
-
-/// [`step_on`] by the Rift's walls: (the step, stopped at a wall). A step onto a spot no hero can stand on (`ok` says no:
-/// the runtime's `stand_ok`, always yes on the game's own map) is not taken - the dash ends there, he lands on his last
-/// good spot.
-pub fn step_in(map: Map, at: Pt, goal: Pt, ok: impl Fn(Pt) -> bool) -> (Option<Pt>, bool) {
-    match step_on(map, at, goal) {
-        Some(n) if !ok(n) => (None, true),
-        n => (n, false),
-    }
+    Some(clamp((at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s)))
 }
 
 /// Ticks to pull a champion `d` away toward him (0: close enough).
 pub fn pull_ticks(d: f64) -> usize {
     let far = (d - STOP).min(PULL_MAX);
     if far <= 0.0 { 0 } else { (far / PULL_SPEED as f64).ceil() as usize }
-}
-
-/// [`pull_ticks`] by the Rift's walls: the pull of the one struck at `from` toward him at `to` ends before its first spot
-/// (one every `PULL_SPEED`) no hero can stand on (`ok`: the runtime's `stand_ok`, always yes on the game's own map) - a
-/// champion struck beyond a wall his dash stopped at is pulled up to it, never into it.
-pub fn pull_ticks_in(from: Pt, to: Pt, ok: impl Fn(Pt) -> bool) -> usize {
-    let d = dist(from, to);
-    let t = pull_ticks(d);
-    if t == 0 {
-        return 0;
-    }
-    let (ux, uy) = ((to.0 - from.0) / d, (to.1 - from.1) / d);
-    (1..=t)
-        .take_while(|&k| {
-            let s = (k as f64 * PULL_SPEED as f64).min(d);
-            ok((from.0 + ux * s, from.1 + uy * s))
-        })
-        .count()
 }
 
 fn pos(e: &StableEntity<'_, '_>) -> Pt {
@@ -321,17 +249,12 @@ impl StablePassive for Dash {
                     return;
                 };
                 let their_r = sim.get_entity(who).map_or(0.0, |e| e.radius() as f64);
-                let map = map_here(sim);
-                let back = back_of(my_r, their_r);
-                // 峡谷上落点进了墙（离墙比峡谷的寻路允许的近）：LAND_REACH 内最近能站的地方（游戏自己的地图上原样）
-                let land = landing_in(map, at, there, back, |q| stand_spot(map, q, LAND_REACH));
+                let land = behind(at, there, back_of(my_r, their_r));
                 self.n += 1;
                 self.shown = tally(sim, "R").is_some();
                 if self.shown {
-                    let off = dist(land, behind_on(map, at, there, back));
-                    wlog(format!("{} R #{}: {} struck, lands behind #{who} {:.0} away{}{}", head(sim, me), self.n, struck.len(),
-                                 dist(at, land), if struck.is_empty() { " (nobody struck: nearest)" } else { "" },
-                                 if off > 0.5 { format!(" (moved {off:.0} off the Rift's wall)") } else { String::new() }));
+                    wlog(format!("{} R #{}: {} struck, lands behind #{who} {:.0} away{}", head(sim, me), self.n, struck.len(),
+                                 dist(at, land), if struck.is_empty() { " (nobody struck: nearest)" } else { "" }));
                 }
                 for (id, _) in &struck {
                     sim.entity_remove_buff(*id, STRUCK);
@@ -352,11 +275,7 @@ impl Dash {
     /// One dash tick; at the end, pull the struck toward him.
     fn dash(&mut self, sim: &mut StableSim<'_>, me: usize, at: Pt) {
         let Phase::Dash(goal, struck, steps, budget) = &mut self.phase else { return };
-        let map = map_here(sim);
-        // 峡谷上下一步站不住（离墙比峡谷的寻路允许的近）就冲到这里为止，停在上一个能站的地方（游戏自己的地图上 stand_ok
-        // 总是 true）
-        let (next, walled) = step_in(map, at, *goal, |q| stand_ok(map, q));
-        if let Some(next) = next {
+        if let Some(next) = step(at, *goal) {
             if *steps < *budget && sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
                 *steps += 1;
                 return;
@@ -365,16 +284,15 @@ impl Dash {
         let landed = sim.get_entity(me).map(|e| pos(&e)).unwrap_or(at);
         let mut pulled = 0;
         for id in struck.iter() {
-            let Some(there) = sim.get_entity(*id).filter(|u| u.is_alive()).map(|u| pos(&u)) else { continue };
-            // 峡谷上拉到墙前为止（拉的每一步都要能站：他停在墙这边时，墙那边被斩中的人不被拉进墙里）
-            let t = pull_ticks_in(there, landed, |q| stand_ok(map, q));
+            let Some(d) = sim.get_entity(*id).filter(|u| u.is_alive()).map(|u| dist(landed, pos(&u))) else { continue };
+            let t = pull_ticks(d);
             if t > 0 && sim.entity_pull(me, *id, PULL_SPEED, t) {
                 pulled += 1;
             }
         }
         if self.shown {
-            wlog(format!("{} R #{} LANDED after {steps} steps ({:.0} off the spot{}), pulled {pulled} of {}", head(sim, me),
-                         self.n, dist(landed, *goal), if walled { ", stopped at the Rift's wall" } else { "" }, struck.len()));
+            wlog(format!("{} R #{} LANDED after {steps} steps ({:.0} off the spot), pulled {pulled} of {}", head(sim, me), self.n,
+                         dist(landed, *goal), struck.len()));
         }
         self.phase = Phase::Idle;
     }
@@ -411,7 +329,6 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use game_places::terrain::Walls;
 
     #[test]
     fn he_lands_behind_the_farthest_struck() {
@@ -437,77 +354,5 @@ mod tests {
         assert_eq!(pull_ticks(12_000.0), 0);
         assert_eq!(pull_ticks(20_000.0), 4);
         assert_eq!(pull_ticks(60_000.0), 8);
-    }
-
-    #[test]
-    fn on_the_rift_he_lands_and_dashes_past_960000() {
-        let back = back_of(0.0, 0.0);
-        // the last one struck by the game's own far edge: there he lands on its edge, on the Rift behind him
-        let (me, last) = ((900_000.0, 400_000.0), (955_000.0, 400_000.0));
-        assert_eq!(behind(me, last, back), (MAP - 1.0, 400_000.0));
-        assert_eq!(behind_on(Map::Rift, me, last, back), (955_000.0 + back, 400_000.0));
-        // the Rift's own edge holds him
-        let rift = Map::Rift.extent();
-        assert_eq!(behind_on(Map::Rift, (rift - 60_000.0, 5.0), (rift - 5_000.0, 5.0), back), (rift - 1.0, 5.0));
-        // a dash step out past 960000
-        assert_eq!(step((955_000.0, 0.0), (1_100_000.0, 0.0)), Some((MAP - 1.0, 0.0)));
-        assert_eq!(step_on(Map::Rift, (955_000.0, 0.0), (1_100_000.0, 0.0)), Some((955_000.0 + SPEED, 0.0)));
-    }
-
-    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): the landing, the dash's steps and the pull went into the
-    /// Rift's walls and left champions standing stuck there. A piece of the Rift as `stand_ok` / `stand_spot` see it with
-    /// the walls file (`rift_ground`): cells of 60000/11, 40 x 40 from (1100000, 1100000) - past the game's own 960000 -
-    /// columns 20 and 21 wall, grown by one cell (`padded`): no hero stands at x 1203636..1225455.
-    #[test]
-    fn on_the_rift_the_landing_the_dash_and_the_pull_keep_off_its_walls() {
-        let e = Map::Rift.extent();
-        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
-        let g = Walls::from_rows(&vec![row.as_str(); 40], 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded();
-        let ok = |q: Pt| !g.is_wall(q.0, q.1);
-        let spot = |q: Pt| g.nearest_open(q, LAND_REACH).unwrap_or(q);
-        let y = 1_200_000.0;
-        let (west, east) = (1_100_000.0 + 19.0 * 60_000.0 / 11.0, 1_100_000.0 + 23.0 * 60_000.0 / 11.0);
-        assert!(ok((1_150_000.0, y)) && ok((east + 1.0, y)) && !ok((west + 1.0, y)) && !ok((east - 1.0, y)));
-        // the last one struck by the wall: behind him is in it, so he lands on the nearest spot off it (this side)
-        let back = back_of(0.0, 0.0);
-        let (me, last) = ((1_150_000.0, y), (1_195_000.0, y));
-        assert!(!ok(behind_on(Map::Rift, me, last, back)), "behind him (1206000) is in the grown wall");
-        let land = landing_in(Map::Rift, me, last, back, spot);
-        assert!(ok(land) && (land.0 - (west - 1.0)).abs() < 0.01 && land.1 == y, "{land:?}");
-        // and dashes all the way there
-        let (mut at, mut steps) = (me, 0);
-        loop {
-            match step_in(Map::Rift, at, land, ok) {
-                (Some(next), false) => (at, steps) = (next, steps + 1),
-                (None, walled) => {
-                    assert!(!walled);
-                    break;
-                }
-                x => panic!("{x:?}"),
-            }
-        }
-        assert_eq!((at, steps), (land, 5));
-        // a landing beyond the wall (none near enough to move it off): the dash ends on his last good spot, never in it
-        let goal = (1_260_000.0, y);
-        assert_eq!(step_in(Map::Rift, (1_180_000.0, y), goal, ok), (Some((1_192_000.0, y)), false));
-        assert_eq!(step_in(Map::Rift, (1_192_000.0, y), goal, ok), (None, true), "1204000 is in the grown wall");
-        assert_eq!(step_in(Map::Rift, (1_192_000.0, y), goal, |_| true), (Some((1_204_000.0, y)), false));
-        // one struck beyond it is pulled up to it (7 of the 8 ticks: the 8th spot, 1224000, is in it), not into it
-        let landed = (1_192_000.0, y);
-        assert_eq!(pull_ticks(dist(landed, (1_240_000.0, y))), 8);
-        assert_eq!(pull_ticks_in((1_240_000.0, y), landed, ok), 7);
-        assert!(ok((1_240_000.0 - 7.0 * PULL_SPEED as f64, y)));
-        // one struck on his side: the whole pull
-        assert_eq!(pull_ticks_in((1_150_000.0, y), landed, ok), pull_ticks(42_000.0));
-        // the game's own map: the landing, the steps and the pulls as before (stand_ok / stand_spot never change them)
-        let native = |q: Pt| stand_ok(Map::Native, q);
-        let (me, last) = ((900_000.0, 400_000.0), (955_000.0, 400_000.0));
-        assert_eq!(landing_in(Map::Native, me, last, back, |q| stand_spot(Map::Native, q, LAND_REACH)), behind(me, last, back));
-        assert_eq!(step_in(Map::Native, (0.0, 0.0), (5_000.0, 0.0), native), (step((0.0, 0.0), (5_000.0, 0.0)), false));
-        assert_eq!(step_in(Map::Native, (955_000.0, 0.0), (1_100_000.0, 0.0), native), (Some((MAP - 1.0, 0.0)), false));
-        assert_eq!(step_in(Map::Native, (4_000.0, 0.0), (5_000.0, 0.0), native), (None, false));
-        for d in [12_000.0, 20_000.0, 60_000.0] {
-            assert_eq!(pull_ticks_in((d, 0.0), (0.0, 0.0), native), pull_ticks(d));
-        }
     }
 }

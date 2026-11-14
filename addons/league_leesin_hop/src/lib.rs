@@ -46,8 +46,7 @@
 //!
 //! 2026-11-08 日志审查：
 //! - 10:00 前的 W 开团 24% 白冲（10:00 后 4%）：league_lane 在对线期拦下他落地后的普攻（目标在他们塔下 80000 内、李青以少
-//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标，它会拦的就不冲。2026-11-10（0.1.16）用户把运营钩子
-//!   （league_lane 在内）删了，这条规则也删了：「删了吧 李青的」——对线期和之后一样挑。
+//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标（`LANE_*`），它会拦的就不冲。
 //! - Q 的「预判」从来没放出去过（两次启动 0 行 `Q AIM`）：主包的 Q 是指向技能（Targeting），方向在按下那一刻朝目标站的地方
 //!   定死，方向输入引擎不收，一直悄悄退回了内置 AI 的 Q。现在只决定放不放：朝他现在的位置飞、他照现在的速度走，波飞到时
 //!   还在波的宽度里（`Q_RADIUS` + 他的半径）就放（`QPlan::Keep`），会走出波就先不放（`Skip`）。
@@ -55,10 +54,6 @@
 //!
 //! 0.1.15（2026-11-08 夜里的日志）：看的那场 360 行里 252 行是 `Q SKIP … no Q on minions`——以前按单位去重，AI 在几个小兵之间
 //! 来回挑，每换一个就是一行；现在按理由和 `SKIP_QUIET`（120）tick 去重（`skip_news`）。
-//!
-//! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔站在 1000000 以外
-//! （`game_places::terrain::map_of_sim`）就是峡谷（[`Ground::Rift`]）：W 和回旋踢的落点在峡谷的 1614545 见方里，墙是作者的
-//! 墙体坐标.json；没有这个文件时不知道哪里有墙，只有地图边以外算墙。游戏自己的图照旧（960000 见方、内置的 5v5 墙）。
 
 pub mod maps;
 
@@ -66,10 +61,8 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 const ID: &str = "league_leesin_hop";
@@ -106,6 +99,16 @@ pub const LOW_HP: f64 = 0.3;
 pub const DANGER_R: f64 = 40_000.0;
 /// 追击：敌人血量比例、至少离多远（近了直接打）、停在他身前多远。
 pub const CHASE_HP: f64 = 0.25;
+/// league_lane（对线纪律）管到几点（tick，10:00）：之前的开团照它的规则挑目标，它会拦下落地后的普攻就不冲。
+pub const LANE_END: usize = 36_000;
+/// league_lane：目标离他们的塔这么近就不打（塔射程 75000 加余量）……
+pub const LANE_TOWER_R: f64 = 80_000.0;
+/// ……除非他只剩这么多生命。
+pub const LANE_DIVE_HP: f64 = 0.10;
+/// league_lane：这么近的敌方英雄比我方多就是以少打多……
+pub const LANE_NEAR: f64 = 70_000.0;
+/// ……除非目标只剩这么多生命（而且不在塔下）。
+pub const LANE_KILL_HP: f64 = 0.25;
 pub const CHASE_MIN: f64 = 25_000.0;
 pub const CHASE_STOP: f64 = 8_000.0;
 /// 被动每隔几 tick 看一次。
@@ -283,53 +286,15 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 这一局的地面：游戏自己的图（`true`：查 5v5 的墙，`scan` 看有没有单位站在它的墙里；`false`：别的图，不查墙）或峡谷
-/// （作者的墙体坐标.json，`None`：没有文件，只有地图边以外算墙）。各函数的 `walls` 参数收它，也收 `true` / `false`。
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub enum Ground<'a> {
-    Native(bool),
-    Rift(Option<&'a Walls>),
-}
-
-impl From<bool> for Ground<'static> {
-    fn from(walls: bool) -> Self {
-        Ground::Native(walls)
-    }
-}
-
-impl Ground<'_> {
-    /// 在地图上（0..地图边长：游戏自己的图 960000，峡谷 1614545）。
-    pub fn on_map(&self, p: (f64, f64)) -> bool {
-        let side = match self {
-            Ground::Native(_) => Map::Native.extent(),
-            Ground::Rift(_) => Map::Rift.extent(),
-        };
-        p.0 >= 0.0 && p.1 >= 0.0 && p.0 < side && p.1 < side
-    }
-
-    /// 是墙：游戏自己的图查墙时是 5v5 的墙格（[`is_wall`]，格子外也算）；峡谷是墙体文件的墙格（格子外也算），没有文件时
-    /// 只有地图外。
-    pub fn wall(&self, p: (f64, f64)) -> bool {
-        match self {
-            Ground::Native(walls) => *walls && is_wall(p.0, p.1),
-            Ground::Rift(walls) => !self.on_map(p) || walls.is_some_and(|w| w.is_wall(p.0, p.1)),
-        }
-    }
-}
-
-/// 这次启动已经在日志里说过峡谷了。
-static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
-
-/// a 到 b 的直线上没有墙吗（游戏自己的图 `walls` 关掉时总是没有）。
-pub fn path_free<'a>(walls: impl Into<Ground<'a>>, a: (f64, f64), b: (f64, f64)) -> bool {
-    let g: Ground = walls.into();
-    if matches!(g, Ground::Native(false)) {
+/// a 到 b 的直线上没有墙吗（`walls` 关掉时总是没有）。
+pub fn path_free(walls: bool, a: (f64, f64), b: (f64, f64)) -> bool {
+    if !walls {
         return true;
     }
     let n = (dist(a, b) / 1000.0).ceil().max(1.0) as usize;
     (0..=n).all(|i| {
         let f = i as f64 / n as f64;
-        !g.wall((a.0 + (b.0 - a.0) * f, a.1 + (b.1 - a.1) * f))
+        !is_wall(a.0 + (b.0 - a.0) * f, a.1 + (b.1 - a.1) * f)
     })
 }
 
@@ -359,16 +324,15 @@ pub fn kick_dir(target: (f64, f64), lee: (f64, f64), allies: &[(f64, f64)], towe
 
 /// 他背后（`back` = 踢的反方向）`BEHIND` 的落脚点和那一侧的方向：墙里就往近挪到 `BEHIND_MIN`，还不行左右各转
 /// 15°、30° 找；要在地图上、李青冲过去的路上没有墙。
-pub fn behind_spot<'a>(walls: impl Into<Ground<'a>>, lee: (f64, f64), target: (f64, f64), back: (f64, f64))
-                       -> Option<((f64, f64), (f64, f64))> {
-    let g: Ground = walls.into();
+pub fn behind_spot(walls: bool, lee: (f64, f64), target: (f64, f64), back: (f64, f64)) -> Option<((f64, f64), (f64, f64))> {
     for deg in [0.0f64, 15.0, -15.0, 30.0, -30.0] {
         let (sn, cs) = deg.to_radians().sin_cos();
         let dir = (back.0 * cs - back.1 * sn, back.0 * sn + back.1 * cs);
         let mut b = BEHIND;
         while b >= BEHIND_MIN {
             let w = (target.0 + dir.0 * b, target.1 + dir.1 * b);
-            if g.on_map(w) && !g.wall(w) && path_free(g, lee, w) {
+            let on_map = w.0 >= 0.0 && w.1 >= 0.0 && w.0 < 960_000.0 && w.1 < 960_000.0;
+            if on_map && !(walls && is_wall(w.0, w.1)) && path_free(walls, lee, w) {
                 return Some((w, dir));
             }
             b -= 1_500.0;
@@ -378,12 +342,12 @@ pub fn behind_spot<'a>(walls: impl Into<Ground<'a>>, lee: (f64, f64), target: (f
 }
 
 /// 跟着走时的落点：他现在的位置往 `dir` 走 `keep`，墙里就往近挪，最近 `BEHIND_MIN`。
-pub fn follow_spot<'a>(walls: impl Into<Ground<'a>>, target: (f64, f64), dir: (f64, f64), keep: f64) -> (f64, f64) {
-    let g: Ground = walls.into();
+pub fn follow_spot(walls: bool, target: (f64, f64), dir: (f64, f64), keep: f64) -> (f64, f64) {
     let mut b = keep;
     while b >= BEHIND_MIN {
         let w = (target.0 + dir.0 * b, target.1 + dir.1 * b);
-        if g.on_map(w) && !g.wall(w) {
+        let on_map = w.0 >= 0.0 && w.1 >= 0.0 && w.0 < 960_000.0 && w.1 < 960_000.0;
+        if on_map && !(walls && is_wall(w.0, w.1)) {
             return w;
         }
         b -= 1_500.0;
@@ -438,9 +402,7 @@ pub fn chasing(lee: (f64, f64), v_lee: (f64, f64), him: (f64, f64), v_him: (f64,
 
 /// 逃跑的落点：24 个方向里和他正在跑的方向 `heading` 差不过 60° 的，路上没墙、能冲 `HOP_MIN`..`HOP_RANGE`
 /// 的点里离敌人最远的，比现在至少远 15000。
-pub fn escape_spot<'a>(walls: impl Into<Ground<'a>>, me: (f64, f64), foes: &[(f64, f64)], heading: (f64, f64))
-                       -> Option<(f64, f64)> {
-    let g: Ground = walls.into();
+pub fn escape_spot(walls: bool, me: (f64, f64), foes: &[(f64, f64)], heading: (f64, f64)) -> Option<(f64, f64)> {
     let now = nearest(me, foes);
     (0..24)
         .filter_map(|k| {
@@ -452,7 +414,7 @@ pub fn escape_spot<'a>(walls: impl Into<Ground<'a>>, me: (f64, f64), foes: &[(f6
             let mut run = 0.0;
             while run + 500.0 <= HOP_RANGE {
                 let p = (me.0 + dir.0 * (run + 500.0), me.1 + dir.1 * (run + 500.0));
-                if !g.on_map(p) || g.wall(p) {
+                if p.0 < 0.0 || p.1 < 0.0 || p.0 >= 960_000.0 || p.1 >= 960_000.0 || (walls && is_wall(p.0, p.1)) {
                     break;
                 }
                 run += 500.0;
@@ -466,8 +428,7 @@ pub fn escape_spot<'a>(walls: impl Into<Ground<'a>>, me: (f64, f64), foes: &[(f6
 }
 
 /// 追击的落点：他身前（李青这边）`CHASE_STOP`，要够得着（`HOP_MIN`..`HOP_RANGE`）、路上没墙。
-pub fn chase_spot<'a>(walls: impl Into<Ground<'a>>, me: (f64, f64), target: (f64, f64)) -> Option<(f64, f64)> {
-    let walls: Ground = walls.into();
+pub fn chase_spot(walls: bool, me: (f64, f64), target: (f64, f64)) -> Option<(f64, f64)> {
     let d = dist(me, target);
     if d < CHASE_MIN {
         return None;
@@ -486,10 +447,8 @@ struct Champ {
     hp: f64,
 }
 
-/// 活着、能选中的英雄，和这一局的地面：峡谷（塔站在 1000000 以外），或游戏自己的图——能不能用 5v5 的墙（没有单位站在
-/// 它的墙里）。
-fn scan(sim: &StableSim<'_>) -> (Vec<Champ>, Ground<'static>) {
-    let map = map_of_sim(sim);
+/// 活着、能选中的英雄，和这张图能不能用 5v5 的墙（没有单位站在它的墙里）。
+fn scan(sim: &StableSim<'_>) -> (Vec<Champ>, bool) {
     let mut champs = Vec::new();
     let mut walls = true;
     for i in 0..sim.entity_count() {
@@ -499,7 +458,7 @@ fn scan(sim: &StableSim<'_>) -> (Vec<Champ>, Ground<'static>) {
         }
         let (x, y) = e.pos();
         let at = (x as f64, y as f64);
-        if map == Map::Native && is_wall(at.0, at.1) {
+        if is_wall(at.0, at.1) {
             walls = false;
         }
         if e.is_champion() && e.is_targetable() {
@@ -508,14 +467,7 @@ fn scan(sim: &StableSim<'_>) -> (Vec<Champ>, Ground<'static>) {
             champs.push(Champ { id: e.id(), at, team: e.team(), hp });
         }
     }
-    if map == Map::Native {
-        return (champs, Ground::Native(walls));
-    }
-    if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: Lee Sin's W and insec land on the Rift's 1614545 square clear of its walls (none known without \
-                      the walls file: only its edge); {} ==", rift_status()));
-    }
-    (champs, Ground::Rift(rift_ground()))
+    (champs, walls)
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -773,25 +725,35 @@ pub fn walking_at(lee: (f64, f64), v_lee: (f64, f64), foes: &[Foe]) -> Vec<usize
 /// 突进开团的目标和落点：李青这次和上次（`before`）看都正对着他走（`walking_at`）、他离 `ENGAGE_MIN` 以外、
 /// 他站着或横着走（朝李青走过来的不用冲；跑开的是追击，只追残血的）、W 够得着（`chase_spot`：落在他身前 `CHASE_STOP`）、
 /// 不在他们自己的塔下（`ENGAGE_TOWER_R`，他残血时照冲）、他身边 `ENGAGE_CROWD_R` 内的敌方英雄不到三个
-/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。对线期（10:00 前）和之后一样挑（0.1.16：以前照
-/// 对线纪律附加包 league_lane 的规则少冲，2026-11-10 用户把运营钩子连同这条规则一起删了：「删了吧 李青的」）。
+/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。`lane`：对线期（10:00 前），照 league_lane 的
+/// 规则：目标在他们塔下 `LANE_TOWER_R` 内（生命 `LANE_DIVE_HP` 以上）、落点 `LANE_NEAR` 内敌方英雄比我方多（目标残血、
+/// 不在塔下的除外）都不冲——落地后的普攻会被它拦下，W 白交。
 #[allow(clippy::too_many_arguments)]
-pub fn engage_target<'a>(
-    walls: impl Into<Ground<'a>>,
+pub fn engage_target(
+    walls: bool,
     lee: (f64, f64),
     v_lee: (f64, f64),
     foes: &[Foe],
     before: &[usize],
     allies: &[(f64, f64)],
     their_towers: &[(f64, f64)],
+    lane: bool,
 ) -> Option<(usize, (f64, f64))> {
-    let walls: Ground = walls.into();
     let now = walking_at(lee, v_lee, foes);
-    let under = |at: (f64, f64)| their_towers.iter().any(|t| dist(*t, at) <= ENGAGE_TOWER_R);
+    let (tower_r, dive_hp) = if lane { (LANE_TOWER_R, LANE_DIVE_HP) } else { (ENGAGE_TOWER_R, CHASE_HP) };
+    let under = |at: (f64, f64)| their_towers.iter().any(|t| dist(*t, at) <= tower_r);
     foes.iter()
         .filter(|f| now.contains(&f.id) && before.contains(&f.id) && dist(lee, f.at) >= ENGAGE_MIN)
         .filter(|f| !moving_away(lee, f.v, f.at) && !moving_away(f.at, f.v, lee))
-        .filter(|f| f.hp <= CHASE_HP || !under(f.at))
+        .filter(|f| f.hp <= dive_hp || !under(f.at))
+        .filter(|f| {
+            if !lane || (f.hp <= LANE_KILL_HP && !under(f.at)) {
+                return true;
+            }
+            let theirs = foes.iter().filter(|o| dist(o.at, f.at) <= LANE_NEAR).count();
+            let ours = allies.iter().filter(|a| dist(**a, f.at) <= LANE_NEAR).count() + 1;
+            theirs <= ours
+        })
         .filter(|f| {
             let crowd = foes.iter().filter(|o| dist(o.at, f.at) <= ENGAGE_CROWD_R).count();
             crowd < 3 || allies.iter().any(|a| dist(*a, f.at) <= ENGAGE_CROWD_R + 15_000.0)
@@ -807,7 +769,7 @@ fn hop(
     sim: &mut StableSim<'_>,
     lee: usize,
     champs: &[Champ],
-    walls: Ground<'static>,
+    walls: bool,
     foes: &[Foe],
     v_lee: (f64, f64),
     before: &[usize],
@@ -835,7 +797,8 @@ fn hop(
             Some((_, w)) => (Some(w), "CHASE", None),
             None if mine.hp >= ENGAGE_HP => {
                 let allies: Vec<(f64, f64)> = champs.iter().filter(|c| c.team == team && c.id != lee).map(|c| c.at).collect();
-                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false));
+                let lane = sim.tick() < LANE_END;
+                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false), lane);
                 (hit.map(|(_, w)| w), "ENGAGE", hit.map(|(id, _)| id))
             }
             None => (None, "CHASE", None),
@@ -1443,24 +1406,24 @@ mod tests {
         assert!(matches!(plan_q(&InputTargetV1::target(7), me, &[runner]).0, QPlan::Skip(_)));
     }
 
-    /// 0.1.16: no lane-phase rule any more (league_lane is gone): the same picks before and after 10:00.
     #[test]
-    fn lee_picks_the_same_targets_before_and_after_ten_minutes() {
+    fn before_ten_minutes_lee_does_not_leap_where_league_lane_stops_his_hits() {
         let lee = (480_000.0, 480_000.0);
         let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
-        let go = |foes: &[Foe], allies: &[(f64, f64)], towers: &[(f64, f64)]| {
-            engage_target(true, lee, (900.0, 0.0), foes, &[7], allies, towers)
+        let go = |foes: &[Foe], allies: &[(f64, f64)], towers: &[(f64, f64)], lane: bool| {
+            engage_target(true, lee, (900.0, 0.0), foes, &[7], allies, towers, lane)
         };
-        // his tower 60000 behind him: beyond ENGAGE_TOWER_R - Lee goes (the lane rule stopped him here before 10:00)
+        // his tower 60000 behind him: beyond ENGAGE_TOWER_R, inside LANE_TOWER_R
         let tower = [(580_000.0, 480_000.0)];
-        assert!(go(&[him], &[], &tower).is_some());
-        // a second enemy beside him and nobody of ours: still fewer than three, Lee goes
+        assert!(go(&[him], &[], &tower, false).is_some());
+        assert!(go(&[him], &[], &tower, true).is_none(), "league_lane would stop the hits");
+        assert!(go(&[Foe { hp: 0.08, ..him }], &[], &tower, true).is_some(), "at 8% it is worth it");
+        // a second enemy beside him and nobody of ours: outnumbered there
         let mate = Foe { id: 8, at: (530_000.0, 470_000.0), v: (0.0, 0.0), hp: 1.0 };
-        assert!(go(&[him, mate], &[], &[]).is_some());
-        // right under his tower (inside ENGAGE_TOWER_R) a healthy target is left alone, a low one is not
-        let close = [(545_000.0, 480_000.0)];
-        assert!(go(&[him], &[], &close).is_none());
-        assert!(go(&[Foe { hp: 0.2, ..him }], &[], &close).is_some());
+        assert!(go(&[him, mate], &[], &[], true).is_none());
+        assert!(go(&[him, mate], &[(500_000.0, 490_000.0)], &[], true).is_some(), "2 v 2 with our jungler near");
+        assert!(go(&[him, mate], &[], &[], false).is_some(), "after 10:00: as before");
+        assert!(go(&[Foe { hp: 0.2, ..him }, mate], &[], &[], true).is_some(), "a kill at 20%");
     }
 
     #[test]
@@ -1554,7 +1517,7 @@ mod tests {
         let lee = (480_000.0, 480_000.0);
         let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
         let go = |foes: &[Foe], before: &[usize], allies: &[(f64, f64)], towers: &[(f64, f64)]| {
-            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers)
+            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers, false)
         };
         // 李青一直往东走、他站着、40000：冲到他身前 8000
         let (id, w) = go(&[him], &[7], &[], &[]).unwrap();
@@ -1565,9 +1528,9 @@ mod tests {
         // 上次看时还没朝他走（刚转过来 / 路过）：不冲
         assert!(go(&[him], &[], &[], &[]).is_none());
         // 站着不动 / 往回走 / 斜着走（偏 45°）：不冲
-        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[]).is_none());
-        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[]).is_none());
-        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[]).is_none());
+        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[], false).is_none());
+        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[], false).is_none());
+        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[], false).is_none());
         // 他朝李青走过来（不冲也碰上）/ 他跑开（满血的不追）：不冲
         assert!(go(&[Foe { v: (-900.0, 0.0), ..him }], &[7], &[], &[]).is_none());
         assert!(go(&[Foe { v: (900.0, 0.0), ..him }], &[7], &[], &[]).is_none());
@@ -1600,68 +1563,5 @@ mod tests {
         let foe = (450_000.0, 480_000.0);
         assert!(moving_away(lee, (900.0, 300.0), foe));
         assert!(!moving_away(lee, (-900.0, 0.0), foe) && !moving_away(lee, (0.0, 900.0), foe));
-    }
-
-    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
-    /// cells walls, plus every cell in columns `xs`, rows `ys`.
-    fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
-        let rows: Vec<String> = (0..296)
-            .map(|y| {
-                (0..295)
-                    .map(|x| {
-                        let border = x == 0 || y == 0 || x == 294 || y == 295;
-                        if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
-                    })
-                    .collect()
-            })
-            .collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        let side = Map::Rift.extent();
-        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (side, side))
-    }
-
-    #[test]
-    fn on_the_rift_the_insec_lands_past_960000_and_short_of_its_walls() {
-        // he backs onto a Rift wall from row 240 on (y 1309091), columns 230-245 (x 1257273-1344545)
-        let walls = rift_file(230..246, 240..250);
-        let (lee, target) = ((1_300_000.0, 1_260_000.0), (1_300_000.0, 1_300_000.0));
-        // the game's own map ends at 960000: no room behind him at all out here, walls or not
-        assert!(behind_spot(true, lee, target, (0.0, 1.0)).is_none() && behind_spot(false, lee, target, (0.0, 1.0)).is_none());
-        let (w, _) = behind_spot(Ground::Rift(Some(&walls)), lee, target, (0.0, 1.0)).unwrap();
-        assert!(!walls.is_wall(w.0, w.1) && w.1 < 1_309_091.0 && dist(w, target) >= BEHIND_MIN, "{w:?}");
-        assert_eq!(follow_spot(Ground::Rift(Some(&walls)), target, (0.0, 1.0), BEHIND), w);
-        // no walls file: nothing known in the way, the whole BEHIND
-        let (w, _) = behind_spot(Ground::Rift(None), lee, target, (0.0, 1.0)).unwrap();
-        assert!((w.1 - (target.1 + BEHIND)).abs() < 1.0, "{w:?}");
-        // the game's own wall at row 12 (y 384000-416000) is open ground on the Rift: the whole BEHIND there too
-        let empty = rift_file(0..0, 0..0);
-        let (w, _) = behind_spot(Ground::Rift(Some(&empty)), (272_000.0, 330_000.0), (272_000.0, 375_000.0), (0.0, 1.0)).unwrap();
-        assert!((w.1 - 390_000.0).abs() < 1.0 && is_wall(w.0, w.1), "{w:?}");
-    }
-
-    #[test]
-    fn on_the_rift_w_runs_and_chases_by_its_walls() {
-        let me = (1_300_000.0, 1_000_000.0);
-        let foes = [(1_270_000.0, 1_000_000.0), (1_280_000.0, 1_020_000.0)];
-        // the game's own map: past its end, no spot
-        assert!(escape_spot(true, me, &foes, (900.0, 0.0)).is_none());
-        let w = escape_spot(Ground::Rift(None), me, &foes, (900.0, 0.0)).unwrap();
-        assert!(w.0 > me.0 + HOP_MIN - 1.0 && nearest(w, &foes) >= nearest(me, &foes) + 15_000.0, "{w:?}");
-        // a Rift wall 33600 east (columns 244-249: x 1333636-1366364): he stops short of it
-        let walls = rift_file(244..250, 170..200);
-        let w = escape_spot(Ground::Rift(Some(&walls)), me, &foes, (900.0, 0.0)).unwrap();
-        assert!(!walls.is_wall(w.0, w.1) && w.0 < 1_333_637.0, "{w:?}");
-        // never past the Rift's edge (no walls file: the edge is the only wall)
-        let side = Map::Rift.extent();
-        let edge = (side - 25_000.0, 800_000.0);
-        let w = escape_spot(Ground::Rift(None), edge, &[(side - 50_000.0, 800_000.0)], (900.0, 0.0)).unwrap();
-        assert!(Ground::Rift(None).on_map(w) && w.0 < side, "{w:?}");
-        // a Rift wall between him and his prey (columns 232-234: x 1268182-1284545): no chase through it
-        let walls = rift_file(232..235, 210..230);
-        let (lee, prey) = ((1_250_000.0, 1_200_000.0), (1_290_000.0, 1_200_000.0));
-        assert!(chase_spot(Ground::Rift(Some(&walls)), lee, prey).is_none());
-        assert!(chase_spot(Ground::Rift(None), lee, prey).is_some());
-        assert!(!path_free(Ground::Rift(Some(&walls)), lee, prey) && path_free(Ground::Rift(None), lee, prey));
-        assert!(!path_free(Ground::Rift(None), (side - 1_000.0, 5_000.0), (side + 1_000.0, 5_000.0)), "off the Rift");
     }
 }

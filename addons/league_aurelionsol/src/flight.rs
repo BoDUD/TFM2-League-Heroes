@@ -14,20 +14,14 @@
 //!
 //! 落点在墙里就往前飞出墙（最多再飞 [`WALL_PAST`]），出不去就退回墙前（[`landing`]）；地图外不去。墙格子是游戏的
 //! 内置地图（league_camille_wall 的 maps.rs，泰隆翻墙附加包也用它），当前对局取站进墙里的单位最少的那张。
-//!
-//! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：lib.rs 按这局的塔和水晶判断是哪张图
-//! （`game_places::terrain::map_of_sim`）。Rin 的召唤师峡谷（1614545 见方）用峡谷作者的墙体文件（[`Grid::rift`]，295 x 296
-//! 格、每格 60000/11），没有文件时峡谷上只有地图外算墙（以前拿内置地图：960000 以外都是地图外，峡谷的远半边飞不出去）。
 
 #[allow(dead_code)]
 #[path = "../../league_camille_wall/src/maps.rs"]
 mod maps;
 
-use game_places::terrain;
-
 pub type Pt = (f64, f64);
 
-/// 游戏自己的地图的墙格边长（世界单位，30 x 32000 = 960000）。
+/// 墙格的边长（世界单位，30 x 32000 = 960000）。
 pub const CELL: f64 = 32_000.0;
 /// 5v5 地图四边的墙面（上下的石墙、左右的石堆）：外面也算墙（league_camille_wall 的 MOBA_BOUNDS）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
@@ -90,20 +84,16 @@ pub fn along(from: Pt, dir: Pt, t: f64) -> Pt {
 
 // ===================== 墙 =====================
 
-/// 一张墙格子：`cells[y][x]`；`bounds` 外是地图四边画出来的墙（5v5 的；另两张图的四周本来就是格子墙）。每格 `cell`
-/// 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、(0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
+/// 一张墙格子：`cells[y][x]`；`bounds` 外是地图四边画出来的墙（5v5 的；另两张图的四周本来就是格子墙）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
-    pub cell: f64,
-    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds: None, cell: CELL,
-               origin: (0.0, 0.0) }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds: None }
     }
 
     /// 游戏的三张内置地图：5v5（加四边的墙面）、单线、死斗。
@@ -113,20 +103,12 @@ impl Grid {
         vec![moba, Grid::from_rows(&maps::SINGLE_LANE), Grid::from_rows(&maps::DEATH_MATCH)]
     }
 
-    /// 召唤师峡谷的墙：有墙体文件就是文件的墙格（四边在文件里就是墙）；没有就是一格地图大小的空地（只有地图外算墙）。
-    pub fn rift(walls: Option<&terrain::Walls>) -> Grid {
-        match walls {
-            Some(w) => Grid { cells: w.cells.clone(), bounds: None, cell: w.cell, origin: w.origin },
-            None => Grid { cells: vec![vec![false]], bounds: None, cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
-        }
-    }
-
     /// 在地图里（格子范围内、四边的墙面以内）吗。
     pub fn on_map(&self, p: Pt) -> bool {
-        let w = self.origin.0 + self.cells.iter().map(|r| r.len()).max().unwrap_or(0) as f64 * self.cell;
-        let h = self.origin.1 + self.cells.len() as f64 * self.cell;
+        let w = self.cells.iter().map(|r| r.len()).max().unwrap_or(0) as f64 * CELL;
+        let h = self.cells.len() as f64 * CELL;
         let inside = self.bounds.is_none_or(|(x0, y0, x1, y1)| p.0 >= x0 && p.1 >= y0 && p.0 <= x1 && p.1 <= y1);
-        p.0 >= self.origin.0 && p.1 >= self.origin.1 && p.0 < w && p.1 < h && inside
+        p.0 >= 0.0 && p.1 >= 0.0 && p.0 < w && p.1 < h && inside
     }
 
     /// 落在墙格里（或地图外）吗。
@@ -134,7 +116,7 @@ impl Grid {
         if !self.on_map(p) {
             return true;
         }
-        let (cx, cy) = (((p.0 - self.origin.0) / self.cell) as usize, ((p.1 - self.origin.1) / self.cell) as usize);
+        let (cx, cy) = ((p.0 / CELL) as usize, (p.1 / CELL) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
@@ -423,88 +405,6 @@ mod tests {
         assert_eq!(current(&grids, &moba_units), 0);
         // the middle of the map is open on all three: alone it picks the one with the most walls (so every unit counts)
         assert_eq!(current(&grids, &[(480_000.0, 480_000.0)]), 2);
-    }
-
-    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
-    /// （世界坐标的 (左上, 右下)）里的格子是墙。
-    fn rift_walls(rects: &[(Pt, Pt)]) -> terrain::Walls {
-        let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
-            .map(|cy| {
-                (0..295)
-                    .map(|cx| {
-                        let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
-                        let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
-                        if wall { '#' } else { '.' }
-                    })
-                    .collect()
-            })
-            .collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        terrain::Walls::from_rows(&rows, cell, origin, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
-    }
-
-    #[test]
-    fn on_the_rift_he_flies_over_the_rifts_walls() {
-        // a wall in the Rift's far half: a flight ending in it goes on past it
-        let g = Grid::rift(Some(&rift_walls(&[((1_300_000.0, 1_100_000.0), (1_330_000.0, 1_300_000.0))])));
-        let from = (1_250_000.0, 1_200_000.0);
-        let len = landing(&g, from, (1.0, 0.0), 65_000.0);
-        let land = along(from, (1.0, 0.0), len);
-        assert!(land.0 > 1_330_000.0 - g.cell && !g.is_wall(land) && g.crosses(from, land), "{len} {land:?}");
-        // the game's own grid: past 960000 is off its map - no flight at all out there (the old code)
-        assert_eq!(landing(&Grid::builtin()[0], from, (1.0, 0.0), 65_000.0), 0.0);
-        // past 960000 it is the map on the Rift, and a wall of the game's own 5v5 map is none on it
-        assert!(g.on_map((1_000_000.0, 1_500_000.0)) && !g.is_wall((1_000_000.0, 1_500_000.0)));
-        let native = (15.5 * CELL, 3.5 * CELL);
-        assert!(Grid::builtin()[0].is_wall(native) && !g.is_wall(native));
-        // low with an enemy close in the far half: away from him, the whole way
-        let mut s = me(from, 0.25);
-        s.foes = vec![c(7, (1_290_000.0, 1_200_000.0), 1.0)];
-        let p = plan(&s, 150_000.0, &g).expect("an escape");
-        assert!(p.why == Why::Escape && p.dir.0 < -0.5 && (p.len - 150_000.0).abs() < 1.0, "{p:?}");
-        assert_eq!(plan(&s, 150_000.0, &Grid::builtin()[0]), None, "the old grid: no room out there");
-    }
-
-    /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。
-    #[test]
-    fn on_the_rifts_real_walls_every_landing_is_clear() {
-        let Some(path) = std::env::var_os(terrain::RIFT_WALLS_ENV) else { return };
-        let g = Grid::rift(Some(&terrain::load_rift_walls(&[path.into()]).unwrap()));
-        let (mut flights, mut over) = (0, 0);
-        let mut y = 20_000.0;
-        while y < terrain::RIFT_EXTENT {
-            let mut x = 20_000.0;
-            while x < terrain::RIFT_EXTENT {
-                if !g.is_wall((x, y)) {
-                    for d in rays() {
-                        let len = landing(&g, (x, y), d, 150_000.0);
-                        if len > 0.0 {
-                            let land = along((x, y), d, len);
-                            assert!(g.on_map(land) && !g.is_wall(land), "({x},{y}) {d:?} -> {land:?}");
-                            flights += 1;
-                            over += usize::from(g.crosses((x, y), land));
-                        }
-                    }
-                }
-                x += 40_000.0;
-            }
-            y += 40_000.0;
-        }
-        assert!(flights > 3_000 && over > 500, "{flights} flights, {over} over walls");
-    }
-
-    #[test]
-    fn on_the_rift_without_its_walls_file_only_its_edges_stop_him() {
-        let g = Grid::rift(None);
-        assert!(g.on_map((1_600_000.0, 1_600_000.0)) && !g.on_map((1_614_546.0, 800_000.0)) && !g.on_map((-1.0, 5.0)));
-        // a flight toward the map's edge is cut to it
-        let len = landing(&g, (1_550_000.0, 800_000.0), (1.0, 0.0), 150_000.0);
-        assert!(len > 60_000.0 && len < 64_545.0, "{len}");
-        // nothing else is wall
-        assert_eq!(landing(&g, (1_250_000.0, 1_200_000.0), (1.0, 0.0), 65_000.0), 65_000.0);
-        // the landing's buff name holds the Rift's coordinates
-        assert!(to_name("league_aurelionsol_w_to:", (1_614_545.0, 1_614_545.0)).len() <= 64);
     }
 
     #[test]

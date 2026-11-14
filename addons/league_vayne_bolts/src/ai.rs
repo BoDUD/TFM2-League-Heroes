@@ -5,7 +5,7 @@
 //! - E 好了、她没被控、AI 不在放 Q / R 时，看射程里（AI 也认可的）每个敌方英雄：重箭打到他那一刻（第 `E_START` tick 出箭，
 //!   再飞 距离 / `E_BOLT_SPEED` tick）他照这几 tick 的速度走到哪（最多 `LEAD_MAX`，碰到墙就停），从薇恩那里往他身后推，
 //!   `E_KB_SPEED` x `E_KB_T` 的路上有墙——他现在站的地方和预判的地方都有——就替 AI 对他放 E（`E WALL`）：AI 正在打的人
-//!   优先，再挑血量低的、身后的墙近的（墙和 `condemn` 查的一样：峡谷地图上是峡谷的墙格）；
+//!   优先，再挑血量低的、身后的墙近的；
 //! - 谁身后都没墙时：近身（身体之间不到 `PEEL_GAP`）的敌方英雄，AI 要放 E 或者她血量低于 `PEEL_HP`% 时推开自保（`E PEEL`）；
 //!   AI 要放 E、这一箭打得死人的照放（`E KILL`）；别的时候 AI 想放 E 就不放，改打 AI 要 E 的那个人（打不到就走过去），等墙
 //!   （`E HELD`）。
@@ -16,7 +16,8 @@ use std::collections::HashMap;
 
 use mod_api_stable::*;
 
-use super::{grid_now, head, tally, unit, wall_travel, wlog, Grid, Pt, E_BOLT_SPEED, E_KB_SPEED, E_KB_T, E_RANGE, E_START, ID};
+use super::{current, head, tally, unit, unit_points, wall_travel, wlog, Grid, Pt, E_BOLT_SPEED, E_KB_SPEED, E_KB_T, E_RANGE, E_START,
+            ID};
 
 /// 排在 league_ult_press（100）之后，同别的连招钩子。
 pub const PRIORITY: i32 = 110;
@@ -242,8 +243,8 @@ impl StablePlayerAi for Condemn {
             let e_at = ai_e.and_then(|t| sim.get_entity(t)).map(|u| (u.id(), (u.pos().0 as f64, u.pos().1 as f64)));
             // immune to crowd control: the push does nothing to them
             let foes: Vec<Foe> = seen.into_iter().filter(|(f, immune)| !immune && reach(f)).map(|(f, _)| f).collect();
-            // the walls condemn checks: the Rift's on the Rift, else the game's own map picked as before
-            let grid = grid_now(&sim)?;
+            let grids = Grid::builtin();
+            let grid = current(&grids, &unit_points(&sim)).and_then(|i| grids.into_iter().nth(i))?;
             let (hp, max) = e.hp();
             let me = Me { at: (e.pos().0 as f64, e.pos().1 as f64), r: e.radius() as f64, ad: e.stat().attack,
                           hp_pct: hp * 100 / max.max(1) };
@@ -272,7 +273,7 @@ impl StablePlayerAi for Condemn {
             }
             return Some(input);
         }
-        let c = call(grid, &me, &foes, want_of(base))?;
+        let c = call(&grid, &me, &foes, want_of(base))?;
         let name = |id: usize| names.get(&id).cloned().unwrap_or_default();
         let (input, kind, text) = match c {
             Call::Wall(t, len, moved) => (InputV1::action(InputKindV1::Skill2, InputTargetV1::target(t)), "e wall",
@@ -360,26 +361,6 @@ mod tests {
         assert!(matches!(call(&g, &v, &[wall, wall2], Want::Attack(None)), Some(Call::Wall(3, ..))));
         // a Q or R the AI is on: left alone
         assert_eq!(call(&g, &v, &[wall], Want::Skill), None);
-    }
-
-    #[test]
-    fn on_the_rift_e_goes_at_its_walls() {
-        use super::super::tests::{rift_block, rift_walls};
-        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
-        let g = Grid::rift(Some(&rift_walls(&block)));
-        // he stands 15000 short of a wall of the Rift past 1000000, she pushes him into it from his left
-        let v = me(left - 60_000.0, 1_300_000.0);
-        let wall = foe(1, left - 15_000.0, 1_300_000.0);
-        let open = foe(2, left - 60_000.0, 1_250_000.0);
-        assert!(matches!(call(&g, &v, &[open, wall], Want::Attack(Some(2))), Some(Call::Wall(1, ..))));
-        // past 960000 with no Rift wall behind him: E kept (the game's own grid had a wall everywhere out there)
-        let far = foe(3, 1_100_000.0, 1_100_000.0);
-        let v = me(1_060_000.0, 1_100_000.0);
-        assert_eq!(call(&g, &v, &[far], Want::E(Some(3))), Some(Call::Hold(3)));
-        assert!(matches!(call(&moba(), &v, &[far], Want::E(Some(3))), Some(Call::Wall(3, ..))));
-        // no walls file: nothing behind him on the Rift
-        let v = me(left - 60_000.0, 1_300_000.0);
-        assert_eq!(call(&Grid::rift(None), &v, &[wall], Want::E(Some(1))), Some(Call::Hold(1)));
     }
 
     #[test]

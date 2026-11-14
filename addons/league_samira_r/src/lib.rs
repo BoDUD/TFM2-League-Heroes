@@ -7,10 +7,6 @@
 //! - **被动 `league_samira_r:walk`**：她身上有主包 R 的 `R_ON`（120 tick）时，每 tick 朝 `CHASE` 内生命 + 护盾最少的敌方
 //!   英雄走一步（`entity_set_pos`），走到 `KEEP` 内就站住；被硬控（眩晕、击飞、禁锢、嘲讽、恐惧、魅惑、强制位移）时不走。
 //!   一步多长：平时她走路时每 tick 挪的距离（最近 `SAMPLES` 次的中位数，冲刺、传送不算），没量到就是 `STEP`。
-//!   每一步夹在这一场的地图里（2026-11-10，`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，Rin 的召唤师峡谷
-//!   1614545 见方；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边）。峡谷上每一步还要落在能站的地方
-//!   （`game_places::terrain::stand_ok`：峡谷的墙往外长一格，和作者的寻路一致）：站不住的那一步不走、记一步被拒，和撞墙
-//!   一样停在上一个能站的地方，从不挪进墙里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_samira_r.log`。
 
@@ -18,10 +14,8 @@ use std::collections::VecDeque;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_samira_r";
@@ -43,7 +37,6 @@ pub const STEP: f64 = 550.0;
 /// 一 tick 挪了超过这么多就是冲刺、传送，不算走路。
 pub const DASH: f64 = 1_500.0;
 pub const SAMPLES: usize = 120;
-/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
                                 CcKindV1::Charm, CcKindV1::ForceMove];
@@ -97,19 +90,6 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
-/// 这次启动已经在日志里说过峡谷了。
-static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
-
-/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
-fn map_here(sim: &StableSim<'_>) -> Map {
-    let map = map_of_sim(sim);
-    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: her steps while R spins are kept on the Rift's {:.0} square (not the game's own {MAP:.0}), \
-                      a step onto the Rift's walls is refused (stand_ok); {} ==", map.extent(), rift_status()));
-    }
-    map
-}
-
 // ===================== 走一步 =====================
 
 type Pt = (f64, f64);
@@ -128,31 +108,15 @@ pub fn step_of(moves: &VecDeque<f64>) -> f64 {
     v[v.len() / 2]
 }
 
-/// [`toward_on`] on the game's own map.
+/// One step from `at` toward `goal`, stopping `KEEP` short of it (None: close enough already).
 pub fn toward(at: Pt, goal: Pt, step: f64) -> Option<Pt> {
-    toward_on(Map::Native, at, goal, step)
-}
-
-/// One step from `at` toward `goal`, stopping `KEEP` short of it (None: close enough already), kept on `map`.
-pub fn toward_on(map: Map, at: Pt, goal: Pt, step: f64) -> Option<Pt> {
     let d = dist(at, goal);
     if d <= KEEP {
         return None;
     }
     let s = step.min(d - KEEP);
     let next = (at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s);
-    let e = map.extent();
-    Some((next.0.clamp(0.0, e - 1.0), next.1.clamp(0.0, e - 1.0)))
-}
-
-/// [`toward_on`] by the Rift's walls: (the step, refused). A step onto a spot no hero can stand on (`ok` says no: the
-/// runtime's `stand_ok`, always yes on the game's own map) is not taken and counts as refused, like a wall the engine
-/// stops her at: she stays on her last good spot.
-pub fn toward_in(map: Map, at: Pt, goal: Pt, step: f64, ok: impl Fn(Pt) -> bool) -> (Option<Pt>, bool) {
-    match toward_on(map, at, goal, step) {
-        Some(n) if !ok(n) => (None, true),
-        n => (n, false),
-    }
+    Some((next.0.clamp(0.0, MAP - 1.0), next.1.clamp(0.0, MAP - 1.0)))
 }
 
 /// Whom she walks at: the enemy champion within `CHASE` with the least health + shield (`foes`: id, at, hp + shield).
@@ -243,14 +207,7 @@ impl StablePassive for Walk {
             .map(|u| (u.id(), (u.pos().0 as f64, u.pos().1 as f64), u.hp().0 + u.shield()))
             .collect();
         let Some((_, goal)) = prey(at, &foes) else { return };
-        let map = map_here(sim);
-        // 峡谷上这一步站不住（离墙比峡谷的寻路允许的近）就不走、记一步被拒，停在原地（游戏自己的地图上 stand_ok 总是 true）
-        let (next, walled) = toward_in(map, at, goal, step_of(&self.moves), |q| stand_ok(map, q));
-        if walled {
-            spin.2 += 1;
-            return;
-        }
-        let Some(next) = next else { return };
+        let Some(next) = toward(at, goal, step_of(&self.moves)) else { return };
         if sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
             spin.0 += 1;
             spin.1 += dist(at, next);
@@ -298,7 +255,6 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use game_places::terrain::Walls;
 
     #[test]
     fn she_walks_at_the_weakest_and_stops_in_range() {
@@ -309,54 +265,6 @@ mod tests {
         assert_eq!(toward((40_000.0, 0.0), (60_000.0, 0.0), 550.0), None);
         let n = toward((29_800.0, 0.0), (60_000.0, 0.0), 550.0).unwrap();
         assert!((n.0 - 30_000.0).abs() < 1e-6);
-    }
-
-    #[test]
-    fn on_the_rift_she_walks_on_past_960000() {
-        // stepping out past the game's own edge: there it holds her at 959999, the Rift is that much bigger
-        let (at, goal) = ((959_800.0, 500_000.0), (1_100_000.0, 500_000.0));
-        assert_eq!(toward(at, goal, 550.0), Some((MAP - 1.0, 500_000.0)));
-        let n = toward_on(Map::Rift, at, goal, 550.0).unwrap();
-        assert!((n.0 - 960_350.0).abs() < 1e-6 && n.1 == 500_000.0, "{n:?}");
-        // the Rift's own edge holds her
-        let edge = Map::Rift.extent() - 1.0;
-        assert_eq!(toward_on(Map::Rift, (edge - 100.0, 10.0), (edge + 90_000.0, 10.0), 550.0), Some((edge, 10.0)));
-    }
-
-    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): her R walk stepped her into the Rift's walls and she stood
-    /// stuck there. A piece of the Rift as `stand_ok` sees it with the walls file (`!is_wall` on `rift_ground`): cells of
-    /// 60000/11, 40 x 40 from (1100000, 1100000), columns 20 and 21 wall, grown by one cell (`padded`): no hero stands at x
-    /// 1203636..1225455.
-    #[test]
-    fn on_the_rift_a_step_into_its_walls_is_refused() {
-        let e = Map::Rift.extent();
-        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
-        let g = Walls::from_rows(&vec![row.as_str(); 40], 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded();
-        let ok = |q: Pt| !g.is_wall(q.0, q.1);
-        let y = 1_200_000.0;
-        // 40 ticks of her spin walking at someone across the wall: 15 steps up to her last good spot, the rest refused
-        let walk = |map: Map, from: Pt, goal: Pt, ok: &dyn Fn(Pt) -> bool| {
-            let (mut at, mut steps, mut refused) = (from, 0, 0);
-            for _ in 0..40 {
-                match toward_in(map, at, goal, 550.0, ok) {
-                    (Some(next), false) => (at, steps) = (next, steps + 1),
-                    (None, true) => refused += 1,
-                    x => panic!("{x:?}"),
-                }
-            }
-            (at, steps, refused)
-        };
-        assert_eq!(walk(Map::Rift, (1_195_000.0, y), (1_260_000.0, y), &ok), ((1_203_250.0, y), 15, 25));
-        assert!(ok((1_203_250.0, y)) && !ok((1_203_800.0, y)), "the 16th step is in the grown wall");
-        // past 960000 with nothing in the way, and close enough already: as before
-        assert_eq!(toward_in(Map::Rift, (1_150_000.0, y), (1_100_000.0, y), 550.0, ok), (Some((1_149_450.0, y)), false));
-        assert_eq!(toward_in(Map::Rift, (1_150_000.0, y), (1_170_000.0, y), 550.0, ok), (None, false));
-        // the game's own map: stand_ok never refuses her - every step as before
-        let native = |q: Pt| stand_ok(Map::Native, q);
-        assert_eq!(walk(Map::Native, (500_000.0, 500_000.0), (565_000.0, 500_000.0), &native), ((522_000.0, 500_000.0), 40, 0));
-        assert_eq!(toward_in(Map::Native, (959_800.0, 500_000.0), (1_100_000.0, 500_000.0), 550.0, native),
-                   (Some((MAP - 1.0, 500_000.0)), false));
-        assert_eq!(toward_in(Map::Native, (0.0, 0.0), (60_000.0, 0.0), 550.0, native), (toward((0.0, 0.0), (60_000.0, 0.0), 550.0), false));
     }
 
     #[test]

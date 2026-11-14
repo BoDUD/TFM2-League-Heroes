@@ -7,15 +7,7 @@
 //! 掠影步期间每 tick 看一次：离他最近的敌方英雄在 `CHASE` 内、隔着墙格（两人之间的直线穿过墙）而且不贴身，就朝他
 //! 笔直穿过去——引擎的强制位移（`ForceMove`，宿主就不再按寻路挪他），速度是他现在的移速；宿主没把他挪动时（撞墙停了）
 //! 逐 tick 自己走一步（`entity_set_pos`）。掠影步结束、人到了、或者人死了就停。
-//!
-//! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔站在 1000000 以外
-//! （`game_places::terrain::map_of_sim`）就是峡谷，墙是作者的墙体坐标.json（[`rift_grid`]：自己的格子边长 60000/11 和原点）；
-//! 没有这个文件时不知道哪里有墙，掠影步不穿墙、也不在墙里。
 
-use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::LazyLock;
-
-use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
@@ -31,23 +23,15 @@ pub const NEAR: f64 = 22_000.0;
 /// 直线上每隔这么远看一次是不是墙。
 pub const STEP: f64 = 4_000.0;
 
-/// 一张墙格子：`cells[y][x]`，每格 `cell` 见方、第 (0, 0) 格的角在 `origin`（游戏自己的图 32000、(0, 0)；峡谷 60000/11、
-/// (30000/11, 0)）。
+/// 一张墙格子：`cells[y][x]`。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
-    pub cell: f64,
-    pub origin: (f64, f64),
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0) }
-    }
-
-    /// 峡谷的墙（墙体坐标.json 读出来的）：它自己的格子边长和原点。
-    pub fn from_walls(w: &Walls) -> Grid {
-        Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect() }
     }
 
     pub fn builtin() -> [Grid; 3] {
@@ -56,11 +40,10 @@ impl Grid {
 
     /// 世界坐标落在墙格里吗（地图外不算：只关心树林里的墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
-        if fx < 0.0 || fy < 0.0 {
+        if x < 0.0 || y < 0.0 {
             return false;
         }
-        let (cx, cy) = (fx as usize, fy as usize);
+        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(false)
     }
 
@@ -78,16 +61,6 @@ impl Grid {
 pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
-
-/// 峡谷上的墙：墙体文件的（[`Grid::from_walls`]），没有文件时一格墙都没有（不知道哪里有墙）。
-pub fn rift_grid(walls: Option<&Walls>) -> Grid {
-    walls.map_or_else(|| Grid { cells: Vec::new(), cell: Map::Rift.extent(), origin: (0.0, 0.0) }, Grid::from_walls)
-}
-
-/// 峡谷的墙，换成本包的格子一次（87000 多格，不每 tick 重建）。
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
-/// 这次启动已经在日志里说过峡谷了。
-static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
 
 /// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
 /// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
@@ -170,19 +143,9 @@ impl Walker {
                 foes.push(p);
             }
         }
-        // the Rift (towers past 1000000): its walls, converted once - never the game's own grids
-        let grids;
-        let grid: &Grid = if map_of_sim(sim) == Map::Rift {
-            if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
-                super::wlog(format!("== Rift: Kayn's Shadow Step cuts through the Rift's walls (none known without the walls \
-                                     file: no cut, no in-wall shadow); {} ==", rift_status()));
-            }
-            &RIFT_GRID
-        } else {
-            grids = Grid::builtin();
-            let Some(gi) = current(&grids, &unit_points(sim, me)) else { return false };
-            &grids[gi]
-        };
+        let grids = Grid::builtin();
+        let Some(gi) = current(&grids, &unit_points(sim, me)) else { return false };
+        let grid = &grids[gi];
         // only during the Shadow Step: walking by the jungle his spot often falls on a wall cell (the cells are coarse),
         // and the in-wall shadow showed then - dark with red sparks, at level 1-2, gone again a moment later, it looked
         // like a transformation (「打野2级就变身了」, 「一帧变身后 又释放技能的时候突然变回去」)
@@ -248,56 +211,5 @@ mod tests {
         assert!(through(&g, (0.5 * CELL, 3.5 * CELL), c).is_none());
         // too close to bother
         assert!(through(&g, (1.0 * CELL, 1.5 * CELL), (1.6 * CELL, 1.5 * CELL)).is_none());
-    }
-
-    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
-    /// cells walls, plus every cell in columns `xs`, rows `ys`.
-    fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
-        let rows: Vec<String> = (0..296)
-            .map(|y| {
-                (0..295)
-                    .map(|x| {
-                        let border = x == 0 || y == 0 || x == 294 || y == 295;
-                        if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
-                    })
-                    .collect()
-            })
-            .collect();
-        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
-        let side = Map::Rift.extent();
-        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (side, side))
-    }
-
-    #[test]
-    fn on_the_rift_he_cuts_through_its_walls() {
-        // a wall block in the Rift's far half: columns 220-222 (x 1202727-1219091), rows 200-239 (y 1090909-1309091)
-        let walls = rift_file(220..223, 200..240);
-        let g = rift_grid(Some(&walls));
-        assert_eq!((g.cell, g.origin), (walls.cell, walls.origin));
-        let (me, foe) = ((1_180_000.0, 1_200_000.0), (1_240_000.0, 1_200_000.0));
-        assert!(g.crosses(me, foe) && g.is_wall(1_210_000.0, 1_200_000.0) && !g.is_wall(me.0, me.1));
-        let to = through(&g, me, foe).expect("through the Rift wall");
-        assert!(!g.is_wall(to.0, to.1) && to.0 > 1_219_090.0 && to.0 < foe.0, "{to:?}");
-        // the game's own grid knows nothing out there (past 960000 is off it): no cut
-        let moba = &Grid::builtin()[0];
-        assert!(!moba.crosses(me, foe) && through(moba, me, foe).is_none());
-    }
-
-    #[test]
-    fn the_rift_has_none_of_the_games_own_walls() {
-        // row 3, columns 15-16 and 18-21 of the game's own map (y 96000-128000): walls there, open ground on the Rift
-        let (me, foe) = ((470_000.0, 112_000.0), (550_000.0, 112_000.0));
-        let moba = &Grid::builtin()[0];
-        let rift = rift_grid(Some(&rift_file(0..0, 0..0)));
-        assert!(moba.crosses(me, foe) && through(moba, me, foe).is_some());
-        assert!(!rift.crosses(me, foe) && through(&rift, me, foe).is_none());
-        assert!(moba.is_wall(15.5 * CELL, 3.5 * CELL) && !rift.is_wall(15.5 * CELL, 3.5 * CELL));
-        // with no walls file nothing is known: no cut anywhere, never in a wall
-        let none = rift_grid(None);
-        let blocked = rift_file(220..223, 200..240);
-        for (a, b) in [(me, foe), ((1_180_000.0, 1_200_000.0), (1_240_000.0, 1_200_000.0))] {
-            assert!(!none.crosses(a, b) && through(&none, a, b).is_none());
-        }
-        assert!(blocked.is_wall(1_210_000.0, 1_200_000.0) && !none.is_wall(1_210_000.0, 1_200_000.0));
     }
 }
