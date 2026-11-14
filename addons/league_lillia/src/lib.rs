@@ -11,7 +11,9 @@
 //!   `league_lillia_drowsy`，减速 `r_slow`%，`r_drowsy` tick），之后**昏睡**：原生眩晕 `r_sleep` tick + buff
 //!   `league_lillia_sleep`（画面）；昏睡中生命 + 护盾少了（梦尘自己那一下除外）就**醒来**：眩晕解除，受到 `r_wake` +
 //!   `r_wake_ratio`% 法强的魔法伤害（`league_lillia_wake` 的画面和声音）；
-//! - 数据里的「Q / W 打到昏睡者加伤」那两段在副本里拿掉了（这里对任何伤害都生效）。
+//! - 数据里的「Q / W 打到昏睡者加伤」那两段在副本里拿掉了（这里对任何伤害都生效）；
+//! - E（流涡种）的种子落地没打中人就往前滚，碰到敌人或地形才炸（英雄联盟的规则，[`roll`]：副本在落地 1 tick 后调本包的
+//!   `league_lillia:e_roll`，本包自己发滚着的种子）。
 //!
 //! 梦尘自己那一下（0.1.2）：游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，打出去以后马上读生命还是原来的，下一次
 //! on_update 之前才扣血。被动记下每次 on_update 打给每个目标的梦尘，下一次看昏睡者掉血时先扣掉（`own_dust`）。0.1.1 在打出去的
@@ -28,6 +30,11 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod roll;
+/// 游戏自己的墙格（league_camille_wall 的，种子滚到墙前停下）。
+#[path = "../../league_camille_wall/src/maps.rs"]
+pub mod maps;
 
 const ID: &str = "league_lillia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -114,6 +121,20 @@ pub struct Params {
     /// 主包数据里梦尘那一跳的魔法伤害（固定值、法强 %）：它不算打醒（游戏日志：睡着 20 tick 就被这一跳 6 点叫醒）。
     pub d_dmg: usize,
     pub d_ratio: usize,
+    /// 梦尘挂多久（tick）；她打中一个英雄回复多少（固定值、法强 %）——滚着的种子打中人时照主包算（[`roll`]）。
+    pub d_t: usize,
+    pub d_heal: usize,
+    pub d_heal_ratio: usize,
+    /// 流涡种炸开：魔法伤害（固定值、法强 %）、减速 %、减速 tick、范围（加身体）。
+    pub e_dmg: usize,
+    pub e_ratio: usize,
+    pub e_slow: usize,
+    pub e_slow_t: usize,
+    pub e_r: usize,
+    /// 滚着的种子：每 tick 滚多远、碰人的半径、最远滚多远。
+    pub e_roll_speed: usize,
+    pub e_roll_r: usize,
+    pub e_roll_len: usize,
 }
 
 impl Default for Params {
@@ -129,6 +150,17 @@ impl Default for Params {
             r_wake_ratio: 40,
             d_dmg: 4,
             d_ratio: 3,
+            d_t: 181,
+            d_heal: 12,
+            d_heal_ratio: 8,
+            e_dmg: 45,
+            e_ratio: 40,
+            e_slow: 40,
+            e_slow_t: 180,
+            e_r: 9000,
+            e_roll_speed: 2330,
+            e_roll_r: 13000,
+            e_roll_len: 700000,
         }
     }
 }
@@ -152,12 +184,32 @@ pub fn parse_params(json: &str) -> Params {
             "r_wake_ratio" => &mut p.r_wake_ratio,
             "d_dmg" => &mut p.d_dmg,
             "d_ratio" => &mut p.d_ratio,
+            "d_t" => &mut p.d_t,
+            "d_heal" => &mut p.d_heal,
+            "d_heal_ratio" => &mut p.d_heal_ratio,
+            "e_dmg" => &mut p.e_dmg,
+            "e_ratio" => &mut p.e_ratio,
+            "e_slow" => &mut p.e_slow,
+            "e_slow_t" => &mut p.e_slow_t,
+            "e_r" => &mut p.e_r,
+            "e_roll_speed" => &mut p.e_roll_speed,
+            "e_roll_r" => &mut p.e_roll_r,
+            "e_roll_len" => &mut p.e_roll_len,
             _ => continue,
         };
         *slot = v;
     }
     p.d_period = p.d_period.max(1);
+    p.e_roll_speed = p.e_roll_speed.max(1);
     p
+}
+
+/// 原生效果（滚着的种子）没有自己的参数：被动读到英雄数据的参数时记在这里（每个莉莉娅的副本都是同一张表，默认值就是副本里的
+/// 数：单元测试 `params_are_the_copys` 核对；league_ziggs 的做法）。
+static PARAMS: LazyLock<Mutex<Option<Params>>> = LazyLock::new(|| Mutex::new(None));
+
+fn params() -> Params {
+    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).clone().unwrap_or_default()
 }
 
 // ===================== 计算 =====================
@@ -445,6 +497,7 @@ impl StablePassive for Dream {
 
     fn configure(&mut self, params_json: &str) {
         self.p = parse_params(params_json);
+        *PARAMS.lock().unwrap_or_else(|e| e.into_inner()) = Some(self.p.clone());
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
@@ -484,7 +537,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Lillia's Dream Dust as % max-health magic, a sleep that breaks on damage) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Lillia's Dream Dust as % max-health magic, a sleep that breaks on damage, Swirlseed rolling on to an enemy or a wall) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -492,7 +545,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:dream"), Dream::default());
-    host.log(LogLevel::Info, "league_lillia v1 loaded (Lillia's Dream Dust magic damage and a sleep that breaks on damage).");
+    roll::register(module);
+    host.log(LogLevel::Info, "league_lillia v1 loaded (Lillia's Dream Dust magic damage, a sleep that breaks on damage, Swirlseed's roll).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -540,10 +594,48 @@ mod tests {
             r_wake_ratio: 20,
             d_dmg: 5,
             d_ratio: 4,
+            ..Params::default()
         };
         assert_eq!(p, want);
         assert_eq!(parse_params("{}"), Params::default());
         assert_eq!(parse_params(r#"{"d_period":0}"#).d_period, 1);
+        assert_eq!(parse_params(r#"{"e_roll_speed":0,"e_r":7000}"#), Params { e_roll_speed: 1, e_r: 7000, ..Params::default() });
+    }
+
+    #[test]
+    fn params_are_the_copys() {
+        // the roll's effects read these before any configure: the copy's numbers are the defaults
+        let copy = include_str!("../override/league_lillia.data_champion").replace("\r\n", "\n");
+        let at = copy.find("\"passive_ref\": \"league_lillia:dream\"").expect("the passive in the copy");
+        let body = &copy[at..];
+        let json = &body[body.find('{').unwrap()..=body.find('}').unwrap()];
+        assert_eq!(parse_params(json), Params::default(), "{json}");
+        for k in ["d_t", "d_heal", "e_dmg", "e_slow_t", "e_r", "e_roll_speed", "e_roll_r", "e_roll_len"] {
+            assert!(json.contains(&format!("\"{k}\"")), "{k} in the copy's params");
+        }
+    }
+
+    #[test]
+    fn the_copy_hands_an_unhit_landing_to_the_roll() {
+        let copy = include_str!("../override/league_lillia.data_champion").replace("\r\n", "\n");
+        let main = include_str!("../../../league/champion/league_lillia.data_champion").replace("\r\n", "\n");
+        assert_eq!(copy.matches("\"effect_ref\": \"league_lillia:e_roll\"").count(), 1, "E's landing calls the roll once");
+        assert!(!main.contains("league_lillia:e_roll"), "the main pack stays data only");
+        let e = &copy[copy.find("\n  \"skill2\": {").unwrap()..copy.find("\n  \"ult\": {").unwrap()];
+        let land = e.find("\"name\": \"league_lillia_e_land\"").expect("the landing's picture");
+        let gate = e[land..].find("\"buff_name\": \"league_lillia_e_hit\"").expect("the roll asks whether the landing hit") + land;
+        let call = e.find("league_lillia:e_roll").unwrap();
+        assert!(land < gate && gate < call, "landing picture, then the hit check, then the roll");
+        // both pictures of the rolling seed are the copy's, on the main pack's sheet
+        for (name, tag) in [(roll::ROLL, "e_roll"), (roll::ROLL_L, "e_roll_l")] {
+            let v = &copy[copy.find(&format!("\"name\": \"{name}\"")).expect(name)..];
+            let v = &v[..v.find('}').unwrap()];
+            assert!(v.contains(&format!("\"tag\": \"{tag}\"")) && v.contains("league_lillia_fx"), "{name}: {v}");
+        }
+        let fanim = include_str!("../../../league/effects/league_lillia_fx#anim.fanim");
+        for tag in ["e_roll", "e_roll_l", "hd_e_roll", "hd_e_roll_l"] {
+            assert!(fanim.contains(&format!("\"{tag}\":")), "{tag} on league_lillia_fx");
+        }
     }
 
     #[test]
@@ -660,7 +752,7 @@ mod tests {
 
     #[test]
     fn buff_names_fit() {
-        for x in ["dust", "drowsy", "sleep", "r_go", "wake"] {
+        for x in ["dust", "drowsy", "sleep", "r_go", "wake", "e_slow", "d_on", "e_boom", "e_roll_l"] {
             assert!(ll(x).len() <= BUFF_NAME_CAP);
         }
     }
