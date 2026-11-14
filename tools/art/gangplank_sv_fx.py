@@ -17,6 +17,7 @@ native) buys Cannon Barrage's three upgrades with the serpents its Parrrley kill
 - `r_rm` (z -1, looped): Raise Morale on an ally in the barrage - a turning gold ring at the feet, sparks rising;
 - `sv_coin` (z 3, over him): a Parrrley kill's plunder - a silver serpent coin spinning up over his head, fading.
 
+Since 2026-11-14 each tag has its hd_ twin (PPU 2, fx_vector.redraw_tag - dense()), so the sheet is drawn dense.
 The ball, the rings and the coin are drawn here (no source art) in the colours of the kegs' blast and the barrage's balls.
 1 sheet px = 1 game px, like league_gangplank_fx / _big (the barrage's r_r of 58 game px is r_wave's 117 px); a frame is
 drawn with its centre on the effect's position.
@@ -32,6 +33,8 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BIG = os.path.join(ROOT, "league", "effects", "league_gangplank_big")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fx_vector as V  # noqa: E402  (the dense twins, 2026-11-14)
 OUT = os.path.join(ROOT, "league", "effects", "league_gangplank_sv")
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 
@@ -283,6 +286,19 @@ def tags():
     return {"r_dd_warn": dd_warn(), "r_dd_fall": dd_fall(), "r_dd_boom": dd_boom(), "r_rm": rm(), "sv_coin": coin()}
 
 
+def dense(t):
+    """the sheet as written: these 1x tags, each with its hd_ twin (PPU 2) redrawn twice finer by fx_vector.redraw_tag (the
+    effects' hand redraws; the user, 2026-11-14: 「还有哪些技能没高清化的也高清化一下」), and the idle / hd_idle pair
+    league.dll's PPU lookup reads (densify_fx's way: the first tag's first frame), so fx_ppu_table.py lists the sheet"""
+    hd = {k: V.redraw_tag([a for a, _ in fr], P=2) for k, fr in t.items()}
+    first = next(iter(t))
+    out = {"idle": [(t[first][0][0], 100)], "hd_idle": [(hd[first][0], 100)]}
+    out.update(t)
+    for k, fr in t.items():
+        out["hd_" + k] = [(d, ms) for d, (_, ms) in zip(hd[k], fr)]
+    return out
+
+
 # ------------------------------------------------------------------------------------------------------------ preview
 STRIP_MS = (80, 480, 680, 840, 920, 1040)
 
@@ -351,6 +367,7 @@ def main():
     if a.preview or a.strip:
         preview(a.preview or a.strip, t, strip=bool(a.strip))
         return
+    t = dense(t)
     if a.check:
         anims = json.load(open(OUT + "#anim.fanim", encoding="utf-8"))["anims"]
         sheet = np.asarray(Image.open(OUT + "#sheet.png").convert("RGBA"))
