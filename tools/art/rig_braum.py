@@ -38,6 +38,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import import_braum_strips as I  # noqa: E402
+import inbetween as IB  # noqa: E402
 
 PPU = 121 / 42                    # 2.881: the design's 121 rows = 42 game rows
 FEET = 11                         # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes)
@@ -209,8 +210,129 @@ def lower(hd):
     return out
 
 
+# E Unbreakable (skill2, 400 ms = the kit's e_anim 24 ticks, every effect at tick 0 - no tick on a frame): three drawn
+# frames - the shield lifted beside him (skill2_1), held in front with both hands (skill2_2), braced on the ground
+# (skill2_3). The user, 2026-11-14: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」; two in-betweens from
+# skill2_2 itself, nothing drawn: the shield on its way down in front of him (it is E_LIFT rows higher, sliding up
+# behind his head and his hands, which hold it where they are drawn) and the brace half way (all of him but the legs
+# E_SINK rows lower over them, the shield with him). The shield's top bar lies behind the pasted design head
+# (import_braum_strips.paste_head) and its edges under the hands: the squares a hand hides are the edge's stripe
+# continued from the square above the hand (the only squares not as drawn, E_LIFT rows over each hand).
+E_LIFT = 5
+E_SINK = 3
+E_SHIELD = [(102, 115, 157, 127), (100, 128, 155, 185), (97, 186, 156, 196), (97, 197, 139, 198)]   # boxes in skill2_2
+E_NEAR = (99, 135, 111, 156)      # the near hand on the shield's left edge (its skin, and the outline touching it)
+E_WRIST = (96, 138, 101, 156)     # the near bracer's end over the shield's outline
+E_FAR = (149, 138, 161, 157)      # the far hand round the shield's right edge (skin, its brown cuff, their outline)
+E_GLOVE = (157, 138, 161, 157)    # the far hand right of the shield's edge
+E_LEGS = [(64, 161, 99, 205), (155, 164, 166, 196), (141, 196, 166, 205)]   # what stays when he sinks: legs, boots
+E_SKIN = {(252, 174, 138), (237, 142, 115), (209, 118, 100), (171, 94, 84), (131, 86, 88), (237, 209, 204)}
+E_BROWN = {(149, 75, 39), (114, 56, 30), (77, 38, 22), (42, 26, 18), (65, 42, 43)}
+E_MS = IB.spans((80, 1), (120, 2), (200, 2, (60, 140)))     # skill2_1 | lifted, skill2_2 | sinking, skill2_3
+
+
+def _box(shape, x0, y0, x1, y1):
+    m = np.zeros(shape[:2], bool)
+    m[y0:y1 + 1, x0:x1 + 1] = True
+    return m
+
+
+def _colours(a, cols):
+    m = np.zeros(a.shape[:2], bool)
+    for c in cols:
+        m |= (a[..., :3] == np.array(c)).all(-1)
+    return m & (a[..., 3] > 0)
+
+
+def design_head_at(a):
+    """The mask of the design's head where import_braum_strips pasted it on frame a (every square of it as pasted)."""
+    p, m = I.head_patch(I.load(I.DESIGN))
+    h, w = m.shape
+    for y in range(a.shape[0] - h):
+        for x in range(a.shape[1] - w):
+            if ((a[y:y + h, x:x + w] == p).all(-1) | ~m).all():
+                out = np.zeros(a.shape[:2], bool)
+                out[y:y + h, x:x + w] = m
+                return out
+    raise SystemExit("rig_braum: the design's head is not on this frame")
+
+
+def e_front(a):
+    """skill2_2's parts drawn over the shield: the head and the two hands."""
+    op = a[..., 3] > 0
+    dark = (a[..., :3].astype(int).sum(-1) < 40) & op
+    ring = np.ones((3, 3), bool)
+    skin, brown = _colours(a, E_SKIN), _colours(a, E_BROWN)
+    near = _box(a.shape, *E_NEAR) & skin
+    near |= _box(a.shape, *E_NEAR) & dark & ndimage.binary_dilation(near, structure=ring)
+    near |= _box(a.shape, *E_WRIST) & op
+    far = _box(a.shape, *E_FAR) & (skin | brown)
+    far |= _box(a.shape, *E_FAR) & dark & ndimage.binary_dilation(far, structure=ring)
+    far |= _box(a.shape, *E_GLOVE) & op
+    return design_head_at(a), near, far
+
+
+def sealed(a, most=3):
+    """Gaps of at most `most` squares that the thick outer outline (thick) would close in - a moved part next to a leg
+    leaves one - taken into the outline here."""
+    op = a[..., 3] > 0
+    grown = thick(a)[..., 3] > 0
+    lab, n = ndimage.label(ndimage.binary_fill_holes(grown) & ~grown)
+    out = a.copy()
+    for j in range(1, n + 1):
+        hole = lab == j
+        if hole.sum() <= most and not (hole & op).any():
+            out[hole, :3] = OUTLINE
+            out[hole, 3] = 255
+    return out
+
+
+def e_lifted(a, k):
+    """skill2_2 with the shield k rows higher, behind the head and the hands (they stay as drawn)."""
+    head, near, far = e_front(a)
+    front = head | near | far
+    shield = np.zeros(a.shape[:2], bool)
+    for b in E_SHIELD:
+        shield |= _box(a.shape, *b)
+    shield &= (a[..., 3] > 0) & ~front & ~_colours(a, I.FUR)
+    layer = np.zeros_like(a)
+    layer[shield] = a[shield]
+    for x in range(a.shape[1]):             # the edge under a hand: the square above it continued k rows down
+        col = near[:, x] | far[:, x]
+        for y in np.nonzero(col)[0]:
+            if not col[y - 1] and shield[y - 1, x]:
+                for j in range(k):
+                    if col[y + j]:
+                        layer[y + j, x] = a[y - 1, x]
+    moves = [(shield, IB.moved(layer, 0, -k), "over")] + [(m, (0, 0), "over") for m in (head, near, far)]
+    out = IB.repose(a, moves, OUTLINE)
+    keep = (a[..., 3] > 0) & ~shield & ~front     # nothing but the shield moved
+    if not IB.kept(a, out, only=keep & ~IB.moved(layer, 0, -k)[..., 3].astype(bool)) or not IB.kept(a, out, only=front):
+        raise SystemExit("rig_braum: E's lifted shield changed something besides the shield")
+    return out
+
+
+def e_sunk(a, k):
+    """skill2_2 with all of him but the legs (E_LEGS) k rows lower, over the legs."""
+    legs = np.zeros(a.shape[:2], bool)
+    for b in E_LEGS:
+        legs |= _box(a.shape, *b)
+    up = (a[..., 3] > 0) & ~legs
+    out = IB.repose(a, [(up, (0, k), "over")], OUTLINE)
+    if not IB.kept(IB.moved(np.where(up[..., None], a, 0).astype(np.uint8), 0, k), out):
+        raise SystemExit("rig_braum: E's sinking frame lost a square of him")
+    return out
+
+
+def e_frames(load, fr):
+    """skill2: skill2_1, the shield lifted, skill2_2, sinking, skill2_3 (E_MS)."""
+    (n1, _), (n2, _), (n3, _) = fr["skill2"]
+    s1, s2, s3 = load(n1), load(n2), load(n3)
+    return list(zip((s1, sealed(e_lifted(s2, E_LIFT)), s2, sealed(e_sunk(s2, E_SINK)), s3), E_MS))
+
+
 def actions():
-    """{tag: [(hd canvas, ms)]}: the imported frames, the idle breathing."""
+    """{tag: [(hd canvas, ms)]}: the imported frames, the idle breathing, E's in-betweens."""
     fr = json.load(open(os.path.join(FRAMES, "frames.json"), encoding="utf-8"))
     load = lambda n: np.asarray(Image.open(os.path.join(FRAMES, n)).convert("RGBA")).copy()
     out = {}
@@ -223,6 +345,7 @@ def actions():
     out["run"] = [(walk_frame(idle, n_, f_, r_), WALK_MS) for n_, f_, r_ in WALK]
     for tag in ("attack", "skill", "skill2", "w_leap", "ult", "hit", "dead"):
         out[tag] = [(load(n), t) for n, t in fr[tag]]
+    out["skill2"] = e_frames(load, fr)
     return out
 
 
