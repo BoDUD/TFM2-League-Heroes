@@ -9,6 +9,12 @@ Rake is `skill` (the combo opener), Noxian Diplomacy `skill2`, Shadow Assault th
           spell of his that hits a champion (Rake out, Rake back, Noxian Diplomacy, the blades out and back) climbs
           p_1..p_3 (p_t ticks, renewed) and marks that champion (`p_wound`, the picture); with p_3 his next attack on a
           champion bleeds it - p_dmg + p_ratio% AD over p_bleed ticks - and starts p_cd.
+          native=1 (addons/league_talon_vault, 2026-11-14, the user's 「全改吧」): League's way - the wounds counted on
+          each champion. A spell hit calls the add-on's league_talon_vault:wound on the champion (it stacks the wounds
+          there, up to 3, p_t ticks, and hangs `p_wound`; none while that champion bleeds), the attack's hit calls
+          league_talon_vault:edge (three wounds on THAT unit: they go and he gets the flag p_go) and the hit's bleed reads
+          p_go in its tick and, if it was not there yet, a tick later. No p_1..p_3 on him, no p_cd (League has no
+          cooldown: the target only gains no wounds while it bleeds).
   attack  The wrist-blade slash, the hit on tick a_st.
   skill   W Rake (斩草除根): on `EnemyWithoutTower` within w_range: a fan of blades flies w_len (w_dmg + w_ratio% AD to
           every enemy on the way), waits w_wait ticks and flies back to him (`BackToCasterLinearProjectile`: w2_dmg +
@@ -218,15 +224,25 @@ def build(p):
                   sw("p_1", combine(*rm("p_1"), refresh("p_2", p["p_t"])), refresh("p_1", p["p_t"]))))
 
     def wound():
-        """On a champion a spell of his hit: its mark, and a wound on his count."""
+        """On a champion a spell of his hit: its mark, and a wound on his count (native: the add-on's count on it)."""
+        if p["native"]:
+            return [{"type": "Native", "effect_ref": "league_talon_vault:wound"}]
         return [buff("p_wound", p["p_t"]), on_me(climb)]
 
     k = p["p_bleed"] // p["p_period"]
+
+    def bleed_fx():
+        """The bleed on the unit hit: its picture, sound and the damage over p_bleed ticks."""
+        return [view("p_bleed"), tsfx("p_bleed"),
+                casted(p["p_bleed"] + 1, p["p_period"], attack(p["p_dmg"] // k, p["p_ratio"] // k), kind="Bleed")]
+
     bleed = homing("p_hit", 100000, 0, "EnemyChampion",
-                   [view("p_bleed"), tsfx("p_bleed"),
-                    casted(p["p_bleed"] + 1, p["p_period"], attack(p["p_dmg"] // k, p["p_ratio"] // k), kind="Bleed"),
-                    on_me(*rm("p_1", "p_2", "p_3"), flag("p_cd", p["p_cd"]))])
+                   [*bleed_fx(), on_me(*rm("p_1", "p_2", "p_3"), flag("p_cd", p["p_cd"]))])
     blades_end = sw("p_3", sw("p_cd", NONE, bleed))
+    # native: the attack's hit asks the add-on (three wounds on that unit -> p_go on him), then bleeds on the flag
+    edge = [{"type": "Native", "effect_ref": "league_talon_vault:edge"},
+            sw("p_go", combine(*rm("p_go"), *bleed_fx()),
+               delayed(1, sw("p_go", combine(*rm("p_go"), *bleed_fx()))))]
 
     # ------------------------------------------------------------------ E Assassin's Path (the way out)
     def vault():
@@ -252,12 +268,14 @@ def build(p):
     break_r = refresh("r_brk", 3)
 
     # ------------------------------------------------------------------ the attack
+    if p["native"]:
+        hit = delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "Enemy",
+                                            [attack(0, 100), view("a_hit"), tsfx("a_hit"), *edge]), break_r)
+    else:
+        hit = delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
+                      blades_end, break_r)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(sfx("a_swing"),
-                              delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "Enemy",
-                                                           [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
-                                      blades_end, break_r)),
-                      atype="BaseAttack", cancel=True)
+                      combine(sfx("a_swing"), hit), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ Q Noxian Diplomacy
     def q_blow(pct):
