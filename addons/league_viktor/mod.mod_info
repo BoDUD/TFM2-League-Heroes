@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.348.0"
+    }
+  ],
+  "description": "Test build of Viktor's Glorious Evolution as in League (needs League of Legends Heroes): replaces the main pack's Viktor so his augments come from Hex Fragments - every minion or monster he kills, every champion takedown and every epic monster he finishes - instead of his level, in the main pack's order (Hextech Ray's Aftershock, Siphon Power's Turbocharge, Gravity Field's Magnetize, then Arcane Storm's Perfect Storm), and Gravity Field stuns each enemy that stays in it for five Heavy Gravity stacks, once a cast. The main pack's data cannot count fragments across deaths or each enemy's time in the field. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
+  "mod_id": "league_viktor",
+  "mod_type": "native",
+  "name": "League Heroes: Viktor's Hex Fragments (test)",
+  "version": "0.1.0"
+}

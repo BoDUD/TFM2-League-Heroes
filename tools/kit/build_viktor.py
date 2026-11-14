@@ -1,6 +1,6 @@
 """Build league_viktor.data_champion (mid, Magician) from the parameters P.
 
-    python tools/kit/build_viktor.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_viktor.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (the user's picks, 2026-10-07: Q alone / W -> E combo with the pros' combos / Glorious Evolution by level / E's ray
 League's way, from a start point on the target sweeping on / R's storm riding a champion and moving on when he dies):
@@ -14,20 +14,31 @@ League's way, from a start point on the target sweeping on / R's storm riding a 
           shield on him (his own Q's) = try later; two passes pr_twice ticks apart must agree. One probe every pr_gap
           ticks for the next stage; each life's first attack re-reads the stages silently.
           Level lv_e: E's aftershock (s1); lv_q: Q's Turbocharge (s2: shield x q_sh_evo%, +q_ms% move speed); lv_w: W's
-          passive (s3: every hit of his spells slows evo_slow% for evo_slow_t); lv_r: R grows (s4: the storm's
-          radius r_r_evo, and a move to the next champion lasts r_jump_evo runs instead of r_jump_runs).
+          Magnetize (s3: Q, E and the storm's first strike slow evo_slow% for evo_slow_t - League: not its ongoing
+          damage); lv_r: Perfect Storm (s4: a move to the next champion - its champion died, a takedown - lasts
+          r_jump_evo runs instead of r_jump_runs and the storm grows to r_r_evo; League: +40% size and +3 s on each
+          champion taken down after the storm hurt him).
+          The add-on's copy (--native, addons/league_viktor; 2026-11-14, the user: 「吉格斯和维克托按照联盟的重做」 -
+          his earlier pick 「按等级依次升级」 withdrawn) has League's Hex Fragments instead: no probe in its attack, the
+          passive league_viktor:evolve counts hex_unit a minion or monster, hex_epic an epic monster, hex_takedown a
+          champion takedown and raises s1..s4 in the same order every hex_cost (League: 1 / 10 / 20, 100 an augment;
+          hex_cost is this game's pace - see P); and W's stun is League's Heavy Gravity per enemy: the field's landing
+          calls league_viktor:field, the passive stuns each enemy w_stun_at ticks inside the armed field, once a cast.
   attack  A homing bolt from his staff (physical 100% AD). Q's charge: the next attack within q_buff_t ticks is a
           blast adding q_aa + q_aa_ratio% AP magic damage.
   skill   Q Siphon Power (虹吸能量): a `Targeting` cast on `EnemyWithoutTower` (q_range). A homing bolt: q_dmg + q_ratio%
           AP magic damage; on its hit he gains a q_sh + q_sh_ratio% AP shield for q_sh_t ticks and the charge above.
   skill2  W Gravity Field (重力场) -> E Hextech Ray (海克斯射线): a `Targeting` cast on `EnemyWithoutTower` (e_range).
           With W ready (the caster flag w_cd off) and an enemy champion within w_range (RandomTarget, league_morgana's
-          aim) W goes to that champion, w_rel ticks in: a hidden 1-tick lob lays the field on his spot - a slow zone
-          (w_r, w_t ticks, every w_period ticks w_slow% for w_period ticks: same-name buffs add up, so one at a time)
-          and, w_stun_at ticks after it lands, a stun of w_stun on every enemy still inside (League: 1.25 s inside ->
-          stunned 1.5 s; a field point keeps the circle where it landed). The field's picture is a `ViewEffect` on the
-          point (a zone's view is turned with the cast). e_gap ticks after W the ray goes at the same champion; with W
-          on cooldown or no champion in reach the ray goes at the cast target (it clears waves).
+          aim) W goes to that champion, w_rel ticks in: a hidden 1-tick lob lays the field on his spot - armed w_arm
+          ticks after it lands (League V14.24: "After a 0.75-second delay, it activates"), then a slow zone (w_r, until
+          w_t ticks after the landing, every w_period ticks w_slow% for w_period ticks: same-name buffs add up, so one
+          at a time) and, w_stun_at ticks after it arms, a stun of w_stun on every enemy still inside (League: a Heavy
+          Gravity stack every 0.25 s from the arming, the fifth stuns 1.5 s - per enemy, which data cannot count; a
+          field point keeps the circle where it landed). Until 2026-11-14: no arming, the stun 1.25 s after the landing
+          for 1.25 s. The field's picture is a `ViewEffect` on the point (a zone's view is turned with the cast). e_gap
+          ticks after W the ray goes at the same champion; with W on cooldown or no champion in reach the ray goes at
+          the cast target (it clears waves).
           E: League starts the ray at a point and sweeps it on. A hidden 1-tick lob onto the target; its end_effects
           start a `LineRangeProjectile` there, which points from the caster to the point (champion-data section 6):
           the ray starts on the target and runs e_len on away from him (League's start-on-the-first-enemy, drag through
@@ -43,8 +54,9 @@ League's way, from a start point on the target sweeping on / R's storm riding a 
           r_tick + r_tick_ratio% AP to every enemy round him. League's storm moves on to the champions it hurt: each
           run's landing leaves a hidden zone (r_jump_r) that ends a tick after the next run; the next run renews the
           6-tick caster flag r_live, so a zone ending without it means its champion died since: the first enemy
-          champion inside takes the storm (r_jump_runs more runs, r_jump_evo evolved; at most r_jumps moves) while the
-          storm's window r_on lasts.
+          champion inside takes the storm (r_jump_runs more runs, r_jump_evo evolved - and an evolved storm grows to
+          r_r_evo with its picture r_storm_big; until 2026-11-14 it was that big from the start; at most r_jumps moves)
+          while the storm's window r_on lasts.
   combos  (the pros' order W -> E -> Q -> R): W's stun lands, then with Q's flag q_cd off Q goes to a stunned champion
           in Q's reach (no pose of its own, the bolt at once; his next attack is the charged blast); an armed R fires
           on a crowd-controlled champion (above).
@@ -84,7 +96,10 @@ P = {
     # skill2: W Gravity Field (League: 800 range, radius 275-300, 4 s, slow 30-48%, 1.25 s inside -> 1.5 s stun,
     # cd 18-13 s; upgraded: his spells slow 20% for 1 s)
     "w_cd": 960, "w_range": 70000, "w_anim": 20, "w_rel": 9, "w_r": 30000, "w_t": 240, "w_period": 6, "w_slow": 35,
-    "w_stun_at": 75, "w_stun": 75, "evo_slow": 20, "evo_slow_t": 60,
+    # (2026-11-14, League V14.24: armed 0.75 s after it lands, a Heavy Gravity stack every 0.25 s, the fifth - 1 s after
+    # the arming - stuns 1.5 s; before: no arming, everyone inside 1.25 s after the landing stunned 1.25 s. w_t stays 4 s:
+    # the field's picture is drawn 4 s long, League's field lasts 4.5 s)
+    "w_arm": 45, "w_stun_at": 60, "w_stun": 90, "evo_slow": 20, "evo_slow_t": 60,
     # -> E Hextech Ray (League: start within 550, ray 700, 30-270 + 50% AP, aftershock after 1 s -10..170 + 80% AP,
     # cd 12-8 s)
     "e_cd": 600, "e_range": 75000, "e_anim": 26, "e_rel": 10, "e_gap": 18, "e_len": 70000, "e_w": 9000,
@@ -98,6 +113,14 @@ P = {
     "wq_wait": 4,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # the add-on's Hex Fragments (League V14.24: 1 a minion or monster, 10 a siege / super minion or epic monster, 20 a
+    # champion takedown, 100 an augment). League's game runs 30 minutes and more, this one about 10: an augment costs 40
+    # here - the classic-SDK timeline of this kit (mid against three base mages, seeds 1-4, 2026-11-14) gives him on
+    # average 21 fragments at 2 min, 65 at 4, 101 at 5, 161 at 7 and 237 at the end (64 cs, 8.6 takedowns), so the
+    # fourth augment comes at about 7 min, where the main pack's level lv_r gives it (7.2 min); the first at 2.75 min
+    # (lv_e: 1.1 min). League's own rate: about 590 fragments in 30 minutes, 2.5 times ours in a game
+    "hex_unit": 1, "hex_epic": 10, "hex_takedown": 20, "hex_cost": 40,
+    "native": 0,
 }
 
 
@@ -258,7 +281,8 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def build(p):
-    # W's upgraded passive: every hit of his spells slows (read on him: SwitchByBuff reads the caster)
+    native = bool(p["native"])
+    # W's Magnetize: Q, E and the storm's first strike slow (read on him: SwitchByBuff reads the caster)
     evo_slow = sw("s3", buff("evo_slow", p["evo_slow_t"], move_speed_mult=-p["evo_slow"]))
 
     # ------------------------------------------------------------------ passive: the evolutions by level
@@ -315,13 +339,19 @@ def build(p):
     def field():
         stun = [{"type": "Stun", "duration": p["w_stun"]}, view("w_stun")]
         # W -> Q: a tick after the stun, Q on a stunned champion in reach
-        w_q = on_me(delayed(p["w_stun_at"] + p["wq_wait"],
+        stun_t = p["w_arm"] + p["w_stun_at"]
+        w_q = on_me(delayed(stun_t + p["wq_wait"],
                             sw("q_cd", NONE, pick(p["q_range"], "EnemyChampionInCC", q_combo))))
         land = [view("w_field"), sfx("w_field"),
-                # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
-                zone("w_zone", p["w_r"], p["w_t"], p["w_period"], 1, "EnemyWithoutTower",
-                     [buff("w_slow", p["w_period"], move_speed_mult=-p["w_slow"])]),
-                delayed(p["w_stun_at"], view("w_burst"), sfx("w_stun"), burst("w_stun", p["w_r"], "EnemyWithoutTower", stun))]
+                # first_delay 1 at the least, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole
+                # period later (classic-SDK trace 2026-11-06); w_arm: League's 0.75 s before the field activates
+                zone("w_zone", p["w_r"], p["w_t"], p["w_period"], max(1, p["w_arm"]), "EnemyWithoutTower",
+                     [buff("w_slow", p["w_period"], move_speed_mult=-p["w_slow"])])]
+        if native:      # the add-on counts each enemy's Heavy Gravity stacks (league_viktor:field, on the landing point)
+            land.append({"type": "Native", "effect_ref": "league_viktor:field"})
+        else:
+            land.append(delayed(stun_t, view("w_burst"), sfx("w_stun"),
+                                burst("w_stun", p["w_r"], "EnemyWithoutTower", stun)))
         return combine(lob("w_lay", 1, 1000, "EnemyChampion", [], end=land), w_q)
 
     def beam(name, delay, apply, effects):
@@ -357,20 +387,22 @@ def build(p):
         return combine(*rm("u1", "u2"),
                        around(p["r_reach"], "EnemyChampion", [sw("u1", refresh("u2", 2), refresh("u1", 2))]))
 
-    def storm(big, runs, first, depth):
+    def storm(big, grown, runs, first, depth):
         """On the champion it rides (the effects run on him): the burst (first), then `runs` runs a second; each run's
         landing leaves the zone that moves the storm on when he dies (depth: moves left). big = evolved (s4, read at
-        the cast: one branch at the top keeps the nested moves linear)."""
-        r = p["r_r_evo"] if big else p["r_r"]
+        the cast: one branch at the top keeps the nested moves linear); grown = an evolved storm after a move (its
+        champion died: League's Perfect Storm grows on a takedown). The runs' ticks do not slow (League's Magnetize:
+        "Arcane Storm's initial strike (not its ongoing damage)")."""
+        r = p["r_r_evo"] if grown else p["r_r"]
         jump = p["r_jump_evo"] if big else p["r_jump_runs"]
-        landing = [burst("r_tick", r, "EnemyWithoutTower", [magic(p["r_tick"], p["r_tick_ratio"]), evo_slow, view("r_hit")]),
+        landing = [burst("r_tick", r, "EnemyWithoutTower", [magic(p["r_tick"], p["r_tick_ratio"]), view("r_hit")]),
                    sfx("r_tick")]
         if depth > 0:
             # the lock is read back: on a dead caster nothing is added (his flags freeze), so no storm moves then
             nxt = sw("r_live", NONE, sw("r_on", sw("r_lock", NONE, combine(refresh("r_lock", 3), sw("r_lock", combine(
-                sfx("r_storm"), refresh("r_on", 60 * jump + 30), storm(big, jump, False, depth - 1)))))))
+                sfx("r_storm"), refresh("r_on", 60 * jump + 30), storm(big, big, jump, False, depth - 1)))))))
             landing.append(zone("r_watch", p["r_jump_r"], 62, 1000, 1000, "EnemyChampion", [], end=[nxt]))
-        run = [on_me(refresh("r_live", 6)), view("r_storm_big" if big else "r_storm"),
+        run = [on_me(refresh("r_live", 6)), view("r_storm_big" if grown else "r_storm"),
                lob("r_drop", 1, 1000, "EnemyChampion", [], end=landing)]
         out = [delayed(60, casted(60 * (runs - 1) + 1, 60, *run, kind="Fire"))]
         if first:
@@ -382,8 +414,8 @@ def build(p):
     def fire(slot):
         rel = p["r_rel"] if slot else 0
         out = [*rm("r_armed"), sfx("r_cast"), voice("vo_r", p), refresh("r_on", rel + 60 * p["r_runs"] + 30),
-               delayed(rel, sw("s4", storm(True, p["r_runs"], True, p["r_jumps"]),
-                               storm(False, p["r_runs"], True, p["r_jumps"])))]
+               delayed(rel, sw("s4", storm(True, False, p["r_runs"], True, p["r_jumps"]),
+                               storm(False, False, p["r_runs"], True, p["r_jumps"])))]
         if slot:
             out.append(anim("ult", p["r_anim"]))
         return combine(*out)
@@ -419,8 +451,9 @@ def build(p):
     shoot = sw("q_buff", blast, delayed(p["a_st"], sfx("a_shot"),
                                          homing("a_bolt", p["bolt_speed"], p["bolt_y"], "Enemy",
                                                 [attack(0, 100), view("a_hit")])))
+    # the add-on's copy: the stages come from its Hex Fragments (league_viktor:evolve raises s1..s4), no probe
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(life, step, shoot), atype="BaseAttack", cancel=True)
+                      shoot if native else combine(life, step, shoot), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ views
     # flying bolts are drawn top-bottom symmetric; the ray's picture is turned with its line (top-bottom symmetric);
@@ -438,8 +471,13 @@ def build(p):
                E("r_storm", BIG, 3), E("r_storm_big", BIG, 3), E("r_hit"), E("evo", FX, 3, **LATE)]
     views_b = [B_("w_slow", FX, -1), B_("evo_slow", FX, -1), B_("q_buff", FX, 3, tag="q_charged"),
                B_("q_ms", FX, -1)]
+    extra = {}
+    if native:
+        extra["passive"] = {"passive_ref": "league_viktor:evolve",
+                            "params": {k: p[k] for k in ("hex_unit", "hex_epic", "hex_takedown", "hex_cost", "w_arm",
+                                                         "w_stun_at", "w_stun", "w_r", "w_t")}}
     return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC", "Shield"],
+        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2",
                         f"asset/league/icons/{ID}_ult"],
@@ -468,6 +506,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -477,6 +516,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):

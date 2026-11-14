@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_viktor": {
+    "remapping": "asset/league_viktor/override/league_viktor",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_viktor/text/champion",
+    "type": "merge"
+  }
+}
