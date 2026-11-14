@@ -12,7 +12,8 @@
 //!   （`league_heimerdinger_turret_l` / `_apex_l`），否则朝右（`_r`）。主包不知道目标在哪边，还是正面朝镜头的炮台。
 //! - **从炮口射出看得见的炮弹**：炮台照主包区域的节奏（站稳后 `t_first` / `x_first` tick 第一发、之后每 `t_per` / `x_per`，
 //!   和炮台图的炮口闪光对齐）打一个敌人：先打范围内**受控制的英雄**（击飞、眩晕、禁锢、强制位移、恐惧、魅惑：游戏 `EnemyChampionInCC`
-//!   的六种）发射充能光束（`t_beam_line`，`tb_dmg` + `tb_ratio`% 法强），没有就打最近的敌方英雄，再没有就打最近的小兵、野怪
+//!   的六种）发射充能光束（`t_beam_line`，`tb_dmg` + `tb_ratio`% 法强），没有就打最近的敌方英雄——W 的导弹把光束充满了
+//!   （0.3.1：主包数据的充能梯子到了 `WC_FULL`）就是光束、用掉充能，不然是炮弹——再没有就打最近的小兵、野怪
 //!   （防御塔不打），发射炮弹（`t_shot`，`t_dmg` + `t_ratio`%）；巨型炮台的等离子弹（`x_shot`）还减速 `x_slow`%。
 //!   炮弹从侧面炮台的炮口（`T_MUZZLE` / `X_MUZZLE`，朝左时左右反过来）飞向目标（`spawn_projectile`），**飞到才扣血**
 //!   （游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列）。
@@ -366,10 +367,6 @@ pub fn hard_cc(kinds: impl IntoIterator<Item = u32>) -> bool {
     kinds.into_iter().any(|k| k < 32 && CC_MASK & (1 << k) != 0)
 }
 
-fn at(p: (f64, f64)) -> InputTargetV1 {
-    InputTargetV1::pos(p.0.round().max(0.0) as u64, p.1.round().max(0.0) as u64)
-}
-
 fn fpos(p: (u64, u64)) -> (f64, f64) {
     (p.0 as f64, p.1 as f64)
 }
@@ -402,20 +399,23 @@ fn enemies(sim: &StableSim<'_>, team: usize) -> Vec<Unit> {
     out
 }
 
-/// 炮台打谁：范围内最近的受控英雄（光束），没有就最近的英雄，再没有就最近的其他单位（炮弹）。
-pub fn choose(units: &[Unit], from: (f64, f64), reach: f64) -> Option<(&Unit, Fire)> {
+/// The beam's full charge on him (0.3.1, 2026-11-14 「接着做」): the main pack's W rockets that hit an enemy champion
+/// while a turret of his stands climb `wc1` .. `wc4` to this (League: "Every rocket hitting an enemy champion grants 20%
+/// beam charge to all turrets within 1000 range"); the next turret shot at a champion is the beam and spends it.
+pub const WC_FULL: &str = "league_heimerdinger_wcx";
+
+/// 炮台打谁：范围内最近的受控英雄（光束）；W 充满了（`charged`）就是最近的英雄挨光束、用掉充能（第三个值）；不然最近的英雄，
+/// 再没有就最近的其他单位（炮弹）。
+pub fn choose(units: &[Unit], from: (f64, f64), reach: f64, charged: bool) -> Option<(&Unit, Fire, bool)> {
     let near = |u: &&Unit| dist(u.pos, from) <= reach;
     let by = |a: &&Unit, b: &&Unit| dist(a.pos, from).total_cmp(&dist(b.pos, from));
     if let Some(u) = units.iter().filter(|u| u.in_cc).filter(near).min_by(by) {
-        return Some((u, Fire::Beam));
+        return Some((u, Fire::Beam, false));
     }
-    units
-        .iter()
-        .filter(|u| u.champion)
-        .filter(near)
-        .min_by(by)
-        .or_else(|| units.iter().filter(near).min_by(by))
-        .map(|u| (u, Fire::Cannon))
+    if let Some(u) = units.iter().filter(|u| u.champion).filter(near).min_by(by) {
+        return Some(if charged { (u, Fire::Beam, true) } else { (u, Fire::Cannon, false) });
+    }
+    units.iter().filter(near).min_by(by).map(|u| (u, Fire::Cannon, false))
 }
 
 /// A turret's body from his numbers now (`stat`, his health cap `max_hp`) for `life` ticks: move speed 1 (it does not
@@ -598,6 +598,8 @@ struct Workshop {
     n_put: usize,
     n_shot: usize,
     n_beam: usize,
+    /// Beams W's full charge made (0.3.1).
+    n_charged: usize,
     n_haste_turret: usize,
     n_haste_tower: usize,
     next_report: usize,
@@ -611,7 +613,7 @@ impl Default for Workshop {
     fn default() -> Self {
         let p = Params::default();
         Workshop { p: p.clone(), sim: 0, turrets: Vec::new(), flights: Vec::new(), next_haste: 0, n_put: 0, n_shot: 0, n_beam: 0,
-                   n_haste_turret: 0, n_haste_tower: 0, next_report: 0, bodies: Flock::new(T_UID, BODY_CAP, p.t_life),
+                   n_charged: 0, n_haste_turret: 0, n_haste_tower: 0, next_report: 0, bodies: Flock::new(T_UID, BODY_CAP, p.t_life),
                    apexes: Flock::new(X_UID, BODY_CAP, p.x_life), busy: [false; 3] }
     }
 }
@@ -754,6 +756,8 @@ impl Workshop {
         let units = enemies(sim, team);
         let mut flights = Vec::new();
         let at: Vec<Option<(f64, f64)>> = self.turrets.iter().map(|t| self.body_at(sim, t)).collect();
+        // W's full charge (the data's ladder on him): one beam at a champion, the first turret's that fires at one
+        let mut charged = sim.get_entity(me).is_some_and(|e| summon::has_buff(&e, WC_FULL));
         for (t, body) in self.turrets.iter_mut().zip(at) {
             if t.next > tick {
                 continue;
@@ -770,7 +774,16 @@ impl Workshop {
             if body.is_some() {
                 t.pos = pos;
             }
-            let Some((u, fire)) = choose(&units, pos, reach as f64) else { continue };
+            let Some((u, fire, spent)) = choose(&units, pos, reach as f64, charged) else { continue };
+            if spent {
+                charged = false;
+                sim.entity_remove_buff(me, WC_FULL);
+                self.n_charged += 1;
+                if let Some(k) = tally(sim, "charged") {
+                    wlog(format!("{} CHARGED BEAM #{k}: W's rockets filled the beam - {:?} at #{} for the charged beam", head(sim, me),
+                                 t.kind, u.id));
+                }
+            }
             let from = match (body.is_some(), t.kind) {
                 (true, Kind::Turret) => shot_from(pos, TU_MUZZLE, u.pos.0 < pos.0),
                 (true, Kind::Apex) => shot_from(pos, XU_MUZZLE, u.pos.0 < pos.0),
@@ -917,9 +930,9 @@ impl StablePassive for Workshop {
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             if tick > 0 && self.n_put > 0 {
-                wlog(format!("{} WATCH: turrets put {} ({} standing, {} with a body), shots {} ({} beams), haste by turrets {} / towers {}",
+                wlog(format!("{} WATCH: turrets put {} ({} standing, {} with a body), shots {} ({} beams, {} of them by W's charge), haste by turrets {} / towers {}",
                              head(sim, me), self.n_put, self.turrets.len(), self.turrets.iter().filter(|t| t.unit.is_some()).count(),
-                             self.n_shot, self.n_beam, self.n_haste_turret, self.n_haste_tower));
+                             self.n_shot, self.n_beam, self.n_charged, self.n_haste_turret, self.n_haste_tower));
             }
         }
     }
@@ -1047,10 +1060,17 @@ mod tests {
     fn beams_first_then_champions_then_the_rest() {
         let u = |id, x: f64, champion, in_cc| Unit { id, pos: (x, 0.0), champion, in_cc };
         let units = [u(1, 1_000.0, false, false), u(2, 20_000.0, true, false), u(3, 45_000.0, true, true)];
-        assert_eq!(choose(&units, (0.0, 0.0), 50_000.0).map(|(u, f)| (u.id, f)), Some((3, Fire::Beam)));
-        assert_eq!(choose(&units, (0.0, 0.0), 30_000.0).map(|(u, f)| (u.id, f)), Some((2, Fire::Cannon)));
-        assert_eq!(choose(&units, (0.0, 0.0), 10_000.0).map(|(u, f)| (u.id, f)), Some((1, Fire::Cannon)));
-        assert!(choose(&units, (200_000.0, 0.0), 10_000.0).is_none());
+        let pick = |reach: f64, charged| choose(&units, (0.0, 0.0), reach, charged).map(|(u, f, spent)| (u.id, f, spent));
+        assert_eq!(pick(50_000.0, false), Some((3, Fire::Beam, false)));
+        assert_eq!(pick(30_000.0, false), Some((2, Fire::Cannon, false)));
+        assert_eq!(pick(10_000.0, false), Some((1, Fire::Cannon, false)));
+        assert!(choose(&units, (200_000.0, 0.0), 10_000.0, true).is_none());
+        // 0.3.1: W's full charge - the nearest champion gets the beam and the charge is spent; a champion in crowd
+        // control still draws the beam without it; no champion near: the cannon, the charge kept
+        assert_eq!(pick(30_000.0, true), Some((2, Fire::Beam, true)));
+        assert_eq!(pick(50_000.0, true), Some((3, Fire::Beam, false)));
+        assert_eq!(pick(10_000.0, true), Some((1, Fire::Cannon, false)));
+        assert!(WC_FULL.len() <= BUFF_NAME_CAP && WC_FULL.starts_with("league_heimerdinger_"));
     }
 
     #[test]
@@ -1081,6 +1101,21 @@ mod tests {
         assert_eq!(turret_spec(Kind::Turret, &p, &StatV1::default(), 0, 1).stat.hp, 1);
         for name in [T_UNIT, X_UNIT, &summon::handoff(T_UID, usize::MAX), &summon::handoff(X_UID, usize::MAX)] {
             assert!(name.starts_with("league_heimerdinger_") && name.len() <= BUFF_NAME_CAP, "{name}");
+        }
+    }
+
+    #[test]
+    fn w_rockets_charge_the_beam_in_the_main_pack_and_the_copy() {
+        // 0.3.1: every W rocket's hit climbs the charge ladder to WC_FULL; the main pack's turrets spend it in a zone of
+        // their own (`_wc`, between the crowd-control beam and the cannon), the copy's native turrets in `choose`
+        let main = include_str!("../../../league/champion/league_heimerdinger.data_champion").replace('\r', "");
+        let copy = include_str!("../override/league_heimerdinger.data_champion").replace('\r', "");
+        for kit in [&main, &copy] {
+            assert!(kit.contains(&format!("\"name\": \"{WC_FULL}\"")) && kit.contains("\"name\": \"league_heimerdinger_wc4\""));
+        }
+        for zone in ["ta_wc", "tb_wc", "tc_wc", "x_wc"] {
+            assert_eq!(main.matches(&format!("\"name\": \"league_heimerdinger_{zone}\"")).count(), 1, "{zone}");
+            assert!(!copy.contains(&format!("league_heimerdinger_{zone}")), "{zone} in the copy");
         }
     }
 

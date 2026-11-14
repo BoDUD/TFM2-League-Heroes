@@ -1,4 +1,4 @@
-# 悟空附加包（测试版 v0.2.0）
+# 悟空附加包（测试版 v0.2.1）
 
 0.1.5（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_wukong.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -52,3 +52,11 @@
 - **他先死了**：被动不再跑，分身由引擎管着接着打到时间；正在跟着转的强制动作去掉。死去的施放者身上的 buff 冻住不变，所以他身上的标记还在，数据的分身不会在他死后补上。
 - **没做的**：分身不能指挥（API 没有下命令的接口；英雄联盟里它先打他最后打过的敌人）；防御塔一下打死分身、分身吃到 E 的攻速和 Q 的粉碎打击都没做。
 - **日志**（`league_wukong.log`）：第二行 `UNIT: Warrior Trickster's clone is a unit ('league_wukong', spawn_unit) - ON`（结尾是读到的测试开关）；每个分身 `UNIT SPAWN`（生成在哪、什么属性）→ `UNIT #n LOOK`（读回来是什么：名字、种类是不是 summon、能不能被选中、生命、攻击、移速、攻击间隔；生命设成他的了没有）→ `UNIT #n DRESS`（一 tick 后的生命）→ 每秒一行 `UNIT #n #k`（在哪、走了多远——应该一直是 0、生命涨落、身边的敌人、他的伤害统计涨了多少）→ 他开大时 `UNIT #n SPIN`（强制动作读回来是什么）、`UNIT #n PULSE`（打了几个、击飞几个、几个本来就在空中）、`UNIT #n SPIN END` → `UNIT #n OVER`（被打死还是到时间、尸体、敌方玩家那一 tick 拿到的钱）→ `UNIT #n WAKE`；他死时 `UNIT #n ORPHAN`；`UNIT #n HOOK` 看分身打的、杀的算不算到他身上。退路：`UNIT SPAWN FAILED`、`UNIT LOST`、`UNIT OFF`，之后照旧是 `CLONE`（画的分身）。
+
+## 等分身站稳再设生命（v0.2.1，2026-11-14）
+
+第一批真实对局数据（游戏 0.7.2 的预模拟，`league_wukong.log`）：分身生成后一拍读到 `hp 1851/1 attack 1 def 1 mr 1 speed 1`，代码按「上限 1」把它的生命设成了 1（`health to his own 1: set`），再一拍读到 1851/1851——生成那一拍和下一拍单位的数字都读成 1，那时设的生命会被盖掉（这次被盖掉反而救了它：不盖就是 1 血的分身）。
+
+- 现在交接后至少等一拍，再等它的最大生命读出来（萨科附加包 `summon.rs` 的 `Unit::settled`；妮蔻 W 的做法），才把生命设成他当时的；5 次还没读出来就照样接手，`UNIT #n LOOK` 行末写 `(its health cap still reads 1 after 5 looks)`。`LOOK` 行里的攻击、防御、移速从此是站稳以后的（应该是他的数字、移速 1）。
+- 每秒一行的计数（U4 发现的）：原来 `if let (Some(line), Some(k)) = (line, tally(..))` 每 tick 都数一次，预模拟里「前 40 行、之后每 200 行一行」变成了按 tick 算，`UNIT #n #k` 每秒那一行几乎出不来；现在有一行才数。
+- 测试多一个「站稳要两拍」的（假宿主 `World::settle = 2`：照旧在交接那一拍设生命的话，分身会是满血）。普攻和副本的数据一个字节没变。

@@ -55,7 +55,7 @@
 
 ### 安妮附加包：Q 返还、提伯斯是真的单位
 
-[安妮附加包：Q 返还、提伯斯是真的单位](../../addons/league_annie_q/README.md)：`league_annie_q` v0.3.0
+[安妮附加包：Q 返还、提伯斯是真的单位](../../addons/league_annie_q/README.md)：`league_annie_q` v0.3.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

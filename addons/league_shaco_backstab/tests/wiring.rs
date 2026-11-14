@@ -50,7 +50,7 @@ fn hallucinate_spawns_a_unit_and_bursts_it() {
         for name in ["clone", "burst", "box", "end"] {
             assert!(fx.contains_key(&format!("league_shaco_backstab:{name}")), "{name} not registered");
         }
-        assert_eq!(fx.len(), 6); // the clone's four; from 0.3.0 Jack in the Box's :jack and :jack_shot
+        assert_eq!(fx.len(), 7); // the clone's four; from 0.3.0 Jack in the Box's :jack and :jack_shot; from 0.3.1 the shiv's :shiv
         let proto = &passives[0].passive;
         let passive = PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
         let params = r#"{"ad":25,"base":15}"#;

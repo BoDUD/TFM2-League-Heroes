@@ -65,3 +65,7 @@ tools/art/fx_illaoi_tether.py 画灵魂线的一节（import_illaoi_fx.py 放进
 - 日志（都以 `TENTACLE` 开头）：第二行 `TENTACLES: … - ON`（测试开关）；`TENTACLE SPAWN #`（身体的单位 id、位置、`banished while it rises: yes / REFUSED`、数字）→ `TENTACLE #n LOOK #`（读回来的名字、种类、能不能选中、生命、`speed` 是不是 1、`in a wall cell: no / YES`——墙边生成的点是不是落在墙格子里）→ 每秒一行 `TENTACLE #n #k:`（`walked` 应该一直是 0、生命、身边的敌人）→ `TENTACLE #n OVER #`（被打掉还是到时间、敌方那一 tick 拿了多少钱、`lashes no more`）→ `WAKE #`；`TENTACLE AWAY #`（被挤掉时放逐）；`TENTACLE HOOK #`；失败时 `TENTACLE SPAWN FAILED` / `TENTACLE LOST`。
 - 测试开关：日志旁边的 `league_illaoi.cfg`（`unit=off` 不生成身体、`name=<名字>` 换单位名）。
 - 还没做：只有普攻能打掉触手（技能也会打到它）、她走远了触手休眠、大招期间触手选不中。
+
+## 触手的身体站稳了再接手（v0.3.1，2026-11-14）
+
+第一批真实对局数据（游戏 0.7.2 的预模拟）：新单位生成那一拍和下一拍，最大生命、攻击、防御、移速都读成 1，那时设的生命会被盖掉（悟空的分身生成后一拍读到 `hp 1851/1 attack 1 def 1 mr 1 speed 1`）。公用的 `Flock`（萨科附加包 0.3.1 的 `summon.rs`）现在等单位站稳（最大生命读出来）才接手：`TENTACLE #n LOOK` 晚一两拍、是身体自己的数字（5 次还没站稳就照样接手，行末写 `(its health cap still reads 1 after 5 looks)`）。v0.3.0 的「升起时还选得中就再放逐」以前和生成同一拍判断（那一拍的放逐要是被盖掉，再放逐也一起被盖掉），现在在站稳以后判断，才管用。代码没改，测试没改（假宿主里单位一生成就站稳）。

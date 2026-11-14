@@ -58,6 +58,13 @@ pub fn thrall_spec(stat: &StatV1, max_hp: usize, life: usize) -> summon::Spec {
 /// The lives `rise` asked for, by (sim seed, her, spot): the effect takes its own.
 static LIVES: Mutex<Vec<((u64, usize, u64, u64), usize)>> = Mutex::new(Vec::new());
 
+/// `ICE` for `ticks`: no damage, undying, no crowd control.
+fn ice(ticks: usize) -> BuffV1 {
+    let mut ice = BuffV1::timed(ICE, ticks.max(1));
+    (ice.damaged_reduce, ice.undying, ice.cc_immune) = (100, true, true);
+    ice
+}
+
 /// `league_lowhp:thrall` - a thrall unit where its champion fell (the input); no unit: the thrall's picture as before.
 pub struct ThrallFx;
 
@@ -79,6 +86,9 @@ impl StableEffectType for ThrallFx {
         match summon::spawn(sim, caster, team, spot, &spec) {
             Some(id) => {
                 sim.add_buff(caster, &BuffV1::timed(&summon::handoff(T_UID, id), UID_TICKS));
+                // the ice from its first tick too: the flock takes it on only once it has settled (summon.rs), and what
+                // is laid on it before may or may not hold (the look lays it again, the passive every tick it lacks it)
+                sim.add_buff(id, &ice(life + 10));
                 wlog(format!("{} THRALL UNIT SPAWN: unit #{id} for team {team} at {}: {}", head(sim, caster), summon::pt(spot),
                              spec.shown()));
             }
@@ -165,11 +175,10 @@ impl Bodies {
                     if let Some(k) = k {
                         self.links[k].1 = Some(id);
                     }
-                    // League's thrall cannot be hurt: laid from its first look (what is done on the spawn tick may be
-                    // overwritten in the live game)
-                    let mut ice = BuffV1::timed(ICE, self.flock.life + 10);
-                    (ice.damaged_reduce, ice.undying, ice.cc_immune) = (100, true, true);
-                    sim.add_buff(id, &ice);
+                    // League's thrall cannot be hurt: laid again at its first look, once it has settled (what is done on
+                    // the spawn tick may be overwritten in the live game)
+                    sim.entity_remove_buff(id, ICE);
+                    sim.add_buff(id, &ice(self.flock.life + 10));
                     let on = sim.get_entity(id).is_some_and(|e| summon::has_buff(&e, ICE));
                     self.say(format!("{} THRALL UNIT #{n} LOOK: {line}; the ice (no damage, undying, no crowd control) {}{}",
                                           head(sim, me), if on { "is on it" } else { "is NOT on it" },
@@ -215,9 +224,7 @@ impl Bodies {
             }
         }
         for (id, left) in iced {
-            let mut ice = BuffV1::timed(ICE, left.max(1).min(life + 10));
-            (ice.damaged_reduce, ice.undying, ice.cc_immune) = (100, true, true);
-            sim.add_buff(id, &ice);
+            sim.add_buff(id, &ice(left.max(1).min(life + 10)));
         }
     }
 }

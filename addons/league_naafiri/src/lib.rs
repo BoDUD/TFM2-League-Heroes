@@ -497,12 +497,17 @@ pub struct Pack {
     units: bool,
     next_ask: usize,
     roared: bool,
+    /// 0.2.1: the batches asked for and not all come yet (one ask of the flock each: the units one tick's queued effects
+    /// bring are handed over together, to the oldest waiting ask - league_elise's way); the roar's two, asked for as soon
+    /// as no ask of the flock is waiting (two batches waiting at once would get each other's units).
+    batches: Vec<Batch>,
+    call_due: bool,
 }
 
 impl Default for Pack {
     fn default() -> Self {
         Pack { p: Params::default(), resets: 0, spawns: 0, me: 0, hounds: Flock::new(H_UID, HOUND_CAP, HOUND_LIFE), pending: 0,
-               units: false, next_ask: 0, roared: false }
+               units: false, next_ask: 0, roared: false, batches: Vec::new(), call_due: false }
     }
 }
 
@@ -772,34 +777,89 @@ pub struct HoundBook {
     pub kind: Hound,
 }
 
+/// Packmates asked for in one tick (one ask of the flock): the tick, which kind, how many, how many not come yet (come:
+/// read as a unit, or given up as never one).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Batch {
+    pub tick: usize,
+    pub kind: Hound,
+    pub n: usize,
+    pub left: usize,
+}
+
+/// A batch some of whose units never came by now (a spawn refused or the host out of room: no ask is left to time out
+/// for them) is closed this many ticks after its ask: the flock's wait for the handoffs and its looks, and two more.
+pub const BATCH_WAIT: usize = summon::FLOCK_WAIT + summon::FLOCK_LOOKS + 2;
+
+fn kind_text(kind: Hound) -> &'static str {
+    if kind == Hound::Pack { "her pack" } else { "the call" }
+}
+
 impl Pack {
     /// The pack hounds alive on the books.
     fn pack_alive(&self) -> usize {
         self.hounds.live.iter().filter(|m| m.extra.kind == Hound::Pack).count()
     }
 
-    /// One packmate asked for (`kind`), the `k`-th to come now.
-    fn ask_hound(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, here: Pt, kind: Hound, k: usize) {
+    /// `n` packmates asked for (`kind`), the `first`-th to come now and on: one ask of the flock, a queued effect each
+    /// (all in this tick, so their units are handed over together).
+    #[allow(clippy::too_many_arguments)]
+    fn ask_batch(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, here: Pt, kind: Hound, first: usize, n: usize) {
+        if n == 0 {
+            return;
+        }
         let foe = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|u| u.team() != team && u.is_champion() && u.is_alive())
             .map(|u| summon::at_of(&u))
             .min_by(|a, b| summon::dist(*a, here).total_cmp(&summon::dist(*b, here)));
-        let at = hound_spot(here, foe, k);
         let (effect, life) = if kind == Hound::Pack { ("hound", HOUND_LIFE) } else { ("call", ROAR_T) };
-        self.hounds.ask(sim.tick(), life, HoundBook { kind });
+        let tick = sim.tick();
+        self.hounds.ask(tick, life, HoundBook { kind });
+        self.batches.push(Batch { tick, kind, n, left: n });
         if kind == Hound::Pack {
-            self.pending += 1;
+            self.pending += n;
         }
-        let queued = sim.queue_effect(&format!("{ID}:{effect}"), AttackTypeV1::Skill, me, &at_input(at), 1);
-        if !queued {
-            make_hound(sim, me, at, life, if kind == Hound::Pack { "her pack" } else { "the call" },
-                       "queue_effect refused: spawned by the passive");
+        let (mut spots, mut refused) = (Vec::new(), 0);
+        for k in first..first + n {
+            let at = hound_spot(here, foe, k);
+            spots.push(summon::pt(at));
+            if !sim.queue_effect(&format!("{ID}:{effect}"), AttackTypeV1::Skill, me, &at_input(at), 1) {
+                refused += 1;
+                make_hound(sim, me, at, life, kind_text(kind), "queue_effect refused: spawned by the passive");
+            }
         }
         if let Some(k) = tally(sim, "hound ask") {
-            wlog(format!("{} HOUND ASK #{k}: {} at {} ({HOUND_SPREAD:.0} behind her){}", head(sim, me),
-                         if kind == Hound::Pack { "one of her pack" } else { "one of the call's two" }, summon::pt(at),
-                         if queued { "" } else { " - queue_effect REFUSED" }));
+            wlog(format!("{} HOUND ASK #{k}: {n} of {} at {} ({HOUND_SPREAD:.0} behind her){}", head(sim, me),
+                         if kind == Hound::Pack { "her pack" } else { "the call's two" }, spots.join(" "),
+                         if refused == 0 { String::new() } else { format!(" - queue_effect REFUSED {refused} times") }));
         }
+    }
+
+    /// One of a batch of `kind` came (read as a unit) or never will (given up): the oldest batch of that kind not all
+    /// come yet counts it.
+    fn came(&mut self, kind: Hound) {
+        if kind == Hound::Pack {
+            self.pending = self.pending.saturating_sub(1);
+        }
+        if let Some(k) = self.batches.iter().position(|b| b.kind == kind && b.left > 0) {
+            self.batches[k].left -= 1;
+            if self.batches[k].left == 0 {
+                self.batches.remove(k);
+            }
+        }
+    }
+
+    /// The batch asked for at `asked` (`kind`) is over with `left` of it never come: they are not waited for any more
+    /// (her pack's: the next ask a while off, as when one is killed).
+    fn never_came(&mut self, tick: usize, kind: Hound, asked: usize) -> usize {
+        let Some(k) = self.batches.iter().position(|b| b.kind == kind && b.tick == asked)
+            .or_else(|| self.batches.iter().position(|b| b.kind == kind)) else { return 0 };
+        let b = self.batches.remove(k);
+        if kind == Hound::Pack {
+            self.pending = self.pending.saturating_sub(b.left);
+            self.next_ask = self.next_ask.max(tick + HOUND_RESPAWN);
+        }
+        b.left
     }
 
     /// No pack hound comes (or none is left): back to the pack drawn on her.
@@ -816,15 +876,24 @@ impl Pack {
         let tick = sim.tick();
         let roar = has_buff(sim, me, PACK4);
         if !KNOBS.off {
+            // one batch at a time (0.2.1): summon.rs gives all the handoffs of a tick to the oldest waiting ask, so a
+            // batch asked while another's units are still awaited would be handed the other's. 0.2.0 asked for each
+            // hound on its own: both came in one tick, went to the first ask, and the second timed out - a HOUND NONE
+            // line for a hound that had come, and the next ask HOUND_RESPAWN ticks off.
             if roar && !self.roared && self.units {
-                for k in 0..CALL_N {
-                    self.ask_hound(sim, me, team, here, Hound::Call, PACK_N + k);
-                }
+                self.call_due = true;
             }
-            if tick >= self.next_ask {
+            if !roar {
+                self.call_due = false;
+            }
+            if self.call_due && self.hounds.waiting() == 0 {
+                self.call_due = false;
+                self.ask_batch(sim, me, team, here, Hound::Call, PACK_N, CALL_N);
+            }
+            if tick >= self.next_ask && self.hounds.waiting() == 0 {
                 let have = self.pack_alive() + self.pending;
-                for k in have..PACK_N {
-                    self.ask_hound(sim, me, team, here, Hound::Pack, k);
+                if have < PACK_N {
+                    self.ask_batch(sim, me, team, here, Hound::Pack, have, PACK_N - have);
                 }
                 self.next_ask = tick + ASK_EVERY;
             }
@@ -838,13 +907,11 @@ impl Pack {
         for ev in self.hounds.tick(sim, me, team, player, Some(here)) {
             match ev {
                 Event::NoUnit { asked, what } => {
-                    if what.kind == Hound::Pack {
-                        self.pending = self.pending.saturating_sub(1);
-                        self.next_ask = self.next_ask.max(tick + HOUND_RESPAWN);
-                    }
+                    let left = self.never_came(tick, what.kind, asked);
                     if let Some(k) = tally(sim, "hound none") {
-                        wlog(format!("{} HOUND NONE #{k}: no packmate came within {} ticks of the ask at t={asked}", head(sim, me),
-                                     summon::FLOCK_WAIT));
+                        wlog(format!("{} HOUND NONE #{k}: none of the {left} packmates of {} asked for at t={asked} came within {} \
+                                      ticks{}", head(sim, me), kind_text(what.kind), summon::FLOCK_WAIT,
+                                     if what.kind == Hound::Pack { format!(" - asked again in {HOUND_RESPAWN} ticks") } else { String::new() }));
                     }
                     if self.pack_alive() == 0 && self.pending == 0 {
                         self.units_off(sim, me, "no packmate came");
@@ -852,8 +919,8 @@ impl Pack {
                 }
                 Event::Look { id, n, line } => {
                     let kind = self.hounds.get(id).map_or(Hound::Pack, |m| m.extra.kind);
+                    self.came(kind);
                     if kind == Hound::Pack {
-                        self.pending = self.pending.saturating_sub(1);
                         if !self.units {
                             self.units = true;
                             wlog(format!("{} HOUND SOLO ON: her packmates are units - her solo frames, no pack bites in the data",
@@ -866,8 +933,8 @@ impl Pack {
                     }
                 }
                 Event::Lost { id, why, what } => {
+                    self.came(what.kind);
                     if what.kind == Hound::Pack {
-                        self.pending = self.pending.saturating_sub(1);
                         self.next_ask = self.next_ask.max(tick + HOUND_RESPAWN);
                     }
                     if let Some(k) = tally(sim, "hound lost") {
@@ -916,6 +983,20 @@ impl Pack {
                 }
             }
         }
+        // a batch only some of which came (a spawn refused, the host out of room): its ask was answered, so nothing else
+        // tells that the rest never will
+        let late: Vec<Batch> = self.batches.iter().filter(|b| b.left > 0 && tick > b.tick + BATCH_WAIT).copied().collect();
+        for b in late {
+            let left = self.never_came(tick, b.kind, b.tick);
+            if let Some(k) = tally(sim, "hound short") {
+                wlog(format!("{} HOUND SHORT #{k}: {left} of the {} packmates of {} asked for at t={} never came{}", head(sim, me),
+                             b.n, kind_text(b.kind), b.tick,
+                             if b.kind == Hound::Pack { format!(" - asked again in {HOUND_RESPAWN} ticks") } else { String::new() }));
+            }
+            if self.pack_alive() == 0 && self.pending == 0 {
+                self.units_off(sim, me, "the packmates asked for never came");
+            }
+        }
         if self.units {
             sim.entity_remove_buff(me, SOLO);
             sim.add_buff(me, &BuffV1::timed(SOLO, SOLO_TICKS));
@@ -943,7 +1024,8 @@ impl Pack {
     /// Everything of her packmates off the books (she died or a new life began).
     fn let_go(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str) {
         let gone = self.hounds.orphans();
-        self.pending = 0;
+        (self.pending, self.call_due) = (0, false);
+        self.batches.clear();
         if self.units {
             self.units = false;
             sim.entity_remove_buff(me, SOLO);
@@ -1235,6 +1317,60 @@ mod tests {
     }
 
     #[test]
+    fn a_batch_comes_in_one_tick_with_no_ask_left_to_time_out() {
+        // 0.2.0 asked for each hound on its own: both came in one tick, both went to the first ask, the second timed out
+        // (HOUND NONE) and pushed the next ask HOUND_RESPAWN ticks off
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 1);
+        assert_eq!(me.batches, vec![Batch { tick: w.tick - 1, kind: Hound::Pack, n: PACK_N, left: PACK_N }]);
+        assert_eq!((me.hounds.waiting(), me.pending), (1, PACK_N), "one ask of the flock for the batch");
+        run(&mut w, &mut me, 20);
+        assert_eq!(hounds(&w).len(), PACK_N);
+        assert!(me.batches.is_empty() && me.pending == 0 && me.hounds.waiting() == 0, "{:?}", me.batches);
+        assert!(me.next_ask <= w.tick + ASK_EVERY, "the next ask pushed {} ticks off", me.next_ask - w.tick);
+        assert!(me.hounds.live.iter().all(|m| m.extra.kind == Hound::Pack));
+    }
+
+    #[test]
+    fn a_batch_short_of_a_unit_is_closed_and_the_missing_one_asked_for_later() {
+        let (mut w, mut me) = world();
+        w.spawn_left = Some(1);
+        run(&mut w, &mut me, BATCH_WAIT + 4);
+        assert_eq!((me.pack_alive(), me.pending), (1, 0));
+        assert!(me.batches.is_empty() && me.units && w.has(0, SOLO));
+        let asked_at = me.next_ask;
+        assert!(asked_at > w.tick + HOUND_RESPAWN - 20, "the missing one asked for again at once");
+        w.spawn_left = None;
+        while w.tick <= asked_at {
+            tick(&mut w, &mut me);
+        }
+        run(&mut w, &mut me, 5);
+        assert_eq!((me.pack_alive(), hounds(&w).len()), (PACK_N, PACK_N));
+    }
+
+    #[test]
+    fn the_roar_and_a_missing_packmate_are_asked_for_one_after_the_other() {
+        let (mut w, mut me) = world();
+        run(&mut w, &mut me, 10);
+        let ids = hounds(&w);
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, 2);
+        // the missing one due in the very tick the roar starts
+        me.next_ask = w.tick;
+        w.units[0].buffs.push((BuffV1::timed(PACK4, ROAR_T), ROAR_T));
+        run(&mut w, &mut me, 10);
+        assert_eq!(w.spawns.iter().filter(|s| s.life as usize == ROAR_T).count(), CALL_N);
+        assert_eq!(w.spawns.iter().filter(|s| s.life as usize == HOUND_LIFE).count(), PACK_N + 1);
+        // each unit on the books as what it was asked for: the call's two live ROAR_T, her pack HOUND_LIFE
+        for m in &me.hounds.live {
+            let life = w.spawns.iter().find(|s| s.gave == Some(m.unit.id)).map(|s| s.life as usize);
+            assert_eq!(life, Some(if m.extra.kind == Hound::Call { ROAR_T } else { HOUND_LIFE }), "{:?}", m.extra);
+        }
+        assert_eq!((me.pack_alive(), me.hounds.live.len()), (PACK_N, PACK_N + CALL_N));
+        assert!(me.batches.is_empty() && me.pending == 0);
+    }
+
+    #[test]
     fn her_pack_dies_with_her_and_a_new_one_comes_with_her_next_life() {
         let (mut w, mut me) = world();
         run(&mut w, &mut me, 10);
@@ -1303,7 +1439,7 @@ mod tests {
         let mine: Vec<&str> = text.lines().filter(|l| l.contains(" HOUND")).collect();
         let has = |what: &str| mine.iter().any(|l| l.contains(what));
         for what in [
-            "HOUND ASK #", "one of her pack at (", "(14000 behind her)",
+            "HOUND ASK #", "2 of her pack at (", "(14000 behind her)",
             "HOUND SPAWN #", "(her pack, the queued effect): unit #4 for team 0 at (", "'league_naafiri_packmate' for 3600 ticks, attack \
              200 ap 0 hp 260 def 6 mr 6 speed 1100; hits 4 + 6% of its attack, range 23000, every 58 ticks (25 long, lands at 10)",
             "HOUND SOLO ON: her packmates are units", "HOUND #1 LOOK #", "(her pack): #4 reads back as name 'league_naafiri_packmate'",

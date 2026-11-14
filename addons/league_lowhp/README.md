@@ -1,4 +1,4 @@
-# 低血量附加包（测试版 v0.3.1，可选）：布里茨、乐芙兰、丽桑卓
+# 低血量附加包（测试版 v0.3.2，可选）：布里茨、乐芙兰、丽桑卓
 
 0.2.5（2026-11-05）：丽桑卓的副本带上「弗雷尔卓德的女王」的冰冠冕（主包 `view_buffs` 里的 `league_eggs_crown_lissandra`，`tools/fix/eggs_crown_views.py`），副本跟着主包重新生成；英雄联盟彩蛋（`league_eggs`）在她赢下弗雷尔卓德之战时挂这个 buff。DLL 没变。
 
@@ -61,3 +61,12 @@ v0.2.6（2026-11-06，11-06 的日志）：42 个冰仆里 11 个扑到人（都
 - 退路：宿主没有 `spawn_unit`、失败（`league_lowhp:thrall` 照旧在尸体处放画面）、读不成单位、测试开关 `unit=off`——和以前一样：画面 + 从尸体处扑（`walked 0`）。
 - 日志：第二部分的 `THRALLS: … - ON` 一行（测试开关在日志旁边的 `league_lowhp.cfg`）；`THRALL UNIT SPAWN:`（单位 id、位置、数字）→ `THRALL UNIT #n LOOK:`（读回来的名字、种类、能不能选中、生命、`the ice … is on it / is NOT on it`——buff 挂不挂得上召唤物）→ 每秒一行 `THRALL UNIT #n:`（走了多远、身边的敌人）→ `THRALL UNIT #n OVER:` → `THRALL #k rose at … walked …, lunged …, shattered: …`；失败时 `THRALL UNIT SPAWN FAILED` / `THRALL UNIT LOST`。
 - 还没做：选不中（没有让单位选不中又能走的接口：敌人会白打它）、活着时让附近的敌人减速 25%（这里碎裂时才减速）、速度从慢到快（这里一直是她的速度）、站起来的动作（单位一出来就站着）、它变成那个英雄的样子（英雄联盟的冰仆是死者的模样）。
+
+## 等单位站稳再动它（v0.3.2，2026-11-14）
+
+第一批真实对局数据（游戏 0.7.2 的预模拟）：新单位生成那一拍和下一拍，最大生命、攻击、防御、移速都读成 1，那时设的生命会被盖掉（悟空的分身生成后一拍读到 `hp 1851/1 attack 1 def 1 mr 1 speed 1`，生命被设成 1，再一拍读到 1851/1851）。
+
+- 乐芙兰的幻像：交接后至少等一拍，再等它的最大生命读出来（萨科附加包 `summon.rs` 的 `Unit::settled`；妮蔻 W 的做法），才把生命设成她当时的；5 次还没读出来就照样接手，`MIRROR #n LOOK` 行末写 `(its health cap still reads 1 after 5 looks)`。
+- 丽桑卓的冰仆：公用的 `Flock` 现在等单位站稳才接手（`THRALL UNIT #n LOOK` 晚一两拍、数字是站稳以后的），所以生成时 `league_lowhp:thrall` 当场先挂一次冰（挂不挂得住要看游戏），接手时去掉重挂，之后每 tick 照旧补（同名的 buff 会叠，所以先去掉）。
+- 每秒一行的计数（U4 发现的）：幻像原来 `if let (Some(line), Some(k)) = (line, tally(..))` 每 tick 都数一次，预模拟里「前 40 行、之后每 200 行一行」变成按 tick 算，`MIRROR #n #k` 每秒那一行几乎出不来；现在有一行才数。
+- 测试多一个「幻像站稳要两拍」的（假宿主 `World::settle = 2`）。

@@ -224,6 +224,13 @@
                     {
                       "casting_type": "Targeting",
                       "effect": {
+                        "type": "Native",
+                        "effect_ref": "league_shaco_backstab:shiv"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
                         "type": "ApAttack",
                         "damage": 55,
                         "attack_ratio": 70,

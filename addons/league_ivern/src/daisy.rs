@@ -363,10 +363,13 @@ impl Daisy {
         }
         if let Some(Stage::Fresh(id, born, tries)) = self.stage {
             match summon::Unit::look(sim, id, self.n, born, D_LIFE, team, player) {
-                Ok((unit, line)) => {
+                // taken on once she has settled (summon.rs's Unit::settled: a new unit reads max health 1 and every stat
+                // 1 on its spawn tick and the next - game 0.7.2's presims), so her LOOK line shows the numbers she really
+                // has; when her looks run out, all the same
+                Ok((unit, line)) if unit.settled() || tries + 1 >= LOOK_TRIES => {
                     self.stage = None;
                     if let Some(k) = tally(sim, "daisy look") {
-                        wlog(format!("{} DAISY #{} LOOK #{k}: {line}", head(sim, me), self.n));
+                        wlog(format!("{} DAISY #{} LOOK #{k}: {line}{}", head(sim, me), self.n, unit.unsettled_note(tries + 1)));
                     }
                     if let Some(old) = self.live.take() {
                         wlog(format!("{} DAISY #{}: the unit #{} of an earlier one is still out - no longer watched", head(sim, me),
@@ -382,7 +385,7 @@ impl Daisy {
                                       ({why}) - the flag is off, she rides on the champion as before", head(sim, me), self.n));
                     }
                 }
-                Err(_) => self.stage = Some(Stage::Fresh(id, born, tries + 1)),
+                _ => self.stage = Some(Stage::Fresh(id, born, tries + 1)),
             }
             return;
         }
@@ -393,8 +396,12 @@ impl Daisy {
         let n = live.unit.n;
         match live.unit.step(sim, Some(here)) {
             summon::Step::Alive(line) => {
-                if let (Some(line), Some(k)) = (line, tally(sim, "daisy unit")) {
-                    wlog(format!("{} DAISY #{n} #{k}: {line}", head(sim, me)));
+                // counted only when there is a line (a count every tick let the presims' first 40 and every 200th go by
+                // ticks, not lines: hardly a line a second got through)
+                if let Some(line) = line {
+                    if let Some(k) = tally(sim, "daisy unit") {
+                        wlog(format!("{} DAISY #{n} #{k}: {line}", head(sim, me)));
+                    }
                 }
                 // her punches by the clock while his passive hears none: a champion in her reach is punched every D_COOL
                 let mut presumed = None;
@@ -597,6 +604,24 @@ mod tests {
 
     fn slams(w: &World, target: usize) -> usize {
         w.dealt(0, DamageTypeV1::Ap).iter().filter(|d| **d == (target, slam_damage(100))).count()
+    }
+
+    #[test]
+    fn daisy_is_taken_on_once_her_numbers_read() {
+        // game 0.7.2's presims: a new unit reads max health 1 and every stat 1 on its spawn tick and the next (World::settle)
+        let (mut w, mut me) = world();
+        w.settle = 2;
+        drop_on(&mut w, GAREN);
+        run(&mut w, &mut me, D_FIRST + 2);
+        assert_eq!(w.spawns.len(), 1);
+        let spawned = w.spawns[0].tick;
+        run(&mut w, &mut me, 5);
+        let live = me.live.as_ref().expect("never taken on");
+        assert!(live.unit.settled() && live.unit.max == 1800);
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        let look = text.lines().find(|l| l.contains(" DAISY #") && l.contains(" LOOK #") && l.contains(&format!("t={} ", spawned + 2)));
+        assert!(look.is_some_and(|l| l.contains("hp 1800/1800 attack 45 def 50") && !l.contains("still reads")), "{look:?}");
+        assert!(w.has(0, D_UNIT));
     }
 
     #[test]

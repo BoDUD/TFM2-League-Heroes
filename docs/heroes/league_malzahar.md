@@ -55,7 +55,7 @@
 
 ### 玛尔扎哈附加包：虚空穿越、幻象跳转、虚空蜂是真的单位
 
-[玛尔扎哈附加包：虚空穿越、幻象跳转、虚空蜂是真的单位](../../addons/league_malzahar/README.md)：`league_malzahar` v0.2.0
+[玛尔扎哈附加包：虚空穿越、幻象跳转、虚空蜂是真的单位](../../addons/league_malzahar/README.md)：`league_malzahar` v0.2.1
 
 主包 `league` 保持纯数据。用户选了「做：E 跳转 + 被动精确」；2026-11-14 用户：「召唤物的全做啊」。这个附加包用原生代码做主包数据做不准的三件事：
 
