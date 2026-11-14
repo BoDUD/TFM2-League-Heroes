@@ -861,7 +861,7 @@ pub const FORMS: &[(&str, &[&str], f32, f32)] =
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_heimerdinger's turrets, league_leblanc_clone (below) and the rest
-/// (league_zyra_thicket was one until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」; league_yuumi_ride,
+/// (league_zyra_thicket was one until 2026-10-21, a plain 1x sheet after 「婕拉的大招特效局内怎么这么模糊」, dense again since 2026-11-14 through fx_ppu.rs - crisp 1x + exact 2x twins, tools/art/zyra_thicket_size.py; league_yuumi_ride,
 /// the cat on the head of the ally Yuumi rides, until 2026-11-05 - see DRAWN_EFFECTS). Looked up like the heroes
 /// (hd_engine/src/lookup.rs); the battlefield's entity scale (hd_engine/src/view.rs) never meets them - they are no
 /// entity's body.

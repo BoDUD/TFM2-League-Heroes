@@ -99,6 +99,7 @@ jobs:
           python -I tools/kit/stack_nums.py --check
           python -I tools/art/fx_kindred_hunt.py --check
           python -I tools/art/gangplank_sv_fx.py --check
+          python -I tools/art/zyra_thicket_size.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places -p push_rules
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges

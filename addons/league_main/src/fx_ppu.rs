@@ -6,7 +6,7 @@
 //! effects, buffs and projectiles alike, so hd.rs lists them in EFFECTS, DRAWN_EFFECTS and full_effects() (dense
 //! only where the buff and projectile pictures are shrunk too: hd_engine Table::full_effects).
 
-/// (sheet, PPU, its .fanim) - 377 sheets
+/// (sheet, PPU, its .fanim) - 378 sheets
 pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_aatrox_big", 2.0, include_str!("../../../league/effects/league_aatrox_big#anim.fanim")),
     ("league_aatrox_fx", 2.0, include_str!("../../../league/effects/league_aatrox_fx#anim.fanim")),
@@ -385,4 +385,5 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_zoe_fx", 2.0, include_str!("../../../league/effects/league_zoe_fx#anim.fanim")),
     ("league_zyra_big", 2.0, include_str!("../../../league/effects/league_zyra_big#anim.fanim")),
     ("league_zyra_fx", 2.0, include_str!("../../../league/effects/league_zyra_fx#anim.fanim")),
+    ("league_zyra_thicket", 2.0, include_str!("../../../league/effects/league_zyra_thicket#anim.fanim")),
 ];
