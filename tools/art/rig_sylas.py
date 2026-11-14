@@ -28,6 +28,7 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import inbetween as IB  # noqa: E402
 import ppu_rig as R  # noqa: E402
 from rig_warwick import close_cracks  # noqa: E402
 from rig_wukong import CutDesign as _Cut, P, pad  # noqa: E402
@@ -79,6 +80,45 @@ def trousers_mid(d):
     return (xs.min() + xs.max() + 1) / 2
 
 
+# The run in eight frames (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): each of
+# Codex's four run poses held for two frames of 75 ms (the legs and the body's height still change every 150 ms: the
+# same bob) while the chain trailing from his far fist swings - a wave travelling down it to its tip: its whole columns
+# left of CHAIN (where it hangs from the fist: the columns from there on stay) lifted AMP t sin(step x 45 deg - pi t)
+# rows, t from 0 there to 1 at its tip (the picture's left edge), the step going on frame by frame, so all eight
+# frames differ (rig_aurelionsol's travelling(), his tail's). Everything but the chain is checked unchanged.
+# The same wave gives the one-drawing actions their frames: Abduct's pull (the chain trailing low behind him) and the
+# leaps of the stolen ult (the chain flung up behind him). CHAIN: pose -> (that column, the rows the chain's squares
+# lie in there - the pull's trailing foot is above them).
+CHAIN = {"run1": (14, 0, 99), "run2": (14, 0, 99), "run3": (14, 0, 99), "run4": (14, 0, 99),
+         "pull": (18, 28, 99), "leap": (14, 0, 20)}
+AMP = 4
+VPAD = 8
+
+
+def travelling(shape, x0, x1, amp, phase, beats=0.5):
+    """The moves of a wave travelling down a trailing chain: its whole columns lifted amp t sin(phase - 2 pi beats t)
+    rows, t from 0 at column x1 (where it hangs from him) to 1 at its tip (column x0). -> (dx, dy) arrays."""
+    H, W = shape[:2]
+    dy = np.zeros((H, W), int)
+    for x in range(W):
+        t = min(max((x1 - x) / (x1 - x0), 0.0), 1.0)
+        dy[:, x] = -int(round(amp * t * np.sin(phase - 2 * np.pi * beats * t)))
+    return np.zeros((H, W), int), dy
+
+
+def chain_waved(d, name, step, outline):
+    """A pose picture (on a canvas VPAD bigger on every side) with its trailing chain - every square left of
+    CHAIN[name] in its rows, the chain alone there - at `step` of the travelling wave, behind the rest of him."""
+    x1, y0, y1 = CHAIN[name]
+    m = np.zeros(d.shape[:2], bool)
+    m[y0:y1 + 1, :x1 + 1] = d[y0:y1 + 1, :x1 + 1, 3] > 0
+    dx, dy = travelling(d.shape, 0, x1, AMP, step * np.pi / 4)
+    out = IB.repose(d, [(m, (dx, dy), "under")], outline, pad=VPAD)
+    if not IB.kept(d, out, VPAD, but=m):
+        sys.exit(f"{name} chain step {step}: the wave changed him outside the chain")
+    return out
+
+
 class Form:
     def __init__(self, D, rig_pad=(70, 70, 70, 24)):
         self.D = D
@@ -91,14 +131,18 @@ class Form:
         can[self.rig.GY:] = 0
         return close_cracks(can, self.D.outline)
 
-    def posed(self, name, whole=(0, 0), lift=0):
+    def posed(self, name, whole=(0, 0), lift=0, wave=None):
         """A Codex pose (hd/pose_<name>.png) standing where the design stands: the middle of its trousers on the
-        design's, its lowest row on the ground - `lift` rows above it (in the air)."""
+        design's, its lowest row on the ground - `lift` rows above it (in the air); `wave`: the trailing chain waved at
+        that step of its travelling wave (chain_waved), placed where the pose itself stands."""
         d = load(f"pose_{name}.png")
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
         lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
         top = P + self.D.ground - (ys.max() + 1) - lift
         left = P + int(round(trousers_mid(self.D.d) - trousers_mid(d)))
+        if wave is not None:
+            d = chain_waved(d, name, wave, tuple(int(v) for v in self.D.outline))
+            top, left = top - VPAD, left - VPAD
         x0, x1 = max(0, left), min(lay.shape[1], left + d.shape[1])
         y0, y1 = max(0, top), min(lay.shape[0], top + d.shape[0])
         lay[y0:y1, x0:x1] = d[y0 - top:y1 - top, x0 - left:x1 - left]
@@ -115,8 +159,9 @@ def form():
 
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame; the kit's ticks (tools/kit/build_sylas.py) come from these (a frame's start in ticks = ms x 0.06)
-# the run 150 ms a frame (2026-10-22, 「塞拉斯局内也是跑的时候跳动频率太高 和之前奎桑提一个问题」: 110 made a 0.44 s cycle)
-MS = {"idle": [150] * 8, "run": [150] * 4,
+# the run 150 ms a pose (2026-10-22, 「塞拉斯局内也是跑的时候跳动频率太高 和之前奎桑提一个问题」: 110 made a 0.44 s cycle);
+# since 2026-11-14 each pose two frames of 75 ms, the trailing chain swinging between them (CHAIN) - the bob unchanged
+MS = {"idle": [150] * 8, "run": [75] * 8,
       "attack": [80, 80, 70, 90, 110],            # the lash from 160 ms: a_rel 10
       "attack_p": [100, 100, 150, 150],           # the whirl from 100 ms: p_rel 7
       "skill_w": [100, 120, 140, 140],            # the stab from 100 ms: w_rel 7
@@ -136,8 +181,9 @@ def frames_all(F):
     # idle (League's Sylas_Idle: a slow breath, the chains swaying a little): the upper body sets down a row and back
     out["idle"] = [p(crouch=c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
     # run (League's Sylas_Run: an upright run, the arms pumping, the chains trailing): Codex's four run frames, the body
-    # one square higher on the passing frames (run2 / run4 drawn so)
-    out["run"] = [q("run1"), q("run2"), q("run3"), q("run4")]
+    # one square higher on the passing frames (run2 / run4 drawn so); each held two frames, the trailing chain swinging
+    # (CHAIN: a wave travelling down it, a step a frame)
+    out["run"] = [q(f"run{k // 2 + 1}", wave=k) for k in range(8)]
     # auto attack (League's Sylas_Attack_01: leaning back with the near arm swung behind him, then lunging forward
     # with the far arm and its chain flung ahead): wind-up, the lash (the hit), held, back
     out["attack"] = [q("wind"), q("wind", whole=(-1, 0)), q("lash", whole=(-3, 0)), q("lash", whole=(-3, 0)), p()]
@@ -152,13 +198,16 @@ def frames_all(F):
     # like: planted, the far arm thrust forward with the chain)
     out["skill2"] = [q("dash", whole=(5, 0)), q("dash", whole=(6, 0)), q("throw"), q("throw"), p()]
     # Abduct's pull (League's Sylas_Spell3_Bhit_Cast: flying forward level after his chain)
-    out["skill2_pull"] = [q("pull", whole=(-6, 0), lift=3), q("pull", whole=(-6, 0), lift=2)]
+    # (the trailing chain's tip swung down, then up: CHAIN)
+    out["skill2_pull"] = [q("pull", whole=(-6, 0), lift=3, wave=2), q("pull", whole=(-6, 0), lift=2, wave=6)]
     # R Hijack, the steal (League's Sylas_Spell4_Cast: wound back, the far arm thrust forward, back)
     out["ult"] = [q("wind"), q("throw"), q("throw"), p()]
     # R, the stolen ult (League shows the robbed champion's own: here up with the manacles raised and down slamming)
-    out["ult_cast"] = [q("leap", lift=5), q("leap", lift=7), q("slam", whole=(-8, 0)), q("slam", whole=(-8, 0)), p()]
-    # the add-on's melee stolen ult: the leap onto the champion
-    out["ult_dash"] = [q("leap", lift=k) for k in (5, 7, 7, 4)]
+    # (at the top of the leap the chain flung up behind him swings on: CHAIN)
+    out["ult_cast"] = [q("leap", lift=5), q("leap", lift=7, wave=6), q("slam", whole=(-8, 0)), q("slam", whole=(-8, 0)),
+                       p()]
+    # the add-on's melee stolen ult: the leap onto the champion (the chain flung up behind him swinging: CHAIN)
+    out["ult_dash"] = [q("leap", lift=k, wave=s) for k, s in ((5, 0), (7, 2), (7, 4), (4, 6))]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Sylas_Death: struck back, down on his knees, then face down)
     out["dead"] = [q("stagger"), q("stagger", whole=(-1, 0)), q("kneel", whole=(-6, 0)), q("kneel", whole=(-6, 0)),

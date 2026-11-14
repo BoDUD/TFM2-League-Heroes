@@ -19,6 +19,7 @@ The tags, as tools/art/import_native.py made the 1x sheet:
 - the drawn actions: the frames Codex drew; pack_<form>_actions.SAME frames take that drawing (the design for DESIGN);
   the BAKED tags (skill, rh_skill, rh_skill2, sh_skill, sh_skill2) are their native body cells, on the cells' timings,
   and kayn_bake.json lays Q's dash and W's wind on again and makes skill2_fx1 / ult_fx1 (rig.bake).
+- the R's dive (ult) also has an in-between made from Codex's leap: Rhaast turned a quarter about his fist (INB).
 - the forms' tags with no drawing of their own (import_native FORM_REVERSED / FORM_RETIMED): rh_ult / rh_ult_fx1 the
   form's R exit played backwards on ult's / ult_fx1's timings, rh_transform the form's idle on transform's timings,
   rh_skill2_fx1 the form's W (baked) spread over skill2_fx1's timings; the same for sh_.
@@ -48,6 +49,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_kayn_hd as CA  # noqa: E402
+import inbetween as IB  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_rengar_hd as RG  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
@@ -71,6 +73,20 @@ DISSOLVE = {"rh_dead": {6: 0.25, 7: 0.5, 8: 0.75}, "sh_dead": {6: 0.25, 7: 0.5, 
 # rig_kayn_forms.py's 4x4 ordered-dither threshold: a pixel goes once the fade passes its cell's rank (0..15)
 BAYER = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]])
 LATER = ("idle", "bp", "r_hidden")      # (hero_reels' reels; r_hidden is --finish's)
+# The R's dive in four frames (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): Codex drew
+# three (crouch, leap with Rhaast hanging below, dive with it raised overhead); between the leap and the dive Rhaast swings
+# up behind him - the leap's picture with the scythe (the piece below the fist, SCYTHE: the row it is cut at, a square of
+# it) turned one exact quarter clockwise about the fist (GRIP, a square corner), behind the rest of him (inbetween.vary:
+# everything else checked unchanged). On R's dive effect's own frames (r_dive 40 / 50 / 50 / 60 ms, kayn_bake.json),
+# still 200 ms (12 ticks, nothing hits inside it): ult_fx1, what the kit shows, is then four pieces, a body frame under
+# each effect frame (three frames cut it into six: 40 27 23 44 6 60), and the forms' rh_ult / sh_ult (+ _fx1), their
+# exits played backwards on these timings, show four of their five exit drawings (stance, swing, crouch, leap) where
+# they showed three, or six pieces with a 6-ms one and the stance again at the end. INB: tag -> ([(cast, quarter turns
+# of the scythe)], ms) - the first frame stays 40 ms, as the effect's first frame is.
+INB = {"ult": ([("ult_1", 0), ("ult_2", 0), ("ult_2", 1), ("ult_3", 0)], [40, 50, 50, 60])}
+SCYTHE = {"ult_2": (48, (20, 60))}
+GRIP = {"ult_2": (20, 44)}
+VPAD = 34
 
 
 def picture(d):
@@ -136,8 +152,35 @@ def form_of(tag):
     return "rh_" if tag.startswith("rh_") else "sh_" if tag.startswith("sh_") else ""
 
 
+def scythe_runs(d, row, seed):
+    """The scythe of a cast as row runs (boxes): the 8-connected piece of its squares below `row` holding `seed`."""
+    low = d[..., 3] > 0
+    low[:row] = False
+    lab, _ = ndimage.label(low, structure=np.ones((3, 3)))
+    m = lab == lab[seed[1], seed[0]]
+    runs = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        for run in np.split(xs, np.nonzero(np.diff(xs) > 1)[0] + 1) if len(xs) else []:
+            runs.append((int(run[0]), y, int(run[-1]), y))
+    return runs
+
+
+def inb_frame(rig, cs, name, quarters):
+    """A cast on the grid, its scythe turned `quarters` clockwise about the fist (INB)."""
+    d, x, y = cs[name]
+    if quarters:
+        row, seed = SCYTHE[name]
+        d = IB.vary(d, {"scythe": scythe_runs(d, row, seed)}, tuple(int(v) for v in rig.D.outline),
+                    turns=[("scythe", GRIP[name], quarters, "under")], pad=VPAD, name=f"{name} scythe {quarters}")
+        x, y = x - VPAD, y - VPAD
+    return RG.on_grid(rig, d, x, y)
+
+
 def body_timing(tag, sheet):
     """The frames' durations before the bake: a baked tag's native cells', else the sheet's (rig_akali_hd's)."""
+    if tag in INB:
+        return list(INB[tag][1])
     PK = CA.form(FORMS[form_of(tag)]).PK
     if tag in PK.BAKED:
         with open(R.lp(os.path.join(NATIVE, "kayn_cells.json")), encoding="utf-8") as f:
@@ -175,6 +218,8 @@ def frames(rig, cs, designs):
         ms = body_timing(tag, sheet)
         if base == "idle_base":
             fr = [des.copy() for _ in ms]                              # (held still: the form's design)
+        elif tag in INB:
+            fr = [inb_frame(rig, cs, n, q) for n, q in INB[tag][0]]
         else:
             fr = []
             for k in range(1, len(ms) + 1):
@@ -200,8 +245,11 @@ def frames(rig, cs, designs):
             acts[tag] = [(dict(back[k % len(back)]), m) for k, m in enumerate(ms)]
         else:
             acts[tag] = [(dict(pics[k * len(pics) // len(ms)]), m) for k, m in enumerate(ms)]
+    # (the INB tags, the bake's copies of them and the forms' tags on their timings have their own frames now)
+    fed = set(INB) | {e["into"] for e in cfg["items"] if e.get("from") in INB}
+    fed |= {t for t, (_, _, timing) in der.items() if timing in fed}
     for t in sheet:
-        if t in LATER or t in walls or t.endswith("idle") and t != "idle_base":
+        if t in LATER or t in walls or t in fed or t.endswith("idle") and t != "idle_base":
             continue
         if t not in acts or [round(m) for _, m in acts[t]] != [round(m) for _, m in sheet[t]]:
             sys.exit(f"{t}: frames or timing differ from the sheet: "
