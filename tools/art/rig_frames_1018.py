@@ -9,6 +9,10 @@ take it from there.
 
 The tags and their timing are the kit's (tools/kit/build_<hero>.py reads the tag names; the totals stay what the old rig
 had, so the kit's hit ticks still fall inside the swing / shot frames).
+
+Akshan's in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+a frame with its cape or coat tail waved by whole columns (op parts / sway: inbetween.vary, placed where the frame
+stands; every square outside the part checked unchanged).
 """
 import argparse
 import os
@@ -21,6 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import wukong_run_staff as WS  # noqa: E402
 import wukong_idle_staff as WI  # noqa: E402
 
@@ -55,20 +60,40 @@ def tabard_x(a):
 # the death: 8 frames as the pack's - the last fall lands from 3 rows up, lies, bounces a row, lies
 DEAD = [("dead_0", 100), ("dead_1", 110), ("dead_2", 120), ("dead_3", 120), ("dead_4", 60, dict(up=3)),
         ("dead_4", 100), ("dead_4", 60, dict(up=1)), ("dead_5", 500)]
+# Akshan's in-betweens (2026-11-14: E's swing and R's channel, the loops the kit plays after the 0.14 s hook throw and
+# aim, were two drawings each): op parts / sway - the cape streaming off his back (the swing) and the coat tail flaring
+# at his far side (the channel) waved by whole columns, nothing where it leaves him, the tip 5 rows: the cape on its way
+# down to the next drawing's lower cape and back up after it, the coat tail fluttering (5 squares here: the restyle
+# to PPU 1.2 makes them 4). Each loop's halves keep their
+# milliseconds (115 / 160); the hook throw and the aim themselves (`skill2`, `ult`: 140 ms, the kit's 8-tick animations)
+# stay two frames - a third would be under 50 ms.
+VPAD = 30
+AK_PARTS = {"skill2_2": {"cape": [(0, 12, 15, 31)]}, "skill2_3": {"cape": [(0, 33, 25, 49)]},
+            "ult_2": {"coat": [(0, 30, 12, 50)]}, "ult_1": {"coat": [(0, 33, 12, 53)]}}
+
+
+def waved(name, x1, k):
+    """op: the frame's part (AK_PARTS, the box in its own squares) waved by whole columns, nothing at column x1 where
+    it leaves him, k rows (negative: lowered) at column 0, its free end."""
+    (part, items), = AK_PARTS[name].items()
+    return dict(parts={part: items}, sway=[(part, 0, x1, k, "right")])
+
+
 AKSHAN = {
     "idle": [(f"idle_{i}", 240) for i in range(5)],
     "run": [(f"run_{i}", 143) for i in range(7)],
     "attack": [("attack_0", 80), ("attack_1", 80), ("attack_2", 90), ("attack_3", 90), ("attack_4", 93)],
     "skill": [("skill1_0", 60), ("skill1_1", 70), ("skill1_2", 80), ("skill1_3", 80), ("skill1_4", 70)],
     "skill2": [("skill2_0", 70), ("skill2_1", 70)],
-    "e_swing": [("skill2_2", 115), ("skill2_3", 115)],
+    "e_swing": [("skill2_2", 58), ("skill2_2", 57, waved("skill2_2", 15, -5)), ("skill2_3", 58),
+                ("skill2_3", 57, waved("skill2_3", 25, 5))],
     # the roll off the rope (League's Akshan_Spell3_Roll: a tumble, landing in a crouch; the kit springs him back,
     # e_back_t + 4 = 14 ticks): the curled swing frame turned a quarter, a half, three quarters counter-clockwise (a
     # backward roll) on an arc, the crouch, up (it was the crouch and the stand alone)
     "e_roll": [("skill2_2", 40, dict(rot=1, up=4)), ("skill2_2", 40, dict(rot=2, up=6)), ("skill2_2", 40, dict(rot=3, up=3)),
                ("skill2_4", 53), ("skill2_0", 60)],
     "ult": [("ult_0", 70), ("ult_1", 70)],
-    "ult_ch": [("ult_2", 160), ("ult_1", 160)],
+    "ult_ch": [("ult_2", 80), ("ult_2", 80, waved("ult_2", 12, 5)), ("ult_1", 80), ("ult_1", 80, waved("ult_1", 12, -5))],
     "ult_shot": [("ult_3", 50), ("ult_2", 50)],
     "hit": [("hit_0", 100, dict(flash=True, dx=-2)), ("hit_0", 100, dict(dx=-1))],
     "dead": DEAD,
@@ -135,10 +160,14 @@ def frames(hero):
                 h, w = f.shape[:2]
             hx = (hip if (tag != "dead" or name.endswith(("_0", "_1"))) and not op.get("rot") else w / 2) \
                 - op.get("dx", 0)
+            pad = 0
+            if op.get("parts"):                 # (an in-between: the picture VPAD bigger on every side, placed as drawn)
+                f = IB.vary(f, op["parts"], cfg["outline"], sway=op.get("sway", ()), pad=VPAD, name=f"{tag} {name}")
+                pad = VPAD
             if op.get("flash"):
                 f = R.flash(f)
-            x0 = rig.CX - int(round(hx))
-            y0 = rig.GY - h - op.get("up", 0)
+            x0 = rig.CX - int(round(hx)) - pad
+            y0 = rig.GY - h - op.get("up", 0) - pad
             can = rig.canvas()
             ys, xs = np.nonzero(f[..., 3] > 0)
             ok = (y0 + ys >= 0) & (x0 + xs >= 0) & (x0 + xs < can.shape[1])
