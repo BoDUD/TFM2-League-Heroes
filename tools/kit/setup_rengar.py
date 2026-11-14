@@ -53,7 +53,7 @@ TEXT = {
                   "伤害。技能和扑击各得1点" + O + "残暴" + E + "，满4点强化下个技能。" + O + "残忍无情" + E + "（自动，" + A + "{q_cd}秒" + E + "）：攻击造成" +
                   phy("q") + "伤害，攻速+{q_as}%；强化时" + phy("qe") + "。" + O + "连招" + E + "：空中Q、三Q。",
         "skill": "咆哮，对周围敌人造成" + phy("w") + "伤害，回复" + grn("w") + "生命。" + O + "强化" + E + "：回复{we_heal}%，" + A + "{we_cc_t}秒" + E +
-                 "内" + R + "免疫控制" + E + "。",
+                 "内" + R + "免疫控制" + E + "。" + O + "强化技能" + E + "都加速{fe_ms}%，持续" + A + "{fe_ms_t}秒" + E + "。",
         "skill2": "掷出套索，命中首个敌人造成" + phy("e") + "伤害并" + R + "减速{e_slow}%" + E + A + "{e_slow_t}秒" + E + "。" + O + "强化" + E + "：" +
                   R + "禁锢{e_root_t}秒" + E + "。" + O + "连招扑脸定身" + E + "：扑击命中英雄后" + A + "{lp_t}秒" + E + "内的E必中，" + R +
                   "禁锢{e_combo_t}秒" + E + "。",
@@ -68,7 +68,7 @@ TEXT = {
                   "傷害。技能和撲擊各得1點" + O + "兇殘" + E + "，滿4點強化下個技能。" + O + "兇殘打擊" + E + "（自動，" + A + "{q_cd}秒" + E + "）：攻擊造成" +
                   phy("q") + "傷害，攻速+{q_as}%；強化時" + phy("qe") + "。" + O + "連招" + E + "：空中Q、三Q。",
         "skill": "咆哮，對周圍敵人造成" + phy("w") + "傷害，回復" + grn("w") + "生命。" + O + "強化" + E + "：回復{we_heal}%，" + A + "{we_cc_t}秒" + E +
-                 "內" + R + "免疫控場" + E + "。",
+                 "內" + R + "免疫控場" + E + "。" + O + "強化技能" + E + "都加速{fe_ms}%，持續" + A + "{fe_ms_t}秒" + E + "。",
         "skill2": "擲出拋繩，命中首個敵人造成" + phy("e") + "傷害並" + R + "緩速{e_slow}%" + E + A + "{e_slow_t}秒" + E + "。" + O + "強化" + E + "：" +
                   R + "定身{e_root_t}秒" + E + "。" + O + "連招撲臉定身" + E + "：撲擊命中英雄後" + A + "{lp_t}秒" + E + "內的E必中，" + R +
                   "定身{e_combo_t}秒" + E + "。",
@@ -84,7 +84,8 @@ TEXT = {
                   "; at 4 his next skill is empowered. " + O + "Savagery" + E + " (automatic, " + A + "{q_cd}s" + E + "): an attack for " +
                   phy("q") + " and +{q_as}% attack speed; empowered " + phy("qe") + ". " + O + "Combos" + E + ": air Q, triple Q.",
         "skill": "Roars, dealing " + phy("w") + " to enemies around him and healing " + grn("w") + ". " + O + "Empowered" + E +
-                 ": {we_heal}% heal and " + R + "immune to crowd control" + E + " for " + A + "{we_cc_t}s" + E + ".",
+                 ": {we_heal}% heal and " + R + "immune to crowd control" + E + " for " + A + "{we_cc_t}s" + E + ". " + O +
+                 "Every empowered skill" + E + " also gives +{fe_ms}% move speed for " + A + "{fe_ms_t}s" + E + ".",
         "skill2": "Throws a bola: the first enemy hit takes " + phy("e") + " and is " + R + "slowed {e_slow}%" + E + " for " + A +
                   "{e_slow_t}s" + E + ". " + O + "Empowered" + E + ": " + R + "rooted {e_root_t}s" + E + ". " + O + "Combo leap-E" + E +
                   ": within " + A + "{lp_t}s" + E + " of a leap onto a champion the bola cannot miss and " + R + "roots {e_combo_t}s" + E + ".",
@@ -101,7 +102,8 @@ TEXT = {
                   "{q_cd}초" + E + "): 공격이 " + phy("q") + "의 피해, 공격 속도 +{q_as}%; 강화 시 " + phy("qe") + ". " + O + "연계" + E +
                   ": 공중 Q, 트리플 Q.",
         "skill": "포효해 주변 적에게 " + phy("w") + "의 피해를 주고 " + grn("w") + " 회복. " + O + "강화" + E + ": 회복 {we_heal}%, " + A +
-                 "{we_cc_t}초" + E + " 동안 " + R + "군중 제어 면역" + E + ".",
+                 "{we_cc_t}초" + E + " 동안 " + R + "군중 제어 면역" + E + ". " + O + "강화 스킬" + E + "은 모두 " + A +
+                 "{fe_ms_t}초" + E + " 동안 이동 속도 +{fe_ms}%.",
         "skill2": "올가미를 던져 처음 맞힌 적에게 " + phy("e") + "의 피해와 " + A + "{e_slow_t}초" + E + " " + R + "{e_slow}% 둔화" + E + ". " + O +
                   "강화" + E + ": " + R + "{e_root_t}초 속박" + E + ". " + O + "연계 도약-E" + E + ": 챔피언에게 도약한 뒤 " + A + "{lp_t}초" + E +
                   " 안의 E는 반드시 맞고 " + R + "{e_combo_t}초 속박" + E + ".",
@@ -116,7 +118,7 @@ TEXT = {
                   "。スキルと跳躍ごとに" + O + "獰猛" + E + "1、4で次のスキル強化。" + O + "逆上" + E + "（自動、" + A + "{q_cd}秒" + E + "）：攻撃が" +
                   phy("q") + "、攻撃速度+{q_as}%；強化時" + phy("qe") + "。" + O + "コンボ" + E + "：空中Q、トリプルQ。",
         "skill": "咆哮し周囲の敵に" + phy("w") + "、自身は" + grn("w") + "回復。" + O + "強化" + E + "：回復{we_heal}%、" + A + "{we_cc_t}秒" + E +
-                 R + "行動妨害無効" + E + "。",
+                 R + "行動妨害無効" + E + "。" + O + "強化スキル" + E + "はすべて" + A + "{fe_ms_t}秒" + E + "移動速度+{fe_ms}%。",
         "skill2": "投げ縄を投げ最初の敵に" + phy("e") + "と" + A + "{e_slow_t}秒" + E + R + "{e_slow}%スロウ" + E + "。" + O + "強化" + E + "：" + R +
                   "{e_root_t}秒スネア" + E + "。" + O + "コンボ跳躍E" + E + "：チャンピオンへの跳躍後" + A + "{lp_t}秒" + E + "以内のEは必中で" + R +
                   "{e_combo_t}秒スネア" + E + "。",
@@ -162,12 +164,12 @@ def secs(t):
 
 def values(p):
     keys = ("leap_dmg", "q_dmg", "q_ratio", "q_as", "qe_dmg", "qe_ratio", "w_dmg", "w_ratio", "w_heal", "w_heal_r",
-            "we_heal", "e_dmg", "e_ratio", "e_slow", "r_ms", "r_dmg", "r_ratio", "r_shred")
+            "we_heal", "e_dmg", "e_ratio", "e_slow", "r_ms", "r_dmg", "r_ratio", "r_shred", "fe_ms")
     v = {k: p[k] for k in keys}
     v["leap_ratio"] = 100 + p["leap_ratio"]
     v["bt_max"] = sum(p[f"bt{i}"] for i in range(1, 6))
     v.update({k: secs(p[k]) for k in ("quiet", "q_cd", "we_cc_t", "e_slow_t", "e_root_t", "lp_t", "e_combo_t", "r_inv",
-                                       "r_shred_t")})
+                                       "r_shred_t", "fe_ms_t")})
     return v
 
 
