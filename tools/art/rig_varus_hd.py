@@ -27,6 +27,9 @@ whole squares, quarter turns and mirrors; standing, the parts rebuild the design
 - The death (League: he rears up, then sinks to his knees): staggered back and lifted, the bow raised; then he lets it
   fall (the bow and claw lying on the ground, tips down; his far arm hangs - a copy of the near arm's squares) and
   kneels on both knees on legs drawn the same way, the boots behind turned a quarter (toes tucked).
+- Q's in-betweens (2026-11-14): the draw in five steps and the charge as League's - the string pulled a column further,
+  the scarf swinging - on the charge effect's own frames (Q, MS: the tag's frames and ms are this file's, not the
+  committed sheet's), so the baked copies the kit plays keep every piece at 50 ms or more.
 """
 import argparse
 import json
@@ -430,14 +433,34 @@ def drawn(k, **kw):
 
 LOOSE = dict(bow="up", hand=LOOSE_X)
 FOLLOW = dict(bow="up", hand=NOCK_X - 2)
+
+
+def held(h, **kw):
+    """The string at the claw's column h (NOCK_X 32 .. FULL_X 26, past it pulled harder), the arrow on it."""
+    p = dict(bow="up", hand=h, arrow=True, string=True)
+    p.update(kw)
+    return p
+
+
+# Q (the user, 2026-11-14: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」 - the charge was the full draw held
+# 850 ms, the scarf a column aside for 300 of them): the draw in five steps of 50 ms (nock, 31, half, 28, 27 - the string
+# a column or two a frame, braced from 27 on), then League's charge: the full draw, the string pulled a column further as
+# the arrow gathers (25 from 450 ms) and the scarf swinging out and back - a frame on each of varus_bake.json's q_charge
+# frames (100 ms, 250 .. 1100), the release on q_fire's (1100, 1170), so the kit's copies skill_fx1 / skill_fx2 put one
+# body frame under each effect frame (skill_fx1 had a 10-ms piece at 1170) and the new frames add no piece under 50 ms
+Q_HAND = [FULL_X, FULL_X] + [FULL_X - 1] * 7
+Q_SCARF = [0, -1, -2, -3, -4, -3, -2, -1, -2]
+Q = ([NOCK, held(NOCK_X - 1), drawn(0.5), held(FULL_X + 2), held(FULL_X + 1, sink=1)]
+     + [held(h, sink=1, scarf=k) for h, k in zip(Q_HAND, Q_SCARF)]
+     + [dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1)])
+# tags whose frames are not the committed sheet's (count and ms): the release still at 1100 (the kit's Delayed 66), 1267
+MS = {"skill": [50] * 5 + [100] * 8 + [50] + [70, 97]}
 # the tags: one pose per sheet frame (the sheet's count and timing; the release on the kit's tick)
 POSES = {
-    # loosed on the kit's tick: attack 167 ms (4th frame), Q 1100 ms (6th) / 400 ms (6th), E 183 ms (4th), R 267 ms (4th)
+    # loosed on the kit's tick: attack 167 ms (4th frame), Q 1100 ms (14th) / 400 ms (6th), E 183 ms (4th), R 267 ms (4th)
     "attack": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), dict(LOOSE, dx=-1, scarf=-1), LOOSE,
                LOOSE, FOLLOW, LOW, LOW],
-    # Q's charge held braced (the upper body a row down over the legs), the scarf stirring
-    "skill": [NOCK, drawn(0.5), drawn(1.0, sink=1), drawn(1.0, sink=1, scarf=-1), drawn(1.0, sink=1),
-              dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1)],
+    "skill": Q,
     "skill_quick": [NOCK, drawn(0.5), drawn(1.0, sink=1), drawn(1.0, sink=1, scarf=-1), drawn(1.0, sink=1),
                     dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1), LOOSE, FOLLOW, LOW],
     "skill2": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), dict(LOOSE, dx=-1, scarf=-1), LOOSE,
@@ -692,7 +715,7 @@ def frames(rig):
     for tag in sheet:
         if tag in baked or tag in ("idle", "bp"):
             continue
-        ms = [m for _, m in sheet[tag]]
+        ms = MS.get(tag) or [m for _, m in sheet[tag]]
         n = len(ms)
         if tag in POSES:
             poses = POSES[tag]
