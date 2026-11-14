@@ -18,6 +18,10 @@ Writes:
       pixel the commonest colour of its squares; the fallback without league.dll), frames centred on the pivot
   assets/source/ppu/braum_<tag>.png + .json - the hd frames (ppu_hd.py's drawn strips: one row, 1 px gaps)
 Then tools/art/ppu_hd.py --hero braum adds the hd_ tags (PPU["braum"]).
+The whole chain that writes the committed sheet (2026-11-14, a clean-tree rerun): this script -> ppu_restyle.py --hero braum
+-> ppu_hd.py --hero braum -> ppu_one.py --hero braum (since d9ea82847 his 1x tags are his hd_ frames brought down: it
+must run before hero_reels turns hd_idle into a reel) -> hero_reels.py --hero braum. The strips it writes go to
+assets/source/ppu/orig (the restyle's input, since 2026-10-13) with the "ppu" the restyle's move put in their .json.
 """
 import argparse
 import json
@@ -245,7 +249,8 @@ def main():
             x += h.shape[1] + 1
         Image.fromarray(strip).save(os.path.join(PPU_SRC, f"braum_{tag}.png"))
         with open(os.path.join(PPU_SRC, f"braum_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
-            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds]}, f)
+            # (the "ppu" the 2026-10-13 restyle wrote when it moved these strips to orig/: PPU to 3 places)
+            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds], "ppu": round(PPU, 3)}, f)
         if a.review:
             os.makedirs(a.review, exist_ok=True)
             Z = 3
