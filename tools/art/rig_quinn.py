@@ -18,7 +18,8 @@ the pauldron, the cape, the torso).
 The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
 the ride (one picture moved up and down) with Valor's wing spread behind her beaten by its columns (RIDE_PARTS: the
 feathers' tips lifted or lowered, nothing where the wing goes on under her leg); every other square of the ride checked
-unchanged.
+unchanged. r_beat: that beat with the group held at r_idle's first frame's height, for the add-on's ride idle (its reel,
+tools/art/hero_reels.json): only the wing moves, never higher than her crest (R_BEAT_UP), so the idle does not bob.
 """
 import argparse
 import json
@@ -420,11 +421,17 @@ MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
       "skill": [90, 80, 100, 90, 110], "skill2": [60, 60], "e_flip": [50, 50, 50, 60, 90],
       "ult": [80, 100, 120, 200], "ult_ride": [50] * 8, "ult_land": [70, 70, 70, 70, 100, 100],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
-      "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100]}
+      "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100], "r_beat": [120] * 8}
 # Valor's wing tips in the ride's loops, rows up a frame (the downstroke while the group rises): ult_ride rises 6 to 9
 # and sinks to 7, r_run rises 6 9 and sinks 8 5 (2026-11-14: both were one picture moved up and down; ult_ride's four
 # 100-ms frames are eight of 50 now, r_run keeps its four)
-WING_K = {"ult_ride": (5, 4, 0, -4, -5, -3, 1, 2), "r_run": (0, -5, 1, 5)}
+WING_K = {"ult_ride": (5, 4, 0, -4, -5, -3, 1, 2), "r_run": (0, -5, 1, 5),
+          # r_beat (2026-11-14): one beat from the ride's rest and back with the group held where r_idle holds it (6
+          # rows up) - only the wing moves, the idles do not bob (the user: 「上下摆动全不要了啊」); up no more than
+          # R_BEAT_UP rows, as from 4 the tips rise over her helmet's crest and the picture's top would move
+          "r_beat": (1, 3, 2, -1, -3, -5, -4, -2)}
+R_BEAT_UP = 3                   # r_beat's wing tips up at most this many rows (the picture's top stays her crest)
+R_HOLD = 6                      # rows the ride is held up in r_idle's first frame (the add-on's idle reel holds it)
 
 
 def frames_all(F):
@@ -488,7 +495,12 @@ def frames_all(F):
                    on_floor(dr(D[2], drop=True, lean=2)), on_floor(dr(D[3], drop=True, lean=2)),
                    on_floor(dr(D[4], drop=True, lean=2)), on_floor(lying(0)), on_floor(lying(-3)), on_floor(lying(0))]
     # the add-on's ride form (addons/league_quinn): standing / moving / hit as the group gliding
-    out["r_idle"] = [F.whole("ride", dy=-d) for d in (6, 8, 8, 6)]
+    out["r_idle"] = [F.whole("ride", dy=-d) for d in (R_HOLD, 8, 8, R_HOLD)]
+    # the wing beat r_idle's reel plays now and then (tools/art/hero_reels.json; it was the first frame held alone, and a
+    # beat taken from ult_ride lifted the whole group 3 rows): ult_ride's beat at r_idle's height, the group never moved
+    if max(WING_K["r_beat"]) > R_BEAT_UP:
+        sys.exit(f"r_beat: the wing up more than {R_BEAT_UP} rows lifts the picture's top")
+    out["r_beat"] = [F.beat(k, dy=-R_HOLD) for k in WING_K["r_beat"]]
     out["r_run"] = [F.beat(k, dy=-d, dx=x) if k else F.whole("ride", dy=-d, dx=x)
                     for (d, x), k in zip(((6, 0), (9, 2), (8, 0), (5, -2)), WING_K["r_run"])]
     out["r_hit"] = [F.whole("ride", dx=-3, dy=-6, flash=True), F.whole("ride", dx=-2, dy=-6)]
