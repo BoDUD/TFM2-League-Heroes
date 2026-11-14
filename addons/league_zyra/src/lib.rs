@@ -52,6 +52,8 @@ use mod_api_stable::*;
 
 mod sun;
 
+// the shared module: Zyra uses part of it (the bundle compiles this crate as a module of its own, unused parts warn)
+#[allow(dead_code)]
 #[path = "../../league_shaco_backstab/src/summon.rs"]
 pub mod summon;
 
