@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.373.0"
+    }
+  ],
+  "description": "Kog'Maw's Icathian Surprise as in League (needs League of Legends Heroes): in the main pack a tiny homing comet flies from his body at a random enemy champion when he dies, too small and fast to see; with this add-on his body itself becomes a glowing void form - his own figure, deep purple with a light outline, through the mod API's spawn_unit - that runs at the nearest enemy champion for up to 4 s and bursts on reaching it or when its time is up, dealing the main pack's 80 + 100% of his attack as true damage to every enemy around it, with a big new burst picture. A host that gives no unit flies the comet as before. Everything else stays the main pack's. Needs the main pack's sheets league/champions/league_kogmaw_void and league/effects/league_kogmaw_burst. Writes a log for testing.",
+  "last_updated": "2026-11-14",
+  "mod_id": "league_kogmaw",
+  "mod_type": "native",
+  "name": "League Heroes: Kog'Maw's Icathian Surprise as a void form",
+  "version": "0.1.0"
+}

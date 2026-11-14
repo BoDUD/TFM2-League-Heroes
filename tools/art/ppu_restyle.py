@@ -426,7 +426,12 @@ RESTYLE = {
     # 像素高，PPU 1.5」: Codex's step-1 round-2 take A-1 cut to 57 rows hair to soles) by tools/art/rig_akshan.py, the
     # forward gun arm from Codex's pose and the walk from Codex's skin swap read on the same grid, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "akshan": dict(ppu=1.2, edge=1, face_to=(-1, -37)),   # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py)
+    # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py) at 1.61, brought to 1.2 with Wukong (「船长猴子
+    # 阿克尚波比蛇女像素太高需要降低」); 2026-11-14 「还有阿克尚的眼睛也调清晰一点」「现在看起来和两个黑洞一样」: his frames
+    # as drawn (ORIG_PPU 1.61, no coarser grid - Wukong's 1.53 of 2026-10-29): on the 1.2 grid each eye's square and the
+    # brow over it became one dark block. The face point (-1, -37) -> (1, -35): the eye squares, 17.7 game px over the
+    # pivot at x 0.3 and 2.8, were on the portrait box's row 7 and the far one on its edge column; now rows 4-5, centred
+    "akshan": dict(ppu=1.61, edge=1, face_to=(1, -35)),
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes

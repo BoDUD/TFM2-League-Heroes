@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_kogmaw_addon": {
+        "attack": "【附加包】<#ff9028ff>生化弹幕<>（自动，<#ffb900ff>12秒<>）：攻击时开启<#ffb900ff>8秒<>，射程+180，攻击附带目标<#ff9028ff>5%最大生命值<>伤害。<#ff9028ff>来自艾卡西亚的惊喜<>：死后化身虚空形态<#ffb900ff>4秒<>，冲向最近的敌方英雄，碰到或时间到时爆炸，对周围敌人造成<#f5f5f5ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>100%<>真实伤害。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_kogmaw_addon": {
+        "attack": "【附加包】<#ff9028ff>生化彈幕<>（自動，<#ffb900ff>12秒<>）：攻擊時開啟<#ffb900ff>8秒<>，射程+180，攻擊附帶目標<#ff9028ff>5%最大生命值<>傷害。<#ff9028ff>來自伊卡西亞的驚喜<>：死後化身虛空形態<#ffb900ff>4秒<>，衝向最近的敵方英雄，碰到或時間到時爆炸，對周圍敵人造成<#f5f5f5ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>100%<>真實傷害。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_kogmaw_addon": {
+        "attack": "[Add-on] Spits acid. <#ff9028ff>Bio-Arcane Barrage<> (automatic, <#ffb900ff>12s<>): an attack turns it on for <#ffb900ff>8s<>: +180 range and attacks deal <#ff9028ff>5% of the target's max health<>. <#ff9028ff>Icathian Surprise<>: on death he becomes a void form for <#ffb900ff>4s<> that runs at the nearest enemy champion and bursts on contact or at the end, dealing <#f5f5f5ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>100%<> true damage around it."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_kogmaw_addon": {
+        "attack": "[애드온] <#ff9028ff>생체마법 폭격<>(자동, <#ffb900ff>12초<>): 공격 시 <#ffb900ff>8초<> 동안 사거리 +180, 공격이 대상 <#ff9028ff>최대 체력의 5%<> 피해. <#ff9028ff>이케시아식 마무리<>: 죽으면 <#ffb900ff>4초<> 동안 공허 형태가 되어 가장 가까운 적 챔피언에게 달려가고, 닿거나 시간이 다 되면 터져 주변 적에게 <#f5f5f5ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>100%<>의 고정 피해."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_kogmaw_addon": {
+        "attack": "【アドオン】<#ff9028ff>有機性魔力砲<>（自動、<#ffb900ff>12秒<>）：攻撃で<#ffb900ff>8秒<>発動、射程+180、攻撃が対象の<#ff9028ff>最大体力の5%<>のダメージ。<#ff9028ff>イカシアの自爆<>：死ぬと<#ffb900ff>4秒<>ヴォイド形態となり最も近い敵チャンピオンへ走り、触れるか時間切れで爆発し周囲の敵に<#f5f5f5ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>100%<>の確定ダメージ。"
+      }
+    }
+  }
+}

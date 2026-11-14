@@ -104,8 +104,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // ground: 「44 ppu1.3 A」), so no SIZES row
     ("league_cassiopeia", 1.2, include_str!("../../../league/champions/league_cassiopeia#anim.fanim")),
     // Akshan: posed by tools/art/rig_akshan.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
-    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row
-    ("league_akshan", 1.2, include_str!("../../../league/champions/league_akshan#anim.fanim")),
+    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row;
+    // Codex's actions (rig_frames_1018.py, 1.61) brought to 1.2 on 2026-10-18, back to 1.61 as drawn on 2026-11-14 (「阿克尚
+    // 的眼睛也调清晰一点」「现在看起来和两个黑洞一样」: at 1.2 each eye's square and the brow over it were one dark block)
+    ("league_akshan", 1.61, include_str!("../../../league/champions/league_akshan#anim.fanim")),
     // Poppy: posed by tools/art/rig_poppy.py at the user's 1.3 squares a game pixel (36 game rows pigtails to soles, the
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」); 85 % (SIZES, the user: 「波比在游戏里体型也太大 需要缩小」 - 44 px
     // with the standing hammer against the yordles' 32-40), her frames lowered 2 squares by the restyle (RESTYLE poppy lift_sq)
@@ -215,6 +217,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Units, not heroes: no .data_champion
     ("league_malzahar_voidling", 2.0, include_str!("../../../league/champions/league_malzahar_voidling#anim.fanim")),
     ("league_elise_spiderling", 2.0, include_str!("../../../league/champions/league_elise_spiderling#anim.fanim")),
+    // Kog'Maw's void form (Icathian Surprise) as a unit of its own (league_kogmaw 0.1.0 spawns `league_kogmaw_void`,
+    // 2026-11-14; the user: 「大嘴死了还是看不到炸人啊」 then 「按英雄联盟改」): his own frames - idle_base, run, attack,
+    // hit and their hd_ twins - recoloured by code into a void creature (tools/art/unit_kogmaw_void.py), so his PPU and
+    // his size exactly. A unit, not a hero: no .data_champion
+    ("league_kogmaw_void", 1.794, include_str!("../../../league/champions/league_kogmaw_void#anim.fanim")),
     // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
