@@ -9,6 +9,9 @@ league_lowhp:<name> holds while the hero is at or under the threshold; the count
 passive league_lowhp:<name>; the tooltip that names the trigger points to description.league_lowhp.<name>_<slot>.
 Lissandra's copy also loses the main pack's thralls (the seven SwitchByBuff league_lissandra_k_* blocks keep only their
 RemoveCasterBuff): the passive raises one from any enemy champion dying near her; her attack's tooltip says so.
+LeBlanc's copy (0.3.0) plays Mirror Image's clone picture (its two CasterViewEffect league_leblanc_p_clone) only without
+src/mirror.rs's P_UNIT, which her passive holds while it makes the clone a unit of its own (spawn_unit); the numbers the
+unit takes from her kit (mirror.rs: M_*) are checked here, and her attack's tooltip says the clone can be killed.
 Run it again whenever one of them changes in the main pack (--check: compare only).
 """
 import argparse
@@ -31,12 +34,15 @@ HEROES = {
         "en": ("when surrounded or crowd-controlled he gains", "at " + Y + "{p}%" + E + " health or below he gains"),
         "ko": ("포위되거나 군중 제어에 걸리면", "체력이 " + Y + "{p}%" + E + " 이하가 되면"),
         "ja": ("囲まれるか行動妨害を受けると", "体力が" + Y + "{p}%" + E + "以下になると")}),
+    # LeBlanc (0.3.0): the trigger, then the clone a unit that can be killed
     "league_leblanc": ("league_leblanc_p_n2", 2, "attack", {
-        "zh-hans": ("两名以上敌方英雄贴近时", "生命低于" + Y + "{p}%" + E + "时"),
-        "zh-hant": ("兩名以上敵方英雄貼近時", "生命低於" + Y + "{p}%" + E + "時"),
-        "en": ("when two or more enemy champions close in, she turns", "at " + Y + "{p}%" + E + " health or below she turns"),
-        "ko": ("적 챔피언 둘 이상이 다가오면", "체력이 " + Y + "{p}%" + E + " 이하가 되면"),
-        "ja": ("敵チャンピオン2体以上が近づくと", "体力が" + Y + "{p}%" + E + "以下になると")}),
+        "zh-hans": [("两名以上敌方英雄贴近时", "生命低于" + Y + "{p}%" + E + "时"), ("原地留下幻像", "原地留下可击杀的幻像")],
+        "zh-hant": [("兩名以上敵方英雄貼近時", "生命低於" + Y + "{p}%" + E + "時"), ("原地留下幻像", "原地留下可擊殺的幻像")],
+        "en": [("when two or more enemy champions close in, she turns", "at " + Y + "{p}%" + E + " health or below she turns"),
+               ("slips back and leaves a clone", "slips back and leaves a clone that can be killed")],
+        "ko": [("적 챔피언 둘 이상이 다가오면", "체력이 " + Y + "{p}%" + E + " 이하가 되면"),
+               ("물러나고 분신을 남깁니다", "물러나고 처치될 수 있는 분신을 남깁니다")],
+        "ja": [("敵チャンピオン2体以上が近づくと", "体力が" + Y + "{p}%" + E + "以下になると"), ("後退し分身を残す", "後退し倒せる分身を残す")]}),
     "league_lissandra": ("league_lissandra_r_n2", 3, "ult", {
         "zh-hans": ("被两名以上敌方英雄围住时", "生命低于" + Y + "{p}%" + E + "时"),
         "zh-hant": ("被兩名以上敵方英雄包圍時", "生命低於" + Y + "{p}%" + E + "時"),
@@ -100,6 +106,68 @@ def rename(o, old, new, n):
     return o
 
 
+def walk(o):
+    """every dict of a tree"""
+    if isinstance(o, dict):
+        yield o
+        for v in o.values():
+            yield from walk(v)
+    elif isinstance(o, list):
+        for v in o:
+            yield from walk(v)
+
+
+def consts(path):
+    """a src file's `pub const NAME: <type> = <value>;` - integers, floats written `30_000.0`, strings."""
+    out = {}
+    src = open(lp(path), encoding="utf-8").read()
+    for name, kind, value in re.findall(r"pub const (\w+): (usize|u64|f64|&str) = ([^;]+);", src):
+        value = value.strip()
+        out[name] = value.strip('"') if kind == "&str" else int(float(value.replace("_", "")))
+    return out
+
+
+def mirror_unit(d, c):
+    """LeBlanc's copy: Mirror Image's clone picture only without P_UNIT (c: src/mirror.rs, its numbers checked here)."""
+    names = {x["buff_state"]["name"] for x in walk(d) if isinstance(x.get("buff_state"), dict)}
+    names |= {x.get("name") for x in walk(d) if x.get("type") == "RemoveCasterBuff"}
+    names |= {x.get("buff_name") for x in walk(d) if x.get("type") == "SwitchByBuff"}
+    if any(c[k] in names for k in ("P_UNIT", "P_NONE")) or any(str(b).startswith(c["P_UID"]) for b in names):
+        sys.exit("LeBlanc's kit already uses one of src/mirror.rs's buff names: update it")
+    cds = {x["buff_state"]["duration"]["Time"]["tick"] for x in walk(d)
+           if x.get("type") == "AddCasterBuff" and x["buff_state"]["name"] == c["P_CD"]}
+    attack = d["attack"]
+    outer = [x for x in attack["effect"]["effects"] if x.get("type") == "Delayed"]
+    orbs = {x["tick"] for x in walk(attack) if x.get("type") == "Delayed"
+            and any(y.get("type") == "TargetProjectile" and y.get("name") == "league_leblanc_a_orb" for y in x["effects"])}
+    if len(cds) != 1 or len(outer) != 1 or len(orbs) != 1 or c["P_VIEW"] not in {v["name"] for v in d["view_effects"]}:
+        sys.exit("LeBlanc's Mirror Image cooldown, her attack's orb or the clone's picture changed in the kit: update this script")
+    # League's clone lasts 8 s on a 60 s cooldown; scaled like hers
+    got = {"M_LIFE": 8 * 60 * cds.pop() // (60 * 60), "M_RANGE": attack["range"], "M_COOL": attack["cooltime"],
+           "M_ACT": attack["duration"], "M_LANDS": attack["start_timing"] + outer[0]["tick"] + orbs.pop()}
+    wrong = {k: (c.get(k), v) for k, v in got.items() if c.get(k) != v}
+    if wrong:
+        sys.exit(f"the clone's numbers differ from src/mirror.rs (mirror.rs, kit): {wrong}")
+    if c["UNIT_NAME"] != "league_leblanc":
+        sys.exit("the clone's unit name is not her id: the game would not draw it from her sheet")
+    n = []
+
+    def wrap(o):
+        if isinstance(o, dict):
+            if o.get("type") == "CasterViewEffect" and o.get("name") == c["P_VIEW"]:
+                n.append(1)
+                return {"type": "SwitchByBuff", "buff_name": c["P_UNIT"], "effect_buff": {"type": "Combine", "effects": []},
+                        "effect_none": o}
+            return {k: wrap(v) for k, v in o.items()}
+        if isinstance(o, list):
+            return [wrap(v) for v in o]
+        return o
+    d = wrap(d)
+    if len(n) != 2:
+        sys.exit(f"LeBlanc's kit plays the clone's picture {len(n)} times, not twice (attack, skill): update this script")
+    return d
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -119,6 +187,8 @@ def main():
         d = rename(d, count_flag, flag, n)
         if len(n) != reads:
             sys.exit(f"{hero}: {len(n)} reads of {count_flag}, expected {reads}: check the main pack and update this script")
+        if hero == "league_leblanc":
+            d = mirror_unit(d, consts(os.path.join(ADDON, "src", "mirror.rs")))
         if hero == "league_lissandra":
             k = []
             d = strip_thralls(d, k)
@@ -131,11 +201,13 @@ def main():
             if sl != slot:
                 d[sl]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.{name}_{sl}"
             for lang, tab in main_text.items():
-                old, new = sw[lang]
                 t = tab["description"][hero][sl]
-                if old not in t:
-                    sys.exit(f"{lang} {hero}.{sl}: the main pack's text changed ({old!r} not found): update this script")
-                t = LEAD[lang] + t.replace(old, new.format(p=pct))
+                # one (main words, add-on words) pair, or a list of them (LeBlanc's, 0.3.0) applied in order
+                for old, new in sw[lang] if isinstance(sw[lang], list) else [sw[lang]]:
+                    if old not in t:
+                        sys.exit(f"{lang} {hero}.{sl}: the main pack's text changed ({old!r} not found): update this script")
+                    t = t.replace(old, new.format(p=pct))
+                t = LEAD[lang] + t
                 if shown_length(t) > TOOLTIP_MAX[lang]:
                     sys.exit(f"{lang} {hero}.{sl}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
                 texts[lang][f"{name}_{sl}"] = t

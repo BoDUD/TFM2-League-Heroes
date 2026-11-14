@@ -6,5 +6,13 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_ivern/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_ivern_daisy#sheet": {
+    "remapping": "asset/league/champions/league_ivern_daisy#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_ivern_daisy#anim": {
+    "remapping": "asset/league/champions/league_ivern_daisy#anim",
+    "type": "override"
   }
 }
