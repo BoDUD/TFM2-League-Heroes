@@ -3,7 +3,7 @@
 
 use super::stacks::{Rule, Stack, Stat};
 
-pub const STACKS: [Stack; 26] = [
+pub const STACKS: [Stack; 27] = [
     Stack { hero: "league_annie", rule: Rule::Ladder { prefix: "league_annie_pyro_", rungs: 3, step: 1, full: Some(("league_annie_pyro_ready", 4)) }, cap: 4 },
     Stack { hero: "league_aurelionsol", rule: Rule::Ladder { prefix: "league_aurelionsol_d", rungs: 30, step: 1, full: None }, cap: 30 },
     Stack { hero: "league_belveth", rule: Rule::Ladder { prefix: "league_belveth_l", rungs: 8, step: 1, full: None }, cap: 8 },
@@ -30,4 +30,5 @@ pub const STACKS: [Stack; 26] = [
     Stack { hero: "league_tryndamere", rule: Rule::Ladder { prefix: "league_tryndamere_f_", rungs: 5, step: 20, full: None }, cap: 100 },
     Stack { hero: "league_twistedfate", rule: Rule::Ladder { prefix: "league_twistedfate_e", rungs: 3, step: 1, full: None }, cap: 3 },
     Stack { hero: "league_veigar", rule: Rule::Sum("league_veigar_p_stack", Stat::MagicPower), cap: 999 },
+    Stack { hero: "league_viktor", rule: Rule::Ladder { prefix: "league_viktor_hex_", rungs: 999, step: 1, full: None }, cap: 999 },
 ];

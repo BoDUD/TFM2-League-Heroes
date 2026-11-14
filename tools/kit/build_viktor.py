@@ -65,6 +65,8 @@ import argparse
 import json
 import os
 
+import stack_nums  # the add-on copy's Hex Fragments count in the skill bar
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 OUT = os.path.join(REPO, "league", "champion", "league_viktor.data_champion")
@@ -498,6 +500,11 @@ def nodes(o):
     if isinstance(o, list):
         return sum(nodes(v) for v in o)
     return 0
+
+
+# the add-on copy's Hex Fragments in the champion panel's stack box (tools/kit/stack_nums.py: only the copy whose
+# passive is league_viktor:evolve shows it; 2026-11-14)
+build = stack_nums.wrap(build)
 
 
 def main():

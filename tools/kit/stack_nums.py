@@ -93,6 +93,10 @@ STACKS = [
     # league_gangplank_sv_<n> (its unit test serpent_count_on_the_panel)
     {"hero": "league_gangplank", "ladder": "league_gangplank_sv_", "rungs": 9999, "cap": 9999, "skill": 2,
      "passive": "league_gangplank:scurvy", "label": "普朗克「银蛇币」（附加包）"},
+    # the add-on's Hex Fragments in hand (2026-11-14, the user: 「吉格斯和维克托按照联盟的重做」): league_viktor writes
+    # exactly one league_viktor_hex_<held> (none at 0); the main pack's level-based kit has no fragments, so no box
+    {"hero": "league_viktor", "ladder": "league_viktor_hex_", "rungs": 999, "cap": 999, "skill": 0,
+     "passive": "league_viktor:evolve", "label": "维克托「光荣进化」攒着的海克斯碎片（附加包）"},
 ]
 
 
