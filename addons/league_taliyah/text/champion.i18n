@@ -2,6 +2,7 @@
   "zh-hans": {
     "description": {
       "league_taliyah_addon": {
+        "attack": "【附加包】甩出一块石子。<#ff9028ff>浮石冲<>：脱战时贴着地形或她的墙，移速渐强到+10%～40%（随等级）；放出墙幔后踩石冲浪，移速+40%（<#ffb900ff>5秒<>）。",
         "ult": "【附加包】敌人在附近或已在交战：在目标处竖起长石墙（<#ffb900ff>5秒<>），墙上的单位被推到她这一侧；敌人较远：从脚下拉出一道横墙，踩着石头沿墙冲刺，靠近敌人时跳下。墙是真的地形：英雄、小兵和野怪都过不去。"
       }
     }
@@ -9,6 +10,7 @@
   "zh-hant": {
     "description": {
       "league_taliyah_addon": {
+        "attack": "【附加包】甩出一塊石子。<#ff9028ff>馭石之術<>：脫戰時貼著地形或她的牆，移速漸強到+10%～40%（隨等級）；放出編織者之牆後踩石衝浪，移速+40%（<#ffb900ff>5秒<>）。",
         "ult": "【附加包】敵人在附近或已在交戰：在目標處豎起長石牆（<#ffb900ff>5秒<>），牆上的單位被推到她這一側；敵人較遠：從腳下拉出一道橫牆，踩著石頭沿牆衝刺，靠近敵人時跳下。牆是真的地形：英雄、小兵和野怪都過不去。"
       }
     }
@@ -16,6 +18,7 @@
   "en": {
     "description": {
       "league_taliyah_addon": {
+        "attack": "[Add-on] Flicks a pebble. <#ff9028ff>Rock Surfing<>: out of a fight, near terrain or her walls, her move speed builds to +10-40% (by level); after Weaver's Wall she surfs a boulder, +40% move speed for <#ffb900ff>5s<>.",
         "ult": "[Add-on] With an enemy champion near or a fight on: a long stone wall rises where the target stands for <#ffb900ff>5s<>, pushing units on it to her side. With the enemies far: a wall runs out from her feet and she surfs along its top, jumping off once enemies are near. The walls are real terrain: no champion, minion or monster can cross them."
       }
     }
@@ -23,6 +26,7 @@
   "ko": {
     "description": {
       "league_taliyah_addon": {
+        "attack": "[애드온] 돌멩이를 던진다. <#ff9028ff>바위타기<>: 전투 중이 아닐 때 지형이나 자신의 벽 근처에서 이동 속도가 +10~40%(레벨 비례)까지 점점 증가; 바위술사의 벽 후 바위를 타고 <#ffb900ff>5초<> 동안 이동 속도 +40%.",
         "ult": "[애드온] 적 챔피언이 가깝거나 교전 중: 대상 위치에 <#ffb900ff>5초<> 동안 긴 돌벽을 세우고 벽 위의 유닛을 자신 쪽으로 밀어냄. 적이 멀면: 발밑에서 벽을 뻗어 바위를 타고 벽 위를 달리다 적이 가까워지면 뛰어내림. 벽은 진짜 지형: 챔피언도 미니언도 몬스터도 넘을 수 없음."
       }
     }
@@ -30,6 +34,7 @@
   "ja": {
     "description": {
       "league_taliyah_addon": {
+        "attack": "【アドオン】小石を投げる。<#ff9028ff>ロックサーフィン<>：戦闘外で地形や自分の壁の近くにいると移動速度が+10～40%（レベル比例）まで上昇；ウィーバーウォールの後は岩に乗り<#ffb900ff>5秒<>移動速度+40%。",
         "ult": "【アドオン】敵チャンピオンが近いか交戦中：対象の位置に<#ffb900ff>5秒<>長い石壁を立て、壁の上のユニットを自分の側へ押し出す。敵が遠い：足元から壁を伸ばし岩に乗って壁の上を進み、敵が近づくと飛び降りる。壁は本物の地形：チャンピオンもミニオンもモンスターも越えられない。"
       }
     }
