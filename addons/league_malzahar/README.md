@@ -1,4 +1,4 @@
-# 玛尔扎哈附加包（测试版 v0.2.0）：虚空穿越、幻象跳转、虚空蜂是真的单位
+# 玛尔扎哈附加包（测试版 v0.2.1）：虚空穿越、幻象跳转、虚空蜂是真的单位
 
 主包 `league` 保持纯数据。用户选了「做：E 跳转 + 被动精确」；2026-11-14 用户：「召唤物的全做啊」。这个附加包用原生代码做主包数据做不准的三件事：
 
@@ -51,7 +51,7 @@
 
 - 英雄联盟（wiki 现行页面）：虚空虫群召出 1 只虚空蜂（每层叠加多 1 只，最多 3 只），留 8 / 8 / 9 / 9 / 10 秒；生命 65–201、魔法伤害、攻速 0.67–0.89、射程 100、移速 400、护甲 16–50、魔抗 8–25；先咬冥府之握和幻象的目标，英雄和防御塔的普攻一下就打死它。
 - 这里的数字：每口照主包（14 + 8% 法强，`make_override.py` 对照参数表 P），两只每只每秒一口（加起来是主包每 0.5 秒一口的节奏）。其余按英雄联盟的数字照他的套路换算：生命是他的 10%（65–201 对他的 580–2297）、护甲是他的 60%（16–50 对他的 18–89）、魔抗是他的 40%（8–25 对他的 30–52）、移速是他的 120%（400 对他的 335）、射程 10400（100 / 500 × 52000）、留 8 秒（英雄联盟 1 级的时间；主包挂着的 4 秒）。一直够得着时两只 8 秒 16 口，主包挂着的 8 口，按一半时间够得着和原来一样（比例是猜的）。
-- 伤害类型：单位的普攻只能是物理伤害（API 的攻击没有伤害类型）。引擎要是把虚空蜂打出的一下告诉玛尔扎哈的被动（`on_attack`，用虚空蜂的 id），本包把这一下改成 0，下一 tick 由他打出同样多的魔法伤害；不告诉就照物理伤害。
+- 伤害类型：单位的普攻只能是物理伤害（API 的攻击没有伤害类型），所以虚空蜂咬的是**物理伤害**（英雄联盟是魔法伤害）。本来打算在引擎把虚空蜂打出的一下告诉玛尔扎哈的被动（`on_attack`，用虚空蜂的 id）时把这一下改成 0、下一 tick 由他打出同样多的魔法伤害；游戏 0.7.2 里 `on_attack` 从来不报单位的攻击（v0.2.1 那一节），这段代码留着但不会跑。
 - 单位图：`tools/art/unit_malzahar_voidling.py` 用主包特效图 `w_swarm` 里左边那只（两只左右镜像，脚本核对），idle 两帧站立、run 站立和跃起交替（跳着窜）、attack 站立 → 人立 → 咬下带火花（180 毫秒）→ 站立、hit 往后一格、dead 站在虚空裂口（`w_spawn` 张开那一帧）里 → 裂口 → 裂口合上。1 倍帧，和今天画面上一样大，不用在 league.dll 里登记。`mod.override_info` 把单位名的图接到主包的这张图上。
 - 副本（`make_override.py`）：E 出手时去掉 `league_malzahar_v_unit`、给目标挂 3 tick 的 `league_malzahar_v_ask`；幻象打中目标时挂着的虚空虫群（撕咬、画面、裂口和声音）外面套 `SwitchByBuff league_malzahar_v_unit`——他身上有这个标记就不放（有 Q 连招和没有的两份幻象都改了）。没有加 Native 节点，AI 估伤害走的还是原来那一支。
 - 被动：看到 `v_ask` 就排原生效果 `league_malzahar:voidlings`，在目标两边各 14000（横在他和目标连线的两侧，主包画面里两只的位置）生成 2 个 `league_malzahar_voidling`，每只钻出来的地方放主包的裂口画面，成功了给他挂 `v_unit`（60 tick）；每只每秒记一行。
@@ -69,8 +69,16 @@
 | `VOIDLINGS SPAWN #n (the queued effect): 2 of 2 units [ids] … 'league_malzahar_voidling' for 480 ticks, attack … hp …` | `spawn_unit` 给了单位（**没有这行、而有 `SPAWN FAILED` / `NONE` / `LOST`：画面上是原来挂着的虫群**） |
 | `VOIDLING #n LOOK #k: #id reads back as name … kind summon …` | 单位读回来叫什么、算哪一类、属性对不对 |
 | `VOIDLING #n #k: 61 of 480 ticks, at (x,y) (walked …), hp …/…, … from its summoner; near it: …` | 每秒一行：走不走、掉不掉血、身边是谁 |
-| `VOIDLING HOOK #k on_attack: entity #id (the voidling #n) -> …, damage 30: dealt as magic next tick` | 引擎把虚空蜂的一下告诉了他的被动：这一下改成魔法伤害（没有这种行 = 虚空蜂打的是物理伤害） |
-| `VOIDLING #n OVER #k: KILLED / TIMED OUT after A of 480 ticks …; N of its bites dealt as magic` | 被打死还是到时间、给不给钱、几口改成了魔法伤害 |
+| `VOIDLING HOOK #k on_attack: entity #id (the voidling #n) -> …, damage 30: dealt as magic next tick` | 引擎把虚空蜂的一下告诉了他的被动：这一下改成魔法伤害。游戏 0.7.2 里只有 `entity #… (Malzahar)` 的行（他自己的攻击）：虚空蜂咬的是物理伤害 |
+| `VOIDLING #n OVER #k: KILLED / TIMED OUT after A of 480 ticks …; its bites physical (…)` | 被打死还是到时间、给不给钱；引擎报了它的攻击时是 `N of its bites dealt as magic (on_attack named it)` |
 | `VOIDLING #n WAKE #k` / `VOIDLING ORPHAN #k` | 尸体留多久；玛尔扎哈先死 |
 
 画面上要看的：虚空蜂画不画得出来、站不站在地上、和挂着的画面一样大（17 像素宽）、钻出来时脚下的裂口、走路 / 咬 / 倒下播不播动作；同一时间没有挂着的虫群。测试开关：日志旁边放一个 `league_malzahar.cfg`（`unit=off` / `still=1` / `name=<名字>`）。
+
+## 虚空蜂咬的是物理伤害、站稳了再接手（v0.2.1，2026-11-14）
+
+第一批真实对局数据（游戏 0.7.2 的预模拟，`league_malzahar.log`）：
+
+- 虚空蜂会走、会被小兵打死，可 `VOIDLING HOOK … on_attack` 的行全是 `entity #20 (Malzahar)`——他自己的攻击；虚空蜂咬的那一下引擎从来不告诉他的被动，所以「改成魔法伤害」那一段一次也没跑过（`0 of its bites dealt as magic`）。别的路也看不到：API 读不到单位在打谁、什么时候出手，靠「目标这一拍掉了多少血」去猜，要知道引擎的护甲算法、暴击、护盾和同一拍里别的伤害，猜错了就是把别人的伤害改了。所以虚空蜂咬的照实是**物理伤害**：`OVER` 行改写成 `its bites physical (no hit of it reached his on_attack, so none was made magic)`，第二行写明 `(physical: a unit's attack has no damage type)`；改成魔法伤害的代码留着，以后的宿主要是报了，它照样管用（`OVER` 行那时是 `N of its bites dealt as magic (on_attack named it)`）。英雄联盟的虚空蜂打魔法伤害：这里差一个伤害类型，按 14 + 8% 法强一口算，护甲和魔抗差不多的目标上差得不多。
+- 虚空蜂在生成那一拍就被读，`LOOK` 行是 `hp 81/1 attack 1 def 1 mr 1 speed 1`：新单位生成那一拍和下一拍数字都读成 1。公用的 `Flock` 现在等它站稳才接手（萨科附加包 0.3.1 的 `summon.rs`），`VOIDLING #n LOOK` 晚一两拍，是它自己的数字。
+- 测试没改（假宿主里单位一生成就站稳）。

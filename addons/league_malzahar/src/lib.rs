@@ -17,9 +17,12 @@
 //!   （公用部分在萨科附加包的 `summon.rs`，这里用 `#[path]` 引进来）：副本的 E 出手时给目标挂 `V_ASK`（3 tick），去掉上一次的
 //!   `V_UNIT`；被动看到就排原生效果 `:voidlings`，在目标两边各 `VOID_SPREAD` 生成 `V_N` 只 `league_malzahar_voidling`
 //!   （[`voidling_spec`]），成功了给玛尔扎哈挂 `V_UNIT`——副本的数据在幻象打中目标时读它：有，就不放挂在目标身上的虫群；没有
-//!   （宿主没有这个接口、生成失败、测试开关关了、读不成单位、一出来就没了），就和今天一模一样。单位的普攻是物理伤害（API 的攻击
-//!   没有伤害类型）；引擎要是把虚空蜂的一下告诉他的被动（`on_attack`，以单位的 id），这一下就改成下一 tick 由他打出的魔法伤害
-//!   （英雄联盟的虚空蜂打魔法伤害）。
+//!   （宿主没有这个接口、生成失败、测试开关关了、读不成单位、一出来就没了），就和今天一模一样。
+//! - **虚空蜂咬的是物理伤害**（0.2.1 改了说法）：英雄联盟的虚空蜂打魔法伤害，单位的普攻却只能是物理（API 的攻击没有伤害类型）。
+//!   本来打算在引擎把虚空蜂的一下告诉他的被动（`on_attack`，以单位的 id）时改成魔法伤害，可游戏 0.7.2 的预模拟里 `on_attack`
+//!   从来不报单位的攻击（报的都是他自己的）；别的路也看不到它咬了谁、什么时候咬：API 读不到单位的目标和出手，靠「目标这一拍
+//!   掉了多少血」去猜要知道引擎的护甲算法、暴击、护盾和同一拍别的伤害，猜错了就是把别人的伤害改了。所以照物理伤害，日志
+//!   照实写；那段改成魔法伤害的代码留着（以后的宿主要是报了，它照样管用）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_malzahar.log`，每次启动游戏重写；虚空蜂的行以 `VOIDLING` 开头。
 //! 测试开关：日志旁边的 `league_malzahar.cfg`（`summon.rs`：`unit=off` / `still=1` / `name=`）。
@@ -402,6 +405,15 @@ pub struct VoidBook {
     pub turned: usize,
 }
 
+/// The OVER line's word on a voidling's bites: physical unless the engine named it in on_attack (game 0.7.2 never does).
+pub fn bites_text(turned: usize) -> String {
+    if turned == 0 {
+        "its bites physical (no hit of it reached his on_attack, so none was made magic)".to_string()
+    } else {
+        format!("{turned} of its bites dealt as magic (on_attack named it)")
+    }
+}
+
 // ===================== 被动 =====================
 
 #[derive(Clone)]
@@ -591,8 +603,7 @@ impl Void {
                 Event::Over { member, end } => {
                     let n = member.unit.n;
                     if let Some(k) = tally(sim, "void over") {
-                        wlog(format!("{} VOIDLING #{n} OVER #{k}: {}; {} of its bites dealt as magic", head(sim, me), end.text,
-                                     member.extra.turned));
+                        wlog(format!("{} VOIDLING #{n} OVER #{k}: {}; {}", head(sim, me), end.text, bites_text(member.extra.turned)));
                     }
                     if end.age <= LOST_AGE && self.voidlings.out() == 0 {
                         // never really there: the data has not read the flag yet, so its swarm can still ride
@@ -698,8 +709,9 @@ impl StablePassive for Void {
         self.units(sim, player, me, team, here);
     }
 
-    // The voidlings' hits: when the engine tells his passive of one under the voidling's id, it is dealt as magic damage
-    // next tick instead (League's voidlings deal magic damage; a unit's own attack is physical).
+    // The voidlings' hits: should the engine ever tell his passive of one under the voidling's id, it is dealt as magic
+    // damage next tick instead (League's voidlings deal magic damage; a unit's own attack is physical). Game 0.7.2 never
+    // does (its presims, 2026-11-14: every on_attack named Malzahar himself), so the bites stay physical.
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
         let mine = self.voidlings.get(entity).is_some();
         let amount = *damage;
@@ -767,7 +779,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     wlog(format!(
         "VOIDLINGS: Void Swarm's voidlings are units ('{}', spawn_unit) - {}; {V_N} an E for {VOID_LIFE} ticks, {V_HIT} + {V_HIT_AP}% \
-         of his ability power a bite every {VOID_COOL} ticks, {VOID_HP_PCT}% of his health. Test knobs ({}): {}",
+         of his ability power a bite every {VOID_COOL} ticks (physical: a unit's attack has no damage type), {VOID_HP_PCT}% of his \
+         health. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(VOIDLING),
         if KNOBS.off { "OFF by the test knobs: the swarm rides on the target as before" } else { "ON" },
         LOG_PATH.with_extension("cfg").display(),
@@ -1025,6 +1038,13 @@ mod tests {
             run(&mut w, &mut me, 200);
             assert!(me.voidlings.is_empty() && w.queue.is_empty(), "case {case}");
         }
+    }
+
+    #[test]
+    fn the_over_line_says_the_bites_are_physical_unless_made_magic() {
+        // game 0.7.2 never names a unit in on_attack: nothing may claim a conversion that did not run
+        assert!(bites_text(0).starts_with("its bites physical") && !bites_text(0).contains("dealt as magic"));
+        assert_eq!(bites_text(3), "3 of its bites dealt as magic (on_attack named it)");
     }
 
     #[test]
