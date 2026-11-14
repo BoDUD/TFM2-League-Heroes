@@ -265,7 +265,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_fiddlesticks.png" width="32"> | [费德提克](docs/heroes/league_fiddlesticks.md)<br>Fiddlesticks | 打野 | 被动 巫骇草人 · 恐惧 · 五骨丰登 · 大招 群鸦风暴 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_gragas.png" width="32"> | [古拉加斯](docs/heroes/league_gragas.md)<br>Gragas | 打野 | 滚动酒桶 · 肉弹冲击 · 大招 爆破酒桶 | [古拉加斯大招智能落点附加包](addons/league_gragas/README.md) | PPU 1.45 |
 | <img src="docs/heroes/img/league_graves.png" width="32"> | [格雷福斯](docs/heroes/league_graves.md)<br>Graves | 打野 | 穷途末路 · 快速拔枪 · 大招 终极爆弹 | [格雷福斯附加包](addons/league_graves/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_hecarim.png" width="32"> | [赫卡里姆](docs/heroes/league_hecarim.md)<br>Hecarim | 打野 | 暴走 · 毁灭冲锋 · 大招 暗影冲击 | — | PPU 1.8 |
+| <img src="docs/heroes/img/league_hecarim.png" width="32"> | [赫卡里姆](docs/heroes/league_hecarim.md)<br>Hecarim | 打野 | 暴走 · 毁灭冲锋 · 大招 暗影冲击 | [赫卡里姆附加包](addons/league_hecarim/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_ivern.png" width="32"> | [艾翁](docs/heroes/league_ivern.md)<br>Ivern | 打野 | 种豆得瓜 · 根深敌固 · 大招 小菊！ | [艾翁附加包](addons/league_ivern/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_jarvaniv.png" width="32"> | [嘉文四世](docs/heroes/league_jarvaniv.md)<br>Jarvan IV | 打野 | 德邦军旗 · 巨龙撞击 · 大招 天崩地裂 | [嘉文四世附加包](addons/league_jarvaniv/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_kayn.png" width="32"> | [凯隐](docs/heroes/league_kayn.md)<br>Kayn | 打野 | 巨镰横扫 · 利刃纵贯 · 大招 裂舍影 | [凯隐「暗裔魔镰」附加包](addons/league_kayn_form/README.md) | PPU 1.8 |
