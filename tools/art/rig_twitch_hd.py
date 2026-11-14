@@ -19,6 +19,9 @@ Mended here, past what casts_twitch_hd does for every frame:
   poses than the fall needs (the last pair with the crossbow under him), so knocked back, still flying, the landing,
   the bounce, then lying still.
 - the hit's first frame flashes (every PPU hero's); the attack's flash (a_flash) is laid in by the bake as before.
+- the in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+  「能改就想办法改 全都要改」): Ambush, Spray and Pray and the cask's release get a frame after a drawing with his tail
+  waved by whole columns (INB), everything else of the picture checked unchanged.
 """
 import argparse
 import json
@@ -32,6 +35,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_twitch_hd as CT  # noqa: E402
+import inbetween as IB  # noqa: E402
 import ppu_rig as R  # noqa: E402
 
 HERO = "twitch"
@@ -61,6 +65,45 @@ TAIL_BOX = (-40, 26, 24, 68)    # x0, x1, y0, y1: where the tail is, left of the
 TAIL_REACH = 12                 # a tail piece reaches this far left
 REAR_X = 32                     # the coat's back half: its squares left of this column
 TUCK = 2                        # columns a swapped tail goes further in under the coat
+
+
+# The in-betweens (2026-11-14: Ambush and Spray and Pray were three drawings at 100 ms each, the cask's release and
+# its follow-through 100 ms each): after a drawing the same drawing with his tail (tail_mask) waved by whole columns -
+# nothing at the column where it goes in under the coat, k rows at its curled tip (positive: lifted) - so the tail
+# flicks while he crouches, recoils, throws. INB: tag -> ([(the tag's drawn frame, k; 0 = as drawn)], ms): every
+# drawing keeps its millisecond (Ambush and the ult 0 / 100 / 200, the release still from 150); none of the three has
+# a hit inside it (Ambush cloaks, the ult arms the bolts, the cask leaves on the action's own tick).
+INB = {"skill": ([(0, 0), (0, 5), (1, 0), (1, -5), (2, 0), (2, 5)], IB.spans((100, 2), (100, 2), (100, 2))),
+       "ult": ([(0, 0), (0, -5), (1, 0), (1, 5), (2, 0), (2, -5)], IB.spans((100, 2), (100, 2), (100, 2))),
+       "skill2": ([(0, 0), (1, 0), (2, 0), (2, 5), (3, 0), (3, -5)], [80, 70] + IB.spans((100, 2), (100, 2)))}
+TAIL_PAD = 20
+
+
+def mask_runs(m):
+    """A mask as row runs (x0, y, x1, y), boxes for inbetween.vary."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut_ = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut_ + 1]], np.r_[xs[cut_], xs[-1]])]
+    return out
+
+
+def tail_waved(rig, can, k, name):
+    """can with its tail (tail_mask) waved k rows at its tip (inbetween.vary: the rest checked unchanged)."""
+    m = tail_mask(rig, can)
+    xs = np.nonzero(m)[1]
+    out = IB.vary(can, {"tail": mask_runs(m)}, OUTLINE, sway=[("tail", int(xs.min()), int(xs.max()), k, "right")],
+                  pad=TAIL_PAD, name=name)
+    inner = np.zeros(out.shape[:2], bool)
+    inner[TAIL_PAD:-TAIL_PAD, TAIL_PAD:-TAIL_PAD] = True
+    if (out[..., 3][~inner] > 0).any():
+        sys.exit(f"{name}: the waved tail leaves the canvas")
+    out = out[TAIL_PAD:-TAIL_PAD, TAIL_PAD:-TAIL_PAD].copy()
+    out[rig.GY:] = 0
+    return out
 
 
 class Design:
@@ -199,6 +242,8 @@ def frames(rig):
             continue
         ms = [m for _, m in sheet[tag]]
         n = len(ms)
+        if tag in INB:                  # (the drawn frames: the sheet holds the in-betweens too)
+            n = max(i for i, _ in INB[tag][0]) + 1
         if tag == "idle_base":
             out[tag] = [(stand.copy(), m) for m in ms]
             continue
@@ -221,10 +266,15 @@ def frames(rig):
             fr[0] = R.flash(fr[0])
         for c in fr:
             c[rig.GY:] = 0
+        if tag in INB:                  # (the drawn frames, then the in-betweens made from them)
+            seq, ms = INB[tag]
+            fr = [fr[i].copy() if not k else tail_waved(rig, fr[i], k, f"{tag} {i} tail {k}") for i, k in seq]
         out[tag] = list(zip(fr, ms))
     out["idle"] = list(out["idle_base"])
     acts = rig.bake(out)
     for t in acts:
+        if t in INB:
+            continue
         if t in sheet and t != "idle" and [round(m) for _, m in acts[t]] != [round(m) for _, m in sheet[t]]:
             sys.exit(f"{t}: {[round(m) for _, m in acts[t]]} against the sheet's {[m for _, m in sheet[t]]}")
     return {t: acts[t] for t in sheet if t in acts}

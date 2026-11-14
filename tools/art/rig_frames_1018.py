@@ -13,6 +13,9 @@ had, so the kit's hit ticks still fall inside the swing / shot frames).
 Akshan's in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
 a frame with its cape or coat tail waved by whole columns (op parts / sway: inbetween.vary, placed where the frame
 stands; every square outside the part checked unchanged).
+Wukong's (2026-11-14, 「能改就想办法改 全都要改」): Codex's own frames of the delivery that had been left out for time back in
+E and W, and his tail swung by whole rows on the death's two moved copies (op parts / rows). His idle and run staffs,
+the spin, the hit, the attacks and the R cast are as they were.
 """
 import argparse
 import os
@@ -79,6 +82,35 @@ def waved(name, x1, k):
     return dict(parts={part: items}, sway=[(part, 0, x1, k, "right")])
 
 
+# Wukong's death (2026-11-14): the two moved copies of his landing (the last 3 rows of the fall, the bounce) were the
+# landing drawing itself - now his tail, standing up off his back (WK_PARTS: its box in dead_4's squares, the row it
+# leaves him, the row of its curled tip), swings sideways by whole rows: trailing 4 squares back as he drops, flung 4
+# forward on the bounce
+WK_PARTS = {"dead_4": ("tail", [(5, 0, 23, 18)], 18, 0)}
+
+
+def rows_wave(shape, y1, y0, k):
+    """The moves of a part standing up across the rows: its whole rows shifted sideways, nothing on row y1 where it
+    leaves him and k columns (negative: to the left) on row y0 at its tip, the rows past the tip going with it -
+    inbetween.wave on its side (rig_zac's rows_wave). -> (dx, dy) arrays for inbetween.vary's moves."""
+    H, W = shape[:2]
+    dx = np.zeros((H, W), int)
+    for y in range(H):
+        t = min(max((y1 - y) / (y1 - y0), 0.0), 1.0)
+        dx[y, :] = int(round(k * t))
+    return dx, np.zeros((H, W), int)
+
+
+def tailed(name, k, **op):
+    """op: the frame's part (WK_PARTS) swung sideways by whole rows, k columns at its tip (rows_wave)."""
+    part, items, y1, y0 = WK_PARTS[name]
+    return dict(op, parts={part: items}, rows=[(part, y1, y0, k)])
+
+
+WK_DEAD = DEAD[:4] + [("dead_4", 60, tailed("dead_4", -4, up=3)), ("dead_4", 100),
+                      ("dead_4", 60, tailed("dead_4", 4, up=1)), ("dead_5", 500)]
+
+
 AKSHAN = {
     "idle": [(f"idle_{i}", 240) for i in range(5)],
     "run": [(f"run_{i}", 143) for i in range(7)],
@@ -103,12 +135,17 @@ WUKONG = {
     "run": [(f"run_{i}", 89, dict(staff=True)) for i in range(9)],
     "attack": [(f"attack_{i}", ms) for i, ms in enumerate([70, 70, 80, 80, 80, 80])],
     "q_attack": [(f"skill_{i}", ms) for i, ms in enumerate([60, 70, 80, 80, 80, 70])],
-    "skill": [("skill2_3", 60), ("skill2_4", 80), ("skill2_6", 80), ("skill2_7", 80)],
-    "skill2": [("ult_0", 60), ("ult_2", 70), ("ult_4", 70)],
+    # Wukong's in-betweens (2026-11-14, 「能改就想办法改 全都要改」): E and W take back Codex's own frames of the same
+    # delivery that were left out to fit the kit's time - E's leap skill2_5 (the staff swung steeper between the two
+    # overhead frames; the slam still from 220 ms), W's ult_3 (the staff tipping from upright toward ult_4's slant;
+    # 4 x 50 ms in its 200, W has no hit). ult_1 (the staff half way up) is not used: its staff bends at the raised
+    # fist (the piece above it some 25 degrees steeper)
+    "skill": [("skill2_3", 55), ("skill2_4", 55), ("skill2_5", 55), ("skill2_6", 55), ("skill2_7", 80)],
+    "skill2": [("ult_0", 50), ("ult_2", 50), ("ult_3", 50), ("ult_4", 50)],
     "spin": [(f"spin_{i}", 38) for i in range(8)],
     "ult": [("attack_0", 50)],
     "hit": [("hit_0", 100, dict(flash=True, dx=-2)), ("hit_0", 100, dict(dx=-1))],
-    "dead": DEAD,
+    "dead": WK_DEAD,
 }
 HEROES = {
     "akshan": dict(design="akshan/hd/slim2.png", ppu=1.61, map=AKSHAN, hip=teal_x, outline=(16, 2, 9)),
@@ -162,7 +199,9 @@ def frames(hero):
                 - op.get("dx", 0)
             pad = 0
             if op.get("parts"):                 # (an in-between: the picture VPAD bigger on every side, placed as drawn)
-                f = IB.vary(f, op["parts"], cfg["outline"], sway=op.get("sway", ()), pad=VPAD, name=f"{tag} {name}")
+                rows = [(part, rows_wave(f.shape, y1, y0, k), "under") for part, y1, y0, k in op.get("rows", ())]
+                f = IB.vary(f, op["parts"], cfg["outline"], sway=op.get("sway", ()), moves=rows, pad=VPAD,
+                            name=f"{tag} {name}")
                 pad = VPAD
             if op.get("flash"):
                 f = R.flash(f)
