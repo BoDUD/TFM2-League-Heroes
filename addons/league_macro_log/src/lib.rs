@@ -22,6 +22,18 @@
 //! （`by plan`：运营钩子 0.1.3 按战术分推之后，抱团和分推各自推得怎么样），而且每行 SUM 还追加到
 //! `league_macro_log.sum.log`（不随启动重写；每次启动的第一行前先写时间和两个包的版本），对比不用再赶在日志被覆盖前复制。
 //!
+//! **两张 5v5 地图**（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：每次取样看这一场的地图
+//! （`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，Rin 的召唤师峡谷 1614545 见方）。「在场」的上限是
+//! `Map::limit`（游戏自己的地图照旧 `MAP_MAX`；以前一律 1200000，峡谷上红方半边的英雄都不在场），「到了对面基地」的
+//! `NEAR_NEXUS` 跟着地图放大（`Map::scale`），`MATCH` 行写上 `map=native` / `map=rift`。峡谷的塔、龙坑在哪游戏不告诉附加包，
+//! 所以每次启动、每张地图第一次碰到时记下来（`tell`，都以 `MAP <地图>` 开头）：
+//! - `MAP <地图> [m= s=] t=...: ... walls: ... | ... towers and nexuses ...`：本记录器在这张图上怎么算、墙（峡谷的墙体文件
+//!   读到没有，`rift_status`）和每座塔、基地（编号、种类、名字、哪队、位置、活着没有；接口叫不出种类的实体记成 `other`——
+//!   峡谷自己的水晶？）；
+//! - `MAP <地图> ... first serpen` / `first epic`：第一条小龙、第一条大龙出现的位置；
+//! - `MAP <地图> ... first champion past the map's side`：第一个停在地图边长以外的英雄（被放逐、藏起来的单位停在哪：
+//!   `Map::limit` 的根据）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_macro_log.log`，每次启动游戏重写，上一次的留在 .prev.log；
 //! 一次启动最多 `LOG_CAP` 行。
 
@@ -32,6 +44,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_macro_log";
@@ -49,7 +62,7 @@ pub const CONV: usize = 5400;
 pub const GROUP: f64 = 120_000.0;
 /// 龙死的时候这么近的英雄算在场（谁拿的）。
 pub const TAKE_NEAR: f64 = 150_000.0;
-/// 「到了对面基地」：离对面基地多近。
+/// 「到了对面基地」：离对面基地多近（游戏自己的地图上的；峡谷上乘 `Map::scale`：基地跟着地图大）。
 pub const NEAR_NEXUS: f64 = 200_000.0;
 /// 在对面基地至少待多久才算一次（tick，3 秒）。
 pub const VISIT: usize = 180;
@@ -63,7 +76,8 @@ pub const SUMMARY_EVERY: usize = 50;
 pub const MORGARD_USE: &str = "morgard_use";
 /// 大龙 buff 的几种用法（SUM 行按这几种分开平均；读不到是 `-`）。
 pub const PLANS: [&str; 4] = ["Gather", "Split14", "Split131", "-"];
-/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
+/// 游戏自己的地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算（= `Map::Native.limit()`；这一场的看 `Map::limit`）。
+#[allow(dead_code)] // the game's own map's limit, = `Map::Native.limit()` (docs)
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 同时跟着的比赛最多几场（没结束就被丢掉的比赛不会一直占着）。
 const RUNS_KEPT: usize = 64;
@@ -200,7 +214,7 @@ pub struct Monster {
 
 /// One sample of a match: the living champions, the standing towers (id, team), the living monsters and the nexuses
 /// (team, x, y, alive, health %).
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct Sample {
     pub tick: usize,
     pub champs: Vec<Champ>,
@@ -212,6 +226,29 @@ pub struct Sample {
     /// Each team's Morgard plan as played, and as its strategy names it (one of `PLANS`; empty: not read).
     pub plans: [&'static str; 2],
     pub named: [&'static str; 2],
+    /// The map the match is played on (its `limit`: past it a champion is off the map; its `scale`: `NEAR_NEXUS`).
+    pub map: Map,
+    /// The first champion seen past the map's side (entity id, x, y, alive): where the game parks banished and hidden
+    /// units (the `MAP <map> ... first champion past the map's side` line).
+    pub parked: Option<(usize, f64, f64, bool)>,
+}
+
+impl Default for Sample {
+    /// Nothing seen, on the game's own map.
+    fn default() -> Self {
+        Sample {
+            tick: 0,
+            champs: Vec::new(),
+            towers: Vec::new(),
+            monsters: Vec::new(),
+            nexus: Vec::new(),
+            nexus_open: Vec::new(),
+            plans: [""; 2],
+            named: [""; 2],
+            map: Map::Native,
+            parked: None,
+        }
+    }
 }
 
 /// After an epic monster: what the team that took it did in the next `CONV` ticks.
@@ -266,6 +303,8 @@ pub struct Tracker {
     pub kills: [usize; 2],
     pub early_kills: [usize; 2],
     pub last_tick: usize,
+    /// The map's key (`Map::key`) for the MATCH line (empty: no sample yet).
+    pub map: &'static str,
 }
 
 fn centroid(ps: &[Champ]) -> Option<(f64, f64)> {
@@ -284,6 +323,8 @@ impl Tracker {
     /// One sample; `kills` the teams' kill counts now.
     pub fn step(&mut self, s: &Sample, kills: [usize; 2]) {
         self.last_tick = s.tick;
+        self.map = s.map.key();
+        let near_nexus = NEAR_NEXUS * s.map.scale();
         self.kills = kills;
         if s.tick <= EARLY {
             self.early_kills = kills;
@@ -343,7 +384,7 @@ impl Tracker {
             }
             // at the enemy nexus
             match s.nexus.iter().find(|n| n.0 == 1 - team && n.3) {
-                Some(&(_, nx, ny, _, _)) if mine.iter().filter(|p| dist((p.x, p.y), (nx, ny)) <= NEAR_NEXUS).count() >= 3 => {
+                Some(&(_, nx, ny, _, _)) if mine.iter().filter(|p| dist((p.x, p.y), (nx, ny)) <= near_nexus).count() >= 3 => {
                     self.at_nexus[team] += SAMPLE;
                     if s.nexus_open.contains(&(1 - team)) {
                         self.open_seen[team] = true;
@@ -401,7 +442,8 @@ impl Tracker {
             .collect();
         let spread = |t: usize| self.spread_sum[t] / self.spread_n[t].max(1) as f64 / 1000.0;
         format!(
-            "MATCH {head} len={} win={} kills={}-{} early_kills={}-{} towers={}-{} first_tower={} epics=[{}] serpens=[{}] after_epic=[{}] nexus_visits={}-{} nexus_left={}-{} nexus_left_open={}-{} nexus_beaten={}-{} spread={:.0}k-{:.0}k",
+            "MATCH {head} map={} len={} win={} kills={}-{} early_kills={}-{} towers={}-{} first_tower={} epics=[{}] serpens=[{}] after_epic=[{}] nexus_visits={}-{} nexus_left={}-{} nexus_left_open={}-{} nexus_beaten={}-{} spread={:.0}k-{:.0}k",
+            if self.map.is_empty() { "-" } else { self.map },
             clock(self.last_tick),
             winner.map_or("-", |w| SIDE[w]),
             self.kills[0],
@@ -559,12 +601,17 @@ struct Book {
 static BOOK: LazyLock<Mutex<Book>> = LazyLock::new(|| Mutex::new(Book::default()));
 
 fn sample(sim: &StableSim<'_>) -> (Sample, [usize; 2]) {
-    let mut s = Sample { tick: sim.tick(), ..Sample::default() };
+    let map = map_of_sim(sim);
+    let (limit, side) = (map.limit(), map.extent());
+    let mut s = Sample { tick: sim.tick(), map, ..Sample::default() };
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
         let (x, y) = e.pos();
         let (x, y) = (x as f64, y as f64);
-        let on_map = x <= MAP_MAX && y <= MAP_MAX;
+        let on_map = x <= limit && y <= limit;
+        if s.parked.is_none() && (x > side || y > side) && e.kind() == Some(EntityKindV1::Champion) {
+            s.parked = Some((e.id(), x, y, e.is_alive()));
+        }
         match e.kind() {
             Some(EntityKindV1::Champion) if e.is_alive() && on_map => s.champs.push(Champ { team: e.team(), x, y }),
             Some(EntityKindV1::Tower) if e.is_alive() => s.towers.push((e.id(), e.team())),
@@ -597,6 +644,106 @@ fn sample(sim: &StableSim<'_>) -> (Sample, [usize; 2]) {
 fn head(o: SimOriginV1) -> String {
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
     format!("[m={} s={}]", m(o.match_id), m(o.set_index))
+}
+
+// ===================== 地图（MAP 行） =====================
+
+/// What this launch's log has told of each map (`Map as usize * 4 + n`): n = 0 its MAP line, 1 its first serpent, 2 its
+/// first epic monster, 3 the first champion parked off it.
+static TOLD: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
+
+/// The first time this launch (and marks it told).
+fn first(slot: usize) -> bool {
+    !TOLD[slot].load(Ordering::Relaxed) && !TOLD[slot].swap(true, Ordering::Relaxed)
+}
+
+/// A tower, a nexus or an entity of a kind the API does not name (an inhibitor of the Rift's own?) for the `MAP` line.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Structure {
+    pub id: usize,
+    pub name: String,
+    /// "tower", "nexus" or "other" (a kind code the API does not know).
+    pub kind: &'static str,
+    pub team: usize,
+    pub x: f64,
+    pub y: f64,
+    pub alive: bool,
+}
+
+/// The `MAP` line: the map, where it came from (`head`, the tick), what this log does on it (its off-map limit, the
+/// enemy-nexus reach), the walls an add-on knows there and every tower and nexus (and entity of an unnamed kind).
+pub fn map_line(map: Map, head: &str, tick: usize, walls: &str, structures: &[Structure]) -> String {
+    let list: Vec<String> = structures
+        .iter()
+        .map(|s| {
+            format!("#{} {} {} T{} ({:.0}, {:.0}) {}", s.id, s.kind, s.name, s.team, s.x, s.y, if s.alive { "alive" } else { "down" })
+        })
+        .collect();
+    format!(
+        "MAP {} {head} t={}: champions on the map up to {:.0}, at the enemy nexus within {:.0}; walls: {walls} | {} towers and \
+         nexuses (id, kind, name, team, x, y): {}",
+        map.key(),
+        clock(tick),
+        map.limit(),
+        NEAR_NEXUS * map.scale(),
+        structures.len(),
+        if list.is_empty() { "-".to_string() } else { list.join("; ") }
+    )
+}
+
+/// The walls an add-on knows on `map`.
+fn walls_of(map: Map) -> String {
+    match map {
+        Map::Native => "the game's own (30 x 30 cells of 32000: the add-ons' built-in grids)".to_string(),
+        Map::Rift => rift_status(),
+    }
+}
+
+/// The first presim on each map a launch: its `MAP` line (every tower and nexus as the sim lists them); then the map's
+/// first serpent, epic monster and champion parked past its side, each once a launch - where the Rift's towers, drake
+/// and Baron pits really are (its own DLL builds them; the game tells an add-on nothing of them).
+fn tell(sim: &StableSim<'_>, s: &Sample, head: &str) {
+    let k = s.map as usize * 4;
+    if first(k) {
+        let structures: Vec<Structure> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter_map(|e| {
+                let kind = match e.kind() {
+                    Some(EntityKindV1::Nexus) => "nexus",
+                    Some(EntityKindV1::Tower) => "tower",
+                    None => "other",
+                    _ => return None,
+                };
+                let (x, y) = e.pos();
+                Some(Structure {
+                    id: e.id(),
+                    name: e.name().unwrap_or_default(),
+                    kind,
+                    team: e.team(),
+                    x: x as f64,
+                    y: y as f64,
+                    alive: e.is_alive() && e.hp().0 > 0,
+                })
+            })
+            .collect();
+        wlog(map_line(s.map, head, s.tick, &walls_of(s.map), &structures));
+    }
+    for (n, epic, what) in [(1, false, "serpen"), (2, true, "epic")] {
+        let Some(m) = s.monsters.iter().find(|m| m.epic == epic) else { continue };
+        if first(k + n) {
+            let name = sim.get_entity(m.id).and_then(|e| e.name()).unwrap_or_default();
+            wlog(format!("MAP {} {head} t={}: first {what} #{} {name} at ({:.0}, {:.0})", s.map.key(), clock(s.tick), m.id,
+                         m.x, m.y));
+        }
+    }
+    if let Some((id, x, y, alive)) = s.parked {
+        if first(k + 3) {
+            let name = sim.get_entity(id).and_then(|e| e.name()).unwrap_or_default();
+            wlog(format!("MAP {} {head} t={}: first champion past the map's side {:.0}: #{id} {name} at ({x:.0}, {y:.0}), {} \
+                          (where banished / hidden units are parked; off the map past {:.0})", s.map.key(), clock(s.tick),
+                         s.map.extent(), if alive { "alive" } else { "dead" }, s.map.limit()));
+        }
+    }
 }
 
 /// The team whose nexus fell: one down or gone from the entities, else (at the end, where the last tick may still show
@@ -633,6 +780,7 @@ fn watch(sim: &StableSim<'_>) {
     }
     let key: RunKey = (o.kind, o.match_id, o.replay_id, o.set_index);
     let (s, kills) = sample(sim);
+    tell(sim, &s, &head(o));
     let fallen = loser(&s.nexus, end);
     let mut book = BOOK.lock().unwrap_or_else(|e| e.into_inner());
     book.clock += 1;
@@ -725,7 +873,7 @@ mod tests {
         let towers = vec![(10usize, 0usize), (11, 1), (12, 1)];
         let baron = Monster { id: 50, epic: true, x: 300_000.0, y: 300_000.0 };
         // red's champions at the baron, blue's away
-        let mut s = Sample { tick: 30, champs: [champs(0, (100_000.0, 800_000.0), 5), champs(1, (300_000.0, 300_000.0), 5)].concat(), towers: towers.clone(), monsters: vec![baron], nexus: nexus.clone(), nexus_open: vec![], plans: ["Gather", "Split14"], named: ["Gather", "Split131"] };
+        let mut s = Sample { tick: 30, champs: [champs(0, (100_000.0, 800_000.0), 5), champs(1, (300_000.0, 300_000.0), 5)].concat(), towers: towers.clone(), monsters: vec![baron], nexus: nexus.clone(), nexus_open: vec![], plans: ["Gather", "Split14"], named: ["Gather", "Split131"], map: Map::Native, parked: None };
         t.step(&s, [0, 0]);
         // the baron dies with red round it
         s.tick = 60;
@@ -802,5 +950,50 @@ mod tests {
         t.step(&Sample { tick: 30, ..Sample::default() }, [0, 0]);
         assert_eq!(t.takes, vec![(2, false, 30)]);
         assert!(t.after.is_empty());
+    }
+
+    #[test]
+    fn on_the_rift_its_bigger_base_counts_and_the_match_line_names_the_map() {
+        // blue stands 250k from red's nexus on the Rift for 10 s, then walks away: at the enemy nexus there (200k x 1.68),
+        // not by the game's own map's 200k
+        let nexus = vec![(0usize, 165_000.0, 1_450_000.0, true, 100), (1usize, 1_450_000.0, 165_000.0, true, 100)];
+        let run = |map: Map| {
+            let mut t = Tracker::default();
+            let mut s = Sample { tick: 30, champs: champs(0, (1_200_000.0, 165_000.0), 4), nexus: nexus.clone(), map, ..Sample::default() };
+            for k in 0..=20 {
+                s.tick = 30 + k * SAMPLE;
+                t.step(&s, [0, 0]);
+            }
+            s.tick += SAMPLE;
+            s.champs = champs(0, (700_000.0, 700_000.0), 4);
+            t.step(&s, [0, 0]);
+            t
+        };
+        let rift = run(Map::Rift);
+        assert_eq!((rift.visits, rift.left), ([1, 0], [1, 0]), "at red's nexus and away again");
+        assert!(rift.line("[m=1 s=0]", None).starts_with("MATCH [m=1 s=0] map=rift len="), "{}", rift.line("[m=1 s=0]", None));
+        let native = run(Map::Native);
+        assert_eq!(native.visits, [0, 0]);
+        assert!(native.line("[m=1 s=0]", None).contains(" map=native "));
+        assert!(Tracker::default().line("[m=1 s=0]", None).contains(" map=- "), "no sample yet");
+        assert_eq!(Sample::default().map, Map::Native);
+    }
+
+    #[test]
+    fn the_map_line_lists_the_towers_and_nexuses() {
+        let towers = [
+            Structure { id: 3, name: "tower_a".into(), kind: "tower", team: 0, x: 100_000.0, y: 1_500_000.0, alive: true },
+            Structure { id: 9, name: "nexus_b".into(), kind: "nexus", team: 1, x: 1_450_000.0, y: 165_000.0, alive: false },
+            Structure { id: 12, name: "inhib".into(), kind: "other", team: 1, x: 1_300_000.0, y: 300_000.0, alive: true },
+        ];
+        let line = map_line(Map::Rift, "[m=1 s=0]", 60, "Rift walls not found", &towers);
+        assert!(line.starts_with("MAP rift [m=1 s=0] t=0:01: champions on the map up to 2018181, at the enemy nexus within 336364; \
+                                  walls: Rift walls not found | 3 towers and nexuses"), "{line}");
+        assert!(line.ends_with("#3 tower tower_a T0 (100000, 1500000) alive; #9 nexus nexus_b T1 (1450000, 165000) down; \
+                                #12 other inhib T1 (1300000, 300000) alive"), "{line}");
+        let native = map_line(Map::Native, "[m=- s=-]", 0, &walls_of(Map::Native), &[]);
+        assert!(native.starts_with("MAP native [m=- s=-] t=0:00: champions on the map up to 1200000, at the enemy nexus within \
+                                    200000; walls: the game's own"), "{native}");
+        assert!(native.ends_with("0 towers and nexuses (id, kind, name, team, x, y): -"), "{native}");
     }
 }

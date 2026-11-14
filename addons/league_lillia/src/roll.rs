@@ -9,7 +9,7 @@
 //! - **方向**：从她现在站的地方到落点（英雄联盟按出手结束时她站的地方定方向；种子飞的那 20 tick 里她在放 E、接着放 W 的
 //!   动作，站着没动）；
 //! - **滚到地形为止**：沿这个方向每 [`STEP`] 看一次地图的墙（游戏自己的 5v5 / 单线 / 死斗图：league_camille_wall 的
-//!   maps.rs，每格 32000，5v5 再加四边画出来的墙面），停在墙前 [`SEED_R`]；
+//!   maps.rs，每格 32000，5v5 再加四边画出来的墙面；召唤师峡谷：作者的墙体文件，没有就只认地图的边），停在墙前 [`SEED_R`]；
 //!   最远 `e_roll_len`（英雄联盟没有上限；这里滚满约 5 秒，碰不到下一次 E）；
 //! - 本包自己发一颗直线投射物（`spawn_projectile`：从落点出发，每 tick `e_roll_speed`——英雄联盟 1400 码/秒——半径
 //!   `e_roll_r`，碰到第一个敌方单位就停，防御塔、水晶不算），画面是主包 league_lillia_fx 的 `e_roll`（往右滚：顺时针转）
@@ -32,13 +32,14 @@
 use std::collections::HashMap;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{self as places, Map, Walls};
 use mod_api_stable::*;
 
 use super::{data_dust, head, ll, maps, params, wlog, Params, ID};
 
 pub type Pt = (f64, f64);
 
-/// 往前看墙的步长（游戏自己的墙格 32000 看得出来）。
+/// 往前看墙的步长（游戏自己的墙格 32000、峡谷的 5455 都看得出来）。
 pub const STEP: f64 = 1_000.0;
 /// 种子的半径（画出来 8 格宽，1 格 1000）：停在墙前这么远，画面不压在墙上。
 pub const SEED_R: f64 = 4_000.0;
@@ -106,6 +107,10 @@ pub fn roll_picture(dir: Pt) -> &'static str {
 pub enum Ground {
     /// 游戏自己的墙格（`#` 是墙，每格 [`CELL`]，格子外是墙）和四边画出来的墙面。
     Grid(&'static [&'static str], Option<(f64, f64, f64, f64)>),
+    /// 召唤师峡谷：地图作者的墙体文件。
+    Rift(&'static Walls),
+    /// 不知道墙在哪（峡谷没有墙体文件）：只有这么大的地图的边。
+    Open(f64),
 }
 
 impl Ground {
@@ -128,6 +133,8 @@ impl Ground {
                 }
                 Ground::cell_wall(rows, p)
             }
+            Ground::Rift(w) => w.is_wall(p.0, p.1),
+            Ground::Open(e) => !(0.0..=e).contains(&p.0) || !(0.0..=e).contains(&p.1),
         }
     }
 }
@@ -146,7 +153,7 @@ pub fn pick_native(points: &[Pt]) -> (&'static str, Ground) {
     native_grounds()
         .into_iter()
         .map(|(n, g)| {
-            let Ground::Grid(rows, _) = g;
+            let Ground::Grid(rows, _) = g else { unreachable!() };
             let inside = points.iter().filter(|p| Ground::cell_wall(rows, **p)).count();
             let walls = rows.iter().map(|r| r.bytes().filter(|c| *c == b'#').count()).sum::<usize>();
             (inside, walls, n, g)
@@ -211,11 +218,19 @@ fn refresh(sim: &mut StableSim<'_>, id: usize, b: &BuffV1) {
     sim.add_buff(id, b);
 }
 
-/// 这一局的地形：游戏自己的图看单位站在哪（每次滚都看一次：几十个单位，几毫秒都不到）。
+/// 这一局的地形：峡谷读作者的墙体文件，游戏自己的图看单位站在哪（每次滚都看一次：几十个单位，几毫秒都不到）。
 pub fn ground_of(sim: &StableSim<'_>) -> (&'static str, Ground) {
-    let points: Vec<Pt> =
-        (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|e| e.is_alive()).map(|e| fpos(&e)).collect();
-    pick_native(&points)
+    match places::map_of_sim(sim) {
+        Map::Rift => match places::rift_walls() {
+            Some(w) => ("Rift", Ground::Rift(w)),
+            None => ("Rift (no walls file)", Ground::Open(Map::Rift.extent())),
+        },
+        Map::Native => {
+            let points: Vec<Pt> =
+                (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|e| e.is_alive()).map(|e| fpos(&e)).collect();
+            pick_native(&points)
+        }
+    }
 }
 
 /// `at` 周围 `r` 加身体以内活着、选得中的敌方单位（防御塔、水晶不算，同主包的 `EnemyWithoutTower`）：(编号, 是不是英雄)。
@@ -453,6 +468,9 @@ mod tests {
         assert_eq!(pick_native(&[(480_000.0, 480_000.0), (700_000.0, 100_000.0)]).0, "SingleLane");
         // everyone in the death match's box (open on the 5v5 map too): the map with more walls
         assert_eq!(pick_native(&[(300_000.0, 450_000.0), (700_000.0, 520_000.0)]).0, "DeathMatch");
+        // the Rift without its walls file: only the map's square
+        let open = Ground::Open(1_614_545.0);
+        assert!(!open.is_wall((1_000_000.0, 1_500_000.0)) && open.is_wall((1_700_000.0, 10.0)) && open.is_wall((-1.0, 5.0)));
     }
 
     #[test]

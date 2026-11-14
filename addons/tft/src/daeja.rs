@@ -11,6 +11,8 @@
 //! - **死亡**：倒下时播 `tft_daeja_d`（数据没有死亡的时机）。
 //!
 //! 三连弹幕（普攻后的三颗小风弹、叠加的减魔抗）、振翼退风（后跳、减速的风）和大招的飞起、减伤、落地是数据自己的。
+//! 两张 5v5 地图（2026-11-10）：风波飞到的点夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//! Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 的风波都朝半张图的边上飞）。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_daeja.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
@@ -18,12 +20,15 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "tft_daeja";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 /// A unit's own radius, added to a wave's half width when counting who it runs through.
 pub const UNIT_R: f64 = 10_000.0;
@@ -93,6 +98,19 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 
 fn name_of(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n} #{id}"))
+}
+
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: the waves' end points are kept on the Rift's {:.0} square (not the game's own {MAP:.0}); \
+                      {} ==", map.extent(), rift_status()));
+    }
+    map
 }
 
 // ===================== 参数 =====================
@@ -253,8 +271,10 @@ fn foes(sim: &StableSim<'_>, me: usize) -> Vec<(usize, (f64, f64))> {
         .collect()
 }
 
-fn upos(p: (f64, f64)) -> (u64, u64) {
-    (p.0.round().clamp(0.0, MAP - 1.0) as u64, p.1.round().clamp(0.0, MAP - 1.0) as u64)
+/// A spot on `map` in whole units (a wave's end point).
+fn upos(map: Map, p: (f64, f64)) -> (u64, u64) {
+    let e = map.extent();
+    (p.0.round().clamp(0.0, e - 1.0) as u64, p.1.round().clamp(0.0, e - 1.0) as u64)
 }
 
 /// Q's or R's release: the line with the most enemies, one penetrating wave down it.
@@ -280,7 +300,7 @@ fn send(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1, ult: bool) {
         return;
     };
     let hit = on_line(from, dir, &list, &w);
-    let to = upos((from.0 + dir.0 * w.len as f64, from.1 + dir.1 * w.len as f64));
+    let to = upos(map_here(sim), (from.0 + dir.0 * w.len as f64, from.1 + dir.1 * w.len as f64));
     let spec = ProjectileSpawnV1 {
         caster_id: me,
         team,
@@ -463,5 +483,14 @@ mod tests {
         let d = best_dir((0.0, 0.0), Some((0.0, -10.0)), None, &far, &w).unwrap();
         assert!(d.1 < -0.99, "{d:?}");
         assert!(best_dir((0.0, 0.0), None, None, &far, &w).is_none());
+    }
+
+    #[test]
+    fn the_waves_fly_to_points_on_the_map_they_are_sent_on() {
+        // the game's own map: held at its edge, as before
+        assert_eq!(upos(Map::Native, (970_000.4, -3.0)), (MAP as u64 - 1, 0));
+        // the Rift: past 960000 is its ground, its own edge at 1614545
+        assert_eq!(upos(Map::Rift, (1_300_000.4, 1_500_000.0)), (1_300_000, 1_500_000));
+        assert_eq!(upos(Map::Rift, (2_000_000.0, 5.0)), (Map::Rift.extent() as u64 - 1, 5));
     }
 }

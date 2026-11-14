@@ -29,13 +29,19 @@
 //! 普攻和技能都算）按她当时身上开着什么分（E 的穿透弹 `e_on`、R 的超限 `r_on`、都没有），其中打英雄的多少、命中次数、
 //! 开始的普攻次数（其中充能弹几次）、死着的 tick 数——看伤害是哪一段、哪种状态下掉没的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zeri.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//!
+//! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔站在 1000000 以外
+//! （`game_places::terrain::map_of_sim`）就是峡谷，W 照峡谷的墙格化激光（[`rift_grid`]：作者的墙体坐标.json，自己的格子边长和
+//! 原点，格子外算墙；没有 5v5 那四边的墙面）。没有这个文件时不知道哪里有墙：只有飞出地图边（0..1614545 外）才算撞墙。
 
+use std::borrow::Cow;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 pub mod maps;
@@ -188,16 +194,34 @@ static LASER: LazyLock<Mutex<Params>> = LazyLock::new(|| Mutex::new(Params::defa
 
 // ===================== 墙 =====================
 
-/// 一张墙格子：`cells[y][x]` 为 true 是墙；`bounds`（x0, y0, x1, y1）外是 5v5 地图四边的墙面。
+/// 一张墙格子：`cells[y][x]` 为 true 是墙，每格 `cell` 见方、第 (0, 0) 格的角在 `origin`（游戏自己的图 32000、(0, 0)；
+/// 峡谷 60000/11、(30000/11, 0)），格子外算墙；`bounds`（x0, y0, x1, y1）外是 5v5 地图四边的墙面。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    pub cell: f64,
+    pub origin: (f64, f64),
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid {
+            cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(),
+            bounds,
+            cell: CELL,
+            origin: (0.0, 0.0),
+        }
+    }
+
+    /// 峡谷的墙（墙体坐标.json 读出来的）：它自己的格子边长和原点，没有四边的墙面（格子最外一圈本来就是墙）。
+    pub fn from_walls(w: &Walls) -> Grid {
+        Grid { cells: w.cells.clone(), bounds: None, cell: w.cell, origin: w.origin }
+    }
+
+    /// 不知道哪里有墙的 `extent` 见方的地图：一整格空地，只有地图外算墙（峡谷没有墙体文件时）。
+    pub fn open(extent: f64) -> Grid {
+        Grid { cells: vec![vec![false]], bounds: None, cell: extent, origin: (0.0, 0.0) }
     }
 
     /// 内置的三张图（5v5 加四边的墙面）。
@@ -211,10 +235,11 @@ impl Grid {
 
     /// 墙格（或地图外）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        if x < 0.0 || y < 0.0 {
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
             return true;
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        let (cx, cy) = (fx as usize, fy as usize);
         self.cells.get(cy).and_then(|row| row.get(cx)).copied().unwrap_or(true)
     }
 
@@ -226,6 +251,25 @@ impl Grid {
     pub fn walls(&self) -> usize {
         self.cells.iter().flatten().filter(|v| **v).count()
     }
+}
+
+/// 峡谷上的墙：墙体文件的（[`Grid::from_walls`]），没有文件时只有地图边算墙（[`Grid::open`]）。
+pub fn rift_grid(walls: Option<&Walls>) -> Grid {
+    walls.map_or_else(|| Grid::open(Map::Rift.extent()), Grid::from_walls)
+}
+
+/// 峡谷的墙，换成本包的格子一次（87000 多格，不每次 W 重建）。
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
+
+/// 这场对局的墙：峡谷上是峡谷的，游戏自己的图照旧按 `points`（活着的单位）挑（[`pick_grid`]）。
+pub fn grid_of(map: Map, points: &[(f64, f64)]) -> (&'static str, Cow<'static, Grid>) {
+    if map == Map::Rift {
+        return ("Rift", Cow::Borrowed(&*RIFT_GRID));
+    }
+    let (name, g) = pick_grid(points);
+    (name, Cow::Owned(g))
 }
 
 /// 当前对局的地图：站进墙里的单位最少的那张，一样少时取墙最多的。
@@ -523,11 +567,11 @@ impl Diag {
     }
 }
 
-/// 每个泽丽一份：参数、地图、正在跟的脉冲、已处理到哪个 tick 的施放、计数。
+/// 每个泽丽一份：参数、地图（峡谷的墙只借用那一份）、正在跟的脉冲、已处理到哪个 tick 的施放、计数。
 #[derive(Clone, Default)]
 struct Battery {
     p: Params,
-    grid: Option<(&'static str, Grid)>,
+    grid: Option<(&'static str, Cow<'static, Grid>)>,
     pulse: Option<Pulse>,
     done_until: usize,
     lasers: usize,
@@ -584,7 +628,7 @@ impl Battery {
         }
     }
 
-    fn grid(&mut self, sim: &StableSim<'_>, me: usize) -> Grid {
+    fn grid(&mut self, sim: &StableSim<'_>, me: usize) -> Cow<'static, Grid> {
         if self.grid.is_none() {
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
@@ -594,14 +638,19 @@ impl Battery {
                     (x as f64, y as f64)
                 })
                 .collect();
-            let (name, g) = pick_grid(&points);
+            let map = map_of_sim(sim);
+            if map == Map::Rift && !RIFT_SEEN.swap(true, Ordering::Relaxed) {
+                wlog(format!("== Rift: W turns into the laser at the Rift's walls (no drawn map edges there; with no walls \
+                              file only past the map's edge); {} ==", rift_status()));
+            }
+            let (name, g) = grid_of(map, &points);
             // once a Zeri a sim, but every presim's: the launch's count (0.1.4; 226 lines on 11-01)
             if on_screen(sim) || counted("map") {
                 wlog(format!("{} map: {name} ({} wall cells; {} units placed)", head(sim, me), g.walls(), points.len()));
             }
             self.grid = Some((name, g));
         }
-        self.grid.as_ref().map(|g| g.1.clone()).unwrap_or_else(|| Grid::builtin().remove(0).1)
+        self.grid.as_ref().map(|g| g.1.clone()).unwrap_or_else(|| Cow::Owned(Grid::builtin().remove(0).1))
     }
 
     /// 跟着脉冲走一 tick；碰到墙就射激光。返回 false = 不再跟。
@@ -950,5 +999,66 @@ mod tests {
     fn the_laser_stays_on_the_map() {
         assert_eq!(laser_end((50_000.0, 50_000.0), (-1.0, 0.0), 100_000.0), (0.0, 50_000.0));
         assert_eq!(laser_end((50_000.0, 50_000.0), (1.0, 0.0), 100_000.0), (150_000.0, 50_000.0));
+    }
+
+    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// cells walls, plus every cell in columns `xs`, rows `ys`.
+    fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
+        let rows: Vec<String> = (0..296)
+            .map(|y| {
+                (0..295)
+                    .map(|x| {
+                        let border = x == 0 || y == 0 || x == 294 || y == 295;
+                        if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        let side = Map::Rift.extent();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (side, side))
+    }
+
+    #[test]
+    fn on_the_rift_the_pulse_turns_at_its_walls() {
+        // a wall block in the Rift's far half: columns 220-222 (x from 1202727), rows 200-239 (y 1090909-1309091)
+        let walls = rift_file(220..223, 200..240);
+        let g = rift_grid(Some(&walls));
+        assert_eq!((g.cell, g.origin, g.bounds), (walls.cell, walls.origin, None));
+        let face = walls.origin.0 + 220.0 * walls.cell;
+        let w = first_wall(&g, (face - 50_000.0, 1_200_000.0), (face + 10_000.0, 1_200_000.0)).expect("the Rift wall");
+        assert!(w.0 >= face - 1.0 && w.0 <= face + STEP + 1.0 && (w.1 - 1_200_000.0).abs() < 1.0, "{w:?}");
+        // past 960000 is open ground on the Rift; the game's own grid called it all wall (no pulse out there ever turned)
+        let (_, moba) = pick_grid(&[(480_000.0, 480_000.0), (50_000.0, 50_000.0), (900_000.0, 900_000.0)]);
+        assert!(moba.solid(1_100_000.0, 1_200_000.0) && !g.solid(1_100_000.0, 1_200_000.0));
+        assert_eq!(first_wall(&g, (1_050_000.0, 1_200_000.0), (1_150_000.0, 1_200_000.0)), None);
+        // none where only the game's own map had one: its right edge face (937500) and its wall at row 12, columns 7-9
+        assert!(first_wall(&moba, (900_000.0, 500_000.0), (1_000_000.0, 500_000.0)).is_some());
+        assert_eq!(first_wall(&g, (900_000.0, 500_000.0), (1_000_000.0, 500_000.0)), None);
+        assert!(first_wall(&moba, (200_000.0, 400_000.0), (340_000.0, 400_000.0)).is_some());
+        assert_eq!(first_wall(&g, (200_000.0, 400_000.0), (340_000.0, 400_000.0)), None);
+        // the grid's own border cells are walls (x below 30000/11 + 60000/11), off the grid too
+        assert!(g.solid(5_000.0, 800_000.0) && g.solid(1_000.0, 800_000.0) && g.solid(1_613_000.0, 800_000.0));
+    }
+
+    #[test]
+    fn without_the_walls_file_only_the_rifts_edge_turns_the_pulse() {
+        let side = Map::Rift.extent();
+        let g = rift_grid(None);
+        assert_eq!(g, Grid::open(side));
+        assert_eq!(first_wall(&g, (1_200_000.0, 1_200_000.0), (1_300_000.0, 1_200_000.0)), None);
+        assert_eq!(first_wall(&g, (20_000.0, 400_000.0), (120_000.0, 400_000.0)), None);
+        let w = first_wall(&g, (side - 20_000.0, 800_000.0), (side + 20_000.0, 800_000.0)).expect("the map's edge");
+        assert!(w.0 >= side && w.0 <= side + STEP + 1.0, "{w:?}");
+    }
+
+    #[test]
+    fn the_rift_takes_its_own_grid() {
+        let (name, g) = grid_of(Map::Rift, &[(1_500_000.0, 1_500_000.0)]);
+        assert_eq!(name, "Rift");
+        assert!(matches!(g, Cow::Borrowed(_)) && std::ptr::eq(&*g, &*RIFT_GRID), "converted once, not per pulse");
+        assert_eq!(*g, rift_grid(rift_ground()));
+        let (name, g) = grid_of(Map::Native, &[(480_000.0, 480_000.0), (50_000.0, 50_000.0), (900_000.0, 900_000.0)]);
+        assert_eq!((name, g.bounds, g.cell), ("Moba", Some(MOBA_BOUNDS), CELL));
     }
 }
