@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.354.0"
+    }
+  ],
+  "description": "Nami's Tidecaller's Blessing as in League (needs League of Legends Heroes): the main pack's blessing gives the healed ally 15% attack and ability power for 4 s and slows the enemies her stream hits, because data cannot read another champion's hits; with this add-on the blessed ally's (or her own) next 3 attacks or abilities within 6 s each deal 50 + 20% of Nami's ability power bonus magic damage and slow 25% for 1 s, and the stream itself no longer slows. Everything else stays the main pack's. Writes a log for testing.",
+  "last_updated": "2026-11-14",
+  "mod_id": "league_nami",
+  "mod_type": "native",
+  "name": "League Heroes: Nami's Tidecaller's Blessing on the next hits",
+  "version": "0.1.0"
+}
