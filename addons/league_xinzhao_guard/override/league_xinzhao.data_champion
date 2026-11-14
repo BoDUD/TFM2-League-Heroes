@@ -1107,7 +1107,7 @@
   },
   "skill": {
     "action_name": "skill",
-    "description": "#asset/base/text/champion?description.league_xinzhao.skill",
+    "description": "#asset/base/text/champion?description.league_xinzhao_guard.skill",
     "duration": 18,
     "cooltime": 540,
     "start_timing": 1,
