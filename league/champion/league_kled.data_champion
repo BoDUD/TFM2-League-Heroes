@@ -5231,6 +5231,19 @@
                 ]
               },
               {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_kled_r_cc",
+                  "duration": {
+                    "Time": {
+                      "tick": 56
+                    }
+                  },
+                  "cc_immune": true
+                },
+                "only_to_enemy": false
+              },
+              {
                 "type": "CasterAnimation",
                 "name": "ult",
                 "tick": 40
@@ -5310,6 +5323,10 @@
                               "speed": 3000,
                               "range": 130000,
                               "end_effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kled_r_cc"
+                                },
                                 {
                                   "type": "TargetProjectile",
                                   "name": "league_kled_r_ram",

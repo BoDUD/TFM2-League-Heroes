@@ -71,7 +71,7 @@ TEXT = {
                  phys("q2_dmg", "q2_ratio") + "并" + cc("拽过来") + "。下马时是" + n("随身手枪") + "：" + phys("p_dmg", "p_ratio") +
                  "，自己往后跳。",
         "skill2": "斯嘎尔冲过目标造成" + phys("e_dmg", "e_ratio") + "物理伤害，加速{e_ms}%；穿过英雄还会再冲回来一次。",
-        "ult": "带护盾（" + sh("r_sh", "r_sh_ad") + "）冲向敌方英雄，撞上造成" + phys("r_dmg", "r_ratio") + "+最大生命{r_pct}%并" +
+        "ult": "带护盾（" + sh("r_sh", "r_sh_ad") + "）冲向敌方英雄，冲锋中" + cc("免控") + "，撞上造成" + phys("r_dmg", "r_ratio") + "+最大生命{r_pct}%并" +
                cc("击退") + "；身边队友加速{r_ms}%。",
         "names": ("飞索捕熊器", "比武", "冲啊——！！"),
     },
@@ -84,7 +84,7 @@ TEXT = {
                  phys("q2_dmg", "q2_ratio") + "並" + cc("拉過來") + "。下馬時是" + n("隨身手槍") + "：" + phys("p_dmg", "p_ratio") +
                  "，自己往後跳。",
         "skill2": "小嘎衝過目標造成" + phys("e_dmg", "e_ratio") + "物理傷害，加速{e_ms}%；穿過英雄還會再衝回來一次。",
-        "ult": "帶護盾（" + sh("r_sh", "r_sh_ad") + "）衝向敵方英雄，撞上造成" + phys("r_dmg", "r_ratio") + "+最大生命{r_pct}%並" +
+        "ult": "帶護盾（" + sh("r_sh", "r_sh_ad") + "）衝向敵方英雄，衝鋒中" + cc("免控") + "，撞上造成" + phys("r_dmg", "r_ratio") + "+最大生命{r_pct}%並" +
                cc("擊退") + "；身邊隊友加速{r_ms}%。",
         "names": ("飛射夾夾", "比武角逐", "衝啊！！！"),
     },
@@ -100,7 +100,7 @@ TEXT = {
                  ", knocking him back.",
         "skill2": "Skaarl dashes through the target for " + phys("e_dmg", "e_ratio") + " physical damage and +{e_ms}% speed; "
                   "through a champion he dashes back once more.",
-        "ult": "Charges an enemy champion with a shield (" + sh("r_sh", "r_sh_ad") + "): the ram deals " +
+        "ult": "Charges an enemy champion with a shield (" + sh("r_sh", "r_sh_ad") + "), " + cc("immune to crowd control") + ": the ram deals " +
                phys("r_dmg", "r_ratio") + " + {r_pct}% max health and " + cc("knocks it back") + "; allies near him "
                "+{r_ms}% speed.",
         "names": ("Bear Trap on a Rope", "Jousting", "Chaaaaaaaarge!!!"),
@@ -115,7 +115,7 @@ TEXT = {
                  phys("p_dmg", "p_ratio") + ", 뒤로 밀려남.",
         "skill2": "스칼이 대상을 관통 돌진해 " + phys("e_dmg", "e_ratio") + " 물리 피해, 이동 속도 +{e_ms}%; 챔피언을 지나면 "
                   "한 번 더 돌진.",
-        "ult": "보호막(" + sh("r_sh", "r_sh_ad") + ")을 두르고 적 챔피언에게 돌격, 부딪히면 " + phys("r_dmg", "r_ratio") +
+        "ult": "보호막(" + sh("r_sh", "r_sh_ad") + ")을 두르고 적 챔피언에게 돌격(" + cc("군중 제어 면역") + "), 부딪히면 " + phys("r_dmg", "r_ratio") +
                " + 최대 체력 {r_pct}%와 " + cc("넉백") + "; 주변 아군 이동 속도 +{r_ms}%.",
         "names": ("덫날리기", "이랴!", "돌겨어어억!!!"),
     },
@@ -129,7 +129,7 @@ TEXT = {
                  n("ポケットピストル") + "：" + phys("p_dmg", "p_ratio") + "、自分は後ろへ跳ぶ。",
         "skill2": "スカールが対象を貫いて突進し" + phys("e_dmg", "e_ratio") + "の物理ダメージ、移動速度+{e_ms}%；チャンピオンを"
                   "貫くともう一度突進。",
-        "ult": "シールド（" + sh("r_sh", "r_sh_ad") + "）を張って敵チャンピオンへ突撃、衝突で" + phys("r_dmg", "r_ratio") +
+        "ult": "シールド（" + sh("r_sh", "r_sh_ad") + "）を張って敵チャンピオンへ突撃（" + cc("行動妨害無効") + "）、衝突で" + phys("r_dmg", "r_ratio") +
                "+最大体力{r_pct}%と" + cc("ノックバック") + "；周囲の味方の移動速度+{r_ms}%。",
         "names": ("トラバサミロープ", "ジャウスト", "チャァァァァァァァジ！！！"),
     },

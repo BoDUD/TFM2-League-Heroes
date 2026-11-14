@@ -32,7 +32,9 @@ nothing (a 3-tick idle). Flags die with him: every life starts mounted with Q an
   ult     R Chaaaaaaaarge!!! (冲啊——！！), mounted only, `Targeting` on `EnemyChampion` within r_range: a shield
           (r_sh + r_sh_ad% AD, r_sh_t ticks), allies round him r_ms% faster for r_ms_t, and Skaarl charges at the
           champion (`MoveToTarget` r_speed): the ram r_dmg + r_ratio% AD + r_pct% of its maximum health, knocked back
-          (r_kb x r_kb_t), allies round the ram faster too.
+          (r_kb x r_kb_t), allies round the ram faster too. From the cast to the ram he is immune to crowd control
+          (`r_cc`, cc_immune for r_cc ticks - the longest charge - taken off at the ram; League: "immune to crowd
+          control" while charging; a stun used to stop the charge and lose the ram).
   combos  Q yank -> E at once (飞索接比武: the controller dashes at the yanked champion when E is ready). E through a
           champion -> E again (League's recast) and its second pass -> Violent Tendencies ready (`w_cd` off). R's ram
           -> Q ready and thrown at the champion (`q_go`). Remount -> Violent Tendencies ready.
@@ -100,6 +102,9 @@ P = {
     "r_cd": 5400, "r_range": 90000, "r_dur": 40, "r_go": 12, "r_speed": 3000, "r_sh": 150, "r_sh_ad": 150,
     "r_sh_t": 240, "r_dmg": 110, "r_ratio": 60, "r_pct": 8, "r_kb": 1500, "r_kb_t": 6, "r_ally": 40000, "r_ms": 40,
     "r_ms_t": 120, "r_wait": 600,
+    # League (V26.22): the charge is "immune to crowd control" (the user's 「全改吧」, 2026-11-14; before: a stun stopped
+    # it). r_cc covers the longest charge: r_go + (r_range + 40000) / r_speed = 12 + 44 ticks; the ram takes it off
+    "r_cc": 56,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     "native": 0,
@@ -347,11 +352,12 @@ def build(p):
                                             view("r_hit"), tsfx("r_hit"),
                                             sw("own", on_me(*rm("q_cd"), refresh("q_go", 30)))])
     rally = around(p["r_ally"], "AllyChampion", haste("r_ms", p["r_ms_t"], p["r_ms"]))
-    charge = combine(on_me(shield(p["r_sh"], p["r_sh_ad"], p["r_sh_t"])), rally, anim("ult", p["r_dur"]), sfx("r"),
-                     voice("vo_r", p),
+    # unstoppable from the cast to the ram (League's charge is immune to crowd control)
+    charge = combine(on_me(shield(p["r_sh"], p["r_sh_ad"], p["r_sh_t"])), rally, flag("r_cc", p["r_cc"], cc_immune=True),
+                     anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_go"] - 1, alive(cview("r_trail"), {
                          "type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 40000,
-                         "end_effects": [ram, rally, cview("r_crash"), sfx("r_crash")]})))
+                         "end_effects": [*rm("r_cc"), ram, rally, cview("r_crash"), sfx("r_crash")]})))
     # on foot R waits: the empty cast's cooldown capped at r_wait ticks (league_gnar's), ready again soon after he
     # remounts
     wait_mult = -(-p["r_cd"] * 100 // p["r_wait"]) - 100
