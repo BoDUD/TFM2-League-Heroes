@@ -3,6 +3,9 @@
 //! （「尸体」留不留、单位是不是要到下一 tick 才读得到、有没有这个槽、给不给单位，都可以调），排队的效果到点触发，buff 和
 //! 控制按 tick 过期，伤害按「受到的伤害提高」算。这是我们对引擎的**猜想**，只用来检查自己这一边的逻辑（什么时候爆炸、
 //! 爆炸几次、标记在不在、日志有没有），不说明游戏里单位真的这样动。
+//!
+//! 2026-11-14（妮蔻的 W）：`entity_set_invisible`（隐身的单位，生成的单位不去追它）、`distance_sq`，和游戏 0.7.2 预模拟日志里
+//! 看到的「新单位头两拍的最大生命、属性读成 1，那时设的生命会被盖掉」（`World::settle`，默认 0：和以前一样）。
 
 #![allow(dead_code)] // each test crate uses its own part of it
 
@@ -40,6 +43,10 @@ pub struct MUnit {
     pub from: usize,
     /// Ticks it is banished for (untargetable, unseen, doing nothing).
     pub banished: usize,
+    /// Ticks it is unseen for (`entity_set_invisible`): the spawned units do not go for it.
+    pub invisible: usize,
+    /// A spawned unit reads unsettled before this tick (`World::settle`).
+    pub settles: usize,
 }
 
 pub fn champion(name: &str, team: usize, x: f64, y: f64) -> MUnit {
@@ -63,6 +70,8 @@ pub fn champion(name: &str, team: usize, x: f64, y: f64) -> MUnit {
         died: None,
         from: 0,
         banished: 0,
+        invisible: 0,
+        settles: 0,
     }
 }
 
@@ -123,6 +132,12 @@ pub struct World {
     /// `entity_set_pos` calls (tick, entity, where) and `entity_banish` calls (tick, caster, target, ticks).
     pub moves: Vec<(usize, usize, (u64, u64))>,
     pub banishes: Vec<(usize, usize, usize, usize)>,
+    /// `entity_set_invisible` calls (tick, entity, ticks).
+    pub invisibles: Vec<(usize, usize, usize)>,
+    /// Ticks a spawned unit reads unsettled from its spawn: max health 1 and every stat 1, and a health set in them is
+    /// lost when it settles (game 0.7.2's presims, 2026-11-14: read on its spawn tick and the next as `hp 1851/1 attack
+    /// 1 def 1 mr 1 speed 1`, its health set to 1 then back at 1851/1851 a tick later). 0: settled at once.
+    pub settle: usize,
 }
 
 impl Default for World {
@@ -130,7 +145,7 @@ impl Default for World {
         World { tick: 1000, units: vec![], players: vec![], queue: vec![], views: vec![], sounds: vec![], damage: vec![],
                 fears: vec![], spawns: vec![], kill_log: 0, has_spawn: true, spawn_ok: true, spawn_late: false, spawn_never: false, queue_ok: true,
                 body_ticks: 0, spawn_kind: EntityKindV1::Summon, origin: SimOriginKindV1::ClientMatchView, spawn_left: None,
-                moves: vec![], banishes: vec![] }
+                moves: vec![], banishes: vec![], invisibles: vec![], settle: 0 }
     }
 }
 
@@ -203,14 +218,21 @@ unsafe extern "C" fn pos(s: *const c_void, h: EntityHandleV1, x: *mut u64, y: *m
     (*x, *y) = (e.x.round().max(0.0) as u64, e.y.round().max(0.0) as u64);
     true
 }
+// a spawned unit not settled yet (`World::settle`) reads max health 1 and every stat 1
 unsafe extern "C" fn hp(s: *const c_void, h: EntityHandleV1, now: *mut usize, max: *mut usize) -> bool {
+    let tick = w(s).tick;
     let Some(e) = u(s, h) else { return false };
-    (*now, *max) = (e.hp, e.max);
+    (*now, *max) = (e.hp, if tick < e.settles { 1 } else { e.max });
     true
 }
 unsafe extern "C" fn stat(s: *const c_void, h: EntityHandleV1, out: *mut StatV1) -> bool {
+    let tick = w(s).tick;
     let Some(e) = u(s, h) else { return false };
-    *out = e.stat;
+    *out = if tick < e.settles {
+        StatV1 { attack: 1, magic_power: 1, hp: 1, defence: 1, magic_resistance: 1, move_speed: 1, ..Default::default() }
+    } else {
+        e.stat
+    };
     true
 }
 unsafe extern "C" fn buff_count(s: *const c_void, h: EntityHandleV1) -> usize {
@@ -305,6 +327,7 @@ unsafe extern "C" fn spawn_unit(s: *mut c_void, n: *const u8, len: usize, summon
     world.spawns.push(call);
     let mut e = unit(text(n, len), world.spawn_kind, team, x as f64, y as f64, (*stat).hp);
     (e.stat, e.summoner, e.until, e.attack) = (*stat, Some(summoner), world.tick + life as usize, Some(*attack));
+    e.settles = world.tick + world.settle;
     if world.spawn_never {
         e.valid = false;
     } else if world.spawn_late {
@@ -332,6 +355,22 @@ unsafe extern "C" fn banish(s: *mut c_void, caster: usize, h: EntityHandleV1, ti
     e.banished = ticks;
     world.banishes.push((tick, caster, id, ticks));
     true
+}
+unsafe extern "C" fn set_invisible(s: *mut c_void, h: EntityHandleV1, ticks: usize) -> bool {
+    let world = w(s);
+    let tick = world.tick;
+    let Some(id) = h.id() else { return false };
+    let Some(e) = world.units.get_mut(id).filter(|e| e.valid) else { return false };
+    e.invisible = ticks;
+    world.invisibles.push((tick, id, ticks));
+    true
+}
+unsafe extern "C" fn distance_sq(s: *const c_void, a: usize, b: usize) -> u64 {
+    let world = w(s);
+    match (world.units.get(a).filter(|e| e.valid), world.units.get(b).filter(|e| e.valid)) {
+        (Some(p), Some(q)) => ((p.x - q.x).powi(2) + (p.y - q.y).powi(2)) as u64,
+        _ => u64::MAX,
+    }
 }
 unsafe extern "C" fn champion_count(s: *const c_void) -> usize {
     w(s).units.iter().filter(|e| e.kind == EntityKindV1::Champion).count()
@@ -416,6 +455,8 @@ fn vtable(world: &World) -> SimVtableV1 {
     vt.spawn_unit = if world.has_spawn { Some(spawn_unit) } else { None };
     vt.entity_set_pos = Some(set_pos);
     vt.entity_banish = Some(banish);
+    vt.entity_set_invisible = Some(set_invisible);
+    vt.distance_sq = Some(distance_sq);
     vt.champion_count = Some(champion_count);
     vt.champion_id_at = Some(champion_id_at);
     vt.player_count = Some(player_count);
@@ -499,7 +540,7 @@ impl World {
             }
             let foe = self.units.iter().enumerate()
                 .filter(|(_, o)| o.valid && o.died.is_none() && o.hp > 0 && o.team != me.team && o.kind != EntityKindV1::Tower
-                                 && o.banished == 0)
+                                 && o.banished == 0 && o.invisible == 0)
                 .map(|(k, o)| (k, far((o.x, o.y), (me.x, me.y))))
                 .min_by(|a, b| a.1.total_cmp(&b.1));
             let Some((k, d)) = foe else { continue };
@@ -529,7 +570,12 @@ impl World {
             e.ccs.iter_mut().for_each(|c| c.1 = c.1.saturating_sub(1));
             e.ccs.retain(|c| c.1 > 0);
             e.banished = e.banished.saturating_sub(1);
+            e.invisible = e.invisible.saturating_sub(1);
             if e.summoner.is_some() {
+                // settling: what was set in its first ticks is overwritten by its own numbers
+                if e.settles == tick + 1 && e.died.is_none() {
+                    e.hp = e.stat.hp.min(e.max);
+                }
                 if !e.valid && e.died.is_none() && e.from != 0 && tick + 1 >= e.from {
                     e.valid = true;
                 }
