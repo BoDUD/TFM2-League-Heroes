@@ -1,0 +1,8 @@
+{
+  "league_darius": {"outline": [[10, 1, 13], [15, 3, 19]], "hd": {"band": 4, "deep": 5, "median": 3.0, "keep": 2}, "lo": {"band": 4, "deep": 5, "median": 3.0, "keep": 2}},
+  "league_fizz": {"outline": [[16, 15, 31]], "hd": {"band": 5, "deep": 6, "median": 4.0, "keep": 2}, "lo": {"band": 5, "deep": 6, "median": 4.0, "keep": 2}},
+  "league_garen": {"outline": [[16, 12, 24], [11, 11, 24], [22, 12, 13]], "hd": {"band": 3, "deep": 4, "median": 2.0, "keep": 2}, "lo": {"band": 2, "deep": 3, "median": 2.0, "keep": 2}},
+  "league_khazix": {"outline": [[11, 6, 19]], "hd": {"band": 5, "deep": 6, "median": 4.0, "keep": 2}, "lo": {"band": 4, "deep": 5, "median": 3.0, "keep": 2}},
+  "league_orianna": {"outline": [[8, 2, 16], [9, 3, 15]], "hd": {"band": 2, "deep": 3, "median": 2.0, "keep": 2}, "lo": {"band": 3, "deep": 4, "median": 2.0, "keep": 2}},
+  "league_warwick": {"outline": [[9, 1, 11]], "hd": {"band": 5, "deep": 6, "median": 4.0, "keep": 1}, "lo": {"band": 5, "deep": 6, "median": 4.0, "keep": 2}}
+}
