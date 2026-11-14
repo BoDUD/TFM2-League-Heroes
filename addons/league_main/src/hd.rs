@@ -203,6 +203,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the standing poses' legs drawn again at the design's chibi length) at the user's 1.5 squares a game pixel (60 game
     // rows mushroom to soles: 「艾翁蘑菇顶到脚底 40 游戏像素 … PPU 1.5，只做四分之三侧面」), so no SIZES row
     ("league_ivern", 1.5, include_str!("../../../league/champions/league_ivern#anim.fanim")),
+    // Daisy as a unit of her own (league_ivern 0.2.0 spawns `league_ivern_daisy`, 2026-11-14 summons round 2; the user:
+    // 「召唤物的全做啊」): her unit sheet carries hd_ twins at the PPU her effect pictures are drawn at, so the unit is as
+    // sharp as the riding pictures were (without this row: 1x, the same size, coarser). A unit, not a hero: no .data_champion
+    ("league_ivern_daisy", 1.333, include_str!("../../../league/champions/league_ivern_daisy#anim.fanim")),
     // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
