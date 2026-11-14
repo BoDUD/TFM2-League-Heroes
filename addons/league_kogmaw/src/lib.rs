@@ -19,7 +19,8 @@
 //!   [`GUARD`]（受到的伤害 -100%、不死、穿墙），之后每 tick 找最近的敌方英雄（活着、选得中），朝它挪 [`P_SPEED`]
 //!   （`entity_set_pos`，主包彗星的速度），挂 1 tick 的 [`GO`]（显示钩子见它就画跑），清掉身上的控制、嘲讽到那个英雄（让引擎
 //!   自己的单位 AI 也朝它，画面朝向跟着走）。离那个英雄中心不到 [`P_R`] + 它的半径（主包溅射的判定）就爆炸；[`FORM_T`]
-//!   （英雄联盟的 4 秒）到了也爆炸。
+//!   （英雄联盟的 4 秒）到了也爆炸。宿主不让挪单位（`entity_set_pos` 不收）时把它的移速换成 [`P_SPEED`]
+//!   （`entity_set_base_stat`），由引擎自己朝嘲讽的那个英雄走（`VOID WALK`）。
 //! - **爆炸**：[`P_R`] + 半径内每个敌人（不含防御塔、水晶、虚空形态）受到 [`P_DMG`] + [`P_RATIO`]% 他死前攻击力的真实伤害
 //!   （主包溅射的数），先以他的名义（他的旧实体号），宿主不收再以形态的名义；爆炸画面 `p_void` 比旧的 `p_boom` 大得多、亮得多
 //!   （`tools/art/fx_kogmaw_burst.py`），每个挨炸的人身上 `p_hit`，`p_boom` 的声音。形态随后放逐到时间结束（API 没有让单位
@@ -467,6 +468,10 @@ pub struct Form {
     pub walked: f64,
     pub relaid: usize,
     pub summoner: usize,
+    /// Its stat block as spawned; `engine_walks`: the host refused `entity_set_pos`, so its move speed became P_SPEED and
+    /// the engine walks it at the champion it is taunted at.
+    pub stat: StatV1,
+    pub engine_walks: bool,
 }
 
 static FORMS: LazyLock<Mutex<HashMap<u64, (u64, Vec<Form>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
@@ -763,7 +768,7 @@ fn wake(sim: &mut StableSim<'_>, kog: usize, input: InputTargetV1) {
     sim.add_buff(id, &guard(spec.life + 5));
     let fnum = FORM_N.fetch_add(1, Ordering::Relaxed) + 1;
     add_form(n, Form { id, n: fnum, kog, team: life.team, born: now, life: spec.life, wake: at, ad: life.ad, field, looks: 0,
-                       walking: false, at: spot, walked: 0.0, relaid: 0, summoner });
+                       walking: false, at: spot, walked: 0.0, relaid: 0, summoner, stat: spec.stat, engine_walks: false });
     if let Some(k) = tally(sim, "spawn void") {
         wlog(format!(
             "{} VOID SPAWN #{k}: form {fnum} of Kog'Maw #{kog} ({state}, team {}) woke at {}: unit #{id} (summoner #{summoner}{}) {}; his \
@@ -873,6 +878,9 @@ fn step(sim: &mut StableSim<'_>, f: &mut Form) -> bool {
         burst(sim, f, Why::Gone);
         return false;
     };
+    if f.engine_walks {
+        f.walked += dist(f.at, at);
+    }
     f.at = at;
     if !guarded {
         f.relaid += 1;
@@ -905,10 +913,19 @@ fn step(sim: &mut StableSim<'_>, f: &mut Form) -> bool {
     };
     let (to, moved) = step_toward(f.at, tp, P_SPEED as f64);
     let to = summon::inside(f.field, to);
-    let moved_to = sim.entity_set_pos(f.id, to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64);
+    let moved_to = !f.engine_walks && sim.entity_set_pos(f.id, to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64);
     if moved_to {
         f.walked += moved;
         f.at = to;
+    } else if !f.engine_walks {
+        // a host that will not move a unit: its own pace, and the engine walks it at the champion it is taunted at below
+        let stat = StatV1 { move_speed: P_SPEED, ..f.stat };
+        f.engine_walks = sim.entity_set_base_stat(f.id, &stat);
+        if let Some(k) = tally(sim, "walk") {
+            wlog(format!("{} VOID WALK #{k} form {}: entity_set_pos REFUSED - {}", head(sim, f.id), f.n,
+                         if f.engine_walks { format!("its move speed is {P_SPEED} now: the engine walks it, taunted at {name}#{t}") }
+                         else { "entity_set_base_stat refused too: it stands until its burst".to_string() }));
+        }
     }
     // walking: the flag for the display hook; the engine's own unit AI turned at the same champion
     let go = BuffV1::timed(GO, 2);
@@ -925,7 +942,8 @@ fn step(sim: &mut StableSim<'_>, f: &mut Form) -> bool {
         if let Some(k) = tally(sim, "step") {
             wlog(format!("{} VOID STEP #{k} form {}: {age} of {FORM_T} ticks at {}, {:.0} from where he fell (walked {:.0}); chasing \
                           {name}#{t} {d:.0} away (it bursts within {:.0}){}", head(sim, f.id), f.n, summon::pt(f.at),
-                         dist(f.at, f.wake), f.walked, reach(r), if moved_to { "" } else { " - entity_set_pos REFUSED" }));
+                         dist(f.at, f.wake), f.walked, reach(r),
+                         if moved_to { "" } else if f.engine_walks { " (the engine walks it)" } else { " - entity_set_pos REFUSED" }));
         }
     }
     if d <= reach(r) {

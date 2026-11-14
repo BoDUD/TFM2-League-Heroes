@@ -474,3 +474,52 @@ fn a_fallen_body_that_still_reads_is_not_trusted_for_his_attack() {
     until_burst(&mut w, id, 100).expect("no burst");
     assert_eq!(true_damage(&w, GAREN).iter().map(|d| d.2).collect::<Vec<_>>(), vec![186], "his noted 106, not the body's 0");
 }
+
+/// The mock's own slot table but for `entity_set_pos` (refused: the slot is gone) and an `entity_set_base_stat` that takes
+/// the unit's new stat block - a host that will not teleport a unit.
+unsafe extern "C" fn take_base_stat(s: *mut std::ffi::c_void, h: EntityHandleV1, stat: *const StatV1) -> bool {
+    let w = &mut *(s as *mut World);
+    match h.id().and_then(|i| w.units.get_mut(i)) {
+        Some(u) if u.valid => {
+            u.stat = *stat;
+            true
+        }
+        _ => false,
+    }
+}
+
+fn tick_without_set_pos(w: &mut World) {
+    w.ctx(|ctx| unsafe {
+        let mut vt: SimVtableV1 = std::ptr::read((*ctx).sim);
+        vt.entity_set_pos = None;
+        vt.entity_set_base_stat = Some(take_base_stat);
+        let mut c2 = SimCtxV1 { size: std::mem::size_of::<SimCtxV1>(), sim: &vt, frame: std::ptr::null(), state: (*ctx).state };
+        let mut sim = StableSim::from_raw(&mut c2).expect("a simulation context");
+        step_forms(&mut sim);
+    });
+    w.step();
+}
+
+#[test]
+fn a_host_that_will_not_teleport_a_unit_lets_the_engine_walk_it() {
+    let mut w = world();
+    live(&mut w, KOG, 5);
+    fall(&mut w, KOG);
+    let t0 = w.tick;
+    wake_at(&mut w, KOG, (300_000.0, 300_000.0));
+    let id = forms(&w)[0];
+    for _ in 0..80 {
+        if w.banishes.iter().any(|b| b.2 == id) {
+            break;
+        }
+        tick_without_set_pos(&mut w);
+    }
+    assert_eq!(w.units[id].stat.move_speed, P_SPEED, "its pace given to the engine");
+    assert!(w.moves.iter().all(|m| m.1 != id), "never teleported");
+    let at = w.banishes.iter().find(|b| b.2 == id).expect("no burst").0;
+    // the mock's engine walks it at the nearest foe (Garen) 1000 a tick from the look on: the same 38 paces
+    assert!((t0 + 36..=t0 + 40).contains(&at), "burst {} ticks after the wake", at - t0);
+    assert_eq!(true_damage(&w, GAREN).iter().map(|d| d.2).collect::<Vec<_>>(), vec![186]);
+    let text = std::fs::read_to_string(log_file()).expect("the log");
+    assert!(text.contains(&format!("#{id} VOID WALK #")) && text.contains("the engine walks it"), "no VOID WALK line");
+}
