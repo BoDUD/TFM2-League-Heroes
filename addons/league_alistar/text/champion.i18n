@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_alistar_addon": {
+        "attack": "【附加包】用双拳重击。被动<#ff9028ff>凯旋怒吼<>：控制命中敌方英雄、身边的敌方小兵或野怪阵亡各得<#ffb900ff>1层<>，身边的敌方英雄或史诗野怪阵亡得<#ffb900ff>7层<>，满<#ffb900ff>7层<>后怒吼，回复自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周围友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_alistar_addon": {
+        "attack": "【附加包】用雙拳重擊。被動<#ff9028ff>勝利怒吼<>：控制命中敵方英雄、身邊的敵方小兵或野怪陣亡各得<#ffb900ff>1層<>，身邊的敵方英雄或史詩野怪陣亡得<#ffb900ff>7層<>，滿<#ffb900ff>7層<>後怒吼，回復自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周圍友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_alistar_addon": {
+        "attack": "[Add-on] Pounds with both fists. Passive <#ff9028ff>Triumphant Roar<>: each enemy champion his crowd control lands on and each enemy minion or monster dying near him gives <#ffb900ff>1 stack<>, an enemy champion or epic monster dying near him <#ffb900ff>7<>; at <#ffb900ff>7<> he roars, healing himself <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<> and allied champions nearby <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_alistar_addon": {
+        "attack": "[애드온] 두 주먹으로 내리칩니다. 기본 지속 효과 <#ff9028ff>승리의 포효<>: 적 챔피언에게 군중 제어를 적중시키거나 근처의 적 미니언·몬스터가 죽으면 <#ffb900ff>1중첩<>, 근처의 적 챔피언·에픽 몬스터가 죽으면 <#ffb900ff>7중첩<>, <#ffb900ff>7중첩<>에 포효해 자신은 <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>, 주변 아군 챔피언은 <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>의 체력을 회복합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_alistar_addon": {
+        "attack": "【アドオン】両拳で殴りつける。パッシブ <#ff9028ff>戦士の咆哮<>：行動妨害を敵チャンピオンに当てるか近くの敵ミニオン・モンスターが倒れると<#ffb900ff>1スタック<>、近くの敵チャンピオン・エピックモンスターが倒れると<#ffb900ff>7スタック<>、<#ffb900ff>7スタック<>で咆哮し、自身は<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周囲の味方チャンピオンは<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>回復。"
+      }
+    }
+  }
+}

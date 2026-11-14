@@ -400,7 +400,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
-| <img src="docs/heroes/img/league_alistar.png" width="32"> | [阿利斯塔](docs/heroes/league_alistar.md)<br>Alistar | 辅助 | 被动 凯旋怒吼 · 大地粉碎 · 野蛮冲撞 · 大招 坚定意志 | — | PPU 1.73 |
+| <img src="docs/heroes/img/league_alistar.png" width="32"> | [阿利斯塔](docs/heroes/league_alistar.md)<br>Alistar | 辅助 | 被动 凯旋怒吼 · 大地粉碎 · 野蛮冲撞 · 大招 坚定意志 | [阿利斯塔附加包](addons/league_alistar/README.md) | PPU 1.73 |
 | <img src="docs/heroes/img/league_bard.png" width="32"> | [巴德](docs/heroes/league_bard.md)<br>Bard | 辅助 | 被动 旅者的召唤 · 星界束缚 · 游神圣坛 / 神奇旅程 · 大招 调和命运 | [巴德「神奇旅程」穿墙门附加包](addons/league_bard/README.md) | — |
 | <img src="docs/heroes/img/league_blitzcrank.png" width="32"> | [布里茨](docs/heroes/league_blitzcrank.md)<br>Blitzcrank | 辅助 | 被动 法力屏障 · 机械飞爪 · 能量铁拳 · 大招 静电力场 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 1.79 |
 | <img src="docs/heroes/img/league_braum.png" width="32"> | [布隆](docs/heroes/league_braum.md)<br>Braum | 辅助 | 寒冬之咬 · 坚不可摧 · 大招 冰川裂隙 | 布隆附加包 | PPU 1.98 |
