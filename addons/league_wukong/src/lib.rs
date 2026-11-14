@@ -390,13 +390,15 @@ impl StableEffectType for CloneMark {
 
 // ===================== 被动：金刚不坏 =====================
 
-/// A handed-over unit not yet read as one: its id, the cast's tick, looks so far, the drawn clone to fall back on.
+/// A handed-over unit not yet read as a settled one: its id, the cast's tick, looks so far, the drawn clone to fall back
+/// on, the tick its handoff was taken.
 #[derive(Clone, Copy, Debug)]
 struct Fresh {
     id: usize,
     cast: usize,
     tries: usize,
     back: Option<Decoy>,
+    seen: usize,
 }
 
 /// His clone as a unit, as the passive keeps it.
@@ -500,7 +502,7 @@ impl StoneSkin {
                                      head(sim, me), old.unit.n, old.unit.id));
                     }
                 }
-                self.fresh = Some(Fresh { id, cast: spot.map_or(sim.tick(), |s| s.1), tries: 0, back: decoy });
+                self.fresh = Some(Fresh { id, cast: spot.map_or(sim.tick(), |s| s.1), tries: 0, back: decoy, seen: sim.tick() });
             }
             None => {
                 if let Some(d) = decoy {
@@ -583,8 +585,15 @@ impl StoneSkin {
             return;
         };
         if let Some(f) = self.fresh {
+            // a new unit reads max health 1 and every stat 1 on its spawn tick and the next, and a health set then is
+            // lost (game 0.7.2's presims: this clone asked for 1 health a tick after its spawn - its cap read 1 - and
+            // read 1851/1851 a tick later): looked at a tick after its handoff at the soonest, taken on once its health
+            // cap reads (league_neeko's W; summon.rs's Unit::settled)
+            if tick <= f.seen {
+                return;
+            }
             match summon::Unit::look(sim, f.id, self.units + 1, f.cast, W_LIFE, team, player) {
-                Ok((mut unit, line)) => {
+                Ok((mut unit, line)) if unit.settled() || f.tries + 1 >= LOOK_TRIES => {
                     self.fresh = None;
                     self.units += 1;
                     // League's clone has his current health: the cap is his, the health now set to his own
@@ -594,7 +603,8 @@ impl StoneSkin {
                         unit.health_set(hp_goal);
                     }
                     if let Some(k) = tally(sim, "unit look") {
-                        wlog(format!("{} UNIT #{} LOOK #{k}: {line}; health to his own {hp_goal}: {}", head(sim, me), self.units,
+                        wlog(format!("{} UNIT #{} LOOK #{k}: {line}{}; health to his own {hp_goal}: {}", head(sim, me), self.units,
+                                     unit.unsettled_note(f.tries + 1),
                                      if set { "set" } else if hp_goal >= had { "it has no more" } else { "entity_set_hp REFUSED" }));
                     }
                     self.live = Some(Live { unit, back: f.back, hp_goal, dressed: false, spinning: false, next_pulse: 0, first: false,
@@ -608,7 +618,7 @@ impl StoneSkin {
                                       - {then}", head(sim, me)));
                     }
                 }
-                Err(_) => self.fresh = Some(Fresh { tries: f.tries + 1, ..f }),
+                _ => self.fresh = Some(Fresh { tries: f.tries + 1, ..f }),
             }
             return;
         }
@@ -626,8 +636,12 @@ impl StoneSkin {
             }
             match live.unit.step(sim, Some(here)) {
                 summon::Step::Alive(line) => {
-                    if let (Some(line), Some(k)) = (line, tally(sim, "unit line")) {
-                        wlog(format!("{} UNIT #{n} #{k}: {line}", head(sim, me)));
+                    // counted only when there is a line (a count every tick let the presims' first 40 and every 200th
+                    // go by ticks, not lines: hardly a line a second got through)
+                    if let Some(line) = line {
+                        if let Some(k) = tally(sim, "unit line") {
+                            wlog(format!("{} UNIT #{n} #{k}: {line}", head(sim, me)));
+                        }
                     }
                     self.spin(sim, me, &mut live, spinning, attack, team);
                     self.live = Some(live);
@@ -1088,6 +1102,26 @@ mod tests {
             run(&mut w, &mut me, 300);
             assert!(me.decoy.is_none() && w.queue.is_empty(), "case {case}");
         }
+    }
+
+    #[test]
+    fn a_clone_that_reads_unsettled_at_first_gets_his_health_once_it_settles() {
+        // game 0.7.2's presims: the clone read hp 1851/1 a tick after its spawn, its health was set to 1 then (its cap
+        // read 1), and it read 1851/1851 a tick later (World::settle: its first two ticks read 1, a health set then lost)
+        let (mut w, mut me) = world();
+        w.settle = 2;
+        let t0 = cast_w(&mut w);
+        let clone = w.spawns[0].gave.unwrap();
+        run(&mut w, &mut me, 2);
+        assert!(me.live.is_none() && me.fresh.is_some(), "taken on before it settled");
+        run(&mut w, &mut me, 2);
+        assert!(me.live.as_ref().is_some_and(|l| l.unit.settled()));
+        assert_eq!((w.units[clone].hp, w.units[clone].max), (600, 1000), "not his health");
+        assert!(w.has(0, W_UNIT) && me.decoy.is_none());
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        assert!(text.lines().any(|l| l.contains(&format!("t={} #0 UNIT #", t0 + 2)) && l.contains(" LOOK #")
+                                && l.contains("hp 1000/1000 attack 100") && l.contains("health to his own 600: set")
+                                && !l.contains("still reads")), "no settled LOOK line at t={}", t0 + 2);
     }
 
     #[test]
