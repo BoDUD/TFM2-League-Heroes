@@ -49,7 +49,9 @@ AD = ADi + O + "100%" + E
 # face_to); the centre in her body (its middle column 43, half her 36 px); the ban/pick card by bp_card_audit.py's rule
 # (-39 less the idle's top -24.5, as Nomsy's: her wing bones 1 game px under the card's top)
 # center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
-VIEW = {"face": {"x": 17, "y": -16}, "center": {"x": -5, "y": -9}, "banpick_center": {"x": 0, "y": -14}}
+# center x 2 (was -5): the card's picture is 52 game px wide and she is 61 - the window shows her head, not her tail tip
+# (the user, 2026-11-15: 「泰拉和绯红印记树怪在游戏百科的位置不太对」); in battle hits land 7 px nearer her head
+VIEW = {"face": {"x": 17, "y": -16}, "center": {"x": 2, "y": -9}, "banpick_center": {"x": 0, "y": -14}}
 
 
 def phys(d, r, df):

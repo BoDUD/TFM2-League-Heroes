@@ -40,7 +40,8 @@
 
 2026-11-15：
 
-- **黑边变细**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「有些英雄黑边太粗了 都检查一下 发条那种就正常」「算了全改吧 不跳了」）：81 位英雄（联盟 73、云顶 8）的描边从里往外收到约 1 个游戏像素，轮廓和模型大小不变（[`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 检查）；俄洛伊的灵魂和克格莫的虚空形态也按变细后的帧重新生成。
+- **黑边统一到约 1 个游戏像素**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768) [#769](https://github.com/BoDUD/TFM2-League-Heroes/pull/769)，用户：「有些英雄黑边太粗了 都检查一下 发条那种就正常」「菲兹怎么头顶多了一块」「还有劫没有黑边 感觉过度高清了」）：80 位太粗的从外面削掉多出来的一圈，身体一格不动（#768 是把里面的描边涂成身体色，身体会变大，菲兹头顶就多了一块）；31 位太细或没有的往外补上（劫、金克丝、锤石……）（[`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 检查）。俄洛伊的灵魂、克格莫的虚空形态、亚托克斯大灭的悬空帧都按新帧重新生成。
+- **百科取景**（[#769](https://github.com/BoDUD/TFM2-League-Heroes/pull/769)，用户：「泰拉和绯红印记树怪在游戏百科的位置不太对」）：这两只比百科卡片的画面宽，改 center.x，让头和前爪那一侧露出来。
 - **阿克尚的眼睛**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「现在看起来和两个黑洞一样」）：PPU 1.2 → 1.61，眼白放回。
 - **克格莫死后的虚空形态**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「按英雄联盟改」）：新附加包 [league_kogmaw](addons/league_kogmaw/README.md)，死后身体化成虚空形态冲向最近的敌方英雄，碰到或 4 秒后爆炸。
 
@@ -179,7 +180,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 **美术和 PPU**
 
 - **重画的模型不能一帧大一帧小。** Codex 常把整个人画大来填满轮廓，也会只把头画大。每帧要量头，还要量一个硬部件（武器上的宝石、剑柄），按身体缩放，而不是只按头（瑟提、基兰、慎）。
-- **黑边在游戏里有多粗，按「格数 × 大小 / PPU」算。** Codex 画的描边落到细格子上本来就有两三格，`ppu_restyle.py` 的 `edge` 还会再加一圈；PPU 低的英雄就显得黑边粗（菲兹 4 格 / 1.81 = 2.2 个游戏像素，发条 2 格 / 2.25 = 0.89 才正常）。重跑流水线后要再跑 [`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 的 `--check` 会提醒（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)）。
+- **黑边在游戏里有多粗，按「格数 × 大小 / PPU」算。** Codex 画的描边落到细格子上本来就有两三格，`ppu_restyle.py` 的 `edge` 还会再加一圈；PPU 低的英雄就显得黑边粗（菲兹 4 格 / 1.81 = 2.2 个游戏像素，发条 2 格 / 2.25 = 0.89 才正常）。重跑流水线后要再跑 [`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 的 `--check` 会提醒（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)）。 收细要从外面削掉多出来的一圈，不能把里面的描边涂成身体色，那样身体会长进原来的描边里（菲兹头顶多一块，[#769](https://github.com/BoDUD/TFM2-League-Heroes/pull/769)）。从英雄帧派生的图（俄洛伊的灵魂、克格莫的虚空形态、亚托克斯的悬空帧）要跟着重跑，`illaoi_souls.py` 没有 `--check`，不会自己报过期。
 - **图像模型交回来的图要自己逐帧看。** 它自己的验收只和底稿比，照着底稿的 8×8 方块整块照抄也算通过，但这样放进游戏和原来一样，要退回重画。
 - **读回重画时，软边的细线和小点会被读粗。** 小圆点会读成十字，细斜线会读成两倍粗；所以读回只能落在原来的方块里，方块外面只补台阶的内角。
 - **皮肤的隐藏部件以 bin 里的 `initialSubmeshToHide` 为准。** 以前按名字猜，把卡尔萨斯、茂凯、塞恩的整个身体都藏了（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)，`tools/lol/hide_audit.py`）。
