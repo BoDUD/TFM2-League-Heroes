@@ -98,9 +98,10 @@ NATIVE_KEYS = ("t_r", "t_life", "t_per", "t_first", "r_per", "t_dmg", "t_ratio",
 
 
 def soul_ids():
-    """The champions league/effects/league_illaoi_souls holds (its tags), sorted."""
+    """The champions league/effects/league_illaoi_souls holds (its 1x tags), sorted - not the hd_ twins nor the idle /
+    hd_idle pair tools/art/fx_ppu_table.py reads (tools/art/illaoi_souls.py, 2026-11-14: the game draws hd_ by itself)."""
     with open(lp(os.path.join(REPO, "league", "effects", "league_illaoi_souls#anim.fanim")), encoding="utf-8-sig") as f:
-        return sorted(t for t in json.load(f)["anims"] if not t.endswith("_l"))
+        return sorted(t for t in json.load(f)["anims"] if not t.endswith("_l") and not t.startswith("hd_") and t != "idle")
 
 
 def lp(path):
