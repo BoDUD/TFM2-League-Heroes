@@ -104,8 +104,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // ground: 「44 ppu1.3 A」), so no SIZES row
     ("league_cassiopeia", 1.2, include_str!("../../../league/champions/league_cassiopeia#anim.fanim")),
     // Akshan: posed by tools/art/rig_akshan.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
-    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row
-    ("league_akshan", 1.2, include_str!("../../../league/champions/league_akshan#anim.fanim")),
+    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row;
+    // Codex's actions (rig_frames_1018.py, 1.61) brought to 1.2 on 2026-10-18, back to 1.61 as drawn on 2026-11-14 (「阿克尚
+    // 的眼睛也调清晰一点」「现在看起来和两个黑洞一样」: at 1.2 each eye's square and the brow over it were one dark block)
+    ("league_akshan", 1.61, include_str!("../../../league/champions/league_akshan#anim.fanim")),
     // Poppy: posed by tools/art/rig_poppy.py at the user's 1.3 squares a game pixel (36 game rows pigtails to soles, the
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」); 85 % (SIZES, the user: 「波比在游戏里体型也太大 需要缩小」 - 44 px
     // with the standing hammer against the yordles' 32-40), her frames lowered 2 squares by the restyle (RESTYLE poppy lift_sq)

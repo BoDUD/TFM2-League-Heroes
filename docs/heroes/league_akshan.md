@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | PPU 1.2 |
+| 高清帧 | PPU 1.61 |
 | 附加包 | [阿克尚扩展包](#附加包)（`league_akshan`） |
 
 ![阿克尚演示](../preview/league_akshan_showcase.gif)
@@ -101,6 +101,7 @@
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_akshan.py`](../../tools/lol/extract_akshan.py)，25 段）：两枪、回旋镖出手 / 接住、钩索 / 摆荡开枪 / 翻滚、伪装、大招蓄力 / 开火 / 打中、复活和得金，配音是他的台词（中文） |
 | 图标 | 官方技能图标（去而复还、骄行荡寇、恩怨相抵，另有无所不用和赴险夺人），从本地客户端取 |
 | 动作补帧（2026-11-14） | 用户：「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」。对照表里骄行荡寇（E）和恩怨相抵（R）各只有 2 帧 0.14 秒：那是钩索出手和举枪瞄准，技能数据只放 8 tick（133 毫秒），再多一帧就短于 50 毫秒，所以这两段照旧 2 帧 2 个姿势。紧跟着放的两段循环才是 E 和 R 看得最久的：E 荡过去的 1.4 秒一直循环 `e_swing`（2 张，各 115 毫秒），R 蓄力时循环 `ult_ch`（2 张，各 160 毫秒）。没有新画，也没交给 Codex：[`tools/art/inbetween.py`](../../tools/art/inbetween.py) 用这几张 Codex 原帧做中间帧——披风和外袍下摆按列整格摆（连着身子的那列不动，末梢 5 格，换到 PPU 1.2 约 4 格），每帧核对披风 / 下摆以外逐格不变（[`tools/art/rig_frames_1018.py`](../../tools/art/rig_frames_1018.py)，悟空用的部分一格没动）。下面写的是「几帧，其中几个不同的姿势」。**E 的摆荡** 2 帧（2 个姿势）→ 4 帧，其中 4 个：蜷身荡起；披风往下飘 5 格（往下一张那更低的披风去）；伸展开枪；披风往上扬 5 格（回到前一张）。每半段还是 115 毫秒。**R 的蓄力** 2 帧（2 个）→ 4 帧，其中 4 个：平举瞄准；外袍下摆扬起 5 格；举枪；下摆垂下 5 格；每张 80 毫秒，一圈还是 320 毫秒。钩索出手、举枪瞄准、翻滚、开火和其余动作逐帧没变，技能数据没改。每帧 3 倍看过。待机和选人卡片不剪这两段（`hero_reels.json` 不用改）。图集 2033×441 → 2026×441，选人格子用的那张不变（0.52 MiB）。游戏里还没看过 |
+| 眼睛清晰：PPU 1.2 → 1.61（2026-11-14） | 用户：「还有阿克尚的眼睛也调清晰一点」「现在看起来和两个黑洞一样」。10-18 起他的动作是 Codex 换皮的帧（[`tools/art/rig_frames_1018.py`](../../tools/art/rig_frames_1018.py)），本来就画在每游戏像素 1.61 格；当天和悟空一起降到 1.2（「……像素太高需要降低」），每只眼睛那一格被旁边眉毛、发际线的黑格投票吃掉，脸上只剩两块黑。照悟空 10-29 的办法（「你不如调高一点PPU」「用 1.53」，就是他自己画的密度）：[`ppu_restyle.py`](../../tools/art/ppu_restyle.py) 的 RESTYLE、[`ppu_hd.py`](../../tools/art/ppu_hd.py) 的 PPU、league.dll 的 `hd.rs` 都改成 1.61——原帧不再换到粗格子，只加一圈外描边。流水线重跑（rig_frames_1018 → ppu_restyle → ppu_hd → hero_reels）：42 个标签的帧数、时长全不变，1 倍帧逐格不变（待机原来为 1.2 两边各补的一列空白去掉了）；`e_swing` / `ult_ch` 的补帧照旧（披风、下摆按原帧摆 5 格，不再被粗格子变成 4 格）。大小：同一张画换细格子，外描边从 1.2 的一格（0.83 游戏像素）变成 1.61 的一格（0.62），轮廓宽、高平均小 0.7 游戏像素（每边 0.2–0.5）；脸和外袍前片的颜色块反而大 0.4–0.9（粗格子的描边原来吃掉了它们）；51 帧都一样，没有忽大忽小。头像点 (−1, −37) → (1, −35)：1.61 下眼睛那两格在中心上方 17.7 游戏像素、x 0.3 和 2.8，原来落在 9×9 头像框的第 7 行、远眼在最边上一列，现在第 4–5 行、居中（`champion_view`、RESTYLE 的 `face_to`、`setup_akshan.py` 的 VIEW）。图集 2026×441 → 2027×523；选人格子那张 0.52 → 0.82 MiB（全部 309.1 / 768 MiB），图鉴那张 0.19 → 0.18 MiB。游戏里还没看过 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -108,12 +109,10 @@
 python tools/lol/extract_akshan.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_akshan.py                 # 技能数据，数字都在脚本的参数表 P 里
 python tools/kit/setup_akshan.py                 # 五种语言的文字、音效配置、共享文件里他的键
-python tools/art/design_akshan_cut.py            # Codex 第 1 步的造型读回（PPU 1.5，A）
-python tools/art/design_akshan_poses.py          # Codex 画的平端枪姿势
-python tools/art/design_akshan_run.py            # Codex 换皮的走路
-python tools/art/rig_akshan.py                   # 1 倍帧和 1.5 的原帧
-python tools/art/ppu_restyle.py --hero akshan    # 外描边（不要加 --preview）
+python tools/art/rig_frames_1018.py akshan       # 10-18 起的动作（Codex 换皮的帧，hd/act）：1 倍帧和 1.61 的原帧
+python tools/art/ppu_restyle.py --hero akshan    # PPU 1.61 加一圈外描边、头像点（不要加 --preview）
 python tools/art/ppu_hd.py --hero akshan         # hd_ / lo_ 帧
+python tools/art/hero_reels.py --hero akshan     # 待机和选人卡片的动图（idle / bp）
 python tools/art/import_akshan_fx.py             # 特效
 python tools/art/preview_akshan.py               # 预览和演示 GIF
 python addons/league_akshan/make_override.py     # 附加包的副本（主包的阿克尚改了就重跑）
