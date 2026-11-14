@@ -39,6 +39,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import strips as G  # noqa: E402
 import pack_zaahen_poses as PK  # noqa: E402
@@ -46,7 +47,7 @@ import pack_zaahen_poses as PK  # noqa: E402
 HERO = "zaahen"
 PPU = 1.75
 # on the battlefield he is drawn at 85 % (the user, 2026-11-11: 「亚恒模型在局内偏大了」; league_main hd.rs SIZES), his dense
-# frames 4 squares lower so his soles stay on the ground (ppu_restyle.py RESTYLE zaahen lift_sq: 11.5 x 1.75 x
+# frames 4 squares lower so his soles stay on the ground (ppu_restyle.py RESTYLE zaahen drop_sq: 11.5 x 1.75 x
 # (1 / 0.85 - 1) = 3.6). His revive picture goes with him (write_rise): its sheet's PPU in hd.rs EFFECTS is PPU / SIZE.
 SIZE = 0.85
 LIFT_SQ = 4
@@ -113,10 +114,20 @@ class Canvas:
             (d, (hx, hy), ground), mv = load_pose(name), HEAD_DX.get(name, 0)
         return d, (rig.ox + HEAD[0] - hx + mv + dx, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=None, flash=False, flip=False):
+    def frame(self, name, dx=0, lift=None, flash=False, flip=False, moves=(), sway=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        moves [(part, (dx, dy), how)] - a part of the pose (PARTS) moved by whole squares (the glaive he lost, flying
+        on); sway [(part, x0, x1, k, attach)] - a spread wing's columns lifted 0..k rows toward its tip (the beat). The
+        head and everything of the pose in none of its parts are checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, LIFT.get(name, 0) if lift is None else lift)
+        if moves or sway:
+            hx, hy = load_pose(name)[1]
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            d = IB.vary(d, parts_of(name, d, head), self.outline, moves, sway, None, head, VPAD, name)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         if flip:                                        # mirrored about his standing column
@@ -127,6 +138,56 @@ class Canvas:
         can[ty, tx] = d[ys, xs]
         return R.flash(can) if flash else can
 
+    def head(self):
+        """The head's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (HEAD_W, HEAD_H), [load_pose(n)[:2] for n in HEADED])
+        return self._head
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): the two wings he spreads as he rises (their
+# columns lifted toward the tips: a beat), polygons in the pose picture's own squares less the head's squares; the
+# glaive knocked out of his hands in the death (GLAIVE_AT: a square of it - the piece of the picture it is). The glaive
+# he holds is in both hands across his body and its shaft is a line a square or two thick: it is not turned. His head
+# (the horns, circlet, hair and face: pack_zaahen_poses.HEAD) and the rest of him are in no part: they never change.
+HEAD_W, HEAD_H = PK.HEAD[3] - PK.HEAD[2], PK.HEAD[1] - PK.HEAD[0]
+VPAD = 40                      # squares a moved part may leave its pose picture's box by
+PARTS = {
+    "r_rise": {"lwing": [[(0, 0), (40, 0), (41, 30), (42, 46), (41, 56), (30, 67), (0, 67)]],
+               "rwing": [[(67, 0), (96, 0), (96, 61), (76, 63), (68, 56), (66, 42)]]},
+}
+GLAIVE_AT = {"d_fall": (100, 54)}    # a square of the flying glaive's shaft
+HEADED = ("r_rise", "d_fall")      # the poses with in-betweens: the head they share with the design is checked
+# a wing's beat: its columns (tip, root) and which end is attached
+WING = {("r_rise", "lwing"): (0, 42, "right"), ("r_rise", "rwing"): (66, 95, "left")}
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y) - boxes for inbetween.part_mask."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
+def parts_of(name, d, head):
+    """PARTS of a pose as masks less the head's squares, with the flying glaive (GLAIVE_AT) as the piece of the
+    picture it is - as row runs for inbetween.vary."""
+    out = {k: runs(IB.part_mask(d.shape, v) & ~head) for k, v in PARTS.get(name, {}).items()}
+    if name in GLAIVE_AT:
+        from scipy import ndimage
+        lab, _ = ndimage.label(d[..., 3] > 0, structure=np.ones((3, 3)))
+        x, y = GLAIVE_AT[name]
+        if not lab[y, x]:
+            sys.exit(f"{name}: GLAIVE_AT is not on the glaive")
+        out["glaive"] = runs(lab == lab[y, x])
+    return out
+
 
 # ms per frame; the kit's ticks (tools/kit/build_zaahen.py) match these (a frame's start in ticks = ms x 0.06):
 # attack 500 ms = atk_dur 30, the sweep on a_hit 12 (200 ms); The Darkin Glaive 567 ms = q_dur 34, the cuts on q_h1 12
@@ -135,10 +196,15 @@ class Canvas:
 # in 933 ms = w_e_dur 56, the spin striking on w_e 34 (567 ms); the add-on's rush 167 ms = its DASH_T 10, its spin
 # 433 ms = e_dur 26, striking on e_hit 14 (233 ms); Grim Deliverance 1000 ms = r_dur 60, the dive on r_jump 26
 # (433 ms), the slam on r_slam 40 (667 ms)
-MS = {"idle": [1000], "run": [125] * 4, "attack": [200, 200, 100], "skill": [200, 167, 133, 67],
+#
+# The in-betweens (2026-11-14: the attack played 3 poses, the ult 3 - one drawing risen three times -, the death 2 and a
+# flash): the attack's wind-up shares its 200 ms with the level cut borrowed from Q, the ult's rising frames beat the
+# wings, the death's glaive flies on; every action is as long as it was and its strikes begin on their milliseconds (the
+# sweep at 200, the dive at 433, the stab pose at 600, the fall at 400). The other actions are as they were.
+MS = {"idle": [1000], "run": [125] * 4, "attack": IB.spans((200, 2), (200, 1), (100, 1)), "skill": [200, 167, 133, 67],
       "skill_up": [233, 200, 67], "skill2": [117, 233, 150], "skill2e": [117, 233, 150, 117, 116, 100, 100],
       "dash": [167], "skill3": [133, 117, 117, 66], "ult": [200, 117, 116, 167, 400], "hit": [100, 100],
-      "dead": [140, 260, 300, 600]}
+      "dead": IB.spans((400, 3, (35, 30, 35)), (900, 2, (8, 92)))}
 
 
 def spin(f):
@@ -149,12 +215,17 @@ def spin(f):
 
 def actions(C):
     f = C.frame
+
+    def beat(name, k):
+        """The pose's wings beaten: their tips k rows up (negative: down), nothing at the shoulders."""
+        return [(w, WING[(name, w)][0], WING[(name, w)][1], k, WING[(name, w)][2]) for w in ("lwing", "rwing")]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Runfast: contact, passing, contact on the other leg, passing; the glaive trailing, the wings back)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
-    # attack (Attack_02: the glaive raised high behind him, swept low across to the front, back)
-    out["attack"] = [f("a_wind"), f("a_sweep"), f("idle")]
+    # attack (Attack_02: the glaive raised high behind him, swept low across to the front, back): raised; coming round
+    # level (Q's level cut, borrowed); swept low; back
+    out["attack"] = [f("a_wind"), f("q_cut1"), f("a_sweep"), f("idle")]
     # The Darkin Glaive (Spell1_AA1: the glaive drawn back, cut level across, cut up to the upper right, back)
     out["skill"] = [f("a_wind"), f("q_cut1"), f("q_cut2"), f("idle")]
     # its recast (Spell1_AA2: crouched with the blade low, the uppercut springing up, back)
@@ -167,10 +238,14 @@ def actions(C):
     out["dash"] = [f("e_dash")]
     out["skill3"] = spin(f) + [f("idle")]
     # Grim Deliverance (Spell4_Intro / Dash / Finish: crouched, wings spread; rising; up; the dive; the landing stab)
-    out["ult"] = [f("r_crouch"), f("r_rise", lift=10), f("r_rise", lift=24), f("r_rise", lift=12), f("r_stab")]
+    # (the rise beats the wings: down as he lifts off, up at the top, as drawn as he dives)
+    out["ult"] = [f("r_crouch"), f("r_rise", lift=10, sway=beat("r_rise", -5)),
+                  f("r_rise", lift=24, sway=beat("r_rise", 5)), f("r_rise", lift=12), f("r_stab")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
-    # death (Death: knocked back, the glaive flying; down on his knees, the glaive on the ground)
-    out["dead"] = [f("d_fall", flash=True), f("d_fall"), f("d_down"), f("d_down")]
+    # death (Death: knocked back, the glaive flying; down on his knees, the glaive on the ground): struck; reeling with
+    # the glaive flying on away from him in two steps; dropping, down
+    out["dead"] = [f("d_fall", flash=True), f("d_fall", dx=-2, moves=[("glaive", (6, -5), "over")]),
+                   f("d_fall", dx=-3, lift=1, moves=[("glaive", (11, -7), "over")]), f("d_down", lift=3), f("d_down")]
     return out
 
 
