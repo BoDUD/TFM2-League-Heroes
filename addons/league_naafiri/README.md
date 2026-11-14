@@ -1,4 +1,4 @@
-# 纳亚菲利附加包（测试版 v0.2.0，可选）：斩杀、再扑、聪明开大、狗群是真的单位
+# 纳亚菲利附加包（测试版 v0.2.1，可选）：斩杀、再扑、聪明开大、狗群是真的单位
 
 **不装这个附加包，主包里的纳亚菲利也是完整的**：普攻和被动的狗群撕咬、Q 暗裔犬牙（两把匕首、流血、狗群扑上英雄）、E 剔骨本能、
 大招（暴吼起手 + 猎狗血性飞扑、参与击杀后再扑一次）和连招 R → Q → 第二把匕首 → E 都在主包数据里。主包是纯数据：**读不到目标的生命**
@@ -55,7 +55,7 @@
 | 日志 | 说明什么 |
 |---|---|
 | 开头 `HOUNDS: her packmates are units ('league_naafiri_packmate', spawn_unit) - ON … Test knobs (…): none` | 这一版装上了，开关没动 |
-| `HOUND ASK #n: one of her pack at (x,y) (14000 behind her)` / `HOUND SPAWN #n (her pack, the queued effect): unit #id …` | 她出生、伙伴被打死后、暴吼时要伙伴；`spawn_unit` 给了单位（**`SPAWN FAILED` / `NONE` / `LOST`：画面上还是画在她帧里的两只**） |
+| `HOUND ASK #n: 2 of her pack at (x,y) (x,y) (14000 behind her)`（0.2.1 起一批一行） / `HOUND SPAWN #n (her pack, the queued effect): unit #id …` | 她出生、伙伴被打死后、暴吼时要伙伴；`spawn_unit` 给了单位（**`SPAWN FAILED` / `NONE` / `LOST`：画面上还是画在她帧里的两只**） |
 | `HOUND SOLO ON: her packmates are units …` / `HOUND SOLO OFF: …` | 她换成没有狗的帧、数据不再咬（OFF：回到画在她帧里） |
 | `HOUND #n LOOK #k (her pack / the call): #id reads back as …` | 单位读回来叫什么、属性对不对 |
 | `HOUND #n #k: 61 of 3600 ticks, at (x,y) (walked …), hp …, … from its summoner; near it: …` | 每秒一行：跟不跟她、咬谁、掉不掉血 |
@@ -65,3 +65,13 @@
 | 显示钩子的行 `world … Naafiri #…: her solo frames (her packmates are units) (playing …)` | 画面上她换成了 solo 帧 |
 
 画面上要看的：她身边不再有画上去的两只狗、两只伙伴单位跟着她跑、咬人、被打死、15 秒后再来；暴吼时四只；她倒下时伙伴一起消失。测试开关：日志旁边放一个 `league_naafiri.cfg`（`unit=off` / `still=1` / `name=<名字>`）。
+
+## 一批伙伴一次要（v0.2.1，2026-11-14）
+
+U4 看出来的：0.2.0 每只伙伴单独向公用的 `Flock` 要一次（`ask`），两只的原生效果在同一 tick 跑完、交接 buff 同一 tick 到，而 `Flock` 把一 tick 的交接都给最老的那一次要——两只都记在第一次上，第二次等不到就超时：日志里多一行 `HOUND NONE`（其实狗来了），下一次要伙伴被推到 900 tick 以后。暴吼的两只和缺的伙伴碰在同一 tick 要的话，还会互相拿错（暴吼的只活 300 tick）。
+
+- 现在一批（出生时的两只、补上缺的、暴吼的两只）向 `Flock` 只要一次，每只照旧一个原生效果（伊莉丝的做法）；`Flock` 还有一次在等交接时不要新的一批（暴吼的两只先要，缺的那只下一两拍再要），所以每只单位都记成它本来是哪一批。
+- 一批里只来了几只（某只生成失败、宿主没地方了）：那一次要已经被来的接走了，没有别的会超时，所以要了 `BATCH_WAIT`（11）tick 还没来齐就算没来，日志 `HOUND SHORT #k: 1 of the 2 packmates of her pack asked for at t=… never came - asked again in 900 ticks`；一只都没来照旧是 `HOUND NONE`，现在写明是几只、哪一批。
+- `HOUND ASK` 一行一批：`HOUND ASK #k: 2 of her pack at (x,y) (x,y) (14000 behind her)`。
+- 公用的 `Flock` 现在等单位站稳才接手（萨科附加包 0.3.1，`summon.rs`），`HOUND #n LOOK` 晚一两拍、数字是站稳以后的。
+- 测试多三个：一批同一 tick 到、没有一次要会超时（下一次要不会被推远）；一批少了一只、到时候关掉、900 tick 后补；暴吼和缺的伙伴同一 tick 要时一先一后、每只记对是哪一批。

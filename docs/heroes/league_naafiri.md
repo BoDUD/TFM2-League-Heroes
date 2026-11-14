@@ -55,7 +55,7 @@
 
 ### 纳亚菲利附加包：斩杀、再扑、聪明开大、狗群是真的单位
 
-[纳亚菲利附加包：斩杀、再扑、聪明开大、狗群是真的单位](../../addons/league_naafiri/README.md)：`league_naafiri` v0.2.0
+[纳亚菲利附加包：斩杀、再扑、聪明开大、狗群是真的单位](../../addons/league_naafiri/README.md)：`league_naafiri` v0.2.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
