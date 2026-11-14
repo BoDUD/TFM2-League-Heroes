@@ -22,7 +22,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 
 use mod_api_stable::*;
 
-use crate::{at, dist, head, on_screen, wlog};
+use super::{at, dist, head, on_screen, wlog};
 
 pub const KOG: &str = "league_kogmaw";
 const PREFIX: &str = "league_kogmaw_";
