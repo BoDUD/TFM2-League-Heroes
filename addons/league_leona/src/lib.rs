@@ -8,23 +8,26 @@
 //! `mod.override_info` 把主包的蕾欧娜换成 `override/` 里的副本（`make_override.py` 从主包生成）：她的 Q、E、W 爆发、R 照样给
 //! 打中的敌人挂 `league_leona_sunlight`（画面照主包），只是不再带增伤、挂 `MARK_T` tick（2.5 秒）；被动换成本包的
 //! `league_leona:sunlight`，普攻（写着被动）的说明换成本包的。本包的被动每 tick 看她这边每个友方英雄（不算她自己）出没出手
-//! （league_renata / league_braum 的做法：普攻、技能的冷却跳起来就是出手了）：普攻看那名友军 `ATTACK_REACH` 内最近的敌方单位
-//! 是不是带着日光，技能看他 `SKILL_REACH` 内最近的带日光的敌方单位；`POP_WAIT` tick 后（前摇加飞行）打中时还带着就引爆：
-//! 摘掉日光，按她的等级造成 [`sunlight_damage`] 的魔法伤害（算她的），目标身上播主包 Q 的日光闪 `POP_VIEW`。等级换算：英雄联盟
-//! 1–18 级的 32–151 线性摊到这个游戏的 1–12 级。
+//! （冷却跳起来就是出手了），再看这一下真的打中了谁（[`allies`]，league_milio 的做法：观察钩子记下 AI 下令打谁，治疗、护盾、给
+//! 队友的技能、打塔都不算；那个人在出手前后的窗口里真的掉了血才算）：打中的人带着日光就引爆：摘掉日光，按她的等级造成
+//! [`sunlight_damage`] 的魔法伤害（算她的），目标身上播主包 Q 的日光闪 `POP_VIEW`。等级换算：英雄联盟 1–18 级的 32–151 线性摊到
+//! 这个游戏的 1–12 级。
 //!
 //! 被动在玩家身上、每份模拟各一份；她阵亡时被动不跑，标记照样到时消失，不引爆。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_leona.log`，每次启动游戏重写，上一次的留在 .prev.log：`SPAWN`、
 //! `POP`（哪个队友引爆了谁、多少伤害），限了条数。
 
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod allies;
+use allies::{Drop, Swing};
 
 const ID: &str = "league_leona";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -43,11 +46,6 @@ pub const DMG_MAX: usize = 151;
 pub const MAX_LEVEL: usize = 12;
 /// 引爆时目标身上播的画面（主包 Q 打中时的日光闪）。
 pub const POP_VIEW: &str = "league_leona_q_hit";
-/// 队友出手（冷却跳起）后多少 tick 算打中：普攻的前摇加飞行（league_renata 的 POP_WAIT）。
-const POP_WAIT: usize = 10;
-/// 普攻：队友这么远内最近的敌方单位就是他打的；技能：这么远内最近的带日光的敌方单位。
-const ATTACK_REACH: f64 = 75_000.0;
-const SKILL_REACH: f64 = 90_000.0;
 
 // ===================== 日志 =====================
 
@@ -122,62 +120,76 @@ pub fn sunlight_damage(level: usize) -> usize {
     DMG_MIN + (DMG_MAX - DMG_MIN) * (l - 1) / (MAX_LEVEL - 1)
 }
 
-/// 上一 tick 和这一 tick 的冷却（普攻、技能、技能 2、大招）：`Some(true)` 普攻出手了，`Some(false)` 放了技能，`None` 都没有
-/// （league_renata 的 `swung`：跳高 5 tick 以上才算，冷却本来就在走的不算）。
-pub fn swung(was: (usize, usize, usize, usize), now: (usize, usize, usize, usize)) -> Option<bool> {
-    if now.0 > was.0 + 5 {
-        Some(true)
-    } else if now.1 > was.1 + 5 || now.2 > was.2 + 5 || now.3 > was.3 + 5 {
-        Some(false)
-    } else {
-        None
-    }
+/// 队友的冷却计数比上一 tick 跳高了：这个栏位刚用掉（跳高 5 tick 以上才算，冷却本来就在走的不算）。
+pub fn used(was: usize, now: usize) -> bool {
+    now > was + 5
+}
+
+/// 上一 tick 和这一 tick 的冷却（普攻、技能、技能 2、大招）：第一个刚用掉的栏位（0 普攻、1-3 技能）。
+pub fn jumped(was: (usize, usize, usize, usize), now: (usize, usize, usize, usize)) -> Option<usize> {
+    [used(was.0, now.0), used(was.1, now.1), used(was.2, now.2), used(was.3, now.3)].iter().position(|j| *j)
 }
 
 fn fpos(p: (u64, u64)) -> (f64, f64) {
     (p.0 as f64, p.1 as f64)
 }
 
-fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
-    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
-}
-
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
-/// `team` 的对手里离 `at` 最近的单位（活着、选得中、不是塔、水晶），`reach` 以内；`marked` 时只看带日光的。
-fn nearest_foe(sim: &StableSim<'_>, team: usize, at: (f64, f64), reach: f64, marked: bool) -> Option<usize> {
-    let mut best: Option<(usize, f64)> = None;
-    for i in 0..sim.entity_count() {
-        let Some(u) = sim.entity_at(i) else { continue };
-        if u.team() == team || !u.is_alive() || !u.is_targetable() || u.is_tower() {
-            continue;
-        }
-        if matches!(u.kind(), Some(EntityKindV1::Nexus) | Some(EntityKindV1::Tower)) {
-            continue;
-        }
-        let d = dist(at, fpos(u.pos()));
-        if d <= reach && best.is_none_or(|b| d < b.1) && (!marked || has_buff(sim, u.id(), MARK)) {
-            best = Some((u.id(), d));
-        }
-    }
-    best.map(|b| b.0)
+fn tower(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| e.is_tower() || matches!(e.kind(), Some(EntityKindV1::Tower | EntityKindV1::Nexus)))
 }
 
 // ===================== 被动：日光 =====================
 
 #[derive(Clone, Default)]
 struct Sunlight {
+    /// 这份模拟的编号（她第一次出生时取，挂在她身上给观察钩子读）。
+    sim_no: u64,
     /// 她这边各玩家上一 tick 的冷却（普攻、技能、技能 2、大招）。
     last_cd: HashMap<usize, (usize, usize, usize, usize)>,
-    /// 等着算打中的出手：(队友, 带日光的敌方单位, 第几 tick 打中)。
-    pending: Vec<(usize, usize, usize)>,
+    /// 每个队友正在等结果的那次出手（一人一次）；他上一下认过的那次掉血的 tick。
+    swings: HashMap<usize, Swing>,
+    taken: HashMap<usize, usize>,
+    /// 带日光的敌方单位上一 tick 的生命 + 护盾；最近掉的血。
+    marked: HashMap<usize, usize>,
+    drops: VecDeque<Drop>,
 }
 
 impl Sunlight {
-    /// 队友出手：冷却跳起来就记下他要打的带日光的单位，`POP_WAIT` tick 后还带着就引爆。
+    /// 带日光的敌方单位：这一 tick 掉了多少（生命 + 护盾；没带日光的不记，她自己的 Q 挂上日光那一下的伤害也就不算）。
+    fn track(&mut self, sim: &StableSim<'_>, team: usize, now: usize) {
+        let mut marked = HashMap::new();
+        for i in 0..sim.entity_count() {
+            let Some(u) = sim.entity_at(i) else { continue };
+            if u.team() == team || u.is_tower() || matches!(u.kind(), Some(EntityKindV1::Tower | EntityKindV1::Nexus)) {
+                continue;
+            }
+            let id = u.id();
+            if !(0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| b.name() == MARK) {
+                continue;
+            }
+            let left = if u.is_alive() { u.hp().0 + u.shield() } else { 0 };
+            if let Some(&was) = self.marked.get(&id) {
+                if was > left {
+                    self.drops.push_back(Drop { tick: now, id, at: fpos(u.pos()), amount: was - left });
+                }
+            }
+            if u.is_alive() {
+                marked.insert(id, left);
+            }
+        }
+        self.marked = marked;
+        while self.drops.front().is_some_and(|d| d.tick + allies::KEEP < now) {
+            self.drops.pop_front();
+        }
+    }
+
+    /// 队友出手：冷却跳起来就开始等它的结果（治疗、护盾、打塔不算）；真的打中了带日光的人就引爆。
     fn ally_hits(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, now: usize) {
+        let mut from: HashMap<usize, (f64, f64)> = HashMap::new();
         for i in 0..sim.player_count() {
             let Some(pl) = sim.player_at(i) else { continue };
             let pid = pl.id();
@@ -187,37 +199,63 @@ impl Sunlight {
             }
             let Some(cd) = pl.cooldowns() else { continue };
             let was = self.last_cd.insert(pid, cd);
-            let (Some(was), true) = (was, c.is_alive()) else { continue };
-            let (ally, at) = (c.id(), fpos(c.pos()));
-            let foe = match swung(was, cd) {
-                Some(true) => nearest_foe(sim, team, at, ATTACK_REACH, false).filter(|&f| has_buff(sim, f, MARK)),
-                Some(false) => nearest_foe(sim, team, at, SKILL_REACH, true),
-                None => None,
-            };
-            if let Some(f) = foe {
-                if !self.pending.iter().any(|&(_, pf, _)| pf == f) {
-                    self.pending.push((ally, f, now + POP_WAIT));
-                }
+            let ally = c.id();
+            if !c.is_alive() {
+                self.swings.remove(&ally);
+                continue;
+            }
+            from.insert(ally, fpos(c.pos()));
+            if self.swings.contains_key(&ally) {
+                continue;
+            }
+            let Some(slot) = was.and_then(|was| jumped(was, cd)) else { continue };
+            let o = allies::orders_of(self.sim_no, ally);
+            let st = c.stat();
+            let floor = self.taken.get(&ally).map_or(0, |t| t + 1);
+            if let Some(sw) = allies::open(&o, slot, now, |id| tower(sim, id), st.attack, st.magic_power, floor) {
+                self.swings.insert(ally, sw);
             }
         }
-        let due: Vec<(usize, usize, usize)> = self.pending.iter().copied().filter(|&(_, _, at)| at <= now).collect();
-        self.pending.retain(|&(_, _, at)| at > now);
-        for (ally, foe, _) in due {
-            if sim.get_entity(foe).is_some_and(|e| e.is_alive()) && has_buff(sim, foe, MARK) {
-                Self::pop(sim, me, foe, ally);
+        if self.swings.is_empty() {
+            return;
+        }
+        let mut done: Vec<(usize, Option<(usize, bool)>)> = Vec::new();
+        let mut keys: Vec<usize> = self.swings.keys().copied().collect();
+        keys.sort_unstable();
+        for ally in keys {
+            let sw = self.swings[&ally];
+            let Some(&at) = from.get(&ally) else {
+                done.push((ally, None));
+                continue;
+            };
+            let marked = |id: usize| sim.get_entity(id).is_some_and(|e| e.is_alive()) && has_buff(sim, id, MARK);
+            if let Some((t, at_tick)) = allies::hit_of(&sw, &self.drops, at, marked) {
+                self.taken.insert(ally, at_tick);
+                done.push((ally, Some((t, sw.target.is_some()))));
+            } else if now > sw.until {
+                done.push((ally, None));
+            }
+        }
+        for (ally, hit) in done {
+            self.swings.remove(&ally);
+            if let Some((foe, ordered)) = hit {
+                if sim.get_entity(foe).is_some_and(|e| e.is_alive()) && has_buff(sim, foe, MARK) {
+                    Self::pop(sim, me, foe, ally, ordered);
+                }
             }
         }
     }
 
-    fn pop(sim: &mut StableSim<'_>, me: usize, foe: usize, ally: usize) {
+    fn pop(sim: &mut StableSim<'_>, me: usize, foe: usize, ally: usize, ordered: bool) {
         let level = sim.get_entity(me).map_or(1, |e| e.level());
         let dmg = sunlight_damage(level);
         sim.entity_remove_buff(foe, MARK);
         let ok = sim.deal_damage_typed(me, foe, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
         sim.play_view_effect(POP_VIEW, me, &InputTargetV1::target(foe), 0, 0, 0);
         if let Some(k) = counted("pop") {
-            wlog(format!("{} POP #{k}: {} hit {} -> {dmg} magic (level {level}){}", head(sim, me), who(sim, ally),
-                         who(sim, foe), if ok { "" } else { " (refused)" }));
+            wlog(format!("{} POP #{k}: {} hit {} ({}) -> {dmg} magic (level {level}){}", head(sim, me), who(sim, ally),
+                         who(sim, foe), if ordered { "ordered at it" } else { "guessed from the drops" },
+                         if ok { "" } else { " (refused)" }));
         }
     }
 }
@@ -228,23 +266,28 @@ impl StablePassive for Sunlight {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        self.pending.clear();
+        if self.sim_no == 0 {
+            self.sim_no = allies::next_sim();
+        }
+        allies::tag(sim, me, self.sim_no);
+        self.swings.clear();
         if let Some(k) = counted("spawn") {
-            wlog(format!("{} SPAWN #{k}: the add-on's Leona (player {player})", head(sim, me)));
+            wlog(format!("{} SPAWN #{k}: the add-on's Leona (player {player}, sim {})", head(sim, me), self.sim_no));
         }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let now = sim.tick();
         let Some(team) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.team()) else {
-            self.pending.clear();
+            self.swings.clear();
             return;
         };
+        self.track(sim, team, now);
         self.ally_hits(sim, me, team, now);
     }
 
     fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
-        self.pending.clear();
+        self.swings.clear();
     }
 }
 
@@ -264,6 +307,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:sunlight"), Sunlight::default());
+    module.add_player_input_ai(allies::Watch::default());
     host.log(LogLevel::Info, "league_leona loaded (Sunlight detonated by allied champions' hits).");
 }
 
@@ -293,13 +337,34 @@ mod tests {
     }
 
     #[test]
-    fn a_jump_in_a_cooldown_is_a_swing_or_a_cast() {
-        assert_eq!(swung((0, 0, 0, 0), (60, 0, 0, 0)), Some(true));
-        assert_eq!(swung((0, 100, 0, 0), (0, 99, 0, 0)), None, "a cooldown running down is nothing");
-        assert_eq!(swung((10, 0, 0, 0), (12, 0, 0, 0)), None, "a jump of 5 ticks or less is nothing");
-        assert_eq!(swung((0, 0, 0, 0), (0, 0, 480, 0)), Some(false));
-        assert_eq!(swung((0, 0, 0, 0), (0, 0, 0, 3000)), Some(false));
-        assert_eq!(swung((0, 0, 0, 0), (80, 300, 0, 0)), Some(true), "an attack and a cast together: the attack");
+    fn a_jump_in_a_cooldown_is_the_slot_just_used() {
+        assert_eq!(jumped((0, 0, 0, 0), (60, 0, 0, 0)), Some(0));
+        assert_eq!(jumped((0, 100, 0, 0), (0, 99, 0, 0)), None, "a cooldown running down is nothing");
+        assert_eq!(jumped((10, 0, 0, 0), (12, 0, 0, 0)), None, "a jump of 5 ticks or less is nothing");
+        assert_eq!(jumped((0, 0, 0, 0), (0, 0, 480, 0)), Some(2));
+        assert_eq!(jumped((0, 0, 0, 0), (0, 0, 0, 3000)), Some(3));
+        assert_eq!(jumped((0, 0, 0, 0), (80, 300, 0, 0)), Some(0), "an attack and a cast together: the attack");
+    }
+
+    #[test]
+    fn a_heal_only_cast_pops_nothing_and_a_damaging_cast_pops() {
+        use allies::{hit_of, open, Aim, Orders};
+        let marked = |_: usize| true;
+        let mut drops = VecDeque::new();
+        // Soraka's W on an ally: ordered at a friend - no swing at all, whatever drops near her
+        let heal = Orders { skill: [None, Some((500, Aim::Friend)), None], ..Orders::default() };
+        assert_eq!(open(&heal, 2, 530, |_| false, 75, 200, 0), None);
+        // a cast that only arms something (no order recorded, a place / self cast) and nothing marked near lost health
+        let arm = open(&Orders::default(), 3, 530, |_| false, 75, 200, 0).expect("watched");
+        assert_eq!(hit_of(&arm, &drops, (0.0, 0.0), marked), None);
+        // a damaging skill ordered at the marked enemy: its health drop during the action pops it
+        let hit = Orders { skill: [Some((480, Aim::Foe(9))), None, None], ..Orders::default() };
+        let sw = open(&hit, 1, 530, |_| false, 75, 200, 0).expect("watched");
+        drops.push_back(Drop { tick: 515, id: 9, at: (20_000.0, 0.0), amount: 140 });
+        assert_eq!(hit_of(&sw, &drops, (0.0, 0.0), marked).map(|h| h.0), Some(9));
+        // an attack ordered at a tower: nothing, even with the marked enemy beside it losing health
+        let tower_hit = Orders { attack: Some((500, 77)), ..Orders::default() };
+        assert_eq!(open(&tower_hit, 0, 520, |id| id == 77, 75, 0, 0), None);
     }
 
     #[test]
