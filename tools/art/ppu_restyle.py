@@ -83,7 +83,10 @@ RESTYLE = {
     # = 2.9 -> 3, 11.5 x 1.98 x (1 / 0.95 - 1 / 1.05) = 2.3 -> 2; faces x 1.00 / 1.15 and x 0.95 / 1.05 about the soles
     # then (game 0.6.4, 2026-10-14) 「铁男模型太小」「铁男到110%吧」: Mordekaiser 110 % - 11 x 2.0 x (1 / 1.10 - 1 / 1.15)
     # = 0.9 -> 1 square down from the 115 % frames, face (1, -27) x 1.10 about the soles
+    # palette_fit (2026-11-14, E's in-betweens from his own frames): the crisp palette still fit on E's three drawn frames
+    # as they were (rig_braum.py's orig strip before them), so no other frame of his changes colour
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
+                  palette_fit={"skill2": "braum/skill2_palette_orig"},
                   lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(2, -40)),  # (a hair under: the pivot's row keeps its square)
     # 「铁男的走路步伐感觉有点大啊」: Codex's run had the soles 42 and 47.5 game px apart in its two striding frames (the
     # idle's 31), brought together here (narrow) until 2026-10-22; the run rig_mordekaiser.py draws since (「铁男的走路也要

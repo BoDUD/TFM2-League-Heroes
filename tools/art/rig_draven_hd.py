@@ -24,6 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_draven_hd as CS  # noqa: E402
 import design_draven_hd as DS  # noqa: E402
+import inbetween as IB  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
 
@@ -95,12 +96,72 @@ def on_grid(rig, d, x, y):
     return can
 
 
+# The death's in-betweens (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): every frame
+# one of Codex's four casts or a cast with one part moved (inbetween.vary), nothing drawn - the red cloth strips at his
+# waist lifted at their free ends (a column wave, nothing where they leave him), the raised right arm and its axe turned
+# down about the shoulder toward the next cast's (spin: the root goes under the fur collar), the raised left arm and its
+# axe turned down to the left as he falls (the axe on the ground in the last cast). Boxes / polygons in the canvas's
+# squares (on_grid's), the fur collar's cream and teal at the shoulder left out. The death keeps its length and its
+# boundaries: the stagger at 100, the fall at 200, on the ground at 320 (1070 ms in all). INB tags do not take their
+# frames from the sheet.
+INB = {"dead": [("dead_1", 50), ("dead_1", 50, "cloth"), ("dead_2", 50), ("dead_2", 50, "arm_r"),
+                ("dead_3", 60), ("dead_3", 60, "arm_l"), ("dead_4", 750)]}
+INB_PARTS = {
+    "cloth": dict(cast="dead_1", poly=[(70, 92), (92, 92), (92, 114), (70, 114)], sway=(70, 91, 4)),
+    "arm_r": dict(cast="dead_2", poly=[(116, 86), (113, 70), (112, 60), (106, 58), (106, 30), (143, 30), (143, 58),
+                                       (131, 60), (130, 75), (128, 86)], fur=(70, None, 0, 119), spin=((115, 82), 45)),
+    "arm_l": dict(cast="dead_3", poly=[(79, 86), (70, 88), (64, 80), (60, 70), (52, 70), (34, 72), (34, 30), (72, 30),
+                                       (72, 58), (75, 63), (77, 66), (77, 80)], fur=(74, None, 70, None),
+                  spin=((76, 82), -25)),
+}
+INB_PAD = 12
+
+
+def fur_collar(a):
+    """The fur collar's cream and teal squares."""
+    rgb = a[..., :3].astype(int)
+    return (a[..., 3] > 0) & (((rgb.min(-1) > 170) & (rgb.max(-1) - rgb.min(-1) < 60)) |
+                              ((rgb[..., 2] > rgb[..., 0] + 20) & (rgb[..., 1] > rgb[..., 0])))
+
+
+def inb_frame(rig, can, part):
+    """The cast's canvas with INB_PARTS[part] moved; the same canvas size."""
+    p = INB_PARTS[part]
+    m = IB.part_mask(can.shape, [p["poly"]]) & (can[..., 3] > 0)
+    if "fur" in p:                                   # the collar inside the part's rows / columns stays
+        y0, y1, x0, x1 = p["fur"]
+        box = np.zeros_like(m)
+        box[y0:y1, x0:x1] = True
+        m &= ~(fur_collar(can) & box)
+    parts = {part: [(int(x), int(y), int(x), int(y)) for y, x in zip(*np.nonzero(m))]}
+    outline = rig.D.outline
+    if "sway" in p:
+        x0, x1, k = p["sway"]
+        out = IB.vary(can, parts, outline, sway=[(part, x0, x1, k, "right")], pad=INB_PAD, name=part)
+    else:
+        about, deg = p["spin"]
+        out = IB.vary(can, parts, outline, spins=[(part, about, deg, "under")], pad=INB_PAD, name=part)
+    q = INB_PAD
+    if out[:q, :, 3].any() or out[-q:, :, 3].any() or out[:, :q, 3].any() or out[:, -q:, 3].any():
+        sys.exit(f"{part}: the moved part leaves the canvas")
+    out = out[q:-q, q:-q]
+    if IB.audit(out):
+        sys.exit(f"{part}: {IB.audit(out)}")
+    return out
+
+
 def frames(rig):
     sheet = R.sheet_of(HERO)
     casts, _ = CS.placed()
     out = {}
     for tag in sheet:
         if tag in ("idle", "bp"):
+            continue
+        if tag in INB:
+            out[tag] = []
+            for name, ms, *part in INB[tag]:
+                can = on_grid(rig, *casts[name])
+                out[tag].append((inb_frame(rig, can, part[0]) if part else can, ms))
             continue
         n = len(sheet[tag])
         if tag == "idle_base":

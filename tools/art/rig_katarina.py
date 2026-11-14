@@ -40,6 +40,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import pixel_down as PD  # noqa: E402
+import inbetween as IB  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "katarina")
 HD = os.path.join(SRC, "hd")
@@ -57,7 +58,9 @@ PPU = 1.5                         # the user's pick: 1.5 first, then 「脸部�
 K = PPU / NATIVE
 FEET = 11                         # 1x rows from the pivot down to the ground row (the pack's 128-canvas heroes)
 
-TAGS = {"run": 8, "attack": 5, "skill": 5, "skill2": 5, "blink": 3, "spin": 4, "ult": 6, "dead": 6}
+TAGS = {"run": 8, "attack": 5, "skill": 5, "skill2": 5, "blink": 3, "spin": 4, "ult": 6, "dead": 4}
+# dead: Codex drew 6 - its 5th and 6th are its 4th (lying) again, square for square; the death's in-betweens and
+# timing: DEAD below
 ORDER = ["idle", "run", "attack", "skill", "skill2", "blink", "spin", "ult", "hit", "dead"]
 SCALES = [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15]
 SCALE_TOL = 9.0                   # never (league_jayce: Codex drew the heads 0.85-1.15 of the design's, the bodies at its size)
@@ -457,7 +460,9 @@ def action(tag, n, ms):
             small, corner = down2(a)
         else:
             small, corner = with_head(a, design_place(head), old=head)
-            out.append((tidy(small), corner, ms[f"{tag}_{k}"]))
+        # (until 2026-11-14 this line sat under the else: the NO_HEAD frames - her body lying dead - were made and
+        # dropped, and the death ended on the fall, held)
+        out.append((tidy(small), corner, ms[f"{tag}_{k}"]))
     return out
 
 
@@ -568,11 +573,72 @@ def strip_of(frames):
     return strip
 
 
+# The death (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): Codex's four drawings -
+# hit, staggering, falling, lying (the lying one had never reached the sheet: action() dropped the NO_HEAD frames) - and
+# two in-betweens from her own drawings, nothing drawn: her long hair's free end waved (inbetween.wave: nothing where it
+# leaves her head, k rows at the tip). Before the stagger it still hangs low (the staggering pose, its streaming hair
+# DEAD_WAVES[1]'s rows down: the hair follows the body a frame late); before she lies still, the hair spread on the
+# ground is still up at its end (DEAD_WAVES[3]). The hair by her own colours (is_hair) inside the box, with its outline
+# two squares deep where that touches only hair, outline or air; never a square of the design's head (HEAD2, found where
+# with_head pasted it; checked untouched). Still 360 ms in all, the three frames it had.
+DEAD_WAVES = {1: (-4, (56, 74, 56, 84)), 3: (4, (42, 55, 86, 107))}   # Codex's frame index -> (rows, (x0, x1, y0, y1))
+DEAD_MS = [60] * 6                  # hit | hair low, staggering | staggering | falling | lying, hair up | lying
+
+
+def head2_at(a):
+    """The squares of the design's head (HEAD2) where with_head pasted it on frame a (none on a NO_HEAD frame)."""
+    m = HEAD2[..., 3] > 0
+    h, w = m.shape
+    best, at = 0, None
+    for y in range(a.shape[0] - h):
+        for x in range(a.shape[1] - w):
+            n = int(((a[y:y + h, x:x + w] == HEAD2).all(-1) & m).sum())
+            if n > best:
+                best, at = n, (x, y)
+    out = np.zeros(a.shape[:2], bool)
+    if best >= 0.8 * m.sum():
+        x, y = at
+        out[y:y + h, x:x + w] = m & (a[y:y + h, x:x + w] == HEAD2).all(-1)
+    return out
+
+
+def hair_waved(a, k, box_):
+    """Frame a with the free end of its hair (left of the box's x1, inside the box) k rows up (negative: down)."""
+    x0, x1, y0, y1 = box_
+    op = a[..., 3] > 0
+    head = head2_at(a)
+    dark = op & (a[..., :3].astype(int).sum(-1) < 90)
+    box = np.zeros(op.shape, bool)
+    box[y0:y1 + 1, x0:x1 + 1] = True
+    box &= ~head
+    m = is_hair(a) & box
+    for _ in range(2):
+        for y, x in zip(*np.nonzero(ndimage.binary_dilation(m, structure=np.ones((3, 3))) & dark & box & ~m)):
+            nb = a[max(0, y - 1):y + 2, max(0, x - 1):x + 2]
+            if ((nb[..., 3] == 0) | is_hair(nb) | (nb[..., :3].astype(int).sum(-1) < 90)).all():
+                m[y, x] = True
+    ys, xs = np.nonzero(m)
+    pad = abs(k) + 2
+    out = IB.vary(a, {"hair": [(int(x), int(y), int(x), int(y)) for y, x in zip(ys, xs)]}, OUTLINE,
+                  sway=[("hair", x0, x1, k, "right")], pad=pad, head=head if head.any() else None,
+                  name="katarina dead")
+    if out[:pad, :, 3].any() or out[-pad:, :, 3].any() or out[:, :pad, 3].any() or out[:, -pad:, 3].any():
+        raise SystemExit("rig_katarina: the hair left the frame")
+    return out[pad:-pad, pad:-pad]
+
+
+def dead_frames(ms):
+    fr = action("dead", TAGS["dead"], ms)
+    wav = {i: (hair_waved(fr[i][0], k, b), fr[i][1], 0) for i, (k, b) in DEAD_WAVES.items()}
+    keys = [fr[0], wav[1], fr[1], fr[2], wav[3], fr[3]]
+    return [(a, c, t) for (a, c, _), t in zip(keys, DEAD_MS)]
+
+
 def actions():
     ms = timing()
     out = {"idle": idle_frames(), "hit": hit_frames()}
     for tag, n in TAGS.items():
-        out[tag] = action(tag, n, ms)
+        out[tag] = dead_frames(ms) if tag == "dead" else action(tag, n, ms)
     return {t: out[t] for t in ORDER}
 
 

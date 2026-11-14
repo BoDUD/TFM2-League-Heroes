@@ -438,8 +438,12 @@ def frames_all(F):
     # then in front, then up again -, coming down; the whole tag 3 s, the channel
     low = dict(near_rot=1, near=NEAR_BOOK, book=BOOK_AT)
     high = dict(near_rot=2, near=NEAR_HIGH, book=BOOK_HIGH)
-    hover = [(high, 0, -2), (high, 1, -3), (high, 1, -3), (high, 0, -2), (low, -1, -2), (low, -1, -3), (low, 0, -3),
-             (low, 1, -2), (high, 1, -2), (high, 0, -3), (high, -1, -3), (high, -1, -2)]
+    # (2026-11-14, the user: 「有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」: the hover's rags trailed 2 or 3
+    # columns, two hover frames were one picture and each held arm looked like one frame for 840 ms - now the hem's trail
+    # runs 1 to 4 columns and back with each held arm, every hover frame its own picture; the arms, the book, the bob and
+    # the milliseconds as they were)
+    hover = [(high, 0, -1), (high, 1, -2), (high, 1, -3), (high, 0, -4), (low, -1, -4), (low, -1, -3), (low, 0, -2),
+             (low, 1, -1), (high, 1, -2), (high, 0, -3), (high, -1, -4), (high, -1, -3)]
     out["ult"] = ([p(**low), p(staff=(0, -2), whole=(0, -5), hem=-1, **low), p(staff=(0, -4), whole=(0, -10), hem=-2, **low)] +
                   [p(staff=(0, -4), reach=2, whole=(0, -RISE + b), hem=h, **arm) for arm, b, h in hover] +
                   [p(staff=(0, -2), whole=(0, -6), hem=-1, **low)])
