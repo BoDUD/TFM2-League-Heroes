@@ -1,4 +1,4 @@
-# 盲僧 W 位移附加包（测试版 v0.1.15）
+# 盲僧 W 位移附加包（测试版 v0.1.17）
 
 主包 `league` 保持纯数据。主包的李青不能「摸眼」：R 身后没人时直接冲过目标落到他身后回旋踢，W 并进了 E、不冲刺。
 英雄联盟手游里李青的 W 不用插眼就能冲到一个点，这个附加包照这个做（不画眼）：
@@ -39,6 +39,8 @@
   Q 的整个过程约 76 tick：第 16 tick 发波，打中后 12 tick 才飞踢（Q2）；v0.1.3 以前是 50 tick，飞踢前后还可能被 W 拉走（v0.1.4 改成 80）。
 - 冲刺被韧性缩短时每 tick 补一段，补的也没动就一步步挪过去，不再最后瞬移。
 
+- **回音击按目标已损失的生命加伤**（v0.1.17，照英雄联盟：+0% ～ +100%）：副本的每一处回音击（Q 的飞踢 35 + 70%、R 连招 QRQ 的追击 30 + 60%、RQQ 的回音击 50 + 100%）落地时先调用本包的原生效果（`league_leesin_hop:q2` / `q2_qrq` / `q2_rqq`），读目标这一下之前的生命，补「这一下的伤害 × 已损失生命的比例」的物理伤害：半血 +50%，见底时差不多翻倍。Q 的说明开头加【W位移测试版】、最后加这一句。普攻不动。
+
 墙用内置的 5v5 碰撞墙（game_core 0.5.1 的 `MapDef`），别的地图不查墙。
 
 ## 在游戏里测
@@ -58,12 +60,13 @@
    - `INSEC FRONT: W on cooldown …`（W 在冷却，正面踢）；
    - `ESCAPE W to …` / `CHASE W to …` / `ENGAGE #… W to …`（逃跑 / 追击 / 突进，带 `running …/tick`：他当时跑多快）；
      突进之后 `ENGAGE FOUGHT #… after … ticks`（冲完 90 tick 内在他身边出手了）或 `ENGAGE WASTED #…`（白冲了，一直没出手）；
-   - `host did not move him … stepping to the spot`（宿主没执行位移，一步步挪过去）。
+   - `host did not move him … stepping to the spot`（宿主没执行位移，一步步挪过去）；
+   - `Q2 q2 #n on #7: 900/2000 hp before the strike -> +96 physical (35 + 70% of 200 AD, x55% missing)`（回音击补的伤害，v0.1.17；`q2_qrq` / `q2_rqq` 是 R 连招里的）。
 
 ## 开发
 
 - `python addons/league_leesin_hop/make_override.py`：从主包重新生成 `override/` 和 `text/`。主包的李青改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_leesin_hop`：单元测试和 `tests/wiring.rs`（迷你模拟）。
+- 在 `addons/` 下 `cargo test --release -p league_leesin_hop`：单元测试、`tests/wiring.rs`（迷你模拟）和 `tests/q2.rs`（回音击补伤害）。
 - 在 `addons/` 下 `cargo build --release -p league_leesin_hop`（Windows）得到 `target/release/league_leesin_hop.dll`。
 
 ## 游戏 0.7.0（0.1.10）
@@ -93,3 +96,7 @@
 2026-11-08 夜里的日志：看的那场 360 行里 252 行是 `Q SKIP … no Q on minions`。0.1.12 起只跳过和上一行同一个单位的，可 AI 在几个小兵
 之间来回挑，每换一个就是新的一行。现在按理由去重：同一个理由离上一次写的不到 `SKIP_QUIET`（120）tick 就不写（`skip_news`），换了理由、
 放过一次 Q 之后照样写。Q 放不放没变（W 开团照旧：10:00 前的白冲从 24-26% 降到了 6-7%）。测试 `q_skips_dedupe_by_reason_and_window`。
+
+## 回音击按目标已损失的生命加伤（0.1.17，2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」，又说「接着做」。英雄联盟的回音击伤害随目标已损失的生命 +0% ～ +100%；主包是固定伤害。副本的三处回音击（Q、R 连招 QRQ 和 RQQ）落地时先调用新的原生效果 `league_leesin_hop:q2` / `q2_qrq` / `q2_rqq`（`src/lib.rs` 的 `Q2_SITES`，`make_override.py` 核对每一处的伤害数字），补「这一下的伤害 × 已损失生命的比例」的物理伤害。Q 的说明换成本包的 `description.league_leesin_hop.skill`。普攻不动。新测试 `tests/q2.rs`。

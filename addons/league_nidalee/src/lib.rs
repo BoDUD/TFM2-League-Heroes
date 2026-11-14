@@ -9,6 +9,11 @@
 //! - **标枪挑目标**（AI 钩子）：人形、标枪好了，AI 要放 Q 时，换成射程内**线上没有小兵野怪挡着**的敌方英雄：被捕猎的
 //!   优先，再按飞得远（伤害高）、血少排；没有挡不住的英雄就不换。
 //! - **猛扑猎杀挑目标**（AI 钩子）：大招扑向射程内被捕猎的、血量比例最低的敌方英雄。
+//! - **推倒按已损失的生命加伤**（原生效果 `league_nidalee:takedown`，0.1.5，用户 2026-11-14 看了「和英雄联盟不一样的地方」
+//!   清单后说「全改吧」）：英雄联盟的推倒 "deal modified magic damage that is increased by an amount for every 1% of the
+//!   target's missing health"（每 1% 已损失生命 +1% / 1.25% / 1.5% / 1.75%，随大招等级）。副本的推倒（豹形强化普攻的
+//!   一咬）先调用它：读目标这一咬之前的生命，补「这一咬的物理、魔法伤害（捕猎时 ×`TD_HUNT`%，同数据）× 已损失生命的比例
+//!   × [`takedown_per`]」，防御塔不算（英雄联盟：建筑只吃最低伤害）。数字是 `TD_*`，`make_override.py` 和参数表 P 核对。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_nidalee.log`，每次启动游戏重写，上一次的留在 .prev.log。
@@ -39,6 +44,15 @@ const HUMAN: &str = "league_nidalee_hu";
 const Q_CD: &str = "league_nidalee_hq_cd";
 const HUNTED: &str = "league_nidalee_hunted";
 const BRUSH: &str = "league_nidalee_brush";
+/// 捕猎时她身上的旗子（主包数据：推倒按它 ×`TD_HUNT`%）。
+const HUNT: &str = "league_nidalee_hunt";
+/// 推倒那一咬（参数表 P：`cq_dmg` + (100 + `cq_ad`)% 攻击力物理、`cq_mdmg` + `cq_ap`% 法强魔法，捕猎时 ×`cq_h`%）。
+pub const TD_DMG: usize = 40;
+pub const TD_AD: usize = 150;
+pub const TD_MDMG: usize = 52;
+pub const TD_AP: usize = 62;
+pub const TD_HUNT: usize = 130;
+pub const TAKEDOWN: &str = "league_nidalee:takedown";
 
 // ===================== 日志 =====================
 
@@ -387,6 +401,64 @@ impl StablePlayerAi for AimAi {
     }
 }
 
+// ===================== 推倒：按已损失的生命加伤 =====================
+
+/// 每 1% 已损失生命多几 %（百分之一）：英雄联盟随大招等级 1 / 1.25 / 1.5 / 1.75%（6 / 11 / 16 级升级）；这里 12 级，在
+/// 1 / 4 / 8 / 11 级换档（同样的比例）。
+pub fn takedown_per(level: usize) -> usize {
+    match level {
+        0..=3 => 100,
+        4..=7 => 125,
+        8..=10 => 150,
+        _ => 175,
+    }
+}
+
+/// 这一咬的（物理, 魔法）：数据的数字，捕猎时各 ×`TD_HUNT`%（和数据一样先取整）。
+pub fn bite(attack: usize, power: usize, hunting: bool) -> (usize, usize) {
+    let h = |x: usize| if hunting { x * TD_HUNT / 100 } else { x };
+    (h(TD_DMG) + attack * h(TD_AD) / 100, h(TD_MDMG) + power * h(TD_AP) / 100)
+}
+
+/// 补的（物理, 魔法）：这一咬 × 已损失生命的比例 × `per` / 100。
+pub fn takedown_bonus(bite: (usize, usize), hp: usize, max: usize, per: usize) -> (usize, usize) {
+    if max == 0 || hp >= max {
+        return (0, 0);
+    }
+    let m = |x: usize| x * (max - hp) / max * per / 100;
+    (m(bite.0), m(bite.1))
+}
+
+struct Takedown;
+
+impl StableEffectType for Takedown {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let target = input.target_id;
+        let Some((hp, max)) = sim.get_entity(target)
+            .filter(|t| t.is_alive() && !t.is_tower() && !matches!(t.kind(), Some(EntityKindV1::Tower | EntityKindV1::Nexus)))
+            .map(|t| t.hp())
+        else {
+            return;
+        };
+        let Some((attack, power, level)) = sim.get_entity(me).map(|e| (e.stat().attack, e.stat().magic_power, e.level())) else {
+            return;
+        };
+        let hunting = has_buff(sim, me, HUNT);
+        let per = takedown_per(level);
+        let (ad, ap) = takedown_bonus(bite(attack, power, hunting), hp, max, per);
+        if ad + ap > 0 {
+            sim.deal_damage(me, target, ad, ap, AttackTypeV1::BaseAttack);
+        }
+        if let Some(k) = counted("takedown") {
+            wlog(format!("{} TAKEDOWN #{k} on {}: {hp}/{max} hp before the bite, level {level} ({per}% a 1%), hunting {hunting} \
+                          -> +{ad} physical +{ap} magic", head(sim, me), who(sim, target)));
+        }
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -395,7 +467,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Nidalee: the whole-body cougar, Prowl's brush speed, the javelin's and the hunt pounce's targets) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Nidalee: the whole-body cougar, Prowl's brush speed, the javelin's and the hunt pounce's targets, Takedown by missing health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -405,6 +477,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     view::install_once();
     module.add_native_passive(format!("{ID}:prowl"), Prowl::default());
     module.add_player_input_ai(AimAi);
+    module.add_native_effect(TAKEDOWN, Takedown);
     host.log(LogLevel::Info, "league_nidalee loaded (whole-body cougar, brush speed, javelin and hunt pounce targets).");
 }
 
@@ -423,6 +496,40 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// League: Takedown "increased by an amount for every 1% of the target's missing health" - 1% at rank 1 up to 1.75%
+    /// at rank 4; the hunted +30% (the data's numbers, rounded as the data rounds them).
+    #[test]
+    fn takedown_grows_with_the_missing_health_and_her_level() {
+        assert_eq!([1, 3, 4, 7, 8, 10, 11, 12].map(takedown_per), [100, 100, 125, 125, 150, 150, 175, 175]);
+        // 200 AD, 100 AP: 40 + 300 physical, 52 + 62 magic; hunting 52 + 195% and 67 + 80%
+        assert_eq!(bite(200, 100, false), (340, 114));
+        assert_eq!(bite(200, 100, true), (52 + 390, 67 + 80));
+        // a full target: nothing; half its health gone at rank 1: +50%; at rank 4: +87.5%
+        assert_eq!(takedown_bonus((340, 114), 1000, 1000, 100), (0, 0));
+        assert_eq!(takedown_bonus((340, 114), 500, 1000, 100), (170, 57));
+        assert_eq!(takedown_bonus((340, 114), 500, 1000, 175), (297, 99));
+        // nearly dead at rank 4: +175% (League's cap)
+        assert_eq!(takedown_bonus((100, 100), 0, 1000, 175), (175, 175));
+        assert_eq!(takedown_bonus((100, 100), 10, 0, 175), (0, 0));
+    }
+
+    /// The copy's bite asks the add-on before its own damage (the health before the bite), and its numbers are TD_*.
+    #[test]
+    fn the_copys_bite_asks_takedown_first() {
+        let copy = include_str!("../override/league_nidalee.data_champion").replace("\r\n", "\n");
+        let r = format!("\"effect_ref\": \"{TAKEDOWN}\"");
+        assert_eq!(copy.matches(&r).count(), 1);
+        let at = copy.find(&r).unwrap();
+        let before = &copy[..at];
+        assert!(before[before.rfind("\"name\": \"league_nidalee_cq_bite\"").unwrap()..].contains("\"applied_effects\""));
+        let after = &copy[at..at + 2500];
+        for n in [format!("\"damage\": {TD_DMG},"), format!("\"attack_ratio\": {TD_AD}"),
+                  format!("\"damage\": {},", TD_DMG * TD_HUNT / 100), format!("\"attack_ratio\": {}", TD_AD * TD_HUNT / 100)] {
+            assert!(after.contains(&n), "{n} not in the bite after the native");
+        }
+        assert!(HUNT.len() <= BUFF_NAME_CAP);
+    }
 
     fn foe(id: usize, x: f64, champion: bool, hunted: bool, hp_pct: usize) -> Foe {
         Foe { id, at: (x, 0.0), champion, hunted, hp_pct }

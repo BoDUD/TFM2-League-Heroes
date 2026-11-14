@@ -23,6 +23,9 @@ addons/league_nidalee; the pros' combos):
           brush_near_ms% with a visible enemy champion within brush_near.
   attack  Human: the javelin thrown at the target (released on a_st). Cougar: the claw (c_atk_st); with Takedown armed
           the bite (c_skill): cq_dmg + cq_ad% AD physical and cq_mdmg + cq_ap% AP magic, x cq_h% while hunting.
+          native=1 (2026-11-14, the user's 「全改吧」): the bite asks league_nidalee:takedown first (the add-on reads the
+          target's health before it and adds League's "increased by an amount for every 1% of the target's missing
+          health").
   skill   Human: Javelin Toss (标枪投掷), a line (the first unit it meets, a skillshot) toward the target on `EnemyWithoutTower`
           (q_range, camps too): more damage the farther it flew (League: up to 3.25x) - flags laid at the release tell
           the hit how long it flew (league_xerath E): under q_t1 ticks q_dmg + q_ap% AP, under q_t2 x q_mid%, beyond
@@ -66,14 +69,15 @@ P = {
     "atk_range": 23000, "atk_dur": 26, "atk_cd": 52, "a_st": 9, "a_speed": 5000,
     # cougar form
     "h_add": 27000, "c_atk_dur": 20, "c_atk_st": 8, "c_near": 32000, "tf_dur": 16, "r_cd_t": 180,
-    # passive Prowl (League: hunted 4 s, +30% move speed toward the hunted, pounce 750, takedown +40%)
+    # passive Prowl (League: hunted 4 s, +30% move speed toward the hunted, pounce 750, takedown +30% (V14.5; was 40%))
     "p_t": 240, "p_ms": 20,
     # Q Javelin Toss (League: 1500 range, speed 1300, 50-170 + 50% AP, up to 3.25x at 1300 flown, cd 6 s)
     "q_cd": 360, "q_range": 85000, "q_dur": 33, "q_at": 14, "q_speed": 3000, "q_w": 2500,
     "q_dmg": 88, "q_ap": 80, "q_t1": 10, "q_t2": 19, "q_mid": 160, "q_far": 220,
-    # Takedown (League: next attack -20..130 + 75% AD + 40% AP, more on low health, 1.4x on the hunted, cd 6 s)
+    # Takedown (League: next attack -20..130 + 75% AD + 40% AP, more on low health, cd 6 s; the hunted +30% since V14.5,
+    # was 40%: cq_h 140 -> 130 on 2026-11-14, the user's 「全改吧」 of the list of differences)
     "cq_cd": 300, "cq_t": 240, "cq_dur": 26, "cq_st": 9, "cq_dmg": 40, "cq_ad": 50, "cq_mdmg": 52, "cq_ap": 62,
-    "cq_h": 140,
+    "cq_h": 130,
     # skill2 slot
     "s2_cd": 60, "s2_range": 55000,
     # E Primal Surge (League: heal 25-175 + AP (up to 2x on the hurt), 20-80% attack speed 7 s, cd 12 s)
@@ -251,9 +255,11 @@ def build(p):
                         delayed(p["a_st"] - 1, homing("a_spear", p["a_speed"], "Enemy", human_hit)))
     hunt_x = lambda d, r: sw("hunt", combine(attack(d * p["cq_h"] // 100, r * p["cq_h"] // 100)), attack(d, r))
     hunt_m = lambda d, r: sw("hunt", magic(d * p["cq_h"] // 100, r * p["cq_h"] // 100), magic(d, r))
+    # native: the add-on's missing-health bonus first, on the health the target has before the bite
+    takedown = [{"type": "Native", "effect_ref": "league_nidalee:takedown"}] if p["native"] else []
     bite = combine(*rm("cq_on"), anim("c_skill", p["cq_dur"]), sfx("cq"), voice("vo_cq", p),
                    delayed(p["cq_st"] - 1, homing("cq_bite", 100000, "Enemy",
-                                                  [hunt_x(p["cq_dmg"], 100 + p["cq_ad"]),
+                                                  [*takedown, hunt_x(p["cq_dmg"], 100 + p["cq_ad"]),
                                                    hunt_m(p["cq_mdmg"], p["cq_ap"]), view("cq_hit"),
                                                    tsfx("cq_hit")])))
     claw = combine(anim("c_attack", p["c_atk_dur"]), sfx("c_swing"),

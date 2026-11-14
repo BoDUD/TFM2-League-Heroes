@@ -11,10 +11,10 @@
       "version": ">=0.105.0"
     }
   ],
-  "description": "Test build of Nidalee as in League (needs League of Legends Heroes): replaces the main pack's Nidalee so her whole body is the cougar in cougar form (standing, running, hit and dead too, game 0.6.3), Prowl gives move speed in and just after brush, Javelin Toss is thrown at a champion with a clear line (the hunted first) and the hunt pounce goes for the hunted or lowest champion. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-07",
+  "description": "Test build of Nidalee as in League (needs League of Legends Heroes): replaces the main pack's Nidalee so her whole body is the cougar in cougar form (standing, running, hit and dead too, game 0.6.3), Prowl gives move speed in and just after brush, Javelin Toss is thrown at a champion with a clear line (the hunted first) and the hunt pounce goes for the hunted or lowest champion. Takedown's bite deals more by the target's missing health, as in League (+1% to +1.75% per 1% missing, by level). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_nidalee",
   "mod_type": "native",
   "name": "League Heroes: Nidalee's whole-body cougar, Prowl in brush and smart javelin (test)",
-  "version": "0.1.4"
+  "version": "0.1.5"
 }

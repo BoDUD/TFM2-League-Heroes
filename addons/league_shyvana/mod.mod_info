@@ -11,10 +11,10 @@
       "version": ">=0.213.0"
     }
   ],
-  "description": "Test build of Shyvana's whole-body dragon (needs League of Legends Heroes): in dragon form Shyvana stands, runs, gets hit and dies as the dragon (the main pack: only her casts). The main pack's data is untouched. Writes a log for testing.",
-  "last_updated": "2026-10-24",
+  "description": "Test build of Shyvana's whole-body dragon and Scalemail (needs League of Legends Heroes): in dragon form Shyvana stands, runs, gets hit and dies as the dragon (the main pack: only her casts); and it replaces the main pack's Shyvana with a copy whose Scalemail stacks as in League - 3 stacks a champion takedown or epic monster, 1 a camp, each +0.3 armour and magic resist for the whole game - instead of +30% armour and magic resist in dragon form (data cannot see kills). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_shyvana",
   "mod_type": "native",
-  "name": "League Heroes: Shyvana's whole-body dragon (test)",
-  "version": "0.1.1"
+  "name": "League Heroes: Shyvana's whole-body dragon and Scalemail (test)",
+  "version": "0.1.2"
 }

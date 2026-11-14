@@ -11,6 +11,11 @@
 //! - **AI 钩子 `league_ekko_rewind:ult`**：只在这些时候放 R——生命不高于 `LOW`%；或这 4 秒里掉了 `BURST`% 以上；或回去的
 //!   地方 `LAND_R` 内有 `CROWD` 个以上敌方英雄；或那里有人吃得下这一下（`R_BASE` + `R_AP`% 法强，按魔抗折算）。AI 想放
 //!   但都不是，改成普攻它的目标；AI 没想放但是是，就替它放。
+//! - **原生效果 `league_ekko_rewind:convergence`**（0.1.3，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」）：
+//!   W「时光交错」的被动。英雄联盟：普攻对生命低于 30% 最大生命的敌人追加已损失生命 3%（每 100 法强 +3%）的魔法伤害，
+//!   最少 15，对小兵和野怪最多 150。数据读不到目标的生命，主包没做；副本在普攻和 E 的闪击（英雄联盟 E 的第二段就是一次
+//!   普攻）命中效果的最后调用它（目标 = 被打中的单位，打完这一下、共振之后再看生命），本包按他这时的生命补魔法伤害
+//!   （`W_LOW` / `W_PCT` / `W_AP` / `W_MIN` / `W_CAP`），防御塔不算。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ekko_rewind.log`。
 
@@ -48,6 +53,20 @@ pub const CROWD: usize = 2;
 /// R 从这一级起能放（同 league_darius_ult）。
 const ULT_LEVEL: usize = 5;
 const LOG_EVERY: usize = 120;
+/// W 的被动：副本的普攻和 E 的闪击命中时调用的原生效果。
+pub const CONVERGENCE: &str = "league_ekko_rewind:convergence";
+/// 目标生命低于最大生命的这么多 % 才补（英雄联盟 30%）。
+pub const W_LOW: usize = 30;
+/// 补已损失生命的多少：万分之 `W_PCT`，每 100 法强再加万分之 `W_AP`（英雄联盟 3% + 每 100 法强 3%）。
+pub const W_PCT: usize = 300;
+pub const W_AP: usize = 300;
+/// 每下最少（英雄联盟 15），对小兵、野怪最多（英雄联盟 150；英雄不封顶）。
+pub const W_MIN: usize = 15;
+pub const W_CAP: usize = 150;
+/// `LOW` 日志行：你看的那场每一下都写，服务器的预模拟先写 `W_LOG_FIRST` 行，之后每 `W_LOG_EVERY` 下一行。
+const W_LOG_FIRST: usize = 40;
+const W_LOG_EVERY: usize = 100;
+static W_LINES: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
 
 // ===================== 日志 =====================
 
@@ -350,6 +369,56 @@ impl StablePlayerAi for UltAi {
     }
 }
 
+// ===================== W 的被动：普攻对残血的人补伤害 =====================
+
+/// W 的被动对生命 `hp` / `max` 的目标补多少魔法伤害（`power` 艾克的法强）：生命不低于 `W_LOW`% 时 `None`；英雄不封顶，
+/// 别的单位（小兵、野怪）最多 `W_CAP`。
+pub fn convergence(hp: usize, max: usize, power: usize, champion: bool) -> Option<usize> {
+    if max == 0 || hp == 0 || hp * 100 >= W_LOW * max {
+        return None;
+    }
+    let pct = W_PCT + W_AP * power / 100;
+    let d = ((max - hp) * pct / 10_000).max(W_MIN);
+    Some(if champion { d } else { d.min(W_CAP) })
+}
+
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// 副本的普攻 / E 的闪击打中一个单位（打完这一下、共振之后）：他生命低于 `W_LOW`% 就补魔法伤害。
+fn convergence_hit(sim: &mut StableSim<'_>, ekko: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        return;
+    }
+    let target = input.target_id;
+    let Some((hp, max, champion)) = sim.get_entity(target)
+        .filter(|t| t.is_alive() && !t.is_tower() && !matches!(t.kind(), Some(EntityKindV1::Tower | EntityKindV1::Nexus)))
+        .map(|t| (t.hp().0, t.hp().1, t.is_champion()))
+    else {
+        return;
+    };
+    let Some(power) = sim.get_entity(ekko).map(|e| e.stat().magic_power) else { return };
+    let Some(d) = convergence(hp, max, power, champion) else { return };
+    sim.deal_damage_typed(ekko, target, d, DamageTypeV1::Ap, AttackTypeV1::BaseAttack);
+    let n = W_LINES.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+    if on_screen(sim) || n <= W_LOG_FIRST || n % W_LOG_EVERY == 0 {
+        let after = sim.get_entity(target).map_or(0, |t| t.hp().0);
+        wlog(format!("{} LOW #{n}: #{target} (champion {champion}) at {hp}/{max} hp -> +{d} magic ({power} AP), {after} hp left",
+                     head(sim, ekko)));
+    }
+}
+
+struct Convergence;
+
+impl StableEffectType for Convergence {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        convergence_hit(sim, caster, input);
+    }
+}
+
 // ===================== 注册 =====================
 
 pub fn register(host: &StableHost, module: &mut StableMod) {
@@ -357,7 +426,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Ekko's R back to 4 seconds ago, heal on the health lost) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Ekko's R back to 4 seconds ago, heal on the health lost; W's passive on low targets) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -366,7 +435,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_player_input_ai(UltAi::default());
     module.add_native_passive(format!("{ID}:rewind"), Rewind::default());
-    host.log(LogLevel::Info, "league_ekko_rewind v1 loaded (Ekko's Chronobreak back to 4 seconds ago).");
+    module.add_native_effect(CONVERGENCE, Convergence);
+    W_LINES.store(0, std::sync::atomic::Ordering::Relaxed);
+    host.log(LogLevel::Info, "league_ekko_rewind v1 loaded (Ekko's Chronobreak back to 4 seconds ago, W's passive).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -418,5 +489,49 @@ mod tests {
         assert!(go(900, 1000, 0, 1, true));
         assert_eq!(land_damage(100, 0), 250);
         assert_eq!(land_damage(100, 25), 200);
+    }
+
+    /// W's passive (League: below 30% health, 3% + 3% per 100 AP of the missing health, at least 15, at most 150 to minions
+    /// and monsters).
+    #[test]
+    fn w_passive_hits_targets_below_30_percent_by_their_missing_health() {
+        // 30% and above: nothing; dead or no health: nothing
+        assert_eq!(convergence(300, 1000, 0, true), None);
+        assert_eq!(convergence(800, 1000, 500, true), None);
+        assert_eq!(convergence(0, 1000, 100, true), None);
+        assert_eq!(convergence(10, 0, 100, true), None);
+        // 0 AP: 3% of the missing health, at least 15
+        assert_eq!(convergence(299, 1000, 0, true), Some(21));
+        assert_eq!(convergence(100, 400, 0, true), Some(15));
+        // 100 AP: 6%; 250 AP: 10.5%
+        assert_eq!(convergence(500, 2000, 100, true), Some(90));
+        assert_eq!(convergence(500, 2000, 250, true), Some(157));
+        // minions and monsters at most 150, champions uncapped
+        assert_eq!(convergence(500, 5000, 300, false), Some(150));
+        assert_eq!(convergence(500, 5000, 300, true), Some(540));
+        assert_eq!(convergence(50, 400, 0, false), Some(15));
+    }
+
+    /// The copy calls W's passive at the end of his attack's hit and of E's strike (after the attack's damage and the
+    /// resonance), and nowhere else.
+    #[test]
+    fn the_copy_calls_w_passive_on_attacks_and_es_strike() {
+        let copy = include_str!("../override/league_ekko.data_champion").replace("\r\n", "\n");
+        // the copy's top-level sections (make_override.py writes it with an indent of 2)
+        let section = |key: &str| -> String {
+            let start = copy.find(&format!("\n  \"{key}\": ")).unwrap_or_else(|| panic!("no {key} in the copy"));
+            let rest = &copy[start + 1..];
+            let end = rest[1..].find("\n  \"").map_or(rest.len(), |e| e + 1);
+            rest[..end].to_string()
+        };
+        let refs = |key: &str| section(key).matches(&format!("\"effect_ref\": \"{CONVERGENCE}\"")).count();
+        assert_eq!(refs("attack"), 1, "the attack");
+        assert_eq!(refs("skill2"), 1, "E's strike");
+        assert_eq!(refs("skill") + refs("ult"), 0, "Q / R");
+        assert!(section("attack").contains("description.league_ekko_rewind.attack"), "the attack's text is the add-on's");
+        // after the hit's damage and the resonance: the last effect of the hit's Combine
+        let attack = section("attack");
+        let native = attack.find(CONVERGENCE).unwrap();
+        assert!(attack.find("league_ekko_z1").unwrap() < native && attack.find("\"type\": \"Attack\"").unwrap() < native);
     }
 }

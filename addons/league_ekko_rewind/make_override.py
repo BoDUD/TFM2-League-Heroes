@@ -9,7 +9,11 @@ and .../text/champion.i18n: the same kit with -
     cast plays the departure picture and flags Ekko with lib.rs's GO; LAND_DELAY ticks later the main pack's landing
     (invulnerability, picture, sound, heal, the hit around him) runs without its Teleport;
   * the passive league_ekko_rewind:rewind (it moves him back and adds the heal bonus; the AI hook decides when R goes);
-  * R's tooltip pointing to description.league_ekko_rewind.ult in the add-on's wording.
+  * R's tooltip pointing to description.league_ekko_rewind.ult in the add-on's wording;
+  * W's passive (0.1.3, League: attacks on targets below 30% health deal 3% + 3% per 100 AP of their missing health): the
+    native effect league_ekko_rewind:convergence last in the hit of his attack and of E's strike (after the hit's damage
+    and the resonance), the attack's tooltip pointing to description.league_ekko_rewind.attack (the main pack's text
+    with W's passive, shortened to fit: the resonance's numbers are checked against the attack's data).
 Every other champion stays untouched. Run it again whenever the main pack's Ekko changes (--check: compare only).
 """
 import argparse
@@ -44,6 +48,35 @@ TEXT = {
           "回復し（その4秒の減少体力1%ごとに+" + Y + "{per}%" + E + "、最大+" + Y + "{top}%" + E + "）、到着地点周囲の敵に" + P + "{d}" + E + " + " + API + P +
           "魔力の{da}%" + E + "の" + P + "魔法ダメージ" + E + "を与える。瀕死、急な被弾、敵の中へ戻れる時に使う。",
 }
+ATTACK_KEY = "description." + MOD_ID + ".attack"
+ADI, SPI = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>", "<i#asset/base/ui/banpick/champion_stat_icon:speed_0>"
+O, R, W = "<#ff9028ff>", "<#ef5350ff>", "<#ffffffff>"
+# the attack's text: the main pack's (league/text/champion.i18n description.league_ekko.attack) with W's passive after its
+# first sentence; to fit the details panel the resonance says "hits add stacks" instead of listing them, and its "no
+# stacks for 3 s" and the haste's 2 s are dropped (every damage and slow number kept)
+ATTACK_TEXT = {
+    "zh-hans": "普攻造成" + ADI + O + "{ad}% 攻击力" + E + "的" + O + "物理伤害" + E + "；普攻和 E 对生命低于" + Y + "{low}%" + E + "的敌人追加已损失生命" +
+               P + "{pct}%" + E + "（每100法强 +" + P + "{per}%" + E + "）的" + P + "魔法伤害" + E + "。" + O + "Z型驱动共振" + E + "：命中记层，第" +
+               Y + "3" + E + "层追加" + P + "{zd}" + E + " + " + API + P + "{za}% 法术强度" + E + "的" + P + "魔法伤害" + E + "并" + R + "减速{zs}%" + E +
+               " " + Y + "{zt}秒" + E + "；附近有敌方英雄时" + SPI + W + "移速 +{hs}%" + E + "。",
+    "zh-hant": "普攻造成" + ADI + O + "{ad}% 攻擊力" + E + "的" + O + "物理傷害" + E + "；普攻和 E 對生命低於" + Y + "{low}%" + E + "的敵人追加已損失生命" +
+               P + "{pct}%" + E + "（每100魔法強度+" + P + "{per}%" + E + "）的" + P + "魔法傷害" + E + "。" + O + "共振驅動-Z" + E + "：命中記層，第" +
+               Y + "3" + E + "層追加" + P + "{zd}" + E + " + " + API + P + "{za}% 魔法強度" + E + "的" + P + "魔法傷害" + E + "並" + R + "緩速{zs}%" + E +
+               " " + Y + "{zt}秒" + E + "；附近有敵方英雄時" + SPI + W + "移速 +{hs}%" + E + "。",
+    "en": "Basic attacks deal " + ADI + O + "{ad}% AD" + E + " " + O + "physical damage" + E + ", plus " + P + "{pct}%" + E + " (+" + P + "{per}%" + E +
+          " per 100 AP) of the missing health as " + P + "magic damage" + E + " to enemies below " + Y + "{low}%" + E + " health (E's strike too). " +
+          O + "Z-Drive Resonance" + E + ": every " + Y + "3rd" + E + " hit of attacks and spells deals an extra " + P + "{zd}" + E + " + " + API + P +
+          "{za}% AP" + E + " " + P + "magic damage" + E + " and " + R + "slows" + E + " by {zs}% for " + Y + "{zt}s" + E +
+          "; near an enemy champion Ekko gains " + SPI + W + "{hs}% Move Speed" + E + ".",
+    "ko": "기본 공격으로 " + ADI + O + "공격력의 {ad}%" + E + " " + O + "물리 피해" + E + "를 입히며, 체력 " + Y + "{low}%" + E + " 미만인 적에게 잃은 체력의 " +
+          P + "{pct}%" + E + "(주문력 100당 +" + P + "{per}%" + E + ") " + P + "마법 피해" + E + "를 더 입힙니다. " + O + "Z 드라이브 공진" + E +
+          ": 적중마다 중첩, " + Y + "3" + E + "번째 중첩은 " + P + "{zd}" + E + " + " + API + P + "주문력의 {za}%" + E + " " + P + "마법 피해" + E +
+          "를 더 입히고 " + Y + "{zt}초" + E + " 동안 " + R + "{zs}% 둔화" + E + ". 적 챔피언 근처에서 " + SPI + W + "이동 속도 {hs}% 증가" + E + ".",
+    "ja": "通常攻撃は" + ADI + O + "攻撃力の{ad}%" + E + "の" + O + "物理ダメージ" + E + "、体力" + Y + "{low}%" + E + "未満の敵には減少体力の" + P + "{pct}%" + E +
+          "（魔力100毎に+" + P + "{per}%" + E + "）の" + P + "魔法ダメージ" + E + "を追加。" + O + "ゼロ・ドライブ" + E + "：命中毎にスタック、" + Y + "3" + E +
+          "スタック目は" + P + "{zd}" + E + " + " + API + P + "魔力の{za}%" + E + "の" + P + "魔法ダメージ" + E + "を追加し" + Y + "{zt}秒" + E + "間" + R +
+          "{zs}%スロウ" + E + "。敵チャンピオンが近いと" + SPI + W + "移動速度が{hs}%増加" + E + "。",
+}
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 
 
@@ -61,12 +94,61 @@ def shown_length(text):
 def consts():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     out = {}
-    for name in ("LAND_DELAY", "R_BASE", "R_AP", "REWIND"):
+    for name in ("LAND_DELAY", "R_BASE", "R_AP", "REWIND", "W_LOW", "W_PCT", "W_AP", "W_MIN", "W_CAP"):
         out[name] = int(re.search(r"pub const " + name + r": usize = ([\d_]+);", src).group(1).replace("_", ""))
     for name in ("LAND_R", "R_RANGE"):
         out[name] = int(re.search(r"pub const " + name + r": u64 = ([\d_]+);", src).group(1).replace("_", ""))
     out["GO"] = re.search(r'pub const GO: &str = "([^"]+)";', src).group(1)
+    out["CONVERGENCE"] = re.search(r'pub const CONVERGENCE: &str = "([^"]+)";', src).group(1)
     return out
+
+
+def percent(bp):
+    """Basis points as the tooltip's percent (300 -> "3", 250 -> "2.5")."""
+    return ("%d" % (bp // 100)) if bp % 100 == 0 else ("%g" % (bp / 100))
+
+
+def resonance(hit):
+    """The Z-Drive Resonance numbers in one hit's Combine (the attack's / E's strike): its third stack's ApAttack, slow
+    and haste; the hit's own damage first."""
+    eff = hit["effects"]
+    z = eff[-1] if eff and eff[-1].get("type") == "SwitchByBuff" and eff[-1].get("buff_name") == "league_ekko_z_cd" else None
+    if z is None:
+        sys.exit("the hit no longer ends with the resonance (SwitchByBuff league_ekko_z_cd): update this script")
+    third = z["effect_none"]["effect_buff"]["effects"][-1]["effects"]
+    ap = [e for e in third if e.get("type") == "ApAttack"]
+    slow = [e["buff_state"] for e in third if e.get("type") == "AddBuff" and e["buff_state"]["name"] == "league_ekko_z_slow"]
+    haste = [x["effect_none"]["effects"][0]["buff_state"] for x in third if x.get("type") == "SwitchByBuff"
+             and x.get("buff_name") == "league_ekko_z_haste"]
+    if len(ap) != 1 or len(slow) != 1 or len(haste) != 1:
+        sys.exit("the resonance's third stack changed: update this script")
+    return {"zd": ap[0]["damage"], "za": ap[0]["attack_ratio"], "zs": -slow[0]["move_speed_mult"],
+            "zt": "%g" % (slow[0]["duration"]["Time"]["tick"] / 60), "hs": haste[0]["move_speed_mult"],
+            "ht": "%g" % (haste[0]["duration"]["Time"]["tick"] / 60)}
+
+
+def add_convergence(champion, c):
+    """W's passive: the native effect last in the hit of his attack and of E's strike; the numbers for the attack's text."""
+    native = {"type": "Native", "effect_ref": c["CONVERGENCE"]}
+    a = champion["attack"]
+    hit = a["effect"]
+    if (a["attack_type"], a["casting_type"], hit.get("type")) != ("BaseAttack", "Targeting", "Combine"):
+        sys.exit("Ekko's attack is no longer a targeted Combine: update this script")
+    first = hit["effects"][0]
+    if first.get("type") != "Attack" or first["damage"] != 0:
+        sys.exit("Ekko's attack no longer starts with its Attack: update this script")
+    numbers = resonance(hit)
+    hit["effects"].append(native)
+    moves = [x for x in champion["skill2"]["effect"]["effects"] if x.get("type") == "MoveTo"]
+    if len(moves) != 1 or len(moves[0]["end_effects"]) != 1 or moves[0]["end_effects"][0].get("type") != "Combine":
+        sys.exit("E's strike (the MoveTo's end Combine) changed: update this script")
+    strike = moves[0]["end_effects"][0]
+    if strike["effects"][0].get("type") != "ApAttack" or resonance(strike) != numbers:
+        sys.exit("E's strike no longer starts with its ApAttack or counts the resonance differently: update this script")
+    strike["effects"].append(native)
+    a["description"] = "#asset/base/text/champion?" + ATTACK_KEY
+    numbers.update(ad=first["attack_ratio"], low=c["W_LOW"], pct=percent(c["W_PCT"]), per=percent(c["W_AP"]))
+    return numbers
 
 
 def landing(ult):
@@ -122,14 +204,17 @@ def build():
         sys.exit("the chrono / lives buffs are still used somewhere: update this script")
     champion["passive"] = {"passive_ref": MOD_ID + ":rewind", "params": PARAMS}
     u["description"] = "#asset/base/text/champion?" + TEXT_KEY
+    w = add_convergence(champion, c)
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     texts = {lang: TEXT[lang].format(b=PARAMS["base"], a=PARAMS["ap"], per=PARAMS["per"], top=PARAMS["max"],
                                      d=c["R_BASE"], da=c["R_AP"]) for lang in main_text}
-    long = {lang: shown_length(t) for lang, t in texts.items() if shown_length(t) > TOOLTIP_MAX[lang]}
+    attack = {lang: ATTACK_TEXT[lang].format(**w) for lang in main_text}
+    long = {lang + " " + slot: shown_length(t) for slot, all_ in (("ult", texts), ("attack", attack))
+            for lang, t in all_.items() if shown_length(t) > TOOLTIP_MAX[lang]}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
-    text = {lang: {"description": {MOD_ID: {"ult": texts[lang]}}} for lang in main_text}
+    text = {lang: {"description": {MOD_ID: {"attack": attack[lang], "ult": texts[lang]}}} for lang in main_text}
     return champion, text
 
 

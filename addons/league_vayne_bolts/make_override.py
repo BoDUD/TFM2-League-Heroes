@@ -17,7 +17,12 @@ league_vayne.data_champion and .../text/champion.i18n, the same kit with four ch
     the landing's damage and stun (the Delayed at the knockback's last tick) only come with that flag; the tooltip
     points to description.league_vayne_bolts.skill2 ("only on a wall"). The Knockback's speed and ticks must be the
     add-on's E_KB_SPEED / E_KB_T (src/lib.rs), and its start, bolt speed and range E_START / E_BOLT_SPEED / E_RANGE (the AI
-    hook aims with them), or the script stops.
+    hook aims with them), or the script stops;
+  * Final Hour (0.2.3, League: a champion takedown within 3 s of her damaging them extends it by 4 s, up to its original
+    duration): the data's kill check (her own kills refreshing it to 8 s: the league_vayne_kc nodes in the attack and
+    Condemn) is gone and the passive league_vayne_bolts:final_hour (params extend / window, src/lib.rs's R_EXTEND /
+    R_WINDOW) extends it natively; the ult's buff must last src/lib.rs's R_T; the ult's tooltip points to
+    description.league_vayne_bolts.ult ("[Add-on]" lead, the takedown sentence).
 Every other champion stays untouched. Run it again whenever the main pack's Vayne changes.
 """
 import copy
@@ -40,6 +45,21 @@ TEXT = {
     "ja": ("【シルバーボルトテスト版】", "以内の連続", "以内に同じ相手への連続"),
 }
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
+# Final Hour's tooltip (0.2.3): lang -> (lead, the main pack's kill sentence, the add-on's takedown sentence: {w} the
+# window, {x} the extension, {t} the cap, in seconds)
+R_TEXT = {
+    "zh-hans": ("【附加包】", "期间她亲手击杀英雄时，终极时刻刷新为<#ffb900ff>8秒<>。",
+                "期间她<#ffb900ff>{w}秒<>内打过的英雄阵亡（击杀或助攻），终极时刻延长<#ffb900ff>{x}秒<>，最多<#ffb900ff>{t}秒<>。"),
+    "zh-hant": ("【附加包】", "期間她親手擊殺英雄時，死亡通緝刷新為<#ffb900ff>8秒<>。",
+                "期間她<#ffb900ff>{w}秒<>內打過的英雄陣亡（擊殺或助攻），死亡通緝延長<#ffb900ff>{x}秒<>，最多<#ffb900ff>{t}秒<>。"),
+    "en": ("[Add-on] ", "A champion killed by her own hit meanwhile resets Final Hour to <#ffb900ff>8s<>.",
+           "Each champion takedown within <#ffb900ff>{w}s<> of her damaging them meanwhile extends Final Hour by "
+           "<#ffb900ff>{x}s<>, up to <#ffb900ff>{t}s<>."),
+    "ko": ("[확장] ", "그동안 직접 챔피언을 처치하면 <#ffb900ff>8초<>로 초기화.",
+           "그동안 <#ffb900ff>{w}초<> 안에 피해를 준 챔피언 처치에 관여하면 <#ffb900ff>{x}초<> 연장(최대 <#ffb900ff>{t}초<>)."),
+    "ja": ("【拡張】", "その間に自らチャンピオンを倒すと<#ffb900ff>8秒<>に戻る。",
+           "その間に<#ffb900ff>{w}秒<>以内に攻撃したチャンピオンのキルに関与すると<#ffb900ff>{x}秒<>延長（最大<#ffb900ff>{t}秒<>）。"),
+}
 # lang -> [(the main pack's words, the add-on's)] in Condemn's tooltip: the landing's damage and stun only on a wall
 CONDEMN_TEXT = {
     "zh-hans": [("，落地时再受到", "；撞到墙（地图的墙、5v5 地图的四边）才再受到"),
@@ -129,6 +149,52 @@ def condemn(champion):
     champion["skill2"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".skill2"
 
 
+def final_hour(champion):
+    """Final Hour: the data's kill check out (the native passive extends it), the passive in."""
+    r_t, extend, window = rust_const("R_T"), rust_const("R_EXTEND"), rust_const("R_WINDOW")
+    adds = []
+
+    def r_buff(o):
+        if o.get("type") == "AddCasterBuff" and o["buff_state"]["name"] == N + "r":
+            adds.append(o["buff_state"])
+
+    walk(champion["ult"]["effect"], r_buff)
+    if [b["duration"] for b in adds] != [{"Time": {"tick": r_t}}]:
+        sys.exit(f"the ult's Final Hour buff ({adds}) does not last src/lib.rs's R_T = {r_t}: update one of them")
+
+    def is_check(o):
+        return (isinstance(o, dict) and o.get("type") == "SwitchByBuff" and o.get("buff_name") == N + "r"
+                and N + "kc" in json.dumps(o["effect_buff"]) and not o["effect_none"].get("effects"))
+
+    removed = []
+
+    def strip(o):
+        if isinstance(o, dict):
+            for v in o.values():
+                strip(v)
+        elif isinstance(o, list):
+            keep = []
+            for v in o:
+                inner = v.get("effect") if isinstance(v, dict) and set(v) == {"casting_type", "effect"} else None
+                if is_check(v) or is_check(inner):
+                    removed.append(v)
+                    continue
+                strip(v)
+                keep.append(v)
+            o[:] = keep
+
+    for slot in ("attack", "skill", "skill2", "ult"):
+        strip(champion[slot]["effect"])
+    slots = json.dumps([champion[k] for k in ("attack", "skill", "skill2", "ult")])
+    if not removed or N + "kc" in slots or N + "r_refresh" in slots:
+        sys.exit(f"Final Hour's kill check: {len(removed)} removed, some still there: update this script")
+    if champion.get("passive"):
+        sys.exit("Vayne has a passive in the main pack now: update this script")
+    champion["passive"] = {"passive_ref": MOD_ID + ":final_hour", "params": {"extend": extend, "window": window}}
+    champion["ult"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".ult"
+    return len(removed), {"w": "%g" % (window / 60), "x": "%g" % (extend / 60), "t": "%g" % (r_t / 60)}
+
+
 def without_sb(branch):
     """The branch's effects minus its own sb1/sb2 bookkeeping (the stacks are on the target now)."""
     effs = branch["effects"] if branch.get("type") == "Combine" else [branch]
@@ -190,6 +256,7 @@ def main():
         o["tick"] = 2
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
     condemn(champion)
+    checks, secs = final_hour(champion)
 
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
@@ -206,7 +273,11 @@ def main():
             if skill2.count(old2) != 1:
                 sys.exit(f"{lang}: the main pack's Condemn text changed ({old2!r} not found once): update CONDEMN_TEXT")
             skill2 = skill2.replace(old2, new2)
-        texts[lang] = {"attack": lead + attack, "skill2": skill2}
+        r_lead, r_old, r_new = R_TEXT[lang]
+        ult = main_text[lang]["description"][HERO]["ult"]
+        if ult.count(r_old) != 1:
+            sys.exit(f"{lang}: the main pack's Final Hour text changed ({r_old!r} not found once): update R_TEXT")
+        texts[lang] = {"attack": lead + attack, "skill2": skill2, "ult": r_lead + ult.replace(r_old, r_new.format(**secs))}
     long = {f"{lang} {k}": shown_length(t) for lang, d in texts.items() for k, t in d.items()
             if shown_length(t) > TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
@@ -222,7 +293,8 @@ def main():
         f.write(json.dumps({lang: {"description": {MOD_ID: texts[lang]}} for lang in main_text},
                            ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), f"- {len(ladders)} ladders ask",
-          f"{MOD_ID}:bolt, {len(twins)} twin reads moved to tick 2, Condemn asks {MOD_ID}:condemn")
+          f"{MOD_ID}:bolt, {len(twins)} twin reads moved to tick 2, Condemn asks {MOD_ID}:condemn, {checks} Final Hour kill "
+          f"checks left to {MOD_ID}:final_hour")
     print("tooltip lengths", {f"{lang} {k}": f"{shown_length(t)}/{TOOLTIP_MAX[lang]}"
                               for lang, d in texts.items() for k, t in d.items()})
 

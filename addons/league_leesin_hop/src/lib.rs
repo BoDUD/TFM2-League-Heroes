@@ -36,6 +36,12 @@
 //!   （按他的速度预判波飞到时的位置），路上被小兵、野怪挡住或预判后够不着就不放；**不拿 Q 打小兵**；野怪照打，快死的不打。
 //!   不放时改成平 A（或走向）原来那个目标。R 里自带的 Q 不经过这里。
 //!
+//! - **回音击按目标已损失的生命加伤**（0.1.17，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟的
+//!   Q2 "deals physical damage, increased by 0% – 100% (based on target's missing health)"。主包读不到生命，回音击是固定
+//!   伤害。副本的每一处回音击（Q 的飞踢、R 连招 QRQ 的追击、RQQ 的回音击）在落地效果的最前面调用各自的原生效果
+//!   （[`Q2_SITES`]）：本包读目标这一下之前的生命，补「主包这一下的伤害 × 已损失生命的比例」的物理伤害（生命见底时翻倍）。
+//!   普攻一个字节都不动（另一边正在量他的普攻）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_leesin_hop.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //!
 //! 2026-11-08 日志审查：
@@ -219,6 +225,47 @@ fn on_screen(sim: &StableSim<'_>) -> bool {
     sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
         matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
     })
+}
+
+// ===================== 回音击：按已损失的生命加伤 =====================
+
+/// 副本里的回音击：(原生效果名 `league_leesin_hop:<名字>`, 主包那一下的伤害, 攻击力 %)。`make_override.py` 核对每一处的数字。
+pub const Q2_SITES: [(&str, usize, usize); 3] = [("q2", 35, 70), ("q2_qrq", 30, 60), ("q2_rqq", 50, 100)];
+
+/// 回音击补的伤害：主包那一下（`dmg` + `ratio`% 攻击力）× 目标已损失生命的比例（打之前的生命 `hp` / `max`）。
+pub fn q2_bonus(dmg: usize, ratio: usize, attack: usize, hp: usize, max: usize) -> usize {
+    if max == 0 || hp >= max {
+        return 0;
+    }
+    (dmg + attack * ratio / 100) * (max - hp) / max
+}
+
+struct Q2 {
+    site: &'static str,
+    dmg: usize,
+    ratio: usize,
+}
+
+impl StableEffectType for Q2 {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, lee: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let target = input.target_id;
+        let Some((hp, max)) = sim.get_entity(target).filter(|t| t.is_alive() && !t.is_tower()).map(|t| t.hp()) else {
+            return;
+        };
+        let Some(attack) = sim.get_entity(lee).map(|e| e.stat().attack) else { return };
+        let bonus = q2_bonus(self.dmg, self.ratio, attack, hp, max);
+        if bonus > 0 {
+            sim.deal_damage_typed(lee, target, bonus, DamageTypeV1::Ad, AttackTypeV1::Skill);
+        }
+        if let Some(k) = noted("q2 missing", on_screen(sim)) {
+            wlog(format!("{} Q2 {} #{k} on #{target}: {hp}/{max} hp before the strike -> +{bonus} physical ({} + {}% of {attack} \
+                          AD, x{}% missing)", head(sim, lee), self.site, self.dmg, self.ratio,
+                         (max - hp.min(max)) * 100 / max.max(1)));
+        }
+    }
 }
 
 // ===================== 地图和几何 =====================
@@ -1273,7 +1320,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (W dash, no ward, Q timing) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (W dash, no ward, Q timing, Resonating Strike by missing health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1284,6 +1331,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:dash"), Dash);
     module.add_native_effect(format!("{ID}:kick_check"), KickCheck);
     module.add_native_effect(format!("{ID}:follow"), Follow);
+    for (site, dmg, ratio) in Q2_SITES {
+        module.add_native_effect(format!("{ID}:{site}"), Q2 { site, dmg, ratio });
+    }
     module.add_player_input_ai(LeeAi::default());
     module.add_native_passive(format!("{ID}:hop"), Hop::default());
     host.log(LogLevel::Info, "league_leesin_hop v1 loaded (Lee Sin's W dashes to a spot).");
@@ -1303,6 +1353,41 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// League: Resonating Strike "increased by 0% – 100% (based on target's missing health)".
+    #[test]
+    fn resonating_strike_grows_with_the_missing_health() {
+        // 35 + 70% of 200 AD = 175: a full target takes nothing more, half health +50%, nearly dead almost double
+        assert_eq!(q2_bonus(35, 70, 200, 1000, 1000), 0);
+        assert_eq!(q2_bonus(35, 70, 200, 500, 1000), 87);
+        assert_eq!(q2_bonus(35, 70, 200, 1, 1000), 174);
+        assert_eq!(q2_bonus(50, 100, 100, 250, 1000), 112);
+        assert_eq!(q2_bonus(35, 70, 200, 1200, 1000), 0);
+        assert_eq!(q2_bonus(35, 70, 200, 0, 0), 0);
+    }
+
+    /// The copy: every Resonating Strike asks its native first (before the strike's own Attack, whose numbers are
+    /// Q2_SITES'), the attack untouched.
+    #[test]
+    fn the_copy_asks_every_resonating_strike() {
+        let copy = include_str!("../override/league_leesin.data_champion").replace("\r\n", "\n");
+        for (site, dmg, ratio) in Q2_SITES {
+            let r = format!("\"effect_ref\": \"{ID}:{site}\"");
+            assert_eq!(copy.matches(&r).count(), 1, "{site}");
+            let after = &copy[copy.find(&r).unwrap()..];
+            let attack = after.find("\"type\": \"Attack\"").expect("the strike's Attack");
+            assert!(after[attack..attack + 300].contains(&format!("\"damage\": {dmg},")) &&
+                    after[attack..attack + 300].contains(&format!("\"attack_ratio\": {ratio}")), "{site}: {}", &after[attack..attack + 300]);
+        }
+        let main = std::fs::read_to_string(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion/league_leesin.data_champion"))
+            .unwrap().replace("\r\n", "\n");
+        let attack_of = |t: &str| {
+            let at = t.find("\n  \"attack\": ").unwrap();
+            let rest = &t[at + 1..];
+            rest[..rest[1..].find("\n  \"").unwrap() + 1].trim_end_matches(['\n', ',']).to_string()
+        };
+        assert_eq!(attack_of(&main), attack_of(&copy), "the copy's attack differs from the main pack's");
+    }
 
     /// 0.1.15 (the 11-08 logs: 252 of 360 view lines "no Q on minions" - the AI alternates between minions, and the line
     /// was deduped by the unit): one line per reason and `SKIP_QUIET` ticks.

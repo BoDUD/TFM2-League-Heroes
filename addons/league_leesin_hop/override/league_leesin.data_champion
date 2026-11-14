@@ -666,7 +666,7 @@
   },
   "skill": {
     "action_name": "skill",
-    "description": "#asset/base/text/champion?description.league_leesin.skill",
+    "description": "#asset/base/text/champion?description.league_leesin_hop.skill",
     "duration": 44,
     "cooltime": 360,
     "start_timing": 16,
@@ -770,6 +770,10 @@
                     "speed": 5000,
                     "range": 110000,
                     "end_effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "league_leesin_hop:q2"
+                      },
                       {
                         "type": "Attack",
                         "damage": 35,
@@ -2444,6 +2448,10 @@
                 "range": 110000,
                 "end_effects": [
                   {
+                    "type": "Native",
+                    "effect_ref": "league_leesin_hop:q2_qrq"
+                  },
+                  {
                     "type": "Attack",
                     "damage": 30,
                     "attack_ratio": 60
@@ -2551,6 +2559,10 @@
                               "speed": 7000,
                               "range": 110000,
                               "end_effects": [
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "league_leesin_hop:q2_rqq"
+                                },
                                 {
                                   "type": "Attack",
                                   "damage": 50,

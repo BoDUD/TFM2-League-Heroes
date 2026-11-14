@@ -26,6 +26,13 @@
 //! AI 钩子 `league_vayne_bolts:condemn`（`ai.rs`）替游戏的 AI 找墙放 E：预判走位，谁身后有墙就对谁放；没墙时只在贴脸自保、
 //! 一箭打得死人时放，别的时候留着 E。
 //!
+//! 终极时刻参与击杀延长 4 秒（0.2.3，用户 2026-11-14 看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟
+//! "Scoring an enemy champion takedown within 3 seconds of damaging them" 延长 4 秒，"up to its original duration"。主包的
+//! 数据只认得出她亲手的击杀（金克丝的击杀检查），而且是刷新回 8 秒。副本去掉这份检查，挂上本包的被动
+//! `league_vayne_bolts:final_hour`：她的每一下（`on_attack`，普攻、技能都算）记下打中的敌方英雄和 tick；之后每 tick 看，
+//! `window` tick 内打过的英雄阵亡了（谁打死的都算：击杀或助攻），而她身上有终极时刻（`R`），就把它剩下的时间加 `extend`
+//! tick、最多到原来的 `R_T`（同名 buff 拿下来改了时间重新挂，数字原样），播主包刷新的画面和声音。
+//!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_vayne_bolts.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //! 你看的那场每一下都写，服务器的预模拟三种结果（Ring1 / Ring2 / Proc）和 `CONDEMN`（撞墙 / 没墙）、`PIN`（按在墙边）
@@ -76,6 +83,15 @@ pub const WALL_T: usize = E_KB_T + 4;
 /// 推到墙边的人身上：到墙时剩下的时间就是按住他多久（盖过数据第 `E_KB_T` tick 的撞墙）。
 pub const PIN: &str = "league_vayne_bolts_pin";
 pub const PIN_T: usize = E_KB_T + 2;
+
+/// 终极时刻：主包大招挂的 buff、它原来的时长（英雄联盟延长不超过原来的时长；`make_override.py` 核对），参与击杀延长多少、
+/// 打过多久之内的阵亡算（英雄联盟 4 秒、3 秒；副本的 `passive.params` 是 `extend` / `window`），刷新的画面和声音（主包的）。
+pub const R: &str = "league_vayne_r";
+pub const R_T: usize = 480;
+pub const R_EXTEND: usize = 240;
+pub const R_WINDOW: usize = 180;
+pub const R_REFRESH: &str = "league_vayne_r_refresh";
+pub const FINAL_HOUR: &str = "league_vayne_bolts:final_hour";
 
 // ===================== 日志 =====================
 
@@ -195,6 +211,154 @@ fn bolt(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
     // counted by the flag (one kind per result): the presims' first procs are written as well as the first rings
     if tally(sim, flag).is_some() {
         wlog(format!("{} bolt on #{target}: {had} stack(s) before -> {what:?}", head(sim, vayne)));
+    }
+}
+
+// ===================== 终极时刻：参与击杀延长 =====================
+
+/// 她最近打过的敌方英雄：(英雄, 最后一次打中他的 tick)。
+#[derive(Clone, Debug, Default)]
+pub struct Recent(Vec<(usize, usize)>);
+
+impl Recent {
+    pub fn hit(&mut self, target: usize, tick: usize) {
+        match self.0.iter_mut().find(|e| e.0 == target) {
+            Some(e) => e.1 = e.1.max(tick),
+            None => self.0.push((target, tick)),
+        }
+    }
+
+    /// 这一 tick 阵亡（`dead`）的、`window` tick 内打过的英雄（拿掉）；打过太久的也拿掉。
+    pub fn takedowns(&mut self, tick: usize, window: usize, dead: impl Fn(usize) -> bool) -> Vec<usize> {
+        let mut out = Vec::new();
+        self.0.retain(|&(t, at)| {
+            if at + window < tick {
+                return false;
+            }
+            if dead(t) {
+                out.push(t);
+                return false;
+            }
+            true
+        });
+        out
+    }
+
+    pub fn clear(&mut self) {
+        self.0.clear();
+    }
+
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+}
+
+/// 终极时刻还剩 `left` tick 时参与一次击杀：剩多少（加 `extend`，不超过原来的 `cap`）。
+pub fn extended(left: usize, extend: usize, cap: usize) -> usize {
+    (left + extend).min(cap).max(left)
+}
+
+fn get_param(json: &str, key: &str, default: usize) -> usize {
+    let body = json.trim().trim_start_matches('{').trim_end_matches('}');
+    body.split(',')
+        .filter_map(|pair| pair.split_once(':'))
+        .find(|(k, _)| k.trim().trim_matches('"') == key)
+        .and_then(|(_, v)| v.trim().parse().ok())
+        .unwrap_or(default)
+}
+
+#[derive(Clone)]
+struct FinalHour {
+    extend: usize,
+    window: usize,
+    recent: Recent,
+    /// 她这条命的实体（复活是新的实体）。
+    body: Option<usize>,
+    n: usize,
+}
+
+impl Default for FinalHour {
+    fn default() -> Self {
+        FinalHour { extend: R_EXTEND, window: R_WINDOW, recent: Recent::default(), body: None, n: 0 }
+    }
+}
+
+impl FinalHour {
+    /// 一次参与击杀：身上有终极时刻就延长（拿下来改了时间重新挂）。
+    fn takedown(&mut self, sim: &mut StableSim<'_>, me: usize, victim: usize) {
+        let Some(r) = sim.get_entity(me).filter(|e| e.is_alive()).and_then(|e| {
+            (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == R).max_by_key(|b| b.duration_tick)
+        }) else {
+            if let Some(k) = tally(sim, "final hour off") {
+                wlog(format!("{} FINAL HOUR #{victim} died within {} ticks of her hit - no Final Hour on her #{k}",
+                             head(sim, me), self.window));
+            }
+            return;
+        };
+        let left = r.duration_tick;
+        let to = extended(left, self.extend, R_T);
+        if to > left {
+            let mut b = r;
+            b.duration_tick = to;
+            sim.entity_remove_buff(me, R);
+            sim.add_buff(me, &b);
+            let on_me = InputTargetV1::target(me);
+            sim.play_view_effect(R_REFRESH, me, &on_me, 0, 0, 0);
+            sim.play_sfx(R_REFRESH, me, &on_me);
+        }
+        self.n += 1;
+        if let Some(k) = tally(sim, "final hour") {
+            wlog(format!("{} FINAL HOUR +{} #{k}: champion #{victim} died within {} ticks of her hit, {left} -> {to} ticks \
+                          left (cap {R_T}), {} this life", head(sim, me), to - left, self.window, self.n));
+        }
+    }
+}
+
+impl StablePassive for FinalHour {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn configure(&mut self, params_json: &str) {
+        self.extend = get_param(params_json, "extend", R_EXTEND);
+        self.window = get_param(params_json, "window", R_WINDOW);
+    }
+
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.recent.clear();
+        self.body = Some(me);
+        self.n = 0;
+        if let Some(k) = tally(sim, "final hour spawn") {
+            wlog(format!("{} SPAWN #{k}: the add-on's Vayne (player {player}): Final Hour +{} ticks a takedown within {} \
+                          ticks of her hit, up to {R_T}", head(sim, me), self.extend, self.window));
+        }
+    }
+
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, _damage: &mut usize) {
+        let team = sim.get_entity(me).map(|e| e.team());
+        if sim.get_entity(target).is_some_and(|t| t.is_champion() && Some(t.team()) != team) {
+            self.recent.hit(target, sim.tick());
+        }
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        if self.body != Some(me) {
+            self.body = Some(me);
+            self.recent.clear();
+            self.n = 0;
+        }
+        if self.recent.len() == 0 {
+            return;
+        }
+        let tick = sim.tick();
+        let gone = self.recent.takedowns(tick, self.window, |t| !sim.get_entity(t).is_some_and(|e| e.is_alive()));
+        for victim in gone {
+            self.takedown(sim, me, victim);
+        }
+    }
+
+    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
+        self.recent.clear();
     }
 }
 
@@ -480,7 +644,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Vayne: Silver Bolts counted on each target, Condemn stuns only on walls) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Vayne: Silver Bolts counted on each target, Condemn stuns only on walls, Final Hour +4 s a takedown) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -491,6 +655,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:condemn"), Fx(condemn));
     module.add_native_effect(format!("{ID}:pin"), Fx(pin));
     module.add_player_input_ai(ai::Condemn::default());
+    module.add_native_passive(FINAL_HOUR, FinalHour::default());
     host.log(LogLevel::Info, "league_vayne_bolts loaded (Vayne: Silver Bolts counted on each target, Condemn stuns only on walls).");
 }
 
@@ -592,9 +757,46 @@ mod tests {
         }
     }
 
+    /// League: a champion takedown within 3 s of her damaging them adds 4 s, up to the original duration.
+    #[test]
+    fn final_hour_grows_by_takedowns_up_to_its_length() {
+        assert_eq!(extended(100, R_EXTEND, R_T), 340);
+        assert_eq!(extended(300, R_EXTEND, R_T), R_T);
+        assert_eq!(extended(R_T, R_EXTEND, R_T), R_T);
+        assert_eq!(extended(0, R_EXTEND, R_T), R_EXTEND);
+        // a buff longer than the cap is never cut
+        assert_eq!(extended(600, R_EXTEND, R_T), 600);
+        let mut r = Recent::default();
+        r.hit(7, 100);
+        r.hit(8, 150);
+        r.hit(7, 160); // the last hit counts
+        // nobody dead yet
+        assert!(r.takedowns(200, R_WINDOW, |_| false).is_empty());
+        assert_eq!(r.len(), 2);
+        // #8 dies 180 ticks after her hit: still a takedown; #7 dies too late (181 ticks after)
+        assert_eq!(r.takedowns(330, R_WINDOW, |t| t == 8), vec![8]);
+        assert!(r.takedowns(341, R_WINDOW, |t| t == 7).is_empty());
+        assert_eq!(r.len(), 0);
+        // two in one tick: two takedowns
+        r.hit(1, 10);
+        r.hit(2, 20);
+        assert_eq!(r.takedowns(30, R_WINDOW, |_| true), vec![1, 2]);
+    }
+
+    #[test]
+    fn the_copy_leaves_final_hour_to_the_passive() {
+        let copy = include_str!("../override/league_vayne.data_champion");
+        assert!(!copy.contains("league_vayne_kc"), "the data's kill check is still there");
+        assert!(copy.contains(&format!("\"passive_ref\": \"{FINAL_HOUR}\"")));
+        assert!(copy.contains("description.league_vayne_bolts.ult"));
+        // the ult still adds Final Hour for R_T ticks under its name
+        let at = copy.find(&format!("\"name\": \"{R}\",")).expect("the ult's buff");
+        assert!(copy[at..at + 200].contains(&format!("\"tick\": {R_T}")), "{}", &copy[at..at + 200]);
+    }
+
     #[test]
     fn names_fit_a_buff() {
-        for s in [STACK, RING1, RING2, GO, WALL, PIN] {
+        for s in [STACK, RING1, RING2, GO, WALL, PIN, R] {
             assert!(s.len() <= BUFF_NAME_CAP, "{s}");
         }
     }

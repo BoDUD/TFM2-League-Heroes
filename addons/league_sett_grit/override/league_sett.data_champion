@@ -468,7 +468,7 @@
   },
   "skill": {
     "action_name": "skill",
-    "description": "#asset/base/text/champion?description.league_sett.skill",
+    "description": "#asset/base/text/champion?description.league_sett_grit.skill",
     "duration": 30,
     "cooltime": 480,
     "start_timing": 2,
@@ -486,48 +486,18 @@
         },
         {
           "type": "Delayed",
-          "tick": 8,
+          "tick": 7,
           "effects": [
             {
-              "type": "RangeEffect",
-              "shape": {
-                "Circle": {
-                  "radius": 24000
-                }
-              },
-              "target": "EnemyWithoutTower",
-              "apply_type": "AroundCaster",
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_sett_e_one",
-                  "effect_buff": {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_sett_e_two",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  "effect_none": {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_sett_e_one",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                }
-              ]
-            },
+              "type": "Native",
+              "effect_ref": "league_sett_grit:sides"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
             {
               "type": "SwitchByBuff",
               "buff_name": "league_sett_r_combo",
@@ -604,7 +574,7 @@
               },
               "effect_none": {
                 "type": "SwitchByBuff",
-                "buff_name": "league_sett_e_two",
+                "buff_name": "league_sett_grit_both",
                 "effect_buff": {
                   "type": "Combine",
                   "effects": [
