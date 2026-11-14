@@ -55,7 +55,7 @@
 
 ### 黑默丁格附加包：炮台射击、塔边加速、炮台有了身体
 
-[黑默丁格附加包：炮台射击、塔边加速、炮台有了身体](../../addons/league_heimerdinger/README.md)：`league_heimerdinger` v0.3.0
+[黑默丁格附加包：炮台射击、塔边加速、炮台有了身体](../../addons/league_heimerdinger/README.md)：`league_heimerdinger` v0.3.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
