@@ -38,6 +38,16 @@
 
 ## 最近的改动
 
+2026-11-11 到 11-14：
+
+- **和英雄联盟对齐**（[#766](https://github.com/BoDUD/TFM2-League-Heroes/pull/766)，用户：「全改吧」）：一大批英雄的技能机制按英雄联盟改（新附加包索拉卡、蕾欧娜、娜美、阿利斯塔、赫卡里姆；璐璐大招让目标变大、亚托克斯大灭期间悬空扇翅、莉莉娅的种子落地后滚、奎桑提全盛压血线、派克灰血等）；召唤物做成真的单位（约里克、玛尔扎哈、纳亚菲利、伊莉丝、黑默丁格、婕拉、俄洛伊、萨科、悟空、乐芙兰、妮蔻……），虚空虫和小蜘蛛用代码重画；58 位动作太少的英雄补帧。
+- **技能特效高清**：联盟和云顶全部英雄的技能特效加 PPU 2 高清帧，553 个 tag 由我们自己的代码重描（[#730](https://github.com/BoDUD/TFM2-League-Heroes/pull/730)）；婕拉大招、纳亚菲利、普朗克银蛇币、俄洛伊的灵魂、吸血鬼 Q 也补上（[#766](https://github.com/BoDUD/TFM2-League-Heroes/pull/766)）。
+- **AI 不平A的英雄**：普攻里对自己放的那一块挪到命中后，再加第二种载体（[#764](https://github.com/BoDUD/TFM2-League-Heroes/pull/764) [#765](https://github.com/BoDUD/TFM2-League-Heroes/pull/765)）；被 AI 冷落的射手自己走 A（[#751](https://github.com/BoDUD/TFM2-League-Heroes/pull/751)）；按韧性放长推人的改动撤回（[#763](https://github.com/BoDUD/TFM2-League-Heroes/pull/763) [#764](https://github.com/BoDUD/TFM2-League-Heroes/pull/764)）；克格莫死后虚空分身放慢到看得清（[#765](https://github.com/BoDUD/TFM2-League-Heroes/pull/765)）。
+- **适配游戏 0.7.2**（[#744](https://github.com/BoDUD/TFM2-League-Heroes/pull/744) [#746](https://github.com/BoDUD/TFM2-League-Heroes/pull/746) [#748](https://github.com/BoDUD/TFM2-League-Heroes/pull/748)）。
+- **大小龙**：龙魂特效、元素峡谷地形、山脉碎石、云端风道（[#745](https://github.com/BoDUD/TFM2-League-Heroes/pull/745) [#747](https://github.com/BoDUD/TFM2-League-Heroes/pull/747) [#749](https://github.com/BoDUD/TFM2-League-Heroes/pull/749) [#753](https://github.com/BoDUD/TFM2-League-Heroes/pull/753) [#755](https://github.com/BoDUD/TFM2-League-Heroes/pull/755)）。
+- **两张 5v5 地图**：附加包同时兼容原版地图和 Rin 的召唤师峡谷 α（[#734](https://github.com/BoDUD/TFM2-League-Heroes/pull/734)，随 [#766](https://github.com/BoDUD/TFM2-League-Heroes/pull/766) 一起合并），同时删掉了下面那组比赛 AI 钩子。
+- **其他**：冰鸟的蛋、奥恩锻造（[#741](https://github.com/BoDUD/TFM2-League-Heroes/pull/741) [#742](https://github.com/BoDUD/TFM2-League-Heroes/pull/742) [#750](https://github.com/BoDUD/TFM2-League-Heroes/pull/750)）；亚恒、卑尔维斯、深红锋喙鸟、特朗德尔局内缩到 85%（[#743](https://github.com/BoDUD/TFM2-League-Heroes/pull/743) [#754](https://github.com/BoDUD/TFM2-League-Heroes/pull/754) [#756](https://github.com/BoDUD/TFM2-League-Heroes/pull/756)）；亚恒按英雄联盟改（[#758](https://github.com/BoDUD/TFM2-League-Heroes/pull/758)）；普朗克银蛇币（[#757](https://github.com/BoDUD/TFM2-League-Heroes/pull/757)）；斯卡纳穿墙（[#760](https://github.com/BoDUD/TFM2-League-Heroes/pull/760)）；泰隆 BP 格（[#761](https://github.com/BoDUD/TFM2-League-Heroes/pull/761)）；卡西奥佩娅不穿鞋（[#762](https://github.com/BoDUD/TFM2-League-Heroes/pull/762)）；11-12 日志修复（[#759](https://github.com/BoDUD/TFM2-League-Heroes/pull/759)）。
+
 2026-10-29 到 11-10 合并了约 120 个 PR，按类别列（编号是 PR）：
 
 - **英雄模型用 PPU 重做**（Codex 画设计图和整帧动作，读回成高清帧，登记进 `league.dll`）：
@@ -67,9 +77,6 @@
   - 加射程改走官方的 `range_adjust`（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)）；区域 `first_delay` 从 0 改成 1（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）；英雄死后不再反复触发（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。
   - 存档里英雄副本的迁移工具（[#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#647](https://github.com/BoDUD/TFM2-League-Heroes/pull/647)）；`pose_ref` 读皮肤真正的隐藏名单（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)）；撤掉 Mac 版（[#642](https://github.com/BoDUD/TFM2-League-Heroes/pull/642)）。
   - 每天按对局日志修 bug（[#618](https://github.com/BoDUD/TFM2-League-Heroes/pull/618) [#632](https://github.com/BoDUD/TFM2-League-Heroes/pull/632) [#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#659](https://github.com/BoDUD/TFM2-League-Heroes/pull/659) [#674](https://github.com/BoDUD/TFM2-League-Heroes/pull/674) [#685](https://github.com/BoDUD/TFM2-League-Heroes/pull/685) [#692](https://github.com/BoDUD/TFM2-League-Heroes/pull/692) [#699](https://github.com/BoDUD/TFM2-League-Heroes/pull/699) [#718](https://github.com/BoDUD/TFM2-League-Heroes/pull/718) [#721](https://github.com/BoDUD/TFM2-League-Heroes/pull/721)）。
-- **进行中（还没合并）**：
-  - 全部英雄的技能特效改成 PPU 2 高清帧，并接入 Codex 重画（[#730](https://github.com/BoDUD/TFM2-League-Heroes/pull/730)）。
-  - 召唤师峡谷地图兼容（[#734](https://github.com/BoDUD/TFM2-League-Heroes/pull/734)）。这个 PR 同时删掉了上面那组比赛 AI 钩子。
 
 下面 [踩坑记录](#踩坑记录) 一节是这段时间吃过的亏。
 
