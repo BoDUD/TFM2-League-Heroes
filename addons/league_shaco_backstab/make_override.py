@@ -18,8 +18,11 @@ addons/league_shaco_backstab/override/league_shaco.data_champion and .../text/ch
     spring the box's picture (w_box) and its shooting zone (w_shots) play only without W_UNIT - the add-on fires the
     volleys from the body; the fears and the sound stay the data's. The numbers the natives use (src/jack.rs: W_*, JACK_*)
     are checked against the main pack's W and the unit sheet here;
+  * Two-Shiv Poison (0.3.1): the shiv's hit (TargetProjectile league_shaco_e_shiv in the attack slot) runs the native
+    league_shaco_backstab:shiv first - 50 % more of the shiv's magic damage on a target below 30 % of its maximum health
+    (League's; src/lib.rs E_HIT / E_HIT_AP checked against the main pack's shiv, E_LOW_PCT / E_LOW_MORE League's);
   * the attack's, W's and R's tooltips pointing to description.league_shaco_backstab.<slot>: "crowd-controlled" swapped
-    for "from behind", the box and the clone told as the units they are.
+    for "from behind", the shiv's low-health bonus told, the box and the clone told as the units they are.
 Every other champion stays untouched. Run it again whenever the main pack's Shaco changes (--check: compare only).
 """
 import argparse
@@ -48,11 +51,17 @@ SWAPS = {
         "ja": [("敵の足元にびっくり箱を投げる。", "敵の足元にびっくり箱（倒せる）を投げる。")],
     },
     "attack": {
-        "zh-hans": [("攻击被控制的敌方英雄时", "从背后攻击敌方英雄时")],
-        "zh-hant": [("攻擊被控制的敵方英雄時", "從背後攻擊敵方英雄時")],
-        "en": [("attacks on crowd-controlled enemy champions", "attacks on enemy champions from behind")],
-        "ko": [("군중 제어된 적 챔피언을 공격하면", "적 챔피언을 뒤에서 공격하면")],
-        "ja": [("行動妨害中の敵チャンピオンへの攻撃は", "敵チャンピオンの背後からの攻撃は")],
+        "zh-hans": [("攻击被控制的敌方英雄时", "从背后攻击敌方英雄时"),
+                    ("的<#a974ffff>魔法伤害<>并", "的<#a974ffff>魔法伤害<>（目标生命低于" + Y + "{low}%" + E + "时多" + Y + "{more}%" + E + "）并")],
+        "zh-hant": [("攻擊被控制的敵方英雄時", "從背後攻擊敵方英雄時"),
+                    ("的<#a974ffff>魔法傷害<>並", "的<#a974ffff>魔法傷害<>（目標生命低於" + Y + "{low}%" + E + "時多" + Y + "{more}%" + E + "）並")],
+        "en": [("attacks on crowd-controlled enemy champions", "attacks on enemy champions from behind"),
+               ("<#a974ffff>magic damage<> and <#ef5350ff>slowing<>",
+                "<#a974ffff>magic damage<> (" + Y + "{more}%" + E + " more below " + Y + "{low}%" + E + " health) and <#ef5350ff>slowing<>")],
+        "ko": [("군중 제어된 적 챔피언을 공격하면", "적 챔피언을 뒤에서 공격하면"),
+               ("<#a974ffff>마법 피해<>를 입히고", "<#a974ffff>마법 피해<>(체력 " + Y + "{low}%" + E + " 미만이면 " + Y + "{more}%" + E + " 증가)를 입히고")],
+        "ja": [("行動妨害中の敵チャンピオンへの攻撃は", "敵チャンピオンの背後からの攻撃は"),
+               ("の<#a974ffff>魔法ダメージ<>と<#ef5350ff>", "の<#a974ffff>魔法ダメージ<>（体力" + Y + "{low}%" + E + "未満なら" + Y + "{more}%" + E + "増加）と<#ef5350ff>")],
     },
     "ult": {
         "zh-hans": [
@@ -271,6 +280,22 @@ def jack(champion, cj):
     end.insert(0, {"type": "Native", "effect_ref": MOD_ID + ":jack"})
 
 
+def shiv(champion, c):
+    """Two-Shiv Poison (0.3.1): League's shiv deals 50 % more below 30 % of the target's maximum health; the data reads no
+    health, so the shiv's hit runs the native league_shaco_backstab:shiv first (it reads the health before the shiv's own
+    damage lands). The shiv's numbers (src/lib.rs E_HIT / E_HIT_AP) checked against the main pack's."""
+    shivs = [x for x in walk(champion[SLOT]) if x.get("type") == "TargetProjectile" and x.get("name") == HERO + "_e_shiv"]
+    if len(shivs) != 1:
+        sys.exit("the attack throws its shiv more or less than once: update this script")
+    effects = shivs[0]["applied_effects"]
+    hits = [e["effect"] for e in effects if e.get("effect", {}).get("type") == "ApAttack"]
+    if len(hits) != 1 or (hits[0]["damage"], hits[0]["attack_ratio"]) != (c["E_HIT"], c["E_HIT_AP"]):
+        sys.exit(f"the shiv's hit differs from src/lib.rs's E_HIT / E_HIT_AP ({c['E_HIT']}, {c['E_HIT_AP']}): {hits}")
+    if (c["E_LOW_PCT"], c["E_LOW_MORE"]) != (30, 50):
+        sys.exit("E_LOW_PCT / E_LOW_MORE are League's 30 % / 50 %: update this script if League changed")
+    effects.insert(0, {"casting_type": "Targeting", "effect": {"type": "Native", "effect_ref": MOD_ID + ":shiv"}})
+
+
 def build():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     c = consts(src)
@@ -291,6 +316,7 @@ def build():
     champion["passive"] = {"passive_ref": MOD_ID + ":backstab", "params": {"base": base, "ad": ad}}
     clone(champion, c)
     jack(champion, consts(open(lp(os.path.join(ADDON, "src", "jack.rs")), encoding="utf-8").read()))
+    shiv(champion, c)
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     text = {lang: {"description": {MOD_ID: {}}} for lang in main_text}
@@ -302,7 +328,7 @@ def build():
                 if t.count(old) != 1:
                     sys.exit(f"{lang} {HERO}.{slot}: the main pack's text changed ({old!r} found {t.count(old)} times): "
                              f"update this script")
-                t = t.replace(old, new.format(hit=c["CLONE_HIT"], takes=c["CLONE_TAKES"]))
+                t = t.replace(old, new.format(hit=c["CLONE_HIT"], takes=c["CLONE_TAKES"], low=c["E_LOW_PCT"], more=c["E_LOW_MORE"]))
             t = LEAD[lang] + t
             if shown_length(t) > TOOLTIP_MAX[lang]:
                 sys.exit(f"{lang} {slot}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")

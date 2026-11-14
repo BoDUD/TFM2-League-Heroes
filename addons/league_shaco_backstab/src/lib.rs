@@ -111,6 +111,17 @@ pub const SHOT_VIEW: &str = "league_shaco_shot_hit";
 pub const APPEAR_VIEW: &str = "league_shaco_q_appear";
 pub const APPEAR_SFX: &str = "league_shaco_clone_in";
 
+// ---- 双面毒刃（E）对低血量目标（0.3.1）：主包毒刃那一下的数字，make_override.py 对照主包检查 ----
+
+/// The shiv's hit (the main pack's league_shaco_e_shiv, the attack slot's Two-Shiv Poison): `E_HIT` + `E_HIT_AP` % of
+/// his ability power, magic.
+pub const E_HIT: usize = 55;
+pub const E_HIT_AP: usize = 70;
+/// League (wiki, 2026-11-14): the shiv "deals magic damage, increased by 50% if they are below 30% of their maximum
+/// health" - the data reads no health, so the add-on's `:shiv` (first in the shiv's hit) deals the 50 % more.
+pub const E_LOW_PCT: usize = 30;
+pub const E_LOW_MORE: usize = 50;
+
 /// The clone appears this far beside him (the base game's own summons appear 20000 from their summoner; two bodies
 /// on one spot would read as one Shaco).
 pub const SIDE: f64 = 14_000.0;
@@ -487,6 +498,43 @@ impl StableEffectType for BoxFx {
     }
 }
 
+/// Two-Shiv Poison's bonus on a unit with `hp` of `max` health: `E_LOW_MORE` % of the shiv's magic damage (from his
+/// ability power `ap`) when it is below `E_LOW_PCT` % of its maximum health, else nothing.
+pub fn shiv_bonus(ap: usize, hp: usize, max: usize) -> usize {
+    if max == 0 || hp * 100 >= max * E_LOW_PCT {
+        return 0;
+    }
+    (E_HIT + ap * E_HIT_AP / 100) * E_LOW_MORE / 100
+}
+
+/// `:shiv` - first in the shiv's hit (a projectile's applied effect is given the unit it hit): the bonus on a target
+/// below `E_LOW_PCT` % health, read before the shiv's own damage lands.
+struct ShivFx;
+
+impl StableEffectType for ShivFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            if let Some(k) = tally(sim, "shiv no unit") {
+                wlog(format!("{} SHIV #{k}: the shiv's hit gave no unit (input kind {}) - no bonus", head(sim, caster), input.kind));
+            }
+            return;
+        }
+        let id = input.target_id;
+        let Some((team, ap)) = sim.get_entity(caster).map(|e| (e.team(), e.stat().magic_power)) else { return };
+        let Some((hp, max)) = sim.get_entity(id).filter(|e| e.is_alive() && e.team() != team).map(|e| e.hp()) else { return };
+        let bonus = shiv_bonus(ap, hp, max);
+        if bonus == 0 {
+            return;
+        }
+        sim.deal_damage_typed(caster, id, bonus, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        if let Some(k) = tally(sim, "shiv") {
+            let name = sim.get_entity(id).and_then(|e| e.name()).unwrap_or_default();
+            wlog(format!("{} SHIV #{k} on #{id} {name}: hp {hp}/{max}, below {E_LOW_PCT}% - +{E_LOW_MORE}% of the shiv's {E_HIT} + \
+                          {E_HIT_AP}% of his {ap} ability power: +{bonus} magic", head(sim, caster)));
+        }
+    }
+}
+
 /// `:end` - queued when he dies with his clone out, for 2 ticks before its time; the input is the clone. It bursts
 /// where it stands if it still stands (killed meanwhile: nobody watched, no blast).
 struct EndFx;
@@ -842,6 +890,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         jack::JACK, jack::JACK_HP_PCT, if KNOBS.off { "OFF by the test knobs: the main pack's box" } else { "ON" }, jack::W_SHOTS,
         jack::W_HIT, jack::W_HIT_AP
     ));
+    wlog(format!(
+        "SHIV: Two-Shiv Poison deals {E_LOW_MORE}% more ({E_HIT} + {E_HIT_AP}% of his ability power, magic) to a target below {E_LOW_PCT}% \
+         of its maximum health (the copy's {ID}:shiv first in the shiv's hit)."
+    ));
     module.add_native_passive(format!("{ID}:backstab"), Backstab::default());
     module.add_native_effect(fx("clone"), CloneFx);
     module.add_native_effect(fx("burst"), BurstFx);
@@ -849,6 +901,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(fx("end"), EndFx);
     module.add_native_effect(fx("jack"), jack::JackFx);
     module.add_native_effect(fx("jack_shot"), jack::ShotFx);
+    module.add_native_effect(fx("shiv"), ShivFx);
     host.log(LogLevel::Info, "league_shaco_backstab v2 loaded (Backstab from behind; the clone as a unit).");
 }
 
@@ -954,6 +1007,30 @@ mod tests {
     }
 
     #[test]
+    fn the_shiv_deals_half_again_below_thirty_percent() {
+        // League: "increased by 50% if they are below 30% of their maximum health"; the main pack's shiv 55 + 70 % AP
+        assert_eq!((E_HIT, E_HIT_AP, E_LOW_PCT, E_LOW_MORE), (55, 70, 30, 50));
+        assert_eq!(shiv_bonus(100, 299, 1000), (55 + 70) / 2);
+        assert_eq!(shiv_bonus(100, 300, 1000), 0, "at 30 % it is not below");
+        assert_eq!(shiv_bonus(0, 1, 1000), 27);
+        assert_eq!(shiv_bonus(100, 0, 0), 0);
+        assert_eq!(shiv_bonus(200, 1000, 1000), 0);
+    }
+
+    #[test]
+    fn the_copys_shiv_asks_for_the_bonus_before_its_own_damage() {
+        let copy = include_str!("../override/league_shaco.data_champion").replace('\r', "");
+        let main = include_str!("../../../league/champion/league_shaco.data_champion").replace('\r', "");
+        assert_eq!(copy.matches("\"effect_ref\": \"league_shaco_backstab:shiv\"").count(), 1);
+        assert!(!main.contains("league_shaco_backstab:shiv"));
+        // first in the shiv's hit: the native's node comes right after the shiv's own name, before its ApAttack
+        let shiv = copy.find("\"name\": \"league_shaco_e_shiv\"").unwrap();
+        let native = copy.find("league_shaco_backstab:shiv").unwrap();
+        let hit = shiv + copy[shiv..].find("\"type\": \"ApAttack\"").unwrap();
+        assert!(shiv < native && native < hit);
+    }
+
+    #[test]
     fn a_fear_always_has_a_way_to_run() {
         assert_eq!(away((100.0, 100.0), (400.0, 100.0)), (1000, 0));
         assert_eq!(away((100.0, 100.0), (100.0, 40.0)), (0, -1000));
@@ -1049,6 +1126,24 @@ mod tests {
     /// The blasts so far: (tick, target, amount) of his magic damage of the blast's size.
     fn blasts(w: &World, ap: usize) -> Vec<(usize, usize)> {
         w.damage.iter().filter(|d| d.1 == 0 && d.4 == DamageTypeV1::Ap.code() && d.3 == boom_damage(ap)).map(|d| (d.0, d.2)).collect()
+    }
+
+    #[test]
+    fn the_shiv_on_a_low_target_hits_half_again_and_only_then() {
+        let (mut w, _) = world();
+        // Garen at 1000 health of 1000: no bonus; at 250: 50 % of 55 + 70 % of his 30 ability power, magic
+        w.sim(|sim| ShivFx.apply(sim, 0, 0, InputTargetV1::target(GAREN)));
+        assert!(w.dealt(0, DamageTypeV1::Ap).is_empty());
+        w.units[GAREN].hp = 250;
+        w.sim(|sim| ShivFx.apply(sim, 0, 0, InputTargetV1::target(GAREN)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap), vec![(GAREN, (55 + 21) / 2)]);
+        // the minion (300 of 300) and a spot: nothing
+        w.sim(|sim| ShivFx.apply(sim, 0, 0, InputTargetV1::target(MINION)));
+        w.sim(|sim| ShivFx.apply(sim, 0, 0, InputTargetV1::pos(300_000, 300_000)));
+        assert_eq!(w.dealt(0, DamageTypeV1::Ap).len(), 1);
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        assert!(text.contains("SHIV #") && text.contains("on #1 league_garen: hp 250/1000, below 30% - +50% of the shiv's 55 + 70% of his \
+                                                          30 ability power: +38 magic"), "{text}");
     }
 
     #[test]
