@@ -57,8 +57,6 @@ cooldown flag `...vo_cd` is not counted), and not used when
   E  the area sits inside a cast-time AddCasted outside any area (a lob at every run of that aura);
   F  the area reads the projectile it is under (`from_projectile` at its own level);
   G  the area is not centred on the caster (`apply_type` other than AroundCaster: the lob lands on the caster).
-HOLD lists heroes left as they are although no hazard is found, because the game showed something the classic engine
-does not (league_kogmaw's death watch under the lob, 2026-11-14).
 """
 import argparse
 import copy
@@ -86,15 +84,11 @@ KEEP = {
     "league_seraphine": "3.97 a minute in 135 games",
     "league_blitzcrank": "4.2 a minute in 51 games, a support",
 }
-# held out of both carriers although no hazard is found: what the move did to the kit in the game is not settled
-HOLD = {
-    # the first action of each life starts his death watch (Icathian Surprise) from the attack's "on me" area. With it
-    # under the lob (installed 2026-11-14 01:18) the player saw no void form after his deaths: 「大嘴死了后的炸人怎么看不到了」.
-    # The classic engine wakes the form on every death either way (the watch forced to start from the attack: lob 16
-    # of 16, the area at the cast 21 of 21), and league.dll's draw log was spent before his second death in that
-    # match - the cause is not found, so his attack stays as it was until the game shows which it is.
-    "league_kogmaw": "the death watch: no void form seen in the game under the lob (2026-11-14), cause not found",
-}
+# league_kogmaw is under the lob although his attack's area starts his death watch (Icathian Surprise). With the lob
+# (2026-11-14 01:18) the player saw no void form after his deaths (「大嘴死了后的炸人怎么看不到了」), so he was held out
+# (02:03); with his attack as it was, the player saw none either (16:49 launch: 「没看到大嘴炸人」) - the lob is not the
+# cause (the classic engine wakes the form at every death both ways). Attacks at champions per alive minute: 6.52 with
+# the lob (91 presims), 3.37 without (72; untouched heroes x0.78 and x0.71 of the baseline in those two launches).
 
 
 def name_of(champ_id):
@@ -312,8 +306,6 @@ def verdict(champ):
         return "none", None
     if cid in KEEP:
         return "keep", KEEP[cid]
-    if cid in HOLD:
-        return "left", ["held: " + HOLD[cid]]
     blocks, bad = [], []
     plan(eff, blocks, bad)
     why = bad + hazards(champ, eff, blocks)

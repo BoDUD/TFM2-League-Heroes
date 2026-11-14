@@ -11,10 +11,10 @@
       "version": ">=0.113.1"
     }
   ],
-  "description": "Read-only AI log for League of Legends Heroes: for every main-pack champion in a match it counts what the game's AI has her do while an enemy champion stands within her attack range and her attack is ready (attack the champion, attack something else, walk toward, walk away, cast, nothing), her attacks and casts, and writes it to league_ai_watch.log (idle stretches for the marksmen). Changes nothing in the game.",
-  "last_updated": "2026-11-11",
+  "description": "Read-only AI log for League of Legends Heroes: for every main-pack champion in a match it counts what the game's AI has her do while an enemy champion stands within her attack range and her attack is ready (attack the champion, attack something else, walk toward, walk away, cast, nothing), her attacks and casts, and writes it to league_ai_watch.log (idle stretches for the marksmen; Kog'Maw's marks and projectiles after each of his deaths). Changes nothing in the game.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_ai_watch",
   "mod_type": "native",
   "name": "League Heroes: champion AI log (diagnostic)",
-  "version": "0.3.0"
+  "version": "0.3.1"
 }

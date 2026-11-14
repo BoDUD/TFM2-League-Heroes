@@ -22,8 +22,10 @@
 //! 敌方的塔多远、血量、Q / W 好没好、怎么结束的（别的英雄只计数）。每 [`SUM_EVERY`] tick 每个射手、每 [`SUM_EVERY_OTHERS`]
 //! tick 别的英雄写一行 `SUM`：这一局到这时的累计（一局的最后一行就是整局）。
 //!
+//! 0.3.1（2026-11-14）：克格莫死后的虚空分身游戏里看不到，`KOG` 几行记他死后身上的标记和他放出的投射物（[`kog`]）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ai_watch.log`，每次启动游戏重写，上一次的留在 .prev.log；
-//! 你看的那场全记，其余（服务端的预模拟）一次启动最多 [`LOG_CAP`] 行。
+//! 你看的那场全记，其余（服务端的预模拟）一次启动最多 [`LOG_CAP`] 行（`KOG` 另算，最多 [`kog::CAP`] 行）。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -32,6 +34,8 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+mod kog;
 
 const ID: &str = "league_ai_watch";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -272,10 +276,14 @@ static LOG_PATH: LazyLock<PathBuf> = LazyLock::new(log_path);
 /// One more line: whether it is to be written - every one from the match on screen (watched, spectated or replayed),
 /// the rest the first LOG_CAP of the launch.
 fn room(sim: &StableSim<'_>) -> bool {
-    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+    on_screen(sim) || LINES.fetch_add(1, Ordering::Relaxed) < LOG_CAP
+}
+
+/// The match on screen: watched, spectated or replayed.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
         matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
-    });
-    on_screen || LINES.fetch_add(1, Ordering::Relaxed) < LOG_CAP
+    })
 }
 
 fn wlog(msg: impl AsRef<str>) {
@@ -514,6 +522,8 @@ struct Watch {
     run: Option<Run>,
     /// this match's enemy towers (entity, spot), found once
     towers: Option<Vec<(usize, (f64, f64))>>,
+    /// the match's Kog'Maws, followed through their deaths (0.3.1)
+    kog: kog::KogEye,
 }
 
 impl Watch {
@@ -573,13 +583,19 @@ impl StablePlayerAi for Watch {
             *self = Watch::default();
         }
         self.last_tick = Some(tick);
-        if self.checked && self.range == 0 {
-            return None;
-        }
         let (player, team, lane) = (ctx.player_id(), ctx.team(), ctx.lane());
         let sim = ctx.sim()?;
         let pl = sim.get_player(player)?;
-        let Some(me) = pl.champion().filter(|c| pl.is_alive() && c.is_alive()) else {
+        let alive = pl.champion().filter(|c| pl.is_alive() && c.is_alive());
+        // a dead Kog'Maw's own hook does not run: every alive champion's hook follows him, the lowest entity's writes
+        if let Some(c) = &alive {
+            let write = kog::first_alive(&sim) == Some(c.id());
+            self.kog.look(&sim, write);
+        }
+        if self.checked && self.range == 0 {
+            return None;
+        }
+        let Some(me) = alive else {
             self.end_run(&sim, team, "she died");
             self.prev_id = None;
             return None;
