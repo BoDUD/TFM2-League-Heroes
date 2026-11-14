@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.111.0"
+      "version": ">=0.360.0"
     }
   ],
   "description": "Test build of Malzahar as in League (needs League of Legends Heroes): replaces the main pack's Malzahar so Void Shift works like League's (the first non-minion hit and the moment after it lose 90% of their damage, no crowd control while it holds, back after a while without champion damage) and Malefic Visions jump to the nearest enemy, champions first, every time their target dies. 0.2.0: Void Swarm's voidlings are units of their own through the mod API's spawn_unit - two come out beside E's target, walk, bite (14 + 8% of his ability power) and can be killed (8 s); the main pack's ride with the vision on the target; a host that gives no unit keeps the riding swarm. Needs the main pack's sheet league/champions/league_malzahar_voidling. Other champions are untouched. Writes a log for testing.",
