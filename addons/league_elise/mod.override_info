@@ -6,5 +6,13 @@
   "asset/base/text/champion": {
     "remapping": "asset/league_elise/text/champion",
     "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_elise_spiderling#sheet": {
+    "remapping": "asset/league/champions/league_elise_spiderling#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_elise_spiderling#anim": {
+    "remapping": "asset/league/champions/league_elise_spiderling#anim",
+    "type": "override"
   }
 }

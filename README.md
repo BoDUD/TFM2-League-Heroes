@@ -260,7 +260,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_briar.png" width="32"> | [贝蕾亚](docs/heroes/league_briar.md)<br>Briar | 打野 | 被动 猩红诅咒 · 冲头 · 惊吼 · 大招 毙除 | [贝蕾亚附加包](addons/league_briar_frenzy/README.md) | PPU 2.94 |
 | <img src="docs/heroes/img/league_diana.png" width="32"> | [黛安娜](docs/heroes/league_diana.md)<br>Diana | 打野 | 被动 月银之刃 · 新月打击 · 月神冲刺 · 大招 月之降临 | [目标标记附加包](addons/league_marks/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_ekko.png" width="32"> | [艾克](docs/heroes/league_ekko.md)<br>Ekko | 打野 | 被动 Z型驱动共振 · 时间卷曲器 · 相位俯冲 · 大招 时空断裂 | [艾克时间倒转附加包](addons/league_ekko_rewind/README.md) | PPU 1.94 |
-| <img src="docs/heroes/img/league_elise.png" width="32"> | [伊莉丝](docs/heroes/league_elise.md)<br>Elise | 打野 | 神经毒素 / 剧毒之蜇 · 结茧 / 盘丝 · 大招 蜘蛛形态 | [伊莉丝附加包](addons/league_elise/README.md) | PPU 1.8 |
+| <img src="docs/heroes/img/league_elise.png" width="32"> | [伊莉丝](docs/heroes/league_elise.md)<br>Elise | 打野 | 神经毒素 / 剧毒之蜇 · 结茧 / 盘丝 · 大招 蜘蛛形态 | [伊莉丝附加包：整身变蜘蛛、挑目标、小蜘蛛是真的单位](addons/league_elise/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_evelynn.png" width="32"> | [伊芙琳](docs/heroes/league_evelynn.md)<br>Evelynn | 打野 | 憎恨之刺 · 引诱 · 大招 最终抚慰 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](addons/league_executes/README.md) | PPU 2.78 |
 | <img src="docs/heroes/img/league_fiddlesticks.png" width="32"> | [费德提克](docs/heroes/league_fiddlesticks.md)<br>Fiddlesticks | 打野 | 被动 巫骇草人 · 恐惧 · 五骨丰登 · 大招 群鸦风暴 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_gragas.png" width="32"> | [古拉加斯](docs/heroes/league_gragas.md)<br>Gragas | 打野 | 滚动酒桶 · 肉弹冲击 · 大招 爆破酒桶 | [古拉加斯大招智能落点附加包](addons/league_gragas/README.md) | PPU 1.45 |
