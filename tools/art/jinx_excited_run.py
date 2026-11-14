@@ -6,7 +6,8 @@ nearly double her speed, but the game plays the same easy jog (`run`: 8 frames o
 Her sheet gets a sprint twin of the jog, `run_x` (and `hd_run_x`, `lo_run_x`), which the add-on plays instead while the
 first two speed buffs last (addons/league_takedowns/src/view.rs: run -> run_x):
 
-- the same 8 frames, `FRAME_S` each (0.56 s a stride instead of 0.936 s, x1.67);
+- the same 8 frames, each the jog's frame / `SPRINT` (x1.67: 0.044 s since the jog became League's run at 0.073 s a
+  frame, tools/art/run_league.py; 0.07 when the jog's were 0.117 s);
 - her upper body leant forward from the waist (`LEAN`: every row above `HIP` squares over the soles slid toward where she
   runs, the higher the further - about 11 degrees; the minigun, her arms on it and her legs stay as they are, the braids
   bend back from the head);
@@ -36,7 +37,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 STEM = os.path.join(ROOT, "league", "champions", "league_jinx")
 PPU = 2.2                      # addons/league_main/src/hd.rs league_jinx
 SUFFIX = "_x"
-FRAME_S = 0.07                 # a sprint frame (the jog's are 0.117 s)
+SPRINT = 0.117 / 0.07          # the sprint's cadence over the jog's (a sprint frame = the jog's / SPRINT)
 LEAN = 0.2                     # squares slid forward per square above the waist (tan 11.3 degrees)
 HIP = 17.5                     # 1x squares over the soles where the lean starts: just over the minigun
 PAD = {1.0: 12, PPU: 26}       # clear squares added on each side: 41 -> 65 and 90 -> 142 (65 x 2.2)
@@ -117,6 +118,7 @@ def build():
     # the old strip goes: the sheet ends under the lowest frame of every other tag
     bottom = max(int(round(f["data"]["y"] + f["data"]["h"])) for v in anims.values() for f in v["frames"])
     px = px[:bottom]
+    frame_s = round(anims["run"]["frames"][0]["duration"] / SPRINT, 3)
     made = {t: sprint(frames(anims, px, src), k) for t, (src, k) in twins.items()}
     strip_h = max(f.shape[0] for fr in made.values() for f in fr)
     width = max(px.shape[1], sum(f.shape[1] + 1 for fr in made.values() for f in fr))
@@ -127,10 +129,10 @@ def build():
         anims[t] = {"frames": []}
         for f in fr:
             sheet[y0:y0 + f.shape[0], x:x + f.shape[1]] = f
-            anims[t]["frames"].append({"duration": FRAME_S, "data": {"x": float(x), "y": float(y0),
+            anims[t]["frames"].append({"duration": frame_s, "data": {"x": float(x), "y": float(y0),
                                                                       "w": float(f.shape[1]), "h": float(f.shape[0])}})
             x += f.shape[1] + 1
-    anims[lo] = {"frames": [{"duration": FRAME_S, "data": dict(f["data"])} for f in anims["lo_run"]["frames"]]}
+    anims[lo] = {"frames": [{"duration": frame_s, "data": dict(f["data"])} for f in anims["lo_run"]["frames"]]}
     Image.fromarray(sheet, "RGBA").save(STEM + "#sheet.png", optimize=True)
     with open(path, "w", encoding="utf-8", newline="") as fh:
         fh.write(json.dumps(an, ensure_ascii=False, separators=(",", ":")))
