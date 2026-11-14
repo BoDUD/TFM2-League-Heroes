@@ -32,6 +32,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 from rig_wukong import CutDesign as _Cut, pad  # noqa: E402
 
 HERO = "singed"
@@ -169,14 +170,25 @@ class Form:
         n0, n1 = FEET[name]
         return self.rig.ox + int(round((DESIGN_FEET[0] + DESIGN_FEET[1]) / 2 - (n0 + n1) / 2))
 
-    def posed(self, name, dx=0, lift=0):
+    def posed(self, name, dx=0, lift=0, moves=(), spins=(), turns=()):
         """A Codex pose (hd/pose_<name>.png) standing where the design stands (left_of), moved dx squares; its soles on
-        the ground (SOLE_UP rows over its lowest row), `lift` rows above it in the air."""
+        the ground (SOLE_UP rows over its lowest row), `lift` rows above it in the air.
+        The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole: moves [(part, (dx, dy), how)] -
+        parts of the pose (PARTS) moved by whole squares, "under" the rest of him or "over" it; spins [(part, point,
+        degrees, how)] - a part turned clockwise by any angle about a point, then moved if `moves` names it too; turns
+        [(part, corner, quarters, how)] - by exact quarter turns. The head and everything of the pose in none of its
+        parts are checked unchanged."""
         rig = self.rig
         d = load(f"pose_{name}.png")
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
         left = self.left_of(name) + dx
         top = rig.GY - (ys.max() + 1 - SOLE_UP.get(name, 0)) - lift
+        if moves or spins or turns:
+            hx, hy = head_at(name)
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            d = IB.vary(d, PARTS[name], self.D.outline, moves, (), None, head, VPAD, name, turns, spins)
+            left, top = left - VPAD, top - VPAD
         can = rig.canvas()
         ys_, xs_ = np.nonzero(d[..., 3] > 0)
         ty, tx = ys_ + top, xs_ + left
@@ -185,6 +197,46 @@ class Form:
             sys.exit(f"{name}: {int((~ok).sum())} squares off the canvas (pad the rig)")
         can[ty, tx] = d[ys_, xs_]
         return can
+
+    def head(self):
+        """The head's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.D.d, (HEAD_X, HEAD_Y), (HEAD_W, HEAD_H),
+                                        [(load(f"pose_{n}.png"), head_at(n)) for n in AT])
+        return self._head
+
+
+# ------------------------------------------------------------------------------------------------- the in-betweens
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): polygons in each pose picture's own squares.
+# The plate with the near arm that holds it turns about the shoulder (inbetween.spin: the join hidden under the
+# shoulder pad), the far arm - the flask hand - about its shoulder; the far arm reaching for the grab slides along
+# itself in under the shoulder; the flask flung out of his hand in the death flies on by itself. The head (HEAD_X ..,
+# pack_singed_poses.HEAD), the tank and the rest of the body are in no part: they never change.
+HEAD_X, HEAD_Y, HEAD_W, HEAD_H = 21, 13, 12, 12
+VPAD = 30                      # squares a moved part may leave its pose picture's box by
+PARTS = {
+    "a_wind": {"plate": [[(0, 0), (31, 0), (31, 43), (32, 43), (32, 49), (28, 49), (28, 61), (0, 61)]]},
+    "a_smash": {"plate": [[(44, 28), (49, 26), (53, 29), (59, 33), (67, 40), (76, 50), (76, 62), (60, 62),
+                           (51, 53), (50, 44), (50, 36), (46, 34), (43, 32)]]},
+    "e_grab": {"farm": [(41, 19, 60, 34)]},
+    "e_heave": {"farm": [[(17, 9), (28, 9), (28, 26), (32, 28), (32, 34), (28, 34), (24, 29), (18, 22)]]},
+    "e_throw": {"farm": [[(13, 11), (34, 11), (35, 15), (35, 24), (30, 24), (13, 22)]]},
+    "w_wind": {"farm": [[(45, 0), (59, 0), (59, 20), (55, 22), (52, 25), (49, 22), (49, 16), (45, 8)]]},
+    "w_throw": {"farm": [[(50, 3), (70, 3), (70, 19), (50, 19)]]},
+    "r_drink": {"farm": [[(42, 0), (56, 0), (56, 17), (46, 22), (43, 27), (40, 27), (40, 21), (42, 13)]]},
+    "r_rage": {"farm": [[(48, 17), (61, 17), (61, 33), (52, 31), (48, 27)]]},
+    "d_stagger": {"farm": [[(44, 0), (61, 0), (61, 10), (50, 12), (46, 16), (43, 16), (43, 10)]],
+                  "flask": [(53, 12, 63, 26)]},
+}
+# the point each part turns about (square corners): a limb about the corner where it leaves the body on the side it
+# turns away from (so its root swings in under the body and no gap opens), the flask about its middle
+PIVOT = {("a_wind", "plate", "cw"): (32, 50), ("a_wind", "plate", "ccw"): (32, 43),
+         ("a_smash", "plate", "ccw"): (44, 33),
+         ("e_heave", "farm", "cw"): (28, 29), ("e_throw", "farm", "cw"): (35, 24),
+         ("w_wind", "farm", "cw"): (49, 21), ("w_throw", "farm", "ccw"): (50, 19), ("w_throw", "farm", "cw"): (50, 13),
+         ("r_drink", "farm", "cw"): (41, 21), ("r_rage", "farm", "ccw"): (48, 27),
+         ("d_stagger", "farm", "ccw"): (43, 16), ("d_stagger", "flask", "q"): (58, 19)}
 
 
 # ------------------------------------------------------------------------------------------------- the actions
@@ -196,13 +248,20 @@ class Form:
 # R (ult, r_dur 40 = 667 ms): the potion raised, the rush;
 # the walk (league_braum / league_zac): per frame the near leg's (dx, dy, lift), the far leg's, the figure's rise, the
 # arms' swing (columns: the plate arm, the flask arm - against the legs)
+#
+# The in-betweens (2026-11-14: the attack played 3 poses, E 3, W and R 2 each, the death 2 and a flash): each span
+# above is shared out over more frames (inbetween.spans: whole ms, none under 50), so every action is as long as it was
+# and its strike still begins on its millisecond - the smash at 183, the grab at 167 and the throw at 334, the flask
+# let go at 200, the rage at 333, the slump at 400. A frame that is only its neighbour moved whole is no new pose: one
+# stays only where the move is the motion (the lunge of the smash, the knock-back), never more than two frames of one
+# drawing in a row. The walk and the hit are as they were.
 MS = {"idle": [1000], "run": [100] * 8,
-      "attack": [183, 167, 117],
-      "skill": [167, 167, 166],
-      "skill2": [200, 300],
-      "ult": [333, 334],
+      "attack": IB.spans((183, 3), (167, 3), (117, 1)),
+      "skill": IB.spans((167, 2), (167, 2), (166, 2)),
+      "skill2": IB.spans((200, 3), (300, 4, (3, 4, 4, 4))),
+      "ult": IB.spans((333, 3), (334, 3)),
       "hit": [100, 100],
-      "dead": [150, 250, 1000]}
+      "dead": IB.spans((400, 4, (7, 8, 9, 10)), (1000, 2, (8, 92)))}
 WALK = [((0, 0, 0), (0, 0, 2), 1, (0, 0)), ((0, 0, 0), (2, 0, 4), 2, (1, -1)),
         ((0, 0, 0), (2, 0, 2), 1, (1, -1)), ((0, 0, 0), (2, 0, 0), 0, (0, 0)),
         ((0, 0, 2), (0, 0, 0), 1, (0, 0)), ((2, 0, 4), (0, 0, 0), 2, (-1, 1)),
@@ -225,24 +284,51 @@ AT = {"a_wind": (0, 0), "a_smash": (0, 0), "e_grab": (0, 0), "e_heave": (0, 0), 
 def actions(F):
     p, q = F.pose, F.posed
 
-    def at(name, ddx=0, dlift=0):
+    def at(name, ddx=0, dlift=0, **how):
         dx, lift = AT[name]
-        return q(name, dx + ddx, lift + dlift)
+        return q(name, dx + ddx, lift + dlift, **how)
+
+    def spin(name, part, degrees, how="under"):
+        """The pose's part turned clockwise by `degrees` (negative: counter-clockwise) about its pivot (PIVOT)."""
+        return [(part, PIVOT[(name, part, "cw" if degrees > 0 else "ccw")], degrees, how)]
     out = {}
     out["idle"] = [p()]
     # run (League's singed_run shows his back): league_braum's walk on the design's own legs
     out["run"] = [p(whole=(0, -r), near_leg=n, far_leg=f, near_at=(sw[0], 0), far_at=(sw[1], 0)) for n, f, r, sw in WALK]
-    # auto attack (League's singed_attack1: the plate swung up, then smashed down in front)
-    out["attack"] = [at("a_wind"), at("a_smash"), p()]
-    # E Fling (singed_spell3: the grab, the heave over the shoulder, the follow-through)
-    out["skill"] = [at("e_grab"), at("e_heave"), at("e_throw")]
-    # W Mega Adhesive (singed_spell2: the flask raised, thrown)
-    out["skill2"] = [at("w_wind"), at("w_throw")]
-    # R Insanity Potion (singed_spell4: the potion raised, the rush)
-    out["ult"] = [at("r_drink"), at("r_rage")]
+    # auto attack (League's singed_attack1: the plate swung up, then smashed down in front): the plate coming up, raised
+    # back over his shoulder, his body already in the smash with the plate still coming over; smashed a step ahead,
+    # the plate bounced, at rest; the idle
+    out["attack"] = [at("a_wind", spins=spin("a_wind", "plate", 25)), at("a_wind"),
+                     at("a_smash", spins=spin("a_smash", "plate", -65)),
+                     at("a_smash", 2), at("a_smash", spins=spin("a_smash", "plate", -10)), at("a_smash"), p()]
+    # E Fling (singed_spell3: the grab, the heave over the shoulder, the follow-through): the hand shooting out, the
+    # grab; the far arm coming up with the heave, heaved; the arm still up as he throws, thrown behind
+    out["skill"] = [at("e_grab", moves=[("farm", (-8, 0), "under")]), at("e_grab"),
+                    at("e_heave", spins=spin("e_heave", "farm", 45)), at("e_heave"),
+                    at("e_throw", spins=spin("e_throw", "farm", 40)), at("e_throw")]
+    # W Mega Adhesive (singed_spell2: the flask raised, thrown): the flask brought up from before him in two steps,
+    # raised; let go with the arm still high, thrown, the arm swinging on down, back
+    out["skill2"] = [at("w_wind", spins=spin("w_wind", "farm", 70)), at("w_wind", spins=spin("w_wind", "farm", 30)),
+                     at("w_wind"),
+                     at("w_throw", spins=spin("w_throw", "farm", -35)), at("w_throw"),
+                     at("w_throw", spins=spin("w_throw", "farm", 12)), at("w_throw")]
+    # R Insanity Potion (singed_spell4: the potion raised, the rush): the potion brought up to his mouth in two steps,
+    # drunk; the arm coming down and out in two steps as he hunches into the rage
+    out["ult"] = [at("r_drink", spins=spin("r_drink", "farm", 50)), at("r_drink", spins=spin("r_drink", "farm", 20)),
+                  at("r_drink"),
+                  at("r_rage", spins=spin("r_rage", "farm", -45)), at("r_rage", spins=spin("r_rage", "farm", -18)),
+                  at("r_rage")]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
-    # death (League's singed_death: staggering back, down on the ground)
-    out["dead"] = [R.flash(at("d_stagger")), at("d_stagger"), at("d_down")]
+    # death (League's singed_death: staggering back, down on the ground): struck; knocked back in three steps with the
+    # flung arm going on back and the flask he lost tumbling away; dropping, down
+    flask = PIVOT[("d_stagger", "flask", "q")]
+    out["dead"] = [R.flash(at("d_stagger")),
+                   at("d_stagger", -2, 1, spins=spin("d_stagger", "farm", -12), moves=[("flask", (4, -3), "over")]),
+                   at("d_stagger", -4, 2, spins=spin("d_stagger", "farm", -25), moves=[("flask", (8, -5), "over")],
+                      turns=[("flask", flask, 1, "over")]),
+                   at("d_stagger", -5, 1, spins=spin("d_stagger", "farm", -35), moves=[("flask", (12, -4), "over")],
+                      turns=[("flask", flask, 2, "over")]),
+                   at("d_down", 0, 3), at("d_down")]
     return out
 
 
