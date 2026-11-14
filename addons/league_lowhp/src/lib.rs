@@ -35,6 +35,8 @@ use mod_api_stable::*;
 
 /// LeBlanc's Mirror Image clone as a unit (0.3.0).
 pub mod mirror;
+/// 0.3.1: her thralls as units (src/thralls.rs).
+pub mod thralls;
 
 const ID: &str = "league_lowhp";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -190,6 +192,7 @@ pub fn nearest_text(p: Pt, foes: &[(bool, Pt)]) -> String {
 /// 那人是怎么倒下的）。
 #[derive(Clone, Default)]
 struct Thralls {
+    bodies: thralls::Bodies,
     seen: HashMap<usize, (bool, Pt)>,
     lanes: HashMap<usize, u32>,
     rising: Vec<(usize, Pt, &'static str)>,
@@ -217,7 +220,9 @@ impl Thralls {
             for (id, p, listed_dead) in fell {
                 let logged = self.lanes.get(&id).map(|&lane| death_logged(&log, 1 - team.min(1), lane, tick));
                 let input = InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64);
-                sim.play_view_effect(THRALL_VIEW, me, &input, 0, 0, 0);
+                if !self.bodies.rise(sim, me, p, THRALL_TICKS) {
+                    sim.play_view_effect(THRALL_VIEW, me, &input, 0, 0, 0);
+                }
                 sim.play_sfx(THRALL_RISE, me, &input);
                 self.rising.push((tick + THRALL_TICKS, p, fall_text(listed_dead, logged)));
             }
@@ -232,6 +237,7 @@ impl Thralls {
         if self.lanes.len() > 256 {
             self.lanes.retain(|id, _| now.iter().any(|n| n.0 == *id)); // old lives' ids
         }
+        self.bodies.tick(sim, me, team);
         let due: Vec<(Pt, &'static str)> = self.rising.iter().filter(|r| r.0 <= tick).map(|r| (r.1, r.2)).collect();
         self.rising.retain(|r| r.0 > tick);
         for (at, how) in due {
@@ -240,7 +246,8 @@ impl Thralls {
                 .map(|u| (u.id(), u.is_champion(), (u.pos().0 as f64, u.pos().1 as f64)))
                 .collect();
             let kinds: Vec<(bool, Pt)> = foes.iter().map(|f| (f.1, f.2)).collect();
-            let p = lunge(at, &kinds, THRALL_LUNGE);
+            let from = self.bodies.shatter_from(at);
+            let p = lunge(from, &kinds, THRALL_LUNGE);
             let input = InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64);
             sim.play_view_effect(THRALL_BURST, me, &input, 0, 0, 0);
             sim.play_sfx(THRALL_BURST, me, &input);
@@ -257,9 +264,9 @@ impl Thralls {
             if self.n <= 80 {
                 // where the thrall rose from (0.2.6): one listed dead, or one gone from the list; a lunge at nothing says
                 // how far the nearest enemies stood
-                let missed = if p == at { format!(" ({})", nearest_text(at, &kinds)) } else { String::new() };
-                wlog(format!("{} THRALL #{} rose at ({:.0}, {:.0}) where {how}, lunged {:.0}, shattered: {} enemies hit for {damage}{missed}",
-                             head(sim, me), self.n, at.0, at.1, dist(at, p), hit.len()));
+                let missed = if p == from { format!(" ({})", nearest_text(from, &kinds)) } else { String::new() };
+                wlog(format!("{} THRALL #{} rose at ({:.0}, {:.0}) where {how}, walked {:.0}, lunged {:.0}, shattered: {} enemies hit for {damage}{missed}",
+                             head(sim, me), self.n, at.0, at.1, dist(at, from), dist(from, p), hit.len()));
             }
         }
     }
@@ -375,6 +382,12 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         let mirror = (name == "leblanc").then(mirror::Mirror::default);
         module.add_native_passive(format!("{ID}:{name}"), Low { hero, flag, pct, was: false, n: 0, thralls, mirror });
     }
+    // 0.3.1: her thralls as units (src/thralls.rs)
+    wlog(format!("THRALLS: Lissandra's thralls are units ('{}', spawn_unit: her pace, no attack, cannot be hurt) - {}; they shatter \
+                  from where they walked. Test knobs ({}): {}", thralls::THRALL_UNIT,
+                 if thralls::KNOBS.off { "OFF by the test knobs: the thrall's picture as before" } else { "ON" },
+                 LOG_PATH.with_extension("cfg").display(), thralls::KNOBS.shown()));
+    module.add_native_effect(format!("{ID}:thrall"), thralls::ThrallFx);
     host.log(LogLevel::Info, "league_lowhp v1 loaded (three passives on low health).");
 }
 

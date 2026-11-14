@@ -1428,14 +1428,22 @@
                               "end_effects": [
                                 {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_heimerdinger_x_face_l",
+                                  "buff_name": "league_heimerdinger_x_unit",
                                   "effect_buff": {
-                                    "type": "ViewEffect",
-                                    "name": "league_heimerdinger_x_turret_l"
+                                    "type": "Combine",
+                                    "effects": []
                                   },
                                   "effect_none": {
-                                    "type": "ViewEffect",
-                                    "name": "league_heimerdinger_x_turret_r"
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_heimerdinger_x_face_l",
+                                    "effect_buff": {
+                                      "type": "ViewEffect",
+                                      "name": "league_heimerdinger_x_turret_l"
+                                    },
+                                    "effect_none": {
+                                      "type": "ViewEffect",
+                                      "name": "league_heimerdinger_x_turret_r"
+                                    }
                                   }
                                 },
                                 {
@@ -1507,14 +1515,22 @@
                                     "end_effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_heimerdinger_t_face_l",
+                                        "buff_name": "league_heimerdinger_t_unit",
                                         "effect_buff": {
-                                          "type": "ViewEffect",
-                                          "name": "league_heimerdinger_t_turret_l"
+                                          "type": "Combine",
+                                          "effects": []
                                         },
                                         "effect_none": {
-                                          "type": "ViewEffect",
-                                          "name": "league_heimerdinger_t_turret_r"
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_heimerdinger_t_face_l",
+                                          "effect_buff": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_t_turret_l"
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_t_turret_r"
+                                          }
                                         }
                                       },
                                       {
@@ -1562,14 +1578,22 @@
                                   "end_effects": [
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_heimerdinger_t_face_l",
+                                      "buff_name": "league_heimerdinger_t_unit",
                                       "effect_buff": {
-                                        "type": "ViewEffect",
-                                        "name": "league_heimerdinger_t_turret_l"
+                                        "type": "Combine",
+                                        "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_heimerdinger_t_turret_r"
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_heimerdinger_t_face_l",
+                                        "effect_buff": {
+                                          "type": "ViewEffect",
+                                          "name": "league_heimerdinger_t_turret_l"
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_heimerdinger_t_turret_r"
+                                        }
                                       }
                                     },
                                     {
@@ -1617,14 +1641,22 @@
                                 "end_effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_heimerdinger_t_face_l",
+                                    "buff_name": "league_heimerdinger_t_unit",
                                     "effect_buff": {
-                                      "type": "ViewEffect",
-                                      "name": "league_heimerdinger_t_turret_l"
+                                      "type": "Combine",
+                                      "effects": []
                                     },
                                     "effect_none": {
-                                      "type": "ViewEffect",
-                                      "name": "league_heimerdinger_t_turret_r"
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_heimerdinger_t_face_l",
+                                      "effect_buff": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_t_turret_l"
+                                      },
+                                      "effect_none": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_t_turret_r"
+                                      }
                                     }
                                   },
                                   {

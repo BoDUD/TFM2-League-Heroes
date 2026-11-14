@@ -13,8 +13,13 @@ addons/league_shaco_backstab/override/league_shaco.data_champion and .../text/ch
     when R_UNIT is not there 12 ticks after the cast, so a host without the unit plays the main pack's R as it is.
     The numbers the natives use for the unit and its blast (src/lib.rs: CLONE_*, BOOM*, FEAR_*, BOX_*) are checked
     against the main pack's R and attack here: change the main pack and this script stops until lib.rs follows;
-  * the attack's and R's tooltips pointing to description.league_shaco_backstab.<slot>: "crowd-controlled" swapped for
-    "from behind", the clone told as the unit it is.
+  * W (0.3.0, src/jack.rs; tools/art/unit_shaco_jack.py draws its sheet): the box's landing runs the native
+    league_shaco_backstab:jack (it spawns the box's body there and lays W_UNIT on him when the host gives a unit); at the
+    spring the box's picture (w_box) and its shooting zone (w_shots) play only without W_UNIT - the add-on fires the
+    volleys from the body; the fears and the sound stay the data's. The numbers the natives use (src/jack.rs: W_*, JACK_*)
+    are checked against the main pack's W and the unit sheet here;
+  * the attack's, W's and R's tooltips pointing to description.league_shaco_backstab.<slot>: "crowd-controlled" swapped
+    for "from behind", the box and the clone told as the units they are.
 Every other champion stays untouched. Run it again whenever the main pack's Shaco changes (--check: compare only).
 """
 import argparse
@@ -35,6 +40,13 @@ Y, E = "<#ffb900ff>", "<>"
 AD = "<#ff9028ff>"
 # per slot and language: (the main pack's words, ours) pairs, applied in order; {hit} = CLONE_HIT, {takes} = CLONE_TAKES
 SWAPS = {
+    "skill2": {
+        "zh-hans": [("向敌人脚下扔出惊吓魔盒，", "向敌人脚下扔出惊吓魔盒（可被打掉），")],
+        "zh-hant": [("向敵人腳下扔出驚嚇魔盒，", "向敵人腳下扔出驚嚇魔盒（可被打掉），")],
+        "en": [("Shaco throws a Jack-in-the-Box at an enemy's feet.", "Shaco throws a Jack-in-the-Box (it can be destroyed) at an enemy's feet.")],
+        "ko": [("적의 발밑에 깜짝 상자를 던집니다.", "적의 발밑에 깜짝 상자(파괴 가능)를 던집니다.")],
+        "ja": [("敵の足元にびっくり箱を投げる。", "敵の足元にびっくり箱（倒せる）を投げる。")],
+    },
     "attack": {
         "zh-hans": [("攻击被控制的敌方英雄时", "从背后攻击敌方英雄时")],
         "zh-hant": [("攻擊被控制的敵方英雄時", "從背後攻擊敵方英雄時")],
@@ -217,6 +229,48 @@ def clone(champion, c):
     ult["effect"]["effects"] = eff[:i] + ask + [dict(riding[0], effects=[unit])] + eff[i + 1:]
 
 
+def jack(champion, cj):
+    """W's box (0.3.0): the landing asks the add-on for the box's body; the spring's picture and shooting zone play only
+    without W_UNIT. The natives' numbers (cj: src/jack.rs) checked against the main pack's W and the unit sheet."""
+    sys.path.insert(0, os.path.join(ROOT, "tools", "art"))
+    import unit_shaco_jack as sheet  # noqa: E402
+    throws = [x for x in walk(champion["skill2"]) if x.get("type") == "ParabolicProjectile" and x.get("name") == HERO + "_w_throw"]
+    if len(throws) != 1:
+        sys.exit("W throws its box more or less than once: update this script")
+    end = throws[0]["end_effects"]
+    spring = [x for x in end if x.get("type") == "Delayed"]
+    if len(spring) != 1:
+        sys.exit("the box's spring is no longer one Delayed after its landing: update this script")
+    spring = spring[0]
+    shots = [x for x in spring["effects"] if x.get("type") == "RangePeriodProjectile" and x.get("name") == HERO + "_w_shots"]
+    if len(shots) != 1:
+        sys.exit("the box's shooting zone changed: update this script")
+    z = shots[0]
+    hit = [e["effect"] for e in z["applied_effects"] if e["effect"].get("type") == "ApAttack"]
+    act, lands = sheet.shot_lands()
+    want = {"W_WAIT": spring["tick"], "W_TIME": z["tick"], "W_EVERY": z["period"], "W_FIRST": z["first_delay"],
+            "W_R": z["shape"]["Circle"]["radius"], "W_HIT": hit[0]["damage"] if hit else None,
+            "W_HIT_AP": hit[0]["attack_ratio"] if hit else None, "JACK_ACT": act, "JACK_LANDS": lands,
+            "W_SHOTS": len(range(z["first_delay"], z["tick"], z["period"]))}
+    wrong = {k: (cj.get(k), v) for k, v in want.items() if cj.get(k) != v}
+    if wrong:
+        sys.exit(f"the box's numbers differ from src/jack.rs (jack.rs, main pack or sheet): {wrong}")
+    names = {x.get("buff_name") for x in walk(champion) if x.get("type") == "SwitchByBuff"}
+    names |= {x["buff_state"]["name"] for x in walk(champion) if isinstance(x.get("buff_state"), dict)}
+    if cj["W_UNIT"] in names or any(str(b).startswith(cj["W_UID"]) for b in names):
+        sys.exit("the main pack's Shaco already uses one of the box's buff names: update src/jack.rs")
+    only = lambda x: {"type": "SwitchByBuff", "buff_name": cj["W_UNIT"], "effect_buff": {"type": "Combine", "effects": []},  # noqa: E731
+                      "effect_none": x}
+    wrapped = 0
+    for i, x in enumerate(spring["effects"]):
+        if (x.get("type") == "ViewEffect" and x.get("name") == HERO + "_w_box") or x is z:
+            spring["effects"][i] = only(x)
+            wrapped += 1
+    if wrapped != 2:
+        sys.exit("the box's spring picture or shooting zone is not where this script looks: update it")
+    end.insert(0, {"type": "Native", "effect_ref": MOD_ID + ":jack"})
+
+
 def build():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     c = consts(src)
@@ -236,6 +290,7 @@ def build():
     (base, ad), = hits
     champion["passive"] = {"passive_ref": MOD_ID + ":backstab", "params": {"base": base, "ad": ad}}
     clone(champion, c)
+    jack(champion, consts(open(lp(os.path.join(ADDON, "src", "jack.rs")), encoding="utf-8").read()))
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     text = {lang: {"description": {MOD_ID: {}}} for lang in main_text}

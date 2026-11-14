@@ -39,7 +39,7 @@
   },
   "attack": {
     "action_name": "attack",
-    "description": "#asset/base/text/champion?description.league_elise.attack",
+    "description": "#asset/base/text/champion?description.league_elise_queen.attack",
     "duration": 26,
     "cooltime": 52,
     "start_timing": 1,
@@ -583,43 +583,14 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_elise_sl3",
+                            "buff_name": "league_elise_sl_unit",
                             "effect_buff": {
                               "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_elise_cw_on",
-                                  "effect_buff": {
-                                    "type": "ApAttack",
-                                    "damage": 54,
-                                    "attack_ratio": 45,
-                                    "hp_ratio": 0,
-                                    "can_crit": false,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  "effect_none": {
-                                    "type": "ApAttack",
-                                    "damage": 36,
-                                    "attack_ratio": 30,
-                                    "hp_ratio": 0,
-                                    "can_crit": false,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "league_elise_sl_bite3"
-                                },
-                                {
-                                  "type": "TargetSfx",
-                                  "name": "league_elise_sl_bite"
-                                }
-                              ]
+                              "effects": []
                             },
                             "effect_none": {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_elise_sl2",
+                              "buff_name": "league_elise_sl3",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
@@ -628,16 +599,16 @@
                                     "buff_name": "league_elise_cw_on",
                                     "effect_buff": {
                                       "type": "ApAttack",
-                                      "damage": 36,
-                                      "attack_ratio": 30,
+                                      "damage": 54,
+                                      "attack_ratio": 45,
                                       "hp_ratio": 0,
                                       "can_crit": false,
                                       "attack_effect_type": "Target"
                                     },
                                     "effect_none": {
                                       "type": "ApAttack",
-                                      "damage": 24,
-                                      "attack_ratio": 20,
+                                      "damage": 36,
+                                      "attack_ratio": 30,
                                       "hp_ratio": 0,
                                       "can_crit": false,
                                       "attack_effect_type": "Target"
@@ -645,7 +616,7 @@
                                   },
                                   {
                                     "type": "ViewEffect",
-                                    "name": "league_elise_sl_bite2"
+                                    "name": "league_elise_sl_bite3"
                                   },
                                   {
                                     "type": "TargetSfx",
@@ -655,7 +626,7 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_elise_sl1",
+                                "buff_name": "league_elise_sl2",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
@@ -664,16 +635,16 @@
                                       "buff_name": "league_elise_cw_on",
                                       "effect_buff": {
                                         "type": "ApAttack",
-                                        "damage": 18,
-                                        "attack_ratio": 15,
+                                        "damage": 36,
+                                        "attack_ratio": 30,
                                         "hp_ratio": 0,
                                         "can_crit": false,
                                         "attack_effect_type": "Target"
                                       },
                                       "effect_none": {
                                         "type": "ApAttack",
-                                        "damage": 12,
-                                        "attack_ratio": 10,
+                                        "damage": 24,
+                                        "attack_ratio": 20,
                                         "hp_ratio": 0,
                                         "can_crit": false,
                                         "attack_effect_type": "Target"
@@ -681,7 +652,7 @@
                                     },
                                     {
                                       "type": "ViewEffect",
-                                      "name": "league_elise_sl_bite1"
+                                      "name": "league_elise_sl_bite2"
                                     },
                                     {
                                       "type": "TargetSfx",
@@ -690,8 +661,45 @@
                                   ]
                                 },
                                 "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_elise_sl1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_elise_cw_on",
+                                        "effect_buff": {
+                                          "type": "ApAttack",
+                                          "damage": 18,
+                                          "attack_ratio": 15,
+                                          "hp_ratio": 0,
+                                          "can_crit": false,
+                                          "attack_effect_type": "Target"
+                                        },
+                                        "effect_none": {
+                                          "type": "ApAttack",
+                                          "damage": 12,
+                                          "attack_ratio": 10,
+                                          "hp_ratio": 0,
+                                          "can_crit": false,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_elise_sl_bite1"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_elise_sl_bite"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               }
                             }

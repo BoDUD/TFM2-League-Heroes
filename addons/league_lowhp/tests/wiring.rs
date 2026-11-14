@@ -47,7 +47,7 @@ fn mirror_image_spawns_its_clone_as_a_unit_through_the_export() {
                    ["league_lowhp:blitzcrank", "league_lowhp:leblanc", "league_lowhp:lissandra"]);
         let regs = std::slice::from_raw_parts(ex.native_effects_ptr, ex.native_effects_len);
         let fx: Effects = regs.iter().map(|e| (e.name.as_str().to_string(), e)).collect();
-        assert_eq!(fx.keys().map(|k| k.as_str()).collect::<Vec<_>>(), ["league_lowhp:mirror"]);
+        assert_eq!(fx.keys().map(|k| k.as_str()).collect::<Vec<_>>(), ["league_lowhp:thrall", "league_lowhp:mirror"]);
         let proto = &passives[1].passive;
         let passive = PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
 

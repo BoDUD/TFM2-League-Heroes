@@ -13,7 +13,8 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_illaoi
     no picture on the body: the add-on stands it apart, tethered) and the Vessel the add-on's;
   * passive = league_illaoi:prophet (params: NATIVE_KEYS of the kit);
   * the attack's and Test of Spirit's tooltips (keys of the add-on's own id) say what the add-on changes, so the tooltip
-    in game shows whether the override took.
+    in game shows whether the override took (0.3.0: the tentacles can be killed - their bodies are the add-on's native
+    units, the copy's data does not change for them).
 Every other champion stays untouched. Run it again whenever the main pack's Illaoi changes.
 """
 import json
@@ -35,21 +36,21 @@ phys, t, n, cc, hl = setup.phys, setup.t, setup.n, setup.cc, setup.hl
 NATIVE = {
     "zh-hans": {
         "attack": "【附加包】抡神像砸下。" + n("古神先知") + "：每" + t("{p_cd_1}-{p_cd_18}秒") + "在她附近的墙边长出触手（没墙就在身边），活" +
-                  t("{t_long}秒") + "、最多{t_most}条；只抽被教训的、灵魂和躯壳，她打中敌人时每" + t("{q_cd}秒") + "抽一下，" +
+                  t("{t_long}秒") + "、最多{t_most}条、可被打掉；只抽被教训的、灵魂和躯壳，她打中敌人时每" + t("{q_cd}秒") + "抽一下，" +
                   phys("t_dmg", "t_ratio") + "物理伤害；抽中英雄" + hl("回复") + phys("p_heal", "p_heal_r") + "生命。",
         "skill2": "【附加包】扯出敌方英雄的灵魂" + t("{e_t}秒") + "，灵魂站在外面连着线：她打他多造成{e_echo}%伤害，" + cc("减速") +
                   "{e_slow}%；他走得离灵魂太远或灵魂到时，变成躯壳" + t("{e_vt}秒") + "，身边长出触手。",
     },
     "zh-hant": {
         "attack": "【附加包】掄神像砸下。" + n("遠古預言") + "：每" + t("{p_cd_1}-{p_cd_18}秒") + "在她附近的牆邊長出觸手（沒牆就在身邊），活" +
-                  t("{t_long}秒") + "、最多{t_most}條；只抽被教訓的、靈魂和軀殼，她打中敵人時每" + t("{q_cd}秒") + "抽一下，" +
+                  t("{t_long}秒") + "、最多{t_most}條、可被打掉；只抽被教訓的、靈魂和軀殼，她打中敵人時每" + t("{q_cd}秒") + "抽一下，" +
                   phys("t_dmg", "t_ratio") + "物理傷害；抽中英雄" + hl("回復") + phys("p_heal", "p_heal_r") + "生命。",
         "skill2": "【附加包】扯出敵方英雄的靈魂" + t("{e_t}秒") + "，靈魂站在外面連著線：她打他多造成{e_echo}%傷害，" + cc("緩速") +
                   "{e_slow}%；他走得離靈魂太遠或靈魂到時，變成軀殼" + t("{e_vt}秒") + "，身邊長出觸手。",
     },
     "en": {
         "attack": "[Add-on] Swings her idol down. " + n("Prophet of an Elder God") + ": every " + t("{p_cd_1}-{p_cd_18}s") +
-                  " a tentacle grows on the walls near her (beside her in the open) for " + t("{t_long}s") + ", {t_most} at most; "
+                  " a tentacle grows on the walls near her (beside her in the open) for " + t("{t_long}s") + ", {t_most} at most, killable; "
                   "they strike only the lessoned, spirits and Vessels, and her target every " + t("{q_cd}s") + ", for " +
                   phys("t_dmg", "t_ratio") + " physical damage, " + hl("healing") + " her " + phys("p_heal", "p_heal_r") +
                   " on a champion.",
@@ -59,7 +60,7 @@ NATIVE = {
     },
     "ko": {
         "attack": "[확장] 신상을 내리친다. " + n("고대신의 예언자") + ": " + t("{p_cd_1}-{p_cd_18}초") + "마다 근처 벽에 촉수가 " +
-                  t("{t_long}초") + " 자란다(벽이 없으면 곁에, 최대 {t_most}개). 가르침 대상·영혼·그릇과 " + t("{q_cd}초") +
+                  t("{t_long}초") + " 자란다(벽이 없으면 곁에, 최대 {t_most}개, 처치 가능). 가르침 대상·영혼·그릇과 " + t("{q_cd}초") +
                   "마다 그녀의 대상만 친다: " + phys("t_dmg", "t_ratio") + " 물리 피해, 챔피언 적중 시 " + phys("p_heal", "p_heal_r") +
                   " " + hl("회복") + ".",
         "skill2": "[확장] 적 챔피언의 영혼을 " + t("{e_t}초") + " 끌어내 밖에 세우고 선으로 잇는다: 그녀의 공격 피해 +{e_echo}%, {e_slow}% " +
@@ -67,7 +68,7 @@ NATIVE = {
     },
     "ja": {
         "attack": "【拡張】神像を振り下ろす。" + n("旧神の預言者") + "：" + t("{p_cd_1}-{p_cd_18}秒") + "ごとに近くの壁際へ触手が" +
-                  t("{t_long}秒") + "生える（壁がなければそば、最大{t_most}本）。教訓の対象・魂・器と" + t("{q_cd}秒") + "ごとに彼女の対象だけを打つ："
+                  t("{t_long}秒") + "生える（壁がなければそば、最大{t_most}本、倒せる）。教訓の対象・魂・器と" + t("{q_cd}秒") + "ごとに彼女の対象だけを打つ："
                   + phys("t_dmg", "t_ratio") + "の物理ダメージ、英雄に当たると" + phys("p_heal", "p_heal_r") + hl("回復") + "。",
         "skill2": "【拡張】敵英雄の魂を" + t("{e_t}秒") + "引き出し、外に立たせて線でつなぐ：彼女の攻撃ダメージ+{e_echo}%、{e_slow}%" +
                   cc("スロウ") + "。魂から離れすぎるか時間切れで" + t("{e_vt}秒") + "器となり、そばに触手が生える。",

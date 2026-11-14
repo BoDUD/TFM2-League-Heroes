@@ -11,10 +11,10 @@
       "version": ">=0.177.0"
     }
   ],
-  "description": "Test build of Zyra as in League (needs League of Legends Heroes): replaces the main pack's Zyra so her Garden of Thorns drops seeds on the ground near her (and one on every takedown), Deadly Spines and Grasping Roots landing near seeds grow them into plants that strike champions first with damage rising with her level (the Thorn Spitter spits visible thorns), and Stranglethorns enrages them (the main pack: every Q and E grows one plant where it lands). Easter egg: a plant Leona's sunlight lands on grows one size bigger (and a short marker on Zyra lets League Heroes: League easter eggs show its notice). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-09",
+  "description": "Test build of Zyra as in League (needs League of Legends Heroes): replaces the main pack's Zyra so her Garden of Thorns drops seeds on the ground near her (and one on every takedown), Deadly Spines and Grasping Roots landing near seeds grow them into plants that strike champions first with damage rising with her level (the Thorn Spitter spits visible thorns), and Stranglethorns enrages them (the main pack: every Q and E grows one plant where it lands). Easter egg: a plant Leona's sunlight lands on grows one size bigger (and a short marker on Zyra lets League Heroes: League easter eggs show its notice). 0.2.0: every plant of the add-on's has a body of its own through the mod API's spawn_unit - targetable, it can be killed (15% of her health), it does not walk and its own attack harms nobody; the add-on strikes from the body's spot, a destroyed body takes its plant; once bodies work the data leaves the plants where Q and E land to the add-on; in a match with Leona the plants stay pictures (the sunlight easter egg); a host that gives no unit keeps the pictures. Needs the main pack's sheets league/champions/league_zyra_spitter and _lasher. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_zyra",
   "mod_type": "native",
-  "name": "League Heroes: Zyra's seeds and plants, bigger in Leona's sunlight (test)",
-  "version": "0.1.6"
+  "name": "League Heroes: Zyra's seeds and plants, bigger in Leona's sunlight, the plants bodies of their own (test)",
+  "version": "0.2.0"
 }

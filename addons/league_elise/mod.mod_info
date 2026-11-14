@@ -11,10 +11,10 @@
       "version": ">=0.115.0"
     }
   ],
-  "description": "Test build of Elise as in League (needs League of Legends Heroes): replaces the main pack's Elise so in Spider Form her whole body is the spider (standing, running, hit and dead too, game 0.6.4), the Cocoon goes at a champion with no minion, monster or other champion in the way (a held one first, else the nearest), Rappel drops on the lowest-health champion and the cocoon hunt (her ult) on a held champion first, else the lowest. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-07",
+  "description": "Test build of Elise as in League (needs League of Legends Heroes): replaces the main pack's Elise so in Spider Form her whole body is the spider (standing, running, hit and dead too, game 0.6.4), the Cocoon goes at a champion with no minion, monster or other champion in the way (a held one first, else the nearest), Rappel drops on the lowest-health champion and the cocoon hunt (her ult) on a held champion first, else the lowest. 0.2.0: in Spider Form her stored spiderlings are units of their own through the mod API's spawn_unit - they walk, bite (12 + 10% of her ability power, as magic when the engine tells her passive), can be killed (one stored spiderling fewer), attack faster in Skittering Frenzy, drop beside her after Rappel and are put away when she turns human or dies; a host that gives no unit keeps the main pack's riding bites. Needs the main pack's sheet league/champions/league_elise_spiderling. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_elise",
   "mod_type": "native",
-  "name": "League Heroes: Elise's whole-body spider and the Cocoon / Rappel / hunt targets (test)",
-  "version": "0.1.3"
+  "name": "League Heroes: Elise's whole-body spider, the Cocoon / Rappel / hunt targets and her spiderlings as units (test)",
+  "version": "0.2.0"
 }
