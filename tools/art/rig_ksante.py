@@ -18,6 +18,9 @@ rig_shyvana's lesson). Both stances stand on the same pivot; the forward picture
 burst, W's dust) are drawn into the frames from league_ksante_fx / _big (assets/source/native/ksante_bake.json).
 Timings: MS (ms per frame); the kit's ticks (tools/kit/build_ksante.py: a_hit, q_at, q3_rel, w_charge, w_dash_dur,
 r_at, r_chase, r_dash_dur) are these frames' starts (a frame's start in ticks = ms x 0.06).
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「能改就想办法改 全都要改」): a key pose with its ntofos moved (PARTS, boxes in the pose's own squares less its head box) -
+pressed down into the ground in W's brace, falling to the ground in the death; everything else checked unchanged.
 """
 import argparse
 import json
@@ -32,6 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import pack_ksante_poses as PK  # noqa: E402
 
@@ -105,19 +109,55 @@ class Canvas:
         st, _, _, _, spec = PK.POSES[name]
         return PK.build(st, spec)["head"][0] - FORMS[st][1]
 
-    def pose(self, name, dx=0, lift=0, flash=False):
-        """Codex's key pose standing on the pivot (moved dx), its lowest square on the ground or `lift` rows over it."""
+    def pose(self, name, dx=0, lift=0, flash=False, moves=(), spins=()):
+        """Codex's key pose standing on the pivot (moved dx), its lowest square on the ground or `lift` rows over it;
+        moves / spins (inbetween.vary, PARTS' names): an in-between made from it, placed where the pose stands."""
         if name not in self.poses:
             sys.exit(f"pose {name} not delivered yet (assets/source/ksante/codex_poses)")
         a = self.poses[name]
         st = PK.POSES[name][0]
         stand = self.head_at[name][0] + FORMS[st][2] - self.plan_head(name)
-        can = self.put(self.blank(), a, int(round(self.rig.CX - stand)) + dx, self.rig.GY - a.shape[0] - lift)
+        ox, oy = int(round(self.rig.CX - stand)) + dx, self.rig.GY - a.shape[0] - lift
+        if moves or spins:
+            (hx, hy), (hw, hh) = self.head_at[name], HEAD_WH[st]
+            head = np.zeros(a.shape[:2], bool)
+            head[max(0, hy):hy + hh, max(0, hx):hx + hw] = True
+            parts = {k: [(x0, y, x1, y) for x0, y, x1, _ in runs(IB.part_mask(a.shape, v) & ~head)]
+                     for k, v in PARTS[name].items()}
+            a = IB.vary(a, parts, self.outline, moves, (), None, head & (a[..., 3] > 0), VPAD, name, spins=spins)
+            ox, oy = ox - VPAD, oy - VPAD
+        can = self.put(self.blank(), a, ox, oy)
         can[self.rig.GY:] = 0
         return hit_white(can) if flash else can
 
 
+VPAD = 30
+HEAD_WH = {"base": (22, 19), "ao": (26, 22)}       # the head boxes (design_ksante_poses.STANCES), at each pose's head_at
+# the in-betweens' parts (boxes in the pose's own squares; the head box always taken out)
+PARTS = {
+    # W's brace: the two ntofos stood up before him, gripped at mid height (columns 56 on; the hands lie over them)
+    "w_wall": {"ntofos": [(56, 0, 92, 70)]},
+    # the death's kneel: the left ntofo lying on the ground, its end in his left hand, and the right one lying with its
+    # end against his foot - each turned about that end (ENDS)
+    "d_kneel": {"left": [(0, 36, 39, 56)], "right": [(76, 46, 124, 64)]},
+}
+ENDS = {"left": (44, 44), "right": (76, 57)}
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y)."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if len(xs):
+            cut = np.nonzero(np.diff(xs) > 1)[0]
+            out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
 # ms per frame; the kit's ticks come from these (a frame's start in ticks = ms x 0.06)
+# The in-betweens (2026-11-14: W's brace was one drawing held 650 ms after a moved copy, the death the slump and the
+# kneel twice each): spans shared out (inbetween.spans, none under 50), the action's length and the kneel at 300 kept.
 MS = {
     # the runs 150 ms a frame (2026-10-22, 「走路跳动频率太高 和之前索拉卡一样」: 110 made a 0.44 s cycle; Soraka's fix was 150)
     "idle": [1000], "hit": [100, 100], "run": [150, 150, 150, 150],
@@ -125,11 +165,11 @@ MS = {
     "skill": [80, 87, 120, 80, 66],                 # Q1: the slam at 167 ms = q_at 10; 433 ms = q_dur 26
     "skill_b": [80, 87, 120, 80, 66],               # Q2: the same timing
     "skill_c": [90, 110, 150, 80, 70],              # Q3: the slam at 200 ms = q3_rel 12; 500 ms = q3_dur 30
-    "skill2": [100, 650],                           # W's brace: 750 ms = w_charge 45
+    "skill2": IB.spans((100, 1), (650, 3)),         # W's brace: 750 ms = w_charge 45
     "skill2_dash": [75, 75, 75, 75],                # W's ram: 300 ms = w_dash_dur 18
     "ult": [90, 110, 150, 217],                     # R's bash at 200 ms = r_at 12; 567 ms = r_dur 34
     "ult_dash": [120, 120, 127],                    # the chase: 367 ms = r_dash_dur 22
-    "dead": [150, 150, 250, 600],
+    "dead": IB.spans((150, 1), (150, 1), (250, 2), (600, 1)),
     "ao_idle": [1000], "ao_hit": [100, 100], "ao_run": [150, 150, 150, 150],
     "ao_attack": [80, 87, 120, 100, 80],            # the sweep at 167 ms = a_hit 10
     "ao_skill": [80, 87, 150, 50, 66],              # the smash at 167 ms = q_at 10
@@ -161,7 +201,7 @@ def frames(C, tags=None):
         # ground bursts and the shockwave rolls out)
         "skill_c": [q("q3_up", lift=4), q("q3_up", lift=10), q("q3_slam"), q("q3_slam", dx=-1), d("base")],
         # W's brace (League's Spell2_Enter / Loop: both ntofos set before him as a wall, leaning into it)
-        "skill2": [q("w_wall", dx=-1), q("w_wall")],
+        "skill2": [q("w_wall", dx=-1), q("w_wall"), q("w_wall", moves=[("ntofos", (0, 3), "under")]), q("w_wall")],
         # W's ram (League's Spell2_Dash: the same wall, charging with long strides; the dust drawn in behind him)
         "skill2_dash": [q("w_dash"), q("w_dash", dx=1), q("w_dash"), q("w_dash", dx=1)],
         # R's bash (League's Spell4_A: braced behind the ntofos, lunging, both shoved forward - the kick: the ntofos
@@ -171,7 +211,11 @@ def frames(C, tags=None):
         # the air, slammed down on it as he lands)
         "ult_dash": [q("ao_charge", lift=4), q("ao_leap", lift=8), q("ao_smash")],
         # death (League's Death: pitching forward, the ntofos toppling, down on one knee with them on the ground)
-        "dead": [q("d_slump"), q("d_slump", dx=1), q("d_kneel"), q("d_kneel")],
+        # (the ntofos still falling as he kneels: each turned up about the end that lies on the ground, then lying)
+        "dead": [q("d_slump"), q("d_slump", dx=1),
+                 q("d_kneel", spins=[("left", ENDS["left"], 10, "under"), ("right", ENDS["right"], -8, "under")]),
+                 q("d_kneel", spins=[("left", ENDS["left"], 4, "under"), ("right", ENDS["right"], -3, "under")]),
+                 q("d_kneel")],
         # All Out
         "ao_idle": [d("ao")],
         "ao_hit": [d("ao", dx=-2, flash=True), d("ao", dx=-1)],
