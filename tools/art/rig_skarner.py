@@ -30,6 +30,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import pack_skarner_poses as PK  # noqa: E402
 from design_skarner_poses import HEAD_BOX  # noqa: E402
@@ -125,10 +126,20 @@ class Canvas:
         can[ty, tx] = pic[ys, xs]
         return can
 
-    def frame(self, name, dx=0, lift=None, flash=False):
+    def frame(self, name, dx=0, lift=None, flash=False, spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        spins [(part, point, degrees, how)] - a tail of the pose (PARTS) turned clockwise by any angle about a point.
+        The head and everything of the pose in none of its parts are checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, LIFT.get(name, 0) if lift is None else lift)
+        if spins:
+            hx, hy = load_pose(name)[1]
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            parts = {k: runs(IB.part_mask(d.shape, v) & ~head) for k, v in PARTS[name].items()}
+            d = IB.vary(d, parts, self.outline, (), (), None, head, VPAD, name, (), spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -136,6 +147,46 @@ class Canvas:
             sys.exit(f"{name}: {int((~ok).sum())} squares off the canvas (pad the rig)")
         can[ty, tx] = d[ys, xs]
         return R.flash(can) if flash else can
+
+    def head(self):
+        """The head's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (HEAD_W, HEAD_H), [load_pose(n)[:2] for n in PK.POSES])
+        return self._head
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y) - boxes for inbetween.part_mask."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): his three tails, each cut where it leaves the
+# mass of his back (above that row the three stand apart), boxes / polygons in the pose picture's own squares, less the
+# head's squares. A tail turns about the corner of its cut on the side it turns away from (inbetween.spin), so its
+# root swings in under his back and no gap opens. His head (the hood: design_skarner_poses.HEAD_BOX), the body, the
+# pincers and the legs are in no part: they never change. The other actions (the boulder's, the charge, the grab, the
+# quake, the run) are as they were: their tails merge with the boulder or with one another.
+HEAD_W, HEAD_H = HEAD_BOX[2] - HEAD_BOX[0], HEAD_BOX[3] - HEAD_BOX[1]
+VPAD = 40                      # squares a turned tail may leave its pose picture's box by
+PARTS = {
+    "d_rear": {"tl": [(0, 0, 18, 47)], "tm": [(19, 0, 28, 47)], "tr": [(29, 0, 50, 46)]},
+    "a_wind": {"tl": [(0, 0, 20, 40)], "tm": [[(21, 0), (44, 0), (44, 18), (34, 22), (34, 41), (21, 41)]],
+               "tr": [[(45, 0), (76, 0), (76, 32), (46, 40), (35, 40), (35, 23), (45, 19)]]},
+}
+# each tail's corner at its cut: (the left one, the right one) - a tail turned clockwise turns about the left, one
+# turned counter-clockwise about the right
+PIVOT = {("d_rear", "tl"): ((9, 47), (19, 47)), ("d_rear", "tm"): ((19, 47), (29, 47)),
+         ("d_rear", "tr"): ((29, 47), (38, 47)),
+         ("a_wind", "tl"): ((12, 41), (21, 41)), ("a_wind", "tm"): ((22, 41), (34, 41)),
+         ("a_wind", "tr"): ((35, 41), (47, 41))}
 
 
 # ms per frame; the kit's ticks (tools/kit/build_skarner.py) match these (a frame's start in ticks = ms x 0.06):
@@ -149,19 +200,32 @@ class Canvas:
 # (start_timing 1, 17 ms), before any tail of the stab could show. attack_rock 467 ms = atk_dur 28 from that tick, the
 # jab landing on a_hit 12 (17 + 183 = 200 ms). Ixtal's Impact: the charge (skill2) held while he runs in, the grab (tag
 # `grab`, e_kb_t 20 = 333 ms) from the contact, the bounce and slam (`w`) at the carry's end.
-MS = {"idle": [1000], "run": [140] * 4, "attack": [33, 167, 200, 67], "attack_rock": [183, 200, 84],
+#
+# The in-betweens (2026-11-14: the attack played 3 poses, the ult 3, the death 2 and a flash): each span above is shared
+# out over more frames (inbetween.spans: whole ms, none under 50), so every action is as long as it was and its strike
+# still begins on its millisecond - the idle's 33 ms first (the boulder's swap), the stab at 200, the lash at 233, the
+# collapse at 400. The other actions are as they were.
+MS = {"idle": [1000], "run": [140] * 4, "attack": [33] + IB.spans((167, 3), (200, 2), (67, 1)),
+      "attack_rock": [183, 200, 84],
       "skill": [250, 250], "skill_toss": [150, 250], "skill2": [400], "grab": [333], "w": [117, 150],
-      "ult": [233, 200, 167], "hit": [100, 100], "dead": [140, 260, 300, 600]}
+      "ult": IB.spans((233, 3), (200, 1), (167, 1)), "hit": [100, 100],
+      "dead": IB.spans((400, 3, (35, 30, 35)), (900, 2, (8, 92)))}
 
 
 def actions(C):
     f = C.frame
+
+    def turn(name, degrees):
+        """The pose's three tails each turned clockwise by `degrees` (negative: counter-clockwise) about its cut."""
+        return [(t, PIVOT[(name, t)][0 if degrees > 0 else 1], degrees, "under") for t in ("tl", "tm", "tr")]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Runbase: the legs stepping in two sets, the tails over his back)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
-    # attack (BaseAttack1: the tails reared up and back, stabbing down before him, back)
-    out["attack"] = [f("idle"), f("a_wind"), f("a_strike"), f("idle")]
+    # attack (BaseAttack1: the tails reared up and back, stabbing down before him, back): the tails rearing back past
+    # upright, reared, swinging forward; the stab a step ahead, at rest; the idle
+    out["attack"] = [f("idle"), f("a_wind", spins=turn("a_wind", -12)), f("a_wind"),
+                     f("a_wind", spins=turn("a_wind", 25)), f("a_strike", dx=2), f("a_strike"), f("idle")]
     # holding the boulder (BaseAttack1_Rock: the tails keep it up; he rears a square back, the far pincer cocked, then
     # lunges, the pincer jabbing out)
     out["attack_rock"] = [C.rock_jab(-1, -1, -2), C.rock_jab(1, 4, 0), f("idle")]
@@ -174,11 +238,15 @@ def actions(C):
     out["grab"] = [f("e_grab")]
     # Seismic Bastion at the carry's end (Spell2: bouncing up, crashing down - the earthquake)
     out["w"] = [f("w_rear"), f("w_slam")]
-    # Impale (Spell4: the tails reared back, lashing out far before him, arched over the impaled)
-    out["ult"] = [f("a_wind"), f("r_lash"), f("r_hold")]
+    # Impale (Spell4: the tails reared back, lashing out far before him, arched over the impaled): rearing back past
+    # upright, reared, swinging forward; lashing out, arched over the impaled
+    out["ult"] = [f("a_wind", spins=turn("a_wind", -12)), f("a_wind"), f("a_wind", spins=turn("a_wind", 40)),
+                  f("r_lash"), f("r_hold")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
-    # death (Death: jerking up, the tails stiff; collapsed flat, the tails laid out behind)
-    out["dead"] = [f("d_rear", flash=True), f("d_rear"), f("d_down"), f("d_down")]
+    # death (Death: jerking up, the tails stiff; collapsed flat, the tails laid out behind): struck; the stiff tails
+    # toppling back in two steps; dropping, flat
+    out["dead"] = [f("d_rear", flash=True), f("d_rear", spins=turn("d_rear", -12)),
+                   f("d_rear", spins=turn("d_rear", -25)), f("d_down", lift=3), f("d_down")]
     return out
 
 

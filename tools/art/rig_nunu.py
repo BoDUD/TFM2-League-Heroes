@@ -28,6 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "nunu"
@@ -90,10 +91,17 @@ class Canvas:
         left = rig.ox + int(round(self.mid - middle(d, name))) + dx
         return d, (left, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def frame(self, name, dx=0, lift=0, flash=False, sway=(), spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        sway [(part, x0, x1, k, attach)] - Willump's raised arms pumped (their columns lifted 0..k rows toward the
+        claws); spins [(part, point, degrees, how)] - an arm turned about its shoulder. Everything of the pose in no
+        part is checked unchanged (Nunu and Willump's head lie away from the arms: no head box helper, as league_kled)."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if sway or spins:
+            d = IB.vary(d, PARTS[name], self.outline, (), sway, None, None, VPAD, name, (), spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -113,10 +121,24 @@ def ms_of(tick):
 # W: packing the snowball 300 ms = w_in 18, then skill_roll (pushing it, two frames, held while it rolls), skill_hit
 # 233 ms = w_end 14; E 667 ms = e_dur 40: a snowball off one hand every 100 ms from e_rel 6 (100 ms), the two hands in
 # turn; R: ult held while they channel (two frames of the blizzard call), ult_end 300 ms = r_end 18
-MS = {"idle": [1000], "run": [150] * 4, "attack": [183, 117, 100, 67], "attack_bite": [233, 150, 117],
+#
+# The in-betweens (2026-11-14: the user, 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」 - the blizzard call
+# was one drawing and a copy a row higher, the attack's swipe one drawing twice): Willump's raised arms pump by their
+# columns in the ult's loop (inbetween.wave: the claws up and down, nothing at the shoulders), his striking arm turns
+# about its shoulder before the swipe (inbetween.spin). Every action is as long as it was and its strike still begins
+# on its millisecond (the swipe at 183).
+VPAD = 30
+PARTS = {"r_raise": {"larm": [(0, 8, 17, 56)], "rarm": [(63, 12, 76, 50)]},
+         "a_wind": {"arm": [[(41, 2), (60, 2), (60, 37), (47, 37), (47, 24), (45, 22), (45, 10), (41, 9)]]}}
+MS = {"idle": [1000], "run": [150] * 4, "attack": [92, 91, 117, 100, 67], "attack_bite": [233, 150, 117],
       "skill": [150, 150], "skill_roll": [150, 150], "skill_hit": [133, 100],
-      "skill2": [100, 100, 100, 100, 100, 100, 67], "ult": [250, 250], "ult_end": [150, 150], "hit": [100, 100],
-      "dead": [140, 200, 300, 600]}
+      "skill2": [100, 100, 100, 100, 100, 100, 67], "ult": [125, 125, 125, 125], "ult_end": [150, 150],
+      "hit": [100, 100], "dead": [140, 200, 300, 600]}
+
+
+def pump(k):
+    """Willump's raised arms pumped: the claws k rows up (negative: down), nothing at the shoulders."""
+    return [("larm", 0, 17, k, "right"), ("rarm", 63, 75, k, "left")]
 
 
 def actions(C):
@@ -126,7 +148,9 @@ def actions(C):
     # run (League's Run01: contact, passing, contact on the other leg, passing; the passing frames a row higher)
     out["run"] = [f("run1"), f("run2", lift=1), f("run3"), f("run4", lift=1)]
     # attack (League's Attack01: the far arm raised high, swiped down in front, back)
-    out["attack"] = [f("a_wind"), f("a_swipe"), f("a_swipe"), f("idle")]
+    # (the arm coming up, raised; the swipe, held; back)
+    out["attack"] = [f("a_wind", spins=[("arm", (47, 30), 30, "under")]), f("a_wind"), f("a_swipe"), f("a_swipe"),
+                     f("idle")]
     # Consume's bite (Spell1: lunging with the jaws wide, snapping them shut)
     out["attack_bite"] = [f("b_open"), f("b_bite"), f("b_bite")]
     # Biggest Snowball Ever! (Spell2_In: packing the snowball and setting it rolling; Spell2: pushing it, held while it
@@ -140,7 +164,8 @@ def actions(C):
     out["skill2"] = [f("e_throw1"), f("e_throw2"), f("e_throw1"), f("e_throw2"), f("e_throw1"), f("e_throw2"),
                      f("idle")]
     # Absolute Zero (Spell4: the arms raised calling the blizzard, held; the slam that bursts it)
-    out["ult"] = [f("r_raise"), f("r_raise", lift=1)]
+    # (the blizzard called: the arms pumping up, raised, down, raised - looped while they channel)
+    out["ult"] = [f("r_raise", sway=pump(4)), f("r_raise"), f("r_raise", sway=pump(-3)), f("r_raise", lift=1)]
     out["ult_end"] = [f("r_slam"), f("r_slam")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (League's Death01: collapsing forward, Nunu tumbling off; lying on his belly, Nunu sat by him)

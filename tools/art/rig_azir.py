@@ -46,6 +46,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import strips as G  # noqa: E402
 import pack_azir_poses as PK  # noqa: E402
@@ -65,6 +66,36 @@ S_PPU = 1.5                    # the summons' sheets (the user's picks: soldier 
 SOLDIER_PPU = 1.429            # 2026-10-27: 70 % of the 54 game px league.dll drew them at (a square a pixel) until its
                                # effect draw shrank them (hd.rs DRAWN_EFFECTS); their 1x frames at this size too
 FEET = R.FEET
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): polygons / boxes in each pose picture's own
+# squares. An arm held out or the sceptre thrust out slides along itself back under the shoulder guard / the fist, so
+# it is seen shorter - reaching out, drawing back; the sashes trailing behind him wave by their columns; the sceptre
+# dropped before him in the death falls there. The helmet and the body are in no part: every frame checks them.
+VPAD = 30                      # squares a moved part may leave its pose picture's box by
+PARTS = {
+    "c_wind": {"arm": [[(43, 17), (58, 17), (58, 50), (45, 50), (45, 31), (43, 31)]]},
+    "c_point": {"arm": [[(56, 38), (81, 38), (81, 50), (56, 50)]]},
+    "q_wind": {"spear": [[(0, 0), (24, 0), (24, 26), (21, 34), (22, 38), (18, 38), (14, 30), (0, 26)]]},
+    "q_thrust": {"spear": [[(58, 14), (99, 14), (99, 37), (58, 37)]]},
+    "e_dash": {"sash": [[(3, 10), (19, 10), (19, 29), (3, 29)]]},
+    "e_land": {"sash": [[(18, 44), (33, 44), (33, 50), (27, 56), (22, 62), (14, 70), (3, 70), (3, 53), (18, 53)]]},
+    "r_raise": {"arm": [[(50, 40), (73, 40), (73, 54), (50, 54)]]},
+    "r_lift": {"spear": [[(2, 0), (21, 0), (21, 29), (18, 29), (18, 37), (9, 37), (2, 30)]]},
+    "r_sweep": {"spear": [[(53, 44), (75, 44), (75, 67), (53, 67)]],
+                "sash": [[(3, 30), (16, 30), (16, 45), (3, 45)]]},
+    "run1": {"sash": [[(0, 44), (19, 44), (19, 61), (0, 61)]]},
+    "run2": {"sash": [[(0, 48), (13, 48), (13, 64), (0, 64)]]},
+    "run3": {"sash": [[(0, 44), (19, 44), (19, 61), (0, 61)]]},
+    "run4": {"sash": [[(0, 48), (13, 48), (13, 64), (0, 64)]]},
+    "d_stagger": {"sash": [[(12, 50), (29, 50), (29, 66), (12, 66)]],
+                  "arm": [[(62, 36), (81, 36), (81, 51), (62, 51)]]},
+    "d_kneel": {"spear": [(0, 52, 82, 61), (67, 47, 82, 51)],
+                "sash": [[(10, 38), (30, 38), (30, 52), (10, 52)]]},
+}
+# where each pose's sashes are tied on: the column their wave starts from (nothing moves there; the tips the most)
+SASH = {"e_dash": 18, "e_land": 30, "r_sweep": 15, "run1": 18, "run2": 12, "run3": 18, "run4": 12, "d_stagger": 28,
+        "d_kneel": 29}
 
 
 def lp(path):
@@ -104,10 +135,25 @@ class Canvas:
             d, (hx, hy), ground = load_pose(name)
         return d, (rig.ox + HEAD[0] - hx + dx, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def head(self):
+        """The helmet's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (PK.HW, PK.HH), [load_pose(n)[:2] for n in PARTS])
+        return self._head
+
+    def frame(self, name, dx=0, lift=0, flash=False, moves=(), sway=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        moves [(part, (dx, dy), how)] - parts of the pose (PARTS) moved by whole squares, "under" the rest of him or
+        "over" it; sway [(part, x0, x1, k, attach)] - a part's columns lifted 0..k rows along its length."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if moves or sway:
+            hx, hy = load_pose(name)[1]
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + PK.HH, hx:hx + PK.HW] = self.head()
+            d = IB.vary(d, PARTS[name], self.outline, moves, sway, None, head, VPAD, name)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -128,31 +174,70 @@ def ms_of(tick):
 # and lasts up to 11 ticks) then the landing; Emperor's Divide 600 ms = r_dur 36: the arm spread (the rush behind the
 # champion at r_rush_at 6 = 100 ms), the sceptre lifted, then swept down - the wall charges at r_at 16 = 267 ms (the
 # sweep from 270 ms)
-MS = {"idle": [1000], "run": [150] * 4,
-      "attack": [120, ms_of(KIT["atk_dur"]) - 120 - 120, 120],
-      "skill": [120, ms_of(KIT["q_dur"]) - 120],
-      "skill2": [260, ms_of(KIT["e_dur"]) - 260],
-      "ult": [100, 170, ms_of(KIT["r_dur"]) - 270],
-      "hit": [100, 100], "dead": [140, 200, 300, 600]}
+#
+# The in-betweens (2026-11-14: his attack played 3 different pictures, Q and E 2, R 3, the run 4, the death 3): each
+# span above is shared out over more frames (inbetween.spans: whole ms, none under 50), so every action is as long as
+# it was and its strike still begins on its millisecond - the point at 120, the thrust at 120, the landing at 260, the
+# lift at 100 and the sweep at 270, the kneel at 340.
+A, Q, E, R_ = ms_of(KIT["atk_dur"]), ms_of(KIT["q_dur"]), ms_of(KIT["e_dur"]), ms_of(KIT["r_dur"])
+MS = {"idle": [1000], "run": IB.spans(*[(150, 2)] * 4),
+      "attack": IB.spans((120, 2), (A - 240, 3, (5, 8, 8)), (120, 2)),
+      "skill": IB.spans((120, 2), (Q - 120, 4, (5, 7, 7, 9))),
+      "skill2": IB.spans((260, 4, (5, 7, 7, 7)), (E - 260, 2, (6, 8))),
+      "ult": IB.spans((100, 2), (170, 3, (5, 6, 6)), (R_ - 270, 4, (6, 8, 9, 10))),
+      "hit": [100, 100], "dead": IB.spans((340, 4, (7, 8, 9, 10)), (900, 4, (7, 9, 14, 60)))}
 
 
 def actions(C):
     f = C.frame
+
+    def under(**parts):
+        return [(part, off, "under") for part, off in parts.items()]
+
+    def sash(name, k):
+        """The pose's sashes waved: their tips k rows up (negative: down), nothing where they are tied on."""
+        return [("sash", 0, SASH[name], k, "right")]
     out = {}
     out["idle"] = [f("idle")]
-    # run (League's Run_Slow: contact, passing, contact on the other leg, passing; the sceptre upright in his near hand)
-    out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
-    # attack (League's Attack_Command: the clawed hand raised, then pointed - the soldiers stab - and back)
-    out["attack"] = [f("c_wind"), f("c_point", dx=1), f("idle")]
-    # Conquering Sands (Attack1's swing: the sceptre cocked back, then thrust out level - the soldiers rush)
-    out["skill"] = [f("q_wind"), f("q_thrust", dx=2)]
-    # Shifting Sands (Spell3_Dash: flying ahead behind the sceptre, then the landing crouch)
-    out["skill2"] = [f("e_dash", lift=5), f("e_land", dx=2)]
-    # Emperor's Divide (spell4: the far arm spread, the sceptre lifted high, then swept down - the guards charge)
-    out["ult"] = [f("r_raise"), f("r_lift", lift=2), f("r_sweep", dx=2)]
+    # run (League's Run_Slow: contact, passing, contact on the other leg, passing; the sceptre upright in his near hand):
+    # each of the four drawn steps twice - landed and sunk into the step, then risen through the passing pose - with
+    # the sashes waving behind him (no new legs drawn: they still change four times a cycle)
+    out["run"] = [f("run1"), f("run1", sway=sash("run1", -3)), f("run2", lift=1, sway=sash("run2", 2)),
+                  f("run2", lift=2, sway=sash("run2", 4)), f("run3"), f("run3", sway=sash("run3", -3)),
+                  f("run4", lift=1, sway=sash("run4", 2)), f("run4", lift=2, sway=sash("run4", 4))]
+    # attack (League's Attack_Command: the clawed hand raised, then pointed - the soldiers stab - and back): the hand
+    # coming up beside him, raised; the arm shooting out, pointed a step ahead (as the soldiers stab), held; drawn
+    # back in; the idle
+    out["attack"] = [f("c_wind", dx=-1, moves=under(arm=(0, 5))), f("c_wind", dx=-2),
+                     f("c_point", dx=1, moves=under(arm=(-7, 0))), f("c_point", dx=3), f("c_point", dx=1),
+                     f("c_point", moves=under(arm=(-6, 0))), f("idle")]
+    # Conquering Sands (Attack1's swing: the sceptre cocked back, then thrust out level - the soldiers rush): the
+    # sceptre drawn back through his fist, cocked; shot out through it, at full reach a step ahead, held, drawn back
+    out["skill"] = [f("q_wind", moves=under(spear=(2, 5))), f("q_wind", dx=-2),
+                    f("q_thrust", moves=under(spear=(-12, 0))), f("q_thrust", dx=5), f("q_thrust", dx=3),
+                    f("q_thrust", dx=2, moves=under(spear=(-4, 0)))]
+    # Shifting Sands (Spell3_Dash: flying ahead behind the sceptre, then the landing crouch): taking off low, level,
+    # stretched out higher, coming down, the sashes streaming; landing a step long, the crouch
+    out["skill2"] = [f("e_dash", dx=-3, lift=3, sway=sash("e_dash", -3)), f("e_dash", lift=5),
+                     f("e_dash", dx=2, lift=6, sway=sash("e_dash", 3)), f("e_dash", dx=3, lift=3, sway=sash("e_dash", 4)),
+                     f("e_land", dx=4, sway=sash("e_land", 4)), f("e_land", dx=2)]
+    # Emperor's Divide (spell4: the far arm spread, the sceptre lifted high, then swept down - the guards charge): the
+    # arm going out, spread; the sceptre pushed up through his fist as he rises, lifted; swept down a step long with
+    # the sceptre still coming round, down, the sashes settling, held
+    out["ult"] = [f("r_raise", moves=under(arm=(-8, 0))), f("r_raise", dx=-1),
+                  f("r_lift", moves=under(spear=(0, 8))), f("r_lift", lift=2, moves=under(spear=(0, 3))),
+                  f("r_lift", lift=3),
+                  f("r_sweep", dx=5, moves=under(spear=(-6, -3))), f("r_sweep", dx=3),
+                  f("r_sweep", dx=2, sway=sash("r_sweep", 3)), f("r_sweep", dx=2)]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
-    # death (League's Death: reeling back, the sceptre tipping; down on his knees, the sceptre dropped before him)
-    out["dead"] = [f("d_stagger", dx=-1, flash=True), f("d_stagger", dx=-2), f("d_kneel", dx=-2), f("d_kneel", dx=-2)]
+    # death (League's Death: reeling back, the sceptre tipping; down on his knees, the sceptre dropped before him):
+    # struck, reeling back step by step - the arm flung out, the sashes thrown up; on his knees with the sceptre still
+    # falling before him, landing, the sashes settling, still
+    out["dead"] = [f("d_stagger", dx=-1, flash=True), f("d_stagger", dx=-3, moves=under(arm=(-6, 0))),
+                   f("d_stagger", dx=-5, sway=sash("d_stagger", 3)), f("d_stagger", dx=-6, sway=sash("d_stagger", -2)),
+                   f("d_kneel", dx=-3, moves=[("spear", (0, -9), "over")], sway=sash("d_kneel", 4)),
+                   f("d_kneel", dx=-2, moves=[("spear", (0, -3), "over")], sway=sash("d_kneel", 3)),
+                   f("d_kneel", dx=-2, sway=sash("d_kneel", 1)), f("d_kneel", dx=-2)]
     return out
 
 

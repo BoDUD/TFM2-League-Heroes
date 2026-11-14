@@ -106,8 +106,11 @@ class Hero:
         bc = view.get("banpick_center")
         self.by, self.clip = (bc["y"], True) if bc else (-12, False)
         self.card = S * UI_SIZES.get(hid, 1.0)       # 1x frames' pixels -> card pixels
-        self.forms = sorted({t[:-4] for t in self.anims if t.endswith("_idle") and not t.startswith(("hd_", "lo_"))
-                             and t != "idle"} - {""}, key=len, reverse=True)
+        # longest first (a form's prefix may begin with a shorter one's); forms as long as each other in the order
+        # their idles stand in the sheet - a set's order is random per run, and a fresh sheet's _base tags were
+        # written in it (league_udyr's q_ / e_ / r_ came out in a new order on every rebuild)
+        idles = [t for t in self.anims if t.endswith("_idle") and not t.startswith(("hd_", "lo_")) and t != "idle"]
+        self.forms = sorted({t[:-4] for t in idles} - {""}, key=lambda f: (-len(f), idles.index(f + "idle")))
         self._masks = {}
 
     def frames(self, tag):

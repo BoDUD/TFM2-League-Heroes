@@ -21,6 +21,11 @@ The idle is the design alone (no breathing: hero_reels cuts the idle and ban/pic
 The run is league_braum's / league_warwick's approved walk for big heroes: the design's own legs under the hip band, one
 lifted per frame by losing its top rows and stepped forward, the body floating a little, the arms swinging a square
 against the legs, the tendril swaying (no part turned or stretched: 「有点变形了吧？手」).
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+the design's tendril on a pose swaying (its rows shifted sideways, the knob 3 squares, nothing at its root), Q's
+reaching arm slid back along itself in under his face, and poses of other actions passing through (the attack's
+swing-back in Q's wind-up, the ult's splat between the melt and the puddle) - the head and the rest of a pose never
+change.
 """
 import argparse
 import json
@@ -34,6 +39,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 from rig_wukong import CutDesign as _Cut, P, pad  # noqa: E402
 
 HERO = "zac"
@@ -218,10 +224,12 @@ class Form:
         can[self.rig.GY:] = 0
         return close_cracks(can, self.D.outline)
 
-    def posed(self, name, dx=0, lift=0, rubber=0):
+    def posed(self, name, dx=0, lift=0, rubber=0, tendril=0, slide=None):
         """A Codex pose (hd/pose_<name>.png) standing where the design stands: the middle of its squares on the
         design's, moved dx squares; its lowest row on the ground, `lift` rows above it in the air. `rubber`: its RUBBER
-        arm that many squares longer, the body left where the pose stands."""
+        arm that many squares longer, the body left where the pose stands. The in-betweens (tools/art/inbetween.py
+        vary), the pose placed as it is whole: tendril k - the design's tendril on it swayed, its knob k squares
+        sideways; slide (part, (dx, dy)) - a part of it (PARTS) slid along itself "under" the rest of him."""
         rig = self.rig
         d = load(f"pose_{name}.png")
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
@@ -231,6 +239,9 @@ class Form:
             x0, x1, rows, side = RUBBER[name]
             d = stretch(d, x0, x1, rubber, rows, side)
             left -= rubber if side < 0 else 0
+        elif tendril or slide:
+            d = self.varied(name, d, tendril, slide)
+            left, top = left - VPAD, top - VPAD
         can = rig.canvas()
         ys_, xs_ = np.nonzero(d[..., 3] > 0)
         ty, tx = ys_ + top, xs_ + left
@@ -239,6 +250,64 @@ class Form:
             sys.exit(f"{name}: {int((~ok).sum())} squares off the canvas (pad the rig)")
         can[ty, tx] = d[ys_, xs_]
         return can
+
+    def varied(self, name, d, tendril, slide):
+        """The pose picture with its tendril swayed and a part slid (see posed), on a canvas VPAD squares bigger on
+        every side; the head and every square in no part checked unchanged (one approved head, a body that never
+        changes)."""
+        import design_zac_poses as DP
+        hx, hy = head_at(name)
+        ox, oy = hx - FACE[0], hy - FACE[1]
+        head = placed(DP.poly_mask(self.D.d, DP.POLY), d.shape, ox, oy)
+        parts, moves = {}, []
+        if tendril:
+            parts["tendril"] = runs(placed(DP.poly_mask(self.D.d, DP.TENDRIL), d.shape, ox, oy) & ~head)
+            moves.append(("tendril", rows_wave(d.shape, TENDRIL_ROOT + oy, oy, tendril), "under"))
+        if slide:
+            part, off = slide
+            parts[part] = runs(IB.part_mask(d.shape, PARTS[name][part]) & ~head)
+            moves.append((part, off, "under"))
+        return IB.vary(d, parts, self.D.outline, moves, (), None, head, VPAD, name)
+
+
+def head_at(name):
+    """The face box's top-left square in hd/pose_<name>.png (design_zac_poses' json; null where Codex's face stays)."""
+    with open(lp(os.path.join(SRC, f"pose_{name}.json")), encoding="utf-8") as f:
+        return json.load(f)["head_at"]
+
+
+def placed(mask, shape, ox, oy):
+    """A mask on hd/idle.png moved (ox, oy) squares onto a picture of `shape` (what leaves it dropped)."""
+    ys, xs = np.nonzero(mask)
+    ty, tx = ys + oy, xs + ox
+    ok = (ty >= 0) & (ty < shape[0]) & (tx >= 0) & (tx < shape[1])
+    out = np.zeros(shape[:2], bool)
+    out[ty[ok], tx[ok]] = True
+    return out
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y) - boxes for inbetween.vary's parts."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
+def rows_wave(shape, y0, y1, k):
+    """The moves of a tendril's sway: its whole rows shifted sideways, nothing on row y0 where it leaves his skull and
+    k columns (negative: back) on row y1 at its knob, the rows past it going with it - inbetween.wave on its side (the
+    run's sway(), for a pose picture). -> (dx, dy) arrays."""
+    H, W = shape[:2]
+    dx = np.zeros((H, W), int)
+    for y in range(H):
+        t = min(max((y - y0) / (y1 - y0), 0.0), 1.0)
+        dx[y, :] = int(round(k * t))
+    return dx, np.zeros((H, W), int)
 
 
 # ------------------------------------------------------------------------------------------------- the actions
@@ -253,13 +322,17 @@ class Form:
 # splat, back up into the crouch;
 # the walk (league_braum / league_warwick): per frame the near leg's (dx, dy, lift), the far leg's, the figure's rise, the
 # arms' swing (columns: the near arm, the far arm - against the legs), the tendril's sway
+#
+# The in-betweens (2026-11-14: Q, its slam and E played 2 poses each, the death 3): each span above is shared out over
+# more frames (inbetween.spans: whole ms, none under 50), so every action is as long as it was and its strike still
+# begins on its millisecond - the grab at 133, the slam at 133, the pull at 200, the melt at 200 and the puddle at 500.
 MS = {"idle": [1000], "run": [110] * 8,
       "attack": [67, 67, 49, 100, 50, 50, 84],
-      "skill": [133, 267], "skill_slam": [133, 167],
-      "skill2": [200, 400], "skill2_fly": [100, 100], "skill2_land": [167, 100],
+      "skill": IB.spans((133, 2), (267, 3)), "skill_slam": IB.spans((133, 2), (167, 2)),
+      "skill2": IB.spans((200, 2), (400, 3)), "skill2_fly": [100, 100], "skill2_land": [167, 100],
       "ult": [83, 83, 167, 84], "ult_land": [117, 83],
       "hit": [100, 100],
-      "dead": [200, 300, 800],
+      "dead": IB.spans((200, 1), (300, 2), (800, 1)),
       "split_in": [150, 150], "split": [1000], "reform": [150, 150], "split_idle": [1000], "split_hit": [100, 100]}
 WALK = [((0, 0, 0), (0, 0, 2), 1, (0, 0), 0), ((0, 0, 0), (2, 0, 4), 2, (1, -1), 1),
         ((0, 0, 0), (2, 0, 2), 1, (1, -1), 1), ((0, 0, 0), (2, 0, 0), 0, (0, 0), 0),
@@ -273,14 +346,21 @@ AT = {"a_wind": (0, 0), "a_punch": (2, 0), "q_wind": (-1, 0), "q_reach": (2, 0),
 # the arm a pose can stretch (stretch()): its columns x0..x1 and rows (the pose's own squares), the side the hand is on -
 # a_wind's near arm swung back (its upper arm, level along the top), a_punch's far arm (the forearm, shoulder to fist)
 RUBBER = {"a_wind": (18, 36, (0, 41), -1), "a_punch": (84, 99, (0, 47), +1)}
+# the in-betweens' parts (inbetween.vary): boxes in a pose's own squares, less the head - Q's reaching arm, from where
+# it leaves his face to the hand on the ground; the tendril is the design's (design_zac_poses.TENDRIL) where the pose's
+# face box puts it, swayed by its rows from TENDRIL_ROOT (still) up to its knob
+VPAD = 30
+FACE = (48, 12)                # the face box's top-left square on hd/idle.png (design_zac_poses.HEAD)
+TENDRIL_ROOT = 12              # hd/idle.png: the tendril's root row (the knob is row 0)
+PARTS = {"q_reach": {"arm": [(83, 22, 130, 66)]}}
 
 
 def actions(F):
     p, q = F.pose, F.posed
 
-    def at(name, ddx=0, dlift=0, rubber=0):
+    def at(name, ddx=0, dlift=0, rubber=0, **how):
         dx, lift = AT[name]
-        return q(name, dx + ddx, lift + dlift, rubber)
+        return q(name, dx + ddx, lift + dlift, rubber, **how)
     out = {}
     out["idle"] = [p()]
     # run (League's Zac_run_Slow, a heavy waddle): league_braum's walk on the design's own legs
@@ -293,10 +373,16 @@ def actions(F):
                      at("a_punch", rubber=6), at("a_punch"), p()]
     # Q Stretching Strikes (Zac_Spell1_max: the arm swung up and back, then shot out along the ground; Zac_Spell1_Slam:
     # both arms up with the catch, then the slam)
-    out["skill"] = [at("q_wind"), at("q_reach")]
-    out["skill_slam"] = [at("q_lift"), at("q_slam")]
+    # (the arm swung back - the attack's wind-up - and up, the tendril swaying back; the grab shot out at 133, the
+    # tendril flung on, the arm snapping back in under his face)
+    out["skill"] = [at("a_wind"), at("q_wind", tendril=-3), at("q_reach"), at("q_reach", tendril=3),
+                    at("q_reach", slide=("arm", (-7, -4)))]
+    # (the catch lifted, the tendril swaying; the slam at 133, the tendril flung on)
+    out["skill_slam"] = [at("q_lift", tendril=-3), at("q_lift"), at("q_slam"), at("q_slam", tendril=3)]
     # E Elastic Slingshot (Zac_spell3_windup: the arms planted, the body pulled back; Zac_spell3_flying; the landing)
-    out["skill2"] = [at("e_plant"), at("e_pull")]
+    # (the arms planted, the tendril swaying back; pulled back at 200, the tendril swinging on and back)
+    out["skill2"] = [at("e_plant", tendril=-3), at("e_plant"), at("e_pull"), at("e_pull", tendril=3),
+                     at("e_pull", tendril=-2)]
     out["skill2_fly"] = [at("e_fly"), at("e_fly", dlift=1)]
     out["skill2_land"] = [at("e_land"), at("r_crouch")]
     # R Let's Bounce! (Zac_Revert_spell4: the crouch, up, balled; Zac_Spell4_SnapCastRun: arms spread in the air;
@@ -305,7 +391,8 @@ def actions(F):
     out["ult_land"] = [at("r_splat"), at("r_crouch")]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # death (League's Zac_death2: staggering, melting down, a puddle)
-    out["dead"] = [R.flash(at("d_stagger")), at("d_melt"), at("d_puddle")]
+    # (struck; melting, squashed flat - the ult's splat -; the puddle at 500)
+    out["dead"] = [R.flash(at("d_stagger")), at("d_melt"), at("r_splat"), at("d_puddle")]
     # Cell Division's split (league_zac's add-on; its copy of the kit plays split_in, split and reform, and league_zac's
     # view hook draws idle / hit as split_idle / split_hit while he is a puddle): melted down to the puddle, held, and
     # back up through the melt and the crouch - the death's own frames
