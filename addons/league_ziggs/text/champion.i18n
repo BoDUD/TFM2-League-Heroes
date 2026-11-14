@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_ziggs_addon": {
-        "attack": "【附加包】扔小炸弹。<#ff9028ff>一触即发<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>（打塔×1.75），放技能冷却-<#ffb900ff>4秒<>。<#ff9028ff>定点爆破<>：3级起贴身时脚下引爆<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>并<#ef5350ff>击退<>；敌方塔血量低于30%时直接炸掉。"
+        "attack": "【附加包】扔小炸弹。<#ff9028ff>一触即发<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>（打塔×1.75），放技能冷却-<#ffb900ff>4秒<>。<#ff9028ff>定点爆破<>：3级起扔出炸药包，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>并把敌人从炸点向外<#ef5350ff>击退<>，炸到自己就炸飞自己；炸掉血量低于30%的敌方塔。",
+        "skill": "【附加包】扔向目标，落在瞄准点，附近有敌人就爆炸，否则<#ffb900ff>往前弹<>，最多落地<#ffb900ff>3次<>：周围敌人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_ziggs_addon": {
-        "attack": "【附加包】扔小炸彈。<#ff9028ff>即刻爆發<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>（打塔×1.75），施放技能冷卻-<#ffb900ff>4秒<>。<#ff9028ff>技術性引爆<>：3級起貼身時腳下引爆<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>並<#ef5350ff>擊退<>；敵方塔血量低於30%時直接炸掉。"
+        "attack": "【附加包】扔小炸彈。<#ff9028ff>即刻爆發<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>（打塔×1.75），施放技能冷卻-<#ffb900ff>4秒<>。<#ff9028ff>技術性引爆<>：3級起扔出炸藥包，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>並把敵人從炸點向外<#ef5350ff>擊退<>，炸到自己就炸飛自己；炸掉血量低於30%的敵方塔。",
+        "skill": "【附加包】扔向目標，落在瞄準點，附近有敵人就爆炸，否則<#ffb900ff>往前彈<>，最多落地<#ffb900ff>3次<>：周圍敵人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。"
       }
     }
   },
   "en": {
     "description": {
       "league_ziggs_addon": {
-        "attack": "[Add-on] Tosses a small bomb. <#ff9028ff>Short Fuse<>: every <#ffb900ff>12s<> his next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> more (x1.75 on towers); each spell takes <#ffb900ff>4s<> off. <#ff9028ff>Satchel Charge<>: from level 3 it blows up at his feet when a champion closes in (<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>knock-back<>) and blows up an enemy tower below 30% health."
+        "attack": "[Add-on] Tosses a small bomb. <#ff9028ff>Short Fuse<>: every <#ffb900ff>12s<> his next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> more (x1.75 on towers); each spell takes <#ffb900ff>4s<> off. <#ff9028ff>Satchel Charge<>: from level 3 he throws a satchel: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>knocking enemies away from the blast<> (and him too, if he is in it); it blows up an enemy tower below 30% health.",
+        "skill": "[Add-on] Throws a bomb at the target's spot; it blows up there next to an enemy, else <#ffb900ff>bounces on<> along the throw, landing up to <#ffb900ff>3 times<>: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> around it."
       }
     }
   },
   "ko": {
     "description": {
       "league_ziggs_addon": {
-        "attack": "[애드온] 작은 폭탄. <#ff9028ff>짧은 도화선<>: <#ffb900ff>12초<>마다 다음 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<> 추가(포탑 x1.75), 스킬 사용 시 <#ffb900ff>4초<> 감소. <#ff9028ff>휴대용 폭약<>: 3레벨부터 근접 시 발밑 폭발(<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>밀쳐내기<>), 체력 30% 이하 적 포탑 즉시 파괴."
+        "attack": "[애드온] 작은 폭탄. <#ff9028ff>짧은 도화선<>: <#ffb900ff>12초<>마다 다음 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<> 추가(포탑 x1.75), 스킬 사용 시 <#ffb900ff>4초<> 감소. <#ff9028ff>휴대용 폭약<>: 3레벨부터 폭약을 던져 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, 폭발 중심에서 적을 <#ef5350ff>밀쳐내기<>(자신도 맞으면 날아감), 체력 30% 이하 적 포탑 파괴.",
+        "skill": "[애드온] 목표 지점에 폭탄을 던져 근처에 적이 있으면 폭발, 없으면 <#ffb900ff>앞으로 튀어<> 최대 <#ffb900ff>3번<> 착지: 주변에 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>."
       }
     }
   },
   "ja": {
     "description": {
       "league_ziggs_addon": {
-        "attack": "【アドオン】小型爆弾。<#ff9028ff>ショートヒューズ<>：<#ffb900ff>12秒<>毎に次の攻撃が<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>追加（タワーx1.75）、スキルで<#ffb900ff>4秒<>短縮。<#ff9028ff>エンジニアボム<>：Lv3から接近時に足元で爆発<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、<#ef5350ff>ノックバック<>。体力30%以下の敵タワーを即破壊。"
+        "attack": "【アドオン】小型爆弾。<#ff9028ff>ショートヒューズ<>：<#ffb900ff>12秒<>毎に次の攻撃が<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>追加（タワーx1.75）、スキルで<#ffb900ff>4秒<>短縮。<#ff9028ff>エンジニアボム<>：Lv3から爆弾を投げ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、爆心から敵を<#ef5350ff>ノックバック<>（自分も当たれば吹き飛ぶ）。体力30%以下の敵タワーを即破壊。",
+        "skill": "【アドオン】目標地点に爆弾を投げ、近くに敵がいれば爆発、いなければ<#ffb900ff>前方へ跳ね<>最大<#ffb900ff>3回<>着地、周囲に<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>。"
       }
     }
   }

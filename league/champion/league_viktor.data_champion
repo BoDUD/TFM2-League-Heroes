@@ -3656,7 +3656,7 @@
                                 },
                                 "tick": 240,
                                 "period": 6,
-                                "first_delay": 1,
+                                "first_delay": 45,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -3679,7 +3679,7 @@
                               },
                               {
                                 "type": "Delayed",
-                                "tick": 75,
+                                "tick": 105,
                                 "effects": [
                                   {
                                     "type": "ViewEffect",
@@ -3705,7 +3705,7 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Stun",
-                                          "duration": 75
+                                          "duration": 90
                                         }
                                       },
                                       {
@@ -3733,7 +3733,7 @@
                             "effects": [
                               {
                                 "type": "Delayed",
-                                "tick": 79,
+                                "tick": 109,
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
@@ -4539,7 +4539,7 @@
                               "name": "league_viktor_r_burst",
                               "shape": {
                                 "Circle": {
-                                  "radius": 38000
+                                  "radius": 30000
                                 }
                               },
                               "delay": 2,
@@ -4635,7 +4635,7 @@
                                 },
                                 {
                                   "type": "ViewEffect",
-                                  "name": "league_viktor_r_storm_big"
+                                  "name": "league_viktor_r_storm"
                                 },
                                 {
                                   "type": "ParabolicProjectile",
@@ -4656,7 +4656,7 @@
                                       "name": "league_viktor_r_tick",
                                       "shape": {
                                         "Circle": {
-                                          "radius": 38000
+                                          "radius": 30000
                                         }
                                       },
                                       "delay": 2,
@@ -4671,29 +4671,6 @@
                                             "attack_ratio": 15,
                                             "hp_ratio": 0,
                                             "attack_effect_type": "Target"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_viktor_s3",
-                                            "effect_buff": {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_viktor_evo_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 60
-                                                  }
-                                                },
-                                                "move_speed_mult": -20
-                                              }
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
                                           }
                                         },
                                         {
@@ -4886,29 +4863,6 @@
                                                                               {
                                                                                 "casting_type": "Targeting",
                                                                                 "effect": {
-                                                                                  "type": "SwitchByBuff",
-                                                                                  "buff_name": "league_viktor_s3",
-                                                                                  "effect_buff": {
-                                                                                    "type": "AddBuff",
-                                                                                    "buff_state": {
-                                                                                      "name": "league_viktor_evo_slow",
-                                                                                      "duration": {
-                                                                                        "Time": {
-                                                                                          "tick": 60
-                                                                                        }
-                                                                                      },
-                                                                                      "move_speed_mult": -20
-                                                                                    }
-                                                                                  },
-                                                                                  "effect_none": {
-                                                                                    "type": "Combine",
-                                                                                    "effects": []
-                                                                                  }
-                                                                                }
-                                                                              },
-                                                                              {
-                                                                                "casting_type": "Targeting",
-                                                                                "effect": {
                                                                                   "type": "ViewEffect",
                                                                                   "name": "league_viktor_r_hit"
                                                                                 }
@@ -5091,29 +5045,6 @@
                                                                                                                         "attack_ratio": 15,
                                                                                                                         "hp_ratio": 0,
                                                                                                                         "attack_effect_type": "Target"
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    {
-                                                                                                                      "casting_type": "Targeting",
-                                                                                                                      "effect": {
-                                                                                                                        "type": "SwitchByBuff",
-                                                                                                                        "buff_name": "league_viktor_s3",
-                                                                                                                        "effect_buff": {
-                                                                                                                          "type": "AddBuff",
-                                                                                                                          "buff_state": {
-                                                                                                                            "name": "league_viktor_evo_slow",
-                                                                                                                            "duration": {
-                                                                                                                              "Time": {
-                                                                                                                                "tick": 60
-                                                                                                                              }
-                                                                                                                            },
-                                                                                                                            "move_speed_mult": -20
-                                                                                                                          }
-                                                                                                                        },
-                                                                                                                        "effect_none": {
-                                                                                                                          "type": "Combine",
-                                                                                                                          "effects": []
-                                                                                                                        }
                                                                                                                       }
                                                                                                                     },
                                                                                                                     {
@@ -5358,29 +5289,6 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_viktor_s3",
-                                            "effect_buff": {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_viktor_evo_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 60
-                                                  }
-                                                },
-                                                "move_speed_mult": -20
-                                              }
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
                                             "type": "ViewEffect",
                                             "name": "league_viktor_r_hit"
                                           }
@@ -5568,29 +5476,6 @@
                                                                               {
                                                                                 "casting_type": "Targeting",
                                                                                 "effect": {
-                                                                                  "type": "SwitchByBuff",
-                                                                                  "buff_name": "league_viktor_s3",
-                                                                                  "effect_buff": {
-                                                                                    "type": "AddBuff",
-                                                                                    "buff_state": {
-                                                                                      "name": "league_viktor_evo_slow",
-                                                                                      "duration": {
-                                                                                        "Time": {
-                                                                                          "tick": 60
-                                                                                        }
-                                                                                      },
-                                                                                      "move_speed_mult": -20
-                                                                                    }
-                                                                                  },
-                                                                                  "effect_none": {
-                                                                                    "type": "Combine",
-                                                                                    "effects": []
-                                                                                  }
-                                                                                }
-                                                                              },
-                                                                              {
-                                                                                "casting_type": "Targeting",
-                                                                                "effect": {
                                                                                   "type": "ViewEffect",
                                                                                   "name": "league_viktor_r_hit"
                                                                                 }
@@ -5773,29 +5658,6 @@
                                                                                                                         "attack_ratio": 15,
                                                                                                                         "hp_ratio": 0,
                                                                                                                         "attack_effect_type": "Target"
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    {
-                                                                                                                      "casting_type": "Targeting",
-                                                                                                                      "effect": {
-                                                                                                                        "type": "SwitchByBuff",
-                                                                                                                        "buff_name": "league_viktor_s3",
-                                                                                                                        "effect_buff": {
-                                                                                                                          "type": "AddBuff",
-                                                                                                                          "buff_state": {
-                                                                                                                            "name": "league_viktor_evo_slow",
-                                                                                                                            "duration": {
-                                                                                                                              "Time": {
-                                                                                                                                "tick": 60
-                                                                                                                              }
-                                                                                                                            },
-                                                                                                                            "move_speed_mult": -20
-                                                                                                                          }
-                                                                                                                        },
-                                                                                                                        "effect_none": {
-                                                                                                                          "type": "Combine",
-                                                                                                                          "effects": []
-                                                                                                                        }
                                                                                                                       }
                                                                                                                     },
                                                                                                                     {
@@ -6083,7 +5945,7 @@
                                                     "name": "league_viktor_r_burst",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 38000
+                                                        "radius": 30000
                                                       }
                                                     },
                                                     "delay": 2,
@@ -6179,7 +6041,7 @@
                                                       },
                                                       {
                                                         "type": "ViewEffect",
-                                                        "name": "league_viktor_r_storm_big"
+                                                        "name": "league_viktor_r_storm"
                                                       },
                                                       {
                                                         "type": "ParabolicProjectile",
@@ -6200,7 +6062,7 @@
                                                             "name": "league_viktor_r_tick",
                                                             "shape": {
                                                               "Circle": {
-                                                                "radius": 38000
+                                                                "radius": 30000
                                                               }
                                                             },
                                                             "delay": 2,
@@ -6215,29 +6077,6 @@
                                                                   "attack_ratio": 15,
                                                                   "hp_ratio": 0,
                                                                   "attack_effect_type": "Target"
-                                                                }
-                                                              },
-                                                              {
-                                                                "casting_type": "Targeting",
-                                                                "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_viktor_s3",
-                                                                  "effect_buff": {
-                                                                    "type": "AddBuff",
-                                                                    "buff_state": {
-                                                                      "name": "league_viktor_evo_slow",
-                                                                      "duration": {
-                                                                        "Time": {
-                                                                          "tick": 60
-                                                                        }
-                                                                      },
-                                                                      "move_speed_mult": -20
-                                                                    }
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "Combine",
-                                                                    "effects": []
-                                                                  }
                                                                 }
                                                               },
                                                               {
@@ -6430,29 +6269,6 @@
                                                                                                     {
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
-                                                                                                        "type": "SwitchByBuff",
-                                                                                                        "buff_name": "league_viktor_s3",
-                                                                                                        "effect_buff": {
-                                                                                                          "type": "AddBuff",
-                                                                                                          "buff_state": {
-                                                                                                            "name": "league_viktor_evo_slow",
-                                                                                                            "duration": {
-                                                                                                              "Time": {
-                                                                                                                "tick": 60
-                                                                                                              }
-                                                                                                            },
-                                                                                                            "move_speed_mult": -20
-                                                                                                          }
-                                                                                                        },
-                                                                                                        "effect_none": {
-                                                                                                          "type": "Combine",
-                                                                                                          "effects": []
-                                                                                                        }
-                                                                                                      }
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "casting_type": "Targeting",
-                                                                                                      "effect": {
                                                                                                         "type": "ViewEffect",
                                                                                                         "name": "league_viktor_r_hit"
                                                                                                       }
@@ -6635,29 +6451,6 @@
                                                                                                                                               "attack_ratio": 15,
                                                                                                                                               "hp_ratio": 0,
                                                                                                                                               "attack_effect_type": "Target"
-                                                                                                                                            }
-                                                                                                                                          },
-                                                                                                                                          {
-                                                                                                                                            "casting_type": "Targeting",
-                                                                                                                                            "effect": {
-                                                                                                                                              "type": "SwitchByBuff",
-                                                                                                                                              "buff_name": "league_viktor_s3",
-                                                                                                                                              "effect_buff": {
-                                                                                                                                                "type": "AddBuff",
-                                                                                                                                                "buff_state": {
-                                                                                                                                                  "name": "league_viktor_evo_slow",
-                                                                                                                                                  "duration": {
-                                                                                                                                                    "Time": {
-                                                                                                                                                      "tick": 60
-                                                                                                                                                    }
-                                                                                                                                                  },
-                                                                                                                                                  "move_speed_mult": -20
-                                                                                                                                                }
-                                                                                                                                              },
-                                                                                                                                              "effect_none": {
-                                                                                                                                                "type": "Combine",
-                                                                                                                                                "effects": []
-                                                                                                                                              }
                                                                                                                                             }
                                                                                                                                           },
                                                                                                                                           {
@@ -6902,29 +6695,6 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_viktor_s3",
-                                                                  "effect_buff": {
-                                                                    "type": "AddBuff",
-                                                                    "buff_state": {
-                                                                      "name": "league_viktor_evo_slow",
-                                                                      "duration": {
-                                                                        "Time": {
-                                                                          "tick": 60
-                                                                        }
-                                                                      },
-                                                                      "move_speed_mult": -20
-                                                                    }
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "Combine",
-                                                                    "effects": []
-                                                                  }
-                                                                }
-                                                              },
-                                                              {
-                                                                "casting_type": "Targeting",
-                                                                "effect": {
                                                                   "type": "ViewEffect",
                                                                   "name": "league_viktor_r_hit"
                                                                 }
@@ -7112,29 +6882,6 @@
                                                                                                     {
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
-                                                                                                        "type": "SwitchByBuff",
-                                                                                                        "buff_name": "league_viktor_s3",
-                                                                                                        "effect_buff": {
-                                                                                                          "type": "AddBuff",
-                                                                                                          "buff_state": {
-                                                                                                            "name": "league_viktor_evo_slow",
-                                                                                                            "duration": {
-                                                                                                              "Time": {
-                                                                                                                "tick": 60
-                                                                                                              }
-                                                                                                            },
-                                                                                                            "move_speed_mult": -20
-                                                                                                          }
-                                                                                                        },
-                                                                                                        "effect_none": {
-                                                                                                          "type": "Combine",
-                                                                                                          "effects": []
-                                                                                                        }
-                                                                                                      }
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "casting_type": "Targeting",
-                                                                                                      "effect": {
                                                                                                         "type": "ViewEffect",
                                                                                                         "name": "league_viktor_r_hit"
                                                                                                       }
@@ -7317,29 +7064,6 @@
                                                                                                                                               "attack_ratio": 15,
                                                                                                                                               "hp_ratio": 0,
                                                                                                                                               "attack_effect_type": "Target"
-                                                                                                                                            }
-                                                                                                                                          },
-                                                                                                                                          {
-                                                                                                                                            "casting_type": "Targeting",
-                                                                                                                                            "effect": {
-                                                                                                                                              "type": "SwitchByBuff",
-                                                                                                                                              "buff_name": "league_viktor_s3",
-                                                                                                                                              "effect_buff": {
-                                                                                                                                                "type": "AddBuff",
-                                                                                                                                                "buff_state": {
-                                                                                                                                                  "name": "league_viktor_evo_slow",
-                                                                                                                                                  "duration": {
-                                                                                                                                                    "Time": {
-                                                                                                                                                      "tick": 60
-                                                                                                                                                    }
-                                                                                                                                                  },
-                                                                                                                                                  "move_speed_mult": -20
-                                                                                                                                                }
-                                                                                                                                              },
-                                                                                                                                              "effect_none": {
-                                                                                                                                                "type": "Combine",
-                                                                                                                                                "effects": []
-                                                                                                                                              }
                                                                                                                                             }
                                                                                                                                           },
                                                                                                                                           {
@@ -7674,7 +7398,7 @@
                                                             "name": "league_viktor_r_burst",
                                                             "shape": {
                                                               "Circle": {
-                                                                "radius": 38000
+                                                                "radius": 30000
                                                               }
                                                             },
                                                             "delay": 2,
@@ -7770,7 +7494,7 @@
                                                               },
                                                               {
                                                                 "type": "ViewEffect",
-                                                                "name": "league_viktor_r_storm_big"
+                                                                "name": "league_viktor_r_storm"
                                                               },
                                                               {
                                                                 "type": "ParabolicProjectile",
@@ -7791,7 +7515,7 @@
                                                                     "name": "league_viktor_r_tick",
                                                                     "shape": {
                                                                       "Circle": {
-                                                                        "radius": 38000
+                                                                        "radius": 30000
                                                                       }
                                                                     },
                                                                     "delay": 2,
@@ -7806,29 +7530,6 @@
                                                                           "attack_ratio": 15,
                                                                           "hp_ratio": 0,
                                                                           "attack_effect_type": "Target"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "SwitchByBuff",
-                                                                          "buff_name": "league_viktor_s3",
-                                                                          "effect_buff": {
-                                                                            "type": "AddBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_viktor_evo_slow",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 60
-                                                                                }
-                                                                              },
-                                                                              "move_speed_mult": -20
-                                                                            }
-                                                                          },
-                                                                          "effect_none": {
-                                                                            "type": "Combine",
-                                                                            "effects": []
-                                                                          }
                                                                         }
                                                                       },
                                                                       {
@@ -8021,29 +7722,6 @@
                                                                                                             {
                                                                                                               "casting_type": "Targeting",
                                                                                                               "effect": {
-                                                                                                                "type": "SwitchByBuff",
-                                                                                                                "buff_name": "league_viktor_s3",
-                                                                                                                "effect_buff": {
-                                                                                                                  "type": "AddBuff",
-                                                                                                                  "buff_state": {
-                                                                                                                    "name": "league_viktor_evo_slow",
-                                                                                                                    "duration": {
-                                                                                                                      "Time": {
-                                                                                                                        "tick": 60
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    "move_speed_mult": -20
-                                                                                                                  }
-                                                                                                                },
-                                                                                                                "effect_none": {
-                                                                                                                  "type": "Combine",
-                                                                                                                  "effects": []
-                                                                                                                }
-                                                                                                              }
-                                                                                                            },
-                                                                                                            {
-                                                                                                              "casting_type": "Targeting",
-                                                                                                              "effect": {
                                                                                                                 "type": "ViewEffect",
                                                                                                                 "name": "league_viktor_r_hit"
                                                                                                               }
@@ -8226,29 +7904,6 @@
                                                                                                                                                       "attack_ratio": 15,
                                                                                                                                                       "hp_ratio": 0,
                                                                                                                                                       "attack_effect_type": "Target"
-                                                                                                                                                    }
-                                                                                                                                                  },
-                                                                                                                                                  {
-                                                                                                                                                    "casting_type": "Targeting",
-                                                                                                                                                    "effect": {
-                                                                                                                                                      "type": "SwitchByBuff",
-                                                                                                                                                      "buff_name": "league_viktor_s3",
-                                                                                                                                                      "effect_buff": {
-                                                                                                                                                        "type": "AddBuff",
-                                                                                                                                                        "buff_state": {
-                                                                                                                                                          "name": "league_viktor_evo_slow",
-                                                                                                                                                          "duration": {
-                                                                                                                                                            "Time": {
-                                                                                                                                                              "tick": 60
-                                                                                                                                                            }
-                                                                                                                                                          },
-                                                                                                                                                          "move_speed_mult": -20
-                                                                                                                                                        }
-                                                                                                                                                      },
-                                                                                                                                                      "effect_none": {
-                                                                                                                                                        "type": "Combine",
-                                                                                                                                                        "effects": []
-                                                                                                                                                      }
                                                                                                                                                     }
                                                                                                                                                   },
                                                                                                                                                   {
@@ -8493,29 +8148,6 @@
                                                                       {
                                                                         "casting_type": "Targeting",
                                                                         "effect": {
-                                                                          "type": "SwitchByBuff",
-                                                                          "buff_name": "league_viktor_s3",
-                                                                          "effect_buff": {
-                                                                            "type": "AddBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_viktor_evo_slow",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 60
-                                                                                }
-                                                                              },
-                                                                              "move_speed_mult": -20
-                                                                            }
-                                                                          },
-                                                                          "effect_none": {
-                                                                            "type": "Combine",
-                                                                            "effects": []
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
                                                                           "type": "ViewEffect",
                                                                           "name": "league_viktor_r_hit"
                                                                         }
@@ -8703,29 +8335,6 @@
                                                                                                             {
                                                                                                               "casting_type": "Targeting",
                                                                                                               "effect": {
-                                                                                                                "type": "SwitchByBuff",
-                                                                                                                "buff_name": "league_viktor_s3",
-                                                                                                                "effect_buff": {
-                                                                                                                  "type": "AddBuff",
-                                                                                                                  "buff_state": {
-                                                                                                                    "name": "league_viktor_evo_slow",
-                                                                                                                    "duration": {
-                                                                                                                      "Time": {
-                                                                                                                        "tick": 60
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    "move_speed_mult": -20
-                                                                                                                  }
-                                                                                                                },
-                                                                                                                "effect_none": {
-                                                                                                                  "type": "Combine",
-                                                                                                                  "effects": []
-                                                                                                                }
-                                                                                                              }
-                                                                                                            },
-                                                                                                            {
-                                                                                                              "casting_type": "Targeting",
-                                                                                                              "effect": {
                                                                                                                 "type": "ViewEffect",
                                                                                                                 "name": "league_viktor_r_hit"
                                                                                                               }
@@ -8908,29 +8517,6 @@
                                                                                                                                                       "attack_ratio": 15,
                                                                                                                                                       "hp_ratio": 0,
                                                                                                                                                       "attack_effect_type": "Target"
-                                                                                                                                                    }
-                                                                                                                                                  },
-                                                                                                                                                  {
-                                                                                                                                                    "casting_type": "Targeting",
-                                                                                                                                                    "effect": {
-                                                                                                                                                      "type": "SwitchByBuff",
-                                                                                                                                                      "buff_name": "league_viktor_s3",
-                                                                                                                                                      "effect_buff": {
-                                                                                                                                                        "type": "AddBuff",
-                                                                                                                                                        "buff_state": {
-                                                                                                                                                          "name": "league_viktor_evo_slow",
-                                                                                                                                                          "duration": {
-                                                                                                                                                            "Time": {
-                                                                                                                                                              "tick": 60
-                                                                                                                                                            }
-                                                                                                                                                          },
-                                                                                                                                                          "move_speed_mult": -20
-                                                                                                                                                        }
-                                                                                                                                                      },
-                                                                                                                                                      "effect_none": {
-                                                                                                                                                        "type": "Combine",
-                                                                                                                                                        "effects": []
-                                                                                                                                                      }
                                                                                                                                                     }
                                                                                                                                                   },
                                                                                                                                                   {

@@ -50,7 +50,8 @@ TEXT = {
         "attack": "扔小炸弹。" + O + "一触即发" + E + "：每" + A + "{p_t}秒" + E + "下次普攻多造成" + mag("p_dmg", "p_ratio") + M + "魔法伤害" + E +
                   "，每放一个技能冷却-" + A + "{p_cut}秒" + E + "。" + O + "定点爆破" + E + "：3级起，敌方英雄贴身时在脚下引爆，造成" +
                   mag("w_dmg", "w_ratio") + M + "魔法伤害" + E + "并" + R + "击退" + E + "，自己也被炸开。",
-        "skill": "扔出炸弹沿直线弹跳，最多落地" + A + "3次" + E + "，落地时附近有敌人就爆炸：周围敌人受到" + mag("q_dmg", "q_ratio") + M + "魔法伤害" + E + "。",
+        "skill": "扔向目标，落在瞄准点，附近有敌人就爆炸，否则原地弹起再落下，最多落地" + A + "3次" + E + "：周围敌人受到" + mag("q_dmg", "q_ratio") + M +
+                 "魔法伤害" + E + "。",
         "skill2": "撒下雷区" + A + "{e_t}秒" + E + "：敌人第一次踩雷受到" + mag("e_dmg", "e_ratio") + M + "魔法伤害" + E + "，之后每" + A + "{e_p}秒" + E +
                   "受到其{e_low}%；每次踩雷" + R + "减速{e_slow}%" + E + "。",
         "ult": "把超大炸弹扔向远处的敌方英雄，落点先出现预警：范围内敌人受到" + mag("r_dmg", "r_ratio") + M + "魔法伤害" + E + "，中心共受到" +
@@ -62,7 +63,8 @@ TEXT = {
         "attack": "扔小炸彈。" + O + "即刻爆發" + E + "：每" + A + "{p_t}秒" + E + "下次普攻多造成" + mag("p_dmg", "p_ratio") + M + "魔法傷害" + E +
                   "，每施放一個技能冷卻-" + A + "{p_cut}秒" + E + "。" + O + "技術性引爆" + E + "：3級起，敵方英雄貼身時在腳下引爆，造成" +
                   mag("w_dmg", "w_ratio") + M + "魔法傷害" + E + "並" + R + "擊退" + E + "，自己也被炸開。",
-        "skill": "扔出炸彈沿直線彈跳，最多落地" + A + "3次" + E + "，落地時附近有敵人就爆炸：周圍敵人受到" + mag("q_dmg", "q_ratio") + M + "魔法傷害" + E + "。",
+        "skill": "扔向目標，落在瞄準點，附近有敵人就爆炸，否則原地彈起再落下，最多落地" + A + "3次" + E + "：周圍敵人受到" + mag("q_dmg", "q_ratio") + M +
+                 "魔法傷害" + E + "。",
         "skill2": "撒下雷區" + A + "{e_t}秒" + E + "：敵人第一次踩雷受到" + mag("e_dmg", "e_ratio") + M + "魔法傷害" + E + "，之後每" + A + "{e_p}秒" + E +
                   "受到其{e_low}%；每次踩雷" + R + "緩速{e_slow}%" + E + "。",
         "ult": "把超大炸彈扔向遠處的敵方英雄，落點先出現預警：範圍內敵人受到" + mag("r_dmg", "r_ratio") + M + "魔法傷害" + E + "，中心共受到" +
@@ -75,8 +77,8 @@ TEXT = {
                   mag("p_dmg", "p_ratio") + " " + M + "magic damage" + E + " more; each spell he casts takes " + A + "{p_cut}s" + E + " off. " +
                   O + "Satchel Charge" + E + ": from level 3, when an enemy champion closes in, it blows up at his feet for " +
                   mag("w_dmg", "w_ratio") + " " + M + "magic damage" + E + ", " + R + "knocking enemies back" + E + " and blasting him away.",
-        "skill": "A bomb that bounces along a line, landing up to " + A + "3 times" + E + "; it blows up on landing next to an enemy: " +
-                 mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + " around it.",
+        "skill": "Throws a bomb at the target's spot; it blows up there next to an enemy, else bounces up where it lies, landing up to " +
+                 A + "3 times" + E + ": " + mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + " around it.",
         "skill2": "Scatters mines for " + A + "{e_t}s" + E + ": an enemy's first mine deals " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E +
                   ", then {e_low}% of it every " + A + "{e_p}s" + E + " it stays; each mine " + R + "slows {e_slow}%" + E + ".",
         "ult": "Hurls a huge bomb at a far enemy champion, its landing spot marked first: " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E +
@@ -88,7 +90,8 @@ TEXT = {
         "attack": "작은 폭탄을 던진다. " + O + "짧은 도화선" + E + ": " + A + "{p_t}초" + E + "마다 다음 공격이 " + mag("p_dmg", "p_ratio") + "의 " + M +
                   "마법 피해" + E + " 추가, 스킬 사용 시 " + A + "{p_cut}초" + E + " 감소. " + O + "휴대용 폭약" + E + ": 3레벨부터 적 챔피언이 붙으면 발밑에서 터져 " +
                   mag("w_dmg", "w_ratio") + "의 " + M + "마법 피해" + E + "와 " + R + "밀쳐내기" + E + ", 자신도 튕겨 나감.",
-        "skill": "직선으로 튀는 폭탄, 최대 " + A + "3번" + E + " 착지하며 근처에 적이 있으면 폭발해 주변에 " + mag("q_dmg", "q_ratio") + "의 " + M + "마법 피해" + E + ".",
+        "skill": "목표 지점에 폭탄을 던져 근처에 적이 있으면 폭발, 없으면 제자리에서 튀어 최대 " + A + "3번" + E + " 착지: 주변에 " +
+                 mag("q_dmg", "q_ratio") + "의 " + M + "마법 피해" + E + ".",
         "skill2": A + "{e_t}초" + E + "간 지뢰를 뿌린다: 적이 처음 밟으면 " + mag("e_dmg", "e_ratio") + "의 " + M + "마법 피해" + E + ", 이후 " + A + "{e_p}초" + E +
                   "마다 {e_low}%, 밟을 때마다 " + R + "{e_slow}% 둔화" + E + ".",
         "ult": "먼 적 챔피언에게 거대한 폭탄을 던지고 낙하 지점을 먼저 표시: 범위에 " + mag("r_dmg", "r_ratio") + "의 " + M + "마법 피해" + E + ", 중심은 " +
@@ -100,7 +103,8 @@ TEXT = {
         "attack": "小さな爆弾を投げる。" + O + "ショートヒューズ" + E + "：" + A + "{p_t}秒" + E + "毎に次の通常攻撃が" + mag("p_dmg", "p_ratio") + "の" + M +
                   "魔法ダメージ" + E + "を追加、スキル使用で" + A + "{p_cut}秒" + E + "短縮。" + O + "エンジニアボム" + E + "：Lv3から敵チャンピオンが迫ると足元で爆発、" +
                   mag("w_dmg", "w_ratio") + "の" + M + "魔法ダメージ" + E + "と" + R + "ノックバック" + E + "、自分も吹き飛ぶ。",
-        "skill": "直線に跳ねる爆弾、最大" + A + "3回" + E + "着地し近くに敵がいれば爆発、周囲に" + mag("q_dmg", "q_ratio") + "の" + M + "魔法ダメージ" + E + "。",
+        "skill": "目標地点に爆弾を投げ、近くに敵がいれば爆発、いなければその場で跳ね最大" + A + "3回" + E + "着地、周囲に" +
+                 mag("q_dmg", "q_ratio") + "の" + M + "魔法ダメージ" + E + "。",
         "skill2": A + "{e_t}秒" + E + "地雷を撒く：最初に踏んだ敵に" + mag("e_dmg", "e_ratio") + "の" + M + "魔法ダメージ" + E + "、以後" + A + "{e_p}秒" + E +
                   "毎に{e_low}%、踏む度に" + R + "スロウ{e_slow}%" + E + "。",
         "ult": "遠くの敵チャンピオンへ巨大爆弾を投げ、着弾点を予告：範囲に" + mag("r_dmg", "r_ratio") + "の" + M + "魔法ダメージ" + E + "、中心は" +

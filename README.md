@@ -344,7 +344,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_veigar.png" width="32"> | [维迦](docs/heroes/league_veigar.md)<br>Veigar | 中单 | 被动 超凡邪力 · 黑暗祭祀 · 扭曲空间 · 大招 能量爆裂 | [维迦法强常驻附加包](addons/league_veigar_power/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_velkoz.png" width="32"> | [维克兹](docs/heroes/league_velkoz.md)<br>Vel'Koz | 中单 | 等离子裂变 · 构造分解 · 大招 生命形态瓦解射线 | [维克兹附加包](addons/league_velkoz/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_vex.png" width="32"> | [薇古丝](docs/heroes/league_vex.md)<br>Vex | 中单 | 寒心波云 · 溟濛渐染 · 大招 愁煞 | [薇古丝附加包](addons/league_vex/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_viktor.png" width="32"> | [维克托](docs/heroes/league_viktor.md)<br>Viktor | 中单 | 被动 光荣进化 · 虹吸能量 · 海克斯射线 · 大招 奥术风暴 | — | PPU 1.81 |
+| <img src="docs/heroes/img/league_viktor.png" width="32"> | [维克托](docs/heroes/league_viktor.md)<br>Viktor | 中单 | 被动 光荣进化 · 虹吸能量 · 海克斯射线 · 大招 奥术风暴 | [维克托附加包](addons/league_viktor/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_xerath.png" width="32"> | [泽拉斯](docs/heroes/league_xerath.md)<br>Xerath | 中单 | 被动 法力澎湃 · 奥能脉冲 · 冲击法球 · 大招 奥术仪式 | — | PPU 1.55 |
 | <img src="docs/heroes/img/league_yasuo.png" width="32"> | [亚索](docs/heroes/league_yasuo.md)<br>Yasuo | 中单 | 被动 浪客之道 · 斩钢闪 · 踏前斩 · 大招 狂风绝息斩 | [亚索风之障壁附加包](addons/league_yasuo_wall/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_yone.png" width="32"> | [永恩](docs/heroes/league_yone.md)<br>Yone | 中单 | 被动 狩人之道 · 错玉切 · 凛神斩 · 大招 封尘绝念斩 | [永恩 R 附加包](addons/league_yone_r/README.md) | PPU 2.19 |
