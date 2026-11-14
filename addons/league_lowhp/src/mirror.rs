@@ -192,13 +192,15 @@ struct Live {
     dressed: bool,
 }
 
-/// What a handed-over unit is waited for with: the id, the tick it was asked for, looks so far, where.
+/// What a handed-over unit is waited for with: the id, the tick it was asked for, looks so far, where, the tick its
+/// handoff was taken.
 #[derive(Clone, Copy, Debug)]
 struct Fresh {
     id: usize,
     asked: usize,
     tries: usize,
     at: Pt,
+    seen: usize,
 }
 
 /// LeBlanc's part of league_lowhp's passive.
@@ -287,7 +289,7 @@ impl Mirror {
         self.prev_at = Some(here);
         if let Some((since, at)) = self.wait {
             if let Some(id) = summon::take_handoff(sim, me, P_UID) {
-                (self.wait, self.fresh) = (None, Some(Fresh { id, asked: since, tries: 0, at }));
+                (self.wait, self.fresh) = (None, Some(Fresh { id, asked: since, tries: 0, at, seen: tick }));
             } else if sim.get_entity(me).is_some_and(|e| has_buff(&e, P_NONE)) {
                 sim.entity_remove_buff(me, P_NONE);
                 self.wait = None;
@@ -301,8 +303,15 @@ impl Mirror {
             }
         }
         if let Some(f) = self.fresh {
+            // a new unit reads max health 1 and every stat 1 on its spawn tick and the next, and a health set then is
+            // lost (game 0.7.2's presims: Wukong's clone asked for 1 health then - its cap read 1 - and read 1851/1851 a
+            // tick later): looked at a tick after its handoff at the soonest, taken on once its health cap reads
+            // (league_neeko's W; summon.rs's Unit::settled)
+            if tick <= f.seen {
+                return;
+            }
             match summon::Unit::look(sim, f.id, self.n + 1, f.asked, M_LIFE, team, player) {
-                Ok((mut unit, line)) => {
+                Ok((mut unit, line)) if unit.settled() || f.tries + 1 >= LOOK_TRIES => {
                     self.fresh = None;
                     self.n += 1;
                     // League's clone has her current health: the cap is hers, the health now set to her own
@@ -312,7 +321,8 @@ impl Mirror {
                         unit.health_set(hp_goal);
                     }
                     if let Some(k) = tally(sim, "mirror look") {
-                        wlog(format!("{} MIRROR #{} LOOK #{k}: {line}; health to her own {hp_goal}: {}", head(sim, me), self.n,
+                        wlog(format!("{} MIRROR #{} LOOK #{k}: {line}{}; health to her own {hp_goal}: {}", head(sim, me), self.n,
+                                     unit.unsettled_note(f.tries + 1),
                                      if set { "set" } else if hp_goal >= had { "it has no more" } else { "entity_set_hp REFUSED" }));
                     }
                     if let Some(old) = self.live.take() {
@@ -329,7 +339,7 @@ impl Mirror {
                                       the picture played at {} instead", head(sim, me), summon::pt(f.at)));
                     }
                 }
-                Err(_) => self.fresh = Some(Fresh { tries: f.tries + 1, ..f }),
+                _ => self.fresh = Some(Fresh { tries: f.tries + 1, ..f }),
             }
             return;
         }
@@ -344,8 +354,12 @@ impl Mirror {
             }
             match live.unit.step(sim, Some(here)) {
                 summon::Step::Alive(line) => {
-                    if let (Some(line), Some(k)) = (line, tally(sim, "mirror line")) {
-                        wlog(format!("{} MIRROR #{n} #{k}: {line}", head(sim, me)));
+                    // counted only when there is a line (a count every tick let the presims' first 40 and every 200th
+                    // go by ticks, not lines: hardly a line a second got through)
+                    if let Some(line) = line {
+                        if let Some(k) = tally(sim, "mirror line") {
+                            wlog(format!("{} MIRROR #{n} #{k}: {line}", head(sim, me)));
+                        }
                     }
                     self.live = Some(live);
                 }
@@ -518,6 +532,27 @@ mod tests {
         assert_eq!(me.n, 1);
         // the cooldown still on: no second clone
         assert_eq!(w.spawns.len(), 1);
+    }
+
+    #[test]
+    fn a_clone_that_reads_unsettled_at_first_gets_her_health_once_it_settles() {
+        // game 0.7.2's presims: a new unit reads max health 1 and every stat 1 on its spawn tick and the next, and a health
+        // set then is lost as it settles (World::settle)
+        let (mut w, mut me) = world();
+        w.settle = 2;
+        fire(&mut w);
+        run(&mut w, &mut me, 3);
+        assert_eq!(w.spawns.len(), 1);
+        let (clone, spawned) = (w.spawns[0].gave.unwrap(), w.spawns[0].tick);
+        assert!(me.live.is_none() && me.fresh.is_some(), "taken on before it settled");
+        run(&mut w, &mut me, 2);
+        assert!(me.live.as_ref().is_some_and(|l| l.unit.settled()));
+        assert_eq!((w.units[clone].hp, w.units[clone].max), (350, 1000), "not her health");
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        assert!(text.lines().any(|l| l.contains(&format!("t={} #0 MIRROR #", spawned + 2)) && l.contains(" LOOK #")
+                                && l.contains("hp 1000/1000") && l.contains("health to her own 350: set")
+                                && !l.contains("still reads")), "no settled LOOK line at t={}", spawned + 2);
+        assert_eq!(w.viewed(P_VIEW), 0);
     }
 
     #[test]
