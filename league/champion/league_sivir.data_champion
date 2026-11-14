@@ -1788,7 +1788,7 @@
               "amount": 1,
               "attack_ratio": 0,
               "ap_ratio": 0,
-              "tick": 184
+              "tick": 94
             }
           ]
         },
@@ -1806,7 +1806,7 @@
             "name": "league_sivir_e_guard_on",
             "duration": {
               "Time": {
-                "tick": 176
+                "tick": 86
               }
             }
           },
@@ -1818,7 +1818,7 @@
             "name": "league_sivir_e_shroud",
             "duration": {
               "Time": {
-                "tick": 180
+                "tick": 90
               }
             },
             "skill_damaged_reduce": 100,
@@ -1848,7 +1848,7 @@
                   "radius": 2000000
                 }
               },
-              "tick": 178,
+              "tick": 88,
               "period": 6,
               "first_delay": 2,
               "applied_target": "AllyChampion",
