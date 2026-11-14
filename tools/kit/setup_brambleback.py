@@ -49,7 +49,9 @@ AD = ADi + O + "100%" + E
 # column 52 - ppu_restyle's face_to); the centre in its body (the pivot column, half its 40 px); the ban/pick card as
 # the Sentinel's (the same 40 px at PPU 1.7)
 # center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
-VIEW = {"face": {"x": 15, "y": -22}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
+# center x 6 (was 0): the card's picture is 52 game px wide and it is 62 - the window shows its face and front claws, not
+# its hind legs (the user, 2026-11-15: 「泰拉和绯红印记树怪在游戏百科的位置不太对」); in battle hits land 6 px nearer its face
+VIEW = {"face": {"x": 15, "y": -22}, "center": {"x": 6, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phys(d, r):
