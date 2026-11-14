@@ -1456,6 +1456,8 @@ def close_pinholes(grown, n, colour, most=2, before=None):
         now, _ = ndimage.label(~op)
         outside = now == now[0, 0]
     for j, sz in enumerate(sizes, 1):
+        if sz > most and before is None:               # a see-through gap of the pose: left open (the rule before
+            continue                                   # `before` came in - league_skarner's arched tails, rumble, zaahen)
         h = lb == j
         if sz > most and before is not None and (h & open_before).any():
             way = way_out(h, ring, outside)
