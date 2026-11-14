@@ -30,12 +30,14 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import strips as G  # noqa: E402
 import pack_ivern_poses as PK  # noqa: E402
@@ -94,10 +96,20 @@ class Canvas:
             d, (hx, hy), ground = load_pose(name)
         return d, (rig.ox + HEAD[0] - hx + dx, rig.GY - ground - lift)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def frame(self, name, dx=0, lift=0, flash=False, moves=(), spins=()):
+        """A pose placed (see placed). The in-betweens (tools/art/inbetween.py vary), the pose placed as it is whole:
+        moves [(part, (dx, dy), how)] - a part of the pose (PARTS) moved by whole squares (the apple he drops);
+        spins [(part, point, degrees, how)] - an arm turned clockwise by any angle about its shoulder. The head and
+        everything of the pose in none of its parts are checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top) = self.placed(name, dx, lift)
+        if moves or spins:
+            hx, hy = load_pose(name)[1]
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            d = IB.vary(d, parts_of(name, d, head), self.outline, moves, (), None, head, VPAD, name, (), spins)
+            left, top = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
@@ -106,34 +118,105 @@ class Canvas:
         can[ty, tx] = d[ys, xs]
         return R.flash(can) if flash else can
 
+    def head(self):
+        """The head's squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (HEAD_W, HEAD_H), [load_pose(n)[:2] for n in VARIED])
+        return self._head
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): an arm held out clear of his horns, turned about
+# its shoulder (inbetween.spin: the join hidden under his leaves), polygons in the pose picture's own squares less the
+# head's squares; the apple he drops in the death (APPLE_AT: a square of it - the piece of the picture it is). The
+# arms raised in front of his horns (Rootcaller's wind-up, the ult) are not turned: the horn under them is not drawn.
+# His head (the mushroom, the horns, the face: pack_ivern_poses.HEAD) and the rest of him are in no part.
+HEAD_W, HEAD_H = PK.HEAD[3] - PK.HEAD[2], PK.HEAD[1] - PK.HEAD[0]
+VPAD = 30                      # squares a moved part may leave its pose picture's box by
+PARTS = {
+    "a_throw": {"arm": [[(61, 23), (76, 23), (76, 17), (91, 17), (91, 38), (61, 38)]]},
+    "q_fling": {"arm": [[(50, 24), (81, 24), (81, 45), (50, 45)]]},
+    "e_give": {"arm": [[(64, 0), (78, 0), (78, 26), (58, 30), (53, 28), (54, 20), (63, 18)]]},
+}
+APPLE_AT = {"d_stagger": (87, 57)}
+VARIED = ("a_throw", "q_fling", "e_give", "d_stagger")
+# the point each arm turns about (square corners): the corner of its root on the side it turns away from
+PIVOT = {("a_throw", "arm", "ccw"): (61, 34), ("a_throw", "arm", "cw"): (61, 22),
+         ("q_fling", "arm", "ccw"): (50, 41), ("q_fling", "arm", "cw"): (50, 30),
+         ("e_give", "arm", "cw"): (54, 21), ("e_give", "arm", "ccw"): (58, 29)}
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y) - boxes for inbetween.part_mask."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
+
+def parts_of(name, d, head):
+    """PARTS of a pose as masks less the head's squares, with the dropped apple (APPLE_AT) as the piece of the picture
+    it is - as row runs for inbetween.vary."""
+    out = {k: runs(IB.part_mask(d.shape, v) & ~head) for k, v in PARTS.get(name, {}).items()}
+    if name in APPLE_AT:
+        lab, _ = ndimage.label(d[..., 3] > 0, structure=np.ones((3, 3)))
+        x, y = APPLE_AT[name]
+        if not lab[y, x]:
+            sys.exit(f"{name}: APPLE_AT is not on the apple")
+        out["apple"] = runs(lab == lab[y, x])
+    return out
+
 
 # ms per frame; the kit's ticks (tools/kit/build_ivern.py) come from these (a frame's start in ticks = ms x 0.06):
 # attack 440 ms = atk_dur 26, the seed thrown on the throw frame (a_rel 10 = 167 ms; the throw from 120 ms);
 # Triggerseed 400 ms = e_dur 24, the seed given on the give frame (e_rel 9 = 150 ms; from 140 ms); Rootcaller 440 ms =
 # q_dur 26, the vine on the fling (q_rel 10 = 167 ms; from 130 ms); Daisy! 570 ms = r_dur 34, the call on the leap
 # (r_rel 14 = 233 ms; the leap from 120 ms)
-MS = {"idle": [1000], "run": [140] * 4, "attack": [120, 150, 100, 70], "skill": [140, 160, 100],
-      "skill2": [130, 170, 140], "ult": [120, 130, 170, 150], "hit": [100, 100], "dead": [140, 200, 300, 600]}
+#
+# The in-betweens (2026-11-14: the attack, Triggerseed and Rootcaller each played their wind-up and the throw shown
+# twice; the death 2 poses and a flash): each span above is shared out over more frames (inbetween.spans: whole ms,
+# none under 50), so every action is as long as it was and its throw still begins on its millisecond (the throw at
+# 120, the gift at 140, the fling at 130, the slump at 340). The ult, the run and the hit are as they were.
+MS = {"idle": [1000], "run": [140] * 4, "attack": IB.spans((120, 1), (150, 2), (100, 1), (70, 1)),
+      "skill": IB.spans((140, 1), (160, 2), (100, 1)), "skill2": IB.spans((130, 1), (170, 2), (140, 1)),
+      "ult": [120, 130, 170, 150], "hit": [100, 100], "dead": IB.spans((340, 3), (900, 2, (8, 92)))}
 
 
 def actions(C):
     f = C.frame
+
+    def spin(name, degrees):
+        """The pose's arm turned clockwise by `degrees` (negative: counter-clockwise) about its shoulder (PIVOT)."""
+        return [("arm", PIVOT[(name, "arm", "cw" if degrees > 0 else "ccw")], degrees, "under")]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Run_base: contact, passing, contact on the other leg, passing)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
     # attack (League's Attack01: wound up - the twig arm raised, the apple hand drawn in - then the far hand thrown
     # forward - the seed - held, back). Codex's a_wind put the twig in the far hand: the twig would jump hands
-    out["attack"] = [f("q_wind", dx=-1), f("a_throw", dx=1), f("a_throw", dx=1), f("idle")]
+    # (wound up; the throw with the far arm still high, thrown, following through; back)
+    out["attack"] = [f("q_wind", dx=-1), f("a_throw", dx=1, spins=spin("a_throw", -25)), f("a_throw", dx=1),
+                     f("a_throw", dx=1, spins=spin("a_throw", 12)), f("idle")]
     # Triggerseed (Spell3: crouched cupping the seed, then up tossing it to the ally)
-    out["skill"] = [f("e_gather"), f("e_give", dx=1), f("e_give", dx=1)]
+    # (crouched; the arm coming up, the seed given, the hand on up)
+    out["skill"] = [f("e_gather"), f("e_give", dx=1, spins=spin("e_give", 30)), f("e_give", dx=1),
+                    f("e_give", dx=1, spins=spin("e_give", -10))]
     # Rootcaller (Spell1: coiled with the twig arm high, then the big step whipping it across - the vine)
-    out["skill2"] = [f("q_wind", dx=-1), f("q_fling", dx=2), f("q_fling", dx=2)]
+    # (coiled; the twig coming across still high, whipped across, following through)
+    out["skill2"] = [f("q_wind", dx=-1), f("q_fling", dx=2, spins=spin("q_fling", -30)), f("q_fling", dx=2),
+                     f("q_fling", dx=2, spins=spin("q_fling", 12))]
     # Daisy! (Spell4: the crouch, the leap with the twig thrust up - the call - landing with it raised)
     out["ult"] = [f("r_crouch"), f("r_leap"), f("r_call"), f("r_call")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (League's Death: the stagger, the apple dropped; slumped down sitting)
-    out["dead"] = [f("d_stagger", dx=-1, flash=True), f("d_stagger", dx=-2), f("d_slump", dx=-2), f("d_slump", dx=-2)]
+    # (struck; the apple still falling from his hand in two steps; dropping, slumped)
+    out["dead"] = [f("d_stagger", dx=-1, flash=True), f("d_stagger", dx=-2, moves=[("apple", (-5, -12), "over")]),
+                   f("d_stagger", dx=-2, moves=[("apple", (-2, -5), "over")]), f("d_slump", dx=-2, lift=3),
+                   f("d_slump", dx=-2)]
     return out
 
 
