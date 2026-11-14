@@ -19,6 +19,9 @@ lowest square on the ground, or `lift` squares over it.
 The pack: two packmates trail her (PACK: the far one higher and behind her, drawn first; the near one lower, drawn over
 her hind legs), standing, galloping half a stride apart, and leaping onto the target ahead of her when she bites (BITE); the p4_* tags (The Call of the Pack,
 the add-on's view hook) have four (PACK4). They go when she dies (League's packmates vanish with her).
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+her tail on a pose swaying (TAIL: a rising tail's rows shifted sideways, a trailing tail's columns lifted - the tip 2-4
+squares, nothing where it leaves her), everything else of the pose untouched.
 """
 import argparse
 import json
@@ -33,6 +36,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "naafiri"
@@ -108,8 +112,9 @@ class Canvas:
         can[ty[ok], tx[ok]] = a[ys[ok], xs[ok]]
         return can
 
-    def her_at(self, name, dx=0, lift=0, breath=0):
-        """(picture, its top-left canvas square) for her design ('idle') or a pose."""
+    def her_at(self, name, dx=0, lift=0, breath=0, tail=0):
+        """(picture, its top-left canvas square) for her design ('idle') or a pose; `tail` k: the pose's tail swayed
+        (TAIL), placed where the pose stands whole (inbetween.vary: every square in no part checked unchanged)."""
         CX, GY = self.rig.CX, self.rig.GY
         if name == "idle":
             a = self.d
@@ -125,6 +130,14 @@ class Canvas:
                 x0 = CX - STAND + HEAD[0] - hx + dx
         ys = np.nonzero(a[..., 3] > 0)[0]
         y0 = GY - 1 - ys.max() - lift
+        if tail:
+            part, kind, *w = TAIL[name]
+            if kind == "rows":
+                moves, sway = [("tail", rows_wave(a.shape, w[0], w[1], tail), "under")], ()
+            else:
+                moves, sway = (), [("tail", w[0], w[1], tail, w[2])]
+            a = IB.vary(a, {"tail": [part]}, self.outline, moves, sway, None, None, VPAD, name)
+            x0, y0 = x0 - VPAD, y0 - VPAD
         return a, x0, y0
 
     def mate_at(self, name, slot, dx=0, lift=0, breath=0):
@@ -182,6 +195,23 @@ def breathe(a, k, leg_top=None):
 
 
 LEG_TOP = 31                   # hd/idle.png's first row of legs under the belly
+# the in-betweens' tails (inbetween.vary; no head box: hers lies far from the tail, the body check stops a wrong mask):
+# (box in the pose's own squares, "rows", y0, y1) - a rising tail, its rows shifted sideways, nothing on row y0 where
+# it turns up from the haunch, k columns on row y1 at its tip; (box, "cols", x0, x1, attached end) - a trailing tail,
+# its columns lifted 0..k rows (inbetween.wave)
+VPAD = 30
+TAIL = {"howl": ((0, 38, 17, 62), "rows", 56, 41), "lie": ((0, 10, 26, 29), "cols", 0, 26, "right")}
+
+
+def rows_wave(shape, y0, y1, k):
+    """The moves of a rising tail's sway: its whole rows shifted sideways, nothing on row y0 and k columns (negative:
+    to the left) on row y1 at its tip, the rows past it going with it - inbetween.wave on its side. -> (dx, dy)."""
+    H, W = shape[:2]
+    dx = np.zeros((H, W), int)
+    for y in range(H):
+        t = min(max((y - y0) / (y1 - y0), 0.0), 1.0)
+        dx[y, :] = int(round(k * t))
+    return dx, np.zeros((H, W), int)
 P_LEG_TOP = 15                 # hd/pack.png's
 
 
@@ -202,9 +232,12 @@ def hit_white(can, k=0.45):
 # = r_dur, the bite from 250 ms)
 # the runs (run and p4_run) 150 ms a frame (2026-10-22, 「的确纳亚菲利（狗形态）也有这问题」: 110 made a 0.44 s cycle, Sylas's and
 # K'Sante's fix)
+# The in-betweens (2026-11-14: the howl and the death were one drawing each, a copy a row up, the lying one held
+# twice): the spans shared out over more frames (inbetween.spans: whole ms, none under 50), so every action is as long
+# as it was and the howl still starts at 80 (now rearing up into it), the fall at 340, the stillness at 600.
 MS = {"idle": [150] * 8, "run": [150] * 4, "attack": [70, 100, 100, 90, 60], "hit": [100, 100],
-      "dead": [120, 220, 260, 600], "skill": [90, 120, 110, 100], "skill2": [90, 90, 110, 110, 100],
-      "ult": [80, 160, 160], "ult_b": [70, 90, 90, 110, 100]}
+      "dead": IB.spans((120, 1), (220, 2), (260, 2), (600, 1)), "skill": [90, 120, 110, 100],
+      "skill2": [90, 90, 110, 110, 100], "ult": IB.spans((80, 1), (320, 3)), "ult_b": [70, 90, 90, 110, 100]}
 
 
 def actions(C, slots):
@@ -235,8 +268,11 @@ def actions(C, slots):
                      b(("lunge", 6, 0, 0), bite_m), b(("lunge", 5, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
     out["hit"] = [f(("idle", -2, 0, 0), idle_m(0), flash=True), f(("idle", -1, 0, 0), idle_m(0))]
     # death (League's Death: the howl, falling onto her side; the pack gone with her)
-    out["dead"] = [f(("howl", -2, 0, 0), idle_m(0), flash=True), f(("howl", -2, 0, 0), [None] * n),
-                   f(("lie", 0, 0, 0), [None] * n), f(("lie", 0, 0, 0), [None] * n)]
+    # (struck, the pack gone; the howl's tail swinging, the howl; falling onto her side with the tail flung up, coming
+    # down; still)
+    out["dead"] = [f(("howl", -2, 0, 0), idle_m(0), flash=True), f(("howl", -2, 0, 0, 3), [None] * n),
+                   f(("howl", -2, 0, 0), [None] * n), f(("lie", 0, 0, 0, 4), [None] * n),
+                   f(("lie", 0, 0, 0, 2), [None] * n), f(("lie", 0, 0, 0), [None] * n)]
     # Q Darkin Daggers (League's Spell1: gathering, leaping up with the head whipped down to fling the dagger - the
     # release - landing gathered, back)
     out["skill"] = [f(("crouch", 0, 0, 0), idle_m(0)), f(("fling", 2, 10, 0), run_m(0)),
@@ -245,7 +281,10 @@ def actions(C, slots):
     out["skill2"] = [h(("dash", 4, 3, 0), run_m(0)), h(("dash", 6, 2, 0), run_m(1)), m(("rise", 2, 0, 0), leap_m),
                      b(("lunge", 4, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
     # R opened by W: The Call of the Pack (the howl; the add-on doubles the pack from here on)
-    out["ult"] = [f(("crouch", 0, 0, 0), idle_m(0)), f(("howl", 0, 0, 0), idle_m(0)), f(("howl", 0, 1, 0), idle_m(0))]
+    # (gathered; rearing up with the jaws wide - the attack's rear -, the howl, risen a row: the tail lies behind the
+    # near packmate here, so it is not swayed)
+    out["ult"] = [f(("crouch", 0, 0, 0), idle_m(0)), f(("rear", 0, 0, 0), idle_m(0)), f(("howl", 0, 0, 0), idle_m(0)),
+                  f(("howl", 0, 1, 0), idle_m(0))]
     # Hounds' Pursuit (League's Spell2: pressed low with the blades fanned, the flat dash, the bite on landing, back)
     out["ult_b"] = [g(("flare", 0, 0, 0), idle_m(0)), h(("dash", 6, 4, 0), run_m(0)), m(("dash", 8, 2, 0), leap_m),
                     b(("lunge", 8, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]

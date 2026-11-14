@@ -97,7 +97,7 @@
   "league_missfortune": {"idle": [["attack", [2, 3, 4, 5]], ["skill", [1, 2]]]},
   "league_mordekaiser": {"idle": [["skill2_w", [0, 1, 2]], ["attack", [0]]]},
   "league_morgana": {"idle": [["ult", [0, 1, 2, 3]], ["skill", [0, 1, 2, 3]]]},
-  "league_naafiri": {"idle": [["ult", [1, 2]], ["attack", [0]]], "p4_idle": [["p4_ult", [1, 2]], ["p4_attack", [0]]]},
+  "league_naafiri": {"idle": [["ult", [2, 3]], ["attack", [0]]], "p4_idle": [["p4_ult", [2, 3]], ["p4_attack", [0]]]},
   "league_nami": {"idle": [["attack", [5]], ["ult", [6]]]},
   "league_nasus": {"idle": [["skill_w", [0, 1, 2, 3]], ["skill2", [2, 3]]], "b_idle": [["b_skill_w", [0, 1, 2, 3]], ["b_skill2", [2, 3]]]},
   "league_nautilus": {"idle": [["attack", [0]], ["skill2", [1]]]},
