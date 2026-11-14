@@ -21,8 +21,9 @@ The tags, as tools/art/import_native.py made the 1x sheet:
   and kayn_bake.json lays Q's dash and W's wind on again and makes skill2_fx1 / ult_fx1 (rig.bake).
 - the R's dive (ult) also has an in-between made from Codex's leap: Rhaast turned a quarter about his fist (INB).
 - the forms' tags with no drawing of their own (import_native FORM_REVERSED / FORM_RETIMED): rh_ult / rh_ult_fx1 the
-  form's R exit played backwards on ult's / ult_fx1's timings, rh_transform the form's idle on transform's timings,
-  rh_skill2_fx1 the form's W (baked) spread over skill2_fx1's timings; the same for sh_.
+  form's R exit played backwards on ult's / ult_fx1's timings, rh_skill2_fx1 the form's W (baked) spread over
+  skill2_fx1's timings; the same for sh_. rh_transform / sh_transform (once the form's idle held) go through the
+  transformation on the form's own R exit drawings (TRANSFORM), on transform's timings.
 - the death's dissolve (pack DISSOLVE: rh_dead / sh_dead 6, 7, 8 = frame 6 with a quarter, a half, three quarters of
   its pixels gone in rig_kayn_forms.py's 4x4 ordered dither) and the in-wall shadows (import_native.shadow_frame of
   idle, run, hit, skill, idle_base of each form) and r_hidden (empty) are made by --finish on the finished sheet, after
@@ -84,6 +85,14 @@ LATER = ("idle", "bp", "r_hidden")      # (hero_reels' reels; r_hidden is --fini
 # they showed three, or six pieces with a 6-ms one and the stance again at the end. INB: tag -> ([(cast, quarter turns
 # of the scythe)], ms) - the first frame stays 40 ms, as the effect's first frame is.
 INB = {"ult": ([("ult_1", 0), ("ult_2", 0), ("ult_2", 1), ("ult_3", 0)], [40, 50, 50, 60])}
+# The forms' transformation (2026-11-14, the same words): rh_transform / sh_transform (36 ticks, under the transform's
+# flame pillar tf_d / tf_s, open in the middle) were the form's design held 600 ms - five frames, one picture. Codex drew
+# no transformation for the forms, so each goes through it the way Kayn's own transform does (crouch, rise, leap, land,
+# stand) on that form's own R exit drawings: crouched with the scythe planted (ult_exit 3), rising with it swung up
+# (ult_exit 4), off the ground (ult_exit 1), landed (ult_exit 5), then the design he idles in (None) - on transform's
+# timings, 100 120 120 130 130. TRANSFORM: tag -> the cast of each frame.
+TRANSFORM = {pre + "transform": [pre + "ult_exit_3", pre + "ult_exit_4", pre + "ult_exit_1", pre + "ult_exit_5", None]
+             for pre in ("rh_", "sh_")}
 SCYTHE = {"ult_2": (48, (20, 60))}
 GRIP = {"ult_2": (20, 44)}
 VPAD = 34
@@ -205,7 +214,7 @@ def frames(rig, cs, designs):
     with open(R.lp(os.path.join(NATIVE, f"{HERO}_bake.json")), encoding="utf-8") as f:
         cfg = json.load(f)
     copies = {e["into"] for e in cfg["items"] if "from" in e}
-    der = derived(sheet)
+    der = {t: v for t, v in derived(sheet).items() if t not in TRANSFORM}
     walls = {w + t for w in WALL.values() for t in WALL_TAGS}
     out = {}
     for tag in sheet:
@@ -220,6 +229,8 @@ def frames(rig, cs, designs):
             fr = [des.copy() for _ in ms]                              # (held still: the form's design)
         elif tag in INB:
             fr = [inb_frame(rig, cs, n, q) for n, q in INB[tag][0]]
+        elif tag in TRANSFORM:
+            fr = [RG.on_grid(rig, *cs[n]) if n else des.copy() for n in TRANSFORM[tag]]
         else:
             fr = []
             for k in range(1, len(ms) + 1):

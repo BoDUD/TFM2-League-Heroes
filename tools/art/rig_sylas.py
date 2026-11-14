@@ -90,7 +90,7 @@ def trousers_mid(d):
 # leaps of the stolen ult (the chain flung up behind him). CHAIN: pose -> (that column, the rows the chain's squares
 # lie in there - the pull's trailing foot is above them).
 CHAIN = {"run1": (14, 0, 99), "run2": (14, 0, 99), "run3": (14, 0, 99), "run4": (14, 0, 99),
-         "pull": (18, 28, 99), "leap": (14, 0, 20)}
+         "pull": (18, 28, 99), "leap": (14, 0, 20), "dash": (22, 0, 26)}
 AMP = 4
 VPAD = 8
 
@@ -195,8 +195,9 @@ def frames_all(F):
     # the ground in front)
     out["skill"] = [q("leap", lift=3), q("slam", whole=(-8, 0)), q("slam", whole=(-8, 0)), p()]
     # E Abscond (League's Sylas_Spell3_Dash: rushing forward low, the chains streaming) then Abduct (Sylas_Spell4_Cast-
-    # like: planted, the far arm thrust forward with the chain)
-    out["skill2"] = [q("dash", whole=(5, 0)), q("dash", whole=(6, 0)), q("throw"), q("throw"), p()]
+    # like: planted, the far arm thrust forward with the chain); the dash's second frame (one drawing a square on until
+    # 2026-11-14) has both streaming chains whipping behind him (CHAIN: the wave's step 6, the tips 4 rows up)
+    out["skill2"] = [q("dash", whole=(5, 0)), q("dash", whole=(6, 0), wave=6), q("throw"), q("throw"), p()]
     # Abduct's pull (League's Sylas_Spell3_Bhit_Cast: flying forward level after his chain)
     # (the trailing chain's tip swung down, then up: CHAIN)
     out["skill2_pull"] = [q("pull", whole=(-6, 0), lift=3, wave=2), q("pull", whole=(-6, 0), lift=2, wave=6)]
