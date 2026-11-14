@@ -7,6 +7,9 @@ redraw of his old frame read onto it at the zoom its fit over the old frame Code
 The old frames that repeat another (pack_teemo_actions.SAME) take that drawing; idle_base is the design held still (the
 idle is hero_reels' reel of action snippets). The idle and the ban/pick card are cut from the actions by
 tools/art/hero_reels.py.
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」,
+「动画你觉得少的地方就想办法补」): Move Quick gets a frame made from its own lean - lifted half way up the hop, the blowgun
+turned up about his grip (INB), everything else of the picture checked unchanged.
 
     python tools/art/rig_teemo_hd.py --review DIR     # every tag at 3x + GIFs
     python tools/art/rig_teemo_hd.py                  # orig strips + the 1x sheet
@@ -25,6 +28,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_teemo_hd as CA  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pack_teemo_actions as PK  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_rengar_hd as RG  # noqa: E402
@@ -86,6 +90,29 @@ def pad_for(D, casts):
     return left, right, top, 6
 
 
+# The in-betweens (2026-11-14: Move Quick was three drawings at 70 ms each - the lean into the hop 9 rows up, the
+# blowgun held upright 27 rows up, the blowgun swung forward -, the take-off between the first two the biggest jump):
+# the lean lifted half way to the top of the hop with its blowgun (GUN, in the picture's own squares, from his grip to
+# the mouthpiece) turned about his grip (GRIP; inbetween.spin, the blowgun's end going in under his hand) from pointing
+# down-right half way to upright. INB: tag -> ([(picture, degrees the blowgun turns clockwise on screen, rows moved
+# down)], ms): 50 / 50 / 55 / 55, still 210 ms (12 ticks; the W is a buff, no hit inside it).
+VPAD = 30
+GUN = {"skill2_1": [[(45, 43), (50, 42), (64, 50), (64, 60), (54, 60), (44, 49)]]}
+GRIP = {"skill2_1": (46, 45)}
+INB = {"skill2": ([("skill2_1", 0, 0), ("skill2_1", -60, -9), ("skill2_2", 0, 0), ("skill2_3", 0, 0)],
+                  IB.spans((100, 2), (110, 2)))}
+
+
+def gun_turned(rig, casts, name, deg, dy):
+    """A cast on the grid `dy` rows lower, its blowgun turned `deg` (inbetween.vary: the rest checked unchanged)."""
+    d, x, y = casts[name]
+    if deg:
+        d = IB.vary(d, {"gun": GUN[name]}, tuple(int(v) for v in rig.D.outline),
+                    spins=[("gun", GRIP[name], deg, "under")], pad=VPAD, name=f"{name} blowgun {deg}")
+        x, y = x - VPAD, y - VPAD
+    return RG.on_grid(rig, d, x, y + dy)
+
+
 def frames(rig, casts):
     sheet = R.sheet_of(HERO)
     out = {}
@@ -95,6 +122,9 @@ def frames(rig, casts):
         ms = [m for _, m in sheet[tag]]
         if tag == "idle_base":
             fr = [RG.on_grid(rig, rig.D.d0, 0, 0) for _ in ms]             # (held still: the design)
+        elif tag in INB:
+            seq, ms = INB[tag]
+            fr = [gun_turned(rig, casts, n, deg, dy) for n, deg, dy in seq]
         else:
             fr = []
             for k in range(1, len(ms) + 1):
