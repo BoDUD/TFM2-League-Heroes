@@ -84,6 +84,7 @@ jobs:
           python -I addons/league_rumble/make_override.py --check
           python -I addons/league_viktor/make_override.py --check
           python -I addons/league_soraka/make_override.py --check
+          python -I addons/league_leona/make_override.py --check
       - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
         run: python -I tools/kit/attack_self.py --check
       - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)

@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.354.0"
+    }
+  ],
+  "description": "Leona's Sunlight as in League (needs League of Legends Heroes): the main pack's Sunlight makes enemies hit by her abilities take 10% more damage for 1.5 s, because data cannot tell who hits a marked enemy; with this add-on her abilities mark enemies for 2.5 s and an allied champion's attack or ability on a marked enemy detonates the mark for 32-151 magic damage by Leona's level (her own hits do not). Everything else stays the main pack's. Writes a log for testing.",
+  "last_updated": "2026-11-14",
+  "mod_id": "league_leona",
+  "mod_type": "native",
+  "name": "League Heroes: Leona's Sunlight detonated by allies",
+  "version": "0.1.0"
+}
