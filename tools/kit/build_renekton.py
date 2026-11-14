@@ -218,7 +218,8 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def build(p, native=False):
-    """native: the add-on's copy - the same kit with the passive league_renekton:anger, which reads his health."""
+    """native: the add-on's copy - the same kit with the passive league_renekton:anger, which reads his health, and the
+    empowered W's first strike calling league_renekton:rend (it breaks the target's shields, 2026-11-14)."""
     fs = [f"f{k}" for k in range(1, p["f_n"] + 1)]
 
     # ------------------------------------------------------------------ passive: Reign of Anger (Fury)
@@ -259,11 +260,15 @@ def build(p, native=False):
                    sw("q_cd", NONE, q_cast))
 
     # ------------------------------------------------------------------ skill2: E Slice -> W Ruthless Predator -> Dice
-    def strikes(k, stun):
+    def strikes(k, stun, rend=False):
+        """rend: the add-on's copy, empowered - League's first strike "completely destroying damage-mitigating shields
+        on the target" (V26.22): league_renekton:rend clears the shields before that strike's damage (data cannot)."""
         out = []
         for i in range(k):
             last = i == k - 1
             hit = [attack(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")]
+            if rend and i == 0:
+                hit.insert(0, {"type": "Native", "effect_ref": "league_renekton:rend"})
             if last:
                 hit += [{"type": "Stun", "duration": stun}, buff("w_stun", stun), sfx("w_stun")]
             out.append(delayed(p["w_h1"] + i * p["w_gap"], sfx("w_cast"),
@@ -272,7 +277,7 @@ def build(p, native=False):
 
     w_plain = combine(anim("skill2_w", p["w_dur"]), below, *strikes(2, p["w_stun"]))     # f5 is off here
     w_emp = combine(anim("skill2_w", p["w_dur"] + 2 * p["w_gap"] - 1), *spend, cview("w_glow"), sfx("w_super"), voice("vo_w", p),
-                    *strikes(3, p["w_stun_e"]))
+                    *strikes(3, p["w_stun_e"], rend=native))
     w_strike = sw(full, w_emp, w_plain)
 
     dice_plain = rush(p, [attack(p["e_dmg"], p["e_ratio"]), climb, view("e_hit"), tsfx("e_hit")])
