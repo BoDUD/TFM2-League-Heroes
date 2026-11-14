@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_sylas_big",
+   "tag": "r2_song",
+   "file": "league_sylas_big/r2_song.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     25
+    ],
+    [
+     47,
+     27
+    ],
+    [
+     59,
+     53
+    ],
+    [
+     59,
+     55
+    ],
+    [
+     51,
+     43
+    ],
+    [
+     49,
+     41
+    ]
+   ],
+   "of_1x": "9ccddf1dbffe20a7ba2f2b4475ba0cfb4716eac8bf69aa91bf65b8d5eb97ee9d",
+   "by": "fx_vector 4",
+   "sha256": "d86d03db28e816acfe906ac2d47d55ada0ff53a78ae84dafd99a3075f68e1760",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

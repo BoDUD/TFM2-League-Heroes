@@ -1,0 +1,332 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nilah_big",
+   "tag": "eq_spin",
+   "file": "league_nilah_big/eq_spin.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     41,
+     33
+    ],
+    [
+     53,
+     39
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     57,
+     39
+    ],
+    [
+     57,
+     23
+    ]
+   ],
+   "of_1x": "2a506b4827ac86928d7dc52b6f5954e3f845ea795c658f6813bf7d23a2b7562a",
+   "by": "fx_vector 4",
+   "sha256": "528131c849d54cc24a7c418aee569f25a538c4cfc5f91af6f2bf7ea0ba9e9c7b",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
+   "tag": "r_burst",
+   "file": "league_nilah_big/r_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     37,
+     27
+    ],
+    [
+     57,
+     37
+    ],
+    [
+     81,
+     47
+    ],
+    [
+     81,
+     47
+    ],
+    [
+     71,
+     15
+    ]
+   ],
+   "of_1x": "b099fc93588c5aadcf800fdc8b35196e707613f11f0ec2c48bafe795f8b5e962",
+   "by": "fx_vector 4",
+   "sha256": "28292137c366ae16c8e5e0811d84b1a5eea712a881f24375297a6cb22e79e03b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
+   "tag": "r_spin",
+   "file": "league_nilah_big/r_spin.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     37
+    ],
+    [
+     61,
+     49
+    ],
+    [
+     77,
+     57
+    ],
+    [
+     77,
+     65
+    ],
+    [
+     77,
+     61
+    ],
+    [
+     67,
+     55
+    ]
+   ],
+   "of_1x": "89f95095ee4199a13922021259045dd7bd97e8786b3f9884b2e3a2a4b7a5b32b",
+   "by": "fx_vector 4",
+   "sha256": "4021d007c157c295d05b30801479f2bfb4bed06b4596228a192d76797b5c0d86",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
+   "tag": "w_ally",
+   "file": "league_nilah_big/w_ally.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     61
+    ],
+    [
+     45,
+     61
+    ],
+    [
+     51,
+     59
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     51,
+     57
+    ]
+   ],
+   "of_1x": "10d16ec283571e3f6f0f2f28916be15dc0a3582b1e655b126c44c4844a2a7595",
+   "by": "fx_vector 3",
+   "sha256": "3eb5d786655ae25794d17bbe50b54e65e7589ae9f38f13375acfed50c40b8828",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
+   "tag": "w_on",
+   "file": "league_nilah_big/w_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     69
+    ],
+    [
+     51,
+     69
+    ],
+    [
+     55,
+     67
+    ],
+    [
+     51,
+     67
+    ],
+    [
+     51,
+     67
+    ],
+    [
+     55,
+     65
+    ]
+   ],
+   "of_1x": "bbb6737d989a394a4fe8106f1caf8068560ac46190e9c8631bbc342cf2ecd6b4",
+   "by": "fx_vector 3",
+   "sha256": "1b052471fd173f25587cbb432376f82964b9434ffb977d4e92e2bb2a23a7b309",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_fx",
+   "tag": "eq_hit",
+   "file": "league_nilah_fx/eq_hit.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     5,
+     33
+    ],
+    [
+     11,
+     39
+    ],
+    [
+     13,
+     39
+    ],
+    [
+     13,
+     41
+    ]
+   ],
+   "of_1x": "63c26b66a0384407966ea5955552313fcc252232da3802d40bacfcce23e2daf2",
+   "by": "fx_vector 3",
+   "sha256": "2ddd81bacc04afe121e88b1732c44dcd9497d426a2b35a6db2191c3f34fe7701",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_fx",
+   "tag": "q_on",
+   "file": "league_nilah_fx/q_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     41,
+     51
+    ]
+   ],
+   "of_1x": "50ef8e7b25abc47398ee736d150f828d515658d2f81e2b775971c59445d8dd89",
+   "by": "fx_vector 3",
+   "sha256": "0efdb2c610f90070cc77bf681c1b2f3432233e108946382fb4596f033bb43389",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_fx",
+   "tag": "r_heal",
+   "file": "league_nilah_fx/r_heal.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     21
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     43,
+     25
+    ],
+    [
+     41,
+     69
+    ],
+    [
+     41,
+     67
+    ]
+   ],
+   "of_1x": "7af070d4c648405f299092ab077d922bc06b9a193eea1ee08f42ef30112c7ae2",
+   "by": "fx_vector 4",
+   "sha256": "4dce60ddb62e48984cdfe869942df5db154985491e352f8d2bafd0cc86bcad41",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

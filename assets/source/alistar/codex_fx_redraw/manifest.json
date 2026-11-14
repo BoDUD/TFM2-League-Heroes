@@ -1,0 +1,156 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_alistar_fx",
+   "tag": "a_hit",
+   "file": "league_alistar_fx/a_hit.png",
+   "pack": 1,
+   "source_entry_index": 92,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    15,
+    33
+   ],
+   "cell_8x": [
+    120,
+    264
+   ],
+   "guide_size": [
+    480,
+    264
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "31dbe2574d1be73b15291464cf4b9c5ba9192aae72ba173e618527e70656ad17"
+  },
+  {
+   "sheet": "league_alistar_fx",
+   "tag": "e_hit",
+   "file": "league_alistar_fx/e_hit.png",
+   "pack": 1,
+   "source_entry_index": 96,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    9,
+    25
+   ],
+   "cell_8x": [
+    72,
+    200
+   ],
+   "guide_size": [
+    216,
+    200
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "2f319b06e511e220ceaa230dc5ce2564b58305fad18d7427634e8051dd11c482"
+  },
+  {
+   "sheet": "league_alistar_fx",
+   "tag": "e_hit_stun",
+   "file": "league_alistar_fx/e_hit_stun.png",
+   "pack": 1,
+   "source_entry_index": 98,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    21,
+    41
+   ],
+   "cell_8x": [
+    168,
+    328
+   ],
+   "guide_size": [
+    840,
+    328
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "02a40658312d2603a44e376d95edfd1405b5acb2a3e8a8d886d3a08b7bda9b37"
+  },
+  {
+   "sheet": "league_alistar_fx",
+   "tag": "p_heal",
+   "file": "league_alistar_fx/p_heal.png",
+   "pack": 1,
+   "source_entry_index": 99,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    11,
+    37
+   ],
+   "cell_8x": [
+    88,
+    296
+   ],
+   "guide_size": [
+    440,
+    296
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "f55d662c30c7f0cda1abda68d27aa4217184dfa5110b33bc9c7a6ba75b97e65c"
+  },
+  {
+   "sheet": "league_alistar_fx",
+   "tag": "w_hit",
+   "file": "league_alistar_fx/w_hit.png",
+   "pack": 1,
+   "source_entry_index": 95,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    19,
+    37
+   ],
+   "cell_8x": [
+    152,
+    296
+   ],
+   "guide_size": [
+    608,
+    296
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "6eb62e8788751fc632642dcf9e437efc2d99655dc3ae954443febc90b90d891c"
+  }
+ ]
+}

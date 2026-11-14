@@ -1,0 +1,130 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_taric_big",
+   "tag": "q_cast",
+   "file": "league_taric_big/q_cast.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     11,
+     37
+    ],
+    [
+     35,
+     39
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     57,
+     37
+    ],
+    [
+     59,
+     37
+    ]
+   ],
+   "of_1x": "41028c69d36af697c6cf7368a47d1242059d086cde777e5cbcf774df604b3ab2",
+   "by": "fx_vector 3",
+   "sha256": "243d9426820351078c01b7062371ba1eeef485072c3f074a3fdfa26f6ef5809d",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_taric_fx",
+   "tag": "r_invuln",
+   "file": "league_taric_fx/r_invuln.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     31,
+     65
+    ],
+    [
+     33,
+     63
+    ],
+    [
+     31,
+     63
+    ],
+    [
+     33,
+     63
+    ]
+   ],
+   "of_1x": "f73fd46717beb9e1c66e3b916ec53ce34d82812a843599ffa6aa1297f4db753b",
+   "by": "fx_vector 3",
+   "sha256": "1b4f9d6b148e6a10d692f8ee101d8758c5fda441927b0615dda6f1b38e0d30b6",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_taric_fx",
+   "tag": "w_link",
+   "file": "league_taric_fx/w_link.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     39,
+     31
+    ],
+    [
+     37,
+     31
+    ],
+    [
+     39,
+     27
+    ],
+    [
+     39,
+     29
+    ]
+   ],
+   "of_1x": "c664ac771b64ef2fd7b3b8d832a8873935bc062e6524b94f495a3ae61fa3c5ca",
+   "by": "fx_vector 3",
+   "sha256": "8e2fd387ad8bdf7c7020297b8227f00da3a59c8b550df04528e1a5d28e0b331d",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

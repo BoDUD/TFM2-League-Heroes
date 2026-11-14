@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_amumu_fx",
+   "tag": "despair",
+   "file": "league_amumu_fx/despair.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     49
+    ],
+    [
+     57,
+     55
+    ],
+    [
+     61,
+     55
+    ],
+    [
+     61,
+     63
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     57,
+     49
+    ]
+   ],
+   "of_1x": "363fa903d76f04d13aa4b2251ed8547f124d7f34960aae36f4d934bdda491812",
+   "by": "fx_vector 2",
+   "sha256": "5deef845dc9f824c94e6f921ae95a821a357a46a3eaeea0990115c7b6eb36405",
+   "note": "batch 01 enlarged 2026-11-14"
+  }
+ ]
+}

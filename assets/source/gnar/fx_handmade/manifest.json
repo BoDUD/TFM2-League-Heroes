@@ -1,0 +1,185 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_gnar_big",
+   "tag": "r_wave",
+   "file": "league_gnar_big/r_wave.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     45
+    ],
+    [
+     67,
+     47
+    ],
+    [
+     67,
+     47
+    ],
+    [
+     69,
+     47
+    ],
+    [
+     69,
+     47
+    ],
+    [
+     59,
+     43
+    ]
+   ],
+   "of_1x": "0a66f036fee4caed88c953c8f4230c38440198296bf47bf00958deb67ae128a2",
+   "by": "fx_vector 3",
+   "sha256": "b6706a8b1f4b7ff849b98d48b5ff281e98675712c013c3a5419557bc4bd7c5dc",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_gnar_big",
+   "tag": "tf_mini",
+   "file": "league_gnar_big/tf_mini.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     51
+    ],
+    [
+     57,
+     59
+    ],
+    [
+     61,
+     61
+    ],
+    [
+     57,
+     59
+    ],
+    [
+     57,
+     53
+    ]
+   ],
+   "of_1x": "40f34ac531e058ca1bac7735a7396751b5773ab19b1a02fa75cabdcc34ccd0a7",
+   "by": "fx_vector 4",
+   "sha256": "39595084933e2b72d2059de6caee3239f9b3af49125f981f8be2a6e5efd94848",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_gnar_fx",
+   "tag": "a_hyper",
+   "file": "league_gnar_fx/a_hyper.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     9,
+     35
+    ],
+    [
+     15,
+     41
+    ],
+    [
+     19,
+     45
+    ],
+    [
+     19,
+     43
+    ]
+   ],
+   "of_1x": "0df696f5ece32af2dab4ac37c1a0f408013db7a8a574757dfe15fa9e7f7c1465",
+   "by": "fx_vector 3",
+   "sha256": "c4fefcf6b85308098d5b6829e7d89ed49132ee31d36d061ef670ff531ee1cf77",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_gnar_fx",
+   "tag": "full",
+   "file": "league_gnar_fx/full.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     33
+    ],
+    [
+     33,
+     37
+    ],
+    [
+     35,
+     37
+    ],
+    [
+     35,
+     47
+    ]
+   ],
+   "of_1x": "6386427619a4756ddc9a07122f606e06fc1c61db44c26f122ada0295e6e6010e",
+   "by": "fx_vector 3",
+   "sha256": "c9668e130139d6cd0021f236800a336620a79745d96bd4b83ca7ff5c37bcfb1b",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_gnar_fx",
+   "tag": "q_catch",
+   "file": "league_gnar_fx/q_catch.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     17,
+     25
+    ],
+    [
+     13,
+     21
+    ]
+   ],
+   "of_1x": "6e9ba475bc5d4f3248111a643efb7327663173c8596b078579a29edd7a7819e5",
+   "by": "fx_vector 3",
+   "sha256": "f11ca03cb8e3c5f387f60e7d8cb54c089eb72ee309b790b530e6faf7dc83e943",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

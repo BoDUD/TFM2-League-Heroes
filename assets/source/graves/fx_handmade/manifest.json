@@ -1,0 +1,170 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_graves_big",
+   "tag": "q_blast",
+   "file": "league_graves_big/q_blast.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     21,
+     37
+    ],
+    [
+     21,
+     37
+    ],
+    [
+     23,
+     37
+    ],
+    [
+     23,
+     35
+    ],
+    [
+     21,
+     35
+    ],
+    [
+     39,
+     45
+    ],
+    [
+     39,
+     53
+    ],
+    [
+     35,
+     55
+    ],
+    [
+     35,
+     51
+    ]
+   ],
+   "of_1x": "7078a7a38b403239361f7f0dc823bacfa018b9c693b719f49aa88a50b1b2221a",
+   "by": "fx_vector 4",
+   "sha256": "5c25986fbc98dec016584b42340414f3858c0efa280d915d19fb47ff5ee1d2c3",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_graves_big",
+   "tag": "q_blast_w",
+   "file": "league_graves_big/q_blast_w.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     21,
+     37
+    ],
+    [
+     39,
+     45
+    ],
+    [
+     39,
+     53
+    ],
+    [
+     35,
+     55
+    ],
+    [
+     35,
+     51
+    ]
+   ],
+   "of_1x": "939f919645f4257af0866605d88d19d3bdb660be502f4dc26860865dbff608ad",
+   "by": "fx_vector 4",
+   "sha256": "d2c435b15778051d4feebe5c5c966dbdb91089beecb0fb1c40d370d035bdb404",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_graves_big",
+   "tag": "r_blast",
+   "file": "league_graves_big/r_blast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     31
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     35,
+     47
+    ],
+    [
+     43,
+     45
+    ]
+   ],
+   "of_1x": "0e0e3d044d61a66ec5fc7603d251054ca036ff46dab04fbf3034286f2fc80622",
+   "by": "fx_vector 4",
+   "sha256": "9366377d9fb235bda23da7daf647b8427cc5e6aa4d39bc47243ca94d3b6c66fd",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_graves_fx",
+   "tag": "e_grit",
+   "file": "league_graves_fx/e_grit.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     33,
+     31
+    ],
+    [
+     33,
+     31
+    ]
+   ],
+   "of_1x": "3473716ab661e4938de8f00aa06429841c7b7c2980ce9d4d3653a73c17c8094f",
+   "by": "fx_vector 3",
+   "sha256": "8c13c7f43e707e5d9a7816f95549dc9543446d0c8446f28f19866e64fb30b81a",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

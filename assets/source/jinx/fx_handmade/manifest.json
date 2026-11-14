@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_jinx_big",
+   "tag": "r_blast",
+   "file": "league_jinx_big/r_blast.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     29,
+     51
+    ],
+    [
+     49,
+     91
+    ],
+    [
+     99,
+     131
+    ],
+    [
+     97,
+     219
+    ],
+    [
+     85,
+     167
+    ],
+    [
+     85,
+     167
+    ],
+    [
+     57,
+     151
+    ],
+    [
+     33,
+     95
+    ]
+   ],
+   "of_1x": "3e283755ed450880c861130d279bf2d47d62ef26bfbad3f4f10cada0630b71e8",
+   "by": "fx_vector 1",
+   "sha256": "733fdb30ed4b553835ab393f55f86cb15b964d6d5d945cd06544799d404a52da",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_jinx_big",
+   "tag": "r_rocket",
+   "file": "league_jinx_big/r_rocket.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     125,
+     33
+    ],
+    [
+     113,
+     33
+    ],
+    [
+     113,
+     33
+    ],
+    [
+     119,
+     33
+    ]
+   ],
+   "of_1x": "0147e84960360b4a7459c00bcb520d000e575bdca552f3e468645bb0465e179e",
+   "by": "fx_vector 4",
+   "sha256": "a18d63c6f81ff86d975761720b44f8b29fddce702d3b93feb3374d33cf9bce41",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_jinx_fx",
+   "tag": "rocket_hit",
+   "file": "league_jinx_fx/rocket_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     11,
+     19
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     39,
+     49
+    ],
+    [
+     33,
+     53
+    ],
+    [
+     29,
+     47
+    ],
+    [
+     21,
+     43
+    ]
+   ],
+   "of_1x": "f8d73d784bfadbef3b3daf95ee450d4e5eab8e84ef61b184a7cd66647a9f15ac",
+   "by": "fx_vector 1",
+   "sha256": "16b94fa3376ed1787823fda5e9a8edddc34cd38abb11cf5c6e67e9ed4f9d42b4",
+   "note": "pilot 2026-11-14"
+  }
+ ]
+}

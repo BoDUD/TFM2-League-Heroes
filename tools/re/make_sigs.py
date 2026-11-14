@@ -124,6 +124,11 @@ def main():
                        "slot hand the sprite command they build to from 0.7.2 (league.dll's UI sheets).", sig, b["cmd_uv"]),
            rs_pattern("EFFECT", "The view node draw (out Option<Vec>, node, ctx, -): its head - shared with other functions, the "
                       "one the body draw calls (league.dll's dense effects).", sig[b["effect_draw"]], b["effect_draw"]),
+           rs_pattern("PROJ_RENDER", "The Animated projectiles' render (out Vec, system, projectiles, assets, id): its "
+                      "128-byte head, its own (league.dll's dense projectile pictures).", sig[b["proj_render"]],
+                      b["proj_render"]),
+           rs_pattern("PROJ_RENDER3", "The ThreePhase projectiles' render (the same arguments): its 128-byte head.",
+                      sig[b["proj_render3"]], b["proj_render3"]),
            "/// The battlefield frame lookup: its two size asks after its call of the anim lookup (offset from the call, bytes).",
            "pub const BATTLE_ASKS: &[(usize, &[u8])] = &[" + ", ".join(
                f"({d:#x}, &[{', '.join(f'0x{c:02x}' for c in x)}])" for d, x in battle_asks) + "];",
@@ -150,7 +155,8 @@ def main():
     # each pattern finds exactly its place in this EXE
     for name, rva in (("anim", b["anim"]), ("hash", b["hash"]), ("display_fn", b["display_fn"]),
                       ("cmd_by_name", b["cmd_by_name"]), ("node_image", b["node_image"]), ("cmd_uv", b["cmd_uv"]),
-                      ("effect_draw", b["effect_draw"])):
+                      ("effect_draw", b["effect_draw"]), ("proj_render", b["proj_render"]),
+                      ("proj_render3", b["proj_render3"])):
         if not rva:
             print(f"{name}: none in the listed build")
             continue

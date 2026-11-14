@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_kobuko_fx",
+   "tag": "p_burst",
+   "file": "tft_kobuko_fx/p_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     47
+    ],
+    [
+     47,
+     45
+    ],
+    [
+     45,
+     65
+    ],
+    [
+     45,
+     67
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     45,
+     33
+    ]
+   ],
+   "of_1x": "e02a5fe9d5d83bc11e3e6e183b19bf1d9b22744841be2a48643f0a92e09619f7",
+   "by": "fx_vector 4",
+   "sha256": "c46dac45ef268572f69851417b54136388967edea0e9d05ba26f9017f6010136",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_kobuko_fx",
+   "tag": "q_shield",
+   "file": "tft_kobuko_fx/q_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     15,
+     29
+    ],
+    [
+     39,
+     53
+    ],
+    [
+     43,
+     53
+    ],
+    [
+     43,
+     61
+    ],
+    [
+     45,
+     61
+    ],
+    [
+     41,
+     55
+    ]
+   ],
+   "of_1x": "f514557eae36b679e8aa278331f31a4a459922a4cc44736beb9c90d8b23df665",
+   "by": "fx_vector 4",
+   "sha256": "18dab35e3985133b559388e35b815e3ad42bcc4b7d944450cdff3584e88edb06",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

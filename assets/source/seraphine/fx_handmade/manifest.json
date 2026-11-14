@@ -1,0 +1,170 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_seraphine_big",
+   "tag": "r_cast",
+   "file": "league_seraphine_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     39,
+     89
+    ],
+    [
+     37,
+     89
+    ],
+    [
+     37,
+     89
+    ],
+    [
+     37,
+     89
+    ],
+    [
+     35,
+     87
+    ],
+    [
+     37,
+     87
+    ]
+   ],
+   "of_1x": "4db1a5cee0ac1c86bdeaacefdc8c0c0f66c945e41e1f3f20557da7b4bfef8e4b",
+   "by": "fx_vector 4",
+   "sha256": "81c71e9196d14dd43c35b217cf14486508b80836dac94b7b8d11a36c0bd9dff8",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_seraphine_big",
+   "tag": "w_cast",
+   "file": "league_seraphine_big/w_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     37
+    ],
+    [
+     91,
+     43
+    ],
+    [
+     93,
+     53
+    ],
+    [
+     99,
+     57
+    ],
+    [
+     101,
+     57
+    ],
+    [
+     65,
+     57
+    ]
+   ],
+   "of_1x": "6b1f4c15063822140026ed89c26c5a6f033d1bb40ffa72e1adb56229aebd3856",
+   "by": "fx_vector 3",
+   "sha256": "09c8d058bf81358343ceddc38fddfcfc54bcd48407fcf5587fa278b62f492857",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_seraphine_fx",
+   "tag": "echo",
+   "file": "league_seraphine_fx/echo.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     17,
+     51
+    ],
+    [
+     31,
+     63
+    ],
+    [
+     35,
+     71
+    ],
+    [
+     33,
+     69
+    ],
+    [
+     27,
+     57
+    ]
+   ],
+   "of_1x": "f0be0cb85a6bcc9c9ee5fb6eaaefa062cf140a23ffbc4786f047bc8a53b161ab",
+   "by": "fx_vector 4",
+   "sha256": "56620f1e370f31186f28be27682cc4906d62d77f03a5b0eb0a4389213b4f59b5",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_seraphine_fx",
+   "tag": "w_on",
+   "file": "league_seraphine_fx/w_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     33,
+     65
+    ],
+    [
+     33,
+     65
+    ],
+    [
+     33,
+     65
+    ],
+    [
+     33,
+     65
+    ]
+   ],
+   "of_1x": "9b7f96ac346fa46e7e38a2788bebfd1f30b137dba8814af7bdc1a77a3d718e4c",
+   "by": "fx_vector 3",
+   "sha256": "5850a6b69f9ff15f7932022ac0c15b810d27c1a8991b79942fb176adb1bc3b88",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

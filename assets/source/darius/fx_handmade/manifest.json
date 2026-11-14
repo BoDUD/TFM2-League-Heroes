@@ -1,0 +1,270 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_darius_big",
+   "tag": "q_spin",
+   "file": "league_darius_big/q_spin.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     27
+    ],
+    [
+     57,
+     37
+    ],
+    [
+     61,
+     47
+    ],
+    [
+     59,
+     47
+    ],
+    [
+     57,
+     47
+    ],
+    [
+     53,
+     43
+    ]
+   ],
+   "of_1x": "507f48de4cb52b578cac52dabc6b78ebe6156a6d080dcdf6720a3be7672a48ee",
+   "by": "fx_vector 2",
+   "sha256": "f89b3d80cb50600392f195ff8f1eb1c27e3177f0f1191839a1c8d1aa7c31e52f",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_darius_big",
+   "tag": "r_impact",
+   "file": "league_darius_big/r_impact.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     63,
+     191
+    ],
+    [
+     65,
+     203
+    ],
+    [
+     65,
+     183
+    ],
+    [
+     65,
+     163
+    ],
+    [
+     65,
+     151
+    ],
+    [
+     65,
+     147
+    ],
+    [
+     59,
+     103
+    ],
+    [
+     65,
+     119
+    ]
+   ],
+   "of_1x": "a052d7f2ef94784b6104ef9ffa37d8efe8d9c614e5a913c377336e78692cd8a9",
+   "by": "fx_vector 2",
+   "sha256": "aaa68cd13c2d304d70aa6df30b31e933f417c33846fc8b47a65a8331304e96bc",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_darius_fx",
+   "tag": "e_hook",
+   "file": "league_darius_fx/e_hook.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     51,
+     39
+    ],
+    [
+     51,
+     39
+    ],
+    [
+     49,
+     39
+    ],
+    [
+     53,
+     39
+    ],
+    [
+     53,
+     39
+    ]
+   ],
+   "of_1x": "cabae4680423b95ec1ddad18ff3d89303524cca63584cb9de0d74d60de91c7e1",
+   "by": "fx_vector 2",
+   "sha256": "b1743c5a62f18b88578d8aa347af017358e35d44dfa2bf15dd34cb2cb500926f",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_darius_fx",
+   "tag": "q_heal",
+   "file": "league_darius_fx/q_heal.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     47
+    ],
+    [
+     37,
+     55
+    ],
+    [
+     33,
+     55
+    ],
+    [
+     37,
+     51
+    ],
+    [
+     37,
+     59
+    ],
+    [
+     29,
+     67
+    ]
+   ],
+   "of_1x": "b4f189dd1770b452253a97f50e852197da08a017323b973701ed1d533811ce31",
+   "by": "fx_vector 2",
+   "sha256": "e2a4ede8ab91f8785f0221a7f048076ee0c889b3c92b6f187822deca489fccad",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_darius_fx",
+   "tag": "w_hit",
+   "file": "league_darius_fx/w_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     13,
+     13
+    ],
+    [
+     45,
+     17
+    ],
+    [
+     37,
+     25
+    ],
+    [
+     41,
+     29
+    ],
+    [
+     37,
+     29
+    ],
+    [
+     37,
+     25
+    ]
+   ],
+   "of_1x": "ef3e30dd582a94eff3942cd1137ca6b4b93d3b2b29117e983050f3444b71fb85",
+   "by": "fx_vector 2",
+   "sha256": "4e5a202308cbf420ac4f1bb2360541fd7290e43c8f2c782a9d3c471cea3cca1d",
+   "note": "batch 01 enlarged 2026-11-14"
+  },
+  {
+   "sheet": "league_darius_fx",
+   "tag": "w_ready",
+   "file": "league_darius_fx/w_ready.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     33
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     43,
+     37
+    ],
+    [
+     43,
+     37
+    ]
+   ],
+   "of_1x": "acbd046090ff8fa81e6c056c5e364d46887e583a63ac0307a1c491203b57d6ec",
+   "by": "fx_vector 2",
+   "sha256": "8ec052ee4230caae8358fafeedda8e42f11c5e7614e994c1571b05b4ca9cf893",
+   "note": "batch 01 enlarged 2026-11-14"
+  }
+ ]
+}

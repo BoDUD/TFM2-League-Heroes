@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_meepsie_big",
+   "tag": "r_slam",
+   "file": "tft_meepsie_big/r_slam.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     27
+    ],
+    [
+     85,
+     49
+    ],
+    [
+     97,
+     57
+    ],
+    [
+     97,
+     47
+    ],
+    [
+     83,
+     33
+    ],
+    [
+     53,
+     27
+    ]
+   ],
+   "of_1x": "c8d69bdec1f8d44bf3485f1545e351757a6b14a874980232f61e41330b6501c2",
+   "by": "fx_vector 4",
+   "sha256": "b48ef7978ca2283deb02c68d46f61d45d59adf145e9d01df93f5d91d585dee6a",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

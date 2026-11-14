@@ -1,0 +1,100 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_heimerdinger_big",
+   "tag": "e_blast",
+   "file": "league_heimerdinger_big/e_blast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     29
+    ],
+    [
+     31,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     47,
+     33
+    ],
+    [
+     43,
+     31
+    ],
+    [
+     37,
+     29
+    ]
+   ],
+   "of_1x": "5e6240533176a62b40c846f0279ae7fed5db1139ff82bca353af418f3beb644d",
+   "by": "fx_vector 4",
+   "sha256": "a62beaf6698875a345a77b6ab9908018481a6633932c51c04fdf36666d91520d",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_heimerdinger_big",
+   "tag": "re_blast",
+   "file": "league_heimerdinger_big/re_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     21,
+     19
+    ],
+    [
+     47,
+     43
+    ],
+    [
+     47,
+     47
+    ],
+    [
+     47,
+     47
+    ],
+    [
+     47,
+     47
+    ],
+    [
+     43,
+     33
+    ],
+    [
+     23,
+     15
+    ]
+   ],
+   "of_1x": "95ef1382573e02a2c649ce3f0d1ef3e5d9c6a726febdd12a3cf1bdc218c416ae",
+   "by": "fx_vector 4",
+   "sha256": "8e11a62587080c9288043805c5528056fd770c39f28ed032b04295bbfb1875e5",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

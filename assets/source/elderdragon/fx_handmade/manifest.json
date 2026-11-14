@@ -1,0 +1,105 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_elderdragon_big",
+   "tag": "r_slam",
+   "file": "tft_elderdragon_big/r_slam.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     71,
+     41
+    ],
+    [
+     119,
+     31
+    ],
+    [
+     125,
+     45
+    ],
+    [
+     129,
+     53
+    ],
+    [
+     125,
+     59
+    ],
+    [
+     125,
+     59
+    ],
+    [
+     121,
+     59
+    ],
+    [
+     115,
+     59
+    ]
+   ],
+   "of_1x": "5cd18eaa6333b5c50692926dd45e3297c6b513e7fe30875706976cbfe159f913",
+   "by": "fx_vector 4",
+   "sha256": "86234f087ec803bbd0070da8151c993cddefc49221b983da82a11702c1cbbe31",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_elderdragon_big",
+   "tag": "r_vamp",
+   "file": "tft_elderdragon_big/r_vamp.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     79,
+     81
+    ],
+    [
+     79,
+     83
+    ],
+    [
+     81,
+     85
+    ],
+    [
+     81,
+     85
+    ],
+    [
+     81,
+     87
+    ],
+    [
+     81,
+     87
+    ]
+   ],
+   "of_1x": "ee704a1a1fed47ddf00d10a03db6b027a8880df87e7a78ba47c0053a152ed0bb",
+   "by": "fx_vector 4",
+   "sha256": "1f98a7da8aef96a9c47a8572646fc840c3ff924f881759dcf5798f94078e0ef0",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,325 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_fizz_big",
+   "tag": "e_slam",
+   "file": "league_fizz_big/e_slam.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     45,
+     25
+    ],
+    [
+     63,
+     51
+    ],
+    [
+     65,
+     51
+    ],
+    [
+     61,
+     51
+    ],
+    [
+     61,
+     51
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     61,
+     43
+    ]
+   ],
+   "of_1x": "ea8b6ed6910e9731efd3f551467e45c28831e00becec09e527514580c2d2075b",
+   "by": "fx_vector 4",
+   "sha256": "795c1140390d5e47e26e0b6e5c0b6ca879e1e65c4c7389835a0785af3d04b881",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
+   "tag": "r_ring1",
+   "file": "league_fizz_big/r_ring1.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     47,
+     43
+    ],
+    [
+     47,
+     43
+    ],
+    [
+     47,
+     43
+    ],
+    [
+     47,
+     43
+    ]
+   ],
+   "of_1x": "e6ebe4d56f846fee6ba2bad223e8b8a75255b29e4d12692eb22cc7ddc7a8cf39",
+   "by": "fx_vector 3",
+   "sha256": "cbf829a2c39bd26a949db1cb5e2e0784d4ef021065839802e251654a6342a972",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
+   "tag": "r_ring2",
+   "file": "league_fizz_big/r_ring2.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     59,
+     49
+    ],
+    [
+     59,
+     49
+    ],
+    [
+     59,
+     49
+    ],
+    [
+     59,
+     49
+    ]
+   ],
+   "of_1x": "b813020ff7410d04726684d3c536d02160a2051a8847aa8b1238141e00941621",
+   "by": "fx_vector 3",
+   "sha256": "57d88dc16e12d75046d939c87cfd971ac722e1592783327c524f09c0b44c9771",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
+   "tag": "r_ring3",
+   "file": "league_fizz_big/r_ring3.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     71,
+     55
+    ],
+    [
+     71,
+     55
+    ],
+    [
+     71,
+     55
+    ],
+    [
+     71,
+     55
+    ]
+   ],
+   "of_1x": "8af9084851c206be9eb73405e1b6e2d9b021f43652e184524166293898e50bdc",
+   "by": "fx_vector 3",
+   "sha256": "cd5bc0c12c7a04db1242fd897f28bf9d11eb92c5d473a6e7581bbed670467282",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
+   "tag": "r_shark1",
+   "file": "league_fizz_big/r_shark1.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     49,
+     25
+    ],
+    [
+     49,
+     25
+    ],
+    [
+     49,
+     59
+    ],
+    [
+     49,
+     51
+    ],
+    [
+     49,
+     39
+    ],
+    [
+     49,
+     45
+    ],
+    [
+     49,
+     25
+    ],
+    [
+     49,
+     25
+    ]
+   ],
+   "of_1x": "4be350f25eab37fae63b058ce92e115fe87411ad50403635736d0412a239bd28",
+   "by": "fx_vector 4",
+   "sha256": "10a9128179b4d059beca7db2c1e58c6c0f7532df6dcdd01e3d789d828398977c",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
+   "tag": "r_shark2",
+   "file": "league_fizz_big/r_shark2.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     61,
+     35
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     81
+    ],
+    [
+     61,
+     73
+    ],
+    [
+     61,
+     57
+    ],
+    [
+     61,
+     65
+    ],
+    [
+     61,
+     35
+    ],
+    [
+     61,
+     35
+    ]
+   ],
+   "of_1x": "dcb865ccc7159f32823ec59fbc103ffa564e4c8b6e40998c09c7dae21564c4ba",
+   "by": "fx_vector 4",
+   "sha256": "985a311468c2fb83e76d997a3439b82a60d9f7d49702107b794dbce4ff945a46",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
+   "tag": "r_shark3",
+   "file": "league_fizz_big/r_shark3.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     73,
+     47
+    ],
+    [
+     73,
+     57
+    ],
+    [
+     73,
+     103
+    ],
+    [
+     73,
+     97
+    ],
+    [
+     73,
+     69
+    ],
+    [
+     73,
+     81
+    ],
+    [
+     73,
+     47
+    ],
+    [
+     73,
+     47
+    ]
+   ],
+   "of_1x": "7d9f3776c5c25e0523dfcd053a26a6e84033bc3cacb04b90181cb5e50afce86e",
+   "by": "fx_vector 4",
+   "sha256": "b5d6f7aaf5220f3add1b5dbc542125c5153b38d4c52481cccb1d2fb859cdfb47",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  }
+ ]
+}

@@ -19,6 +19,12 @@ use crate::wlog;
 
 /// The process environment variable the host publishes: `<process tag>:<protocol>:<its door, hex>:<its name>`.
 pub const HOST_ENV: &str = "TFM2_HD_HOST";
+/// The second door a host publishes when its engine shrinks buff and projectile pictures too (hd_engine 0.9.24, the
+/// effects PPU: [`crate::hd::full_on`]): `<process tag>:<its full door, hex>`. A guest with full effects
+/// ([`Table::full_effects`]) hands its whole table there, `full <id>` rows and all ([`Table::to_text_full`]); with no
+/// such door (an older host, or one whose projectile hooks did not go in) it hands the old door the table without them,
+/// so they stay at 1x. The old door, its text and [`PROTOCOL`] are unchanged: every older DLL still reads a newer one's.
+pub const FULL_ENV: &str = "TFM2_HD_HOST_FULL";
 /// What the door and the table's text speak. A format change bumps it: a guest of another protocol hands nothing over.
 pub const PROTOCOL: u32 = 1;
 /// The text's first word (then the protocol).
@@ -90,11 +96,23 @@ pub fn protocol_of(text: &str) -> Option<u32> {
 impl<'a> Table<'a> {
     /// The table as the text a guest hands the host: a header line (`tfm2-hd-table <protocol>`), `pack <id>`, one line
     /// a row, `end`. A hero's or an effect's line ends with its .fanim's length in bytes and the .fanim follows it as it
-    /// is, then a line end. Numbers are Rust's shortest form of the f32, read back the same.
+    /// is, then a line end. Numbers are Rust's shortest form of the f32, read back the same. The full effects
+    /// ([`Table::full_effects`]) are left out: only an engine that shrinks their buff and projectile pictures may draw
+    /// them dense, so they go through [`FULL_ENV`]'s door alone ([`Table::to_text_full`]).
     pub fn to_text(&self) -> String {
+        self.text(false)
+    }
+
+    /// [`Table::to_text`] with the full effects in, each also on a `full <id>` row - for a host's [`FULL_ENV`] door.
+    pub fn to_text_full(&self) -> String {
+        self.text(true)
+    }
+
+    fn text(&self, full: bool) -> String {
+        let keep = |id: &str| full || !self.full_effects.contains(&id);
         let mut s = format!("{MAGIC} {PROTOCOL}\npack {}\n", self.pack);
         for (kind, rows) in [("hero", &self.heroes), ("effect", &self.effects)] {
-            for (id, ppu, fanim) in rows {
+            for (id, ppu, fanim) in rows.iter().filter(|r| keep(r.0)) {
                 s += &format!("{kind} {id} {ppu} {}\n", fanim.len());
                 s += fanim;
                 s.push('\n');
@@ -109,17 +127,31 @@ impl<'a> Table<'a> {
         for (id, buffs, size, secs) in &self.forms {
             s += &format!("form {id} {size} {secs} {}\n", buffs.join(" "));
         }
-        for id in &self.drawn_effects {
+        for id in self.drawn_effects.iter().filter(|id| keep(id)) {
             s += &format!("drawn {id}\n");
         }
         for (id, size) in &self.ui_sizes {
             s += &format!("ui_size {id} {size}\n");
+        }
+        if full {
+            for id in &self.full_effects {
+                s += &format!("full {id}\n");
+            }
         }
         s + "end\n"
     }
 
     /// [`Table::to_text`]'s text read back (borrowing from it): Err when it is not one, or of another protocol.
     pub fn parse(text: &'a str) -> Result<Table<'a>, String> {
+        Self::parse_with(text, false)
+    }
+
+    /// [`Table::to_text_full`]'s text read back: `full <id>` rows taken too (a [`FULL_ENV`] door's).
+    pub fn parse_full(text: &'a str) -> Result<Table<'a>, String> {
+        Self::parse_with(text, true)
+    }
+
+    fn parse_with(text: &'a str, full: bool) -> Result<Table<'a>, String> {
         let mut c = Cursor { rest: text };
         let head = c.line()?;
         match protocol_of(head) {
@@ -145,6 +177,7 @@ impl<'a> Table<'a> {
                 )),
                 ["drawn", e] => t.drawn_effects.push(id(e)?),
                 ["ui_size", h, size] => t.ui_sizes.push((id(h)?, number(size)?)),
+                ["full", e] if full => t.full_effects.push(id(e)?),
                 ["end"] => break,
                 _ => return Err(format!("not a row: {:?}", line.chars().take(80).collect::<String>())),
             }
@@ -158,15 +191,20 @@ impl<'a> Table<'a> {
 
 /// This DLL's door, when it is the host (its address goes into [`HOST_ENV`]).
 pub(crate) extern "C" fn door(ptr: *const u8, len: usize) -> i32 {
-    std::panic::catch_unwind(|| unsafe { receive(&REGISTRY, ptr, len) }).unwrap_or(REFUSED_PANIC)
+    std::panic::catch_unwind(|| unsafe { receive(&REGISTRY, ptr, len, false) }).unwrap_or(REFUSED_PANIC)
+}
+
+/// This DLL's second door, when it hosts with the buff and projectile pictures shrunk too ([`FULL_ENV`]).
+pub(crate) extern "C" fn door_full(ptr: *const u8, len: usize) -> i32 {
+    std::panic::catch_unwind(|| unsafe { receive(&REGISTRY, ptr, len, true) }).unwrap_or(REFUSED_PANIC)
 }
 
 /// A guest's table text (`ptr`, `len`) read and registered in `reg` (the names it keeps copied) -> how many heroes
-/// came in, or a refusal.
+/// came in, or a refusal; `full`: the text may carry full effects (the [`FULL_ENV`] door).
 ///
 /// # Safety
 /// `ptr` must point at `len` readable bytes (or be null).
-pub(crate) unsafe fn receive(reg: &Registry, ptr: *const u8, len: usize) -> i32 {
+pub(crate) unsafe fn receive(reg: &Registry, ptr: *const u8, len: usize, full: bool) -> i32 {
     if ptr.is_null() || len > 1 << 30 {
         return REFUSED_TEXT;
     }
@@ -174,7 +212,7 @@ pub(crate) unsafe fn receive(reg: &Registry, ptr: *const u8, len: usize) -> i32 
         wlog("dense frames: a guest's table is not UTF-8 - refused");
         return REFUSED_TEXT;
     };
-    let t = match Table::parse(text) {
+    let t = match if full { Table::parse_full(text) } else { Table::parse(text) } {
         Ok(t) => t,
         Err(e) => {
             wlog(format!("dense frames: a guest's table refused ({e})"));
@@ -190,6 +228,10 @@ pub(crate) unsafe fn receive(reg: &Registry, ptr: *const u8, len: usize) -> i32 
     if came.len() < rows {
         wlog(format!("dense frames: {} of its {rows} rows left out - their ids were registered already", rows - came.len()));
     }
+    if !t.full_effects.is_empty() {
+        wlog(format!("dense frames: {} full effects of the {} table (buff and projectile pictures shrunk here too)",
+                     t.full_effects.len(), t.pack));
+    }
     i32::try_from(came.len()).unwrap_or(i32::MAX)
 }
 
@@ -198,6 +240,9 @@ pub(crate) unsafe fn receive(reg: &Registry, ptr: *const u8, len: usize) -> i32 
 pub(crate) trait Env {
     fn get(&self) -> Option<String>;
     fn set(&self, value: &str);
+    /// the host's [`FULL_ENV`] value
+    fn get_full(&self) -> Option<String>;
+    fn set_full(&self, value: &str);
 }
 
 pub(crate) struct ProcessEnv;
@@ -210,6 +255,20 @@ impl Env for ProcessEnv {
     fn set(&self, value: &str) {
         std::env::set_var(HOST_ENV, value);
     }
+
+    fn get_full(&self) -> Option<String> {
+        std::env::var(FULL_ENV).ok()
+    }
+
+    fn set_full(&self, value: &str) {
+        std::env::set_var(FULL_ENV, value);
+    }
+}
+
+/// The host's full door from [`FULL_ENV`]'s value, when it is this process's (`me`).
+pub(crate) fn full_door(value: Option<&str>, me: &str) -> Option<usize> {
+    let (tag, door) = value?.split_once(':')?;
+    (tag == me).then(|| usize::from_str_radix(door, 16).ok()).flatten().filter(|d| *d != 0)
 }
 
 /// What [`HOST_ENV`] says to a DLL of the process tagged `me`.
@@ -286,12 +345,23 @@ fn in_a_module(addr: usize) -> bool {
 ///
 /// Mod inits run one after another at startup (as far as we know): no other DLL gets between this one reading `env` and
 /// writing it.
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn start_with(env: &dyn Env, reg: &Registry, me: &str, table: &Table<'_>, who: &str, door: Door,
-                         install: impl FnOnce() -> Result<(), String>) -> Role {
+                         door_full: Door, install: impl FnOnce() -> Result<(), String>) -> Role {
     let rows = table.heroes.len() + table.effects.len();
     match seen(env.get().as_deref(), me) {
         Seen::Host { door: d, name } if in_a_module(d) => {
-            let text = table.to_text();
+            // the whole table through the host's full door when it has one (and this table full effects), else the
+            // table without them through the old one
+            let full = full_door(env.get_full().as_deref(), me).filter(|f| in_a_module(*f) && !table.full_effects.is_empty());
+            let (text, d) = match full {
+                Some(f) => (table.to_text_full(), f),
+                None => (table.to_text(), d),
+            };
+            if full.is_none() && !table.full_effects.is_empty() {
+                wlog(format!("dense frames: {name} has no full door - the {} table's {} full effects stay at 1x",
+                             table.pack, table.full_effects.len()));
+            }
             // SAFETY: a door this process's host published (its tag), in a module still loaded
             let host: Door = unsafe { std::mem::transmute::<usize, Door>(d) };
             let n = host(text.as_ptr(), text.len());
@@ -321,6 +391,10 @@ pub(crate) fn start_with(env: &dyn Env, reg: &Registry, me: &str, table: &Table<
                     env.set(&host_value(me, door as usize, who));
                     wlog(format!("dense frames: {who} is the host ({HOST_ENV} published, protocol {PROTOCOL}) - a \
                                   pack's DLL loading after it hands its table here"));
+                    if crate::hd::full_on() {
+                        env.set_full(&format!("{me}:{:x}", door_full as usize));
+                        wlog(format!("dense frames: {FULL_ENV} published - a guest's full effects are drawn dense here"));
+                    }
                     Role::Host
                 }
                 Err(why) => {
@@ -341,7 +415,7 @@ mod tests {
 
     /// A process environment of its own.
     #[derive(Default)]
-    struct TestEnv(RefCell<Option<String>>);
+    struct TestEnv(RefCell<Option<String>>, RefCell<Option<String>>);
 
     impl Env for TestEnv {
         fn get(&self) -> Option<String> {
@@ -351,21 +425,81 @@ mod tests {
         fn set(&self, value: &str) {
             *self.0.borrow_mut() = Some(value.to_string());
         }
+
+        fn get_full(&self) -> Option<String> {
+            self.1.borrow().clone()
+        }
+
+        fn set_full(&self, value: &str) {
+            *self.1.borrow_mut() = Some(value.to_string());
+        }
     }
 
-    /// A test host's registry and its door (the DLL's own door is bound to the process's registry); one pair a test,
+    /// A test host's registry and its doors (the DLL's own doors are bound to the process's registry); one set a test,
     /// so the tests running side by side do not see each other's tables.
     macro_rules! host {
-        ($reg:ident, $door:ident) => {
+        ($reg:ident, $door:ident, $full:ident) => {
             static $reg: Registry = Registry::new();
             extern "C" fn $door(ptr: *const u8, len: usize) -> i32 {
-                std::panic::catch_unwind(|| unsafe { receive(&$reg, ptr, len) }).unwrap_or(REFUSED_PANIC)
+                std::panic::catch_unwind(|| unsafe { receive(&$reg, ptr, len, false) }).unwrap_or(REFUSED_PANIC)
+            }
+            #[allow(dead_code)]
+            extern "C" fn $full(ptr: *const u8, len: usize) -> i32 {
+                std::panic::catch_unwind(|| unsafe { receive(&$reg, ptr, len, true) }).unwrap_or(REFUSED_PANIC)
             }
         };
     }
-    host!(HOST, host_door);
-    host!(OLD_HOST, old_host_door);
-    host!(UNUSED, unused_door);
+    host!(HOST, host_door, host_full);
+    host!(OLD_HOST, old_host_door, old_host_full);
+    host!(UNUSED, unused_door, unused_full);
+    host!(FULL_HOST, full_host_door, full_host_full);
+    host!(PLAIN_HOST, plain_host_door, plain_host_full);
+
+    /// tft's table with a full effect (an effect sheet with dense twins whose buff and projectile pictures need the
+    /// newer engine)
+    fn tft_full() -> Table<'static> {
+        let mut t = tft();
+        t.effects.push(("tft_alune_fx", 2.0, Box::leak(fanim(2.0, false).into_boxed_str())));
+        t.drawn_effects.push("tft_alune_fx");
+        t.full_effects.push("tft_alune_fx");
+        t
+    }
+
+    /// A host with the full door gets a guest's full effects (the text's `full` rows); a host without it (older, or its
+    /// projectile hooks not in) gets the same table without them through the old door - they stay at 1x there.
+    #[test]
+    fn full_effects_go_only_through_a_full_door() {
+        let me = process_tag();
+        // the text: the full rows only in the full text, read back only by the full parse
+        let t = tft_full();
+        assert!(!t.to_text().contains("tft_alune_fx"));
+        let text = t.to_text_full();
+        assert!(text.contains("\nfull tft_alune_fx\n"));
+        assert_eq!(Table::parse_full(&text), Ok(t.clone()));
+        assert!(Table::parse(&text).is_err(), "an older host's door refuses a full row");
+        // a host with the full door
+        let env = TestEnv::default();
+        env.set(&host_value(&me, full_host_door as Door as usize, "league.dll 0.9.24"));
+        env.set_full(&format!("{me}:{:x}", full_host_full as Door as usize));
+        let r = start_with(&env, &Registry::new(), &me, &t, "tft.dll 0.30.0", unused_door, unused_full,
+                           || panic!("a guest hooks nothing"));
+        assert!(matches!(r, Role::Guest { .. }), "{r:?}");
+        let h = FULL_HOST.heroes();
+        assert!(h.get("tft_alune_fx").is_some() && h.full_effects == vec!["tft_alune_fx"]);
+        assert!(h.drawn_effects.contains(&"tft_alune_fx"));
+        // a host without one: the old door, no full effect
+        let env = TestEnv::default();
+        env.set(&host_value(&me, plain_host_door as Door as usize, "league.dll 0.9.23"));
+        let r = start_with(&env, &Registry::new(), &me, &t, "tft.dll 0.30.0", unused_door, unused_full,
+                           || panic!("a guest hooks nothing"));
+        assert!(matches!(r, Role::Guest { .. }), "{r:?}");
+        let h = PLAIN_HOST.heroes();
+        assert!(h.get("tft_powder").is_some() && h.get("tft_alune_fx").is_none() && h.full_effects.is_empty());
+        // another process's full door is no door
+        assert_eq!(full_door(Some("1.2:7ff612345670"), &me), None);
+        assert_eq!(full_door(Some(&format!("{me}:10")), &me), Some(0x10));
+        assert_eq!(full_door(Some(&format!("{me}:0")), &me), None);
+    }
 
     fn league() -> Table<'static> {
         let mut t = table("league", &[("league_yasuo", 2.2), ("league_chogath", 2.0)]);
@@ -428,7 +562,7 @@ mod tests {
         let me = process_tag();
         // no host: this one hooks the game and publishes its door
         let hooked = Cell::new(0);
-        let r = start_with(&env, &HOST, &me, &league(), "league.dll 0.9.0", host_door, || {
+        let r = start_with(&env, &HOST, &me, &league(), "league.dll 0.9.0", host_door, host_full, || {
             hooked.set(hooked.get() + 1);
             Ok(())
         });
@@ -439,7 +573,7 @@ mod tests {
         assert!(HOST.heroes().get("league_yasuo").is_some() && HOST.heroes().get("tft_powder").is_none());
         // the host there: the next DLL hooks nothing and its heroes join the host's
         let mine = Registry::new();
-        let r = start_with(&env, &mine, &me, &tft(), "tft.dll 0.29.0", host_door, || panic!("a guest hooks nothing"));
+        let r = start_with(&env, &mine, &me, &tft(), "tft.dll 0.29.0", host_door, host_full, || panic!("a guest hooks nothing"));
         assert_eq!(r, Role::Guest { host: "league.dll 0.9.0".into(), heroes: 2 });
         assert_eq!(env.get().as_deref(), Some(v.as_str()), "the host's value stays");
         let h = HOST.heroes();
@@ -462,7 +596,7 @@ mod tests {
         let env = TestEnv::default();
         let v = host_value(&me, old_host_door as Door as usize, "league.dll 9.0.0");
         env.set(&v.replacen(&format!(":{PROTOCOL}:"), ":7:", 1));
-        let r = start_with(&env, &Registry::new(), &me, &tft(), "tft.dll 0.29.0", unused_door, || panic!("no hooks"));
+        let r = start_with(&env, &Registry::new(), &me, &tft(), "tft.dll 0.29.0", unused_door, unused_full, || panic!("no hooks"));
         assert!(matches!(&r, Role::Off(why) if why.contains("protocol 7")), "{r:?}");
         assert!(OLD_HOST.heroes().list.is_empty(), "nothing handed over");
         // and a host refuses a table of another protocol at its door, and what is not a table
@@ -485,7 +619,7 @@ mod tests {
         env.set(&host_value("4d2.1dc0ffee", unused_door as Door as usize, "league.dll 0.9.0"));
         let reg = Registry::new();
         let hooked = Cell::new(false);
-        let r = start_with(&env, &reg, &me, &tft(), "tft.dll 0.29.0", unused_door, || {
+        let r = start_with(&env, &reg, &me, &tft(), "tft.dll 0.29.0", unused_door, unused_full, || {
             hooked.set(true);
             Ok(())
         });
@@ -500,7 +634,7 @@ mod tests {
     #[test]
     fn no_hooks_no_host() {
         let env = TestEnv::default();
-        let r = start_with(&env, &Registry::new(), &process_tag(), &league(), "league.dll 0.9.0", unused_door,
+        let r = start_with(&env, &Registry::new(), &process_tag(), &league(), "league.dll 0.9.0", unused_door, unused_full,
                            || Err("game build unknown".into()));
         assert_eq!(r, Role::Off("game build unknown".into()));
         assert_eq!(env.get(), None, "nothing published: a later DLL tries (and fails) the same");

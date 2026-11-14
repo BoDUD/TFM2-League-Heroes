@@ -1,0 +1,185 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_zilean_big",
+   "tag": "q_boom",
+   "file": "league_zilean_big/q_boom.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     25,
+     21
+    ],
+    [
+     39,
+     37
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     57,
+     47
+    ],
+    [
+     55,
+     35
+    ],
+    [
+     45,
+     31
+    ],
+    [
+     35,
+     25
+    ]
+   ],
+   "of_1x": "9a32af786ad84461997bb46f18cea6d36d5d704912e56501a12b54d6219f41f8",
+   "by": "fx_vector 3",
+   "sha256": "d1c1af0228e827da6142525ee8589c92f3fd091bee8f543826aab69ffd1c4b16",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zilean_big",
+   "tag": "q_boom2",
+   "file": "league_zilean_big/q_boom2.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     53,
+     51
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     67,
+     49
+    ],
+    [
+     67,
+     49
+    ],
+    [
+     51,
+     49
+    ],
+    [
+     49,
+     31
+    ],
+    [
+     45,
+     21
+    ]
+   ],
+   "of_1x": "174f0e6686dc84ab1ff59c36c95201ed0f9b133290ab4ffc51369eaef779490e",
+   "by": "fx_vector 4",
+   "sha256": "29aebfed77c290abd029e90276e1da009c9a2fca6f88276307417c30d10b1df4",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_zilean_big",
+   "tag": "r_cast",
+   "file": "league_zilean_big/r_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     29
+    ],
+    [
+     37,
+     33
+    ],
+    [
+     37,
+     33
+    ],
+    [
+     39,
+     33
+    ],
+    [
+     37,
+     31
+    ]
+   ],
+   "of_1x": "8c5ed8adcec7d656fc5232398e6b5ae725abd4b347cf91b694be8bcd133aae6f",
+   "by": "fx_vector 3",
+   "sha256": "59dc91dffd9609dfb338314e94ac866ad84f4bf29bd3ba2547ef2bd76ea9d297",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zilean_fx",
+   "tag": "q_bomb_on",
+   "file": "league_zilean_fx/q_bomb_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     15,
+     31
+    ],
+    [
+     13,
+     29
+    ],
+    [
+     15,
+     31
+    ],
+    [
+     13,
+     29
+    ]
+   ],
+   "of_1x": "87affe45768830815b9da864b6894eb91aed673503b388f0ddadf38d930567b2",
+   "by": "fx_vector 3",
+   "sha256": "76dcb082364c5b65ab509549750c45897193df9d0cfb09fe4d40b585f403d6cf",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

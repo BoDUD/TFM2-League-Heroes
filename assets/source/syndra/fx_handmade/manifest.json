@@ -1,0 +1,90 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_syndra_big",
+   "tag": "q_form",
+   "file": "league_syndra_big/q_form.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     13
+    ],
+    [
+     37,
+     15
+    ],
+    [
+     39,
+     13
+    ],
+    [
+     37,
+     15
+    ],
+    [
+     37,
+     17
+    ],
+    [
+     39,
+     17
+    ]
+   ],
+   "of_1x": "85f23e4aae244eb89fee28c9fd51ef7d91f72865402069ab79b0837142d3a968",
+   "by": "fx_vector 4",
+   "sha256": "ee80ef9f87b66e21919e5373dff390d6c0df5a5e9102105b68ec411c6d7514db",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_syndra_big",
+   "tag": "w_land",
+   "file": "league_syndra_big/w_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     17,
+     13
+    ],
+    [
+     25,
+     17
+    ],
+    [
+     35,
+     19
+    ],
+    [
+     41,
+     17
+    ],
+    [
+     43,
+     13
+    ]
+   ],
+   "of_1x": "b1bd8bb822f2a43721871076a0ee8d2adf9c02e2b62fa5bd943dcff05114475e",
+   "by": "fx_vector 4",
+   "sha256": "4c318d9a48560bfbf574ff0b4924dad24e0f71f31ccbcfc4a7c75b57bdcdc4eb",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

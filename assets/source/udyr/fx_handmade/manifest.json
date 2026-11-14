@@ -1,0 +1,175 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_udyr_big",
+   "tag": "e_wake",
+   "file": "league_udyr_big/e_wake.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     47,
+     19
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     49,
+     73
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     47,
+     29
+    ],
+    [
+     49,
+     19
+    ]
+   ],
+   "of_1x": "b4bb12abec08c7c6b7ed4dc840d1912b575e732d1424b1c393787505e244270e",
+   "by": "fx_vector 4",
+   "sha256": "e876a4226f3d8e66437baa587f23341df0a201d0f9a23e10890d2b69593a3f41",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_udyr_big",
+   "tag": "r_storm",
+   "file": "league_udyr_big/r_storm.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     61,
+     33
+    ],
+    [
+     61,
+     35
+    ],
+    [
+     61,
+     33
+    ],
+    [
+     59,
+     37
+    ],
+    [
+     61,
+     39
+    ],
+    [
+     59,
+     39
+    ]
+   ],
+   "of_1x": "ea485c170fa94ee9050ce6b4676eba3bdc30a06bcb722dda42cd1cc3075a32f8",
+   "by": "fx_vector 3",
+   "sha256": "c49627d61cd439b14f1d473199b4c4ed0c90e4c1a83a42689bd2db4ac5c7aee6",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_udyr_big",
+   "tag": "w_on",
+   "file": "league_udyr_big/w_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     71
+    ],
+    [
+     49,
+     69
+    ],
+    [
+     45,
+     69
+    ]
+   ],
+   "of_1x": "29337ec59f1b061e0acd05c968d6b648e7ba52405dafc9d3d2a398ebc85cfa32",
+   "by": "fx_vector 4",
+   "sha256": "6b7efb803833bc9530a01d04b0e2fb59a94f9fc56eeba3eb977b55be0a88b2c2",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_udyr_big",
+   "tag": "w_sh",
+   "file": "league_udyr_big/w_sh.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     69
+    ],
+    [
+     45,
+     69
+    ],
+    [
+     45,
+     69
+    ],
+    [
+     45,
+     69
+    ]
+   ],
+   "of_1x": "77c66d8fab14f50da9de9616fe936dbea22764b022c545dd4dd6104dee6e3538",
+   "by": "fx_vector 3",
+   "sha256": "d23c4b78f54cf1bde329e58c4db4894d00e22ecf4f11754c104ff18896bef875",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

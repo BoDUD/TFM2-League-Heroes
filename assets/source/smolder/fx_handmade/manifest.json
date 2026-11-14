@@ -1,0 +1,44 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_smolder_big",
+   "tag": "r_mom",
+   "file": "league_smolder_big/r_mom.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     61
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     45,
+     35
+    ],
+    [
+     45,
+     49
+    ]
+   ],
+   "of_1x": "70d19585b1af0e01b63238880e896a4e34977880944b06e032cc9f29741932de",
+   "by": "fx_vector 4",
+   "sha256": "10857246b1e9c76cee2e001e0514beeb788e94c5a4d532bc87346c76178abac6",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  }
+ ]
+}

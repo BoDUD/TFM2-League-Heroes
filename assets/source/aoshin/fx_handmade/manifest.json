@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_aoshin_fx",
+   "tag": "e_shield",
+   "file": "tft_aoshin_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     61
+    ],
+    [
+     37,
+     61
+    ],
+    [
+     39,
+     61
+    ],
+    [
+     37,
+     61
+    ],
+    [
+     37,
+     61
+    ],
+    [
+     41,
+     61
+    ]
+   ],
+   "of_1x": "1fa1122e84445217c2189d852fbfd88f667a07a70d99ac2a01f9d444d55a807f",
+   "by": "fx_vector 4",
+   "sha256": "af9363b5349d32e490ef1b5d779c5d4321055c89fb036c006311f1109c9df767",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

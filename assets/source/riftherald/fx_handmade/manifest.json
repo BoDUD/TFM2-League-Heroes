@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_riftherald_big",
+   "tag": "q_spin",
+   "file": "tft_riftherald_big/q_spin.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     31
+    ],
+    [
+     55,
+     35
+    ],
+    [
+     69,
+     39
+    ],
+    [
+     77,
+     41
+    ],
+    [
+     77,
+     41
+    ],
+    [
+     75,
+     39
+    ]
+   ],
+   "of_1x": "94e5cb3398a5a70406b70050945d575047a3a5a0264171e75c90d486144187c3",
+   "by": "fx_vector 4",
+   "sha256": "b1dcdf1124fc917a16854d7fe25fd351b3601bdf20c489e4cc95de123e664b81",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_riftherald_big",
+   "tag": "r_roar",
+   "file": "tft_riftherald_big/r_roar.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     29
+    ],
+    [
+     47,
+     57
+    ],
+    [
+     61,
+     83
+    ],
+    [
+     61,
+     83
+    ],
+    [
+     61,
+     83
+    ],
+    [
+     61,
+     83
+    ]
+   ],
+   "of_1x": "8a223721126b78f265dd42b04949244bfd75404c0cf055d954adaef3419971cb",
+   "by": "fx_vector 4",
+   "sha256": "24bb0396a3c1561b79ac39c22aac4d5748326a10d0f21371d981968ac40f6429",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_missfortune_big",
+   "tag": "e_rain",
+   "file": "league_missfortune_big/e_rain.png",
+   "ppu": 2,
+   "frames": 16,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     61,
+     91
+    ],
+    [
+     61,
+     87
+    ],
+    [
+     61,
+     77
+    ],
+    [
+     61,
+     81
+    ],
+    [
+     61,
+     85
+    ],
+    [
+     61,
+     85
+    ],
+    [
+     61,
+     81
+    ],
+    [
+     61,
+     79
+    ]
+   ],
+   "of_1x": "03d552fe6605e639393ec5b4178207f1df92f0ae23b46cebc45729b3af0cf305",
+   "by": "fx_vector 4",
+   "sha256": "50a2e0584dbd222819131cbc9a51a7b823791a028c18744dd50f0ff3af80b087",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

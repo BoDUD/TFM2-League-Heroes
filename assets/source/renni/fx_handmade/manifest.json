@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_renni_fx",
+   "tag": "p",
+   "file": "tft_renni_fx/p.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     33
+    ],
+    [
+     37,
+     41
+    ],
+    [
+     35,
+     53
+    ],
+    [
+     33,
+     59
+    ],
+    [
+     35,
+     53
+    ],
+    [
+     33,
+     39
+    ]
+   ],
+   "of_1x": "ad257378423b421367dbe48c38e25b66c836bdf160e44b82a083b3a1e7428496",
+   "by": "fx_vector 4",
+   "sha256": "e55d7b632e97c79687a5196271a118fb1c3db32f877ccfa740adbf116e0dd7fb",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

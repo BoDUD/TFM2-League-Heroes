@@ -1,0 +1,180 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_karma_big",
+   "tag": "re_wave",
+   "file": "league_karma_big/re_wave.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     35
+    ],
+    [
+     21,
+     41
+    ],
+    [
+     33,
+     45
+    ],
+    [
+     29,
+     49
+    ],
+    [
+     39,
+     39
+    ],
+    [
+     25,
+     37
+    ]
+   ],
+   "of_1x": "b9473d3abf95eddc32e4777101ead0860b770d436f34c4de77790ed9d4556023",
+   "by": "fx_vector 3",
+   "sha256": "3672d4c2070cdc00b56319542dd3e8019b805157c9673e34ebd687438a3ffadb",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_karma_big",
+   "tag": "rq_field",
+   "file": "league_karma_big/rq_field.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     25,
+     37
+    ],
+    [
+     25,
+     37
+    ],
+    [
+     25,
+     37
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     25,
+     39
+    ]
+   ],
+   "of_1x": "7e48f7e0ee0c1736560d345a61c3405ad7c12e27396f983b9a9867886b2099dd",
+   "by": "fx_vector 3",
+   "sha256": "163de3aa912e330570921b02c2da4e62a71de6ff196088d8bc47b0b7be6ecd6f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_karma_fx",
+   "tag": "e_land",
+   "file": "league_karma_fx/e_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     15,
+     31
+    ],
+    [
+     19,
+     39
+    ],
+    [
+     19,
+     39
+    ],
+    [
+     19,
+     45
+    ],
+    [
+     19,
+     39
+    ]
+   ],
+   "of_1x": "0cfa8c41efaebd752b6d8bfa92e145769f4493ee847ab2f6aede7250c29fb17c",
+   "by": "fx_vector 3",
+   "sha256": "c351f5f36ffb0307eb620abf396c23e249b49d73ce7c985e7ae23d2373ef91bc",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_karma_fx",
+   "tag": "e_on",
+   "file": "league_karma_fx/e_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     25,
+     47
+    ],
+    [
+     25,
+     47
+    ],
+    [
+     25,
+     47
+    ],
+    [
+     25,
+     47
+    ]
+   ],
+   "of_1x": "18bfd3c315c416cc91de7a37b82c50a91653c36ea2f3b4d030d8b4c377e6e5b9",
+   "by": "fx_vector 3",
+   "sha256": "7db0eda62ec5fad4805216507e2cd18537582a1ac71dc4994e5b8f7757ec626a",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

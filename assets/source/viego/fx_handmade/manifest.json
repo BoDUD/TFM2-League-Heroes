@@ -1,0 +1,278 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_viego_big",
+   "tag": "e_zone",
+   "file": "league_viego_big/e_zone.png",
+   "ppu": 2,
+   "frames": 25,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    2,
+    3,
+    4,
+    5,
+    6,
+    2,
+    3,
+    4,
+    5,
+    6,
+    2,
+    3,
+    4,
+    5,
+    6,
+    2,
+    1,
+    0
+   ],
+   "sizes": [
+    [
+     23,
+     29
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     61,
+     45
+    ]
+   ],
+   "of_1x": "1dc911755cb7a300404a7e42fe01d7a8d2e3241abf8ba7c8551532993318f4b1",
+   "by": "fx_vector 3",
+   "sha256": "cb67fd21d353202da18df9318a99a8de6345ffc2a744f954c032fbf4fc4faeb7",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_big",
+   "tag": "p_on",
+   "file": "league_viego_big/p_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     69
+    ],
+    [
+     35,
+     69
+    ],
+    [
+     35,
+     69
+    ],
+    [
+     35,
+     69
+    ]
+   ],
+   "of_1x": "ca6186eb22b168e3afe4296d362e20dd565fa385bff955947796494f40c278d5",
+   "by": "fx_vector 3",
+   "sha256": "5723275405c66f8a58af42b3427a685db0d56996af09370a069cb6c871b8fed7",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_big",
+   "tag": "p_take",
+   "file": "league_viego_big/p_take.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     31,
+     23
+    ],
+    [
+     37,
+     41
+    ],
+    [
+     37,
+     65
+    ],
+    [
+     37,
+     77
+    ],
+    [
+     37,
+     77
+    ],
+    [
+     37,
+     77
+    ]
+   ],
+   "of_1x": "5944062702c8796f56e360bc40cb698ec0a85bcc5608cbcdccd134066f93c7b7",
+   "by": "fx_vector 3",
+   "sha256": "8642744294fc1445e58ffa4a2911de5cf18b158420876c16d66b2da413110f44",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_big",
+   "tag": "r_land",
+   "file": "league_viego_big/r_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     11,
+     27
+    ],
+    [
+     23,
+     31
+    ],
+    [
+     35,
+     37
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     43,
+     39
+    ]
+   ],
+   "of_1x": "75600efc5cad85060b732f9d1a44184d1fe3fd3bfa73ea71e00c61688a073666",
+   "by": "fx_vector 4",
+   "sha256": "8fc748db039ae4d743906b7a6c0ec25a7e6957b4f287be7f892166f23d6d91fa",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_big",
+   "tag": "s_ring",
+   "file": "league_viego_big/s_ring.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     13,
+     27
+    ],
+    [
+     25,
+     33
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     43,
+     39
+    ]
+   ],
+   "of_1x": "d540a10d14e91518390e09888af328135171d0d099a7467a4bed90791d72c70b",
+   "by": "fx_vector 3",
+   "sha256": "0b96a732a2493d021507f3b617b69b4a1fb7a18184300f72f38cde2cb97e6adb",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_fx",
+   "tag": "p_safe",
+   "file": "league_viego_fx/p_safe.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     27,
+     59
+    ],
+    [
+     27,
+     59
+    ],
+    [
+     27,
+     59
+    ],
+    [
+     27,
+     59
+    ]
+   ],
+   "of_1x": "068554d427c70b207a4c798a9421c6736cf8cba4052cb15f9411f3920df3a291",
+   "by": "fx_vector 3",
+   "sha256": "0cbe8ae46c1153c7eb46ee50bc2be979d67559947182ecda450e2cf42673c404",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

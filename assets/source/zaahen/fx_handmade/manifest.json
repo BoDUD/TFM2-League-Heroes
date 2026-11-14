@@ -1,0 +1,175 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_zaahen_big",
+   "tag": "e_spin",
+   "file": "league_zaahen_big/e_spin.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     23
+    ],
+    [
+     47,
+     23
+    ],
+    [
+     57,
+     23
+    ],
+    [
+     53,
+     29
+    ],
+    [
+     57,
+     25
+    ],
+    [
+     47,
+     9
+    ]
+   ],
+   "of_1x": "576f61c3001e215cc8ad59986a6bb20b3db4d2075866217ae3ca4c87890faae0",
+   "by": "fx_vector 3",
+   "sha256": "01b53c95a9215995bdc8a0317c71210977a0d2ab25df9dfa265027095ee0aeed",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zaahen_fx",
+   "tag": "p_aura",
+   "file": "league_zaahen_fx/p_aura.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     39,
+     25
+    ],
+    [
+     37,
+     31
+    ],
+    [
+     37,
+     57
+    ],
+    [
+     39,
+     79
+    ],
+    [
+     39,
+     63
+    ],
+    [
+     39,
+     29
+    ]
+   ],
+   "of_1x": "baa45309820e162c8f2b16f1040678b5b1a7225682f232fea9d6e70b697d6fc1",
+   "by": "fx_vector 3",
+   "sha256": "f1015376855e972ef0732d89e02a98e217c6be90d18e6c52555344e7c14a6766",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_zaahen_fx",
+   "tag": "p_full",
+   "file": "league_zaahen_fx/p_full.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     53
+    ],
+    [
+     41,
+     73
+    ],
+    [
+     37,
+     77
+    ],
+    [
+     41,
+     65
+    ],
+    [
+     41,
+     65
+    ]
+   ],
+   "of_1x": "93110532f1528150540bc9836c1cb80ce19c2617d291a712fcab21034d765d31",
+   "by": "fx_vector 4",
+   "sha256": "dcb04e5c4facc7433f207e842f4c7592e89f930558dae5fabfdccbfabce885c3",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_zaahen_fx",
+   "tag": "p_shield",
+   "file": "league_zaahen_fx/p_shield.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     77
+    ],
+    [
+     45,
+     77
+    ],
+    [
+     45,
+     77
+    ],
+    [
+     45,
+     77
+    ]
+   ],
+   "of_1x": "33331316f462f9d16b7684aef3d18dd2a96691d7a07b71a0ca29cde10a24b60f",
+   "by": "fx_vector 3",
+   "sha256": "4093acb517df0278a240e489a24ac4773b89a538533f45fb7e81425055e8923a",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

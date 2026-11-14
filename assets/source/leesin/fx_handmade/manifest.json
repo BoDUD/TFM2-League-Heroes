@@ -1,0 +1,68 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_leesin_fx",
+   "tag": "shield",
+   "file": "league_leesin_fx/shield.png",
+   "ppu": 2,
+   "frames": 16,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     43,
+     55
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     63
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     43,
+     55
+    ]
+   ],
+   "of_1x": "2eab65e6a0a9383c8167cc1c58ac07a33335c6e28507cc680fd89d8e2d3b8488",
+   "by": "fx_vector 2",
+   "sha256": "deebd3893c57fa87ac78b5a6b6e050d9440706cab9cac0a211c7b9e0767ca84b",
+   "note": "batch 01 enlarged 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_lulu_big",
+   "tag": "r_on",
+   "file": "league_lulu_big/r_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     53,
+     49
+    ],
+    [
+     51,
+     51
+    ],
+    [
+     49,
+     47
+    ],
+    [
+     49,
+     51
+    ],
+    [
+     51,
+     51
+    ],
+    [
+     51,
+     47
+    ]
+   ],
+   "of_1x": "efee08fea5d8b4eca2c6df28efbe2c1fcaf07343b2860312cbf32ff908f3b691",
+   "by": "fx_vector 3",
+   "sha256": "69a116e5fee6a23e1387a1cd2d6250dca75de8db7973b0973cefd0b2cced00f1",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_lulu_big",
+   "tag": "r_on_in",
+   "file": "league_lulu_big/r_on_in.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     21,
+     29
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     47,
+     35
+    ]
+   ],
+   "of_1x": "c6a239f5a21675aeba4619b4daf2782b90ab2c058eb01792ddc14b4d5ccb3030",
+   "by": "fx_vector 3",
+   "sha256": "5c2c085a6bb404dab25ffba02a8c3bec04b1641d30146376e985bd12be251325",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_lulu_big",
+   "tag": "r_on_out",
+   "file": "league_lulu_big/r_on_out.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     49,
+     41
+    ],
+    [
+     51,
+     43
+    ],
+    [
+     25,
+     31
+    ]
+   ],
+   "of_1x": "8d3cf4df7f96bd7f5cddc9c34b6d3381c49883eb179dd2f365ab4697d4f5a668",
+   "by": "fx_vector 3",
+   "sha256": "d5e9112a9c2b5a92c42f8ab04749b3beccf61f540891d1590b3d53e47218cffd",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_lulu_fx",
+   "tag": "e_land",
+   "file": "league_lulu_fx/e_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     11,
+     25
+    ],
+    [
+     15,
+     29
+    ],
+    [
+     15,
+     45
+    ],
+    [
+     13,
+     45
+    ],
+    [
+     9,
+     37
+    ]
+   ],
+   "of_1x": "a0ab5d156ba424063146c4db73ddb267ca6966ac357a2a3d7c31cf8820d4803c",
+   "by": "fx_vector 3",
+   "sha256": "fa2e5edc309daf2262753b342c245161f58f64064394f5adf357f6b3072108c6",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}
