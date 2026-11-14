@@ -331,7 +331,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_lissandra.png" width="32"> | [丽桑卓](docs/heroes/league_lissandra.md)<br>Lissandra | 中单 | 被动 冰脉驱役 · 寒冰碎片 · 冰霜之环 · 大招 冰封陵墓 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_locke.png" width="32"> | [洛克](docs/heroes/league_locke.md)<br>Locke | 中单 | 伏魔三钉 · 灰猎无影 · 大招 万魔狱 | [洛克附加包](addons/league_locke/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_lux.png" width="32"> | [拉克丝](docs/heroes/league_lux.md)<br>Lux | 中单 | 被动 光芒四射 · 光之束缚 · 透光奇点 · 大招 终极闪光 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.2 |
-| <img src="docs/heroes/img/league_malzahar.png" width="32"> | [玛尔扎哈](docs/heroes/league_malzahar.md)<br>Malzahar | 中单 | 被动 虚空穿越 · 煞星幻象 / 虚空虫群 · 虚空召唤 · 大招 冥府之握 | [玛尔扎哈附加包](addons/league_malzahar/README.md) | PPU 1.38 |
+| <img src="docs/heroes/img/league_malzahar.png" width="32"> | [玛尔扎哈](docs/heroes/league_malzahar.md)<br>Malzahar | 中单 | 被动 虚空穿越 · 煞星幻象 / 虚空虫群 · 虚空召唤 · 大招 冥府之握 | [玛尔扎哈附加包：虚空穿越、幻象跳转、虚空蜂是真的单位](addons/league_malzahar/README.md) | PPU 1.38 |
 | <img src="docs/heroes/img/league_neeko.png" width="32"> | [妮蔻](docs/heroes/league_neeko.md)<br>Neeko | 中单 | 盛开花种 · 缠结倒刺 · 大招 怒放 | [妮蔻附加包](addons/league_neeko/README.md) | PPU 2.5 |
 | <img src="docs/heroes/img/league_orianna.png" width="32"> | [奥莉安娜](docs/heroes/league_orianna.md)<br>Orianna | 中单 | 指令：攻击 · 指令：防卫 · 大招 指令：冲击波 | [奥莉安娜附加包](addons/league_orianna/README.md) | PPU 2.25 |
 | <img src="docs/heroes/img/league_ryze.png" width="32"> | [瑞兹](docs/heroes/league_ryze.md)<br>Ryze | 中单 | 被动 奥术专精 · 超负荷 · 符文禁锢 · 大招 曲境折跃 | — | PPU 1.66 |

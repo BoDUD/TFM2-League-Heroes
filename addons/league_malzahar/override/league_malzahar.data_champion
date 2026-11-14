@@ -119,6 +119,21 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_malzahar_v_unit"
+        },
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_malzahar_v_ask",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          }
+        },
+        {
           "type": "CasterAnimation",
           "name": "skill",
           "tick": 26
@@ -534,47 +549,60 @@
                           "name": "league_malzahar_e_hit"
                         },
                         {
-                          "type": "AddCasted",
-                          "casted_type": "Fire",
-                          "duration": 240,
-                          "period": 30,
-                          "effects": [
-                            {
-                              "type": "ApAttack",
-                              "damage": 14,
-                              "attack_ratio": 8,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_malzahar_w_bite"
-                            },
-                            {
-                              "type": "TargetSfx",
-                              "name": "league_malzahar_w_bite"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "AddCasted",
-                          "casted_type": "Fire",
-                          "duration": 240,
-                          "period": 60,
-                          "effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_malzahar_w_swarm"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_malzahar_w_spawn"
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_malzahar_w_spawn"
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_malzahar_v_unit",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Fire",
+                                "duration": 240,
+                                "period": 30,
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 14,
+                                    "attack_ratio": 8,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_malzahar_w_bite"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "league_malzahar_w_bite"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Fire",
+                                "duration": 240,
+                                "period": 60,
+                                "effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_malzahar_w_swarm"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_malzahar_w_spawn"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_malzahar_w_spawn"
+                              }
+                            ]
+                          }
                         },
                         {
                           "type": "Native",
@@ -992,47 +1020,60 @@
                           "name": "league_malzahar_e_hit"
                         },
                         {
-                          "type": "AddCasted",
-                          "casted_type": "Fire",
-                          "duration": 240,
-                          "period": 30,
-                          "effects": [
-                            {
-                              "type": "ApAttack",
-                              "damage": 14,
-                              "attack_ratio": 8,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_malzahar_w_bite"
-                            },
-                            {
-                              "type": "TargetSfx",
-                              "name": "league_malzahar_w_bite"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "AddCasted",
-                          "casted_type": "Fire",
-                          "duration": 240,
-                          "period": 60,
-                          "effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_malzahar_w_swarm"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_malzahar_w_spawn"
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_malzahar_w_spawn"
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_malzahar_v_unit",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Fire",
+                                "duration": 240,
+                                "period": 30,
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 14,
+                                    "attack_ratio": 8,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_malzahar_w_bite"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "league_malzahar_w_bite"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Fire",
+                                "duration": 240,
+                                "period": 60,
+                                "effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_malzahar_w_swarm"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_malzahar_w_spawn"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_malzahar_w_spawn"
+                              }
+                            ]
+                          }
                         },
                         {
                           "type": "Native",
