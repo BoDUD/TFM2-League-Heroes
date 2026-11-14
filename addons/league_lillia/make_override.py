@@ -8,7 +8,12 @@ addons/league_lillia/override/league_lillia.data_champion and .../text/champion.
   * the champion dust is the buff league_lillia_dust (the data's true-damage AddCasted and R's listener in it go),
     the data's wake twins go, and passive = league_lillia:dream with native_params(P) as its params;
   * the attack's (the passive) and the ult's tooltips point to description.league_lillia.attack / .ult with a "test
-    build" lead and the add-on's rules, so the tooltip in game shows whether the override took.
+    build" lead and the add-on's rules, so the tooltip in game shows whether the override took;
+  * E's seed rolls on (2026-11-14, League's Swirlseed): a landing that hit nobody calls league_lillia:e_roll a tick
+    later (the add-on sends the rolling seed from the landing point), with the two pictures of the rolling seed
+    (league_lillia_e_roll / _e_roll_l: tags e_roll / e_roll_l of the main pack's league_lillia_fx, drawn by
+    tools/art/fx_lillia_roll.py); E's tooltip (description.league_lillia.skill2) is the main pack's with a "test
+    build" lead and one sentence on the roll after the seed's.
 Every other champion stays untouched. Run it again whenever the main pack's Lillia changes.
 """
 import json
@@ -72,6 +77,25 @@ def lp(path):
     return "\\\\?\\" + path if os.name == "nt" and not path.startswith("\\\\?\\") else path
 
 
+# E: lang -> (lead, where the seed's sentence ends, the roll's sentence put right after it)
+ROLL = {
+    "zh-hans": ("【滚种测试版】", "。", "落点没有敌人就继续往前滚，碰到敌人或地形才炸开。"),
+    "zh-hant": ("【滾種測試版】", "。", "落點沒有敵人就繼續往前滾，碰到敵人或地形才炸開。"),
+    "en": ("[Rolling seed test build] ", ".", " Landing on no enemy, it rolls on until it hits an enemy or terrain."),
+    "ko": ("[구르는 씨앗 테스트판] ", ".", " 착지 지점에 적이 없으면 계속 굴러가 적이나 지형에 닿을 때 터집니다."),
+    "ja": ("【転がる種テスト版】", "。", "着地点に敵がいなければ転がり続け、敵か地形に当たると炸裂。"),
+}
+
+
+def e_text(lang, main):
+    """E's tooltip: the main pack's, the roll's sentence after the seed's (its first, the one with the slow)."""
+    lead, stop, roll = ROLL[lang]
+    at = main.find(stop)
+    if at < 0 or "<#ef5350ff>" not in main[:at]:
+        sys.exit(f"{lang}: the main pack's E text no longer opens with the seed's sentence (with its slow): update this script")
+    return lead + main[:at + len(stop)] + roll + main[at + len(stop):]
+
+
 def dumps_main(o):
     return json.dumps(o, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
 
@@ -89,14 +113,25 @@ def main():
     text = json.dumps(champion)
     if "w_wake" in text or '"FixedAttack"' in text or "league_lillia_dust" not in text:
         sys.exit("the native build still has the data's dust or wake twins: update this script")
-    for k in ("attack", "ult"):
+    views = {v["name"]: v.get("tag") for v in champion["view_projectiles"]}
+    if text.count('"effect_ref": "league_lillia:e_roll"') != 1 or views.get("league_lillia_e_roll") != "e_roll" \
+            or views.get("league_lillia_e_roll_l") != "e_roll_l":
+        sys.exit("the native build does not hand an unhit landing to league_lillia:e_roll with both pictures: update this script")
+    with open(lp(os.path.join(ROOT, "league", "effects", "league_lillia_fx#anim.fanim")), encoding="utf-8") as f:
+        tags = json.load(f)["anims"]
+    if any(t not in tags for t in ("e_roll", "e_roll_l", "hd_e_roll", "hd_e_roll_l")):
+        sys.exit("league_lillia_fx has no rolling seed: python -I tools/art/fx_lillia_roll.py")
+    for k in ("attack", "skill2", "ult"):
         champion[k]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + k
 
     v = setup.values(p)
     v.update(period=setup.secs(p["d_period"]), n_sleep=setup.secs(p["n_sleep"]),
              d_hp_pct=f"{p['d_hp']:g}", d_ap_pct=f"{p['d_ap_bp'] / 100:g}")
-    texts = {lang: tuple(t.format(**v) for t in pair) for lang, pair in NATIVE.items()}
-    long = {f"{lang}.{k}": setup.shown_length(t) for lang, pair in texts.items() for k, t in zip(("attack", "ult"), pair)
+    with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
+        main_text = json.load(f)
+    texts = {lang: {"attack": pair[0].format(**v), "skill2": e_text(lang, main_text[lang]["description"][MOD_ID]["skill2"]),
+                    "ult": pair[1].format(**v)} for lang, pair in NATIVE.items()}
+    long = {f"{lang}.{k}": setup.shown_length(t) for lang, d in texts.items() for k, t in d.items()
             if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
@@ -106,20 +141,18 @@ def main():
     with open(lp(out), "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(champion, ensure_ascii=False, indent=2) + "\n")
 
-    with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
-        main_text = json.load(f)
     missing = set(main_text) - set(texts)
     if missing:
         sys.exit("no test-build text for %s" % sorted(missing))
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang][0], "ult": texts[lang][1]}}}
-                            for lang in main_text}, ensure_ascii=False, indent=2) + "\n")
+        f.write(json.dumps({lang: {"description": {MOD_ID: texts[lang]}} for lang in main_text}, ensure_ascii=False,
+                           indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
     print("tooltip lengths", {f"{lang}.{k}": f"{setup.shown_length(t)}/{setup.TOOLTIP_MAX[lang]}"
-                              for lang, pair in texts.items() for k, t in zip(("attack", "ult"), pair)})
+                              for lang, d in texts.items() for k, t in d.items()})
 
 
 if __name__ == "__main__":

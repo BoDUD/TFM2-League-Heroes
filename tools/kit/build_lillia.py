@@ -18,7 +18,11 @@ complete alone with the closest data can do / R drowsy then asleep on dusted cha
   skill2  E Swirlseed (流涡种) -> W Watch Out! Eep! (惊惶木): a `Targeting` cast on s2_target (e_range).
           E: a seed lobbed at the target (e_travel ticks): magic e_dmg + e_ratio% AP, e_slow% slow for e_slow_t, dust.
           League's seed rolls on after a miss; a projectile started from a landing flies from her again (logged
-          2026-10-07: the roll left her toward the landing point), so e_roll stays 0. W: once the throw is over she winds
+          2026-10-07: the roll left her toward the landing point), so e_roll stays 0 here. The add-on's copy
+          (native=True) rolls it: a landing that hit nobody (no e_hit a tick later) calls league_lillia:e_roll, which
+          sends its own projectile from the landing point on along her throw until an enemy or terrain (e_roll_speed,
+          e_roll_r, at most e_roll_len), drawn by the e_roll / e_roll_l tags (tools/art/fx_lillia_roll.py), and blows
+          it up there with the landing's effects (addons/league_lillia src/roll.rs). W: once the throw is over she winds
           up (`skill2_w`) and a strike lands w_wind ticks after it was aimed where the target stood (its ring shows on
           the ground meanwhile): magic w_dmg + w_ratio% AP round it (w_r) and dust; the sweet spot (w_sweet) takes
           w_sweet_x times that (League x3) - a slowed target is still there. W keeps its own flag w_cd (w_cd_t).
@@ -66,7 +70,13 @@ P = {
     # skill2: E Swirlseed (League: 700 range, 60-185 + 50% AP, slow 40% 3 s, cd 12)
     "s2_target": "EnemyWithoutTower",
     "e_cd": 600, "e_range": 70000, "e_anim": 22, "e_rel": 7, "e_travel": 20, "e_r": 9000, "e_dmg": 45, "e_ratio": 40,
-    "e_slow": 40, "e_slow_t": 180, "e_roll": 0, "e_roll_speed": 2500, "e_roll_len": 40000,
+    "e_slow": 40, "e_slow_t": 180, "e_roll": 0,
+    # the add-on's roll (League: "rolls forward indefinitely" to an enemy or terrain, 1400 units a second; 2026-11-14,
+    # the user's 「全改吧」): 1400 / 60 x 100 a tick, the seed's own reach against a unit's centre (League's 120 wide
+    # missile plus a champion's 65: an add-on projectile hits on the centre alone, champion-data 0.7.1), at most
+    # 700000 (League has no end; about 5 s at most here, so a roll is over before the next throw). Was 2500 / 40000 for
+    # the data roll that never shipped (e_roll 0: a projectile from a landing flies from her)
+    "e_roll_speed": 2330, "e_roll_r": 13000, "e_roll_len": 700000,
     # -> W Watch Out! Eep! (League: 500-700, radius 250, 80-180 + 35%? AP, sweet spot 65 x3, windup 0.6-0.75 s, cd 14-9)
     "w_cd_t": 600, "w_anim": 40, "w_wind": 30, "w_r": 22000, "w_sweet": 4000, "w_sweet_x": 3, "w_dmg": 40,
     "w_ratio": 30,
@@ -316,7 +326,9 @@ def build(p, native=False):
         roll = line("e_roll", p["e_roll_speed"], p["e_roll_len"], p["e_r"], 0, "EnemyWithoutTower", False,
                     seed_hit[:-1])
         end = [view("e_land")]
-        if p["e_roll"]:
+        if native:      # the add-on rolls it from the landing point (a data projectile would leave from her)
+            end.append(delayed(1, sw("e_hit", NONE, {"type": "Native", "effect_ref": "league_lillia:e_roll"})))
+        elif p["e_roll"]:
             end.append(delayed(1, sw("e_hit", NONE, roll)))
         return combine(*rm("e_hit"), sfx("e_cast"),
                        lob("e_seed", p["e_travel"], p["e_r"], "EnemyWithoutTower", seed_hit, end=end),
@@ -354,7 +366,9 @@ def build(p, native=False):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_p = [P_("e_seed")] + ([P_("e_roll")] if p["e_roll"] else [])
+    # the rolling seed: the add-on's two pictures (clockwise rolling right, counter-clockwise rolling left: the game
+    # turns a projectile's picture half round going left, which keeps its spin)
+    views_p = [P_("e_seed")] + ([P_("e_roll"), P_("e_roll_l")] if native else [P_("e_roll")] if p["e_roll"] else [])
     views_e = [E("a_hit"), E("q_spin", BIG, -1), E("q_hit"), E("e_hit"), E("e_land", FX, -1, follow=False),
                E("w_mark", BIG, -2, follow=False), E("w_land", BIG, -1, follow=False), E("w_hit"), E("w_sweet"),
                E("r_cast", BIG, 3, **LATE), E("wake")]
@@ -383,10 +397,15 @@ def native_params(p):
     """The add-on passive's numbers (non-negative integers): the dust per run as basis points of maximum health (the
     data's d_hp% true, now magic) plus d_ap_bp per 100 AP, R's drowsy, slow and sleep (N_SLEEP: League's 2 s, since
     any damage ends it), the wake damage, and the data dust's own magic run (d_dmg + d_ratio% AP), which must not wake
-    a sleeper (the game log: a 6-point dust run woke all three 20 ticks into the sleep)."""
+    a sleeper (the game log: a 6-point dust run woke all three 20 ticks into the sleep). Then E's for the add-on's
+    roll: the seed's blast as the landing's (e_dmg + e_ratio% AP, e_slow% for e_slow_t, e_r), the dust it leaves
+    (d_t; on a champion her heal d_heal + d_heal_ratio% AP) and the roll's speed, reach and length."""
     return {"d_period": p["d_period"], "d_hp_bp": p["d_hp"] * 100, "d_ap_bp": p["d_ap_bp"], "r_drowsy": p["r_drowsy"],
             "r_slow": p["r_slow"], "r_sleep": p["n_sleep"], "r_wake": p["r_wake"], "r_wake_ratio": p["r_wake_ratio"],
-            "d_dmg": p["d_dmg"], "d_ratio": p["d_ratio"]}
+            "d_dmg": p["d_dmg"], "d_ratio": p["d_ratio"], "d_t": p["d_t"], "d_heal": p["d_heal"],
+            "d_heal_ratio": p["d_heal_ratio"], "e_dmg": p["e_dmg"], "e_ratio": p["e_ratio"], "e_slow": p["e_slow"],
+            "e_slow_t": p["e_slow_t"], "e_r": p["e_r"], "e_roll_speed": p["e_roll_speed"], "e_roll_r": p["e_roll_r"],
+            "e_roll_len": p["e_roll_len"]}
 
 
 def nodes(o):

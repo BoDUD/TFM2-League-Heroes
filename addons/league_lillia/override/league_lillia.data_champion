@@ -1406,6 +1406,24 @@
                     {
                       "type": "ViewEffect",
                       "name": "league_lillia_e_land"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 1,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_lillia_e_hit",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Native",
+                            "effect_ref": "league_lillia:e_roll"
+                          }
+                        }
+                      ]
                     }
                   ]
                 },
@@ -3730,6 +3748,22 @@
       "tag": "e_seed",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_lillia_e_roll",
+      "anim": "asset/league/effects/league_lillia_fx",
+      "tag": "e_roll",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_lillia_e_roll_l",
+      "anim": "asset/league/effects/league_lillia_fx",
+      "tag": "e_roll_l",
+      "repeat": true,
+      "z": 1
     }
   ],
   "view_effects": [
@@ -3900,7 +3934,18 @@
       "r_wake": 80,
       "r_wake_ratio": 40,
       "d_dmg": 4,
-      "d_ratio": 3
+      "d_ratio": 3,
+      "d_t": 181,
+      "d_heal": 12,
+      "d_heal_ratio": 8,
+      "e_dmg": 45,
+      "e_ratio": 40,
+      "e_slow": 40,
+      "e_slow_t": 180,
+      "e_r": 9000,
+      "e_roll_speed": 2330,
+      "e_roll_r": 13000,
+      "e_roll_len": 700000
     }
   }
 }
