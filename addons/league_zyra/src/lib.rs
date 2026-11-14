@@ -24,6 +24,15 @@
 //!   R 落点旁边很少有植物。所以每认到一次 R 记一行 `R AIM`：打谁、落点、她活着的种子植物几株、最近的一株离落点多远（激怒要在
 //!   `r_r` 内）、激怒了几株；`WATCH` 行加上认到 R 的次数（`R seen`）。
 //!
+//! - **植物有了身体（0.2.0，2026-11-14；用户：「召唤物的全做啊 剩下的一批英雄也做了啊」）**：英雄联盟的植物是能被选中、能被打掉
+//!   的单位（不会动，打掉给 3 金币）。这里原来植物是一张画面，打不到。稳定 mod API 的 `spawn_unit`（公用部分在萨科附加包的
+//!   `summon.rs`）：本包的每株植物长出来时排原生效果 `:spitter` / `:lasher`，在它站的地方生成一个「身体」单位
+//!   （`league_zyra_spitter` / `_lasher`，[`plant_spec`]：移速 1 不会走、攻击 0 伤害——只为了朝着敌人、播吐刺 / 抽打的动作，
+//!   生命是她上限的 `PLANT_HP_PCT`%），出手照旧由本包打，从身体现在站的地方；身体被打掉这株植物就不再出手。身体读成单位以后
+//!   她身上一直挂 `P_UNIT`：副本的数据在 Q、E 落点不再长主包的那一株（画面和区域），改挂 `Q_LAND` / `E_LAND`，本包在落点
+//!   长一株自己的（带身体）。比赛里有蕾欧娜时植物照旧是画面（光合作用的彩蛋要把画面画大一号）。生成不了（宿主没有这个接口、
+//!   失败、测试开关 `unit=off`、读不成单位）就不挂 `P_UNIT`、植物照旧是画面。日志里 `PLANT` 开头的行。
+//!
 //! 游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，下一次 on_update 之前才扣血（莉莉娅 0.1.2 的教训）。
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个婕拉自己的被动实例里，
 //! 服务端预模拟和你看的那场各算各的。
@@ -42,6 +51,11 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 mod sun;
+
+#[path = "../../league_shaco_backstab/src/summon.rs"]
+pub mod summon;
+
+use summon::{Event, Flock};
 
 const ID: &str = "league_zyra";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -328,10 +342,141 @@ fn fpos(p: (u64, u64)) -> (f64, f64) {
     (p.0 as f64, p.1 as f64)
 }
 
+// ===================== 植物的身体（0.2.0） =====================
+
+/// The bodies' unit names: the game draws them from asset/base/aseprite_resources/champions/<name>, which mod.override_info
+/// sends to the main pack's league/champions/<name> (tools/art/unit_zyra_plants.py: the plants' own 1x life frames, the
+/// size they have on screen today).
+pub const SPITTER: &str = "league_zyra_spitter";
+pub const LASHER: &str = "league_zyra_lasher";
+/// The sheets' strike: ticks long and the tick the spit / the lash frame starts (checked by make_override.py).
+pub const TP_ACT: usize = 20;
+pub const TP_LANDS: usize = 5;
+pub const VP_ACT: usize = 20;
+pub const VP_LANDS: usize = 5;
+/// League (wiki, 2026-11-14): a plant dies to one melee or two ranged champion attacks (health 8 against 8 / 4 a hit);
+/// here a share of her health cap that a champion's attack or two takes, no armour, no magic resistance.
+pub const PLANT_HP_PCT: usize = 15;
+/// On her while her plants' bodies read as units: the copy's data grows no plant of its own where Q and E land and lays
+/// `Q_LAND` / `E_LAND` on her there instead (renewed every tick for `FLAG_TICKS`).
+pub const P_UNIT: &str = "league_zyra_p_unit";
+pub const Q_LAND: &str = "league_zyra_q_land";
+pub const E_LAND: &str = "league_zyra_e_land";
+pub const P_UID: &str = "league_zyra_p_uid";
+/// Laid by `:spitter` / `:lasher` when the host gave no body: the landing plants go back to the data's.
+pub const P_FAIL: &str = "league_zyra_p_fail";
+/// Leona in the match: the plants stay pictures (the sunlight easter egg draws the picture a size bigger).
+pub const LEONA: &str = "league_leona";
+const FLAG_TICKS: usize = 30;
+const UID_TICKS: usize = 6;
+/// Bodies on the books at once; a body gone within this many ticks was never really there.
+const PLANT_CAP: usize = 12;
+pub const LOST_AGE: usize = 6;
+
+/// The test knobs (`league_zyra.cfg` beside the log), read once.
+static KNOBS: LazyLock<summon::Knobs> = LazyLock::new(|| summon::Knobs::read(&LOG_PATH.with_extension("cfg")));
+
+/// Her passive's numbers for the native effects: (sim seed, her) -> params (league_naafiri's way).
+static PLANT_PARAMS: Mutex<Vec<((u64, usize), Params)>> = Mutex::new(Vec::new());
+
+fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
+    let key = (sim.seed(), me);
+    PLANT_PARAMS.lock().unwrap_or_else(|e| e.into_inner()).iter().find(|(k, _)| *k == key).map_or_else(Params::default, |(_, p)| p.clone())
+}
+
+fn keep_params(sim: &StableSim<'_>, me: usize, p: &Params) {
+    let key = (sim.seed(), me);
+    let mut all = PLANT_PARAMS.lock().unwrap_or_else(|e| e.into_inner());
+    all.retain(|(k, _)| *k != key);
+    all.push((key, p.clone()));
+    if all.len() > 64 {
+        all.remove(0);
+    }
+}
+
+/// A plant's body from her numbers now (`stat`, her health cap `max_hp`): move speed 1, a harmless attack in the plant's
+/// reach and pace (it faces its target and plays the strike; the add-on's natives strike).
+pub(crate) fn plant_spec(kind: Kind, p: &Params, stat: &StatV1, max_hp: usize) -> summon::Spec {
+    let (name, reach, act, lands) = match kind {
+        Kind::Spitter => (SPITTER, p.t_r, TP_ACT, TP_LANDS),
+        Kind::Lasher => (LASHER, p.v_r, VP_ACT, VP_LANDS),
+    };
+    summon::Spec {
+        name: name.to_string(),
+        life: p.t_life + 1,
+        stat: StatV1 { attack: 0, magic_power: stat.magic_power, hp: (max_hp * PLANT_HP_PCT / 100).max(1), defence: 0,
+                       magic_resistance: 0, move_speed: 1, hp_regen: 0, stack: 0, crit_chance: 0 },
+        attack: UnitAttackV1 { attack_ratio: 0, attack: 0, range: reach, cooltime: p.t_per.max(act + 1), duration: act,
+                               start_timing: lands, cancelable: false, attack_type: AttackTypeV1::BaseAttack.code() },
+    }
+}
+
+/// `:spitter` / `:lasher` - a plant's body where it grows (the input); no body: the plant's picture as before, and `P_FAIL`
+/// on her.
+struct PlantFx(Kind);
+
+impl StableEffectType for PlantFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        let here = if InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Pos) {
+            (input.x as f64, input.y as f64)
+        } else {
+            match sim.get_entity(caster) {
+                Some(e) => fpos(e.pos()),
+                None => return,
+            }
+        };
+        let Some((team, stat, max)) = sim.get_entity(caster).map(|e| (e.team(), e.stat(), e.hp().1)) else { return };
+        let p = params_of(sim, caster);
+        let spec = plant_spec(self.0, &p, &stat, max).with(&KNOBS);
+        let spot = summon::inside(summon::field(sim), here);
+        match summon::spawn(sim, caster, team, spot, &spec) {
+            Some(id) => {
+                sim.add_buff(caster, &BuffV1::timed(&summon::handoff(P_UID, id), UID_TICKS));
+                if let Some(k) = tally(sim, "plant spawn") {
+                    wlog(format!("{} PLANT SPAWN #{k}: a {:?}'s body, unit #{id} for team {team} at {}: {}", head(sim, caster), self.0,
+                                 summon::pt(spot), spec.shown()));
+                }
+            }
+            None => {
+                let pic = match self.0 {
+                    Kind::Spitter => "t_plant",
+                    Kind::Lasher => "v_plant",
+                };
+                sim.play_view_effect(&zy(pic), caster, &at(spot), 0, 0, 0);
+                sim.entity_remove_buff(caster, P_FAIL);
+                sim.add_buff(caster, &BuffV1::timed(P_FAIL, 3));
+                if let Some(k) = tally(sim, "plant fail") {
+                    wlog(format!("{} PLANT SPAWN FAILED #{k}: spawn_unit gave no unit for '{}' at {} - the plant's picture as before",
+                                 head(sim, caster), spec.name, summon::pt(spot)));
+                }
+            }
+        }
+    }
+}
+
+/// Her plants' bodies, as her passive keeps them.
+#[derive(Clone)]
+struct Bodies {
+    flock: Flock<()>,
+    /// A body read as a unit in this life and no spawn failed since: `P_UNIT` on her.
+    ok: bool,
+    /// Leona in the match (looked at once): the plants stay pictures.
+    leona: Option<bool>,
+    /// Where her last Q and E land (their marks' spots), for the plants the data leaves to the add-on there.
+    q_spot: Option<(f64, f64)>,
+    e_spot: Option<(f64, f64)>,
+}
+
+impl Default for Bodies {
+    fn default() -> Self {
+        Bodies { flock: Flock::new(P_UID, PLANT_CAP, Params::default().t_life + 1), ok: false, leona: None, q_spot: None, e_spot: None }
+    }
+}
+
 // ===================== 被动 =====================
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-enum Kind {
+pub(crate) enum Kind {
     Spitter,
     Lasher,
 }
@@ -350,6 +495,8 @@ struct Plant {
     until: usize,
     next: usize,
     rage_until: usize,
+    /// 0.2.0: its body (a unit of the flock).
+    unit: Option<usize>,
 }
 
 /// 刺在飞：到了 `due` 再扣血。
@@ -385,6 +532,8 @@ struct Garden {
     watched: Watch,
     /// 光合作用（彩蛋）：她的植物在蕾欧娜的阳光里变大一号。
     sun: sun::Sun,
+    /// 0.2.0: her plants' bodies.
+    b: Bodies,
 }
 
 struct Unit {
@@ -454,24 +603,173 @@ impl Garden {
     }
 
     fn grow(&mut self, sim: &mut StableSim<'_>, me: usize, kind: Kind, hit: impl Fn((f64, f64)) -> bool) {
-        let tick = sim.tick();
         let (grown, keep): (Vec<Seed>, Vec<Seed>) = std::mem::take(&mut self.seeds).into_iter().partition(|s| hit(s.pos));
         self.seeds = keep;
         for s in grown {
-            let (pic, snd, life) = match kind {
-                Kind::Spitter => ("t_plant", "t_grow", self.p.t_life),
-                Kind::Lasher => ("v_plant", "v_grow", self.p.t_life),
-            };
-            sim.play_view_effect(&zy(pic), me, &at(s.pos), 0, 0, 0);
-            sim.play_sfx(&zy(snd), me, &at(s.pos));
-            // the first strike as the data's plants: a third of a period after it grows
-            self.plants.push(Plant { kind, pos: s.pos, until: tick + life, next: tick + self.p.t_per / 3, rage_until: 0 });
-            self.sun.seed_plant(kind, s.pos, tick);
-            self.n_grow += 1;
-            if let Some(k) = tally(sim, "grow") {
-                wlog(format!("{} GROW #{}: a {kind:?} on a seed at ({:.0}, {:.0}) #{k}", head(sim, me), self.n_grow, s.pos.0,
-                             s.pos.1));
+            self.plant_at(sim, me, kind, s.pos, "on a seed");
+        }
+    }
+
+    /// Bodies are asked for: not off by the knobs, no Leona in the match.
+    fn bodies_wanted(&self) -> bool {
+        !KNOBS.off && self.b.leona == Some(false)
+    }
+
+    /// One plant of hers at `pos`: a body asked for (0.2.0) or her picture, the sound, the native strikes.
+    fn plant_at(&mut self, sim: &mut StableSim<'_>, me: usize, kind: Kind, pos: (f64, f64), why: &str) {
+        let tick = sim.tick();
+        let (pic, snd, life, fx) = match kind {
+            Kind::Spitter => ("t_plant", "t_grow", self.p.t_life, "spitter"),
+            Kind::Lasher => ("v_plant", "v_grow", self.p.t_life, "lasher"),
+        };
+        let body = self.bodies_wanted() && sim.queue_effect(&format!("{ID}:{fx}"), AttackTypeV1::Skill, me, &at(pos), 1);
+        if !body {
+            sim.play_view_effect(&zy(pic), me, &at(pos), 0, 0, 0);
+            self.sun.seed_plant(kind, pos, tick);
+        }
+        sim.play_sfx(&zy(snd), me, &at(pos));
+        // the first strike as the data's plants: a third of a period after it grows
+        self.plants.push(Plant { kind, pos, until: tick + life, next: tick + self.p.t_per / 3, rage_until: 0, unit: None });
+        self.n_grow += 1;
+        if let Some(k) = tally(sim, "grow") {
+            wlog(format!("{} GROW #{}: a {kind:?} {why} at ({:.0}, {:.0}){} #{k}", head(sim, me), self.n_grow, pos.0, pos.1,
+                         if body { ", its body asked for" } else { "" }));
+        }
+    }
+
+    /// The bodies' part of a tick: Leona looked for once, the plants the data left to the add-on where Q and E landed,
+    /// the flock (a body linked to its plant; a destroyed one takes its plant), `P_UNIT`.
+    fn bodies_tick(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, pos: (f64, f64)) {
+        if self.b.leona.is_none() {
+            let leona = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+                .any(|e| e.is_champion() && e.name().is_some_and(|n| n == LEONA));
+            self.b.leona = Some(leona);
+            if leona || KNOBS.off {
+                if let Some(k) = tally(sim, "plant pictures") {
+                    wlog(format!("{} PLANT PICTURES #{k}: {} - her plants stay pictures", head(sim, me),
+                                 if KNOBS.off { "unit=off in the test knobs" } else { "Leona is in the match (the sunlight easter egg)" }));
+                }
             }
+        }
+        for (flag, kind) in [(Q_LAND, Kind::Spitter), (E_LAND, Kind::Lasher)] {
+            if sim.get_entity(me).is_some_and(|e| summon::has_buff(&e, flag)) {
+                sim.entity_remove_buff(me, flag);
+                let spot = if kind == Kind::Spitter { self.b.q_spot } else { self.b.e_spot };
+                match spot {
+                    Some(at) => self.plant_at(sim, me, kind, at, "where the data left it (its landing)"),
+                    None => {
+                        if let Some(k) = tally(sim, "plant nospot") {
+                            wlog(format!("{} PLANT NO SPOT #{k}: {flag} with no landing seen - no plant there", head(sim, me)));
+                        }
+                    }
+                }
+            }
+        }
+        if sim.get_entity(me).is_some_and(|e| summon::has_buff(&e, P_FAIL)) {
+            sim.entity_remove_buff(me, P_FAIL);
+            self.units(sim, me, false, "a plant's body was refused");
+        }
+        let tick = sim.tick();
+        let player = self.player;
+        for ev in self.b.flock.tick(sim, me, team, player, Some(pos)) {
+            match ev {
+                Event::NoUnit { .. } => {}
+                Event::Look { id, n, line } => {
+                    let (at_, name) = self.b.flock.get(id).map_or(((0.0, 0.0), String::new()), |m| (m.unit.at, m.unit.name.clone()));
+                    let kind = if name == LASHER { Kind::Lasher } else { Kind::Spitter };
+                    let plant = self.plants.iter_mut().filter(|pl| pl.unit.is_none() && pl.kind == kind && pl.until > tick)
+                        .min_by(|a, b| dist(a.pos, at_).total_cmp(&dist(b.pos, at_)))
+                        .filter(|pl| dist(pl.pos, at_) <= 3_000.0);
+                    let linked = plant.map(|pl| pl.unit = Some(id)).is_some();
+                    if let Some(k) = tally(sim, "plant look") {
+                        wlog(format!("{} PLANT #{n} LOOK #{k}: {line}{}", head(sim, me),
+                                     if linked { "" } else { " - NO plant of hers stands there: it only stands" }));
+                    }
+                    self.units(sim, me, true, "a plant's body read as a unit");
+                }
+                Event::Lost { id, why, .. } => {
+                    if let Some(k) = tally(sim, "plant lost") {
+                        wlog(format!("{} PLANT LOST #{k}: the unit #{id} spawn_unit named never read as one in {} ticks ({why})",
+                                     head(sim, me), summon::FLOCK_LOOKS));
+                    }
+                    self.units(sim, me, false, "a plant's body never read as a unit");
+                }
+                Event::Line { n, line, .. } => {
+                    if let Some(k) = tally(sim, "plant unit") {
+                        wlog(format!("{} PLANT #{n} #{k}: {line}", head(sim, me)));
+                    }
+                }
+                Event::Over { member, end } => {
+                    let id = member.unit.id;
+                    let mut then = String::new();
+                    if end.fate == summon::Fate::Killed {
+                        let before = self.plants.len();
+                        self.plants.retain(|pl| pl.unit != Some(id));
+                        if self.plants.len() < before {
+                            then = " - the plant is destroyed: it strikes no more".to_string();
+                        }
+                        if end.age <= LOST_AGE {
+                            self.units(sim, me, false, "a plant's body was gone at once");
+                        }
+                    }
+                    if let Some(k) = tally(sim, "plant over") {
+                        wlog(format!("{} PLANT #{} OVER #{k}: {}{then}", head(sim, me), member.unit.n, end.text));
+                    }
+                }
+                Event::LetGo { member } => {
+                    if let Some(k) = tally(sim, "plant let go") {
+                        wlog(format!("{} PLANT #{} LET GO #{k}: {PLANT_CAP} bodies on the books - the unit #{} is out there, no longer \
+                                      watched", head(sim, me), member.unit.n, member.unit.id));
+                    }
+                }
+                Event::Wake { n, line } => {
+                    if let Some(k) = tally(sim, "plant wake") {
+                        wlog(format!("{} PLANT #{n} WAKE #{k}: {line}", head(sim, me)));
+                    }
+                }
+            }
+        }
+        if self.b.ok && self.bodies_wanted() {
+            sim.entity_remove_buff(me, P_UNIT);
+            sim.add_buff(me, &BuffV1::timed(P_UNIT, FLAG_TICKS));
+        }
+    }
+
+    /// Bodies work (a body read as a unit) or not (refused, never read): `P_UNIT` follows.
+    fn units(&mut self, sim: &mut StableSim<'_>, me: usize, on: bool, why: &str) {
+        if self.b.ok == on {
+            return;
+        }
+        self.b.ok = on;
+        if !on {
+            sim.entity_remove_buff(me, P_UNIT);
+        }
+        if let Some(k) = tally(sim, "plant units") {
+            wlog(format!("{} PLANT UNITS {} #{k}: {why} - {}", head(sim, me), if on { "ON" } else { "OFF" },
+                         if on { "the data leaves the plants where Q and E land to the add-on" } else { "the data grows its own where Q and E land" }));
+        }
+    }
+
+    /// Where a plant's body stands now (its unit alive under its id), if it has one.
+    fn body_at(&self, sim: &StableSim<'_>, pl: &Plant) -> Option<(f64, f64)> {
+        let id = pl.unit?;
+        let m = self.b.flock.get(id)?;
+        sim.get_entity(id).filter(|e| e.is_alive() && e.name().unwrap_or_default() == m.unit.name).map(|e| fpos(e.pos()))
+    }
+
+    /// A line for a hook that fired while bodies of hers are out.
+    fn hooked(&self, sim: &StableSim<'_>, hook: &str, me: usize, entity: usize, other: usize, damage: Option<usize>) {
+        if self.b.flock.live.is_empty() {
+            return;
+        }
+        let who = match self.b.flock.get(entity) {
+            Some(m) => format!("the plant's body #{}", m.unit.n),
+            None if entity == me => "Zyra".to_string(),
+            None => "neither Zyra nor a plant of hers".to_string(),
+        };
+        if let Some(k) = tally(sim, "plant hook") {
+            wlog(format!("{} PLANT HOOK #{k} {hook}: entity #{entity} ({who}) -> #{other}{}", head(sim, me),
+                         damage.map(|d| format!(", damage {d}")).unwrap_or_default()));
         }
     }
 
@@ -497,10 +795,12 @@ impl Garden {
             match k {
                 0 => {
                     let r = self.p.s_r as f64;
+                    self.b.q_spot = Some(land);
                     self.sun.landing(Kind::Spitter, land, tick);
                     self.grow(sim, me, Kind::Spitter, |s| dist(s, land) <= r);
                 }
                 1 => {
+                    self.b.e_spot = Some(land);
                     self.sun.landing(Kind::Lasher, land, tick);
                     let d = dist(pos, land).max(1.0);
                     let over = self.p.e_over as f64 / d;
@@ -549,7 +849,11 @@ impl Garden {
         let units = enemies(sim, team);
         let dmg = plant_damage(&self.p, level, ap);
         let mut spits = Vec::new();
-        for pl in &mut self.plants {
+        let at_now: Vec<Option<(f64, f64)>> = self.plants.iter().map(|pl| self.body_at(sim, pl)).collect();
+        for (pl, body) in self.plants.iter_mut().zip(at_now) {
+            if let Some(b) = body {
+                pl.pos = b; // pushed, pulled: it strikes from where its body stands
+            }
             if pl.next > tick {
                 continue;
             }
@@ -652,6 +956,8 @@ impl StablePassive for Garden {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.player = player;
+        keep_params(sim, me, &self.p);
+        self.b.flock.life = self.p.t_life + 1;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if self.next_seed == 0 {
             self.next_seed = sim.tick() + self.p.s_cd;
@@ -684,6 +990,7 @@ impl StablePassive for Garden {
         // her seeds and plants stay after her death (League's)
         self.seeds(sim, me);
         self.casts(sim, me, team, pos);
+        self.bodies_tick(sim, me, team, pos);
         self.sun.tick(sim, me, &self.p);
         self.land(sim, me);
         self.strike(sim, me, team, level, ap);
@@ -700,6 +1007,18 @@ impl StablePassive for Garden {
                 }
             }
         }
+    }
+
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, me: usize, entity: usize, target: usize, damage: &mut usize) {
+        self.hooked(sim, "on_attack", me, entity, target, Some(*damage));
+    }
+
+    fn on_kill(&mut self, sim: &mut StableSim<'_>, me: usize, entity: usize, victim: usize) {
+        self.hooked(sim, "on_kill", me, entity, victim, None);
+    }
+
+    fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, me: usize, entity: usize, victim: usize) {
+        self.hooked(sim, "on_unit_kill", me, entity, victim, None);
     }
 }
 
@@ -723,7 +1042,16 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    wlog(format!(
+        "PLANTS: her plants have bodies of their own ('{SPITTER}' / '{LASHER}', spawn_unit: move speed 1, a harmless attack, \
+         {PLANT_HP_PCT}% of her health) - {}; the add-on strikes as before, a destroyed body takes its plant; with bodies the data \
+         leaves the plants where Q and E land to the add-on; pictures in a match with Leona (the sunlight egg). Test knobs ({}): {}",
+        if KNOBS.off { "OFF by the test knobs: the plants are pictures as before" } else { "ON" },
+        LOG_PATH.with_extension("cfg").display(), KNOBS.shown()
+    ));
     module.add_native_effect(format!("{ID}:noop"), NoopFx);
+    module.add_native_effect(format!("{ID}:spitter"), PlantFx(Kind::Spitter));
+    module.add_native_effect(format!("{ID}:lasher"), PlantFx(Kind::Lasher));
     module.add_native_passive(format!("{ID}:garden"), Garden::default());
     host.log(LogLevel::Info, "league_zyra v1 loaded (Zyra's seeds on the ground, seed plants striking champions first).");
 }
@@ -738,6 +1066,10 @@ fn init(host: &StableHost) -> StableMod {
 // league_addons compiles this file as one of its modules and registers it with the others
 #[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 9);
+
+#[cfg(test)]
+#[path = "../../league_shaco_backstab/src/summon_mock.rs"]
+mod mock;
 
 #[cfg(test)]
 mod tests {
@@ -832,5 +1164,185 @@ mod tests {
         assert!(watch_news((1, 4, 0, 0, 0), (1, 5, 0, 0, 0)));
         assert!(watch_news(Watch::default(), (0, 0, 0, 1, 0)));
         assert!(watch_news(Watch::default(), (0, 0, 0, 0, 1)), "a plant grown in Leona's sunlight");
+    }
+
+    // ---- 0.2.0: the plants' bodies ----
+
+    #[test]
+    fn the_bodies_are_built_from_her_numbers() {
+        let hers = StatV1 { attack: 60, magic_power: 120, hp: 1200, defence: 30, magic_resistance: 30, move_speed: 1000, hp_regen: 2,
+                            stack: 0, crit_chance: 0 };
+        let p = Params::default();
+        let t = plant_spec(Kind::Spitter, &p, &hers, 2000);
+        assert_eq!((t.name.as_str(), t.life), (SPITTER, p.t_life + 1));
+        assert_eq!(t.stat, StatV1 { attack: 0, magic_power: 120, hp: 300, defence: 0, magic_resistance: 0, move_speed: 1, hp_regen: 0,
+                                    stack: 0, crit_chance: 0 });
+        assert_eq!((t.attack.attack, t.attack.attack_ratio, t.attack.range, t.attack.cooltime), (0, 0, p.t_r, p.t_per));
+        assert_eq!((t.attack.duration, t.attack.start_timing), (TP_ACT, TP_LANDS));
+        let v = plant_spec(Kind::Lasher, &p, &hers, 2000);
+        assert_eq!((v.name.as_str(), v.attack.range, v.attack.duration, v.attack.start_timing), (LASHER, p.v_r, VP_ACT, VP_LANDS));
+        assert_eq!(plant_spec(Kind::Spitter, &p, &StatV1::default(), 0).stat.hp, 1);
+        for name in [P_UNIT, Q_LAND, E_LAND, P_FAIL, &summon::handoff(P_UID, usize::MAX)] {
+            assert!(name.starts_with("league_zyra_") && name.len() <= BUFF_NAME_CAP, "{name}");
+        }
+    }
+
+    #[test]
+    fn the_copy_leaves_the_landing_plants_to_the_add_on_under_p_unit() {
+        let copy = include_str!("../override/league_zyra.data_champion");
+        assert_eq!(copy.matches(&format!("\"buff_name\": \"{P_UNIT}\"")).count(), 3, "Q's two lobs and E's");
+        assert_eq!(copy.matches(&format!("\"name\": \"{Q_LAND}\"")).count(), 2);
+        assert_eq!(copy.matches(&format!("\"name\": \"{E_LAND}\"")).count(), 1);
+    }
+
+    use super::mock::{champion, MPlayer, World};
+
+    const GAREN: usize = 1;
+
+    fn log_file() -> std::path::PathBuf {
+        static SET: std::sync::Once = std::sync::Once::new();
+        let path = std::env::temp_dir().join(format!("league_zyra_test_{}.log", std::process::id()));
+        SET.call_once(|| {
+            std::env::set_var("LEAGUE_ZYRA_LOG", &path);
+            let _ = std::fs::remove_file(&path);
+            let _ = std::fs::remove_file(path.with_extension("cfg"));
+        });
+        path
+    }
+
+    /// Zyra #0 (team 0, 2000 health) at (300000, 300000); Garen #1 30000 east of her; `leona`: Leona on Garen's side far
+    /// off; a seed 5000 from Garen.
+    fn world(leona: bool) -> (World, Garden) {
+        log_file();
+        let mut w = World::default();
+        let mut zyra = champion("league_zyra", 0, 300_000.0, 300_000.0);
+        (zyra.hp, zyra.max) = (2000, 2000);
+        let mut garen = champion("league_garen", 1, 330_000.0, 300_000.0);
+        (garen.hp, garen.max) = (50_000, 50_000);
+        let other = if leona { "league_leona" } else { "league_darius" };
+        w.units = vec![zyra, garen, champion(other, 1, 600_000.0, 600_000.0), champion("league_ahri", 0, 100_000.0, 100_000.0)];
+        w.players = vec![MPlayer { team: 0, champion: 0, ..Default::default() }, MPlayer { team: 1, champion: GAREN, ..Default::default() }];
+        let mut me = Garden::default();
+        me.configure("{}");
+        w.sim(|sim| me.on_spawn(sim, 0, 0));
+        me.next_seed = usize::MAX;
+        me.seeds.push(Seed { pos: (325_000.0, 300_000.0), until: usize::MAX, next_show: usize::MAX });
+        (w, me)
+    }
+
+    fn tick(w: &mut World, me: &mut Garden) {
+        for (name, caster, input) in w.due() {
+            w.sim(|sim| match name.as_str() {
+                "league_zyra:spitter" => PlantFx(Kind::Spitter).apply(sim, 0, caster, input),
+                "league_zyra:lasher" => PlantFx(Kind::Lasher).apply(sim, 0, caster, input),
+                other => panic!("an effect nobody registered: {other}"),
+            });
+        }
+        w.sim(|sim| me.on_update(sim, 0, 0, 0));
+        w.step();
+    }
+
+    fn run(w: &mut World, me: &mut Garden, n: usize) {
+        for _ in 0..n {
+            tick(w, me);
+        }
+    }
+
+    /// The copy's Q at Garen: the 2-tick mark where it lands.
+    fn q_at_garen(w: &mut World) {
+        w.units[GAREN].buffs.push((BuffV1::timed(&zy("q_aim"), 2), 2));
+    }
+
+    fn bodies(w: &World) -> Vec<usize> {
+        w.spawns.iter().filter(|s| s.name == SPITTER || s.name == LASHER).filter_map(|s| s.gave).collect()
+    }
+
+    #[test]
+    fn a_seed_plant_gets_a_body_and_the_landing_plants_follow() {
+        let (mut w, mut me) = world(false);
+        run(&mut w, &mut me, 2);
+        q_at_garen(&mut w);
+        run(&mut w, &mut me, 4);
+        let ids = bodies(&w);
+        assert_eq!(ids.len(), 1, "the seed grew a Thorn Spitter with a body");
+        assert_eq!((w.spawns[0].at, w.spawns[0].stat.move_speed), ((325_000, 300_000), 1));
+        assert_eq!(w.viewed(&zy("t_plant")), 0, "a body and its picture both");
+        assert_eq!(me.plants[0].unit, Some(ids[0]));
+        assert!(w.has(0, P_UNIT), "a body read as a unit: the data leaves the landing plants to the add-on");
+        // it strikes Garen (a spit, magic) from its body
+        run(&mut w, &mut me, 80);
+        assert!(!w.dealt(0, DamageTypeV1::Ap).is_empty());
+        // the copy's landing with P_UNIT on her: Q_LAND - a plant of the add-on's where Q landed (Garen's spot)
+        w.units[0].buffs.push((BuffV1::timed(Q_LAND, 3), 3));
+        run(&mut w, &mut me, 3);
+        assert_eq!(bodies(&w).len(), 2);
+        assert_eq!(w.spawns[1].at, (330_000, 300_000));
+        // destroyed: that plant strikes no more
+        let n = me.plants.len();
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, 3);
+        assert_eq!(me.plants.len(), n - 1);
+        assert!(me.plants.iter().all(|pl| pl.unit != Some(ids[0])));
+    }
+
+    #[test]
+    fn no_body_from_the_host_keeps_the_pictures() {
+        for case in 0..3 {
+            let (mut w, mut me) = world(false);
+            match case {
+                0 => w.has_spawn = false,
+                1 => w.spawn_ok = false,
+                _ => w.spawn_never = true,
+            }
+            run(&mut w, &mut me, 2);
+            q_at_garen(&mut w);
+            run(&mut w, &mut me, 10);
+            assert!(!w.has(0, P_UNIT), "case {case}: P_UNIT without a body");
+            if case < 2 {
+                assert_eq!(w.viewed(&zy("t_plant")), 1, "case {case}: the plant's picture");
+            }
+            assert_eq!(me.plants.len(), 1, "case {case}");
+            run(&mut w, &mut me, 80);
+            assert!(!w.dealt(0, DamageTypeV1::Ap).is_empty(), "case {case}: the plant strikes as before");
+        }
+    }
+
+    #[test]
+    fn with_leona_in_the_match_the_plants_stay_pictures() {
+        let (mut w, mut me) = world(true);
+        run(&mut w, &mut me, 2);
+        q_at_garen(&mut w);
+        run(&mut w, &mut me, 10);
+        assert!(bodies(&w).is_empty() && w.spawns.is_empty());
+        assert_eq!(w.viewed(&zy("t_plant")), 1);
+        assert!(!w.has(0, P_UNIT));
+    }
+
+    #[test]
+    fn the_log_tells_the_bodies_lives() {
+        let (mut w, mut me) = world(false);
+        run(&mut w, &mut me, 2);
+        q_at_garen(&mut w);
+        run(&mut w, &mut me, 70);
+        let ids = bodies(&w);
+        let mut d = 0;
+        w.sim(|sim| me.on_attack(sim, 0, ids[0], GAREN, &mut d));
+        w.players[1].gold += 3;
+        w.hurt(ids[0], 1_000_000);
+        run(&mut w, &mut me, 10);
+        let text = std::fs::read_to_string(log_file()).expect("the log");
+        let mine: Vec<&str> = text.lines().filter(|l| l.contains(" PLANT")).collect();
+        let has = |what: &str| mine.iter().any(|l| l.contains(what));
+        for what in [
+            "PLANT SPAWN #", "a Spitter's body, unit #4 for team 0 at (325000,300000): 'league_zyra_spitter' for 301 ticks, attack 0",
+            "speed 1; hits 0 + 0% of its attack, range 50000, every 60 ticks (20 long, lands at 5)",
+            "PLANT #1 LOOK #", "#4 reads back as name 'league_zyra_spitter'", "PLANT UNITS ON #",
+            "the data leaves the plants where Q and E land to the add-on", " of 301 ticks, at (",
+            "PLANT HOOK #", "on_attack: entity #4 (the plant's body #1) -> #1, damage 0",
+            "OVER #", "KILLED after ", "p1 gold +3", "the plant is destroyed: it strikes no more",
+        ] {
+            assert!(has(what), "missing {what:?} in the log:\n{}", mine.join("\n"));
+        }
+        assert!(mine.iter().all(|l| l.starts_with("[view m=7 s=1] t=")));
     }
 }
