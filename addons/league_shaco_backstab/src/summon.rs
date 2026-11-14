@@ -15,6 +15,9 @@
 //!   随便起」）。日志第一行会写读到了什么。
 //! - 交接（[`handoff`]）：`spawn_unit` 在原生效果里调（别人的 mod 已经这样用过），效果没有自己的状态，就在召唤者身上挂一个
 //!   几 tick 的 buff，名字末尾是单位 id，被动读到就接手。状态都在被动实例里，预演和画面各是各的。
+//! - 好几个单位（第二轮，2026-11-14，[`Flock`]）：一个召唤者同时有几个单位时（雾行者、虚空蜂、狗群），被动里的一本有上限的账：
+//!   要了几批、交接过来几个（一 tick 的交接一起取，[`take_handoffs`]）、活着的每 tick 看一眼，事情一件件交给调用的一方
+//!   （[`Event`]）。上面这些单个单位的函数没改，两个试点照旧用。
 //!
 //! 引擎自己的召唤物（食尸鬼、熊、幻影）在 `EntityKindV1::Summon` 里；它们的图有 idle / run / attack / hit / dead 五个动作。
 
@@ -561,6 +564,258 @@ fn gain_text(before: Option<u64>, now: Option<u64>, over: &str) -> String {
     }
 }
 
+// ===================== 一个召唤者的好几个单位（第二轮，2026-11-14） =====================
+//
+// 用户：「召唤物的全做啊 剩下的一批英雄也做了啊」。约里克的雾行者和迷雾少女、玛尔扎哈的虚空蜂、纳亚菲利的狗群……一个召唤者
+// 同时有好几个单位。[`Flock`] 是被动里记这些单位的一本账，每样都有上限：要了还没来的（[`Flock::ask`]，等原生效果交接）、
+// 交接过来还没读成单位的、活着的、没了以后再看一会儿的（[`Wake`]）。被动每 tick 调一次 [`Flock::tick`]，它返回这一 tick
+// 发生的事（[`Event`]）；写日志、给单位穿衣服（buff、生命）、它没了以后做什么，都由调用的一方做。上面那些单个单位的函数
+// 一个字没改：萨科的幻像和安妮的提伯斯照旧用它们。
+
+/// Ticks a flock waits for an ask's handoff, and looks a handed-over unit gets to read as one (the pilots' ASK_WAIT and
+/// LOOK_TRIES).
+pub const FLOCK_WAIT: usize = 4;
+pub const FLOCK_LOOKS: usize = 5;
+/// Asks kept waiting at once, and gone units whose wake is watched at once (the oldest goes first).
+pub const FLOCK_ASKS: usize = 8;
+pub const FLOCK_WAKES: usize = 8;
+
+/// Every handed-over unit id on `me` (units spawned in one go each lay their own `<prefix>:<id>`), taken off him; at
+/// most `most` of them kept (the rest are taken off too).
+pub fn take_handoffs(sim: &mut StableSim<'_>, me: usize, prefix: &str, most: usize) -> Vec<usize> {
+    let found: Vec<(String, usize)> = match sim.get_entity(me) {
+        Some(e) => (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .filter_map(|b| Some((b.name().to_string(), parse_handoff(prefix, b.name())?)))
+            .collect(),
+        None => return Vec::new(),
+    };
+    let mut ids = Vec::new();
+    for (name, id) in found {
+        sim.entity_remove_buff(me, &name);
+        if !ids.contains(&id) && ids.len() < most {
+            ids.push(id);
+        }
+    }
+    ids
+}
+
+/// `n` points `r` round `at`, evenly spaced, the first `first` radians round from the east (x right, y down the screen).
+pub fn spread(at: Pt, r: f64, n: usize, first: f64) -> Vec<Pt> {
+    (0..n).map(|k| {
+        let a = first + k as f64 * std::f64::consts::TAU / n.max(1) as f64;
+        (at.0 + r * a.cos(), at.1 + r * a.sin())
+    }).collect()
+}
+
+/// One unit of a flock: summon.rs's watch on it and what the caller keeps with it.
+#[derive(Clone, Debug)]
+pub struct Member<T> {
+    pub unit: Unit,
+    /// Given with its ask; the caller may change it at will.
+    pub extra: T,
+}
+
+/// What became of a flock's units in a tick, in this order: the asks given up, the handed-over looked at, the living
+/// stepped, the wakes watched.
+#[derive(Debug)]
+pub enum Event<T> {
+    /// No unit came within `FLOCK_WAIT` ticks of the ask made at tick `asked`.
+    NoUnit { asked: usize, what: T },
+    /// Unit `id` read as one and is on the books now (`line`: what it read back as): the caller dresses it. Its stepping
+    /// starts next tick.
+    Look { id: usize, n: usize, line: String },
+    /// The id a handoff named never read as a unit in `FLOCK_LOOKS` ticks.
+    Lost { id: usize, why: String, what: T },
+    /// A living unit's line, once a second.
+    Line { id: usize, n: usize, line: String },
+    /// A unit gone - killed or timed out (`end`), off the books; its wake is watched.
+    Over { member: Member<T>, end: End },
+    /// A unit let go to keep the books under the cap: still out there, no longer watched (nothing ends it early).
+    LetGo { member: Member<T> },
+    /// A line about a gone unit's body or the enemy purses after it.
+    Wake { n: usize, line: String },
+}
+
+#[derive(Clone, Debug)]
+struct FlockAsk<T> {
+    tick: usize,
+    life: usize,
+    what: T,
+}
+
+#[derive(Clone, Debug)]
+struct FlockFresh<T> {
+    id: usize,
+    born: usize,
+    life: usize,
+    tries: usize,
+    what: T,
+}
+
+/// Several units of one summoner, as his passive keeps them (state of the passive instance: the presims and the match
+/// on screen each have their own).
+#[derive(Clone, Debug)]
+pub struct Flock<T> {
+    /// The handoff buffs' prefix: `<prefix>:<unit id>` on the summoner.
+    pub prefix: String,
+    /// Most units on the books at once (handed over or alive); more read as units let the oldest go.
+    pub cap: usize,
+    /// The ticks a unit lives when a handoff comes with no ask waiting (one spawned by the passive itself).
+    pub life: usize,
+    asks: Vec<FlockAsk<T>>,
+    fresh: Vec<FlockFresh<T>>,
+    /// The living units, oldest first.
+    pub live: Vec<Member<T>>,
+    wakes: Vec<Wake>,
+    /// Units read as one so far: the last one's `n`.
+    pub count: usize,
+}
+
+impl<T: Clone + Default> Flock<T> {
+    pub fn new(prefix: &str, cap: usize, life: usize) -> Flock<T> {
+        Flock { prefix: prefix.to_string(), cap: cap.max(1), life, asks: Vec::new(), fresh: Vec::new(), live: Vec::new(),
+                wakes: Vec::new(), count: 0 }
+    }
+
+    /// Units are on their way: a native effect that spawns them and lays their handoffs is queued (or has run) now.
+    /// Each unit it brings gets `life` (the ticks asked for: when it times out) and a copy of `what`.
+    pub fn ask(&mut self, tick: usize, life: usize, what: T) {
+        if self.asks.len() >= FLOCK_ASKS {
+            self.asks.remove(0);
+        }
+        self.asks.push(FlockAsk { tick, life, what });
+    }
+
+    /// Asks still waiting for their units.
+    pub fn waiting(&self) -> usize {
+        self.asks.len()
+    }
+
+    /// Units on the books: handed over or alive.
+    pub fn out(&self) -> usize {
+        self.fresh.len() + self.live.len()
+    }
+
+    /// Units that still fit under the cap (the waiting asks not counted: the caller knows what each brings).
+    pub fn room(&self) -> usize {
+        self.cap.saturating_sub(self.out())
+    }
+
+    /// Nothing asked, handed over, alive or watched.
+    pub fn is_empty(&self) -> bool {
+        self.asks.is_empty() && self.fresh.is_empty() && self.live.is_empty() && self.wakes.is_empty()
+    }
+
+    pub fn get(&self, id: usize) -> Option<&Member<T>> {
+        self.live.iter().find(|m| m.unit.id == id)
+    }
+
+    pub fn get_mut(&mut self, id: usize) -> Option<&mut Member<T>> {
+        self.live.iter_mut().find(|m| m.unit.id == id)
+    }
+
+    /// The living units' ids, oldest first.
+    pub fn ids(&self) -> Vec<usize> {
+        self.live.iter().map(|m| m.unit.id).collect()
+    }
+
+    /// This tick's look at the flock (see [`Event`]). The handoffs on `me` are taken: all of one tick go to the oldest
+    /// waiting ask (one native effect spawned them). `team` / `player`: the summoner's; `summoner`: where he stands.
+    pub fn tick(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, player: usize, summoner: Option<Pt>) -> Vec<Event<T>> {
+        let now = sim.tick();
+        let mut ev = Vec::new();
+        let ids = take_handoffs(sim, me, &self.prefix, self.cap * 2);
+        if !ids.is_empty() {
+            let (born, life, what) = if self.asks.is_empty() {
+                (now, self.life, T::default())
+            } else {
+                let a = self.asks.remove(0);
+                (a.tick, a.life, a.what)
+            };
+            for id in ids {
+                // a unit's id is given once by the host; one already on the books is not taken twice
+                if self.fresh.iter().any(|f| f.id == id) || self.get(id).is_some() {
+                    continue;
+                }
+                if self.fresh.len() >= self.cap * 2 {
+                    break;
+                }
+                self.fresh.push(FlockFresh { id, born, life, tries: 0, what: what.clone() });
+            }
+        }
+        let mut i = 0;
+        while i < self.asks.len() {
+            if now > self.asks[i].tick + FLOCK_WAIT {
+                let a = self.asks.remove(i);
+                ev.push(Event::NoUnit { asked: a.tick, what: a.what });
+            } else {
+                i += 1;
+            }
+        }
+        let mut looked = Vec::new();
+        for mut f in std::mem::take(&mut self.fresh) {
+            match Unit::look(sim, f.id, self.count + 1, f.born, f.life, team, player) {
+                Ok((unit, line)) => {
+                    self.count += 1;
+                    if self.live.len() >= self.cap {
+                        let member = self.live.remove(0);
+                        ev.push(Event::LetGo { member });
+                    }
+                    ev.push(Event::Look { id: f.id, n: unit.n, line });
+                    looked.push(f.id);
+                    self.live.push(Member { unit, extra: f.what });
+                }
+                Err(why) if f.tries + 1 >= FLOCK_LOOKS => ev.push(Event::Lost { id: f.id, why, what: f.what }),
+                Err(_) => {
+                    f.tries += 1;
+                    self.fresh.push(f);
+                }
+            }
+        }
+        let mut i = 0;
+        while i < self.live.len() {
+            if looked.contains(&self.live[i].unit.id) {
+                i += 1;
+                continue;
+            }
+            let (id, n) = (self.live[i].unit.id, self.live[i].unit.n);
+            match self.live[i].unit.step(sim, summoner) {
+                Step::Alive(line) => {
+                    if let Some(line) = line {
+                        ev.push(Event::Line { id, n, line });
+                    }
+                    i += 1;
+                }
+                Step::Over(end) => {
+                    let member = self.live.remove(i);
+                    if self.wakes.len() >= FLOCK_WAKES {
+                        self.wakes.remove(0);
+                    }
+                    self.wakes.push(member.unit.wake(sim, &end));
+                    ev.push(Event::Over { member, end });
+                }
+            }
+        }
+        let mut wakes = std::mem::take(&mut self.wakes);
+        wakes.retain_mut(|w| {
+            let (lines, over) = w.step(sim);
+            ev.extend(lines.into_iter().map(|line| Event::Wake { n: w.n, line }));
+            !over
+        });
+        self.wakes = wakes;
+        ev
+    }
+
+    /// Everything off the books at once (the summoner died, or a new life of his began): the living, for the caller to
+    /// see to; the asks, the handed-over and the wakes are dropped.
+    pub fn orphans(&mut self) -> Vec<Member<T>> {
+        self.asks.clear();
+        self.fresh.clear();
+        self.wakes.clear();
+        std::mem::take(&mut self.live)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -653,5 +908,25 @@ mod tests {
     fn long_names_are_cut_on_a_character() {
         assert_eq!(short("league_shaco"), "league_shaco");
         assert_eq!(short(&"长".repeat(20)).chars().count(), NAME_SHOWN / 3);
+    }
+
+    #[test]
+    fn a_flocks_spawn_points_lie_round_the_spot() {
+        let at = (500_000.0, 400_000.0);
+        let p = spread(at, 9_000.0, 3, 0.0);
+        assert_eq!(p.len(), 3);
+        assert!((p[0].0 - 509_000.0).abs() < 1e-6 && (p[0].1 - 400_000.0).abs() < 1e-6);
+        for q in &p {
+            assert!((dist(*q, at) - 9_000.0).abs() < 1e-6);
+        }
+        // evenly: every two neighbours the same distance apart
+        let (a, b, c) = (dist(p[0], p[1]), dist(p[1], p[2]), dist(p[2], p[0]));
+        assert!((a - b).abs() < 1e-6 && (b - c).abs() < 1e-6);
+        assert_eq!(spread(at, 9_000.0, 0, 0.0).len(), 0);
+        assert_eq!(spread(at, 0.0, 2, 1.0), vec![at, at]);
+        // a flock's books start empty, with room for its cap
+        let f: Flock<u8> = Flock::new("league_x_uid", 4, 300);
+        assert!(f.is_empty() && f.room() == 4 && f.out() == 0 && f.waiting() == 0);
+        assert_eq!(Flock::<u8>::new("league_x_uid", 0, 300).cap, 1);
     }
 }
