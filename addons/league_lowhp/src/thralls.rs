@@ -200,13 +200,24 @@ impl Bodies {
                 }
             }
         }
-        // where each walking thrall stands now (for its shatter)
+        // where each walking thrall stands now (for its shatter); the ice laid again on one that lacks it (the live game,
+        // 2026-11-14: what is done to a unit on its spawn tick may be overwritten, and its first look can be that tick)
+        let life = self.flock.life;
+        let mut iced = Vec::new();
         for l in self.links.iter_mut() {
             if let Some(m) = l.1.and_then(|id| self.flock.get(id)) {
                 if let Some(e) = sim.get_entity(m.unit.id).filter(|e| e.is_alive()) {
                     l.2 = summon::at_of(&e);
+                    if !summon::has_buff(&e, ICE) {
+                        iced.push((m.unit.id, m.unit.left(sim.tick())));
+                    }
                 }
             }
+        }
+        for (id, left) in iced {
+            let mut ice = BuffV1::timed(ICE, left.max(1).min(life + 10));
+            (ice.damaged_reduce, ice.undying, ice.cc_immune) = (100, true, true);
+            sim.add_buff(id, &ice);
         }
     }
 }
