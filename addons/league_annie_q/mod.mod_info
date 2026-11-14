@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.333.0"
+      "version": ">=0.351.0"
     }
   ],
   "description": "Test build of Annie as in League (needs League of Legends Heroes): replaces the main pack's Annie. Disintegrate: a fireball that kills its target (minion, monster or champion) refunds half of Q's cooldown (the main pack's has no refund, since data cannot cut a cooldown on a kill; Annie has no mana here, so only the cooldown comes back). Tibbers (0.3.0): a unit of his own through the mod API's spawn_unit - he lands where the main pack's drop lands, then walks, attacks (12 + 7% of her ability power a hit), burns enemies round him every second (7 + 4%), can be killed and lasts 8 seconds (the main pack's Tibbers is pictures and burns riding on the target for 6); a host that gives no unit keeps him riding on the target, going on to the nearest enemy champion when it dies. Needs the main pack's sheet league/champions/league_annie_tibbers. Other champions are untouched. Writes a log for testing.",
