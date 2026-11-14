@@ -150,7 +150,7 @@ pub fn hold(sim: &mut StableSim<'_>, me: usize, centre: &mut Slot) {
     if moves.is_empty() {
         return;
     }
-    let grid = super::current_grid(&super::units(sim)).map(|(_, g)| g);
+    let grid = super::current_grid(sim, &super::units(sim)).map(|(_, g)| g);
     for (id, from, to) in moves {
         let solid = |p: Pt| grid.as_ref().is_some_and(|g| g.solid(p.0, p.1));
         let Some(to) = open_ground(c, to, solid) else { continue };

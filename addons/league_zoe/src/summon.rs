@@ -11,6 +11,12 @@
 //! 6. 掉了不少血（`HURT`）、身边有敌方英雄：**屏障**；
 //! 7. 附近没有敌方英雄：**幽灵疾步**（赶路、追人）；
 //! 8. 都不是：点燃 / 虚弱 / 屏障 / 幽灵疾步里随机一个（比赛的种子定的，两份模拟一样）。
+//!
+//! 闪现的落点（[`flash_spot_on`]）按这一局的地面挑（[`Ground`]）：游戏自己的图照旧是 5v5 的墙格；召唤师峡谷（2026-11-10，
+//! 第三方地图 mod，用户：「要同时兼容原版地图和这个地图」）是峡谷的 1614545 见方和作者的墙体坐标.json（没有这个文件时不知道
+//! 哪里有墙，只有地图外算墙）。
+
+use game_places::terrain::{Map, Walls};
 
 /// 七个召唤师技能。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -122,9 +128,35 @@ pub fn roll(seed: u64, tick: usize, me: usize) -> u64 {
 /// 闪现的距离（创意工坊 Summoner Spells 的 4.5 格；英雄联盟 400，她射程 550 的七成多）。
 pub const FLASH_D: f64 = 45_000.0;
 
+/// 这一局的地面：游戏自己的图（5v5 的墙格，[`is_wall`]）或召唤师峡谷（作者的墙体坐标.json；`None`：没有文件，只有地图外
+/// 算墙）。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Ground<'a> {
+    Native,
+    Rift(Option<&'a Walls>),
+}
+
+impl Ground<'_> {
+    /// 落不了脚：墙里或地图外。
+    pub fn blocked(&self, x: f64, y: f64) -> bool {
+        match self {
+            Ground::Native => is_wall(x, y),
+            Ground::Rift(walls) => {
+                let side = Map::Rift.extent();
+                !(x >= 0.0 && y >= 0.0 && x < side && y < side) || walls.is_some_and(|w| w.is_wall(x, y))
+            }
+        }
+    }
+}
+
 /// 闪现的落点：从 `me` 背着贴脸的人 `from` 闪 [`FLASH_D`]（和英雄联盟一样能越过墙）；落在墙里或地图外就依次转
 /// ±30°、±60°、±90° 再试，都不行再缩到一半距离试一遍；还不行就不闪（`None`）。墙是 5v5 的格子（`maps.rs`）。
 pub fn flash_spot(me: (u64, u64), from: (u64, u64)) -> Option<(u64, u64)> {
+    flash_spot_on(Ground::Native, me, from)
+}
+
+/// [`flash_spot`] 在 `ground` 上（峡谷：它的墙和 1614545 见方）。
+pub fn flash_spot_on(ground: Ground<'_>, me: (u64, u64), from: (u64, u64)) -> Option<(u64, u64)> {
     let (mx, my) = (me.0 as f64, me.1 as f64);
     let (dx, dy) = (mx - from.0 as f64, my - from.1 as f64);
     let l = (dx * dx + dy * dy).sqrt();
@@ -133,7 +165,7 @@ pub fn flash_spot(me: (u64, u64), from: (u64, u64)) -> Option<(u64, u64)> {
         for turn in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0f64] {
             let a = base + turn.to_radians();
             let (x, y) = (mx + d * a.cos(), my + d * a.sin());
-            if !is_wall(x, y) {
+            if !ground.blocked(x, y) {
                 return Some((x.round() as u64, y.round() as u64));
             }
         }
@@ -210,6 +242,60 @@ mod tests {
         assert_eq!(pick(0.5, false, false, &[(2, 50_000, 0.9)], &[], 0).0, Spell::Barrier);
         assert_eq!(pick(0.9, false, false, &[(2, 120_000, 0.9)], &[], 0).0, Spell::Ghost);
         assert_eq!(pick(0.9, false, false, &[], &[], 0).0, Spell::Ghost);
+    }
+
+    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// cells walls, plus every cell in columns `xs`, rows `ys`.
+    fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
+        let rows: Vec<String> = (0..296)
+            .map(|y| {
+                (0..295)
+                    .map(|x| {
+                        let border = x == 0 || y == 0 || x == 294 || y == 295;
+                        if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        let side = Map::Rift.extent();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (side, side))
+    }
+
+    #[test]
+    fn on_the_rift_flash_lands_past_960000_and_clear_of_its_walls() {
+        let (me, from) = ((1_300_000, 1_300_000), (1_280_000, 1_300_000));
+        // the game's own map ends at 960000: every spot out here was a wall, no Flash
+        assert_eq!(flash_spot(me, from), None);
+        assert_eq!(flash_spot_on(Ground::Rift(None), me, from), Some((1_345_000, 1_300_000)));
+        // a Rift wall where she would land (columns 245-247: x 1339091-1355455): she turns 30 degrees
+        let walls = rift_file(245..248, 230..247);
+        assert!(walls.is_wall(1_345_000.0, 1_300_000.0));
+        let t = flash_spot_on(Ground::Rift(Some(&walls)), me, from).unwrap();
+        assert!(!walls.is_wall(t.0 as f64, t.1 as f64) && t != (1_345_000, 1_300_000), "{t:?}");
+        // every spot it gives in the Rift's far half is on open ground
+        for y in (1_000_000..1_600_000).step_by(37_000) {
+            for x in (1_000_000..1_600_000).step_by(41_000) {
+                if let Some(t) = flash_spot_on(Ground::Rift(Some(&walls)), (x, y), (x + 10_000, y + 3_000)) {
+                    assert!(!Ground::Rift(Some(&walls)).blocked(t.0 as f64, t.1 as f64), "{x},{y} -> {t:?}");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn the_rift_has_none_of_the_games_own_walls_and_ends_at_its_own_edge() {
+        // row 3, columns 15-16 of the game's own map (x 480000-544000, y 96000-128000): a wall there, open ground here
+        let (me, from) = ((440_000, 112_000), (420_000, 112_000));
+        assert!(is_wall(485_000.0, 112_000.0));
+        assert_ne!(flash_spot(me, from), Some((485_000, 112_000)));
+        let empty = rift_file(0..0, 0..0);
+        assert_eq!(flash_spot_on(Ground::Rift(Some(&empty)), me, from), Some((485_000, 112_000)));
+        // by the Rift's far edge (no walls file: the edge is the only wall): she turns along it, never off the map
+        let side = Map::Rift.extent();
+        let t = flash_spot_on(Ground::Rift(None), (side as u64 - 10_000, 800_000), (side as u64 - 30_000, 800_000)).unwrap();
+        assert!((t.0 as f64) < side && !Ground::Rift(None).blocked(t.0 as f64, t.1 as f64), "{t:?}");
+        assert!(Ground::Rift(None).blocked(side + 1.0, 5.0) && !Ground::Rift(None).blocked(1_500_000.0, 5.0));
     }
 
     #[test]

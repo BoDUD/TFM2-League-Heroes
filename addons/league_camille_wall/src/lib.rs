@@ -23,6 +23,11 @@
 //! 附近没有合适的墙或塔就不出手，E 不会白交。小兵、野怪、英雄、树林、草丛都不钩。当前对局是哪张图由
 //! 场上单位判断：所有单位都不在墙里、墙又最多的那张。
 //!
+//! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔、基地站在
+//! 1000000 以外（`game_places::terrain::map_of_sim`）就是峡谷，5v5 换成峡谷的墙格（[`rift_grid`]：作者的墙体坐标.json，
+//! 自己的格子边长 60000/11 和原点，格子外算墙；没有 5v5 那四边的石墙石堆）。峡谷不经过地图文档，文档读到的墙是游戏自己
+//! 那张（或旧的），峡谷上从不用它。没有墙体文件时峡谷上不知道哪里有墙：只有地图边（0..1614545 外）算墙，不钩墙、只钩塔。
+//!
 //! v3 → v4：v3 的钩点可以离目标 50000、目标可以在 85000 外，钩完拉过去（30~45 tick，英雄每 tick 走
 //! 1000）人早走远了，只好挂在墙上不动；贴身的目标也会去钩 36000 外的墙再扑回来；v4 收紧了钩点、
 //! 预判走位，E2 总会扑出去，加了地图四边。
@@ -43,13 +48,15 @@
 pub mod arena;
 pub mod maps;
 
+use std::borrow::Cow;
 use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 const ID: &str = "league_camille_wall";
@@ -226,18 +233,41 @@ fn head(sim: &StableSim<'_>, caster: usize) -> String {
 
 // ===================== 墙格子 =====================
 
-/// 一张墙格子：`cells[y][x]`，非 0 为墙。`bounds`（x0, y0, x1, y1）外是地图四边画出来的墙
+/// 一张墙格子：`cells[y][x]`，非 0 为墙，每格 `cell` 见方、第 (0, 0) 格的角在 `origin`（游戏自己的图 32000、(0, 0)；
+/// 峡谷 60000/11、(30000/11, 0)）；格子外算墙。`bounds`（x0, y0, x1, y1）外是地图四边画出来的墙
 /// （5v5 的上下石墙、左右石堆）：只给钩子用，走路和冲刺的路线照旧只看格子。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<i64>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    pub cell: f64,
+    pub origin: (f64, f64),
 }
 
 impl Grid {
     /// 内置地图（`#` 为墙）。
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect(), bounds: None }
+        Grid {
+            cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect(),
+            bounds: None,
+            cell: CELL,
+            origin: (0.0, 0.0),
+        }
+    }
+
+    /// 峡谷的墙（墙体坐标.json 读出来的）：它自己的格子边长和原点，没有四边的墙面（格子最外一圈本来就是墙，格子外也算墙）。
+    pub fn from_walls(w: &Walls) -> Grid {
+        Grid {
+            cells: w.cells.iter().map(|r| r.iter().map(|&b| b as i64).collect()).collect(),
+            bounds: None,
+            cell: w.cell,
+            origin: w.origin,
+        }
+    }
+
+    /// 不知道哪里有墙的 `extent` 见方的地图：一整格空地，只有地图外算墙（峡谷没有墙体文件时）。
+    pub fn open(extent: f64) -> Grid {
+        Grid { cells: vec![vec![0]], bounds: None, cell: extent, origin: (0.0, 0.0) }
     }
 
     pub fn builtin(mode: GameModeKindV1) -> Grid {
@@ -268,15 +298,17 @@ impl Grid {
     /// 在地图范围内吗。
     pub fn on_map(&self, x: f64, y: f64) -> bool {
         let width = self.cells.iter().map(|r| r.len()).max().unwrap_or(0) as f64;
-        x >= 0.0 && y >= 0.0 && x < width * CELL && y < self.cells.len() as f64 * CELL
+        let (x0, y0) = self.origin;
+        x >= x0 && y >= y0 && x < x0 + width * self.cell && y < y0 + self.cells.len() as f64 * self.cell
     }
 
     /// 世界坐标落在墙里（或地图外）吗。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        if x < 0.0 || y < 0.0 {
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
             return true;
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        let (cx, cy) = (fx as usize, fy as usize);
         match self.cells.get(cy).and_then(|row| row.get(cx)) {
             Some(v) => *v != 0,
             None => true,
@@ -319,7 +351,7 @@ pub fn parse_int_grid(json: &str) -> Option<Grid> {
             p.i += 1;
         }
     }
-    (!rows.is_empty()).then_some(Grid { cells: rows, bounds: None })
+    (!rows.is_empty()).then_some(Grid { cells: rows, bounds: None, cell: CELL, origin: (0.0, 0.0) })
 }
 
 struct Parser<'a> {
@@ -388,6 +420,25 @@ fn grid_for(mode: GameModeKindV1) -> Grid {
         .cloned()
         .map(|g| g.with_edges(mode))
         .unwrap_or_else(|| Grid::builtin(mode))
+}
+
+/// 峡谷上的墙：墙体文件的（[`Grid::from_walls`]），没有文件时只有地图边算墙（[`Grid::open`]）。
+pub fn rift_grid(walls: Option<&Walls>) -> Grid {
+    walls.map_or_else(|| Grid::open(Map::Rift.extent()), Grid::from_walls)
+}
+
+/// 峡谷的墙，换成本包的格子一次（87000 多格，不每 tick 重建）。
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
+
+/// 这场对局的墙：峡谷上是峡谷的（地图文档读到的是游戏自己那张，不用），游戏自己的图照旧按 `points`（活着的单位）挑。
+/// 返回地图的名字（日志里的 `map=`）和墙。
+fn grid_of(map: Map, points: &[(f64, f64)]) -> Option<(&'static str, Cow<'static, Grid>)> {
+    if map == Map::Rift {
+        return Some(("Rift", Cow::Borrowed(&*RIFT_GRID)));
+    }
+    pick_grid(points, MODES.iter().map(|m| (*m, grid_for(*m))).collect()).map(|(m, g)| (mode_name(m.code()), Cow::Owned(g)))
 }
 
 /// 当前对局的地图：站进墙里的单位最少的那张，一样少时取墙最多的（最「具体」的），再一样取 `grids` 里靠前的（调用方按
@@ -842,10 +893,15 @@ fn planned_target(sim: &StableSim<'_>, id: usize) -> Option<usize> {
         .find_map(|b| b.name().strip_prefix(TARGET).and_then(|t| t.parse::<usize>().ok()))
 }
 
-/// 这场对局的墙（按场上活着的单位判断是哪张图）。
-fn current_grid(us: &[Unit]) -> Option<(GameModeKindV1, Grid)> {
+/// 这场对局的墙：峡谷（塔、基地站在 1000000 以外）上是峡谷的，否则按场上活着的单位判断是哪张图。
+fn current_grid(sim: &StableSim<'_>, us: &[Unit]) -> Option<(&'static str, Cow<'static, Grid>)> {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_SEEN.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: Camille hooks the Rift's walls and towers (no drawn map edges there; with no walls file only \
+                      towers); {} ==", rift_status()));
+    }
     let points: Vec<(f64, f64)> = us.iter().filter(|u| u.alive).map(|u| u.at).collect();
-    pick_grid(&points, MODES.iter().map(|m| (*m, grid_for(*m))).collect())
+    grid_of(map, &points)
 }
 
 fn alive(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
@@ -960,7 +1016,7 @@ fn step_toward(sim: &mut StableSim<'_>, id: usize, here: (f64, f64), to: (f64, f
     let s = speed.min(d - stop);
     let next = (here.0 + (to.0 - here.0) / d * s, here.1 + (to.1 - here.1) / d * s);
     let us = units(sim);
-    if current_grid(&us).is_some_and(|(_, g)| g.is_wall(next.0, next.1)) {
+    if current_grid(sim, &us).is_some_and(|(_, g)| g.is_wall(next.0, next.1)) {
         return false;
     }
     if !has_buff(sim, id, MANUAL) {
@@ -1017,7 +1073,7 @@ fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities
         return;
     }
     let us = units(sim);
-    let Some((mode, grid)) = current_grid(&us) else { return };
+    let Some((mode, grid)) = current_grid(sim, &us) else { return };
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
     let foes = foes_of(&us, team, vel);
     let hp = hp_share(sim, caster);
@@ -1083,7 +1139,7 @@ fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities
         head(sim, caster),
         if escape { "ESCAPE" } else { "ENGAGE" },
         if low { format!(" (hp {:.0}%)", hp * 100.0) } else { String::new() },
-        mode_name(mode.code()),
+        mode,
         pt(here),
         pt(hook.at()),
         hook.dist
@@ -1103,7 +1159,7 @@ fn throw(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: b
     let dir = ((hook.0 - here.0) / d, (hook.1 - here.1) / d);
     let us = units(sim);
     let ahead = (hook.0 + dir.0 * (WALL_GAP + 300.0), hook.1 + dir.1 * (WALL_GAP + 300.0));
-    let at_wall = current_grid(&us).is_some_and(|(_, g)| g.solid(ahead.0, ahead.1));
+    let at_wall = current_grid(sim, &us).is_some_and(|(_, g)| g.solid(ahead.0, ahead.1));
     let reach = if at_wall { WALL_GAP + BITE } else { my_radius(sim, caster) };
     let tip = (hook.0 + dir.0 * reach, hook.1 + dir.1 * reach);
     let spec = ProjectileSpawnV1 {
@@ -1182,7 +1238,7 @@ fn e2(sim: &mut StableSim<'_>, caster: usize) {
     }
     let us = units(sim);
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
-    let grid = current_grid(&us).map(|(_, g)| g);
+    let grid = current_grid(sim, &us).map(|(_, g)| g);
     let planned = planned_target(sim, caster);
     let foes = foes_of(&us, team, &Velocities::new());
     let clear: Vec<Foe> = foes.into_iter().filter(|f| grid.as_ref().is_none_or(|g| path_free(g, here, f.at()))).collect();
@@ -1221,7 +1277,7 @@ fn flee(sim: &mut StableSim<'_>, caster: usize) {
     }
     let us = units(sim);
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
-    let end = current_grid(&us).and_then(|(_, g)| plan_flee(&g, here, &foes_of(&us, team, &Velocities::new())));
+    let end = current_grid(sim, &us).and_then(|(_, g)| plan_flee(&g, here, &foes_of(&us, team, &Velocities::new())));
     let Some(end) = end.filter(|_| !has_cc(sim, caster, &HARD_CC)) else {
         wlog(format!("{} escape: stays at the wall", head(sim, caster)));
         return;
@@ -1764,6 +1820,116 @@ mod tests {
         assert!(hook.x > 94_000.0 && hook.x < 96_000.0 && hook.dist < 45_000.0, "{hook:?}");
         let d = dist(hook.at(), target.at());
         assert!((DIVE_MIN..=DIVE_PLAN).contains(&d) && d < dist(me, target.at()), "{hook:?}");
+    }
+
+    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// cells walls, plus the cells (column, row) in `walls`.
+    fn rift_file(walls: &[(usize, usize)]) -> Walls {
+        let mut rows = vec![vec!['.'; 295]; 296];
+        for (y, row) in rows.iter_mut().enumerate() {
+            for (x, c) in row.iter_mut().enumerate() {
+                if x == 0 || y == 0 || x == 294 || y == 295 {
+                    *c = '#';
+                }
+            }
+        }
+        for &(x, y) in walls {
+            rows[y][x] = '#';
+        }
+        let rows: Vec<String> = rows.into_iter().map(|r| r.into_iter().collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        let side = Map::Rift.extent();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (side, side))
+    }
+
+    /// Every cell in columns `xs`, rows `ys`.
+    fn block(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Vec<(usize, usize)> {
+        ys.flat_map(|y| xs.clone().map(move |x| (x, y))).collect()
+    }
+
+    #[test]
+    fn on_the_rift_she_hooks_its_walls_at_rift_coordinates() {
+        // a wall block in the Rift's far half: columns 220-222 (x 1202727-1219091), rows 200-239 (y 1090909-1309091)
+        let w = rift_file(&block(220..223, 200..240));
+        let g = rift_grid(Some(&w));
+        assert_eq!((g.cell, g.origin, g.bounds), (w.cell, w.origin, None));
+        let face = w.origin.0 + 220.0 * w.cell;
+        // past 960000 is open ground on the Rift (the game's own grid called all of it wall)
+        let me = (face - 40_000.0, 1_200_000.0);
+        assert!(!g.is_wall(me.0, me.1) && Grid::builtin(GameModeKindV1::Moba).is_wall(me.0, me.1));
+        let hits = wall_hits(&g, me.0, me.1, E_RANGE);
+        let east = hits.iter().find(|h| (h.y - me.1).abs() < 1.0 && h.x > me.0).expect("the Rift wall to the east");
+        assert_eq!(east.surface, Surface::Wall);
+        assert!((east.x - (face - WALL_GAP)).abs() < 30.0, "{east:?} vs the face at {face:.0}");
+        assert!(hits.iter().all(|h| h.surface == Surface::Wall), "no drawn map edges on the Rift: {hits:?}");
+        // a fight by that wall (the top-lane case of the game's own map, 1.2 million further on): hook it, dive at him
+        let me = (face - 16_000.0, 1_250_000.0);
+        let target = foe(3, face - 16_000.0, 1_200_000.0);
+        let hits = hook_points(&g, me, 10_000.0, &[]);
+        let (hook, id) = plan_engage(&g, &hits, me, &[target], &[]).expect("the Rift wall beside him");
+        assert_eq!((hook.surface, id), (Surface::Wall, 3));
+        assert!(hook.x > face - 2_500.0 && hook.x < face, "{hook:?}");
+        let d = dist(hook.at(), target.at());
+        assert!((DIVE_MIN..=DIVE_PLAN).contains(&d) && d < dist(me, target.at()), "{hook:?}");
+        assert!(path_free(&g, hook.at(), target.at()) && !path_free(&g, me, (face + 30_000.0, me.1)));
+        // the R arena puts its target back short of the Rift wall, never into it
+        let c = (face - 20_000.0, 1_200_000.0);
+        let back = arena::open_ground(c, (face + 10_000.0, 1_200_000.0), |p| g.solid(p.0, p.1)).unwrap();
+        assert!(!g.solid(back.0, back.1) && back.0 <= face + 1.0 && back.0 > face - 1_500.0, "{back:?}");
+    }
+
+    #[test]
+    fn the_rift_has_none_of_the_games_own_walls() {
+        let g = rift_grid(Some(&rift_file(&[])));
+        let moba = Grid::builtin(GameModeKindV1::Moba);
+        // the game's own wall at row 12, columns 7-9 (x 224000-320000, y 384000-416000) is open ground on the Rift
+        assert!(moba.is_wall(272_000.0, 400_000.0) && !g.is_wall(272_000.0, 400_000.0));
+        assert!(!wall_hits(&moba, 272_000.0, 350_000.0, E_RANGE).is_empty());
+        assert!(wall_hits(&g, 272_000.0, 350_000.0, E_RANGE).is_empty());
+        // nor its edges: 10000 from the left of the game's own map is a drawn rock pile there, open ground here
+        assert!(moba.solid(10_000.0, 300_000.0) && !g.solid(10_000.0, 300_000.0));
+        // the Rift grid's own border cells are walls, and off the grid (x below 30000/11, past 1611818) too
+        assert!(g.is_wall(4_000.0, 800_000.0) && g.is_wall(1_000.0, 800_000.0) && g.is_wall(1_613_000.0, 800_000.0));
+        assert!(!g.is_wall(1_000_000.0, 500_000.0) && moba.is_wall(1_000_000.0, 500_000.0));
+    }
+
+    #[test]
+    fn without_the_walls_file_only_the_rifts_edge_is_wall() {
+        let side = Map::Rift.extent();
+        let g = rift_grid(None);
+        assert_eq!(g, Grid::open(side));
+        for p in [(5_000.0, 5_000.0), (272_000.0, 400_000.0), (1_300_000.0, 1_300_000.0), (side - 1.0, side - 1.0)] {
+            assert!(!g.is_wall(p.0, p.1) && !g.solid(p.0, p.1), "{p:?}");
+        }
+        assert!(g.is_wall(-1.0, 5.0) && g.is_wall(side + 1.0, 5.0) && g.is_wall(5.0, 1_700_000.0));
+        // no wall is known: no wall to hook, by the map's edge either (whatever stands there is not known)
+        for me in [(30_000.0, 800_000.0), (side - 30_000.0, 800_000.0), (1_200_000.0, 1_200_000.0)] {
+            assert!(wall_hits(&g, me.0, me.1, E_RANGE).is_empty(), "{me:?}");
+        }
+        let me = (1_200_000.0, 1_200_000.0);
+        let target = foe(9, 1_255_000.0, 1_215_000.0);
+        assert!(plan_engage(&g, &hook_points(&g, me, 10_000.0, &[]), me, &[target], &[]).is_none());
+        // a tower of hers still is (the game's own map's case, 720000 further on)
+        let tower = post(4, 1_245_000.0, 1_200_000.0, 5_000.0, false);
+        let (hook, id) = plan_engage(&g, &hook_points(&g, me, 10_000.0, &[tower]), me, &[target], &[]).expect("the tower");
+        assert_eq!((hook.surface, id), (Surface::Tower(4), 9));
+        assert!((hook.x - 1_230_000.0).abs() < 1.0 && (hook.dist - 30_000.0).abs() < 1.0, "{hook:?}");
+        // a dash stops short of the map's edge
+        let from = (side - 14_000.0, 800_000.0);
+        assert!(free_run(&g, from, (1.0, 0.0), E_AWAY_LEN) < 14_000.0);
+        let end = plan_flee(&g, from, &[foe(1, side - 60_000.0, 800_000.0)]).expect("a way out");
+        assert!(end.0 < side && !g.is_wall(end.0, end.1), "{end:?}");
+    }
+
+    #[test]
+    fn the_rift_takes_its_own_grid_never_the_documents() {
+        let (name, g) = grid_of(Map::Rift, &[(1_500_000.0, 1_500_000.0)]).unwrap();
+        assert_eq!(name, "Rift");
+        assert!(matches!(g, Cow::Borrowed(_)) && std::ptr::eq(&*g, &*RIFT_GRID), "converted once, not per call");
+        assert_eq!(*g, rift_grid(rift_ground()));
+        assert_eq!(g.bounds, None);
+        let (name, g) = grid_of(Map::Native, &[(48_000.0, 272_000.0), (96_000.0, 864_000.0), (480_000.0, 480_000.0)]).unwrap();
+        assert_eq!((name, g.bounds, g.cell), ("Moba", Some(MOBA_BOUNDS), CELL));
     }
 
     #[test]

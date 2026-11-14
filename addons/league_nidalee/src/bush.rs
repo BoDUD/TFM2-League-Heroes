@@ -6,11 +6,17 @@
 //! [`maps`] 按这个顺序给；一样合适时取墙多的（最「具体」的，卡密尔附加包的挑法），再一样取模式编号小的。以前从哈希表里
 //! 取、一样合适时谁先谁后看哈希表的顺序——服务器的预模拟和屏幕上的比赛在不同的时候挑，表里多了一种模式就可能换一个顺序，
 //! 两边用上不同的草丛。
+//!
+//! 峡谷（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：Rin 的召唤师峡谷 α 在自己的 DLL 里建 5v5 地图，不经过地图
+//! 文档，也没有草丛数据；地图文档里读到的草丛是游戏自己的 5v5 地图的，峡谷上不能用。[`match_map`] 问 game_places 这一局在
+//! 哪张地图上（第一次碰到峡谷时在本包日志里记一行），[`bushes_on`] 在峡谷上不给草丛。
 
 use std::cmp::Reverse;
 use std::collections::BTreeMap;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{self as places, Map};
 use mod_api_stable::*;
 
 use super::wlog;
@@ -138,6 +144,27 @@ pub fn maps() -> Vec<MapGrids> {
     MAPS.lock().unwrap_or_else(|e| e.into_inner()).values().cloned().collect()
 }
 
+/// 这一局的草丛：峡谷上没有（峡谷没有草丛数据），游戏自己的地图照旧 [`pick_bushes`]。
+pub fn bushes_on(map: Map, points: &[(f64, f64)], maps: &[MapGrids]) -> Option<Grid> {
+    match map {
+        Map::Rift => None,
+        Map::Native => pick_bushes(points, maps),
+    }
+}
+
+/// 日志里写过峡谷那一行（编进这个文件的每个附加包各自一份：每个附加包每次启动一次）。
+static RIFT_SAID: AtomicBool = AtomicBool::new(false);
+
+/// 这一局在哪张 5v5 地图上（game_places 从塔和水晶看出来）。第一次碰到峡谷时把 `what`（本包在峡谷上怎么做）和墙体文件的情况
+/// 记进本包的日志。
+pub fn match_map(sim: &StableSim<'_>, what: &str) -> Map {
+    let map = places::map_of_sim(sim);
+    if map == Map::Rift && !RIFT_SAID.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: {what}; {} ==", places::rift_status()));
+    }
+    map
+}
+
 /// 地图自定义钩子：读墙和草丛，不改地图。
 pub struct BushReader;
 
@@ -201,5 +228,15 @@ mod tests {
         MAPS.lock().unwrap().insert(9, twin.clone());
         MAPS.lock().unwrap().insert(2, open.clone());
         assert_eq!(maps().iter().map(|m| m.bushes.clone()).collect::<Vec<_>>(), vec![open.bushes, twin.bushes]);
+    }
+
+    /// 2026-11-10: the Rift has no bush data - the game's own 5v5 map's bushes are never used there, wherever the units stand.
+    #[test]
+    fn no_bushes_on_the_rift() {
+        let moba = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: Some(Grid::from_rows(&["#.", ".."])) };
+        let here = [(1_200_000.0, 300_000.0), (CELL * 0.5, CELL * 0.5)];
+        assert_eq!(bushes_on(Map::Native, &here, std::slice::from_ref(&moba)), moba.bushes);
+        assert_eq!(bushes_on(Map::Rift, &here, std::slice::from_ref(&moba)), None);
+        assert_eq!(bushes_on(Map::Rift, &[], &[]), None);
     }
 }
