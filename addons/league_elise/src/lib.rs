@@ -17,8 +17,9 @@
 //!   `summon.rs`，一个召唤者好几个单位用它的 `Flock`）：她身上出现蜘蛛形态（`league_elise_sp`）时被动按攒下的只数排原生效果
 //!   `:spiderling`，在她身边生成 `league_elise_spiderling`（[`spiderling_spec`]）；有单位时她身上一直挂着 `SL_UNIT`，副本的数据
 //!   读它、不再放挂在目标身上的撕咬；被打死的一只扣掉一只攒下的；变回人形或阵亡时放逐（`entity_banish`：没有让单位消失的
-//!   接口）；掠行狂暴时给它们加攻速（英雄联盟的），盘丝落地时把它们放到她身边（英雄联盟里它们跟着她一起升空落下）。它们的
-//!   一口要是引擎告诉被动（`on_attack`），改成 0、下一 tick 由她打出同样多的魔法伤害。生成不了（宿主没有这个接口、失败、
+//!   接口）；掠行狂暴时给它们加攻速（英雄联盟的），盘丝落地时把它们放到她身边（英雄联盟里它们跟着她一起升空落下）。它们咬的
+//!   是物理伤害（0.2.1 改了说法：英雄联盟是魔法伤害，单位的普攻没有伤害类型；引擎把这一口告诉被动 `on_attack` 时改成她打出的
+//!   魔法伤害的代码留着，可游戏 0.7.2 从来不报单位的攻击，见玛尔扎哈附加包 0.2.1）。生成不了（宿主没有这个接口、失败、
 //!   测试开关关了、读不成单位）就不挂 `SL_UNIT`，和今天一模一样。日志里 `SPIDERLING` 开头的行；测试开关：日志旁边的
 //!   `league_elise.cfg`（`summon.rs`：`unit=off` / `still=1` / `name=`）。
 //!
@@ -450,6 +451,15 @@ pub struct SlBook {
     pub turned: usize,
 }
 
+/// The OVER line's word on a spiderling's bites: physical unless the engine named it in on_attack (game 0.7.2 never does).
+pub fn bites_text(turned: usize) -> String {
+    if turned == 0 {
+        "its bites physical (no hit of it reached her on_attack, so none was made magic)".to_string()
+    } else {
+        format!("{turned} of its bites dealt as magic (on_attack named it)")
+    }
+}
+
 // ===================== 被动：蜘蛛女皇（参数 + 模拟里的形态日志 + 小蜘蛛单位） =====================
 
 #[derive(Clone)]
@@ -643,8 +653,8 @@ impl Queen {
                         " - another comes at once while she is the spider".to_string()
                     };
                     if let Some(k) = tally(sim, "sl over") {
-                        wlog(format!("{} SPIDERLING #{n} OVER #{k}: {}; {} of its bites dealt as magic{then}", head(sim, me), end.text,
-                                     member.extra.turned));
+                        wlog(format!("{} SPIDERLING #{n} OVER #{k}: {}; {}{then}", head(sim, me), end.text,
+                                     bites_text(member.extra.turned)));
                     }
                 }
                 Event::LetGo { member } => {
@@ -768,8 +778,9 @@ impl StablePassive for Queen {
         }
     }
 
-    // The spiderlings' bites: when the engine tells her passive of one under the spiderling's id, it is dealt as magic
-    // damage next tick instead (League's spiderlings deal magic damage; a unit's own attack is physical).
+    // The spiderlings' bites: should the engine ever tell her passive of one under the spiderling's id, it is dealt as
+    // magic damage next tick instead (League's spiderlings deal magic damage; a unit's own attack is physical). Game 0.7.2
+    // never names a unit in on_attack (league_malzahar's voidlings, its presims of 2026-11-14): the bites stay physical.
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
         let mine = self.lings.get(entity).is_some();
         let amount = *damage;
@@ -906,7 +917,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     wlog(format!(
         "SPIDERLINGS: her stored spiderlings are units in Spider Form ('{}', spawn_unit) - {}; one for each stored ({} + {}% of her \
-         ability power a bite as magic when the engine tells her passive, every {SL_COOL} ticks, {SL_HP_PCT}% of her health, \
+         ability power a bite, physical - a unit's attack has no damage type - every {SL_COOL} ticks, {SL_HP_PCT}% of her health, \
          {SL_LIFE} ticks at a time), banished when she turns human or dies. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(SPIDERLING),
         if KNOBS.off { "OFF by the test knobs: the spiderlings bite with her attacks as before" } else { "ON" }, SL_HIT, SL_HIT_AP,
@@ -1041,6 +1052,13 @@ mod tests {
         assert_eq!(p.len(), 3);
         assert!((p[0].0 - 309_000.0).abs() < 1e-6 && (p[0].1 - 300_000.0).abs() < 1e-6);
         assert!(spiderling_points((1_000.0, 1_000.0), None, 2).iter().all(|q| q.0 >= 0.0 && q.1 >= 0.0));
+    }
+
+    #[test]
+    fn the_over_line_says_the_bites_are_physical_unless_made_magic() {
+        // game 0.7.2 never names a unit in on_attack: nothing may claim a conversion that did not run
+        assert!(bites_text(0).starts_with("its bites physical") && !bites_text(0).contains("dealt as magic"));
+        assert_eq!(bites_text(2), "2 of its bites dealt as magic (on_attack named it)");
     }
 
     #[test]
