@@ -38,6 +38,12 @@
 
 ## 最近的改动
 
+2026-11-15：
+
+- **黑边变细**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「有些英雄黑边太粗了 都检查一下 发条那种就正常」「算了全改吧 不跳了」）：81 位英雄（联盟 73、云顶 8）的描边从里往外收到约 1 个游戏像素，轮廓和模型大小不变（[`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 检查）；俄洛伊的灵魂和克格莫的虚空形态也按变细后的帧重新生成。
+- **阿克尚的眼睛**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「现在看起来和两个黑洞一样」）：PPU 1.2 → 1.61，眼白放回。
+- **克格莫死后的虚空形态**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「按英雄联盟改」）：新附加包 [league_kogmaw](addons/league_kogmaw/README.md)，死后身体化成虚空形态冲向最近的敌方英雄，碰到或 4 秒后爆炸。
+
 2026-11-11 到 11-14：
 
 - **和英雄联盟对齐**（[#766](https://github.com/BoDUD/TFM2-League-Heroes/pull/766)，用户：「全改吧」）：一大批英雄的技能机制按英雄联盟改（新附加包索拉卡、蕾欧娜、娜美、阿利斯塔、赫卡里姆；璐璐大招让目标变大、亚托克斯大灭期间悬空扇翅、莉莉娅的种子落地后滚、奎桑提全盛压血线、派克灰血等）；召唤物做成真的单位（约里克、玛尔扎哈、纳亚菲利、伊莉丝、黑默丁格、婕拉、俄洛伊、萨科、悟空、乐芙兰、妮蔻……），虚空虫和小蜘蛛用代码重画；58 位动作太少的英雄补帧。
@@ -173,6 +179,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 **美术和 PPU**
 
 - **重画的模型不能一帧大一帧小。** Codex 常把整个人画大来填满轮廓，也会只把头画大。每帧要量头，还要量一个硬部件（武器上的宝石、剑柄），按身体缩放，而不是只按头（瑟提、基兰、慎）。
+- **黑边在游戏里有多粗，按「格数 × 大小 / PPU」算。** Codex 画的描边落到细格子上本来就有两三格，`ppu_restyle.py` 的 `edge` 还会再加一圈；PPU 低的英雄就显得黑边粗（菲兹 4 格 / 1.81 = 2.2 个游戏像素，发条 2 格 / 2.25 = 0.89 才正常）。重跑流水线后要再跑 [`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 的 `--check` 会提醒（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)）。
 - **图像模型交回来的图要自己逐帧看。** 它自己的验收只和底稿比，照着底稿的 8×8 方块整块照抄也算通过，但这样放进游戏和原来一样，要退回重画。
 - **读回重画时，软边的细线和小点会被读粗。** 小圆点会读成十字，细斜线会读成两倍粗；所以读回只能落在原来的方块里，方块外面只补台阶的内角。
 - **皮肤的隐藏部件以 bin 里的 `initialSubmeshToHide` 为准。** 以前按名字猜，把卡尔萨斯、茂凯、塞恩的整个身体都藏了（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)，`tools/lol/hide_audit.py`）。
@@ -181,6 +188,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 **安装和发布**
 
 - **league.dll 和附加包合集都是整个文件装的。** league.dll 里内嵌了每位高清英雄的帧表，附加包合集也是一个 DLL。如果用一个缺了「已装但还没合并的 PR」的分支编译再装，那个 PR 的英雄和修复就被换回去了。所以装之前，要把所有已装、未合并的 PR 临时合在一起编。
+- **只装几个文件时，图集要拿 `package_mod.py` 打包后的那份，`#sheet.png` 和 `#anim.fanim` 成对装。** 仓库里的图集摆得宽：2026-11-15 那 81 位英雄，仓库里合计 1.79 亿像素，打包后 1.31 亿。图和帧表要同一来源；league.dll 内嵌的帧表只读动作名和宽度，不读位置，所以装打包后的图没问题。
 - **装之前确认游戏已关闭，进程名是 `TeamfightManager2.exe`。** 文件夹名有空格，进程名没有；用错名字会以为游戏没开，结果 DLL 被占用、写不进去。
 - **`make_override.py --check` 只对 CI 列表里的附加包是只检查。** 其余附加包的这个脚本会直接重写 `override/` 和 `text/`。
 - **main 要求 CI 通过才能合并。** CI 加进来之前切出的分支，PR 会一直等一个不会来的检查，要先把 main 合进分支。
