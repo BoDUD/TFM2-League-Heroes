@@ -18,7 +18,9 @@ square of its two bottom rows) where the idle's are - the hind legs planted as i
 lowest square on the ground, or `lift` squares over it.
 The pack: two packmates trail her (PACK: the far one higher and behind her, drawn first; the near one lower, drawn over
 her hind legs), standing, galloping half a stride apart, and leaping onto the target ahead of her when she bites (BITE); the p4_* tags (The Call of the Pack,
-the add-on's view hook) have four (PACK4). They go when she dies (League's packmates vanish with her).
+the add-on's view hook) have four (PACK4). They go when she dies (League's packmates vanish with her). The solo_* tags
+(2026-11-14, the user: 「召唤物的全做啊」) have none: the add-on league_naafiri spawns the packmates as units of their own
+(tools/art/unit_naafiri_packmate.py draws them from the same pieces) and its view hook plays her solo_* actions meanwhile.
 The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
 her tail on a pose swaying (TAIL: a rising tail's rows shifted sideways, a trailing tail's columns lifted - the tip 2-4
 squares, nothing where it leaves her), everything else of the pose untouched.
@@ -293,7 +295,7 @@ def actions(C, slots):
 
 def frames(C, tags=None):
     out = {}
-    for prefix, slots in (("", PACK), ("p4_", PACK4)):
+    for prefix, slots in (("", PACK), ("p4_", PACK4), ("solo_", [])):
         for tag, cans in actions(C, slots).items():
             name = prefix + tag
             if tags and name not in tags:

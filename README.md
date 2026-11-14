@@ -274,7 +274,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_leesin.png" width="32"> | [李青](docs/heroes/league_leesin.md)<br>Lee Sin | 打野 | 被动 疾风骤雨 · 天音波 · 天雷破 · 大招 猛龙摆尾 | [盲僧 W 位移附加包](addons/league_leesin_hop/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_lillia.png" width="32"> | [莉莉娅](docs/heroes/league_lillia.md)<br>Lillia | 打野 | 被动 梦满枝 · 飞花挞 · 流涡种 · 大招 夜阑谣 | [莉莉娅梦尘与昏睡附加包](addons/league_lillia/README.md) | PPU 2.62 |
 | <img src="docs/heroes/img/league_masteryi.png" width="32"> | [易](docs/heroes/league_masteryi.md)<br>Master Yi | 打野 | 被动 双重打击 · 阿尔法突袭 · 无极剑道 · 大招 高原血统 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.23 |
-| <img src="docs/heroes/img/league_naafiri.png" width="32"> | [纳亚菲利](docs/heroes/league_naafiri.md)<br>Naafiri | 打野 | 暗裔犬牙 · 剔骨本能 · 大招 猎狗血性 | [纳亚菲利附加包](addons/league_naafiri/README.md) | PPU 1.5 |
+| <img src="docs/heroes/img/league_naafiri.png" width="32"> | [纳亚菲利](docs/heroes/league_naafiri.md)<br>Naafiri | 打野 | 暗裔犬牙 · 剔骨本能 · 大招 猎狗血性 | [纳亚菲利附加包：斩杀、再扑、聪明开大、狗群是真的单位](addons/league_naafiri/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_nidalee.png" width="32"> | [奈德丽](docs/heroes/league_nidalee.md)<br>Nidalee | 打野 | 标枪投掷 / 推倒 · 野性奔腾 / 猛扑 · 大招 美洲狮形态 | [奈德丽附加包](addons/league_nidalee/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_nocturne.png" width="32"> | [魔腾](docs/heroes/league_nocturne.md)<br>Nocturne | 打野 | 被动 暗影之刃 · 梦魇之径 · 无言恐惧 · 大招 鬼影重重 | [魔腾黑暗附加包](addons/league_nocturne_dark/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_nunu.png" width="32"> | [努努和威朗普](docs/heroes/league_nunu.md)<br>Nunu & Willump | 打野 | 史上最大雪球！ · 雪球飞射 · 大招 绝对零度 | — | PPU 1.37 |

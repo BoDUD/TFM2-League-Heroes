@@ -11,10 +11,10 @@
       "version": ">=0.187.0"
     }
   ],
-  "description": "Test build of Naafiri as in League (needs League of Legends Heroes): replaces the main pack's Naafiri so her second dagger deals more damage the more health its target has lost (double on an empty one), Hounds' Pursuit can pounce again after every takedown she takes part in, she only opens with the ult when the pounce can kill, a wounded champion has an ally of hers beside him or a teamfight is on, and four hounds run with her while The Call of the Pack lasts. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-21",
+  "description": "Test build of Naafiri as in League (needs League of Legends Heroes): replaces the main pack's Naafiri so her second dagger deals more damage the more health its target has lost (double on an empty one), Hounds' Pursuit can pounce again after every takedown she takes part in, she only opens with the ult when the pounce can kill, a wounded champion has an ally of hers beside him or a teamfight is on, and four hounds run with her while The Call of the Pack lasts. 0.2.0: her packmates are units of their own through the mod API's spawn_unit - two follow her, walk, bite (4 + 6% of her attack each) and can be killed (back 15 s later), two more come for The Call of the Pack, and they go with her when she dies; she plays her solo frames meanwhile (the main pack draws them on her and bites with her hits); a host that gives no unit keeps the drawn pack. Needs the main pack's sheet league/champions/league_naafiri_packmate and her solo_* tags in league_naafiri's sheet (league.dll embedding that sheet). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-14",
   "mod_id": "league_naafiri",
   "mod_type": "native",
-  "name": "League Heroes: Naafiri's execute, takedown pounces, smart ult and four hounds (test)",
-  "version": "0.1.2"
+  "name": "League Heroes: Naafiri's execute, takedown pounces, smart ult and her packmates as units (test)",
+  "version": "0.2.0"
 }
