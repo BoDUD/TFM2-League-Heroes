@@ -51,7 +51,7 @@
   "league_locke": {"idle": [["w", [0]], ["skill", [0, 1]]], "w_idle": [["w_skill", [0, 1]]], "bp": ["attack", "skill", "ult"]},
   "league_zaahen": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "ult"]},
   "league_aurora": {"idle": [["attack", [0]], ["skill", [4]]]},
-  "league_nunu": {"idle": [["skill2", [0, 1]], ["attack", [0]]]},
+  "league_nunu": {"idle": [["skill2", [0, 1]], ["attack", [0, 1]]]},
   "league_azir": {"idle": [["attack", [0, 1]], ["ult", [0, 1]]]},
   "league_zac": {"idle": [["attack", [0]], ["ult", [0]]]},
   "league_singed": {"idle": [["skill2", [1, 2]], ["ult", [1, 2]]]},
