@@ -22,7 +22,10 @@ attack; Noxious Blast is `skill`, Miasma `skill2`, Petrifying Gaze the `ult`.
           life as League's (V6.9 "Slow now decays over time"): w_steps equal parts of w_t, from w_slow% down to
           w_slow_end% - the landing sets her flags w_d1..w_d(n-1) (part k ends after k parts) and each pulse takes the
           first one still on; each pulse's slow lasts w_slow_t (= w_p: one slow at a time, never two stacked) (the
-          user's 「全改吧」, 2026-11-14; a flat 50% before, 20 ticks every 15).
+          user's 「全改吧」, 2026-11-14; a flat 50% before, 20 ticks every 15). With her dead the timer flags freeze
+          (a dead caster's buffs keep their state and SwitchByBuff still reads them) while the cloud, started from the
+          bolt's end_effects, runs its whole life: each pulse asks first whether she lives (the alive() search) and
+          slows the flat w_slow_dead% when she does not.
   ult     R Petrifying Gaze (石化凝视): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only arms the
           gaze for r_arm ticks (league_kayle / league_ziggs); her fangs check the moment while it lasts and gaze
           toward the fang's target: two or more enemy champions in the cone (r_range, r_cos = cos of half of League's
@@ -72,7 +75,8 @@ P = {
     # did: a 20-tick slow every 15 ticks doubled 5 ticks of every 15 - with the decay's 70% that made 140%, and one
     # classic-SDK game in 240 panicked in the AI, game-core aos_ver_hamster/utils.rs:1610 divide by zero)
     "w_cd": 900, "w_range": 65000, "w_dur": 27, "w_rel": 9, "w_travel": 12, "w_r": 30000, "w_t": 300, "w_p": 15,
-    "w_dmg": 6, "w_ratio": 3, "w_slow": 70, "w_slow_end": 30, "w_steps": 5, "w_slow_t": 15, "w_hold": 20, "w_show": 15,
+    "w_dmg": 6, "w_ratio": 3, "w_slow": 70, "w_slow_end": 30, "w_steps": 5, "w_slow_t": 15,
+    "w_slow_dead": 50, "w_hold": 20, "w_show": 15,
     # R Petrifying Gaze (League: cone 80 deg r 850, 125-325 +75% AP, stun 2 s facing / slow 40% 2 s, cd 120-80)
     "r_cd": 3000, "r_range": 72000, "r_cos": 766, "r_near": 45000, "r_dive": 25000, "r_arm": 600, "r_wait": 240,
     "r_dur": 33, "r_rel": 15, "r_dmg": 160, "r_ratio": 70, "r_stun": 120, "r_slow": 40, "r_fly": 12, "r_y": 14000,
@@ -303,6 +307,10 @@ def build(p):
     for k in range(w_n - 1, 0, -1):
         w_slow = sw(f"w_d{k}", buff("w_slow", p["w_slow_t"], move_speed_mult=-w_slows[k - 1]), w_slow)
     w_clock = [*rm(*(f"w_d{k}" for k in range(1, w_n))), *(flag(f"w_d{k}", k * w_part) for k in range(1, w_n))]
+    # her timer flags froze if she died (after the landing: the step she died on for the rest of the cloud; during the
+    # flight: none set, the last step): only a living caster's clock counts, else the old flat slow
+    w_slow = combine(pick(1, "AllyOnlySelf", flag("lives", 1)),
+                     sw("lives", w_slow, buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow_dead"])), *rm("lives"))
     cloud_hit = [ap(p["w_dmg"], p["w_ratio"]), w_slow,
                  {"type": "BlockMoveSkill", "tick": p["w_hold"]}, refresh("venom", p["w_hold"] + p["w_p"]),
                  *([buff("poison", p["w_hold"] + p["w_p"])] if nat else [])]
