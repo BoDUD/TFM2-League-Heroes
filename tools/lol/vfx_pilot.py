@@ -28,6 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import vfx_pixel as X  # noqa: E402
+import vfx_pixelfx as PF  # noqa: E402
 import vfx_render as R  # noqa: E402
 
 GRASS = (86, 125, 62)
@@ -207,82 +208,47 @@ def run_scene(name, sc, a, vfxs, sheets, report, blocks):
     out_dir = os.path.join(a.out, name)
     os.makedirs(out_dir, exist_ok=True)
     print(f"{name}: {sheet}:{tag} {len(durs)} frames, {total:.2f} s", flush=True)
-    # 1. pixel frames from renders on transparency (8 canvas px a game px)
-    # the pixel frames leave out a play's `pixel_skip` emitters too: dark contrast layers League lays on its map under
-    # a bright effect (Lux R's scorch, Q's dark trail) turn into opaque brown bands on our sprites
-    sc_px = json.loads(json.dumps(sc))
-    for ps in sc_px["plays"]:
-        ps["skip"] = list(ps.get("skip", [])) + list(ps.get("pixel_skip", []))
-    hi = R.scene_frames(sc_px, intervals, ppx=8, vfxs=vfxs, layers=True)    # (matter, light) per frame
-    cam = sc["camera"]
-    center = cam.get("center") or [cam["size"][0] // 2 + 0.5, cam["size"][1] // 2 + 0.5]
-    anchor = sc.get("anchor") or center
-    ours_pal = np.concatenate([f.reshape(-1, 4) for f, _ in (now_hd or now)])
-    ours_pal = np.unique(ours_pal[ours_pal[:, 3] > 0][:, :3], axis=0)
-    px = dict(dict(k=14, gain=2.5, maxmix=0.4), **sc.get("pixel", {}))
-    hd, one, pal = X.pixelate(hi, 8, tuple(anchor), palette=ours_pal if a.palette == "ours" else None, **px)
+    if a.mode == "pixelfx":
+        # League's motion drawn as pixel primitives (vfx_pixelfx.py), the tag's own frame times
+        hd, one, pal = PF.render_tag(sc, intervals, vfxs)
+    else:
+        # League's textured particles rendered and pixelated (vfx_pixel.py); `pixel_skip` emitters left out
+        sc_px = json.loads(json.dumps(sc))
+        for ps in sc_px["plays"]:
+            ps["skip"] = list(ps.get("skip", [])) + list(ps.get("pixel_skip", []))
+        hi = R.scene_frames(sc_px, intervals, ppx=8, vfxs=vfxs, layers=True)
+        cam = sc["camera"]
+        center = cam.get("center") or [cam["size"][0] // 2 + 0.5, cam["size"][1] // 2 + 0.5]
+        px = dict(dict(k=14, gain=2.5, maxmix=0.4), **sc.get("pixel", {}))
+        hd, one, pal = X.pixelate(hi, 8, tuple(sc.get("anchor") or center), **px)
     new_hd = [(f, dd) for f, dd in zip(hd, durs)]
     new_one = [(f, dd) for f, dd in zip(one, durs)]
-    # the same frames snapped to the colours of our present picture (the hero's effect palette)
-    hd2, _one2, _ = X.pixelate(hi, 8, tuple(anchor), palette=ours_pal, **px)
-    alt_hd = [(f, dd) for f, dd in zip(hd2, durs)]
-    # 2. League lane: 30 fps, true colour, on grass, game size x4
-    n30 = max(1, int(round(total * 30)))
-    lg_iv = [(k / 30.0, (k + 1) / 30.0) for k in range(n30)]
-    lg = R.scene_frames(sc, lg_iv, bg=GRASS, ppx=Z, vfxs=vfxs, shutter=2)
-    ax, ay = anchor[0] * Z, anchor[1] * Z
-    league = []
-    for f in lg:
-        u8 = (np.clip(f, 0, 1) * 255 + 0.5).astype(np.uint8)
-        league.append((u8, 1 / 30.0))
-    # the League lane's frames are whole canvases: re-centre them on the anchor
-    H, W = lg[0].shape[:2]
-    cx, cy = W / 2, H / 2
-    dx, dy = int(round(ax - cx)), int(round(ay - cy))
-    league = [(shift(f, -dx, -dy), t) for f, t in league]
-    # 3. strips for review
-    strip_png(os.path.join(out_dir, "league_frames.png"), [(np.asarray(R.to_image(f)), dd) for f, dd in zip(
-        R.scene_frames(sc, intervals, bg=GRASS, ppx=Z, vfxs=vfxs), durs)], 1)
-    strip_png(os.path.join(out_dir, "pixel_hd_x2.png"), new_hd, 2)
-    strip_png(os.path.join(out_dir, "pixel_1x_x4.png"), new_one, 4)
-    strip_png(os.path.join(out_dir, "pixel_hd_ourpalette_x2.png"), alt_hd, 2)
+    strip_png(os.path.join(out_dir, "new_hd_x2.png"), new_hd, 2)
+    strip_png(os.path.join(out_dir, "new_1x_x4.png"), new_one, 4)
     if now_hd:
         strip_png(os.path.join(out_dir, "ours_hd_x2.png"), now_hd, 2)
-    Image.fromarray(np.repeat(np.repeat(pal[None], 24, 0), 24, 1)).save(os.path.join(out_dir, "palette.png"))
-    # 4. lanes
+    # lanes the user sees: ours now | new | oppi (League's own render stays in the local review copies)
     lanes = []
-    box_l = (W / 2, H / 2)
-    lanes.append(("League render (true colour)", league, 1, box_l))
-    lanes.append(("pixel PPU 2 (new)", new_hd, Z // 2, extent(new_hd, Z // 2)))
-    lanes.append(("same, our palette", alt_hd, Z // 2, extent(alt_hd, Z // 2)))
     if now_hd:
         lanes.append(("ours now (hd_)", now_hd, Z // 2, extent(now_hd, Z // 2)))
     else:
         lanes.append(("ours now (1x)", now, Z, extent(now, Z)))
+    lanes.append(("new (League motion, pixel FX)", new_hd, Z // 2, extent(new_hd, Z // 2)))
     op = sc.get("oppi")
     ofr = oppi_frames(op, a.oppi) if op else None
     if ofr:
-        lanes.append((f"oppi ({os.path.basename(op['path'])})", ofr, Z, extent(ofr, Z)))
-    # every lane boxed alike: the biggest of the drawn lanes, the League lane cropped to it
-    bw = max(b[0] for _, _, _, b in lanes[1:])
-    bh = max(b[1] for _, _, _, b in lanes[1:])
-    bw, bh = max(bw, 40), max(bh, 40)
-    lanes = [(t, fr, sc_, (min(b[0], bw + 8) if i == 0 else bw, min(b[1], bh + 8) if i == 0 else bh))
-             for i, (t, fr, sc_, b) in enumerate(lanes)]
-    hw0, hh0 = lanes[0][3]
-    lanes[0] = (lanes[0][0], [(f[int(cy - hh0):int(cy + hh0), int(cx - hw0):int(cx + hw0)], t) for f, t in lanes[0][1]],
-                1, lanes[0][3])
-    league_rgba = []
-    for f, t in lanes[0][1]:
-        g = np.concatenate([f[..., :3], np.full(f.shape[:2] + (1,), 255, np.uint8)], -1)
-        league_rgba.append((g, t))
-    lanes[0] = (lanes[0][0], league_rgba, 1, lanes[0][3])
+        lanes.append((f"oppi ({os.path.basename(op['path'])} {op['tag']})", ofr, Z, extent(ofr, Z)))
+    else:
+        lanes.append(("oppi: no picture for this", [], Z, (40, 40)))
+    bw = max(max(b[0] for _, _, _, b in lanes), 40)
+    bh = max(max(b[1] for _, _, _, b in lanes), 40)
+    lanes = [(t, fr, sc_, (bw, bh)) for t, fr, sc_, _b in lanes]
     vertical = bw > 1.6 * bh
     reps = max(1, int(round(1.2 / total))) if total < 0.6 else 1
     block = Block(f"{name}: {sheet}:{tag}  ({len(durs)} frames, {total:.2f} s)", lanes, vertical)
     write_gif(os.path.join(a.out, f"{name}.gif"), [block], total * reps)
     blocks[name] = (block, total)
-    # 5. candidate sheet: the tag and its hd_ twin replaced
+    # candidate sheet: the tag and its hd_ twin replaced
     tags = sheets.setdefault(sheet, {t: tag_frames(d, im, t) for t in d["anims"]})
     tags[tag] = [(f, dd) for f, dd in new_one]
     tags[hd_tag] = [(f, dd) for f, dd in new_hd]
@@ -303,7 +269,8 @@ def main():
     here = os.path.isdir(os.path.join(ROOT, "league", "effects"))
     ap.add_argument("--root", default=ROOT if here else r"C:\t\inst_bv", help="a tree with league/effects")
     ap.add_argument("--oppi", default=OPPI)
-    ap.add_argument("--palette", default="own", choices=["own", "ours"])
+    ap.add_argument("--mode", default="pixelfx", choices=["pixelfx", "render"],
+                    help="pixelfx: League's motion drawn as pixel primitives; render: League's textures pixelated")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
     scenes = json.load(open(os.path.join(HERE, "vfx_scenes.json"), encoding="utf-8"))["scenes"]

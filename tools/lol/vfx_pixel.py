@@ -224,13 +224,200 @@ def _majority(idx, drawn, passes=1):
     return idx
 
 
+# ----------------------------------------------------------------------------- glow bands (the pixel-art look)
+def _shift(a, dy, dx, fill):
+    H, W = a.shape[:2]
+    out = np.full_like(a, fill)
+    ys, yd = (slice(0, H - dy), slice(dy, H)) if dy >= 0 else (slice(-dy, H), slice(0, H + dy))
+    xs, xd = (slice(0, W - dx), slice(dx, W)) if dx >= 0 else (slice(-dx, W), slice(0, W + dx))
+    out[yd, xd] = a[ys, xs]
+    return out
+
+
+NEIGH8 = ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1))
+
+
+def _dilate(m, r):
+    out = m.copy()
+    for _ in range(r):
+        cur = out.copy()
+        for dy, dx in NEIGH8:
+            cur |= _shift(out, dy, dx, False)
+        out = cur
+    return out
+
+
+def _spread(v, hue, steps):
+    """every pixel takes the hue of the brightest light within `steps` squares (a halo wears its source's colour)."""
+    v = v.copy()
+    hue = hue.copy()
+    for _ in range(steps):
+        bv, bh = v.copy(), hue.copy()
+        for dy, dx in NEIGH8:
+            sv = _shift(v, dy, dx, 0.0)
+            sh = _shift(hue, dy, dx, 0.0)
+            take = sv > bv
+            bv[take] = sv[take]
+            bh[take] = sh[take]
+        v, hue = bv * 0.999, bh
+    return hue
+
+
+def _with_sat(base, s, s2):
+    """base (value 1) with its saturation moved from s to s2."""
+    t = np.where(s > 1e-3, s2 / np.maximum(s, 1e-3), 0)[..., None]
+    return np.clip(1.0 + (base - 1.0) * t, 0, 1)
+
+
+BAND_WHITE = (0.88, 0.42, 0.0, 0.0)      # how far each band (core, inner glow, rim, outer rim) is pulled to white
+BAND_VALUE = (1.0, 1.0, 1.0, 0.8)        # and its value (the outer rim a step deeper, never dark)
+
+
+def glow_layers(matter, light, vref, levels=(0.82, 0.55, 0.33, 0.18), grow=(0, 1, 1, 1), m_cut=0.5, tint=None,
+                min_blob=4):
+    """the pixel-art reading of one frame (matter straight RGBA, light RGB at PPU 2): light becomes solid bands -
+    core, inner glow, rim, outer rim - each band at least `grow` squares round the one inside it (a 1-square ring of
+    League's comes out 3-5 squares thick), coloured by the hue of the brightest light nearby, saturated, the core near
+    white; light is measured against `vref` (the tag's brightest) through a square root, so a faint field still
+    reads. Matter (smoke, rocks) is drawn where dense. Lone blobs under `min_blob` squares without a core go."""
+    v = light.max(-1)
+    vv = np.sqrt(np.clip(v / max(vref, 1e-6), 0, 4))
+    hue = np.where(v[..., None] > 1e-6, light / np.maximum(v[..., None], 1e-6), 0)
+    regions, prev = [], np.zeros(v.shape, bool)
+    for lvl, g in zip(levels, grow):
+        r = vv >= lvl
+        if g and prev.any():
+            r |= _dilate(prev, g)
+        r |= prev
+        regions.append(r)
+        prev = r
+    band = np.zeros(v.shape, np.int32)
+    for i in range(len(regions) - 1, -1, -1):
+        band[regions[i]] = i + 1
+    hs = _spread(np.where(vv >= levels[-1], vv, 0), hue, sum(grow) + 2)
+    mx = hs.max(-1)
+    mn = hs.min(-1)
+    sat = np.where(mx > 1e-6, (mx - mn) / np.maximum(mx, 1e-6), 0)
+    if tint is not None:                                 # a white light's halo takes the effect's own colour
+        swap = (sat < 0.12) & (band >= 2)
+        hs = np.where(swap[..., None], np.asarray(tint)[None, None], hs)
+        mx = hs.max(-1)
+        mn = hs.min(-1)
+        sat = np.where(mx > 1e-6, (mx - mn) / np.maximum(mx, 1e-6), 0)
+    base = np.where(mx[..., None] > 1e-6, hs / np.maximum(mx[..., None], 1e-6), 1.0)
+    s2 = np.clip(sat * 1.35 + 0.12 * (sat > 0.06), 0, 1)
+    vivid = _with_sat(base, sat, s2)
+    col = np.zeros(v.shape + (3,))
+    for i in range(len(levels)):
+        m = band == i + 1
+        w, val = BAND_WHITE[min(i, 3)], BAND_VALUE[min(i, 3)]
+        col[m] = (vivid[m] * (1 - w) + w) * val
+    dense = matter[..., 3] >= m_cut
+    drawn = (band > 0) | dense
+    rgb = np.where((band > 0)[..., None], col, matter[..., :3])
+    if min_blob > 1 and drawn.any():                   # lone small blobs without a core: League's specks read as dirt
+        lab, n = _label(drawn)
+        if n:
+            sizes = np.bincount(lab.ravel(), minlength=n + 1)
+            cores = np.bincount(lab.ravel(), weights=(band == 1).ravel().astype(np.float64), minlength=n + 1)
+            bad = (sizes < min_blob) & (cores == 0)
+            bad[0] = False
+            drawn &= ~bad[lab]
+    band = np.where(drawn, band, 0)
+    return np.concatenate([np.clip(rgb, 0, 1), drawn[..., None].astype(np.float64)], -1), band
+
+
+def _label(m):
+    """4-connected components (a flood fill, no scipy)."""
+    H, W = m.shape
+    lab = np.zeros((H, W), np.int32)
+    n = 0
+    for y, x in zip(*np.nonzero(m)):
+        if lab[y, x]:
+            continue
+        n += 1
+        stack = [(y, x)]
+        lab[y, x] = n
+        while stack:
+            cy, cx = stack.pop()
+            for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1)):
+                if 0 <= ny < H and 0 <= nx < W and m[ny, nx] and not lab[ny, nx]:
+                    lab[ny, nx] = n
+                    stack.append((ny, nx))
+    return lab, n
+
+
+def half(img, band):
+    """PPU 2 -> 1x: each 2x2 block keeps its most important pixel (the innermost light band, then matter), so a
+    ring keeps a line at 1x."""
+    H, W = band.shape
+    H2, W2 = H // 2, W // 2
+    b = np.where(band > 0, band, np.where(img[..., 3] > 0, 9, 99))[:H2 * 2, :W2 * 2]
+    blocks = b.reshape(H2, 2, W2, 2).transpose(0, 2, 1, 3).reshape(H2, W2, 4)
+    k = np.argmin(blocks, -1)
+    dy, dx = k // 2, k % 2
+    yy, xx = np.mgrid[:H2, :W2]
+    return img[yy * 2 + dy, xx * 2 + dx]
+
+
+def _pixelate_glow(renders, ppx, anchor, k, palette, ppu, keep_white, min_half, maxmix, majority, levels, grow, m_cut):
+    """pixelate() for (matter, light) layers through glow_layers(): banded light, dense matter, one palette."""
+    lay = [box_layers(m, li, ppx // ppu, maxmix) for m, li in renders]
+    allv = np.concatenate([li.max(-1).ravel() for _, li in lay])
+    vref = float(np.percentile(allv[allv > 1e-4], 99.5)) if (allv > 1e-4).any() else 1.0
+    hues = []                                          # the effect's own colour: its saturated strong light on average
+    for _, li in lay:
+        v = li.max(-1)
+        m = v > 0.25 * vref
+        if m.any():
+            h = li[m] / v[m, None]
+            s = h.max(-1) - h.min(-1)
+            if (s > 0.15).any():
+                hues.append((h[s > 0.15] * v[m][s > 0.15, None]).sum(0) / v[m][s > 0.15].sum())
+    tint = None
+    if hues:
+        tint = np.mean(hues, 0)
+        tint = tint / max(tint.max(), 1e-6)
+    frames = [glow_layers(m, li, vref, levels, grow, m_cut, tint) for m, li in lay]
+    drawn_any = [f[..., :3][f[..., 3] > 0] for f, _ in frames]
+    pts = np.concatenate(drawn_any) if any(len(d) for d in drawn_any) else np.ones((1, 3))
+    if palette is None:
+        if len(pts) > 40000:
+            pts = pts[np.random.default_rng(5).choice(len(pts), 40000, replace=False)]
+        cen = kmeans(oklab(pts), np.ones(len(pts)), min(k, len(pts)))
+        lab = np.argmin(((oklab(pts)[:, None] - cen[None]) ** 2).sum(-1), 1)
+        pal = np.array([pts[lab == j].mean(0) if (lab == j).any() else np.ones(3) for j in range(len(cen))])
+        if keep_white and (pts.min(1) > 0.93).sum() > 3:
+            pal[np.argmax(pal.sum(1))] = 1.0
+    else:
+        pal = np.asarray(palette, np.float64) / 255.0
+    pal_lab = oklab(pal)
+    hd_q, one_q = [], []
+    for f, band in frames:
+        d = f[..., 3] > 0
+        idx = np.argmin(((oklab(f[..., :3].reshape(-1, 3))[:, None] - pal_lab[None]) ** 2).sum(-1), 1)
+        idx = idx.reshape(d.shape)
+        if majority:
+            idx = _majority(idx, d, majority)
+        q = np.zeros(d.shape + (4,), np.uint8)
+        q[d, :3] = (pal[idx[d]] * 255 + 0.5).astype(np.uint8)
+        q[d, 3] = 255
+        hd_q.append(q)
+        one_q.append(half(q, band))
+    return _crop_all(hd_q, one_q, anchor, ppu, min_half) + ((pal * 255 + 0.5).astype(np.uint8),)
+
+
 def pixelate(renders, ppx, anchor, k=16, palette=None, ppu=2, keep_white=True, min_half=(1, 1), gain=0.0,
-             maxmix=0.0, majority=1):
-    """renders: straight RGBA float arrays (H, W, 4) - or (matter, light) layer pairs (vfx_render layers=True) - at
+             maxmix=0.0, majority=1, glow=True, levels=(0.82, 0.55, 0.33, 0.18), grow=(0, 1, 1, 1), m_cut=0.5):
+    """renders: straight RGBA float arrays (H, W, 4) - or (matter, light) layer pairs (vfx_render layers=True: with
+    `glow`, the banded reading of glow_layers) - at
     `ppx` canvas px a game px, the anchor at game px `anchor`
     (x, y: the centre of a 1x pixel, k + 0.5). Returns (hd frames, 1x frames, palette (n, 3) uint8) - frames as
     uint8 RGBA arrays cropped round the anchor, all hd frames exactly twice their 1x twin."""
     assert ppx % ppu == 0, "ppx must be a multiple of the PPU"
+    if renders and isinstance(renders[0], tuple) and glow:   # (matter, light) layers, the banded pixel-art look
+        return _pixelate_glow(renders, ppx, anchor, k, palette, ppu, keep_white, min_half, maxmix, majority, levels,
+                              grow, m_cut)
     if renders and isinstance(renders[0], tuple):            # (matter, light) layers: light exposed, faint matter out
         hds = [merge_layers(*box_layers(m, li, ppx // ppu, maxmix), gain) for m, li in renders]
         ones = [merge_layers(*box_layers(m, li, ppx, maxmix), gain) for m, li in renders]
@@ -283,7 +470,11 @@ def pixelate(renders, ppx, anchor, k=16, palette=None, ppu=2, keep_white=True, m
         d = _drawn(a)
         col = f[..., :3] if layered else shade(f[..., :3], a)[0]
         one_q.append(quant(f, d, col))
-    # 2. crop round the anchor: one half-extent per frame (in game px), odd 1x sizes, hd twice that
+    return _crop_all(hd_q, one_q, anchor, ppu, min_half) + ((pal * 255 + 0.5).astype(np.uint8),)
+
+
+def _crop_all(hd_q, one_q, anchor, ppu, min_half):
+    """crop every frame round the anchor: one half-extent per frame (game px), odd 1x sizes, hd twice that."""
     ax, ay = anchor
     cx1, cy1 = int(np.floor(ax)), int(np.floor(ay))           # the 1x pixel holding the anchor
     hd_out, one_out = [], []
@@ -299,7 +490,7 @@ def pixelate(renders, ppx, anchor, k=16, palette=None, ppu=2, keep_white=True, m
         x0, y0 = cx1 - ex, cy1 - ey                            # 1x crop (2ex+1) x (2ey+1)
         one_out.append(_crop(oq, x0, y0, 2 * ex + 1, 2 * ey + 1))
         hd_out.append(_crop(hq, x0 * ppu, y0 * ppu, (2 * ex + 1) * ppu, (2 * ey + 1) * ppu))
-    return hd_out, one_out, (pal * 255 + 0.5).astype(np.uint8)
+    return hd_out, one_out
 
 
 def _crop(img, x0, y0, w, h):
