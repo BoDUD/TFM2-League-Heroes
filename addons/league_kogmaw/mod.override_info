@@ -1,0 +1,18 @@
+{
+  "asset/league/champion/league_kogmaw": {
+    "remapping": "asset/league_kogmaw/override/league_kogmaw",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_kogmaw/text/champion",
+    "type": "merge"
+  },
+  "asset/base/aseprite_resources/champions/league_kogmaw_void#sheet": {
+    "remapping": "asset/league/champions/league_kogmaw_void#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_kogmaw_void#anim": {
+    "remapping": "asset/league/champions/league_kogmaw_void#anim",
+    "type": "override"
+  }
+}

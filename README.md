@@ -382,7 +382,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_jinx.png" width="32"> | [金克丝](docs/heroes/league_jinx.md)<br>Jinx | ADC | 震荡电磁波！ · 嚼火者手雷！ · 大招 超究极死神飞弹！ | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_kaisa.png" width="32"> | [卡莎](docs/heroes/league_kaisa.md)<br>Kai'Sa | ADC | 艾卡西亚暴雨 · 虚空索敌 · 大招 猎手本能 | [目标标记附加包](addons/league_marks/README.md) | PPU 1.45 |
 | <img src="docs/heroes/img/league_kalista.png" width="32"> | [卡莉丝塔](docs/heroes/league_kalista.md)<br>Kalista | ADC | 穿刺 · 撕裂 · 大招 命运的召唤 | [卡莉丝塔附加包](addons/league_kalista/README.md) | PPU 1.4 |
-| <img src="docs/heroes/img/league_kogmaw.png" width="32"> | [克格莫](docs/heroes/league_kogmaw.md)<br>Kog'Maw | ADC | 腐蚀唾液 · 虚空淤泥 · 大招 活体大炮 | — | PPU 1.79 |
+| <img src="docs/heroes/img/league_kogmaw.png" width="32"> | [克格莫](docs/heroes/league_kogmaw.md)<br>Kog'Maw | ADC | 腐蚀唾液 · 虚空淤泥 · 大招 活体大炮 | [克格莫附加包](addons/league_kogmaw/README.md) | PPU 1.79 |
 | <img src="docs/heroes/img/league_lucian.png" width="32"> | [卢锡安](docs/heroes/league_lucian.md)<br>Lucian | ADC | 被动 圣光银弹 · 透体圣光 · 冷酷追击 · 大招 圣枪洗礼 | 卢锡安附加包 | PPU 1.5 |
 | <img src="docs/heroes/img/league_mel.png" width="32"> | [梅尔](docs/heroes/league_mel.md)<br>Mel | ADC | 耀光齐射 · 阳炎涡旋 · 大招 鎏金蚀日 | [梅尔附加包](addons/league_mel/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_missfortune.png" width="32"> | [厄运小姐](docs/heroes/league_missfortune.md)<br>Miss Fortune | ADC | 被动 厄运的眷顾 · 一箭双雕 · 枪林弹雨 · 大招 弹幕时间 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.76 |

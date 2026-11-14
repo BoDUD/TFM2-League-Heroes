@@ -6,7 +6,7 @@
 //! effects, buffs and projectiles alike, so hd.rs lists them in EFFECTS, DRAWN_EFFECTS and full_effects() (dense
 //! only where the buff and projectile pictures are shrunk too: hd_engine Table::full_effects).
 
-/// (sheet, PPU, its .fanim) - 382 sheets
+/// (sheet, PPU, its .fanim) - 383 sheets
 pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_aatrox_big", 2.0, include_str!("../../../league/effects/league_aatrox_big#anim.fanim")),
     ("league_aatrox_fx", 2.0, include_str!("../../../league/effects/league_aatrox_fx#anim.fanim")),
@@ -161,6 +161,7 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_kled_big", 2.0, include_str!("../../../league/effects/league_kled_big#anim.fanim")),
     ("league_kled_fx", 2.0, include_str!("../../../league/effects/league_kled_fx#anim.fanim")),
     ("league_kogmaw_big", 2.0, include_str!("../../../league/effects/league_kogmaw_big#anim.fanim")),
+    ("league_kogmaw_burst", 2.0, include_str!("../../../league/effects/league_kogmaw_burst#anim.fanim")),
     ("league_kogmaw_fx", 2.0, include_str!("../../../league/effects/league_kogmaw_fx#anim.fanim")),
     ("league_ksante_big", 2.0, include_str!("../../../league/effects/league_ksante_big#anim.fanim")),
     ("league_ksante_fx", 2.0, include_str!("../../../league/effects/league_ksante_fx#anim.fanim")),
