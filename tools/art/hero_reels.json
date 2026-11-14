@@ -42,7 +42,7 @@
   "league_ivern": {"idle": [["ult", [2]], ["skill", [0]]]},
   "league_illaoi": {"idle": [["attack", [0, 1]], ["skill2", [1, 2]]]},
   "league_belveth": {"idle": [["ult", [0, 1, 2]], ["run", [1, 2]]], "r_idle": [["r_run", [1, 2]], ["r_attack", [0, 1]]], "bp": ["attack", "skill2", "ult"]},
-  "league_aurelionsol": {"idle": [["skill", [0]], ["skill2", [1]], ["attack", [0]]]},
+  "league_aurelionsol": {"idle": [["skill", [0, 1]], ["skill2", [4, 3]], ["attack", [0, 2]]]},
   "league_sejuani": {"idle": [["attack", [0, 1]], ["ult", [3, 4]]], "bp": ["attack", "skill2", "ult"]},
   "league_kled": {"idle": [["skill", [1, 2]], ["skill", [3, 4]]], "f_idle": [["f_skill", [0]]], "bp": ["attack", "skill", "ult"]},
   "league_yorick": {"idle": [["awaken", [4, 5]], ["ult", [3, 4]]], "bp": ["attack", "skill", "ult"]},
