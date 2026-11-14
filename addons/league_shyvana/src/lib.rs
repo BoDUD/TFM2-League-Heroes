@@ -374,10 +374,12 @@ mod tests {
     /// (Scalemail is the passive now), the passive hung.
     #[test]
     fn the_copy_keeps_her_attack_and_moves_scalemail_to_the_passive() {
+        // the main pack from the repo (league_addons, which compiles this test too, sits next to this crate); the copy
+        // next to this file
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
-        let read = |p: &str| std::fs::read_to_string(root.join(p)).unwrap().replace("\r\n", "\n");
-        let main = read("../../league/champion/league_shyvana.data_champion");
-        let copy = read("override/league_shyvana.data_champion");
+        let main = std::fs::read_to_string(root.join("../../league/champion/league_shyvana.data_champion")).unwrap()
+            .replace("\r\n", "\n");
+        let copy = include_str!("../override/league_shyvana.data_champion").replace("\r\n", "\n");
         let section = |text: &str, key: &str| -> String {
             let start = text.find(&format!("\n  \"{key}\": ")).unwrap_or_else(|| panic!("no {key}"));
             let rest = &text[start + 1..];
