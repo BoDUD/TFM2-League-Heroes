@@ -26,6 +26,11 @@
 //!   时读它，有就不放挂在目标身上的室女和她的两只雾行者。她站着的时候约里克的 `r_on`（Q 冷却减半、普攻加伤）和她目标身上的
 //!   `league_yorick_maiden` 跟着她的时间（`MAID_LIFE`）；她被打死就一起去掉。
 //! - 约里克先死了：单位由引擎管着接着打，到时间为止（没有「让单位消失」的接口）。
+//! - **雾行者一次只等一个要**（0.2.1，2026-11-14，用户：「这个要修」）：唤醒的雾行者和迷雾少女的护卫记在同一本账
+//!   （`Flock`）里，一 tick 交接来的单位都算最早那个还在等的要的。唤醒的雾行者没生成出来、它还在等（`FLOCK_WAIT` tick）的
+//!   时候 R 又要了护卫，护卫就被记成唤醒的（`Awake`、`WALK_LIFE`、出生在 Q 那一拍）：账上提前 300 tick 算它没了，黑雾也
+//!   不再让它扑。现在雾行者那本账还有要在等时，新的 Q / R 的要先压着（[`Held`]，日志 `HELD`），等前一个有了结果（单位到了，
+//!   或等满时间作罢）再发出去，目标那时站在哪就在哪生成。正常 Q 和 R 隔好几秒，压不到；压着的最多等几 tick。
 //!
 //! 数字从英雄数据的 `passive.params`（坟和加伤）和 `src/lib.rs` 的常量来（单位的数字，`make_override.py` 和主包的参数表 P、
 //! 单位图的动作对照）。不用全局变量，服务端预模拟和你看的那场各算各的。日志：
@@ -466,6 +471,27 @@ pub struct MaidBook {
     pub dressed: bool,
 }
 
+/// A Q or R ask the copy laid while the walkers' last ask still waited for its units: kept until that one is answered
+/// (summon::Flock gives all the handoffs of a tick to the oldest waiting ask, so two waiting at once would take each
+/// other's walkers - the Maiden's escort read as the Awakening's when the Awakening's never came).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Held {
+    /// The tick it was laid.
+    pub tick: usize,
+    pub target: usize,
+    /// Where the target stood then (used if it is gone when the ask goes out).
+    pub at: Pt,
+    /// The Awakening's walkers (else the Maiden and her escort).
+    pub walkers: bool,
+}
+
+/// Asks held at once (the oldest is dropped past it), and the ticks one is held at most before it is dropped. A waiting
+/// ask is answered or given up within `FLOCK_WAIT` + 1 ticks, so a held one normally goes out within 5; the copy's data
+/// reads the units' flag `Q_HIT` / `R_REL` ticks after the cast, so one that could only go out later is dropped instead
+/// (its units would stand beside the riding pictures): the data plays those, as when the host gives no unit.
+pub const HELD_MAX: usize = 4;
+pub const HELD_TICKS: usize = Q_HIT - 4;
+
 /// 每个约里克一份：参数、日志计数、他的单位。
 #[derive(Clone)]
 struct Shepherd {
@@ -476,12 +502,15 @@ struct Shepherd {
     me: usize,
     walkers: Flock<WalkerBook>,
     maiden: Flock<MaidBook>,
+    /// Asks held while the walkers' last one waits (oldest first), and the tick of the last ask that went out.
+    held: Vec<Held>,
+    asked: usize,
 }
 
 impl Default for Shepherd {
     fn default() -> Self {
         Shepherd { p: Params::default(), graves: 0, bonuses: 0, me: 0, walkers: Flock::new(W_UID, WALK_CAP, WALK_LIFE),
-                   maiden: Flock::new(M_UID, 1, MAID_LIFE) }
+                   maiden: Flock::new(M_UID, 1, MAID_LIFE), held: Vec::new(), asked: 0 }
     }
 }
 
@@ -538,11 +567,11 @@ impl Shepherd {
         for (id, at, k, m, e) in marked {
             if k {
                 sim.entity_remove_buff(id, K_ASK);
-                self.ask(sim, me, id, at, true);
+                self.ask_or_hold(sim, me, id, at, true);
             }
             if m {
                 sim.entity_remove_buff(id, M_ASK);
-                self.ask(sim, me, id, at, false);
+                self.ask_or_hold(sim, me, id, at, false);
             }
             if e {
                 sim.entity_remove_buff(id, E_ASK);
@@ -551,8 +580,53 @@ impl Shepherd {
         }
     }
 
-    /// The Awakening's walkers (`walkers`) or the Maiden asked for on `target` at `at`.
-    fn ask(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, walkers: bool) {
+    /// An ask the copy laid: out now, or held while the walkers' last ask still waits for its units (or older ones are
+    /// held already: they go out first).
+    fn ask_or_hold(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, walkers: bool) {
+        if self.walkers.waiting() == 0 && self.held.is_empty() {
+            self.ask(sim, me, target, at, walkers, None);
+            return;
+        }
+        let tick = sim.tick();
+        if self.held.len() >= HELD_MAX {
+            let old = self.held.remove(0);
+            self.dropped(sim, me, old, "too many held");
+        }
+        self.held.push(Held { tick, target, at, walkers });
+        if let Some(k) = tally(sim, "held") {
+            wlog(format!("{} {} HELD #{k}: {} on #{target} {} - the walkers' ask of t={} still waits for its units ({} held): \
+                          it goes out once that one is answered", head(sim, me), if walkers { "WALKERS" } else { "MAIDEN" },
+                         if walkers { "the Awakening" } else { "Eulogy of the Isles" }, name_of(sim, target), self.asked,
+                         self.held.len()));
+        }
+    }
+
+    /// A held ask given up (its log line).
+    fn dropped(&mut self, sim: &StableSim<'_>, me: usize, h: Held, why: &str) {
+        if let Some(k) = tally(sim, "held drop") {
+            wlog(format!("{} {} HELD DROPPED #{k}: the ask of t={} on #{} ({why}) - the data's riding pictures play instead",
+                         head(sim, me), if h.walkers { "WALKERS" } else { "MAIDEN" }, h.tick, h.target));
+        }
+    }
+
+    /// After the flocks' tick: the oldest held ask goes out once no walkers' ask waits (one a tick: it waits in turn),
+    /// where its target stands now (else where it stood); one held past `HELD_TICKS` is dropped.
+    fn release(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let now = sim.tick();
+        while self.held.first().is_some_and(|h| now > h.tick + HELD_TICKS) {
+            let h = self.held.remove(0);
+            self.dropped(sim, me, h, "held too long");
+        }
+        if self.held.is_empty() || self.walkers.waiting() > 0 {
+            return;
+        }
+        let h = self.held.remove(0);
+        let at = sim.get_entity(h.target).filter(|e| e.is_alive()).map_or(h.at, |e| pos(&e));
+        self.ask(sim, me, h.target, at, h.walkers, Some(now - h.tick));
+    }
+
+    /// The Awakening's walkers (`walkers`) or the Maiden asked for on `target` at `at`; `held`: the ticks it was held.
+    fn ask(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, walkers: bool, held: Option<usize>) {
         let tick = sim.tick();
         let (what, kind) = if walkers { ("WALKERS", "walkers off") } else { ("MAIDEN", "maiden off") };
         if KNOBS.off {
@@ -563,6 +637,7 @@ impl Shepherd {
             return;
         }
         let effect = if walkers { "walkers" } else { "maiden" };
+        self.asked = tick;
         if walkers {
             self.walkers.ask(tick, WALK_LIFE, WalkerBook { kind: Walk::Awake });
         } else {
@@ -579,10 +654,11 @@ impl Shepherd {
         }
         let k = tally(sim, if walkers { "walkers ask" } else { "maiden ask" });
         if let Some(k) = k {
-            wlog(format!("{} {what} ASK #{k}: {} on #{target} {} at {}: {}{}", head(sim, me),
+            wlog(format!("{} {what} ASK #{k}: {} on #{target} {} at {}: {}{}{}", head(sim, me),
                          if walkers { "the Awakening" } else { "Eulogy of the Isles" }, name_of(sim, target), summon::pt(at),
                          if walkers { format!("{K_N} walkers asked for round it") }
                          else { format!("the Maiden asked for {MAID_BEHIND:.0} behind it, {R_N} walkers round her") },
+                         held.map_or(String::new(), |n| format!(" (held {n} tick(s) while the walkers' ask before it waited)")),
                          if queued { "" } else { " - queue_effect REFUSED" }));
         }
     }
@@ -832,15 +908,23 @@ impl StablePassive for Shepherd {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        // a new life is a new entity: the units of the old one are no longer his to watch
+        // a new life is a new entity: the units of the old one are no longer his to watch, his held asks gone with it
         self.orphans(sim, "Yorick respawned (his death did not reach on_dead)");
+        for h in std::mem::take(&mut self.held) {
+            self.dropped(sim, me, h, "Yorick respawned");
+        }
         self.me = me;
         wlog(format!("{} SPAWN: the add-on's Yorick (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
-        // a dead champion's passive does not run: his units fight on by themselves (no API ends a unit early)
+        // a dead champion's passive does not run: his units fight on by themselves (no API ends a unit early); an ask
+        // still held never goes out
         self.orphans(sim, "Yorick died");
+        let me = self.me;
+        for h in std::mem::take(&mut self.held) {
+            self.dropped(sim, me, h, "Yorick died");
+        }
     }
 
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
@@ -866,6 +950,7 @@ impl StablePassive for Shepherd {
         self.maiden(sim, me);
         self.asks(sim, me, team);
         self.units(sim, player, me, team, here);
+        self.release(sim, me);
     }
 }
 
@@ -1240,6 +1325,45 @@ mod tests {
         assert!(!w.has(0, R_ON) && !w.has(GAREN, MAIDEN));
         assert!(me.maiden.live.is_empty());
         let _ = t0;
+    }
+
+    /// The books when an ask's units never come and another ask follows while it waits (summon::Flock gives all handoffs
+    /// of a tick to the oldest waiting ask): the Awakening's walkers refused, the Maiden asked for 2 ticks later - her
+    /// escort must read as hers (Escort, MAID_LIFE from her ask), not as the Awakening's (Awake, WALK_LIFE); and the
+    /// other way round, her escort refused and the Awakening asked for 2 ticks later.
+    #[test]
+    fn an_ask_made_while_the_walkers_last_one_waits_keeps_its_own_units() {
+        for maiden_first in [false, true] {
+            let (mut w, mut me) = world();
+            if maiden_first {
+                w.units[0].buffs.push((BuffV1::timed(R_ON, R_T), R_T));
+                w.units[GAREN].buffs.push((BuffV1::timed(MAIDEN, R_T), R_T));
+            }
+            // the first ask: no unit from the host
+            w.spawn_ok = false;
+            ask(&mut w, GAREN, if maiden_first { M_ASK } else { K_ASK });
+            run(&mut w, &mut me, 2);
+            assert!(spawned(&w, WALKER).is_empty() && spawned(&w, MAIDEN_UNIT).is_empty());
+            // the second, while the first still waits: the host gives units again; held until the first is given up,
+            // its units' flag on him by the time the data reads it (Q_HIT / R_REL ticks after the cast)
+            w.spawn_ok = true;
+            let t1 = ask(&mut w, GAREN, if maiden_first { K_ASK } else { M_ASK });
+            let (read, flag) = if maiden_first { (Q_HIT, K_UNIT) } else { (R_REL, M_UNIT) };
+            while w.tick < t1 + read {
+                tick(&mut w, &mut me);
+            }
+            assert!(w.has(0, flag), "maiden_first {maiden_first}: no {flag} when the data reads it");
+            run(&mut w, &mut me, summon::FLOCK_LOOKS);
+            let (kind, life, n) = if maiden_first { (Walk::Awake, WALK_LIFE, K_N) } else { (Walk::Escort, MAID_LIFE, R_N) };
+            assert_eq!(spawned(&w, WALKER).len(), n, "maiden_first {maiden_first}");
+            assert!(w.spawns.iter().filter(|s| s.name == WALKER && s.gave.is_some()).all(|s| s.life as usize == life && s.tick >= t1));
+            assert_eq!(me.walkers.live.len(), n, "maiden_first {maiden_first}");
+            for m in &me.walkers.live {
+                assert_eq!((m.extra.kind, m.unit.life), (kind, life), "maiden_first {maiden_first}: {m:?}");
+                assert!(m.unit.born >= t1, "maiden_first {maiden_first}: born {} before its ask at {t1}", m.unit.born);
+            }
+            assert_eq!(me.maiden.live.len(), usize::from(!maiden_first));
+        }
     }
 
     #[test]
