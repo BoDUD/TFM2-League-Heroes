@@ -31,6 +31,10 @@
 //! - 萨科先死了：被动不再跑，幻像接着打（引擎管着它），到时间前 2 tick 由排好的 `:end` 在它站的地方爆炸；这期间它被打死
 //!   就不爆炸了（没人看着）。
 //!
+//! **惊吓魔盒有了身体（0.3.0，2026-11-14，`jack.rs`；用户：「召唤物的全做啊」）**：副本的 W 落地时原生效果 `:jack` 在落点生成
+//! 身体 `league_shaco_jack`（打得到、打得掉，不会走），弹开时由本包按主包的节奏射击，身体被打掉就停；数据只留恐惧和声音。
+//! 生成不了就和以前一样。幻像的代码和 `summon.rs` 没动。日志里 `JACK` 开头的行。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_shaco_backstab.log`。0.1.1：`BACKSTAB`、`SPAWN` 整个游戏一个
 //! 计数（预模拟先记 40 行、之后每 200 行一行，你看的那场每行都记；以前每个被动自己数「前 80 行」），参数只在第一行 `SPAWN` 写。
 //! 幻像的行都以 `CLONE` 开头。测试开关：日志旁边的 `league_shaco_backstab.cfg`（`summon.rs`）。
@@ -44,6 +48,8 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod summon;
+
+pub mod jack;
 
 const ID: &str = "league_shaco_backstab";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -536,6 +542,8 @@ struct Backstab {
     clone: Option<Live>,
     wake: Option<summon::Wake>,
     clones: usize,
+    /// 0.3.0: his boxes' bodies (jack.rs).
+    jacks: jack::Jacks,
 }
 
 impl Backstab {
@@ -706,6 +714,8 @@ impl StablePassive for Backstab {
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+        let me_now = sim.get_player(player).and_then(|p| p.champion()).map_or(self.me, |e| e.id());
+        self.jacks.on_dead(sim, me_now);
         (self.wait, self.fresh, self.wake) = (None, None, None);
         let Some(live) = self.clone.take() else { return };
         let me = sim.get_player(player).and_then(|p| p.champion()).map_or(self.me, |e| e.id());
@@ -729,6 +739,7 @@ impl StablePassive for Backstab {
     // whose id? (the answer for every summon that is to carry its summoner's marks or stacks)
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, target: usize, damage: &mut usize) {
         self.hooked(sim, "on_attack", entity, target, Some(*damage));
+        self.jacks.hooked(sim, "on_attack", self.me, entity, target, Some(*damage));
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, entity: usize, victim: usize) {
@@ -787,6 +798,7 @@ impl StablePassive for Backstab {
             }
         }
         self.clone_tick(sim, player, me, at, team, hp, r_ask);
+        self.jacks.tick(sim, me, player, team, at);
     }
 }
 
@@ -813,11 +825,19 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.with_extension("cfg").display(),
         KNOBS.shown()
     ));
+    wlog(format!(
+        "JACK: Jack in the Box has a body of its own ('{}', spawn_unit: move speed 1, a harmless shot, {}% of his health, banished \
+         until it springs) - {}; the add-on fires its {} volleys ({} + {}% of his ability power), a broken box stops.",
+        jack::JACK, jack::JACK_HP_PCT, if KNOBS.off { "OFF by the test knobs: the main pack's box" } else { "ON" }, jack::W_SHOTS,
+        jack::W_HIT, jack::W_HIT_AP
+    ));
     module.add_native_passive(format!("{ID}:backstab"), Backstab::default());
     module.add_native_effect(fx("clone"), CloneFx);
     module.add_native_effect(fx("burst"), BurstFx);
     module.add_native_effect(fx("box"), BoxFx);
     module.add_native_effect(fx("end"), EndFx);
+    module.add_native_effect(fx("jack"), jack::JackFx);
+    module.add_native_effect(fx("jack_shot"), jack::ShotFx);
     host.log(LogLevel::Info, "league_shaco_backstab v2 loaded (Backstab from behind; the clone as a unit).");
 }
 

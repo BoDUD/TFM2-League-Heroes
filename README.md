@@ -284,7 +284,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_reksai.png" width="32"> | [雷克塞](docs/heroes/league_reksai.md)<br>Rek'Sai | 打野 | 女王之怒 · 遁地 · 大招 虚空猛冲 | [雷克塞附加包](addons/league_reksai/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_rengar.png" width="32"> | [雷恩加尔](docs/heroes/league_rengar.md)<br>Rengar | 打野 | 战争咆哮 · 套索打击 · 大招 狩猎律动 | [雷恩加尔草丛附加包](addons/league_rengar_bush/README.md) | PPU 1.48 |
 | <img src="docs/heroes/img/league_sejuani.png" width="32"> | [瑟庄妮](docs/heroes/league_sejuani.md)<br>Sejuani | 打野 | 极寒突袭 · 凛冬之怒 · 大招 极冰寒狱 | [瑟庄妮附加包](addons/league_sejuani/README.md) | PPU 2 |
-| <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科附加包：背刺看朝向、幻像是真的单位](addons/league_shaco_backstab/README.md) | PPU 2.12 |
+| <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科附加包：背刺看朝向、幻像和惊吓魔盒是真的单位](addons/league_shaco_backstab/README.md) | PPU 2.12 |
 | <img src="docs/heroes/img/league_shyvana.png" width="32"> | [希瓦娜](docs/heroes/league_shyvana.md)<br>Shyvana | 打野 | 焚焰打击 · 爆炎吐息 · 大招 魔龙降世 | [希瓦娜附加包](addons/league_shyvana/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_skarner.png" width="32"> | [斯卡纳](docs/heroes/league_skarner.md)<br>Skarner | 打野 | 撼地 · 以绪塔尔冲击 · 大招 毒刺贯体 | [斯卡纳附加包](addons/league_skarner/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_trundle.png" width="32"> | [特朗德尔](docs/heroes/league_trundle.md)<br>Trundle | 打野 | 利齿撕咬 · 寒冰之柱 · 大招 强权至上 | [特朗德尔附加包](addons/league_trundle/README.md) | PPU 2 |
