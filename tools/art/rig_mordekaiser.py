@@ -15,7 +15,9 @@ canvases with the horn tips and the soles on the pack's lines, so they share the
     「待机姿势和走路放技能的时候应该不一样的」), tones matched to Codex's run phase 2 (codex_run); the idle stays A;
   - the run: the 65-degree stand's own leg armour turned on League's walk (RUN_JOINTS, see run());
   - the idle: the design breathing - the upper body rises over the legs, the row at the cut repeated in the gap;
-  - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole.
+  - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole;
+  - the in-betweens (2026-11-14, 「能改就想办法改 全都要改 莫德凯撒也是 能补就补」): parts of one key canvas turned or slid on
+    this canvas before anything is finished (PARTS, posed()), then finished as the keys are.
 Sizes (the user's pick C: a thicker outline, Kassadin's way; 110%, later 95%, then 100%): league.dll draws him SIZE about his pivot, so
 every hd frame is drawn RAISE rows higher (lower below 100%); every frame's outer outline is grown THICK hd squares.
 Then 「铁男感觉做的太大了吧？」: 95% (beside Darius, Garen, Nautilus and Braum at game size), then 「铁男再稍微调大点」: 100%.
@@ -41,6 +43,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 sys.path.insert(0, HERE)
 import design_varus as V  # noqa: E402
+import inbetween as IB  # noqa: E402
 import rigkit as K  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "mordekaiser")
@@ -542,6 +545,120 @@ def down(can):
     return one, hd
 
 
+# In-betweens (2026-11-14). The user: 「还有有的动画感觉只有一帧」, then 「能改就想办法改 全都要改 莫德凯撒也是 能补就补」. His
+# key frames are whole drawings laid on this canvas at PPU 5 (no pose pictures to cut parts from), so the frames between
+# them are made here before anything is finished: a part of ONE key canvas - the raised arm with the mace, the free arm,
+# the mace past the fists, the mace head past the far fist, the mace he drops, the fallen legs - turned about its joint
+# RotSprite's way (inbetween.spin: Scale2x three times, turned there, back by each block's commonest colour, its outline
+# tidied) or moved whole squares, drawn over the rest or under it (only where nothing else is: behind the body and the
+# helm), and the new canvas finished exactly as the keys are (finish, thick, down; then ppu_restyle's warp, PPU 2 and
+# palette - where a turned edge's stairs are gone). Nothing is blended between two drawings and no square is drawn by
+# hand: every colour is the key's own. Q borrows the attack's lift and swing as its passing frames.
+# PARTS: key -> part -> polygons in canvas squares (inbetween.cut: a square is in when its centre is) as r.turn /
+# r.pose lay the key out; ("piece", point[, polygons]) = the key's own loose piece (8-connected) that holds the point
+# (in the death the mace and the body are apart), within the polygons when they are given.
+PARTS = {
+    # the raised forearm with the hand and the whole mace, cut along the elbow under the forearm plate
+    "attack-raise": {"arm": [[(95, 45), (345, 45), (345, 172), (215, 172), (205, 180), (195, 186), (190, 197),
+                              (186, 203), (180, 209), (172, 214), (150, 216), (95, 216)]]},
+    # the striking arm from under the pauldron, the fist, the ring and the mace (the near knee and the foot stay)
+    "attack-strike": {"arm": [[(244, 290), (262, 285), (300, 292), (460, 292), (460, 415), (332, 415), (332, 362),
+                               (296, 352), (276, 352), (268, 334), (262, 322), (252, 314), (244, 306)]]},
+    # the free arm held out, from the elbow plate past the shoulder
+    "e-grasp": {"arm": [[(300, 212), (405, 212), (405, 285), (296, 285), (296, 250), (300, 245)]]},
+    # the shaft from where it leaves the fists, and the head
+    "r-point": {"mace": [[(216, 249), (240, 249), (240, 247), (325, 247), (325, 195), (430, 195), (430, 300),
+                          (325, 300), (325, 264), (240, 264), (240, 262), (216, 262)]]},
+    # the shaft past the far fist and the head on the ground (the front foot stays)
+    "q-slam": {"head": [[(326, 295), (450, 295), (450, 405), (342, 405), (340, 368), (326, 352)]]},
+    "dead-kneel": {"mace": ("piece", (90, 370))},
+    # the legs from the hips (the body's piece right of column 300: the mace lies apart under them)
+    "dead-lying": {"legs": ("piece", (250, 300), [[(300, 255), (420, 255), (420, 366), (300, 366)]])},
+}
+# HEADS: the helm's box (inclusive) in each key a part is taken from: no part may take a square of it, and nothing moved
+# may be drawn over it (one face in every frame; drawn under, a part only shows past the helm's edge)
+HEADS = {"attack-raise": (218, 178, 262, 250), "attack-strike": (225, 195, 280, 282), "e-grasp": (220, 150, 268, 248),
+         "r-point": (175, 185, 211, 240), "q-slam": (228, 205, 296, 290), "dead-kneel": (220, 225, 290, 300),
+         "dead-lying": (95, 250, 190, 340)}
+KEYS = os.path.join(SRC, "palette_keys")   # each in-between tag's frames as they were before the in-betweens: the crisp
+                                           # palette (ppu_restyle RESTYLE mordekaiser palette_fit) is fit on these, so
+                                           # no frame of his changes colour
+
+
+def key_canvas(r, key):
+    return r.pose(key) if key.startswith("dead") else r.turn(key)
+
+
+def spun(can, mask, about, deg):
+    """The squares under mask turned deg degrees clockwise on screen about `about` (canvas x, y), RotSprite's way
+    (inbetween.spin on the part's own neighbourhood of the canvas) -> a layer the size of can."""
+    ys, xs = np.nonzero(mask)
+    H, W = mask.shape
+    ax, ay = about
+    c, s = math.cos(math.radians(deg)), math.sin(math.radians(deg))
+    pts = [(ax + (x - ax) * c - (y - ay) * s, ay + (x - ax) * s + (y - ay) * c)
+           for x in (xs.min(), xs.max() + 1) for y in (ys.min(), ys.max() + 1)]
+    x0, x1 = int(min(xs.min(), min(p[0] for p in pts))) - 6, int(max(xs.max() + 1, max(p[0] for p in pts))) + 6
+    y0, y1 = int(min(ys.min(), min(p[1] for p in pts))) - 6, int(max(ys.max() + 1, max(p[1] for p in pts))) + 6
+    if x0 < 0 or y0 < 0 or x1 > W or y1 > H:
+        sys.exit(f"in-between: a part turned {deg} degrees about {about} leaves the canvas ({x0}, {y0}, {x1}, {y1})")
+    out = np.zeros_like(can)
+    out[y0:y1, x0:x1] = IB.spin(can[y0:y1, x0:x1], mask[y0:y1, x0:x1], (ax - x0, ay - y0), deg, OUTLINE)
+    return out
+
+
+def posed(r, key, part, deg=0, about=None, dx=0, dy=0, under=False):
+    """A key canvas with one of its PARTS turned deg degrees clockwise on screen about `about` (spun), then moved dx, dy
+    whole squares; the squares it leaves are air, and it is drawn over the rest (under: only where nothing else is).
+    Stops when the part or the moved part would touch the helm (HEADS)."""
+    can = key_canvas(r, key)
+    op = can[..., 3] > 0
+    spec = PARTS[key][part]
+    if spec[0] == "piece":
+        lab, _ = ndimage.label(op, structure=np.ones((3, 3)))
+        x, y = spec[1]
+        m = lab == lab[y, x]
+        if len(spec) > 2:
+            m &= IB.cut(op.shape, spec[2])
+    else:
+        m = IB.cut(op.shape, spec) & op
+    head = np.zeros(op.shape, bool)
+    if key in HEADS:
+        hx0, hy0, hx1, hy1 = HEADS[key]
+        head[hy0:hy1 + 1, hx0:hx1 + 1] = True
+    if (m & head).any():
+        sys.exit(f"in-between of {key}: the part {part} takes {int((m & head).sum())} squares of the helm's box")
+    layer = spun(can, m, about, deg) if deg else np.where(m[..., None], can, 0).astype(np.uint8)
+    if dx or dy:
+        ys, xs = np.nonzero(layer[..., 3] > 0)
+        if ys.min() + dy < 0 or xs.min() + dx < 0 or ys.max() + dy >= CH or xs.max() + dx >= CW:
+            sys.exit(f"in-between of {key}: the part {part} moved {dx}, {dy} leaves the canvas")
+        moved = np.zeros_like(layer)
+        moved[ys + dy, xs + dx] = layer[ys, xs]
+        layer = moved
+    out = can.copy()
+    out[m] = 0
+    lm = layer[..., 3] > 0
+    if under:
+        lm &= ~(out[..., 3] > 0)
+    elif (lm & head & op).any():
+        sys.exit(f"in-between of {key}: the moved part {part} would be drawn over the helm")
+    out[lm] = layer[lm]
+    return out
+
+
+def timed(frames, ticks):
+    """[(canvas, ms)] for frames lasting so many ticks each: every frame ends on its last tick's millisecond as the sheet
+    keeps it (3 decimals), so the frames sum to the action's length and each boundary stays on the kit's tick."""
+    out, t, prev = [], 0, 0.0
+    for can, k in zip(frames, ticks):
+        t += k
+        end = round(ms(t), 3)
+        out.append((can, round(end - prev, 3)))
+        prev = end
+    return out
+
+
 def actions(r):
     """{tag: [(hd canvas, ms)]} - the kit's ticks (tools/kit/build_mordekaiser.py). The idle is design A; the run and every
     skill the 65-degree drawings (the user: 「待机姿势和走路放技能的时候应该不一样的」, picked 65); the death step 2's."""
@@ -551,23 +668,66 @@ def actions(r):
     out["idle"] = [(finish(r.design(rise=b)), ms(8)) for b in (0, 1, 2, 2, 1, 0)]
     # run: eight frames of League's walk on the stand's own leg armour (run(); the cycle as long as Codex's four phases)
     out["run"] = [(finish(c), ms(4)) for c in run(r)]
-    # attack (24 ticks, the hit on tick 10): raise, swing down on the hit, back to the shoulder
-    out["attack"] = [(stand, ms(4)), (finish(r.turn("attack-raise")), ms(6)), (finish(r.turn("attack-strike")), ms(9)),
-                     (stand, ms(5))]
-    # skill Q (26 ticks, the slam on tick 10): both hands overhead, the slam held, back
-    out["skill"] = [(finish(r.turn("q-raise")), ms(10)), (finish(r.turn("q-slam")), ms(11)), (stand, ms(5))]
-    # skill2 E (24 ticks, the claw on tick 8): the free hand thrust forward
-    out["skill2"] = [(stand, ms(3)), (finish(r.turn("e-grasp")), ms(16)), (stand, ms(5))]
+    # attack (24 ticks, the hit on tick 10): the mace lifted off the shoulder (the raised forearm and the mace slid down
+    # behind the pauldron and the helm), raised, swung forward (turned 40 degrees about the elbow, behind the helm), down
+    # on the hit, lifted off the ground (the striking arm turned 22 degrees up about the shoulder), back to the shoulder
+    lift = finish(posed(r, "attack-raise", "arm", dx=16, dy=44, under=True))
+    swing = finish(posed(r, "attack-raise", "arm", 40, (186, 211), under=True))
+    out["attack"] = timed([lift, finish(r.turn("attack-raise")), swing, finish(r.turn("attack-strike")),
+                           finish(posed(r, "attack-strike", "arm", -22, (244, 306), under=True)), stand],
+                          [4, 3, 3, 5, 4, 5])
+    # skill Q (26 ticks, the slam on tick 10): the attack's lift, both hands overhead, the attack's swing on the way
+    # down, the slam, the head rebounding (turned 12 degrees up past the far fist, which hides the bend), back
+    out["skill"] = timed([lift, finish(r.turn("q-raise")), swing, finish(r.turn("q-slam")),
+                          finish(posed(r, "q-slam", "head", -12, (326, 344))), stand], [3, 4, 3, 6, 5, 5])
+    # skill2 E (24 ticks, the claw on tick 8): the free hand coming up (the arm held out turned 45 degrees down about the
+    # shoulder, behind the body), thrust forward, drawn back under the shoulder (12 squares, then 14 squares and 22
+    # degrees down: the pull)
+    out["skill2"] = timed([finish(posed(r, "e-grasp", "arm", 45, (300, 240), under=True)), finish(r.turn("e-grasp")),
+                           finish(posed(r, "e-grasp", "arm", dx=-12, under=True)),
+                           finish(posed(r, "e-grasp", "arm", 22, (300, 240), dx=-14, under=True)), stand],
+                          [3, 6, 4, 6, 5])
     # skill2_w W (20 ticks): a teal pulse over the stand
     out["skill2_w"] = [(finish(r.turn("turned"), tint=0.25), ms(6)), (finish(r.turn("turned"), tint=0.45), ms(8)),
                        (finish(r.turn("turned"), tint=0.2), ms(6))]
-    # ult R (30 ticks, the curse on tick 8): the mace pointed at the target
-    out["ult"] = [(stand, ms(3)), (finish(r.turn("r-point")), ms(22)), (stand, ms(5))]
+    # ult R (30 ticks, the curse on tick 8): the mace brought down off the shoulder (turned 50 degrees up past the
+    # fists), pointed at the target, lifted back (15, then 35 degrees), back to the shoulder
+    out["ult"] = timed([finish(posed(r, "r-point", "mace", -50, (217, 256))), finish(r.turn("r-point")),
+                        finish(posed(r, "r-point", "mace", -15, (217, 256))),
+                        finish(posed(r, "r-point", "mace", -35, (217, 256))), stand], [3, 12, 5, 5, 5])
     # hit: knocked back 2 squares with a white flash, then 1
     out["hit"] = [(finish(r.turn("turned", dx=-2), flash=0.35), ms(6)), (finish(r.turn("turned", dx=-1)), ms(6))]
-    # dead: down on one knee, then lying
-    out["dead"] = [(finish(r.pose("dead-kneel")), ms(14)), (finish(r.pose("dead-lying")), ms(60))]
+    # dead (74 ticks, down at 14): on his knees with the mace still slipping from his hands (the mace he drops, its own
+    # piece, 36 squares up and turned 6 degrees about the head's end, over the hands), the mace on the ground, fallen with
+    # the legs still coming down (turned 18 degrees up about the hips, behind the body), lying
+    out["dead"] = timed([finish(posed(r, "dead-kneel", "mace", -6, (95, 392), dy=-36)), finish(r.pose("dead-kneel")),
+                         finish(posed(r, "dead-lying", "legs", -18, (300, 352), under=True)),
+                         finish(r.pose("dead-lying"))], [4, 6, 4, 60])
     return out
+
+
+def key_frames(r):
+    """The frames each in-between tag played before the in-betweens (the palette is fit on these: KEYS)."""
+    stand = finish(r.turn("turned"))
+    q = {k: finish(key_canvas(r, k)) for k in ("attack-raise", "attack-strike", "q-raise", "q-slam", "e-grasp",
+                                                "r-point", "dead-kneel", "dead-lying")}
+    return {"attack": [stand, q["attack-raise"], q["attack-strike"], stand], "skill": [q["q-raise"], q["q-slam"], stand],
+            "skill2": [stand, q["e-grasp"], stand], "ult": [stand, q["r-point"], stand],
+            "dead": [q["dead-kneel"], q["dead-lying"]]}
+
+
+def write_strip(stem, hds):
+    """hd frames -> <stem>.png (one row, 1 px gaps) + <stem>.json (their sizes and the PPU), as ppu_restyle reads them."""
+    H = max(h.shape[0] for h in hds)
+    strip = np.zeros((H, sum(h.shape[1] + 1 for h in hds) - 1, 4), np.uint8)
+    x = 0
+    for h in hds:
+        strip[:h.shape[0], x:x + h.shape[1]] = h
+        x += h.shape[1] + 1
+    Image.fromarray(strip).save(stem + ".png")
+    with open(stem + ".json", "w", encoding="utf-8", newline="\n") as f:
+        json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds],
+                   "ppu": int(PPU) if float(PPU).is_integer() else PPU}, f)   # (ppu_restyle reads the PPU)
 
 
 def main():
@@ -585,16 +745,7 @@ def main():
             ones.append((one, round(t, 3)))
             hds.append(hd)
         sheet[tag] = ones
-        H = max(h.shape[0] for h in hds)
-        strip = np.zeros((H, sum(h.shape[1] + 1 for h in hds) - 1, 4), np.uint8)
-        x = 0
-        for h in hds:
-            strip[:h.shape[0], x:x + h.shape[1]] = h
-            x += h.shape[1] + 1
-        Image.fromarray(strip).save(os.path.join(PPU_SRC, f"mordekaiser_{tag}.png"))
-        with open(os.path.join(PPU_SRC, f"mordekaiser_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
-            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds],
-                       "ppu": int(PPU) if float(PPU).is_integer() else PPU}, f)   # (ppu_restyle reads the PPU)
+        write_strip(os.path.join(PPU_SRC, f"mordekaiser_{tag}"), hds)
         if a.review:
             os.makedirs(a.review, exist_ok=True)
             Z = 2
@@ -603,6 +754,9 @@ def main():
             for k, t in enumerate(tiles):
                 big.alpha_composite(t.resize((CW * Z, CH * Z), Image.NEAREST), (k * CW * Z, 0))
             big.convert("RGB").save(os.path.join(a.review, f"mordekaiser_{tag}.png"))
+    os.makedirs(KEYS, exist_ok=True)
+    for tag, cans in key_frames(r).items():
+        write_strip(os.path.join(KEYS, f"mordekaiser_{tag}"), [down(c)[1] for c in cans])
     w, h = G.write_sheet(STEM, sheet)
     print(f"league/champions/league_mordekaiser#sheet.png {w}x{h}: " +
           ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))

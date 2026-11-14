@@ -88,9 +88,12 @@ RESTYLE = {
     # 「铁男的走路步伐感觉有点大啊」: Codex's run had the soles 42 and 47.5 game px apart in its two striding frames (the
     # idle's 31), brought together here (narrow) until 2026-10-22; the run rig_mordekaiser.py draws since (「铁男的走路也要
     # 改」: League's walk on the stand's own leg armour) keeps them within RUN_SPAN itself. palette_fit: the crisp palette
-    # still fit on Codex's run as it was (its four frames, unnarrowed), so no other frame of his changes colour
+    # still fit on Codex's run as it was (its four frames, unnarrowed), so no other frame of his changes colour; and on
+    # each in-between tag's frames as they were before its in-betweens (rig_mordekaiser.py KEYS, 2026-11-14)
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
-                        palette_fit={"run": "mordekaiser/codex_run/run_palette_orig"},
+                        palette_fit={"run": "mordekaiser/codex_run/run_palette_orig",
+                                     **{t: f"mordekaiser/palette_keys/mordekaiser_{t}"
+                                        for t in ("attack", "skill", "skill2", "ult", "dead")}},
                         crisp=dict(contrast=1.0, keep="teal"),
                         face_to=(-1, -42)),   # helmet and eyes ((1, -30) cropped his chest, 2026-10-20)
     # 「飞机像泽丽那样变大点」
