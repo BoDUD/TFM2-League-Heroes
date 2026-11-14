@@ -198,6 +198,14 @@ struct Roar {
 }
 
 impl Roar {
+    /// A new life (League: his death takes the stacks): no stacks, no roar cooldown left from the last life, nobody
+    /// remembered near him.
+    fn new_life(&mut self) {
+        self.stacks = 0;
+        self.cd_until = 0;
+        self.near.clear();
+    }
+
     fn gain(&mut self, sim: &StableSim<'_>, me: usize, more: usize, why: &str) {
         let before = self.stacks;
         self.stacks = add_stacks(self.stacks, more);
@@ -261,9 +269,8 @@ impl StablePassive for Roar {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        // League: his death takes the stacks; the roar's cooldown starts over
-        self.stacks = 0;
-        self.near.clear();
+        // League: his death takes the stacks; the last life's roar cooldown is gone too
+        self.new_life();
         sim.entity_remove_buff(me, CC_FLAG);
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Alistar (player {player})", head(sim, me)));
@@ -351,6 +358,15 @@ mod tests {
         assert!(roars(7, 100, 100));
         assert!(!roars(7, 99, 100), "stacks wait for the cooldown");
         assert!(!roars(6, 1000, 0));
+    }
+
+    #[test]
+    fn a_new_life_starts_with_no_stacks_and_no_roar_cooldown() {
+        let mut r = Roar { stacks: 5, cd_until: 99_999, near: HashMap::new() };
+        r.near.insert(7, Some(EntityKindV1::Minion));
+        r.new_life();
+        assert_eq!((r.stacks, r.cd_until, r.near.len()), (0, 0, 0));
+        assert!(roars(add_stacks(r.stacks, BIG_STACKS), 1, r.cd_until), "a champion dying near him roars at once");
     }
 
     #[test]
