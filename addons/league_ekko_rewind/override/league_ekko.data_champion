@@ -39,7 +39,7 @@
   },
   "attack": {
     "action_name": "attack",
-    "description": "#asset/base/text/champion?description.league_ekko.attack",
+    "description": "#asset/base/text/champion?description.league_ekko_rewind.attack",
     "duration": 24,
     "cooltime": 55,
     "start_timing": 10,
@@ -191,6 +191,10 @@
               }
             }
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league_ekko_rewind:convergence"
         }
       ]
     }
@@ -3678,6 +3682,10 @@
                       }
                     }
                   }
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "league_ekko_rewind:convergence"
                 }
               ]
             }

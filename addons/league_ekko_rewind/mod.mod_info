@@ -11,10 +11,10 @@
       "version": ">=0.210.0"
     }
   ],
-  "description": "Test build of Ekko's Chronobreak as in League (needs League of Legends Heroes): replaces the main pack's Ekko so his ult takes him back to where he was 4 seconds ago at once, healing more for the health he lost in those 4 seconds (+4% per 1%, up to +200%), and the AI casts it when he is low, after a burst, or to land on enemies (the main pack's leaves an anchor and snaps back 4 seconds later with a fixed heal, since data cannot remember past positions). Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Ekko's Chronobreak as in League (needs League of Legends Heroes): replaces the main pack's Ekko so his ult takes him back to where he was 4 seconds ago at once, healing more for the health he lost in those 4 seconds (+4% per 1%, up to +200%), and the AI casts it when he is low, after a burst, or to land on enemies (the main pack's leaves an anchor and snaps back 4 seconds later with a fixed heal, since data cannot remember past positions). His basic attacks and E's strike on enemies below 30% health also deal 3% (+3% per 100 AP) of their missing health as magic damage (W's passive, which needs their health). Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-11-14",
   "mod_id": "league_ekko_rewind",
   "mod_type": "native",
   "name": "League Heroes: Ekko's Chronobreak back to 4 seconds ago (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

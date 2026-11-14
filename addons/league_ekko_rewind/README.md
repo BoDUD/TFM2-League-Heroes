@@ -1,4 +1,4 @@
-# 艾克时间倒转附加包（测试版 v0.1.2，可选）
+# 艾克时间倒转附加包（测试版 v0.1.3，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -10,19 +10,21 @@
 | 治疗 | 150 + 80% 法强 | 150 + 80% 法强，这 4 秒每损失 1% 最大生命 +4%，最多 +200%（损失 50% 时加满） |
 | 落地 | 短暂无敌，周围 35000 内 150 + 100% 法强魔法伤害 | 一样 |
 | 什么时候放 | 30000 内有敌方英雄就放 | 生命不高于 35%、这 4 秒掉了 30% 以上、回去的地方 35000 内有 2 个以上敌方英雄、或那里有人吃得下落地这一下时才放 |
+| W 的被动（v0.1.3） | 没有（数据读不到目标的生命） | 普攻和 E 的闪击打中生命低于 30% 的敌人，追加已损失生命 3%（每 100 法强 +3%）的魔法伤害，最少 15，对小兵和野怪最多 150 |
 
 ## 怎么做的
 
 - `mod.override_info` 把艾克换成 `override/` 里的副本。副本由 `make_override.py` 从主包生成：R 去掉锚点（`league_ekko_r_anchor` 投射物、`league_ekko_chrono` / `league_ekko_lives` 两个 buff、全息残影），施放时播离开的画面、给艾克挂 3 tick 的 `league_ekko_rewind_go`；2 tick 后跑主包的落地（无敌、画面、声音、治疗、伤害），只是不再 `Teleport`。R 的说明开头加【附加包】。
 - 被动 `league_ekko_rewind:rewind` 每 tick 记下艾克的位置和生命（240 tick），看到旗子就把他放回最早的那个位置（`entity_set_pos`），按这段时间生命的下降（回血不抵）补治疗。数字在英雄数据的 `passive.params`。
 - AI 钩子 `league_ekko_rewind:ult` 自己也记一份轨迹，按上表决定放不放：AI 想放但不是时候，改成普攻它的目标；AI 没想放但是时候了（R 好了、等级够、不在放别的技能），就替它放。
+- 原生效果 `league_ekko_rewind:convergence`（W 的被动）：副本在普攻和 E 闪击的命中效果最后调用它（目标 = 被打中的单位），本包读他打完这一下、共振之后的生命，低于 30% 就补魔法伤害（`deal_damage_typed`，算普攻的伤害）。防御塔不算。普攻的说明换成本包的 `description.league_ekko_rewind.attack`。
 
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_ekko_rewind` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 艾克 R 的说明开头是「【附加包】回到 4 秒前的位置」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ekko_rewind.log`：`REWIND #n: back 240 ticks to (x, y), hp 210 -> 640 then, lost 520/1400, heal 310 + 460`；`R HELD`（AI 想放但不是时候）。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ekko_rewind.log`：`REWIND #n: back 240 ticks to (x, y), hp 210 -> 640 then, lost 520/1400, heal 310 + 460`；`R HELD`（AI 想放但不是时候）；`LOW #n: #7 (champion true) at 280/1500 hp -> +113 magic (210 AP), 200 hp left`（W 的被动，你看的那场每一下都写，预模拟先写 40 行、之后每 100 下一行）。
 
 ## 开发
 
@@ -36,3 +38,7 @@ Q 末端的减速场（`q_field_zone`）和 W 的减速区（`w_slow_zone`），
 ## 时间卷曲器碰到第一个英雄就展开（v0.1.2，2026-11-14）
 
 主包的 Q 按英雄联盟改成碰到第一个敌方英雄就停下展开力场（原来总是飞满全程；用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）。副本跟着主包重新生成，本包的代码没改。
+
+## W 的被动：普攻对残血的人补伤害（v0.1.3，2026-11-14）
+
+用户看了「和英雄联盟不一样的地方」清单后说「全改吧」，又说「接着做」。英雄联盟的时光交错被动：普攻对生命低于 30% 的敌人追加已损失生命 3%（每 100 法强 +3%）的魔法伤害，最少 15，对小兵和野怪最多 150。主包读不到目标的生命，没做。副本的普攻和 E 的闪击（英雄联盟 E 的第二段是一次普攻）在命中效果最后调用新的原生效果 `league_ekko_rewind:convergence`（打完这一下、共振之后），本包读目标的生命补伤害，防御塔不算；普攻的说明换成本包的。数字是 `src/lib.rs` 的 `W_LOW` / `W_PCT` / `W_AP` / `W_MIN` / `W_CAP`，`make_override.py` 读进说明。日志 `LOW #n`。
