@@ -33,6 +33,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import ppu_rig as R  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import pack_rumble_poses as PK  # noqa: E402
 from design_rumble_poses import POLY  # noqa: E402
@@ -96,12 +97,23 @@ class Canvas:
             (d, (hx, hy), ground), mv = load_pose(name), HEAD_DX[name]
         return d, (rig.ox + HEAD[0] - hx + mv + dx, rig.GY - ground - lift), (hx, hy)
 
-    def frame(self, name, dx=0, lift=0, flash=False, hot=False):
+    def frame(self, name, dx=0, lift=0, flash=False, hot=False, spins=()):
+        """A pose placed (see placed); hot: the mech glowing red (red_hot). The in-betweens (tools/art/inbetween.py
+        vary), the pose placed as it is whole: spins [(part, point, degrees, how)] - the ball's arm or the cannon
+        (PARTS) turned clockwise by any angle about its shoulder. The head and everything of the pose in none of its
+        parts are checked unchanged."""
         rig = self.rig
         can = rig.canvas()
         d, (left, top), (hx, hy) = self.placed(name, dx, lift)
+        pl, pt = left, top
+        if spins:
+            head = np.zeros(d.shape[:2], bool)
+            head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
+            parts = {k: runs(IB.part_mask(d.shape, v) & ~head) for k, v in PARTS[name].items()}
+            d = IB.vary(d, parts, self.outline, (), (), None, head, VPAD, name, (), spins)
+            pl, pt = left - VPAD, top - VPAD
         ys, xs = np.nonzero(d[..., 3] > 0)
-        ty, tx = ys + top, xs + left
+        ty, tx = ys + pt, xs + pl
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
         if not ok.all():
             sys.exit(f"{name}: {int((~ok).sum())} squares off the canvas (pad the rig)")
@@ -134,13 +146,58 @@ class Canvas:
             lo = hi
         return out
 
+    def head(self):
+        """The pilot's head squares in the head box: what every key pose holds of the design's there."""
+        if getattr(self, "_head", None) is None:
+            self._head = IB.shared_head(self.d, HEAD, (HEAD_W, HEAD_H), [load_pose(n)[:2] for n in PARTS])
+        return self._head
+
+
+# The parts of the key poses that move on their own in the in-between frames (tools/art/inbetween.py; the user,
+# 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」): the spiked ball with the mech arm that holds
+# it and the cannon, each turned about its shoulder (inbetween.spin: the join hidden under the hull), polygons in the
+# pose picture's own squares less the pilot's head squares. The pilot (pack_rumble_poses.HEAD), the hull, the bowl and
+# the legs are in no part: they never change. Flamespitter's frames are as they were (the bake lays the fire on a fixed
+# point: a turned cannon would leave its muzzle).
+HEAD_W, HEAD_H = PK.HEAD[3] - PK.HEAD[2], PK.HEAD[1] - PK.HEAD[0]
+VPAD = 40                      # squares a turned part may leave its pose picture's box by
+PARTS = {
+    "a_wind": {"ball": [[(0, 0), (36, 0), (36, 27), (25, 30), (18, 36), (20, 44), (26, 50), (26, 56), (0, 56)]]},
+    "a_smash": {"ball": [[(0, 30), (30, 30), (31, 40), (29, 52), (27, 60), (24, 63), (24, 80), (0, 80)]]},
+    "e_aim": {"cannon": [[(53, 0), (95, 0), (95, 30), (72, 36), (60, 36), (54, 30)]]},
+    "e_recoil": {"cannon": [[(52, 0), (86, 0), (86, 26), (70, 32), (56, 32), (52, 24)]]},
+    "d_drop": {"cannon": [[(70, 0), (106, 0), (106, 44), (84, 50), (72, 48), (66, 40)]]},
+}
+# the point each part turns about (square corners): the corner where it leaves the hull on the side it turns away from
+PIVOT = {("a_wind", "ball"): (27, 46), ("a_smash", "ball"): (30, 34), ("e_aim", "cannon"): (54, 22),
+         ("e_recoil", "cannon"): (52, 18), ("d_drop", "cannon"): (74, 46)}
+
+
+def runs(m):
+    """A mask as row runs (x0, y, x1, y) - boxes for inbetween.part_mask."""
+    out = []
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if not len(xs):
+            continue
+        cut = np.nonzero(np.diff(xs) > 1)[0]
+        out += [(int(a), y, int(b), y) for a, b in zip(np.r_[xs[0], xs[cut + 1]], np.r_[xs[cut], xs[-1]])]
+    return out
+
 
 # ms per frame; the kit's ticks (tools/kit/build_rumble.py) match these (a frame's start in ticks = ms x 0.06):
 # attack 467 ms = atk_dur 28, the ball landing on the smash frame (a_hit 11 = 183 ms); Flamespitter 1500 ms = q_t 90,
 # the cannon levelled, the fire from q_first 8 (133 ms) to the end; Electro-Harpoon 400 ms = e_dur 24, fired on e_rel 8
 # (133 ms); The Equalizer 600 ms = r_dur 36, the rockets off on r_rel 14 (233 ms)
-MS = {"idle": [1000], "run": [150] * 4, "attack": [183, 184, 100], "skill": [133, 1367], "skill2": [133, 267],
-      "ult": [233, 367], "hit": [100, 100], "dead": [140, 260, 300, 600]}
+#
+# The in-betweens (2026-11-14: the attack played 3 poses, E 2, the death 2 and a flash): each span above is shared out
+# over more frames (inbetween.spans: whole ms, none under 50), so every action is as long as it was and its strike still
+# begins on its millisecond - the smash at 183 and the idle at 367, the harpoon at 133, the fall at 400. A frame that is
+# only its neighbour moved whole is no new pose: one stays only where the move is the motion (the smash's lunge, the
+# fall). Flamespitter, the ult, the runs and the hit are as they were.
+MS = {"idle": [1000], "run": [150] * 4, "attack": IB.spans((183, 3), (184, 3), (100, 1)), "skill": [133, 1367],
+      "skill2": IB.spans((133, 2), (267, 3)),
+      "ult": [233, 367], "hit": [100, 100], "dead": IB.spans((400, 3, (35, 30, 35)), (900, 2, (8, 92)))}
 MS.update({f"oh_{t}": MS[t] for t in ("idle", "run", "attack", "hit", "dead")})
 # Flamespitter on the move: the run's four steps twice, standing the same length (the fire loops within them)
 MS.update({"q_run": [150] * 8, "q_stand": [1200]})
@@ -224,28 +281,47 @@ def q_run(C):
 
 def actions(C):
     f = C.frame
+
+    def spin(name, part, degrees):
+        """The pose's part turned clockwise by `degrees` (negative: counter-clockwise) about its shoulder (PIVOT)."""
+        return [(part, PIVOT[(name, part)], degrees, "under")]
+
+    def attack(hot):
+        """The ball coming up from his side, raised; the body already in the smash with the ball still coming over; the
+        smash a step ahead, the ball bounced, at rest; the idle."""
+        return [f("a_wind", hot=hot, spins=spin("a_wind", "ball", -30)), f("a_wind", hot=hot),
+                f("a_smash", hot=hot, spins=spin("a_smash", "ball", 60)), f("a_smash", dx=2, hot=hot),
+                f("a_smash", hot=hot, spins=spin("a_smash", "ball", 10)), f("a_smash", hot=hot), f("idle", hot=hot)]
+
+    def dead(hot):
+        """Struck; toppling back with the cannon flung up in two steps; down, settled."""
+        return [f("d_drop", flash=True, hot=hot), f("d_drop", dx=-2, hot=hot, spins=spin("d_drop", "cannon", -15)),
+                f("d_drop", dx=-3, lift=1, hot=hot, spins=spin("d_drop", "cannon", -30)), f("d_down", lift=3, hot=hot),
+                f("d_down", hot=hot)]
     out = {}
     out["idle"] = [f("idle")]
     # run (League's run: a long stomping stride on each leg, the passing frames a square higher)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
     # attack (Attack2: the ball raised over his head, smashed down before him, back)
-    out["attack"] = [f("a_wind"), f("a_smash"), f("idle")]
+    out["attack"] = attack(False)
     # Flamespitter (Spell1: the cannon levelled, then held spraying while the fire pours: the bake)
     out["skill"] = [f("q_aim"), f("q_spray")]
     # Electro-Harpoon (Spell3: aimed, the kick of the shot)
-    out["skill2"] = [f("e_aim"), f("e_recoil")]
+    # (the cannon coming up, aimed; fired with the kick, coming back down in two steps)
+    out["skill2"] = [f("e_aim", spins=spin("e_aim", "cannon", 20)), f("e_aim"), f("e_recoil"),
+                     f("e_recoil", spins=spin("e_recoil", "cannon", 10)),
+                     f("e_recoil", spins=spin("e_recoil", "cannon", 18))]
     # The Equalizer (Spell4: crouched with the pods to the sky, the kick of the rockets going off)
     out["ult"] = [f("r_crouch"), f("r_launch")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (Death: knocked back, toppled onto his back with the legs in the air)
-    out["dead"] = [f("d_drop", flash=True), f("d_drop"), f("d_down"), f("d_down")]
+    out["dead"] = dead(False)
     # Overheated (红温): the same frames with the mech glowing red, for the tags he plays while it lasts (no casts then)
     out["oh_idle"] = [f("idle", hot=True)]
     out["oh_run"] = [f("run1", hot=True), f("run2", hot=True), f("run3", hot=True), f("run4", hot=True)]
-    out["oh_attack"] = [f("a_wind", hot=True), f("a_smash", hot=True), f("idle", hot=True)]
+    out["oh_attack"] = attack(True)
     out["oh_hit"] = [f("idle", dx=-2, flash=True, hot=True), f("idle", dx=-1, hot=True)]
-    out["oh_dead"] = [f("d_drop", flash=True, hot=True), f("d_drop", hot=True), f("d_down", hot=True),
-                      f("d_down", hot=True)]
+    out["oh_dead"] = dead(True)
     # Flamespitter on the move (the add-on): the spray held still, and the spray body on the run's legs; each step's
     # body offset kept for the fire (baked)
     out["q_stand"] = [f("q_spray")]
