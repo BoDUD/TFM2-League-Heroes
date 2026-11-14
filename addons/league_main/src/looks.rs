@@ -20,13 +20,14 @@
 ///
 /// 剑魔的大灭（`league_aatrox_r`，10 秒，击杀续上；用户 10-04：「剑魔的大招应该一直在天上的吧？」）：英雄联盟里整段大招
 /// 他都飞在空中，只有 Q 砸地时落下。他开大的出招 `*_r` 数据自己播，原来起手离地、收招落回地面，不出招时脚在地上；
-/// 现在站着、跑着、挨打换成 `r_idle` / `r_run` / `r_hit`——每一帧都是开大出招的收尾帧（展开翅膀的待机）整帧抬高
-/// 7 游戏像素（tools/art/hover_aatrox.py，不重画、不缩放），悬停不上下摆动；变身 `ult` 换成 `r_ult`：前 5 帧相同，
-/// 最后 3 帧停在悬停的高度、不落地（选人卡和待机小动作还播原来的 `ult`）。看的是 `league_aatrox_r` 而不是翅膀光环的
-/// `league_aatrox_r_look`：后者出招时拿掉、收招时才挂回来，差一个 tick 就会落地闪一下。
+/// 现在站着、跑着、挨打换成 `r_hover` / `r_run` / `r_hit`——都是开大出招的收尾帧（展开翅膀的待机）整帧抬高
+/// 7 游戏像素（tools/art/hover_aatrox.py，不重画、不缩放），悬停不上下摆动；悬停和滑翔时翅膀扇动（用户：「翅膀要扇啊
+/// 别僵硬啊」），身体每一帧逐格不动。不叫 `r_idle`：hero_reels 会把 `<x>_idle` 做成停住的一帧。变身 `ult` 换成
+/// `r_ult`：前 5 帧相同，最后 3 帧停在悬停的高度、不落地（选人卡和待机小动作还播原来的 `ult`）。看的是
+/// `league_aatrox_r` 而不是翅膀光环的 `league_aatrox_r_look`：后者出招时拿掉、收招时才挂回来，差一个 tick 就会落地闪一下。
 pub const LOOKS: &[(&str, &[&str], &[(&str, &str)])] = &[
     ("league_riven", &["league_riven_r"], &[("idle", "rf_idle"), ("run", "rf_run"), ("hit", "rf_hit")]),
-    ("league_aatrox", &["league_aatrox_r"], &[("idle", "r_idle"), ("run", "r_run"), ("hit", "r_hit"), ("ult", "r_ult")]),
+    ("league_aatrox", &["league_aatrox_r"], &[("idle", "r_hover"), ("run", "r_run"), ("hit", "r_hit"), ("ult", "r_ult")]),
 ];
 
 /// 正在播的动作名 + 这个状态在不在 → 该播的名字（不用换就是 None）。状态没了时把换上去的名字换回来。
@@ -191,14 +192,14 @@ mod tests {
         assert!(row(b"league_aatrox").is_some());
     }
 
-    /// Aatrox in World Ender: standing, running and reeling hover (the R casts' last frame lifted), the transformation
-    /// settles on the hover instead of landing; his casts (attack_r ...) are the kit's own, untouched; the plain ult
-    /// comes back when R is over.
+    /// Aatrox in World Ender: standing, running and reeling hover (the R casts' last frame lifted), his wings beating in
+    /// the hover and the glide; the transformation settles on the hover instead of landing; his casts (attack_r ...) are
+    /// the kit's own, untouched; the plain ult comes back when R is over.
     #[test]
     fn aatrox_hovers_through_world_ender() {
         let (_, buffs, pairs) = *row(b"league_aatrox").unwrap();
         assert_eq!(buffs, &["league_aatrox_r"]);
-        assert_eq!(swap(pairs, "idle", true), Some("r_idle"));
+        assert_eq!(swap(pairs, "idle", true), Some("r_hover"));
         assert_eq!(swap(pairs, "run", true), Some("r_run"));
         assert_eq!(swap(pairs, "hit", true), Some("r_hit"));
         assert_eq!(swap(pairs, "ult", true), Some("r_ult"));
@@ -206,16 +207,24 @@ mod tests {
         assert_eq!(swap(pairs, "q3_r", true), None);
         assert_eq!(swap(pairs, "dead", true), None);
         assert_eq!(swap(pairs, "r_ult", false), Some("ult"));
-        assert_eq!(swap(pairs, "r_idle", false), Some("idle"));
-        // r_ult is ult with its last frames on the hover: as many frames, the same timing (a swap mid-play keeps its place)
+        assert_eq!(swap(pairs, "r_hover", false), Some("idle"));
         let fanim = crate::hd::HEROES.iter().find(|h| h.0 == "league_aatrox").unwrap().2;
         let durations = |tag: &str| -> Vec<String> {
             let at = fanim.find(&format!("\"{tag}\":")).unwrap_or_else(|| panic!("no {tag}"));
             let body = &fanim[at..at + fanim[at..].find("]}").unwrap()];
             body.match_indices("\"duration\":").map(|(i, _)| body[i + 11..].split(',').next().unwrap().to_string()).collect()
         };
+        // r_ult is ult with its last frames on the hover: as many frames, the same timing (a swap mid-play keeps its place)
         for (from, to) in [("ult", "r_ult"), ("hd_ult", "hd_r_ult"), ("lo_ult", "lo_r_ult")] {
             assert_eq!(durations(from), durations(to), "{to}");
+        }
+        // the hover and the glide are a wing beat of several frames, not one held frame (「翅膀要扇啊 别僵硬啊」), and
+        // r_hover is no `<x>_idle` (tools/art/hero_reels.py would make it a held frame)
+        for pre in ["", "hd_", "lo_"] {
+            for tag in ["r_hover", "r_run"] {
+                assert!(durations(&format!("{pre}{tag}")).len() >= 6, "{pre}{tag}");
+            }
+            assert!(!fanim.contains(&format!("\"{pre}r_idle\":")));
         }
     }
 
