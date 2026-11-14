@@ -55,7 +55,7 @@
 
 ### 索拉卡附加包
 
-[索拉卡附加包](../../addons/league_soraka/README.md)：`league_soraka` v0.1.0
+[索拉卡附加包](../../addons/league_soraka/README.md)：`league_soraka` v0.1.1
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

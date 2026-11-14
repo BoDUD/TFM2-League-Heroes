@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.75.0"
+      "version": ">=0.370.0"
     }
   ],
   "description": "Test build of Lillia's Dream Dust and Lilting Lullaby as in League (needs League of Legends Heroes): replaces the main pack's Lillia so that Dream Dust deals % max-health magic damage (the data pack can only deal it as true damage) and R's sleep breaks on any damage with the wake damage (the data pack's is a stun), and E's seed rolls on from where it lands until it hits an enemy or terrain (the data pack's stops where it lands). Other champions are untouched. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_lillia",
   "mod_type": "native",
   "name": "League Heroes: Lillia's Dream Dust and sleep (test)",
-  "version": "0.1.6"
+  "version": "0.1.7"
 }
