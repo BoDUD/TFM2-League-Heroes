@@ -2,7 +2,8 @@
 #
 # checks  - the things that broke before and are easy to break again when a hero is added or changed:
 #           * PPU: every champion's UI sheets, and the screens that show every hero inside the 256 MiB image cache
-#             (tools/ci/ui_sheets.py; league.dll's tests below);
+#             (tools/ci/ui_sheets.py; league.dll's tests below); the dense frames' outlines as tools/art/thin_outline.py
+#             thinned them (the user, 2026-11-14: 「有些英雄黑边太粗了」);
 #           * the add-ons' copies of main-pack heroes rebuilt and compared (make_override.py --check): Sylas's stolen
 #             ults, Viego's possession, Neeko's disguise, Kayn's form;
 #           * the dense-frame engine both pack DLLs share (hd_engine: PPU, UI sheets, the host / guest handshake),
@@ -112,6 +113,8 @@ jobs:
           python -I tools/art/unit_elise_spiderling.py --check
           python -I tools/art/unit_kogmaw_void.py --check
           python -I tools/art/fx_kogmaw_burst.py --check
+      - name: Dense frames' outlines thinned - every hero in tools/art/thin_outline.json as that tool leaves it (a pipeline run that drew a hero's frames thick again fails here)
+        run: python -I tools/art/thin_outline.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places -p push_rules
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges

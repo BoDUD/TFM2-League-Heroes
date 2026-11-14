@@ -3,8 +3,10 @@
 「有些英雄黑边太粗了 都检查一下 发条那种就正常」).
 
     python -I tools/art/thin_outline.py --hero fizz [--hero darius ...]   # rewrite the heroes' hd_ / lo_ frames (+ strips)
-    python -I tools/art/thin_outline.py --hero fizz --check               # exit 1 when a frame would still change
+    python -I tools/art/thin_outline.py --check                           # every hero in thin_outline.json: exit 1 when
+                                                                          # a frame would still change (CI)
     python -I tools/art/thin_outline.py --hero fizz --dry --review DIR    # before / after pictures, nothing written
+    python -I tools/art/thin_outline.py --hero fizz --fresh               # measure BAND again (frames redrawn thick)
     python -I tools/art/thin_outline.py --audit [--json PATH]             # every dense hero of both packs: band, game px
 
 Why the band is thick. Most dense frames carry a near-black outline band several squares deep: the design's own
@@ -40,16 +42,22 @@ behind them. The silhouette (every alpha value) never changes, so the model is e
   * a lone square to change among kept ones at its depth (it would grow a one-square spike).
 - The colour: the body square the band square is nearest (grown from the body outward, the square straight inside first),
   the commonest of the body's edge colours round it (5 x 5: a single odd square there is not grown into a ray); a
-  highlight (40+ luma over the commonest body colour round it, or over the body square behind it) is not grown - that
-  colour takes its place, the highlight stays where it was drawn. Then a band square left alone inside the new colour,
-  and a speck of 3 squares or fewer the change cut off (the end of an inner line that ran into the band), take the colour
-  round them.
+  highlight (40+ luma over the commonest body colour round it, over the body square behind it, or over the median luma of
+  the body round it - league_brand's yellow eye on his dark face) is not grown - the body's colour there takes its
+  place, the highlight stays where it was drawn. Then a band square left alone inside the new colour, and a speck of 3
+  squares or fewer the change cut off (the end of an inner line that ran into the band), take the colour round them.
 - Every rule reads what the change leaves alone (alpha, the colours deeper than BAND + 1, the kept squares, the stored
-  BAND / KEEP), so one pass is a fixed point; thin_fixed() repeats it until nothing changes (the pilot heroes: 0-14
-  squares in a second pass), and --check wants a pass to change nothing.
+  BAND / KEEP), so one pass is a fixed point; thin_fixed() repeats it until nothing changes (2026-11-15, 81 heroes: a
+  second pass changed 0-14 squares of a hero), and --check wants a pass to change nothing.
 
 thin_outline.json: {hero id: {"outline": [[r, g, b], ...], "hd": {"band", "deep", "median", "keep"}, "lo": {...}}},
-written by the first run of a hero; a later run uses it (--keep N changes the hd_ "keep" of the heroes named).
+written by the first run of a hero; a later run uses it (--keep N changes the hd_ "keep" of the heroes named). A hero
+whose entry is {"skip": why} is never touched (league_akshan: his new frames are in the install tree, not here yet;
+league_volibear: his storm-form twins). Run over the heroes after a pipeline run that writes their dense frames again
+(tools/art/ppu_restyle.py, ppu_hd.py): CI's --check fails until it is.
+
+Frames another tool makes from a hero's own frames (DERIVED) are not thinned here: that tool makes them again from the
+thinned frames - league_aatrox's hover tags, tools/art/hover_aatrox.py (run it after this; its --check is in CI).
 
 The strips tools/art/ppu_hd.py reads (assets/source/ppu/<hero>_<tag>.png) get the same change where every frame of the
 strip is its sheet's hd_ frame square for square, so `ppu_hd.py --hero <hero>` writes the thinned frames again. Their
@@ -139,20 +147,33 @@ def is_fx(tag):
     return re.search(r"_fx\d*$", tag) is not None
 
 
-def rects(anims, prefix):
-    """The distinct frame rects of the `prefix` tags (hd_ / lo_), effect layers left out -> [(x, y, w, h)]."""
-    seen, fx = [], set()
+# a hero's tags another tool makes from its own frames: not thinned here, made again by that tool from the thinned ones
+DERIVED = {
+    # tools/art/hover_aatrox.py: the hover (r_hover, r_run), r_hit's push back and flash, r_ult settling on the hover -
+    # REST and ult's frames moved, bent or flashed (its --check in CI wants them as it makes them)
+    "league_aatrox": ("r_hover", "r_run", "r_hit", "r_ult"),
+}
+
+
+def rects(anims, prefix, derived=()):
+    """The distinct frame rects of the `prefix` tags (hd_ / lo_) -> [(x, y, w, h)]: effect layers left out, and the rects
+    only `derived` tags use."""
+    seen, fx, own = [], set(), set()
     for tag, a in anims.items():
         if not tag.startswith(prefix):
             continue
+        base = tag[len(prefix):]
         for f in a["frames"]:
             d = f["data"]
             r = tuple(int(d[k]) for k in ("x", "y", "w", "h"))
-            if is_fx(tag[len(prefix):]):
+            if is_fx(base):
                 fx.add(r)
-            elif r not in seen:
+                continue
+            if r not in seen:
                 seen.append(r)
-    return [r for r in seen if r not in fx]
+            if base not in derived:
+                own.add(r)
+    return [r for r in seen if r not in fx and r in own]
 
 
 # ------------------------------------------------------------------------------------------------------- geometry
@@ -467,6 +488,21 @@ def thin(a, oc, P, masks=False):
     rim = (smooth >= 0) & (behind >= 0) & (s_l - luma(np.maximum(behind, 0)) > HIGHLIGHT)
     # a highlight on the body's edge is not grown, what is behind it is (the highlight stays where it was drawn)
     colour = np.where(lift, common, np.where(rim, behind, smooth))
+    # and a small bright thing on the edge of a body of many shades (league_brand's eye on his dark face: the eye's
+    # yellow the commonest single colour round it): over the median luma of the body round it, the commonest colour of
+    # the body there that is not
+    lum_core = np.where(core, luma(key), np.nan)
+    stack = np.stack([shift(lum_core, dy, dx, np.nan) for dy in range(-2, 3) for dx in range(-2, 3)])
+    with np.errstate(all="ignore"):
+        med = np.nanmedian(np.where(np.isnan(stack).all(0, keepdims=True), 0.0, stack), 0)
+    c_l = luma(np.maximum(colour, 0))
+    for y, x in zip(*np.nonzero(edge_body & (colour >= 0) & (c_l - med > HIGHLIGHT))):
+        y0, y1, x0, x1 = max(0, y - 2), y + 3, max(0, x - 2), x + 3
+        ks = key[y0:y1, x0:x1][core[y0:y1, x0:x1]]
+        ks = ks[luma(ks) <= med[y, x] + HIGHLIGHT / 2]
+        if len(ks):
+            v, n = np.unique(ks, return_counts=True)
+            colour[y, x] = v[np.argmax(n)]
     colour = np.where(core & (colour < 0), key, colour)
     have = np.where(core, colour, -1)
     todo = ok.copy()
@@ -584,18 +620,19 @@ def load_state():
 
 def save_state(state):
     with open(STATE, "w", encoding="utf-8", newline="\n") as f:
-        f.write("{\n" + ",\n".join(f'  "{h}": ' + json.dumps(state[h], separators=(", ", ": ")) for h in sorted(state)) +
-                "\n}\n")
+        f.write("{\n" + ",\n".join(f'  "{h}": ' + json.dumps(state[h], separators=(", ", ": "), ensure_ascii=False)
+                                     for h in sorted(state)) + "\n}\n")
 
 
-def params(hero, pack, ppu, size, anims, px, state, keep=None):
-    """-> {"outline", "hd": {"band", "deep", "median", "keep"}, "lo": {...}}: the stored ones, else measured now (the
-    frames as they are)."""
-    if hero in state:
+def params(hero, pack, ppu, size, anims, px, state, keep=None, fresh=False):
+    """-> {"outline", "hd": {"band", "deep", "median", "keep"}, "lo": {...}}: the stored ones, else (or `fresh`) measured
+    now from the frames as they are."""
+    if hero in state and not fresh:
         p = json.loads(json.dumps(state[hero]))
     else:
-        hd = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "hd_")]
-        lo = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "lo_")]
+        der = DERIVED.get(hero, ())
+        hd = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "hd_", der)]
+        lo = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "lo_", der)]
         oc = outline_colours(hd)
         p = {"outline": oc, "hd": kind_params(hd, oc, keep_for(ppu / size)),
              "lo": kind_params(lo, oc, keep_for(UI_PPU)) if lo else {"band": 0, "deep": 1, "keep": keep_for(UI_PPU)}}
@@ -604,18 +641,21 @@ def params(hero, pack, ppu, size, anims, px, state, keep=None):
     return p
 
 
-def run_hero(row, state, write, keep=None, review=None):
+def run_hero(row, state, write, keep=None, review=None, fresh=False):
     """Thin one hero's sheet (and strips) -> report dict; with write=False nothing is written."""
     hero, pack, ppu, size = row
+    if state.get(hero, {}).get("skip"):
+        return {"hero": hero, "skip": state[hero]["skip"], "params": state[hero], "changed": False}
     anims, px = read(hero, pack)
     before = px.copy()
-    p = params(hero, pack, ppu, size, anims, px, state, keep)
+    p = params(hero, pack, ppu, size, anims, px, state, keep, fresh)
     oc = p["outline"]
+    der = DERIVED.get(hero, ())
     rep = {"hero": hero, "params": p, "frames": {}, "squares": {}}
     new_frames = {}
     for kind, prefix in (("hd", "hd_"), ("lo", "lo_")):
         n_fr = n_sq = 0
-        for x, y, w, h in rects(anims, prefix):
+        for x, y, w, h in rects(anims, prefix, der):
             a = px[y:y + h, x:x + w]
             b, n = thin_fixed(a, oc, p[kind]) if oc else (a, 0)
             if (b[..., 3] != a[..., 3]).any():
@@ -634,7 +674,7 @@ def run_hero(row, state, write, keep=None, review=None):
     # the strips ppu_hd.py reads: the same change where each frame is its sheet frame as it was
     strips = []
     for tag, a in anims.items():
-        if tag.startswith(("hd_", "lo_")) or is_fx(tag) or "hd_" + tag not in anims:
+        if tag.startswith(("hd_", "lo_")) or is_fx(tag) or "hd_" + tag not in anims or tag in der:
             continue
         path = os.path.join(STRIPS, f"{strip_name(hero)}_{tag}.png")
         if not os.path.isfile(path):
@@ -661,20 +701,23 @@ def run_hero(row, state, write, keep=None, review=None):
     rep["strips"] = strips
     if write and new_frames:
         Image.fromarray(after, "RGBA").save(stem(hero, pack) + "#sheet.png", optimize=True)
+    rep["write_state"] = p if write else None
     if write:
         state[hero] = p
     if review:
         rep["review"] = review_sheet(row, anims, before, after, p, review)
-    rep["width"] = widths(anims, before, after, p, ppu, size)
+    rep["width"] = widths(anims, before, after, p, ppu, size, der)
     return rep
 
 
-def widths(anims, before, after, p, ppu, size):
+def widths(anims, before, after, p, ppu, size, derived=()):
     """Median band depth over the hd_ frames' edge squares before / after, in squares and game px."""
     oc = p["outline"]
     out = {}
+    if not oc:
+        return {"before": (0.0, 0.0), "after": (0.0, 0.0)}
     for name, px in (("before", before), ("after", after)):
-        fr = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "hd_")]
+        fr = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "hd_", derived)]
         med, _ = measure(fr, oc)
         out[name] = (med, med * size / ppu)
     return out
@@ -743,8 +786,8 @@ def review_sheet(row, anims, before, after, p, out_dir):
 def audit_row(row, state):
     hero, pack, ppu, size = row
     anims, px = read(hero, pack)
-    hd = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "hd_")]
-    p = params(hero, pack, ppu, size, anims, px, state)
+    hd = [px[y:y + h, x:x + w] for x, y, w, h in rects(anims, "hd_", DERIVED.get(hero, ()))]
+    p = params(hero, pack, ppu, size, anims, px, {k: v for k, v in state.items() if not v.get("skip")})
     oc = p["outline"]
     med, _ = measure(hd, oc)
     T, K = p["hd"]["band"], p["hd"]["keep"]
@@ -759,7 +802,8 @@ def audit_row(row, state):
     return {"hero": hero, "pack": pack, "ppu": ppu, "size": size, "outline": oc[0] if oc else None,
             "outline_n": len(oc), "band_median": med, "band": T, "game_px": round(med * size / ppu, 2),
             "keep": K, "keep_px": round(K * size / ppu, 2), "squares": filled,
-            "share": round(filled / max(1, band_sq), 3), "thinned": hero in state}
+            "share": round(filled / max(1, band_sq), 3), "thinned": hero in state and not state[hero].get("skip"),
+            "skip": state.get(hero, {}).get("skip")}
 
 
 def main():
@@ -769,6 +813,7 @@ def main():
     ap.add_argument("--dry", action="store_true", help="write nothing")
     ap.add_argument("--review", help="before / after pictures into this folder")
     ap.add_argument("--keep", type=int, help="squares of outline to keep for the heroes named (stored)")
+    ap.add_argument("--fresh", action="store_true", help="measure the heroes' bands again (their frames drawn anew)")
     ap.add_argument("--audit", action="store_true", help="every dense hero: outline, band, PPU, game px, would change")
     ap.add_argument("--json", help="--audit: also write the rows here")
     ap.add_argument("--jobs", type=int, default=os.cpu_count() or 4)
@@ -792,36 +837,44 @@ def main():
                 json.dump(res, f, indent=1)
         return
     if args.check and not names:
-        names = sorted(state)
+        names = sorted(h for h in state if not state[h].get("skip"))
     if not names:
         ap.error("--hero, --check or --audit")
+    rows = [resolve(n, heroes) for n in names]
+    write = not (args.dry or args.check)
+    from concurrent.futures import ProcessPoolExecutor
+    with ProcessPoolExecutor(max_workers=max(1, min(args.jobs, len(rows)))) as ex:
+        reps = list(ex.map(run_hero, rows, [state] * len(rows), [write] * len(rows), [args.keep] * len(rows),
+                           [args.review] * len(rows), [args.fresh] * len(rows)))
     bad = []
-    for n in names:
-        row = resolve(n, heroes)
+    for row, rep in zip(rows, reps):
+        if rep.get("skip"):
+            print(f"{row[0]}: skipped - {rep['skip']}")
+            continue
         if args.check:
             if row[0] not in state:
                 bad.append(f"{row[0]}: never thinned (not in {os.path.relpath(STATE, ROOT)})")
-                continue
-            rep = run_hero(row, dict(state), write=False)
-            if rep["changed"]:
-                bad.append(f"{row[0]}: {rep['squares']} squares would change ({rep['frames']} frames)")
+            elif rep["changed"]:
+                bad.append(f"{row[0]}: {rep['squares']} squares would change ({rep['frames']} frames) - run "
+                           f"python -I tools/art/thin_outline.py --hero {row[0]} (--fresh if its frames were drawn anew)")
             continue
-        write = not args.dry
-        rep = run_hero(row, state, write=write, keep=args.keep, review=args.review)
+        if rep.get("write_state") is not None:
+            state[row[0]] = rep["write_state"]
         p, wd = rep["params"], rep["width"]
         print(f"{row[0]}: outline {p['outline']}; hd band {p['hd']['band']} -> keep {p['hd']['keep']}, lo_ band "
               f"{p['lo']['band']} -> {p['lo']['keep']}; {rep['frames']['hd']} hd_ / {rep['frames']['lo']} lo_ frames, "
               f"{rep['squares']['hd']} / {rep['squares']['lo']} squares; median band {wd['before'][0]:.1f} -> "
               f"{wd['after'][0]:.1f} squares = {wd['before'][1]:.2f} -> {wd['after'][1]:.2f} game px"
               + (f"; strips: {', '.join(f'{t} {s}' for t, s in rep['strips'])}" if rep["strips"] else "")
-              + (f"; review {rep['review']}" if rep.get("review") else ""))
+              + (f"; review {rep['review']}" if rep.get("review") else "")
+              + ("; now run tools/art/hover_aatrox.py" if row[0] == "league_aatrox" and rep["changed"] else ""))
     if args.check:
         if bad:
             print("\n".join(["FAILED:"] + bad))
             sys.exit(1)
-        print(f"ok: {len(names)} heroes, nothing to change")
+        print(f"ok: {len(rows)} heroes, nothing to change")
         return
-    if not args.dry:
+    if write:
         save_state(state)
 
 
