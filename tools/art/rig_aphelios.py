@@ -428,6 +428,23 @@ def lying(can, ccw=True):
     return out
 
 
+def lying_as(can, ref):
+    """lying(can) (counter-clockwise) laid where lying(ref) lays ref: a variant of ref's pose (its scarf's tails swayed)
+    turned with the same square for square as ref, so the body lies exactly where ref's does - lying() alone would
+    place it by its own box, which the tails change. Squares that would leave the canvas or go under the soles are
+    dropped (the ground line)."""
+    ys, xs = np.nonzero(ref[..., 3] > 0)
+    y0, x0 = ys.min(), xs.min()
+    h0, w0 = ys.max() + 1 - y0, xs.max() + 1 - x0
+    top, left = SOLE + 1 - w0, PIV_X - h0 // 2 - 6
+    out = blank()
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    ty, tx = top + w0 - 1 - (xs - x0), left + (ys - y0)      # np.rot90(sub, 1): sub[r, c] -> t[w0 - 1 - c, r]
+    ok = (ty >= 0) & (ty <= SOLE) & (tx >= 0) & (tx < CW)
+    out[ty[ok], tx[ok]] = can[ys[ok], xs[ok]]
+    return out
+
+
 # Calibrum off his back, a quarter turn clockwise: levelled, the muzzle forward; its teal grip (columns 24-34 of the
 # turned blade) in the far hand
 RIFLE_FWD, RIFLE_BOX = turned(LAB == RIFLE, -1)
@@ -826,27 +843,43 @@ def ult_frames(w):
             (at("deep", hide=H, arm=W(-15, edy=-1)), 30), (stand(w), 40)]
 
 
-def dead_frames(w=None):
-    """Death in 8 frames: the blow, a stagger with the knees giving (the body 3 rows down over the legs), falling on his
-    back (the whole figure a quarter turn, 7 then 3 rows off the ground), down, a 1-row bounce, down, still. w: a
-    weapon form (its stance), else Calibrum's."""
-    kw = {} if w is None else dict(hide=(RIFLE,), arm=arm_up(w, **FORM_HOLD[w]))
-    if w == "inf":
-        # Infernum, held low and level, would stand on end under him turned with the figure and hold him off the
-        # ground: it falls out of his hand and lies on the ground past his feet, its end behind them
-        down = lying(pose(hide=(RIFLE,), arm=arm_up(None)))
-        img, _ = held(w)
-        right = int(np.nonzero((down[..., 3] > 0).any(0))[0].max())
-        stamp(down, img, right - 10, SOLE + 1 - img.shape[0], under=True)
-    else:
-        down = lying(pose(**kw))
+# The deaths' in-betweens (the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」, 「能改就想办法改
+# 全都要改」): the blow and the stagger each split in two, the second with the scarf's tails and the hanging near arm thrown
+# forward (pose's own sway / near_arm: whole parts moved, nothing drawn) and the knees giving further (the body 5 rows
+# down over the legs, as the stagger's 3); the lying figure falling and bouncing with the tails trailing (its pose swayed
+# before the quarter turn, laid where the plain one lies: lying_as). Every frame keeps its millisecond: the fall still
+# starts at 220, he is down at 350, the death is 1040 ms.
+DEAD_MS = [50, 50, 60, 60, 60, 70, 90, 60, 140, 400]
 
-    def off(n):
+
+def dead_frames(w=None):
+    """Death in 10 frames: the blow, the scarf and the near arm thrown forward by it, a stagger with the knees giving
+    (the body 3 rows down over the legs), giving further (5) with the scarf flying, falling on his back (the whole figure
+    a quarter turn, 7 then 3 rows off the ground, the scarf's tails trailing up), down, a 1-row bounce (the tails
+    flopping), down, still. w: a weapon form (its stance), else Calibrum's."""
+    kw = {} if w is None else dict(hide=(RIFLE,), arm=arm_up(w, **FORM_HOLD[w]))
+
+    def lie(sway=0):
+        if w == "inf":
+            # Infernum, held low and level, would stand on end under him turned with the figure and hold him off the
+            # ground: it falls out of his hand and lies on the ground past his feet, its end behind them
+            ref = pose(hide=(RIFLE,), arm=arm_up(None))
+            down = lying_as(pose(hide=(RIFLE,), arm=arm_up(None), sway=sway), ref)
+            img, _ = held(w)
+            right = int(np.nonzero((lying(ref)[..., 3] > 0).any(0))[0].max())
+            stamp(down, img, right - 10, SOLE + 1 - img.shape[0], under=True)
+            return down
+        return lying_as(pose(sway=sway, **kw), pose(**kw))
+
+    def off(n, a):
         f = blank()
-        f[:-n] = down[n:]
+        f[:-n] = a[n:]
         return f
-    return [(pose(dx=-2, **kw), 100), (pose(dx=-3, bob=3, **kw), 120), (off(7), 60), (off(3), 70), (down, 90),
-            (off(1), 60), (down.copy(), 140), (down.copy(), 400)]
+    down = lie()
+    frames = [pose(dx=-2, **kw), pose(dx=-2, sway=-2, near_arm=2, **kw), pose(dx=-3, bob=3, **kw),
+              pose(dx=-3, bob=5, sway=-2, near_arm=3, **kw), off(7, lie(-2)), off(3, lie(-1)), down,
+              off(1, lie(1)), down.copy(), down.copy()]
+    return list(zip(frames, DEAD_MS))
 
 
 def stance(w):
