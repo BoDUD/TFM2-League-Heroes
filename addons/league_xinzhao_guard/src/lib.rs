@@ -176,10 +176,12 @@ pub fn paid_back(hp: usize, max: usize, owed: usize) -> usize {
 }
 
 /// 他身上的三重爪击：(第几下的旗子 1..=3，0 = 没有, 它还剩几 tick)。
-pub fn q_state(names_left: impl Iterator<Item = (String, usize)>) -> (usize, usize) {
-    for (name, left) in names_left {
-        if let Some(i) = Q_FLAGS.iter().position(|f| *f == name) {
-            return (i + 1, left);
+/// 他的 buff 一个一个看、名字按 `&str` 比，不为每个 buff 造一个 String（每 tick 都跑；league_renata 的 `any_buff` 说过：
+/// 先把 buff 收集起来曾占合集后台模拟一半的时间）。
+pub fn q_state(buffs: impl Iterator<Item = BuffV1>) -> (usize, usize) {
+    for b in buffs {
+        if let Some(i) = Q_FLAGS.iter().position(|f| *f == b.name()) {
+            return (i + 1, b.duration_tick);
         }
     }
     (0, 0)
@@ -214,7 +216,7 @@ impl Guard {
     /// Three Talon Strike (0.1.3): a thrust just thrown (his flags moved on) takes `Q_CUT` off his other cooldowns.
     fn talons(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let Some(now) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| {
-            q_state((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| (b.name().to_string(), b.duration_tick)))
+            q_state((0..e.buff_count()).filter_map(|i| e.buff_at(i)))
         }) else {
             self.q = (0, 0);
             return;
@@ -350,7 +352,7 @@ mod tests {
 
     #[test]
     fn each_thrust_thrown_is_a_strike_the_flags_running_out_are_not() {
-        let st = |v: &[(&str, usize)]| q_state(v.iter().map(|(n, t)| (n.to_string(), *t)));
+        let st = |v: &[(&str, usize)]| q_state(v.iter().map(|(n, t)| BuffV1::timed(n, *t)));
         assert_eq!(st(&[("league_xinzhao_e_as", 200), ("league_xinzhao_q_2", 240)]), (2, 240));
         assert_eq!(st(&[("league_xinzhao_r_guard", 9)]), (0, 0));
         // E arms the first (from nothing, or again mid-way): no strike

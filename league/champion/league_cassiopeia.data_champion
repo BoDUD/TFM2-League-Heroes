@@ -1416,39 +1416,108 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_cassiopeia_w_d1",
-                                  "effect_buff": {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_cassiopeia_w_slow",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 15
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_cassiopeia_lives",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
                                         }
-                                      },
-                                      "move_speed_mult": -70
-                                    }
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_cassiopeia_w_d2",
-                                    "effect_buff": {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_cassiopeia_w_slow",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 15
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_cassiopeia_lives",
+                                      "effect_buff": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_cassiopeia_w_d1",
+                                        "effect_buff": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_cassiopeia_w_slow",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 15
+                                              }
+                                            },
+                                            "move_speed_mult": -70
                                           }
                                         },
-                                        "move_speed_mult": -60
-                                      }
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_cassiopeia_w_d3",
-                                      "effect_buff": {
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_cassiopeia_w_d2",
+                                          "effect_buff": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_cassiopeia_w_slow",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 15
+                                                }
+                                              },
+                                              "move_speed_mult": -60
+                                            }
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_cassiopeia_w_d3",
+                                            "effect_buff": {
+                                              "type": "AddBuff",
+                                              "buff_state": {
+                                                "name": "league_cassiopeia_w_slow",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 15
+                                                  }
+                                                },
+                                                "move_speed_mult": -50
+                                              }
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_cassiopeia_w_d4",
+                                              "effect_buff": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_cassiopeia_w_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 15
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -40
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_cassiopeia_w_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 15
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -30
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "effect_none": {
                                         "type": "AddBuff",
                                         "buff_state": {
                                           "name": "league_cassiopeia_w_slow",
@@ -1459,37 +1528,13 @@
                                           },
                                           "move_speed_mult": -50
                                         }
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_cassiopeia_w_d4",
-                                        "effect_buff": {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_cassiopeia_w_slow",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 15
-                                              }
-                                            },
-                                            "move_speed_mult": -40
-                                          }
-                                        },
-                                        "effect_none": {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_cassiopeia_w_slow",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 15
-                                              }
-                                            },
-                                            "move_speed_mult": -30
-                                          }
-                                        }
                                       }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_cassiopeia_lives"
                                     }
-                                  }
+                                  ]
                                 }
                               },
                               {

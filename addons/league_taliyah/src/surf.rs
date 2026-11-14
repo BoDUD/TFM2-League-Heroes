@@ -13,8 +13,10 @@
 //! - 渐强渐弱照英雄联盟：贴着地形连着 `ARM` tick 后每 tick 涨一点，`BUILD` tick 到满；离开地形 `LINGER` tick 后每 tick 落一点；
 //! - 满的时候是 [`level_ms`]：英雄联盟的四档摊到这个游戏的 1–12 级，每 3 级一档。
 //!
-//! 加速挂在主包的 `league_taliyah_surf` 上（它的画面照旧：她脚下的石头），数值变了就换一个。放完墙幔的 +40%（主包的
-//! `league_taliyah_r_surf`）照旧是数据的。
+//! 有加速时她身上挂一个没有数值的主包 `league_taliyah_surf`（它的画面照旧：她脚下的石头），加速一直挂着它不动；移速放在另一个
+//! 没有画面的 `SPEED` 上，数值变了只换它（0.1.0 复审：渐强的 1 秒里每 tick 摘了重挂带画面的那一个，石头的循环画面可能一直从头放、
+//! 一顿一顿的）。脱战骑石头的动作（`view.rs`）照旧按「没在打架」换（用户 2026-11-14：「保持现在」），只有加速跟着墙走。
+//! 放完墙幔的 +40%（主包的 `league_taliyah_r_surf`）照旧是数据的。
 
 use std::sync::{Arc, LazyLock};
 
@@ -34,8 +36,9 @@ pub const LINGER: usize = 180;
 pub const CAST_BLOCK: usize = 120;
 /// 满的时候的移速 %：1–3 级、4–6 级、7–9 级、10–12 级（英雄联盟 10% / 15% / 25% / 40%）。
 pub const LEVEL_MS: [i32; 4] = [10, 15, 25, 40];
-/// 加速挂在主包的这个旗子上（画面绑在它身上）；交战中的旗子（主包）。
+/// 有加速时挂着的主包旗子（画面绑在它身上，本包挂的不带数值）；移速放在这个没有画面的 buff 上；交战中的旗子（主包）。
 pub const BUFF: &str = "league_taliyah_surf";
+pub const SPEED: &str = "league_taliyah_surf_ms";
 pub const FIGHT: &str = "league_taliyah_fight";
 /// 游戏自己的 5v5 图四边画出来的墙面（league_camille_wall 量的；league_zeri 的 `MOBA_BOUNDS`）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
@@ -162,6 +165,12 @@ pub fn bonus(level: usize, power: usize) -> i32 {
     level_ms(level) * power.min(BUILD) as i32 / BUILD as i32
 }
 
+/// 这一 tick 要对两个 buff 做什么：移速 `shown` -> `want`、画面旗子在不在（`view`）。(重挂移速的 buff, 挂上画面, 摘掉画面)：
+/// 画面只在加速从无到有时挂、到 0 时摘，加速涨落时不碰它。
+pub fn changes(shown: i32, want: i32, view: bool) -> (bool, bool, bool) {
+    (want != shown, want > 0 && !view, want == 0 && view)
+}
+
 /// 一个塔莉垭的浮石冲（被动里的一份）。
 #[derive(Clone, Default)]
 pub struct Rock {
@@ -207,10 +216,14 @@ impl Rock {
 
     /// 每 tick（她活着）：贴着地形、没在交战就渐强，挂上 / 换掉 / 摘掉主包的 `league_taliyah_surf`。
     pub fn tick(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, walls: &[Wall]) {
-        let Some((at, level, fight, cd)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| {
-            let fight = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == FIGHT);
+        let Some((at, level, fight, view, cd)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| {
+            let (mut fight, mut view) = (false, false);
+            for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
+                fight |= b.name() == FIGHT;
+                view |= b.name() == BUFF;
+            }
             let rem = |s: SkillSlotV1| e.cooldown(s).map_or(0, |c| c.remaining);
-            (e.pos(), e.level(), fight, (rem(SkillSlotV1::Skill), rem(SkillSlotV1::Skill2), rem(SkillSlotV1::Ult)))
+            (e.pos(), e.level(), fight, view, (rem(SkillSlotV1::Skill), rem(SkillSlotV1::Skill2), rem(SkillSlotV1::Ult)))
         }) else {
             return;
         };
@@ -227,12 +240,20 @@ impl Rock {
         let before = self.ramp.power;
         self.ramp = step(self.ramp, by_wall || by_own, combat);
         let want = bonus(level, self.ramp.power);
-        if want == self.shown {
+        let (speed, view_on, view_off) = changes(self.shown, want, view);
+        // the picture: one stat-less flag, put on when the bonus starts and taken off when it ends (the data's
+        // `fight` takes it off too when she hits a champion: put back if the bonus is still up)
+        if view_on {
+            sim.add_buff(me, &BuffV1::named(BUFF));
+        } else if view_off {
+            sim.entity_remove_buff(me, BUFF);
+        }
+        if !speed {
             return;
         }
-        sim.entity_remove_buff(me, BUFF);
+        sim.entity_remove_buff(me, SPEED);
         if want > 0 {
-            let mut b = BuffV1::named(BUFF);
+            let mut b = BuffV1::named(SPEED);
             b.move_speed_mult = want;
             sim.add_buff(me, &b);
         }
@@ -288,6 +309,23 @@ mod tests {
         let r = step(Ramp { near_for: 100, away_for: 0, power: BUILD }, true, true);
         assert_eq!(r.power, 0);
         assert_eq!(step(r, true, false).power, 0, "0.4 s again before it builds");
+    }
+
+    #[test]
+    fn the_picture_stays_put_while_only_the_speed_changes() {
+        // the bonus starts: the speed and the picture
+        assert_eq!(changes(0, 1, false), (true, true, false));
+        // the ramp: the speed changes every few ticks, the picture is not touched
+        for (a, b) in [(1, 2), (2, 3), (20, 21), (39, 40)] {
+            assert_eq!(changes(a, b, true), (true, false, false), "{a} -> {b}");
+        }
+        // full: nothing at all
+        assert_eq!(changes(40, 40, true), (false, false, false));
+        // the bonus ends: the speed off, the picture off
+        assert_eq!(changes(40, 0, true), (true, false, true));
+        // the data took the picture off (a hit on a champion) while the bonus is still up: put back
+        assert_eq!(changes(25, 25, false), (false, true, false));
+        assert_ne!(BUFF, SPEED);
     }
 
     #[test]

@@ -61,6 +61,9 @@ def build():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     cut = int(re.search(r"pub const CUT: usize = (\d+);", src).group(1))
     p = dict(kit.P)
+    timing = {k: int(re.search(r"pub const %s: usize = (\d+);" % k, src).group(1)) for k in ("Q_ACTION", "Q_HIT")}
+    if timing != {"Q_ACTION": p["q_dur"], "Q_HIT": p["q_at"]}:
+        sys.exit(f"src/lib.rs's {timing} are not build_hecarim.P's q_dur {p['q_dur']} / q_at {p['q_at']}: update them")
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
         shipped = f.read()
     if dumps(kit.build(p)) != shipped:
