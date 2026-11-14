@@ -86,7 +86,7 @@ mod stack_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.53";
+const VERSION: &str = "0.9.54";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
