@@ -55,7 +55,7 @@
 
 ### 约里克附加包：坟照英雄联盟挖、雾行者和室女是真的单位
 
-[约里克附加包：坟照英雄联盟挖、雾行者和室女是真的单位](../../addons/league_yorick/README.md)：`league_yorick` v0.2.0
+[约里克附加包：坟照英雄联盟挖、雾行者和室女是真的单位](../../addons/league_yorick/README.md)：`league_yorick` v0.2.1
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|
