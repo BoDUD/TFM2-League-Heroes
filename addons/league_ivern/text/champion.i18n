@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_ivern": {
-        "attack": "【附加包】扔出一颗种子。<#ff9028ff>揠苗助攻<>：每次种豆得瓜都在脚下长出一片真正的草丛<#ffb900ff>4秒<>，站在里面的队友攻击+15%，雷恩加尔能从里面扑出去，奇亚娜能从里面拿草元素；他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害。"
+        "attack": "【附加包】扔出一颗种子。<#ff9028ff>揠苗助攻<>：每次种豆得瓜都在脚下长出一片真正的草丛<#ffb900ff>4秒<>，站在里面的队友攻击+15%，雷恩加尔能从里面扑出去，奇亚娜能从里面拿草元素；他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害。",
+        "ult": "【附加包】召唤<#ff9028ff>小菊<>落到敌方英雄身上，<#ef5350ff>击飞<>并造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害；之后她留在场上、能被击杀，<#ffb900ff>8秒<>内每秒一拳<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>，打同一个英雄每第三拳砸地再加<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>击飞<>。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_ivern": {
-        "attack": "【附加包】扔出一顆種子。<#ff9028ff>茂林春生<>：每次施放守護種子都在腳下長出一片真正的草叢<#ffb900ff>4秒<>，站在裡面的隊友攻擊+15%，雷葛爾能從裡面撲出去，琪亞娜能從裡面取得草元素；他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害。"
+        "attack": "【附加包】扔出一顆種子。<#ff9028ff>茂林春生<>：每次施放守護種子都在腳下長出一片真正的草叢<#ffb900ff>4秒<>，站在裡面的隊友攻擊+15%，雷葛爾能從裡面撲出去，琪亞娜能從裡面取得草元素；他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害。",
+        "ult": "【附加包】召喚<#ff9028ff>黛西<>落到敵方英雄身上，<#ef5350ff>擊飛<>並造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害；之後她留在場上、能被擊殺，<#ffb900ff>8秒<>內每秒一拳<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>，打同一個英雄每第三拳砸地再加<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>擊飛<>。"
       }
     }
   },
   "en": {
     "description": {
       "league_ivern": {
-        "attack": "[Add-on] Throws a seed. <#ff9028ff>Brushmaker<>: each Triggerseed grows a real brush at his feet for <#ffb900ff>4s<>: allies standing in it gain +15% attack, Rengar can pounce from it and Qiyana take grass from it; his own attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> magic damage more."
+        "attack": "[Add-on] Throws a seed. <#ff9028ff>Brushmaker<>: each Triggerseed grows a real brush at his feet for <#ffb900ff>4s<>: allies standing in it gain +15% attack, Rengar can pounce from it and Qiyana take grass from it; his own attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> magic damage more.",
+        "ult": "[Add-on] Calls <#ff9028ff>Daisy<> down on an enemy champion: a <#ef5350ff>knock-up<> and <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> magic damage, then she stays as a unit that can be killed and punches every second for <#ffb900ff>8s<> (<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>), every third on the same champion a slam for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more that <#ef5350ff>knocks up<>."
       }
     }
   },
   "ko": {
     "description": {
       "league_ivern": {
-        "attack": "[확장] 씨앗을 던진다. <#ff9028ff>수풀 가꾸기<>: 보호의 씨앗마다 발밑에 진짜 수풀이 <#ffb900ff>4초<> 자란다. 안에 선 아군 공격력 +15%, 렝가는 그 안에서 도약하고 키아나는 풀숲 원소를 얻는다. 그의 기본 공격은 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해 추가."
+        "attack": "[확장] 씨앗을 던진다. <#ff9028ff>수풀 가꾸기<>: 보호의 씨앗마다 발밑에 진짜 수풀이 <#ffb900ff>4초<> 자란다. 안에 선 아군 공격력 +15%, 렝가는 그 안에서 도약하고 키아나는 풀숲 원소를 얻는다. 그의 기본 공격은 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해 추가.",
+        "ult": "[확장] <#ff9028ff>데이지<>를 적 챔피언 위에 불러 <#ef5350ff>공중에 띄우고<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, 이후 처치될 수 있는 유닛으로 남아 <#ffb900ff>8초<> 동안 매초 주먹 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>, 같은 챔피언에게 세 번째마다 내려찍어 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 추가와 <#ef5350ff>에어본<>."
       }
     }
   },
   "ja": {
     "description": {
       "league_ivern": {
-        "attack": "【拡張】種を投げる。<#ff9028ff>シゲミヅクリ<>：タネバクダンのたびに足元へ本物の茂みが<#ffb900ff>4秒<>生え、中に立つ味方は攻撃力+15%、レンガーはそこから飛びかかれ、キヤナは草むらのエレメントを得る。自身の通常攻撃は<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージを追加。"
+        "attack": "【拡張】種を投げる。<#ff9028ff>シゲミヅクリ<>：タネバクダンのたびに足元へ本物の茂みが<#ffb900ff>4秒<>生え、中に立つ味方は攻撃力+15%、レンガーはそこから飛びかかれ、キヤナは草むらのエレメントを得る。自身の通常攻撃は<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージを追加。",
+        "ult": "【拡張】<#ff9028ff>デイジー<>を敵英雄の上に呼び<#ef5350ff>ノックアップ<>と<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、その後倒せるユニットとして残り<#ffb900ff>8秒<>毎秒パンチ<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>、同じ英雄へ3発ごとに叩きつけて<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>追加と<#ef5350ff>ノックアップ<>。"
       }
     }
   }
