@@ -7,6 +7,9 @@ its fit over the old frame Codex drew it on, E's and the death's kneeling frames
 The old frames that repeat another (pack_shen_actions.SAME) take that drawing; idle_base is the design held still (the
 idle is hero_reels' reel of action snippets). The idle and the ban/pick card are cut from the actions by
 tools/art/hero_reels.py.
+The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
+Q (his idle pose, the palm) and R's seal (his idle pose, the clasped hands) get frames made from those two pictures -
+the near arm turned about its shoulder (INB), everything else of the picture checked unchanged.
 
     python tools/art/rig_shen_hd.py --review DIR     # every tag at 3x + GIFs
     python tools/art/rig_shen_hd.py                  # orig strips + the 1x sheet
@@ -25,6 +28,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_shen_hd as CA  # noqa: E402
+import inbetween as IB  # noqa: E402
 import pack_shen_actions as PK  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_rengar_hd as RG  # noqa: E402
@@ -86,6 +90,29 @@ def pad_for(D, casts):
     return left, right, top, 6
 
 
+# The in-betweens (2026-11-14: Q was his idle pose for 60 ms and the palm for 240, R's 300-ms seal his idle pose and the
+# clasped hands, 150 ms each): the near arm below its shoulder guard (PARTS, boxes in each picture's own squares)
+# turned about the corner where it leaves him on the side it turns away from (SHOULDER; inbetween.spin) - the palm
+# coming down after the push, the arm rising toward the seal. INB: tag -> ([(picture: "design" or a cast, degrees the
+# arm turns clockwise on screen)], ms); the palm still shows from 60 ms (the spirit goes at tick 7), the seal from 150.
+VPAD = 30
+PARTS = {"design": {"arm": [(38, 36, 61, 42), (41, 43, 43, 45), (44, 43, 46, 47), (47, 43, 61, 55)]},
+         "skill_2": {"arm": [(44, 14, 68, 38)]}}
+SHOULDER = {"design": (38, 41), "skill_2": (45, 28)}
+INB = {"skill": ([("design", 0), ("skill_2", 0), ("skill_2", 12), ("skill_2", 28)], IB.spans((60, 1), (240, 3))),
+       "ult": ([("design", 0), ("design", -30), ("ult_2", 0)], IB.spans((150, 2), (150, 1)))}
+
+
+def arm_turned(rig, casts, name, deg):
+    """The design or a cast on the grid, its near arm turned `deg` (inbetween.vary: the rest checked unchanged)."""
+    d, x, y = (rig.D.d0, 0, 0) if name == "design" else casts[name]
+    if deg:
+        d = IB.vary(d, PARTS[name], tuple(int(v) for v in rig.D.outline), spins=[("arm", SHOULDER[name], deg, "under")],
+                    pad=VPAD, name=f"{name} arm {deg}")
+        x, y = x - VPAD, y - VPAD
+    return RG.on_grid(rig, d, x, y)
+
+
 def frames(rig, casts):
     sheet = R.sheet_of(HERO)
     out = {}
@@ -95,6 +122,9 @@ def frames(rig, casts):
         ms = [m for _, m in sheet[tag]]
         if tag == "idle_base":
             fr = [RG.on_grid(rig, rig.D.d0, 0, 0) for _ in ms]             # (held still: the design)
+        elif tag in INB:
+            seq, ms = INB[tag]
+            fr = [arm_turned(rig, casts, n, deg) for n, deg in seq]
         else:
             fr = []
             for k in range(1, len(ms) + 1):

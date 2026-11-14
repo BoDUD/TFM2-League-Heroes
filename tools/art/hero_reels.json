@@ -127,7 +127,7 @@
   "league_seraphine": {"idle": [["ult", [0, 1, 2, 3]], ["attack", [0, 1, 2, 3]]]},
   "league_sett": {"idle": [["attack2", [0, 1]], ["skill", [10]]]},
   "league_shaco": {"idle": [["attack_e", [0, 1, 2]], ["skill2", [0, 1]]]},
-  "league_shen": {"idle": [["ult", [0, 1]], ["skill", [0, 1]]]},
+  "league_shen": {"idle": [["ult", [0, 1, 2]], ["skill", [0, 1]]]},
   "league_shyvana": {"idle": [["attack", [1]]], "d_idle": [["d_bite", [2, 3, 4, 5]], ["d_skill", [0, 1, 2]]]},
   "league_sion": {"idle": [["skill2", [0, 1]], ["ult", [1]]]},
   "league_sivir": {"idle": [["skill_catch", [2, 1, 0]], ["attack", [0, 1]]]},
