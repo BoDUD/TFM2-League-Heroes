@@ -1326,7 +1326,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_ziggs.skill",
     "duration": 31,
-    "cooltime": 270,
+    "cooltime": 300,
     "start_timing": 1,
     "cancelable": false,
     "range": 80000,
@@ -1471,1222 +1471,601 @@
                         "effects": [
                           {
                             "type": "RemoveCasterBuff",
-                            "name": "league_ziggs_q_done"
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
                             "name": "league_ziggs_q_boom"
                           },
                           {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s0",
-                            "speed": 1538,
-                            "range": 4615,
-                            "y_offset": 5000,
-                            "penetrate": true,
+                            "type": "ParabolicProjectile",
+                            "name": "league_ziggs_q_lob",
+                            "travel_time": 26,
+                            "range": 400000,
+                            "range_effect_name": "",
                             "shape": {
                               "Circle": {
-                                "radius": 1000
+                                "radius": 1
                               }
                             },
-                            "applied_target": "EnemyChampion",
+                            "applied_target": "EnemyWithoutTower",
                             "applied_effects": [],
                             "end_effects": [
                               {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air6"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s1",
-                            "speed": 1538,
-                            "range": 9231,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air12"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s2",
-                            "speed": 1538,
-                            "range": 13846,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air16"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s3",
-                            "speed": 1538,
-                            "range": 18462,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air18"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s4",
-                            "speed": 1538,
-                            "range": 23077,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air18"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s5",
-                            "speed": 1538,
-                            "range": 27692,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air14"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s6",
-                            "speed": 1538,
-                            "range": 32308,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air10"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s7",
-                            "speed": 1538,
-                            "range": 36923,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s8",
-                            "speed": 1455,
-                            "range": 42200,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s9",
-                            "speed": 1388,
-                            "range": 44400,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air6"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s10",
-                            "speed": 1331,
-                            "range": 46600,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air8"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s11",
-                            "speed": 1284,
-                            "range": 48800,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air10"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s12",
-                            "speed": 1244,
-                            "range": 51000,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air10"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s13",
-                            "speed": 1209,
-                            "range": 53200,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air10"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s14",
-                            "speed": 1179,
-                            "range": 55400,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air8"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s15",
-                            "speed": 1152,
-                            "range": 57600,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air6"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s16",
-                            "speed": 1128,
-                            "range": 59800,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s17",
-                            "speed": 1088,
-                            "range": 64200,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air2"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s18",
-                            "speed": 1071,
-                            "range": 66400,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s19",
-                            "speed": 1055,
-                            "range": 68600,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s20",
-                            "speed": 1041,
-                            "range": 70800,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air6"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s21",
-                            "speed": 1028,
-                            "range": 73000,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air6"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s22",
-                            "speed": 1016,
-                            "range": 75200,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air6"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s23",
-                            "speed": 1005,
-                            "range": 77400,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s24",
-                            "speed": 995,
-                            "range": 79600,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air4"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_s25",
-                            "speed": 986,
-                            "range": 81800,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "ViewEffect",
-                                  "name": "league_ziggs_q_air2"
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_l1",
-                            "speed": 1538,
-                            "range": 40000,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RangeProjectile",
-                                      "name": "league_ziggs_q_z1",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 20000
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "league_ziggs_q_z1",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 20000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ApAttack",
+                                          "damage": 75,
+                                          "attack_ratio": 60,
+                                          "hp_ratio": 0,
+                                          "can_crit": false
                                         }
                                       },
-                                      "delay": 1,
-                                      "apply": 1,
-                                      "applied_target": "EnemyWithoutTower",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ApAttack",
-                                            "damage": 105,
-                                            "attack_ratio": 85,
-                                            "hp_ratio": 0,
-                                            "can_crit": false
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ViewEffect",
-                                            "name": "league_ziggs_q_hit"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "TargetSfx",
-                                            "name": "league_ziggs_q_hit"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_ziggs_q_boom"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_ziggs_q_boom",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 2
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 2,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_ziggs_q_boom",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_ziggs_q_boom"
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_ziggs_q_done"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_ziggs_q_done",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 90
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ziggs_q_blast"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_ziggs_q_blast"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ziggs_q_bounce"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_ziggs_q_bounce"
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_l2",
-                            "speed": 1107,
-                            "range": 62000,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RangeProjectile",
-                                      "name": "league_ziggs_q_z2",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 20000
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_ziggs_q_hit"
                                         }
                                       },
-                                      "delay": 1,
-                                      "apply": 1,
-                                      "applied_target": "EnemyWithoutTower",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ApAttack",
-                                            "damage": 105,
-                                            "attack_ratio": 85,
-                                            "hp_ratio": 0,
-                                            "can_crit": false
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ViewEffect",
-                                            "name": "league_ziggs_q_hit"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "TargetSfx",
-                                            "name": "league_ziggs_q_hit"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_ziggs_q_boom"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_ziggs_q_boom",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 2
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 2,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_ziggs_q_boom",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_ziggs_q_boom"
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_ziggs_q_done"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_ziggs_q_done",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 90
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ziggs_q_blast"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_ziggs_q_blast"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ziggs_q_bounce"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_ziggs_q_bounce"
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_ziggs_q_l3",
-                            "speed": 977,
-                            "range": 84000,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ziggs_q_done",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RangeProjectile",
-                                      "name": "league_ziggs_q_z3",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 20000
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "TargetSfx",
+                                          "name": "league_ziggs_q_hit"
                                         }
                                       },
-                                      "delay": 1,
-                                      "apply": 1,
-                                      "applied_target": "EnemyWithoutTower",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ApAttack",
-                                            "damage": 105,
-                                            "attack_ratio": 85,
-                                            "hp_ratio": 0,
-                                            "can_crit": false
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ViewEffect",
-                                            "name": "league_ziggs_q_hit"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "TargetSfx",
-                                            "name": "league_ziggs_q_hit"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_ziggs_q_boom"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_ziggs_q_boom",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 2
-                                                    }
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_ziggs_q_boom"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_ziggs_q_boom",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 2
                                                   }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 2,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_ziggs_q_boom",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_ziggs_q_boom"
+                                                }
                                               },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_ziggs_q_done"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_ziggs_q_done",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 90
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 2,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ziggs_q_boom",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_ziggs_q_boom"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_ziggs_q_blast"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_ziggs_q_blast"
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_ziggs_q_bounce"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_ziggs_q_bounce"
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 1,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air4"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 4,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air6"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 7,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air8"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 10,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air10"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 13,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air10"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 16,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air10"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 19,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air8"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 22,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air6"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 25,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ziggs_q_air4"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 28,
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RandomTarget",
+                                                      "range": 1,
+                                                      "casting_target": "AllyOnlySelf",
+                                                      "from_projectile": false,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_ziggs_lives",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
                                                         }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_ziggs_lives",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangeProjectile",
+                                                                "name": "league_ziggs_q_z2",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 20000
+                                                                  }
+                                                                },
+                                                                "delay": 1,
+                                                                "apply": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 60,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_ziggs_q_hit"
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_ziggs_q_hit"
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_ziggs_q_boom"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_ziggs_q_boom",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 2,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_ziggs_q_boom",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_ziggs_q_boom"
+                                                                        },
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_ziggs_q_blast"
+                                                                        },
+                                                                        {
+                                                                          "type": "Sfx",
+                                                                          "name": "league_ziggs_q_blast"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_ziggs_q_bounce"
+                                                                        },
+                                                                        {
+                                                                          "type": "Sfx",
+                                                                          "name": "league_ziggs_q_bounce"
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 1,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air2"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 4,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air4"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 7,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air4"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 10,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air6"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 13,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air6"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 16,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air6"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 19,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air4"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 22,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air4"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 25,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_ziggs_q_air2"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 28,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RandomTarget",
+                                                                                  "range": 1,
+                                                                                  "casting_target": "AllyOnlySelf",
+                                                                                  "from_projectile": false,
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "AddCasterBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_ziggs_lives",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 1
+                                                                                          }
+                                                                                        }
+                                                                                      },
+                                                                                      "only_to_enemy": false
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "type": "SwitchByBuff",
+                                                                                  "buff_name": "league_ziggs_lives",
+                                                                                  "effect_buff": {
+                                                                                    "type": "Combine",
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "Combine",
+                                                                                        "effects": [
+                                                                                          {
+                                                                                            "type": "RangeProjectile",
+                                                                                            "name": "league_ziggs_q_z3",
+                                                                                            "shape": {
+                                                                                              "Circle": {
+                                                                                                "radius": 20000
+                                                                                              }
+                                                                                            },
+                                                                                            "delay": 1,
+                                                                                            "apply": 1,
+                                                                                            "applied_target": "EnemyWithoutTower",
+                                                                                            "applied_effects": [
+                                                                                              {
+                                                                                                "casting_type": "Targeting",
+                                                                                                "effect": {
+                                                                                                  "type": "ApAttack",
+                                                                                                  "damage": 75,
+                                                                                                  "attack_ratio": 60,
+                                                                                                  "hp_ratio": 0,
+                                                                                                  "can_crit": false
+                                                                                                }
+                                                                                              },
+                                                                                              {
+                                                                                                "casting_type": "Targeting",
+                                                                                                "effect": {
+                                                                                                  "type": "ViewEffect",
+                                                                                                  "name": "league_ziggs_q_hit"
+                                                                                                }
+                                                                                              },
+                                                                                              {
+                                                                                                "casting_type": "Targeting",
+                                                                                                "effect": {
+                                                                                                  "type": "TargetSfx",
+                                                                                                  "name": "league_ziggs_q_hit"
+                                                                                                }
+                                                                                              },
+                                                                                              {
+                                                                                                "casting_type": "Targeting",
+                                                                                                "effect": {
+                                                                                                  "type": "Combine",
+                                                                                                  "effects": [
+                                                                                                    {
+                                                                                                      "type": "RemoveCasterBuff",
+                                                                                                      "name": "league_ziggs_q_boom"
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "AddCasterBuff",
+                                                                                                      "buff_state": {
+                                                                                                        "name": "league_ziggs_q_boom",
+                                                                                                        "duration": {
+                                                                                                          "Time": {
+                                                                                                            "tick": 2
+                                                                                                          }
+                                                                                                        }
+                                                                                                      },
+                                                                                                      "only_to_enemy": false
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              }
+                                                                                            ]
+                                                                                          },
+                                                                                          {
+                                                                                            "type": "Delayed",
+                                                                                            "tick": 2,
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "Combine",
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "RemoveCasterBuff",
+                                                                                                    "name": "league_ziggs_q_boom"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "ViewEffect",
+                                                                                                    "name": "league_ziggs_q_blast"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "Sfx",
+                                                                                                    "name": "league_ziggs_q_blast"
+                                                                                                  }
+                                                                                                ]
+                                                                                              }
+                                                                                            ]
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    ]
+                                                                                  },
+                                                                                  "effect_none": {
+                                                                                    "type": "Combine",
+                                                                                    "effects": []
+                                                                                  }
+                                                                                },
+                                                                                {
+                                                                                  "type": "RemoveCasterBuff",
+                                                                                  "name": "league_ziggs_lives"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
                                                       }
                                                     },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ziggs_q_blast"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_ziggs_q_blast"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_ziggs_q_blast"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_ziggs_q_blast"
-                                              }
-                                            ]
-                                          }
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_ziggs_lives"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
                                         }
-                                      ]
-                                    }
-                                  ]
-                                }
+                                      }
+                                    ]
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -4303,6 +3682,14 @@
     },
     {
       "type": "Animated",
+      "name": "league_ziggs_q_lob",
+      "anim": "asset/league/effects/league_ziggs_fx",
+      "tag": "a_bomb",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
       "name": "league_ziggs_e_throw",
       "anim": "asset/league/effects/league_ziggs_fx",
       "tag": "e_throw",
@@ -4396,38 +3783,6 @@
       "name": "league_ziggs_q_air10",
       "anim": "asset/league/effects/league_ziggs_fx",
       "tag": "q_air10",
-      "z": 3,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_ziggs_q_air12",
-      "anim": "asset/league/effects/league_ziggs_fx",
-      "tag": "q_air12",
-      "z": 3,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_ziggs_q_air14",
-      "anim": "asset/league/effects/league_ziggs_fx",
-      "tag": "q_air14",
-      "z": 3,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_ziggs_q_air16",
-      "anim": "asset/league/effects/league_ziggs_fx",
-      "tag": "q_air16",
-      "z": 3,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_ziggs_q_air18",
-      "anim": "asset/league/effects/league_ziggs_fx",
-      "tag": "q_air18",
       "z": 3,
       "is_follow": false
     },

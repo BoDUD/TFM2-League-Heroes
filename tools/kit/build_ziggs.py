@@ -11,13 +11,14 @@ the watch throws it (league_jarvaniv's W the same way).
           way); the empowered attack needs none left, and each cast removes the longest one still on.
   attack  a small bomb (100% AD), a homing bomb on `Enemy` (towers too) released on a_rel; its champion-only twin
           marks the fight. Empowered: a big bomb and the passive's damage on the same target.
-  skill   Q Bouncing Bomb (弹跳炸弹), `Targeting` on `EnemyWithoutTower` (q_range): the bomb lands three times along
-          the line toward the target (q_l1 / q_l2 / q_l3 from him, at q_t1 / +q_t2 / +q_t3 ticks): each landing blows
-          up if an enemy stands within q_r (q_dmg + q_ratio% AP to every enemy there) and the bomb stops; the third
-          always blows up. Projectiles start at the caster (champion-data: nothing flies on from a landing point), so
-          each landing is a hidden line from him whose end_effects act where it stops, all spawned on the release
-          tick (one aim, locked); the bomb in the air is stamped on its path (q_air<h>, a frame a stamp, its height
-          above the ground drawn into the picture - left-right symmetric, so both sides read).
+  skill   Q Bouncing Bomb (弹跳炸弹), `Targeting` on `EnemyWithoutTower` (q_range): as League's, the bomb flies to the
+          aim point - a lob (q_t1 ticks) that lands where the target stood - and blows up there if an enemy stands
+          within q_r (q_dmg + q_ratio% AP to every enemy there); near nobody it bounces, up to twice (q_t2 / q_t3
+          ticks a bounce), and the last landing always blows up. League's bounces travel on along the throw; data
+          cannot (nothing flies on from a landing point: a projectile starts at its caster), so the bomb bounces
+          where it lies - stamped over the point (q_air<h>, a frame a stamp, its height above the ground drawn into
+          the picture); the add-on's copy bounces on (below). Until 2026-11-14 it landed at three fixed distances from
+          him (40000 / 62000 / 84000) wherever the target stood, and its numbers made up for the misses (see P).
   skill2  E Hexplosive Minefield (海克斯爆破雷区), `Position` on `EnemyWithoutTower` (e_range): the mines land where the
           target stood (e_travel ticks) and lie e_t ticks in e_r, armed after e_arm. The first mine an enemy sets off
           is whole (e_dmg + e_ratio% AP: an `ApplyInProjectile` hits each unit once for its whole life - League's
@@ -27,7 +28,8 @@ the watch throws it (league_jarvaniv's W the same way).
           -> the satchel goes off at his feet on w_rel: w_dmg + w_ratio% AP within w_r, every enemy there knocked away
           from him (w_kb a tick for w_kb_t), and he is blown back (MoveBack w_hop x w_hop_t) from the champion that
           came at him. League throws it anywhere and pushes from the blast point; data pushes only away from the
-          caster (champion-data: Knockback), which is the at-his-feet escape. Tower hexplode: the add-on.
+          caster (champion-data: Knockback), which is the at-his-feet escape - so the main pack keeps that, and the
+          add-on's copy has League's Satchel Charge (below).
   ult     R Mega Inferno Bomb (科学的地狱火炮): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only
           arms the ult for r_arm ticks (league_anivia / league_swain); the watch throws it at an enemy champion in crowd
           control within r_range, or - after r_wait ticks of the window - at one his team hit recently
@@ -37,11 +39,20 @@ the watch throws it (league_jarvaniv's W the same way).
           cooldown capped at 60 ticks (`r_retry`).
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`), every watch_p ticks:
           throws R when the moment holds, sets off W.
-The add-on copy (--native, addons/league_ziggs): the passive league_ziggs:hexplode reads towers' health - with W off
-cooldown it blows up an enemy tower within w_hex_r below w_ex% of its health (League: 25-35%) and puts W on cooldown
-(w_hex_r is measured centre to centre: League's 1000 throw. It was 60000 to 2026-10-22 - he sieges from his 55000
-attack range plus both radii, 75000 or more from the tower's centre, so it never went off in a game);
-Short Fuse's bomb (the copy raises `p_now` on him as it hits) deals p_tower% to towers.
+The add-on copy (--native, addons/league_ziggs; 2026-11-14, the user: 「吉格斯和维克托按照联盟的重做」):
+  W is League's Satchel Charge, thrown by the passive league_ziggs:hexplode - the watch's own W is left out of the copy.
+    The passive throws the satchel at a point within w_range (the flying bag is `w_throw`, the mines' bag picture);
+    where it lands it deals w_dmg + w_ratio% AP within w_r and pushes every enemy AWAY FROM THE BLAST'S CENTRE until it
+    is w_push from it (League: 500 units over 0.5 s); Ziggs himself, caught in his own blast, is thrown to w_self from
+    the centre (League: 825), and an enemy tower in it below w_ex% of its health is blown up (League: 25-35%). When it
+    throws: an enemy champion within w_trig (edge to edge, as the main pack's; the satchel between the two: he is thrown
+    away from the diver - not when he would land under an enemy tower or by two more enemies), a tower low enough
+    within w_hex_r, or an enemy champion below w_catch_hp% health just out of his reach (w_catch_lo..w_catch_hi, centre
+    to centre): the satchel behind where that champion will be, so the blast knocks him back to w_keep from Ziggs.
+  Q's bounces go on along the throw: the first landing's check finding nobody hands the point to league_ziggs:q_hop,
+    which lands the bomb q_b1% of the throw farther on, then q_b2% of that bounce farther again (League's 850 -> 1400),
+    the bomb in the air stamped on its path (q_air<h>).
+  Short Fuse's bomb (the copy raises `p_now` on him as it hits) deals p_tower% to towers.
 """
 import argparse
 import json
@@ -71,9 +82,17 @@ P = {
     "p_t": 720, "p_dmg": 40, "p_ratio": 60, "p_tower": 175,
     # Q Bouncing Bomb (League: 850 range (1400 with the bounces), 80-280 +60-80% AP, r 240, bounces 0.495 s each,
     # cd 6-4)
-    "q_cd": 270, "q_range": 80000, "q_dur": 31, "q_rel": 13, "q_l1": 40000, "q_l2": 62000, "q_l3": 84000,
-    "q_t1": 26, "q_t2": 30, "q_t3": 30, "q_r": 20000, "q_dmg": 105, "q_ratio": 85, "q_h1": 18, "q_h2": 10, "q_h3": 6,
+    # (2026-11-14: the first landing on the aim point, League's; before, three fixed landings 40000 / 62000 / 84000
+    # from him. q_t1 = the lob's flight, q_t2 / q_t3 the bounces - League 0.495 s each - q_h2 / q_h3 their heights.
+    # Landing on the target, the old 105 + 85% every 4.5 s - the draft's +40%, which made up for the bomb blowing up
+    # short of the champion on the wave - put him at +4.35 (+1.87 before, both seed batches): back to the draft's
+    # 75 + 60% every 5 s (League's rank 1: 80 + 60% every 6 s), +2.95)
+    "q_cd": 300, "q_range": 80000, "q_dur": 31, "q_rel": 13,
+    "q_t1": 26, "q_t2": 30, "q_t3": 30, "q_r": 20000, "q_dmg": 75, "q_ratio": 60, "q_h2": 10, "q_h3": 6,
     "q_step": 3,
+    # the add-on's bounces on along the throw (League: 850 thrown, 1400 with both: the first bounce 40% of the throw,
+    # the second 60% of the first - 850 x (1 + 0.4 + 0.24) = 1394)
+    "q_b1": 40, "q_b2": 60,
     # E Hexplosive Minefield (League: 900 range, 11 mines r 335 for 10 s, armed 0.5 s, 30-190 +25-45% AP, later
     # mines 40%, slow 10-50% 1.5 s, cd 16)
     "e_cd": 720, "e_range": 75000, "e_dur": 27, "e_rel": 9, "e_travel": 20, "e_r": 30000, "e_t": 300, "e_arm": 30,
@@ -81,6 +100,12 @@ P = {
     # W Satchel Charge (League: 70-210 +50% AP, r 325, knockback 500 / 0.5 s, self 825, cd 20-12)
     "w_cd": 900, "w_trig": 22000, "w_r": 30000, "w_dur": 24, "w_rel": 8, "w_dmg": 80, "w_ratio": 50,
     "w_kb": 3000, "w_kb_t": 10, "w_hop": 4000, "w_hop_t": 10, "w_ex": 30, "w_hex_r": 100000,
+    # the add-on's Satchel Charge (League's own numbers x 100: thrown within 1000 at 1750 a second, enemies pushed to
+    # 500 from the centre over 0.5 s, Ziggs to 825). w_gap: how far toward a diver the satchel lands; the catch: an
+    # enemy champion at w_catch_hp% health or less, w_catch_lo..w_catch_hi from him (centre to centre: just out of his
+    # 55000 attack plus both bodies), is knocked back to w_keep from him
+    "w_range": 100000, "w_speed": 3000, "w_push": 50000, "w_push_t": 30, "w_self": 82500, "w_gap": 10000,
+    "w_catch_hp": 40, "w_catch_lo": 72000, "w_catch_hi": 90000, "w_keep": 45000,
     # R Mega Inferno Bomb (League: 5000 range, r 525 (centre 250), 300-700 +100% AP at the centre, 65% outside,
     # cd 120-70)
     "r_cd": 3600, "r_range": 220000, "r_arm": 600, "r_wait": 300, "r_dur": 36, "r_rel": 16, "r_travel": 70,
@@ -200,14 +225,6 @@ def homing(name, target, effects, speed):
             "applied_effects": [T(e) for e in effects]}
 
 
-def mover(name, rng, ticks, end):
-    """A hidden line from him toward the action's target, stopping rng away after about `ticks`; its end_effects act
-    on that point (a `Delayed` there keeps it)."""
-    return {"type": "LinearProjectile", "name": n(name), "speed": max(1, round(rng / ticks)), "range": rng,
-            "y_offset": 5000, "penetrate": True, "shape": circle(1000), "applied_target": "EnemyChampion",
-            "applied_effects": [], "end_effects": list(end)}
-
-
 def lob(name, travel, end, target="EnemyWithoutTower", seen=""):
     """A ParabolicProjectile: lands where its target stood when it left; end_effects run on that point; `seen` = the
     telegraph played on the landing point the whole flight."""
@@ -245,16 +262,11 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def air_heights(p):
-    """Every stamp of the bomb in the air: (k, distance from him, tick after the release, height in game px)."""
-    out, t0, d0 = [], 0, 0
-    for k, (d1, t, h) in enumerate(((p["q_l1"], p["q_t1"], p["q_h1"]), (p["q_l2"], p["q_t2"], p["q_h2"]),
-                                    (p["q_l3"], p["q_t3"], p["q_h3"])), 1):
-        for s in range(p["q_step"], t, p["q_step"]):
-            f = s / t
-            out.append((k, round(d0 + (d1 - d0) * f), t0 + s, round(4 * h * f * (1 - f))))
-        t0, d0 = t0 + t, d1
-    return out
+def air_heights(p, k):
+    """The stamps of bounce k (2 or 3) over the point it bounces on: (tick after the landing before it, the q_air
+    picture's height in game px - the sheet has every second one, 2..18)."""
+    t, h = p[f"q_t{k}"], p[f"q_h{k}"]
+    return [(s, max(2, min(round(4 * h * (s / t) * (1 - s / t)), 18) // 2 * 2)) for s in range(p["q_step"], t, p["q_step"])]
 
 
 def build(p):
@@ -303,23 +315,35 @@ def build(p):
                                delayed(1, sw("r_fired", NONE, sw("r_late", pick(p["r_range"],
                                                                                 "EnemyChampionRecentlyAttacked",
                                                                                 throw))))))
-    watch = on_me(casted(1000000, p["watch_p"], fire, delayed(2, cast_w)))
+    # the add-on's copy: Satchel Charge is the passive's (thrown at a point), the watch only keeps R's moment
+    watch = on_me(casted(1000000, p["watch_p"], fire, *([] if native else [delayed(2, cast_w)])))
     life = sw("init", NONE, combine(flag("init", None), watch))
 
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(life, delayed(p["a_rel"] - 1, ready(fused, plain))), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Bouncing Bomb
-    def landing(k, last):
+    def landing(k):
+        """The bomb down on the point (k = 1..3; these run on the lob's landing point, a `Delayed` keeps it): the
+        blast's zone, and 2 ticks later - did it catch anyone (`q_boom`, raised by a hit)? Then it blew up; else it
+        bounces where it lies (the stamps over the point) and comes down again q_t<k+1> ticks after this landing,
+        while he lives (a dead caster's flags freeze: without the guard his bomb would blow up at every landing).
+        The last landing always blows up."""
         hit = [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit"), refresh("q_boom", 2)]
-        then = sw("q_boom", combine(*rm("q_boom"), refresh("q_done", 90), view("q_blast"), sfx("q_blast")),
-                  combine(view("q_blast"), sfx("q_blast")) if last else combine(view("q_bounce"), sfx("q_bounce")))
-        return mover(f"q_l{k}", p[f"q_l{k}"], sum(p[f"q_t{i}"] for i in range(1, k + 1)),
-                     [sw("q_done", NONE, combine(zone(f"q_z{k}", p["q_r"], hit), delayed(2, then)))])
+        boom = combine(*rm("q_boom"), view("q_blast"), sfx("q_blast"))
+        if k == 3:
+            then = boom
+        elif native:    # the add-on: the bounces go on along the throw (league_ziggs:q_hop, from this landing point)
+            then = sw("q_boom", boom, combine(view("q_bounce"), sfx("q_bounce"),
+                                              {"type": "Native", "effect_ref": "league_ziggs:q_hop"}))
+        else:
+            t = p[f"q_t{k + 1}"]
+            hop = [delayed(s - 2, view(f"q_air{h}")) for s, h in air_heights(p, k + 1) if s > 2]
+            then = sw("q_boom", boom, combine(view("q_bounce"), sfx("q_bounce"), *hop,
+                                               delayed(t - 2, alive(landing(k + 1)))))
+        return combine(zone(f"q_z{k}", p["q_r"], hit), delayed(2, then))
 
-    stamps = [mover(f"q_s{i}", d, t, [sw("q_done", NONE, view(f"q_air{min(h, 18) // 2 * 2}"))])
-              for i, (k, d, t, h) in enumerate(air_heights(p))]
-    bomb = combine(*rm("q_done", "q_boom"), *stamps, landing(1, False), landing(2, False), landing(3, True))
+    bomb = combine(*rm("q_boom"), lob("q_lob", p["q_t1"], [landing(1)]))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(refresh("busy", p["q_dur"]), sfx("q"), voice("vo_q", p), cut,
                            delayed(p["q_rel"] - 1, alive(bomb))))
@@ -359,8 +383,12 @@ def build(p):
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
     # a projectile's picture is turned with its flight: the bombs are round (symmetric every way)
-    views_p = [Pj("a_bomb"), Pj("p_bomb"), Pj("e_throw"), Pj("r_bomb", anim_=BIG)]
-    heights = sorted({min(h, 18) // 2 * 2 for _, _, _, h in air_heights(p)})
+    # Q's bomb on its way to the aim point: the attack's round bomb (the stamps q_air<h> are drawn standing over a
+    # point, they cannot be turned along a flight)
+    views_p = [Pj("a_bomb"), Pj("p_bomb"), Pj("q_lob", "a_bomb"), Pj("e_throw"), Pj("r_bomb", anim_=BIG)]
+    if native:      # the add-on's thrown satchel: the mines' bag picture
+        views_p.append(Pj("w_throw", "e_throw"))
+    heights = sorted({h for k in (2, 3) for _, h in air_heights(p, k)})
     views_e = ([E("a_hit"), E("p_hit"), E("q_hit"), E("q_bounce", FX, 1, False), E("q_blast", BIG, 2, False)]
                + [E(f"q_air{h}", FX, 3, False) for h in heights]
                + [E("e_land", BIG, -1, False), E("e_field", BIG, -1, False), E("e_hit"),
@@ -369,8 +397,11 @@ def build(p):
     views_b = [B_("e_slow", FX, 3)]
     extra = {}
     if native:
-        extra["passive"] = {"passive_ref": "league_ziggs:hexplode", "params": {
-            "w_ex": p["w_ex"], "w_hex_r": p["w_hex_r"], "w_cd": p["w_cd"], "p_tower": p["p_tower"]}}
+        keys = ("w_ex", "w_hex_r", "w_cd", "p_tower", "w_dmg", "w_ratio", "w_r", "w_trig", "w_dur", "w_rel", "w_hop",
+                "w_range", "w_speed", "w_push", "w_push_t", "w_self", "w_gap", "w_catch_hp", "w_catch_lo", "w_catch_hi",
+                "w_keep", "e_dur", "e_rel", "p_t", "vo_gap", "q_dmg", "q_ratio", "q_r", "q_t2", "q_t3", "q_h2", "q_h3",
+                "q_step", "q_b1", "q_b2")
+        extra["passive"] = {"passive_ref": "league_ziggs:hexplode", "params": {k: p[k] for k in keys}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
