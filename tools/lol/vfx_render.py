@@ -39,12 +39,19 @@ was read off the data and checked on the pilot spells' renders - Lux Q / E / R, 
     paletteDefinition (a channel of the texture picks a colour in one row of a palette texture), alphaErosion.
   - primitives: none = a camera-facing quad (isDirectionOriented: stretched along its motion); ArbitraryQuad = a quad
     turned in 3D (its plane is local XY; R = Ry Rx Rz of birthRotation0, so (90, y, 0) lays it on the ground; a
-    ground-layer quad of a standing system left upright is laid down with its yaw); Mesh = a .scb mesh; Ray = a
-    camera-facing strip from the particle out along its turned up axis; Beam = a strip from the emitter to the
-    scene's target point (texture profile across in u); CameraTrail / ArbitraryTrail = a strip through the emitter's
-    particles in emission order (a point every step whatever the rate; texture along in u). PlanarProjection,
-    AttachedMesh, skinned meshes (.skn) and distortion emitters (heat haze) are not drawn; force fields, soft
-    particles, reflections and unit-size scaling are ignored (`--survey` counts them).
+    ground-layer quad of a standing system left upright is laid down with its yaw) whose texture runs with v (top ->
+    bottom) along its local x from +x and u along its y - Caitlyn's bullets (20 x 10 turned 90 about z in a
+    missile's frame, a 128 x 256 texture with the tip on top) fly tip first only so; Mesh = a .scb mesh, or a skinned
+    one (.skn + .skl, posed by its .anm at the particle's age: Caitlyn's E net opening, her Q's bullet) whose children
+    may ride on its joints (boneToSpawnAt: a ribbon on each spike of the net); Ray = a camera-facing strip from the
+    particle out along its turned x axis (muzzle flashes at (0, -90, 0) point ahead); Beam = a strip from the emitter
+    to the scene's target point (texture profile across in u);
+    CameraTrail / ArbitraryTrail = a strip through the emitter's particles in emission order (a
+    point every step whatever the rate; texture along in u). A scene may also play a character of the WAD (a summon:
+    CaitlynTrap) in one of its clips, as a one-particle mesh system with its colour map (Vfx.model_system).
+    PlanarProjection, AttachedMesh and distortion emitters (heat haze) are not drawn; force fields, soft particles and
+    reflections are ignored (`--survey` counts them); flex shapes scale sizes / offsets by the bound unit's size (a
+    play's `bound`, 130 units: a champion).
   - blend: 1 = alpha, 0 and 4 = additive (src.rgb x src.a added: Lux_Base_E_Glow's grey RGB outside its ring and
     Lux_Q_Shape's white RGB need the alpha), 2 = screen, 3 = opaque. On transparency the canvas keeps light
     (additive) and matter (alpha) apart for the pixel pass.
@@ -221,6 +228,72 @@ class Vfx:
                 self._mesh[path] = None
         return self._mesh[path]
 
+    def skinned(self, skn, skl, anm, loop=False):
+        """a skinned mesh (.skn + .skl) posed by its clip (.anm); None if a file is absent."""
+        key = (skn, skl, anm, loop)
+        if key not in self._mesh:
+            try:
+                self._mesh[key] = Skinned(self.read(skn), self.read(skl), self.read(anm) if anm else None, loop)
+            except (KeyError, ValueError, struct.error, IndexError):
+                self._mesh[key] = None
+        return self._mesh[key]
+
+    def model_system(self, char, clip, loop=False, texture=None, offset=0.0, scale=1.0, rate=1.0, spin=None):
+        """a character of the WAD (a summon: CaitlynTrap) playing one clip, as a one-particle system whose particle is
+        the posed model (alpha-blended with its colour map, lit as it is drawn: League's unlit diffuse)."""
+        import re
+
+        def refs(blob, ext):
+            return [m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)]
+        sb = self.read(f"data/characters/{char.lower()}/skins/skin0.bin")
+        skn, skl = P.base_mesh(refs(sb, rb"skn")), P.base_mesh(refs(sb, rb"skl"))
+        tex = texture or next((t for t in refs(sb, rb"tex") if "_tx_cm" in t.lower()), refs(sb, rb"tex")[0])
+        clips = refs(self.read(f"data/characters/{char.lower()}/animations/skin0.bin"), rb"anm")
+        anm = next(a for a in clips if os.path.splitext(os.path.basename(a))[0].lower() == clip.lower())
+        em = {"emitterName": f"{char}:{clip}", "isSingleParticle": True, "bindWeight": 1.0, "blendMode": 1,
+              "birthScale0": (scale, scale, scale), "texture": tex,
+              "birthRotationalVelocity0": tuple(spin) if spin else (0.0, 0.0, 0.0),
+              "primitive": {"__class": "VfxPrimitiveMesh",
+                            "mMesh": {"mMeshName": skn, "mMeshSkeletonName": skl, "mAnimationName": anm,
+                                      "loop": loop, "offset": offset, "rate": rate}}}
+        return {"particleName": f"{char}:{clip}", "complexEmitterDefinitionData": [em]}
+
+
+class Skinned:
+    """a skinned mesh: triangles, per-corner UVs, and its vertices / joints posed at a clip time (pose_ref's
+    reading and skinning)."""
+
+    def __init__(self, skn, skl, anm, loop=False):
+        tris, v = P.read_skn(skn)
+        self.v = v
+        self.tris = np.asarray(tris, np.int64)
+        self.uvs = np.asarray(v["uv"], np.float64)[self.tris]
+        self.joints, self.influences = P.read_skl(skl)
+        bind = P.globals_(self.joints, [P.trs(j["t"], j["r"], j["s"]) for j in self.joints])
+        self.bind_inv = [np.linalg.inv(m) for m in bind]
+        self.bind = bind
+        self.anim = P.read_anim(anm) if anm else None
+        self.loop = loop
+        self.names = {j["name"].lower(): k for k, j in enumerate(self.joints)}
+        self._cache = {}
+
+    def pose(self, t):
+        """(vertices (n, 3), joint globals [4x4]) at clip time t (seconds; clamped to the clip, or looped)."""
+        if self.anim is None:
+            glob = self.bind
+        else:
+            d = max(float(self.anim["duration"]), 1e-6)
+            t = (t % d) if self.loop else min(max(t, 0.0), d)
+            key = round(t, 4)
+            if key not in self._cache:
+                glob = P.pose(self.joints, self.anim, t)
+                self._cache[key] = (P.skin(self.v, self.influences, self.bind_inv, glob), glob)
+            return self._cache[key]
+        return P.skin(self.v, self.influences, self.bind_inv, glob), glob
+
+    def joint(self, name):
+        return self.names.get(str(name).lower())
+
 
 def read_scb(b):
     """Riot's static mesh "r3d2Mesh" (3.x): vertices, faces with a material name and per-corner UVs."""
@@ -391,6 +464,10 @@ class Emitter:
         self.dir_scale = float(e.get("directionVelocityScale") or 0.0)
         self.dir_min = float(e.get("directionVelocityMinScale") or 0.0)
         self.shape = e.get("spawnShape") or {}
+        fx = e.get("flexShapeDefinition") or {}
+        # sizes / offsets that League scales by the unit the system is bound to (Caitlyn's slow rings: 0.525 x it)
+        self.flex_scale = float(fx.get("scaleBirthScaleByBoundObjectSize") or 0.0) if isinstance(fx, dict) else 0.0
+        self.flex_offset = float(fx.get("scaleEmitOffsetByBoundObjectSize") or 0.0) if isinstance(fx, dict) else 0.0
         # texture and its UVs
         self.tex = vfx.texture(e.get("texture"))
         td = e.get("texDiv")
@@ -436,23 +513,40 @@ class Emitter:
             self.erosion = dict(tex=vfx.texture(er.get("erosionMapName")),
                                 drive=Curve(er.get("erosionDriveCurve"), 0.0),
                                 width=float(er.get("erosionSliceWidth") or 0.1), channel=ch)
-        self.children = []
-        cp = e.get("childParticleSetDefinition")
-        if isinstance(cp, dict) and not cp.get("boneToSpawnAt"):
-            for ci in cp.get("childrenIdentifiers") or []:
-                sysdef = vfx.child((ci or {}).get("effectKey"))
-                if sysdef is not None:
-                    self.children.append(sysdef)
         self.mesh = None
+        self.skinned = None
+        self.anim_offset = 0.0
+        self.anim_rate = 1.0
         if self.prim == "Mesh":
             md = prim.get("mMesh") or {}
             name = md.get("mSimpleMeshName")
-            self.mesh = vfx.mesh(name) if name else None
+            if name:
+                self.mesh = vfx.mesh(name)
+            elif md.get("mMeshName") and md.get("mMeshSkeletonName"):
+                self.skinned = vfx.skinned(md["mMeshName"], md["mMeshSkeletonName"], md.get("mAnimationName"),
+                                           bool(md.get("loop")))
+                self.anim_offset = float(md.get("offset") or 0.0)      # a model play's clip starts this far in
+                self.anim_rate = float(md.get("rate", 1.0))             # ... and runs this fast (0: a held pose)
+            if e.get("birthScale0") is None:
+                self.bscale = Curve(None, (1.0, 1.0, 1.0))           # a mesh's scale is a factor (1: as modelled)
+        # children: [(system, bone or None)]; a skinned mesh's children ride on its bones (E's net: one ribbon on
+        # each spike)
+        self.children = []
+        cp = e.get("childParticleSetDefinition")
+        if isinstance(cp, dict):
+            bones = [b for b in (cp.get("boneToSpawnAt") or []) if b]
+            if bones and (self.skinned is None or any(self.skinned.joint(b) is None for b in bones)):
+                bones = None                                            # bones we cannot place: no children
+            for ci in (cp.get("childrenIdentifiers") or []) if bones is not None else []:
+                sysdef = vfx.child((ci or {}).get("effectKey"))
+                if sysdef is not None:
+                    for b in bones or [None]:
+                        self.children.append((sysdef, b))
         filt = e.get("filtering") or {}
         self.hidden = (bool(e.get("disabled")) or bool(filt.get("keywordsRequired")) or self.prim not in DRAWN
                        or e.get("distortionDefinition") is not None
                        or (self.tex is None and self.prim not in ("Mesh",))
-                       or (self.prim == "Mesh" and self.mesh is None))
+                       or (self.prim == "Mesh" and self.mesh is None and self.skinned is None))
         # an emitter that draws nothing still runs when it carries children (a missile mesh's trail)
         self.skip = self.hidden and not (self.children and not e.get("disabled"))
 
@@ -472,7 +566,7 @@ class Play:
     """One system played in a scene: where it is (a function of time), which way it faces, until when."""
 
     def __init__(self, vfx, system, t_start=0.0, origin=(0, 0, 0), velocity=(0, 0, 0), forward=(1, 0, 0),
-                 target=None, kill=None, seed=1, emitters=None, skip=(), speed=1.0, frame="standing"):
+                 target=None, kill=None, seed=1, emitters=None, skip=(), speed=1.0, frame="standing", bound=130.0):
         self.vfx = vfx
         self.sysdef = vfx.system(system) if isinstance(system, str) else system
         self.name = str(self.sysdef.get("particleName"))
@@ -493,6 +587,7 @@ class Play:
         self.target = None if target is None else np.asarray(target, np.float64)
         self.kill = kill                           # system time the system is removed (None: never)
         self.speed = speed                         # League seconds per scene second (5: a 5 s field in our 1 s)
+        self.bound = bound                         # size of the unit it is bound to (League units: flex shapes)
         self.rng = np.random.default_rng(seed)
         ems = ((self.sysdef.get("complexEmitterDefinitionData") or [])
                + (self.sysdef.get("simpleEmitterDefinitionData") or []))
@@ -506,13 +601,20 @@ class Play:
             self.emitters.append(em)
 
         self.parent = None                         # (play, particle) a child system rides on
+        self.bone = None                           # (the parent's emitter, a joint of its skinned mesh) it rides on
 
     def pos_at(self, t):
         """the system's origin in world units at system time t."""
         if self.parent is not None:
             ppl, pp = self.parent
             age = pp.age_now if pp.age_now is not None else 0
-            return pp.pos + (ppl.pos_at(pp.t_birth + age) if pp.bind >= 0.5 else 0)
+            base = pp.pos + (ppl.pos_at(pp.t_birth + age) if pp.bind >= 0.5 else 0)
+            if self.bone is not None:
+                pem, bone = self.bone
+                sc, R = mesh_frame(ppl, pem, pp, age)
+                _, glob = pem.skinned.pose(age * pem.anim_rate + pem.anim_offset)
+                base = base + R @ (glob[pem.skinned.joint(bone)][:3, 3] * sc)
+            return base
         return self.origin + self.velocity * t
 
 
@@ -574,7 +676,7 @@ class Sim:
         n = int(s["acc"])
         s["acc"] -= n
         for k in range(n):
-            tb = a1 - (k + 0.5) / max(n, 1) * (a1 - a0)        # spread over the step (oldest first)
+            tb = a0 + (k + 0.5) / max(n, 1) * (a1 - a0)        # spread over the step, oldest first (a trail's order)
             et = 0.0 if not life else (tb - start) / life
             self._spawn(pl, em, s, tb, et, life)
 
@@ -616,6 +718,8 @@ class Sim:
             a = rng.random() * 2 * math.pi
             rr = r if (sh.get("flags") or 0) & 1 else r * math.sqrt(rng.random())
             off = np.array([rr * math.cos(a), (rng.random() - 0.5) * h, rr * math.sin(a)])
+        if em.flex_offset:
+            off = off * em.flex_offset * pl.bound
         p.origin = em.epos.at(et)
         p.pos = p.origin + off                                  # local to the system
         p.vel = vel
@@ -627,6 +731,8 @@ class Sim:
             sc = np.full(3, sc[0] * f[0])
         else:
             sc = sc * f
+        if em.flex_scale:
+            sc = sc * em.flex_scale * pl.bound
         p.scale = sc
         p.color = em.bcolor.birth(et, rng)
         p.rot = em.brot.birth(et, rng)
@@ -647,11 +753,12 @@ class Sim:
         p.vel = pl.M @ p.vel
         p.acc = pl.M @ p.acc
         s["parts"].append(p)
-        for sysdef in em.children:
+        for sysdef, bone in em.children:
             child = Play(pl.vfx, sysdef, t_start=pl.t_start + tb / pl.speed,
                          forward=pl.M[:, 1] if pl.frame == "missile" else pl.M[:, 2],
                          seed=int(rng.integers(1, 1 << 30)), speed=pl.speed, frame=pl.frame)
             child.parent = (pl, p)
+            child.bone = (em, bone) if bone else None
             child.kill = p.life
             self.add(child)
 
@@ -714,6 +821,7 @@ class Camera:
         """s: game px per unit; ppx: canvas pixels per game px; size: canvas in game px (w, h); the anchor (the frame
         centre the game draws at) is at `center` (game px in the canvas, default its middle)."""
         self.s, self.pitch, self.ground_px, self.ppx = s, pitch, ground_px, ppx
+        self.ground_clip = False          # hide mesh parts under the ground (Y < 0), as League's terrain does
         self.size = size
         # the anchor sits in the middle of a game pixel (k + 0.5): the 1x frame's centre pixel, the hd frame's centre
         self.center = center if center is not None else (size[0] // 2 + 0.5, size[1] // 2 + 0.5)
@@ -909,8 +1017,9 @@ def draw_para(cv, cam, em, p, age, t, origin_px, e1, e2, col):
     cv.blend(y0, x0, m, rgb, alpha, em.blend)
 
 
-def draw_tris(cv, cam, em, p, age, t, pts, uvs, cols):
-    """textured triangles: pts (n, 3, 2) canvas pixels, uvs (n, 3, 2), cols (n, 3, 4) per corner."""
+def draw_tris(cv, cam, em, p, age, t, pts, uvs, cols, wy=None):
+    """textured triangles: pts (n, 3, 2) canvas pixels, uvs (n, 3, 2), cols (n, 3, 4) per corner; wy (n, 3): the
+    corners' world height, for the camera's ground clip."""
     for k in range(len(pts)):
         tp = pts[k]
         x0 = max(int(math.floor(tp[:, 0].min())), 0)
@@ -928,6 +1037,8 @@ def draw_tris(cv, cam, em, p, age, t, pts, uvs, cols):
         l1 = ((cy - ay) * (gx - cx) + (ax - cx) * (gy - cy)) / den
         l2 = 1 - l0 - l1
         m = (l0 >= -1e-6) & (l1 >= -1e-6) & (l2 >= -1e-6)
+        if wy is not None and cam.ground_clip:
+            m &= (l0 * wy[k, 0] + l1 * wy[k, 1] + l2 * wy[k, 2]) >= 0
         if not m.any():
             continue
         w0, w1, w2 = l0[m], l1[m], l2[m]
@@ -975,21 +1086,31 @@ def draw_particle(cv, cam, pl, em, p, age, pos):
             e2 = np.array([-sa, ca]) * h
         draw_para(cv, cam, em, p, age, t, c_px - (e1 + e2) / 2, e1, e2, col)
     elif em.prim == "ArbitraryQuad":
-        if em.ground and pl.frame != "missile" and abs(abs(rot[0]) - 90) > 1:
+        laid = em.ground and pl.frame != "missile" and abs(abs(rot[0]) - 90) > 1
+        if laid:
             # a ground-layer quad stood up ((0, 0, 90): the missiles' arch-shaped glows, Lux_Q_Shape / Jinx_R_Shape) is
             # laid on the ground with its yaw only: the arch's round end (the texture's top) then leads the flight
             rot = np.array([90.0, rot[1], 0.0])
         R = pl.M @ rot_matrix(rot)
         ex = R @ np.array([sc[0], 0, 0])
-        ey = R @ np.array([0, -sc[1], 0])                         # texture v runs down the quad
-        o = pos - ex / 2 - ey / 2
+        ey = R @ np.array([0, sc[1], 0])
+        if laid:
+            e1w, e2w = ex, -ey                                    # texture u along x, v down the quad (-y)
+        else:
+            # the texture's v (top -> bottom) runs along the quad's local x (from +x) and u along its y: Caitlyn's
+            # bullet (20 x 10 turned 90 about z in a missile's frame) is then long along its flight with its tip ahead,
+            # as its texture (128 x 256, the tip on top) is drawn; her glows' bright heads sit on the flight line
+            e1w, e2w = ey, -ex
+        o = pos - e1w / 2 - e2w / 2
         o_px, _ = cam.project(o)
-        e1 = cam.project(o + ex)[0] - o_px
-        e2 = cam.project(o + ey)[0] - o_px
+        e1 = cam.project(o + e1w)[0] - o_px
+        e2 = cam.project(o + e2w)[0] - o_px
         draw_para(cv, cam, em, p, age, t, o_px, e1, e2, col)
     elif em.prim == "Ray":
+        # a ray runs out along its local x turned by its rotation: Caitlyn's muzzle flashes ((0, -90, 0)) point ahead,
+        # her hits' splash rays turned at random about y spread round the ground
         R = pl.M @ rot_matrix(rot)
-        axis = R @ np.array([0, 1.0, 0])
+        axis = R @ np.array([1.0, 0, 0])
         end = pos + axis * sc[1]
         a_px, _ = cam.project(pos)
         b_px, _ = cam.project(end)
@@ -1000,19 +1121,31 @@ def draw_particle(cv, cam, pl, em, p, age, pos):
         side = np.array([-d[1], d[0]]) / n * sc[0] * ppu
         draw_para(cv, cam, em, p, age, t, b_px - side / 2, side, a_px - b_px, col)   # tip (v 0) out, base (v 1) in
     elif em.prim == "Mesh":
-        verts, tris, uvs = em.mesh
-        if em.ground:
-            # a ground-layer mesh (Lux Q's rune rings (9, 38, 38), Jinx R's ring (0.82, 0.5, 0.5)) takes x for all axes:
-            # read per axis they are ellipses thousands of units long; Jinx R's shockwave (4, 4, 15), not on the
-            # ground layer, needs its axes apart (it widens while it flattens)
-            sc = np.full(3, sc[0])
-        R = pl.M @ rot_matrix(rot)
+        if em.skinned is not None:
+            verts, _ = em.skinned.pose(age * em.anim_rate + em.anim_offset)
+            tris, uvs = em.skinned.tris, em.skinned.uvs
+        else:
+            verts, tris, uvs = em.mesh
+        sc, R = mesh_frame(pl, em, p, age)
         wv = (verts * sc) @ R.T + pos
         pts, depth = cam.project(wv)
         tp = pts[tris]
         order = np.argsort(depth[tris].mean(1))
         cols = np.broadcast_to(col, (len(tris), 3, 4))
-        draw_tris(cv, cam, em, p, age, t, tp[order], uvs[order], cols[order])
+        draw_tris(cv, cam, em, p, age, t, tp[order], uvs[order], cols[order], wy=wv[:, 1][tris][order])
+
+
+def mesh_frame(pl, em, p, age):
+    """a mesh particle's scale (per axis) and rotation (local -> world) at its age."""
+    t = min(1.0, age / max(p.life, 1e-6))
+    sc = p.scale * em.scale.at(t)
+    if em.uniform or em.ground:
+        # a ground-layer mesh (Lux Q's rune rings (9, 38, 38), Jinx R's ring (0.82, 0.5, 0.5)) takes x for all axes:
+        # read per axis they are ellipses thousands of units long; Jinx R's shockwave (4, 4, 15), not on the
+        # ground layer, needs its axes apart (it widens while it flattens)
+        sc = np.full(3, sc[0])
+    rot = p.rot + p.rotv * age + em.rot.at(t)
+    return sc, pl.M @ rot_matrix(rot)
 
 
 def draw_strip(cv, cam, pl, em, pts_w, widths, cols, along, age_t, u_along=False):
@@ -1118,11 +1251,16 @@ def build_plays(vfxs, scene):
     plays = []
     for i, ps in enumerate(scene["plays"]):
         vfx = vfxs[ps.get("champ", scene["champ"])]
-        plays.append(Play(vfx, ps["system"], t_start=ps.get("t", 0.0), origin=ps.get("origin", (0, 0, 0)),
+        system = ps["system"]
+        if isinstance(system, dict):          # {"model": "CaitlynTrap", "clip": "Set", "loop": ..., "offset": s, ...}
+            system = vfx.model_system(system["model"], system["clip"], loop=system.get("loop", False),
+                                      offset=system.get("offset", 0.0), scale=system.get("scale", 1.0),
+                                      rate=system.get("rate", 1.0), spin=system.get("spin"))
+        plays.append(Play(vfx, system, t_start=ps.get("t", 0.0), origin=ps.get("origin", (0, 0, 0)),
                           velocity=ps.get("velocity", (0, 0, 0)), forward=ps.get("forward", (1, 0, 0)),
                           target=ps.get("target"), kill=ps.get("kill"), seed=ps.get("seed", 7 + i),
                           emitters=ps.get("only"), skip=tuple(ps.get("skip", ())), speed=ps.get("speed", 1.0),
-                          frame=ps.get("frame", "standing")))
+                          frame=ps.get("frame", "standing"), bound=ps.get("bound", 130.0)))
     return plays
 
 
@@ -1167,6 +1305,7 @@ def scene_frames(scene, intervals, bg=None, ppx=8, vfxs=None, shutter=None, laye
             sim.run_to(t)
             cam = Camera(cam_d["s"], cam_d.get("pitch", 35.0), cam_d.get("ground_px", 11.5), ppx, tuple(cam_d["size"]),
                          tuple(cam_d["center"]) if cam_d.get("center") else None)
+            cam.ground_clip = bool(cam_d.get("ground_clip"))
             if follow is not None:
                 pl = plays[follow]
                 o = pl.pos_at((t - pl.t_start) * pl.speed)
@@ -1212,8 +1351,6 @@ def to_image(a):
 IGNORED = {   # emitter fields the renderer reads past (drawn without them)
     "fieldCollectionDefinition": "force fields (noise / attraction / orbit / drag)",
     "reflectionDefinition": "fresnel / cube-map reflection",
-    "flexShapeDefinition": "spawn scaled by the unit's size",
-    "scaleBirthScaleByBoundObjectSize": "scaled by the unit's size",
     "softParticleParams": "soft-particle depth fade",
     "falloffTexture": "falloff texture",
     "materialOverrideDefinitions": "material override (custom shader)",
@@ -1267,11 +1404,13 @@ def survey(lol=LOL, skin=0, grep=""):
                     continue
                 if prim == "Mesh":
                     md = (e.get("primitive") or {}).get("mMesh") or {}
-                    if not md.get("mSimpleMeshName"):
-                        why["skinned mesh (.skn + animation)"] += 1
-                        continue
-                    if v.mesh(md["mSimpleMeshName"]) is None:
-                        why["mesh file missing / unreadable"] += 1
+                    if md.get("mSimpleMeshName"):
+                        if v.mesh(md["mSimpleMeshName"]) is None:
+                            why["mesh file missing / unreadable"] += 1
+                            continue
+                    elif not md.get("mMeshName") or not md.get("mMeshSkeletonName") or v.skinned(
+                            md["mMeshName"], md["mMeshSkeletonName"], md.get("mAnimationName")) is None:
+                        why["skinned mesh missing / unreadable"] += 1
                         continue
                 if e.get("distortionDefinition") is not None:
                     why["distortion (screen refraction)"] += 1
@@ -1286,7 +1425,8 @@ def survey(lol=LOL, skin=0, grep=""):
                     why[f"primitive {prim}"] += 1
                     continue
                 miss = [k for k in IGNORED if e.get(k) is not None]
-                if (e.get("childParticleSetDefinition") or {}).get("boneToSpawnAt"):
+                if (e.get("childParticleSetDefinition") or {}).get("boneToSpawnAt") and not (
+                        prim == "Mesh" and ((e.get("primitive") or {}).get("mMesh") or {}).get("mMeshName")):
                     miss.append("childrenOnBones")
                 if miss:
                     tot["drawn without a feature"] += 1
