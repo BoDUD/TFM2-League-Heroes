@@ -319,7 +319,7 @@ class Hero:
         drawn = [a for a, _ in self.drawn]
         i0 = cfg["from"]
         src = drawn[i0]
-        layers = R.pieces(src, cfg, i0)
+        layers = {"head": R.head_of(src, cfg)} if cfg.get("lock") == "head" else R.pieces(src, cfg, i0)
         m = {"hero": self.hid, "ppu": self.ppu, "sizes": self.size, "game_px_a_square": round(self.k, 4),
              "frames": len(dense), "ms": [x for _, x in self.new["hd_" + tag]], "from": i0,
              "bob": self.mov["body"], "bob_game_px": round((max(self.mov["body"]) - min(self.mov["body"])) * self.k, 2)}
@@ -333,8 +333,14 @@ class Hero:
             legs.append(int(((b != a).any(-1) & vis).sum()))
         m["legs_changed"] = legs
         m["kept_squares"] = [int(inf.get("kept", np.zeros(1, bool)).sum()) for inf in self.info]
-        m["own_pieces_taken_under_the_waist"] = [int((inf["own"] & self._below(a, inf)).sum())
-                                                 for a, inf in zip(drawn, self.info)]
+        if cfg.get("lock") != "head":
+            m["own_pieces_taken_under_the_waist"] = [int((inf["own"] & self._below(a, inf)).sum())
+                                                     for a, inf in zip(drawn, self.info)]
+        else:
+            m["own_head_squares_cleared"] = [int(inf["own"].sum()) for inf in self.info]
+            m["head_drawn_at_from_centre"] = [[int(inf["drawn_at"][0] - (a.shape[0] // 2 - src.shape[0] // 2)),
+                                                int(inf["drawn_at"][1] - (a.shape[1] // 2 - src.shape[1] // 2))]
+                                               for a, inf in zip(drawn, self.info)]
         # laid layers against frame `from`
         alike = {}
         for name in R.layer_names(cfg):

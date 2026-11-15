@@ -101,6 +101,7 @@ def load(hero):
     with open(lp(data_file(hero)), encoding="utf-8") as f:
         cfg = json.load(f)
     cfg["outline"] = tuple(cfg["outline"])
+    cfg.setdefault("below", [])
     if cfg["below"] != "match":
         cfg["below"] = [[tuple(r) for r in rs] for rs in cfg["below"]]
     for p in cfg.get("parts", []):
@@ -448,7 +449,10 @@ def lay(b, src, m, dy, dx, cols=None, under=False):
 
 
 def layer_names(cfg):
-    """Back to front: the chains, the parts behind the body (a cape), the body, the parts in front (fists, a weapon)."""
+    """Back to front: the chains, the parts behind the body (a cape), the body, the parts in front (fists, a weapon);
+    `lock` "head": the head alone."""
+    if cfg.get("lock") == "head":
+        return ["head"]
     parts, chains = cfg.get("parts", []), cfg.get("chains", [])
     return ([c["name"] for c in chains if not c.get("front")] + [p["name"] for p in parts if p.get("behind")] + ["body"]
             + [c["name"] for c in chains if c.get("front")] + [p["name"] for p in parts if not p.get("behind")])
@@ -559,6 +563,99 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None):
     return b, info
 
 
+# ------------------------------------------------------------------------------------------------- the head alone
+def head_of(src, cfg):
+    """Frame `from`'s head (`lock` "head"): its squares inside `head` (corners in frame `from`), the piece of them joined
+    to its biggest run (8-connected)."""
+    m = poly_mask(cfg["head"], src.shape) & (src[..., 3] > 0)
+    lab, n = ndimage.label(m, structure=K8)
+    if n > 1:
+        m = lab == 1 + int(np.argmax(ndimage.sum(m, lab, range(1, n + 1))))
+    return m
+
+
+def find_head(src, a, head, search=10):
+    """Where the frame's own head sits: the shift (from the centres) putting frame `from`'s head on the most alike
+    squares of frame a - a square alike in colour counts 2, opaque on opaque 1, opaque on clear -1 -> (dy, dx)."""
+    ys, xs = np.nonzero(head)
+    cdy, cdx = a.shape[0] // 2 - src.shape[0] // 2, a.shape[1] // 2 - src.shape[1] // 2
+    best = None
+    for dy in range(cdy - search, cdy + search + 1):
+        for dx in range(cdx - search, cdx + search + 1):
+            ty, tx = ys + dy, xs + dx
+            ok = (ty >= 0) & (ty < a.shape[0]) & (tx >= 0) & (tx < a.shape[1])
+            if ok.mean() < 0.95:
+                continue
+            on = a[ty[ok], tx[ok]]
+            opq = on[:, 3] > 0
+            same = opq & (on[:, :3] == src[ys[ok], xs[ok], :3]).all(-1)
+            sc = 2 * int(same.sum()) + int(opq.sum()) - int((~opq).sum())
+            if best is None or sc > best[0]:
+                best = (sc, dy, dx)
+    return best[1], best[2]
+
+
+def compose_head(a, i, src, head, mov, cfg):
+    """Frame i with frame `from`'s head on its own head's place (rows `bob`, columns `x` off it): the frame's own head
+    cleared round it - its own head colours (`head_colours`, frame `from`'s head's by default) within 2 squares, above
+    its chin (`chin`: frame `from`'s first row of the neck) - the rest of the frame square for square its own; the gaps
+    the clearing leaves inside her filled from her own colours round them, bared edges closed with 2 squares of outline,
+    a pinhole none of the drawings has filled with outline. -> (frame, info)."""
+    out_c = cfg["outline"]
+    H, W = a.shape[:2]
+    my, mx = find_head(src, a, head)
+    dy, dx = my + mov["body"][i], mx + cfg.get("x", 0)
+    if i == cfg["from"] and (dy, dx) == (my, mx) == (0, 0):
+        # frame `from` keeps its own head where it is: nothing to change
+        z = np.zeros(a.shape[:2], bool)
+        return a.copy(), {"own": z, "legs": a[..., 3] > 0, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
+                          "head": head & (a[..., 3] > 0), "joined": z, "kept": z}
+    ys, xs = np.nonzero(head)
+    at_match = np.zeros((H, W), bool)
+    ok = (ys + my >= 0) & (ys + my < H) & (xs + mx >= 0) & (xs + mx < W)
+    at_match[ys[ok] + my, xs[ok] + mx] = True
+    cols = [tuple(c) for c in cfg.get("head_colours", [])] or         sorted({tuple(int(v) for v in c) for c in src[head][:, :3]})
+    chin = cfg["chin"] + my                            # the frame's own neck starts here
+    zone = ndimage.binary_dilation(at_match, structure=K8, iterations=2)
+    zone[max(0, chin):] = False
+    own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, i)
+    b = a.copy()
+    b[own] = 0
+    legs = b[..., 3] > 0
+    info = {"own": own, "legs": legs, "at": (dy, dx), "lost": 0, "drawn_at": (my, mx)}
+    info["head"], info["lost"] = lay(b, src, head, dy, dx)
+    put = info["head"] & (b[..., 3] > 0)
+    info["head"] = put
+    gone = (a[..., 3] > 0) & (b[..., 3] == 0)
+    inside = gone & T.between(put | legs, 3)
+    voters = legs & ~colour_mask(b, [out_c])
+    fill_in(b, inside, voters)
+    rest = inside & (b[..., 3] == 0)
+    b[rest, :3] = out_c
+    b[rest, 3] = 255
+    clear = b[..., 3] == 0
+    was = gone & clear
+    solid = (b[..., 3] > 0) & ~colour_mask(b, [out_c]) & ~put
+    d = T.steps_from(solid, np.ones((H, W), bool), 2)
+    bare = was & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(was, structure=K8), structure=K8,
+                                                    iterations=2)
+    b[bare, :3] = out_c
+    b[bare, 3] = 255
+    # a pinhole: neither frame `from`'s head's (laid with it) nor the frame's own (outside the cleared squares)
+    laid = np.zeros((H, W), bool)
+    ps = pockets(src) & ndimage.binary_dilation(head, structure=K8)
+    py, px_ = np.nonzero(ps)
+    okp = (py + dy >= 0) & (py + dy < H) & (px_ + dx >= 0) & (px_ + dx < W)
+    laid[py[okp] + dy, px_[okp] + dx] = True
+    own_p = pockets(a) & ~ndimage.binary_dilation(own, structure=K8)
+    shut = pockets(b) & ~laid & ~own_p
+    b[shut, :3] = out_c
+    b[shut, 3] = 255
+    info["joined"] = ((inside | bare | shut) & (b[..., 3] > 0)) & ~put
+    info["kept"] = np.zeros((H, W), bool)
+    return b, info
+
+
 def make(hero, cfg=None):
     """-> ({"hd_<tag>", "<tag>", "lo_<tag>": [(frame, ms)]}, per-frame info, motion)."""
     import ppu_hd as P
@@ -570,7 +667,8 @@ def make(hero, cfg=None):
     i0 = cfg["from"]
     src = frames[i0][0]
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
-    layers = pieces(src, cfg, i0)
+    head_only = cfg.get("lock") == "head"
+    layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
     chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[1].tolist())) for c in cfg.get("chains", [])}
     mov = motion(cfg, n, chain_cols)
     tp = T.load_state().get(hid)                         # (a hero thin_outline.json does not list: no pass)
@@ -585,10 +683,13 @@ def make(hero, cfg=None):
     dense, info = [], []
     for i, (a, ms) in enumerate(frames):
         match, alike = None, None
-        if cfg["below"] == "match":
-            shift, alike = drawn_shift(src, a, union)
-            match = (src, union, shift)
-        b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match)
+        if head_only:
+            b, inf = compose_head(a, i, src, layers["head"], mov, cfg)
+        else:
+            if cfg["below"] == "match":
+                shift, alike = drawn_shift(src, a, union)
+                match = (src, union, shift)
+            b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match)
         inf["drawn_alike"] = alike
         b2 = thin(b, "hd")
         inf["thinned"] = (b2 != b).any(-1)
