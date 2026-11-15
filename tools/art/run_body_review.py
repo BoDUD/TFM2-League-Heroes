@@ -333,9 +333,12 @@ class Hero:
         i0 = cfg["from"]
         src = self.drawn[i0][0]
         layers = {"head": R.head_of(src, cfg)} if cfg.get("lock") == "head" else R.pieces(src, cfg, i0)
+        bob = self.mov["body"]
+        if cfg.get("lock") == "head":                    # (the head's own path: where it is laid, from the centre)
+            bob = [int(inf["at"][0] - (b.shape[0] // 2 - src.shape[0] // 2)) for b, inf in zip(dense, self.info)]
         m = {"hero": self.hid, "ppu": self.ppu, "sizes": self.size, "game_px_a_square": round(self.k, 4),
              "frames": len(dense), "ms": [x for _, x in self.new["hd_" + tag]], "from": i0,
-             "bob": self.mov["body"], "bob_game_px": round((max(self.mov["body"]) - min(self.mov["body"])) * self.k, 2)}
+             "bob": bob, "bob_game_px": round((max(bob) - min(bob)) * self.k, 2)}
         for p in cfg.get("parts", []):
             m[f"part {p['name']} rows"] = self.mov[p["name"]]
         # legs as drawn

@@ -123,7 +123,9 @@ def with_variant(cfg, name):
         if k in ("parts", "chains"):
             have = {item["name"]: item for item in out.get(k, [])}
             for nm, ch in x.items():
-                if nm in have:
+                if ch is None:                           # null: that one goes (a cape made a chain instead)
+                    out[k] = [item for item in out.get(k, []) if item["name"] != nm]
+                elif nm in have:
                     have[nm].update(copy.deepcopy(ch))
                 else:
                     out.setdefault(k, []).append(dict(copy.deepcopy(ch), name=nm))
@@ -150,7 +152,9 @@ def load(hero, variant=None):
             p["range"] = tuple(p["range"])
         p["skip"] = [tuple(c) for c in p.get("skip", [])]
     for c in cfg.get("chains", []):
-        c["colours"] = [tuple(v) for v in c["colours"]]
+        c["colours"] = [tuple(v) for v in c.get("colours", [])]
+        if c.get("poly"):
+            c["poly"] = [tuple(v) for v in c["poly"]]
     return cfg
 
 
@@ -321,6 +325,8 @@ def pieces(src, cfg, i_src):
     upper[:cy + cfg["waist"][i_src]] = True
     parts, had = {}, np.zeros((H, W), bool)
     for p in cfg.get("parts", []):                       # (a square in two parts' corners: the first one's)
+        if p.get("late"):
+            continue                                     # (cut from the body after the chains: below)
         parts[p["name"]] = poly_mask(p["poly"], src.shape) & op & ~colour_mask(src, p.get("skip", [])) & ~had
         had |= parts[p["name"]]
     every = (upper & op)
@@ -340,7 +346,15 @@ def pieces(src, cfg, i_src):
         else:
             side[:, c["root"] + 1:] = True
         rows = np.zeros((H, W), bool)
-        rows[c["rows"][0]:c["rows"][1]] = True
+        r0, r1 = c.get("rows", (0, H))
+        rows[r0:r1] = True
+        if c.get("poly"):
+            # a chain cut by its corners (a cape: every square in them, its outline too) - not by colours
+            m = poly_mask(c["poly"], src.shape) & op & side & rows & ~taken & ~kept
+            out[c["name"]] = m
+            taken |= m
+            every |= m
+            continue
         # (a chain may hang under the waist: a whip, a braid - its rows say how far)
         m = colour_mask(src, c["colours"]) & (every | (op & rows & ~upper)) & side & rows & ~taken & ~kept
         lab, n = ndimage.label(m, structure=K8)
@@ -356,6 +370,13 @@ def pieces(src, cfg, i_src):
         every |= out[c["name"]]
     out["body"] = every & ~taken
     out.update(parts)
+    for p in cfg.get("parts", []):
+        if p.get("late"):
+            # `late`: the body's squares in its corners once the chains and the other parts have theirs (a head that
+            # nods: a box round it, the hair chain keeping its own)
+            m = poly_mask(p["poly"], src.shape) & out["body"] & ~colour_mask(src, p.get("skip", []))
+            out[p["name"]] = m
+            out["body"] &= ~m
     return out
 
 
@@ -420,7 +441,7 @@ def own_upper(a, cfg, i, match=None):
             hang |= rect & low & op & ~legs & ~(ink & ndimage.binary_dilation(legs, structure=K8))
         return (up & op) | (hang & low)
     rect = np.zeros((H, W), bool)
-    for r0, r1, c0, c1 in cfg["below"][i]:
+    for r0, r1, c0, c1 in (cfg["below"][i] if cfg["below"] else []):
         rect[(wr if r0 is None else r0):r1 + 1, c0:c1 + 1] = True
     through = op & ~ink & low
     lab, _ = ndimage.label(through)
@@ -669,9 +690,13 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     pose = i if pose is None else pose
     out_c = cfg["outline"]
     H, W = a.shape[:2]
+    torso, legs_only, sh_joined = None, None, None
+    sh = cfg["shift"][i] if cfg.get("shift") else 0
+    if sh:
+        a, torso, legs_only, sh_joined = shifted_upper(a, cfg, pose, sh)
     my, mx = find_head(src, a, head)
     dy, dx = my + mov["body"][i], mx + cfg.get("x", 0)
-    if pose == cfg["from"] and (dy, dx) == (my, mx) == (0, 0):
+    if pose == cfg["from"] and (dy, dx) == (my, mx) == (0, 0) and not sh:
         # frame `from` keeps its own head where it is: nothing to change
         z = np.zeros(a.shape[:2], bool)
         return a.copy(), {"own": z, "legs": a[..., 3] > 0, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
@@ -682,8 +707,10 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     at_match[ys[ok] + my, xs[ok] + mx] = True
     cols = [tuple(c) for c in cfg.get("head_colours", [])] or \
         sorted({tuple(int(v) for v in c) for c in src[head][:, :3]})
+    cols = cols + [tuple(c) for c in cfg.get("clear_colours", [])]   # (the frame's own head's that frame `from`'s lacks)
     chin = cfg["chin"] + my                            # the frame's own neck starts here
-    zone = ndimage.binary_dilation(at_match, structure=K8, iterations=2)
+    # `clear_grow`: how far round frame `from`'s head the frame's own is cleared (2 squares by default)
+    zone = ndimage.binary_dilation(at_match, structure=K8, iterations=int(cfg.get("clear_grow", 2)))
     zone[max(0, chin):] = False
     own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, pose)
     b = a.copy()
@@ -695,6 +722,10 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     info["head"] = put
     gone = (a[..., 3] > 0) & (b[..., 3] == 0)
     inside = gone & T.between(put | legs, 3)
+    if cfg.get("beside_head") == "ground":
+        # what the frame's own (bigger) head leaves beside frame `from`'s is ground, not filled from the colours round
+        # it (a goggle strap's grey, a collar's teal run into it): only under the laid chin is a gap filled
+        inside &= np.arange(H)[:, None] >= cfg["chin"] + dy - 1
     voters = legs & ~colour_mask(b, [out_c])
     fill_in(b, inside, voters)
     rest = inside & (b[..., 3] == 0)
@@ -720,7 +751,41 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     b[shut, 3] = 255
     info["joined"] = ((inside | bare | shut) & (b[..., 3] > 0)) & ~put
     info["kept"] = np.zeros((H, W), bool)
+    if sh:
+        # the frame's own upper body moved: its legs are what is left under the waist (the rest is laid, as drawn)
+        info["torso"] = torso & (b[..., 3] > 0) & ~put
+        info["legs"] = legs_only & (b[..., 3] > 0) & ~put & ~info["torso"]
+        info["joined"] |= sh_joined & (b[..., 3] > 0) & ~put
+    info["shift"] = sh
     return b, info
+
+
+def shifted_upper(a, cfg, pose, sh):
+    """`shift` (head lock): the frame's own upper body - above its `waist`, with what `below`'s rects hold - moved `sh`
+    rows (down +) over its legs, as drawn; a gap it opens over them filled from their colours (outline where they are
+    not round it). -> (frame, the moved squares, the legs' squares, the squares filled)."""
+    H, W = a.shape[:2]
+    out_c = cfg["outline"]
+    own = own_upper(a, cfg, pose)
+    b = a.copy()
+    b[own] = 0
+    legs = b[..., 3] > 0
+    ys, xs = np.nonzero(own)
+    ty = ys + sh
+    ok = (ty >= 0) & (ty < H)
+    if (~ok).any():
+        sys.exit(f"shift {sh}: the upper body leaves frame {pose}")
+    b[ty[ok], xs[ok]] = a[ys[ok], xs[ok]]
+    put = np.zeros((H, W), bool)
+    put[ty[ok], xs[ok]] = True
+    gone = (a[..., 3] > 0) & (b[..., 3] == 0)
+    inside = gone & T.between(put | legs, abs(sh) + 1)
+    near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
+    fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
+    rest = inside & (b[..., 3] == 0)
+    b[rest, :3] = out_c
+    b[rest, 3] = 255
+    return b, put, legs & ~put, inside & (b[..., 3] > 0)
 
 
 def make(hero, cfg=None):
