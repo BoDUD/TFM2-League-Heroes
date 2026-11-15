@@ -13,16 +13,11 @@
   "chains": [
     {"name": "braids", "colours": [[1, 103, 182], [2, 153, 226], [5, 25, 87], [3, 64, 136], [8, 56, 107], [5, 229, 252], [3, 188, 232]], "root": 32, "side": "left", "rows": [18, 84], "front": true, "lag": 1.0, "whip": 0.3}
   ],
-  "use": "lively",
+  "use": "char",
   "variants": {
-    "lively": {"steps": 2, "keep_gaps": true, "bob": [3, 2, 1, -1, -2, -2, -1, 1, 3, 2, 1, -1, -2, -2, -1, 1],
-               "parts": {"launcher": {"poly": [[1, 25], [1, 34], [9, 34], [12, 33], [16, 31], [20, 29], [24, 27], [28, 25], [32, 21], [36, 17], [40, 13], [44, 9], [47, 4], [47, 0], [36, 0], [28, 4], [20, 10], [12, 16], [6, 20]],
-                                      "lag": 1, "range": [0, 2], "behind": true,
-                                      "skip": [[1, 103, 182], [2, 153, 226], [5, 25, 87], [3, 64, 136], [8, 56, 107], [5, 229, 252], [3, 188, 232]]},
-                         "head": {"poly": [[1, 30], [1, 66], [30, 66], [30, 44], [28, 44], [28, 32], [18, 32], [18, 30]],
-                                  "rows": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]}},
-               "chains": {"braids": {"lag": 2, "whip": -0.25, "with": "head"}}},
-    "lively_08": {"base": "lively", "cycle_ms": 800}
+    "lively": {"steps": 2, "keep_gaps": true, "bob": [3, 2, 1, -1, -2, -2, -1, 1, 3, 2, 1, -1, -2, -2, -1, 1], "parts": {"launcher": {"poly": [[1, 25], [1, 34], [9, 34], [12, 33], [16, 31], [20, 29], [24, 27], [28, 25], [32, 21], [36, 17], [40, 13], [44, 9], [47, 4], [47, 0], [36, 0], [28, 4], [20, 10], [12, 16], [6, 20]], "lag": 1, "range": [0, 2], "behind": true, "skip": [[1, 103, 182], [2, 153, 226], [5, 25, 87], [3, 64, 136], [8, 56, 107], [5, 229, 252], [3, 188, 232]]}, "head": {"poly": [[1, 30], [1, 66], [30, 66], [30, 44], [28, 44], [28, 32], [18, 32], [18, 30]], "rows": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]}}, "chains": {"braids": {"lag": 2, "whip": -0.25, "with": "head"}}},
+    "lively_08": {"base": "lively", "cycle_ms": 800},
+    "char": {"steps": 1, "keep_gaps": true, "bob": [0, -1, -2, -1, 0, -1, -2, -1], "x": [0, 0, 0, 0, 0, 0, 0, 0], "parts": {"gun": {"path": [[0, 0], [0, 0], [0, -1], [0, -1], [0, -1], [1, 1], [1, 1], [0, 1]]}, "launcher": {"path": [[-1, -1], [-1, -1], [-1, -1], [0, -1], [1, -1], [0, 0], [0, 0], [0, 0]], "poly": [[1, 25], [1, 34], [9, 34], [12, 33], [16, 31], [20, 29], [24, 27], [28, 25], [32, 21], [36, 17], [40, 13], [44, 9], [47, 4], [47, 0], [36, 0], [28, 4], [20, 10], [12, 16], [6, 20]], "behind": true, "skip": [[1, 103, 182], [2, 153, 226], [5, 25, 87], [3, 64, 136], [8, 56, 107], [5, 229, 252], [3, 188, 232]], "lag": 0, "range": [0, 0]}}, "chains": {"braids": {"tip": [1, -3, -3, 2, 1, 1, 1, 1]}}, "pad": [2, 2]}
   },
   "notes": {
     "variants": "lively (「感觉还是有点僵硬？」; the sheet keeps the data without a variant until the user picks one: `use`): each drawn frame shown twice (16 frames x 58.5 ms, the cycle stays 936 ms), the body moving on every one - 5 squares (2.3 game px): a quick dip as each step lands (contacts 3 / 7: 1 -> 3) and a slower rise to the top at 2 / 6, never above her drawn place's own rows (no gap at the waist); the rocket launcher on her back its own part, behind, a frame late and only dropping (+0..2: rising would bare its underside against the braids); the gun stays in her hands (locked: a lag splits it from the hand); the braids' tips 2 frames late (-3..2); the head a square lower on the frame of each landing's lowest and back the next (the braids with it); keep_gaps: what was ground in her drawing between her pieces stays ground. lively_08: the same in 800 ms (16 x 50 ms)",

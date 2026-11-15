@@ -1,0 +1,33 @@
+{
+  "hero": "zyra",
+  "tag": "run",
+  "drawn": "assets/source/zyra/hd/zyra_run_drawn",
+  "from": 0,
+  "outline": [4, 1, 3],
+  "waist": [-6, -6, -7, -8, -6, -6, -6, -8],
+  "bob": [1, 1, 0, -1, 1, 1, 0, -1],
+  "below": "match",
+  "parts": [],
+  "chains": [
+    {"name": "hair", "colours": [[96, 1, 36], [244, 4, 91], [193, 1, 67], [151, 1, 51], [250, 44, 167], [75, 2, 31]], "root": 44, "side": "left", "rows": [0, 32], "lag": 1.0, "whip": 0.2}
+  ],
+  "use": "char",
+  "variants": {
+    "lively": {"steps": 2, "keep_gaps": true, "bob": [1, 3, 2, 1, 0, -1, -1, 0, 1, 3, 2, 1, 0, 0, -1, 0], "parts": {"head": {"poly": [[0, 44], [0, 64], [27, 64], [27, 44]], "late": true, "rows": [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]}}, "chains": {"hair": {"lag": 2, "whip": 0.0, "with": "head"}}},
+    "lively_08": {"base": "lively", "cycle_ms": 800},
+    "char": {"steps": 1, "keep_gaps": true, "bob": [0, 0, -1, -2, 0, 0, 0, -2], "x": [0, 0, 0, 0, 0, 0, 0, 0], "parts": {}, "chains": {"hair": {"tip": [3, 3, -2, -3, 3, 3, -3, -3]}}, "pad": [2, 2]}
+  },
+  "notes": {
+    "variants": "lively (「感觉还是有点僵硬？」, then 「活泼版」 for Vi / Jinx): each drawn frame shown twice (16 frames x 66.5 ms, the cycle stays 1064 ms), the body moving on every one - 4 squares (2.4 game px): a quick dip just after each contact (frames 0 / 4: 1 -> 3) and a slower rise to the top at 2-3 / 6-7 (frame 6 has no room above her head: the second top a frame later); the mane's tips 2 frames late (-3..2); the head (face, hair top, the hair right of column 44: the body's squares in a box from row 26 up) a square lower on the frame of each landing's lowest and back the next, the mane with it; the vine in her right hand kept as drawn; keep_gaps. lively_08: 800 ms",
+    "made": "--init, then by hand",
+    "from": "frame 0: her head, torso and the whip vine are one drawing in every frame, only moved; frame 0 is her idle's",
+    "waist": "the top of her legs (frame 0's row 47 = -6), in each frame where its drawn upper body sits",
+    "bob": "her drawn bob, both steps alike: 1 1 0 -1 (drawn 0 0 -1 -2 and 0 0 0 -2: the second step lacked its rise at frame 6, whose head is at its rect's top - so a row under the drawn place); the vine in her right hand and the hand are kept as drawn and moved with the body",
+    "below": "match",
+    "keep": "the vine in her right hand and the hand: redrawn each frame (it swings), left as drawn",
+    "chains": "her mane behind the face (root column 44). Not the whip vine in her left hand: its tip is drawn a little differently each frame under the waist, a chain of it doubled the tip",
+    "undecided": []
+  },
+  "x": 0,
+  "keep": [[-18, 20, 9, 46]]
+}
