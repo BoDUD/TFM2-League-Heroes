@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""league_caitlyn's run: her own drawn frames with one rifle held the same way, her body on one path, the far leg
-darker and one head in every frame (the user, on her run: 「女警看不出交叉步啊」, then 「调暗后腿试试」 - darken the back leg -
-「怎么感觉耳朵也变形了」 - her ear changed from frame to frame - 「先改模型的要」 - fix what deforms first: the rifle grew and
-shrank - and 「感觉还是不自然 不知道为什么 有卡顿感」: her upper body lurched once a cycle and one step had 3 slow frames).
+"""league_caitlyn's run: her own drawn frames with one upper body - head, neck, collar, bodice, jacket, arms and
+rifle, one drawing - on one path, the far leg darker (the user, on her run: 「女警看不出交叉步啊」, then 「调暗后腿试试」 -
+darken the back leg - 「怎么感觉耳朵也变形了」 - her ear changed from frame to frame - 「先改模型的要」 - fix what deforms
+first: the rifle grew and shrank - 「感觉还是不自然 不知道为什么 有卡顿感」: her upper body lurched once a cycle and one step
+had 3 slow frames - then 「感觉枪口会顶到脸上啊 摆动的时候」 and 「脖子和身体也有点变形」: the rifle followed each frame's
+hand while her head followed the hat's path, and her neck and torso were each frame's own).
 
     python tools/art/caitlyn_run_shade.py                 # run / hd_run / lo_run into the sheet (+ the strips)
     python tools/art/caitlyn_run_shade.py --check         # exit 1 when the sheet's run tags are not what it makes
@@ -10,8 +12,7 @@ shrank - and 「感觉还是不自然 不知道为什么 有卡顿感」: her up
 
 The frames are her old run's 8 drawings (assets/source/caitlyn/hd/caitlyn_run_drawn.png: 0 1 2 3 4 6 7 as
 tools/art/run_fix.py left them, the feet on the ground line; 5 as drawn), 117 ms each - two steps of 4. Her squares
-are moved only whole (STRETCH, LEAN, SHIFT); the rifle is one drawing, only colours change on the far leg, and the
-head is one drawing:
+are moved only whole (STRETCH, LEAN, SHIFT); only colours change on the far leg; the upper body is one drawing:
 
 - her body's path (STRETCH / LEAN / SHIFT): frame 5's short legs stretched to the others' length; her upper body moved
   along the row in frames 4 and 7 so her hat holds its place over the cycle (the skirt and legs stay; the gaps that
@@ -33,7 +34,16 @@ head is one drawing:
   on the head's side of it; round the head the frame's own hat, face and sidelocks cleared (never the rifle), her back
   hair kept; where the head meets that hair, 2 squares of outline on the hair's side; an edge the clearing bared
   closed with outline, and a pinhole of ground the head shut in filled with outline. The ear's window then changes
-  from frame to frame only where her hair moves behind it.
+  from frame to frame only where her hair moves behind it;
+- the upper body (one_body), last: frame 0's as the steps above made it - the head, the neck, the white collar, the
+  bodice, the jacket, the arms, the hands and the rifle unit: everything above its waist (WAIST) but the back hair,
+  with the hair her body shuts in (seen between her sleeve and her collar) - laid on every frame where that frame's
+  head is (on the hat's path, by whole squares; the rifle at frame 0's distance from her face in every frame). Each
+  frame's own upper body is taken out first; the gaps that leaves inside her are filled from her own squares round
+  them (the skirt's at the waist, the hair's at her back), the rest cleared, bared edges outlined; where the laid body
+  meets the frame's back hair, 2 squares of outline on the hair's side; where its waist overhangs the ground, 2
+  squares of outline. Only her back hair, the skirt and the legs are each frame's own (and no frame has the rifle
+  across her chin any more: frame 0's rifle is 2 squares off her face, its outline 1).
 The 1x frames come from the dense ones as tools/art/ppu_one.py's one_frame makes them, at her 1x tags' own scale
 (ONE: her idle, attack and old run 1x frames are her hd_ ones at 1 / 1.5, not 1 / PPU - a run at 1 / 1.45 stood
 4 % taller than her other 1x tags), the lo_ frames as tools/art/ppu_hd.py's add_lo does. Her frames feed no derived
@@ -181,6 +191,7 @@ def place(a, h, hm, at, idle):
 
 
 HAIR = {(22, 12, 44), (35, 33, 79), (40, 39, 98), (49, 41, 137), (64, 49, 168)}     # her hair's navies
+ACCENTS = {(47, 12, 65), (59, 16, 86), (74, 25, 111), (87, 36, 144)}               # (and its purples: the hat's)
 # her own head's colours (cleared round the locked head): the outline, the hat's purples, the hair, skin, blush, mouth -
 # never the rifle's golds, creams, whites or blues passing her face
 HEADS = {OUT, (47, 12, 65), (59, 16, 86), (74, 25, 111), (87, 36, 144), (252, 207, 174), (244, 162, 125),
@@ -321,6 +332,13 @@ STRETCH = {5: (45, 23)}
 LEAN = {4: (39, 8), 7: (38, -5)}
 # whole frames moved a square to line the hat up with the rest (her hat's x then varies by half a square at most)
 SHIFT = {3: -1, 5: -1, 6: 1}
+# ------------------------------------------------------------------------------------------------- one upper body
+# Frame 0's upper body - its head, neck, collar, bodice, jacket, arms and the rifle unit: all above the skirt but her
+# back hair - laid in every frame on that frame's head (the hat's path), so head, hands and rifle never move against
+# each other and no other frame's neck or torso shows (the user on 886e9a0a2: 「感觉枪口会顶到脸上啊 摆动的时候」 - the
+# rifle followed each frame's drawn grip, 3-5 squares nearer her face in frames 6, 7 - and 「脖子和身体也有点变形 为什么呢
+# 这里也看着很怪」). Each frame keeps its flowing back hair, its skirt and its legs. WAIST: each frame's first skirt row.
+WAIST = {0: 39, 1: 42, 2: 41, 3: 38, 4: 42, 5: 38, 6: 39, 7: 38}
 SKIN = [(252, 207, 174), (244, 162, 125)]
 BROWN = [(135, 80, 35), (108, 61, 43), (79, 42, 31), (45, 32, 32)]
 WHITE = [(251, 250, 251), (223, 227, 242), (196, 201, 229), (122, 113, 105)]
@@ -401,15 +419,17 @@ def disk(r):
     return (y * y + x * x) <= r * r + 0.5
 
 
-def fill_in(b, inside, keep_out):
+def fill_in(b, inside, keep_out, strict=False):
     """The inside squares of b filled from her own colours round them, ring by ring: the commonest of the 8 neighbours
     (not the squares keep_out marks - the rifle put in - nor rifle colours, skin or the outline; the outline only where
-    nothing else reaches)."""
+    nothing else reaches; strict: never from keep_out's squares, and a square only those reach left clear)."""
     key = (b[..., 0].astype(np.int64) << 16) | (b[..., 1].astype(np.int64) << 8) | b[..., 2]
     ink = (OUT[0] << 16) | (OUT[1] << 8) | OUT[2]
     voter = ((b[..., 3] > 0) & ~inside & ~keep_out & ~T.is_outline(b, [OUT]) & ~colour_mask(b, GROW)
              & ~colour_mask(b, SKIN))
     known = (b[..., 3] > 0) & ~inside
+    if strict:
+        known &= ~keep_out
     todo = inside.copy()
     while todo.any():
         for pool in (voter, known):
@@ -436,9 +456,11 @@ def fill_in(b, inside, keep_out):
             todo[y, x] = False
 
 
-def close_edges(b, cleared):
-    """An edge the cleared squares bare: 2 squares of outline on the cleared side."""
+def close_edges(b, cleared, among=None):
+    """An edge the cleared squares bare: 2 squares of outline on the cleared side (of the squares `among` marks)."""
     solid = (b[..., 3] > 0) & ~T.is_outline(b, [OUT])
+    if among is not None:
+        solid &= among
     d = T.steps_from(solid, np.ones(b.shape[:2], bool), 2)
     close = cleared & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(cleared), iterations=2)
     b[close, :3] = OUT
@@ -576,6 +598,101 @@ def leaned(frames, units):
     return out, moved_by, held_units
 
 
+def upper(a, head, unit, waist):
+    """Frame a's upper body (everything above row waist, and its rifle unit) but her back hair -> (upper body, back
+    hair). The back hair: the big runs of her hair's navies outside the head (and the purple accents in them), with
+    the outline that is theirs alone - not the hair her body shuts in (seen between her sleeve and her collar: part of
+    the upper body's drawing)."""
+    op = a[..., 3] > 0
+    above = np.zeros(a.shape[:2], bool)
+    above[:waist] = True
+    ink = T.is_outline(a, [OUT])
+    hair = colour_mask(a, HAIR) & ~head & above & ~unit
+    lab, n = ndimage.label(hair, structure=np.ones((3, 3)))
+    if n:
+        sz = ndimage.sum(hair, lab, range(1, n + 1))
+        hair = np.isin(lab, [j + 1 for j in range(n) if sz[j] >= 12])
+    # her hair's purple accents (the hat's purples) where they lie in it
+    lab, n = ndimage.label((colour_mask(a, HAIR | ACCENTS) & ~head & above & ~unit), structure=np.ones((3, 3)))
+    keep = np.unique(lab[hair])
+    hair = np.isin(lab, keep[keep > 0])
+    k8 = np.ones((3, 3))
+    body = ((above & op) | unit) & ~hair & ~ink
+    inner = hair & ndimage.binary_fill_holes(body | (ink & ndimage.binary_dilation(body, structure=k8)))
+    hair &= ~inner
+    body |= inner
+    rest = op & ~ink & ~body
+    # its outline: a square deep against her other squares, two against the ground
+    edge = (ndimage.binary_dilation(body, structure=k8)
+            | (ndimage.binary_dilation(body, structure=k8, iterations=2) & ~ndimage.binary_dilation(rest, structure=k8)))
+    ub = body | (ink & ((above & op) | unit) & edge)
+    back = hair | (ink & above & ~ub & ndimage.binary_dilation(hair, structure=k8))
+    return ub, back
+
+
+def one_body(dense, info):
+    """Every frame's upper body taken out and frame 0's laid on its head (WAIST, upper): the gaps that leaves inside
+    her filled from her own squares round them (never from the laid body's), the rest cleared, bared edges outlined;
+    where the laid body meets the frame's back hair, its outline made 2 squares on the hair's side; where its waist
+    overhangs the ground, 2 squares of outline under it. Sets each frame's "unit", "head" and "rifle_over" to frame
+    0's where they now are, "upper" (the laid squares) and "joined" (the squares drawn to join them)."""
+    ref, ri = dense[0], info[0]
+    ub0, _ = upper(ref, ri["head"], ri["unit"], WAIST[0])
+    ys, xs = np.nonzero(ub0)
+    solid0 = ub0 & ~T.is_outline(ref, [OUT])
+    out = [ref]
+    for i in range(1, len(dense)):
+        a, inf = dense[i], info[i]
+        dx = inf["head_at"][0] - ri["head_at"][0]
+        dy = inf["head_at"][1] - ri["head_at"][1]
+        ub, back = upper(a, inf["head"], inf["unit"], WAIST[i])
+        ty, tx = ys + dy, xs + dx
+        if ty.min() < 0 or tx.min() < 0 or ty.max() >= a.shape[0] or tx.max() >= a.shape[1]:
+            sys.exit(f"{HERO}: frame 0's upper body leaves frame {i}'s rect")
+        put = np.zeros(a.shape[:2], bool)
+        put[ty, tx] = True
+        solid = np.zeros(a.shape[:2], bool)
+        sy, sx = np.nonzero(solid0)
+        solid[sy + dy, sx + dx] = True
+        b = a.copy()
+        b[ub] = 0
+        b[ty, tx] = ref[ys, xs]
+        gap = ub & ~put
+        inside = gap & ndimage.binary_closing((a[..., 3] > 0) & ~ub | put, structure=disk(3))
+        b[gap] = 0
+        fill_in(b, inside, put, strict=True)
+        filled = inside & (b[..., 3] > 0)
+        close_edges(b, gap & (b[..., 3] == 0), ~put)    # (the laid body brings its own outline)
+        # her back hair against the laid body (and a gap filled on the hair's side - nearer her back hair than her
+        # skirt): 2 squares of outline there (on the hair's side)
+        d = T.steps_from(solid, np.ones(a.shape[:2], bool), 2)
+        low = (a[..., 3] > 0) & ~ub & ~back & ~T.is_outline(a, [OUT])
+        hair_side = filled & (ndimage.distance_transform_edt(~back) < ndimage.distance_transform_edt(~low))
+        seam = (back | hair_side) & ~T.is_outline(b, [OUT]) & (b[..., 3] > 0) & (d >= 1) & (d <= 2) & ~put
+        b[seam, :3] = OUT
+        b[seam, 3] = 255
+        # the laid body's own edges that met frame 0's other squares (its waist, its hair's windows) where this frame
+        # has ground: 2 squares of outline
+        air = b[..., 3] == 0
+        bare = air & ndimage.binary_dilation(solid, structure=np.ones((3, 3)))
+        bare |= air & (d <= 2) & ndimage.binary_dilation(bare, structure=np.ones((3, 3)))
+        b[bare, :3] = OUT
+        b[bare, 3] = 255
+        shut = pockets(b) & ~pockets(a)
+        b[shut, :3] = OUT
+        b[shut, 3] = 255
+        out.append(b)
+        inf["joined"] = (filled | seam | bare | shut | (gap & (b[..., 3] > 0))) & ~put
+        for key in ("unit", "head", "rifle_over"):       # (frame 0's, where they now are)
+            m = np.zeros(a.shape[:2], bool)
+            my, mx = np.nonzero(ri[key])
+            m[my + dy, mx + dx] = True
+            inf[key] = m & (b[..., 3] > 0) if key == "unit" else m
+        inf["upper"] = put
+    info[0]["upper"] = ub0
+    return out
+
+
 def make():
     """-> {"hd_run", "run", "lo_run": [(frame, ms)]} and per frame the far leg's and the head's squares."""
     import ppu_one
@@ -594,6 +711,7 @@ def make():
         dense.append(b)
         info.append({"far": far_mask(a, i, moved_by[i]), "head": head, "head_at": head_at, "rifle_over": over,
                      "held": a, "unit": units[i] & (b[..., 3] > 0) & (~head | over)})
+    dense = one_body(dense, info)
     one = []
     for b, (w, hh) in zip(dense, ones):
         ws = [w + 2 * k for k in range(14)]
