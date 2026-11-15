@@ -19,6 +19,11 @@ run, game size x3) and summary.md / summary.json - per hero:
 - weapon by the face: the fewest squares between each part and her face's skin, new against drawn (never less);
 - head path: the body's place per frame (columns: one; rows: its steps);
 - outline band, pinhole squares (clear squares she shuts in), colours, against the drawn run.
+
+`--batch ... --variants "base:v1,lively:活泼" --installed C:/t/inst_bv` (variants()): a hero's variants side by side,
+the run in the sheet under the installed checkout first (one lane with a variant it equals) - the same GIFs and still
+per hero, frames / layers / metrics per variant (<hero>/<variant>/), variants_sheet.png and summary.md (with each run's
+frames and time, its bob and the chains' tip rows).
 """
 import json
 import os
@@ -47,7 +52,7 @@ def font(sz):
     return ImageFont.load_default()
 
 
-F14, F16, F20 = font(14), font(16), font(20)
+F12, F14, F16, F20 = font(12), font(14), font(16), font(20)
 
 
 def map_ground(kind, w, h, seed=7):
@@ -119,13 +124,15 @@ def save_gif(path, frames, durations):
 class Hero:
     """One hero's runs and what the tool makes of it."""
 
-    def __init__(self, name):
+    def __init__(self, name, variant=None):
         self.name = R.short(name)
-        self.cfg = R.load(self.name)
+        self.cfg = R.load(self.name, variant)
         self.hid, self.pack, self.ppu, self.size = T.resolve(self.name, T.all_heroes())
         self.k = self.size / self.ppu
         self.drawn, _ = R.drawn(self.cfg)
         self.new, self.info, self.mov = R.make(self.name, self.cfg)
+        steps = int(self.cfg.get("steps", 1))
+        self.drawn_x = [self.drawn[i // steps] for i in range(len(self.drawn) * steps)]   # the drawn frame a frame shows
         an, px = T.read(self.hid, self.pack)
         tag = self.cfg["tag"]
         self.tree = R.frames_of(an, px, "hd_" + tag)
@@ -161,7 +168,7 @@ class Hero:
                 im = pics[li][at(fr, t)]
                 paste(lane, im, x * Z - im.width / 2.0, top * Z - im.height / 2.0)
                 y0 = li * (LH * Z + hd + 4)
-                cyc = sum(m for _, m in fr)
+                cyc = int(round(sum(m for _, m in fr)))
                 ImageDraw.Draw(can).text((6, y0 + 2), f"{self.name}  {name}  {len(fr)} 帧 {cyc} ms" +
                                          (f"  {t} ms" if li == 0 else ""), font=F14, fill=(255, 255, 255, 255))
                 can.alpha_composite(lane, (0, y0 + hd))
@@ -178,13 +185,16 @@ class Hero:
         cyd = (-t0 + 4) * 2
         rowd = int(np.ceil(b0 - t0 + 8)) * 2 if dense else 0
         colw = max(colw, int(np.ceil(2 * hw + 8)) * 2 if dense else 0)
-        cycles = [sum(m for _, m in fr) for _, fr in self.lanes]
-        span = int(np.lcm.reduce(cycles)) if max(cycles) * 3 >= int(np.lcm.reduce(cycles)) else max(cycles)
+        cycles = [int(round(sum(m for _, m in fr))) for _, fr in self.lanes]
+        lcm = int(np.lcm.reduce(cycles))
+        # every run's cycle a whole number of times when that is short; else the longest's ~3.4 s (a shorter run
+        # starts again where the GIF does)
+        span = lcm if max(cycles) * 3 >= lcm else max(cycles) * max(1, int(round(3400.0 / max(cycles))))
         gpics = [[game(a, self.k, Z) for a, _ in fr] for _, fr in self.lanes]
         dpics = [[Image.fromarray(a).resize((a.shape[1] * 2, a.shape[0] * 2), Image.NEAREST) for a, _ in fr]
                  for _, fr in self.lanes] if dense else None
         ground = map_ground("grass", colw // Z + 1, LH, seed=5).resize(((colw // Z + 1) * Z, LH * Z), Image.NEAREST)
-        head = 26 if label else 0
+        head = 44 if label else 0
         out = []
         for t in range(0, span, STEP):
             can = Image.new("RGBA", (colw * len(self.lanes) + 6 * (len(self.lanes) - 1), head + rowg + rowd + 4),
@@ -192,9 +202,11 @@ class Hero:
             for li, (name, fr) in enumerate(self.lanes):
                 i = at(fr, t)
                 x0 = li * (colw + 6)
-                if label:
-                    ImageDraw.Draw(can).text((x0 + 6, 4), f"{name} 帧{i}" + (f"  {t} ms" if li == 0 else ""),
-                                             font=F14, fill=(255, 255, 255, 255))
+                if label:                                   # the run's name, then its frame (and the time)
+                    d_ = ImageDraw.Draw(can)
+                    d_.text((x0 + 6, 3), name, font=F14, fill=(255, 255, 255, 255))
+                    d_.text((x0 + 6, 22), f"帧 {i}" + (f"   {t} ms" if li == 0 else ""), font=F14,
+                            fill=(200, 200, 200, 255))
                 cell = Image.new("RGBA", (colw, rowg), (30, 30, 30, 255))
                 cell.alpha_composite(ground.crop((0, 0, colw, rowg)), (0, 0))
                 im = gpics[li][i]
@@ -242,9 +254,9 @@ class Hero:
         cw = int(np.ceil(2 * hw + 6)) * Z
         rh = int(np.ceil(b - t + 6)) * Z
         cy_ = (-t + 3) * Z
-        head = 30
+        head = 40
         rows = [n for n, _ in lanes] + ["图层", "和原画比"]
-        n = len(self.drawn)
+        n = len(self.drawn_x)
         palette = [(255, 60, 220), (60, 200, 255), (120, 255, 120), (200, 120, 255), (255, 90, 90), (90, 255, 220)]
         others = [nm for nm in R.layer_names(self.cfg) if nm != "body"]
         cols = {nm: palette[j % len(palette)] for j, nm in enumerate(others)}
@@ -254,10 +266,11 @@ class Hero:
             img = Image.new("RGBA", (cw * len(idx) + 120, head + len(rows) * (rh + 26) + 56), (30, 30, 30, 255))
             d = ImageDraw.Draw(img)
             for ci, col in enumerate(idx):
-                lab = f"帧 {col}  起伏 {self.mov['body'][col]}"
-                for p in self.cfg.get("parts", []):
-                    lab += f"  {p['name']} {self.mov[p['name']][col]:+d}"
-                d.text((120 + ci * cw + 4, 6), lab, font=F14, fill=(255, 255, 255, 255))
+                pose = self.info[col].get("pose", col)
+                lab = f"帧 {col}" + (f"（原画 {pose}）" if pose != col else "") + f"  起伏 {self.mov['body'][col]}"
+                parts = "  ".join(f"{p['name']} {self.mov[p['name']][col]:+d}" for p in self.cfg.get("parts", []))
+                d.text((120 + ci * cw + 4, 2), lab, font=F14, fill=(255, 255, 255, 255))
+                d.text((120 + ci * cw + 4, 20), parts, font=F12, fill=(200, 200, 200, 255))
             for ri, name in enumerate(rows):
                 y0 = head + ri * (rh + 26)
                 d.text((6, y0 + rh // 2), name, font=F20, fill=(255, 255, 255, 255))
@@ -269,7 +282,7 @@ class Hero:
                         a = fr[col][0]
                     else:
                         a1 = self.new["hd_" + self.cfg["tag"]][col][0]
-                        a0 = self.drawn[col][0]
+                        a0 = self.drawn_x[col][0]
                         a = a1.copy()
                         op = a[..., 3] > 0
                         grey = a[..., :3].astype(int).mean(-1, keepdims=True)
@@ -316,9 +329,9 @@ class Hero:
     def metrics(self):
         cfg, tag = self.cfg, self.cfg["tag"]
         dense = [a for a, _ in self.new["hd_" + tag]]
-        drawn = [a for a, _ in self.drawn]
+        drawn = [a for a, _ in self.drawn_x]                 # (the drawn frame each frame shows)
         i0 = cfg["from"]
-        src = drawn[i0]
+        src = self.drawn[i0][0]
         layers = {"head": R.head_of(src, cfg)} if cfg.get("lock") == "head" else R.pieces(src, cfg, i0)
         m = {"hero": self.hid, "ppu": self.ppu, "sizes": self.size, "game_px_a_square": round(self.k, 4),
              "frames": len(dense), "ms": [x for _, x in self.new["hd_" + tag]], "from": i0,
@@ -370,11 +383,19 @@ class Hero:
         m["locked_layers"] = alike
         # parts by the face
         FACE_MIN = {}
-        for name in [p["name"] for p in cfg.get("parts", [])]:
+        for name in [p["name"] for p in cfg.get("parts", []) if p.get("rows") is None]:
             g_new = []
+            # (the face: the body's - and a nodding head part's, when there is one)
+            hp = [p["name"] for p in cfg.get("parts", []) if p.get("rows") is not None and p["name"] != name]
             for b, inf in zip(dense, self.info):
-                g_new.append(self._gap(b, inf["body"], inf[name]))
-            g_drawn = self._gap(src, layers["body"], layers[name])
+                face_m = inf["body"].copy()
+                for nm in hp:
+                    face_m |= inf[nm]
+                g_new.append(self._gap(b, face_m, inf[name]))
+            face_d = layers["body"].copy()
+            for nm in hp:
+                face_d |= layers[nm]
+            g_drawn = self._gap(src, face_d, layers[name])
             # (closer than in the drawing only matters by the face: within 4 squares)
             FACE_MIN[name] = {"new": g_new, "drawn_frame_from": g_drawn,
                               "ok": all(g is None or g_drawn is None or g >= g_drawn or g >= 4 for g in g_new)}
@@ -395,7 +416,7 @@ class Hero:
 
     def _below(self, a, inf):
         H = a.shape[0]
-        i = [x is inf for x in self.info].index(True)
+        i = inf.get("pose", [x is inf for x in self.info].index(True))
         wr = H // 2 + self.cfg["waist"][i]
         m = np.zeros(a.shape[:2], bool)
         m[wr:] = True
@@ -538,3 +559,102 @@ def batch(heroes, out):
     with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
         json.dump(summary, f, ensure_ascii=False, indent=1)
     print("\n".join(lines))
+
+
+# ------------------------------------------------------------------------------------------------- variants
+def installed_frames(root, hero, tag="hd_run"):
+    """The tag's frames in the sheet under another checkout (`root`: the tree the game was installed from)."""
+    hid, pack, _, _ = T.resolve(hero, T.all_heroes())
+    rel = os.path.relpath(T.stem(hid, pack), R.ROOT)
+    stem = os.path.join(root, rel)
+    with open(R.lp(stem + "#anim.fanim"), encoding="utf-8-sig") as f:
+        anims = json.load(f)["anims"]
+    px = np.array(Image.open(R.lp(stem + "#sheet.png")).convert("RGBA"))
+    return R.frames_of(anims, px, tag)
+
+
+def same_run(a, b):
+    return len(a) == len(b) and all(np.array_equal(x, y) and abs(m - n) < 0.5 for (x, m), (y, n) in zip(a, b))
+
+
+def variants(heroes, out, names, installed=None):
+    """A hero's variants side by side (`names`: [(variant, label)] - "base": the data without one), the installed run
+    (the sheet under `installed`) first: per hero <hero>_lanes_move.gif / _lanes_inplace.gif / _still.png, and per
+    variant <hero>/<variant>/ (frames x4, layers x8, metrics.json); for all of them variants_sheet.png + summary.md."""
+    os.makedirs(out, exist_ok=True)
+    lines = ["| hero | run | frames x ms (cycle) | bob squares (game px) | legs changed | locked layers not as frame `from` |"
+             " parts by the face (new >= drawn) | chain tips (squares) | head path cols / row steps |"
+             " outline band drawn -> new | pinhole squares | new colours | 1x squares off |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    sheet_rows, summary = [], {}
+    for name in heroes:
+        hs = [Hero(name, v) for v, _ in names]
+        lanes = []
+        if installed:
+            inst = installed_frames(installed, name)
+            same = [lab for h, (_, lab) in zip(hs, names) if same_run(inst, h.new["hd_" + h.cfg["tag"]])]
+            lanes.append(("已安装" + (f" = {same[0]}" if same else ""), inst))
+        for h, (v, lab) in zip(hs, names):
+            fr = h.new["hd_" + h.cfg["tag"]]
+            if installed and lanes and same_run(lanes[0][1], fr):
+                continue                                    # the installed lane is this one
+            lanes.append((lab, fr))
+        show = hs[0]
+        show.lanes = lanes
+        show.lanes_move(os.path.join(out, f"{show.name}_lanes_move.gif"))
+        show.lanes_inplace(os.path.join(out, f"{show.name}_lanes_inplace.gif"))
+        show.still(os.path.join(out, f"{show.name}_still.png"))
+        summary[show.name] = {}
+        for h, (v, lab) in zip(hs, names):
+            hd = os.path.join(out, h.name, v)
+            os.makedirs(hd, exist_ok=True)
+            h.lanes = [("原画", h.drawn_x), (lab, h.new["hd_" + h.cfg["tag"]])]
+            m = h.metrics()
+            h.frames_x4(hd)
+            m["layer_squares"] = h.strips(hd)
+            tips = {}
+            for c in h.cfg.get("chains", []):
+                vals = [d[min(d, key=lambda x: -abs(x - c["root"]))] if d else 0 for d in h.mov[c["name"]]]
+                tips[c["name"]] = vals
+            m["chain_tips"] = tips
+            with open(os.path.join(hd, "metrics.json"), "w", encoding="utf-8") as f:
+                json.dump(m, f, ensure_ascii=False, indent=1)
+            summary[h.name][v] = m
+            fr = h.new["hd_" + h.cfg["tag"]]
+            cyc = int(round(sum(x for _, x in fr)))
+            lay = "; ".join(f"{k} {max(q['squares_not_as_frame_from'])}" for k, q in m["locked_layers"].items())
+            face = "; ".join(f"{k} {'ok' if q['ok'] else 'CLOSER'} ({min([g for g in q['new'] if g is not None] or [-1])}"
+                             f" vs {q['drawn_frame_from']})" for k, q in m["parts_to_face_squares"].items()) or "-"
+            tip = "; ".join(f"{k} {min(q)}..{max(q)}" for k, q in tips.items()) or "-"
+            ms_ = sorted({round(x, 1) for _, x in fr})
+            lines.append(f"| {h.name} | {lab} | {len(fr)} x {'/'.join(f'{x:g}' for x in ms_)} ms ({cyc} ms) | "
+                         f"{max(m['bob']) - min(m['bob'])} ({m['bob_game_px']}) | {max(m['legs_changed'])} | {lay} | "
+                         f"{face} | {tip} | {m['head_path']['cols']} / {m['head_path']['row_steps']} | "
+                         f"{m['outline_band']['drawn']} -> {m['outline_band']['new']} | "
+                         f"{sum(m['pinhole_squares']['drawn'])} -> {sum(m['pinhole_squares']['new'])} | "
+                         f"{len(m['colours_not_in_drawn'])} | {max(m['one_x_squares_off'])} |")
+            print(lines[-1])
+        allf = [a for _, fr in lanes for a, _ in fr]
+        top = max(a.shape[0] / 2.0 * show.k for a in allf) + 2
+        cw = int(np.ceil(max(a.shape[1] * show.k for a in allf))) + 2
+        RH = int(np.ceil(top + max(extent(allf)[1], 0) * show.k + 3))
+        for lab, fr in lanes:
+            lane = map_ground("grass", cw * len(fr) + 4, RH, seed=11)
+            for j, (a, _) in enumerate(fr):
+                im = game(a, show.k)
+                paste(lane, im, 2 + j * cw + cw / 2.0 - im.width / 2.0, top - im.height / 2.0)
+            sheet_rows.append((f"{show.name} {lab}", lane.resize((lane.width * 3, lane.height * 3), Image.NEAREST)))
+    W = max(r.width for _, r in sheet_rows) + 220
+    H = sum(r.height + 6 for _, r in sheet_rows)
+    sheet = Image.new("RGB", (W, H), (30, 30, 30))
+    d = ImageDraw.Draw(sheet)
+    y = 0
+    for lab, r in sheet_rows:
+        d.text((6, y + r.height // 2 - 8), lab, font=F16, fill=(255, 255, 255))
+        sheet.paste(r.convert("RGB"), (220, y))
+        y += r.height + 6
+    sheet.save(os.path.join(out, "variants_sheet.png"))
+    with open(os.path.join(out, "summary.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
+        json.dump(summary, f, ensure_ascii=False, indent=1, default=str)

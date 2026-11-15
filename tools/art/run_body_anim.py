@@ -14,6 +14,8 @@ animation so it is less stiff - 「蔚先回复到main分支的模型再改」, 
                                                               # a first data file from the hero's own frames
     python tools/art/run_body_anim.py --batch fiora zyra --out C:/t/par_work/run_body/batch1
                                                               # review sets (tools/art/run_body_review.py), nothing written
+    python tools/art/run_body_anim.py --batch vi jinx --variants "base:v1,lively:活泼" --installed C:/t/inst_bv --out DIR
+                                                              # a hero's variants side by side, the installed run first
 
 Each hero's data is its own file, assets/source/<hero>/hd/<hero>_run_body.json (heroes are added on separate branches
 without touching each other), its drawn run beside it (<hero>_run_drawn.png + .json: the dense frames the tool starts
@@ -42,6 +44,18 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   there), the root staying on the body, neighbouring columns never more than a square apart;
 - `keep`: rects (rows and cols from the centre) whose squares stay the frame's own - a vine the drawing swings by
   itself and the hand on it, never the legs - in front, moved with the body (so it stays in its hand).
+- `steps`: every drawn frame shown that many frames (2: 8 drawn frames, 16 frames), each 1 / `steps` of its time (or
+  `cycle_ms` split evenly) - its legs as drawn on all of them, the upper body moving on every one: `bob` has a value a
+  frame then (two beats: a quick dip as each step lands, a slower rise on the push-off) and the `lag`s count frames;
+- a part's `rows` (a value a frame) instead of `lag` / `range`: a head that nods - a square lower on the frame of each
+  landing's lowest, back the next; a chain's `with`: the part it hangs from, its rows on every column too (the back
+  hair with that head); a square in two parts' corners is the first one's;
+- `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
+  from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
+  sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
+- `variants`: {name: keys to change} (`base`: the variant it starts from; `parts` / `chains`: by name, keys to change
+  or a whole new one) for review sets side by side (--batch --variants); the sheet carries the data without one until
+  `use` names one.
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -97,16 +111,43 @@ def heroes_with_data():
                   for p in glob.glob(os.path.join(ROOT, "assets", "source", "*", "hd", "*_run_body.json")))
 
 
-def load(hero):
+def with_variant(cfg, name):
+    """The data with variant `name` laid over it (`variants`: {name: keys to change} - `base`: the variant it starts
+    from; `parts` / `chains`: {name: keys to change} for the ones there, whole new ones (a `poly` / `colours`) added)."""
+    import copy
+    v = cfg["variants"][name]
+    out = with_variant(cfg, v["base"]) if v.get("base") else copy.deepcopy(cfg)
+    for k, x in v.items():
+        if k in ("base", "notes"):
+            continue
+        if k in ("parts", "chains"):
+            have = {item["name"]: item for item in out.get(k, [])}
+            for nm, ch in x.items():
+                if nm in have:
+                    have[nm].update(copy.deepcopy(ch))
+                else:
+                    out.setdefault(k, []).append(dict(copy.deepcopy(ch), name=nm))
+        else:
+            out[k] = copy.deepcopy(x)
+    out["variant"] = name
+    return out
+
+
+def load(hero, variant=None):
+    """The hero's data - with `use`'s variant (the one its sheet carries) laid over it, or `variant`'s ("base": none)."""
     with open(lp(data_file(hero)), encoding="utf-8") as f:
         cfg = json.load(f)
+    use = cfg.get("use") if variant is None else variant
+    if use and use != "base":
+        cfg = with_variant(cfg, use)
     cfg["outline"] = tuple(cfg["outline"])
     cfg.setdefault("below", [])
     if cfg["below"] != "match":
         cfg["below"] = [[tuple(r) for r in rs] for rs in cfg["below"]]
     for p in cfg.get("parts", []):
         p["poly"] = [tuple(v) for v in p["poly"]]
-        p["range"] = tuple(p["range"])
+        if "range" in p:
+            p["range"] = tuple(p["range"])
         p["skip"] = [tuple(c) for c in p.get("skip", [])]
     for c in cfg.get("chains", []):
         c["colours"] = [tuple(v) for v in c["colours"]]
@@ -253,10 +294,18 @@ def motion(cfg, n, chain_cols):
     at = curve(bob)
     out = {"body": list(bob)}
     for p in cfg.get("parts", []):
+        if p.get("rows") is not None:                    # rows given a frame (a head that nods)
+            if len(p["rows"]) != n:
+                sys.exit(f"part {p['name']}: {len(p['rows'])} rows for {n} frames")
+            out[p["name"]] = [int(v) for v in p["rows"]]
+            continue
         lo, hi = p["range"]
         out[p["name"]] = [int(min(hi, max(lo, round(lagged(at, i, p["lag"]))))) for i in range(n)]
     for c in cfg.get("chains", []):
         out[c["name"]] = chain_offsets(at, n, c, chain_cols[c["name"]])
+        if c.get("with"):                                # hanging from a part: its rows on every column too
+            w = out[c["with"]]
+            out[c["name"]] = [{x: v + w[i] for x, v in d.items()} for i, d in enumerate(out[c["name"]])]
     return out
 
 
@@ -270,8 +319,10 @@ def pieces(src, cfg, i_src):
     cy = H // 2
     upper = np.zeros((H, W), bool)
     upper[:cy + cfg["waist"][i_src]] = True
-    parts = {p["name"]: poly_mask(p["poly"], src.shape) & op & ~colour_mask(src, p.get("skip", []))
-             for p in cfg.get("parts", [])}
+    parts, had = {}, np.zeros((H, W), bool)
+    for p in cfg.get("parts", []):                       # (a square in two parts' corners: the first one's)
+        parts[p["name"]] = poly_mask(p["poly"], src.shape) & op & ~colour_mask(src, p.get("skip", [])) & ~had
+        had |= parts[p["name"]]
     every = (upper & op)
     for m in parts.values():
         every |= m
@@ -458,13 +509,15 @@ def layer_names(cfg):
             + [c["name"] for c in chains if c.get("front")] + [p["name"] for p in parts if not p.get("behind")])
 
 
-def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None):
-    """Frame i made: its legs, frame `from`'s upper body laid as `mov` says, the gaps joined. -> (frame, info)."""
+def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
+    """Frame i made: its legs (drawn frame `pose`'s: i's own unless `steps` shows a drawn frame more than once), frame
+    `from`'s upper body laid as `mov` says, the gaps joined. -> (frame, info)."""
+    pose = i if pose is None else pose
     out_c = cfg["outline"]
     H, W = a.shape[:2]
     cy, cx = H // 2, W // 2
-    kept = keep_mask(a, cfg, i)
-    own = own_upper(a, cfg, i, match) & ~kept
+    kept = keep_mask(a, cfg, pose)
+    own = own_upper(a, cfg, pose, match) & ~kept
     b = a.copy()
     b[own] = 0
     legs = b[..., 3] > 0
@@ -518,6 +571,18 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None):
         inside = (gone | revealed) & ndimage.binary_closing(put | legs, structure=disk(3))
     else:
         inside = (gone & T.between(put | legs, 3)) | (revealed & T.between(put | legs, 1))
+    if cfg.get("keep_gaps"):
+        # the laid drawing's own gaps stay ground: a square whose place in frame `from` (by the body's rows) is clear,
+        # above its waist or away from the frame's legs - between the launcher's tip and her hair, between two braids
+        # (by her legs a square stays inside: what a braid's end drawn over a leg hid is the leg)
+        sy, sx = np.mgrid[0:H, 0:W]
+        ty, tx = sy - dy, sx - dx
+        ok = (ty >= 0) & (ty < src.shape[0]) & (tx >= 0) & (tx < src.shape[1])
+        by_legs = ndimage.binary_dilation(legs, structure=K8, iterations=2)
+        gap = np.zeros((H, W), bool)
+        gap[ok] = (src[ty[ok], tx[ok], 3] == 0) & ((ty[ok] < src.shape[0] // 2 + cfg["waist"][cfg["from"]])
+                                                   | ~by_legs[ok])
+        inside &= ~gap
     # inside her: from her legs' own colours where they are round it, else outline (between the laid layers)
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
@@ -555,7 +620,7 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None):
             ty, tx = ys + off, xs + dx
             ok = (ty >= 0) & (ty < H) & (tx >= 0) & (tx < W)
             laid[ty[ok], tx[ok]] = True
-        own_low = pockets(a) & ~own_upper(a, cfg, i, match)
+        own_low = pockets(a) & ~own_upper(a, cfg, pose, match)
         shut = pockets(b) & ~laid & ~ndimage.binary_dilation(own_low, structure=K8)
     b[shut, :3] = out_c
     b[shut, 3] = 255
@@ -595,17 +660,18 @@ def find_head(src, a, head, search=10):
     return best[1], best[2]
 
 
-def compose_head(a, i, src, head, mov, cfg):
-    """Frame i with frame `from`'s head on its own head's place (rows `bob`, columns `x` off it): the frame's own head
-    cleared round it - its own head colours (`head_colours`, frame `from`'s head's by default) within 2 squares, above
-    its chin (`chin`: frame `from`'s first row of the neck) - the rest of the frame square for square its own; the gaps
-    the clearing leaves inside her filled from her own colours round them, bared edges closed with 2 squares of outline,
-    a pinhole none of the drawings has filled with outline. -> (frame, info)."""
+def compose_head(a, i, src, head, mov, cfg, pose=None):
+    """Frame i (drawn frame `pose`'s) with frame `from`'s head on its own head's place (rows `bob`, columns `x` off it): the
+    frame's own head cleared round it - its own head colours (`head_colours`, frame `from`'s head's by default) within 2
+    squares, above its chin (`chin`: frame `from`'s first row of the neck) - the rest of the frame square for square its
+    own; the gaps the clearing leaves inside her filled from her own colours round them, bared edges closed with 2
+    squares of outline, a pinhole none of the drawings has filled with outline. -> (frame, info)."""
+    pose = i if pose is None else pose
     out_c = cfg["outline"]
     H, W = a.shape[:2]
     my, mx = find_head(src, a, head)
     dy, dx = my + mov["body"][i], mx + cfg.get("x", 0)
-    if i == cfg["from"] and (dy, dx) == (my, mx) == (0, 0):
+    if pose == cfg["from"] and (dy, dx) == (my, mx) == (0, 0):
         # frame `from` keeps its own head where it is: nothing to change
         z = np.zeros(a.shape[:2], bool)
         return a.copy(), {"own": z, "legs": a[..., 3] > 0, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
@@ -614,11 +680,12 @@ def compose_head(a, i, src, head, mov, cfg):
     at_match = np.zeros((H, W), bool)
     ok = (ys + my >= 0) & (ys + my < H) & (xs + mx >= 0) & (xs + mx < W)
     at_match[ys[ok] + my, xs[ok] + mx] = True
-    cols = [tuple(c) for c in cfg.get("head_colours", [])] or         sorted({tuple(int(v) for v in c) for c in src[head][:, :3]})
+    cols = [tuple(c) for c in cfg.get("head_colours", [])] or \
+        sorted({tuple(int(v) for v in c) for c in src[head][:, :3]})
     chin = cfg["chin"] + my                            # the frame's own neck starts here
     zone = ndimage.binary_dilation(at_match, structure=K8, iterations=2)
     zone[max(0, chin):] = False
-    own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, i)
+    own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, pose)
     b = a.copy()
     b[own] = 0
     legs = b[..., 3] > 0
@@ -670,7 +737,13 @@ def make(hero, cfg=None):
     head_only = cfg.get("lock") == "head"
     layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
     chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[1].tolist())) for c in cfg.get("chains", [])}
-    mov = motion(cfg, n, chain_cols)
+    # `steps`: frames a drawn frame (its legs shown that many frames, the upper body moving on every one), each
+    # 1 / `steps` of its time - or `cycle_ms` / the frames
+    steps = int(cfg.get("steps", 1))
+    N = n * steps
+    if len(cfg["bob"]) != N:
+        sys.exit(f"{hid}: `bob` has {len(cfg['bob'])} values for {N} frames ({n} drawn x `steps` {steps})")
+    mov = motion(cfg, N, chain_cols)
     tp = T.load_state().get(hid)                         # (a hero thin_outline.json does not list: no pass)
     if tp is not None and tp.get("skip"):
         tp = None
@@ -680,16 +753,25 @@ def make(hero, cfg=None):
     union = np.zeros(src.shape[:2], bool)
     for name in layer_names(cfg):
         union |= layers[name]
-    dense, info = [], []
-    for i, (a, ms) in enumerate(frames):
+    dense, info, shifts = [], [], {}
+    for i in range(N):
+        p = i // steps
+        a, ms = frames[p]
+        if cfg.get("cycle_ms"):
+            ms = cfg["cycle_ms"] / float(N)
+        elif steps > 1:
+            ms = ms / float(steps)
         match, alike = None, None
         if head_only:
-            b, inf = compose_head(a, i, src, layers["head"], mov, cfg)
+            b, inf = compose_head(a, i, src, layers["head"], mov, cfg, p)
         else:
             if cfg["below"] == "match":
-                shift, alike = drawn_shift(src, a, union)
+                if p not in shifts:
+                    shifts[p] = drawn_shift(src, a, union)
+                shift, alike = shifts[p]
                 match = (src, union, shift)
-            b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match)
+            b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match, p)
+        inf["pose"] = p
         inf["drawn_alike"] = alike
         b2 = thin(b, "hd")
         inf["thinned"] = (b2 != b).any(-1)
@@ -703,6 +785,8 @@ def make(hero, cfg=None):
         an, _ = T.read(hid, pack)
         one_sz = [(int(f["data"]["w"]), int(f["data"]["h"])) for f in an[tag]["frames"]]
         lo_sz = [(int(f["data"]["w"]), int(f["data"]["h"])) for f in an["lo_" + tag]["frames"]]
+    if len(one_sz) != N:                                 # a drawn frame's sizes on each of its frames
+        one_sz, lo_sz = [one_sz[i // steps] for i in range(N)], [lo_sz[i // steps] for i in range(N)]
     k = P.PPU[short(hero)]
     shown = k / min(1.0, O.sizes().get(short(hero), 1.0))
     one, lost = [], []
@@ -853,6 +937,9 @@ def main():
     ap.add_argument("--force", action="store_true", help="--init: write the data file again")
     ap.add_argument("--batch", nargs="+", metavar="HERO")
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "run_body"))
+    ap.add_argument("--variants", help="--batch: the data's variants side by side, 'name:label,...' (base: none)")
+    ap.add_argument("--installed", help="--batch --variants: the checkout the game was installed from (its run first)")
+    ap.add_argument("--variant", help="--dry: this variant (base: none) instead of `use`'s")
     a = ap.parse_args()
     if a.init:
         import run_body_init as I
@@ -860,7 +947,10 @@ def main():
         return
     if a.batch:
         import run_body_review as V
-        V.batch(a.batch, a.out)
+        if a.variants:
+            V.variants(a.batch, a.out, [tuple(x.split(":", 1)) for x in a.variants.split(",")], a.installed)
+        else:
+            V.batch(a.batch, a.out)
         return
     if a.check and not a.hero:
         bad = []
@@ -877,7 +967,7 @@ def main():
             sys.exit(f"{a.hero}: {', '.join(p)} not as tools/art/run_body_anim.py makes them")
         print(f"ok: {a.hero} run tags as made")
         return
-    new, info, _ = make(a.hero)
+    new, info, _ = make(a.hero, load(a.hero, a.variant) if a.variant else None)
     if a.dry:
         hid, pack, _, _ = T.resolve(a.hero, T.all_heroes())
         an, _ = T.read(hid, pack)
