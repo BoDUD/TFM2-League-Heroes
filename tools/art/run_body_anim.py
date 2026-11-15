@@ -74,6 +74,7 @@ thin_outline.py --hero jinx). tools/art/ppu_restyle.py writes a hero's strip aga
 this after it, as thin_outline.py runs after it.
 """
 import argparse
+import math
 import glob
 import json
 import os
@@ -155,6 +156,24 @@ def load(hero, variant=None):
         c["colours"] = [tuple(v) for v in c.get("colours", [])]
         if c.get("poly"):
             c["poly"] = [tuple(v) for v in c["poly"]]
+    pr, pc = cfg.get("pad", (0, 0))
+    if pr or pc:
+        # frames grown by `pad`: what is given in a frame's own rows / cols (corners, a chain's root and rows, `below`'s
+        # rects, the head and chin) moves with its squares; what is given from the centre does not
+        for p in cfg.get("parts", []):
+            p["poly"] = [(r + pr, c + pc) for r, c in p["poly"]]
+        for c in cfg.get("chains", []):
+            c["root"] += pc
+            if "rows" in c:
+                c["rows"] = [c["rows"][0] + pr, c["rows"][1] + pr]
+            if c.get("poly"):
+                c["poly"] = [(r + pr, q + pc) for r, q in c["poly"]]
+        if cfg.get("head"):
+            cfg["head"] = [[r + pr, c + pc] for r, c in cfg["head"]]
+            cfg["chin"] += pr
+        if cfg["below"] != "match":
+            cfg["below"] = [[(None if r0 is None else r0 + pr, r1 + pr, c0 + pc, c1 + pc) for r0, r1, c0, c1 in rs]
+                            for rs in cfg["below"]]
     return cfg
 
 
@@ -230,8 +249,12 @@ def drawn(cfg):
     with open(lp(os.path.join(ROOT, cfg["drawn"] + ".json")), encoding="utf-8") as f:
         meta = json.load(f)
     out, x = [], 0
+    pr, pc = cfg.get("pad", (0, 0))                  # `pad`: room grown round every frame (rows, cols a side)
     for (w, h), ms in zip(meta["sizes"], meta["ms"]):
-        out.append((s[:h, x:x + w].copy(), ms))
+        f = s[:h, x:x + w].copy()
+        if pr or pc:
+            f = np.pad(f, ((pr, pr), (pc, pc), (0, 0)))
+        out.append((f, ms))
         x += w + 1
     return out, meta
 
@@ -298,6 +321,11 @@ def motion(cfg, n, chain_cols):
     at = curve(bob)
     out = {"body": list(bob)}
     for p in cfg.get("parts", []):
+        if p.get("path") is not None:                    # (rows, columns) a frame: a gauntlet on League's swing
+            if len(p["path"]) != n:
+                sys.exit(f"part {p['name']}: {len(p['path'])} steps for {n} frames")
+            out[p["name"]] = [(int(v[0]), int(v[1])) for v in p["path"]]
+            continue
         if p.get("rows") is not None:                    # rows given a frame (a head that nods)
             if len(p["rows"]) != n:
                 sys.exit(f"part {p['name']}: {len(p['rows'])} rows for {n} frames")
@@ -306,7 +334,25 @@ def motion(cfg, n, chain_cols):
         lo, hi = p["range"]
         out[p["name"]] = [int(min(hi, max(lo, round(lagged(at, i, p["lag"]))))) for i in range(n)]
     for c in cfg.get("chains", []):
-        out[c["name"]] = chain_offsets(at, n, c, chain_cols[c["name"]])
+        if c.get("tip") is not None:
+            # `tip`: the tip's rows a frame (League's hair end against the chest): each column that share of it by
+            # how far it is from the root, neighbouring columns never more than a square apart
+            cols = chain_cols[c["name"]]
+            root = c["root"]
+            span = max(1, max(abs(root - x) for x in cols)) if cols else 1
+            order = sorted(cols, key=lambda x: abs(root - x))
+            rows_ = []
+            for i in range(n):
+                d, prev = {}, 0
+                for x in order:
+                    v = int(round(c["tip"][i] * abs(root - x) / float(span)))
+                    v = max(prev - 1, min(prev + 1, v))
+                    d[x] = v
+                    prev = v
+                rows_.append(d)
+            out[c["name"]] = rows_
+        else:
+            out[c["name"]] = chain_offsets(at, n, c, chain_cols[c["name"]])
         if c.get("with"):                                # hanging from a part: its rows on every column too
             w = out[c["with"]]
             out[c["name"]] = [{x: v + w[i] for x, v in d.items()} for i, d in enumerate(out[c["name"]])]
@@ -520,6 +566,17 @@ def lay(b, src, m, dy, dx, cols=None, under=False):
     return put, lost
 
 
+def x_at(cfg, i):
+    """`x`: columns off frame `from`'s place - one for every frame, or one a frame (a body on each frame's own hips)."""
+    x = cfg.get("x", 0)
+    return int(x[i]) if isinstance(x, list) else int(x)
+
+
+def off_of(v):
+    """A part's offset a frame: rows, or (rows, columns) for one on a path."""
+    return (int(v[0]), int(v[1])) if isinstance(v, (tuple, list)) else (int(v), 0)
+
+
 def layer_names(cfg):
     """Back to front: the chains, the parts behind the body (a cape), the body, the parts in front (fists, a weapon);
     `lock` "head": the head alone."""
@@ -543,7 +600,7 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     b[own] = 0
     legs = b[..., 3] > 0
     dy = cy - cy0 + mov["body"][i]
-    dx = cx - cx0 + cfg.get("x", 0)
+    dx = cx - cx0 + x_at(cfg, i)
     info = {"own": own, "legs": legs, "at": (dy, dx), "lost": 0}
     names = layer_names(cfg)
     base = np.zeros((H, W, 4), np.uint8)                 # every layer at the body's place (no lag): what they cover
@@ -553,7 +610,8 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, cols=mov[c["name"]][i], under=True)
         info["lost"] += lost
     for p in [p for p in cfg.get("parts", []) if p.get("behind")]:
-        info[p["name"]], lost = lay(b, src, layers[p["name"]], dy + mov[p["name"]][i], dx, under=True)
+        oy, ox = off_of(mov[p["name"]][i])
+        info[p["name"]], lost = lay(b, src, layers[p["name"]], dy + oy, dx + ox, under=True)
         info["lost"] += lost
     info["body"], lost = lay(b, src, layers["body"], dy, dx)
     info["lost"] += lost
@@ -561,7 +619,8 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, cols=mov[c["name"]][i])
         info["lost"] += lost
     for p in [p for p in cfg.get("parts", []) if not p.get("behind")]:
-        info[p["name"]], lost = lay(b, src, layers[p["name"]], dy + mov[p["name"]][i], dx)
+        oy, ox = off_of(mov[p["name"]][i])
+        info[p["name"]], lost = lay(b, src, layers[p["name"]], dy + oy, dx + ox)
         info["lost"] += lost
     # kept squares in front, the frame's own - moved with the body by as many rows as it sits off the frame's drawn
     # upper body (`below` "match" finds where that is)
@@ -633,12 +692,13 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
             ys, xs = np.nonzero(ps & ndimage.binary_dilation(layers[name], structure=K8))
             if not len(ys):
                 continue
-            off = dy                                     # (the body's own rows are in dy)
+            off, offx = dy, 0                            # (the body's own rows are in dy)
             if name != "body" and isinstance(mov[name][i], dict):
                 off = dy + np.array([mov[name][i].get(int(x), 0) for x in xs], int)
             elif name != "body":
-                off = dy + int(mov[name][i])
-            ty, tx = ys + off, xs + dx
+                oy, offx = off_of(mov[name][i])
+                off = dy + oy
+            ty, tx = ys + off, xs + dx + offx
             ok = (ty >= 0) & (ty < H) & (tx >= 0) & (tx < W)
             laid[ty[ok], tx[ok]] = True
         own_low = pockets(a) & ~own_upper(a, cfg, pose, match)
@@ -695,7 +755,7 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     if sh:
         a, torso, legs_only, sh_joined = shifted_upper(a, cfg, pose, sh)
     my, mx = find_head(src, a, head)
-    dy, dx = my + mov["body"][i], mx + cfg.get("x", 0)
+    dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
     if pose == cfg["from"] and (dy, dx) == (my, mx) == (0, 0) and not sh:
         # frame `from` keeps its own head where it is: nothing to change
         z = np.zeros(a.shape[:2], bool)
@@ -853,6 +913,10 @@ def make(hero, cfg=None):
     if len(one_sz) != N:                                 # a drawn frame's sizes on each of its frames
         one_sz, lo_sz = [one_sz[i // steps] for i in range(N)], [lo_sz[i // steps] for i in range(N)]
     k = P.PPU[short(hero)]
+    pr, pc = cfg.get("pad", (0, 0))
+    if pr or pc:                                     # (grown frames: the lo_ side bounds the 1x side - grown alike)
+        gl = lambda v, p_: v + 2 * int(math.ceil(p_ * P.UI_PPU / k))  # noqa: E731
+        lo_sz = [(gl(lw, pc), gl(lh, pr)) for lw, lh in lo_sz]
     shown = k / min(1.0, O.sizes().get(short(hero), 1.0))
     one, lost = [], []
     for (b, ms), (w, h), (lw, lh) in zip(dense, one_sz, lo_sz):

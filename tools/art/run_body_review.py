@@ -268,7 +268,10 @@ class Hero:
             for ci, col in enumerate(idx):
                 pose = self.info[col].get("pose", col)
                 lab = f"帧 {col}" + (f"（原画 {pose}）" if pose != col else "") + f"  起伏 {self.mov['body'][col]}"
-                parts = "  ".join(f"{p['name']} {self.mov[p['name']][col]:+d}" for p in self.cfg.get("parts", []))
+                parts = "  ".join(f"{p['name']} " + (f"{self.mov[p['name']][col][0]:+d},{self.mov[p['name']][col][1]:+d}"
+                                                     if isinstance(self.mov[p['name']][col], tuple)
+                                                     else f"{self.mov[p['name']][col]:+d}")
+                                  for p in self.cfg.get("parts", []))
                 d.text((120 + ci * cw + 4, 2), lab, font=F14, fill=(255, 255, 255, 255))
                 d.text((120 + ci * cw + 4, 20), parts, font=F12, fill=(200, 200, 200, 255))
             for ri, name in enumerate(rows):
@@ -366,11 +369,13 @@ class Hero:
                 dy, dx = inf["at"]
                 ys, xs = np.nonzero(src_m)
                 ty = ys + dy
+                ox = 0
                 if name in [p["name"] for p in cfg.get("parts", [])]:
-                    ty = ty + self.mov[name][i]
+                    oy, ox = R.off_of(self.mov[name][i])
+                    ty = ty + oy
                 elif name in [c["name"] for c in cfg.get("chains", [])]:
                     ty = ty + np.array([self.mov[name][i].get(int(x), 0) for x in xs], int)
-                tx = xs + dx
+                tx = xs + dx + ox
                 ok = (ty >= 0) & (ty < b.shape[0]) & (tx >= 0) & (tx < b.shape[1])
                 ys, xs, ty, tx = ys[ok], xs[ok], ty[ok], tx[ok]
                 vis = inf[name][ty, tx]
@@ -591,8 +596,12 @@ def variants(heroes, out, names, installed=None):
              "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     sheet_rows, summary = [], {}
     for name in heroes:
+        shown_drawn = [lab for v, lab in names if v == "drawn"]     # "drawn": the drawn run itself, a lane of its own
+        names = [(v, lab) for v, lab in names if v != "drawn"]
         hs = [Hero(name, v) for v, _ in names]
         lanes = []
+        if shown_drawn:
+            lanes.append((shown_drawn[0], hs[0].drawn))
         if installed:
             inst = installed_frames(installed, name)
             same = [lab for h, (_, lab) in zip(hs, names) if same_run(inst, h.new["hd_" + h.cfg["tag"]])]
