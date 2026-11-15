@@ -41,6 +41,7 @@
 2026-11-15：
 
 - **黑边统一到约 1 个游戏像素**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768) [#769](https://github.com/BoDUD/TFM2-League-Heroes/pull/769)，用户：「有些英雄黑边太粗了 都检查一下 发条那种就正常」「菲兹怎么头顶多了一块」「还有劫没有黑边 感觉过度高清了」）：80 位太粗的从外面削掉多出来的一圈，身体一格不动（#768 是把里面的描边涂成身体色，身体会变大，菲兹头顶就多了一块）；31 位太细或没有的往外补上（劫、金克丝、锤石……）（[`tools/art/thin_outline.py`](tools/art/thin_outline.py)，CI 检查）。俄洛伊的灵魂、克格莫的虚空形态、亚托克斯大灭的悬空帧都按新帧重新生成。
+- **厄斐琉斯打架站着不动**（[#770](https://github.com/BoDUD/TFM2-League-Heroes/pull/770)，用户：「不知道为什么厄斐琉斯打架就站着不动 从满血被周围2 3个打死」）：不是官方 AI 的问题，是我们的 AI 钩子否决他的 Q / W 时改成普攻，Q 格子一直好着，AI 每 4 tick 再要、又被改，人就钉在原地。打架时（90000 内有敌方英雄）AI 的 Q / W 照放，否决最多拦 2 秒；加阵亡记录器（`league_aphelios.log` 的 `DEATH` / `SUM`：死前 5 秒走着、钉着、被控各多久，钉着时是谁的命令）（[league_aphelios](addons/league_aphelios/README.md) 0.2.4）。
 - **百科取景**（[#769](https://github.com/BoDUD/TFM2-League-Heroes/pull/769)，用户：「泰拉和绯红印记树怪在游戏百科的位置不太对」）：这两只比百科卡片的画面宽，改 center.x，让头和前爪那一侧露出来。
 - **阿克尚的眼睛**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「现在看起来和两个黑洞一样」）：PPU 1.2 → 1.61，眼白放回。
 - **克格莫死后的虚空形态**（[#768](https://github.com/BoDUD/TFM2-League-Heroes/pull/768)，用户：「按英雄联盟改」）：新附加包 [league_kogmaw](addons/league_kogmaw/README.md)，死后身体化成虚空形态冲向最近的敌方英雄，碰到或 4 秒后爆炸。

@@ -55,7 +55,7 @@
 
 ### 厄斐琉斯附加包
 
-[厄斐琉斯附加包](../../addons/league_aphelios/README.md)：`league_aphelios` v0.2.3
+[厄斐琉斯附加包](../../addons/league_aphelios/README.md)：`league_aphelios` v0.2.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

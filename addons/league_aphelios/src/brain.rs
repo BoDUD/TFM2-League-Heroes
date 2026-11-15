@@ -29,6 +29,8 @@ pub const DIVE: f64 = 25_000.0;
 pub const R_LOOK: f64 = 90_000.0;
 /// 被动自己换手的间隔（数据 W 的冷却 s2_cd 90）。
 pub const SWAP_CD: usize = 90;
+/// 打架（0.2.4）：看得见的敌方英雄进到这以内，AI 自己按的 Q / W 一律放行（[`fight_near`]）。
+pub const FIGHT_R: f64 = R_LOOK;
 
 /// 一个敌方单位（防御塔不算）。
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -52,6 +54,13 @@ fn nearest<'a>(me: (f64, f64), foes: impl Iterator<Item = &'a Foe>) -> Option<&'
 
 fn champs_within(me: (f64, f64), foes: &[Foe], r: f64) -> Vec<&Foe> {
     foes.iter().filter(|f| f.champion && dist(me, f.at) <= r).collect()
+}
+
+/// 在打架（0.2.4）：`r` 以内有看得见的敌方英雄。这时 AI 的 Q / W 不否决：否决让 Q 的格子一直好着（格子冷却只有 60 tick，
+/// 五把武器真正的冷却是 buff），AI 每 4 tick 再要一次，每次都被改成普攻，他就站在原地一下一下打，AI 自己往后撤的命令一直
+/// 下不来（用户 2026-11-15：「厄斐琉斯打架就站着不动 从满血被周围2 3个打死」）。
+pub fn fight_near(me: (f64, f64), foes: &[Foe], r: f64) -> bool {
+    foes.iter().any(|f| f.champion && dist(me, f.at) <= r)
 }
 
 /// 朝 `toward` 的扇形（半径 r、半角余弦 cos）里有几个满足 `pick` 的单位。
@@ -263,5 +272,14 @@ mod tests {
     fn low_health_wants_severum_in_the_ult() {
         assert!(r_score(SEV, 0.3) > r_score(INF, 0.3));
         assert!(r_score(INF, 0.9) > r_score(SEV, 0.9));
+    }
+
+    #[test]
+    fn a_fight_is_an_enemy_champion_near() {
+        // minions do not make a fight, a champion just inside FIGHT_R does, one just outside does not
+        assert!(!fight_near(ME, &[minion(5, 20000.0, 0.0), minion(6, 1000.0, 0.0)], FIGHT_R));
+        assert!(fight_near(ME, &[minion(5, 20000.0, 0.0), champ(1, FIGHT_R - 1.0, 1.0)], FIGHT_R));
+        assert!(!fight_near(ME, &[champ(1, FIGHT_R + 1.0, 1.0)], FIGHT_R));
+        assert!(!fight_near(ME, &[], FIGHT_R));
     }
 }
