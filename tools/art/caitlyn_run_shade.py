@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""league_caitlyn's run: her own drawn frames, the far leg a shade darker and one head in every frame (the user, on
-her run: 「女警看不出交叉步啊」, then 「调暗后腿试试」 - darken the back leg - and 「怎么感觉耳朵也变形了」 - her ear changed from
-frame to frame).
+"""league_caitlyn's run: her own drawn frames with one rifle held the same way, the far leg darker and one head in
+every frame (the user, on her run: 「女警看不出交叉步啊」, then 「调暗后腿试试」 - darken the back leg - 「怎么感觉耳朵也变形了」
+- her ear changed from frame to frame - and 「先改模型的要」 - fix what deforms first: the rifle grew and shrank).
 
     python tools/art/caitlyn_run_shade.py                 # run / hd_run / lo_run into the sheet (+ the strips)
     python tools/art/caitlyn_run_shade.py --check         # exit 1 when the sheet's run tags are not what it makes
@@ -9,20 +9,24 @@ frame to frame).
 
 The frames are her old run's drawings as tools/art/run_fix.py left them (assets/source/caitlyn/hd/
 caitlyn_run_drawn.png: the old frames 0 1 2 3 4 6 7 - the 6th, drawn small, dropped - the feet on the ground line,
-117 ms a frame in one step and 156 in the other). No square of them moves but whole frames; only colours change, and
-the head is one drawing:
+117 ms a frame in one step and 156 in the other). Her body's squares stay where they are drawn; the rifle is one
+drawing, only colours change on the far leg, and the head is one drawing:
 
+- the rifle (held): frame 0's rifle, gripping hand, cuff and the other hand's glove on the fore-end, put at each
+  frame's own hand (GRIP) - her drawing slid the same rifle 11 squares through her hand from frame to frame (see
+  RIFLE_FROM); each frame's own rifle, hand and cuff taken out first, the gaps that leaves inside her filled from her
+  own squares round them, the ones outside cleared, bared edges outlined;
 - the far leg: her left leg (League's L leg: in her poses.json camera, tools/lol/pose_joints.py, it is the one away
   from the camera), the same leg through the cycle - swinging back in frames 0-2 (kicked up, folded, passing), landing
   in front in 3, planted under her in 4-5, lifting behind in 6 - its stocking and its boot (every square of FAR's
-  rects in her leg colours, but a gold of the rifle's stock or the skirt's trim reaching in) one step down her own
-  ramps (DARKER: the boot's browns, the stocking's navies, the buckles' golds); the darkest of each ramp stays (a
-  step more is the outline). The near leg, and where it lies over the far one, untouched;
+  rects in her leg colours, but a gold of the rifle's stock or the skirt's trim reaching in) down her own ramps
+  (DARKER: the boot's browns two steps, its golds to dark gold and brown, the stocking to its darkest navy that still
+  parts from the outline). The near leg, and where it lies over the far one, untouched;
 - the head: the standing frame's (hd_idle_base[0] within HEAD: the hat, the face, the ear and the sidelocks in front
   of it - cleaner than any run frame's, and the head she has standing; not the bit of her rifle HEAD's corner takes
   in) put in every frame where that frame's own head was (its hat matched square for square, so it follows her bob
-  by whole squares); where the rifle passes in front of her chin (frame 6) the rifle stays in front, an outline on
-  the head's side of it; round the head the frame's own hat, face and sidelocks cleared (never the rifle), her back
+  by whole squares); where the rifle passes in front of her chin (frames 5, 6) the rifle stays in front, an outline
+  on the head's side of it; round the head the frame's own hat, face and sidelocks cleared (never the rifle), her back
   hair kept; where the head meets that hair, 2 squares of outline on the hair's side; an edge the clearing bared
   closed with outline, and a pinhole of ground the head shut in filled with outline. The ear's window then changes
   from frame to frame only where her hair moves behind it.
@@ -50,12 +54,14 @@ HERO = "league_caitlyn"
 SOURCE = os.path.join(ROOT, "assets", "source", "caitlyn", "hd", "caitlyn_run_drawn")
 OUT = (14, 0, 21)
 ONE = 1.5                 # her hd_ squares a 1x pixel in her 1x tags (idle, attack, the old run: measured)
-# one step down her ramps (light -> dark): boot browns, stocking navies, buckle golds
-DARKER = {(135, 80, 35): (108, 61, 43), (108, 61, 43): (79, 42, 31), (79, 42, 31): (45, 32, 32),
-          (40, 39, 98): (35, 33, 79), (35, 33, 79): (22, 12, 44),
-          (251, 204, 74): (238, 175, 49), (238, 175, 49): (217, 152, 38), (217, 152, 38): (201, 132, 29),
-          (201, 132, 29): (186, 119, 29), (186, 119, 29): (160, 97, 29), (160, 97, 29): (135, 80, 35)}
-LEG = set(DARKER) | {(45, 32, 32), (22, 12, 44)}
+# the far leg down her own ramps (light -> dark): the boot's browns two steps (one step did not show at game size),
+# its golds (bands, buckles) to dark gold and brown, the stocking to (35, 33, 79) - the darkest navy that still parts
+# from the outline (her darkest, (22, 12, 44), all over the thigh merged the leg into the outline)
+DARKER = {(135, 80, 35): (79, 42, 31), (108, 61, 43): (45, 32, 32), (79, 42, 31): (45, 32, 32),
+          (40, 39, 98): (35, 33, 79),
+          (251, 204, 74): (160, 97, 29), (238, 175, 49): (160, 97, 29), (217, 152, 38): (135, 80, 35),
+          (201, 132, 29): (135, 80, 35), (186, 119, 29): (108, 61, 43), (160, 97, 29): (108, 61, 43)}
+LEG = set(DARKER) | {(45, 32, 32), (35, 33, 79), (22, 12, 44)}
 # the far leg's squares in each frame: [((row0, row1), (col0, col1))] inclusive, frame squares, from the skirt's hem
 FAR = {
     0: [((46, 49), (24, 34)), ((50, 58), (22, 33))],      # swinging back, kicked up (the planted leg from col 35)
@@ -271,6 +277,188 @@ def pockets(a):
     return (lab > 0) & ~np.isin(lab, edge)
 
 
+# ------------------------------------------------------------------------------------------------- the rifle
+# One rifle, held the same way in every frame. Her drawn frames draw the same rifle (its barrel square for square) but
+# slide it 11 squares through her hand: in frames 0, 1, 4 its plain tapered stock (her idle's) runs out behind her
+# hip; in 2, 3, 5, 6 it sits 11 squares forward, its stock's end at her hand and her hip's cream-and-gold ornament
+# showing under it - in motion the rifle grew and shrank by ~7 game px. Every frame gets frame 0's unit - the rifle,
+# her hand and its cuff (the sleeve's end, the glove's dark folds over the stock), her other hand's glove on the
+# fore-end - at its own hand. (Frame 0's place: there the stock is her idle's plain tapered one in view, and moving the
+# rifle back over 2, 3, 5, 6 opens only ground and a few small gaps; moving it forward over 0, 1, 4 would bare ~60-80
+# squares of her jacket that were never drawn.)
+RIFLE_FROM = 0
+GRIP = {1: (2, -2), 2: (2, 10), 3: (1, 14), 4: (0, -12), 5: (0, 3), 6: (0, 9)}   # frame 0's unit -> each hand
+# (frame 6's hand is drawn 2 squares higher than in the others: there the rifle's fins hid her mouth, so the unit goes
+# 2 lower and the sleeve reaches down to it - JOIN)
+# where each frame drew the same rifle: frame 0's rifle this many squares off lies on it square for square (its barrel)
+BARREL = {1: (2, 0), 2: (-4, 19), 3: (-5, 26), 4: (0, -11), 5: (-6, 14), 6: (-6, 19)}
+# where a sleeve meets the hand put in: its squares as drawn (2, 3: the sleeve's browns, #: outline)
+JOIN = {6: {(29, 42): "#", (30, 36): "#", (30, 37): "3", (30, 38): "2", (30, 39): "2", (30, 40): "3", (30, 41): "#",
+            (31, 35): "#", (31, 36): "3", (31, 37): "2", (31, 38): "2", (31, 39): "3", (31, 40): "#", (32, 35): "#",
+            (32, 39): "#"}}
+JOIN_COLOURS = {"#": OUT, "2": (108, 61, 43), "3": (79, 42, 31)}
+# the hand and the cuff under the sleeve's end (its colours inside these squares), inclusive (r0, r1, c0, c1)
+ARM = {0: [(32, 37, 27, 37)], 1: [(34, 40, 24, 37)], 2: [(34, 36, 36, 41)], 3: [(33, 36, 40, 48)],
+       4: [(32, 38, 15, 26)], 5: [(32, 36, 30, 36)], 6: [(30, 35, 36, 43)]}
+# the hip's ornament under the forward rifle's stock (taken out: behind the stock, as in frames 0, 1, 4)
+CURL = {0: [], 1: [], 4: [], 2: [(36, 46, 30, 39)], 3: [(37, 46, 31, 41)], 5: [(37, 46, 28, 39)],
+        6: [(35, 45, 29, 39)]}
+SKIN = [(252, 207, 174), (244, 162, 125)]
+BROWN = [(135, 80, 35), (108, 61, 43), (79, 42, 31), (45, 32, 32)]
+WHITE = [(251, 250, 251), (223, 227, 242), (196, 201, 229), (122, 113, 105)]
+ARM_COLOURS = SKIN + BROWN + sorted(BODY) + WHITE
+GROW = sorted(RIFLE)            # (the rifle's colours but white: the skirt's whites touch it)
+# colours only the rifle wears under her eyes (its olive shadow, its greens and blues): any left there is the old rifle's
+RIFLE_ONLY = [(85, 92, 27), (134, 186, 165), (3, 90, 109), (97, 212, 241), (9, 185, 249), (8, 158, 237),
+              (6, 111, 206), (6, 110, 190), (6, 73, 167)]
+
+
+def rects(shape, rs):
+    m = np.zeros(shape[:2], bool)
+    for r0, r1, c0, c1 in rs:
+        m[r0:r1 + 1, c0:c1 + 1] = True
+    return m
+
+
+def the_rifle(a):
+    """The rifle's squares: its colours grown from the barrel's tip (8-connected, above the legs), then its white
+    highlights (the ones it holds on three sides)."""
+    m = colour_mask(a, GROW)
+    m[50:] = False
+    lab, n = ndimage.label(m, structure=np.ones((3, 3)))
+    ys, xs = np.nonzero(m)
+    r = lab == lab[ys[xs.argmax()], xs[xs.argmax()]]
+    w = colour_mask(a, [(251, 250, 251)])
+    for _ in range(2):
+        n4 = sum(np.roll(r, d, ax) for d, ax in ((1, 0), (-1, 0), (1, 1), (-1, 1)))
+        r = r | (w & (n4 >= 3))
+    return r
+
+
+def drawn_rifle(a, i, ref):
+    """Frame i's own rifle: frame RIFLE_FROM's rifle laid BARREL[i] off, where the colours agree, and the rifle colours
+    within 2 squares of that (what frame RIFLE_FROM's hand covers) - never her face."""
+    r0 = the_rifle(ref)
+    ys, xs = np.nonzero(r0)
+    dy, dx = BARREL[i]
+    ty, tx = ys + dy, xs + dx
+    ok = (ty >= 0) & (ty < a.shape[0]) & (tx >= 0) & (tx < a.shape[1])
+    lay = np.zeros(a.shape[:2], bool)
+    lay[ty[ok], tx[ok]] = True
+    same = np.zeros(a.shape[:2], bool)
+    agree = (a[ty[ok], tx[ok], :3] == ref[ys[ok], xs[ok], :3]).all(-1) & (a[ty[ok], tx[ok], 3] > 0)
+    same[ty[ok][agree], tx[ok][agree]] = True
+    if agree.mean() < 0.75:
+        sys.exit(f"{HERO}: frame {i}'s rifle is not frame {RIFLE_FROM}'s at {BARREL[i]} ({agree.mean():.0%})")
+    near = ndimage.binary_dilation(lay, structure=np.ones((3, 3)), iterations=2) & colour_mask(a, GROW)
+    return same | near
+
+
+def the_unit(a, i, ref=None):
+    """Frame i's rifle, hand and cuff (and the hip ornament the forward rifle shows), with their 2 squares of outline."""
+    r = the_rifle(a) if ref is None else drawn_rifle(a, i, ref)
+    arm = rects(a.shape, ARM[i] + CURL[i]) & colour_mask(a, ARM_COLOURS)
+    # her other hand on the fore-end: a fingertip, a white cuff, the dark glove's squares against the rifle (right of
+    # the gripping hand, between her chin and the skirt's hem)
+    near = ndimage.binary_dilation(r, structure=np.ones((3, 3)))
+    front = near & colour_mask(a, SKIN + [(251, 250, 251)])
+    glove = ndimage.binary_dilation(near, structure=np.ones((3, 3))) & colour_mask(a, BROWN + [(22, 12, 44)])
+    glove[:, :max(c1 for _, _, _, c1 in ARM[i]) + 1] = False
+    front = (front | glove) & rects(a.shape, [(29, 37, 0, a.shape[1] - 1)])
+    body = r | arm | front
+    ink = T.is_outline(a, [OUT])
+    k8 = np.ones((3, 3))
+    if ref is None:
+        # the unit to lay on other frames: its outline a square deep against her body (that outline is her body's
+        # too), two against the ground
+        rest = (a[..., 3] > 0) & ~ink & ~body
+        return body | (ink & (ndimage.binary_dilation(body, structure=k8)
+                              | (ndimage.binary_dilation(body, structure=k8, iterations=2)
+                                 & ~ndimage.binary_dilation(rest, structure=k8))))
+    return body | (ink & ndimage.binary_dilation(body, structure=k8, iterations=2))
+
+
+def disk(r):
+    y, x = np.mgrid[-r:r + 1, -r:r + 1]
+    return (y * y + x * x) <= r * r + 0.5
+
+
+def held(frames):
+    """Every frame with frame RIFLE_FROM's unit at its hand: its own unit taken out, the squares that leaves inside her
+    (closing her figure by 3) filled from the squares round them, ring by ring (their commonest colour, the outline
+    last), the rest cleared; an edge that bares, 2 squares of outline."""
+    src = frames[RIFLE_FROM]
+    su = the_unit(src, RIFLE_FROM)
+    ys, xs = np.nonzero(su)
+    out = []
+    for i, a in enumerate(frames):
+        if i == RIFLE_FROM:
+            out.append(a.copy())
+            continue
+        dy, dx = GRIP[i]
+        old = the_unit(a, i, src)
+        stray = colour_mask(a, RIFLE_ONLY)
+        stray[:22] = False                              # (under her eyes: the head is laid on again after)
+        old |= stray | (T.is_outline(a, [OUT]) & ndimage.binary_dilation(stray, structure=np.ones((3, 3))))
+        new = np.zeros(a.shape[:2], bool)
+        ty, tx = ys + dy, xs + dx
+        if ty.min() < 0 or tx.min() < 0 or ty.max() >= a.shape[0] or tx.max() >= a.shape[1]:
+            sys.exit(f"{HERO}: frame {i}'s rifle leaves its rect")
+        new[ty, tx] = True
+        b = a.copy()
+        b[old] = 0
+        b[ty, tx] = src[ys, xs]
+        gap = old & ~new
+        hull = ndimage.binary_closing((a[..., 3] > 0) & ~old, structure=disk(3))
+        inside = gap & hull
+        b[inside] = 0
+        key = (b[..., 0].astype(np.int64) << 16) | (b[..., 1].astype(np.int64) << 8) | b[..., 2]
+        ink = (OUT[0] << 16) | (OUT[1] << 8) | OUT[2]
+        # her own body round the gap votes (not the rifle put in, not the outline - the outline only where nothing
+        # else reaches)
+        voter = ((b[..., 3] > 0) & ~inside & ~new & ~T.is_outline(b, [OUT]) & ~colour_mask(b, GROW)
+                 & ~colour_mask(b, SKIN))
+        known = (b[..., 3] > 0) & ~inside
+        todo = inside.copy()
+        while todo.any():
+            for pool in (voter, known):
+                step = []
+                for y, x in zip(*np.nonzero(todo)):
+                    votes = {}
+                    for vy in (-1, 0, 1):
+                        for vx in (-1, 0, 1):
+                            yy, xx = y + vy, x + vx
+                            if (vy or vx) and 0 <= yy < b.shape[0] and 0 <= xx < b.shape[1] and pool[yy, xx]:
+                                k = int(key[yy, xx])
+                                votes[k] = votes.get(k, 0) + (1.0 if vy == 0 or vx == 0 else 0.7)
+                    if votes:
+                        step.append((y, x, max(votes, key=lambda q: (votes[q], -q))))
+                if step:
+                    break
+            if not step:
+                break
+            for y, x, k in step:
+                b[y, x] = ((k >> 16) & 255, (k >> 8) & 255, k & 255, 255)
+                key[y, x] = k
+                known[y, x] = True
+                voter[y, x] = k != ink
+                todo[y, x] = False
+        cleared = old & (b[..., 3] == 0)
+        solid = (b[..., 3] > 0) & ~T.is_outline(b, [OUT])
+        d = T.steps_from(solid, np.ones(b.shape[:2], bool), 2)
+        close = cleared & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(cleared), iterations=2)
+        b[close, :3] = OUT
+        b[close, 3] = 255
+        shut = pockets(b) & ~pockets(a)                 # a pinhole of ground the new rifle shut in: outline
+        b[shut, :3] = OUT
+        b[shut, 3] = 255
+        for (y, x), c in JOIN.get(i, {}).items():
+            b[y, x, :3] = JOIN_COLOURS[c]
+            b[y, x, 3] = 255
+        out.append(b)
+    return out
+
+
 def make():
     """-> {"hd_run", "run", "lo_run": [(frame, ms)]} and per frame the far leg's and the head's squares."""
     import ppu_one
@@ -281,11 +469,11 @@ def make():
     h, hm, at = the_head(idle)
     frames, ms, ones, los = drawn()
     dense, info = [], []
-    for i, a in enumerate(frames):
+    for i, a in enumerate(held(frames)):
         s = shaded(a, i)
         b, head_at, head, over = locked(s, h, hm, at, idle)
         dense.append(b)
-        info.append({"far": far_mask(a, i), "head": head, "head_at": head_at, "rifle_over": over})
+        info.append({"far": far_mask(a, i), "head": head, "head_at": head_at, "rifle_over": over, "held": a})
     one = []
     for b, (w, hh) in zip(dense, ones):
         ws = [w + 2 * k for k in range(6)]
