@@ -754,7 +754,11 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     sh = cfg["shift"][i] if cfg.get("shift") else 0
     if sh:
         a, torso, legs_only, sh_joined = shifted_upper(a, cfg, pose, sh)
-    my, mx = find_head(src, a, head)
+    # `head_match_colours`: the head is put where the frame's own head's squares of these colours are (goggles, eyes):
+    # matched on them alone, the rest of a redrawn head (hair spikes, a longer face) does not pull it off
+    tmpl = head & colour_mask(src, [tuple(c) for c in cfg["head_match_colours"]]) if cfg.get("head_match_colours") \
+        else head
+    my, mx = find_head(src, a, tmpl)
     dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
     if pose == cfg["from"] and (dy, dx) == (my, mx) == (0, 0) and not sh:
         # frame `from` keeps its own head where it is: nothing to change
@@ -771,8 +775,27 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     chin = cfg["chin"] + my                            # the frame's own neck starts here
     # `clear_grow`: how far round frame `from`'s head the frame's own is cleared (2 squares by default)
     zone = ndimage.binary_dilation(at_match, structure=K8, iterations=int(cfg.get("clear_grow", 2)))
-    zone[max(0, chin):] = False
-    own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, pose)
+    if cfg.get("clear_all"):
+        # `clear_all`: every square of the frame's own head goes - all its colours but `keep_colours` (a collar, a
+        # scarf round the neck), down to its own chin: the lowest of its face's `skin` squares, and the outline under it
+        sk = zone & colour_mask(a, [tuple(c) for c in cfg.get("skin", [])])
+        own_chin = int(np.nonzero(sk.any(1))[0].max()) + 2 if sk.any() else chin
+        zone[max(0, max(chin, own_chin)):] = False
+        fsk = head & colour_mask(src, [tuple(c) for c in cfg.get("skin", [])])
+        if cfg.get("head_align") == "chin" and sk.any() and fsk.any() and not (pose == cfg["from"] and not sh):
+            # `head_align` "chin": the laid chin on the frame's own drawn chin, so the neck under it is the drawing's
+            # (a redrawn head a few rows longer than frame `from`'s: the columns stay where the goggles / eyes put them)
+            dy = (own_chin - 2) - int(np.nonzero(fsk.any(1))[0].max()) + mov["body"][i]
+        # a collar / scarf (`keep_colours`) stays under the laid chin and behind the laid face (its first skin column);
+        # beside the face it is the frame's own bigger head's collar edge and goes with the head
+        face_left = (int(np.nonzero(fsk.any(0))[0].min()) + dx) if fsk.any() else W
+        rows_, cols_ = np.mgrid[0:H, 0:W]
+        keep_c = colour_mask(a, [tuple(c) for c in cfg.get("keep_colours", [])]) & \
+            ((rows_ >= cfg["chin"] + dy - 1) | (cols_ < face_left))
+        own = zone & (a[..., 3] > 0) & ~keep_c & ~keep_mask(a, cfg, pose)
+    else:
+        zone[max(0, chin):] = False
+        own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, pose)
     b = a.copy()
     b[own] = 0
     legs = b[..., 3] > 0
