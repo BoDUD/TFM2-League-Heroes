@@ -23,10 +23,19 @@
 //!   4. 通碧标记换手引爆：通碧的 Q 一射出去就换上副手——副本里标记被引爆时带主手的命中效果（build_aphelios native），
 //!      副手是坠明就打上标记，接着坠明 Q 定身；是荧焰、折镜就接它们的 Q。
 //!
+//! - **打架时不再否决 AI 的 Q / W**（0.2.4，用户 2026-11-15：「不知道为什么厄斐琉斯打架就站着不动 从满血被周围2 3个打死
+//!   查一查这是我们的问题还是官方AI的问题」）：否决让 Q 的格子一直好着（格子冷却只有 60 tick，五把武器真正的冷却是 buff），
+//!   AI 每 4 tick 再要一次，每次都被改成普攻——他就钉在原地一下一下打，AI 自己往后撤、走位的命令一直下不来（日志：一串否决
+//!   4 tick 一次、中间隔一次普攻动作，能连好几秒；一次启动 Q 被否决 88,100 次、W 6,650 次）。现在：看得见的敌方英雄在
+//!   `brain::FIGHT_R` 以内时 AI 的 Q / W 照放；不打架时照旧否决，但没有能改打的目标就放行（以前改成「站在原地」），AI 连着要
+//!   同一个技能满 [`VETO_HOLD`] tick 也放行。另加记录器（`record.rs`）：每次阵亡写一行 `DEATH`（死前 5 秒走着、钉在原地、
+//!   被控各多久，钉在原地时手上是谁的命令），每 100 次一行 `SUM`。
+//!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aphelios.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `QUEUE`（数据换枪，和队列一致 / 改成队列那把）、`LOW`（残血换断魄）、`FORM`（显示里的武器形态）、`SWAP`（被动换手和
-//! 原因）、`Q PRESS` / `Q VETO` / `W VETO`（AI 钩子），都限了条数。
+//! 原因）、`Q PRESS` / `Q VETO` / `W VETO` / `Q PASS` / `W PASS` / `VETO RELEASED`（AI 钩子），都限了条数；`DEATH` / `SUM`
+//! （记录器，看着的那场的阵亡全写）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -37,6 +46,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod brain;
+pub mod record;
 pub mod view;
 
 const ID: &str = "league_aphelios";
@@ -68,6 +78,10 @@ static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 
 fn log_path() -> PathBuf {
+    // the tests' lines (the recorder's DEATH / SUM) never go into the game's log
+    if cfg!(test) {
+        return std::env::temp_dir().join("league_aphelios_test.log");
+    }
     if let Some(path) = std::env::var_os("LEAGUE_APHELIOS_LOG") {
         return PathBuf::from(path);
     }
@@ -110,18 +124,22 @@ pub(crate) fn counted(kind: &'static str) -> Option<usize> {
     (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
-fn head(sim: &StableSim<'_>, id: usize) -> String {
-    let o = sim.sim_origin().unwrap_or_default();
-    let kind = match SimOriginKindV1::from_code(o.kind) {
+/// 模拟来源的名字（日志行头）。
+fn origin_name(kind: u32) -> &'static str {
+    match SimOriginKindV1::from_code(kind) {
         Some(SimOriginKindV1::ServerPresim) => "presim",
         Some(SimOriginKindV1::ClientMatchView) => "view",
         Some(SimOriginKindV1::ClientSpectate) => "spectate",
         Some(SimOriginKindV1::ClientReplay) => "replay",
         Some(SimOriginKindV1::Tool) => "tool",
         _ => "unknown",
-    };
+    }
+}
+
+fn head(sim: &StableSim<'_>, id: usize) -> String {
+    let o = sim.sim_origin().unwrap_or_default();
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
-    format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+    format!("[{} m={} s={}] t={} #{id}", origin_name(o.kind), m(o.match_id), m(o.set_index), sim.tick())
 }
 
 // ===================== 参数 =====================
@@ -446,6 +464,49 @@ const NO_ACT: [CcKindV1; 9] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bin
 const ATTACK_REACH: f64 = 70_000.0;
 /// 生命低于这一比例、AI 在走（多半在跑）：只替它按断魄的 Q。
 const LOW_RUN: f64 = 0.3;
+/// 不打架时一回否决最多拦这么久（0.2.4）：AI 一直要同一个技能（被否决的格子一直好着，它每 4 tick 再要一次），拦满就放行。
+pub const VETO_HOLD: usize = 120;
+/// AI 两次要同一个技能隔这么多 tick 以内算同一回。
+pub const VETO_GAP: usize = 12;
+
+/// AI 一回一回地要同一个技能（[`Insist::ask`]）。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Insist {
+    slot: Option<u32>,
+    since: usize,
+    last: usize,
+}
+
+impl Insist {
+    /// AI 在 `tick` 又要了格子 `slot`：还在拦的时限里（Ok），或已经连着要了这么多 tick、该放行了（Err）。
+    pub fn ask(&mut self, slot: u32, tick: usize) -> Result<(), usize> {
+        if self.slot != Some(slot) || tick > self.last + VETO_GAP || tick < self.since {
+            *self = Insist { slot: Some(slot), since: tick, last: tick };
+        }
+        self.last = tick;
+        let held = tick - self.since;
+        if held >= VETO_HOLD { Err(held) } else { Ok(()) }
+    }
+}
+
+/// AI 按的 Q / W 不合适时怎么办（0.2.4）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Veto {
+    /// 改成普攻这个目标
+    Attack(usize),
+    /// 打架时：AI 自己的照放
+    PassFight,
+    /// 没有能改打的目标：也放行（0.2.3 这时下「走到脚下」，他就站在原地不动）
+    PassNothing,
+}
+
+pub fn veto_or_pass(fight: bool, attack: Option<usize>) -> Veto {
+    match (fight, attack) {
+        (true, _) => Veto::PassFight,
+        (false, Some(t)) => Veto::Attack(t),
+        (false, None) => Veto::PassNothing,
+    }
+}
 
 /// The AI is still recalling (game 0.6.5 decides when to go home and buy): its last order was a Return - it orders only
 /// on its judgement ticks, a Return again while the recall lasts, nothing in between - and any other order ends it
@@ -461,13 +522,19 @@ pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
 struct Hands {
     /// the AI is recalling (`still_recalling`): nothing pressed
     recalling: bool,
+    /// the AI asking for a vetoed slot again and again (0.2.4)
+    insist: Insist,
+    /// the recorder: this life's last 5 seconds (0.2.4)
+    life: record::Life,
 }
 
 enum Call {
     /// 替 AI 按 Q：目标、武器、为什么。
     Press(usize, usize, &'static str),
-    /// AI 按的 Q / W 不合适：改成这个输入（普攻或站住），记哪一类、为什么。
-    Veto(InputV1, &'static str, String),
+    /// AI 按的 Q / W 不合适：改成普攻这个目标，记哪一类、为什么、哪个格子。
+    Veto(usize, &'static str, String, SkillSlotV1),
+    /// AI 按的 Q / W 0.2.3 会否决，现在放行（0.2.4）：哪个格子、哪把武器、是不是因为在打架（否则是没有能改打的目标）。
+    Pass(SkillSlotV1, usize, bool),
 }
 
 impl Hands {
@@ -482,28 +549,36 @@ impl Hands {
         let kind = base.and_then(|b| InputKindV1::from_code(b.kind));
         let target = base.filter(|b| InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
             .map(|b| b.target.target_id);
-        // the attack a vetoed Q / W turns into: its own target if an enemy, else the nearest enemy in reach, else stand
-        let instead = || {
-            let t = target.filter(|t| foes.iter().any(|f| f.id == *t)).or_else(|| {
-                foes.iter().filter(|f| brain::dist(at, f.at) <= ATTACK_REACH)
-                    .min_by(|a, b| brain::dist(at, a.at).total_cmp(&brain::dist(at, b.at))).map(|f| f.id)
-            });
-            match t {
-                Some(t) => InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)),
-                None => InputV1::move_to(at.0.max(0.0) as u64, at.1.max(0.0) as u64),
-            }
+        // the attack a vetoed Q / W turns into: its own target if an enemy, else the nearest enemy in reach (0.2.4: never
+        // "walk to where he stands" - with nothing to attack the AI's own Q / W goes out)
+        let instead = target.filter(|t| foes.iter().any(|f| f.id == *t)).or_else(|| {
+            foes.iter().filter(|f| brain::dist(at, f.at) <= ATTACK_REACH)
+                .min_by(|a, b| brain::dist(at, a.at).total_cmp(&brain::dist(at, b.at))).map(|f| f.id)
+        });
+        // 0.2.4: in a fight the AI's own Q / W goes out - a veto keeps the slot ready, the AI asks again every 4 ticks and
+        // each veto turned into an attack where he stood, so its walks away never came (brain::fight_near)
+        let fight = brain::fight_near(at, &foes, brain::FIGHT_R);
+        let veto = |slot: SkillSlotV1, kind: &'static str, why: String| {
+            Some(match veto_or_pass(fight, instead) {
+                Veto::Attack(t) => Call::Veto(t, kind, why, slot),
+                Veto::PassFight => Call::Pass(slot, main, true),
+                Veto::PassNothing => Call::Pass(slot, main, false),
+            })
         };
         let plan = brain::q_plan(main, off, at, hp, &foes);
         match kind {
             Some(InputKindV1::Skill) => match plan {
                 Some((t, why)) if Some(t) != target => Some(Call::Press(t, main, why)),
                 Some(_) => None,
-                None => Some(Call::Veto(instead(), "veto q", format!("Q VETO {}: not the moment for its Q", WEAPONS[main]))),
+                None => veto(SkillSlotV1::Skill, "veto q", format!("Q VETO {}: not the moment for its Q", WEAPONS[main])),
             },
             Some(InputKindV1::Skill2) => {
                 let fits = brain::q_plan(off, main, at, hp, &foes).is_some() && !q_cooling(&e, off);
-                (!fits).then(|| Call::Veto(instead(), "veto w",
-                    format!("W VETO {} -> {}: the off hand's Q does not fit now", WEAPONS[main], WEAPONS[off])))
+                if fits {
+                    return None;
+                }
+                veto(SkillSlotV1::Skill2, "veto w",
+                    format!("W VETO {} -> {}: the off hand's Q does not fit now", WEAPONS[main], WEAPONS[off]))
             }
             // the ult (league_ult_press's arm press) and a recall stay as they are
             Some(InputKindV1::Ult) | Some(InputKindV1::Return) => None,
@@ -537,35 +612,81 @@ impl StablePlayerAi for Hands {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
+        // the recorder's look at him this tick (read only)
+        let look = ctx.sim().map(|sim| record::look(&sim, player));
         // game 0.6.5's AI decides when to recall (and buy): nothing pressed while it does
         self.recalling = still_recalling(self.recalling, base);
-        if self.recalling {
-            return None;
+        let (out, ours, pass) = if self.recalling { (None, None, false) } else { self.decide(ctx, base) };
+        if let Some(look) = look {
+            // the order he holds from now on: ours if we replaced the AI's, else the AI's own new one (if it gave one)
+            let went = match (out, ours) {
+                (Some(_), Some(o)) => Some(o),
+                _ => base.and_then(|b| record::Order::of_input(b.kind)),
+            };
+            self.life.step(&look, went, ours == Some(record::Order::OurVeto), pass);
         }
-        let (call, line) = {
-            let sim = ctx.sim()?;
-            let me = sim.get_player(player)?.champion()?.id();
-            (Hands::call(&sim, me, base)?, head(&sim, me))
+        out
+    }
+}
+
+impl Hands {
+    /// This tick's decision: the input (None keeps the AI's), whose replacement it is, and whether the AI's Q / W went out
+    /// in a fight where 0.2.3 would have vetoed it.
+    fn decide(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> (Option<InputV1>, Option<record::Order>, bool) {
+        const KEEP: (Option<InputV1>, Option<record::Order>, bool) = (None, None, false);
+        let player = ctx.player_id();
+        let (call, line, tick) = {
+            let Some(sim) = ctx.sim() else { return KEEP };
+            let Some(me) = sim.get_player(player).and_then(|p| p.champion()).map(|e| e.id()) else { return KEEP };
+            let Some(call) = Hands::call(&sim, me, base) else { return KEEP };
+            (call, head(&sim, me), sim.tick())
         };
+        let key = |slot: SkillSlotV1| if slot == SkillSlotV1::Skill { "Q" } else { "W" };
         match call {
             Call::Press(t, w, why) => {
                 let input = InputV1::action(InputKindV1::Skill, InputTargetV1::target(t));
                 if !ctx.is_valid_input(&input) {
-                    return None;
+                    return KEEP;
                 }
                 if let Some(k) = counted("press") {
                     wlog(format!("{line} Q PRESS {} on #{t}: {why} #{k}", WEAPONS[w]));
                 }
-                Some(input)
+                (Some(input), Some(record::Order::OurPress), false)
             }
-            Call::Veto(input, kind, why) => {
-                if input.kind == InputKindV1::Attack.code() && !ctx.is_valid_input(&input) {
-                    return None;
-                }
+            Call::Pass(slot, w, fight) => {
+                record::note_pass(fight);
+                let (kind, why) = if fight {
+                    ("pass fight", "in a fight (an enemy champion within FIGHT_R)")
+                } else {
+                    ("pass nothing", "nothing to attack instead")
+                };
                 if let Some(k) = counted(kind) {
-                    wlog(format!("{line} {why} #{k}"));
+                    wlog(format!("{line} {} PASS {}: {why} - the AI's own goes out #{k}", key(slot), WEAPONS[w]));
                 }
-                Some(input)
+                (None, None, fight)
+            }
+            Call::Veto(t, kind, why, slot) => {
+                let input = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+                if !ctx.is_valid_input(&input) {
+                    return KEEP;
+                }
+                match self.insist.ask(slot.code(), tick) {
+                    Ok(()) => {
+                        record::note_veto();
+                        if let Some(k) = counted(kind) {
+                            wlog(format!("{line} {why} #{k}"));
+                        }
+                        (Some(input), Some(record::Order::OurVeto), false)
+                    }
+                    Err(held) => {
+                        record::note_release();
+                        if let Some(k) = counted("veto released") {
+                            wlog(format!("{line} {} VETO RELEASED: the AI asked for it {held} ticks on end - its own goes out #{k}",
+                                key(slot)));
+                        }
+                        KEEP
+                    }
+                }
             }
         }
     }
@@ -578,7 +699,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Aphelios: the whole-body weapon forms, the real weapon queue, Severum when low, Q / W / R by the situation like a good player) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Aphelios: the whole-body weapon forms, the real weapon queue, Severum when low, Q / W / R by the situation like a good player; the AI's own Q / W in a fight; a DEATH line per death: the last 5 s) loaded: game {}.{}.{} abi {} log={} ===",
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()
     ));
     view::install_once();
@@ -652,6 +773,33 @@ mod tests {
         let s = weapon_buff(SEV, &p);
         assert_eq!((s.vamp, s.attack_speed_mult), (10, 20));
         assert_eq!(weapon_buff(2, &p).range, 0);
+    }
+
+    #[test]
+    fn a_veto_never_happens_in_a_fight_nor_stands_him_still() {
+        // 0.2.3 turned the AI's Q / W into an attack (or a walk to where he stood) in every case
+        assert_eq!(veto_or_pass(true, Some(27)), Veto::PassFight);
+        assert_eq!(veto_or_pass(true, None), Veto::PassFight);
+        assert_eq!(veto_or_pass(false, Some(27)), Veto::Attack(27));
+        assert_eq!(veto_or_pass(false, None), Veto::PassNothing);
+    }
+
+    #[test]
+    fn the_ais_insistence_is_released_after_the_hold() {
+        // the AI asks every 4 ticks (the log of 2026-11-15: t=3506..3738, 28 vetoes)
+        let mut i = Insist::default();
+        let q = SkillSlotV1::Skill.code();
+        let mut t = 1000;
+        while t < 1000 + VETO_HOLD {
+            assert_eq!(i.ask(q, t), Ok(()), "tick {t}");
+            t += 4;
+        }
+        assert_eq!(i.ask(q, t), Err(t - 1000));
+        // a pause longer than VETO_GAP, or another slot, starts a new round
+        assert_eq!(i.ask(q, t + VETO_GAP + 1), Ok(()));
+        assert_eq!(i.ask(SkillSlotV1::Skill2.code(), t + VETO_GAP + 2), Ok(()));
+        // a new simulation's ticks start low again
+        assert_eq!(i.ask(SkillSlotV1::Skill2.code(), 5), Ok(()));
     }
 
     #[test]
