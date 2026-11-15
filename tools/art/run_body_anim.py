@@ -1,45 +1,69 @@
 #!/usr/bin/env python3
 """A hero's drawn run with life in the upper body: the legs exactly as drawn, the upper body one drawing that bobs
-with the steps, the back hair swinging after it as a chain, the fists lagging it a square (the user, on league_vi's
-and league_lux's runs re-posed from League's motion: 「拉克丝 蔚全都不合格 我让你改不是让你改原本的走路的腿部的姿势
-只是身体有点动画效果 看起来不要那么僵硬 你现在改的导致模型严重变形了」 - keep the drawn legs, give the body some animation so it
-is less stiff - and 「蔚先回复到main分支的模型再改」).
+with the steps, the back hair (a cape, a tail) swinging after it as a chain, fists and weapons lagging it a square
+(the user, on league_vi's and league_lux's runs re-posed from League's motion: 「拉克丝 蔚全都不合格 我让你改不是让你改原本的
+走路的腿部的姿势 只是身体有点动画效果 看起来不要那么僵硬 你现在改的导致模型严重变形了」 - keep the drawn legs, give the body some
+animation so it is less stiff - 「蔚先回复到main分支的模型再改」, then 「装好后处理别的英雄吧」 and 「之前修过节奏的也要修
+都要给我review才行」: every hero, each one reviewed before it is installed).
 
-    python tools/art/run_body_anim.py --hero vi             # run / hd_run / lo_run into the sheet (+ the strip)
-    python tools/art/run_body_anim.py --hero vi --check     # exit 1 when the sheet's run tags are not what it makes
-    python tools/art/run_body_anim.py --hero vi --dry       # make them, write nothing
+    python tools/art/run_body_anim.py --hero vi               # run / hd_run / lo_run into the sheet (+ the strip)
+    python tools/art/run_body_anim.py --hero vi --check       # exit 1 when the sheet's run tags are not what it makes
+    python tools/art/run_body_anim.py --hero vi --dry         # make them, write nothing
+    python tools/art/run_body_anim.py --check                 # every hero with a data file
+    python tools/art/run_body_anim.py --init fiora [--drawn-from 858cbab94]
+                                                              # a first data file from the hero's own frames
+    python tools/art/run_body_anim.py --batch fiora zyra --out C:/t/par_work/run_body/batch1
+                                                              # review sets (tools/art/run_body_review.py), nothing written
 
-HEROES holds each hero's data; nothing in the code is one hero's. From the hero's drawn run (`drawn`: the dense
-frames as main had them, kept apart so the tool can make them again), every frame is made of:
+Each hero's data is its own file, assets/source/<hero>/hd/<hero>_run_body.json (heroes are added on separate branches
+without touching each other), its drawn run beside it (<hero>_run_drawn.png + .json: the dense frames the tool starts
+from, kept apart so it can make them again; --init copies them from the sheet - with --drawn-from, from the sheet at a
+git revision - and writes a first data file, tools/art/run_body_init.py). Every frame is made of:
 
-- its legs, square for square as drawn: every square of the frame from its waist (`waist`, rows from its centre)
-  down, but the pieces of its upper body that hang below it (`below`: rects where the fists hang; in them, what its
-  legs reach - 4-connected through its own squares that are not outline, from outside the rects - stays legs);
-- one upper body - frame `from`'s: its head (the face, the goggles, the hair on top: one drawing, no frame's own head
-  or ear any more), its torso, arms and fists, its back hair - laid by whole squares where `bob` puts it: `bob` is
-  rows down from frame `from`'s drawn place, a frame each - two beats a cycle, low as each step lands, high as it
-  pushes off - never sideways;
-- in it, parts that lag the body (`parts`: a polygon in frame `from` each, a lag in frames, a range of rows): their
-  rows off the body are the body's own bob some frames before minus now (the bob read as a periodic curve through
-  the frames), rounded and held in the range - a fist that drops a square as she rises and rises as she lands;
-- the back hair (`hair`: its colours left of the root column, and the outline only it touches): a chain, every column
-  of it lagging the body by more the farther it is from the root (`lag` frames at its tip, `whip`: that much more
-  swing there), so its tips move as the body did a frame before; the root stays on the head, neighbouring columns
-  never more than a square apart.
-Order, back to front: the hair, the legs, the body, then the parts (`parts` in order). Where the frame's own upper
-body was and nothing is laid, a square inside her (closing her figure by 3) is filled from her legs' own colours round
-it, or with outline where only the laid body is round it; the rest is cleared; an edge that bares is closed with 2
-squares of outline; a pinhole the parts shut in is outline. Last, tools/art/thin_outline.py's pass with the hero's own
-settings (thin_outline.json), so CI's --check finds nothing to change.
-The 1x frames come from the dense ones as tools/art/ppu_one.py makes them (the 1x sizes kept where the drawing fits;
-squares that do not fit are reported by --dry), the lo_ frames as tools/art/ppu_hd.py's add_lo does, thinned the same
-way. Every frame keeps its size and its timing, so the sheet's rects and the fanim (league.dll's hd.rs embeds it) do
-not change. tools/art/ppu_restyle.py writes the hero's strip again from assets/source/ppu/orig/ (the run as drawn):
-run this after it, as tools/art/thin_outline.py runs after it.
+- its legs, square for square as drawn: every square of the frame from its waist (`waist`: a row from its centre, a
+  frame each) down, but the pieces of its upper body that hang below it. `below` finds those: either rects (frame
+  rows and cols, a list a frame; in them, what its legs reach - 4-connected through its own squares that are not
+  outline, from outside the rects - stays legs), or "match": the upper body is one drawing in every frame, only moved
+  (league_fiora's, league_zyra's, league_jinx's) - the squares where frame `from`'s laid upper body sits in the frame,
+  square for square alike, go (a leg drawn over it stays); `clear` adds rects (rows and cols from the centre) where
+  all but the legs goes - a braid's end drawn swinging a column;
+- one upper body - frame `from`'s: its head (one drawing, no frame's own head or ear any more), torso, arms and hands
+  and what they hold - laid by whole squares where `bob` puts it: rows down from frame `from`'s drawn place, a frame
+  each - two beats a cycle, low as each step lands, high as it pushes off - never sideways (`x`: columns off frame
+  `from`'s place, the same in every frame);
+- in it, `parts` that lag the body (`poly`: corners in frame `from`, its outline in; `skip`: colours inside it that
+  are not its own; `behind`: laid behind the body and the legs, a cape; `lag` in frames; `range` of rows): their rows
+  off the body are the body's own bob `lag` frames before minus now (the bob read as a periodic curve through the
+  frames), rounded and held in the range - a fist that drops a square as she rises. A part by her face gets a range
+  that never moves it towards it; a part with `lag` 0 is locked to the body (a gun in her hands);
+- `chains` (hair, a braid: its `colours` on the `side` of a `root` column, between two `rows` - under the waist too -
+  and the outline only they touch; `front`: laid over the body, a braid in front of what she carries on her back): every
+  column lagging the body by more the farther it is from the root (`lag` frames at the tip, `whip` that much more swing
+  there), the root staying on the body, neighbouring columns never more than a square apart;
+- `keep`: rects (rows and cols from the centre) whose squares stay the frame's own - a vine the drawing swings by
+  itself and the hand on it, never the legs - in front, moved with the body (so it stays in its hand).
+Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
+order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
+her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
+bares is closed with 2 squares of outline; a pinhole none of the drawings has is outline. `fill` "between" (the
+default): inside = shut in by her squares from both sides (within 3 where she was, 1 where a part moved off: a chain
+takes its own outline along); "closing" (league_vi's, made first): closing her figure by 3. Last,
+tools/art/thin_outline.py's pass with the hero's own settings (thin_outline.json), so CI's --check finds nothing to
+change.
+The 1x frames come from the dense ones as tools/art/ppu_one.py makes them (the drawn run's 1x sizes kept; squares that
+do not fit are reported by --dry), the lo_ frames as tools/art/ppu_hd.py's add_lo does, thinned the same way. Frames
+that keep their sizes and timing are written into their own rects (the fanim, which league.dll's hd.rs embeds, does not
+change); when the drawn run differs from the sheet's (a run taken from another revision: league_jinx), the tags' old
+squares are cleared and the frames put in free room, every other tag where it was - then league.dll is built again,
+and a tag another tool makes from the run is made again (league_jinx's run_x: tools/art/jinx_excited_run.py, then
+thin_outline.py --hero jinx). tools/art/ppu_restyle.py writes a hero's strip again from assets/source/ppu/orig/: run
+this after it, as thin_outline.py runs after it.
 """
 import argparse
+import glob
 import json
 import os
+import subprocess
 import sys
 
 import numpy as np
@@ -51,49 +75,59 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import thin_outline as T  # noqa: E402
 
-PINKS = [(232, 54, 124), (249, 100, 164), (141, 19, 67), (116, 16, 56), (170, 27, 83), (205, 40, 105), (91, 17, 47),
-         (176, 60, 102)]
-REDS = [(153, 16, 35), (97, 29, 43), (198, 26, 48), (124, 25, 39), (63, 18, 30), (159, 36, 58)]
-HEROES = {
-    "vi": {
-        "tag": "run",
-        "drawn": "assets/source/vi/hd/vi_run_drawn",      # main 858cbab94's hd_run, 8 frames of 105 ms
-        "from": 0,
-        "outline": (26, 12, 16),
-        # each frame's first row of its legs, from its centre: the top of her belt
-        "waist": [-15, -16, -16, -16, -15, -15, -15, -16],
-        # rows down from frame `from`'s drawn place, a frame each: two beats a cycle, 3 squares (1.6 game px; the
-        # base game's runs bob a median 2 px, low at each step). Her legs: contacts at frames 3 and 7 (both feet
-        # down, the widest stride), the down after them at 0 and 4 (the planted knee bent, the rear foot kicked up),
-        # passings at 1 and 5, up at 2 and 6 (the swinging knee driven forward by the straight standing leg): the
-        # body lowest at the downs, highest at the ups. Her drawn head sits a row under each rect's top (frame 3's at
-        # it): one row higher and the 1x frame made from it loses its top row, so the ups are at frame 0's drawn place
-        "bob": [3, 2, 0, 1, 3, 2, 0, 1],
-        # frame rows (rect: top row, last row, first col, last col; top None = the waist) where her fists hang below
-        # her waist: the near gauntlet at her hip, the far one in front of her
-        "below": [[(None, 54, 0, 24), (None, 47, 34, 58)], [(None, 52, 0, 23), (None, 47, 34, 58)],
-                  [(None, 51, 0, 23), (None, 47, 34, 58)], [(None, 50, 0, 22), (None, 45, 34, 58)],
-                  [(None, 53, 0, 23), (None, 47, 34, 58)], [(None, 53, 0, 23), (None, 47, 34, 58)],
-                  [(None, 50, 0, 23), (None, 47, 34, 58)], [(None, 50, 0, 23), (None, 47, 34, 58)]],
-        "parts": {
-            # (row, col) corners in frame `from`, its outline in; skip: colours in the polygon that are not its own
-            # (her hip strap's end, her scarf's)
-            "near gauntlet": {"poly": [(30, 3), (30, 13), (32, 17), (32, 24), (36, 25), (46, 25), (49, 24), (53, 23),
-                                       (54, 21), (54, 8), (51, 3), (46, 0), (35, 0)],
-                              "lag": 1.0, "range": (-1, 1), "skip": PINKS + REDS},
-            # never up: its top is by her chin
-            "far gauntlet": {"poly": [(18, 40), (18, 50), (22, 54), (24, 56), (36, 56), (40, 52), (44, 48), (44, 40),
-                                      (41, 36), (24, 35), (21, 37)],
-                             "lag": 0.5, "range": (0, 1), "skip": PINKS + REDS},
-        },
-        "hair": {"colours": PINKS, "root": 19, "bottom": 31, "lag": 1.0, "whip": 0.2},
-    },
-}
+K8 = np.ones((3, 3), bool)
+GAME_BOB = 1.6          # game px from low to high (the base game's runs bob a median 2 px; Vi's 3 squares = 1.64)
 
 
 def lp(path):
     path = os.path.abspath(path)
     return "\\\\?\\" + path if os.name == "nt" and not path.startswith("\\\\?\\") else path
+
+
+def short(hero):
+    return hero.split("_", 1)[1] if hero.startswith(("league_", "tft_")) else hero
+
+
+def data_file(hero):
+    return os.path.join(ROOT, "assets", "source", short(hero), "hd", f"{short(hero)}_run_body.json")
+
+
+def heroes_with_data():
+    return sorted(os.path.basename(p)[:-len("_run_body.json")]
+                  for p in glob.glob(os.path.join(ROOT, "assets", "source", "*", "hd", "*_run_body.json")))
+
+
+def load(hero):
+    with open(lp(data_file(hero)), encoding="utf-8") as f:
+        cfg = json.load(f)
+    cfg["outline"] = tuple(cfg["outline"])
+    if cfg["below"] != "match":
+        cfg["below"] = [[tuple(r) for r in rs] for rs in cfg["below"]]
+    for p in cfg.get("parts", []):
+        p["poly"] = [tuple(v) for v in p["poly"]]
+        p["range"] = tuple(p["range"])
+        p["skip"] = [tuple(c) for c in p.get("skip", [])]
+    for c in cfg.get("chains", []):
+        c["colours"] = [tuple(v) for v in c["colours"]]
+    return cfg
+
+
+def save(hero, cfg):
+    """The data file, a key a line (lists kept on one line each)."""
+    lines = []
+    for k, v in cfg.items():
+        if k in ("parts", "chains", "below") and v and not isinstance(v, str):
+            inner = ",\n".join("    " + json.dumps(x, ensure_ascii=False) for x in v)
+            lines.append(f'  "{k}": [\n{inner}\n  ]')
+        elif k == "notes":
+            inner = ",\n".join(f"    {json.dumps(a, ensure_ascii=False)}: {json.dumps(b, ensure_ascii=False)}"
+                               for a, b in v.items())
+            lines.append(f'  "{k}": {{\n{inner}\n  }}')
+        else:
+            lines.append(f"  {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}")
+    os.makedirs(os.path.dirname(lp(data_file(hero))), exist_ok=True)
+    with open(lp(data_file(hero)), "w", encoding="utf-8", newline="\n") as f:
+        f.write("{\n" + ",\n".join(lines) + "\n}\n")
 
 
 def colour_mask(a, cols):
@@ -122,11 +156,30 @@ def disk(r):
     return (y * y + x * x) <= r * r + 0.5
 
 
-K8 = np.ones((3, 3), bool)
+# ------------------------------------------------------------------------------------------------- the frames
+def sheet(hid, pack, rev=None):
+    """(anims, pixels) of the hero's sheet - the tree's, or at a git revision."""
+    if rev is None:
+        return T.read(hid, pack)
+    rel = os.path.relpath(T.stem(hid, pack), ROOT).replace(os.sep, "/")
+    env = dict(os.environ, MSYS_NO_PATHCONV="1")
+    fan = subprocess.run(["git", "-C", ROOT, "show", f"{rev}:{rel}#anim.fanim"], capture_output=True, check=True, env=env)
+    png = subprocess.run(["git", "-C", ROOT, "show", f"{rev}:{rel}#sheet.png"], capture_output=True, check=True, env=env)
+    import io
+    anims = json.loads(fan.stdout.decode("utf-8-sig"))["anims"]
+    return anims, np.array(Image.open(io.BytesIO(png.stdout)).convert("RGBA"))
+
+
+def frames_of(anims, px, tag):
+    out = []
+    for f in anims[tag]["frames"]:
+        x, y, w, h = (int(round(f["data"][q])) for q in ("x", "y", "w", "h"))
+        out.append((px[y:y + h, x:x + w].copy(), int(round(f["duration"] * 1000))))
+    return out
 
 
 def drawn(cfg):
-    """-> [(frame, ms)] of the hero's drawn run."""
+    """-> ([(frame, ms)] of the hero's drawn run, its meta: sizes, ms, and the 1x / lo_ sizes when kept)."""
     s = np.array(Image.open(lp(os.path.join(ROOT, cfg["drawn"] + ".png"))).convert("RGBA"))
     with open(lp(os.path.join(ROOT, cfg["drawn"] + ".json")), encoding="utf-8") as f:
         meta = json.load(f)
@@ -134,7 +187,25 @@ def drawn(cfg):
     for (w, h), ms in zip(meta["sizes"], meta["ms"]):
         out.append((s[:h, x:x + w].copy(), ms))
         x += w + 1
-    return out
+    return out, meta
+
+
+def keep_drawn(hero, frames, one_sizes, lo_sizes, origin):
+    """The drawn run as the tool's source: <hero>_run_drawn.png (the frames left to right, a square apart) + .json."""
+    base = os.path.join("assets", "source", short(hero), "hd", f"{short(hero)}_run_drawn")
+    H = max(a.shape[0] for a, _ in frames)
+    s = np.zeros((H, sum(a.shape[1] + 1 for a, _ in frames) - 1, 4), np.uint8)
+    x = 0
+    for a, _ in frames:
+        s[:a.shape[0], x:x + a.shape[1]] = a
+        x += a.shape[1] + 1
+    os.makedirs(os.path.dirname(lp(os.path.join(ROOT, base))), exist_ok=True)
+    Image.fromarray(s, "RGBA").save(lp(os.path.join(ROOT, base + ".png")), optimize=True)
+    meta = {"from": origin, "sizes": [[a.shape[1], a.shape[0]] for a, _ in frames], "ms": [m for _, m in frames],
+            "one_sizes": one_sizes, "lo_sizes": lo_sizes}
+    with open(lp(os.path.join(ROOT, base + ".json")), "w", encoding="utf-8", newline="\n") as f:
+        json.dump(meta, f)
+    return base.replace(os.sep, "/")
 
 
 # ------------------------------------------------------------------------------------------------- the motion
@@ -157,74 +228,116 @@ def lagged(at, i, lag, gain=1.0):
     return gain * (at(i - lag) - at(i))
 
 
-def motion(cfg, n, hair_cols):
-    """-> {"body": [rows], part name: [rows], "hair": [{col: rows}]} per frame."""
+def chain_offsets(at, n, c, cols):
+    """{col: rows} per frame for a chain over cols (its root column's side)."""
+    root = c["root"]
+    span = max(1, max(abs(root - x) for x in cols)) if cols else 1
+    order = sorted(cols, key=lambda x: abs(root - x))
+    rows = []
+    for i in range(n):
+        d, prev = {}, 0
+        for x in order:
+            u = abs(root - x) / float(span)
+            v = int(round(lagged(at, i, c["lag"] * u, 1.0 + c.get("whip", 0.0) * u)))
+            v = max(prev - 1, min(prev + 1, v))          # neighbouring columns at most a square apart
+            d[x] = v
+            prev = v
+        rows.append(d)
+    return rows
+
+
+def motion(cfg, n, chain_cols):
+    """-> {"body": [rows], part name: [rows], chain name: [{col: rows}]} per frame."""
     bob = cfg["bob"]
     at = curve(bob)
     out = {"body": list(bob)}
-    for name, p in cfg["parts"].items():
+    for p in cfg.get("parts", []):
         lo, hi = p["range"]
-        out[name] = [int(min(hi, max(lo, round(lagged(at, i, p["lag"]))))) for i in range(n)]
-    h = cfg["hair"]
-    root = h["root"]
-    span = max(1, root - min(hair_cols)) if hair_cols else 1
-    rows = []
-    for i in range(n):
-        d = {}
-        prev = 0
-        for c in range(root - 1, min(hair_cols) - 1 if hair_cols else root - 1, -1):
-            u = (root - c) / float(span)
-            v = int(round(lagged(at, i, h["lag"] * u, 1.0 + h["whip"] * u)))
-            v = max(prev - 1, min(prev + 1, v))          # neighbouring columns at most a square apart
-            d[c] = v
-            prev = v
-        rows.append(d)
-    out["hair"] = rows
+        out[p["name"]] = [int(min(hi, max(lo, round(lagged(at, i, p["lag"]))))) for i in range(n)]
+    for c in cfg.get("chains", []):
+        out[c["name"]] = chain_offsets(at, n, c, chain_cols[c["name"]])
     return out
 
 
-# ------------------------------------------------------------------------------------------------- the parts
+# ------------------------------------------------------------------------------------------------- the layers
 def pieces(src, cfg, i_src):
-    """Frame `from`'s upper body cut into its layers -> {"body", "hair", part name: mask}, each with the outline that
-    is its own (the outline a square deep against the other layers, two against the ground)."""
+    """Frame `from`'s upper body cut into its layers -> {"body", chain names, part names: mask}, each with the outline
+    that is its own (the outline a square deep against the other layers, two against the ground)."""
     H, W = src.shape[:2]
     op = src[..., 3] > 0
     ink = colour_mask(src, [cfg["outline"]])
     cy = H // 2
     upper = np.zeros((H, W), bool)
     upper[:cy + cfg["waist"][i_src]] = True
-    parts = {name: poly_mask(p["poly"], src.shape) & op & ~colour_mask(src, p.get("skip", []))
-             for name, p in cfg["parts"].items()}
-    every = (upper & op) | np.logical_or.reduce(list(parts.values()))
-    h = cfg["hair"]
-    hair = colour_mask(src, h["colours"]) & every
-    hair[:, h["root"]:] = False
-    hair[h["bottom"]:] = False
+    parts = {p["name"]: poly_mask(p["poly"], src.shape) & op & ~colour_mask(src, p.get("skip", []))
+             for p in cfg.get("parts", [])}
+    every = (upper & op)
     for m in parts.values():
-        hair &= ~m
-    lab, n = ndimage.label(hair, structure=K8)
-    if n:
-        sz = ndimage.sum(hair, lab, range(1, n + 1))
-        hair = np.isin(lab, [j + 1 for j in range(n) if sz[j] >= 12])
-    body = every & ~ink
+        every |= m
+    kept = keep_mask(src, cfg, i_src)
+    every &= ~kept
+    for name in parts:
+        parts[name] &= ~kept
+    out, taken = {}, np.zeros((H, W), bool)
     for m in parts.values():
-        body &= ~m
-    body_solid = body & ~hair
-    # the hair's outline: what touches the hair and no other solid square of hers, left of the root
-    hink = ink & every & ndimage.binary_dilation(hair, structure=K8) & ~ndimage.binary_dilation(body_solid, structure=K8)
-    hink[:, h["root"]:] = False
-    for m in parts.values():
-        hink &= ~m
-    out = {"hair": hair | hink}
-    out["body"] = every & ~out["hair"]
-    for name, m in parts.items():
-        out["body"] &= ~m
-        out[name] = m
+        taken |= m
+    for c in cfg.get("chains", []):
+        side = np.zeros((H, W), bool)
+        if c.get("side", "left") == "left":
+            side[:, :c["root"]] = True
+        else:
+            side[:, c["root"] + 1:] = True
+        rows = np.zeros((H, W), bool)
+        rows[c["rows"][0]:c["rows"][1]] = True
+        # (a chain may hang under the waist: a whip, a braid - its rows say how far)
+        m = colour_mask(src, c["colours"]) & (every | (op & rows & ~upper)) & side & rows & ~taken & ~kept
+        lab, n = ndimage.label(m, structure=K8)
+        if n:
+            sz = ndimage.sum(m, lab, range(1, n + 1))
+            m = np.isin(lab, [j + 1 for j in range(n) if sz[j] >= c.get("min", 12)])
+        solid_rest = every & ~ink & ~m & ~taken
+        # its outline: what touches it and no other solid square of hers, on its side of the root
+        cink = ink & (every | (op & rows & ~upper)) & side & ndimage.binary_dilation(m, structure=K8) & \
+            ~ndimage.binary_dilation(solid_rest, structure=K8) & ~taken & ~kept
+        out[c["name"]] = m | cink
+        taken |= out[c["name"]]
+        every |= out[c["name"]]
+    out["body"] = every & ~taken
+    out.update(parts)
     return out
 
 
-def own_upper(a, cfg, i):
-    """Frame i's own upper body: everything above its waist, and in `below`'s rects what its legs do not reach."""
+def keep_mask(a, cfg, i):
+    """`keep`: rects (rows, cols from the frame's centre: first row, last row, first col, last col) whose squares stay
+    the frame's own - a vine swinging in the drawing, a hand that holds it - one list for every frame or one a frame."""
+    H, W = a.shape[:2]
+    m = np.zeros((H, W), bool)
+    k = cfg.get("keep") or []
+    rs = k[i] if k and isinstance(k[0][0], list) else k
+    for r0, r1, c0, c1 in rs:
+        m[max(0, H // 2 + r0):max(0, H // 2 + r1 + 1), max(0, W // 2 + c0):max(0, W // 2 + c1 + 1)] = True
+    if not m.any():
+        return m
+    # never her legs: what her feet reach under the waist (4-connected through her squares that are not outline)
+    op = a[..., 3] > 0
+    ink = colour_mask(a, [cfg["outline"]])
+    low = np.zeros((H, W), bool)
+    low[H // 2 + cfg["waist"][i]:] = True
+    through = op & ~ink & low
+    lab, _ = ndimage.label(through)
+    ys = np.nonzero(op.any(1))[0]
+    feet = np.zeros((H, W), bool)
+    feet[ys.max() - 2:ys.max() + 1] = True
+    hit = np.unique(lab[through & feet])
+    legs = np.isin(lab, hit[hit > 0])
+    legs |= ink & low & ndimage.binary_dilation(legs, structure=K8)
+    return m & op & ~legs
+
+
+def own_upper(a, cfg, i, match=None):
+    """Frame i's own upper body: everything above its waist and, under it, either what `below`'s rects hold that its
+    legs do not reach, or (`below` "match": the upper body is one drawing in every frame, only moved) the squares of
+    frame `from`'s laid upper body where it sits in frame i, square for square alike (a leg drawn over it stays)."""
     H, W = a.shape[:2]
     op = a[..., 3] > 0
     ink = colour_mask(a, [cfg["outline"]])
@@ -232,10 +345,31 @@ def own_upper(a, cfg, i):
     wr = cy + cfg["waist"][i]
     up = np.zeros((H, W), bool)
     up[:wr] = True
+    low = ~up
+    if cfg["below"] == "match":
+        src, union, (dy, dx) = match
+        ys, xs = np.nonzero(union)
+        ty, tx = ys + dy, xs + dx
+        ok = (ty >= 0) & (ty < H) & (tx >= 0) & (tx < W)
+        ys, xs, ty, tx = ys[ok], xs[ok], ty[ok], tx[ok]
+        same = (a[ty, tx] == src[ys, xs]).all(-1) & op[ty, tx]
+        hang = np.zeros((H, W), bool)
+        hang[ty[same], tx[same]] = True
+        # `clear`: rects (from the frame's centre) under the waist where the frame's own pieces of the upper body are
+        # drawn a little differently each frame (a braid's swinging end): all of it but what the legs reach goes
+        rect = np.zeros((H, W), bool)
+        for r0, r1, c0, c1 in cfg.get("clear", []):
+            rect[max(0, cy + r0):max(0, cy + r1 + 1), max(0, W // 2 + c0):max(0, W // 2 + c1 + 1)] = True
+        if rect.any():
+            through = op & ~ink & low
+            lab, _ = ndimage.label(through)
+            hit = np.unique(lab[through & ~rect])
+            legs = np.isin(lab, hit[hit > 0])
+            hang |= rect & low & op & ~legs & ~(ink & ndimage.binary_dilation(legs, structure=K8))
+        return (up & op) | (hang & low)
     rect = np.zeros((H, W), bool)
     for r0, r1, c0, c1 in cfg["below"][i]:
         rect[(wr if r0 is None else r0):r1 + 1, c0:c1 + 1] = True
-    low = ~up
     through = op & ~ink & low
     lab, _ = ndimage.label(through)
     hit = np.unique(lab[through & ~rect])
@@ -244,6 +378,22 @@ def own_upper(a, cfg, i):
     # the hanging pieces' outline: what touches them and not her legs
     hang |= rect & low & ink & ndimage.binary_dilation(hang, structure=K8) & ~ndimage.binary_dilation(legs, structure=K8)
     return (up & op) | hang
+
+
+def drawn_shift(src, a, union, search=7):
+    """Where frame `from`'s upper body (union) sits in frame a: the whole-square shift (from the centres) that puts the
+    most of its squares on alike squares -> ((dy, dx), share alike)."""
+    ys, xs = np.nonzero(union)
+    cdy, cdx = a.shape[0] // 2 - src.shape[0] // 2, a.shape[1] // 2 - src.shape[1] // 2
+    best = ((cdy, cdx), -1)
+    for dy in range(cdy - search, cdy + search + 1):
+        for dx in range(cdx - search, cdx + search + 1):
+            ty, tx = ys + dy, xs + dx
+            ok = (ty >= 0) & (ty < a.shape[0]) & (tx >= 0) & (tx < a.shape[1])
+            n = int((a[ty[ok], tx[ok]] == src[ys[ok], xs[ok]]).all(-1).sum())
+            if n > best[1]:
+                best = ((dy, dx), n)
+    return best[0], best[1] / float(max(1, len(ys)))
 
 
 # ------------------------------------------------------------------------------------------------- the frame
@@ -283,41 +433,73 @@ def pockets(a):
 
 def lay(b, src, m, dy, dx, cols=None, under=False):
     """src's squares in m into b moved (dy, dx) (cols: {col: extra rows} per source column); under: only where b is
-    clear. -> the squares laid."""
+    clear. -> (the squares laid, the squares that would leave the frame)."""
     ys, xs = np.nonzero(m)
-    ty = ys + dy + (np.array([cols.get(int(x), 0) for x in xs]) if cols else 0)
+    ty = ys + dy + (np.array([cols.get(int(x), 0) for x in xs], int) if cols else 0)
     tx = xs + dx
     ok = (ty >= 0) & (ty < b.shape[0]) & (tx >= 0) & (tx < b.shape[1])
-    if not ok.all():
-        sys.exit(f"run_body_anim: {int((~ok).sum())} squares of a part leave the frame")
+    lost = int((~ok).sum())
     if under:
-        ok &= b[ty, tx, 3] == 0
+        ok &= np.where(ok, b[np.clip(ty, 0, b.shape[0] - 1), np.clip(tx, 0, b.shape[1] - 1), 3] == 0, False)
     b[ty[ok], tx[ok]] = src[ys[ok], xs[ok]]
     put = np.zeros(b.shape[:2], bool)
     put[ty[ok], tx[ok]] = True
-    return put
+    return put, lost
 
 
-def compose(a, i, src, cy0, cx0, layers, mov, cfg):
+def layer_names(cfg):
+    """Back to front: the chains, the parts behind the body (a cape), the body, the parts in front (fists, a weapon)."""
+    parts, chains = cfg.get("parts", []), cfg.get("chains", [])
+    return ([c["name"] for c in chains if not c.get("front")] + [p["name"] for p in parts if p.get("behind")] + ["body"]
+            + [c["name"] for c in chains if c.get("front")] + [p["name"] for p in parts if not p.get("behind")])
+
+
+def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None):
     """Frame i made: its legs, frame `from`'s upper body laid as `mov` says, the gaps joined. -> (frame, info)."""
     out_c = cfg["outline"]
     H, W = a.shape[:2]
     cy, cx = H // 2, W // 2
-    own = own_upper(a, cfg, i)
+    kept = keep_mask(a, cfg, i)
+    own = own_upper(a, cfg, i, match) & ~kept
     b = a.copy()
     b[own] = 0
     legs = b[..., 3] > 0
     dy = cy - cy0 + mov["body"][i]
-    dx = cx - cx0
-    info = {"own": own, "legs": legs, "at": (dy, dx)}
-    names = ["hair", "body"] + list(cfg["parts"])
+    dx = cx - cx0 + cfg.get("x", 0)
+    info = {"own": own, "legs": legs, "at": (dy, dx), "lost": 0}
+    names = layer_names(cfg)
     base = np.zeros((H, W, 4), np.uint8)                 # every layer at the body's place (no lag): what they cover
     for name in names:
         lay(base, src, layers[name], dy, dx)
-    info["hair"] = lay(b, src, layers["hair"], dy, dx, cols=mov["hair"][i], under=True)
-    info["body"] = lay(b, src, layers["body"], dy, dx)
-    for name in cfg["parts"]:
-        info[name] = lay(b, src, layers[name], dy + mov[name][i], dx)
+    for c in [c for c in cfg.get("chains", []) if not c.get("front")]:
+        info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, cols=mov[c["name"]][i], under=True)
+        info["lost"] += lost
+    for p in [p for p in cfg.get("parts", []) if p.get("behind")]:
+        info[p["name"]], lost = lay(b, src, layers[p["name"]], dy + mov[p["name"]][i], dx, under=True)
+        info["lost"] += lost
+    info["body"], lost = lay(b, src, layers["body"], dy, dx)
+    info["lost"] += lost
+    for c in [c for c in cfg.get("chains", []) if c.get("front")]:
+        info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, cols=mov[c["name"]][i])
+        info["lost"] += lost
+    for p in [p for p in cfg.get("parts", []) if not p.get("behind")]:
+        info[p["name"]], lost = lay(b, src, layers[p["name"]], dy + mov[p["name"]][i], dx)
+        info["lost"] += lost
+    # kept squares in front, the frame's own - moved with the body by as many rows as it sits off the frame's drawn
+    # upper body (`below` "match" finds where that is)
+    ky = 0 if match is None else dy - match[2][0]
+    if ky:
+        moved = np.zeros_like(kept)
+        ys, xs = np.nonzero(kept)
+        ok = (ys + ky >= 0) & (ys + ky < H)
+        b[ys[ok] + ky, xs[ok]] = a[ys[ok], xs[ok]]
+        moved[ys[ok] + ky, xs[ok]] = True
+        kept = moved
+    else:
+        b[kept] = a[kept]
+    for name in names:
+        info[name] &= ~kept
+    info["kept"] = kept
     put = np.zeros((H, W), bool)
     for name in names:
         info[name] &= b[..., 3] > 0
@@ -325,75 +507,116 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg):
     clear = b[..., 3] == 0
     gone = (a[..., 3] > 0) & clear                       # hers before, nothing laid on it
     revealed = (base[..., 3] > 0) & clear                # covered had the parts not moved off the body
-    inside = (gone | revealed) & ndimage.binary_closing(put | legs, structure=disk(3))
+    # inside her: `fill` "closing" (league_vi's): where she was or a part moved off, closing her figure by 3; else
+    # ("between") only squares her squares shut in from both sides - within 3 where she was, 1 where a part moved off
+    # (a thin chain or part takes its own outline along: what it bares at its edge is ground, not outline)
+    if cfg.get("fill", "between") == "closing":
+        inside = (gone | revealed) & ndimage.binary_closing(put | legs, structure=disk(3))
+    else:
+        inside = (gone & T.between(put | legs, 3)) | (revealed & T.between(put | legs, 1))
     # inside her: from her legs' own colours where they are round it, else outline (between the laid layers)
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
     rest = inside & (b[..., 3] == 0)
     b[rest, :3] = out_c
     b[rest, 3] = 255
-    # an edge that bares where she was: 2 squares of outline on the bared side
+    # an edge that bares where she was: 2 squares of outline on the bared side (in "between": an edge of her own
+    # squares, her legs' - the laid layers bring their outline with them)
     clear = b[..., 3] == 0
     was = gone & clear
     solid = (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+    if cfg.get("fill", "between") != "closing":
+        solid &= ~put
     d = T.steps_from(solid, np.ones((H, W), bool), 2)
     bare = was & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(was, structure=K8), structure=K8,
                                                     iterations=2)
     b[bare, :3] = out_c
     b[bare, 3] = 255
-    shut = pockets(b) & ~pockets(a)
+    if cfg.get("fill", "between") == "closing":
+        shut = pockets(b) & ~pockets(a)
+    else:
+        # a pinhole none of the drawings has where it is now: the frame `from`'s own (laid with its layers) and the
+        # frame's own under the waist are the drawing's
+        laid = np.zeros((H, W), bool)
+        ps = pockets(src)
+        for name in names:
+            ys, xs = np.nonzero(ps & ndimage.binary_dilation(layers[name], structure=K8))
+            if not len(ys):
+                continue
+            off = dy                                     # (the body's own rows are in dy)
+            if name != "body" and isinstance(mov[name][i], dict):
+                off = dy + np.array([mov[name][i].get(int(x), 0) for x in xs], int)
+            elif name != "body":
+                off = dy + int(mov[name][i])
+            ty, tx = ys + off, xs + dx
+            ok = (ty >= 0) & (ty < H) & (tx >= 0) & (tx < W)
+            laid[ty[ok], tx[ok]] = True
+        own_low = pockets(a) & ~own_upper(a, cfg, i, match)
+        shut = pockets(b) & ~laid & ~ndimage.binary_dilation(own_low, structure=K8)
     b[shut, :3] = out_c
     b[shut, 3] = 255
     info["joined"] = ((near_legs | rest | bare | shut) & (b[..., 3] > 0)) & ~put
     return b, info
 
 
-def make(hero):
+def make(hero, cfg=None):
     """-> ({"hd_<tag>", "<tag>", "lo_<tag>": [(frame, ms)]}, per-frame info, motion)."""
     import ppu_hd as P
     import ppu_one as O
-    cfg = HEROES[hero]
+    cfg = cfg or load(hero)
     hid, pack, ppu, size = T.resolve(hero, T.all_heroes())
-    frames = drawn(cfg)
+    frames, meta = drawn(cfg)
     n = len(frames)
     i0 = cfg["from"]
     src = frames[i0][0]
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     layers = pieces(src, cfg, i0)
-    hair_cols = sorted(set(np.nonzero(layers["hair"])[1].tolist()))
-    mov = motion(cfg, n, hair_cols)
-    state = T.load_state()
-    tp = state[hid]
+    chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[1].tolist())) for c in cfg.get("chains", [])}
+    mov = motion(cfg, n, chain_cols)
+    tp = T.load_state().get(hid)                         # (a hero thin_outline.json does not list: no pass)
+    if tp is not None and tp.get("skip"):
+        tp = None
+
+    def thin(f, kind):
+        return f if tp is None else T.change_fixed(f, tp[kind], tp["outline"], tp["grow"])[0]
+    union = np.zeros(src.shape[:2], bool)
+    for name in layer_names(cfg):
+        union |= layers[name]
     dense, info = [], []
     for i, (a, ms) in enumerate(frames):
-        b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg)
-        b2, _ = T.change_fixed(b, tp["hd"], tp["outline"], tp["grow"])
+        match, alike = None, None
+        if cfg["below"] == "match":
+            shift, alike = drawn_shift(src, a, union)
+            match = (src, union, shift)
+        b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match)
+        inf["drawn_alike"] = alike
+        b2 = thin(b, "hd")
         inf["thinned"] = (b2 != b).any(-1)
         dense.append((b2, ms))
         info.append(inf)
-    # the 1x frames from the dense ones (ppu_one), the lo_ ones (ppu_hd.add_lo), on the sheet's own rects
-    an, px = T.read(hid, pack)
+    # the 1x frames from the dense ones (ppu_one), the lo_ ones (ppu_hd.add_lo), on the drawn run's own sizes
     tag = cfg["tag"]
-    one_now = [px[int(f["data"]["y"]):int(f["data"]["y"]) + int(f["data"]["h"]),
-                  int(f["data"]["x"]):int(f["data"]["x"]) + int(f["data"]["w"])] for f in an[tag]["frames"]]
-    lo_now = [(int(f["data"]["w"]), int(f["data"]["h"])) for f in an["lo_" + tag]["frames"]]
-    k = P.PPU[hero]
-    sizes = O.sizes()
-    shown = k / min(1.0, sizes.get(hero, 1.0))
+    if meta.get("one_sizes"):
+        one_sz, lo_sz = [tuple(v) for v in meta["one_sizes"]], [tuple(v) for v in meta["lo_sizes"]]
+    else:
+        an, _ = T.read(hid, pack)
+        one_sz = [(int(f["data"]["w"]), int(f["data"]["h"])) for f in an[tag]["frames"]]
+        lo_sz = [(int(f["data"]["w"]), int(f["data"]["h"])) for f in an["lo_" + tag]["frames"]]
+    k = P.PPU[short(hero)]
+    shown = k / min(1.0, O.sizes().get(short(hero), 1.0))
     one, lost = [], []
-    for (b, ms), o, (lw, lh) in zip(dense, one_now, lo_now):
-        h, w = o.shape[:2]
+    for (b, ms), (w, h), (lw, lh) in zip(dense, one_sz, lo_sz):
         ws = O.lengths(w, k, b.shape[1], lw, False)
         hs = O.lengths(h, k, b.shape[0], lh, False)
         f, off = O.one_frame(b, w, h, 1.0 / shown, ws, hs)
         lost.append(off)
         one.append((f, ms))
     mini = {tag: one, "hd_" + tag: dense}
-    P.add_lo(hero, mini)
+    P.add_lo(short(hero), mini)
     lo = []
-    for (f, ms), (lw, lh) in zip(mini["lo_" + tag], lo_now):
-        f2, _ = T.change_fixed(f, tp["lo"], tp["outline"], tp["grow"])
-        if f2.shape[1] < lw or f2.shape[0] < lh:         # on the sheet's rect: grown alike at both ends, centre kept
+    for (f, ms), (lw, lh) in zip(mini["lo_" + tag], lo_sz):
+        f2 = thin(f, "lo")
+        if f2.shape[1] < lw or f2.shape[0] < lh:         # on the run's own rect: grown alike at both ends, centre kept
             g = np.zeros((max(lh, f2.shape[0]), max(lw, f2.shape[1]), 4), np.uint8)
             oy, ox = (g.shape[0] - f2.shape[0]) // 2, (g.shape[1] - f2.shape[1]) // 2
             g[oy:oy + f2.shape[0], ox:ox + f2.shape[1]] = f2
@@ -401,26 +624,77 @@ def make(hero):
         lo.append((f2, ms))
     for inf, n_ in zip(info, lost):
         inf["one_lost"] = n_
+    off = [inf["lost"] for inf in info]
+    if any(off):
+        sys.exit(f"{hid}: the laid upper body leaves the dense frames ({off} squares a frame): bob / parts too far")
     return {"hd_" + tag: dense, tag: one, "lo_" + tag: lo}, info, mov
 
 
-def write(hero, new):
-    """The tags' frames into the sheet's own rects (each frame keeps its size: the fanim does not change), the dense
-    frames into the strip tools/art/ppu_hd.py reads (assets/source/ppu/<hero>_<tag>.png)."""
-    hid, pack, ppu, size = T.resolve(hero, T.all_heroes())
-    an, px = T.read(hid, pack)
+# ------------------------------------------------------------------------------------------------- writing
+def place(px, anims, drop, new):
+    """The sheet with the tags in `drop` taken off (their squares cleared where no other tag uses them) and `new` put in
+    the free room - top-left first, 1 clear square between frames, no wider than the sheet; every other tag's frames
+    where they are. -> (sheet, anims)."""
+    def rect(f):
+        return tuple(int(round(f["data"][q])) for q in ("x", "y", "w", "h"))
+    keep = {rect(f) for t, a in anims.items() if t not in drop for f in a["frames"]}
+    gone = {rect(f) for t in drop if t in anims for f in anims[t]["frames"]} - keep
     px = px.copy()
-    for t, fr in new.items():
-        rects = an[t]["frames"]
-        if len(rects) != len(fr):
-            sys.exit(f"{hid}: {t} has {len(rects)} frames, made {len(fr)}")
-        for f, (a, ms) in zip(rects, fr):
-            x, y, w, h = (int(round(f["data"][q])) for q in ("x", "y", "w", "h"))
-            if (w, h) != (a.shape[1], a.shape[0]) or abs(f["duration"] * 1000 - ms) > 0.5:
-                sys.exit(f"{hid}: {t} frame {w}x{h} / {f['duration']} s, made {a.shape[1]}x{a.shape[0]} / {ms} ms")
-            px[y:y + h, x:x + w] = a
-    Image.fromarray(px, "RGBA").save(lp(T.stem(hid, pack) + "#sheet.png"), optimize=True)
-    tag = HEROES[hero]["tag"]
+    for x, y, w, h in gone:
+        px[y:y + h, x:x + w] = 0
+    Ws = px.shape[1]
+    total_h = px.shape[0] + sum(f.shape[0] + 1 for fr in new.values() for f, _ in fr)
+    occ = np.zeros((total_h, Ws), bool)
+    for x, y, w, h in keep:
+        occ[max(0, y - 1):y + h + 1, max(0, x - 1):x + w + 1] = True
+    out = np.zeros((total_h, Ws, 4), np.uint8)
+    out[:px.shape[0]] = px
+    anims = dict(anims)
+    for tag, fr in new.items():
+        rows = []
+        for f, ms in fr:
+            h, w = f.shape[:2]
+            ii = np.pad(np.cumsum(np.cumsum(occ.astype(np.int32), 0), 1), ((1, 0), (1, 0)))
+            s_ = ii[h:, w:] - ii[:-h, w:] - ii[h:, :-w] + ii[:-h, :-w]
+            free = np.argwhere(s_ == 0)
+            if not len(free):
+                sys.exit(f"{tag}: no room for a {w}x{h} frame")
+            y, x = free[0]
+            out[y:y + h, x:x + w] = f
+            occ[max(0, y - 1):y + h + 1, max(0, x - 1):x + w + 1] = True
+            rows.append({"duration": round(ms / 1000.0, 6),
+                         "data": {"x": float(x), "y": float(y), "w": float(w), "h": float(h)}})
+        anims[tag] = {"frames": rows}
+    used = [rect(f) for a in anims.values() for f in a["frames"]]
+    return out[:max(y + h for x, y, w, h in used), :max(x + w for x, y, w, h in used)], anims
+
+
+def write(hero, new, cfg=None):
+    """The tags' frames into the sheet (their own rects when every frame keeps its size and timing; else placed anew,
+    the fanim written too) and the dense frames into the strip tools/art/ppu_hd.py reads. -> fanim changed?"""
+    cfg = cfg or load(hero)
+    hid, pack, ppu, size = T.resolve(hero, T.all_heroes())
+    stem = T.stem(hid, pack)
+    with open(lp(stem + "#anim.fanim"), encoding="utf-8-sig") as f:
+        doc = json.load(f)
+    an = doc["anims"]
+    px = np.array(Image.open(lp(stem + "#sheet.png")).convert("RGBA"))
+    same = all(len(an[t]["frames"]) == len(fr) and all(
+        (int(round(r["data"]["w"])), int(round(r["data"]["h"]))) == (a.shape[1], a.shape[0])
+        and abs(r["duration"] * 1000 - ms) <= 0.5 for r, (a, ms) in zip(an[t]["frames"], fr)) for t, fr in new.items())
+    if same:
+        for t, fr in new.items():
+            for r, (a, _) in zip(an[t]["frames"], fr):
+                x, y, w, h = (int(round(r["data"][q])) for q in ("x", "y", "w", "h"))
+                px[y:y + h, x:x + w] = a
+    else:
+        order = list(an)
+        px, anims = place(px, an, tuple(new), new)
+        doc["anims"] = {t: anims[t] for t in order}
+        with open(lp(stem + "#anim.fanim"), "w", encoding="utf-8", newline="") as f:
+            f.write(json.dumps(doc, ensure_ascii=False, separators=(",", ":")))
+    Image.fromarray(px, "RGBA").save(lp(stem + "#sheet.png"), optimize=True)
+    tag = cfg["tag"]
     dense = [a for a, _ in new["hd_" + tag]]
     H = max(a.shape[0] for a in dense)
     s = np.zeros((H, sum(a.shape[1] + 1 for a in dense) - 1, 4), np.uint8)
@@ -429,47 +703,94 @@ def write(hero, new):
         s[:a.shape[0], x:x + a.shape[1]] = a
         x += a.shape[1] + 1
     Image.fromarray(s, "RGBA").save(lp(os.path.join(T.STRIPS, f"{T.strip_name(hid)}_{tag}.png")), optimize=True)
+    side = os.path.join(T.STRIPS, f"{T.strip_name(hid)}_{tag}.json")
+    meta = {}
+    if os.path.isfile(lp(side)):
+        with open(lp(side), encoding="utf-8") as f:
+            meta = json.load(f)
+    if meta.get("sizes") != [[a.shape[1], a.shape[0]] for a in dense]:
+        meta["sizes"] = [[a.shape[1], a.shape[0]] for a in dense]
+        with open(lp(side), "w", encoding="utf-8", newline="\n") as f:
+            json.dump(meta, f)
+    return not same
+
+
+def check(hero):
+    """-> problems (the sheet's run tags and the strip against what the tool makes)."""
+    cfg = load(hero)
+    new, _, _ = make(hero, cfg)
+    hid, pack, _, _ = T.resolve(hero, T.all_heroes())
+    an, px = T.read(hid, pack)
+    bad = []
+    for t, fr in new.items():
+        if len(an[t]["frames"]) != len(fr):
+            bad.append(t)
+            continue
+        for f, (b, ms) in zip(an[t]["frames"], fr):
+            x, y, w, h = (int(round(f["data"][q])) for q in ("x", "y", "w", "h"))
+            if (w, h) != (b.shape[1], b.shape[0]) or not np.array_equal(px[y:y + h, x:x + w], b):
+                bad.append(t)
+                break
+    tag = cfg["tag"]
+    strip = np.array(Image.open(lp(os.path.join(T.STRIPS, f"{T.strip_name(hid)}_{tag}.png"))).convert("RGBA"))
+    x = 0
+    for b, _ in new["hd_" + tag]:
+        if not np.array_equal(strip[:b.shape[0], x:x + b.shape[1]], b):
+            bad.append(f"assets/source/ppu/{T.strip_name(hid)}_{tag}.png")
+            break
+        x += b.shape[1] + 1
+    return bad
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--hero", required=True, choices=sorted(HEROES))
+    ap.add_argument("--hero")
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--dry", action="store_true")
+    ap.add_argument("--init", metavar="HERO")
+    ap.add_argument("--drawn-from", metavar="REV", help="--init: the drawn run from the sheet at this git revision")
+    ap.add_argument("--force", action="store_true", help="--init: write the data file again")
+    ap.add_argument("--batch", nargs="+", metavar="HERO")
+    ap.add_argument("--out", default=os.path.join(ROOT, "dist", "run_body"))
     a = ap.parse_args()
-    new, info, _ = make(a.hero)
-    hid, pack, _, _ = T.resolve(a.hero, T.all_heroes())
-    if a.check:
-        an, px = T.read(hid, pack)
-        bad = []
-        for t, fr in new.items():
-            for f, (b, ms) in zip(an[t]["frames"], fr):
-                x, y, w, h = (int(round(f["data"][q])) for q in ("x", "y", "w", "h"))
-                if (w, h) != (b.shape[1], b.shape[0]) or not np.array_equal(px[y:y + h, x:x + w], b):
-                    bad.append(t)
-                    break
-        tag = HEROES[a.hero]["tag"]
-        strip = np.array(Image.open(lp(os.path.join(T.STRIPS, f"{T.strip_name(hid)}_{tag}.png"))).convert("RGBA"))
-        x = 0
-        for b, _ in new["hd_" + tag]:
-            if not np.array_equal(strip[:b.shape[0], x:x + b.shape[1]], b):
-                bad.append(f"assets/source/ppu/{T.strip_name(hid)}_{tag}.png")
-                break
-            x += b.shape[1] + 1
-        if bad:
-            sys.exit(f"{hid}: {', '.join(bad)} not as tools/art/run_body_anim.py makes them")
-        print(f"ok: {hid} {tag} tags as made")
+    if a.init:
+        import run_body_init as I
+        I.init(a.init, rev=a.drawn_from, force=a.force)
         return
+    if a.batch:
+        import run_body_review as V
+        V.batch(a.batch, a.out)
+        return
+    if a.check and not a.hero:
+        bad = []
+        for h in heroes_with_data():
+            p = check(h)
+            print(f"{'ok' if not p else 'FAIL'}: {h}" + (f" - {', '.join(p)}" if p else ""))
+            bad += p
+        sys.exit(1 if bad else 0)
+    if not a.hero:
+        ap.error("--hero, --check, --init or --batch")
+    if a.check:
+        p = check(a.hero)
+        if p:
+            sys.exit(f"{a.hero}: {', '.join(p)} not as tools/art/run_body_anim.py makes them")
+        print(f"ok: {a.hero} run tags as made")
+        return
+    new, info, _ = make(a.hero)
     if a.dry:
+        hid, pack, _, _ = T.resolve(a.hero, T.all_heroes())
         an, _ = T.read(hid, pack)
         for t, fr in new.items():
-            print(t, [f"{b.shape[1]}x{b.shape[0]}" + ("" if (int(r["data"]["w"]), int(r["data"]["h"])) == (b.shape[1], b.shape[0])
-                                                    else f" (sheet {int(r['data']['w'])}x{int(r['data']['h'])})")
-                      for r, (b, _) in zip(an[t]["frames"], fr)])
-        print("1x squares off the rect:", [inf["one_lost"] for inf in info])
+            print(t, [f"{b.shape[1]}x{b.shape[0]}" + ("" if t in an and i < len(an[t]["frames"]) and
+                                                    (int(an[t]["frames"][i]["data"]["w"]),
+                                                     int(an[t]["frames"][i]["data"]["h"])) == (b.shape[1], b.shape[0])
+                                                    else " (sheet differs)") for i, (b, _) in enumerate(fr)])
+        print("1x squares off the rect:", [inf["one_lost"] for inf in info],
+              "| dense squares off the frame:", [inf["lost"] for inf in info])
         return
-    write(a.hero, new)
-    print(f"{hid}: {', '.join(new)} written ({len(next(iter(new.values())))} frames)")
+    changed = write(a.hero, new)
+    print(f"{a.hero}: {', '.join(new)} written ({len(next(iter(new.values())))} frames)"
+          + (" - NEW RECTS: the fanim changed, build league.dll again" if changed else ""))
 
 
 if __name__ == "__main__":
