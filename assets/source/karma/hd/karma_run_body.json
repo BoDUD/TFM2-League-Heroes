@@ -1,0 +1,31 @@
+{
+  "hero": "karma",
+  "tag": "run",
+  "drawn": "assets/source/karma/hd/karma_run_drawn",
+  "from": 2,
+  "outline": [15, 3, 16],
+  "waist": [-22, -22, -22, -22, -22, -22, -22, -22],
+  "bob": [5, 3, 5, 7, 5, 3, 5, 7],
+  "below": [
+    [],
+    [[null, 43, 61, 66]],
+    [[null, 46, 77, 81]],
+    [[null, 43, 72, 77]],
+    [],
+    [[null, 41, 37, 42], [null, 43, 74, 79]],
+    [[null, 42, 35, 41], [null, 43, 73, 77]],
+    [[null, 58, 23, 46]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "contacts": "frames [2, 6] (feet's band spread [17, 34, 49, 19, 16, 17, 63, 19])",
+    "waist": "row -22 from the centre in every frame: per-row differing share passes 0.751 there (figure rows -62..26)",
+    "from": "frame 2: closest to hd_idle_base[0] (alike share per frame [0.313, 0.312, 0.353, 0.349, 0.353, 0.328, 0.348, 0.334])",
+    "below": "rects per frame [0, 1, 1, 1, 0, 2, 2, 1] (her squares under the waist her feet do not reach)",
+    "bob": "4 squares low to high (1.82 game px), low the frame after the contacts [2, 6], moved by 3 so the head stays in every rect: [5, 3, 5, 7, 5, 3, 5, 7]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 2) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "variants": {"face": {"lock": "head", "steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "from": 0, "head": [[23, 50], [23, 55], [24, 55], [24, 56], [25, 56], [25, 58], [26, 58], [26, 59], [29, 59], [29, 60], [33, 60], [33, 59], [34, 59], [34, 60], [37, 60], [37, 52], [36, 52], [36, 51], [32, 51], [32, 50], [30, 50], [30, 49], [25, 49], [25, 50]], "chin": 37, "head_match_colours": [[211, 111, 56], [213, 115, 59], [198, 113, 62], [155, 89, 63], [116, 18, 116], [170, 25, 145]], "head_colours": [[211, 111, 56], [213, 115, 59], [198, 113, 62], [155, 89, 63], [116, 18, 116], [170, 25, 145], [203, 25, 144], [240, 47, 179], [108, 53, 51]], "clear_grow": 2, "clear_poly": [[21, 50], [21, 55], [22, 55], [22, 56], [23, 56], [23, 58], [24, 58], [24, 59], [25, 59], [25, 60], [26, 60], [26, 61], [29, 61], [29, 62], [33, 62], [33, 61], [34, 61], [34, 62], [37, 62], [37, 61], [38, 61], [38, 60], [39, 60], [39, 52], [36, 52], [36, 51], [32, 51], [32, 50], [30, 50], [30, 49], [25, 49], [25, 50]], "fill_skip": [[211, 111, 56], [213, 115, 59], [198, 113, 62], [155, 89, 63], [116, 18, 116], [170, 25, 145], [203, 25, 144], [240, 47, 179], [108, 53, 51]], "skin": [[211, 111, 56], [213, 115, 59]], "chains": {}}},
+  "use": "face"
+}
