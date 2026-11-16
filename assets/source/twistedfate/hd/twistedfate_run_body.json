@@ -1,0 +1,33 @@
+{
+  "hero": "twistedfate",
+  "tag": "run",
+  "drawn": "assets/source/twistedfate/hd/twistedfate_run_drawn",
+  "from": 2,
+  "outline": [12, 8, 17],
+  "waist": [-28, -28, -28, -28, -28, -28, -28, -28],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 73, 12, 48]],
+    [[null, 53, 12, 17]],
+    [[null, 56, 43, 48]],
+    [[null, 56, 9, 13], [null, 70, 15, 48]],
+    [[null, 86, 3, 50]],
+    [[null, 90, 2, 48]],
+    [[null, 78, 8, 51]],
+    [[null, 70, 15, 50]]
+  ],
+  "notes": {
+    "contacts": "frames [3, 7] (feet's band spread [39, 27, 40, 60, 19, 36, 42, 56])",
+    "waist": "row -28 from the centre in every frame: per-row differing share passes 0.599 there (figure rows -80..31)",
+    "from": "frame 1: closest to hd_idle_base[0] (alike share per frame [0.626, 0.685, 0.536, 0.5, 0.525, 0.521, 0.495, 0.491]; fits every frame: [1, 2, 3, 4, 5, 6, 7])",
+    "below": "rects per frame [1, 1, 1, 2, 1, 1, 1, 1] (her squares under the waist her feet do not reach)",
+    "bob": "4 squares low to high (1.49 game px), low the frame after the contacts [3, 7], moved by -2 so the head stays in every rect: [2, 0, -2, 0, 2, 0, -2, 0]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 1) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "lock": "head",
+  "head": [[3, 17], [3, 51], [9, 53], [14, 56], [18, 60], [22, 64], [25, 67], [32, 68], [36, 65], [37, 54], [46, 54], [50, 47], [50, 35], [49, 35], [49, 4], [43, 7], [35, 7], [30, 9], [28, 8], [25, 3], [21, 0], [15, 0], [10, 4], [7, 9]],
+  "chin": 49,
+  "x": 0,
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[130, 250, 249], [115, 174, 190], [210, 136, 90], [169, 100, 66]], "clear_all": true, "skin": [[210, 136, 90], [169, 100, 66]], "chin_rows": [47, 46, 48, 48, 49, 48, 48, 47], "keep_colours": [[64, 41, 32], [86, 51, 37], [182, 170, 198], [201, 196, 213], [150, 133, 165], [39, 26, 22], [48, 8, 19], [98, 4, 23]], "clear_poly": [[-3, 12], [-3, 56], [4, 60], [10, 63], [14, 67], [18, 71], [22, 75], [32, 75], [38, 71], [40, 58], [46, 58], [50, 50], [50, 35], [49, 35], [49, 1], [43, 2], [35, 1], [30, 2], [28, 0], [25, -6], [20, -8], [13, -8], [8, -4], [3, 3]], "clear_grow": 3, "beside_head": "ground", "clear_specks": 8, "keep_one": "assets/source/twistedfate/hd/twistedfate_run_one"}}
+}
