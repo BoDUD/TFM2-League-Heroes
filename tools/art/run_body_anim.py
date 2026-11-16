@@ -188,6 +188,8 @@ def load(hero, variant=None):
                             for rs in cfg["below"]]
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
+        if cfg.get("head_clear"):
+            cfg["head_clear"] = [None if q is None else [[r + pr, c + pc] for r, c in q] for q in cfg["head_clear"]]
     return cfg
 
 
@@ -866,6 +868,12 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
         # `clear_poly`: corners in frame `from`, placed where the frame's own head is found - the clearing never goes
         # outside them (a shoulder plate in the head's own colours right under it keeps every square)
         zone &= poly_mask([(r + my, c + mx) for r, c in cfg["clear_poly"]], a.shape)
+    hc = cfg.get("head_clear")
+    if hc and hc[pose]:
+        # `head_clear`: the frame's own head by hand - corners in the frame's own rows / cols, a polygon a drawn frame
+        # (null: the zone as above): exactly its squares are cleared, never what is drawn beside it (a fist, a staff, a
+        # shoulder pad, a scarf up by the face stays the frame's own, square for square)
+        zone = poly_mask([tuple(p) for p in hc[pose]], a.shape)
     if cfg.get("clear_all"):
         # `clear_all`: every square of the frame's own head goes - all its colours but `keep_colours` (a collar, a
         # scarf round the neck), down to its own chin: the lowest of its face's `skin` squares, and the outline under it
