@@ -1,0 +1,32 @@
+{
+  "hero": "elise",
+  "tag": "run",
+  "drawn": "assets/source/elise/hd/elise_run_drawn",
+  "from": 3,
+  "outline": [4, 2, 3],
+  "waist": [-22, -19, -19, -20, -21, -20, -20, -19],
+  "bob": [-2, 1, 1, 0, -1, 0, 0, 1],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "by hand (character runs round 3, agent G3, 11-16; F3's whole-upper-body lock needed 37-79-square fills under the waist in frames 0 / 4)",
+    "lock": "her upper body (head, torso, arms, the eight spider legs on her back) is one drawing in three shading sets (frames 3 / 5 / 6 alike 1.00 and frame 0 0.94-0.98; frames 2 / 7 1.00 and frame 4 0.93-0.99; frame 1 alone; 0.72-0.84 between the sets): the silhouette is the same in every frame (97.7-100 % of frame 3's upper body on the frame's own squares at its drawn place; the rest single edge squares), only the spider legs' and the body's light and dark squares change - a shimmer, as league_vladimir's. Frame 3's upper body is laid on every frame's own drawn place (rows -2 1 1 0 -1 0 0 1 from frame 3's, by the silhouette)",
+    "waist": "each frame's waist at its own drawn place (-20 + bob: -22 -19 -19 -20 -21 -20 -20 -19): one waist row for all (F3) left a 1-2-row band between the laid body's lower edge and the frame's own waist in frames 0 / 4 (filled: 37-79 squares) and laid the body over the frame's own rows in 1 / 2 / 7; now the laid body ends where the frame's own drawing goes on - fills 0-24 a frame, the largest piece 3",
+    "below": "under the waist each frame's own drawing (the hips, the spider legs' lower ends, the legs): the lower ends are drawn a little differently frame to frame (silhouette 0.92-1.00 of frame 3's) and run into her back thigh (dark on dark), so they stay as drawn",
+    "spider legs": "League's Elise_Run1 (0.968 s) sways the spider-leg tips +-2-5 columns / +-2-3 rows against the chest; the drawing never moved them (only their shading flickered), the lock keeps them as frame 3 draws them - not moved now",
+    "keep_one": "her 1x run is not ppu_one's from her dense frames (414-463 squares a frame off): it stays as installed (assets/source/elise/hd/elise_run_one.png); lo_run is made from the dense frames (it was, 0 squares off)",
+    "undecided": []
+  },
+  "x": 0,
+  "keep_one": "assets/source/elise/hd/elise_run_one"
+}
