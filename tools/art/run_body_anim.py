@@ -1203,8 +1203,12 @@ def make(hero, cfg=None):
         # remade, every square of it would change; the lo_ frames are made from the dense ones anyway
         s1 = np.array(Image.open(lp(os.path.join(ROOT, cfg["keep_one"] + ".png"))).convert("RGBA"))
         kept1, x1 = [], 0
-        for f, _ in one:
+        for k1, (f, _) in enumerate(one):
             h1, w1 = f.shape[:2]
+            if pr or pc:
+                # (with `pad` the made 1x frames grow: the kept ones keep their own sizes, the drawn run's 1x ones -
+                # league_camille's added coat tails are in her dense and lo_ frames only)
+                w1, h1 = one_sz[k1]
             kept1.append(s1[:h1, x1:x1 + w1].copy())
             x1 += w1 + 1
         one = [(f1, ms) for f1, (_, ms) in zip(kept1, one)]
