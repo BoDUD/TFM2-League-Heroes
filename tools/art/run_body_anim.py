@@ -91,6 +91,13 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   neighbouring columns at most a square apart - behind the rest (`front`: over it); the head's own edge it bares is
   closed with 2 squares of outline, the rest of what it leaves is ground. `head_search`: how far from the frames'
   centres the frame's own head is looked for (10 squares by default).
+- `lock` "own": nothing is laid from frame `from` - every frame keeps its own drawing (a run drawn as whole key poses, the
+  arms pumping as drawn: league_shyvana's Codex poses), its upper body (above its `waist`, with what `below`'s rects
+  hold) moved `shift` rows down (never up: lowered over its own hips) and `shift_x` columns (+ right: a rigid lean,
+  never a turn) over its own legs, the legs square for square as drawn (compose_own) - with `steps` 2 the body bobs on
+  every frame while each drawn pose is shown twice; `upper` (a mask spec a drawn frame) names that upper body square
+  for square where no waist row and rects can (a tail leaving the hip under the belt: everything but the legs, cut off
+  at the hips).
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -213,7 +220,7 @@ def load(hero, variant=None):
                             for rs in cfg["below"]]
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
-        for key in ("head_clear", "own_clear"):
+        for key in ("head_clear", "own_clear", "upper"):
             if cfg.get(key):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
@@ -622,9 +629,14 @@ def prop_layers(frames, cfg):
 def own_upper(a, cfg, i, match=None):
     """Frame i's own upper body: everything above its waist and, under it, either what `below`'s rects hold that its
     legs do not reach, or (`below` "match": the upper body is one drawing in every frame, only moved) the squares of
-    frame `from`'s laid upper body where it sits in frame i, square for square alike (a leg drawn over it stays)."""
+    frame `from`'s laid upper body where it sits in frame i, square for square alike (a leg drawn over it stays).
+    `upper` (`lock` "own"; a mask spec a drawn frame, null: the waist / `below` rule): exactly those squares of the
+    frame - a pose whose tail, hair or hanging fist reaches under any one waist row (league_shyvana's tail from the hip):
+    everything but the legs, the legs cut off at the hips by hand."""
     H, W = a.shape[:2]
     op = a[..., 3] > 0
+    if cfg.get("upper") and cfg["upper"][i]:
+        return spec_mask(cfg["upper"][i], a.shape) & op
     ink = colour_mask(a, [cfg["outline"]])
     cy = H // 2
     wr = cy + cfg["waist"][i]
@@ -755,9 +767,11 @@ def off_of(v):
 
 def layer_names(cfg):
     """Back to front: the chains, the parts behind the body (a cape), the body, the parts in front (fists, a weapon);
-    `lock` "head": the head alone."""
+    `lock` "head": the head alone; `lock` "own": none (every frame its own drawing)."""
     if cfg.get("lock") == "head":
         return ["head"]
+    if cfg.get("lock") == "own":
+        return []
     parts, chains = cfg.get("parts", []), cfg.get("chains", [])
     return ([c["name"] for c in chains if not c.get("front")] + [p["name"] for p in parts if p.get("behind")] + ["body"]
             + [c["name"] for c in chains if c.get("front")] + [p["name"] for p in parts if not p.get("behind")])
@@ -1341,6 +1355,57 @@ def shifted_upper(a, cfg, pose, sh):
     return b, put, legs & ~put, inside & (b[..., 3] > 0)
 
 
+def compose_own(a, i, cfg, pose):
+    """`lock` "own": frame i is drawn frame `pose`'s own drawing - nothing laid from frame `from`, every drawn frame its
+    own upper body (a run whose poses are drawn whole, the arms pumping as drawn: league_shyvana's Codex key poses) -
+    with that upper body (above its `waist`, with what `below`'s rects hold; `upper`: exactly its squares) moved `shift`
+    rows DOWN (never up: lowered over its own hips, no gap to fill) and `shift_x` columns (+ right; a rigid lean, never a
+    turn) over its own legs as drawn, laid over them; what it leaves is ground where it reaches the ground round her
+    (the top edge of the hair, a horn, the tail), a hole shut in by her is joined (from the legs' colours by them, else
+    outline) and a leg's colour square it bares to the ground gets outline - the legs square for square as drawn. With
+    `steps` 2 the body bobs on every frame while each drawn pose is shown twice. -> (frame, info)."""
+    sh = int(cfg["shift"][i]) if cfg.get("shift") else 0
+    sx = int(cfg["shift_x"][i]) if cfg.get("shift_x") else 0
+    z = np.zeros(a.shape[:2], bool)
+    if not sh and not sx:
+        return a.copy(), {"own": z, "legs": a[..., 3] > 0, "torso": z, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
+                          "head": z, "joined": z, "kept": z, "shift": 0, "shift_x": 0}
+    if sh < 0:
+        sys.exit(f"`lock` \"own\": shift {sh} at frame {i} - the body is only lowered over its hips (down +)")
+    H, W = a.shape[:2]
+    out_c = cfg["outline"]
+    op0 = a[..., 3] > 0
+    own = own_upper(a, cfg, pose)
+    b = a.copy()
+    b[own] = 0
+    legs = b[..., 3] > 0
+    ys, xs = np.nonzero(own)
+    ty, tx = ys + sh, xs + sx
+    if ((ty < 0) | (ty >= H) | (tx < 0) | (tx >= W)).any():
+        sys.exit(f"shift {sh}, {sx}: the upper body leaves frame {pose}")
+    b[ty, tx] = a[ys, xs]
+    put = np.zeros((H, W), bool)
+    put[ty, tx] = True
+    clear = b[..., 3] == 0
+    lab, _ = ndimage.label(clear)
+    outer = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
+    hole = clear & op0 & ~np.isin(lab, outer[outer > 0])          # (only squares she covered before: no new pinholes)
+    near_legs = hole & ndimage.binary_dilation(legs, structure=K8, iterations=2)
+    fill_in(b, near_legs, legs & ~put & ~colour_mask(b, [out_c]))
+    rest = hole & (b[..., 3] == 0)
+    b[rest, :3] = out_c
+    b[rest, 3] = 255
+    leg_col = legs & ~put & ~colour_mask(b, [out_c])
+    bare = (b[..., 3] == 0) & op0 & ndimage.binary_dilation(leg_col, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
+                                                                                         bool))
+    b[bare, :3] = out_c
+    b[bare, 3] = 255
+    op = b[..., 3] > 0
+    joined = (hole | bare) & op
+    return b, {"own": z, "legs": legs & op & ~put, "torso": put & op, "at": (sh, sx), "lost": 0, "drawn_at": (0, 0),
+               "head": z, "joined": joined, "kept": z, "shift": sh, "shift_x": sx}
+
+
 def make(hero, cfg=None):
     """-> ({"hd_<tag>", "<tag>", "lo_<tag>": [(frame, ms)]}, per-frame info, motion)."""
     import ppu_hd as P
@@ -1353,7 +1418,8 @@ def make(hero, cfg=None):
     src = added(frames[i0][0], cfg)                     # (`add`: pieces the drawing lacks, in frame `from`'s drawing)
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     head_only = cfg.get("lock") == "head"
-    layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
+    own_only = cfg.get("lock") == "own"                 # (`lock` "own": nothing laid - compose_own)
+    layers = {"head": head_of(src, cfg)} if head_only else {} if own_only else pieces(src, cfg, i0)
     props = prop_layers(frames, cfg) if head_only else []
     hchains = head_chain_masks(src, cfg, layers["head"]) if head_only and cfg.get("head_chains") else {}
     # (a `hang` chain's are its rows: it hangs from a root row, every row shifted sideways)
@@ -1389,7 +1455,9 @@ def make(hero, cfg=None):
         elif steps > 1:
             ms = ms / float(steps)
         match, alike = None, None
-        if head_only:
+        if own_only:
+            b, inf = compose_own(a, i, cfg, p)
+        elif head_only:
             b, inf = compose_head(a, i, src, layers["head"], mov, cfg, p, props, hchains)
         else:
             if cfg["below"] == "match":
