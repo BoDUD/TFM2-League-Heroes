@@ -52,7 +52,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   frame then (two beats: a quick dip as each step lands, a slower rise on the push-off) and the `lag`s count frames;
 - a part's `rows` (a value a frame) instead of `lag` / `range`: a head that nods - a square lower on the frame of each
   landing's lowest, back the next; a chain's `with`: the part it hangs from, its rows on every column too (the back
-  hair with that head); a square in two parts' corners is the first one's;
+  hair with that head); a square in two parts' corners is the first one's; a chain's `tip_lag` (with `tip`): frames
+  the tip's path lags the root end by - each column takes the tip's path that much earlier by its share of the way out
+  (league_belveth's hair ribbon: League's Hair4..Hair8 follow one another, a wave running out along it);
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
@@ -408,11 +410,19 @@ def motion(cfg, n, chain_cols):
             root = c["root"]
             span = max(1, max(abs(root - x) for x in cols)) if cols else 1
             order = sorted(cols, key=lambda x: abs(root - x))
+            # `tip_lag`: frames the tip's path lags the chain's root end by (a ribbon's wave running out along it, as
+            # League's hair joints follow one another): a column that share of the way out takes the tip's path that
+            # much earlier (the periodic curve through the `tip` rows), scaled by its share - the tip keeps `tip`
+            tip_at = curve(c["tip"]) if c.get("tip_lag") else None
             rows_ = []
             for i in range(n):
                 d, prev = {}, 0
                 for x in order:
-                    v = int(round(c["tip"][i] * abs(root - x) / float(span)))
+                    if tip_at is None:
+                        v = int(round(c["tip"][i] * abs(root - x) / float(span)))
+                    else:
+                        u = abs(root - x) / float(span)
+                        v = int(round(tip_at(i + float(c["tip_lag"]) * (1.0 - u)) * u))
                     v = max(prev - 1, min(prev + 1, v))
                     d[x] = v
                     prev = v
