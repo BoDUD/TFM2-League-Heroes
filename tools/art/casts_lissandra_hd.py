@@ -7,7 +7,8 @@ at her design (the user, 2026-11-03: 「继续加四个 魔腾 凯南 剑魔 丽
 hd/casts holds Codex's 25 sheets (each its chosen raw generation byte for byte, redos included), drawn on a
 near-white ground: casts_rengar_hd.figure keys it off. Each frame's zoom (FRAME_ZOOM, --fit) reads her STAND rows tall,
 the top of her crown to her hem as the design, and of the zooms that do, the one nearest to what her CROWN gives (see
-FRAME_ZOOM), so her body and her crown are the design's size in every frame; HEAD_FROM gives two frames another's head.
+FRAME_ZOOM), so her body and her crown are the design's size in every frame; HEAD_FROM gives two frames another's head;
+DEAD_PAINT lays her own shades over the black hole Codex left under the crown in the death's 5-8.
 The old frame's body (its box places the new frame) leaves out what the old sheet baked in, the ice shards and frost by
 her hands: only what lies within two pixels of the dark outline counts (OLD_BODY). Each frame is then placed where the
 old body stood: its box's middle on the old box's middle and its bottom on the old box's bottom, from the pivot, on the
@@ -73,6 +74,19 @@ CROWN_ROWS = 14                 # design rows 0-13: the crown down to the brim's
 # head_from's boxes under the brim (design rows and columns, from the fitted crown): the visor, the face and its dark
 # right side; the hair on her left and the hand by her chin stay the frame's own
 HEAD_BOXES = ((14, 22, 21, 38), (22, 26, 21, 33))
+# her design's dark shades (paint_void): the outline's two near-blacks, the hood's navy and the shade one darker
+OUTLINE_COLS = ((11, 7, 26), (12, 9, 30))
+HOOD_COL = (27, 25, 66)
+SHADE_COL = (17, 14, 43)
+# the death's 5-8 (Codex's dead_5, and dead_6 that 6-8 hold) had a black hole under the crown between her raised arms,
+# the face floating in it and her pale hair gone (the user, 2026-11-17: 「感觉你说的丽桑卓那几个问题还是得修」).
+# paint_void lays her own shades there, the way the design and her death 3 (dead_3, the same arms raised to the brim)
+# draw the place: the row under the brim's outline the hood's shade, the rest the hood's navy, the hair back from
+# dead_3 left of the pillar, the visor right of the face the shade; the outline round the arms, the face and the
+# ground stays. Boxes in design rows and columns from each frame's fitted crown: (rows, cols)
+DEAD_PAINT = {"src": "dead_3", "zone": (14, 31, 11, 40), "hair": (15, 29, 11, 22), "visor": (18, 27, 34, 37),
+              "shade_row": 14, "face": (19, 28, 26, 35), "arms": ((13, 31, 0, 12), (9, 31, 38, 50))}
+DEAD_PAINTED = ("dead_5", "dead_6")      # (the drawings; dead_7 / dead_8 hold dead_6)
 
 # casts_rengar_hd's reading on her design
 CS.D0, CS.HEAD = D0, HEAD
@@ -293,6 +307,8 @@ def placed():
         out[n] = thrown(n, *out[n])
     for n, src in HEAD_FROM.items():
         out[n] = head_from(*out[n], out[src][0])
+    for n in [n for n in out if HELD.get(n, n) in DEAD_PAINTED]:
+        out[n] = (paint_void(out[n][0], out[DEAD_PAINT["src"]][0]), out[n][1], out[n][2])
     for n, (pic, x, y) in out.items():
         out[n] = (body_only(pic), x, y)
     return out
@@ -342,6 +358,53 @@ def head_from(pic, x, y, src, pad=4):
                     out[r + oy, c + ox] = src[r, c]
     ys, xs = np.nonzero(out[..., 3] > 0)
     return out[ys.min():ys.max() + 1, xs.min():xs.max() + 1], x - pad + int(xs.min()), y - pad + int(ys.min())
+
+
+FACE_COLS = ((167, 207, 251), (130, 165, 241), (176, 214, 250))       # her face's pale blues in the design
+
+
+def _cols(pic, cols, tol=0):
+    rgb = pic[..., :3].astype(int)
+    m = np.zeros(pic.shape[:2], bool)
+    for c in cols:
+        m |= np.abs(rgb - c).sum(-1) <= tol
+    return m & (pic[..., 3] > 0)
+
+
+def _box(shape, b, oy, ox):
+    m = np.zeros(shape[:2], bool)
+    m[max(0, b[0] + oy):max(0, b[1] + oy), max(0, b[2] + ox):max(0, b[3] + ox)] = True
+    return m
+
+
+def paint_void(pic, src, spec=DEAD_PAINT):
+    """The black under her crown in her own shades (DEAD_PAINT): every outline square in the zone but the outline of
+    the ground, of the arms and of the face -> the shade in the shade row, src's hair in the hair box (src's light
+    squares, not its face; else the hood), the shade in the visor box, else the hood's navy. src lies on the same
+    crown (crown_fit on both)."""
+    fy, fx = crown_fit(pic)
+    sy, sx = crown_fit(src)
+    op = pic[..., 3] > 0
+    light = op & (pic[..., :3].astype(int).sum(-1) >= 300)
+    face = _cols(pic, FACE_COLS, 11) & _box(pic.shape, spec["face"], fy, fx)
+    arms = np.zeros(op.shape, bool)
+    for b in spec["arms"]:
+        arms |= _box(pic.shape, b, fy, fx)
+    four = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]], bool)
+    near = ndimage.binary_dilation(~op | (light & arms) | face, structure=four)
+    void = _cols(pic, OUTLINE_COLS) & _box(pic.shape, spec["zone"], fy, fx) & ~near
+    src_light = (src[..., 3] > 0) & (src[..., :3].astype(int).sum(-1) >= 300) & ~_cols(src, FACE_COLS, 11)
+    hair, visor = _box(pic.shape, spec["hair"], fy, fx), _box(pic.shape, spec["visor"], fy, fx)
+    out = pic.copy()
+    for y, x in zip(*np.nonzero(void)):
+        Y, X = y - fy + sy, x - fx + sx
+        if y == spec["shade_row"] + fy:
+            out[y, x, :3] = SHADE_COL
+        elif hair[y, x] and 0 <= Y < src.shape[0] and 0 <= X < src.shape[1] and src_light[Y, X]:
+            out[y, x] = src[Y, X]
+        else:
+            out[y, x, :3] = SHADE_COL if visor[y, x] else HOOD_COL
+    return out
 
 
 def body_only(pic, keep_ahead=False):
