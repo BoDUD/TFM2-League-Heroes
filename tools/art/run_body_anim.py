@@ -69,6 +69,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `part_gaps`: a moved part or chain takes its own surroundings along: a square it left that is clear in frame `from`'s
   drawing where the moved piece puts it (the air beside a staff slid along itself, under a raised topknot) stays ground
   instead of a fill - what it bares of the drawing behind it is still filled.
+- `open_pockets`: N - a pocket of more than N squares the moved layers shut off, at least half of it clear in the
+  frame's own drawing (the sky between two spider legs whose tips swing together: league_elise), stays ground instead
+  of being filled with outline as a pinhole.
 - `props` (with `lock` "head"): rigid props the artist redrew a little differently in every frame (league_sona's etwahl:
   「琴女的琴有点变形」) - one drawing each, laid on each frame's own drawn place: `squares` (a mask spec in its drawn frame
   `from` - the head's by default - its squares with their outline and what rests on it, the hands on its strings), `at`
@@ -890,6 +893,15 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         lab_, n_ = ndimage.label(pockets(b))
         hit_ = np.unique(lab_[keep_open & (b[..., 3] == 0)])
         shut &= ~np.isin(lab_, hit_[hit_ > 0])
+    if cfg.get("open_pockets"):
+        # `open_pockets`: N - a pocket of more than N squares the moved layers shut off, at least half of it clear in
+        # the frame's own drawing (the sky between two spider legs whose tips swing together: league_elise), stays
+        # ground instead of being filled with outline as a pinhole
+        lab_, n_ = ndimage.label(pockets(b))
+        for j in range(1, n_ + 1):
+            m_ = lab_ == j
+            if m_.sum() > int(cfg["open_pockets"]) and (a[..., 3][m_] == 0).mean() >= 0.5:
+                shut &= ~m_
     b[shut, :3] = out_c
     b[shut, 3] = 255
     info["joined"] = ((near_legs | rest | bare | shut) & (b[..., 3] > 0)) & ~put
