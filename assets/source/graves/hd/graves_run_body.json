@@ -1,0 +1,24 @@
+{
+  "hero": "graves",
+  "tag": "run",
+  "drawn": "assets/source/graves/hd/graves_run_drawn",
+  "from": 0,
+  "outline": [9, 1, 10],
+  "waist": [-2, -1, -2, -3, -2, -1, -2, -3],
+  "bob": [0, 1, 0, -1, 0, 1, 0, -1],
+  "x": 0,
+  "below": "match",
+  "keep_gaps": true,
+  "part_gaps": true,
+  "parts": [],
+  "chains": [
+    {"name": "cape", "poly": [[26, 3], [26, 24], [32, 24], [32, 19], [35, 19], [35, 3]], "root": 20, "side": "left", "lag": 0, "whip": 0.0, "tip": [-2, -3, -2, 0, 1, 2, 1, -1]}
+  ],
+  "notes": {
+    "made": "--init, then by hand (character runs round 2, 11-16)",
+    "from": "frame 0: his upper body is one drawing in every frame (100 % above row 39), at the same squares - each frame's own place from its centre: rows 0 1 0 -1 0 1 0 -1",
+    "chains": "the red mantle's tail flowing behind (cut by its corners, the gun stock's outline left to the stock; root column 20 - the tail's base by the stock stays): its tip on League's graves_run mantle_i (the mantle's back tail, -3.8..3.0 squares against the chest), a triangle wave -3..2 so no step is over 2 (the loop seam 1)",
+    "timing": "the installed 8 x 115 ms (920 ms) kept: League's cycle is 1.111 s (graves_run.anm 1.0 s at a tick of 0.037 s), but his drawn stride is 27 game px a step, what his move speed covers in 460 ms - at 1.111 s the planted feet would slide 20 %",
+    "not moved": "the shotgun: it lies across his body, the rear hand and arm in front of its stock, the front hand under the barrel - a 1-column slide would split it from the hands or bare the shirt behind; the shoulder mantle lies on his body; League has no hair joints"
+  }
+}
