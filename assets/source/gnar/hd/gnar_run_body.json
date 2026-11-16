@@ -1,0 +1,30 @@
+{
+  "hero": "gnar",
+  "tag": "run",
+  "drawn": "assets/source/gnar/hd/gnar_run_drawn",
+  "from": 0,
+  "outline": [3, 1, 3],
+  "waist": [-32, -33, -34, -33, -32, -33, -34, -33],
+  "bob": [0, -1, -2, -1, 0, -1, -2, -1],
+  "x": 0,
+  "below": "match",
+  "keep_gaps": false,
+  "part_gaps": true,
+  "bare_ground": true,
+  "parts": [],
+  "chains": [
+    {"name": "ear_left", "poly": [[17, 7], [17, 10], [19, 10], [19, 11], [18, 11], [18, 13], [19, 13], [19, 14], [18, 14], [18, 16], [21, 16], [21, 17], [22, 17], [22, 16], [24, 16], [24, 15], [26, 15], [26, 16], [27, 16], [27, 15], [29, 15], [29, 14], [30, 14], [30, 13], [29, 13], [29, 12], [28, 12], [28, 9], [29, 9], [29, 6], [28, 6], [28, 5], [27, 5], [27, 0], [25, 0], [25, 1], [24, 1], [24, 2], [23, 2], [23, 3], [21, 3], [21, 4], [19, 4], [19, 7]], "root": 16, "side": "left", "lag": 0, "whip": 0.0, "tip": [-1, 3, 3, 1, -2, -1, 0, -1]},
+    {"name": "ear_right", "poly": [[1, 37], [1, 50], [16.5, 50], [16.5, 40.5], [15.5, 40.5], [15.5, 39.5], [14.5, 39.5], [14.5, 37]], "root": 38, "side": "right", "lag": 0, "whip": 0.0, "tip": [-2, -1, -1, -2, 0, 3, 3, 0]}
+  ],
+  "notes": {
+    "made": "--init (the installed run, 9d91855ec), then by hand (character runs round 4, 11-16: the character method; the left ear redrawn - the coordinator on the user's 「有问题就改模型」)",
+    "body": "every frame its own drawing (waist at the top, `below` match): his head, bone, body, tail and legs are as drawn in every frame (the frames are one drawing above row 28, the tail swings in two poses under it); only the two ears are laid from frame 0, behind the rest",
+    "bob": "his drawn place (0 -1 -2 -1 0 -1 -2 -1 rows from the centre): the ears ride on it",
+    "add": "the left ear's hidden continuation (the model change): it is drawn wedged between the bone knob, the head tuft and the tail, sharing their outline rows; laid behind them it now continues 1-2 rows behind the tuft (cols 7-12, in its own top-row colours) and 1 row behind the tail's top under the pink lobes, so a column it drops or lifts shows more ear, never a gap; its tip keeps its own bottom outline (row 26), the tail keeps the band under it (rows 27-28) - lifted, the tip parts from the tail by a slit of ground open to the frame's edge. At rest every frame is the installed one square for square",
+    "chains": "League's Gnar_Run1 (1.6 s file = two strides of 0.8 s; our frame 0 = sample 10 of 24 a stride, the pelvis lowest after a contact, 3 samples a frame), the ears against the head at his 50-row figure: L_Ear2 -1.0 3.8 4.5 1.3 -3.3 -2.0 -0.6 -2.6, R_Ear2 -3.1 -1.7 -1.5 -3.2 -0.6 4.4 4.6 1.0 squares (down +), flapping in turn; the left ear a chain left of column 16 (its root by the head stays), tip x 0.7 -1 3 3 1 -2 -1 0 -1 rows; the right ear a chain right of column 38 cut off the cheek, tip -2 -1 -1 -2 0 3 3 0 rows (x 0.7, the last frame eased to 0 so the loop seam is 2: under 1.5 x the median step)",
+    "keep_one": "his 1x run is a drawing of its own (ppu_one's from the dense frames differs in 476-546 squares a frame): kept as installed",
+    "not moved": "the bone on his head (League bobs it +-2: it lies on the head along 15 squares - up opens that seam, down moves it towards his eyes; slid sideways it needs 7-square fills); the tail (the artist swings it between two poses)"
+  },
+  "keep_one": "assets/source/gnar/hd/gnar_run_one",
+  "add": [{"name": "ear_left_hidden", "at": [17, 5], "key": {"a": [3, 1, 3], "b": [18, 38, 122], "c": [18, 119, 245], "d": [131, 30, 102], "e": [250, 119, 172]}, "rows": ["..ccc.....", "..ccc.bd..", "..........", "..........", "..........", "..........", "..........", "..........", "..........", "..........", "e...aae...", ".eee...e.e", "........e."], "under": false}]
+}
