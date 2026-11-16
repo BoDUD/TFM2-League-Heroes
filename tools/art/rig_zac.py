@@ -24,7 +24,10 @@ fist thrown out on a long arm, as League's Zac_attack1 does.
 The idle is the design alone (no breathing: hero_reels cuts the idle and ban/pick snippets from these actions).
 The run is league_braum's / league_warwick's approved walk for big heroes: the design's own legs under the hip band, one
 lifted per frame by losing its top rows and stepped forward, the body floating a little, the arms swinging a square
-against the legs, the tendril swaying (no part turned or stretched: 「有点变形了吧？手」).
+against the legs, the tendril swaying (no part turned or stretched: 「有点变形了吧？手」). The far arm swings from under his
+jaw (FAR_SWING): its shoulder and upper arm lie against his face, sharing its outline, and move with the body - swung
+whole, it opened a second outline down his face or covered his cheek (the user, 2026-11-17: 「扎克其他没什么问题 就是跑步
+时看起来右手像和身体有点分离」).
 The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
 the design's tendril on a pose swaying (its rows shifted sideways, the knob 3 squares, nothing at its root), Q's
 reaching arm slid back along itself in under his face, and poses of other actions passing through (the attack's
@@ -76,6 +79,9 @@ NEAR_ARM = {int(y): x for y, x in SLIM["idle"]["near_arm"].items()}
 LEG_BAND = 47                  # the legs: the rows under it
 LEG_SPLIT = SLIM["idle"]["leg_split"]   # the column between the near leg and the far leg (44 wide)
 FAR_X = SLIM["idle"]["far_x"]  # the far arm's fill starts at or right of this column (58 wide)
+FAR_SWING = 42                 # the far arm swings from this row down (the forearm and the hand, air on their inner
+                               # side); above it the shoulder and the upper arm lie against his face: they move with
+                               # the body
 
 
 def dark(d):
@@ -84,7 +90,8 @@ def dark(d):
 
 def far_arm_mask(d):
     """The far arm: the fill right of the face bounded by its own outline (the outline-bounded region reaching the right
-    edge), with every outline square touching it."""
+    edge), with every outline square touching it and the lone outline squares hugging that outline (touching no other
+    fill: the slim design's at the shoulder's top, under the armpit and under the hand, left behind when it moved)."""
     op = d[..., 3] > 0
     fill = op & ~dark(d)
     lbl, n = ndimage.label(fill)
@@ -96,7 +103,10 @@ def far_arm_mask(d):
             best, size = k, int(m.sum())
     core = lbl == best
     ring = ndimage.binary_dilation(core, structure=np.ones((3, 3))) & dark(d)
-    return core | ring
+    arm = core | ring
+    lone = ndimage.binary_dilation(arm, structure=np.ones((3, 3))) & dark(d) & ~arm & \
+        ~ndimage.binary_dilation(op & ~dark(d) & ~core, structure=np.ones((3, 3)))
+    return arm | lone
 
 
 def near_arm_mask(d):
@@ -113,7 +123,8 @@ def design():
     yy, xx = np.mgrid[0:D.H, 0:D.W]
     far = far_arm_mask(d)
     D.part("tendril", op & (yy < TENDRIL_ROWS))
-    D.part("far_arm", far & (yy >= TENDRIL_ROWS))
+    D.part("far_shoulder", far & (yy >= TENDRIL_ROWS) & (yy < FAR_SWING))
+    D.part("far_arm", far & (yy >= FAR_SWING))
     D.part("near_arm", near_arm_mask(d))
     legs = op & (yy > LEG_BAND) & ~far
     arm_last = np.full(D.H, -1)
@@ -125,8 +136,8 @@ def design():
     return D
 
 
-TINT = {"tendril": (60, 200, 255), "far_arm": (255, 220, 0), "near_arm": (0, 255, 120), "near_leg": (255, 0, 255),
-        "far_leg": (255, 120, 0)}
+TINT = {"tendril": (60, 200, 255), "far_shoulder": (190, 255, 60), "far_arm": (255, 220, 0), "near_arm": (0, 255, 120),
+        "near_leg": (255, 0, 255), "far_leg": (255, 120, 0)}
 
 
 def tinted(D, z=12):
@@ -222,7 +233,8 @@ class Form:
         self.mid = middle(D.d)
 
     def pose(self, whole=(0, 0), near_at=(0, 0), far_at=(0, 0), near_leg=(0, 0, 0), far_leg=(0, 0, 0), tendril=0):
-        """The design with its parts moved by whole squares: whole (dx, dy); an arm's (dx, dy); a leg's (dx, dy, lift)
+        """The design with its parts moved by whole squares: whole (dx, dy); an arm's (dx, dy) (the far arm's from
+        FAR_SWING down: its shoulder moves with the body); a leg's (dx, dy, lift)
         - lifted by losing its top rows (league_braum); the tendril's knob swung (columns)."""
         wx, wy = whole
         L = self.L
@@ -231,6 +243,7 @@ class Form:
                   (L["body"], dict(dx=wx, dy=wy)),
                   (lifted(L["near_leg"], near_leg[2]), dict(dx=wx + near_leg[0], dy=wy + near_leg[1])),
                   (L["near_arm"], dict(dx=wx + near_at[0], dy=wy + near_at[1])),
+                  (L["far_shoulder"], dict(dx=wx, dy=wy)),
                   (L["far_arm"], dict(dx=wx + far_at[0], dy=wy + far_at[1]))]
         can = R.compose(self.rig, layers)
         can[self.rig.GY:] = 0
