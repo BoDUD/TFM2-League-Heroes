@@ -196,6 +196,10 @@ def load(hero, variant=None):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
                             else [[r + pr, c + pc] for r, c in q] for q in cfg[key]]
+        if cfg.get("own_paint"):
+            cfg["own_paint"] = [None if not q else
+                                [dict(d, rows=[[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in d["rows"]])
+                                 for d in (q if isinstance(q, list) else [q])] for q in cfg["own_paint"]]
     return cfg
 
 
@@ -525,6 +529,28 @@ def own_clear_mask(a, cfg, i):
     return m & (a[..., 3] > 0)
 
 
+def own_paint(b, cfg, i):
+    """`own_paint`: squares of a drawn frame's own drawing painted anew once `own_clear` has cleared what it clears - a
+    list a drawn frame (null: none) of {"rows": [[row, first col, last col], ...], "colour": [R, G, B] (the outline by
+    default)}, one or a list of them, in the frame's own rows / cols. They are the frame's own drawing from then on (not
+    gaps to fill): the outline of league_irelia's hair where a blade drawn over its edge is cleared and laid anew behind
+    it - the hair keeps an edge when the blade floats off. -> the squares (painted into b)."""
+    H, W = b.shape[:2]
+    m = np.zeros((H, W), bool)
+    q = (cfg.get("own_paint") or [None] * (i + 1))[i]
+    if not q:
+        return m
+    for d in (q if isinstance(q, list) else [q]):
+        col = tuple(int(v) for v in d.get("colour", cfg["outline"]))
+        for r, c0, c1 in d["rows"]:
+            if 0 <= r < H and c1 >= max(0, c0):
+                sl = slice(max(0, c0), min(W, c1 + 1))
+                b[r, sl, :3] = col
+                b[r, sl, 3] = 255
+                m[r, sl] = True
+    return m
+
+
 def own_upper(a, cfg, i, match=None):
     """Frame i's own upper body: everything above its waist and, under it, either what `below`'s rects hold that its
     legs do not reach, or (`below` "match": the upper body is one drawing in every frame, only moved) the squares of
@@ -682,10 +708,11 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     own |= oc_
     b = a.copy()
     b[own] = 0
+    painted = own_paint(b, cfg, pose)                    # (`own_paint`: the frame's own squares painted anew)
     legs = b[..., 3] > 0
     dy = cy - cy0 + mov["body"][i]
     dx = cx - cx0 + x_at(cfg, i)
-    info = {"own": own, "legs": legs, "at": (dy, dx), "lost": 0}
+    info = {"own": own, "legs": legs & ~painted, "at": (dy, dx), "lost": 0, "painted": painted}
     names = layer_names(cfg)
     base = np.zeros((H, W, 4), np.uint8)                 # every layer at the body's place (no lag): what they cover
     for name in names:
