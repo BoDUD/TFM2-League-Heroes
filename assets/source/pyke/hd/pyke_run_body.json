@@ -1,0 +1,39 @@
+{
+  "hero": "pyke",
+  "tag": "run",
+  "drawn": "assets/source/pyke/hd/pyke_run_drawn",
+  "from": 4,
+  "outline": [16, 10, 14],
+  "waist": [-13, -13, -13, -13, -13, -13, -13, -13],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 41, 5, 11]],
+    [],
+    [[null, 44, 36, 45]],
+    [[null, 51, 30, 77]],
+    [],
+    [[null, 42, 4, 12], [null, 69, 23, 87]],
+    [[null, 42, 4, 10], [null, 46, 31, 44]],
+    [[null, 42, 4, 10], [null, 44, 31, 44]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand (round 3: 「后面的英雄都按这个思路来 先去联盟客户端找英雄的特色是什么 再做run的动画」): lock head - his drawn run redraws the upper body every frame (the head colour-IoU 0.45-0.75 between frames: the cap's red scratches, the mask's folds, the eyes), so only the head is one drawing (Ezreal v2's way); the harpoon, the hook, the bone collar, the arms, the coat and the legs stay each frame's own drawing",
+    "head": "frame 4's bald cap with its red scratches, the teal eyes, the red bandana mask with its salmon folds, the bandana knot at the back and its own outline (389 squares): the lowest / widest mask tip (row 47; every frame's own tip is on rows 45-47, so it covers each one and nothing under it is cleared or filled); aligned on the eyes the other frames' own heads stick out past it by 3-28 squares, against 154-419 for the other frames' heads; --init's closest to the idle too",
+    "chin": "frame 4's outline row under the mask tip",
+    "bob": "the drawn one (the head where each frame drew its own eyes and cap: offset 0 in every frame)",
+    "keep_colours": "the bone collar, the teal / orange armour, the straps, the shoulder's dark shading: kept everywhere (keep_above 40) - the clearing takes only the frame's own cap / mask / eyes / outline; the shoulder's maroon (the cap's own colours) is kept out by clear_poly (col 51 and right at rows 37-43)",
+    "clear_poly": "the cap's top 3 rows up, its back to col 50, the knot to col 48, the mask's lower right to col 63 (frame 5 drew its tip 2 columns further right)",
+    "beside_head": "outline: the gaps the clearing leaves are closed with outline only (0-4 squares a frame, the largest join 2), never another colour",
+    "keep_one": "his 1x run is a drawing of its own (186-226 squares off ppu_one's from the dense frames): it stays as installed (pyke_run_one.png, from d90cee046); hd_run and lo_run are made",
+    "init": {"contacts": "frames [0, 4] (feet's band spread [84, 69, 54, 73, 79, 79, 58, 72])", "waist": "row -13 from the centre in every frame: per-row differing share passes 0.619 there (figure rows -53..21)", "from": "frame 4: closest to hd_idle_base[0] (alike share per frame [0.47, 0.491, 0.48, 0.438, 0.495, 0.44, 0.453, 0.484])", "below": "rects per frame [1, 0, 1, 1, 0, 2, 2, 2] (her squares under the waist her feet do not reach)", "chains": "none: the hair behind the face is 13 squares", "bob": "3 squares low to high (1.69 game px), low the frame after the contacts [0, 4], moved by -2 so the head stays in every rect: [-1, 1, 0, -2, -1, 1, 0, -2]", "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 4) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]},
+    "undecided": []
+  },
+  "lock": "head",
+  "head": [[19, 52], [19, 63], [20, 63], [20, 64], [21, 64], [21, 65], [22, 65], [22, 66], [23, 66], [23, 67], [30, 67], [30, 66], [34, 66], [34, 67], [37, 67], [37, 65], [41, 65], [41, 64], [43, 64], [43, 62], [45, 62], [45, 61], [47, 61], [47, 60], [49, 60], [49, 58], [48, 58], [48, 57], [46, 57], [46, 56], [45, 56], [45, 55], [44, 55], [44, 54], [43, 54], [43, 53], [42, 53], [42, 52], [41, 52], [41, 51], [37, 51], [37, 50], [30, 50], [30, 49], [28, 49], [28, 51], [23, 51], [23, 52]],
+  "chin": 48,
+  "x": 0,
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[34, 240, 239], [139, 76, 85], [99, 52, 62]], "clear_all": true, "skin": [[141, 12, 33], [164, 15, 36], [114, 11, 30], [189, 18, 42], [212, 26, 50], [211, 128, 98], [211, 107, 88], [125, 54, 48], [90, 9, 25], [65, 8, 21], [186, 104, 80]], "keep_colours": [[248, 234, 204], [224, 205, 166], [200, 177, 132], [171, 146, 105], [149, 122, 86], [218, 166, 107], [129, 96, 67], [95, 83, 58], [33, 78, 92], [24, 62, 74], [20, 48, 58], [15, 37, 43], [10, 20, 25], [223, 142, 43], [195, 108, 27], [176, 103, 30], [238, 162, 64], [234, 174, 75], [154, 78, 25], [78, 44, 30], [48, 28, 23], [60, 32, 25], [108, 60, 32], [95, 53, 35], [44, 20, 31], [63, 45, 34]], "keep_above": 40, "clear_poly": [[16, 50], [16, 66], [23, 66], [23, 68], [30, 68], [30, 66], [32, 66], [32, 68], [37, 68], [37, 65], [41, 65], [41, 64], [49, 64], [49, 57], [46, 57], [46, 55], [44, 55], [44, 53], [42, 53], [42, 51], [37, 51], [37, 49], [31, 49], [31, 48], [28, 48], [28, 50]], "clear_grow": 3, "beside_head": "outline", "keep_one": "assets/source/pyke/hd/pyke_run_one"}}
+}
