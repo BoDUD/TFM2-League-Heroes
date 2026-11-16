@@ -860,6 +860,10 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     chin = cfg["chin"] + my                            # the frame's own neck starts here
     # `clear_grow`: how far round frame `from`'s head the frame's own is cleared (2 squares by default)
     zone = ndimage.binary_dilation(at_match, structure=K8, iterations=int(cfg.get("clear_grow", 2)))
+    if cfg.get("clear_poly"):
+        # `clear_poly`: corners in frame `from`, placed where the frame's own head is found - the clearing never goes
+        # outside them (a shoulder plate in the head's own colours right under it keeps every square)
+        zone &= poly_mask([(r + my, c + mx) for r, c in cfg["clear_poly"]], a.shape)
     if cfg.get("clear_all"):
         # `clear_all`: every square of the frame's own head goes - all its colours but `keep_colours` (a collar, a
         # scarf round the neck), down to its own chin: the lowest of its face's `skin` squares, and the outline under it
@@ -881,19 +885,69 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     else:
         zone[max(0, chin):] = False
         own = zone & colour_mask(a, cols) & ~keep_mask(a, cfg, pose)
+    # `head_carry`: what hangs on the frame's own head (a ponytail and its tie: corners in frame `from`, placed where the
+    # frame's own head is found) moves with the laid head - as many squares as the laid head sits off the frame's own
+    # (`head_align` "chin"'s rows) - as drawn, under the head and behind the rest of the frame (a shoulder it reaches
+    # stays over it); the clearing never takes it (its `keep_colours` squares - a shoulder pad reaching into the corners
+    # - stay where they are). What it leaves is ground where it reaches the ground round her, else joined as the head's
+    # gaps are
+    # `carry_colours`: only these (the hair's, the tie's) are carried, with the outline that closes them (within 2 of
+    # them, not next to anything else: a sword or a shoulder pad keeps its own outline)
+    carry = np.zeros((H, W), bool)
+    if cfg.get("head_carry"):
+        carry = poly_mask([(r + my, c + mx) for r, c in cfg["head_carry"]], a.shape)
+        carry &= (a[..., 3] > 0) & ~colour_mask(a, [tuple(c) for c in cfg.get("keep_colours", [])])
+        if cfg.get("carry_colours"):
+            hair = carry & colour_mask(a, [tuple(c) for c in cfg["carry_colours"]])
+            ink = colour_mask(a, [out_c])
+            other = (a[..., 3] > 0) & ~colour_mask(a, [tuple(c) for c in cfg["carry_colours"]]) & ~ink
+            # (its outline: reached from the hair through outline squares, a thick tip's too, never one by the rest)
+            own_ink = carry & ink & ~ndimage.binary_dilation(other, structure=K8)
+            reach = ndimage.binary_dilation(hair, structure=K8) & own_ink
+            for _ in range(4):
+                reach = ndimage.binary_dilation(reach, structure=K8) & own_ink
+            carry &= hair | reach
+        own &= ~carry
     b = a.copy()
     b[own] = 0
+    b[carry] = 0
     legs = b[..., 3] > 0
     info = {"own": own, "legs": legs, "at": (dy, dx), "lost": 0, "drawn_at": (my, mx)}
-    info["head"], info["lost"] = lay(b, src, head, dy, dx)
+    carried = np.zeros((H, W), bool)
+    if carry.any():
+        carried, info["lost"] = lay(b, a, carry, dy - my, dx - mx, under=True)
+    if cfg.get("head_under"):
+        # `head_under`: corners in frame `from` - the head's squares in them are laid only where the frame has nothing
+        # left (the hood's lower edge behind the frame's own shoulder plate, which stays over it)
+        low = head & poly_mask(cfg["head_under"], src.shape)
+        info["head"], lost = lay(b, src, head & ~low, dy, dx)
+        under_put, lost2 = lay(b, src, low, dy, dx, under=True)
+        info["head"] |= under_put
+        lost += lost2
+    else:
+        info["head"], lost = lay(b, src, head, dy, dx)
+    info["lost"] += lost
     put = info["head"] & (b[..., 3] > 0)
     info["head"] = put
+    carried &= ~put
     gone = (a[..., 3] > 0) & (b[..., 3] == 0)
-    inside = gone & T.between(put | legs, 3)
+    inside = gone & T.between(put | carried | legs, 3)
+    open_ = np.zeros((H, W), bool)
+    if carry.any():
+        # what the carried squares leave at her outer edge (reaching the ground round her through clear squares) is ground
+        lab, _ = ndimage.label(b[..., 3] == 0)
+        edge = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
+        open_ = carry & gone & np.isin(lab, edge[edge > 0])
+        inside &= ~open_
     if cfg.get("beside_head") == "ground":
         # what the frame's own (bigger) head leaves beside frame `from`'s is ground, not filled from the colours round
         # it (a goggle strap's grey, a collar's teal run into it): only under the laid chin is a gap filled
         inside &= np.arange(H)[:, None] >= cfg["chin"] + dy - 1
+    elif cfg.get("beside_head") == "outline":
+        # "outline": nothing it leaves is filled from the colours round it, under the chin either (a face at her
+        # outer edge with only the outline under its jaw: a hood's blue would run in under it) - what is shut in or
+        # by her squares is closed with outline, the rest is ground
+        inside[:] = False
     voters = legs & ~colour_mask(b, [out_c])
     fill_in(b, inside, voters)
     rest = inside & (b[..., 3] == 0)
@@ -901,23 +955,43 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     b[rest, 3] = 255
     clear = b[..., 3] == 0
     was = gone & clear
-    solid = (b[..., 3] > 0) & ~colour_mask(b, [out_c]) & ~put
+    solid = (b[..., 3] > 0) & ~colour_mask(b, [out_c]) & ~put & ~carried
     d = T.steps_from(solid, np.ones((H, W), bool), 2)
     bare = was & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(was, structure=K8), structure=K8,
-                                                    iterations=2)
+                                                    iterations=2) & ~open_
     b[bare, :3] = out_c
     b[bare, 3] = 255
-    # a pinhole: neither frame `from`'s head's (laid with it) nor the frame's own (outside the cleared squares)
+    # a pinhole: neither frame `from`'s head's (laid with it) nor the frame's own (outside the cleared squares; the
+    # carried squares' own where they are carried)
     laid = np.zeros((H, W), bool)
     ps = pockets(src) & ndimage.binary_dilation(head, structure=K8)
     py, px_ = np.nonzero(ps)
     okp = (py + dy >= 0) & (py + dy < H) & (px_ + dx >= 0) & (px_ + dx < W)
     laid[py[okp] + dy, px_[okp] + dx] = True
-    own_p = pockets(a) & ~ndimage.binary_dilation(own, structure=K8)
+    own_p = pockets(a) & ~ndimage.binary_dilation(own | carry, structure=K8)
+    if carry.any():
+        py, px_ = np.nonzero(pockets(a) & ndimage.binary_dilation(carry, structure=K8))
+        py, px_ = py + dy - my, px_ + dx - mx
+        okp = (py >= 0) & (py < H) & (px_ >= 0) & (px_ < W)
+        own_p[py[okp], px_[okp]] = True
     shut = pockets(b) & ~laid & ~own_p
     b[shut, :3] = out_c
     b[shut, 3] = 255
-    info["joined"] = ((inside | bare | shut) & (b[..., 3] > 0)) & ~put
+    if cfg.get("clear_specks"):
+        # `clear_specks`: a piece of at most that many squares the clearing cut off from her (the last row of outline
+        # under the frame's own longer jaw) goes - one by the cleared squares that no drawing has as a piece of its own
+        lab, n = ndimage.label(b[..., 3] > 0, structure=K8)
+        if n:
+            size = ndimage.sum(np.ones((H, W)), lab, range(1, n + 1))
+            by = ndimage.binary_dilation(own, structure=K8, iterations=2)
+            lab_a, _ = ndimage.label(a[..., 3] > 0, structure=K8)
+            for j in np.nonzero(size <= int(cfg["clear_specks"]))[0]:
+                m = lab == j + 1
+                if (m & by).any() and not (m & (put | carried)).any() and \
+                        not (np.unique(lab_a[m]).size == 1 and (lab_a == lab_a[m][0]).sum() == m.sum()):
+                    b[m] = 0
+    info["carry"] = carried & (b[..., 3] > 0)
+    info["joined"] = ((inside | bare | shut) & (b[..., 3] > 0)) & ~put & ~carried
     info["kept"] = np.zeros((H, W), bool)
     if sh:
         # the frame's own upper body moved: its legs are what is left under the waist (the rest is laid, as drawn)
