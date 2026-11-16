@@ -220,7 +220,7 @@ def load(hero, variant=None):
                             for rs in cfg["below"]]
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
-        for key in ("head_clear", "own_clear", "upper"):
+        for key in ("head_clear", "own_clear", "upper", "shift_parts"):
             if cfg.get(key):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
@@ -1324,10 +1324,17 @@ def shifted_upper(a, cfg, pose, sh):
     else is the drawing's own ground moved with it (the air between a raised hand and the hair, by a skirt's flared
     hem: league_annie's whole upper body sinking over her legs on each step's contact) and stays ground; without it
     ("between", the default) every square it leaves that its moved squares shut in from both sides within `sh` + 1 is
-    filled. -> (frame, the moved squares, the legs' squares, the squares filled)."""
+    filled. `shift_parts`: a mask spec a drawn frame (null: none; corners or {"rows": ...} in the frame's own rows /
+    cols) of squares under the waist that move with it whatever touches them - a cloth flap hanging from the belt
+    over the thighs (league_neeko's: drawn touching her legs, it stayed with them and the sinking belt hid its top, the
+    flap shrinking and growing every step: 「妮蔻可以再调整一下 感觉身体不太自然」). -> (frame, the moved squares, the
+    legs' squares, the squares filled)."""
     H, W = a.shape[:2]
     out_c = cfg["outline"]
     own = own_upper(a, cfg, pose)
+    sp = (cfg.get("shift_parts") or [None] * (pose + 1))[pose]
+    if sp:
+        own = own | (spec_mask(sp, a.shape) & (a[..., 3] > 0))
     b = a.copy()
     b[own] = 0
     legs = b[..., 3] > 0
