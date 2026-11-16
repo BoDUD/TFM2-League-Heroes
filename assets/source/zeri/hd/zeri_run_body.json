@@ -1,0 +1,34 @@
+{
+  "hero": "zeri",
+  "tag": "run",
+  "drawn": "assets/source/zeri/hd/zeri_run_drawn",
+  "from": 7,
+  "outline": [16, 13, 20],
+  "lock": "head",
+  "head": [[2, 40], [2, 45], [5, 50], [6, 62], [5, 67], [8, 72], [12, 74], [17, 72], [22, 68], [28, 67], [32, 65], [33, 61], [33, 53], [32, 49], [29, 48.5], [27, 44], [25.5, 44.5], [23, 45], [22.4, 42], [21, 38], [19, 36], [16, 35], [8, 34], [5, 36]],
+  "chin": 32,
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 65, 8, 39]],
+    [[null, 62, 40, 55]],
+    [[null, 62, 27, 40]],
+    [[null, 64, 15, 20], [null, 65, 50, 58]],
+    [[null, 70, 6, 33], [null, 62, 35, 44]],
+    [[null, 53, 5, 15], [null, 56, 24, 36]],
+    [[null, 54, 25, 31], [null, 62, 36, 48]],
+    [[null, 63, 23, 36], [null, 63, 41, 52]]
+  ],
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[243, 241, 242], [250, 167, 105], [216, 118, 74]], "clear_all": true, "skin": [[250, 167, 105], [216, 118, 74]], "chin_rows": [32, 32, 29, 32, 30, 30, 31, 31], "keep_colours": [[250, 235, 205], [200, 177, 161], [184, 159, 139], [217, 109, 45], [136, 65, 32], [177, 83, 32]], "clear_grow": 3, "beside_head": "ground", "head_align": "chin"}},
+  "notes": {
+    "made": "--init, then by hand: lock head (round 2b, the 26 hand-drawn runs: 「也要做」 - her drawn run redraws the upper body every frame, so only the head is one drawing, Ezreal v2's way; the fur collar, the jacket, the arms, the gun and the legs stay each frame's own drawing)",
+    "head": "her two spiky tails, the yellow hair with its strands down to the fur collar, the face (frame 7's: both eyes open, 30 rows from the tails' tips to the jaw - the frames' own heads are 28-32 rows: frame 2's would not take a taller one); the drawn heads are 8 drawings (IoU 0.47-0.54 against frame 7's: the tails, the strands and the eyes redrawn every frame)",
+    "chin": "frame 7's first row under the jaw",
+    "bob": "the drawn one (the head where each frame drew its own, the jaw on the drawn jaw)",
+    "waist": "--init's (not used by the head lock)",
+    "variants": "char: head_match_colours = her eye white and skin (the columns), chin_rows = each frame's jaw row (the lowest skin row of the face's right part: a bare neck shows under its left) with head_align chin (the rows); clear_all, clear_grow 3 (the drawn tails reach up to 3 squares past frame 7's); keep_colours = the fur collar and the orange scarf; beside_head ground (what the drawn heads leave beside the laid one is ground - filled from the colours round it, the fur collar grew into the strands' place); the head's lower left stops where frame 7's own dark shadow would come out thicker than the outline (the outline pass took 6-10 squares off it in every other frame)",
+    "undecided": []
+  }
+}
