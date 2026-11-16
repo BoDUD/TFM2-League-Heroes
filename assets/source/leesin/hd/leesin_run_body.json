@@ -23,12 +23,13 @@
     "head_carry": "the braid, its gold tie on the bun, the blindfold's two tails as each frame draws them - offset 0, so they only keep every square from the clearing; one gold tie a frame (the laid head has none)",
     "beside_head": "outline (0-2 squares a frame are closed with outline, at the face front; nothing filled with skin)",
     "clear_specks": "8 (none cut off)",
-    "undecided": []
+    "undecided": [],
+    "keep_one": "his 1x run is a drawing of its own in the sheet (ppu_one's from the dense frames differs in 450-725 squares a frame, the unchanged ones too): it stays as installed (assets/source/leesin/hd/leesin_run_one.png, from b1c765234), only hd_run and lo_run are made"
   },
   "head": [[9, 40], [9, 46], [7, 46], [7, 50], [8, 52], [10, 54], [12, 55], [16, 55], [19, 53], [21, 51], [23, 49], [23, 43], [21, 42], [18, 40], [16, 38], [11, 38]],
   "chin": 23,
   "lock": "head",
   "x": 0,
   "use": "char",
-  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[2, 156, 248], [248, 20, 48], [216, 15, 43], [143, 10, 30]], "clear_all": true, "skin": [[253, 185, 128], [229, 154, 106], [208, 132, 90], [177, 108, 74]], "clear_grow": 3, "beside_head": "outline", "clear_specks": 8, "clear_poly": [[5, 36], [5, 50], [8, 55], [12, 57], [21, 57], [21, 52], [17, 47], [17, 39], [15, 36]], "head_carry": [[-13, 3], [-13, 51], [6, 51], [9, 49], [9, 41], [11, 39], [17, 39], [20, 36], [20, 3]], "carry_colours": [[71, 50, 59], [45, 31, 38], [104, 60, 46], [216, 15, 43], [248, 20, 48], [180, 11, 38], [143, 10, 30], [227, 148, 32], [252, 187, 37], [192, 119, 34]]}}
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[2, 156, 248], [248, 20, 48], [216, 15, 43], [143, 10, 30]], "clear_all": true, "skin": [[253, 185, 128], [229, 154, 106], [208, 132, 90], [177, 108, 74]], "clear_grow": 3, "beside_head": "outline", "clear_specks": 8, "clear_poly": [[5, 36], [5, 50], [8, 55], [12, 57], [21, 57], [21, 52], [17, 47], [17, 39], [15, 36]], "head_carry": [[-13, 3], [-13, 51], [6, 51], [9, 49], [9, 41], [11, 39], [17, 39], [20, 36], [20, 3]], "carry_colours": [[71, 50, 59], [45, 31, 38], [104, 60, 46], [216, 15, 43], [248, 20, 48], [180, 11, 38], [143, 10, 30], [227, 148, 32], [252, 187, 37], [192, 119, 34]], "keep_one": "assets/source/leesin/hd/leesin_run_one"}}
 }
