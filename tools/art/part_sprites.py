@@ -25,7 +25,11 @@ Each hero's data is its own file, assets/source/<hero>/hd/<hero>_part_sprites.js
   made for her run): the picture's columns from `from` (its root, held) out to `to` (its tip) each shifted up or down
   by its share of the way out times the tag's `tip` rows for that frame (the periodic curve through them, `lag` frames
   earlier at the root end - a wave running out along it), neighbouring columns never more than a square apart; the
-  columns on the root's far side stay as drawn. The 1x picture the same over `one_from`..`one_to`, the rows / PPU;
+  columns on the root's far side stay as drawn. The 1x picture the same over `one_from`..`one_to`, the rows / PPU.
+  With `exit` / `one_exit` (columns) a part laid behind shows in one stretch out from its root only: none of it unless
+  it comes out within `exit` columns of `from`, nothing past the first column the drawing then covers whole - never a
+  tip seen again beyond a wing or a tail it passes behind (league_belveth's ribbon behind her opened wings) - and none
+  of it when that stretch is under `least` / `one_least` squares (a stub wedged between two of her parts);
 - `path`: the loop every part moves on, [rows, cols] off its place a step, and `loop_ms` a loop at the run's speed. A
   frame's step is its start in its tag: a tag of half a loop or more goes round a whole number of loops nearest its
   length (it ends where it starts, so the actions and the idle / ban-pick reels cut from them meet without a jump); a
@@ -503,10 +507,33 @@ def frame_pictures(cfg, tag, i, placed, pics, pics1, ppu):
     return out
 
 
-def lay(a, pics, placed, parts, where, front_but=None):
+def one_stretch(put, root, tip, exit_, least=0):
+    """The squares of a waved part that show, kept to one stretch out from its root: its first column that shows must
+    be within `exit_` columns of the root (it comes straight out from behind what it is tucked under), past the first
+    column after it the drawing covers whole nothing more of it shows - a strip never seen again beyond a wing or a
+    tail it passes behind (the user, on league_belveth's ribbon over her opened wings: 「卑尔维斯打开翅膀后和新加的头部
+    那个地方造成了穿模」) - and a stretch of fewer than `least` squares (a stub wedged between two of her parts) is none."""
+    step = -1 if tip < root else 1
+    cols = list(range(root, tip + step, step))
+    out = put.copy()
+    first = next((k for k, x in enumerate(cols) if put[:, x].any()), None)
+    if first is None or first > exit_:
+        return np.zeros_like(put)                        # (the root's own squares too: no speck of it left)
+    k = first
+    while k < len(cols) and put[:, cols[k]].any():
+        k += 1
+    for x in cols[k:]:
+        out[:, x] = False
+    if out[:, min(root, tip):max(root, tip) + 1].sum() < least:
+        return np.zeros_like(put)
+    return out
+
+
+def lay(a, pics, placed, parts, where, front_but=None, one=False):
     """`a` with the parts ({part: picture}) laid on their centres (the ones behind only where it is clear; with
-    `front_but`, a mask of the frame, every part in front of the drawing but behind it inside the mask) -> (frame,
-    the squares each part covers or is hidden under)."""
+    `front_but`, a mask of the frame, every part in front of the drawing but behind it inside the mask; a waved part
+    with `exit` kept to one stretch out from its root, `one`: by its 1x columns) -> (frame, the squares each part
+    covers or is hidden under)."""
     b = a.copy()
     body = a[..., 3] > 0
     cover = {}
@@ -529,6 +556,10 @@ def lay(a, pics, placed, parts, where, front_but=None):
             if front_but is not None:
                 keep = front_but[top:top + pic.shape[0], left:left + pic.shape[1]]
                 put = m & (~keep | (sub[..., 3] == 0))
+            w = part.get("wave") or {}
+            if w.get("exit") is not None:
+                put = one_stretch(put, w["one_from"] if one else w["from"], w["one_to"] if one else w["to"],
+                                  w["one_exit"] if one else w["exit"], w.get("one_least" if one else "least", 0))
             sub[put] = pic[put]
             cover[nm] = int(under.sum())
     return b, cover
@@ -568,7 +599,7 @@ def make(hero, cfg=None):
             b, cover = lay(a, {nm: p for nm, (p, _) in fp.items()}, placed[tag][i], cfg["parts"], f"{hid} hd_{tag}[{i}]",
                            fm)
             p1 = {nm: one_centre(r, c, a.shape, a1.shape, ppu) + (sp,) for nm, (r, c, sp) in placed[tag][i].items()}
-            b1, _ = lay(a1, {nm: q for nm, (_, q) in fp.items()}, p1, cfg["parts"], f"{hid} {tag}[{i}]", fm1)
+            b1, _ = lay(a1, {nm: q for nm, (_, q) in fp.items()}, p1, cfg["parts"], f"{hid} {tag}[{i}]", fm1, one=True)
             hd.append(b)
             one.append(b1)
             lo.append(lo_frame(b, (a1.shape[1], a1.shape[0]), ppu, size, a))
