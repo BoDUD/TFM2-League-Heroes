@@ -1,0 +1,28 @@
+{
+  "hero": "nasus",
+  "tag": "run",
+  "drawn": "assets/source/nasus/hd/nasus_run_drawn",
+  "from": 0,
+  "outline": [4, 3, 1],
+  "waist": [-2, -3, -3, -3, -2, -3, -3, -3],
+  "steps": 2,
+  "bob": [3, 2, 1, 0, -1, 0, 1, 2, 3, 2, 1, 0, -1, 0, 1, 2],
+  "below": "match",
+  "keep_gaps": true,
+  "open_pockets": 4,
+  "parts": [
+    {"name": "skirt and blade", "poly": [[38, 36], [38, 37], [37, 37], [37, 71], [38, 71], [38, 72], [42, 72], [42, 73], [44, 73], [44, 72], [49, 72], [49, 73], [52, 73], [52, 72], [53, 72], [53, 70], [52, 70], [52, 68], [51, 68], [51, 67], [50, 67], [50, 64], [49, 64], [49, 63], [48, 63], [48, 62], [47, 62], [47, 61], [46, 61], [46, 60], [43, 60], [43, 59], [42, 59], [42, 57], [41, 57], [41, 56], [40, 56], [40, 52], [41, 52], [41, 51], [42, 51], [42, 50], [43, 50], [43, 48], [46, 48], [46, 47], [47, 47], [47, 45], [43, 45], [43, 44], [45, 44], [45, 43], [44, 43], [44, 41], [41, 41], [41, 40], [40, 40], [40, 39], [39, 39], [39, 36]], "lag": 0, "range": [0, 0]},
+    {"name": "belt end", "poly": [[37, 33], [37, 36], [38, 36], [38, 35], [39, 35], [39, 34], [38, 34], [38, 33]], "lag": 0, "range": [0, 0]}
+  ],
+  "chains": [],
+  "keep_one": "assets/source/nasus/hd/nasus_run_one",
+  "lo_grow": true,
+  "notes": {
+    "made": "11-16 night (A6, round 6): the user 「内瑟斯僵硬的不行」 - his drawn upper body (head, ears, pauldrons, the staff in both hands, both arms, the blade, belt, skirt and tabard) is one drawing in every frame, only the legs move; K4's arm + staff moves were rejected (「手臂变形严重 不合格」), so nothing above the waist is cut: the whole upper body is one rigid piece bobbing over his own drawn legs (the approved Vi body animation)",
+    "waist": "frame 0's row 37 (the first row where a square differs between the drawn frames): -2 from the centre in the 78-row frames (0, 4), -3 in the 80-row ones",
+    "parts": "what hangs under the waist and is the same drawing in every frame (skirt, tabard, the blade and the arm over it; the belt's back end): exact polygons (tools: _a6_work/nasus/build.py), locked to the body (lag 0)",
+    "bob": "rows down from frame 0's drawn place (the artist's own: frames 0 / 4 a row lower than the others); 16 frames (`steps` 2, each drawn frame shown twice, 47.5 ms): League Nasus_Base_Run1's chest path (1.067 s, two beats, 6.3 rows peak to peak at his 52-row height) at 4 rows (3.3 game px), lowest on the contacts (drawn frames 0 / 4: both feet down, the artist's own dip) and at his drawn place when the free foot is highest (2 / 6); never lifted off his drawn place (no gap at the waist)",
+    "keep_one": "the installed 1x run (a drawing of its own), each frame twice for the 16 frames",
+    "open_pockets": "the gap between the lowered blade and the front foot (drawn frame 3) stays ground"
+  }
+}
