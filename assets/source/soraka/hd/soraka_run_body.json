@@ -1,0 +1,32 @@
+{
+  "hero": "soraka",
+  "tag": "run",
+  "drawn": "assets/source/soraka/hd/soraka_run_drawn",
+  "from": 0,
+  "outline": [6, 4, 6],
+  "waist": [-45, -49, -54, -51, -43, -49, -54, -51],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [],
+  "frame_shift": [[0, 0], [0, 0], [0, 0], [0, 10], [0, 0], [0, 0], [0, 22], [0, 0]],
+  "pad": [0, 10],
+  "keep_one": "assets/source/soraka/hd/soraka_run_one",
+  "notes": {
+    "made": "11-16 night (A6, round 6): the user 「索拉卡要处理一下吧？跑步节奏过快看不出吗？」 - B5 had kept her (8 x 150 ms, slower than League's 0.968 s). Measured: 2 steps a cycle (passing 0 / 4, strides 2-3 / 6-7) at 600 ms a step - not quick; but her whole figure is drawn 10 columns back in frame 3 and 22 columns back in frame 6 (face, horn, staff, feet alike: the upper body matched on frames 2 / 4 / 7 and 2 / 5 / 7 gives +8..+11 and +19..+24) - at game size she lurched back 5 and 11 game px and forward again within 150 ms twice a cycle: four jolts a cycle on top of her two steps, read as a hurried rhythm",
+    "frame_shift": "frames 3 and 6 moved 10 and 22 columns forward in their rects (every square kept as drawn): her face now 15-20 columns right of the pivot in every frame (drawn: 7 and -5 in those two), the figure advancing 7.5-10 game px every frame at her move speed instead of 3.5 / 14 / -1.3 / 18.7",
+    "pad": "10 columns a side: frame 3's staff and frame 6's would leave their rects - the rects grow, the fanim changes",
+    "timing": "8 x 150 ms = 1.2 s kept (150 ms is the longest a frame reads smooth; League's 0.968 s would be quicker still)",
+    "keep_one": "the 1x run as installed (ppu_one's from the dense frames; remade, frame 3's would lose 3 squares off its rect); her lo_ frames are made from the new dense ones (the UI's run re-registered too)",
+    "empty body": "nothing is laid from frame `from`: the waist is above every frame, no parts or chains - every frame is its own drawing, only moved"
+  }
+}
