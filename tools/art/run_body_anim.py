@@ -1305,7 +1305,12 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None, hchains=None)
 def shifted_upper(a, cfg, pose, sh):
     """`shift` (head lock): the frame's own upper body - above its `waist`, with what `below`'s rects hold - moved `sh`
     rows (down +) over its legs, as drawn; a gap it opens over them filled from their colours (outline where they are
-    not round it). -> (frame, the moved squares, the legs' squares, the squares filled)."""
+    not round it). `shift_fill` "waist": only a gap opened at its waist is a gap (a body lifted: the rows from the
+    waist `sh` rows up to a row under it; a body sunk over its legs opens none) - what the moved body leaves anywhere
+    else is the drawing's own ground moved with it (the air between a raised hand and the hair, by a skirt's flared
+    hem: league_annie's whole upper body sinking over her legs on each step's contact) and stays ground; without it
+    ("between", the default) every square it leaves that its moved squares shut in from both sides within `sh` + 1 is
+    filled. -> (frame, the moved squares, the legs' squares, the squares filled)."""
     H, W = a.shape[:2]
     out_c = cfg["outline"]
     own = own_upper(a, cfg, pose)
@@ -1322,6 +1327,12 @@ def shifted_upper(a, cfg, pose, sh):
     put[ty[ok], xs[ok]] = True
     gone = (a[..., 3] > 0) & (b[..., 3] == 0)
     inside = gone & T.between(put | legs, abs(sh) + 1)
+    if cfg.get("shift_fill", "between") == "waist":
+        wr = H // 2 + cfg["waist"][pose]
+        band = np.zeros((H, W), bool)
+        if sh < 0:
+            band[max(0, wr + sh - 1):min(H, wr + 2)] = True
+        inside &= band
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
     rest = inside & (b[..., 3] == 0)
