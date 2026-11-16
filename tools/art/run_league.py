@@ -204,6 +204,39 @@ HEROES.update({
                                mantle_e="mantle_e", mantle_f="mantle_f", mantle_g="mantle_g", mantle_h="mantle_h",
                                mantle_i="mantle_i", mantle_j="mantle_j", mantle_k="mantle_k", mantle_l="mantle_l")),
 })
+# (character runs, round 3: league_braum's run_base is Braum_Run_02.anm, one 1.067 s stride - the shield rides on
+# Snap_Shield2L/RHand, parented to Origin; league_gangplank's Gangplank_Run.anm, 1.067 s - the coat's tails
+# L / R_Skirt1-3, the hat's Feather1-2, the beard's Beard1-2, the cutlass Sword on L_Hand, the hand cannon Weapon on
+# R_Hand; league_poppy has no poses.json: `spec` - her run_base is poppy_run.anm, 1.0 s, the pigtails L / R_Hair1-4 and
+# the hammer Weapon1-3 on Spine2)
+HEROES.update({
+    "braum": dict(clip="Braum_Run_02", cycle=1.0667, tick=1.0,
+                  joints=dict(pelvis="Pelvis", spine="Spine1", chest="Spine3", neck="Neck", head="Head",
+                              l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Toe",
+                              r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Toe",
+                              l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                              r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                              shield="Shield", jaw="Jaw", necklace="Necklace")),
+    "gangplank": dict(clip="Gangplank_Run", cycle=1.0667, tick=1.0,
+                      joints=dict(pelvis="Pelvis", spine="Spine1", chest="Spine2", neck="Neck", head="Head",
+                                  l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Toe",
+                                  r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Toe",
+                                  l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                                  r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                                  sword="Sword", weapon="Weapon", feather1="Feather1", feather2="Feather2",
+                                  beard2="Beard2", l_skirt1="L_Skirt1", l_skirt3="L_Skirt3", r_skirt1="R_Skirt1",
+                                  r_skirt3="R_Skirt3", cloak="C_Cloak1")),
+    "poppy": dict(clip="poppy_run", cycle=1.0, tick=1.0,
+                  spec=dict(champ="Poppy", chibi={"head": 1.0, "legs": 1.0}, design="poppy_idle1@0", height=37),
+                  joints=dict(pelvis="Pelvis", spine="Spine1", chest="Spine2", neck="Neck", head="Head",
+                              l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Toe",
+                              r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Toe",
+                              l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                              r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                              weapon1="Weapon1", weapon3="Weapon3", l_hair1="L_Hair1", l_hair2="L_Hair2",
+                              l_hair4="L_Hair4", r_hair1="R_Hair1", r_hair2="R_Hair2", r_hair4="R_Hair4",
+                              front_hair="FrontHair1")),
+})
 
 
 def lp(path):
