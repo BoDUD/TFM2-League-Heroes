@@ -188,10 +188,11 @@ def load(hero, variant=None):
                             for rs in cfg["below"]]
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
-        if cfg.get("head_clear"):
-            cfg["head_clear"] = [None if q is None else
-                                 {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
-                                 else [[r + pr, c + pc] for r, c in q] for q in cfg["head_clear"]]
+        for key in ("head_clear", "own_clear"):
+            if cfg.get(key):
+                cfg[key] = [None if q is None else
+                            {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
+                            else [[r + pr, c + pc] for r, c in q] for q in cfg[key]]
     return cfg
 
 
@@ -499,6 +500,26 @@ def keep_mask(a, cfg, i):
     return m & op & ~legs
 
 
+def own_clear_mask(a, cfg, i):
+    """`own_clear`: a drawn frame's own drawing of a part laid anew from frame `from` (a chain on League's path) - a list a
+    drawn frame (null: none) of corners in the frame's own rows / cols, or {"rows": [[row, first col, last col], ...]}:
+    exactly those squares of it go, whatever the waist (league_rengar's tail, drawn a little differently in every
+    frame: none of it may stay beside the one laid). What they leave counts as bared by a moved part: with `bare_ground`
+    it is ground where it reaches the ground round her, else joined as any gap."""
+    H, W = a.shape[:2]
+    m = np.zeros((H, W), bool)
+    q = (cfg.get("own_clear") or [None] * (i + 1))[i]
+    if not q:
+        return m
+    if isinstance(q, dict):
+        for r, c0, c1 in q["rows"]:
+            if 0 <= r < H:
+                m[r, max(0, c0):min(W, c1 + 1)] = True
+    else:
+        m = poly_mask([tuple(p) for p in q], a.shape)
+    return m & (a[..., 3] > 0)
+
+
 def own_upper(a, cfg, i, match=None):
     """Frame i's own upper body: everything above its waist and, under it, either what `below`'s rects hold that its
     legs do not reach, or (`below` "match": the upper body is one drawing in every frame, only moved) the squares of
@@ -651,6 +672,8 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     cy, cx = H // 2, W // 2
     kept = keep_mask(a, cfg, pose)
     own = own_upper(a, cfg, pose, match) & ~kept
+    oc_ = own_clear_mask(a, cfg, pose) & ~kept
+    own |= oc_
     b = a.copy()
     b[own] = 0
     legs = b[..., 3] > 0
@@ -699,6 +722,7 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     clear = b[..., 3] == 0
     gone = (a[..., 3] > 0) & clear                       # hers before, nothing laid on it
     revealed = (base[..., 3] > 0) & clear                # covered had the parts not moved off the body
+    revealed |= oc_ & clear                              # (`own_clear`: the frame's own drawing of a part laid anew)
     # inside her: `fill` "closing" (league_vi's): where she was or a part moved off, closing her figure by 3; else
     # ("between") only squares her squares shut in from both sides - within 3 where she was, 1 where a part moved off
     # (a thin chain or part takes its own outline along: what it bares at its edge is ground, not outline)
@@ -730,6 +754,15 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         edge = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
         open_ = revealed & np.isin(lab, edge[edge > 0])
         inside &= ~open_
+    keep_open = np.zeros((H, W), bool)
+    if cfg.get("own_clear_ground"):
+        # `own_clear_ground`: what `own_clear` leaves stays ground even where her pieces shut it in (the gap a lifted
+        # tail leaves between her claws and her paws is air, not a fill) - but for a pinhole of 1-2 squares
+        lab_, n_ = ndimage.label(clear & oc_)
+        if n_:
+            size_ = ndimage.sum(np.ones((H, W)), lab_, range(1, n_ + 1))
+            keep_open = np.isin(lab_, [j + 1 for j in range(n_) if size_[j] > 2])
+        inside &= ~keep_open
     # inside her: from her legs' own colours where they are round it, else outline (between the laid layers)
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
@@ -770,6 +803,11 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
             laid[ty[ok], tx[ok]] = True
         own_low = pockets(a) & ~own_upper(a, cfg, pose, match)
         shut = pockets(b) & ~laid & ~ndimage.binary_dilation(own_low, structure=K8)
+    if keep_open.any():
+        # (`own_clear_ground`: a pocket holding what it left open stays open)
+        lab_, n_ = ndimage.label(pockets(b))
+        hit_ = np.unique(lab_[keep_open & (b[..., 3] == 0)])
+        shut &= ~np.isin(lab_, hit_[hit_ > 0])
     b[shut, :3] = out_c
     b[shut, 3] = 255
     info["joined"] = ((near_legs | rest | bare | shut) & (b[..., 3] > 0)) & ~put
