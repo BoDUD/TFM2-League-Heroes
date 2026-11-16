@@ -143,6 +143,28 @@ HEROES = {
                                   l_hair4="L_Hair4", r_hair4="R_Hair4", front_hair="R_Front_Hair3",
                                   ribbon="L_Bottom_Ribon2", l_speaker="L_Speaker", c_speaker="C_Speaker",
                                   r_speaker="R_Speaker")),
+    # (Syndra_run.anm holds two floats in its 1.867 s: one is 0.933 s; she has no pelvis joint - Spine1 is hers)
+    "syndra": dict(clip="Syndra_run", cycle=0.9333, tick=1.0,
+                   joints=dict(pelvis="Spine1", spine="Spine2", chest="Spine3", neck="Neck", head="Head",
+                               l_hip="L_Hip", l_knee="L_Knee", l_foot="L_Foot", l_toe="L_Toe",
+                               r_hip="R_Hip", r_knee="R_Knee", r_foot="R_Foot", r_toe="R_Toe",
+                               l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                               r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                               hair1="Hair1", hair3="Hair3", hair5="Hair5", l_hair1="L_Hair1", l_hair3="L_Hair3",
+                               r_hair1="R_Hair1", r_hair3="R_Hair3", l_cloth1="L_Cloth1", l_cloth3="L_Cloth3",
+                               r_cloth1="R_Cloth1", r_cloth3="R_Cloth3")),
+    # (`Run` is run_base when not homeguard: Run.anm holds eight strides in its 8.533 s, one is 1.067 s)
+    "viktor": dict(clip="Run", cycle=1.0667, tick=1.0,
+                   joints=dict(pelvis="Pelvis", spine="Spine2", chest="Chest", neck="Neck", head="Head",
+                               l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Toe",
+                               r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Toe",
+                               l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                               r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                               weapon="Weapon1", staff1="Staff1", staff6="Staff6", sphere="WeaponSphere",
+                               backarm="C_BackArmMain", backarm4="C_Backarm4", claw="C_ClawMain",
+                               l_armor="L_ShoulderArmor", r_armor="R_ShoulderArmor", l_cape3="L_Cape3",
+                               l_cape6="L_Cape6", r_cape3="R_Cape3", r_cape6="R_Cape6", jacket3="C_Jacket3",
+                               l_jacket3="L_Jacket3", r_jacket3="R_Jacket3", hair4="Hair4")),
 }
 # (character runs, round 2 - the clip each hero plays at base move speed, its length read from the .anm: league_jax's
 # run_base is Jax_Run2.anm, 1.067 s; his topknot - Hair1-6 - and cloak strips - Cape*, C / L / R_Cape* - lead his run)
