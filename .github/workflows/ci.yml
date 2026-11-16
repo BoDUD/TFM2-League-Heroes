@@ -115,6 +115,8 @@ jobs:
           python -I tools/art/fx_kogmaw_burst.py --check
       - name: Dense frames' outlines thinned - every hero in tools/art/thin_outline.json as that tool leaves it (a pipeline run that drew a hero's frames thick again fails here)
         run: python -I tools/art/thin_outline.py --check
+      - name: league_warwick's black strays (a chain and ball under his claws, blots and tufts round his outline) stay out of every frame, as tools/art/warwick_strays.py leaves them
+        run: python -I tools/art/warwick_strays.py --check
       - name: Added design parts in every animation - every hero's part_sprites data laid on its tags as that tool makes them (league_aurelionsol's stars; a pipeline run that wrote those tags again fails here)
         run: python -I tools/art/part_sprites.py --check
       - name: Parts added to a hero's design for its run (league_jax's topknot and cloak strips) are in every other animation too, as tools/art/add_design_parts.py lays them
