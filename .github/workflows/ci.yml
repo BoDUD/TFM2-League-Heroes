@@ -117,6 +117,8 @@ jobs:
         run: python -I tools/art/thin_outline.py --check
       - name: Added design parts in every animation - every hero's part_sprites data laid on its tags as that tool makes them (league_aurelionsol's stars; a pipeline run that wrote those tags again fails here)
         run: python -I tools/art/part_sprites.py --check
+      - name: Parts added to a hero's design for its run (league_jax's topknot and cloak strips) are in every other animation too, as tools/art/add_design_parts.py lays them
+        run: python -I tools/art/add_design_parts.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places -p push_rules
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges
