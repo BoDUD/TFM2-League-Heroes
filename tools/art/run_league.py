@@ -158,6 +158,19 @@ HEROES.update({
                             hair1="Hair1", hair3="Hair3", hair6="Hair6", cape1="Cape1", cape3="Cape3",
                             cape_end="Cape_end", c_cape_end="C_Cape_end", l_cape_end="L_Cape_end",
                             r_cape_end="R_Cape_end", l_tassel="L_Hood_Tassel_end", r_tassel="R_Hood_Tassel_end")),
+    # (league_graves has no poses.json: `spec` says his model - the run's graph plays graves_run.anm's 1.0 s at a tick of
+    # 0.037 s a frame, so a cycle is 1.111 s)
+    "graves": dict(clip="graves_run", cycle=1.0, tick=1.1111,
+                   spec=dict(champ="Graves", chibi={"head": 1.0, "legs": 1.0}, design="graves_idle1@0", height=39),
+                   joints=dict(pelvis="hip", spine="spine", chest="chest", neck="neck", head="head",
+                               l_hip="l_thigh", l_knee="l_knee", l_foot="l_foot", l_toe="l_toe",
+                               r_hip="r_thigh", r_knee="r_knee", r_foot="r_foot", r_toe="r_toe",
+                               l_shoulder="l_shoulder", l_elbow="l_forearm", l_hand="l_hand",
+                               r_shoulder="r_shoulder", r_elbow="r_forearm", r_hand="r_hand",
+                               weapon="weapon", barrels="barrels", tip="buffbone_cstm_tipa",
+                               mantle_a="mantle_a", mantle_b="mantle_b", mantle_c="mantle_c", mantle_d="mantle_d",
+                               mantle_e="mantle_e", mantle_f="mantle_f", mantle_g="mantle_g", mantle_h="mantle_h",
+                               mantle_i="mantle_i", mantle_j="mantle_j", mantle_k="mantle_k", mantle_l="mantle_l")),
 })
 
 
@@ -175,8 +188,12 @@ def extract(hero, lol):
     sys.path.insert(0, os.path.join(ROOT, "tools", "lol"))
     import native_pose as N
     cfg = HEROES[hero]
-    with open(lp(os.path.join(ROOT, "assets", "source", hero, "poses.json")), encoding="utf-8") as f:
-        spec = json.load(f)
+    poses = os.path.join(ROOT, "assets", "source", hero, "poses.json")
+    if cfg.get("spec") and not os.path.isfile(lp(poses)):
+        spec = cfg["spec"]                               # (a hero without a poses.json: its entry says the model)
+    else:
+        with open(lp(poses), encoding="utf-8") as f:
+            spec = json.load(f)
     chibi = dict(spec["chibi"])
     keep = chibi.pop("keep", None)
     ch = N.Champ(lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
