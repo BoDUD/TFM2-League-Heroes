@@ -7,8 +7,9 @@ at her design (the user, 2026-11-03: 「继续加四个 魔腾 凯南 剑魔 丽
 hd/casts holds Codex's 25 sheets (each its chosen raw generation byte for byte, redos included), drawn on a
 near-white ground: casts_rengar_hd.figure keys it off. Each frame's zoom (FRAME_ZOOM, --fit) reads her STAND rows tall,
 the top of her crown to her hem as the design, and of the zooms that do, the one nearest to what her CROWN gives (see
-FRAME_ZOOM), so her body and her crown are the design's size in every frame; HEAD_FROM gives two frames another's head;
-DEAD_PAINT lays her own shades over the black hole Codex left under the crown in the death's 5-8.
+FRAME_ZOOM), so her body and her crown are the design's size in every frame; HEAD_FROM gives frames another frame's
+head and HAIR_UP carries R-on-herself's hair up to the hood; DEAD_PAINT lays her own shades over the black hole Codex
+left under the crown in the death's 5-8.
 The old frame's body (its box places the new frame) leaves out what the old sheet baked in, the ice shards and frost by
 her hands: only what lies within two pixels of the dark outline counts (OLD_BODY). Each frame is then placed where the
 old body stood: its box's middle on the old box's middle and its bottom on the old box's bottom, from the pivot, on the
@@ -69,7 +70,15 @@ HELD = {"dead_7": "dead_6", "dead_8": "dead_6"}
 # crown's shadow") and a crown two squares wider at her height; tools/art/thin_outline.py ate into the blot, open to
 # the ground beside the face, and left holes and specks there (the user, 2026-11-16: 「丽桑卓头那里失去像素了」
 # 「丽桑卓也有莫名其妙阴影的部分」). Glide 6 is drawn the same way under the brim (the face as low), clean: frames 6-8 share it
-HEAD_FROM = {"run_7": "run_6", "run_8": "run_6"}
+HEAD_FROM = {"run_7": "run_6", "run_8": "run_6",
+             # R on herself (2026-11-17, 「感觉你说的丽桑卓那几个问题还是得修」): Codex's ult_self_1 / ult_self_2 (frames 0-2
+             # and 4) put a short face under a six-row black visor, the mask far darker than in her other frames; its
+             # ult_self_4 (frame 3) has the face as the design, under a navy hood, and the chin on the same row
+             **{f"ult_self_{k}": "ult_self_4" for k in (1, 2, 3, 5)}}
+# R on herself also leaves two black rows between the hood's band and her hair on her left, the mask's left half
+# twice as tall as in her other frames: the hair of the row under them carried up (HAIR_UP: design rows, the row the
+# hair is taken from, columns), outline squares only
+HAIR_UP = {f"ult_self_{k}": ((16, 18), 18, (12, 21)) for k in range(1, 6)}
 CROWN_ROWS = 14                 # design rows 0-13: the crown down to the brim's bottom outline (head_from takes all of it)
 # head_from's boxes under the brim (design rows and columns, from the fitted crown): the visor, the face and its dark
 # right side; the hair on her left and the hand by her chin stay the frame's own
@@ -307,6 +316,8 @@ def placed():
         out[n] = thrown(n, *out[n])
     for n, src in HEAD_FROM.items():
         out[n] = head_from(*out[n], out[src][0])
+    for n, spec in HAIR_UP.items():
+        out[n] = (hair_up(out[n][0], spec), out[n][1], out[n][2])
     for n in [n for n in out if HELD.get(n, n) in DEAD_PAINTED]:
         out[n] = (paint_void(out[n][0], out[DEAD_PAINT["src"]][0]), out[n][1], out[n][2])
     for n, (pic, x, y) in out.items():
@@ -338,18 +349,25 @@ def crown_fit(pic, search=6):
     return best[1], best[2]
 
 
+CROWN_SPAN = (-3, 50)           # the crown's columns (from the fitted crown's column 0): a brim drawn 2 wider fits
+
+
 def head_from(pic, x, y, src, pad=4):
     """(picture, x, y): the frame with src's head - src's rows down to the crown's last row (CROWN_ROWS - 1 in the
-    design) over the whole width, and HEAD_BOXES under the brim - laid where the design's crown fits the frame
-    (crown_fit on both); the frame's own rows above and in the crown's go first (a taller crown tip, a wider brim)."""
+    design) across the crown's columns (CROWN_SPAN: a hand raised beside the brim stays), and HEAD_BOXES under the
+    brim - laid where the design's crown fits the frame (crown_fit on both); the frame's own squares there go first (a
+    taller crown tip, a wider brim)."""
     sy, sx = crown_fit(src)
     fy, fx = crown_fit(pic)
     oy, ox = fy - sy + pad, fx - sx + pad
     out = np.zeros((pic.shape[0] + 2 * pad, pic.shape[1] + 2 * pad, 4), np.uint8)
     out[pad:pad + pic.shape[0], pad:pad + pic.shape[1]] = pic
     last = sy + CROWN_ROWS                          # src rows above this are the crown
-    out[:max(0, last + oy)] = 0
+    c0, c1 = sx + CROWN_SPAN[0], sx + CROWN_SPAN[1]
+    out[:max(0, last + oy), max(0, c0 + ox):max(0, c1 + ox)] = 0
     ys, xs = np.nonzero(src[:last, :, 3] > 0)
+    keep = (xs >= c0) & (xs < c1)
+    ys, xs = ys[keep], xs[keep]
     out[ys + oy, xs + ox] = src[ys, xs]
     for r0, r1, c0, c1 in HEAD_BOXES:
         for r in range(r0 + sy, r1 + sy):
@@ -375,6 +393,22 @@ def _box(shape, b, oy, ox):
     m = np.zeros(shape[:2], bool)
     m[max(0, b[0] + oy):max(0, b[1] + oy), max(0, b[2] + ox):max(0, b[3] + ox)] = True
     return m
+
+
+def hair_up(pic, spec):
+    """The frame with its hair carried up (HAIR_UP): in the rows and columns given (design, from the fitted crown),
+    an outline square under which the source row has hair (a light square) takes that square."""
+    (r0, r1), row, (c0, c1) = spec
+    fy, fx = crown_fit(pic)
+    line = _cols(pic, OUTLINE_COLS)
+    out = pic.copy()
+    for r in range(r0, r1):
+        for c in range(c0, c1):
+            y, x = r + fy, c + fx
+            s = pic[row + fy, x]
+            if line[y, x] and s[3] > 0 and int(s[:3].astype(int).sum()) >= 300:
+                out[y, x] = s
+    return out
 
 
 def paint_void(pic, src, spec=DEAD_PAINT):
