@@ -77,6 +77,8 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `match_search`: N (`below` "match") - how far round the frames' centres the drawn place of frame `from`'s upper body
   is looked for (7 squares by default): league_nilah's leaping frames are drawn on the same rows of a rect 23-27 rows
   taller, so their centres sit 12-14 rows under where her upper body is.
+- `keep_lo`: like `keep_one` for the lo_ frames - they stay the drawn run's own (<hero>_run_lo.png), for a hero whose
+  lo_run is not add_lo's from his dense frames (league_malzahar's timing-only run keeps every square of it).
 - `props` (with `lock` "head"): rigid props the artist redrew a little differently in every frame (league_sona's etwahl:
   「琴女的琴有点变形」) - one drawing each, laid on each frame's own drawn place: `squares` (a mask spec in its drawn frame
   `from` - the head's by default - its squares with their outline and what rests on it, the hands on its strings), `at`
@@ -1359,9 +1361,10 @@ def make(hero, cfg=None):
         kept1, x1 = [], 0
         for k1, (f, _) in enumerate(one):
             h1, w1 = f.shape[:2]
-            if pr or pc:
+            if pr or pc or cfg.get("keep_lo"):
                 # (with `pad` the made 1x frames grow: the kept ones keep their own sizes, the drawn run's 1x ones -
-                # league_camille's added coat tails are in her dense and lo_ frames only)
+                # league_camille's added coat tails are in her dense and lo_ frames only; with `keep_lo` - a run kept
+                # as drawn at every density, league_malzahar's - too: ppu_one would pick a taller rect for some)
                 w1, h1 = one_sz[k1]
             kept1.append(s1[:h1, x1:x1 + w1].copy())
             x1 += w1 + 1
@@ -1401,6 +1404,16 @@ def make(hero, cfg=None):
         P = T.kind_params([f for f, _ in lo], oc_, tp["lo"]["keep"])
         if T.mode(P) == "grow":
             lo = [(T.change_fixed(f, P, tp["outline"], tp["grow"])[0], ms) for f, ms in lo]
+    if cfg.get("keep_lo"):
+        # `keep_lo`: the lo_ frames stay the drawn run's own, kept beside it (<hero>_run_lo.png: the frames left to
+        # right, a square apart, on the drawn run's lo_ sizes) - a hero whose lo_run is not add_lo's from his dense
+        # frames (league_malzahar: 173-195 squares a frame off), so a timing-only run keeps every square of it
+        s2 = np.array(Image.open(lp(os.path.join(ROOT, cfg["keep_lo"] + ".png"))).convert("RGBA"))
+        kept2, x2 = [], 0
+        for (_, ms), (lw, lh) in zip(lo, lo_sz):
+            kept2.append((s2[:lh, x2:x2 + lw].copy(), ms))
+            x2 += lw + 1
+        lo = kept2
     for inf, n_ in zip(info, lost):
         inf["one_lost"] = n_
     off = [inf["lost"] for inf in info]
