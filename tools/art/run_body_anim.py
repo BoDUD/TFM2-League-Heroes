@@ -1004,7 +1004,9 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
     # matched on them alone, the rest of a redrawn head (hair spikes, a longer face) does not pull it off
     tmpl = head & colour_mask(src, [tuple(c) for c in cfg["head_match_colours"]]) if cfg.get("head_match_colours") \
         else head
-    my, mx = find_head(src, a, tmpl)
+    # `head_search`: how far (squares from the frames' centres) the frame's own head is looked for - 10 by default;
+    # league_kayle hovers, her figure rising and falling 20-odd squares in her frames, so her face is looked for further
+    my, mx = find_head(src, a, tmpl, int(cfg.get("head_search", 10)))
     dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
     same = pose == cfg["from"] or (a.shape == src.shape and np.array_equal(a, src))
     props = props or []
