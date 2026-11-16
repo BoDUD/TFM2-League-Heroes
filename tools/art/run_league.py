@@ -165,6 +165,16 @@ HEROES = {
                                l_armor="L_ShoulderArmor", r_armor="R_ShoulderArmor", l_cape3="L_Cape3",
                                l_cape6="L_Cape6", r_cape3="R_Cape3", r_cape6="R_Cape6", jacket3="C_Jacket3",
                                l_jacket3="L_Jacket3", r_jacket3="R_Jacket3", hair4="Hair4")),
+    # (vladimir_run.anm holds two strides in its 1.6 s: one is 0.8 s of clip; the graph plays it at mTickDuration 0.04)
+    "vladimir": dict(clip="vladimir_run", cycle=0.8, tick=1.2,
+                     joints=dict(pelvis="C_Hip", spine="C_Waist", chest="C_Chest", neck="C_Neck", head="C_Head",
+                                 l_hip="L_Thigh", l_knee="L_Knee", l_foot="L_Foot", l_toe="L_Toe",
+                                 r_hip="R_Thigh", r_knee="R_Knee", r_foot="R_Foot", r_toe="R_Toe",
+                                 l_shoulder="L_UpArm", l_elbow="L_ForeArm", l_hand="L_Hand",
+                                 r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand",
+                                 collar="Collar_b", l_collar="L_Collar_b", r_collar="R_Collar_b",
+                                 l_sleeve="L_Sleeves", r_sleeve="R_Sleeves", l_armor="L_Armor_b", r_armor="R_Armor_b",
+                                 b_cloth="B_Cloth_e", b_cloth_c="B_Cloth_c", l_cloth="L_Cloth_c", r_cloth="R_Cloth_c")),
 }
 # (character runs, round 2 - the clip each hero plays at base move speed, its length read from the .anm: league_jax's
 # run_base is Jax_Run2.anm, 1.067 s; his topknot - Hair1-6 - and cloak strips - Cape*, C / L / R_Cape* - lead his run)
@@ -218,9 +228,11 @@ def extract(hero, lol):
             spec = json.load(f)
     chibi = dict(spec["chibi"])
     keep = chibi.pop("keep", None)
+    # (the spec's `head_joint` too, as native_pose.py passes it: league_vladimir's mesh rides C_Head, not head)
     ch = N.Champ(lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
                  spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()),
-                 spec.get("hide_submeshes", False), spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"))
+                 spec.get("hide_submeshes", False), spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"),
+                 spec.get("head_joint", "head"))
     rot = N.camera({"yaw": 90, "pitch": 0})              # the model's +Z (its front) to +x: facing right
     by = {j["name"].lower(): i for i, j in enumerate(ch.joints)}
     pv, glob, _ = ch.posed(spec["design"], chibi)
