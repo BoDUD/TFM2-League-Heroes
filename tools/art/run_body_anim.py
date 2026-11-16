@@ -102,6 +102,11 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   every frame while each drawn pose is shown twice; `upper` (a mask spec a drawn frame) names that upper body square
   for square where no waist row and rects can (a tail leaving the hip under the belt: everything but the legs, cut off
   at the hips).
+- `shade`: which leg is near shown by its shade, as a run's legs cross (league_ambessa, both legs one dark armour:
+  「安蓓萨感觉腿部没有交叉感 看的不是太明显」, then 「安蓓萨 你决定」) - in each drawn frame the `far` leg's squares (a mask
+  spec a drawn frame) a step darker and the `near` leg's a step lighter along their colour's `ramps` (dark to light;
+  `keep_dark`: never darker, `keep_light`: never lighter; another colour stays), laid on the drawn frame before it is
+  composed - the drawing's shapes square for square, only the shade. Default: none.
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -229,6 +234,12 @@ def load(hero, variant=None):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
                             else [[r + pr, c + pc] for r, c in q] for q in cfg[key]]
+        for key in ("far", "near"):
+            if cfg.get("shade") and cfg["shade"].get(key):
+                cfg["shade"][key] = [None if q is None else
+                                     {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]}
+                                     if isinstance(q, dict) else [[r + pr, c + pc] for r, c in q]
+                                     for q in cfg["shade"][key]]
         for pr_ in cfg.get("props", []):
             # (`props`: its squares in its frame `from` and each frame's `clear` are in the frames' own rows / cols)
             pr_["squares"] = shift_spec(pr_["squares"], pr, pc)
@@ -601,6 +612,29 @@ def shift_spec(q, pr, pc):
     if isinstance(q, dict):
         return {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]}
     return [[r + pr, c + pc] for r, c in q]
+
+
+def shade_legs(a, cfg, i):
+    """`shade`: drawn frame i with its `far` leg a ramp step darker and its `near` leg a step lighter (a copy; frame i as
+    it is without `shade`)."""
+    sh = cfg.get("shade")
+    if not sh:
+        return a
+    ramps = [[tuple(c) for c in r] for r in sh["ramps"]]
+    keep = {-1: {tuple(c) for c in sh.get("keep_dark", [])}, 1: {tuple(c) for c in sh.get("keep_light", [])}}
+    b = a.copy()
+    op = a[..., 3] > 0
+    for key, step in (("far", -1), ("near", 1)):
+        q = (sh.get(key) or [None] * (i + 1))[i]
+        for y, x in zip(*np.nonzero(spec_mask(q, a.shape) & op)):
+            c = tuple(int(v) for v in a[y, x, :3])
+            for r in ramps:
+                if c in r:
+                    j = r.index(c) + step
+                    if 0 <= j < len(r) and c not in keep[step]:
+                        b[y, x, :3] = r[j]
+                    break
+    return b
 
 
 def spec_mask(q, shape):
@@ -1491,6 +1525,7 @@ def make(hero, cfg=None):
     for i in range(N):
         p = i // steps
         a, ms = frames[p]
+        a = shade_legs(a, cfg, p)                       # (`shade`: the near leg lighter, the far one darker)
         if cfg.get("cycle_ms"):
             ms = cfg["cycle_ms"] / float(N)
         elif steps > 1:
