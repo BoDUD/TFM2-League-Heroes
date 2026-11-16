@@ -85,6 +85,12 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   (rows / cols off its place in frame `from`, from the frames' centres, a frame each), `clear` (a mask spec a drawn frame,
   null: none - the frame's own drawing of it, exactly those squares go); laid in front, the gaps joined as the head's. A
   mask spec: (row, col) corners, or {"rows": [[row, first col, last col], ...]}, in the frame's own rows / cols.
+- `head_chains` (with `lock` "head"): pieces of the laid head that swing on their own (league_tristana's long ears
+  flopping on League's Ear02 paths on her locked head): each the head's squares in `poly` (corners in frame `from`) on
+  the `side` of its `root` column, every column off the laid head by its share of `tip` (rows a frame) as a chain's,
+  neighbouring columns at most a square apart - behind the rest (`front`: over it); the head's own edge it bares is
+  closed with 2 squares of outline, the rest of what it leaves is ground. `head_search`: how far from the frames'
+  centres the frame's own head is looked for (10 squares by default).
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -992,7 +998,24 @@ def find_head(src, a, head, search=10):
     return best[1], best[2]
 
 
-def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
+def head_chain_masks(src, cfg, head):
+    """`head_chains` (with `lock` "head"): pieces of the laid head that swing on their own, the way `chains` with `tip` do
+    (league_tristana's long ears flopping on League's Ear02 paths on her locked head) - each its squares of the head in
+    `poly` (corners in frame `from`) on the `side` of its `root` column; {name: mask}, in their order."""
+    out, taken = {}, np.zeros(head.shape, bool)
+    for c in cfg["head_chains"]:
+        side = np.zeros(head.shape, bool)
+        if c.get("side", "left") == "left":
+            side[:, :c["root"]] = True
+        else:
+            side[:, c["root"] + 1:] = True
+        m = poly_mask([tuple(v) for v in c["poly"]], src.shape) & head & side & ~taken
+        out[c["name"]] = m
+        taken |= m
+    return out
+
+
+def compose_head(a, i, src, head, mov, cfg, pose=None, props=None, hchains=None):
     """Frame i (drawn frame `pose`'s) with frame `from`'s head on its own head's place (rows `bob`, columns `x` off it): the
     frame's own head cleared round it - its own head colours (`head_colours`, frame `from`'s head's by default) within 2
     squares, above its chin (`chin`: frame `from`'s first row of the neck) - the rest of the frame square for square its
@@ -1018,7 +1041,9 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
     # (`props`: a frame whose own prop is cleared, or that gets one laid from another frame, is made)
     prop_here = any(pr["clear"][pose] or int(pr.get("from", cfg["from"])) != pose or any(pr["at"][i])
                     for pr, _, _ in props)
-    if same and (dy, dx) == (my, mx) == (0, 0) and not sh and not prop_here:
+    hchains = hchains or {}
+    chain_here = any(any(mov[nm][i].values()) for nm in hchains)  # (`head_chains` off their place this frame)
+    if same and (dy, dx) == (my, mx) == (0, 0) and not sh and not prop_here and not chain_here:
         # frame `from` keeps its own head where it is: nothing to change (nor in a frame drawn the same as frame `from`:
         # a 4-frame drawing shown twice)
         z = np.zeros(a.shape[:2], bool)
@@ -1121,24 +1146,35 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
     carried = np.zeros((H, W), bool)
     if carry.any():
         carried, info["lost"] = lay(b, a, carry, dy - my, dx - mx, under=True)
+    hbody = head
+    for m_ in hchains.values():
+        hbody = hbody & ~m_                              # (`head_chains`: laid on their own, below)
     if cfg.get("head_under"):
         # `head_under`: corners in frame `from` - the head's squares in them are laid only where the frame has nothing
         # left (the hood's lower edge behind the frame's own shoulder plate, which stays over it)
-        low = head & poly_mask(cfg["head_under"], src.shape)
-        info["head"], lost = lay(b, src, head & ~low, dy, dx)
+        low = hbody & poly_mask(cfg["head_under"], src.shape)
+        info["head"], lost = lay(b, src, hbody & ~low, dy, dx)
         under_put, lost2 = lay(b, src, low, dy, dx, under=True)
         info["head"] |= under_put
         lost += lost2
     else:
-        info["head"], lost = lay(b, src, head, dy, dx)
+        info["head"], lost = lay(b, src, hbody, dy, dx)
     info["lost"] += lost
+    cput = np.zeros((H, W), bool)
+    for c in (cfg.get("head_chains", []) if hchains else []):
+        # `head_chains`: each column of the piece off the laid head by its rows this frame (`tip`, as a chain's), behind
+        # the head and whatever of the frame is left (`front`: over them) - the root's columns stay on the head
+        c_put, lost = lay(b, src, hchains[c["name"]], dy, dx, cols=mov[c["name"]][i], under=not c.get("front"))
+        info[c["name"]] = c_put
+        cput |= c_put
+        info["lost"] += lost
     pput = np.zeros((H, W), bool)
     for pr, psrc, pm in props:
         ady, adx = (int(v) for v in pr["at"][i])
         p_put, lost = lay(b, psrc, pm, H // 2 - psrc.shape[0] // 2 + ady, W // 2 - psrc.shape[1] // 2 + adx)
         pput |= p_put
         info["lost"] += lost
-    put = (info["head"] | pput) & (b[..., 3] > 0)
+    put = (info["head"] | cput | pput) & (b[..., 3] > 0)
     info["head"] = put & ~pput
     if props:
         info["props"] = pput & (b[..., 3] > 0)
@@ -1202,6 +1238,13 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
         py, px_ = py + H // 2 - psrc.shape[0] // 2 + ady, px_ + W // 2 - psrc.shape[1] // 2 + adx
         okp = (py >= 0) & (py < H) & (px_ >= 0) & (px_ < W)
         laid[py[okp], px_[okp]] = True
+    for c in (cfg.get("head_chains", []) if hchains else []):
+        # (a swung piece's own pinholes: the drawing's, where its columns put them)
+        py, px_ = np.nonzero(pockets(src) & ndimage.binary_dilation(hchains[c["name"]], structure=K8))
+        py = py + dy + np.array([mov[c["name"]][i].get(int(x), 0) for x in px_], int)
+        px_ = px_ + dx
+        okp = (py >= 0) & (py < H) & (px_ >= 0) & (px_ < W)
+        laid[py[okp], px_[okp]] = True
     own_p = pockets(a) & ~ndimage.binary_dilation(own | carry | pclear, structure=K8)
     if carry.any():
         py, px_ = np.nonzero(pockets(a) & ndimage.binary_dilation(carry, structure=K8))
@@ -1220,6 +1263,20 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
                 shut &= ~m_
     b[shut, :3] = out_c
     b[shut, 3] = 255
+    if hchains and cput.any():
+        # `head_chains`: the head's own edge a swung piece bares (the hair under a lifted ear shared its outline with the
+        # ear) is closed with outline, 2 squares deep as drawn - a square the piece left at its home that is clear now,
+        # within 2 of the laid head's own colours; the rest of what it leaves is ground
+        home = np.zeros((H, W), bool)
+        for m_ in hchains.values():
+            ys_, xs_ = np.nonzero(m_)
+            ok_ = (ys_ + dy >= 0) & (ys_ + dy < H) & (xs_ + dx >= 0) & (xs_ + dx < W)
+            home[ys_[ok_] + dy, xs_[ok_] + dx] = True
+        body_solid = info["head"] & ~cput & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        edge = home & (b[..., 3] == 0) & (T.steps_from(body_solid, np.ones((H, W), bool), 2) <= 2)
+        b[edge, :3] = out_c
+        b[edge, 3] = 255
+        info["chain_edge"] = edge
     if cfg.get("clear_specks"):
         # `clear_specks`: a piece of at most that many squares the clearing cut off from her (the last row of outline
         # under the frame's own longer jaw) goes - one by the cleared squares that no drawing has as a piece of its own
@@ -1287,6 +1344,7 @@ def make(hero, cfg=None):
     head_only = cfg.get("lock") == "head"
     layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
     props = prop_layers(frames, cfg) if head_only else []
+    hchains = head_chain_masks(src, cfg, layers["head"]) if head_only and cfg.get("head_chains") else {}
     # (a `hang` chain's are its rows: it hangs from a root row, every row shifted sideways)
     chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[0 if c.get("hang") else 1].tolist()))
                   for c in cfg.get("chains", [])}
@@ -1297,6 +1355,11 @@ def make(hero, cfg=None):
     if len(cfg["bob"]) != N:
         sys.exit(f"{hid}: `bob` has {len(cfg['bob'])} values for {N} frames ({n} drawn x `steps` {steps})")
     mov = motion(cfg, N, chain_cols)
+    if hchains:
+        # (`head_chains`: each one's columns off the laid head by their share of its `tip`, as `chains` with `tip` are)
+        hcols = {nm: sorted(set(np.nonzero(m)[1].tolist())) for nm, m in hchains.items()}
+        mov.update({k: v for k, v in motion({"bob": cfg["bob"], "chains": cfg["head_chains"]}, N, hcols).items()
+                    if k != "body"})
     tp = T.load_state().get(hid)                         # (a hero thin_outline.json does not list: no pass)
     if tp is not None and tp.get("skip"):
         tp = None
@@ -1316,7 +1379,7 @@ def make(hero, cfg=None):
             ms = ms / float(steps)
         match, alike = None, None
         if head_only:
-            b, inf = compose_head(a, i, src, layers["head"], mov, cfg, p, props)
+            b, inf = compose_head(a, i, src, layers["head"], mov, cfg, p, props, hchains)
         else:
             if cfg["below"] == "match":
                 if p not in shifts:
