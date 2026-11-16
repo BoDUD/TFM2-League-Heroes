@@ -373,6 +373,8 @@ class Hero:
                 if name in [p["name"] for p in cfg.get("parts", [])]:
                     oy, ox = R.off_of(self.mov[name][i])
                     ty = ty + oy
+                elif name in [c["name"] for c in cfg.get("chains", []) if c.get("hang")]:
+                    ox = np.array([self.mov[name][i].get(int(y), 0) for y in ys], int)   # (a hanging chain)
                 elif name in [c["name"] for c in cfg.get("chains", [])]:
                     ty = ty + np.array([self.mov[name][i].get(int(x), 0) for x in xs], int)
                 tx = xs + dx + ox

@@ -41,7 +41,10 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `chains` (hair, a braid: its `colours` on the `side` of a `root` column, between two `rows` - under the waist too -
   and the outline only they touch; `front`: laid over the body, a braid in front of what she carries on her back): every
   column lagging the body by more the farther it is from the root (`lag` frames at the tip, `whip` that much more swing
-  there), the root staying on the body, neighbouring columns never more than a square apart;
+  there), the root staying on the body, neighbouring columns never more than a square apart; `hang` (with `poly` and
+  `tip`): a chain hanging DOWN from a root ROW - every row shifted sideways by its share of `tip` (columns a frame, +
+  right) by how far it is below the root, neighbouring rows never more than a square apart (league_camille's rear skirt
+  panels, swung back and forth on League's path: a cloth panel, not a tail);
 - `keep`: rects (rows and cols from the centre) whose squares stay the frame's own - a vine the drawing swings by
   itself and the hand on it, never the legs - in front, moved with the body (so it stays in its hand).
 - `steps`: every drawn frame shown that many frames (2: 8 drawn frames, 16 frames), each 1 / `steps` of its time (or
@@ -173,7 +176,7 @@ def load(hero, variant=None):
         for p in cfg.get("parts", []):
             p["poly"] = [(r + pr, c + pc) for r, c in p["poly"]]
         for c in cfg.get("chains", []):
-            c["root"] += pc
+            c["root"] += pr if c.get("hang") else pc     # (`hang`: the root is a row)
             if "rows" in c:
                 c["rows"] = [c["rows"][0] + pr, c["rows"][1] + pr]
             if c.get("poly"):
@@ -434,7 +437,9 @@ def pieces(src, cfg, i_src):
         taken |= m
     for c in cfg.get("chains", []):
         side = np.zeros((H, W), bool)
-        if c.get("side", "left") == "left":
+        if c.get("hang"):
+            side[:] = True                               # (a hanging chain: its corners say where it is)
+        elif c.get("side", "left") == "left":
             side[:, :c["root"]] = True
         else:
             side[:, c["root"] + 1:] = True
@@ -626,12 +631,13 @@ def pockets(a):
     return (lab > 0) & ~np.isin(lab, edge)
 
 
-def lay(b, src, m, dy, dx, cols=None, under=False):
-    """src's squares in m into b moved (dy, dx) (cols: {col: extra rows} per source column); under: only where b is
-    clear. -> (the squares laid, the squares that would leave the frame)."""
+def lay(b, src, m, dy, dx, cols=None, under=False, rows=None):
+    """src's squares in m into b moved (dy, dx) (cols: {col: extra rows} per source column; rows: {row: extra cols} per
+    source row - a `hang` chain); under: only where b is clear. -> (the squares laid, the squares that would leave the
+    frame)."""
     ys, xs = np.nonzero(m)
     ty = ys + dy + (np.array([cols.get(int(x), 0) for x in xs], int) if cols else 0)
-    tx = xs + dx
+    tx = xs + dx + (np.array([rows.get(int(y), 0) for y in ys], int) if rows else 0)
     ok = (ty >= 0) & (ty < b.shape[0]) & (tx >= 0) & (tx < b.shape[1])
     lost = int((~ok).sum())
     if under:
@@ -685,7 +691,8 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     for name in names:
         lay(base, src, layers[name], dy, dx)
     for c in [c for c in cfg.get("chains", []) if not c.get("front")]:
-        info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, cols=mov[c["name"]][i], under=True)
+        info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, under=True,
+                                    **{"rows" if c.get("hang") else "cols": mov[c["name"]][i]})
         info["lost"] += lost
     for p in [p for p in cfg.get("parts", []) if p.get("behind")]:
         oy, ox = off_of(mov[p["name"]][i])
@@ -694,7 +701,8 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     info["body"], lost = lay(b, src, layers["body"], dy, dx)
     info["lost"] += lost
     for c in [c for c in cfg.get("chains", []) if c.get("front")]:
-        info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx, cols=mov[c["name"]][i])
+        info[c["name"]], lost = lay(b, src, layers[c["name"]], dy, dx,
+                                    **{"rows" if c.get("hang") else "cols": mov[c["name"]][i]})
         info["lost"] += lost
     for p in [p for p in cfg.get("parts", []) if not p.get("behind")]:
         oy, ox = off_of(mov[p["name"]][i])
@@ -788,12 +796,15 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         # frame's own under the waist are the drawing's
         laid = np.zeros((H, W), bool)
         ps = pockets(src)
+        hangs = {c["name"] for c in cfg.get("chains", []) if c.get("hang")}
         for name in names:
             ys, xs = np.nonzero(ps & ndimage.binary_dilation(layers[name], structure=K8))
             if not len(ys):
                 continue
             off, offx = dy, 0                            # (the body's own rows are in dy)
-            if name != "body" and isinstance(mov[name][i], dict):
+            if name != "body" and isinstance(mov[name][i], dict) and name in hangs:
+                offx = np.array([mov[name][i].get(int(y), 0) for y in ys], int)
+            elif name != "body" and isinstance(mov[name][i], dict):
                 off = dy + np.array([mov[name][i].get(int(x), 0) for x in xs], int)
             elif name != "body":
                 oy, offx = off_of(mov[name][i])
@@ -823,6 +834,7 @@ def part_gaps(src, layers, mov, cfg, i, dy, dx, b):
     out = np.zeros((H, W), bool)
     clear = b[..., 3] == 0
     chain_names = {c["name"] for c in cfg.get("chains", [])}
+    hangs = {c["name"] for c in cfg.get("chains", []) if c.get("hang")}
     for name in layer_names(cfg):
         if name == "body" or name not in mov:
             continue
@@ -834,7 +846,10 @@ def part_gaps(src, layers, mov, cfg, i, dy, dx, b):
         vy, vx = np.nonzero(home & clear)
         if not len(vy):
             continue
-        if name in chain_names:
+        if name in hangs:                                   # (a hanging chain: columns off by its rows)
+            oy = 0
+            ox = np.array([mov[name][i].get(int(y - dy), 0) for y in vy], int)
+        elif name in chain_names:
             oy = np.array([mov[name][i].get(int(x - dx), 0) for x in vx], int)
             ox = 0
         else:
@@ -1133,7 +1148,9 @@ def make(hero, cfg=None):
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     head_only = cfg.get("lock") == "head"
     layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
-    chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[1].tolist())) for c in cfg.get("chains", [])}
+    # (a `hang` chain's are its rows: it hangs from a root row, every row shifted sideways)
+    chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[0 if c.get("hang") else 1].tolist()))
+                  for c in cfg.get("chains", [])}
     # `steps`: frames a drawn frame (its legs shown that many frames, the upper body moving on every one), each
     # 1 / `steps` of its time - or `cycle_ms` / the frames
     steps = int(cfg.get("steps", 1))
