@@ -1265,7 +1265,9 @@ def make(hero, cfg=None):
             g = np.zeros((max(lh, f2.shape[0]), max(lw, f2.shape[1]), 4), np.uint8)
             oy, ox = (g.shape[0] - f2.shape[0]) // 2, (g.shape[1] - f2.shape[1]) // 2
             g[oy:oy + f2.shape[0], ox:ox + f2.shape[1]] = f2
-            f2 = g
+            # (thinned again in its rect: a frame whose figure touched its edge gets its outline where it had no room -
+            # league_irelia's lo_run frame 7, 94 rows in a 98-row rect; a frame that had the room is as it was)
+            f2 = thin(g, "lo")
         lo.append((f2, ms))
     if cfg.get("lo_grow") and tp is not None:
         # `lo_grow`: the lo_ frames' outline measured on them and grown to the hero's thin_outline `keep` where it is
