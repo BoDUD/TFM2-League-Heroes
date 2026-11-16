@@ -1,0 +1,39 @@
+{
+  "hero": "neeko",
+  "tag": "run",
+  "drawn": "assets/source/neeko/hd/neeko_run_drawn",
+  "from": 0,
+  "outline": [10, 2, 20],
+  "lock": "head",
+  "head": [[8, 30], [8, 100], [35, 100], [35, 30]],
+  "clear_poly": [[8, 30], [8, 100], [35, 100], [35, 30]],
+  "chin": 35,
+  "clear_grow": 1,
+  "shift_fill": "waist",
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [-11, -11, -11, -11, -11, -11, -11, -11],
+  "below": [
+    [[null, 81, 11, 68]],
+    [[null, 81, 11, 68]],
+    [[null, 79, 0, 53]],
+    [[null, 79, 0, 53]],
+    [[null, 79, 0, 56]],
+    [[null, 79, 0, 56]],
+    [[null, 83, 0, 46]],
+    [[null, 83, 0, 46]]
+  ],
+  "shift": [0, 0, 0, 0, 0, 0, 0, 0],
+  "steps": 1,
+  "keep_one": "assets/source/neeko/hd/neeko_run_one",
+  "keep_lo": "assets/source/neeko/hd/neeko_run_lo",
+  "variants": {"t750a4": {"shift": [3, 4, 1, 0, 3, 4, 1, 0], "cycle_ms": 750}, "t750a5": {"shift": [4, 5, 1, 0, 4, 5, 1, 0], "cycle_ms": 750}, "t600a4": {"shift": [3, 4, 1, 0, 3, 4, 1, 0], "cycle_ms": 600}, "t750": {"cycle_ms": 750}},
+  "use": "t750a4",
+  "notes": {
+    "made": "B6 round 6 (the user: 「我让你改不是让你改原本的走路的腿部的姿势 只是身体有点动画效果 看起来不要那么僵硬」 and on Soraka 「跑步节奏过快看不出吗？」): her head is one drawing in all 8 frames (only moved), her torso, arms, legs and tail are 4 poses each shown twice, the tail's curl redrawn between them - so `lock` head (frame 0's head without the crest tips, identical to every frame's own: the lock changes no square) and `shift`",
+    "timing": "drawn 8 x 60 ms = 480 ms for 2 steps (240 ms a step): the planted foot slides back 26-27 squares a pose against her move speed's 16 squares in 120 ms - legs spinning, 小碎步. League's Neeko_Run is 0.9 s (Run_slow 1.04 s); at 750 ms (run_fix's floor) a pose is 188 ms and the planted foot moves with the ground (25 squares); the tail's curl and the body still change every 94 ms",
+    "shift": "on each contact (0-1, 4-5) her whole upper body (head, torso, arms, belt, the tail at her back) sinks 3 then 4 rows over her legs, a row on the passing pose's first frame, none on its second (League: the chest drops 12 squares at her height, lowest at each landing). Head path 3 4 2 1 4 5 -1 -2 (drawn 0 0 1 1 1 1 -2 -2). The loincloth flap between her thighs stays with the legs (it touches them): the belt covers its top 3-4 rows at the contacts",
+    "waist": "row -11 from the centre (under the belt) in every frame; the tail hangs under it at her back (`below` rect)",
+    "keep": "her 1x and lo_ runs are drawings of their own (keep_one / keep_lo), retimed with the rest"
+  }
+}
