@@ -1,0 +1,29 @@
+{
+  "hero": "xinzhao",
+  "tag": "run",
+  "drawn": "assets/source/xinzhao/hd/xinzhao_run_drawn",
+  "from": 0,
+  "outline": [3, 1, 6],
+  "waist": [-2, -2, -4, -2, -2, -3, -4, -2],
+  "bob": [0, 0, -2, 0, 0, -1, -2, 0],
+  "below": "match",
+  "parts": [],
+  "chains": [
+    {"name": "ribbon", "poly": [[8, 41], [8, 46], [9, 46], [9, 48], [11, 48], [11, 47], [13, 47], [13, 50], [12, 50], [12, 54], [13, 54], [13, 53], [14, 53], [14, 54], [16, 54], [16, 53], [17, 53], [17, 52], [16, 52], [16, 51], [17, 51], [17, 50], [18, 50], [18, 49], [19, 49], [19, 48], [20, 48], [20, 43], [21, 43], [21, 39], [22, 39], [22, 38], [23, 38], [23, 36], [24, 36], [24, 35], [25, 35], [25, 34], [26, 34], [26, 31], [25, 31], [25, 30], [21, 30], [21, 31], [20, 31], [20, 32], [19, 32], [19, 33], [18, 33], [18, 34], [17, 34], [17, 35], [16, 35], [16, 38], [15, 38], [15, 37], [13, 37], [13, 38], [11, 38], [11, 39], [10, 39], [10, 40], [9, 40], [9, 41]], "root": 53, "side": "left", "tip": [-1, -3, 0, 0, -4, -4, 0, 0]},
+    {"name": "streamer", "poly": [[41, 29], [41, 30], [42, 30], [42, 31], [43, 31], [43, 33], [44, 33], [44, 38], [45, 38], [45, 39], [46, 39], [46, 40], [47, 40], [47, 41], [51, 41], [51, 40], [52, 40], [52, 38], [51, 38], [51, 37], [50, 37], [50, 35], [49, 35], [49, 29], [48, 29], [48, 28], [47, 28], [47, 27], [46, 27], [46, 26], [45, 26], [45, 25], [43, 25], [43, 27], [42, 27], [42, 29]], "root": 27, "side": "right", "tip": [0, -2, -1, -1, -1, 0, 2, 3]}
+  ],
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand (round 4: 「后面的英雄都按这个思路来 先去联盟客户端找英雄的特色是什么 再做run的动画」): his drawn run (rig_xinzhao_hd's) is one upper-body drawing in every frame (rows 0-46 alike, at the same rows from the top; the frames 98-102 tall: the body 0 0 -2 0 0 -1 -2 0 rows off frame 0's centre) over legs drawn anew each frame; it stays exactly that drawing on its drawn place (`bob`, `waist`: row 47 from the top), the legs as drawn, and only his two cloth pieces move on League's Runbase paths",
+    "ribbon": "the purple ribbon tied at the back of his head (two tails, the gold tie on the lower one) = League's hair chain Hair1-8 (its streamer): cut by its corners (199 squares, its own outline; the crescent hook's outline under its tip stays the spear's), a chain from root column 53 (the knot by the topknot) to its tip at column 30; tip rows = League's Hair7 against the chest (Hair7 sits 31 squares behind the chest, our tip 30), our rows -0.9 -4.3 +2.9 +2.7 -5.0 -5.9 +3.3 +7.3 at our frames (Runbase @ k x 108.3 ms, as poses.json samples it), scaled 0.7 and held at the drawn place downwards: -1 -3 0 0 -4 -4 0 0",
+    "ribbon_caps": "never below the drawn place: the tip is one clear square off the spear's crescent hook (row 25), and every row down shut 3-5 squares under the knot by the topknot that had to be filled (f7 at +7: a 5-square block); up only 0.7 of League's (League -6: the lower tail flattened into the upper one, the gap between the two tails closing)",
+    "streamer": "the purple streamer hanging from the spear's gold collar = League's weapon flag (WeaponFlagRoot-5): cut by its corners (89 squares), a chain from root column 27 (where it hangs from the collar) to its end at column 40; its spear stays still in his hands, so its tip rows are the flag's own swing - League's flag joints against WeaponFlagRoot, between WeaponFlag3 (10 squares out) and WeaponFlag4 (15; our streamer 12): 0 -3 -1 -1 -1 0 +2 +3; frame 1 capped at -2 (at -3 its end came a square nearer his face: 18 squares, drawn 19), else as League's (6 clear rows to the shaft over it, air under it): 0 -2 -1 -1 -1 0 2 3",
+    "still": "the spear (League moves it +-3 rows with the hands: held in both fists, it stays - as league_graves' gun, league_lux's staff), the gold back cloth (armour on his back, rigid with League's chest; League's BackSash ribbons are not drawn), the head (League +-0.5 against the chest)",
+    "keep_one": "his 1x run is a drawing of its own (ppu_one's from the dense frames differs in 865-924 squares a frame even with nothing moved): it stays as installed (xinzhao_run_one.png), only hd_run and lo_run are made",
+    "timing": "8 x 130 ms = 1040 ms = League's Runbase cycle (0.867 s of clip, mTickDuration 0.04 -> 1.040 s): unchanged",
+    "init": {"contacts": "frames [3, 7] (feet's band spread [34, 21, 19, 27, 23, 19, 34, 38])", "waist": "row 2 from the centre in every frame: per-row differing share passes 0.419 there (figure rows -51..17)", "from": "frame 0: closest to hd_idle_base[0] (alike share per frame [0.958, 0.958, 0.926, 0.954, 0.955, 0.946, 0.935, 0.957])", "below": "rects per frame [0, 0, 0, 1, 1, 0, 1, 0] (her squares under the waist her feet do not reach)", "bob": "2 squares low to high (1.33 game px), low the frame after the contacts [3, 7], moved by 0 so the head stays in every rect: [2, 1, 0, 1, 2, 1, 0, 1]", "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 0) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]}
+  },
+  "x": 0,
+  "bare_ground": true,
+  "part_gaps": true,
+  "keep_one": "assets/source/xinzhao/hd/xinzhao_run_one"
+}
