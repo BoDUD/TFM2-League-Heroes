@@ -23,13 +23,15 @@ from them every time, so it runs again over its own output; when a generator dra
   hero's own drawn reference (the hood, the head, the hip; `anchor`: a rect of squares in a base frame) found in the
   frame (`frames` -> tag -> `hd` / `one`: [rows, cols, how] a frame, the anchor's place from its place in the anchor
   frame, how it is drawn there - "id", "h" mirrored, "r90" / "r180" / "r270" turned (np.rot90's quarter turns,
-  counter-clockwise), "r90h" / "r270h" both; --anchors finds them). A part keeps its place against the anchor as the
+  counter-clockwise), "r90h" / "r270h" both; --anchors finds them, but for the places set by hand in `anchor` -> kind
+  -> `fixed`: a flashed frame, a redrawn hip). A part keeps its place against the anchor as the
   run has it (`run_anchor`: the anchor's place in the run's frame `from`) or as its `at` says (the anchor frame's rows /
   cols); a mirrored or turned frame gets the part mirrored / turned the same way - lossless quarter turns only;
 - `bend` (a part's `bend`: {"root": picture column, "side": "left" / "right"}; `frames` -> tag -> `bend` -> part: rows
   a frame, down +): the part as a chain - every column on `side` of its root moved that many rows times its share of
   the way out (run_body_anim's `tip`, neighbouring columns never more than a square apart), the root end staying on the
-  anchor: hair or cloth swaying with the frame's motion (--motion: League's own sway, its tip against its root); with
+  anchor: hair or cloth swaying with the frame's motion (--motion: League's own sway, its tip against its root, seen
+  through the camera of the poses spec the frames were rigged with - `poses`, default <hero>/poses.json); with
   "hang": true, `root` is a picture ROW and every row under it moves that many columns (+ right) by its share - a cloth
   panel hanging from a hip (run_body_anim's `hang`);
   `move` (part: [rows, cols] a frame): the whole part moved (a star on its orbit); `hide` (part: [frame indices]);
@@ -339,7 +341,8 @@ def find_near(frame, tpl, mask, how, y0, x0, r=2):
 def anchors(hero, rev_run=True):
     """Every frame's anchor found by its drawn squares (the best place of the anchor rect, mirrored and turned too).
     `anchor` -> `one` -> "from": "hd": a 1x frame redrawn each time (no square-for-square anchor) gets its dense
-    frame's place and way, scaled by 1 / PPU about the frames' centres, then the best place within 2 squares."""
+    frame's place and way, scaled by 1 / PPU about the frames' centres, then the best place within 2 squares.
+    `anchor` -> kind -> `fixed` ({tag: {frame: [rows, cols, how]}}): places set by hand, kept as they are."""
     cfg = load(hero)
     base = read_base(cfg)
     ways = cfg["anchor"].get("ways", list(TFS))
@@ -357,9 +360,14 @@ def anchors(hero, rev_run=True):
             q0 = np.array([(R0 + R1) / 2.0 - hb.shape[0] / 2.0, (C0 + C1) / 2.0 - hb.shape[1] / 2.0])
             q1 = np.array([(r0 + a1["rect"][1]) / 2.0 - ob.shape[0] / 2.0, (c0 + a1["rect"][3]) / 2.0 - ob.shape[1] / 2.0])
             e = q1 - q0 / ppu
+        fixed = cfg["anchor"][kind].get("fixed", {})       # (places set by hand: a flashed frame, a redrawn hip)
         for tag in cfg["tags"]:
             out, scores = [], []
             for i, f in enumerate(base[tag][kind]):
+                if str(i) in fixed.get(tag, {}):
+                    out.append(list(fixed[tag][str(i)]))
+                    scores.append("fixed")
+                    continue
                 if from_hd:
                     dy, dx, how = cfg["frames"][tag]["hd"][i]
                     hf = base[tag]["hd"][i]
@@ -821,12 +829,14 @@ def check(hero):
 # ------------------------------------------------------------------------------------------------- League's sway
 def motion(hero, lol):
     """`bend` a frame per part from League's clips: each part's League chain (`lol`: {"root", "tip"} joints) seen
-    through the hero's poses.json camera, its tip's rows against its root - from the mean of the run clip's, where the
-    run's picture is drawn - times `gain`, capped at `cap` (a picture bent further breaks into a saw)."""
+    through the camera of the poses spec the hero's frames were posed with (`poses`: default its poses.json), its tip's
+    rows against its root (a `hang` part: its columns, + right) - from the mean of the run clip's, where the run's
+    picture is drawn - times `gain`, capped at `cap` (a picture bent further breaks into a saw)."""
     cfg = load(hero)
     sys.path.insert(0, os.path.join(ROOT, "tools", "lol"))
     import native_pose as N
-    with open(lp(os.path.join(ROOT, "assets", "source", short(hero), "poses.json")), encoding="utf-8") as f:
+    poses = cfg.get("poses") or os.path.join("assets", "source", short(hero), "poses.json")
+    with open(lp(os.path.join(ROOT, poses)), encoding="utf-8") as f:
         spec = json.load(f)
     chibi = dict(spec["chibi"])
     keep = chibi.pop("keep", None)
@@ -851,27 +861,39 @@ def motion(hero, lol):
         return ch.posed(fs, chibi, tagspec.get("turn", 0.0), tagspec.get("head_like"))[1]
 
     lolp = {p["name"]: p["lol"] for p in cfg["parts"] if p.get("lol")}
+    axis = {p["name"]: 0 if (p.get("bend") or {}).get("hang") else 1 for p in cfg["parts"]}
     ref = {}
     for name, L in lolp.items():
         t = spec["tags"][L.get("ref", "run")]
         v = [at(g, L["tip"]) - at(g, L["root"]) for g in (pose(f[0], t) for f in t["frames"])]
         ref[name] = np.mean(v, axis=0)
+    base = read_base(cfg)
     for tag in cfg["tags"]:
         t = spec["tags"]["idle" if tag == "idle_base" else tag]
         fr = cfg.setdefault("frames", {}).setdefault(tag, {})
         bends = fr.setdefault("bend", {})
-        gs = [pose(f[0], t) for f in t["frames"]]
+        n = len(base[tag]["hd"])
+        specs = [f[0] for f in t["frames"]]
+        if len(specs) != n:
+            # (a tag redrawn with another frame count since it was posed - an idle loop of 8 for League's 6: each
+            # frame takes the pose at its share of the way through)
+            print(f"{tag}: {len(specs)} poses for {n} frames - spread")
+            specs = [specs[int(round(i * (len(specs) - 1) / float(max(1, n - 1))))] for i in range(n)]
+        gs = [pose(f, t) for f in specs]
         places = fr.get("hd") or [[0, 0, "id"]] * len(gs)
         for name, L in lolp.items():
-            out = []
-            for g, (_, _, how) in zip(gs, places):
+            out, had = [], list(bends.get(name) or [])
+            for i, (g, (_, _, how)) in enumerate(zip(gs, places)):
+                if per_frame(cfg, tag, "orient", name, i) is not None and i < len(had):
+                    out.append(had[i])                  # (a part drawn its own way there: its bend set by hand)
+                    continue
                 d = at(g, L["tip"]) - at(g, L["root"]) - ref[name]
                 # (a turned frame: the sway in the figure's own rows - a quarter turn back)
                 for _ in range((4 - {"id": 0, "h": 0, "r90": 1, "r180": 2, "r270": 3, "r90h": 1, "r270h": 3}[how]) % 4):
                     d = np.array([d[1], -d[0]])         # (one counter-clockwise quarter turn on the screen)
                 if how in ("h", "r90h", "r270h"):
                     d = np.array([-d[0], d[1]])         # (tf_arr mirrors first, then turns: undone the other way)
-                out.append(int(max(-L["cap"], min(L["cap"], round(d[1] * L["gain"])))))
+                out.append(int(max(-L["cap"], min(L["cap"], round(d[axis[name]] * L["gain"])))))
             bends[name] = out
         print(f"{tag:14s} " + "  ".join(f"{n} {bends[n]}" for n in lolp))
     save(hero, cfg)
