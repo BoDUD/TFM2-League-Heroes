@@ -189,7 +189,9 @@ def load(hero, variant=None):
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
         if cfg.get("head_clear"):
-            cfg["head_clear"] = [None if q is None else [[r + pr, c + pc] for r, c in q] for q in cfg["head_clear"]]
+            cfg["head_clear"] = [None if q is None else
+                                 {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
+                                 else [[r + pr, c + pc] for r, c in q] for q in cfg["head_clear"]]
     return cfg
 
 
@@ -872,8 +874,15 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     if hc and hc[pose]:
         # `head_clear`: the frame's own head by hand - corners in the frame's own rows / cols, a polygon a drawn frame
         # (null: the zone as above): exactly its squares are cleared, never what is drawn beside it (a fist, a staff, a
-        # shoulder pad, a scarf up by the face stays the frame's own, square for square)
-        zone = poly_mask([tuple(p) for p in hc[pose]], a.shape)
+        # shoulder pad, a scarf up by the face stays the frame's own, square for square); or {"rows": [[row, first col,
+        # last col], ...]}: its squares row by row, several runs a row (a throat between a mane and a jaw stays)
+        q = hc[pose]
+        if isinstance(q, dict):
+            zone = np.zeros((H, W), bool)
+            for r, c0, c1 in q["rows"]:
+                zone[r, c0:c1 + 1] = True
+        else:
+            zone = poly_mask([tuple(p) for p in q], a.shape)
     if cfg.get("clear_all"):
         # `clear_all`: every square of the frame's own head goes - all its colours but `keep_colours` (a collar, a
         # scarf round the neck), down to its own chin: the lowest of its face's `skin` squares, and the outline under it
