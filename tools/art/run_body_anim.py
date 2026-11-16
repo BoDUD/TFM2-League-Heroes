@@ -74,6 +74,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `open_pockets`: N - a pocket of more than N squares the moved layers shut off, at least half of it clear in the
   frame's own drawing (the sky between two spider legs whose tips swing together: league_elise), stays ground instead
   of being filled with outline as a pinhole.
+- `match_search`: N (`below` "match") - how far round the frames' centres the drawn place of frame `from`'s upper body
+  is looked for (7 squares by default): league_nilah's leaping frames are drawn on the same rows of a rect 23-27 rows
+  taller, so their centres sit 12-14 rows under where her upper body is.
 - `props` (with `lock` "head"): rigid props the artist redrew a little differently in every frame (league_sona's etwahl:
   「琴女的琴有点变形」) - one drawing each, laid on each frame's own drawn place: `squares` (a mask spec in its drawn frame
   `from` - the head's by default - its squares with their outline and what rests on it, the hands on its strings), `at`
@@ -1315,7 +1318,7 @@ def make(hero, cfg=None):
         else:
             if cfg["below"] == "match":
                 if p not in shifts:
-                    shifts[p] = drawn_shift(src, a, union)
+                    shifts[p] = drawn_shift(src, a, union, int(cfg.get("match_search", 7)))
                 shift, alike = shifts[p]
                 match = (src, union, shift)
             b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match, p)
