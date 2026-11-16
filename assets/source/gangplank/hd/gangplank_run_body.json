@@ -1,0 +1,32 @@
+{
+  "hero": "gangplank",
+  "tag": "run",
+  "drawn": "assets/source/gangplank/hd/gangplank_run_drawn",
+  "from": 5,
+  "outline": [9, 1, 8],
+  "waist": [7, 7, 7, 7, 7, 7, 7, 7],
+  "bob": [1, 0, -1, 0, 1, 0, -1, 0],
+  "below": [
+    [[null, 58, 15, 28], [null, 56, 36, 45], [null, 57, 52, 63]],
+    [[null, 59, 15, 28], [null, 58, 38, 46], [null, 58, 53, 62]],
+    [[null, 57, 15, 21], [null, 56, 25, 45], [null, 57, 52, 63]],
+    [[null, 56, 12, 22], [null, 57, 52, 63]],
+    [[null, 57, 15, 21], [null, 57, 52, 63]],
+    [[null, 58, 15, 21], [null, 58, 53, 62], [null, 57, 27, 34]],
+    [[null, 57, 15, 21], [null, 57, 52, 63]],
+    [[null, 56, 12, 22], [null, 54, 31, 46], [null, 57, 52, 63]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (the installed run, 33c4a229b), then by hand (character runs round 3, 11-16)",
+    "char": "the installed upper body is three drawings of one picture (B = frames 1 / 5, hd_idle_base[0]'s closest; A = 0 / 2 / 4 / 6 a row lower with bands of 1-2 rows a row off every 4-5 rows; C = 3 / 7 two rows lower, the same): B in every frame at each frame's own drawn place (bob 1 0 1 2 1 0 1 2 = x 0), the boots under the waist as drawn; the coat tails and the cutlass hanging below the waist are B's too (`tail` / `sword`, locked, behind: the boots stay over them), each frame's own cleared by `below` rects that follow the flaps' edge (the far boot left out)",
+    "waist": "row 0 from frame 5's centre (own row 46): rows -1 and above are one drawing in each pair of frames, the trousers start under it",
+    "coat": "League's Gangplank_Run (1.067 s): the coat tails L / R_Skirt3 swing +-5 squares against the chest, two beats a stride, up while he drops, down while he rises (frame 0 = sample 0, the pelvis lows 18 / 42 = our frames 3 / 7): the outer tail a chain cut by its corners left of column 26, its tip 3 0 -3 0 3 0 -3 0 rows (a triangle wave, steps 3, the loop seam 3: capped at 3 of League's 5 - the inner tail and the tails' tops stay with the body: at root 33 the top of the outer tail left a notch under the arm); `hang_outline` nearest: the frames' own tails go with their outline two squares deep (else a lone outline square stayed)",
+    "keep_one": "his 1x run is a drawing of its own in the sheet (ppu_one's from the dense frames differs in 650-690 squares a frame, the unchanged ones too): it stays as installed (assets/source/gangplank/hd/gangplank_run_one.png), only hd_run and lo_run are made",
+    "not moved": "the hand cannon on his shoulder and the cutlass in his hand (League swings them +-5..9 squares: the hands hold them, a square's move bares the arm's join); the hat's feather is not drawn; the beard moves +-1 square in League",
+    "undecided": []
+  },
+  "variants": {"char": {"steps": 1, "keep_gaps": true, "from": 5, "bob": [1, 0, 1, 2, 1, 0, 1, 2], "x": [0, 0, 0, 0, 0, 0, 0, 0], "waist": [1, 0, 1, 2, 1, 0, 1, 2], "below": [[[null, 47, 2, 33], [48, 48, 2, 32], [49, 49, 2, 31], [50, 50, 2, 30], [51, 51, 2, 29], [52, 60, 2, 21], [null, 61, 48, 65]], [[null, 48, 2, 33], [49, 49, 2, 32], [50, 50, 2, 31], [51, 51, 2, 30], [52, 52, 2, 29], [53, 61, 2, 21], [null, 62, 48, 65]], [[null, 47, 2, 33], [48, 48, 2, 32], [49, 49, 2, 31], [50, 50, 2, 30], [51, 51, 2, 29], [52, 60, 2, 21], [null, 61, 48, 65]], [[null, 47, 2, 33], [48, 48, 2, 32], [49, 49, 2, 31], [50, 50, 2, 30], [51, 51, 2, 29], [52, 60, 2, 21], [null, 61, 48, 65]], [[null, 47, 2, 33], [48, 48, 2, 32], [49, 49, 2, 31], [50, 50, 2, 30], [51, 51, 2, 29], [52, 60, 2, 21], [null, 61, 48, 65]], [[null, 48, 2, 33], [49, 49, 2, 32], [50, 50, 2, 31], [51, 51, 2, 30], [52, 52, 2, 29], [53, 61, 2, 21], [null, 62, 48, 65]], [[null, 47, 2, 33], [48, 48, 2, 32], [49, 49, 2, 31], [50, 50, 2, 30], [51, 51, 2, 29], [52, 60, 2, 21], [null, 61, 48, 65]], [[null, 47, 2, 33], [48, 48, 2, 32], [49, 49, 2, 31], [50, 50, 2, 30], [51, 51, 2, 29], [52, 60, 2, 21], [null, 61, 48, 65]]], "parts": {"tail": {"poly": [[46, 2], [46, 34], [49, 34], [53, 30], [53, 22], [62, 22], [62, 2]], "behind": true, "path": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]}, "sword": {"poly": [[46, 48], [46, 66], [63, 66], [63, 48]], "behind": true, "path": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]}}, "chains": {}, "keep_one": "assets/source/gangplank/hd/gangplank_run_one"}, "coat": {"base": "char", "bare_ground": true, "part_gaps": true, "parts": {"tail": {"poly": [[46, 26], [46, 34], [49, 34], [53, 30], [53, 26]]}}, "chains": {"coat": {"poly": [[34, 21], [34, 28], [43, 28], [43, 34], [49, 34], [53, 30], [53, 22], [62, 22], [62, 2], [46, 2], [46, 17]], "root": 26, "side": "left", "lag": 0, "whip": 0.0, "tip": [3, 0, -3, 0, 3, 0, -3, 0]}}, "hang_outline": "nearest"}},
+  "use": "coat"
+}

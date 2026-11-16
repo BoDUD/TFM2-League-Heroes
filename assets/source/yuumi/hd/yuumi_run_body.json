@@ -1,0 +1,39 @@
+{
+  "hero": "yuumi",
+  "tag": "run",
+  "drawn": "assets/source/yuumi/hd/yuumi_run_drawn",
+  "from": 0,
+  "outline": [5, 1, 14],
+  "waist": [24, 24, 24, 24, 24, 24, 24, 24],
+  "bob": [0, -1, -2, -2, -1, 0, -1, -1],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [
+    {"name": "tail", "poly": [[16, 9], [16, 11], [17, 11], [17, 13], [18, 13], [18, 15], [19, 15], [19, 16], [20, 16], [20, 17], [21, 17], [21, 18], [22, 18], [22, 17], [23, 17], [23, 16], [24, 16], [24, 15], [26, 15], [26, 1], [24, 1], [24, 2], [22, 2], [22, 3], [21, 3], [21, 4], [20, 4], [20, 5], [19, 5], [19, 6], [18, 6], [18, 7], [17, 7], [17, 9]], "hang": true, "root": 26, "tip": [-1, -2, -3, -4, -3, -2, 0, 0]}
+  ],
+  "notes": {
+    "made": "--init (frames), then by hand (round 4: 「后面的英雄都按这个思路来 先去联盟客户端找英雄的特色是什么 再做run的动画」): her drawn run (rig_yuumi's) is the side design moved whole, 0 -1 -2 -2 -1 0 -1 -1 rows (League's Run01: she rides the flying book, rising and dipping) - no legs, every frame the same picture (0 squares differ); it stays that picture on its drawn place (`waist` 24: everything is the laid picture, `bob` its drawn rows) and only the end of her tail moves",
+    "tail": "her tail rises up her left side from behind the book's corner and ends in the gold tuft pointing at her ear: the tuft and the top of the tail (rows 16-25, 113 squares with their own outline: League's Tail5-6) a `hang` chain from root row 26 - every row shifted sideways by its share of `tip`, the top row the most, neighbouring rows at most a column apart, the tail under row 26 as drawn",
+    "tip": "League's Run01 (3.333 s: two float cycles of 1.667 s, the pelvis high at 0 and 1.667) put on our frames by the float - our highest frames 2-3 on League's highest, frame k = (k - 2.5) x 0.208 s, both cycles averaged: Tail6 fore-aft against the spine +1.3 0 -1.35 -2.35 -1.4 +0.35 +1.55 +1.85 columns (forward = right; its sideways swing +-8 flips side every cycle and cancels), the most forward put on the drawn place: -1 -2 -3 -4 -3 -2 0 0",
+    "caps": "never right of the drawn place: the tuft is 2 clear columns from her ear; never up or down: League's Tail6 also rises and falls +-3.5 rows, but the tail is one curl from behind the book to the tuft - moved whole it slid along the book's corner with a 2-3 square outline seam there (tried: +-2 / +-3), and a column chain cut the curl in two",
+    "still": "the antenna (League's Antenna1-4 bob the orb +-4 rows against her head; ours, the gold arch with its gem on her head, can only go up - down is toward her face - and a row up opens both its feet, half a game pixel at her 0.5 game px a square), the ears (League's move with her head), the book (she sits in it, paws over its edge)",
+    "keep_one": "her 1x run is a drawing of its own (ppu_one's from the dense frames differs in 618-620 squares a frame with nothing moved): it stays as installed (yuumi_run_one.png)",
+    "lo_size": "1.0: every lo_ tag of hers is her hd_ frames at full size; add_lo at her SIZES 0.75 would make the run alone a quarter smaller (at 1.0 the installed lo_run is made square for square)",
+    "timing": "8 x 100 ms = 800 ms, unchanged: League's float is 1.667 s a cycle, but the floor rule only times a run under 0.75 s",
+    "init": {"contacts": "frames [0, 4] (feet's band spread [26, 26, 26, 26, 26, 26, 26, 26])", "waist": "row -5 from the centre in every frame: per-row differing share passes 0.0 there (figure rows -28..23)", "from": "frame 0: closest to hd_idle_base[0] (alike share per frame [0.774, 0.763, 0.754, 0.754, 0.763, 0.774, 0.763, 0.763])", "below": "rects per frame [1, 1, 1, 1, 1, 1, 1, 1] (her squares under the waist her feet do not reach)", "bob": "3 squares low to high (1.50 game px), low the frame after the contacts [0, 4], moved by -2 so the head stays in every rect: [-1, 1, 0, -2, -1, 1, 0, -2]", "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 0) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]}
+  },
+  "x": 0,
+  "bare_ground": true,
+  "part_gaps": true,
+  "lo_size": 1.0,
+  "keep_one": "assets/source/yuumi/hd/yuumi_run_one"
+}

@@ -1,0 +1,37 @@
+{
+  "hero": "ezreal",
+  "tag": "run",
+  "drawn": "assets/source/ezreal/hd/ezreal_run_drawn",
+  "from": 4,
+  "outline": [17, 13, 20],
+  "lock": "head",
+  "head": [[2, 22], [2, 30], [4, 50], [16, 50], [24, 48], [30, 47], [33, 44], [33, 36], [31, 28], [26, 22], [20, 20], [14, 20], [8, 21]],
+  "chin": 33,
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [3, -2, -4, -1, 0, 0, -9, 1],
+  "below": [
+    [[null, 56, 12, 23], [null, 51, 37, 45]],
+    [[null, 52, 36, 45], [null, 54, 13, 17]],
+    [],
+    [],
+    [[null, 63, 13, 30]],
+    [[null, 64, 5, 33]],
+    [[null, 50, 1, 17]],
+    []
+  ],
+  "use": "char",
+  "variants": {
+    "lively": {"steps": 2, "shift": [0, 0, 2, 0, 1, 2, 0, 1, 2, 2, 1, 0, 3, 3, 0, 1], "clear_colours": [[165, 162, 167]], "clear_grow": 3, "beside_head": "ground", "bob": [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]},
+    "lively_08": {"base": "lively", "cycle_ms": 800},
+    "char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[249, 248, 249], [220, 218, 220], [192, 191, 193], [129, 128, 132], [154, 215, 251], [54, 156, 236], [16, 120, 223], [7, 64, 135], [1, 80, 175], [28, 70, 119], [43, 52, 85], [15, 102, 194], [92, 182, 250]], "clear_all": true, "skin": [[248, 198, 161], [235, 170, 129], [201, 133, 96], [149, 86, 61]], "keep_colours": [[8, 74, 95], [8, 47, 60]], "clear_grow": 4, "beside_head": "ground", "head_align": "chin"}
+  },
+  "notes": {
+    "variants": "lively (「感觉还是有点僵硬？」, then 「活泼版」 for Vi / Jinx): each drawn frame shown twice (16 frames x 62.5 ms, the cycle stays 1000 ms); his drawn run (run_fix's) pumps its arms, so only the head is one drawing (frame 4's); his hips themselves bob 12 rows as drawn (frame 6 stretched tall: hips 9 rows over the centre, frame 0 crouched: 3 under), so his own upper body (from the top of his trousers up, with the hands hanging under it) sinks into them where the head jumped - frame 6 3 rows, frame 4 2 (its step's low was 4 rows over the first's), in-betweens a row or two toward the next frame; never up (no room over his head): the head path 4 4 0 -2 -3 -2 1 2 2 2 1 0 -5 -5 1 2 - steps 4 and 6 at most (drawn 8 and 9), the two steps' tops -3 / -5 (drawn -4 / -8) and lows 4 / 2 (drawn 4 / 0); the head a square lower on the frame after each landing's lowest (1, 9) and back the next. lively_08: 800 ms",
+    "made": "--init, then by hand: lock head (his drawn run pumps its arms: the upper body stays each frame's own)",
+    "head": "his hair, goggles and face (frame 4's: mouth shut, as his idle's)",
+    "bob": "base: the drawn one (the head where each frame drew its own); lively: the nod only (rows off the frame's own head place)",
+    "waist": "the top of his trousers in each frame (the first row a third of whose squares are trouser blue), with what hangs under it (--init's rects for that row): what `shift` moves",
+    "undecided": []
+  }
+}

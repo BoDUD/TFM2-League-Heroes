@@ -602,7 +602,9 @@ RESTYLE = {
     # standing point - his head sits forward between the shoulders - 28 over the ground)
     # 2026-10-26: 85 % in game (「扎克的体型在这游戏里异常的大」, hd.rs SIZES): 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0 -> 3
     # squares lower; the face point x 0.85 about the soles
-    "zac": dict(ppu=1.5, edge=1, lift_sq=-3, face_to=(9, -24)),
+    # 2026-11-17: slimmer (tools/art/slim_zac.py, 「扎克选B」): his eyes 14 squares ahead of the standing point, not 17
+    # (9.3 game px x 0.85 = 7.9)
+    "zac": dict(ppu=1.5, edge=1, lift_sq=-3, face_to=(8, -24)),
     # league_singed (group I top): the design (Codex's step-1 A-2 as drawn: 45 x 62, 36 game px head top to soles at the
     # user's pick, PPU 1.39 = its own squares, 3/4 only) with Codex's key poses after League's clips (the design's head put
     # back, the bodies brought to the design's size), posed by tools/art/rig_singed.py, so no proportion or density change

@@ -240,7 +240,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_azir", 1.5, include_str!("../../../league/champions/league_azir#anim.fanim")),
     // Zac: posed by tools/art/rig_zac.py on Codex's step-1 take A-1 and its key poses after League's clips (the design's
     // head and tendril put back on the eyes; the add-on's puddle in the split_* tags) at the user's 1.5 squares a game
-    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES)
+    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES); slimmer since 2026-11-17
+    // (tools/art/slim_zac.py: the design and every key pose 16 columns narrower part by part, the head as drawn)
     ("league_zac", 1.5, include_str!("../../../league/champions/league_zac#anim.fanim")),
     // Singed: posed by tools/art/rig_singed.py on Codex's step-1 take A-2 as drawn and its key poses after League's clips
     // (the design's head put back, the bodies brought to the design's size) at the user's 1.39 squares a game pixel (its
@@ -572,10 +573,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_aatrox", 2.275, include_str!("../../../league/champions/league_aatrox#anim.fanim")),
     // Lissandra (the same release): Codex's lissandra-A read on its own ~15-px squares (47 x 76,
     // tools/art/design_lissandra_hd.py: 76 rows / 42 = 1.810); every action Codex's whole-frame redraw of her old frame
-    // read onto it at the zoom her crown's width gives (the user: 「丽桑卓有模型一大一小的问题」 - her old glide and death sink,
-    // so their heights shrank those frames; death 3-6 by her height, her hands reach the crown) (tools/art/casts_lissandra_hd.py,
-    // rig_lissandra_hd.py; Q drawn from its native body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2
-    // copies baked on again by lissandra_bake.json); 42 game px as her 1x sprite, so no SIZES row
+    // read onto it 76 rows tall in every frame, the crown's width choosing among the zooms that give that (2026-11-17,
+    // the user: 「丽桑卓还有模型一大一小的问题 不光是失去了像素」 - read by the crown alone, the glide's 7-8 came out 73 rows);
+    // the glide one head in all eight frames (Codex's black blot round the face in 7-8 had been eaten into specks by the
+    // thin outline: 「丽桑卓头那里失去像素了」) and a whole-figure float of up to 3 squares a cycle, the frames grown at
+    // their bottoms (rig_lissandra_hd.py --float); death 5-8 and R on herself without the black under the crown
+    // (「感觉你说的丽桑卓那几个问题还是得修」) (tools/art/casts_lissandra_hd.py, rig_lissandra_hd.py; Q drawn from its native
+    // body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2 copies baked on again by lissandra_bake.json);
+    // 42 game px as her 1x sprite, so no SIZES row
     ("league_lissandra", 1.810, include_str!("../../../league/champions/league_lissandra#anim.fanim")),
     // Alistar (2026-11-04, 「接下来重做牛头 蛮王 派克 布兰德」, 「全部粗」): Codex's alistar-A read on its own ~15-px squares
     // (71 x 76, tools/art/design_alistar_hd.py: 76 rows / 44 = 1.727); every action Codex's whole-frame redraw of his old

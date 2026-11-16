@@ -1,0 +1,31 @@
+{
+  "hero": "malzahar",
+  "tag": "run",
+  "drawn": "assets/source/malzahar/hd/malzahar_run_drawn",
+  "from": 0,
+  "outline": [14, 12, 18],
+  "waist": [-41, -41, -41, -41, -41, -41],
+  "bob": [0, 0, 0, 0, 0, 0],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "by hand (character runs round 5, agent C5, 11-16): a timing-only run, the pixels as installed",
+    "timing": "League's run (malzahar_run.anm, 2.0 s at 60 fps) floats him up and down once (pelvis +-4.6 squares at our scale): a hover, no steps; the drawn run (6 frames x 110 ms = 660 ms) is under the user's 0.75 s floor (「太快，像小碎步」). Now 6 x 150 ms = 900 ms: the slowest a frame may be shown (~150 ms; slower reads choppy - league_kassadin's 8 x 150 ms, approved)",
+    "pixels": "every frame as installed, square for square (waist over his head: nothing laid); the hood, the cloak's streamers, the arms and the legs are drawn moving in every frame - no lock",
+    "keep_one": "his 1x run is not ppu_one's from his dense frames (other sizes): it stays as installed (assets/source/malzahar/hd/malzahar_run_one.png)",
+    "keep_lo": "his lo_run is not add_lo's from his dense frames (173-195 squares a frame off): it stays as installed (assets/source/malzahar/hd/malzahar_run_lo.png)",
+    "undecided": []
+  },
+  "x": 0,
+  "cycle_ms": 900,
+  "keep_one": "assets/source/malzahar/hd/malzahar_run_one",
+  "keep_lo": "assets/source/malzahar/hd/malzahar_run_lo"
+}

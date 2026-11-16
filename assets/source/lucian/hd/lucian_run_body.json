@@ -1,0 +1,33 @@
+{
+  "hero": "lucian",
+  "tag": "run",
+  "drawn": "assets/source/lucian/hd/lucian_run_drawn",
+  "from": 0,
+  "outline": [4, 3, 5],
+  "waist": [-11, -11, -11, -11, -11, -11, -11, -11],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 57, 11, 39], [null, 71, 41, 60]],
+    [[null, 51, 60, 66]],
+    [[null, 63, 22, 73]],
+    [],
+    [[null, 57, 11, 39], [null, 71, 41, 60]],
+    [[null, 51, 60, 66]],
+    [[null, 63, 22, 73]],
+    []
+  ],
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand: lock head - his drawn run is 4 drawings shown twice, each with its own head (the eye open, shut, white, green: colour-IoU against frame 0's 0.50-0.71); the coat tails, both pistols, the arms and the legs stay each frame's own",
+    "head": "frame 0's hair, face and chin with the outline under it (the green eye, the closest to his idle's: colour-IoU 0.52); its columns on the frame's own face and hair (head_match_colours), its chin on the frame's own chin (head_align: 0-1 rows under the frame's own head); frames 4-7 are frames 0-3 again and come out the same",
+    "clear_poly": "the clearing stops at the collar and the raised pistol (their greys and golds are keep_colours too)",
+    "beside_head": "ground (the collar's colours fill under the chin, 1-12 squares a join); clear_specks 8 (none cut off)",
+    "undecided": [],
+    "keep_one": "his 1x run is a drawing of its own in the sheet (ppu_one's from the dense frames differs in 450-725 squares a frame, the unchanged ones too): it stays as installed (assets/source/lucian/hd/lucian_run_one.png, from b1c765234), only hd_run and lo_run are made"
+  },
+  "head": [[9, 46], [9, 54], [11, 59], [14, 62], [18, 62], [22, 61], [25, 59], [27, 57], [29, 55], [29, 50], [27, 49], [23, 46], [18, 42], [14, 42], [11, 43]],
+  "chin": 29,
+  "lock": "head",
+  "x": 0,
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[202, 111, 75], [152, 77, 53], [122, 76, 71], [91, 51, 49]], "clear_all": true, "skin": [[202, 111, 75], [152, 77, 53], [111, 56, 42], [236, 143, 96]], "keep_colours": [[214, 213, 213], [146, 144, 157], [114, 114, 128], [81, 81, 93], [181, 180, 184], [50, 50, 60], [183, 120, 34], [223, 154, 45], [250, 208, 82], [109, 67, 17], [76, 51, 19], [146, 92, 24], [221, 177, 89], [253, 238, 127], [248, 186, 63]], "clear_grow": 3, "beside_head": "ground", "head_align": "chin", "clear_specks": 8, "clear_poly": [[5, 44], [5, 56], [8, 62], [12, 65], [19, 65], [24, 63], [29, 60], [29, 46], [24, 42], [16, 41], [10, 42]], "keep_one": "assets/source/lucian/hd/lucian_run_one"}}
+}

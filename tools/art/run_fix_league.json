@@ -1,0 +1,1178 @@
+{
+"league_aatrox": {
+"champ": "Aatrox",
+"clip": "Aatrox_Unsheath_run01.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_ahri": {
+"champ": "Ahri",
+"clip": "Run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_akali": {
+"champ": "Akali",
+"clip": "Akali_Base_Run_Slow.anm",
+"clip_s": 0.7111,
+"cycle_s": 0.7111,
+"strides": 1
+},
+"league_akshan": {
+"champ": "Akshan",
+"clip": "Run_Slow.anm",
+"clip_s": 0.8649,
+"cycle_s": 0.8649,
+"strides": 1
+},
+"league_alistar": {
+"champ": "Alistar",
+"clip": "alistar_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_ambessa": {
+"champ": "Ambessa",
+"clip": "RunBase.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_anivia": {
+"champ": "Anivia",
+"clip": "anivia_run.anm",
+"clip_s": 2.9,
+"cycle_s": 1.45,
+"strides": 2
+},
+"league_annie": {
+"champ": "Annie",
+"clip": "annie_2012_run.anm",
+"clip_s": 1.2,
+"cycle_s": 0.6,
+"strides": 2
+},
+"league_aphelios": {
+"champ": "Aphelios",
+"clip": "aphelios_A_Run1.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_ashe": {
+"champ": "Ashe",
+"clip": "ashe_run_walk.anm",
+"clip_s": 7.2,
+"cycle_s": 0.72,
+"strides": 10
+},
+"league_aurelionsol": {
+"champ": "AurelionSol",
+"clip": "AurelionSol_runa.anm",
+"clip_s": 0.6667,
+"cycle_s": 0.6667,
+"strides": 1
+},
+"league_aurora": {
+"champ": "Aurora",
+"clip": "run_new_4.anm",
+"clip_s": 0.8667,
+"cycle_s": 0.8667,
+"strides": 1
+},
+"league_azir": {
+"champ": "Azir",
+"clip": "Azir_Run_Slow.anm",
+"clip_s": 2.1333,
+"cycle_s": 0.5333,
+"strides": 4
+},
+"league_belveth": {
+"champ": "Belveth",
+"clip": "RunClosed.anm",
+"clip_s": 2.6667,
+"cycle_s": 1.3333,
+"strides": 2
+},
+"league_blitzcrank": {
+"champ": "Blitzcrank",
+"clip": "blitzcrank_run.anm",
+"clip_s": 0.6667,
+"cycle_s": 0.6667,
+"strides": 1
+},
+"league_brand": {
+"champ": "Brand",
+"clip": "Brand_run.anm",
+"clip_s": 8.0,
+"cycle_s": 1.0,
+"strides": 8
+},
+"league_braum": {
+"champ": "Braum",
+"clip": "Braum_Run_Slow.anm",
+"clip_s": 1.1667,
+"cycle_s": 1.1667,
+"strides": 1
+},
+"league_briar": {
+"champ": "Briar",
+"clip": "Run1.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_caitlyn": {
+"champ": "Caitlyn",
+"clip": "Run.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.9333,
+"strides": 1
+},
+"league_camille": {
+"champ": "Camille",
+"clip": "Camille_Run_Base.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_cassiopeia": {
+"champ": "Cassiopeia",
+"clip": "cassiopeia_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_chogath": {
+"champ": "Chogath",
+"clip": "chogath_run.anm",
+"clip_s": 0.75,
+"cycle_s": 0.75,
+"strides": 1
+},
+"league_corki": {
+"champ": "Corki",
+"clip": "corki_run.anm",
+"clip_s": 1.0,
+"cycle_s": 0.125,
+"strides": 8
+},
+"league_darius": {
+"champ": "Darius",
+"clip": "Darius_Run.anm",
+"clip_s": 2.2667,
+"cycle_s": 0.7556,
+"strides": 3
+},
+"league_diana": {
+"champ": "Diana",
+"clip": "diana_run_slow.anm",
+"clip_s": 0.96,
+"cycle_s": 0.96,
+"strides": 1
+},
+"league_draven": {
+"champ": "Draven",
+"clip": "draven_run.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_drmundo": {
+"champ": "DrMundo",
+"clip": "DrMundo_Run_-90.anm",
+"clip_s": 0.3667,
+"cycle_s": 0.3667,
+"strides": 1
+},
+"league_ekko": {
+"champ": "Ekko",
+"clip": "PunkGenius_Run1.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_elise": {
+"champ": "Elise",
+"clip": "Elise_Run1.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.4839,
+"strides": 2
+},
+"league_evelynn": {
+"champ": "Evelynn",
+"clip": "evelynn_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_ezreal": {
+"champ": "Ezreal",
+"clip": "ezreal_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_fiddlesticks": {
+"champ": "FiddleSticks",
+"clip": "Fiddlesticks_Run.anm",
+"clip_s": 0.8667,
+"cycle_s": 0.8667,
+"strides": 1
+},
+"league_fiora": {
+"champ": "Fiora",
+"clip": "fiora_runwalk.anm",
+"clip_s": 0.9091,
+"cycle_s": 0.9091,
+"strides": 1
+},
+"league_fizz": {
+"champ": "Fizz",
+"clip": "fizz_run.anm",
+"clip_s": 3.4286,
+"cycle_s": 0.8571,
+"strides": 4
+},
+"league_galio": {
+"champ": "Galio",
+"clip": "Galio_run.anm",
+"clip_s": 0.9667,
+"cycle_s": 0.9667,
+"strides": 1
+},
+"league_gangplank": {
+"champ": "Gangplank",
+"clip": "Gangplank_Run.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_garen": {
+"champ": "Garen",
+"clip": "Garen_2013_Run.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.9333,
+"strides": 1
+},
+"league_gnar": {
+"champ": "Gnar",
+"clip": "Gnar_Run1.anm",
+"clip_s": 1.6,
+"cycle_s": 0.4,
+"strides": 4
+},
+"league_gragas": {
+"champ": "Gragas",
+"clip": "gragas_run.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.4667,
+"strides": 2
+},
+"league_graves": {
+"champ": "Graves",
+"clip": "graves_run.anm",
+"clip_s": 1.1111,
+"cycle_s": 1.1111,
+"strides": 1
+},
+"league_gwen": {
+"champ": "Gwen",
+"clip": "Run_slow.anm",
+"clip_s": 0.8421,
+"cycle_s": 0.4211,
+"strides": 2
+},
+"league_hecarim": {
+"champ": "Hecarim",
+"clip": "Hecarim_run.anm",
+"clip_s": 1.9355,
+"cycle_s": 0.6452,
+"strides": 3
+},
+"league_heimerdinger": {
+"champ": "Heimerdinger",
+"clip": "Heimerdinger_Base_Run1.anm",
+"clip_s": 0.8,
+"cycle_s": 0.4,
+"strides": 2
+},
+"league_hwei": {
+"champ": "Hwei",
+"clip": "RunSlow.anm",
+"clip_s": 0.9667,
+"cycle_s": 0.9667,
+"strides": 1
+},
+"league_illaoi": {
+"champ": "Illaoi",
+"clip": "Illaoi_RunSlow.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_irelia": {
+"champ": "Irelia",
+"clip": "Irelia_Run_Base.anm",
+"clip_s": 2.0,
+"cycle_s": 1.0,
+"strides": 2
+},
+"league_ivern": {
+"champ": "Ivern",
+"clip": "Ivern_Run_slow.anm",
+"clip_s": 1.5625,
+"cycle_s": 1.5625,
+"strides": 1
+},
+"league_janna": {
+"champ": "Janna",
+"clip": "Janna_Run.anm",
+"clip_s": 2.0,
+"cycle_s": 2.0,
+"strides": 1
+},
+"league_jarvaniv": {
+"champ": "JarvanIV",
+"clip": "jarvanIV_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_jax": {
+"champ": "Jax",
+"clip": "Jax_Run2.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_jayce": {
+"champ": "Jayce",
+"clip": "jayce_melee_run1.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_jhin": {
+"champ": "Jhin",
+"clip": "Jhin_Run_injured.anm",
+"clip_s": 0.95,
+"cycle_s": 0.475,
+"strides": 2
+},
+"league_jinx": {
+"champ": "Jinx",
+"clip": "Jinx_minigun_run.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.9333,
+"strides": 1
+},
+"league_kaisa": {
+"champ": "Kaisa",
+"clip": "Kaisa_Run_Slow01.anm",
+"clip_s": 0.8,
+"cycle_s": 0.4,
+"strides": 2
+},
+"league_kalista": {
+"champ": "Kalista",
+"clip": "Kalista_Run1.anm",
+"clip_s": 1.6,
+"cycle_s": 0.8,
+"strides": 2
+},
+"league_karma": {
+"champ": "Karma",
+"clip": "karma_2012_run.anm",
+"clip_s": 2.0,
+"cycle_s": 1.0,
+"strides": 2
+},
+"league_karthus": {
+"champ": "Karthus",
+"clip": "karthus_run.anm",
+"clip_s": 1.7778,
+"cycle_s": 1.7778,
+"strides": 1
+},
+"league_kassadin": {
+"champ": "Kassadin",
+"clip": "Kassadin_Run.anm",
+"clip_s": 1.6,
+"cycle_s": 0.8,
+"strides": 2
+},
+"league_katarina": {
+"champ": "Katarina",
+"clip": "katarina_run.anm",
+"clip_s": 0.8889,
+"cycle_s": 0.8889,
+"strides": 1
+},
+"league_kayle": {
+"champ": "Kayle",
+"clip": "Kayle_Run1.anm",
+"clip_s": 4.2667,
+"cycle_s": 2.1333,
+"strides": 2
+},
+"league_kayn": {
+"champ": "Kayn",
+"clip": "Kayn_Run.anm",
+"clip_s": 1.2,
+"cycle_s": 1.2,
+"strides": 1
+},
+"league_kennen": {
+"champ": "Kennen",
+"clip": "Kennen_Run.anm",
+"clip_s": 0.8,
+"cycle_s": 0.16,
+"strides": 5
+},
+"league_khazix": {
+"champ": "Khazix",
+"clip": "Khazix_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_kindred": {
+"champ": "Kindred",
+"clip": "Lamb_run_injured.anm",
+"clip_s": 1.05,
+"cycle_s": 1.05,
+"strides": 1
+},
+"league_kled": {
+"champ": "Kled",
+"clip": "Kled_Run1_base.anm",
+"clip_s": 0.8485,
+"cycle_s": 0.4242,
+"strides": 2
+},
+"league_kogmaw": {
+"champ": "KogMaw",
+"clip": "kogmaw_run.anm",
+"clip_s": 0.7097,
+"cycle_s": 0.7097,
+"strides": 1
+},
+"league_ksante": {
+"champ": "KSante",
+"clip": "Run1.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_leblanc": {
+"champ": "Leblanc",
+"clip": "Run1.anm",
+"clip_s": 1.1333,
+"cycle_s": 0.5667,
+"strides": 2
+},
+"league_leesin": {
+"champ": "LeeSin",
+"clip": "Run_Base.anm",
+"clip_s": 0.92,
+"cycle_s": 0.92,
+"strides": 1
+},
+"league_leona": {
+"champ": "Leona",
+"clip": "leona_run.anm",
+"clip_s": 1.2,
+"cycle_s": 1.2,
+"strides": 1
+},
+"league_lillia": {
+"champ": "Lillia",
+"clip": "Lillia_Run2_-90.anm",
+"clip_s": 0.4333,
+"cycle_s": 0.4333,
+"strides": 1
+},
+"league_lissandra": {
+"champ": "Lissandra",
+"clip": "Lissandra_Run.anm",
+"clip_s": 2.0,
+"cycle_s": 2.0,
+"strides": 1
+},
+"league_locke": {
+"champ": "Locke",
+"clip": "Run.anm",
+"clip_s": 4.8,
+"cycle_s": 1.2,
+"strides": 4
+},
+"league_lucian": {
+"champ": "Lucian",
+"clip": "Lucian_Run1.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.9333,
+"strides": 1
+},
+"league_lulu": {
+"champ": "Lulu",
+"clip": "Lulu_Run.anm",
+"clip_s": 3.0,
+"cycle_s": 0.375,
+"strides": 8
+},
+"league_lux": {
+"champ": "Lux",
+"clip": "lux_run.anm",
+"clip_s": 4.6452,
+"cycle_s": 0.7742,
+"strides": 6
+},
+"league_malzahar": {
+"champ": "Malzahar",
+"clip": "malzahar_run.anm",
+"clip_s": 2.0,
+"cycle_s": 2.0,
+"strides": 1
+},
+"league_maokai": {
+"champ": "Maokai",
+"clip": "maokai_run.anm",
+"clip_s": 4.0,
+"cycle_s": 0.5714,
+"strides": 7
+},
+"league_masteryi": {
+"champ": "MasterYi",
+"clip": "masteryi_2013_run.anm",
+"clip_s": 2.0,
+"cycle_s": 1.0,
+"strides": 2
+},
+"league_mel": {
+"champ": "Mel",
+"clip": "Run.anm",
+"clip_s": 1.7333,
+"cycle_s": 0.8667,
+"strides": 2
+},
+"league_milio": {
+"champ": "Milio",
+"clip": "Run_alt_6.anm",
+"clip_s": 1.2667,
+"cycle_s": 0.6333,
+"strides": 2
+},
+"league_missfortune": {
+"champ": "MissFortune",
+"clip": "missfortune_run.anm",
+"clip_s": 0.8,
+"cycle_s": 0.8,
+"strides": 1
+},
+"league_mordekaiser": {
+"champ": "Mordekaiser",
+"clip": "Walk.anm",
+"clip_s": 1.1333,
+"cycle_s": 1.1333,
+"strides": 1
+},
+"league_morgana": {
+"champ": "Morgana",
+"clip": "Morgana_Run_slow.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_naafiri": {
+"champ": "Naafiri",
+"clip": "Run_In.anm",
+"clip_s": 1.3333,
+"cycle_s": 0.6667,
+"strides": 2
+},
+"league_nami": {
+"champ": "Nami",
+"clip": "Nami_run_L.anm",
+"clip_s": 2.0,
+"cycle_s": 2.0,
+"strides": 1
+},
+"league_nasus": {
+"champ": "Nasus",
+"clip": "Nasus_Base_Run1.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_nautilus": {
+"champ": "Nautilus",
+"clip": "Nautilus_Run.anm",
+"clip_s": 0.8485,
+"cycle_s": 0.8485,
+"strides": 1
+},
+"league_neeko": {
+"champ": "Neeko",
+"clip": "Neeko_Run_slow.anm",
+"clip_s": 1.0385,
+"cycle_s": 1.0385,
+"strides": 1
+},
+"league_nidalee": {
+"champ": "Nidalee",
+"clip": "nidalee_2012_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_nilah": {
+"champ": "Nilah",
+"clip": "Run2.anm",
+"clip_s": 1.4,
+"cycle_s": 0.7,
+"strides": 2
+},
+"league_nocturne": {
+"champ": "Nocturne",
+"clip": "nocturne_run.anm",
+"clip_s": 3.3333,
+"cycle_s": 1.6667,
+"strides": 2
+},
+"league_nunu": {
+"champ": "Nunu",
+"clip": "Nunu_Run_Slow01.anm",
+"clip_s": 1.6667,
+"cycle_s": 0.8333,
+"strides": 2
+},
+"league_olaf": {
+"champ": "Olaf",
+"clip": "Olaf_Run.anm",
+"clip_s": 0.7895,
+"cycle_s": 0.7895,
+"strides": 1
+},
+"league_orianna": {
+"champ": "Orianna",
+"clip": "Orianna_run.anm",
+"clip_s": 3.1373,
+"cycle_s": 0.7843,
+"strides": 4
+},
+"league_ornn": {
+"champ": "Ornn",
+"clip": "Ornn_Run_Slow.anm",
+"clip_s": 1.069,
+"cycle_s": 1.069,
+"strides": 1
+},
+"league_pantheon": {
+"champ": "Pantheon",
+"clip": "Pantheon_Run_Slow.anm",
+"clip_s": 4.0,
+"cycle_s": 1.0,
+"strides": 4
+},
+"league_poppy": {
+"champ": "Poppy",
+"clip": "poppy_run.anm",
+"clip_s": 1.0,
+"cycle_s": 0.5,
+"strides": 2
+},
+"league_pyke": {
+"champ": "Pyke",
+"clip": "Pyke_run_base.anm",
+"clip_s": 4.3333,
+"cycle_s": 0.8667,
+"strides": 5
+},
+"league_qiyana": {
+"champ": "Qiyana",
+"clip": "Qiyana_Base_Walk.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.9333,
+"strides": 1
+},
+"league_quinn": {
+"champ": "Quinn",
+"clip": "Quinn_run.anm",
+"clip_s": 1.8667,
+"cycle_s": 0.9333,
+"strides": 2
+},
+"league_rakan": {
+"champ": "Rakan",
+"clip": "Rakan_Run_Slow.anm",
+"clip_s": 2.1333,
+"cycle_s": 1.0667,
+"strides": 2
+},
+"league_rammus": {
+"champ": "Rammus",
+"clip": "rammus_run.anm",
+"clip_s": 0.5957,
+"cycle_s": 0.2979,
+"strides": 2
+},
+"league_reksai": {
+"champ": "RekSai",
+"clip": "RekSai_run.anm",
+"clip_s": 1.0,
+"cycle_s": 0.5,
+"strides": 2
+},
+"league_rell": {
+"champ": "Rell",
+"clip": "Turn_180_Left.anm",
+"clip_s": 1.0,
+"cycle_s": 0.5,
+"strides": 2
+},
+"league_renata": {
+"champ": "Renata",
+"clip": "Run.anm",
+"clip_s": 3.2,
+"cycle_s": 0.8,
+"strides": 4
+},
+"league_renekton": {
+"champ": "Renekton",
+"clip": "renekton_run.anm",
+"clip_s": 0.7742,
+"cycle_s": 0.7742,
+"strides": 1
+},
+"league_rengar": {
+"champ": "Rengar",
+"clip": "Rengar_run1.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_riven": {
+"champ": "Riven",
+"clip": "riven_run.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_rumble": {
+"champ": "Rumble",
+"clip": "rumble_run_60fps.anm",
+"clip_s": 0.5172,
+"cycle_s": 0.2586,
+"strides": 2
+},
+"league_ryze": {
+"champ": "Ryze",
+"clip": "Ryze_Run_Fast.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_samira": {
+"champ": "Samira",
+"clip": "Run_OOC.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_sejuani": {
+"champ": "Sejuani",
+"clip": "Sejuani_2013_run.anm",
+"clip_s": 1.9667,
+"cycle_s": 0.9833,
+"strides": 2
+},
+"league_senna": {
+"champ": "Senna",
+"clip": "Senna_Walk01.anm",
+"clip_s": 1.0303,
+"cycle_s": 0.5152,
+"strides": 2
+},
+"league_seraphine": {
+"champ": "Seraphine",
+"clip": "Seraphin_Run_slow.anm",
+"clip_s": 0.9697,
+"cycle_s": 0.9697,
+"strides": 1
+},
+"league_sett": {
+"champ": "Sett",
+"clip": "Sett_RunSlow.anm",
+"clip_s": 0.9375,
+"cycle_s": 0.9375,
+"strides": 1
+},
+"league_shaco": {
+"champ": "Shaco",
+"clip": "shaco_run_new.anm",
+"clip_s": 2.2222,
+"cycle_s": 0.5556,
+"strides": 4
+},
+"league_shen": {
+"champ": "Shen",
+"clip": "shen_walk.anm",
+"clip_s": 0.7879,
+"cycle_s": 0.7879,
+"strides": 1
+},
+"league_shyvana": {
+"champ": "Shyvana",
+"clip": "Run.anm",
+"clip_s": 5.3333,
+"cycle_s": 1.0667,
+"strides": 5
+},
+"league_singed": {
+"champ": "Singed",
+"clip": "singed_run.anm",
+"clip_s": 0.9667,
+"cycle_s": 0.9667,
+"strides": 1
+},
+"league_sivir": {
+"champ": "Sivir",
+"clip": "Sivir_Base_Run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_skarner": {
+"champ": "Skarner",
+"clip": "Runbase.anm",
+"clip_s": 1.6667,
+"cycle_s": 0.8333,
+"strides": 2
+},
+"league_smolder": {
+"champ": "Smolder",
+"clip": "run_collar.anm",
+"clip_s": 0.6667,
+"cycle_s": 0.6667,
+"strides": 1
+},
+"league_sona": {
+"champ": "Sona",
+"clip": "sona_run.anm",
+"clip_s": 2.5,
+"cycle_s": 2.5,
+"strides": 1
+},
+"league_soraka": {
+"champ": "Soraka",
+"clip": "Soraka_Run.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_swain": {
+"champ": "Swain",
+"clip": "Swain_RunSlow.anm",
+"clip_s": 0.7143,
+"cycle_s": 0.7143,
+"strides": 1
+},
+"league_sylas": {
+"champ": "Sylas",
+"clip": "Sylas_Run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_syndra": {
+"champ": "Syndra",
+"clip": "Syndra_run.anm",
+"clip_s": 1.8667,
+"cycle_s": 0.9333,
+"strides": 2
+},
+"league_tahmkench": {
+"champ": "TahmKench",
+"clip": "TahmKench_run_slow.anm",
+"clip_s": 1.2,
+"cycle_s": 1.2,
+"strides": 1
+},
+"league_taliyah": {
+"champ": "Taliyah",
+"clip": "Taliyah_Run_injured.anm",
+"clip_s": 1.8,
+"cycle_s": 0.6,
+"strides": 3
+},
+"league_talon": {
+"champ": "Talon",
+"clip": "talon_run.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_taric": {
+"champ": "Taric",
+"clip": "Taric_Run.anm",
+"clip_s": 1.2,
+"cycle_s": 1.2,
+"strides": 1
+},
+"league_teemo": {
+"champ": "Teemo",
+"clip": "Run.anm",
+"clip_s": 0.6333,
+"cycle_s": 0.6333,
+"strides": 1
+},
+"league_thresh": {
+"champ": "Thresh",
+"clip": "Thresh_run.anm",
+"clip_s": 2.0,
+"cycle_s": 1.0,
+"strides": 2
+},
+"league_tristana": {
+"champ": "Tristana",
+"clip": "Tristana_Run.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.4667,
+"strides": 2
+},
+"league_trundle": {
+"champ": "Trundle",
+"clip": "trundle_2013_run.anm",
+"clip_s": 0.9333,
+"cycle_s": 0.9333,
+"strides": 1
+},
+"league_tryndamere": {
+"champ": "Tryndamere",
+"clip": "tryndamere_run.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_twistedfate": {
+"champ": "TwistedFate",
+"clip": "twistedfate_walk.anm",
+"clip_s": 1.7333,
+"cycle_s": 0.8667,
+"strides": 2
+},
+"league_twitch": {
+"champ": "Twitch",
+"clip": "Twitch_Base_Run.anm",
+"clip_s": 0.8,
+"cycle_s": 0.8,
+"strides": 1
+},
+"league_udyr": {
+"champ": "Udyr",
+"clip": "Spell2_run.anm",
+"clip_s": 0.9412,
+"cycle_s": 0.9412,
+"strides": 1
+},
+"league_urgot": {
+"champ": "Urgot",
+"clip": "Urgot_Run_Right_Offset.anm",
+"clip_s": 3.7714,
+"cycle_s": 0.6286,
+"strides": 6
+},
+"league_varus": {
+"champ": "Varus",
+"clip": "varus_run.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_vayne": {
+"champ": "Vayne",
+"clip": "Vayne_run.anm",
+"clip_s": 2.0,
+"cycle_s": 1.0,
+"strides": 2
+},
+"league_veigar": {
+"champ": "Veigar",
+"clip": "veigar_run.anm",
+"clip_s": 0.8333,
+"cycle_s": 0.4167,
+"strides": 2
+},
+"league_velkoz": {
+"champ": "Velkoz",
+"clip": "Velkoz_run.anm",
+"clip_s": 8.0,
+"cycle_s": 4.0,
+"strides": 2
+},
+"league_vex": {
+"champ": "Vex",
+"clip": "Run_Slow.anm",
+"clip_s": 1.3333,
+"cycle_s": 0.3333,
+"strides": 4
+},
+"league_vi": {
+"champ": "Vi",
+"clip": "Vi_Run1.anm",
+"clip_s": 0.8387,
+"cycle_s": 0.8387,
+"strides": 1
+},
+"league_viego": {
+"champ": "Viego",
+"clip": "Viego_Walk.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_viktor": {
+"champ": "Viktor",
+"clip": "Run.anm",
+"clip_s": 8.5333,
+"cycle_s": 1.0667,
+"strides": 8
+},
+"league_vladimir": {
+"champ": "Vladimir",
+"clip": "vladimir_run.anm",
+"clip_s": 1.92,
+"cycle_s": 0.96,
+"strides": 2
+},
+"league_volibear": {
+"champ": "Volibear",
+"clip": "Volibear_Run_Slow.anm",
+"clip_s": 1.1333,
+"cycle_s": 0.5667,
+"strides": 2
+},
+"league_warwick": {
+"champ": "Warwick",
+"clip": "Warwick_Run.anm",
+"clip_s": 3.0,
+"cycle_s": 1.0,
+"strides": 3
+},
+"league_xayah": {
+"champ": "Xayah",
+"clip": "Xayah_run_slow.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_xerath": {
+"champ": "Xerath",
+"clip": "Xerath_run.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_xinzhao": {
+"champ": "XinZhao",
+"clip": "Runbase.anm",
+"clip_s": 1.04,
+"cycle_s": 1.04,
+"strides": 1
+},
+"league_yasuo": {
+"champ": "Yasuo",
+"clip": "Yasuo_Run1.anm",
+"clip_s": 0.9,
+"cycle_s": 0.9,
+"strides": 1
+},
+"league_yone": {
+"champ": "Yone",
+"clip": "Yone_Walk01.anm",
+"clip_s": 1.0857,
+"cycle_s": 1.0857,
+"strides": 1
+},
+"league_yorick": {
+"champ": "Yorick",
+"clip": "yorick_run.anm",
+"clip_s": 1.2,
+"cycle_s": 1.2,
+"strides": 1
+},
+"league_yunara": {
+"champ": "Yunara",
+"clip": "Run_Slow.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_yuumi": {
+"champ": "Yuumi",
+"clip": "Yuumi_Run_Slow01.anm",
+"clip_s": 2.5,
+"cycle_s": 2.5,
+"strides": 1
+},
+"league_zaahen": {
+"champ": "Zaahen",
+"clip": "RunSlow.anm",
+"clip_s": 1.1852,
+"cycle_s": 0.5926,
+"strides": 2
+},
+"league_zac": {
+"champ": "Zac",
+"clip": "Zac_run_Slow.anm",
+"clip_s": 1.0,
+"cycle_s": 1.0,
+"strides": 1
+},
+"league_zed": {
+"champ": "Zed",
+"clip": "Zed_run.anm",
+"clip_s": 0.9677,
+"cycle_s": 0.9677,
+"strides": 1
+},
+"league_zeri": {
+"champ": "Zeri",
+"clip": "Run.anm",
+"clip_s": 1.0667,
+"cycle_s": 1.0667,
+"strides": 1
+},
+"league_ziggs": {
+"champ": "Ziggs",
+"clip": "Ziggs_Run.anm",
+"clip_s": 4.0,
+"cycle_s": 0.3333,
+"strides": 12
+},
+"league_zilean": {
+"champ": "Zilean",
+"clip": "zilean_run.anm",
+"clip_s": 0.7742,
+"cycle_s": 0.7742,
+"strides": 1
+},
+"league_zoe": {
+"champ": "Zoe",
+"clip": "Zoe_Run_Slow.anm",
+"clip_s": 0.8,
+"cycle_s": 0.8,
+"strides": 1
+},
+"league_zyra": {
+"champ": "Zyra",
+"clip": "Zyra_Walk.anm",
+"clip_s": 0.8485,
+"cycle_s": 0.8485,
+"strides": 1
+}
+}
