@@ -107,6 +107,10 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   spec a drawn frame) a step darker and the `near` leg's a step lighter along their colour's `ramps` (dark to light;
   `keep_dark`: never darker, `keep_light`: never lighter; another colour stays), laid on the drawn frame before it is
   composed - the drawing's shapes square for square, only the shade. Default: none.
+- `strays`: the module of the hero's black-strays tool (league_warwick: "warwick_strays", tools/art/black_strays.py's
+  rule): each composed dense frame cleaned by it before the thin_outline pass - the outline colour where it is no part's
+  outline (the apex of a gap a laid tail closes against the drawing) goes as in every other tag of his (the user:
+  「狼人也没太处理干净 都重新再处理一遍」); the lo_ frames are grown from the cleaned ones. Default: none.
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -1518,6 +1522,13 @@ def make(hero, cfg=None):
 
     def thin(f, kind):
         return f if tp is None else T.change_fixed(f, tp[kind], tp["outline"], tp["grow"])[0]
+    strays = None
+    if cfg.get("strays"):
+        # `strays`: the hero's black-strays tool on each composed dense frame (black_strays.clean, its thin_outline
+        # pass in it)
+        import importlib
+        import black_strays as BS
+        strays = importlib.import_module(cfg["strays"]).hero()
     union = np.zeros(src.shape[:2], bool)
     for name in layer_names(cfg):
         union |= layers[name]
@@ -1544,6 +1555,8 @@ def make(hero, cfg=None):
             b, inf = compose(a, i, src, cy0, cx0, layers, mov, cfg, match, p)
         inf["pose"] = p
         inf["drawn_alike"] = alike
+        if strays is not None:
+            b = BS.clean(b, strays, "hd", strays.ctx("hd_" + cfg["tag"], b, "hd"))[0]
         b2 = thin(b, "hd")
         inf["thinned"] = (b2 != b).any(-1)
         dense.append((b2, ms))
