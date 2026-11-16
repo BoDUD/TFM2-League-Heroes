@@ -7,9 +7,9 @@ at her design (the user, 2026-11-03: 「继续加四个 魔腾 凯南 剑魔 丽
 hd/casts holds Codex's 25 sheets (each its chosen raw generation byte for byte, redos included), drawn on a
 near-white ground: casts_rengar_hd.figure keys it off. Each frame's zoom (FRAME_ZOOM, --fit) reads her STAND rows tall,
 the top of her crown to her hem as the design, and of the zooms that do, the one nearest to what her CROWN gives (see
-FRAME_ZOOM), so her body and her crown are the design's size in every frame; HEAD_FROM gives frames another frame's
-head and HAIR_UP carries R-on-herself's hair up to the hood; DEAD_PAINT lays her own shades over the black hole Codex
-left under the crown in the death's 5-8.
+FRAME_ZOOM), so her body and her crown are the design's size in every frame; the glide has one head (RUN_HEAD);
+HEAD_FROM gives frames another frame's head and HAIR_UP carries R-on-herself's hair up to the hood; DEAD_PAINT lays
+her own shades over the black hole Codex left under the crown in the death's 5-8.
 The old frame's body (its box places the new frame) leaves out what the old sheet baked in, the ice shards and frost by
 her hands: only what lies within two pixels of the dark outline counts (OLD_BODY). Each frame is then placed where the
 old body stood: its box's middle on the old box's middle and its bottom on the old box's bottom, from the pivot, on the
@@ -66,15 +66,22 @@ PIVOT = 25                      # the design's column on the old idle_base's piv
 # again (the old death ends frozen, the pillars taller each frame): 7-8 hold frame 6, so the death ends frozen
 HELD = {"dead_7": "dead_6", "dead_8": "dead_6"}
 # frames whose head is another frame's (head_from: the crown and, under its brim, the visor and the face, laid where
-# the design's crown fits each): Codex drew the glide's 7-8 with a black blot round the face (its "eyes in the
-# crown's shadow") and a crown two squares wider at her height; tools/art/thin_outline.py ate into the blot, open to
-# the ground beside the face, and left holes and specks there (the user, 2026-11-16: 「丽桑卓头那里失去像素了」
-# 「丽桑卓也有莫名其妙阴影的部分」). Glide 6 is drawn the same way under the brim (the face as low), clean: frames 6-8 share it
-HEAD_FROM = {"run_7": "run_6", "run_8": "run_6",
-             # R on herself (2026-11-17, 「感觉你说的丽桑卓那几个问题还是得修」): Codex's ult_self_1 / ult_self_2 (frames 0-2
-             # and 4) put a short face under a six-row black visor, the mask far darker than in her other frames; its
-             # ult_self_4 (frame 3) has the face as the design, under a navy hood, and the chin on the same row
-             **{f"ult_self_{k}": "ult_self_4" for k in (1, 2, 3, 5)}}
+# the design's crown fits each). R on herself (2026-11-17, 「感觉你说的丽桑卓那几个问题还是得修」): Codex's ult_self_1 /
+# ult_self_2 (frames 0-2 and 4) put a short face under a six-row black visor, the mask far darker than in her other
+# frames; its ult_self_4 (frame 3) has the face as the design, under a navy hood, and the chin on the same row
+HEAD_FROM = {f"ult_self_{k}": "ult_self_4" for k in (1, 2, 3, 5)}
+# The glide's one head (run_head; 2026-11-17, the user: 「感觉你说的丽桑卓那几个问题还是得修」). Codex drew two: its run_1
+# sheet (frames 0, 1, 4) the design's, its run_2 / run_3 sheets (frames 2, 3, 5-7) a face a row taller under a hood
+# band a row taller, the crown's tip a row taller and the chest three rows lower, so the face slid 2-3 squares up and
+# down under the crown; its run_7 / run_8 also had a black blot round the face that tools/art/thin_outline.py ate into
+# holes and specks (2026-11-16: 「丽桑卓头那里失去像素了」「丽桑卓也有莫名其妙阴影的部分」). Every frame now has one head:
+# run_6's crown (its taller tip keeps her 76 rows) and, under it, run_1's hood band, face and chin (the design's, as in
+# her other actions) on run_6's crown (RUN_HEAD: crown, face; RUN_HEAD_BOXES: design rows and columns of the face's),
+# laid with its tip on each frame's top. The chests stay as drawn: the run_1 sheet's collar a row shorter, the others'
+# two rows longer - their own chin's outline under the new chin drawn as the collar above it (RUN_COLLAR)
+RUN_HEAD = ("run_6", "run_1")
+RUN_HEAD_BOXES = ((14, 18, 8, 38), (18, 22, 21, 38), (22, 26, 21, 33))
+RUN_COLLAR = ("run_3", "run_4", "run_6", "run_7", "run_8")
 # R on herself also leaves two black rows between the hood's band and her hair on her left, the mask's left half
 # twice as tall as in her other frames: the hair of the row under them carried up (HAIR_UP: design rows, the row the
 # hair is taken from, columns), outline squares only
@@ -316,6 +323,9 @@ def placed():
         out[n] = thrown(n, *out[n])
     for n, src in HEAD_FROM.items():
         out[n] = head_from(*out[n], out[src][0])
+    head = run_head(out[RUN_HEAD[0]][0], out[RUN_HEAD[1]][0])
+    for n in [n for n in out if n.rsplit("_", 1)[0] == "run"]:
+        out[n] = lay_run_head(*out[n], head, collar=n in RUN_COLLAR)
     for n, spec in HAIR_UP.items():
         out[n] = (hair_up(out[n][0], spec), out[n][1], out[n][2])
     for n in [n for n in out if HELD.get(n, n) in DEAD_PAINTED]:
@@ -393,6 +403,59 @@ def _box(shape, b, oy, ox):
     m = np.zeros(shape[:2], bool)
     m[max(0, b[0] + oy):max(0, b[1] + oy), max(0, b[2] + ox):max(0, b[3] + ox)] = True
     return m
+
+
+def run_head(crown_src, face_src, pad=4):
+    """(picture, mask, top row, crown fit column): the glide's one head (RUN_HEAD) - crown_src's rows down to its
+    crown's last row across the crown's columns, and face_src's RUN_HEAD_BOXES (from its own crown) laid on
+    crown_src's crown."""
+    cy, cx = crown_fit(crown_src)
+    fy, fx = crown_fit(face_src)
+    H, W = crown_src.shape[0], crown_src.shape[1] + 2 * pad
+    head = np.zeros((H, W, 4), np.uint8)
+    mask = np.zeros((H, W), bool)
+    last = cy + CROWN_ROWS
+    c0, c1 = max(0, cx + CROWN_SPAN[0]), min(crown_src.shape[1], cx + CROWN_SPAN[1])
+    head[:last, c0 + pad:c1 + pad] = crown_src[:last, c0:c1]
+    mask[:last, c0 + pad:c1 + pad] = True
+    for r0, r1, b0, b1 in RUN_HEAD_BOXES:
+        for r in range(r0, r1):
+            for c in range(b0, b1):
+                sy, sx = r + fy, c + fx
+                ty, tx = r + cy, c + cx + pad
+                if 0 <= sy < face_src.shape[0] and 0 <= sx < face_src.shape[1] and 0 <= ty < H and 0 <= tx < W:
+                    head[ty, tx] = face_src[sy, sx]
+                    mask[ty, tx] = True
+    top = int(np.nonzero((head[..., 3] > 0).any(1))[0].min())
+    return head, mask, top, cx + pad
+
+
+def lay_run_head(pic, x, y, head, collar=False):
+    """(picture, x, y): the frame with the glide's head (run_head's) laid with its top on the frame's top and its
+    crown's column on the frame's (crown_fit); collar: an outline square under the head's last row, in the face's
+    columns, takes the head's square above it (the frame's own chin's outline drawn as the collar)."""
+    img, mask, top, hx = head
+    fy, fx = crown_fit(pic)
+    ftop = int(np.nonzero((pic[..., 3] > 0).any(1))[0].min())
+    pad = 4
+    out = np.zeros((pic.shape[0] + 2 * pad, pic.shape[1] + 2 * pad, 4), np.uint8)
+    out[pad:pad + pic.shape[0], pad:pad + pic.shape[1]] = pic
+    oy, ox = ftop - top + pad, fx - hx + pad
+    ys, xs = np.nonzero(mask)
+    ok = (ys + oy >= 0) & (ys + oy < out.shape[0]) & (xs + ox >= 0) & (xs + ox < out.shape[1])
+    out[ys[ok] + oy, xs[ok] + ox] = img[ys[ok], xs[ok]]
+    if collar:
+        r0, r1, b0, b1 = RUN_HEAD_BOXES[-1]
+        line = _cols(out, OUTLINE_COLS)
+        last = int(ys.max())                          # the head's last row
+        for c in range(b0, b1):
+            hc = c + hx                               # (the head's column for design column c)
+            Y, X = last + 1 + oy, hc + ox
+            if mask[last, hc] and img[last, hc, 3] > 0 and not _cols(img[last:last + 1, hc:hc + 1], OUTLINE_COLS)[0, 0] \
+                    and line[Y, X]:
+                out[Y, X] = img[last, hc]
+    yy, xx = np.nonzero(out[..., 3] > 0)
+    return out[yy.min():yy.max() + 1, xx.min():xx.max() + 1], x - pad + int(xx.min()), y - pad + int(yy.min())
 
 
 def hair_up(pic, spec):
