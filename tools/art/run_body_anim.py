@@ -540,6 +540,15 @@ def own_upper(a, cfg, i, match=None):
     hit = np.unique(lab[through & ~rect])
     legs = np.isin(lab, hit[hit > 0])
     hang = rect & low & op & ~ink & ~legs
+    if cfg.get("hang_outline") == "nearest" and hang.any():
+        # `hang_outline` "nearest": a hanging piece's outline is every outline square in its rects nearer to it than to
+        # her legs (8-neighbour steps, within 3) - its outline two squares deep goes with it (league_gangplank's coat
+        # tails swung on League's path: the outer row left behind stood alone), the legs' own outline stays theirs
+        far = np.full((H, W), 99, np.int32)
+        dh = ndimage.distance_transform_cdt(~hang, metric="chessboard")
+        dl = ndimage.distance_transform_cdt(~legs, metric="chessboard") if legs.any() else far
+        hang |= rect & low & ink & (dh < dl) & (dh <= 3)
+        return (up & op) | hang
     # the hanging pieces' outline: what touches them and not her legs
     hang |= rect & low & ink & ndimage.binary_dilation(hang, structure=K8) & ~ndimage.binary_dilation(legs, structure=K8)
     return (up & op) | hang
