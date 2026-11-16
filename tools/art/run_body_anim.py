@@ -1176,6 +1176,15 @@ def make(hero, cfg=None):
             g[oy:oy + f2.shape[0], ox:ox + f2.shape[1]] = f2
             f2 = g
         lo.append((f2, ms))
+    if cfg.get("lo_grow") and tp is not None:
+        # `lo_grow`: the lo_ frames' outline measured on them and grown to the hero's thin_outline `keep` where it is
+        # thinner (league_poppy: her dense frames keep a 1-square outline, her lo_ tags 2 - add_lo grows her dense
+        # frames, PPU 1.2 under the UI's 1.5, and keeps the one square; remade without it, her lo_run would be the only
+        # lo_ tag drawn thin)
+        oc_ = [tuple(c) for c in tp["outline"]]
+        P = T.kind_params([f for f, _ in lo], oc_, tp["lo"]["keep"])
+        if T.mode(P) == "grow":
+            lo = [(T.change_fixed(f, P, tp["outline"], tp["grow"])[0], ms) for f, ms in lo]
     for inf, n_ in zip(info, lost):
         inf["one_lost"] = n_
     off = [inf["lost"] for inf in info]
