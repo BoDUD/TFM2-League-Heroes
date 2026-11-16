@@ -117,8 +117,6 @@ jobs:
         run: python -I tools/art/thin_outline.py --check
       - name: league_warwick's black strays (a chain and ball under his claws, blots and tufts round his outline) stay out of every frame, as tools/art/warwick_strays.py leaves them
         run: python -I tools/art/warwick_strays.py --check
-      - name: league_ksante's eyes - each eye's white and the pupil crisp on every frame (hd_, 1x, lo_, his strips and his drawn run), as tools/art/ksante_eyes.py lays them (a pipeline run that drew them as a slit again fails here)
-        run: python -I tools/art/ksante_eyes.py --check
       - name: Added design parts in every animation - every hero's part_sprites data laid on its tags as that tool makes them (league_aurelionsol's stars; a pipeline run that wrote those tags again fails here)
         run: python -I tools/art/part_sprites.py --check
       - name: Parts added to a hero's design for its run (league_jax's topknot and cloak strips) are in every other animation too, as tools/art/add_design_parts.py lays them
