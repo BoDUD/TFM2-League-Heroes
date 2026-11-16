@@ -1,0 +1,40 @@
+{
+  "hero": "kayle",
+  "tag": "run",
+  "drawn": "assets/source/kayle/hd/kayle_run_drawn",
+  "from": 4,
+  "outline": [12, 4, 11],
+  "waist": [-12, -12, -12, -12, -12, -12, -12, -12, -12, -12, -12, -12, -12, -12, -12, -12],
+  "bob": [18, 19, 20, 20, 18, 17, 16, 16, 18, 19, 20, 20, 18, 17, 16, 16],
+  "below": [
+    [],
+    [[null, 50, 2, 22]],
+    [[null, 75, 1, 34], [null, 71, 38, 55]],
+    [[null, 67, 26, 38], [null, 68, 45, 54]],
+    [[null, 76, 1, 23], [null, 72, 30, 47]],
+    [],
+    [],
+    [],
+    [],
+    [[null, 50, 5, 15]],
+    [],
+    [[null, 79, 0, 35]],
+    [[null, 90, 0, 25]],
+    [[null, 79, 11, 23]],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "contacts": "frames [8, 15] (feet's band spread [10, 12, 12, 19, 36, 13, 9, 9, 12, 12, 12, 33, 36, 37, 10, 39])",
+    "waist": "row -12 from the centre in every frame: per-row differing share passes 0.924 there (figure rows -95..23)",
+    "from": "frame 4: closest to hd_idle_base[0] (alike share per frame [0.076, 0.055, 0.098, 0.074, 0.109, 0.099, 0.063, 0.068, 0.064, 0.07, 0.105, 0.098, 0.063, 0.065, 0.081, 0.064]; fits every frame: [3, 4, 11, 12])",
+    "below": "rects per frame [0, 1, 2, 2, 2, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0] (her squares under the waist her feet do not reach)",
+    "chains": "none: no skin in the head's band to find the face by",
+    "bob": "4 squares low to high (1.75 game px), low the frame after the contacts [8, 15], moved by 16 so the head stays in every rect: [18, 19, 20, 20, 18, 17, 16, 16, 18, 19, 20, 20, 18, 17, 16, 16]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "back hair: no face found - set a chain by hand if the hero has hair, a cape or a tail", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 4) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "variants": {"face": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "head": [[37, 44], [37, 51], [40, 51], [40, 50], [44, 50], [44, 53], [45, 53], [45, 51], [47, 51], [47, 50], [48, 50], [48, 44], [45, 44], [45, 43], [44, 43], [44, 42], [41, 42], [41, 43], [39, 43], [39, 44]], "chin": 48, "head_match_colours": [[252, 223, 191], [250, 140, 10], [147, 74, 7], [56, 23, 10]], "head_colours": [[252, 223, 191], [251, 205, 170], [247, 158, 133], [250, 140, 10], [147, 74, 7], [56, 23, 10], [234, 6, 66]], "clear_grow": 2, "fill_skip": [[252, 223, 191], [251, 205, 170], [247, 158, 133], [250, 140, 10], [147, 74, 7], [56, 23, 10], [234, 6, 66], [220, 147, 47], [249, 206, 76], [252, 219, 87], [198, 126, 39], [229, 162, 55], [251, 230, 106], [252, 242, 134], [166, 99, 34], [235, 223, 141], [204, 150, 60], [245, 184, 97], [184, 127, 56]], "skin": [[252, 223, 191]], "head_search": 30, "lock": "head"}},
+  "use": "face"
+}
