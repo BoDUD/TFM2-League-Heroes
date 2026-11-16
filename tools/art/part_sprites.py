@@ -44,8 +44,8 @@ Each hero's data is its own file, assets/source/<hero>/hd/<hero>_part_sprites.js
   pose's own drawing is in the way (an arm turned in an in-between), or another picture of it; a waved part's tip rows
   a frame (down +; none: as drawn); in a `flash` frame (a hit's or a death's first, drawn
   flashed white by tools/art/ppu_rig.py flash) the parts are flashed the same way, so their colours are that frame's.
-  Every part's colours are ones each frame already has: a colour new to a frame would change the lo_ frames' own palette
-  (pixel_down.pixelate snaps every square to the frame's commonest colours), and with it squares far from the part;
+  Every part's colours should be ones each frame already has (no new colours: the lo_ frames are snapped to the colours
+  of the frame before the parts, so a colour new to it would not even reach them);
 - `strip`: {tag: the strip its dense frames are kept in, when not its own name} (league_aurelionsol's idle_base: the
   drawn idle, assets/source/ppu/aurelionsol_idle.png).
 
