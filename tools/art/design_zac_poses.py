@@ -4,7 +4,7 @@ the design) read back at the design's scale, in its colours, with the design's o
 
     python tools/art/design_zac_poses.py --measure        # each pose's head match over a range of scales
     python tools/art/design_zac_poses.py --sheet DIR      # all poses beside the design (4x)
-    python tools/art/design_zac_poses.py                  # writes assets/source/zac/hd/pose_<name>.png (+ .json)
+    python tools/art/design_zac_poses.py                  # writes assets/source/zac/hd/wide/pose_<name>.png (+ .json)
     python tools/art/design_zac_poses.py --rematch        # the same, the heads searched again (else the json's)
 
 The poses copy the design's head box (pack_zac_poses.HEAD: the head with the tendril). Codex drew every body at one
@@ -39,7 +39,8 @@ from design_zac_hd import lp  # noqa: E402
 import pack_zac_poses as PK  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "zac", "codex_poses", "zac-poses", "raw")
-OUT = os.path.join(ROOT, "assets", "source", "zac", "hd")
+# the wide pictures (2026-11-17: tools/art/slim_zac.py carves the slim ones rig_zac.py uses from these into hd/)
+OUT = os.path.join(ROOT, "assets", "source", "zac", "hd", "wide")
 HEAD = (12, 43, 48, 72)            # rows / columns of the face box in hd/idle.png: the skull, the eyes, the grin, the chin
 # the head: the skull under the tendril's root, the eyes, the grin, the chin - not the far shoulder beside it (the dark
 # line from the skull's top down to the cheek parts them)

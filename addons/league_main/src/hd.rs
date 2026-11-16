@@ -240,7 +240,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_azir", 1.5, include_str!("../../../league/champions/league_azir#anim.fanim")),
     // Zac: posed by tools/art/rig_zac.py on Codex's step-1 take A-1 and its key poses after League's clips (the design's
     // head and tendril put back on the eyes; the add-on's puddle in the split_* tags) at the user's 1.5 squares a game
-    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES)
+    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES); slimmer since 2026-11-17
+    // (tools/art/slim_zac.py: the design and every key pose 16 columns narrower part by part, the head as drawn)
     ("league_zac", 1.5, include_str!("../../../league/champions/league_zac#anim.fanim")),
     // Singed: posed by tools/art/rig_singed.py on Codex's step-1 take A-2 as drawn and its key poses after League's clips
     // (the design's head put back, the bodies brought to the design's size) at the user's 1.39 squares a game pixel (its
