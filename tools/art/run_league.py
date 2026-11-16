@@ -122,6 +122,27 @@ HEROES = {
                                r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
                                cape1="R_Cape1", cape4="R_Cape4", hair_a2="Hair_A2", hair_b2="Hair_B2",
                                l_jacket3="L_Jacket3", r_jacket3="R_Jacket3", goggles="C_Goggles")),
+    # (lux_run.anm holds six strides in its 4.8 s: one is 0.8 s of clip; the graph plays it at mTickDuration 0.0323)
+    "lux": dict(clip="lux_run", cycle=0.8, tick=0.969,
+                joints=dict(pelvis="hip", spine="spine", chest="chest", neck="neck", head="head",
+                            l_hip="L_Thigh", l_knee="L_Knee", l_foot="L_Foot", l_toe="L_Toe",
+                            r_hip="R_Thigh", r_knee="R_Knee", r_foot="R_Foot", r_toe="R_Toe",
+                            l_shoulder="L_UpArm", l_elbow="L_ForeArm", l_hand="L_Hand",
+                            r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand",
+                            weapon="WEAPON", weapon_b="WEAPON_b", hair="hair", hair_b="hair_b", f_hair="F_hair",
+                            f_belt="F_Belt_b", b_l_cloth="B_L_Cloth_b", b_r_cloth="B_R_Cloth_b",
+                            f_l_cloth="F_L_Cloth", f_r_cloth="F_R_Cloth", l_cloth="L_Cloth", r_cloth="R_Cloth")),
+    # (`Run` at her base move speed is run_base: seraphin_Run.anm, one 1.067 s cycle on her floating stage)
+    "seraphine": dict(clip="seraphin_Run", cycle=1.0667, tick=1.0,
+                      joints=dict(pelvis="Pelvis", chest="Chest", neck="Neck", head="Head",
+                                  l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Toe",
+                                  r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Toe",
+                                  l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                                  r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                                  platform="Platform", c_hair1="C_Hair1", c_hair2="C_Hair2", c_hair4="C_Hair4",
+                                  l_hair4="L_Hair4", r_hair4="R_Hair4", front_hair="R_Front_Hair3",
+                                  ribbon="L_Bottom_Ribon2", l_speaker="L_Speaker", c_speaker="C_Speaker",
+                                  r_speaker="R_Speaker")),
 }
 
 
