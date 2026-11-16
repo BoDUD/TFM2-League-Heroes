@@ -79,6 +79,10 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   taller, so their centres sit 12-14 rows under where her upper body is.
 - `keep_lo`: like `keep_one` for the lo_ frames - they stay the drawn run's own (<hero>_run_lo.png), for a hero whose
   lo_run is not add_lo's from his dense frames (league_malzahar's timing-only run keeps every square of it).
+- `frame_shift`: [rows, cols] a drawn frame - every square of that drawn frame moved by whole squares in its rect before
+  anything else is made of it (down +, right +): a frame the artist drew off the others' place (league_soraka's frames
+  3 and 6, her whole figure drawn 10-22 columns back: she lurched back and forth every step), re-registered; no square
+  changes or goes (one that would leave the rect stops the tool: grow it with `pad`).
 - `props` (with `lock` "head"): rigid props the artist redrew a little differently in every frame (league_sona's etwahl:
   「琴女的琴有点变形」) - one drawing each, laid on each frame's own drawn place: `squares` (a mask spec in its drawn frame
   `from` - the head's by default - its squares with their outline and what rests on it, the hands on its strings), `at`
@@ -1420,6 +1424,27 @@ def compose_own(a, i, cfg, pose):
                "head": z, "joined": joined, "kept": z, "shift": sh, "shift_x": sx}
 
 
+def shifted_frames(frames, shifts, hero):
+    """`frame_shift`: each drawn frame's squares moved [rows, cols] in its own rect (a frame drawn off the others' place
+    re-registered) - every square kept as drawn; one that would leave the rect stops the tool."""
+    if len(shifts) != len(frames):
+        sys.exit(f"{hero}: `frame_shift` has {len(shifts)} values for {len(frames)} drawn frames")
+    out = []
+    for i, ((a, ms), (dy, dx)) in enumerate(zip(frames, shifts)):
+        dy, dx = int(dy), int(dx)
+        if not (dy or dx):
+            out.append((a, ms))
+            continue
+        H, W = a.shape[:2]
+        ys, xs = np.nonzero(a[..., 3] > 0)
+        if ys.min() + dy < 0 or ys.max() + dy >= H or xs.min() + dx < 0 or xs.max() + dx >= W:
+            sys.exit(f"{hero}: `frame_shift` {dy}, {dx} moves drawn frame {i} off its {W}x{H} rect: grow it (`pad`)")
+        b = np.zeros_like(a)
+        b[ys + dy, xs + dx] = a[ys, xs]
+        out.append((b, ms))
+    return out
+
+
 def make(hero, cfg=None):
     """-> ({"hd_<tag>", "<tag>", "lo_<tag>": [(frame, ms)]}, per-frame info, motion)."""
     import ppu_hd as P
@@ -1427,6 +1452,8 @@ def make(hero, cfg=None):
     cfg = cfg or load(hero)
     hid, pack, ppu, size = T.resolve(hero, T.all_heroes())
     frames, meta = drawn(cfg)
+    if cfg.get("frame_shift"):
+        frames = shifted_frames(frames, cfg["frame_shift"], hero)
     n = len(frames)
     i0 = cfg["from"]
     src = added(frames[i0][0], cfg)                     # (`add`: pieces the drawing lacks, in frame `from`'s drawing)
