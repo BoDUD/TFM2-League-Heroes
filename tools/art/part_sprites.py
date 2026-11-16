@@ -14,11 +14,18 @@ were approved: 「改了模型的那几个其他动作帧也要改吧 没影响�
     python -I tools/art/hero_reels.py --check                        # then: the reels read the 1x frames' outlines
 
 Each hero's data is its own file, assets/source/<hero>/hd/<hero>_part_sprites.json:
-- `sprites`: {name: {"key": {character: [r, g, b]}, "rows": [...], "one": [...]}} - a part's picture in the hero's own
-  colours, `rows` of characters at the dense frames' density, `one` the same part drawn by hand for the 1x frames
-  ("." nothing). A part is laid on its centre square (the picture's middle row and column);
+- `sprites`: {name: {"key": {character: [r, g, b]}, "rows": [...], "one": [...], "outline": "characters"}} - a part's
+  picture in the hero's own colours, `rows` of characters at the dense frames' density, `one` the same part drawn by
+  hand for the 1x frames ("." nothing); `outline`: its outline's characters, kept dark in a `flash` frame. A part is
+  laid on its centre square (the picture's middle row and column);
 - `parts`: [{"name", "sprite", "front": true (over the drawing) / false (behind it: only where it is clear), "phase":
-  steps along `path`}] in the order they are laid (the ones behind first, then the ones in front);
+  steps along `path`, "wave"}] in the order they are laid (the ones behind first, then the ones in front);
+- `wave` (a part): {"from": col, "to": col, "one_from": col, "one_to": col, "lag": frames} - a strip of cloth or hair
+  that sways the way tools/art/run_body_anim.py moves a chain with `tip` / `tip_lag` (league_belveth's hair ribbon,
+  made for her run): the picture's columns from `from` (its root, held) out to `to` (its tip) each shifted up or down
+  by its share of the way out times the tag's `tip` rows for that frame (the periodic curve through them, `lag` frames
+  earlier at the root end - a wave running out along it), neighbouring columns never more than a square apart; the
+  columns on the root's far side stay as drawn. The 1x picture the same over `one_from`..`one_to`, the rows / PPU;
 - `path`: the loop every part moves on, [rows, cols] off its place a step, and `loop_ms` a loop at the run's speed. A
   frame's step is its start in its tag: a tag of half a loop or more goes round a whole number of loops nearest its
   length (it ends where it starts, so the actions and the idle / ban-pick reels cut from them meet without a jump); a
@@ -28,10 +35,14 @@ Each hero's data is its own file, assets/source/<hero>/hd/<hero>_part_sprites.js
   {part: [row, col]}, "still": [part, ...]}} - a drawn pose and the part's centres in its reference frame; every frame
   of the pose is found by its head (the box's squares, colour and clear alike, matched in the frame within 24 squares:
   a frame laid a few squares off, lifted a row, flashed white) and its parts moved with it, so they ride the drawing;
-  a part in `still` stays on its centre (held in a hand: it does not go round the path there);
+  a part in `still` stays on its centre (held in a hand: it does not go round the path there); `front_but`: polygons
+  of (row, col) corners in the reference frame - in this pose the parts are laid in front of the drawing, but behind
+  it inside the polygons (league_belveth's ribbon: over the wing she swings across where it streams, behind her head and
+  the wing top it comes from);
 - `tags`: {tag: {"poses": [a pose a frame], "nudge": {frame: {part: [rows, cols]}}, "sprite": {frame: {part: name}},
-  "phase": [...], "flash": [frame, ...]}} - a part's place moved by hand where the pose's own drawing is in the way (an
-  arm turned in an in-between), or another picture of it; in a `flash` frame (a hit's or a death's first, drawn
+  "phase": [...], "flash": [frame, ...], "tip": {part: [rows a frame]}}} - a part's place moved by hand where the
+  pose's own drawing is in the way (an arm turned in an in-between), or another picture of it; a waved part's tip rows
+  a frame (down +; none: as drawn); in a `flash` frame (a hit's or a death's first, drawn
   flashed white by tools/art/ppu_rig.py flash) the parts are flashed the same way, so their colours are that frame's.
   Every part's colours are ones each frame already has: a colour new to a frame would change the lo_ frames' own palette
   (pixel_down.pixelate snaps every square to the frame's commonest colours), and with it squares far from the part;
@@ -108,11 +119,14 @@ def picture(spec, which):
     return a
 
 
-def flashed(a, k=0.45):
+def flashed(a, k=0.45, keep=()):
     """A picture flashed white as a hit's first frame is (tools/art/ppu_rig.py flash: its colours k of the way to white,
-    so they are the flashed frame's own)."""
+    so they are the flashed frame's own) - but the colours in `keep` (its outline: the frame's outer outline is laid by
+    ppu_restyle.py after the flash and stays dark)."""
     out = a.copy()
     m = out[..., 3] > 0
+    for c in keep:
+        m &= ~(out[..., :3] == np.array(c)).all(-1)
     out[m, :3] = (out[m, :3].astype(float) * (1 - k) + 255 * k).astype(np.uint8)
     return out
 
@@ -387,24 +401,123 @@ def places(hero, cfg, dense, ms_of):
                     continue
                 here[nm] = (r + dy + pr + nr, c + dx + pc + nc, sp)
             rows.append(here)
-            inf.append({"pose": tc["poses"][i], "shift": (dy, dx), "alike": round(alike, 3), "step": round(st[i], 2)})
+            inf.append({"pose": tc["poses"][i], "shift": (dy, dx), "alike": round(alike, 3), "step": round(st[i], 2),
+                        "front_but": [[(y + dy, x + dx) for y, x in poly] for poly in pose.get("front_but", ())]})
         out[tag], info[tag] = rows, inf
     return out, info
 
 
-def lay(a, pics, placed, parts, where):
-    """`a` with the parts laid on their centres (the ones behind only where it is clear) -> (frame, the squares each
-    part covers or is hidden under)."""
+def poly_mask(polys, shape):
+    """The squares whose centres lie inside any of the polygons of (row, col) corners (run_body_anim.poly_mask)."""
+    H, W = shape[:2]
+    Y, X = np.mgrid[0:H, 0:W]
+    y, x = Y + 0.5, X + 0.5
+    out = np.zeros((H, W), bool)
+    for poly in polys:
+        m = np.zeros((H, W), bool)
+        for k in range(len(poly)):
+            (y1, x1), (y2, x2) = poly[k], poly[(k + 1) % len(poly)]
+            if y1 == y2:
+                continue
+            m ^= ((y1 > y) != (y2 > y)) & (x < x1 + (y - y1) * (x2 - x1) / (y2 - y1))
+        out |= m
+    return out
+
+
+def one_mask(mask, one_shape, ppu):
+    """A dense frame's mask brought to its 1x frame: each 1x square takes the dense square under its centre."""
+    H, W = mask.shape
+    h, w = one_shape[:2]
+    ys = np.clip(np.floor((np.arange(h) + 0.5 - h / 2.0) * ppu + H / 2.0).astype(int), 0, H - 1)
+    xs = np.clip(np.floor((np.arange(w) + 0.5 - w / 2.0) * ppu + W / 2.0).astype(int), 0, W - 1)
+    return mask[np.ix_(ys, xs)]
+
+
+def curve(vals):
+    """The periodic curve through vals (one a frame): its value at any (fractional) frame (run_body_anim.curve)."""
+    n = len(vals)
+    X = np.fft.rfft(np.asarray(vals, float))
+
+    def at(t):
+        out = X[0].real / n
+        for k in range(1, len(X)):
+            w = 1.0 if (n % 2 == 0 and k == n // 2) else 2.0
+            out += w / n * (X[k] * np.exp(2j * np.pi * k * t / n)).real
+        return out
+    return at
+
+
+def wave_rows(tips, i, lag, root, tip):
+    """{col: rows} of a waved part at frame i - run_body_anim's chain with `tip` / `tip_lag`: a column u of the way
+    from the root out takes the tip's rows `lag` x (1 - u) frames on, times u; each never more than a square off the
+    column before it."""
+    cols = range(min(root, tip), max(root, tip) + 1)
+    span = max(1, abs(root - tip))
+    at = curve(tips) if lag else None
+    d, prev = {}, 0
+    for x in sorted(cols, key=lambda x: abs(root - x)):
+        u = abs(root - x) / float(span)
+        v = int(round((tips[i] if at is None else at(i + lag * (1.0 - u))) * u))
+        v = max(prev - 1, min(prev + 1, v))
+        d[x] = v
+        prev = v
+    return d
+
+
+def waved(pic, rows):
+    """`pic` with its columns shifted by `rows` ({col: rows}, down +), grown alike above and below (its centre kept)."""
+    P = max([abs(v) for v in rows.values()] + [0])
+    out = np.zeros((pic.shape[0] + 2 * P, pic.shape[1], 4), np.uint8)
+    out[P:P + pic.shape[0]] = pic
+    for x, v in rows.items():
+        if v:
+            out[:, x] = 0
+            out[P + v:P + v + pic.shape[0], x] = pic[:, x]
+    return out
+
+
+def frame_pictures(cfg, tag, i, placed, pics, pics1, ppu):
+    """{part: (dense picture, 1x picture)} of frame i: its sprite (flashed in a `flash` frame), waved by the tag's tips."""
+    tc = cfg["tags"][tag]
+    lit = i in set(tc.get("flash", ()))
+    out = {}
+    for part in cfg["parts"]:
+        nm = part["name"]
+        if nm not in placed:
+            continue
+        sp = placed[nm][2]
+        p, p1 = pics[sp], pics1[sp]
+        if lit:
+            spec = cfg["sprites"][sp]
+            keep = [spec["key"][ch] for ch in spec.get("outline", "")]
+            p, p1 = flashed(p, keep=keep), flashed(p1, keep=keep)
+        w = part.get("wave")
+        tips = tc.get("tip", {}).get(nm)
+        if w and tips:
+            if len(tips) != len(tc["poses"]):
+                sys.exit(f"{tag}: {nm} has {len(tips)} tips for {len(tc['poses'])} frames")
+            lag = float(w.get("lag", 0))
+            p = waved(p, wave_rows(tips, i, lag, w["from"], w["to"]))
+            p1 = waved(p1, wave_rows([t / ppu for t in tips], i, lag, w["one_from"], w["one_to"]))
+        out[nm] = (p, p1)
+    return out
+
+
+def lay(a, pics, placed, parts, where, front_but=None):
+    """`a` with the parts ({part: picture}) laid on their centres (the ones behind only where it is clear; with
+    `front_but`, a mask of the frame, every part in front of the drawing but behind it inside the mask) -> (frame,
+    the squares each part covers or is hidden under)."""
     b = a.copy()
     body = a[..., 3] > 0
     cover = {}
     for front in (False, True):
         for part in parts:
             nm = part["name"]
-            if nm not in placed or bool(part.get("front", True)) != front:
+            ahead = bool(part.get("front", True)) or front_but is not None
+            if nm not in placed or ahead != front:
                 continue
-            r, c, sp = placed[nm]
-            pic = pics[sp]
+            r, c, _ = placed[nm]
+            pic = pics[nm]
             top, left = r - pic.shape[0] // 2, c - pic.shape[1] // 2
             if top < 0 or left < 0 or top + pic.shape[0] > a.shape[0] or left + pic.shape[1] > a.shape[1]:
                 sys.exit(f"{where}: {nm} at ({r}, {c}) leaves the {a.shape[1]}x{a.shape[0]} frame - move it in "
@@ -413,6 +526,9 @@ def lay(a, pics, placed, parts, where):
             sub = b[top:top + pic.shape[0], left:left + pic.shape[1]]
             under = body[top:top + pic.shape[0], left:left + pic.shape[1]] & m
             put = m if front else m & (sub[..., 3] == 0)
+            if front_but is not None:
+                keep = front_but[top:top + pic.shape[0], left:left + pic.shape[1]]
+                put = m & (~keep | (sub[..., 3] == 0))
             sub[put] = pic[put]
             cover[nm] = int(under.sum())
     return b, cover
@@ -440,23 +556,25 @@ def make(hero, cfg=None):
     ones = kept_ones(hero, cfg)
     pics = {nm: picture(sp, "rows") for nm, sp in cfg["sprites"].items()}
     pics1 = {nm: picture(sp, "one") for nm, sp in cfg["sprites"].items()}
-    lit = {nm: flashed(p) for nm, p in pics.items()}
-    lit1 = {nm: flashed(p) for nm, p in pics1.items()}
     placed, info = places(hero, cfg, dense, ms_of)
     out = {}
     for tag in cfg["tags"]:
         hd, one, lo = [], [], []
-        flash = set(cfg["tags"][tag].get("flash", ()))
         for i, (a, a1) in enumerate(zip(dense[tag], ones[tag])):
-            pk, pk1 = (lit, lit1) if i in flash else (pics, pics1)
-            b, cover = lay(a, pk, placed[tag][i], cfg["parts"], f"{hid} hd_{tag}[{i}]")
+            fp = frame_pictures(cfg, tag, i, placed[tag][i], pics, pics1, ppu)
+            fb = info[tag][i]["front_but"]
+            fm = poly_mask(fb, a.shape) if fb else None
+            fm1 = one_mask(fm, a1.shape, ppu) if fb else None
+            b, cover = lay(a, {nm: p for nm, (p, _) in fp.items()}, placed[tag][i], cfg["parts"], f"{hid} hd_{tag}[{i}]",
+                           fm)
             p1 = {nm: one_centre(r, c, a.shape, a1.shape, ppu) + (sp,) for nm, (r, c, sp) in placed[tag][i].items()}
-            b1, _ = lay(a1, pk1, p1, cfg["parts"], f"{hid} {tag}[{i}]")
+            b1, _ = lay(a1, {nm: q for nm, (_, q) in fp.items()}, p1, cfg["parts"], f"{hid} {tag}[{i}]", fm1)
             hd.append(b)
             one.append(b1)
             lo.append(lo_frame(b, (a1.shape[1], a1.shape[0]), ppu, size, a))
             info[tag][i]["cover"] = cover
             info[tag][i]["base"] = a
+            info[tag][i]["pics"] = {nm: p for nm, (p, _) in fp.items()}
         out["hd_" + tag], out[tag], out["lo_" + tag] = hd, one, lo
     return out, placed, info
 
@@ -492,28 +610,31 @@ def write(hero, new):
     Image.fromarray(px, "RGBA").save(lp(T.stem(hid, pack) + "#sheet.png"), optimize=True)
 
 
-def report(cfg, placed, info):
+def report(cfg, new, placed, info):
     """Every frame: its pose, the head's shift and match, each part's centre, the squares between it and the drawing
-    (Chebyshev, 99: 8 or more; 0: touching or over it), what it covers / is hidden under, and its distance from the face
-    box."""
-    pics = {nm: picture(sp, "rows") for nm, sp in cfg["sprites"].items()}
+    (Chebyshev, 99: 8 or more; 0: touching or over it), what it covers / is hidden under, how many of its squares show
+    and the distance of those from the face box."""
     for tag in cfg["tags"]:
         print(f"-- {tag}")
         for i, here in enumerate(placed[tag]):
             inf = info[tag][i]
             pose = cfg["poses"][inf["pose"]]
             dy, dx = inf["shift"]
+            shown = (new["hd_" + tag][i] != inf["base"]).any(-1)
             parts = []
             for nm, (r, c, sp) in here.items():
-                pic = pics[sp]
+                pic = inf["pics"][nm]
                 m = pic[..., 3] > 0
                 ys, xs = np.nonzero(m)
                 ys, xs = ys + r - pic.shape[0] // 2, xs + c - pic.shape[1] // 2
                 gap = clearance(inf["base"], ys, xs)
+                vis = shown[ys, xs]
                 f0, f1, g0, g1 = pose.get("face", (0, -1, 0, -1))
                 fy0, fy1, fx0, fx1 = f0 + dy, f1 + dy, g0 + dx, g1 + dx
-                face = min(max(fy0 - y, y - fy1, fx0 - x, x - fx1, 0) for y, x in zip(ys, xs)) if f1 >= f0 else -1
-                parts.append(f"{nm} ({r},{c}) gap {gap} cover {inf['cover'].get(nm, 0)} face {face}")
+                face = min([max(fy0 - y, y - fy1, fx0 - x, x - fx1, 0) for y, x in zip(ys[vis], xs[vis])] or [-1]) \
+                    if f1 >= f0 else -1
+                parts.append(f"{nm} ({r},{c}) gap {gap} cover {inf['cover'].get(nm, 0)} shown {int(vis.sum())} "
+                             f"face {face}")
             print(f"  [{i}] {inf['pose']} shift {inf['shift']} alike {inf['alike']} step {inf['step']}: " + "; ".join(parts))
 
 
@@ -562,7 +683,7 @@ def main():
         print(f"ok: {a.hero}")
         return
     if a.dry:
-        report(cfg, placed, info)
+        report(cfg, new, placed, info)
         return
     write(a.hero, new)
     print(f"{a.hero}: {', '.join(new)} written ({sum(len(v) for v in new.values())} frames, every rect kept)")
