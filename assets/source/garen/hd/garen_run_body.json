@@ -1,0 +1,32 @@
+{
+  "hero": "garen",
+  "tag": "run",
+  "drawn": "assets/source/garen/hd/garen_run_drawn",
+  "from": 3,
+  "outline": [16, 12, 24],
+  "waist": [-17, -17, -17, -17, -17, -17, -17, -17],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 48, 6, 38], [null, 43, 41, 78]],
+    [[null, 49, 0, 72]],
+    [[null, 51, 1, 34], [null, 45, 56, 73]],
+    [[null, 43, 57, 76]],
+    [[null, 52, 0, 73]],
+    [[null, 49, 0, 75]],
+    [[null, 47, 2, 36], [null, 40, 58, 73]],
+    [[null, 48, 58, 75]]
+  ],
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand: lock head - his drawn run redraws the head every frame (the head's colour-IoU against frame 3's 0.51-0.61); his drawn cape stays as drawn (「盖伦的披风效果还不如之前的」: f217ca0ef's full upper-body lock left shoulder-trim squares at the cape join - nothing below the head is laid or cleared here)",
+    "head": "frame 3's hair, face and the outline under its chin (open eye, as his idle's; frames 0, 5 and 7's heads reach the frames' top row and grow a 1x / lo_ frame - the fanim would change - and frame 6's leaves the frames): its columns on the frame's own eye and face, its chin on the frame's own chin (head_align: 0-1 rows under the frame's own head)",
+    "clear_poly": "the clearing stops at the scarf and the shoulder plates (their blues and golds are keep_colours too); it reaches 4 columns behind the head (clear_grow 4) for the frames' bigger back hair",
+    "beside_head": "ground (the back of the head is closed with outline, 1-8 squares a join); clear_specks 8 (none cut off)",
+    "undecided": []
+  },
+  "head": [[-1, 49], [-1, 58], [1, 62], [4, 64], [7, 64], [10, 62], [14, 61], [17, 61], [19, 60], [21, 60], [21, 49], [17, 48], [16, 47], [12, 46], [7, 45], [4, 44], [1, 46]],
+  "chin": 21,
+  "lock": "head",
+  "x": 0,
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[255, 255, 255], [11, 40, 111], [255, 214, 162]], "clear_all": true, "skin": [[239, 173, 118], [255, 214, 162], [206, 128, 80]], "keep_colours": [[5, 63, 187], [32, 106, 245], [12, 64, 180], [6, 23, 71], [11, 40, 111], [239, 169, 64], [189, 116, 42], [255, 186, 58], [218, 130, 56], [189, 195, 207], [208, 217, 230], [103, 102, 116], [146, 149, 164], [245, 243, 223], [109, 65, 28], [69, 38, 20]], "clear_grow": 4, "beside_head": "ground", "head_align": "chin", "clear_poly": [[-5, 43], [-5, 61], [-2, 66], [2, 69], [7, 69], [11, 67], [16, 66], [20, 63], [23, 59], [23, 45], [17, 41], [10, 38], [2, 39]], "clear_specks": 8}}
+}
