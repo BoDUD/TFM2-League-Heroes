@@ -1360,9 +1360,9 @@ def compose_own(a, i, cfg, pose):
     own upper body (a run whose poses are drawn whole, the arms pumping as drawn: league_shyvana's Codex key poses) -
     with that upper body (above its `waist`, with what `below`'s rects hold; `upper`: exactly its squares) moved `shift`
     rows DOWN (never up: lowered over its own hips, no gap to fill) and `shift_x` columns (+ right; a rigid lean, never a
-    turn) over its own legs as drawn, laid over them; what it leaves is ground where it reaches the ground round her
-    (the top edge of the hair, a horn, the tail), a hole shut in by her is joined (from the legs' colours by them, else
-    outline) and a leg's colour square it bares to the ground gets outline - the legs square for square as drawn. With
+    turn) over its own legs as drawn, laid over them; what it leaves is ground (the top edge of the hair, a horn, the
+    tail; the gaps between its own feathers moved with it), but a leg's colour square it bares gets outline and a
+    pinhole of 1-2 squares none of the drawings has is outline - the legs square for square as drawn. With
     `steps` 2 the body bobs on every frame while each drawn pose is shown twice. -> (frame, info)."""
     sh = int(cfg["shift"][i]) if cfg.get("shift") else 0
     sx = int(cfg["shift_x"][i]) if cfg.get("shift_x") else 0
@@ -1386,22 +1386,29 @@ def compose_own(a, i, cfg, pose):
     b[ty, tx] = a[ys, xs]
     put = np.zeros((H, W), bool)
     put[ty, tx] = True
-    clear = b[..., 3] == 0
-    lab, _ = ndimage.label(clear)
-    outer = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
-    hole = clear & op0 & ~np.isin(lab, outer[outer > 0])          # (only squares she covered before: no new pinholes)
-    near_legs = hole & ndimage.binary_dilation(legs, structure=K8, iterations=2)
-    fill_in(b, near_legs, legs & ~put & ~colour_mask(b, [out_c]))
-    rest = hole & (b[..., 3] == 0)
-    b[rest, :3] = out_c
-    b[rest, 3] = 255
+    vacated = (b[..., 3] == 0) & op0
+    # a leg's colour square the body bares to the ground (a fist that hung by the thigh moved down) gets outline
     leg_col = legs & ~put & ~colour_mask(b, [out_c])
-    bare = (b[..., 3] == 0) & op0 & ndimage.binary_dilation(leg_col, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
-                                                                                         bool))
+    bare = vacated & ndimage.binary_dilation(leg_col, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], bool))
     b[bare, :3] = out_c
     b[bare, 3] = 255
+    # what else it leaves is ground - the gaps between its own feathers, arms and tail move with it, shut in or not -
+    # but a pinhole of 1-2 squares none of the drawings has (no pocket of the frame's own moved there) is outline
+    moved_pk = np.zeros((H, W), bool)
+    py, px_ = np.nonzero(pockets(a) & ndimage.binary_dilation(own, structure=K8))
+    okp = (py + sh < H) & (px_ + sx >= 0) & (px_ + sx < W)
+    moved_pk[py[okp] + sh, px_[okp] + sx] = True
+    lab, n = ndimage.label(b[..., 3] == 0)
+    outer = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
+    pin = np.zeros((H, W), bool)
+    for j in range(1, n + 1):
+        m_ = lab == j
+        if j not in outer and m_.sum() <= 2 and (m_ & vacated).any() and not (m_ & moved_pk).any():
+            pin |= m_
+    b[pin, :3] = out_c
+    b[pin, 3] = 255
     op = b[..., 3] > 0
-    joined = (hole | bare) & op
+    joined = (bare | pin) & op
     return b, {"own": z, "legs": legs & op & ~put, "torso": put & op, "at": (sh, sx), "lost": 0, "drawn_at": (0, 0),
                "head": z, "joined": joined, "kept": z, "shift": sh, "shift_x": sx}
 
