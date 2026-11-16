@@ -181,6 +181,8 @@ def load(hero, variant=None):
         if cfg.get("head"):
             cfg["head"] = [[r + pr, c + pc] for r, c in cfg["head"]]
             cfg["chin"] += pr
+        if cfg.get("chin_rows"):
+            cfg["chin_rows"] = [r + pr for r in cfg["chin_rows"]]
         if cfg["below"] != "match":
             cfg["below"] = [[(None if r0 is None else r0 + pr, r1 + pr, c0 + pc, c1 + pc) for r0, r1, c0, c1 in rs]
                             for rs in cfg["below"]]
@@ -869,9 +871,17 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
         # scarf round the neck), down to its own chin: the lowest of its face's `skin` squares, and the outline under it
         sk = zone & colour_mask(a, [tuple(c) for c in cfg.get("skin", [])])
         own_chin = int(np.nonzero(sk.any(1))[0].max()) + 2 if sk.any() else chin
-        zone[max(0, max(chin, own_chin)):] = False
+        rows_at = cfg.get("chin_rows")
+        if rows_at:
+            # `chin_rows`: each drawn frame's own chin (its face's lowest row, read off the frame) where the skin runs on
+            # down a bare neck and the lowest skin square is not the chin (league_sivir): the clearing stops under it
+            own_chin = int(rows_at[pose]) + 2
+        zone[max(0, own_chin if rows_at else max(chin, own_chin)):] = False
         fsk = head & colour_mask(src, [tuple(c) for c in cfg.get("skin", [])])
-        if cfg.get("head_align") == "chin" and sk.any() and fsk.any() and not (pose == cfg["from"] and not sh):
+        if cfg.get("head_align") == "chin" and rows_at and not (pose == cfg["from"] and not sh):
+            # (with `chin_rows`: frame `from`'s chin - its own `chin_rows` value - laid on the frame's)
+            dy = int(rows_at[pose]) - int(rows_at[cfg["from"]]) + mov["body"][i]
+        elif cfg.get("head_align") == "chin" and sk.any() and fsk.any() and not (pose == cfg["from"] and not sh):
             # `head_align` "chin": the laid chin on the frame's own drawn chin, so the neck under it is the drawing's
             # (a redrawn head a few rows longer than frame `from`'s: the columns stay where the goggles / eyes put them)
             dy = (own_chin - 2) - int(np.nonzero(fsk.any(1))[0].max()) + mov["body"][i]
@@ -879,8 +889,10 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
         # beside the face it is the frame's own bigger head's collar edge and goes with the head
         face_left = (int(np.nonzero(fsk.any(0))[0].min()) + dx) if fsk.any() else W
         rows_, cols_ = np.mgrid[0:H, 0:W]
+        # (`keep_above`: from this many rows over the laid chin - 1 by default; league_sivir's shoulder piece, whose top
+        # reaches the jaw's rows beside it, keeps its gold from 4 rows up)
         keep_c = colour_mask(a, [tuple(c) for c in cfg.get("keep_colours", [])]) & \
-            ((rows_ >= cfg["chin"] + dy - 1) | (cols_ < face_left))
+            ((rows_ >= cfg["chin"] + dy - int(cfg.get("keep_above", 1))) | (cols_ < face_left))
         own = zone & (a[..., 3] > 0) & ~keep_c & ~keep_mask(a, cfg, pose)
     else:
         zone[max(0, chin):] = False
@@ -948,6 +960,13 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
         # outer edge with only the outline under its jaw: a hood's blue would run in under it) - what is shut in or
         # by her squares is closed with outline, the rest is ground
         inside[:] = False
+    elif cfg.get("beside_head") == "front":
+        # "front": that only in front of the laid face (from its first `skin` column on) - a shoulder's gem run into
+        # the gap by the jaw; behind it, where the back hair runs on into the frame's own (league_sivir), a gap is
+        # filled from the hair round it as without the key
+        fsk_ = head & colour_mask(src, [tuple(c) for c in cfg.get("skin", [])])
+        front = (int(np.nonzero(fsk_.any(0))[0].min()) + dx) if fsk_.any() else W
+        inside &= (np.arange(H)[:, None] >= cfg["chin"] + dy - 1) | (np.arange(W)[None, :] < front)
     voters = legs & ~colour_mask(b, [out_c])
     fill_in(b, inside, voters)
     rest = inside & (b[..., 3] == 0)
