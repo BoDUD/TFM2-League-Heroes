@@ -109,6 +109,13 @@ TABLE = {
 # each so the cycle stays League's 933 ms
 RUN_ORDER = [(1, 2), (1, 0), (2, -2), (3, 0), (5, 0), (6, 0), (4, -2), (3, 0)]
 RUN_MS = 117
+# 2026-11-16: run picture 1 (the run's frames 0-1) came back from Codex about 11 % smaller than pictures 2-6 - its
+# helmet, shield, spear and whole figure (2082 squares against 2304-2813), so he shrank every cycle (the user, on the
+# run's size before: 「还有模型会变大变小」). It is re-read from Codex's own pictures (the step-2 strip's image_gen original
+# for the upper body, the leg redo's for the legs, composed with the leg redo's protected mask as its compose script
+# did) at 8.9 px of the original a square instead of 10 - Codex's reading, the same block vote, nothing resampled:
+# pantheon_run_1_refit_1x.png (2588 squares, 68 x 102 against 59-67 x 101-111)
+RUN_REFIT = {"1": "pantheon_run_1_refit_1x.png"}
 # Codex drew the run redo bigger than the design: its helmet 11 squares wide and 17 tall against the idle's 9 and 15 -
 # the user: 「还有模型会变大变小」 (idle <-> run). The run is brought to the idle's size by taking whole rows and columns
 # out (tools/art/shrink_frames.py, league_senna's way: nothing resampled, the soles on their row).
@@ -160,11 +167,15 @@ def shift(a, dx, dy):
     return out
 
 
-def frame(src):
+def frame(src, refit=True):
     if src == "design":
         return design_canvas()[0]
     tag, k = src.rsplit("_", 1)
     if tag == "run" and os.path.isdir(lp(RUN)):
+        # run picture 1 re-read at the other pictures' size (RUN_REFIT): Codex drew it about 11 % smaller, so the run's
+        # frames 0-1 shrank every cycle (the user: 「模型不要变大变小」)
+        if refit and k in RUN_REFIT and os.path.isfile(lp(os.path.join(RUN, RUN_REFIT[k]))):
+            return load(os.path.join(RUN, RUN_REFIT[k]))
         return load(os.path.join(RUN, f"pantheon_run_{k}_1x.png"))
     return load(os.path.join(STRIPS, f"pantheon_{src}_1x.png"))
 
@@ -298,11 +309,14 @@ def on_canvas(a, like):
     return can
 
 
-def shrunk(frames, idle, scale):
-    """frames at `scale` of their size, whole rows and columns out (the idle's body range counts them)."""
+def shrunk(frames, idle, scale, plan_frames=None):
+    """frames at `scale` of their size, whole rows and columns out (the idle's body range counts them); `plan_frames`:
+    the frames the lines are chosen on, when they are not these (the run: chosen on Codex's own pictures, so a
+    re-read picture 1 takes the same lines out and every other frame stays as it was)."""
     import shrink_frames as SF
     cf = [(centred(a), ms) for a, ms in frames]
-    plan = SF.plan_tag(cf, SF.body_of([(centred(idle[0][0]), 0)]), scale)
+    pf = cf if plan_frames is None else [(centred(a), ms) for a, ms in plan_frames]
+    plan = SF.plan_tag(pf, SF.body_of([(centred(idle[0][0]), 0)]), scale)
     return [(on_canvas(a, frames[0][0]), ms) for a, ms in SF.apply_tag(cf, plan)]
 
 
@@ -351,7 +365,7 @@ def cape_waved(a, src, step, steps):
 def actions():
     out = {"idle": idle_frames(), "hit": hit_frames()}
     out["run"] = shrunk([(tidy(shift(frame(f"run_{k}"), dx, 0)), RUN_MS) for k, dx in RUN_ORDER], out["idle"],
-                        RUN_SCALE)
+                        RUN_SCALE, [(tidy(shift(frame(f"run_{k}", False), dx, 0)), RUN_MS) for k, dx in RUN_ORDER])
     for tag, rows in TABLE.items():
         out[tag] = []
         for src, dx, dy, ms, *wave in rows:
