@@ -1,0 +1,33 @@
+{
+  "hero": "reksai",
+  "tag": "run",
+  "drawn": "assets/source/reksai/hd/reksai_run_drawn",
+  "from": 4,
+  "outline": [2, 0, 1],
+  "waist": [7, 7, 7, 7, 7, 7, 7, 7],
+  "bob": [0, 1, 0, -1, 0, 1, 0, -1],
+  "below": [
+    [],
+    [[null, 42, 23, 35]],
+    [],
+    [],
+    [[null, 43, 29, 34]],
+    [],
+    [[null, 40, 28, 34]],
+    [[null, 42, 27, 35]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand (round 3): the whole upper body is one drawing (Vladimir's / Tahm Kench's way) - the installed upper body is two renderings of one pose, two frames each (U1: frames 0 3 4 7, U2: 1 2 5 6; 1003 of 1023 squares differ in colour only, 56 in the silhouette), so it shimmered every 180 ms; the legs are drawn new in every frame and stay",
+    "from": "frame 4 (U1, --init's closest to the idle: 0.986)",
+    "bob": "the drawn place of each frame's own upper body, matched square for square (drawn_shift): 0 1 1 0 0 1 1 0 rows (U2 is drawn a row lower) - no designed bob",
+    "keep_gaps": "frame 4's own gaps between its body plates and its legs stay ground: 3-4 squares a frame open next to the frame's own legs (pinholes 85 -> 99), never filled",
+    "keep_one": "her 1x run is a drawing of its own (612-657 squares off ppu_one's): it stays as installed (reksai_run_one.png, from d90cee046); hd_run and lo_run are made",
+    "timing": "League's RekSai_run.anm is 1.0 s but two strides (each back foot leads twice): a 0.5 s stride; the installed 8 x 90 ms = 720 ms is already slower and only 4 % under the 0.75 s floor - unchanged",
+    "init": {"contacts": "frames [0, 3] (feet's band spread [47, 33, 33, 32, 27, 28, 44, 44])", "waist": "row 7 from the centre in every frame: per-row differing share passes 0.411 there (figure rows -28..14)", "from": "frame 4: closest to hd_idle_base[0] (alike share per frame [0.985, 0.734, 0.738, 0.984, 0.986, 0.738, 0.734, 0.981])", "below": "rects per frame [0, 1, 0, 0, 1, 0, 1, 1] (her squares under the waist her feet do not reach)", "chains": "none: no skin in the head's band to find the face by", "bob": "2 squares low to high (1.67 game px), low the frame after the contacts [0, 3], moved by -1 so the head stays in every rect: [0, 1, 0, -1, 0, 1, 0, -1]", "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "back hair: no face found - set a chain by hand if the hero has hair, a cape or a tail", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 4) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]},
+    "undecided": []
+  },
+  "use": "char",
+  "variants": {"char": {"steps": 1, "keep_gaps": true, "from": 4, "bob": [0, 1, 1, 0, 0, 1, 1, 0], "x": 0, "below": "match", "parts": {}, "chains": {}, "keep_one": "assets/source/reksai/hd/reksai_run_one"}}
+}
