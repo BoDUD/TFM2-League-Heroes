@@ -851,8 +851,10 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
         else head
     my, mx = find_head(src, a, tmpl)
     dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
-    if pose == cfg["from"] and (dy, dx) == (my, mx) == (0, 0) and not sh:
-        # frame `from` keeps its own head where it is: nothing to change
+    same = pose == cfg["from"] or (a.shape == src.shape and np.array_equal(a, src))
+    if same and (dy, dx) == (my, mx) == (0, 0) and not sh:
+        # frame `from` keeps its own head where it is: nothing to change (nor in a frame drawn the same as frame `from`:
+        # a 4-frame drawing shown twice)
         z = np.zeros(a.shape[:2], bool)
         return a.copy(), {"own": z, "legs": a[..., 3] > 0, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
                           "head": head & (a[..., 3] > 0), "joined": z, "kept": z}
@@ -1143,6 +1145,17 @@ def make(hero, cfg=None):
         f, off = O.one_frame(b, w, h, 1.0 / shown, ws, hs)
         lost.append(off)
         one.append((f, ms))
+    if cfg.get("keep_one"):
+        # `keep_one`: the 1x frames stay the drawn run's own, kept beside it (<hero>_run_one.png: the frames left to
+        # right, a square apart) - a hero whose 1x run is a drawing of its own, not ppu_one's from the dense frames:
+        # remade, every square of it would change; the lo_ frames are made from the dense ones anyway
+        s1 = np.array(Image.open(lp(os.path.join(ROOT, cfg["keep_one"] + ".png"))).convert("RGBA"))
+        kept1, x1 = [], 0
+        for f, _ in one:
+            h1, w1 = f.shape[:2]
+            kept1.append(s1[:h1, x1:x1 + w1].copy())
+            x1 += w1 + 1
+        one = [(f1, ms) for f1, (_, ms) in zip(kept1, one)]
     mini = {tag: one, "hd_" + tag: dense}
     P.add_lo(short(hero), mini)
     lo = []
