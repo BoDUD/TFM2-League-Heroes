@@ -69,6 +69,12 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `part_gaps`: a moved part or chain takes its own surroundings along: a square it left that is clear in frame `from`'s
   drawing where the moved piece puts it (the air beside a staff slid along itself, under a raised topknot) stays ground
   instead of a fill - what it bares of the drawing behind it is still filled.
+- `props` (with `lock` "head"): rigid props the artist redrew a little differently in every frame (league_sona's etwahl:
+  「琴女的琴有点变形」) - one drawing each, laid on each frame's own drawn place: `squares` (a mask spec in its drawn frame
+  `from` - the head's by default - its squares with their outline and what rests on it, the hands on its strings), `at`
+  (rows / cols off its place in frame `from`, from the frames' centres, a frame each), `clear` (a mask spec a drawn frame,
+  null: none - the frame's own drawing of it, exactly those squares go); laid in front, the gaps joined as the head's. A
+  mask spec: (row, col) corners, or {"rows": [[row, first col, last col], ...]}, in the frame's own rows / cols.
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -196,6 +202,10 @@ def load(hero, variant=None):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
                             else [[r + pr, c + pc] for r, c in q] for q in cfg[key]]
+        for pr_ in cfg.get("props", []):
+            # (`props`: its squares in its frame `from` and each frame's `clear` are in the frames' own rows / cols)
+            pr_["squares"] = shift_spec(pr_["squares"], pr, pc)
+            pr_["clear"] = [None if q is None else shift_spec(q, pr, pc) for q in pr_["clear"]]
         if cfg.get("own_paint"):
             cfg["own_paint"] = [None if not q else
                                 [dict(d, rows=[[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in d["rows"]])
@@ -549,6 +559,40 @@ def own_paint(b, cfg, i):
                 b[r, sl, 3] = 255
                 m[r, sl] = True
     return m
+
+
+def shift_spec(q, pr, pc):
+    """A mask given as corners or {"rows": [[row, first col, last col], ...]}, moved `pad`'s (rows, cols)."""
+    if isinstance(q, dict):
+        return {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]}
+    return [[r + pr, c + pc] for r, c in q]
+
+
+def spec_mask(q, shape):
+    """The squares a mask spec names: {"rows": [[row, first col, last col], ...]} (several runs a row) or a polygon of
+    (row, col) corners - in a frame's own rows / cols."""
+    H, W = shape[:2]
+    m = np.zeros((H, W), bool)
+    if not q:
+        return m
+    if isinstance(q, dict):
+        for r, c0, c1 in q["rows"]:
+            if 0 <= r < H and c1 >= max(0, c0):
+                m[r, max(0, c0):min(W, c1 + 1)] = True
+        return m
+    return poly_mask([tuple(v) for v in q], shape)
+
+
+def prop_layers(frames, cfg):
+    """`props` (`lock` "head"): rigid props the artist redrew a little differently in every frame (league_sona's etwahl:
+    「琴女的琴有点变形」) - each one drawing, its drawn frame `from`'s (the head's `from` by default): `squares` (its
+    squares there, with its outline and what rests on it - the hands on the strings) -> [(prop, its frame, its mask)]."""
+    out = []
+    for pr in cfg.get("props", []):
+        j = int(pr.get("from", cfg["from"]))
+        psrc = frames[j][0]
+        out.append((pr, psrc, spec_mask(pr["squares"], psrc.shape) & (psrc[..., 3] > 0)))
+    return out
 
 
 def own_upper(a, cfg, i, match=None):
@@ -921,7 +965,7 @@ def find_head(src, a, head, search=10):
     return best[1], best[2]
 
 
-def compose_head(a, i, src, head, mov, cfg, pose=None):
+def compose_head(a, i, src, head, mov, cfg, pose=None, props=None):
     """Frame i (drawn frame `pose`'s) with frame `from`'s head on its own head's place (rows `bob`, columns `x` off it): the
     frame's own head cleared round it - its own head colours (`head_colours`, frame `from`'s head's by default) within 2
     squares, above its chin (`chin`: frame `from`'s first row of the neck) - the rest of the frame square for square its
@@ -941,7 +985,11 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     my, mx = find_head(src, a, tmpl)
     dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
     same = pose == cfg["from"] or (a.shape == src.shape and np.array_equal(a, src))
-    if same and (dy, dx) == (my, mx) == (0, 0) and not sh:
+    props = props or []
+    # (`props`: a frame whose own prop is cleared, or that gets one laid from another frame, is made)
+    prop_here = any(pr["clear"][pose] or int(pr.get("from", cfg["from"])) != pose or any(pr["at"][i])
+                    for pr, _, _ in props)
+    if same and (dy, dx) == (my, mx) == (0, 0) and not sh and not prop_here:
         # frame `from` keeps its own head where it is: nothing to change (nor in a frame drawn the same as frame `from`:
         # a 4-frame drawing shown twice)
         z = np.zeros(a.shape[:2], bool)
@@ -1028,9 +1076,17 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
                 reach = ndimage.binary_dilation(reach, structure=K8) & own_ink
             carry &= hair | reach
         own &= ~carry
+    # `props`: each frame's own drawing of a prop (`clear`: a mask spec a drawn frame, null: none) goes - exactly those
+    # squares - and the prop's one drawing is laid on the frame's own drawn place (`at`: rows / cols off its place in
+    # its frame `from`, from the frames' centres, a frame each), in front; the gaps it leaves are joined as the head's
+    pclear = np.zeros((H, W), bool)
+    for pr, _, _ in props:
+        pclear |= spec_mask(pr["clear"][pose], a.shape)
+    pclear &= (a[..., 3] > 0) & ~keep_mask(a, cfg, pose) & ~own & ~carry
     b = a.copy()
     b[own] = 0
     b[carry] = 0
+    b[pclear] = 0
     legs = b[..., 3] > 0
     info = {"own": own, "legs": legs, "at": (dy, dx), "lost": 0, "drawn_at": (my, mx)}
     carried = np.zeros((H, W), bool)
@@ -1047,8 +1103,18 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     else:
         info["head"], lost = lay(b, src, head, dy, dx)
     info["lost"] += lost
-    put = info["head"] & (b[..., 3] > 0)
-    info["head"] = put
+    pput = np.zeros((H, W), bool)
+    for pr, psrc, pm in props:
+        ady, adx = (int(v) for v in pr["at"][i])
+        p_put, lost = lay(b, psrc, pm, H // 2 - psrc.shape[0] // 2 + ady, W // 2 - psrc.shape[1] // 2 + adx)
+        pput |= p_put
+        info["lost"] += lost
+    put = (info["head"] | pput) & (b[..., 3] > 0)
+    info["head"] = put & ~pput
+    if props:
+        info["props"] = pput & (b[..., 3] > 0)
+        info["prop_own"] = pclear
+        info["legs"] = legs & ~pput                      # (the laid props are not her own squares changed)
     carried &= ~put
     gone = (a[..., 3] > 0) & (b[..., 3] == 0)
     inside = gone & T.between(put | carried | legs, 3)
@@ -1100,13 +1166,29 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
     py, px_ = np.nonzero(ps)
     okp = (py + dy >= 0) & (py + dy < H) & (px_ + dx >= 0) & (px_ + dx < W)
     laid[py[okp] + dy, px_[okp] + dx] = True
-    own_p = pockets(a) & ~ndimage.binary_dilation(own | carry, structure=K8)
+    for pr, psrc, pm in props:
+        # (a prop's own pinholes are its drawing's)
+        py, px_ = np.nonzero(pockets(psrc) & ndimage.binary_dilation(pm, structure=K8))
+        ady, adx = (int(v) for v in pr["at"][i])
+        py, px_ = py + H // 2 - psrc.shape[0] // 2 + ady, px_ + W // 2 - psrc.shape[1] // 2 + adx
+        okp = (py >= 0) & (py < H) & (px_ >= 0) & (px_ < W)
+        laid[py[okp], px_[okp]] = True
+    own_p = pockets(a) & ~ndimage.binary_dilation(own | carry | pclear, structure=K8)
     if carry.any():
         py, px_ = np.nonzero(pockets(a) & ndimage.binary_dilation(carry, structure=K8))
         py, px_ = py + dy - my, px_ + dx - mx
         okp = (py >= 0) & (py < H) & (px_ >= 0) & (px_ < W)
         own_p[py[okp], px_[okp]] = True
     shut = pockets(b) & ~laid & ~own_p
+    if props:
+        # (ground the frame drew open that a laid prop shuts off - more than a slit (12 squares), by the prop, at least
+        # half of it clear in the frame's own drawing: the gap between a horn, the hair and an arm - stays ground)
+        lab_, n_ = ndimage.label(pockets(b))
+        near_ = ndimage.binary_dilation(info["props"], structure=K8)
+        for j in range(1, n_ + 1):
+            m_ = lab_ == j
+            if m_.sum() > 12 and (m_ & near_).any() and (a[..., 3][m_] == 0).mean() >= 0.5:
+                shut &= ~m_
     b[shut, :3] = out_c
     b[shut, 3] = 255
     if cfg.get("clear_specks"):
@@ -1175,6 +1257,7 @@ def make(hero, cfg=None):
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     head_only = cfg.get("lock") == "head"
     layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
+    props = prop_layers(frames, cfg) if head_only else []
     # (a `hang` chain's are its rows: it hangs from a root row, every row shifted sideways)
     chain_cols = {c["name"]: sorted(set(np.nonzero(layers[c["name"]])[0 if c.get("hang") else 1].tolist()))
                   for c in cfg.get("chains", [])}
@@ -1204,7 +1287,7 @@ def make(hero, cfg=None):
             ms = ms / float(steps)
         match, alike = None, None
         if head_only:
-            b, inf = compose_head(a, i, src, layers["head"], mov, cfg, p)
+            b, inf = compose_head(a, i, src, layers["head"], mov, cfg, p, props)
         else:
             if cfg["below"] == "match":
                 if p not in shifts:
