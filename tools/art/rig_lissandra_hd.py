@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """league_lissandra redone at PPU 1.81 (the user, 2026-11-03: 「继续加四个 魔腾 凯南 剑魔 丽桑卓」, 「凯南1.81 梦魇1.8 剑魔2.27 丽桑卓1.81」): the
 design is Codex's lissandra-A read on ~15-px squares (tools/art/design_lissandra_hd.py: 47 x 76), every action
-Codex's whole-frame redraw of her old frame read onto it, each frame as tall as the design (tools/art/casts_lissandra_hd.py:
-FRAME_ZOOM, HEAD_FROM), rig_viego_hd.py's way.
+Codex's whole-frame redraw of her old frame read onto it at the median of the zooms her height, her face and her area
+give (tools/art/casts_lissandra_hd.py), rig_viego_hd.py's way.
 
 The old frames that repeat another (pack_lissandra_actions.SAME) take that drawing; idle_base is the design held still
 (the idle is hero_reels' reel of action snippets). Skill's native body cells drawn and Q's cast baked back on; ult_fx1 /
@@ -14,11 +14,6 @@ card are cut from the actions by tools/art/hero_reels.py.
     python tools/art/ppu_restyle.py --hero lissandra && python tools/art/ppu_hd.py --hero lissandra
     python tools/art/ppu_one.py --hero lissandra && python tools/art/rig_lissandra_hd.py --one-ground   # the 1x frames
     python tools/art/hero_reels.py --hero lissandra       # then: the idle / ban-pick reels
-    python -I tools/art/thin_outline.py --hero lissandra && python tools/art/rig_lissandra_hd.py --specks
-
-The bake lays the pictures of league/effects/league_lissandra_fx and league_lissandra_big on: the ones in her sheet are
-those sheets' 1x frames as of 2026-11-04 (099d8eda7); both were redrawn since (the effects' dense frames, fx_handmade),
-so run the first step with those two sheets checked out at 099d8eda7 (and put back after) to keep her baked effects.
 """
 import argparse
 import json
@@ -137,89 +132,14 @@ def frames(rig, casts):
     return {t: acts[t] for t in sheet if t in acts}
 
 
-def lone_specks(a, outline, most=2):
-    """The squares of every piece of up to `most` squares, all of them outline colours, cut off from the rest (8-
-    connected)."""
-    op = a[..., 3] > 0
-    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
-    out = np.zeros(op.shape, bool)
-    if n < 2:
-        return out
-    line = op & np.isin(a[..., 0].astype(int) * 65536 + a[..., 1].astype(int) * 256 + a[..., 2],
-                        [r * 65536 + g * 256 + b for r, g, b in outline])
-    sz = ndimage.sum(op, lbl, range(1, n + 1))
-    for k in range(1, n + 1):
-        if sz[k - 1] <= most:
-            m = lbl == k
-            if (line[m]).all():
-                out |= m
-    return out
-
-
-def specks(write=True):
-    """After tools/art/thin_outline.py: her dense frames (hd_, lo_) without the dark squares it leaves alone. Its ring
-    keeps the outline in a narrow gap between two parts (a hand and her side) and clears what joined it to the rest, so
-    one outline square can stay on its own: a stray dark pixel (league_rengar's 「尾巴下面怎么有个残留的像素」; hers by Q's
-    hand, and in the UI frames by her hand in the attack and in W). Dropped here, in the sheet and in the strips
-    ppu_hd.py reads where every frame of a strip is its sheet frame; a thin_outline pass changes nothing after (it only
-    clears, never refills a gap between two parts) -> {tag: squares}."""
-    import ppu_hd
-    import thin_outline as T
-    with open(os.path.join(HERE, "thin_outline.json"), encoding="utf-8") as f:
-        outline = [tuple(c) for c in json.load(f)[ppu_hd.hero_id(HERO)]["outline"]]
-    stem = ppu_hd.stem_of(HERO)
-    with open(stem + "#anim.fanim", encoding="utf-8-sig") as f:
-        anims = json.load(f)["anims"]
-    px = np.array(Image.open(stem + "#sheet.png").convert("RGBA"))
-    before = px.copy()
-    gone = {}
-    for tag, an in anims.items():
-        if not tag.startswith(("hd_", "lo_")):
-            continue
-        for fr in an["frames"]:
-            x, y, w, h = (int(fr["data"][k]) for k in ("x", "y", "w", "h"))
-            m = lone_specks(px[y:y + h, x:x + w], outline)
-            if m.any():
-                px[y:y + h, x:x + w][m] = 0
-                gone[tag] = gone.get(tag, 0) + int(m.sum())
-    if not gone or not write:
-        return gone
-    for tag in anims:
-        if tag.startswith(("hd_", "lo_")) or T.is_fx(tag) or "hd_" + tag not in anims:
-            continue
-        path = os.path.join(T.STRIPS, f"{HERO}_{tag}.png")
-        if not os.path.isfile(path):
-            continue
-        s = np.array(Image.open(path).convert("RGBA"))
-        for src in ("hd_" + tag, "hd_" + tag + "_base"):     # (thin_outline's: an idle's strip is its idle_base)
-            s2, x0, same = s.copy(), 0, src in anims
-            for fr in anims.get(src, {}).get("frames", []):
-                x, y, w, h = (int(fr["data"][k]) for k in ("x", "y", "w", "h"))
-                if x0 + w > s.shape[1] or h > s.shape[0] or not (s[:h, x0:x0 + w] == before[y:y + h, x:x + w]).all():
-                    same = False
-                    break
-                s2[:h, x0:x0 + w] = px[y:y + h, x:x + w]
-                x0 += w + 1
-            if same:
-                break
-        if same and (s2 != s).any():
-            Image.fromarray(s2, "RGBA").save(path, optimize=True)
-    Image.fromarray(px, "RGBA").save(stem + "#sheet.png", optimize=True)
-    return gone
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
     ap.add_argument("--one-ground", action="store_true", help="after ppu_one.py: trim the 1x frames along the ground")
-    ap.add_argument("--specks", action="store_true", help="after thin_outline.py: the lone dark squares it leaves, gone")
     a = ap.parse_args()
     if a.one_ground:
         RG.HERO = HERO                                  # (rig_rengar_hd's trim along the ground, on her sheet)
         RG.one_ground()
-        return
-    if a.specks:
-        print("lone dark squares dropped:", specks() or "none")
         return
     D = design()
     cs = CA.placed()

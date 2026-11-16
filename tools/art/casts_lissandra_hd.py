@@ -5,17 +5,15 @@ design's squares - tools/art/casts_viego_hd.py's reading (casts_rengar_hd's keyi
 at her design (the user, 2026-11-03: 「继续加四个 魔腾 凯南 剑魔 丽桑卓」「另外四个英雄codex全部交付了 你做到完美后喊我review」).
 
 hd/casts holds Codex's 25 sheets (each its chosen raw generation byte for byte, redos included), drawn on a
-near-white ground: casts_rengar_hd.figure keys it off. Each frame's zoom (FRAME_ZOOM, --fit) reads her STAND rows tall,
-the top of her crown to her hem as the design, and of the zooms that do, the one nearest to what her CROWN gives (see
-FRAME_ZOOM), so her body and her crown are the design's size in every frame; HEAD_FROM gives two frames another's head.
-The old frame's body (its box places the new frame) leaves out what the old sheet baked in, the ice shards and frost by
-her hands: only what lies within two pixels of the dark outline counts (OLD_BODY). Each frame is then placed where the
-old body stood: its box's middle on the old box's middle and its bottom on the old box's bottom, from the pivot, on the
-design's grid. She stands on the ground (HOVER 0); the design's pivot column (PIVOT) is where the design lies best over
-the old idle_base.
+near-white ground: casts_rengar_hd.figure keys it off. Each frame's zoom is the median of the zoom its HEIGHT gives
+(--heights: the drawing's box over the old frame's body), the one her head gives against the design's (--heads) and
+the one its area gives (calibrated on the run); the old frame's body leaves out what the old sheet baked in, the ice shards and frost by her hands:
+only what lies within two pixels of the dark outline counts (OLD_BODY). Each frame is then placed where the old body
+stood: its box's middle on the old box's middle and its bottom on the old box's bottom, from the pivot, on the design's
+grid. She stands on the ground (HOVER 0); the design's pivot column (PIVOT) is where the design lies best over the
+old idle_base.
 
     python tools/art/casts_lissandra_hd.py --review DIR      # every tag placed, at 2x, the design first
-    python tools/art/casts_lissandra_hd.py --fit             # FRAME_ZOOM again, with each placed frame's height and crown
     python tools/art/casts_lissandra_hd.py --heights         # each frame's zoom from its height against the old frame's
     python tools/art/casts_lissandra_hd.py --heads           # each placed frame's head against the design's
 """
@@ -43,36 +41,20 @@ PPU = D0.shape[0] / 42          # rows over her 1x 42 (design_lissandra_hd: the 
 HOVER = 0                       # (she stands on the ground: her old idle_base's soles on its soles' line)
 GROUND = int(np.nonzero(D0[..., 3].any(1))[0].max()) + 1 + int(round(HOVER * PPU))   # the soles' line, under him
 HEAD = (3, 27, 0, 47)         # the design's head: rows 3-26 (the top of her crown to her chin), its sides
-# px of Codex's drawing a design square (FRAME_ZOOM, fit()): each frame read STAND rows tall - the top of her crown to
-# her hem, the design's 76 rows and every old frame's 42 px - and of the zooms that do (round(the box's height / zoom) =
-# STAND), the nearest to the one her CROWN gives (crown_px: the widest run in the top 18 % of the drawing over the
-# design's 47 squares; CROWN_SKIP, death 3-6: her raised hands reach the crown's rows - the height alone), so the crown
-# reads 46-48 squares where the height leaves it a choice. History: the median of height, head and area (the other
-# heroes' way) made her pulse - the old glide sinks in frames 3-4 and the old death in 5-6, Codex drew her full height
-# there, and the height matched to the OLD frame shrank her a size (the user: 「丽桑卓有模型一大一小的问题」); then the crown
-# alone (2026-11-03 to 11-16), but Codex drew the glide's 7-8 shorter under a wider crown (668 px tall against 687-691,
-# the crown 432 px against 424-428): matched by the crown they read 73 rows against 75-77, the body and the gown a size
-# smaller, and other frames 74-78 (the user, 2026-11-16: 「丽桑卓还有模型一大一小的问题 不光是失去了像素」). A sheet's ZOOM
-# is the crown rule's mean (a fallback: every drawn frame has its FRAME_ZOOM)
-STAND = 76                      # design rows from the top of her crown to her hem: the design's, her 1x 42 x PPU
+# px of Codex's drawing a design square: each frame's from her CROWN - the widest run in the top 18 % of the drawing
+# over the design's (47 squares) - her widest, stiffest part, the same in every pose. The median of height, head and
+# area (the other heroes' way) made her pulse: the old glide sinks in frames 3-4 and the old death in 5-6, Codex drew
+# her full height there, and the height matched to the old frame shrank her a size (the user: 「丽桑卓有模型一大一小的问题」).
+# Death 3-6 (CROWN_SKIP: her raised hands reach the crown's rows) by her height against the design's (76 rows)
+# instead. A sheet's ZOOM is its frames' mean
 CROWN_SKIP = ('dead_3', 'dead_4', 'dead_5', 'dead_6')
 ZOOM = {'run_1': 9.1, 'run_2': 9.02, 'run_3': 9.19, 'attack_1': 9.0, 'attack_2': 8.99, 'attack_3': 9.04, 'skill_1': 9.22, 'skill_2': 9.06, 'skill_3': 9.02, 'skill2_1': 9.04, 'skill2_2': 9.0, 'skill2_3': 8.98, 'skill2_e_1': 9.06, 'skill2_e_2': 8.99, 'skill2_e_3': 9.04, 'ult_1': 8.99, 'ult_2': 8.9, 'ult_3': 8.96, 'ult_self_1': 8.98, 'ult_self_2': 8.91, 'hit_1': 9.0, 'dead_1': 9.03, 'dead_2': 9.09, 'dead_3': 9.04, 'dead_4': 9.21}
-FRAME_ZOOM = {'run_1': 9.09, 'run_2': 9.09, 'run_3': 9.03, 'run_6': 9.04, 'run_7': 8.84, 'run_8': 8.84, 'attack_2': 9.02, 'attack_3': 8.98, 'attack_4': 8.99, 'attack_5': 8.98, 'attack_6': 9.03, 'skill_1': 9.14, 'skill_2': 9.14, 'skill_3': 9.06, 'skill_4': 9.06, 'skill_5': 9.02, 'skill_6': 9.02, 'skill2_1': 9.01, 'skill2_2': 9.01, 'skill2_3': 9.08, 'skill2_4': 9.08, 'skill2_5': 8.98, 'skill2_e_1': 9.18, 'skill2_e_2': 9.18, 'skill2_e_3': 9.0, 'skill2_e_5': 8.98, 'skill2_e_6': 9.01, 'ult_1': 9.0, 'ult_2': 8.98, 'ult_3': 8.94, 'ult_4': 8.94, 'ult_5': 8.96, 'ult_self_1': 8.96, 'ult_self_2': 8.97, 'ult_self_4': 8.91, 'hit_1': 8.93, 'dead_1': 9.04, 'dead_2': 9.14, 'dead_3': 9.08, 'dead_4': 9.09, 'dead_5': 9.04, 'dead_6': 9.04, 'dead_7': 9.05}
+FRAME_ZOOM = {'run_1': 9.11, 'run_2': 9.09, 'run_3': 9.02, 'run_6': 9.02, 'run_7': 9.19, 'run_8': 9.19, 'attack_2': 9.02, 'attack_3': 8.98, 'attack_4': 9.0, 'attack_5': 8.98, 'attack_6': 9.04, 'skill_1': 9.17, 'skill_2': 9.28, 'skill_3': 9.06, 'skill_4': 9.06, 'skill_5': 9.02, 'skill_6': 9.02, 'skill2_1': 9.04, 'skill2_2': 9.04, 'skill2_3': 9.0, 'skill2_4': 9.0, 'skill2_5': 8.98, 'skill2_e_1': 9.09, 'skill2_e_2': 9.04, 'skill2_e_3': 9.0, 'skill2_e_5': 8.98, 'skill2_e_6': 9.04, 'ult_1': 9.0, 'ult_2': 8.98, 'ult_3': 8.91, 'ult_4': 8.89, 'ult_5': 8.96, 'ult_self_1': 8.98, 'ult_self_2': 8.98, 'ult_self_4': 8.91, 'hit_1': 9.0, 'dead_1': 8.91, 'dead_2': 9.15, 'dead_3': 9.08, 'dead_4': 9.09, 'dead_5': 9.04, 'dead_6': 9.04, 'dead_7': 9.21}
 ZOOMS = np.arange(4.5, 9.01, 0.1)                       # the zooms the head is searched at (6-px templates)
 PIVOT = 25                      # the design's column on the old idle_base's pivot (overlap peak 0.84)
 # frames that hold another's drawing: Codex's death froze her in ice pillars at frame 6 and drew 7-8 in her plain gown
 # again (the old death ends frozen, the pillars taller each frame): 7-8 hold frame 6, so the death ends frozen
 HELD = {"dead_7": "dead_6", "dead_8": "dead_6"}
-# frames whose head is another frame's (head_from: the crown and, under its brim, the visor and the face, laid where
-# the design's crown fits each): Codex drew the glide's 7-8 with a black blot round the face (its "eyes in the
-# crown's shadow") and a crown two squares wider at her height; tools/art/thin_outline.py ate into the blot, open to
-# the ground beside the face, and left holes and specks there (the user, 2026-11-16: 「丽桑卓头那里失去像素了」
-# 「丽桑卓也有莫名其妙阴影的部分」). Glide 6 is drawn the same way under the brim (the face as low), clean: frames 6-8 share it
-HEAD_FROM = {"run_7": "run_6", "run_8": "run_6"}
-CROWN_ROWS = 14                 # design rows 0-13: the crown down to the brim's bottom outline (head_from takes all of it)
-# head_from's boxes under the brim (design rows and columns, from the fitted crown): the visor, the face and its dark
-# right side; the hair on her left and the hand by her chin stay the frame's own
-HEAD_BOXES = ((14, 22, 21, 38), (22, 26, 21, 33))
 
 # casts_rengar_hd's reading on her design
 CS.D0, CS.HEAD = D0, HEAD
@@ -141,44 +123,6 @@ def at_zoom(a, m, zoom):
     sq = CS.sample(a, m, round(gh / zoom), round(gw / zoom))
     yy, xx = np.nonzero(sq[..., 3] > 0)
     return sq[yy.min():yy.max() + 1, xx.min():xx.max() + 1]
-
-
-def crown_px(m):
-    """Her crown's width in the mask's own units: the widest run in the top 18 % of its rows."""
-    ys = np.nonzero(m.any(1))[0]
-    best = 0
-    for row in m[ys.min():ys.min() + int(0.18 * (ys.max() + 1 - ys.min()))]:
-        lbl, n = ndimage.label(row)
-        if n:
-            best = max(best, int(ndimage.sum(row, lbl, range(1, n + 1)).max()))
-    return best
-
-
-CROWN_W = crown_px(D0[..., 3] > 0)      # the design's crown: 47 squares
-
-
-def fit(verbose=False):
-    """{"<tag>_<frame>": zoom}: FRAME_ZOOM's rule - each drawn frame read STAND rows tall (round(its box's height /
-    zoom) = STAND), and of those zooms the nearest to the one its crown gives (crown_px over CROWN_W); CROWN_SKIP by
-    the height alone. verbose: each frame's zoom with the rows and the crown squares it reads, against the old table."""
-    out = {}
-    for s in sheets():
-        a, ms = frame_masks(s)
-        for k, m in ms:
-            n = f"{s['tag']}_{k}"
-            ys = np.nonzero(m.any(1))[0]
-            gh = ys.max() + 1 - ys.min()
-            lo, hi = gh / (STAND + 0.4), gh / (STAND - 0.4)
-            z = gh / STAND if n in CROWN_SKIP else min(max(crown_px(m) / CROWN_W, lo), hi)
-            out[n] = round(float(z), 2)
-            if round(gh / out[n]) != STAND:
-                sys.exit(f"{n}: {out[n]} reads {round(gh / out[n])} rows")
-            if verbose:
-                sq = body_only(at_zoom(a, m, out[n]))
-                rows = np.nonzero(sq[..., 3].any(1))[0]
-                print(f"{n}: {out[n]} ({FRAME_ZOOM.get(n)} before) - {rows.max() + 1 - rows.min()} rows, crown "
-                      f"{crown_px(sq[..., 3] > 0)}", flush=True)
-    return out
 
 
 def read_all():
@@ -291,57 +235,9 @@ def placed():
         out[n] = (pic, x, y)
     for n in THROWN:
         out[n] = thrown(n, *out[n])
-    for n, src in HEAD_FROM.items():
-        out[n] = head_from(*out[n], out[src][0])
     for n, (pic, x, y) in out.items():
         out[n] = (body_only(pic), x, y)
     return out
-
-
-def crown_fit(pic, search=6):
-    """(dy, dx): where the design's row 0 and column 0 lie in the picture when its crown (design rows 0 to
-    CROWN_ROWS - 1) is laid best over the picture's - the most overlap of the two silhouettes (intersection over union)
-    and, half as much, of squares alike in colour (RGB distance under 40)."""
-    d = D0[:CROWN_ROWS]
-    dop = d[..., 3] > 0
-    H, W = pic.shape[:2]
-    top = int(np.nonzero(pic[..., 3].any(1))[0].min())
-    best = None
-    for dy in range(top - search, top + search + 1):
-        for dx in range(-search - 10, W - d.shape[1] + search + 11):
-            can = np.zeros(d.shape, np.uint8)
-            y0, y1, x0, x1 = max(0, dy), min(H, dy + CROWN_ROWS), max(0, dx), min(W, dx + d.shape[1])
-            if y1 <= y0 or x1 <= x0:
-                continue
-            can[y0 - dy:y1 - dy, x0 - dx:x1 - dx] = pic[y0:y1, x0:x1]
-            op = can[..., 3] > 0
-            alike = op & dop & (np.abs(can[..., :3].astype(int) - d[..., :3].astype(int)).sum(-1) < 40)
-            sc = (op & dop).sum() / (op | dop).sum() + 0.5 * alike.sum() / dop.sum()
-            if best is None or sc > best[0]:
-                best = (sc, dy, dx)
-    return best[1], best[2]
-
-
-def head_from(pic, x, y, src, pad=4):
-    """(picture, x, y): the frame with src's head - src's rows down to the crown's last row (CROWN_ROWS - 1 in the
-    design) over the whole width, and HEAD_BOXES under the brim - laid where the design's crown fits the frame
-    (crown_fit on both); the frame's own rows above and in the crown's go first (a taller crown tip, a wider brim)."""
-    sy, sx = crown_fit(src)
-    fy, fx = crown_fit(pic)
-    oy, ox = fy - sy + pad, fx - sx + pad
-    out = np.zeros((pic.shape[0] + 2 * pad, pic.shape[1] + 2 * pad, 4), np.uint8)
-    out[pad:pad + pic.shape[0], pad:pad + pic.shape[1]] = pic
-    last = sy + CROWN_ROWS                          # src rows above this are the crown
-    out[:max(0, last + oy)] = 0
-    ys, xs = np.nonzero(src[:last, :, 3] > 0)
-    out[ys + oy, xs + ox] = src[ys, xs]
-    for r0, r1, c0, c1 in HEAD_BOXES:
-        for r in range(r0 + sy, r1 + sy):
-            for c in range(c0 + sx, c1 + sx):
-                if 0 <= r < src.shape[0] and 0 <= c < src.shape[1]:
-                    out[r + oy, c + ox] = src[r, c]
-    ys, xs = np.nonzero(out[..., 3] > 0)
-    return out[ys.min():ys.max() + 1, xs.min():xs.max() + 1], x - pad + int(xs.min()), y - pad + int(ys.min())
 
 
 def body_only(pic, keep_ahead=False):
@@ -397,16 +293,7 @@ def main():
     ap.add_argument("--area", action="store_true", help="each sheet's zoom from its figure's area")
     ap.add_argument("--heads", action="store_true", help="each frame's head against the design's at ZOOM")
     ap.add_argument("--heights", action="store_true", help="each frame's zoom from its height against the old frame's")
-    ap.add_argument("--fit", action="store_true", help="FRAME_ZOOM by its rule (fit), each frame's rows and crown")
     a = ap.parse_args()
-    if a.fit:
-        print("FRAME_ZOOM =", fit(verbose=True))
-        fr = placed()
-        for n in sorted(fr, key=lambda n: (TAGS.index(n.rsplit("_", 1)[0]), int(n.rsplit("_", 1)[1]))):
-            m = fr[n][0][..., 3] > 0
-            rows = np.nonzero(m.any(1))[0]
-            print(f"placed {n}: {rows.max() + 1 - rows.min()} rows, crown {crown_px(m)}")
-        return
     if a.measure:
         measure()
         return
