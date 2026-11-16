@@ -334,7 +334,7 @@ class Hero:
         dense = [a for a, _ in self.new["hd_" + tag]]
         drawn = [a for a, _ in self.drawn_x]                 # (the drawn frame each frame shows)
         i0 = cfg["from"]
-        src = self.drawn[i0][0]
+        src = R.added(self.drawn[i0][0], cfg)               # (with `add`'s pieces, as the tool lays them)
         layers = {"head": R.head_of(src, cfg)} if cfg.get("lock") == "head" else R.pieces(src, cfg, i0)
         bob = self.mov["body"]
         if cfg.get("lock") == "head":                    # (the head's own path: where it is laid, from the centre)

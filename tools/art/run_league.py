@@ -144,6 +144,21 @@ HEROES = {
                                   ribbon="L_Bottom_Ribon2", l_speaker="L_Speaker", c_speaker="C_Speaker",
                                   r_speaker="R_Speaker")),
 }
+# (character runs, round 2 - the clip each hero plays at base move speed, its length read from the .anm: league_jax's
+# run_base is Jax_Run2.anm, 1.067 s; his topknot - Hair1-6 - and cloak strips - Cape*, C / L / R_Cape* - lead his run)
+HEROES.update({
+    "jax": dict(clip="Jax_Run2", cycle=1.0667, tick=1.0,
+                joints=dict(pelvis="Pelvis", spine="Spine1", chest="Chest", neck="Neck", head="Head",
+                            l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Toe",
+                            r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Toe",
+                            l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                            r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                            weapon="Weapon", weapon_top="Weapon_Top", weapon_head="Weapon_Head",
+                            weapon_bottom="Weapon_Bottom", weapon_end="Weapon_End", hat="Hat",
+                            hair1="Hair1", hair3="Hair3", hair6="Hair6", cape1="Cape1", cape3="Cape3",
+                            cape_end="Cape_end", c_cape_end="C_Cape_end", l_cape_end="L_Cape_end",
+                            r_cape_end="R_Cape_end", l_tassel="L_Hood_Tassel_end", r_tassel="R_Hood_Tassel_end")),
+})
 
 
 def lp(path):

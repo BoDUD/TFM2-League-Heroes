@@ -56,6 +56,13 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `variants`: {name: keys to change} (`base`: the variant it starts from; `parts` / `chains`: by name, keys to change
   or a whole new one) for review sets side by side (--batch --variants); the sheet carries the data without one until
   `use` names one.
+- `add`: pieces of the hero's League design its drawing lacks (league_jax's topknot and cloak strips - the user: 「贾克斯
+  可以补造型」), each a small picture in the hero's own colours and outline - `rows` of characters from the square `at`
+  of frame `from`, `key` their colours - laid into frame `from`'s drawing (behind it, `under`, by default) for a chain or
+  a part to cut out by its corners and move; a variant names them like `parts` (null: that one goes);
+- `part_gaps`: a moved part or chain takes its own surroundings along: a square it left that is clear in frame `from`'s
+  drawing where the moved piece puts it (the air beside a staff slid along itself, under a raised topknot) stays ground
+  instead of a fill - what it bares of the drawing behind it is still filled.
 Order, back to front: the chains, the parts `behind`, the legs, the body, the `front` chains, the other parts in their
 order, the kept squares. Where the frame's own upper body was and nothing is laid, a square inside her is filled from
 her legs' own colours round it, or with outline where only the laid body is round it; the rest is cleared; an edge that
@@ -121,7 +128,7 @@ def with_variant(cfg, name):
     for k, x in v.items():
         if k in ("base", "notes"):
             continue
-        if k in ("parts", "chains"):
+        if k in ("parts", "chains") or (k == "add" and isinstance(x, dict)):   # (`add`'s pieces by name too)
             have = {item["name"]: item for item in out.get(k, [])}
             for nm, ch in x.items():
                 if ch is None:                           # null: that one goes (a cape made a chain instead)
@@ -174,7 +181,37 @@ def load(hero, variant=None):
         if cfg["below"] != "match":
             cfg["below"] = [[(None if r0 is None else r0 + pr, r1 + pr, c0 + pc, c1 + pc) for r0, r1, c0, c1 in rs]
                             for rs in cfg["below"]]
+        for a in cfg.get("add", []):
+            a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
     return cfg
+
+
+def added(src, cfg):
+    """Frame `from`'s drawing with `add`'s pieces in it: parts of the hero's League design the drawing lacks (the user,
+    on league_jax: 「贾克斯可以补造型」 - his topknot, the cloth strips of his cloak), each a small picture in the
+    hero's own colours and outline - `rows` of characters from its top-left square `at` (frame `from`'s rows and
+    columns), `key` naming each character's colour, "." nothing - laid behind the drawing (`under`, the default:
+    only where it is clear) or over it. A chain or a part then cuts them out of it by its corners and moves them on the
+    hero's League paths; the frames' own drawings never get them."""
+    if not cfg.get("add"):
+        return src
+    out = src.copy()
+    for a in cfg["add"]:
+        key = {k: tuple(int(x) for x in v) for k, v in a["key"].items()}
+        r0, c0 = a["at"]
+        for dr, line in enumerate(a["rows"]):
+            for dc, ch in enumerate(line):
+                if ch in ". ":
+                    continue
+                y, x = r0 + dr, c0 + dc
+                if not (0 <= y < out.shape[0] and 0 <= x < out.shape[1]):
+                    sys.exit(f"add {a.get('name')}: square ({y}, {x}) off frame `from` ({out.shape[1]}x{out.shape[0]}):"
+                             f" grow it (`pad`)")
+                if a.get("under", True) and out[y, x, 3] > 0:
+                    continue
+                out[y, x, :3] = key[ch]
+                out[y, x, 3] = 255
+    return out
 
 
 def save(hero, cfg):
@@ -663,6 +700,8 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         gap[ok] = (src[ty[ok], tx[ok], 3] == 0) & ((ty[ok] < src.shape[0] // 2 + cfg["waist"][cfg["from"]])
                                                    | ~by_legs[ok])
         inside &= ~gap
+    pg = part_gaps(src, layers, mov, cfg, i, dy, dx, b) if cfg.get("part_gaps") else np.zeros((H, W), bool)
+    inside &= ~pg
     # inside her: from her legs' own colours where they are round it, else outline (between the laid layers)
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
@@ -678,7 +717,7 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         solid &= ~put
     d = T.steps_from(solid, np.ones((H, W), bool), 2)
     bare = was & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(was, structure=K8), structure=K8,
-                                                    iterations=2)
+                                                    iterations=2) & ~pg
     b[bare, :3] = out_c
     b[bare, 3] = 255
     if cfg.get("fill", "between") == "closing":
@@ -707,6 +746,39 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     b[shut, 3] = 255
     info["joined"] = ((near_legs | rest | bare | shut) & (b[..., 3] > 0)) & ~put
     return b, info
+
+
+def part_gaps(src, layers, mov, cfg, i, dy, dx, b):
+    """`part_gaps`: a part or chain moved off its place takes its own surroundings along - a square it left that is clear
+    in frame `from`'s drawing where the moved piece puts it (beside the piece, in the air) stays ground, never a fill (a
+    staff slid along itself: its ends, the air round its hands; a topknot whipped up: the air under it). What it bared
+    of the drawing behind it (a hand that slid off the robe it covered) is still filled. -> the squares."""
+    H, W = b.shape[:2]
+    out = np.zeros((H, W), bool)
+    clear = b[..., 3] == 0
+    chain_names = {c["name"] for c in cfg.get("chains", [])}
+    for name in layer_names(cfg):
+        if name == "body" or name not in mov:
+            continue
+        ys, xs = np.nonzero(layers[name])
+        hy, hx = ys + dy, xs + dx                           # its own place (no offset)
+        ok = (hy >= 0) & (hy < H) & (hx >= 0) & (hx < W)
+        home = np.zeros((H, W), bool)
+        home[hy[ok], hx[ok]] = True
+        vy, vx = np.nonzero(home & clear)
+        if not len(vy):
+            continue
+        if name in chain_names:
+            oy = np.array([mov[name][i].get(int(x - dx), 0) for x in vx], int)
+            ox = 0
+        else:
+            oy, ox = off_of(mov[name][i])
+        sy, sx = vy - dy - oy, vx - dx - ox                 # where the moved piece's drawing puts the square
+        inb = (sy >= 0) & (sy < src.shape[0]) & (sx >= 0) & (sx < src.shape[1])
+        ground = ~inb
+        ground[inb] = src[sy[inb], sx[inb], 3] == 0
+        out[vy[ground], vx[ground]] = True
+    return out
 
 
 # ------------------------------------------------------------------------------------------------- the head alone
@@ -880,7 +952,7 @@ def make(hero, cfg=None):
     frames, meta = drawn(cfg)
     n = len(frames)
     i0 = cfg["from"]
-    src = frames[i0][0]
+    src = added(frames[i0][0], cfg)                     # (`add`: pieces the drawing lacks, in frame `from`'s drawing)
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     head_only = cfg.get("lock") == "head"
     layers = {"head": head_of(src, cfg)} if head_only else pieces(src, cfg, i0)
