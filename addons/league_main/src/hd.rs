@@ -574,10 +574,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // tools/art/design_lissandra_hd.py: 76 rows / 42 = 1.810); every action Codex's whole-frame redraw of her old frame
     // read onto it 76 rows tall in every frame, the crown's width choosing among the zooms that give that (2026-11-17,
     // the user: 「丽桑卓还有模型一大一小的问题 不光是失去了像素」 - read by the crown alone, the glide's 7-8 came out 73 rows);
-    // the glide's 7-8 with frame 6's head (Codex's black blot round the face, eaten into specks by the thin outline:
-    // 「丽桑卓头那里失去像素了」) (tools/art/casts_lissandra_hd.py, rig_lissandra_hd.py; Q drawn from its native body
-    // cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2 copies baked on again by lissandra_bake.json); 42 game
-    // px as her 1x sprite, so no SIZES row
+    // the glide one head in all eight frames (Codex's black blot round the face in 7-8 had been eaten into specks by the
+    // thin outline: 「丽桑卓头那里失去像素了」) and a whole-figure float of up to 3 squares a cycle, the frames grown at
+    // their bottoms (rig_lissandra_hd.py --float); death 5-8 and R on herself without the black under the crown
+    // (「感觉你说的丽桑卓那几个问题还是得修」) (tools/art/casts_lissandra_hd.py, rig_lissandra_hd.py; Q drawn from its native
+    // body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2 copies baked on again by lissandra_bake.json);
+    // 42 game px as her 1x sprite, so no SIZES row
     ("league_lissandra", 1.810, include_str!("../../../league/champions/league_lissandra#anim.fanim")),
     // Alistar (2026-11-04, 「接下来重做牛头 蛮王 派克 布兰德」, 「全部粗」): Codex's alistar-A read on its own ~15-px squares
     // (71 x 76, tools/art/design_alistar_hd.py: 76 rows / 44 = 1.727); every action Codex's whole-frame redraw of his old
