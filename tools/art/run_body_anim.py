@@ -1352,7 +1352,20 @@ def make(hero, cfg=None):
             x1 += w1 + 1
         one = [(f1, ms) for f1, (_, ms) in zip(kept1, one)]
     mini = {tag: one, "hd_" + tag: dense}
-    P.add_lo(short(hero), mini)
+    if cfg.get("lo_size") is not None:
+        # `lo_size`: the size the lo_ frames are made at in place of the hero's SIZES size (addons/league_main hd.rs, which
+        # tools/art/pixel_down.py's sizes_of reads) - league_yuumi: every lo_ tag of hers is her hd_ frames at full size
+        # (made before her 0.75 was in that table); add_lo at 1.0 makes her installed lo_run square for square, at 0.75
+        # the run alone would come out a quarter smaller than every other lo_ tag of hers
+        import pixel_down as D_
+        sizes_of = D_.sizes_of
+        D_.sizes_of = lambda: dict(sizes_of(), **{short(hero): float(cfg["lo_size"])})
+        try:
+            P.add_lo(short(hero), mini)
+        finally:
+            D_.sizes_of = sizes_of
+    else:
+        P.add_lo(short(hero), mini)
     lo = []
     for (f, ms), (lw, lh) in zip(mini["lo_" + tag], lo_sz):
         f2 = thin(f, "lo")
