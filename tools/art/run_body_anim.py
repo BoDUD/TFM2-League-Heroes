@@ -53,6 +53,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
+- `bare_ground`: what a moved part or chain bares at her outer edge - a square it left that reaches the ground round her
+  through clear squares - stays ground instead of being joined (without it a lifted lock of hair leaves its old lower
+  edge as outline); what it leaves shut in between her pieces is still joined;
 - `variants`: {name: keys to change} (`base`: the variant it starts from; `parts` / `chains`: by name, keys to change
   or a whole new one) for review sets side by side (--batch --variants); the sheet carries the data without one until
   `use` names one.
@@ -702,6 +705,16 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         inside &= ~gap
     pg = part_gaps(src, layers, mov, cfg, i, dy, dx, b) if cfg.get("part_gaps") else np.zeros((H, W), bool)
     inside &= ~pg
+    open_ = np.zeros((H, W), bool)
+    if cfg.get("bare_ground"):
+        # `bare_ground`: what a moved layer (a part off its place, a chain's columns) bares at her outer edge stays
+        # ground - a square it left that reaches the ground round her through clear squares is neither filled nor
+        # outlined; the between-fill still closes the gaps shut in (a lifted hair's old lower edge stays open sky, the
+        # squares between it and her shoulder are joined)
+        lab, _ = ndimage.label(clear)
+        edge = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
+        open_ = revealed & np.isin(lab, edge[edge > 0])
+        inside &= ~open_
     # inside her: from her legs' own colours where they are round it, else outline (between the laid layers)
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
@@ -717,7 +730,7 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
         solid &= ~put
     d = T.steps_from(solid, np.ones((H, W), bool), 2)
     bare = was & (d <= 2) & ndimage.binary_dilation(solid & ndimage.binary_dilation(was, structure=K8), structure=K8,
-                                                    iterations=2) & ~pg
+                                                    iterations=2) & ~pg & ~open_
     b[bare, :3] = out_c
     b[bare, 3] = 255
     if cfg.get("fill", "between") == "closing":
