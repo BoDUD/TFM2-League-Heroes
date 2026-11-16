@@ -996,6 +996,11 @@ def compose_head(a, i, src, head, mov, cfg, pose=None):
         front = (int(np.nonzero(fsk_.any(0))[0].min()) + dx) if fsk_.any() else W
         inside &= (np.arange(H)[:, None] >= cfg["chin"] + dy - 1) | (np.arange(W)[None, :] < front)
     voters = legs & ~colour_mask(b, [out_c])
+    if cfg.get("fill_skip"):
+        # `fill_skip`: colours a gap the clearing leaves is never filled with (they do not vote) - a collar's gold or a
+        # neck's skin right under a shorter laid lock of hair (league_leona): such a gap is filled from the other colours
+        # round it, else closed with outline as one no colour reaches
+        voters &= ~colour_mask(b, [tuple(c) for c in cfg["fill_skip"]])
     fill_in(b, inside, voters)
     rest = inside & (b[..., 3] == 0)
     b[rest, :3] = out_c
