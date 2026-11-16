@@ -237,6 +237,43 @@ HEROES.update({
                               l_hair4="L_Hair4", r_hair1="R_Hair1", r_hair2="R_Hair2", r_hair4="R_Hair4",
                               front_hair="FrontHair1")),
 })
+# (round 3, second batch: league_rengar's `run` is Rengar_run1.anm, 0.968 s at 31 fps - no pelvis or neck joint: Root
+# and Spine2 stand in; the mane Hair1-4 / L / R_Hair1-3, the tail Tail1-5, the blade Weapon on R_Hand;
+# league_aurelionsol has no poses.json: `spec` - his run_base is a sequence of four ~0.667 s swims
+# (AurelionSol_runb / c / d / a), runa read; the body is the tail chain Tail0-11 off Neck1, the head on Neck1-4;
+# league_camille's run is Run_Base under 370 move speed: Camille_Run_Base.anm, 1.0 s - the rear skirt
+# L / R_Rear_Skirt1-5 and her hair C / L / R_Hair1-2)
+HEROES.update({
+    "rengar": dict(clip="Rengar_run1", cycle=0.9677, tick=1.0,
+                   joints=dict(pelvis="Root", spine="Spine1", chest="Spine2", neck="Spine2", head="Head",
+                               l_hip="L_Hip", l_knee="L_Knee", l_foot="L_Foot", l_toe="L_Toe",
+                               r_hip="R_Hip", r_knee="R_Knee", r_foot="R_Foot", r_toe="R_Toe",
+                               l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                               r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                               weapon="Weapon", hair1="Hair1", hair4="Hair4", l_hair3="L_Hair3", r_hair3="R_Hair3",
+                               tail1="Tail1", tail3="Tail3", tail5="Tail5", beard2="Beard2", b_cloth2="B_Cloth2",
+                               f_cloth2="F_Cloth2")),
+    "aurelionsol": dict(clip="AurelionSol_runa", cycle=0.6667, tick=1.0,
+                        spec=dict(champ="AurelionSol", chibi={"head": 1.0, "legs": 1.0},
+                                  design="AurelionSol_idle1@0", height=34),
+                        joints=dict(pelvis="Tail3", spine="Tail0", chest="Neck1", neck="Neck3", head="Head",
+                                    l_hip="L_Hip", l_knee="L_Knee", l_foot="L_Foot", l_toe="L_Toe",
+                                    r_hip="R_Hip", r_knee="R_Knee", r_foot="R_Foot", r_toe="R_Toe",
+                                    l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                                    r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                                    tail1="Tail1", tail3="Tail3", tail5="Tail5", tail7="Tail7", tail9="Tail9",
+                                    tail11="Tail11", neck2="Neck2", hair_mid2="Hair_Mid2", hair_top2="Hair_Top2",
+                                    star1="Star1", star2="Star2", star3="Star3", star4="Star4")),
+    "camille": dict(clip="Camille_Run_Base", cycle=1.0, tick=1.0,
+                    joints=dict(pelvis="Pelvis", spine="Spine1", chest="Spine2", neck="Neck", head="Head",
+                                l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot", l_toe="L_Foot",
+                                r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", r_toe="R_Foot",
+                                l_shoulder="L_Shoulder", l_elbow="L_Elbow", l_hand="L_Hand",
+                                r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                                c_hair2="C_Hair2", l_hair2="L_Hair2", r_hair2="R_Hair2", l_up_hair2="L_Up_Hair2",
+                                r_up_hair2="R_Up_Hair2", l_skirt2="L_Rear_Skirt2", l_skirt5="L_Rear_Skirt5",
+                                r_skirt2="R_Rear_Skirt2", r_skirt5="R_Rear_Skirt5")),
+})
 
 
 def lp(path):
