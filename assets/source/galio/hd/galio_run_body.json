@@ -1,0 +1,38 @@
+{
+  "hero": "galio",
+  "tag": "run",
+  "drawn": "assets/source/galio/hd/galio_run_drawn",
+  "from": 0,
+  "outline": [3, 2, 1],
+  "waist": [-16, -18, -16, -14, -16, -18, -16, -14],
+  "bob": [0, -2, 0, 2, 0, -2, 0, 2],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [
+    {"name": "wing_left", "poly": [[32, 89], [32, 93], [40, 93], [40, 92], [47, 92], [47, 91], [51, 91], [51, 90], [52, 90], [52, 89], [56, 89], [56, 88], [57, 88], [57, 87], [61, 87], [61, 72], [60, 72], [60, 70], [58, 70], [58, 71], [56, 71], [56, 72], [54, 72], [54, 73], [52, 73], [52, 74], [51, 74], [51, 75], [50, 75], [50, 76], [46, 76], [46, 77], [45, 77], [45, 78], [44, 78], [44, 79], [43, 79], [43, 80], [42, 80], [42, 81], [41, 81], [41, 82], [40, 82], [40, 83], [39, 83], [39, 84], [38, 84], [38, 85], [37, 85], [37, 86], [35, 86], [35, 87], [34, 87], [34, 88], [33, 88], [33, 89]], "hang": true, "root": 61, "tip": [1, 3, 3, 1, -1, -3, -3, -1]},
+    {"name": "wing_right", "poly": [[33, 103], [33, 107], [34, 107], [34, 108], [35, 108], [35, 109], [36, 109], [36, 110], [39, 110], [39, 111], [41, 111], [41, 112], [42, 112], [42, 113], [43, 113], [43, 114], [44, 114], [44, 115], [45, 115], [45, 116], [46, 116], [46, 117], [48, 117], [48, 118], [49, 118], [49, 119], [54, 119], [54, 120], [55, 120], [55, 121], [56, 121], [56, 122], [58, 122], [58, 123], [61, 123], [61, 122], [60, 122], [60, 121], [61, 121], [61, 111], [60, 111], [60, 110], [61, 110], [61, 109], [57, 109], [57, 108], [56, 108], [56, 107], [53, 107], [53, 106], [52, 106], [52, 105], [51, 105], [51, 104], [40, 104], [40, 103]], "hang": true, "root": 61, "tip": [1, 3, 3, 0, -2, -2, -2, -1]}
+  ],
+  "notes": {
+    "made": "--init (frames), then by hand (round 4: 「后面的英雄都按这个思路来 先去联盟客户端找英雄的特色是什么 再做run的动画」; the round-3 lessons: Vladimir's eye that went out twice a cycle, 「琴女的琴有点变形」): his drawn run is Codex's legs under one upper body (pack_galio_run: upper body, fists, wings, tail kept) - but that upper body is three renderings of one picture at fractional rows: A (frames 0 2 4 6), B (1 5: A about 1.7 rows up, bands of -2 / -1 rows every 2-5 rows), C (3 7: A about 1.7 rows down, bands of +2 / +1; C is hd_idle_base[0] square for square) - and C lost his eye: the cyan square is in A and B, not in C, so in the game it went out twice a cycle and every odd frame's rows jittered",
+    "lock": "frame 0's (A) upper body in every frame, on each frame's own drawn place (`bob` 0 -2 0 +2 0 -2 0 +2: B's and C's dominant bands, the rows they meet their legs on), down to the row his legs start (A row 87: `waist`); under it the fists' last rows and the tail stay each frame's own, as league_braum's shield; `keep_gaps`: the clear squares between the crown's spikes stay clear (without it 5 outline squares closed them in C)",
+    "wings": "both upper wings (above row 61, 372 / 304 squares with their own outline) `hang` chains from root row 61: every row shifted sideways by its share, the tips the most; League's Galio_run (0.967 s) twists his chest and both wings sway together to one side, then the other: their tips (Wing8) across +-6-7, seen as we see him (front, turned 25 degrees: x = 0.91 across + 0.42 fwd), put on our frames by the bob (frames 1 and 5, the highest, on League's pelvis peaks: frame k = 0.279 + k x 0.121 s): the left wing (League's R) +3.7 +7.1 +7.4 +3.0 -3.6 -8.2 -7.1 -2.4, the right wing (League's L) +2.1 +4.4 +3.7 +0.6 -2.6 -3.6 -2.9 -1.8 columns; scaled to +-3 (at game size the wings would otherwise swing a quarter of their height): 1 3 3 1 -1 -3 -3 -1 and 1 3 3 0 -2 -2 -2 -1",
+    "still": "League's wings also fold and fan (feathers turned edge-on) - no square turns here; the tail (League's Tail4 +-7 rows) lies under the waist with the fists, each frame's own; the fists (League +-18 fore-aft, toward us) stay",
+    "keep_one": "his 1x run is a drawing of its own (936-985 squares differ even with nothing moved): it stays as installed (galio_run_one.png)",
+    "timing": "8 x 115 ms = 920 ms against League's Galio_run 0.967 s (5 % off): unchanged",
+    "init": {"contacts": "frames [3, 7] (feet's band spread [49, 51, 51, 52, 50, 50, 50, 50])", "waist": "row -32 from the centre in every frame: per-row differing share passes 0.241 there (figure rows -73..15)", "from": "frame 3: closest to hd_idle_base[0] (alike share per frame [0.829, 0.828, 0.829, 1.0, 0.829, 0.828, 0.829, 1.0])", "below": "rects per frame [1, 1, 1, 1, 1, 1, 1, 2] (her squares under the waist her feet do not reach)", "bob": "2 squares low to high (1.33 game px), low the frame after the contacts [3, 7], moved by -1 so the head stays in every rect: [1, 0, -1, 0, 1, 0, -1, 0]", "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 3) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]}
+  },
+  "x": 0,
+  "bare_ground": true,
+  "part_gaps": true,
+  "keep_gaps": true,
+  "keep_one": "assets/source/galio/hd/galio_run_one"
+}

@@ -1,0 +1,37 @@
+{
+  "hero": "rengar",
+  "tag": "run",
+  "drawn": "assets/source/rengar/hd/rengar_run_drawn",
+  "from": 1,
+  "outline": [11, 0, 9],
+  "waist": [-42, -42, -42, -42, -42, -42, -42, -42],
+  "bob": [1, 0, 0, 0, 1, 0, 0, 0],
+  "x": [0, 0, 0, 1, 1, 1, 0, 0],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "bare_ground": true,
+  "part_gaps": true,
+  "parts": [],
+  "chains": [
+    {"name": "tail", "poly": [[42, 23], [43, 23], [43, 22], [44, 22], [44, 21], [45, 21], [46, 21], [46, 20], [47, 20], [47, 18], [48, 18], [48, 17], [49, 17], [50, 17], [50, 16], [51, 16], [52, 16], [53, 16], [53, 5], [54, 5], [54, 4], [55, 4], [55, 3], [56, 3], [56, 2], [57, 2], [57, 3], [58, 3], [58, 4], [59, 4], [59, 5], [60, 5], [60, 10], [59, 10], [59, 14], [58, 14], [58, 16], [57, 16], [57, 17], [56, 17], [56, 18], [55, 18], [54, 18], [53, 18], [53, 19], [52, 19], [52, 22], [51, 22], [51, 23], [50, 23], [50, 24], [49, 24], [49, 25], [48, 25], [48, 26], [47, 26], [46, 26], [46, 27], [45, 27], [44, 27], [44, 26], [43, 26], [43, 25], [42, 25]], "root": 27, "side": "left", "lag": 0, "whip": 0.0, "tip": [-7, -4, 0, -4, -5, -1, -2, -5]}
+  ],
+  "own_clear": [{"rows": [[42, 23, 23], [43, 23, 24], [44, 23, 25], [45, 22, 26], [46, 20, 26], [47, 19, 25], [48, 18, 25], [49, 17, 23], [50, 17, 23], [51, 17, 20], [52, 18, 18], [53, 3, 6], [53, 14, 15], [53, 18, 18], [54, 2, 17], [55, 1, 17], [56, 0, 15], [57, 1, 14], [58, 2, 12], [59, 3, 8]]}, {"rows": [[42, 23, 24], [43, 22, 25], [44, 21, 26], [45, 21, 26], [46, 20, 25], [47, 18, 25], [48, 17, 24], [49, 17, 23], [50, 16, 22], [51, 16, 21], [52, 16, 18], [53, 5, 7], [53, 11, 17], [54, 4, 17], [55, 3, 17], [56, 2, 16], [57, 3, 15], [58, 4, 13], [59, 5, 9]]}, {"rows": [[42, 23, 24], [43, 22, 25], [44, 21, 26], [45, 21, 26], [46, 19, 25], [47, 18, 25], [48, 18, 24], [49, 17, 23], [50, 16, 22], [51, 16, 21], [52, 15, 21], [53, 13, 19], [54, 6, 19], [55, 5, 18], [56, 4, 17], [57, 5, 16], [58, 6, 14], [59, 7, 11]]}, {"rows": [[42, 25, 26], [43, 24, 27], [44, 23, 28], [45, 23, 28], [46, 21, 27], [47, 20, 27], [48, 19, 25], [49, 19, 24], [50, 18, 24], [51, 17, 23], [52, 16, 22], [53, 7, 7], [53, 14, 21], [54, 6, 20], [55, 5, 19], [56, 4, 18], [57, 5, 17], [58, 6, 15], [59, 7, 11]]}, {"rows": [[43, 24, 26], [44, 24, 27], [45, 23, 28], [46, 22, 28], [47, 21, 27], [48, 20, 27], [49, 19, 25], [50, 17, 24], [51, 16, 24], [52, 15, 23], [53, 14, 22], [54, 4, 21], [55, 3, 19], [55, 21, 21], [56, 2, 18], [57, 3, 16], [58, 4, 14], [59, 5, 10]]}, {"rows": [[42, 25, 26], [43, 24, 27], [44, 23, 28], [45, 23, 28], [46, 21, 27], [47, 20, 27], [48, 19, 25], [49, 19, 24], [50, 18, 24], [51, 17, 23], [52, 16, 22], [53, 7, 7], [53, 14, 21], [54, 6, 20], [55, 5, 19], [56, 4, 18], [57, 5, 17], [58, 6, 15], [59, 7, 11]]}, {"rows": [[42, 23, 24], [43, 22, 25], [44, 21, 26], [45, 21, 26], [46, 19, 25], [47, 18, 25], [48, 18, 24], [49, 17, 23], [50, 16, 22], [51, 16, 21], [52, 15, 20], [53, 13, 19], [54, 6, 19], [55, 5, 18], [56, 4, 17], [57, 5, 16], [58, 6, 14], [59, 7, 11]]}, {"rows": [[42, 23, 24], [43, 22, 25], [44, 21, 26], [45, 21, 26], [46, 20, 25], [47, 18, 25], [48, 17, 24], [49, 17, 23], [50, 16, 22], [51, 16, 21], [52, 16, 19], [53, 5, 7], [53, 11, 19], [54, 4, 18], [55, 3, 17], [56, 2, 16], [57, 3, 15], [58, 4, 13], [59, 5, 9]]}],
+  "notes": {
+    "made": "by hand (character runs round 3, 11-16; the user on the first pass, which kept his run as installed: 「这三个有问题就改模型啊」)",
+    "tail": "League's Rengar_run1 (0.968 s, 31 fps) swings the tail tip (Tail5) +9..-8 squares against the chest (our frame 0 = clip sample 12, the pelvis low): the drawn run redraws the tail in every frame a little differently (none of it moves on League's path); now every frame's own tail is cleared exactly (`own_clear`: its colours from the white tip up to the hip, and the outline nearer to it than to anything else - tailmask.py's row runs) and frame 1's tail is laid as ONE chain cut by its corners (root column 27 at the hip, side left) on League's path: tip -7 -4 0 -4 -5 -1 -2 -5 rows (League's shape scaled from its 17-square range to 7: the tail rests on the ground at its lowest, so it only rises; capped at 7 - from 8 its white tip goes behind the claws in frame 0 and an exposed edge needs a 4-square outline)",
+    "own_clear_ground": "what the cleared tail leaves stays ground - the gap under the lifted tail between the claws and the paws is air, not a fill",
+    "body": "the body, the claws, the blade and the legs are each frame's own, square for square (waist -42 = no body is laid; bob / x = the body's drawn place, so the tail's root rides the hips: a row lower in frames 0 / 4, a column right in 3 / 4 / 5)",
+    "keep_one": "his 1x run is not ppu_one's from his dense frames (106-122 squares a frame off): it stays as installed (assets/source/rengar/hd/rengar_run_one.png)",
+    "undecided": []
+  },
+  "own_clear_ground": true,
+  "keep_one": "assets/source/rengar/hd/rengar_run_one"
+}

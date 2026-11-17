@@ -1,0 +1,38 @@
+{
+  "hero": "annie",
+  "tag": "run",
+  "drawn": "assets/source/annie/hd/annie_run_drawn",
+  "from": 2,
+  "outline": [16, 2, 19],
+  "lock": "head",
+  "head": [[0, 18], [0, 60], [27, 60], [27, 18]],
+  "chin": 27,
+  "clear_grow": 1,
+  "shift_fill": "waist",
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [8, 8, 9, 8, 9, 8, 8, 8],
+  "below": [
+    [[null, 77, 0, 29]],
+    [],
+    [[null, 73, 0, 25]],
+    [],
+    [[null, 75, 1, 31]],
+    [],
+    [[null, 75, 0, 27]],
+    []
+  ],
+  "shift": [0, 0, 0, 0, 0, 0, 0, 0],
+  "steps": 1,
+  "keep_one": "assets/source/annie/hd/annie_run_one",
+  "keep_lo": "assets/source/annie/hd/annie_run_lo",
+  "use": "sink4",
+  "variants": {"sink4": {"shift": [4, 0, 4, 0, 4, 0, 4, 0]}, "sink3": {"shift": [3, 0, 3, 0, 3, 0, 3, 0]}},
+  "notes": {
+    "made": "B6 round 6 (the user: 「我让你改不是让你改原本的走路的腿部的姿势 只是身体有点动画效果 看起来不要那么僵硬」): her head is one drawing in all 8 frames already (only moved: rows -3 -3 0 0 -1 -1 -2 -2 off frame 2's), her torso, arms, Tibbers and skirt are redrawn every frame (the artist's motion) - so nothing is laid but her own upper body moved: `lock` head with frame 2's head (identical to every frame's own, `clear_grow` 1 and `chin` at its cut: the lock itself changes no square) and `shift`",
+    "steps": "her drawn run takes 4 steps a cycle (each step 2 frames: the contact 0 / 2 / 4 / 6 with the front foot planted, then the push-off 1 / 3 / 5 / 7 with that foot behind and the other knee up); the planted foot slides back 13-18 squares a frame against 17.8 for her move speed, so the rhythm stays as drawn (slower = the feet slide, 150 ms frames are the most before it reads choppy)",
+    "shift": "sink4: on each contact frame her whole upper body (head, torso, both arms, Tibbers in her hand, the skirt down to its hem) sinks 4 rows over her own legs (the hem covers the thighs; the knees read bent) - a bounce a step, lowest as the foot lands (League's annie_2012_run: the chest drops low at each landing, 23 squares at her height - a skip); the push-off frames keep their drawn place (their raised knee reaches over the hem, so they never move). Head path 1 -3 4 0 3 -1 2 -2 (drawn -3 -3 0 0 -1 -1 -2 -2). sink3: the same, 3 rows",
+    "waist": "the first row under the skirt's hem on the contact frames (8 / 9 / 9 / 8 from the centre); Tibbers and the hand holding him hang under it (`below` rects); the push-off frames' waist is never used (shift 0)",
+    "keep": "her 1x and lo_ runs are drawings of their own (keep_one / keep_lo)"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "hero": "fiora",
+  "tag": "run",
+  "drawn": "assets/source/fiora/hd/fiora_run_drawn",
+  "from": 0,
+  "outline": [4, 3, 2],
+  "waist": [-10, -11, -12, -14, -9, -10, -12, -13],
+  "bob": [1, 0, -1, -2, 1, 0, -1, -2],
+  "below": "match",
+  "parts": [
+    {"name": "cape", "poly": [[25, 44], [25, 52], [30, 53], [36, 52], [42, 50], [46, 46], [50, 40], [54, 36], [55, 32], [52, 29], [46, 30], [40, 33], [34, 37], [29, 40]], "lag": 1.0, "range": [-1, 1], "behind": true},
+    {"name": "rapier", "poly": [[18, 66], [18, 121], [28, 121], [28, 66]], "lag": 0.5, "range": [0, 1]}
+  ],
+  "chains": [],
+  "use": "char",
+  "variants": {
+    "lively": {"steps": 2, "keep_gaps": true, "bob": [0, 2, 1, 0, -1, -2, -2, -1, 1, 2, 1, 0, -1, -2, -2, -1], "parts": {"cape": null, "rapier": {"lag": 1, "range": [0, 1]}, "head": {"poly": [[0, 36], [0, 72], [20, 72], [20, 52], [19, 52], [19, 36]], "late": true, "rows": [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]}}, "chains": {"cape": {"poly": [[25, 44], [25, 52], [30, 53], [36, 52], [42, 50], [46, 46], [50, 40], [54, 36], [55, 32], [52, 29], [46, 30], [40, 33], [34, 37], [29, 40]], "root": 52, "side": "left", "lag": 2, "whip": 0.0}}},
+    "lively_08": {"base": "lively", "cycle_ms": 800},
+    "char": {"steps": 1, "keep_gaps": true, "bob": [0, -1, -2, -4, 1, 0, -2, -3], "x": [0, 1, 1, 1, 1, 1, 1, 0], "parts": {"rapier": {"path": [[0, -1], [1, -1], [0, 0], [0, 1], [0, 1], [1, 1], [0, 0], [0, -1]]}, "cape": null}, "chains": {"cape": {"poly": [[25, 44], [25, 52], [30, 53], [36, 52], [42, 50], [46, 46], [50, 40], [54, 36], [55, 32], [52, 29], [46, 30], [40, 33], [34, 37], [29, 40]], "root": 52, "side": "left", "lag": 0, "whip": 0.0, "tip": [-3, 0, 2, 0, -2, 1, 2, 0]}}, "pad": [2, 2]}
+  },
+  "notes": {
+    "variants": "lively (「感觉还是有点僵硬？」, then 「活泼版」 for Vi / Jinx): each drawn frame shown twice (16 frames x 57 ms, the cycle stays 912 ms), the body moving on every one - 4 squares (2.7 game px): a quick dip just after each contact (frames 0 / 4: 0 -> 2, 1 -> 2: frame 4 has no room above her head) and a slower rise to the top at 2-3 / 6-7; the cape a chain cut by its corners (root column 52, by her back): its tip 2 frames late (-3..2); the rapier and its hand a frame late, only down (+0..1: a 2-row drop breaks the wrist); the head (hair, face, chin: a box from row 19 up, the body's squares in it) a square lower on the frame of each landing's lowest and back the next; keep_gaps. lively_08: 800 ms",
+    "made": "--init, then by hand",
+    "from": "frame 0: her upper body is one drawing in every frame (100 % alike), only moved; frame 0 is her idle's",
+    "waist": "the top of her hips (frame 0's row 34 = -10), in each frame where its drawn upper body sits",
+    "bob": "her drawn bob, steadied: it rose 4 rows over a step then dropped 5 at the contacts (0, 4) - now 1 0 -1 -2, both steps alike (a 3-row drop = 2 game px), a row under her drawn place where her rects end at her head; her drawn upper body also jumped a column sideways (0 / +1): now none",
+    "below": "match: each frame's own upper body found square for square (her cape hangs under the waist)",
+    "parts": "the cape behind her lags a frame (+-1); the rapier and its hand trail half a frame, only down",
+    "chains": "none: her hair is a bun on the head",
+    "undecided": []
+  },
+  "x": 0
+}

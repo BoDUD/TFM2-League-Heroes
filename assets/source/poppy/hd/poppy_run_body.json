@@ -1,0 +1,31 @@
+{
+  "hero": "poppy",
+  "tag": "run",
+  "drawn": "assets/source/poppy/hd/poppy_run_drawn",
+  "from": 1,
+  "outline": [9, 1, 13],
+  "waist": [-9, -9, -9, -9, -9, -9, -9, -9],
+  "bob": [1, 0, -1, 0, 1, 0, -1, 0],
+  "below": [
+    [[null, 33, 13, 18]],
+    [],
+    [],
+    [],
+    [[null, 33, 13, 18]],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (the installed run, 33c4a229b), then by hand (character runs round 3, 11-16)",
+    "char": "the installed figure but the legs is three drawings of one picture: B = frames 1 / 3 / 5 / 7 (hd_idle_base[0]'s closest), A = 0 / 4 (B a row lower, bands of 2 rows a row off at the hair, the collar and the hips), C = 2 / 6 (B about 1.4 rows higher: bands of 4 rows two rows off, 7 rows one row off - the face, the hair and the hammer head redrawn a row apart): B in every frame at each frame's own drawn place (bob 1 0 -1 0 1 0 -1 0, x 0), the waist row +7 from frame 1's centre (the legs differ from there); the hammer head under it B's too (`hammer`, locked), each frame's own cleared by a `below` rect that stops at its right outline (the far leg outside it); `keep`: the thigh tops frames 3 / 5 draw a row over the waist stay theirs",
+    "not moved": "League's poppy_run (1.0 s) swings her pigtails +-5 squares and the hammer +-8 against the chest; ours stands on its head on the ground in her hand (like Braum's shield), and the back pigtail is a bun over her ear: as a chain (root column 24) it can drop 2 squares (fills 3) but rising 2 opens a 12-square gap between it and her shoulder - over the cap of 3; a drop-only swing bends the bun's top, not a swinging tail: not done",
+    "keep_one": "her 1x run is a drawing of its own (ppu_one's from the dense frames differs in 880-915 squares a frame, the unchanged ones too): it stays as installed (assets/source/poppy/hd/poppy_run_one.png)",
+    "lo_grow": "her lo_ tags carry a 2-square outline (thin_outline's grow, keep 2); add_lo from her dense frames (1 square, PPU 1.2 grown to 1.5) keeps one: grown to 2 again, so her lo_run is drawn like her other lo_ tags (unchanged frames 38-43 squares off the installed, outline edges)",
+    "undecided": []
+  },
+  "variants": {"char": {"steps": 1, "keep_gaps": true, "from": 1, "bob": [1, 0, -1, 0, 1, 0, -1, 0], "x": [0, 0, 0, 0, 0, 0, 0, 0], "waist": [8, 7, 6, 7, 8, 7, 6, 7], "below": [[[null, 56, 0, 16]], [[null, 55, 0, 16]], [[null, 55, 0, 16]], [[null, 55, 0, 16]], [[null, 56, 0, 16]], [[null, 55, 0, 16]], [[null, 55, 0, 16]], [[null, 55, 0, 16]]], "parts": {"hammer": {"poly": [[46, 0], [46, 17], [56, 17], [56, 0]], "path": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]}}, "chains": {}, "keep": [[[-200, -199, -200, -199]], [[-200, -199, -200, -199]], [[-200, -199, -200, -199]], [[5, 6, -9, -6], [5, 6, 12, 13]], [[-200, -199, -200, -199]], [[5, 6, -9, -6]], [[-200, -199, -200, -199]], [[-200, -199, -200, -199]]], "keep_one": "assets/source/poppy/hd/poppy_run_one", "lo_grow": true}},
+  "use": "char"
+}

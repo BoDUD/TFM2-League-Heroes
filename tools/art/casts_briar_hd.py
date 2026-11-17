@@ -57,6 +57,13 @@ ZOOM = {"run_1": 6.8, "run_2": 5.98, "run_3": 6.74, "run_4": 7.38, "run_5": 6.68
         "ult_fly_3": 7.37, "ult_fly_4": 6.38, "ult_land_1": 6.53, "ult_land_2": 6.71, "hit_1": 6.61, "dead_1": 6.07,
         "dead_2": 5.8, "dead_3": 6.95, "dead_4": 6.35, "dead_5": 7.89, "dead_6": 7.14, "attack_fx1_1": 6.84,
         "attack_fx1_2": 6.66, "attack_fx1_3": 7.42, "attack_fx1_4": 6.03, "attack_fx1_5": 6.22}
+# (the user, 2026-11-16, on the runs drawn frame by frame: 「模型不要变大变小」) frames read at their own zoom instead of
+# their sheet's: the run's sheets run_1, run_2 and run_5 came out 6-10 % over her design - the pillory a size bigger
+# in frames 1-3 and 7 than in the other four and her idle_base (the distance between the two gold crosses on the
+# pillory's arms 74-78 squares against the design's 70; --measure's head fit 7.2 / 6.5 / 6.6 against ZOOM's 6.8 /
+# 5.98): each read at the zoom that puts the crosses 70 squares apart (69.5-70.5) and the head 47 squares wide at the
+# eyes, as in the other run frames (69.3-71.2, 47-49) and the design (70.3, 47)
+FRAME_ZOOM = {"run_1": 7.2, "run_2": 6.7, "run_3": 6.55, "run_7": 7.14}
 ZOOMS = np.arange(4.0, 10.01, 0.1)                      # the zooms the head is searched at (6-px templates)
 PIVOT = 71                      # the design's column on the old idle_base's pivot (overlap peak 0.84)
 
@@ -115,7 +122,8 @@ def read_all():
         a, ms = frame_masks(s)
         for k, m in ms:
             L, T, R, B = old_box(s["tag"], k)
-            out[f"{s['tag']}_{k}"] = (at_zoom(a, m, ZOOM[s["name"]]), (L + R) / 2 * PPU, B * PPU, ZOOM[s["name"]])
+            z = FRAME_ZOOM.get(f"{s['tag']}_{k}", ZOOM[s["name"]])
+            out[f"{s['tag']}_{k}"] = (at_zoom(a, m, z), (L + R) / 2 * PPU, B * PPU, z)
     for tag, m in PK.SAME.items():
         for k, src in m.items():
             if src == PK.DESIGN:

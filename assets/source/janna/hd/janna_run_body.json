@@ -1,0 +1,31 @@
+{
+  "hero": "janna",
+  "tag": "run",
+  "drawn": "assets/source/janna/hd/janna_run_drawn",
+  "from": 0,
+  "outline": [2, 0, 9],
+  "waist": [-53, -54, -54, -53, -53, -54, -54, -53],
+  "bob": [0, -1, -1, 0, 0, -1, -1, 0],
+  "x": 0,
+  "below": "match",
+  "keep_gaps": false,
+  "part_gaps": true,
+  "bare_ground": true,
+  "parts": [],
+  "chains": [
+    {"name": "hair", "poly": [[0, 7], [0, 10], [1, 10], [1, 11], [4, 11], [4, 12], [6, 12], [6, 14], [5, 14], [5, 15], [4, 15], [4, 17], [5, 17], [5, 19], [6, 19], [6, 20], [7, 20], [7, 21], [9, 21], [9, 22], [11, 22], [11, 23], [12, 23], [12, 24], [11, 24], [11, 26], [12, 26], [12, 27], [13, 27], [13, 28], [15, 28], [15, 29], [30, 29], [30, 28], [29, 28], [29, 27], [27, 27], [27, 26], [26, 26], [26, 25], [27, 25], [27, 24], [29, 24], [29, 23], [30, 23], [30, 20], [31, 20], [31, 18], [32, 18], [32, 17], [33, 17], [33, 16], [34, 16], [34, 12], [33, 12], [33, 11], [32, 11], [32, 10], [31, 10], [31, 9], [30, 9], [30, 8], [29, 8], [29, 7], [28, 7], [28, 6], [26, 6], [26, 5], [24, 5], [24, 6], [23, 6], [23, 5], [22, 5], [22, 4], [21, 4], [21, 3], [20, 3], [20, 2], [18, 2], [18, 1], [17, 1], [17, 0], [13, 0], [13, 1], [12, 1], [12, 3], [10, 3], [10, 2], [9, 2], [9, 1], [5, 1], [5, 2], [4, 2], [4, 3], [3, 3], [3, 4], [2, 4], [2, 6], [1, 6], [1, 7]], "root": 27, "side": "left", "lag": 0, "whip": 0.0, "tip": [1, 2, 3, 1, -2, -3, -2, 0], "tip_lag": 1.5}
+  ],
+  "notes": {
+    "made": "--init (the installed run, 9d91855ec), then by hand (character runs round 4, 11-16: the character method)",
+    "body": "every frame its own drawing (waist at the top, `below` match): the frames are one drawing above row 48 (her legs and the dress ribbons under it in three poses, played 0 1 2 1); only the hair is laid from frame 0, behind the rest",
+    "bob": "her drawn place (0 -1 -1 0 0 -1 -1 0 rows from the centre): the hair rides on it",
+    "add": "the hair's hidden rows (51 squares): up to 3 rows under its lower edge where the tiara, the face and her ear cover it in every frame, in the hair's own colours - a column it lifts shows more hair, never a gap; at rest every frame is the installed one square for square",
+    "chains": "League's Janna_Run (2.0 s file: she floats once a file, the hair and the cloth ribbons twice - one wave a second = our 1000 ms): the hair a chain cut by a staircase polygon round its yellows and its own outline, root column 27 (by the tiara); its tip on hair_e against the chest (0 0.6 1.1 1.9 0.9 -1.3 -1.9 -1.2 squares at her 70-row figure, our frame k = League's k/8 s) x 1.5, a frame earlier: 1 2 3 1 -2 -3 -2 0 rows; tip_lag 1.5 (League's hair_c leads hair_e by a quarter wave)",
+    "pad": "2 rows top and bottom: the hair's top lifts 2 rows above frame 0's first row (dense / lo_ frames 4 taller: the fanim changes)",
+    "keep_one": "her 1x run is a drawing of its own (ppu_one's from the dense frames differs in 565-587 squares a frame): kept as installed",
+    "not moved": "the staff (League swings it +-1.5 squares once in 2 s, her float: it does not loop in her 1 s run, and her hand holds it); the cloth ribbons (the artist draws them in three poses)"
+  },
+  "keep_one": "assets/source/janna/hd/janna_run_one",
+  "pad": [2, 0],
+  "add": [{"name": "hair_hidden", "at": [23, 11], "key": {"a": [192, 157, 79], "b": [209, 175, 87], "c": [211, 179, 91], "d": [221, 193, 98], "e": [240, 218, 121], "f": [253, 241, 144], "g": [253, 252, 231]}, "rows": ["..............g...", ".............dgg..", ".............dgg..", "............ed.ge.", ".........cdfe...ee", ".......dccdfe...ee", "......cdccdf.....e", ".....ccdc.........", "..cbccc...........", "bacbcc............", ".acbc............."], "under": false}]
+}

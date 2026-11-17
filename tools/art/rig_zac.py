@@ -6,12 +6,16 @@
     python tools/art/rig_zac.py --review DIR      # every tag at 3x + a GIF per tag (nothing written)
     python tools/art/rig_zac.py                   # his frames at PPU -> assets/source/ppu/orig + the 1x sheet
 
-The pictures (tools/art/design_zac_model.py, design_zac_poses.py):
-  hd/idle.png         Zac, 3/4 front facing right, 87 x 66 at PPU 1.5 (44 game px tendril top to soles): the idle, the
+The pictures (tools/art/design_zac_model.py, design_zac_poses.py write them wide into hd/wide/; tools/art/slim_zac.py
+carves them slimmer into hd/ - the user, 2026-11-16: 「感觉扎克模型有点问题？有点胖？扎克身体应该是瘦的」「扎克你自己调整吧
+codex画不好」, then 「扎克选B」: 16 columns narrower, part by part, the head and the tendril as drawn):
+  hd/idle.png         Zac, 3/4 front facing right, 71 x 66 at PPU 1.5 (44 game px tendril top to soles): the idle, the
                       hit, the run;
   hd/pose_<name>.png  Codex's key poses read back on their own grid with the design's head (assets/source/zac/
                       POSE_PROMPTS.md): a_wind a_punch q_wind q_reach q_lift q_slam e_plant e_pull e_fly e_land r_crouch
                       r_jump r_ball r_splat d_stagger d_melt d_puddle.
+Every number this tool keeps of those pictures (the standing column, the near arm's columns, where a pose stands and its
+arm stretches) is slim_zac.py's map of the wide one's (hd/slim_zac.json).
 Placing a pose: across, the middle of its squares (MEAN: the mean column) on the design's, moved dx squares (League's
 lunges and pulls); up and down, its soles on the ground row (its lowest square) or `lift` rows over it (in the air).
 A pose's arm can be drawn longer like rubber (RUBBER: a stretch of it with level edges, each column repeated in turn so
@@ -20,7 +24,10 @@ fist thrown out on a long arm, as League's Zac_attack1 does.
 The idle is the design alone (no breathing: hero_reels cuts the idle and ban/pick snippets from these actions).
 The run is league_braum's / league_warwick's approved walk for big heroes: the design's own legs under the hip band, one
 lifted per frame by losing its top rows and stepped forward, the body floating a little, the arms swinging a square
-against the legs, the tendril swaying (no part turned or stretched: 「有点变形了吧？手」).
+against the legs, the tendril swaying (no part turned or stretched: 「有点变形了吧？手」). The far arm swings from under his
+jaw (FAR_SWING): its shoulder and upper arm lie against his face, sharing its outline, and move with the body - swung
+whole, it opened a second outline down his face or covered his cheek (the user, 2026-11-17: 「扎克其他没什么问题 就是跑步
+时看起来右手像和身体有点分离」).
 The in-betweens (tools/art/inbetween.py; the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的地方都要补 参考联盟的动画」):
 the design's tendril on a pose swaying (its rows shifted sideways, the knob 3 squares, nothing at its root), Q's
 reaching arm slid back along itself in under his face, and poses of other actions passing through (the attack's
@@ -40,11 +47,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
 import inbetween as IB  # noqa: E402
+import slim_zac as SZ  # noqa: E402
 from rig_wukong import CutDesign as _Cut, P, pad  # noqa: E402
 
 HERO = "zac"
 PPU = 1.5
 SRC = os.path.join(R.ROOT, "assets", "source", "zac", "hd")
+with open(R.lp(os.path.join(SRC, "slim_zac.json")), encoding="utf-8") as _f:
+    SLIM = json.load(_f)                                   # tools/art/slim_zac.py: the slim pictures' numbers
 
 
 def lp(path):
@@ -62,11 +72,16 @@ class CutDesign(_Cut):
 
 
 # ------------------------------------------------------------------------------------------------- the design's parts
-STAND = 44                     # the column between his feet: the standing point
+STAND = SLIM["idle"]["stand"]  # the column between his feet: the standing point (44 on the wide design)
 TENDRIL_ROWS = 12              # the tendril: rows above this (over the head)
-NEAR_ARM = {(19, 29): (0, 25), (30, 33): (0, 24), (34, 65): (0, 22)}   # rows -> columns of the near arm
+# row -> the near arm's last column (the wide design's 25 / 24 / 22 by rows 19-29 / 30-33 / 34-65, cut with it)
+NEAR_ARM = {int(y): x for y, x in SLIM["idle"]["near_arm"].items()}
 LEG_BAND = 47                  # the legs: the rows under it
-LEG_SPLIT = 44                 # the column between the near leg and the far leg
+LEG_SPLIT = SLIM["idle"]["leg_split"]   # the column between the near leg and the far leg (44 wide)
+FAR_X = SLIM["idle"]["far_x"]  # the far arm's fill starts at or right of this column (58 wide)
+FAR_SWING = 42                 # the far arm swings from this row down (the forearm and the hand, air on their inner
+                               # side); above it the shoulder and the upper arm lie against his face: they move with
+                               # the body
 
 
 def dark(d):
@@ -75,7 +90,8 @@ def dark(d):
 
 def far_arm_mask(d):
     """The far arm: the fill right of the face bounded by its own outline (the outline-bounded region reaching the right
-    edge), with every outline square touching it."""
+    edge), with every outline square touching it and the lone outline squares hugging that outline (touching no other
+    fill: the slim design's at the shoulder's top, under the armpit and under the hand, left behind when it moved)."""
     op = d[..., 3] > 0
     fill = op & ~dark(d)
     lbl, n = ndimage.label(fill)
@@ -83,17 +99,20 @@ def far_arm_mask(d):
     for k in range(1, n + 1):
         m = lbl == k
         xs = np.nonzero(m.any(0))[0]
-        if xs.min() >= 58 and m.sum() > size:
+        if xs.min() >= FAR_X and m.sum() > size:
             best, size = k, int(m.sum())
     core = lbl == best
     ring = ndimage.binary_dilation(core, structure=np.ones((3, 3))) & dark(d)
-    return core | ring
+    arm = core | ring
+    lone = ndimage.binary_dilation(arm, structure=np.ones((3, 3))) & dark(d) & ~arm & \
+        ~ndimage.binary_dilation(op & ~dark(d) & ~core, structure=np.ones((3, 3)))
+    return arm | lone
 
 
 def near_arm_mask(d):
     m = np.zeros(d.shape[:2], bool)
-    for (y0, y1), (x0, x1) in NEAR_ARM.items():
-        m[y0:y1 + 1, x0:x1 + 1] = True
+    for y, x1 in NEAR_ARM.items():
+        m[y, :x1 + 1] = True
     return m & (d[..., 3] > 0)
 
 
@@ -104,17 +123,21 @@ def design():
     yy, xx = np.mgrid[0:D.H, 0:D.W]
     far = far_arm_mask(d)
     D.part("tendril", op & (yy < TENDRIL_ROWS))
-    D.part("far_arm", far & (yy >= TENDRIL_ROWS))
+    D.part("far_shoulder", far & (yy >= TENDRIL_ROWS) & (yy < FAR_SWING))
+    D.part("far_arm", far & (yy >= FAR_SWING))
     D.part("near_arm", near_arm_mask(d))
     legs = op & (yy > LEG_BAND) & ~far
-    D.part("near_leg", legs & (xx <= LEG_SPLIT) & (xx > NEAR_ARM[(34, 65)][1]))
+    arm_last = np.full(D.H, -1)
+    for y, x1 in NEAR_ARM.items():
+        arm_last[y] = x1
+    D.part("near_leg", legs & (xx <= LEG_SPLIT) & (xx > arm_last[:, None]))
     D.part("far_leg", legs & (xx > LEG_SPLIT))
     D.part("body", D.rest())
     return D
 
 
-TINT = {"tendril": (60, 200, 255), "far_arm": (255, 220, 0), "near_arm": (0, 255, 120), "near_leg": (255, 0, 255),
-        "far_leg": (255, 120, 0)}
+TINT = {"tendril": (60, 200, 255), "far_shoulder": (190, 255, 60), "far_arm": (255, 220, 0), "near_arm": (0, 255, 120),
+        "near_leg": (255, 0, 255), "far_leg": (255, 120, 0)}
 
 
 def tinted(D, z=12):
@@ -210,7 +233,8 @@ class Form:
         self.mid = middle(D.d)
 
     def pose(self, whole=(0, 0), near_at=(0, 0), far_at=(0, 0), near_leg=(0, 0, 0), far_leg=(0, 0, 0), tendril=0):
-        """The design with its parts moved by whole squares: whole (dx, dy); an arm's (dx, dy); a leg's (dx, dy, lift)
+        """The design with its parts moved by whole squares: whole (dx, dy); an arm's (dx, dy) (the far arm's from
+        FAR_SWING down: its shoulder moves with the body); a leg's (dx, dy, lift)
         - lifted by losing its top rows (league_braum); the tendril's knob swung (columns)."""
         wx, wy = whole
         L = self.L
@@ -219,6 +243,7 @@ class Form:
                   (L["body"], dict(dx=wx, dy=wy)),
                   (lifted(L["near_leg"], near_leg[2]), dict(dx=wx + near_leg[0], dy=wy + near_leg[1])),
                   (L["near_arm"], dict(dx=wx + near_at[0], dy=wy + near_at[1])),
+                  (L["far_shoulder"], dict(dx=wx, dy=wy)),
                   (L["far_arm"], dict(dx=wx + far_at[0], dy=wy + far_at[1]))]
         can = R.compose(self.rig, layers)
         can[self.rig.GY:] = 0
@@ -258,10 +283,10 @@ class Form:
         import design_zac_poses as DP
         hx, hy = head_at(name)
         ox, oy = hx - FACE[0], hy - FACE[1]
-        head = placed(DP.poly_mask(self.D.d, DP.POLY), d.shape, ox, oy)
+        head = placed(DP.poly_mask(self.D.d, POLY), d.shape, ox, oy)
         parts, moves = {}, []
         if tendril:
-            parts["tendril"] = runs(placed(DP.poly_mask(self.D.d, DP.TENDRIL), d.shape, ox, oy) & ~head)
+            parts["tendril"] = runs(placed(DP.poly_mask(self.D.d, TENDRIL_POLY), d.shape, ox, oy) & ~head)
             moves.append(("tendril", rows_wave(d.shape, TENDRIL_ROOT + oy, oy, tendril), "under"))
         if slide:
             part, off = slide
@@ -339,20 +364,25 @@ WALK = [((0, 0, 0), (0, 0, 2), 1, (0, 0), 0), ((0, 0, 0), (2, 0, 4), 2, (1, -1),
         ((0, 0, 2), (0, 0, 0), 1, (0, 0), -1), ((2, 0, 4), (0, 0, 0), 2, (-1, 1), -1),
         ((2, 0, 2), (0, 0, 0), 1, (-1, 1), 0), ((2, 0, 0), (0, 0, 0), 0, (0, 0), 0)]
 # where each pose stands (dx squares from the design's middle) and how high (rows off the ground)
-AT = {"a_wind": (0, 0), "a_punch": (2, 0), "q_wind": (-1, 0), "q_reach": (2, 0), "q_lift": (4, 0), "q_slam": (1, 0),
-      "e_plant": (1, 0), "e_pull": (-4, 0), "e_fly": (0, 12), "e_land": (0, 0),
-      "r_crouch": (0, 0), "r_jump": (0, 10), "r_ball": (6, 22), "r_splat": (0, 0),
-      "d_stagger": (0, 0), "d_melt": (0, 0), "d_puddle": (0, 0)}
+# (slim_zac.py's: the wide ones' - a_wind (0, 0), a_punch (2, 0), q_wind (-1, 0), q_reach (2, 0), q_lift (4, 0), q_slam
+# (1, 0), e_plant (1, 0), e_pull (-4, 0), e_fly (0, 12), r_jump (0, 10), r_ball (6, 22) ... - with each pose's head
+# where it was against the design's head, and the ball's face as high)
+AT = {name: tuple(e["at"]) for name, e in SLIM["poses"].items()}
 # the arm a pose can stretch (stretch()): its columns x0..x1 and rows (the pose's own squares), the side the hand is on -
 # a_wind's near arm swung back (its upper arm, level along the top), a_punch's far arm (the forearm, shoulder to fist)
-RUBBER = {"a_wind": (18, 36, (0, 41), -1), "a_punch": (84, 99, (0, 47), +1)}
+RUBBER = {"a_wind": (*SLIM["poses"]["a_wind"]["rubber"][:2], tuple(SLIM["poses"]["a_wind"]["rubber"][2]), -1),
+          "a_punch": (*SLIM["poses"]["a_punch"]["rubber"][:2], tuple(SLIM["poses"]["a_punch"]["rubber"][2]), +1)}
 # the in-betweens' parts (inbetween.vary): boxes in a pose's own squares, less the head - Q's reaching arm, from where
 # it leaves his face to the hand on the ground; the tendril is the design's (design_zac_poses.TENDRIL) where the pose's
 # face box puts it, swayed by its rows from TENDRIL_ROOT (still) up to its knob
 VPAD = 30
-FACE = (48, 12)                # the face box's top-left square on hd/idle.png (design_zac_poses.HEAD)
+FACE = tuple(SLIM["idle"]["face"])   # the face box's top-left square on hd/idle.png (design_zac_poses.HEAD: 48, 12 wide)
+# design_zac_poses' head and tendril polygons on the wide design (slim_zac.POLY / TENDRIL), moved with the slim
+# design's head
+POLY = [(x + SLIM["idle"]["head_shift"][0], y + SLIM["idle"]["head_shift"][1]) for x, y in SZ.POLY]
+TENDRIL_POLY = [(x + SLIM["idle"]["head_shift"][0], y + SLIM["idle"]["head_shift"][1]) for x, y in SZ.TENDRIL]
 TENDRIL_ROOT = 12              # hd/idle.png: the tendril's root row (the knob is row 0)
-PARTS = {"q_reach": {"arm": [(83, 22, 130, 66)]}}
+PARTS = {"q_reach": {"arm": [tuple(b) for b in SLIM["poses"]["q_reach"]["parts"]["arm"]]}}   # (83, 22, 130, 66) wide
 
 
 def actions(F):

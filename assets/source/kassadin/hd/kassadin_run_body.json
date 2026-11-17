@@ -1,0 +1,31 @@
+{
+  "hero": "kassadin",
+  "tag": "run",
+  "drawn": "assets/source/kassadin/hd/kassadin_run_drawn",
+  "from": 0,
+  "outline": [12, 9, 19],
+  "waist": [-66, -66, -66, -66, -66, -66, -66, -66],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [],
+  "cycle_ms": 1200,
+  "notes": {
+    "made": "by hand (character runs round 3, agent G3, 11-16): a timing-only run, the pixels as installed",
+    "timing": "League's run_base (Kassadin_Run.anm, 1.6 s at 30 fps, no tick of its own) hovers him twice: his head bobs +-6.6 rows (88-row scale) on a 0.8 s period (run_fix: cycle 0.8 s, 2 strides). The drawn run is three drawings shown A B C B A B C B: two bobs in 664 ms (8 x 83 ms), 332 ms a bob - 2.4 times League's. Now 8 x 150 ms = 1200 ms (0.6 s a bob): the slowest a frame may be shown (~150 ms; slower reads choppy), the user's floor (0.75 s, 「太快，像小碎步」) passed",
+    "pixels": "every frame as installed, square for square: the three drawings are one figure a row apart whose details are redrawn (eyes, cyan glow, robe pattern: 75-80 % alike) - no head or body lock: his helmet is dark on the dark hood (no face to cut out), and locking the whole figure would leave only a one-row hop. He glides (no feet): no planted foot slides",
+    "keep_one": "his 1x run is not ppu_one's from his dense frames (574-581 squares a frame off): it stays as installed (assets/source/kassadin/hd/kassadin_run_one.png); lo_run is made from the dense frames (it was, 0 squares off)",
+    "undecided": []
+  },
+  "keep_one": "assets/source/kassadin/hd/kassadin_run_one"
+}

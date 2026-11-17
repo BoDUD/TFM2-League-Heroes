@@ -1,0 +1,128 @@
+{
+  "hero": "illaoi",
+  "base": "assets/source/illaoi/hd/illaoi_parts_base",
+  "tags": ["idle_base", "attack", "skill", "skill2", "ult", "hit", "dead"],
+  "outline": [9, 1, 13],
+  "anchor": {
+    "hd": {
+      "tag": "idle_base",
+      "frame": 0,
+      "rect": [12, 26, 30, 46],
+      "fixed": {"hit": {"0": [1, 0, "id"]}, "dead": {"0": [33, 25, "id"]}}
+    },
+    "ways": ["id"],
+    "one": {"tag": "idle_base", "frame": 0, "rect": [8, 17, 20, 31], "from": "hd"}
+  },
+  "parts": [
+    {
+      "name": "dreads",
+      "hd": {
+        "rows": [
+          ".............KKKKKKKK....",
+          "............KKKKKKKKKKK..",
+          "...........KKKabcKhKKKKK.",
+          "..........KKKhaccdhhhKKKK",
+          "...........KKhddddhhhhKKK",
+          "...........KKKdbbdhKKKKKK",
+          "..........KKKhKfaeKKhhhhh",
+          "..........KKKhhKKKKc..KKK",
+          "...........KKKhhKKhccbKhh",
+          "...........KKKKKKhKKKKhhh",
+          "............KKKKhKKhhKKKK",
+          "...........KKfbKKKhhK....",
+          "...........KKecaKhhKK....",
+          "........KKKKKgaKKhKKK....",
+          ".......KKKKhhKKKhKKK.....",
+          ".....KKKhhKhKKhhKKK......",
+          "....KKKKhKKKKhhKKKK......",
+          "...KKKhhKKhhKKKKKKKK.....",
+          "..KKKhhhKKhKKKKKhKKKK....",
+          "KKKKKhhKKKKKKKKKhKK......",
+          ".KKhKK.KKhKK.KK..........",
+          "..KK....KK...K...........",
+          "...K.....K..............."
+        ],
+        "key": {
+          "K": [9, 1, 13],
+          "h": [48, 46, 58],
+          "a": [192, 148, 35],
+          "b": [247, 195, 43],
+          "c": [222, 170, 36],
+          "d": [31, 33, 26],
+          "e": [160, 126, 34],
+          "f": [132, 102, 30],
+          "g": [167, 116, 30]
+        },
+        "at": [1, 7]
+      },
+      "bend": {"root": 9, "side": "left"},
+      "one": {
+        "rows": [
+          "........KKKKKKK...",
+          ".......KhabchKKK..",
+          ".......KKcccKKKKKK",
+          ".......KhKa.......",
+          ".......KKhK.......",
+          ".......KKKK.......",
+          "........KKK.......",
+          ".......KdaK.......",
+          ".....KKKKKK.......",
+          "....KhKKKhK.......",
+          "..KKKKKKKKK.......",
+          "..KhhKhKKKh.......",
+          "KKKKKKKKKKK.......",
+          ".KhK.KK...........",
+          "..K...K..........."
+        ],
+        "key": {
+          "K": [9, 1, 13],
+          "h": [48, 46, 58],
+          "a": [192, 148, 35],
+          "b": [222, 170, 36],
+          "c": [31, 33, 26],
+          "d": [160, 126, 34]
+        },
+        "at": [1, 5],
+        "bend": {"root": 6, "side": "left"}
+      }
+    }
+  ],
+  "notes": {
+    "why": "the user, 2026-11-16: 「俄洛伊的头发一会有一会儿没很奇怪看起来」 - her run frames 1-2 (Codex's run2 / run3) drew a big mass of dreadlocks streaming back from a raised bun with gold rings, frames 0 and 3 almost none, so the hair popped in and out every 140 ms; League's Illaoi carries that mass behind her head in every animation (Illaoi_Run1: always there, swaying)",
+    "dreads": "one picture: run frame 1's bun (the part above the design's head) and dreadlocks (the column behind the head and the mass streaming down-left), with the back-of-head hair squares, and three tapered dread ends drawn under the mass where frame 1's idol hid them - laid UNDER every frame (only clear squares) on the design head (anchor: the face, the design's head pasted in every key pose); the frames' own hair stays on top, so a pose that already draws the mass (run 1-2, ult 4-5, the death's stagger) gains only its margins",
+    "bend": "the run's frames 0 and 3 (the hair falling as the body rises) 2 rows at the tip, the idol held overhead (attack 2, ult 3) 3: the mass droops instead of sticking out (root column 9: the bun and the column behind the head never move)",
+    "run": "the run's own hair is in its drawn run (assets/source/illaoi/hd/illaoi_run_*: this part laid on the installed hd_run / run / lo_run with bends 2 0 0 2 - tools/art/run_body_anim.py makes the run from it), so `tags` leaves the run out",
+    "flash": "hit 0 and dead 0 are flashed frames: their anchors set by hand (the next frame's, moved by the frames' rect sizes), the part tinted as ppu_rig.flash tints"
+  },
+  "frames": {
+    "idle_base": {"hd": [[0, 0, "id"]], "one": [[0, 0, "id"]]},
+    "attack": {
+      "hd": [[1, 12, "id"], [10, 12, "id"], [12, 12, "id"], [-4, 15, "id"], [-4, 12, "id"], [0, -1, "id"]],
+      "one": [[0, 8, "id"], [6, 8, "id"], [8, 8, "id"], [-3, 10, "id"], [-3, 8, "id"], [0, -1, "id"]],
+      "bend": {"dreads": [0, 0, 3, 0, 0, 0]}
+    },
+    "skill": {
+      "hd": [[-3, 17, "id"], [6, 15, "id"], [6, 15, "id"], [2, 10, "id"], [2, 10, "id"]],
+      "one": [[-3, 11, "id"], [4, 10, "id"], [3, 10, "id"], [1, 6, "id"], [1, 6, "id"]]
+    },
+    "skill2": {
+      "hd": [[-4, 14, "id"], [-5, 22, "id"], [-5, 28, "id"], [-5, 22, "id"], [-5, 16, "id"], [-4, 14, "id"]],
+      "one": [[-3, 9, "id"], [-4, 15, "id"], [-4, 19, "id"], [-4, 15, "id"], [-4, 11, "id"], [-3, 9, "id"]]
+    },
+    "ult": {
+      "hd": [[-3, 17, "id"], [1, 11, "id"], [12, 6, "id"], [13, 6, "id"], [0, 12, "id"], [0, 12, "id"]],
+      "one": [[-3, 11, "id"], [0, 7, "id"], [7, 4, "id"], [8, 4, "id"], [0, 8, "id"], [0, 8, "id"]],
+      "bend": {"dreads": [0, 0, 0, 3, 0, 0]}
+    },
+    "hit": {
+      "hd": [[1, 0, "id"], [0, -1, "id"]],
+      "one": [[0, 0, "id"], [0, -1, "id"]],
+      "tint": [[0.45, [255, 255, 255]], null]
+    },
+    "dead": {
+      "hd": [[33, 25, "id"], [26, 28, "id"], [18, 33, "id"], [-4, 16, "id"], [-4, 16, "id"]],
+      "one": [[22, 17, "id"], [17, 19, "id"], [12, 22, "id"], [-3, 11, "id"], [-3, 11, "id"]],
+      "tint": [[0.45, [255, 255, 255]], null, null, null, null]
+    }
+  }
+}

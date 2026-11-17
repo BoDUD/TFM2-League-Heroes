@@ -1,0 +1,33 @@
+{
+  "hero": "akshan",
+  "tag": "run",
+  "drawn": "assets/source/akshan/hd/akshan_run_drawn",
+  "from": 2,
+  "outline": [7, 6, 7],
+  "waist": [-2, -2, -2, -2, -2, -2, -2],
+  "bob": [2, 4, 1, 2, 4, 1, 2],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [],
+  "chains": [
+    {"name": "hair", "colours": [[90, 55, 49], [31, 19, 26], [46, 36, 43], [57, 43, 47], [0, 0, 0], [3, 1, 4], [0, 0, 2], [3, 2, 4], [6, 2, 6]], "root": 24, "side": "left", "rows": [0, 50], "lag": 1.0, "whip": 0.2}
+  ],
+  "notes": {
+    "contacts": "frames [0, 3] (feet's band spread [48, 41, 14, 33, 29, 14, 32])",
+    "waist": "row -2 from the centre in every frame: per-row differing share passes 0.827 there (figure rows -52..19)",
+    "from": "frame 2: closest to hd_idle_base[0] (alike share per frame [0.171, 0.175, 0.152, 0.164, 0.159, 0.14, 0.16]; fits every frame: [2])",
+    "below": "rects per frame [0, 0, 0, 0, 0, 0, 0] (her squares under the waist her feet do not reach)",
+    "chains": "hair: 9 colours behind the face (root column 24), 137 squares",
+    "bob": "3 squares low to high (1.86 game px), low the frame after the contacts [0, 3], moved by 1 so the head stays in every rect: [2, 4, 1, 2, 4, 1, 2]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 2) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "variants": {"face": {"lock": "head", "steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0], "from": 2, "head": [[12, 32], [12, 33], [13, 33], [13, 34], [14, 34], [14, 35], [20, 35], [20, 34], [22, 34], [22, 28], [23, 28], [23, 26], [20, 26], [20, 25], [19, 25], [19, 24], [17, 24], [17, 27], [16, 27], [16, 31], [13, 31], [13, 32]], "chin": 23, "head_match_colours": [[241, 151, 92], [206, 113, 66]], "head_colours": [[241, 151, 92], [206, 113, 66], [105, 76, 73], [163, 20, 40], [102, 20, 37]], "clear_grow": 2, "clear_poly": [[10, 22], [10, 37], [24, 37], [24, 22]], "fill_skip": [[241, 151, 92], [206, 113, 66], [105, 76, 73], [163, 20, 40], [102, 20, 37]], "skin": [[241, 151, 92], [206, 113, 66]], "head_search": 12, "chains": {"hair": null}, "keep_one": "assets/source/akshan/hd/akshan_run_one"}},
+  "use": "face"
+}

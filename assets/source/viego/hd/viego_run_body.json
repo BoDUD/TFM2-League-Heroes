@@ -1,0 +1,32 @@
+{
+  "hero": "viego",
+  "tag": "run",
+  "drawn": "assets/source/viego/hd/viego_run_drawn",
+  "from": 2,
+  "outline": [5, 3, 16],
+  "waist": [-39, -39, -39, -39, -39, -39, -39, -39],
+  "bob": [5, 3, 1, 3, 5, 3, 1, 3],
+  "below": [
+    [[null, 54, 70, 74]],
+    [[null, 59, 52, 69]],
+    [],
+    [],
+    [[null, 65, 54, 62], [null, 62, 111, 117]],
+    [[null, 57, 60, 73]],
+    [[null, 59, 59, 70], [null, 58, 113, 122]],
+    [[null, 58, 59, 72]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "contacts": "frames [3, 7] (feet's band spread [42, 24, 42, 89, 23, 27, 42, 94])",
+    "waist": "row -39 from the centre in every frame: per-row differing share passes 0.791 there (figure rows -94..29)",
+    "from": "frame 2: closest to hd_idle_base[0] (alike share per frame [0.056, 0.101, 0.089, 0.128, 0.086, 0.095, 0.104, 0.098]; fits every frame: [2, 4])",
+    "below": "rects per frame [1, 1, 0, 0, 2, 1, 2, 1] (her squares under the waist her feet do not reach)",
+    "chains": "none: no skin in the head's band to find the face by",
+    "bob": "4 squares low to high (1.63 game px), low the frame after the contacts [3, 7], moved by 1 so the head stays in every rect: [5, 3, 1, 3, 5, 3, 1, 3]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "back hair: no face found - set a chain by hand if the hero has hair, a cape or a tail", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 2) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "variants": {"face": {"lock": "head", "steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "from": 2, "head": [[40, 104], [40, 108], [41, 108], [41, 110], [46, 110], [46, 109], [47, 109], [47, 110], [49, 110], [49, 108], [51, 108], [51, 110], [53, 110], [53, 109], [52, 109], [52, 107], [53, 107], [53, 108], [54, 108], [54, 106], [56, 106], [56, 103], [55, 103], [55, 102], [56, 102], [56, 100], [55, 100], [55, 99], [56, 99], [56, 97], [54, 97], [54, 100], [53, 100], [53, 98], [51, 98], [51, 99], [50, 99], [50, 100], [47, 100], [47, 101], [46, 101], [46, 100], [45, 100], [45, 101], [44, 101], [44, 102], [42, 102], [42, 103], [41, 103], [41, 104]], "chin": 56, "keep_one": "assets/source/viego/hd/viego_run_one", "head_match_colours": [[250, 205, 178], [251, 214, 188], [234, 175, 151], [5, 74, 74], [5, 58, 66], [3, 171, 153]], "head_colours": [[250, 205, 178], [251, 214, 188], [234, 175, 151], [222, 159, 139], [213, 143, 126], [188, 122, 117], [171, 102, 102], [5, 74, 74], [5, 58, 66], [3, 171, 153], [2, 90, 85], [220, 248, 244], [190, 247, 247], [6, 200, 177]], "clear_grow": 2, "clear_poly": [[38, 95], [38, 112], [56, 112], [56, 95]], "fill_skip": [[250, 205, 178], [251, 214, 188], [234, 175, 151], [222, 159, 139], [213, 143, 126], [188, 122, 117], [171, 102, 102], [5, 74, 74], [5, 58, 66], [3, 171, 153], [2, 90, 85], [220, 248, 244], [190, 247, 247], [6, 200, 177]], "skin": [[250, 205, 178], [251, 214, 188], [234, 175, 151]], "head_search": 14, "chains": {}}},
+  "use": "face"
+}

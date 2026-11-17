@@ -1,0 +1,36 @@
+{
+  "hero": "xayah",
+  "tag": "run",
+  "drawn": "assets/source/xayah/hd/xayah_run_drawn",
+  "from": 7,
+  "outline": [13, 3, 16],
+  "waist": [-15, -15, -15, -15, -15, -15, -15, -15],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 60, 62, 72]],
+    [[null, 73, 40, 76]],
+    [[null, 76, 32, 61]],
+    [[null, 72, 58, 76]],
+    [[null, 71, 37, 78]],
+    [[null, 49, 45, 51], [null, 70, 56, 73]],
+    [],
+    [[null, 47, 26, 34], [null, 72, 53, 69]]
+  ],
+  "notes": {
+    "contacts": "frames [0, 4] (feet's band spread [70, 67, 58, 62, 66, 63, 61, 61])",
+    "waist": "row -15 from the centre in every frame: per-row differing share passes 0.623 there (figure rows -62..21)",
+    "from": "frame 0: closest to hd_idle_base[0] (alike share per frame [0.537, 0.528, 0.424, 0.427, 0.488, 0.495, 0.381, 0.38])",
+    "below": "rects per frame [1, 1, 1, 1, 1, 2, 0, 2] (her squares under the waist her feet do not reach)",
+    "chains": "hair: 10 colours behind the face (root column 57), 315 squares",
+    "bob": "3 squares low to high (1.67 game px), low the frame after the contacts [0, 4], moved by 5 so the head stays in every rect: [6, 8, 7, 5, 6, 8, 7, 5]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 0) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"],
+    "ears": "the use variant (11-16, after the user's 「艾克头发为什么没有动画了？」 and 「全部查一遍」; the coordinator: her frame 0-1 ear flick is motion, keep the hood ears as drawn, the face stays locked): the char lock (frame 7's hood, the hair by the face and the face, aligned on the eyes / face) with both hood ears cut out of the laid head and carried as each frame drew them (head_carry: rows 0-13 over the hood's top, rows 14-22 left of its back, frame 7's coords; offset 0 every frame) - the ears are never cleared, frame 7's hood is laid over their roots; outside the ears every square is the installed char lock's",
+    "char_variant": "variant char: the installed head lock (dfa21fdc3: both hood ears, the hood, the hair by the face and the face of frame 7) - it froze the ears' flick, kept for the review lane; the ears variant starts from it (base)"
+  },
+  "lock": "head",
+  "head": [[1, 30], [1, 37], [5, 44], [8, 47], [11, 49], [13, 52], [16, 55], [19, 58], [22, 60], [27, 61], [33, 62], [34, 57], [37, 57], [37, 30], [23, 30], [22, 26], [19, 24], [17, 22], [14, 20], [12, 19.5], [8, 19.5], [7, 23], [4, 28]],
+  "chin": 36,
+  "x": 0,
+  "use": "ears",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[208, 124, 5], [244, 134, 23], [251, 192, 169], [238, 166, 149], [224, 145, 131]], "clear_all": true, "skin": [[251, 192, 169], [238, 166, 149], [224, 145, 131]], "chin_rows": [35, 35, 34, 35, 34, 35, 34, 35], "keep_colours": [[244, 134, 23], [228, 103, 25], [150, 54, 25], [198, 77, 26], [149, 74, 44], [106, 49, 34], [194, 157, 142], [235, 201, 201], [32, 25, 64], [81, 35, 29], [28, 9, 28], [66, 27, 30]], "clear_poly": [[-2, 28], [-2, 38], [3, 47], [6, 50], [10, 53], [13, 56], [17, 61], [21, 63], [27, 64], [34, 65], [34, 57], [37, 57], [37, 27], [23, 27], [21, 23], [18, 20], [14, 17], [10, 16], [6, 17], [3, 23]], "clear_grow": 3, "beside_head": "ground", "keep_one": "assets/source/xayah/hd/xayah_run_one"}, "ears": {"base": "char", "head": [[14, 53], [15, 53], [15, 54], [16, 54], [16, 55], [17, 55], [17, 56], [18, 56], [18, 57], [19, 57], [19, 58], [20, 58], [20, 59], [21, 59], [21, 60], [25, 60], [25, 61], [30, 61], [30, 62], [33, 62], [33, 59], [34, 59], [34, 57], [37, 57], [37, 30], [23, 30], [23, 39], [14, 39]], "head_carry": [[0, 16], [0, 53], [14, 53], [14, 39], [23, 39], [23, 16]]}}
+}

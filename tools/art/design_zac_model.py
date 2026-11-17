@@ -4,7 +4,7 @@ their own grids and brought to the game's count: 66 rows from the top of his ten
 PPU 1.5, the user's pick: 44 / PPU 1.5 / 3/4 only).
 
     python tools/art/design_zac_model.py --options DIR   # the candidates side by side (cut to 66 rows, and as drawn)
-    python tools/art/design_zac_model.py                 # writes assets/source/zac/hd/idle.png
+    python tools/art/design_zac_model.py                 # writes assets/source/zac/hd/wide/idle.png
 
 Codex's squares (asked 13 px; its HANDOFF: no exact grid, soft alpha; raw/superseded-* its dropped first round), by the
 FFT of the colour edges: A-1 ~12.0 (72 rows), A-2 ~12.5 (69 rows) - both drawn a little finer than asked. A take is cut
@@ -30,7 +30,8 @@ from design_gnar_model import keep_axis, sheet  # noqa: E402
 from regrid import regrid  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "zac", "codex_model", "zac-model", "raw")
-OUT = os.path.join(ROOT, "assets", "source", "zac", "hd")
+# the wide pictures (2026-11-17: tools/art/slim_zac.py carves the slim ones rig_zac.py uses from these into hd/)
+OUT = os.path.join(ROOT, "assets", "source", "zac", "hd", "wide")
 K = 32
 ROWS = 66    # 44 game px x PPU 1.5, the tendril's knob to the soles (the figure's first row)
 PICK = "A-1"     # my pick (the user: 「动作帧你可以参考隔壁oppi的动作 然后照着做 不用codex了 做到完美后喊我review」, Warwick's way): the clearer face - both eyes 2x2 with a highlight, the teeth square by square

@@ -1,0 +1,39 @@
+{
+  "hero": "draven",
+  "tag": "run",
+  "drawn": "assets/source/draven/hd/draven_run_drawn",
+  "from": 2,
+  "outline": [26, 14, 14],
+  "lock": "head",
+  "head": [[0, 60], [0, 64], [3, 66], [5, 69], [8, 72], [10, 74], [14, 74], [17, 72], [19, 69], [22, 67], [23, 60], [21, 56], [17, 55], [14, 53], [11, 50], [7, 51], [4, 54], [2, 58]],
+  "chin": 23,
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [-18, -18, -18, -18, -18, -18, -18, -18],
+  "below": [
+    [[null, 56, 2, 26], [null, 73, 36, 71], [null, 64, 73, 105]],
+    [[null, 58, 0, 21], [null, 74, 25, 88]],
+    [[null, 51, 1, 28], [null, 72, 36, 107]],
+    [[null, 56, 1, 49], [null, 49, 70, 93]],
+    [[null, 60, 1, 29], [null, 74, 31, 96]],
+    [[null, 75, 1, 105]],
+    [[null, 77, 1, 98]],
+    [[null, 60, 2, 42], [null, 63, 61, 94]]
+  ],
+  "keep_one": "assets/source/draven/hd/draven_run_one",
+  "use": "face",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 1, 0, 0, 0], "head_match_colours": [[175, 113, 77], [213, 150, 96], [240, 175, 118], [243, 203, 87], [189, 141, 50], [245, 248, 255]], "clear_all": true, "skin": [[175, 113, 77], [213, 150, 96], [240, 175, 118]], "chin_rows": [22, 21, 21, 22, 21, 23, 22, 23], "keep_colours": [[245, 239, 221], [196, 192, 174], [135, 122, 112], [202, 34, 74]], "keep_above": 8, "clear_grow": 3, "fill_skip": [[202, 34, 74], [245, 239, 221], [196, 192, 174], [135, 122, 112], [6, 72, 83], [8, 112, 130], [175, 113, 77], [240, 175, 118], [213, 150, 96], [243, 203, 87], [189, 141, 50], [255, 229, 154], [176, 198, 222], [245, 248, 255], [113, 130, 157], [71, 73, 88], [41, 42, 50]], "beside_head": "ground", "clear_specks": 8}, "face": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head": [[8, 68], [9, 68], [9, 69], [10, 69], [10, 70], [15, 70], [15, 71], [16, 71], [16, 70], [19, 70], [19, 69], [20, 69], [20, 70], [22, 70], [22, 67], [23, 67], [23, 59], [22, 59], [22, 58], [19, 58], [19, 57], [11, 57], [11, 60], [10, 60], [10, 62], [9, 62], [9, 64], [8, 64]], "chin": 23, "head_match_colours": [[175, 113, 77], [213, 150, 96], [240, 175, 118], [243, 203, 87], [189, 141, 50], [245, 248, 255]], "head_colours": [[240, 175, 118], [213, 150, 96], [175, 113, 77], [105, 80, 68], [68, 54, 49], [156, 52, 76], [202, 34, 74], [245, 248, 255], [176, 198, 222], [113, 130, 157], [243, 203, 87], [189, 141, 50], [255, 229, 154], [8, 112, 130], [6, 72, 83]], "clear_grow": 3, "skin": [[240, 175, 118], [213, 150, 96], [175, 113, 77]], "clear_poly": [[3, 72], [14, 72], [14, 70], [15, 70], [15, 72], [18, 72], [18, 71], [19, 71], [19, 70], [22, 70], [22, 69], [23, 69], [23, 59], [22, 59], [22, 58], [20, 58], [20, 57], [19, 57], [19, 55], [15, 55], [15, 54], [7, 54], [7, 55], [6, 55], [6, 56], [5, 56], [5, 57], [4, 57], [4, 58], [3, 58]], "fill_skip": [[240, 175, 118], [213, 150, 96], [175, 113, 77], [105, 80, 68], [68, 54, 49], [156, 52, 76], [202, 34, 74], [245, 248, 255], [176, 198, 222], [113, 130, 157], [243, 203, 87], [189, 141, 50], [255, 229, 154], [8, 112, 130], [6, 72, 83], [245, 239, 221], [196, 192, 174], [135, 122, 112], [41, 42, 50], [71, 73, 88]], "keep_one": "assets/source/draven/hd/draven_run_one"}},
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand (round 3: 「后面的英雄都按这个思路来 先去联盟客户端找英雄的特色是什么 再做run的动画」): lock head - his drawn run (Codex's whole-frame redraw, sped up by run_fix) redraws the upper body every frame, so only the head is one drawing (Ezreal v2's way); the fur collar, the red scarf, the arms, both axes and the legs stay each frame's own drawing",
+    "head": "frame 2's swept-back hair, headband and grinning face with the moustache (the closest to his idle: colour-IoU 0.64 against hd_idle_base[0]); the drawn heads are 8 drawings (IoU 0.41-0.55: the hair's spikes, the eyes and the moustache redrawn every frame), all 3/4 to the right",
+    "chin": "frame 2's first row under the beard",
+    "bob": "the drawn one (the head where each frame drew its own: matched on the skin, the headband's gold and the teeth), but frame 4 one row lower: its crown reaches the frame's top edge and frame 2's hair stands a row higher over the face - laid on the match, its tip would leave the frame",
+    "waist": "--init's (not used by the head lock)",
+    "keep_one": "his 1x run is a drawing of its own (ppu_one's from the dense frames differs in 432-597 squares a frame, the untouched frame 2 too): it stays as installed (assets/source/draven/hd/draven_run_one.png, from 33c4a229b), only hd_run and lo_run are made",
+    "variants": "char: no head_align (the beard's end is not a chin to align on); chin_rows = the row over the laid head's lower edge at each frame's place (the clearing stops there: the scarf and the neck stay); clear_all, clear_grow 3 (the drawn hair's spikes reach 3 squares past frame 2's); beside_head ground: what the frame's own bigger hair leaves beside the laid one is ground (filled, it made a dark blob on the crown), only under the chin a gap is filled; clear_specks 8: a spike tip the clearing cut off goes; keep_colours = the fur collar's whites and the scarf's red, from 8 rows over the laid chin (the collar's fur reaches up beside the face); fill_skip = the skin, the scarf, the fur, the teal, the gold and the steel: a gap under the chin is filled from the hair's own maroons or closed with outline",
+    "init": {"contacts": "frames [3, 7] (feet's band spread [17, 33, 36, 79, 19, 33, 50, 68])", "waist": "row -18 from the centre in every frame: per-row differing share passes 0.827 there (figure rows -54..26)", "from": "frame 1: closest to hd_idle_base[0] (alike share per frame [0.231, 0.226, 0.234, 0.195, 0.264, 0.21, 0.22, 0.172]; fits every frame: [1])", "below": "rects per frame [3, 2, 2, 2, 2, 1, 1, 2] (her squares under the waist her feet do not reach)", "chains": "hair: 5 colours behind the face (root column 44), 138 squares", "bob": "4 squares low to high (1.82 game px), low the frame after the contacts [3, 7], moved by 1 so the head stays in every rect: [5, 3, 1, 3, 5, 3, 1, 3]", "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 1) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]},
+    "undecided": [],
+    "face": "the use variant (11-16, after the user's 「艾克头发为什么没有动画了？」 and 「全部查一遍」: the char head lock froze his back-swept hair spikes, which the artist redrew every frame - the top tip 3 rows / 7 cols, the back-top 3 / 6 - and its frame-2 crest is 4-6 squares shorter at the back-top than the other 7 frames'): frame 2's face only (the gold headband with its teal gem - rigid, redrawn at other angles before -, the eye and the red mark, the cheek, the ear with its earring, the grin, the moustache and the beard, the jaw; 170 squares) on the frame's own skin, gold and teeth (offset 0 every frame); only face colours cleared (head_colours: skin, the browns, the red marks, teeth white, the earring's blue-greys, the band's golds and teals - never the hair's maroons, so the hair round the face is never cleared; the frame's own moustache and beard, maroon like the hair, go under the laid face) inside clear_poly, which reaches back to col 54-55 over the band's and the sideburn's old squares (frame 3's band ran back behind the ear) but not over the collar or the scarf; gaps filled from the hair or outline, never skin, gold or the collar's colours (fill_skip); every frame's own hair spikes, fur collar and scarf stay as drawn",
+    "char_variant": "variant char: the installed head lock (5e12af490: slicked-back hair, band, face and moustache of frame 2) - it froze the hair spikes, kept for the review lane"
+  }
+}

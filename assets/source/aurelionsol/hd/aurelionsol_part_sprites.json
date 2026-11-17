@@ -1,0 +1,69 @@
+{
+  "hero": "aurelionsol",
+  "sprites": {
+    "near": {"key": {"W": [241, 248, 253], "c": [0, 206, 251]},
+             "rows": ["...c...", "...c...", "..cWc..", "ccWWWcc", "..cWc..", "...c...", "...c..."],
+             "one": [".c.", "cWc", ".c."]},
+    "far": {"key": {"W": [241, 248, 253], "c": [0, 206, 251]},
+            "rows": ["..c..", ".cWc.", "cWWWc", ".cWc.", "..c.."],
+            "one": [".c.", "cWc", ".c."]}
+  },
+  "parts": [
+    {"name": "star2", "sprite": "far", "front": false, "phase": 3},
+    {"name": "star4", "sprite": "far", "front": false, "phase": 1},
+    {"name": "star1", "sprite": "near", "front": true, "phase": 0},
+    {"name": "star3", "sprite": "near", "front": true, "phase": 4}
+  ],
+  "path": [[-3, 0], [-1, 1], [1, 1], [3, 0], [1, -1], [-1, -1]],
+  "loop_ms": 720,
+  "strip": {"idle_base": "idle"},
+  "poses": {
+    "idle": {"ref": ["idle_base", 0], "head": [0, 24, 18, 50], "face": [18, 35, 37, 53],
+             "at": {"star1": [30, 63], "star2": [69, 12], "star3": [30, 8], "star4": [68, 60]}},
+    "a_wind": {"ref": ["attack", 2], "head": [0, 24, 11, 45], "face": [18, 34, 30, 46],
+               "at": {"star1": [31, 51], "star2": [69, 5], "star3": [30, 4], "star4": [82, 50]}, "still": ["star1"]},
+    "a_throw": {"ref": ["attack", 3], "head": [0, 24, 40, 76], "face": [18, 34, 64, 82],
+                "at": {"star1": [34, 104], "star2": [49, 26], "star3": [15, 15], "star4": [60, 75]}},
+    "q_wind": {"ref": ["skill", 1], "head": [0, 24, 9, 42], "face": [18, 34, 28, 43],
+               "at": {"star1": [30, 49], "star2": [64, 3], "star3": [24, 4], "star4": [72, 46]}},
+    "q_breath": {"ref": ["skill", 2], "head": [0, 24, 22, 56], "face": [20, 46, 40, 60],
+                 "at": {"star1": [60, 72], "star2": [78, 12], "star3": [8, 10], "star4": [78, 45]}},
+    "e_reach": {"ref": ["skill2", 2], "head": [0, 24, 27, 59], "face": [18, 34, 44, 60],
+                "at": {"star1": [12, 83], "star2": [68, 16], "star3": [12, 18], "star4": [70, 55]}},
+    "e_hold": {"ref": ["skill2", 3], "head": [0, 24, 11, 45], "face": [18, 34, 28, 44],
+               "at": {"star1": [31, 52], "star2": [70, 5], "star3": [23, 5], "star4": [65, 52]}, "still": ["star3"]},
+    "r_call": {"ref": ["ult", 2], "head": [4, 30, 15, 49], "face": [28, 45, 34, 52],
+               "at": {"star1": [10, 59], "star2": [82, 12], "star3": [20, 6], "star4": [85, 62]}, "still": ["star1"]},
+    "r_pull": {"ref": ["ult", 3], "head": [18, 40, 33, 68], "face": [36, 56, 52, 72],
+               "at": {"star1": [58, 82], "star2": [78, 20], "star3": [8, 41], "star4": [82, 62]}},
+    "d_rear": {"ref": ["dead", 1], "head": [0, 24, 16, 52], "face": [16, 34, 38, 56],
+               "at": {"star1": [37, 73], "star2": [58, 12], "star3": [22, 8], "star4": [80, 66]}},
+    "d_down": {"ref": ["dead", 5], "head": [0, 24, 62, 96], "face": [18, 34, 80, 98],
+               "at": {"star1": [50, 117], "star2": [68, 58], "star3": [30, 30], "star4": [66, 100]},
+               "still": ["star1", "star2", "star3", "star4"]}
+  },
+  "tags": {
+    "idle_base": {"poses": ["idle"]},
+    "attack": {"poses": ["a_wind", "a_wind", "a_wind", "a_throw", "a_throw", "idle", "idle"],
+               "nudge": {"0": {"star1": [9, 2]}}},
+    "skill": {"poses": ["q_wind", "q_wind", "q_breath", "q_breath", "q_breath", "q_breath", "q_breath", "q_breath",
+                        "q_breath", "q_breath", "q_breath"]},
+    "skill2": {"poses": ["e_reach", "e_reach", "e_reach", "e_hold", "e_hold", "e_hold"],
+               "phase": [0, 0.8, 1.6, -0.6, 0, 0.6]},
+    "ult": {"poses": ["r_call", "r_call", "r_call", "r_pull", "r_pull", "r_pull"],
+            "nudge": {"0": {"star1": [17, 17]}}},
+    "hit": {"poses": ["idle", "idle"], "flash": [0]},
+    "dead": {"poses": ["d_rear", "d_rear", "d_rear", "d_down", "d_down", "d_down"], "flash": [0],
+             "nudge": {"4": {"star1": [-2, 0], "star2": [-2, 0], "star3": [-2, 0], "star4": [-2, 0]},
+                       "5": {"star1": [-4, 0], "star2": [-4, 0], "star3": [-4, 0], "star4": [-4, 0]}}}
+  },
+  "notes": {
+    "made": "by hand, 11-16 (the user, after his run with the stars was approved: 「改了模型的那几个其他动作帧也要改吧 没影响吧 贾克斯 卡密尔 卑尔维斯之类的」): the four stars his run got (aurelionsol_run_body.json `add`) on every other tag - idle_base (the idle and ban/pick reels are cut from these tags' own rects, so they carry them too), attack, skill, skill2, ult, hit, dead; dense, 1x and lo_ frames",
+    "stars": "the run's pictures - the near two 7x7 (star1, star3) in front of him, the far two 5x5 (star2, star4) behind him - on the run's loop (rows -3 -1 1 3 1 -1, cols 0 1 1 0 -1 -1) at the run's phases; in his white [241, 248, 253] and the cyan [0, 206, 251] every frame of these tags has (the run's [1, 210, 251] is in his run frames only, and a colour new to a frame would change its lo_ palette)",
+    "places": "on League's anchors (Star1 / Star2 ride his hands - Star1 about 3 squares above and before the near hand, Star2 about 3 under the far one; Star3 / Star4 hang under him): star1 by the front claw - over it in the idle, held in the raised claw in the attack's wind-up (its pose drawn 'as if holding a small star') and in R's call (pulling a star from the sky), just past the flung claw in the throw, beside the claws in Q and E; star2 by the back claw or under him on the left; star3 over his back as in the run; star4 low on the right by the tail's tip. A held star covers the palm (17 squares, the claw's fingers round it) and stays put there (`still`); every other star keeps 1+ clear squares from him and 3+ from the face (the held one in the wind-up 2: the claw is drawn by his cheek)",
+    "timing": "a frame's step is its start in its tag, whole loops a tag (attack 1, skill 2, ult 1, dead 2; hit at the run's speed), so an action ends where the idle starts; skill2 by hand (0 0.8 1.6 -0.6 0 0.6): the idle reel cuts its frames 4 and 3 between holds of idle_base[0], so they stay near step 0 there (the step back falls where E's reach turns into the hold)",
+    "death": "the struck frame's stars flashed with him (ppu_rig.flash: [247, 251, 253] / [114, 228, 252], that frame's own colours); lying (frames 3-5) they stop going round and rise 2 rows a frame (League's Death: the stars float up off him), and stay",
+    "frames": "every rect kept (the fanim byte for byte as installed: no league.dll build); every dense frame changes exactly the stars' 60 squares, every 1x frame their 20, the lo_ frames only the squares the stars reach; hero_reels' picks unchanged",
+    "undecided": ["the idle reel holds idle_base[0] 0.9-3.1 s: the stars hold still with him there (moving them would need new frames: a fanim change and a hero_reels change)"]
+  }
+}
