@@ -107,7 +107,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   never a turn) over its own legs, the legs square for square as drawn (compose_own) - with `steps` 2 the body bobs on
   every frame while each drawn pose is shown twice; `upper` (a mask spec a drawn frame) names that upper body square
   for square where no waist row and rects can (a tail leaving the hip under the belt: everything but the legs, cut off
-  at the hips).
+  at the hips); `own_under` (a mask spec a drawn frame, null: none) a region where the lowered body goes behind the
+  rest - it shows only on its own drawn squares there, every other square of the region stays as drawn (tft_baronnashor:
+  his neck sinking into the collar of his abdomen, the collar's violet rims and the neck tip's outline in front).
 - `shade`: which leg is near shown by its shade, as a run's legs cross (league_ambessa, both legs one dark armour:
   「安蓓萨感觉腿部没有交叉感 看的不是太明显」, then 「安蓓萨 你决定」) - in each drawn frame the `far` leg's squares (a mask
   spec a drawn frame) a step darker and the `near` leg's a step lighter along their colour's `ramps` (dark to light;
@@ -239,7 +241,7 @@ def load(hero, variant=None):
                             for rs in cfg["below"]]
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
-        for key in ("head_clear", "own_clear", "upper", "shift_parts"):
+        for key in ("head_clear", "own_clear", "upper", "shift_parts", "own_under"):
             if cfg.get(key):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
@@ -1462,6 +1464,13 @@ def compose_own(a, i, cfg, pose):
     b[ty, tx] = a[ys, xs]
     put = np.zeros((H, W), bool)
     put[ty, tx] = True
+    und = (cfg.get("own_under") or [None] * (pose + 1))[pose]
+    if und:
+        # `own_under`: in this region the lowered body slides behind what is drawn round it - it shows only on its own
+        # drawn squares (those it cleared), every other square there stays as drawn (a neck sinking into its collar)
+        stay = spec_mask(und, a.shape) & ~own
+        b[stay] = a[stay]
+        put &= ~stay
     vacated = (b[..., 3] == 0) & op0
     # a leg's colour square the body bares to the ground (a fist that hung by the thigh moved down) gets outline
     leg_col = legs & ~put & ~colour_mask(b, [out_c])
