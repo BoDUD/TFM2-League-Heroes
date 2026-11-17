@@ -1132,7 +1132,7 @@
                     },
                     {
                       "type": "RangePeriodProjectile",
-                      "name": "league_camille_r_floor",
+                      "name": "league_camille_wall_r_vis",
                       "shape": {
                         "Circle": {
                           "radius": 2000000
