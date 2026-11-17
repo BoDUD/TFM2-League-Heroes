@@ -93,7 +93,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   is looked for (7 squares by default): league_nilah's leaping frames are drawn on the same rows of a rect 23-27 rows
   taller, so their centres sit 12-14 rows under where her upper body is.
 - `keep_lo`: like `keep_one` for the lo_ frames - they stay the drawn run's own (<hero>_run_lo.png), for a hero whose
-  lo_run is not add_lo's from his dense frames (league_malzahar's timing-only run keeps every square of it).
+  lo_run is not add_lo's from his dense frames (league_malzahar's timing-only run keeps every square of it); with `pad`
+  they keep their own sizes, as `keep_one`'s 1x frames do (tft_syfen: his dense frames grown for a laid head, his lo_
+  frames the installed ones square for square).
 - `frame_shift`: [rows, cols] a drawn frame - every square of that drawn frame moved by whole squares in its rect before
   anything else is made of it (down +, right +): a frame the artist drew off the others' place (league_soraka's frames
   3 and 6, her whole figure drawn 10-22 columns back: she lurched back and forth every step), re-registered; no square
@@ -1703,6 +1705,7 @@ def make(hero, cfg=None):
         one_sz, lo_sz = [one_sz[i // steps] for i in range(N)], [lo_sz[i // steps] for i in range(N)]
     k = P.PPU[short(hero)]
     pr, pc = cfg.get("pad", (0, 0))
+    lo_own = list(lo_sz)                             # (the drawn run's own lo_ sizes: `keep_lo`'s, with `pad` too)
     if pr or pc:                                     # (grown frames: the lo_ side bounds the 1x side - grown alike)
         gl = lambda v, p_: v + 2 * int(math.ceil(p_ * P.UI_PPU / k))  # noqa: E731
         lo_sz = [(gl(lw, pc), gl(lh, pr)) for lw, lh in lo_sz]
@@ -1771,7 +1774,7 @@ def make(hero, cfg=None):
         # frames (league_malzahar: 173-195 squares a frame off), so a timing-only run keeps every square of it
         s2 = np.array(Image.open(lp(os.path.join(ROOT, cfg["keep_lo"] + ".png"))).convert("RGBA"))
         kept2, x2 = [], 0
-        for (_, ms), (lw, lh) in zip(lo, lo_sz):
+        for (_, ms), (lw, lh) in zip(lo, lo_own):
             kept2.append((s2[:lh, x2:x2 + lw].copy(), ms))
             x2 += lw + 1
         lo = kept2
