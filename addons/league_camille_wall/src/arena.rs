@@ -35,6 +35,11 @@
 //! 目标被吞下（或被拖走），大招当场结束：被动看到被锁的目标被放逐（活着、不可选中），就摘掉她身上主包的 `r_on`，场地连同
 //! 地面当场结束（[`swallowed`]）；被放逐的人也不再被拉回。
 //!
+//! 0.4.14（用户 2026-11-17：「还是有bug啊」「卡密尔离开了磁场也一直在 这个问题也没修好」）：**场地就是它的画面**。主包在她
+//! 走出 `r_area` 时结束场地，那是半径 36000 的圆：和画面一样宽，上下却比画面（纵向 25000）各多 11000，她站在地面的上方、
+//! 下方，看着已经出了场地，场地却还开着（看的那场她到过画面的 1.54）。现在她站到画面的边外连续 `OUT_T` tick，本包就摘掉
+//! `r_on`，场地连同地面结束。她场地里不再出 E（残血逃跑也不出，见 lib.rs）。
+//!
 //! 判断在 [`call`]、[`clamp`]、[`floor_frame`]、[`end_reason`]（纯计算、单元测试）。
 
 use mod_api_stable::*;
@@ -276,6 +281,10 @@ pub fn end_reason(alive: bool, start: usize, tick: usize, moved: Option<(usize, 
     }
 }
 
+/// She past the picture's edge this many ticks running ends the arena (0.4.14; the main pack's own r_area check ends it
+/// about as fast once she is out of its circle).
+pub const OUT_T: usize = 2;
+
 /// A forced move this recent counts as what took her out (the main pack ends the arena 2 ticks after she is out).
 pub const MOVED_T: usize = 6;
 
@@ -303,6 +312,8 @@ struct Up {
     /// own E: true)
     far: f64,
     moved: Option<(usize, bool)>,
+    /// ticks running she has stood past the picture's edge (0.4.14)
+    out: usize,
 }
 
 /// Her passive's arena: the one up now (each Camille's own).
@@ -343,7 +354,7 @@ pub fn update(sim: &mut StableSim<'_>, me: usize, field: &mut Field) {
                           up)", head(sim, me), pt(at)));
         }
         Up { me, centre: at, start: tick, seen: tick, next: tick, pieces: 0, handover: [0; 3], after: 0, refused: 0,
-             held: 0, worst: 0.0, target: None, far: 0.0, moved: None }
+             held: 0, worst: 0.0, target: None, far: 0.0, moved: None, out: 0 }
     });
     up.seen = tick;
     up.far = up.far.max(reach(up.centre, at));
@@ -357,6 +368,18 @@ pub fn update(sim: &mut StableSim<'_>, me: usize, field: &mut Field) {
         sim.entity_remove_buff(me, R_ON);
         if let Some(up) = field.up.take() {
             finish(sim, me, up, End::Swallowed, tick, Some(at));
+        }
+        return;
+    }
+    // 0.4.14: the arena is its picture. The main pack ends it when she is out of r_area, a 36000 circle - the picture's
+    // width, but 11000 more than its height up and down - so she stood above or below the floor with the arena on (the
+    // user 2026-11-17: 「卡密尔离开了磁场也一直在」). Past the picture's edge OUT_T ticks running ends it here.
+    up.out = if reach(up.centre, at) > 1.0 { up.out + 1 } else { 0 };
+    if up.out >= OUT_T {
+        sim.entity_remove_buff(me, R_ON);
+        if let Some(up) = field.up.take() {
+            let why = end_reason(true, up.start, tick, up.moved, banished);
+            finish(sim, me, up, why, tick, Some(at));
         }
         return;
     }

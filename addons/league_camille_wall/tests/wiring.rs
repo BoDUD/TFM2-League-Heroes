@@ -10,7 +10,7 @@ use std::collections::HashMap;
 use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
-use league_camille_wall::arena::{ARENA_TICKS, FLOOR_FRAMES, FLOOR_STEP, FLOOR_VIEW};
+use league_camille_wall::arena::{ARENA_TICKS, FLOOR_FRAMES, FLOOR_STEP, FLOOR_VIEW, OUT_T};
 use league_camille_wall::{Grid, CLING, CONTACT};
 use mod_api_stable::*;
 
@@ -578,20 +578,31 @@ fn hookshot_from_cast_to_landing() {
         run_with(&mut world, &fx, Some(&mine), 60);
         assert!(world.hooks.is_empty() && world.units[1].damage == 0, "dived under his tower");
 
-        // 8. 她的 R 场地还在（r_on）：被动不突进（钩出去场地就没了）；血只剩 20%、敌人就在身边：照样钩出去逃；
+        // 8. 她的 R 场地还在（r_on）：被动不突进（钩出去场地就没了）；血只剩 20%、敌人就在身边也不钩出去逃（0.4.14，用户
+        //    2026-11-17「还是有bug啊」：落地 4 tick 就钩走，场地 38 tick 就没了）——场地外照样逃；
         //    E 拉人途中 R 跃起：停掉，不再拉
         let mut world = lane_world();
         world.units[0].buffs.clear();
         world.units[0].buffs.push((BuffV1::timed("league_camille_r_on", 180), 180));
         run_with(&mut world, &fx, Some(&mine), 60);
         assert!(world.hooks.is_empty(), "engaged out of her own R");
-        let mut world =
-            World::new(vec![unit(80_000.0, 600_000.0, 0, true), unit(80_000.0, 570_000.0, 1, true), far_tower()]);
-        world.units[0].hp = 200;
+        let low_world = || {
+            let mut world =
+                World::new(vec![unit(80_000.0, 600_000.0, 0, true), unit(80_000.0, 570_000.0, 1, true), far_tower()]);
+            world.units[0].hp = 200;
+            world
+        };
+        let mut world = low_world();
         world.units[0].buffs.push((BuffV1::timed("league_camille_r_on", 180), 180));
         call(&mut world, &fx, "league_camille_wall:engage", 0, InputTargetV1::target(0));
         run(&mut world, &fx, 150);
-        assert!(world.added.iter().any(|b| b == "league_camille_e_fled"), "no escape inside her R");
+        assert!(world.hooks.is_empty() && !world.added.iter().any(|b| b == "league_camille_e_fled"),
+                "escaped out of her own R");
+        assert_eq!(me(&world), (80_000.0, 600_000.0), "left her own R");
+        let mut world = low_world();
+        call(&mut world, &fx, "league_camille_wall:engage", 0, InputTargetV1::target(0));
+        run(&mut world, &fx, 150);
+        assert!(world.added.iter().any(|b| b == "league_camille_e_fled"), "no escape at low health");
         assert!(dist(me(&world), (80_000.0, 570_000.0)) > 50_000.0);
         let mut world = lane_world();
         call(&mut world, &fx, "league_camille_wall:engage", 0, InputTargetV1::target(0));
@@ -741,6 +752,20 @@ fn hookshot_from_cast_to_landing() {
         assert!(world.on_floor[71 + FLOOR_STEP..].iter().all(|&n| n == 0), "{:?}", &world.on_floor[66..]);
         assert!(!has(&world, 1, "league_camille_r_mark"), "the mark outlived the arena");
         assert_eq!(world.units[1].x, 600_000.0, "a swallowed target put back");
+        // 0.4.14（用户 2026-11-17：「卡密尔离开了磁场也一直在」）：场地就是画面。她站到地面下方 27500（画面纵向只到 25000，
+        // 主包的圈到 36000）连续 OUT_T tick，场地结束、地面没了；画面里走动（24000 下方）不算
+        let mine = fresh();
+        let mut world = r_world();
+        world.units[1].buffs[0].1 = ARENA_TICKS;
+        run_with(&mut world, &fx, Some(&mine), 60);
+        world.units[0].y = 504_000.0;
+        run_with(&mut world, &fx, Some(&mine), 5);
+        assert!(has(&world, 0, "league_camille_r_on"), "ended with her inside the picture");
+        world.units[0].y = 507_500.0;
+        run_with(&mut world, &fx, Some(&mine), OUT_T);
+        assert!(!has(&world, 0, "league_camille_r_on"), "she stood off the picture with the arena on");
+        run_with(&mut world, &fx, Some(&mine), 12);
+        assert!(world.on_floor[65 + OUT_T + FLOOR_STEP..].iter().all(|&n| n == 0), "{:?}", &world.on_floor[60..]);
 
         let text = std::fs::read_to_string(&log).expect("log written");
         if std::env::var_os("KEEP_LOG").is_none() {
@@ -757,6 +782,8 @@ fn hookshot_from_cast_to_landing() {
             "stepping with entity_set_pos",
             "ESCAPE map=Moba from (80000,600000)",
             "ESCAPE (hp 20%) map=Moba",
+            // 0.4.14: low health inside her R arena: she stays
+            "ESCAPE held: her R arena is up (0.4.14: no E inside it, not even at low health)",
             "nothing to hook",
             "ENGAGE map=Moba from (480000,480000) hook tower #1",
             "E stopped: her R started",
@@ -770,6 +797,8 @@ fn hookshot_from_cast_to_landing() {
              with two after one)",
             "ARENA END after 100 of 240 ticks: she walked out at 2.22 of the picture (80000 from the centre)",
             "ARENA END after 50 of 240 ticks: she died",
+            // 0.4.14: she off the picture ends it
+            "ARENA END after 66 of 240 ticks: she walked out at 1.10 of the picture (27500 from the centre)",
             // 0.4.13: the target swallowed ends it
             "ARENA END after 71 of 240 ticks: her target was banished (swallowed by Tahm Kench or the like): League ends \
              the ultimatum then",

@@ -27,8 +27,9 @@
 //! 1000）人早走远了，只好挂在墙上不动；贴身的目标也会去钩 36000 外的墙再扑回来；v4 收紧了钩点、
 //! 预判走位，E2 总会扑出去，加了地图四边。
 //!
-//! 她的 R 跃起中不出 E，E 进行中 R 开始了就停掉（会把半空的她拉走，大招落空）。R 的场地里只在要逃时出 E（v4.2）：
-//! 主包的场地不再把她拉回中心，她走出去场地就结束，钩出去等于放掉正在打的目标，所以场地里不突进。
+//! 她的 R 跃起中不出 E，E 进行中 R 开始了就停掉（会把半空的她拉走，大招落空）。R 的场地里不出 E：主包的场地不再把她
+//! 拉回中心，她走出去场地就结束，钩出去等于放掉正在打的目标，所以场地里不突进（v4.2）；0.4.14 起残血也不钩出去逃
+//! （用户 2026-11-17：「还是有bug啊」——看的那场她落地 4 tick 就钩到地图边，场地 38 tick 就没了，被锁的卡莎还在里面）。
 //!
 //! 位移用引擎自己的强制位移（`ForceMove`，冲刺技能走的就是它，撞墙会停）；之后每 tick
 //! 看一次，她身上没有强制位移却还没到时改为逐 tick 直接设位置，保证一定能到。
@@ -1013,6 +1014,20 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
 
 // ===================== E 的各段 =====================
 
+/// The last tick an escape held back by her arena was logged (the watched match, a line a second at most; 0.4.14).
+static HELD_AT: AtomicUsize = AtomicUsize::new(usize::MAX);
+
+/// 0.4.14: she wants out (low health, an enemy close) but her R arena is up - she stays; the watched match says so.
+fn held_escape(sim: &StableSim<'_>, caster: usize) {
+    let tick = sim.tick();
+    let last = HELD_AT.load(Ordering::Relaxed);
+    if watched(sim) && (last == usize::MAX || tick < last || tick >= last + 60) {
+        HELD_AT.store(tick, Ordering::Relaxed);
+        wlog(format!("{} ESCAPE held: her R arena is up (0.4.14: no E inside it, not even at low health)",
+                     head(sim, caster)));
+    }
+}
+
 /// 没找到钩点的次数（日志里每 200 次报一次）。
 static MISSES: AtomicUsize = AtomicUsize::new(0);
 
@@ -1032,7 +1047,12 @@ fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities
     let hp = hp_share(sim, caster);
     let low = !escape && hp <= LOW_HP && nearest(here, &foes) <= LOW_HP_NEAR;
     let escape = escape || low;
-    if !escape && in_arena(sim, caster) {
+    // her R arena up: no E at all (0.4.14) - an escape hooked her out of her own arena and ended it with the target alive
+    // inside (the user 2026-11-17: 「还是有bug啊」)
+    if in_arena(sim, caster) {
+        if escape {
+            held_escape(sim, caster);
+        }
         return;
     }
     let hits = hook_points(&grid, here, my_radius(sim, caster), &posts_of(&us, team));
