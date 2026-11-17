@@ -4,8 +4,8 @@
 
 Rebuilds Azir with tools/kit/build_azir.py (its parameter table P), checks that the plain build is the main pack's
 league/champion/league_azir.data_champion byte for byte (so the copy never drifts from the shipped kit) and that the
-defaults in src/lib.rs's Params are P's numbers, and writes addons/league_azir/override/league_azir.data_champion and
-.../text/champion.i18n: the build with native=1 -
+defaults in src/lib.rs's Params are the copy's numbers (its passive params: P's, its own stab and Q n_*), and writes
+addons/league_azir/override/league_azir.data_champion and .../text/champion.i18n: the build with native=1 -
   * passive = league_azir:disc (params: d_life d_per d_range d_dmg d_ap d_near r_speed r_len r_stamps s_step): the Sun
     Disc on a fallen tower of his team's, once a game;
   * R's wall calls league_azir:r_wall with the ult's target instead of stamping right-facing guards itself (the add-on
@@ -66,6 +66,26 @@ LINE = {
     "ko": ("가까운 병사가 대신 찔러", "가까운 병사가 대신 일직선으로 꿰뚫어"),
     "ja": ("近くの砂兵が代わりに突き", "近くの砂兵が代わりに一直線に突き"),
 }
+
+
+# 0.3.0: lang -> (the main pack's Q clause on the landing's stab, the copy's: they stab at once only on a champion - Q -> stab
+# as it was, its moves onto minions and monsters do not stab)
+QLAND = {
+    "zh-hans": ("落地马上刺击", "落到英雄身上马上刺击"),
+    "zh-hant": ("落地立刻刺擊", "落到英雄身上立刻刺擊"),
+    "en": ("they stab at once on arrival", "on a champion they stab at once"),
+    "ko": ("도착하자마자 찌른다", "챔피언에게 도착하면 바로 찌른다"),
+    "ja": ("着くとすぐ突く", "英雄に着くとすぐ突く"),
+}
+
+
+def skill_text(lang):
+    """The copy's Q text: the main pack's, the landing's stab on a champion only."""
+    old, new = QLAND[lang]
+    main = setup.TEXT[lang]["skill"]
+    if main.count(old) != 1:
+        sys.exit(f"{lang}: the main pack's Q text has no `{old}`: update QLAND")
+    return main.replace(old, new)
 
 
 def attack_text(lang):
@@ -142,10 +162,10 @@ def main():
     own = dict(p, s_dmg=p["n_s_dmg"], s_ap=p["n_s_ap"], q_dmg=p["n_q_dmg"], q_ap=p["n_q_ap"])
     values = dict(setup.values(own), d_life=setup.secs(p["d_life"]), d_per=setup.secs(p["d_per"]), d_cd=setup.secs(p["d_cd"]),
                   d_dmg=p["d_dmg"], d_ap=p["d_ap"])
-    texts = {lang: {"attack": attack_text(lang).format(**values), "skill": setup.TEXT[lang]["skill"].format(**values)}
+    texts = {lang: {"attack": attack_text(lang).format(**values), "skill": skill_text(lang).format(**values)}
              for lang in DISC}
-    long = {f"{lang}.attack": setup.shown_length(attack_text(lang)) for lang in DISC
-            if setup.shown_length(attack_text(lang)) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+    long = {f"{lang}.{k}": setup.shown_length(f(lang)) for lang in DISC for k, f in (("attack", attack_text), ("skill", skill_text))
+            if setup.shown_length(f(lang)) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 

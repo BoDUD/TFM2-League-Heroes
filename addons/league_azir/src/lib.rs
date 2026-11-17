@@ -87,8 +87,10 @@
 //!      `q_travel` tick 内从原地**滑到**落点（`dash_<槽>` 每 `ss_dash` tick 盖一张冲刺的图 `ss_dash_<r|l>`，朝它去的方向），
 //!      路上 `q_w`（加单位身体）内的敌人吃 `q_dmg` + `q_ap`% 法强的魔法伤害和 `q_slow`% 减速 `q_slow_t` tick（`q_hit` 画面和声音），
 //!      一次施放每个敌人只吃一次，几条路都穿过他也一样。落地时数据的新沙兵调 `rise_<槽>`：冲过来的那个**站着到**（不从沙里升起），
-//!      没挪过的新兵（`qn`）照旧升起。冲的时候不画旧沙兵、不连线、不算老化和够不着。不放沙浪的那一下 `AIM_FRESH` tick 内没挪成
-//!      （控制器没跑、没有能落的单位），被动把 Q 的伤害和减速补在 Q 打的那个身上（`Q OWED`），Q 不会白放。
+//!      没挪过的新兵（`qn`）照旧升起。落地马上刺（Q → 刺，用户选的连招）只在挪向英雄时（`q_pick` 给他挂 `league_azir_qc` 到落地，
+//!      连招照旧；挪向小兵、野怪的不白送一轮刺，英雄联盟的沙兵也只在他普攻时刺）。冲的时候不画旧沙兵、不连线、不算老化和
+//!      够不着。不放沙浪的那一下 `AIM_FRESH` tick 内没挪成（控制器没跑、没有能落的单位），被动把 Q 的伤害和减速补在 Q 打的
+//!      那个身上（`Q OWED`），Q 不会白放。
 //!   2. **刺击刺穿一条线**（「沙兵刺击穿透一条线」）。数据的刺击还是刺它挑的那一个（先英雄）；`stab_<槽>` 拿到被刺的单位后，
 //!      本包从沙兵画的位置穿过它拉一条 `s_r` 长（至少到它）的线，线上 `s_line`（加身体）内的**其他**敌人也吃一下 `s_dmg` +
 //!      `s_ap`% 法强的魔法伤害（技能类型的伤害：一条线的人不各吃一次普攻的附带效果），每人身上放一个 `s_stab`。被刺的那个只吃数据那一下。
@@ -295,8 +297,8 @@ impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
                r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
-               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 75, s_ap: 106,
-               s_r: 42000, s_line: 5000, q_dmg: 110, q_ap: 65, q_w: 9000, q_slow: 25, q_slow_t: 60, q_travel: 18,
+               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 54, s_ap: 68,
+               s_r: 42000, s_line: 5000, q_dmg: 80, q_ap: 44, q_w: 9000, q_slow: 25, q_slow_t: 60, q_travel: 18,
                ss_dash: 2, tied: false, lined: false }
     }
 }
@@ -1746,6 +1748,10 @@ struct QPick;
 
 /// The flag on him that sends the move at the unit offered (1 tick: the data takes it off at once).
 pub const QT: &str = "league_azir_qt";
+/// The flag on him while the move goes to a champion: the landing's stab (Q -> stab, the combo) reads it as it lands, a
+/// lob's q_travel after (and QC_SPARE more; the data takes it off there).
+pub const QC: &str = "league_azir_qc";
+pub const QC_SPARE: usize = 6;
 
 impl StableEffectType for QPick {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
@@ -1785,6 +1791,11 @@ impl StableEffectType for QPick {
         if pick == Some(input.target_id) {
             sim.entity_remove_buff(me, QT);
             sim.add_buff(me, &BuffV1::timed(QT, 1));
+            // Q -> stab on landing only where the move went to a champion (the combo as it was): `qc` until it lands
+            sim.entity_remove_buff(me, QC);
+            if sim.get_entity(input.target_id).is_some_and(|t| t.is_champion()) {
+                sim.add_buff(me, &BuffV1::timed(QC, params_of(me).q_travel + QC_SPARE));
+            }
         }
     }
 }
@@ -1859,7 +1870,7 @@ fn dash_step(sim: &mut StableSim<'_>, me: usize, slot: usize, chain: usize, tick
     let at = lerp(sl.from, sl.to, now);
     // the picture (an old copy without the dash tags: the standing one, every few steps)
     let name = az(&format!("ss_dash_{}", if sl.right { "r" } else { "l" }));
-    if !sim.play_view_effect(&name, me, &pos_input((at.0 + ox, at.1 + oy)), 0, 0, 0) && (tick - sl.t0) % p.ss_stand.max(1) < p.ss_dash {
+    if !sim.play_view_effect(&name, me, &pos_input((at.0 + ox, at.1 + oy)), 0, 0, 0) && tick.saturating_sub(sl.t0) % p.ss_stand.max(1) < p.ss_dash {
         draw_soldier(sim, me, slot, at, "stand", sl.right);
     }
     sweep_path(sim, me, slot, &sl, ahead);
@@ -3343,9 +3354,10 @@ mod tests {
         let params: String = copy[at + 10..].chars().take_while(|c| *c != '}').chain(std::iter::once('}')).collect();
         let p = parse_params(&params.replace(['\r', '\n', ' '], ""));
         assert_eq!(p, Params { tied: true, lined: true, ..Params::default() }, "the copy's numbers are the defaults");
+        assert!(copy.contains(&format!("\"buff_name\": \"{QC}\"")), "the landing's stab asks qc");
         let main = include_str!("../../../league/champion/league_azir.data_champion");
         assert!(!main.contains("\"Native\""));
-        assert!(!main.contains(QT));
+        assert!(!main.contains(QT) && !main.contains(QC));
     }
 
 }

@@ -936,8 +936,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -1119,8 +1119,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -1591,8 +1591,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -1774,8 +1774,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -2246,8 +2246,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -2429,8 +2429,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -3306,8 +3306,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -3489,8 +3489,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -3961,8 +3961,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -4144,8 +4144,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -4616,8 +4616,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -4799,8 +4799,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -5926,8 +5926,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -6125,8 +6125,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -6853,8 +6853,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -7052,8 +7052,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -7780,8 +7780,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -7979,8 +7979,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -8851,8 +8851,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -9034,8 +9034,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -9506,8 +9506,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -9689,8 +9689,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -10161,8 +10161,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -10344,8 +10344,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -10927,8 +10927,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -11110,8 +11110,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -11608,8 +11608,8 @@
                                                                                   },
                                                                                   {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 75,
-                                                                                    "attack_ratio": 106,
+                                                                                    "damage": 74,
+                                                                                    "attack_ratio": 88,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
                                                                                   },
@@ -11791,8 +11791,8 @@
                                                                                   },
                                                                                   {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 75,
-                                                                                    "attack_ratio": 106,
+                                                                                    "damage": 74,
+                                                                                    "attack_ratio": 88,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
                                                                                   },
@@ -12289,8 +12289,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 74,
+                                                                                  "attack_ratio": 88,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -12472,8 +12472,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 74,
+                                                                                  "attack_ratio": 88,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -12986,8 +12986,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -13169,8 +13169,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -13667,8 +13667,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -13850,8 +13850,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -14348,8 +14348,8 @@
                                                                                   },
                                                                                   {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 75,
-                                                                                    "attack_ratio": 106,
+                                                                                    "damage": 74,
+                                                                                    "attack_ratio": 88,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
                                                                                   },
@@ -14531,8 +14531,8 @@
                                                                                   },
                                                                                   {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 75,
-                                                                                    "attack_ratio": 106,
+                                                                                    "damage": 74,
+                                                                                    "attack_ratio": 88,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
                                                                                   },
@@ -15045,8 +15045,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -15228,8 +15228,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -15726,8 +15726,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -15909,8 +15909,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 74,
+                                                                                        "attack_ratio": 88,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -16407,8 +16407,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -16590,8 +16590,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 74,
+                                                                                      "attack_ratio": 88,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -17359,8 +17359,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -17558,8 +17558,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 74,
+                                                                                              "attack_ratio": 88,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -18312,8 +18312,8 @@
                                                                                           },
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 75,
-                                                                                            "attack_ratio": 106,
+                                                                                            "damage": 74,
+                                                                                            "attack_ratio": 88,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false
                                                                                           },
@@ -18511,8 +18511,8 @@
                                                                                           },
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 75,
-                                                                                            "attack_ratio": 106,
+                                                                                            "damage": 74,
+                                                                                            "attack_ratio": 88,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false
                                                                                           },
@@ -19265,8 +19265,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -19464,8 +19464,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 74,
+                                                                                          "attack_ratio": 88,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -20053,8 +20053,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 74,
+                                                                          "attack_ratio": 88,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -20236,8 +20236,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 74,
+                                                                          "attack_ratio": 88,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -20735,8 +20735,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 75,
-                                                                        "attack_ratio": 106,
+                                                                        "damage": 74,
+                                                                        "attack_ratio": 88,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -20918,8 +20918,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 75,
-                                                                        "attack_ratio": 106,
+                                                                        "damage": 74,
+                                                                        "attack_ratio": 88,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -21417,8 +21417,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 75,
-                                                                      "attack_ratio": 106,
+                                                                      "damage": 74,
+                                                                      "attack_ratio": 88,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -21600,8 +21600,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 75,
-                                                                      "attack_ratio": 106,
+                                                                      "damage": 74,
+                                                                      "attack_ratio": 88,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -22115,8 +22115,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 74,
+                                                                            "attack_ratio": 88,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -22298,8 +22298,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 74,
+                                                                            "attack_ratio": 88,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -22797,8 +22797,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 74,
+                                                                          "attack_ratio": 88,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -22980,8 +22980,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 74,
+                                                                          "attack_ratio": 88,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -23479,8 +23479,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 75,
-                                                                        "attack_ratio": 106,
+                                                                        "damage": 74,
+                                                                        "attack_ratio": 88,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -23662,8 +23662,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 75,
-                                                                        "attack_ratio": 106,
+                                                                        "damage": 74,
+                                                                        "attack_ratio": 88,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -24177,8 +24177,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 74,
+                                                                              "attack_ratio": 88,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -24360,8 +24360,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 74,
+                                                                              "attack_ratio": 88,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -24859,8 +24859,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 74,
+                                                                            "attack_ratio": 88,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -25042,8 +25042,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 74,
+                                                                            "attack_ratio": 88,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -25541,8 +25541,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 74,
+                                                                          "attack_ratio": 88,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -25724,8 +25724,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 74,
+                                                                          "attack_ratio": 88,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -26494,8 +26494,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 74,
+                                                                                  "attack_ratio": 88,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -26693,8 +26693,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 74,
+                                                                                  "attack_ratio": 88,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -27448,8 +27448,8 @@
                                                                               },
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 75,
-                                                                                "attack_ratio": 106,
+                                                                                "damage": 74,
+                                                                                "attack_ratio": 88,
                                                                                 "hp_ratio": 0,
                                                                                 "can_crit": false
                                                                               },
@@ -27647,8 +27647,8 @@
                                                                               },
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 75,
-                                                                                "attack_ratio": 106,
+                                                                                "damage": 74,
+                                                                                "attack_ratio": 88,
                                                                                 "hp_ratio": 0,
                                                                                 "can_crit": false
                                                                               },
@@ -28402,8 +28402,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 74,
+                                                                              "attack_ratio": 88,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -28601,8 +28601,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 74,
+                                                                              "attack_ratio": 88,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },

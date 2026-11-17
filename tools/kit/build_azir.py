@@ -46,7 +46,10 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           sliding there from its spot (league_azir:q_fly when the hidden lob leaves, then dash_<s> every ss_dash ticks):
           every enemy within q_w (plus its body) of a soldier's path takes q_dmg + q_ap% AP and the slow as the soldier
           passes, once a cast however many paths cross it (League's Conquering Sands). With soldiers to move, no wave;
-          with none (or no controller yet: Q before his first attack in a life) the wave as in the main pack.
+          with none (or no controller yet: Q before his first attack in a life) the wave as in the main pack. They stab
+          on landing only where Q aimed at a champion (`qc`, hung by league_azir:q_pick until they land): the combo as
+          it was (the main pack moves them onto champions only), no free stab into every minion wave Q aims at. A Q
+          that skipped its wave and found nothing to move to deals its damage and slow on its target (`Q OWED`).
   skill2  E Shifting Sands (流沙移形, cooldown flag `e_cd`): a `Targeting` cast on `EnemyChampion` (e_range), only with
           a soldier standing (League: the dash goes to a soldier). A champion within e_self of him: he hops away
           (MoveBack) behind a shield. Else, with R ready (no `r_cd`), he dashes onto the champion behind e_sh + e_ap% AP of
@@ -88,6 +91,20 @@ not on their target: they stood inside it) lost ~0.85 (the target walks out of a
 the stab 75 + 100% AP and 1150 health: +1.18 on seeds 1-24 (league_hwei +1.16 / +1.38 on seeds 1-8 / 17-24).
 2026-10-25: R's cooldown really runs now (R -> Q's refund capped it to a tenth, 10.6 casts a game -> 6.5); r_cd 2400 ->
 1800: +1.34 / +0.92 -> +1.02 / +0.43 (seeds 1-8 / 9-16).
+2026-11-17 (the user's picks 「Q 沙兵真的冲过去」「沙兵刺击穿透一条线」「召兵位置和时长照联盟」; the classic simulator rebuilt in
+C:/t/azir_sim from the kept ks_sim, its map_setting from the game's bundle; kd.py --lane 2, 720 games a seed set): the main
+pack before +0.14 on seeds 1-24 and on 25-48 (deal 9980 / 9809, the 11-04 figure again); with the soldiers by the target,
+10 s and four generations +0.60 (deal 10420); then the stab s_dmg + s_ap% at 75 + 90 +0.61, 73 + 86 -0.28, 72 + 84
++0.02 (-0.12 on 25-48), 70 + 80 -0.15 (seeds 1-24; neighbours differ by ~0.3 of noise; 73 + 86 +0.21 on 25-48):
+the stab 74 + 88%, +0.37 / -0.11 on seeds 1-24 / 25-48 (deal 9777 / 9926; their mean +0.13 against +0.14 before).
+The add-on's copy, measured with the add-on emulated in the classic engine (sim3az: src/az_emul.rs runs the copy's line
+stab, Q's aim and its paths' damage - all at once as the soldiers leave, where the add-on deals as each one passes - and
+swaps the wall's natives back to the main pack's Knockback / RushMoveToBack; the 0.2.6 copy measured that way +0.06, deal
+10008): +2.20 with the main pack's old numbers (deal 13274; Q moved the soldiers 39-41 times a game against the main
+pack's ~13, each move a fresh 10 s on the target; without the line +2.25 - the line adds farming, cs 69 -> 75), +2.33 with
+the landing's stab on champions only (`qc`: balance-neutral, the combo as it was) - so the copy has its own stab and Q
+(n_*): 60 + 80 / 90 + 50 +1.08, 50 + 60 / 75 + 40 -0.43 (both before `qc`), 54 + 68 / 80 + 44 +0.10 (deal 10387; +0.33 on
+seeds 25-48).
 """
 import argparse
 import json
@@ -114,7 +131,7 @@ P = {
     "ms": 900, "ms_g": 9,
     "atk_range": 52500, "atk_dur": 27, "atk_cd": 80, "a_rel": 10, "a_speed": 4500, "a_y": -3000,
     # passive: the soldiers
-    "p_cd": 150, "s_life": 600, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 106,
+    "p_cd": 150, "s_life": 600, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 74, "s_ap": 88,
     # where a soldier rises (2026-11-17, the user's pick 「召兵位置和时长照联盟」: League's W puts it at a spot within 500 of
     # him, by the enemy; s_life 480 -> 600, League's 10 s): a hidden bolt from his feet toward the attack's target stops on
     # the first enemy it meets, s_stop from that unit's centre (plus its body in the classic engine: 0.7.x's own data
@@ -127,9 +144,10 @@ P = {
     # the add-on's copy's own stab and Q (0.3.0): there the soldiers stab through a line and every Q dashes them (at any
     # target, their paths dealing Q, a stab on landing), so each hit is lighter - balanced on the classic engine with the
     # add-on emulated (sim3az, the docstring); the main pack keeps s_dmg / s_ap / q_dmg / q_ap
-    "n_s_dmg": 75, "n_s_ap": 106, "n_q_dmg": 110, "n_q_ap": 65,
+    "n_s_dmg": 54, "n_s_ap": 68, "n_q_dmg": 80, "n_q_ap": 44,
     # s_ap 100 -> 106 with the tether (2026-11-04): the soldiers past 660 had dealt 6.5% of his damage (classic seeds 1-24,
-    # 720 games: kill difference +0.14 -> +0.06, back to +0.14 at 106)
+    # 720 games: kill difference +0.14 -> +0.06, back to +0.14 at 106); s_dmg 75 -> 74, s_ap 106 -> 88 on 2026-11-17 (the
+    # soldiers by the target for 10 s: +0.14 -> +0.60, back to +0.37 / -0.11 on seeds 1-24 / 25-48 - the docstring's Numbers)
     # League's tether radius (Arise!'s 660, azir.bin SoldierDeactivationRange; 1 League unit = 100): a soldier stabs only
     # while he stands within s_tie of its spot plus his body (the pick from the stab zone counts his radius, 10000:
     # 66000 centre to centre); the add-on draws the line and crumbles the soldier by the same distance
@@ -449,7 +467,14 @@ def build(p):
         sliding from its spot to the landing, its path dealing Q's damage and slow."""
         h = NEXT[g]
         land = [sw(f"m{s}", combine(*rm(f"m{s}"), *soldier(s, h, moved=True))) for s in SLOTS]
-        land += [view("q_land"), sfx("q_land"), delayed(2, refresh("cmd", p["cmd_t"]))]
+        # Q -> stab (the user's combo, 2026-10-23): they stab on landing. The main pack moves them only onto champions; the
+        # copy moves them onto whatever Q aimed at, and stabs on landing only where that was a champion (`qc`, hung by
+        # league_azir:q_pick for the landing) - the combo as it was, no free volley into every minion wave (League's
+        # soldiers stab only when he attacks)
+        volley = delayed(2, refresh("cmd", p["cmd_t"]))
+        if p["native"]:
+            volley = sw("qc", combine(*rm("qc"), volley))
+        land += [view("q_land"), sfx("q_land"), volley]
         # a crumbled soldier (the add-on's copy) is gone: Q moves only the ones standing
         marks = [sw(f"b{s}", kept(s, combine(refresh(f"m{s}", p["q_travel"] + 4), refresh(f"b{s}", p["s_life"]))))
                  for s in SLOTS]

@@ -25,12 +25,12 @@
       "s_life": 600,
       "s_tie": 56000,
       "d_cd": 5400,
-      "s_dmg": 75,
-      "s_ap": 106,
+      "s_dmg": 54,
+      "s_ap": 68,
       "s_r": 42000,
       "s_line": 5000,
-      "q_dmg": 110,
-      "q_ap": 65,
+      "q_dmg": 80,
+      "q_ap": 44,
       "q_w": 9000,
       "q_slow": 25,
       "q_slow_t": 60,
@@ -1082,8 +1082,8 @@
                                                                                                   },
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 75,
-                                                                                                    "attack_ratio": 106,
+                                                                                                    "damage": 54,
+                                                                                                    "attack_ratio": 68,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   },
@@ -1285,8 +1285,8 @@
                                                                                                   },
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 75,
-                                                                                                    "attack_ratio": 106,
+                                                                                                    "damage": 54,
+                                                                                                    "attack_ratio": 68,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   },
@@ -1778,8 +1778,8 @@
                                                                                                   },
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 75,
-                                                                                                    "attack_ratio": 106,
+                                                                                                    "damage": 54,
+                                                                                                    "attack_ratio": 68,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   },
@@ -1981,8 +1981,8 @@
                                                                                                   },
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 75,
-                                                                                                    "attack_ratio": 106,
+                                                                                                    "damage": 54,
+                                                                                                    "attack_ratio": 68,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   },
@@ -2474,8 +2474,8 @@
                                                                                                   },
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 75,
-                                                                                                    "attack_ratio": 106,
+                                                                                                    "damage": 54,
+                                                                                                    "attack_ratio": 68,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   },
@@ -2677,8 +2677,8 @@
                                                                                                   },
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 75,
-                                                                                                    "attack_ratio": 106,
+                                                                                                    "damage": 54,
+                                                                                                    "attack_ratio": 68,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   },
@@ -2774,31 +2774,48 @@
                                                           "name": "league_azir_q_land"
                                                         },
                                                         {
-                                                          "type": "Delayed",
-                                                          "tick": 2,
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_azir_cmd"
-                                                                },
-                                                                {
-                                                                  "type": "AddCasterBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_azir_cmd",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 2
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_azir_qc",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_azir_qc"
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 2,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_azir_cmd"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_azir_cmd",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
                                                                       }
-                                                                    }
-                                                                  },
-                                                                  "only_to_enemy": false
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": []
+                                                          }
                                                         }
                                                       ]
                                                     }
@@ -3648,8 +3665,8 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "ApAttack",
-                                                                                                      "damage": 75,
-                                                                                                      "attack_ratio": 106,
+                                                                                                      "damage": 54,
+                                                                                                      "attack_ratio": 68,
                                                                                                       "hp_ratio": 0,
                                                                                                       "can_crit": false
                                                                                                     },
@@ -3851,8 +3868,8 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "ApAttack",
-                                                                                                      "damage": 75,
-                                                                                                      "attack_ratio": 106,
+                                                                                                      "damage": 54,
+                                                                                                      "attack_ratio": 68,
                                                                                                       "hp_ratio": 0,
                                                                                                       "can_crit": false
                                                                                                     },
@@ -4344,8 +4361,8 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "ApAttack",
-                                                                                                      "damage": 75,
-                                                                                                      "attack_ratio": 106,
+                                                                                                      "damage": 54,
+                                                                                                      "attack_ratio": 68,
                                                                                                       "hp_ratio": 0,
                                                                                                       "can_crit": false
                                                                                                     },
@@ -4547,8 +4564,8 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "ApAttack",
-                                                                                                      "damage": 75,
-                                                                                                      "attack_ratio": 106,
+                                                                                                      "damage": 54,
+                                                                                                      "attack_ratio": 68,
                                                                                                       "hp_ratio": 0,
                                                                                                       "can_crit": false
                                                                                                     },
@@ -5040,8 +5057,8 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "ApAttack",
-                                                                                                      "damage": 75,
-                                                                                                      "attack_ratio": 106,
+                                                                                                      "damage": 54,
+                                                                                                      "attack_ratio": 68,
                                                                                                       "hp_ratio": 0,
                                                                                                       "can_crit": false
                                                                                                     },
@@ -5243,8 +5260,8 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "ApAttack",
-                                                                                                      "damage": 75,
-                                                                                                      "attack_ratio": 106,
+                                                                                                      "damage": 54,
+                                                                                                      "attack_ratio": 68,
                                                                                                       "hp_ratio": 0,
                                                                                                       "can_crit": false
                                                                                                     },
@@ -5340,31 +5357,48 @@
                                                             "name": "league_azir_q_land"
                                                           },
                                                           {
-                                                            "type": "Delayed",
-                                                            "tick": 2,
-                                                            "effects": [
-                                                              {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "RemoveCasterBuff",
-                                                                    "name": "league_azir_cmd"
-                                                                  },
-                                                                  {
-                                                                    "type": "AddCasterBuff",
-                                                                    "buff_state": {
-                                                                      "name": "league_azir_cmd",
-                                                                      "duration": {
-                                                                        "Time": {
-                                                                          "tick": 2
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_azir_qc",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_azir_qc"
+                                                                },
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 2,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_azir_cmd"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_azir_cmd",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
                                                                         }
-                                                                      }
-                                                                    },
-                                                                    "only_to_enemy": false
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
                                                           }
                                                         ]
                                                       }
@@ -6464,8 +6498,8 @@
                                                                                                           },
                                                                                                           {
                                                                                                             "type": "ApAttack",
-                                                                                                            "damage": 75,
-                                                                                                            "attack_ratio": 106,
+                                                                                                            "damage": 54,
+                                                                                                            "attack_ratio": 68,
                                                                                                             "hp_ratio": 0,
                                                                                                             "can_crit": false
                                                                                                           },
@@ -6683,8 +6717,8 @@
                                                                                                           },
                                                                                                           {
                                                                                                             "type": "ApAttack",
-                                                                                                            "damage": 75,
-                                                                                                            "attack_ratio": 106,
+                                                                                                            "damage": 54,
+                                                                                                            "attack_ratio": 68,
                                                                                                             "hp_ratio": 0,
                                                                                                             "can_crit": false
                                                                                                           },
@@ -7432,8 +7466,8 @@
                                                                                                           },
                                                                                                           {
                                                                                                             "type": "ApAttack",
-                                                                                                            "damage": 75,
-                                                                                                            "attack_ratio": 106,
+                                                                                                            "damage": 54,
+                                                                                                            "attack_ratio": 68,
                                                                                                             "hp_ratio": 0,
                                                                                                             "can_crit": false
                                                                                                           },
@@ -7651,8 +7685,8 @@
                                                                                                           },
                                                                                                           {
                                                                                                             "type": "ApAttack",
-                                                                                                            "damage": 75,
-                                                                                                            "attack_ratio": 106,
+                                                                                                            "damage": 54,
+                                                                                                            "attack_ratio": 68,
                                                                                                             "hp_ratio": 0,
                                                                                                             "can_crit": false
                                                                                                           },
@@ -8400,8 +8434,8 @@
                                                                                                           },
                                                                                                           {
                                                                                                             "type": "ApAttack",
-                                                                                                            "damage": 75,
-                                                                                                            "attack_ratio": 106,
+                                                                                                            "damage": 54,
+                                                                                                            "attack_ratio": 68,
                                                                                                             "hp_ratio": 0,
                                                                                                             "can_crit": false
                                                                                                           },
@@ -8619,8 +8653,8 @@
                                                                                                           },
                                                                                                           {
                                                                                                             "type": "ApAttack",
-                                                                                                            "damage": 75,
-                                                                                                            "attack_ratio": 106,
+                                                                                                            "damage": 54,
+                                                                                                            "attack_ratio": 68,
                                                                                                             "hp_ratio": 0,
                                                                                                             "can_crit": false
                                                                                                           },
@@ -8714,31 +8748,48 @@
                                                               "name": "league_azir_q_land"
                                                             },
                                                             {
-                                                              "type": "Delayed",
-                                                              "tick": 2,
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_azir_cmd"
-                                                                    },
-                                                                    {
-                                                                      "type": "AddCasterBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_azir_cmd",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 2
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_azir_qc",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_azir_qc"
+                                                                  },
+                                                                  {
+                                                                    "type": "Delayed",
+                                                                    "tick": 2,
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_azir_cmd"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_azir_cmd",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 2
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
                                                                           }
-                                                                        }
-                                                                      },
-                                                                      "only_to_enemy": false
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
                                                             }
                                                           ]
                                                         }
@@ -9585,8 +9636,8 @@
                                                                                                       },
                                                                                                       {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 75,
-                                                                                                        "attack_ratio": 106,
+                                                                                                        "damage": 54,
+                                                                                                        "attack_ratio": 68,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       },
@@ -9788,8 +9839,8 @@
                                                                                                       },
                                                                                                       {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 75,
-                                                                                                        "attack_ratio": 106,
+                                                                                                        "damage": 54,
+                                                                                                        "attack_ratio": 68,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       },
@@ -10281,8 +10332,8 @@
                                                                                                       },
                                                                                                       {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 75,
-                                                                                                        "attack_ratio": 106,
+                                                                                                        "damage": 54,
+                                                                                                        "attack_ratio": 68,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       },
@@ -10484,8 +10535,8 @@
                                                                                                       },
                                                                                                       {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 75,
-                                                                                                        "attack_ratio": 106,
+                                                                                                        "damage": 54,
+                                                                                                        "attack_ratio": 68,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       },
@@ -10977,8 +11028,8 @@
                                                                                                       },
                                                                                                       {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 75,
-                                                                                                        "attack_ratio": 106,
+                                                                                                        "damage": 54,
+                                                                                                        "attack_ratio": 68,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       },
@@ -11180,8 +11231,8 @@
                                                                                                       },
                                                                                                       {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 75,
-                                                                                                        "attack_ratio": 106,
+                                                                                                        "damage": 54,
+                                                                                                        "attack_ratio": 68,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       },
@@ -11277,31 +11328,48 @@
                                                               "name": "league_azir_q_land"
                                                             },
                                                             {
-                                                              "type": "Delayed",
-                                                              "tick": 2,
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_azir_cmd"
-                                                                    },
-                                                                    {
-                                                                      "type": "AddCasterBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_azir_cmd",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 2
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_azir_qc",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_azir_qc"
+                                                                  },
+                                                                  {
+                                                                    "type": "Delayed",
+                                                                    "tick": 2,
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_azir_cmd"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_azir_cmd",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 2
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
                                                                           }
-                                                                        }
-                                                                      },
-                                                                      "only_to_enemy": false
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
                                                             }
                                                           ]
                                                         }
@@ -11801,8 +11869,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 54,
+                                                                                          "attack_ratio": 68,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -12004,8 +12072,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 54,
+                                                                                          "attack_ratio": 68,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -12531,8 +12599,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 54,
+                                                                                        "attack_ratio": 68,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -12734,8 +12802,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 54,
+                                                                                        "attack_ratio": 68,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -13261,8 +13329,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 54,
+                                                                                      "attack_ratio": 68,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -13464,8 +13532,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 54,
+                                                                                      "attack_ratio": 68,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -14007,8 +14075,8 @@
                                                                                           },
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 75,
-                                                                                            "attack_ratio": 106,
+                                                                                            "damage": 54,
+                                                                                            "attack_ratio": 68,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false
                                                                                           },
@@ -14210,8 +14278,8 @@
                                                                                           },
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 75,
-                                                                                            "attack_ratio": 106,
+                                                                                            "damage": 54,
+                                                                                            "attack_ratio": 68,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false
                                                                                           },
@@ -14737,8 +14805,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 54,
+                                                                                          "attack_ratio": 68,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -14940,8 +15008,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 54,
+                                                                                          "attack_ratio": 68,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -15467,8 +15535,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 54,
+                                                                                        "attack_ratio": 68,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -15670,8 +15738,8 @@
                                                                                       },
                                                                                       {
                                                                                         "type": "ApAttack",
-                                                                                        "damage": 75,
-                                                                                        "attack_ratio": 106,
+                                                                                        "damage": 54,
+                                                                                        "attack_ratio": 68,
                                                                                         "hp_ratio": 0,
                                                                                         "can_crit": false
                                                                                       },
@@ -16213,8 +16281,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 54,
+                                                                                              "attack_ratio": 68,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -16416,8 +16484,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 54,
+                                                                                              "attack_ratio": 68,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -16943,8 +17011,8 @@
                                                                                           },
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 75,
-                                                                                            "attack_ratio": 106,
+                                                                                            "damage": 54,
+                                                                                            "attack_ratio": 68,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false
                                                                                           },
@@ -17146,8 +17214,8 @@
                                                                                           },
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 75,
-                                                                                            "attack_ratio": 106,
+                                                                                            "damage": 54,
+                                                                                            "attack_ratio": 68,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false
                                                                                           },
@@ -17673,8 +17741,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 54,
+                                                                                          "attack_ratio": 68,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -17876,8 +17944,8 @@
                                                                                         },
                                                                                         {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 75,
-                                                                                          "attack_ratio": 106,
+                                                                                          "damage": 54,
+                                                                                          "attack_ratio": 68,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         },
@@ -18674,8 +18742,8 @@
                                                                                                 },
                                                                                                 {
                                                                                                   "type": "ApAttack",
-                                                                                                  "damage": 75,
-                                                                                                  "attack_ratio": 106,
+                                                                                                  "damage": 54,
+                                                                                                  "attack_ratio": 68,
                                                                                                   "hp_ratio": 0,
                                                                                                   "can_crit": false
                                                                                                 },
@@ -18893,8 +18961,8 @@
                                                                                                 },
                                                                                                 {
                                                                                                   "type": "ApAttack",
-                                                                                                  "damage": 75,
-                                                                                                  "attack_ratio": 106,
+                                                                                                  "damage": 54,
+                                                                                                  "attack_ratio": 68,
                                                                                                   "hp_ratio": 0,
                                                                                                   "can_crit": false
                                                                                                 },
@@ -19676,8 +19744,8 @@
                                                                                               },
                                                                                               {
                                                                                                 "type": "ApAttack",
-                                                                                                "damage": 75,
-                                                                                                "attack_ratio": 106,
+                                                                                                "damage": 54,
+                                                                                                "attack_ratio": 68,
                                                                                                 "hp_ratio": 0,
                                                                                                 "can_crit": false
                                                                                               },
@@ -19895,8 +19963,8 @@
                                                                                               },
                                                                                               {
                                                                                                 "type": "ApAttack",
-                                                                                                "damage": 75,
-                                                                                                "attack_ratio": 106,
+                                                                                                "damage": 54,
+                                                                                                "attack_ratio": 68,
                                                                                                 "hp_ratio": 0,
                                                                                                 "can_crit": false
                                                                                               },
@@ -20678,8 +20746,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 54,
+                                                                                              "attack_ratio": 68,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -20897,8 +20965,8 @@
                                                                                             },
                                                                                             {
                                                                                               "type": "ApAttack",
-                                                                                              "damage": 75,
-                                                                                              "attack_ratio": 106,
+                                                                                              "damage": 54,
+                                                                                              "attack_ratio": 68,
                                                                                               "hp_ratio": 0,
                                                                                               "can_crit": false
                                                                                             },
@@ -21515,8 +21583,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 54,
+                                                                              "attack_ratio": 68,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -21718,8 +21786,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 54,
+                                                                              "attack_ratio": 68,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -22246,8 +22314,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 54,
+                                                                            "attack_ratio": 68,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -22449,8 +22517,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 54,
+                                                                            "attack_ratio": 68,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -22977,8 +23045,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 54,
+                                                                          "attack_ratio": 68,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -23180,8 +23248,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 75,
-                                                                          "attack_ratio": 106,
+                                                                          "damage": 54,
+                                                                          "attack_ratio": 68,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -23724,8 +23792,8 @@
                                                                               },
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 75,
-                                                                                "attack_ratio": 106,
+                                                                                "damage": 54,
+                                                                                "attack_ratio": 68,
                                                                                 "hp_ratio": 0,
                                                                                 "can_crit": false
                                                                               },
@@ -23927,8 +23995,8 @@
                                                                               },
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 75,
-                                                                                "attack_ratio": 106,
+                                                                                "damage": 54,
+                                                                                "attack_ratio": 68,
                                                                                 "hp_ratio": 0,
                                                                                 "can_crit": false
                                                                               },
@@ -24455,8 +24523,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 54,
+                                                                              "attack_ratio": 68,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -24658,8 +24726,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 54,
+                                                                              "attack_ratio": 68,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -25186,8 +25254,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 54,
+                                                                            "attack_ratio": 68,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -25389,8 +25457,8 @@
                                                                           },
                                                                           {
                                                                             "type": "ApAttack",
-                                                                            "damage": 75,
-                                                                            "attack_ratio": 106,
+                                                                            "damage": 54,
+                                                                            "attack_ratio": 68,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
                                                                           },
@@ -25933,8 +26001,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 54,
+                                                                                  "attack_ratio": 68,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -26136,8 +26204,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 54,
+                                                                                  "attack_ratio": 68,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -26664,8 +26732,8 @@
                                                                               },
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 75,
-                                                                                "attack_ratio": 106,
+                                                                                "damage": 54,
+                                                                                "attack_ratio": 68,
                                                                                 "hp_ratio": 0,
                                                                                 "can_crit": false
                                                                               },
@@ -26867,8 +26935,8 @@
                                                                               },
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 75,
-                                                                                "attack_ratio": 106,
+                                                                                "damage": 54,
+                                                                                "attack_ratio": 68,
                                                                                 "hp_ratio": 0,
                                                                                 "can_crit": false
                                                                               },
@@ -27395,8 +27463,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 54,
+                                                                              "attack_ratio": 68,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -27598,8 +27666,8 @@
                                                                             },
                                                                             {
                                                                               "type": "ApAttack",
-                                                                              "damage": 75,
-                                                                              "attack_ratio": 106,
+                                                                              "damage": 54,
+                                                                              "attack_ratio": 68,
                                                                               "hp_ratio": 0,
                                                                               "can_crit": false
                                                                             },
@@ -28397,8 +28465,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 54,
+                                                                                      "attack_ratio": 68,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -28616,8 +28684,8 @@
                                                                                     },
                                                                                     {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 75,
-                                                                                      "attack_ratio": 106,
+                                                                                      "damage": 54,
+                                                                                      "attack_ratio": 68,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
                                                                                     },
@@ -29400,8 +29468,8 @@
                                                                                   },
                                                                                   {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 75,
-                                                                                    "attack_ratio": 106,
+                                                                                    "damage": 54,
+                                                                                    "attack_ratio": 68,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
                                                                                   },
@@ -29619,8 +29687,8 @@
                                                                                   },
                                                                                   {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 75,
-                                                                                    "attack_ratio": 106,
+                                                                                    "damage": 54,
+                                                                                    "attack_ratio": 68,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
                                                                                   },
@@ -30403,8 +30471,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 54,
+                                                                                  "attack_ratio": 68,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -30622,8 +30690,8 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "ApAttack",
-                                                                                  "damage": 75,
-                                                                                  "attack_ratio": 106,
+                                                                                  "damage": 54,
+                                                                                  "attack_ratio": 68,
                                                                                   "hp_ratio": 0,
                                                                                   "can_crit": false
                                                                                 },
@@ -30942,8 +31010,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 110,
-                "attack_ratio": 65,
+                "damage": 80,
+                "attack_ratio": 44,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -31198,8 +31266,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 110,
-                                    "attack_ratio": 65,
+                                    "damage": 80,
+                                    "attack_ratio": 44,
                                     "hp_ratio": 0,
                                     "can_crit": false
                                   }
