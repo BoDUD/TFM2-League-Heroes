@@ -193,6 +193,10 @@ pub fn open_ground(centre: Pt, to: Pt, solid: impl Fn(Pt) -> bool) -> Option<Pt>
 /// k of the main pack's `r_zone` loop (tools/fix/camille_r_zone_frames.py; test `the_floor_pieces_are_r_zones_frames`).
 pub const FLOOR_VIEW: &str = "league_camille_r_floor_";
 pub const FLOOR_FRAMES: usize = 6;
+/// The data's 240-tick floor zone in the copy (0.4.15, make_override.py FLOOR_ZONE): renamed from the main pack's
+/// `league_camille_r_floor`, which the main pack's Camille and league_sylas's copy bind to r_zone - the game finds a
+/// projectile's picture by its name across the champion files, so the old name kept drawing the 240-tick floor.
+pub const FLOOR_ZONE: &str = "league_camille_wall_r_vis";
 /// Each piece stands this many ticks: one frame of the loop (83 ms; the loop is 500 ms, 30 ticks).
 pub const FLOOR_STEP: usize = 5;
 
@@ -845,8 +849,14 @@ mod tests {
         }
         let views = &copy[copy.find("\"view_projectiles\"").unwrap()..copy.find("\"view_effects\"").unwrap()];
         assert!(!views.contains("\"name\": \"league_camille_r_floor\","), "the data's floor still has a picture");
-        // its zone is still there: it gives her r_vis, the gate of the main pack's hold
-        assert!(copy.contains("\"name\": \"league_camille_r_floor\","));
+        // its zone is still there, renamed (0.4.15: the old name is bound to r_zone in other champion files): it gives her
+        // r_vis, the gate of the main pack's hold
+        assert!(!copy.contains("\"name\": \"league_camille_r_floor\","), "the zone kept the name other files draw");
+        let at = copy.find(&format!("\"name\": \"{FLOOR_ZONE}\",")).expect("no renamed floor zone");
+        let zone = &copy[at..];
+        let zone = &zone[..zone.find("\"end_effects\"").expect("the zone's end")];
+        assert!(zone.contains("\"tick\": 240") && zone.contains("\"name\": \"league_camille_r_vis\""), "{zone}");
+        assert!(!views.contains(&format!("\"name\": \"{FLOOR_ZONE}\"")), "the renamed zone has a picture");
     }
 
     #[test]

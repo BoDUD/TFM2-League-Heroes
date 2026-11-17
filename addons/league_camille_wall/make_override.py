@@ -34,6 +34,8 @@ ENGAGE_R = 85000
 FLOOR = "league_camille_r_floor"
 FLOOR_FRAMES = 6
 FLOOR_SHEET = "asset/league/effects/league_camille_big"
+# 0.4.15: the copy's floor zone is renamed to this, a name no champion file binds a picture to (src/arena.rs FLOOR_ZONE)
+FLOOR_ZONE = "league_camille_wall_r_vis"
 AD = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 AS = "<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0>"
 TEXT = {
@@ -92,6 +94,32 @@ def count(node):
     return 0
 
 
+def rename_projectile(node, old, new):
+    """Rename every projectile (a \"...Projectile\" type) called `old` in the effect tree `node`; how many were renamed."""
+    n = 0
+    if isinstance(node, dict):
+        if str(node.get("type", "")).endswith("Projectile") and node.get("name") == old:
+            node["name"] = new
+            n += 1
+        for v in node.values():
+            n += rename_projectile(v, old, new)
+    elif isinstance(node, list):
+        for v in node:
+            n += rename_projectile(v, old, new)
+    return n
+
+
+def picture_files():
+    """Every champion file the game loads from this repo: the main pack's and the add-ons' copies (this one excepted)."""
+    files = [os.path.join(ROOT, "league", "champion", f) for f in os.listdir(lp(os.path.join(ROOT, "league", "champion")))]
+    adds = os.path.join(ROOT, "addons")
+    for a in os.listdir(lp(adds)):
+        d = os.path.join(adds, a, "override")
+        if a != MOD_ID and os.path.isdir(lp(d)):
+            files += [os.path.join(d, f) for f in os.listdir(lp(d))]
+    return [f for f in files if f.endswith(".data_champion")]
+
+
 def main():
     src = os.path.join(ROOT, "league", "champion", "league_camille.data_champion")
     with open(lp(src), encoding="utf-8") as f:
@@ -135,6 +163,16 @@ def main():
     at = views.index(floor[0])
     pieces = [dict(floor[0], name="%s_%d" % (FLOOR, k), tag="r_zone_%d" % k) for k in range(FLOOR_FRAMES)]
     champion["view_projectiles"] = views[:at] + pieces + views[at + 1:]
+    # 0.4.15 (the user 2026-11-18: 「不行离开磁场后还会在」, 「多留几秒后消失」): the zone, though it lost its own view, kept
+    # drawing the old 240-tick floor past arenas that ended early - the game finds a projectile's picture by its name
+    # across the champion files, and the main pack's Camille and league_sylas's copy (the stolen ult) both bind
+    # league_camille_r_floor to r_zone. Renamed, nothing draws it; it still gives her r_vis.
+    renamed = rename_projectile(champion["ult"], FLOOR, FLOOR_ZONE)
+    if renamed != 1:
+        sys.exit("expected one %s zone in R, renamed %d: update this script" % (FLOOR, renamed))
+    bound = [p for p in picture_files() if ('"name": "%s"' % FLOOR_ZONE) in open(lp(p), encoding="utf-8-sig").read()]
+    if bound:
+        sys.exit("%s is a name already in use: %s" % (FLOOR_ZONE, bound))
 
     out = os.path.join(ADDON, "override", "league_camille.data_champion")
     os.makedirs(lp(os.path.dirname(out)), exist_ok=True)
