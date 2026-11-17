@@ -631,16 +631,20 @@ class Rig:
         """Design square -> canvas square (standing)."""
         return self.ox + x, self.oy + y
 
-    def export(self, frames, review_dir=None, hero=None):
+    def export(self, frames, review_dir=None, hero=None, keep=None):
         """frames: {tag: [(canvas or {"body", "over", "under"}, ms)]} in the sheet's tag order -> orig strips + json
         (+ .over / .under strips for the effects a bake laid on: ppu_restyle RESTYLE fx puts them on after the
-        outline), the 1x sheet (body and effects together)."""
+        outline), the 1x sheet (body and effects together). keep: {tag: [(1x frame, ms)]} for the tags frames holds
+        None for - those go into the sheet as they are and their strips stay as they are."""
         D = self.D
         hero = hero or D.hero
         ppu = D.ppu
         os.makedirs(lp(ORIG), exist_ok=True)
         sheet = {}
         for tag, fr in frames.items():
+            if fr is None:
+                sheet[tag] = keep[tag]
+                continue
             ones, hds, overs, unders = [], [], [], []
             for can, ms in fr:
                 lay = can if isinstance(can, dict) else {"body": can}
