@@ -2,7 +2,7 @@
 tools/art/pack_riven_actions.py): hd/actions/<tag>_<n>.png (n: League's frame, 1-based) + hd/actions/actions.json.
 
     python tools/art/actions_riven_hd.py [--review DIR]
-    python tools/art/actions_riven_hd.py --run [--review DIR]      # the run's frames: hd/run_raw/ -> hd/run/
+    python tools/art/actions_riven_hd.py --run [--hand KEY] [--review DIR]   # the run: hd/run_raw/ -> hd/run/
 
 Codex's exported sheets were resampled onto the template grid with stray light squares on the rims, so the raw
 sheets are read instead (as tools/art/swords_riven_hd.py did): white ground flooded from the edges (her cream hair is
@@ -156,10 +156,10 @@ def find_fist(d, want):
 # - her sword fist: the far fist tucked under her chin at the collarbone, where League grips the sword in its run (the
 #   user on the first version, the sword in her near fist held straight out: 「锐雯拿剑的姿势有点怪 联盟里不是这样拿的吧」;
 #   Codex redrew the two arms only, assets/source/riven/RUN_ARMS_FIX_PROMPT_PPU.md): the skin piece of a hand's size
-#   nearest FIST_NEAR from the design head's chin. It is one drawing in every frame, RUN_FIST_FROM's, laid where that
-#   frame has it from the chin (Codex drew it within half a square of the same place from the chin in every frame,
-#   but 2 x 3 squares in frames 1-3 and 3 x 3 in 4-8), each frame's own cleared first; RUN_FIST by hand where the
-#   rule picks badly;
+#   nearest FIST_NEAR from the design head's chin (Codex drew it within half a square of the same place from the chin
+#   in every frame, but 2 x 3 squares in frames 1-3 and 3 x 3 in 4-8), cleared, and one hand drawing laid in every frame
+#   at the same place from the chin, her chin over its top: FAR_HANDS[RUN_HAND] (--hand another for a look). Codex's
+#   3 x 3 fist of frame 5 the user found too small: 「感觉右手和没了一样」; RUN_FIST by hand where the rule picks badly;
 # - clean: her palette, the outline closed, loose specks and pinholes gone (ppu_rig.tidy), no outline square more than a
 #   square from a colour nor a piece of outline alone (tools/art/black_strays.py's rule), RUN_FIX squares by hand.
 RUN_RAW = os.path.join(HD, "run_raw")
@@ -169,7 +169,24 @@ RUN_CHIN = 18                          # Codex's head: rows from its hair's top 
 DESIGN_CHIN = 20                       # the design's head (PA.no_sword_canvas): its chin's last skin row
 HEAD_AT = (-1, -2)                     # the design's hair box from Codex's: eye on eye, chin on chin
 FIST_NEAR = (-2.7, 3.3)                # her far fist's middle from the design head's chin, about (squares)
-RUN_FIST_FROM = 5                      # the frame whose far fist every frame shows
+# her far (sword) hand under the chin, one drawing in every frame - her own drawings only:
+# - run: Codex's fist of that run frame (3 x 3 squares), where that frame has it from the chin;
+# - png / fist / arm / mirror: squares (x0, y0, x1, y1, inclusive) of another drawing of hers - the hand (its middle
+#   at HAND_AT from the chin) and a piece of its own forearm - mirrored left-right or not, their outline with them
+FAR_HANDS = {
+    # Codex's own: 2 game pixels across under the chin, the sword seemed to float there (the user on it: 「感觉右手和没了
+    # 一样」)
+    "v2": dict(run=5),
+    # the fist her sword is gripped in when the E dashes (Codex's redraw, hd/actions/skill2_2.png), mirrored to face
+    # forward: 5 x 4 squares in the far hand's browns, as big as her near fist, its knuckles over the hilt
+    "A": dict(png="actions/skill2_2.png", fist=(1, 8, 9, 14), mirror=True),
+    # A with the short bandaged forearm of the same drawing, from the wrist down to her chest: the arm's line, but it
+    # runs into her near arm (swung back, frames 4-8) and lies over her near forearm (swung forward, 1-3). (The
+    # design's own forearm is level: between her shoulder plate and the fist it would cover the plate.)
+    "B": dict(png="actions/skill2_2.png", fist=(1, 8, 9, 14), arm=(8, 14, 14, 17), mirror=True),
+}
+HAND_AT = (-3.0, 4.0)                  # a drawn hand's middle from the design head's chin (squares)
+RUN_HAND = "A"
 RUN_SKIN = SKIN + [(195, 117, 61), (182, 106, 56)]
 INK = (14, 3, 12)                      # the design's outline
 # her palette's dark slate (one square of the design's far bracer): in the run it is only Codex's soft edge between a
@@ -321,7 +338,40 @@ def far_fist(d, chin, keep_out, n):
     return best[1]
 
 
-def read_run(review=None):
+def hand_piece(spec, laid):
+    """FAR_HANDS spec -> (pixels (h, w, 4), its middle (x, y) in them, where that middle goes from the chin)."""
+    if "run" in spec:
+        src = laid[spec["run"]]
+        fm = src["fist"]
+        ring = nd.binary_dilation(fm, structure=np.ones((3, 3))) & ~fm & (src["f"][..., :3] == INK).all(-1) & \
+            (src["f"][..., 3] > 0)
+        keep = fm | ring
+        ys, xs = np.nonzero(keep)
+        y0, x0 = ys.min(), xs.min()
+        p = np.zeros((ys.max() + 1 - y0, xs.max() + 1 - x0, 4), np.uint8)
+        p[ys - y0, xs - x0] = src["f"][ys, xs]
+        fy, fx = np.nonzero(fm)
+        mid = (float(fx.mean() + 0.5 - x0), float(fy.mean() + 0.5 - y0))
+        return p, mid, (mid[0] + x0 - src["chin"][0], mid[1] + y0 - src["chin"][1])
+    a = np.asarray(Image.open(lp(os.path.join(HD, spec["png"]))).convert("RGBA"))
+    boxes = [spec["fist"]] + ([spec["arm"]] if "arm" in spec else [])
+    X0, Y0 = min(b[0] for b in boxes), min(b[1] for b in boxes)
+    X1, Y1 = max(b[2] for b in boxes), max(b[3] for b in boxes)
+    take = np.zeros(a.shape[:2], bool)
+    for x0, y0, x1, y1 in boxes:
+        take[y0:y1 + 1, x0:x1 + 1] = True
+    p = np.where(take[..., None], a, 0)[Y0:Y1 + 1, X0:X1 + 1].copy()
+    x0, y0, x1, y1 = spec["fist"]
+    hand = np.zeros(p.shape[:2], bool)
+    hand[y0 - Y0:y1 + 1 - Y0, x0 - X0:x1 + 1 - X0] = True
+    hand &= (p[..., 3] > 0) & ~(p[..., :3] == INK).all(-1)
+    if spec.get("mirror"):
+        p, hand = p[:, ::-1].copy(), hand[:, ::-1]
+    fy, fx = np.nonzero(hand)
+    return p, (float(fx.mean() + 0.5), float(fy.mean() + 0.5)), HAND_AT
+
+
+def read_run(review=None, hand=None):
     import black_strays as BS
     import ppu_rig as R
     design = PA.no_sword_canvas()
@@ -345,35 +395,31 @@ def read_run(review=None):
         chin = (cl + HEAD_AT[0] - hl + dchin[0], ct + HEAD_AT[1] - ht + dchin[1])
         laid[n] = dict(f=f, at=at, head=head, chin=chin, stand=stand, cl=cl, ct=ct, cleared=int(cleared.sum()),
                        filled=int(filled.sum()), fist=far_fist(f, chin, at, n))
-    # the far fist: RUN_FIST_FROM's (its skin and the outline round it), where that frame has it from the chin
-    src = laid[RUN_FIST_FROM]
-    fm = src["fist"]
-    ring = nd.binary_dilation(fm, structure=np.ones((3, 3))) & ~fm & (src["f"][..., :3] == INK).all(-1) & \
-        (src["f"][..., 3] > 0)
-    fy, fx = np.nonzero(fm | ring)
-    fpx = src["f"][fy, fx]
-    sx0, sy0 = int(np.floor(src["chin"][0])), int(np.floor(src["chin"][1]))
-    fist_mid = (float(np.nonzero(fm)[1].mean() + 0.5) - sx0, float(np.nonzero(fm)[0].mean() + 0.5) - sy0)
+    # the far hand: one drawing (FAR_HANDS), at the same place from the chin in every frame, each frame's own fist off
+    hp, hmid, hat = hand_piece(FAR_HANDS[hand or RUN_HAND], laid)
+    py, px = np.nonzero(hp[..., 3] > 0)
     os.makedirs(lp(RUN_DIR), exist_ok=True)
     frames_ = {}
     for n, v in laid.items():
         f = v["f"].copy()
-        cx0, cy0 = int(np.floor(v["chin"][0])), int(np.floor(v["chin"][1]))
+        hx0 = int(round(v["chin"][0] + hat[0] - hmid[0]))       # (the piece's (0, 0) in the frame)
+        hy0 = int(round(v["chin"][1] + hat[1] - hmid[1]))
         f[v["fist"]] = 0                                         # (its own far fist off)
         at_f = np.zeros(f.shape[:2], bool)
-        at_f[fy - sy0 + cy0, fx - sx0 + cx0] = True
-        f[at_f] = fpx
+        at_f[py + hy0, px + hx0] = True
+        f[at_f] = hp[py, px]
+        f[v["at"]] = v["head"][v["at"]]                          # (her chin over the hand's top)
         f = R.tidy(f, INK)
         keep = v["at"] | at_f
         f, cleared, filled = BS.clean(f, _Ink(), "one", ctx=keep)
+        f[at_f] = hp[py, px]
         f[v["at"]] = v["head"][v["at"]]
-        f[at_f] = fpx
         ys, xs = np.nonzero(f[..., 3] > 0)
         x0, y0 = int(xs.min()), int(ys.min())
         f = f[y0:ys.max() + 1, x0:xs.max() + 1].copy()
         for (x, y), c in RUN_FIX.get(n, {}).items():           # (the saved frame's squares)
             f[y, x] = (0, 0, 0, 0) if c is None else (*c, 255)
-        frames_[n] = (f, v["stand"] - x0, v["cl"] - x0, v["ct"] - y0, (cx0 - x0 + fist_mid[0], cy0 - y0 + fist_mid[1]),
+        frames_[n] = (f, v["stand"] - x0, v["cl"] - x0, v["ct"] - y0, (hx0 - x0 + hmid[0], hy0 - y0 + hmid[1]),
                       v["cleared"] + int(cleared.sum()), v["filled"] + int(filled.sum()))
     # the standing point from the head: the cell's middle where Codex put it on average from its hair box
     off = float(np.median([stand - cl for _, stand, cl, _, _, _, _ in frames_.values()]))
@@ -408,9 +454,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
     ap.add_argument("--run", action="store_true", help="the run's frames instead (hd/run_raw -> hd/run)")
+    ap.add_argument("--hand", choices=sorted(FAR_HANDS), help="with --run: this far hand instead of RUN_HAND")
     a = ap.parse_args()
     if a.run:
-        read_run(a.review)
+        read_run(a.review, a.hand)
         return
     with open(lp(os.path.join(HD, "actions_raw", "sheets.json")), encoding="utf-8") as f:
         sheets = json.load(f)["sheets"]
