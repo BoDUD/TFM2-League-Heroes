@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_azir": {
-        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在身前召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），他附近的士兵代他刺击，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>魔法伤害；够不着时他自己射出沙光。【附加包】<#ff9028ff>太阳圆盘<>：倒下的塔旁每<#ffb900ff>90秒<>可立一次，<#ffb900ff>45秒<>内每<#ffb900ff>1秒<>打最近敌人<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。"
+        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在目标附近召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>10秒<>），他附近的士兵代他刺穿一线，造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>68%<>魔法伤害；够不着时他自己射出沙光。【附加包】<#ff9028ff>太阳圆盘<>：倒塔旁每<#ffb900ff>90秒<>可立，<#ffb900ff>45秒<>内每<#ffb900ff>1秒<>打最近敌人<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
+        "skill": "所有黄沙士兵冲向目标，沿途造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>44%<>魔法伤害并<#ef5350ff>减速<>25%，落到英雄身上马上刺击；没有士兵时在目标处召出一个。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_azir": {
-        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在身前召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），他附近的砂兵代他刺擊，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>魔法傷害；搆不著時他自己射出砂光。【附加包】<#ff9028ff>太陽圓盤<>：倒下的塔旁每<#ffb900ff>90秒<>可立一次，<#ffb900ff>45秒<>內每<#ffb900ff>1秒<>打最近的敵人<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。"
+        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在目標附近召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>10秒<>），他附近的砂兵代他刺穿一線，造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>68%<>魔法傷害；搆不著時他自己射出砂光。【附加包】<#ff9028ff>太陽圓盤<>：倒塔旁每<#ffb900ff>90秒<>可立，<#ffb900ff>45秒<>內每<#ffb900ff>1秒<>打最近的敵人<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
+        "skill": "所有砂兵衝向目標，沿途造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>44%<>魔法傷害並<#ef5350ff>緩速<>25%，落到英雄身上立刻刺擊；沒有砂兵時在目標處召出一名。"
       }
     }
   },
   "en": {
     "description": {
       "league_azir": {
-        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier before him (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); the soldiers near him stab for him, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<> magic damage. With none in reach he shoots a sand bolt himself.[Add-on] <#ff9028ff>Sun Disc<>: every <#ffb900ff>90s<> one can rise by a fallen tower, for <#ffb900ff>45s<> striking the nearest enemy every <#ffb900ff>1s<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>."
+        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier by its target (<#ffb900ff>3<> at most, <#ffb900ff>10s<>); the soldiers near him stab through a line for him, <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>68%<> magic damage. With none in reach he shoots a sand bolt himself.[Add-on] <#ff9028ff>Sun Disc<>: every <#ffb900ff>90s<> one can rise by a fallen tower, for <#ffb900ff>45s<> striking the nearest enemy every <#ffb900ff>1s<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>.",
+        "skill": "Every soldier charges at the target, <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>44%<> magic damage on the way and a 25% <#ef5350ff>slow<>; on a champion they stab at once. With none standing, one rises there."
       }
     }
   },
   "ko": {
     "description": {
       "league_azir": {
-        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 앞쪽에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 가까운 병사가 대신 찔러 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.[확장] <#ff9028ff>태양 원반<>: <#ffb900ff>90초<>마다 무너진 포탑 옆에 솟아 <#ffb900ff>45초<>간 <#ffb900ff>1초<>마다 가장 가까운 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>."
+        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 대상 근처에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>10초<>). 가까운 병사가 대신 일직선으로 꿰뚫어 <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>68%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.[확장] <#ff9028ff>태양 원반<>: <#ffb900ff>90초<>마다 무너진 포탑 옆에 솟아 <#ffb900ff>45초<>간 <#ffb900ff>1초<>마다 가장 가까운 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>.",
+        "skill": "모든 병사가 대상에게 돌진해 지나는 길에 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>44%<> 마법 피해와 25% <#ef5350ff>둔화<>, 챔피언에게 도착하면 바로 찌른다. 병사가 없으면 그곳에 하나를 세운다."
       }
     }
   },
   "ja": {
     "description": {
       "league_azir": {
-        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに前方に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。近くの砂兵が代わりに突き<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。【拡張】<#ff9028ff>太陽の円盤<>：<#ffb900ff>90秒<>毎に倒れたタワー跡に立ち<#ffb900ff>45秒<>間<#ffb900ff>1秒<>毎に最寄りの敵へ<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。"
+        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに対象の近くに砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>10秒<>）。近くの砂兵が代わりに一直線に突き<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>68%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。【拡張】<#ff9028ff>太陽の円盤<>：<#ffb900ff>90秒<>毎にタワー跡に立ち<#ffb900ff>45秒<>間<#ffb900ff>1秒<>毎に最寄りの敵へ<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
+        "skill": "全砂兵が対象へ突撃し、道中<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>44%<>の魔法ダメージと25%<#ef5350ff>スロウ<>、英雄に着くとすぐ突く。砂兵がいなければそこに1体呼ぶ。"
       }
     }
   }

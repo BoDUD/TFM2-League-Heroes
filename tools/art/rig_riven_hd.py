@@ -648,7 +648,53 @@ def redrawn_frame(rig, drv, base, n, j, kind):
     return out
 
 
-def frames(rig, joints):
+# ------------------------------------------------------------------------------------------------- the run, redrawn
+# The user, 2026-11-17: 「锐雯这个跑步姿势不太对吧 不然让codex补一补动作？」→「只做跑步」. The run (and the R form's
+# rf_run) is Codex's eight whole-frame redraws (tools/art/actions_riven_hd.py --run: hd/run/, her head and her far fist
+# one drawing each), each stood on its pivot, the sword gripped in her far fist tucked under her chin, level, pointing
+# forward, as League's riven_run holds it all the way (the run posed above swung it from low in front to over her
+# shoulder; the first redraw held it in her near fist, the arm straight out: 「锐雯拿剑的姿势有点怪 联盟里不是这样拿的吧」).
+# One drawing in every frame, the one nearest RUN_HEADING: League's blade turns -10 to +7 degrees through the cycle and
+# the drawings come at +-7 and +-18 degrees from level, so following it would swap the blade between two drawings.
+# Behind her, as League's render shows it: the blade comes out from under her chin, her fist over the grip, the near
+# arm swung forward in front of it (none of the sword behind the grip's middle).
+RUN_HEADING = -2.0                     # degrees: League's riven_run weapon over its eight frames, on average
+_RUN = {}
+
+
+def run_drawn():
+    """{n: (frame, info)} of hd/run/ (run.json), or {} where there is none."""
+    if not _RUN:
+        rd = os.path.join(R.ROOT, "assets", "source", HERO, "hd", "run")
+        if not os.path.isfile(lp(os.path.join(rd, "run.json"))):
+            return {}
+        with open(lp(os.path.join(rd, "run.json")), encoding="utf-8") as f:
+            info = json.load(f)
+        for k, v in info.items():
+            _RUN[int(k)] = (np.asarray(Image.open(lp(os.path.join(rd, f"run_{k}.png"))).convert("RGBA")), v)
+    return _RUN
+
+
+def run_frame(rig, n, kind):
+    """Frame n of the redrawn run with the `kind` sword: in her far fist, behind her, nothing of it behind the grip's
+    middle (the pommel and the hilt's end would show in the gaps round her fist as stray squares)."""
+    img, info = run_drawn()[n]
+    x0 = int(round(rig.CX - info["pivot"][0]))
+    y0 = int(round(rig.GY - info["pivot"][1]))
+    body = rig.canvas()
+    h, w = img.shape[:2]
+    body[y0:y0 + h, x0:x0 + w] = img
+    fist = np.array((x0 + info["fist"][0], y0 + info["fist"][1]))
+    out = stamp(rig, rig.D.swords, kind, RUN_HEADING, fist)
+    s = min(rig.D.swords[kind], key=lambda s_: (abs(R.wrap(s_["angle"] - RUN_HEADING)), s_["flip"]))   # (stamp's)
+    u = np.subtract(s["tip"], s["pommel"]) / np.hypot(*np.subtract(s["tip"], s["pommel"]))
+    yy, xx = np.mgrid[0:out.shape[0], 0:out.shape[1]]
+    out[((xx + 0.5 - fist[0]) * u[0] + (yy + 0.5 - fist[1]) * u[1]) < 0] = 0
+    out[rig.GY:] = 0
+    return over(out, body)
+
+
+def frames(rig, joints, only=None):
     drvs = {False: driver(rig, joints), True: driver(rig, joints, "reforged")}
     swings = {False: driver(rig, joints, front=True), True: driver(rig, joints, "reforged", front=True)}
     D = rig.D
@@ -657,8 +703,10 @@ def frames(rig, joints):
     sheet = R.sheet_of(HERO)
     # the sheet as tools/art/hero_reels.py leaves it: the idle as drawn is `idle_base`, `idle` and `bp` are reels cut
     # from the actions (rebuilt by hero_reels after this) - read the drawn idle's timing, skip the reels
+    # (the R form's stand too: hero_reels writes `rf_idle_base` beside the `rf_idle` reel)
     if "idle_base" in sheet:
-        sheet = {t: (sheet["idle_base"] if t == "idle" else v) for t, v in sheet.items() if t not in ("idle_base", "bp")}
+        drawn = {t for t in sheet if t.endswith("idle_base")}
+        sheet = {t: sheet.get(t + "_base", v) for t, v in sheet.items() if t not in drawn and t != "bp"}
     bake = json.load(open(lp(os.path.join(R.ROOT, "assets", "source", "native", f"{HERO}_bake.json")), encoding="utf-8"))
     baked = {e["into"] for e in bake["items"] if "from" in e}
     out = {}
@@ -675,7 +723,7 @@ def frames(rig, joints):
         if more not in order:
             order.append(more)
     for tag in order:
-        if tag in baked:
+        if tag in baked or (only and tag not in only):
             continue
         base = R_TAGS.get(tag, R_STAND.get(tag, tag))
         reforged = tag in R_TAGS or tag in R_FORM or tag in R_STAND
@@ -685,7 +733,11 @@ def frames(rig, joints):
         rows = R.fit_rows(joints["tags"][clip], len(timing[tag]))
         ms = [m for _, m in timing[tag]]
         drv = (drvs if base in ("run", "hit", "dead") else swings)[reforged]
-        if base in REDRAWN:
+        if base == "run" and run_drawn():
+            if len(ms) != len(run_drawn()):
+                sys.exit(f"{tag}: {len(ms)} frames in the sheet, {len(run_drawn())} drawn in hd/run")
+            fr = [run_frame(rig, k + 1, "reforged" if reforged else "normal") for k in range(len(ms))]
+        elif base in REDRAWN:
             # Codex's frames, League's frame of the base tag each (the R forms take the same drawings)
             lg = joints["tags"][base]
             idx = [min(len(lg) - 1, int(i * len(lg) / len(ms))) for i in range(len(ms))] if len(lg) != len(ms) \
@@ -713,12 +765,17 @@ def frames(rig, joints):
             lie = R.lie(rig, with_sword(rig, D.swords, lay, "normal"), k=1, dx=-2)
             fr = fr[:4] + [lie.copy() for _ in fr[4:]]
         out[tag] = list(zip(fr, ms))
-    acts = rig.bake(out)
+    if only:
+        # (only these tags: the bake's effects only where it lays them on them)
+        bake = dict(bake, items=[e for e in bake["items"] if e["into"] in only and e.get("from", e["into"]) in only])
+    acts = rig.bake(out, cfg=bake)
     for t in order:
+        if only and t not in only:
+            continue
         if t not in acts or len(acts[t]) != len(timing[t]) or \
                 [round(m) for _, m in acts[t]] != [round(m) for _, m in timing[t]]:
             sys.exit(f"{t}: frames or timing differ from the sheet")
-    return {t: acts[t] for t in order}
+    return {t: acts.get(t) for t in order}, sheet
 
 
 def main():
@@ -726,6 +783,8 @@ def main():
     ap.add_argument("--joints", help="tools/lol/league_joints.py's riven_joints.json")
     ap.add_argument("--parts")
     ap.add_argument("--review")
+    ap.add_argument("--only", help="comma-separated tags: only these are posed and their strips written; every other "
+                    "tag goes into the 1x sheet as the sheet has it (its strips stay as they are)")
     a = ap.parse_args()
     D = design()
     if a.parts:
@@ -756,11 +815,16 @@ def main():
     with open(a.joints, encoding="utf-8") as f:
         joints = json.load(f)
     rig = make_rig(D)
-    acts = frames(rig, joints)
+    only = set(a.only.split(",")) if a.only else None
+    acts, sheet = frames(rig, joints, only)
     if a.review:
-        rig.review(acts, a.review)
+        rig.review({t: v for t, v in acts.items() if v is not None}, a.review)
         return
-    rig.export(acts)
+    keep = None
+    if only:
+        # (the 1x frames the sheet holds for every other tag - `idle` the drawn idle, as frames() read its timing)
+        keep = {t: sheet[t] for t, v in acts.items() if v is None}
+    rig.export(acts, keep=keep)
 
 
 if __name__ == "__main__":

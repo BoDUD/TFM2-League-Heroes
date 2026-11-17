@@ -138,7 +138,8 @@ def template(path, frames, k0):
     can.save(path)
 
 
-def no_sword_design(out):
+def no_sword_canvas():
+    """The design standing without its sword (the rig's rest pose), cropped to her squares."""
     import rig_riven_hd as RV
     import ppu_rig as R
     D = RV.design()
@@ -148,7 +149,12 @@ def no_sword_design(out):
     lay += [("upper", dict()), ("forearm", dict(angle=0, about=RV.ELBOW))]
     can = rig.finish(R.compose(rig, lay))
     ys, xs = np.nonzero(can[..., 3] > 0)
-    im = Image.fromarray(can[ys.min():ys.max() + 1, xs.min():xs.max() + 1])
+    return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def no_sword_design(out):
+    can = no_sword_canvas()
+    im = Image.fromarray(can)
     bg = Image.new("RGBA", (im.width + 4, im.height + 4), GREY + (255,))
     bg.alpha_composite(im, (2, 2))
     bg.convert("RGB").resize((bg.width * 8, bg.height * 8), Image.NEAREST).save(out)
