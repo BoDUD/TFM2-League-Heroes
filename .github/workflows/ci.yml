@@ -121,6 +121,8 @@ jobs:
         run: python -I tools/art/ksante_eyes.py --check
       - name: league_ksante's black strays (the gaps between his body, arms, legs and Ntofos drawn black, spikes off his outline) stay out of every frame, his hair kept, as tools/art/ksante_strays.py leaves them
         run: python -I tools/art/ksante_strays.py --check
+      - name: tft_brock's fists off the ground - both fists 4 rows up his arms on every frame that stands in his design (idle_base, hit, the run's sources; hd_, 1x, lo_ and his strips), as tools/art/brock_fists.py lays them (a pipeline run that put them back on the ground fails here)
+        run: python -I tools/art/brock_fists.py --check
       - name: Added design parts in every animation - every hero's part_sprites data laid on its tags as that tool makes them (league_aurelionsol's stars; a pipeline run that wrote those tags again fails here)
         run: python -I tools/art/part_sprites.py --check
       - name: Parts added to a hero's design for its run (league_jax's topknot and cloak strips) are in every other animation too, as tools/art/add_design_parts.py lays them

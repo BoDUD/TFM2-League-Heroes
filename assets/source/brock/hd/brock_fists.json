@@ -1,0 +1,17 @@
+{
+  "hero": "brock",
+  "outline": [18, 3, 19],
+  "rows": 4,
+  "one_rows": 3,
+  "fists": {"near": [48, 68, 36, 44], "far": [0, 18, 36, 44]},
+  "tags": ["idle_base", "hit"],
+  "flash": {"hit": [0]},
+  "run": {"swing": {"near": [1, 2, 1, 0, 0, 0, 0, 0], "far": [0, 0, 0, 0, 1, 2, 1, 0]}},
+  "base": "assets/source/brock/hd/brock_fists_base",
+  "notes": {
+    "why": "the user, 11-17, on his round-7 run: 「岩宝也是太僵硬」 - his design rested both stone fists on the ground (the near one on the ground row, the far one 3 rows over it), so his body could not sink with his steps: B7's run sank it 2 rows, the fists already 1-2 rows under the soles",
+    "fists": "the cut across each arm along its own outline (design rows 36-44): the far fist's path runs on the outline all the way, the near one's crosses 7 colour squares (made outline: the raised fist's top edge)",
+    "rows": "4 dense squares (3.4 game px at his PPU 1.16; 1x: 3): the near fist 4 rows over the ground, the far 7; his forearms 4 rows shorter",
+    "run": "the knuckle walk: the near fist up 1 / 2 / 1 more rows while the far leg steps (frames 0-2), the far fist while the near leg steps (4-6)"
+  }
+}
