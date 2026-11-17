@@ -55,7 +55,7 @@
 
 ### 青钢影钩墙附加包
 
-[青钢影钩墙附加包](../../addons/league_camille_wall/README.md)：`league_camille_wall` v0.4.11
+[青钢影钩墙附加包](../../addons/league_camille_wall/README.md)：`league_camille_wall` v0.4.12
 
 主包 `league` 保持纯数据、全平台可用；钩墙要读地图的墙，只能用原生代码，所以放在这个单独的附加包里。
 装上后，青钢影的 E「钩索」**钩墙、地图四边和防御塔**，不再钩小兵、野怪；英雄、树林、草丛也不钩（墙就在树林里）。
@@ -125,3 +125,5 @@ python tools/art/preview_camille.py
 - 出手时刻和动画对齐：普攻和 Q 第一踢第 3 帧（第 8 tick），Q 第二踢第 3 帧（第 9 tick），W 第 5 帧（第 22 tick），E 第 3 帧射出钩爪（第 9 tick），E 冲刺落地的动作完整播放（26 tick）；R 第 2 帧起跳（第 5 tick），每 tick 5000：AI 从中心距约 52000 起跳，第 14 tick （落地帧）前后落地，力场在落地那一刻立在落点。之前用静态图时 R 空中隐身（让她"跳走"），有了跳跃动作就去掉了，空中照样免疫伤害和控制。
 
 逐帧预览：[`docs/preview/league_camille_frames.png`](../preview/league_camille_frames.png?v=1018cm)，特效：[`docs/preview/league_camille_effects.png`](../preview/league_camille_effects.png?v=1018cm)。
+
+**2026-11-17 大招的地面跟着场地走（钩墙附加包 0.4.12）**（用户：「顺便查一下卡密尔的大招也有bug吧 怎么敌人走的出去？」「卡密尔离开磁场后 磁场也不消失？」）：主包站着的地面是落地时放的一个 240 tick 的区域（10-27 起，上表「大招」一行写的还是那以前每 0.5 秒接一段的做法），区域的画面放出来就停不下来：场地提前结束（她被击退或拉出去、残血用 E 钩走、阵亡，或者 AI 让她去打场地外的人走了出去）后判定没了、目标不再被拉回，地面却留满 4 秒，看着就是「敌人走出了场地」「她走了磁场还在」。场地开着时目标出不去：旧日志里记下的 119 次拉回之前目标最远在画面椭圆的 0.95，没有一次过边。装了钩墙附加包时，副本去掉那个区域的画面（区域留着，它给她挂主包拉人要的 `r_vis`），改由附加包的被动在场地开着时每 5 tick 在中心放一段 `r_zone` 的一帧（主包 `league_camille_big` 新加的 `r_zone_0..5` / `hd_r_zone_0..5`，指着原来的帧，图没变，[`tools/fix/camille_r_zone_frames.py`](../../tools/fix/camille_r_zone_frames.py)），场地一结束 5 tick 内地面就没了，目标脚下的标记也当场摘掉；AI 让她普攻、放技能打场地外够不着的人也改成打被锁的目标（场地里没人可打照旧不管）；每个场地记一行 `ARENA END`（多久、为什么结束）。不装附加包时主包的地面不变。详见[附加包 README](../../addons/league_camille_wall/README.md) 的「0.4.12」。

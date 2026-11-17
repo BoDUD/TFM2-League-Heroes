@@ -3,12 +3,14 @@
 //! 打架时她钩路边的墙、拉过去、挂一下、扑上去，伤害/眩晕/攻速都到位；被动不等武装自己出 E、
 //! 冷却中不再出；宿主不挪人（忽略 ForceMove）时靠逐 tick 设位置也能走完；逃跑（被围、血少）
 //! 钩远离敌人的墙；空地上不出手，有塔就钩塔；拉过去的路上目标跑远了也追着扑出去；靠地图边
-//! 打架时钩石堆。只验证 mod 这边的逻辑和接线。
+//! 打架时钩石堆；R 场地把走出去的目标放回来，场地开着时地面一段接一段、结束后 5 tick 内消失
+//! （投射物按经典引擎的顺序在被动之后走、走到头的那个 tick 删掉）。只验证 mod 这边的逻辑和接线。
 
 use std::collections::HashMap;
 use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
+use league_camille_wall::arena::{ARENA_TICKS, FLOOR_FRAMES, FLOOR_STEP, FLOOR_VIEW};
 use league_camille_wall::{Grid, CLING, CONTACT};
 use mod_api_stable::*;
 
@@ -49,10 +51,21 @@ struct Unit {
     damage: usize,
     stunned: bool,
     hp: usize,
+    dead: bool,
 }
 
 fn unit(x: f64, y: f64, team: usize, champion: bool) -> Unit {
-    Unit { x, y, team, champion, tower: false, attack: 100, buffs: vec![], ccs: vec![], damage: 0, stunned: false, hp: 1000 }
+    Unit { x, y, team, champion, tower: false, attack: 100, buffs: vec![], ccs: vec![], damage: 0, stunned: false, hp: 1000,
+           dead: false }
+}
+
+/// A projectile in flight: where it is, its spawn (a `Linear` one flies `speed` a tick to its target point), a floor piece?
+#[derive(Clone)]
+struct Shot {
+    x: f64,
+    y: f64,
+    spec: ProjectileSpawnV1,
+    floor: bool,
 }
 
 struct World {
@@ -60,6 +73,11 @@ struct World {
     units: Vec<Unit>,
     queue: Vec<(usize, String, usize, InputTargetV1)>,
     hooks: Vec<(String, String, ProjectileSpawnV1)>,
+    /// R's floor pieces (`league_camille_r_floor_<k>`): the tick, the picture, the spawn
+    pieces: Vec<(usize, String, ProjectileSpawnV1)>,
+    /// every projectile flying, and how many floor pieces were on the floor at the end of each tick
+    shots: Vec<Shot>,
+    on_floor: Vec<usize>,
     views: Vec<String>,
     sounds: Vec<String>,
     anims: Vec<String>,
@@ -76,6 +94,9 @@ impl World {
             units,
             queue: vec![],
             hooks: vec![],
+            pieces: vec![],
+            shots: vec![],
+            on_floor: vec![],
             views: vec![],
             sounds: vec![],
             anims: vec![],
@@ -140,6 +161,24 @@ unsafe extern "C" fn tower(s: *const c_void, h: EntityHandleV1) -> bool {
 }
 unsafe extern "C" fn yes(s: *const c_void, h: EntityHandleV1) -> bool {
     u(s, h).is_some()
+}
+unsafe extern "C" fn alive(s: *const c_void, h: EntityHandleV1) -> bool {
+    u(s, h).is_some_and(|e| !e.dead)
+}
+unsafe extern "C" fn shot_count(s: *const c_void) -> usize {
+    w(s).shots.len()
+}
+unsafe extern "C" fn shot_at(s: *const c_void, i: usize) -> ProjectileHandleV1 {
+    if i < w(s).shots.len() { ProjectileHandleV1::from_id(i) } else { ProjectileHandleV1::NULL }
+}
+unsafe extern "C" fn shot_valid(s: *const c_void, h: ProjectileHandleV1) -> bool {
+    h.id().is_some_and(|i| i < w(s).shots.len())
+}
+unsafe extern "C" fn shot_info(s: *const c_void, h: ProjectileHandleV1, out: *mut ProjectileInfoV1) -> bool {
+    let Some(p) = h.id().and_then(|i| w(s).shots.get(i)) else { return false };
+    *out = ProjectileInfoV1 { x: p.x.round() as u64, y: p.y.round() as u64, caster_id: p.spec.caster_id, team: p.spec.team,
+                              is_end: false };
+    true
 }
 unsafe extern "C" fn radius(s: *const c_void, h: EntityHandleV1) -> usize {
     u(s, h).map_or(0, |e| if e.champion { 10_000 } else { 5_000 })
@@ -212,7 +251,15 @@ unsafe extern "C" fn spawn_projectile(
     el: usize,
     spec: *const ProjectileSpawnV1,
 ) -> bool {
-    w(s).hooks.push((text(n, nl).to_string(), text(e, el).to_string(), *spec));
+    let world = w(s);
+    let name = text(n, nl).to_string();
+    let floor = name.starts_with(FLOOR_VIEW);
+    if floor {
+        world.pieces.push((world.tick, name, *spec));
+    } else {
+        world.hooks.push((name, text(e, el).to_string(), *spec));
+    }
+    world.shots.push(Shot { x: (*spec).x as f64, y: (*spec).y as f64, spec: *spec, floor });
     true
 }
 unsafe extern "C" fn view_effect(
@@ -259,7 +306,7 @@ fn vtable() -> SimVtableV1 {
     vt.entity_team = Some(team);
     vt.entity_is_champion = Some(champion);
     vt.entity_is_tower = Some(tower);
-    vt.entity_is_alive = Some(yes);
+    vt.entity_is_alive = Some(alive);
     vt.entity_is_targetable = Some(yes);
     vt.entity_radius = Some(radius);
     vt.entity_buff_count = Some(buff_count);
@@ -276,6 +323,10 @@ fn vtable() -> SimVtableV1 {
     vt.play_sfx = Some(sfx);
     vt.deal_damage = Some(damage);
     vt.entity_set_pos = Some(set_pos);
+    vt.projectile_count = Some(shot_count);
+    vt.projectile_at = Some(shot_at);
+    vt.projectile_is_valid = Some(shot_valid);
+    vt.projectile_info = Some(shot_info);
     vt
 }
 
@@ -329,6 +380,18 @@ unsafe fn run_with(world: &mut World, fx: &Effects, passive: Option<&PassiveRegV
             e.buffs.iter_mut().for_each(|b| b.1 = b.1.saturating_sub(1));
             e.buffs.retain(|b| b.1 > 0 || b.0.duration_kind == BuffDurationV1::Permanent.code());
         }
+        // projectiles move after the passives and the effects, in the tick they are spawned too, and a `Linear` one is
+        // removed on the tick of its last step (the classic engine's order: league_azir's TETHER_MOVES)
+        world.shots.retain_mut(|p| {
+            let (tx, ty) = (p.spec.target_x as f64, p.spec.target_y as f64);
+            let (d, v) = (dist((p.x, p.y), (tx, ty)), p.spec.speed as f64);
+            if d <= v {
+                return false;
+            }
+            (p.x, p.y) = (p.x + (tx - p.x) / d * v, p.y + (ty - p.y) / d * v);
+            true
+        });
+        world.on_floor.push(world.shots.iter().filter(|p| p.floor).count());
         world.trace.push((world.units[0].x, world.units[0].y));
         world.tick += 1;
     }
@@ -595,8 +658,10 @@ fn hookshot_from_cast_to_landing() {
         world.units[1].x = 560_000.0;
         run_with(&mut world, &fx, Some(&mine), 1);
         assert_eq!(world.units[1].x, 560_000.0, "held after the arena ended");
-        // 下一个场地重新取中心
+        // 下一个场地重新取中心（0.4.12：上一个场地结束时摘掉了他的标记，新的场地重新标记他）
+        assert!(!has(&world, 1, "league_camille_r_mark"), "the mark outlived the arena");
         world.units[0].buffs.push((BuffV1::timed("league_camille_r_on", 240), 240));
+        world.units[1].buffs.push((BuffV1::timed("league_camille_r_mark", 30), 30));
         world.units[1].x = 600_000.0;
         run_with(&mut world, &fx, Some(&mine), 1);
         assert_eq!(world.units[1].x, 530_600.0, "the new arena kept the old centre");
@@ -608,6 +673,56 @@ fn hookshot_from_cast_to_landing() {
         run_with(&mut world, &fx, Some(&mine), 1);
         let him = (world.units[1].x, world.units[1].y);
         assert!(!world.grid.solid(him.0, him.1) && him.0 > 90_000.0 && him.0 < 96_000.0, "put into the wall: {him:?}");
+
+        // 12. 地面跟着场地走（0.4.12，用户 2026-11-17：「卡密尔离开磁场后 磁场也不消失？」）：r_on 在时被动每 FLOOR_STEP tick
+        //     在中心放一段 r_zone 的一帧（0..5 轮着），朝 (-1, 0)；每个 tick 结束时地上正好一段（不断、不叠）；r_on 满 240
+        //     tick 没了就不再放，最后一段 FLOOR_STEP tick 内消失（每个新世界一份新的被动：同一个被动在另一个世界的同一 tick
+        //     分不出是新的场地，游戏里每个卡密尔有自己的一份）
+        let fresh = || PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
+        let mine = fresh();
+        let mut world = r_world();
+        run_with(&mut world, &fx, Some(&mine), ARENA_TICKS + 10);
+        let pieces = ARENA_TICKS / FLOOR_STEP;
+        assert_eq!(world.pieces.len(), pieces, "a piece every {FLOOR_STEP} ticks for the arena's {ARENA_TICKS}");
+        for (n, (t, name, spec)) in world.pieces.iter().enumerate() {
+            assert_eq!(*t, n * FLOOR_STEP, "piece {n}");
+            assert_eq!(name, &format!("{FLOOR_VIEW}{}", n % FLOOR_FRAMES), "piece {n}");
+            assert_eq!((spec.x, spec.y, spec.target_x, spec.target_y, spec.speed, spec.caster_id),
+                       (480_001, 480_000, 480_000 - FLOOR_STEP as u64, 480_000, 1, 0), "piece {n} off the centre");
+        }
+        assert!(world.on_floor[..ARENA_TICKS].iter().all(|&n| n == 1), "a gap or two pieces: {:?}", &world.on_floor[..60]);
+        assert!(world.on_floor[ARENA_TICKS + FLOOR_STEP - 1..].iter().all(|&n| n == 0), "the floor outlived the arena: {:?}",
+                &world.on_floor[ARENA_TICKS - 5..]);
+        // she walks (is moved) out on tick 100: the floor is gone FLOOR_STEP ticks later, the mark under the target at once
+        // (the main pack's 30-tick piece of it outlived the arena), the target walks off freely
+        let mine = fresh();
+        let mut world = r_world();
+        world.units[1].buffs[0].1 = ARENA_TICKS;
+        run_with(&mut world, &fx, Some(&mine), 100);
+        assert!(has(&world, 1, "league_camille_r_mark"));
+        world.units[0].buffs.clear();
+        world.units[0].x = 560_000.0;
+        world.units[1].x = 600_000.0;
+        run_with(&mut world, &fx, Some(&mine), 20);
+        assert_eq!(world.pieces.len(), 20);
+        assert!(world.on_floor[100 + FLOOR_STEP - 1..].iter().all(|&n| n == 0), "{:?}", &world.on_floor[95..]);
+        assert!(!has(&world, 1, "league_camille_r_mark"), "the mark outlived the arena");
+        assert_eq!(world.units[1].x, 600_000.0, "held after the arena ended");
+        // she dies on tick 50 (a dead Camille keeps r_on): her passive's on_dead ends the arena (one END line, also when the
+        // passive runs on while she lies dead), no more pieces, no more hold
+        let mine = fresh();
+        let mut world = r_world();
+        run_with(&mut world, &fx, Some(&mine), 50);
+        world.units[0].dead = true;
+        world.units[1].x = 600_000.0;
+        let vt = vtable();
+        let mut ctx =
+            SimCtxV1 { size: size_of::<SimCtxV1>(), sim: &vt, frame: std::ptr::null(), state: &mut world as *mut World as *mut c_void };
+        ((*mine.vtable).on_dead.unwrap())(mine.userdata, &mut ctx, 0);
+        run_with(&mut world, &fx, Some(&mine), 20);
+        assert_eq!(world.pieces.len(), 10);
+        assert!(world.on_floor[50 + FLOOR_STEP - 1..].iter().all(|&n| n == 0), "{:?}", &world.on_floor[45..]);
+        assert_eq!(world.units[1].x, 600_000.0, "held while she lay dead");
 
         let text = std::fs::read_to_string(&log).expect("log written");
         if std::env::var_os("KEEP_LOG").is_none() {
@@ -630,10 +745,18 @@ fn hookshot_from_cast_to_landing() {
             "out of reach: dives after him",
             "ENGAGE map=Moba from (60000,360000) hook map edge -> (",
             "ARENA: #1 at 1.11 of the picture (40000, 0 from the centre) put back to 0.85",
+            // 0.4.12: each arena's start (the watched match) and end (why, the hold, the floor)
+            "ARENA START at (480000,480000): the floor is this add-on's",
+            "ARENA END after 240 of 240 ticks: its time ran out - started t=0 at (480000,480000); target #1",
+            "floor: 48 pieces, the one before still on the floor at 47 of 47 handovers (0 gone early, 0 with another; 0 ticks \
+             with two after one)",
+            "ARENA END after 100 of 240 ticks: she walked out at 2.22 of the picture (80000 from the centre)",
+            "ARENA END after 50 of 240 ticks: she died",
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
         assert!(text.starts_with(&format!("=== league_camille_wall v{}", env!("CARGO_PKG_VERSION"))), "{text}");
+        assert_eq!(text.matches("ARENA END after 50 of 240 ticks: she died").count(), 1, "{text}");
         assert!(!text.contains("stays at the wall") || !text.contains("E2:"), "E2 waited on the wall:
 {text}");
         // 挂在墙上 CLING tick 再扑
