@@ -298,8 +298,9 @@ def ms_split(ticks, parts):
 
 
 def side_soldier(S):
-    """The add-on's soldier from the side: {tag: [(canvas, ms)]} - stand (one stamp), rise (out of the sand) and stab
-    (wind, thrust, hold, recover), each facing right (_r) and mirrored left (_l), its feet on the pivot."""
+    """The add-on's soldier from the side: {tag: [(canvas, ms)]} - stand (one stamp), rise (out of the sand), stab
+    (wind, thrust, hold, recover) and dash (league_azir 0.3.0: Conquering Sands' charge, the stab's held lunge, one stamp
+    of ss_dash ticks), each facing right (_r) and mirrored left (_l), its feet on the pivot."""
     with open(lp(os.path.join(SRC, "soldier_side.json")), encoding="utf-8") as f:
         meta = json.load(f)
     pose = {n: (load(f"soldier_side_{n}.png"), meta[n]["root"][0]) for n in ("stand", "wind", "thrust", "hold", "recover")}
@@ -312,6 +313,9 @@ def side_soldier(S):
                                        ms_split(KIT["ss_rise"], [27, 27, 46])))
         out[f"stab_{side}"] = list(zip([at("wind"), at("thrust"), at("hold"), at("recover")],
                                        ms_split(KIT["ss_stab"], [3, 6, 3, 4])))
+        # the user, 2026-11-17: 「Q 沙兵真的冲过去」 - charging with Conquering Sands, the spear held out ahead (the
+        # stab's held lunge); the add-on stamps it every ss_dash ticks along the soldier's path
+        out[f"dash_{side}"] = [(at("hold"), ms_split(KIT["ss_dash"], [1])[0])]
     return out
 
 

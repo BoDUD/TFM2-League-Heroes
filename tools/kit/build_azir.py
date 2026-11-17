@@ -15,14 +15,18 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           League: soldiers attack for him when the target is in their reach). Only the soldiers he stands within League's
           tether radius of stab (660, SoldierDeactivationRange: s_tie from the zone's centre plus his body; until
           2026-11-04 a soldier 169000 off stabbed too - 19 of 130 stabs in one classic game came from past 66000). An
-          attack with p_cd off raises a soldier
-          s_place toward its target (a hidden bolt's stop: League's W in front of him, the target in the spear's reach;
-          on the target's own spot the soldier stood inside it) (League: W, two charges, 10 s soldiers).
-          Generations: every soldier belongs to the generation that was up when it rose - gA, gB or neither (C) - and
-          its checkpoints and zones go on only while that generation is up. Q moves the soldiers by starting the next
-          generation (A -> B -> C -> A): the old ones stop at their next checkpoint and new ones rise where Q lands. A
-          generation comes back after two Qs, and its old soldiers are gone by then while s_life <= q_cd + the R refund
-          (build() checks it).
+          attack with p_cd off raises a soldier by the enemy (2026-11-17, the user's pick 「召兵位置和时长照联盟」, League's
+          W: a spot within 500 of him, by the enemy, 10 s): a hidden bolt from his feet toward the target stops on the
+          first enemy on its way, s_stop from it, else s_place (League's 500) out. Until 2026-11-17 it rose s_place
+          30000 in front of him whatever stood there (behind a target closer than that), and lived 480 ticks (8 s); on
+          the target's own spot (October's first draft) it stood inside it. League: W, two charges - not here (an
+          auto-battler: the attacks raise them).
+          Generations: every soldier belongs to the generation that was up when it rose - gA, gB, gC or none of them (D)
+          - and its checkpoints and zones go on only while that generation is up. Q moves the soldiers by starting the
+          next generation (A -> B -> C -> D -> A): the old ones stop at their next checkpoint and new ones rise where Q
+          lands. A generation comes back after four Qs, at least 2 x q_cd apart (one may be refunded by R), and its old
+          soldiers are gone by then while s_life <= 2 x q_cd + s_step (build() checks it; three generations until
+          2026-11-17, when s_life 600 passed q_cd + s_step).
           The Sun Disc (太阳圆盘): the add-on's copy only (--native, the passive league_azir:disc - a tower ruin of his
           team; data cannot see towers).
   The controller. skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on the hero is not
@@ -32,8 +36,17 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
   attack  A sceptre point (`Targeting` on `Enemy`): the soldiers stab, else his bolt (a_rel).
   skill   Q Conquering Sands (狂沙猛攻, the slot's cooltime q_cd): a `Targeting` cast on `EnemyWithoutTower` (q_range). A
           sand wave flies at the target through everything, q_dmg + q_ap% AP and q_slow% for q_slow_t (League: the
-          soldiers' paths, 25% slow 1 s). At an enemy champion the controller then moves every standing soldier to that
-          champion's spot (with none standing it raises one there), and they stab at once (Q -> stab).
+          soldiers' paths, 25% slow 1 s). At an enemy champion the controller then moves every standing soldier to a
+          champion's spot in Q's range (q_travel ticks; with none standing it raises one there), and they stab at once
+          (Q -> stab). The main pack's controller cannot tell Q's target from the other units (the skill's tree, copied
+          every tick, cannot hold the move): a random enemy champion within q_range, usually the one aimed at.
+          The add-on's copy (0.3.0, the user's pick 「Q 沙兵真的冲过去」, 2026-11-17): the move goes to whatever enemy Q
+          aimed at (league_azir:q_go records it; the controller offers every enemy within reach to league_azir:q_pick,
+          which flags `qt` on that one, or the nearest to where it stood if it died) and the add-on draws each soldier
+          sliding there from its spot (league_azir:q_fly when the hidden lob leaves, then dash_<s> every ss_dash ticks):
+          every enemy within q_w (plus its body) of a soldier's path takes q_dmg + q_ap% AP and the slow as the soldier
+          passes, once a cast however many paths cross it (League's Conquering Sands). With soldiers to move, no wave;
+          with none (or no controller yet: Q before his first attack in a life) the wave as in the main pack.
   skill2  E Shifting Sands (流沙移形, cooldown flag `e_cd`): a `Targeting` cast on `EnemyChampion` (e_range), only with
           a soldier standing (League: the dash goes to a soldier). A champion within e_self of him: he hops away
           (MoveBack) behind a shield. Else, with R ready (no `r_cd`), he dashes onto the champion behind e_sh + e_ap% AP of
@@ -61,7 +74,10 @@ and the add-on draws each soldier from the side, facing the nearest enemy and st
 「沙兵没攻击动作 ... 还有不面向敌人」; data cannot tell left from right, so the main pack keeps them facing the camera);
 0.2.0: a soldier he leaves out of reach for 30 ticks, or one an enemy tower aged out (League: twice as fast in a turret's
 range), crumbles - the add-on hangs `x<s>` on him and the copy's stabs, Q's move and E's need of a soldier skip it until
-the slot's next soldier rises (`kept`).
+the slot's next soldier rises (`kept`);
+0.3.0 (2026-11-17, the user's pick 「沙兵刺击穿透一条线」): a soldier's stab goes on through its target - every other enemy
+within s_line (plus its body) of the line from the soldier through the one stabbed, s_r long, takes the stab too, each
+once a stab (league_azir:stab_<s>: the data's stab on the one it picked unchanged); Conquering Sands' dash (skill, above).
 Action tags (the art): idle run attack hit dead skill skill2 ult.
 Numbers: League 16.20 (CommunityDragon azir.bin) read into the Magician mid range (league_hwei, league_orianna);
 balanced on the classic-SDK simulations (kd.py --lane 2, C:/t/az_sim, 2026-10-23; league_hwei +1.16 on the same games): the
@@ -98,8 +114,20 @@ P = {
     "ms": 900, "ms_g": 9,
     "atk_range": 52500, "atk_dur": 27, "atk_cd": 80, "a_rel": 10, "a_speed": 4500, "a_y": -3000,
     # passive: the soldiers
-    "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 106,
-    "s_place": 30000, "s_speed": 6000,
+    "p_cd": 150, "s_life": 600, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 106,
+    # where a soldier rises (2026-11-17, the user's pick 「召兵位置和时长照联盟」: League's W puts it at a spot within 500 of
+    # him, by the enemy; s_life 480 -> 600, League's 10 s): a hidden bolt from his feet toward the attack's target stops on
+    # the first enemy it meets, s_stop from that unit's centre (plus its body in the classic engine: 0.7.x's own data
+    # projectiles measure the centre alone, akshan R 11-06), else at s_place (League's 500); until 11-17 s_place 30000
+    # in front of him whatever stood there
+    "s_place": 50000, "s_speed": 6000, "s_stop": 16000,
+    # the add-on's line stab (League: a soldier attacks in a line through its target): every other enemy within s_line
+    # (plus its body) of the line from the soldier through the one stabbed, s_r long, takes the stab too
+    "s_line": 5000,
+    # the add-on's copy's own stab and Q (0.3.0): there the soldiers stab through a line and every Q dashes them (at any
+    # target, their paths dealing Q, a stab on landing), so each hit is lighter - balanced on the classic engine with the
+    # add-on emulated (sim3az, the docstring); the main pack keeps s_dmg / s_ap / q_dmg / q_ap
+    "n_s_dmg": 75, "n_s_ap": 106, "n_q_dmg": 110, "n_q_ap": 65,
     # s_ap 100 -> 106 with the tether (2026-11-04): the soldiers past 660 had dealt 6.5% of his damage (classic seeds 1-24,
     # 720 games: kill difference +0.14 -> +0.06, back to +0.14 at 106)
     # League's tether radius (Arise!'s 660, azir.bin SoldierDeactivationRange; 1 League unit = 100): a soldier stabs only
@@ -107,13 +135,16 @@ P = {
     # 66000 centre to centre); the add-on draws the line and crumbles the soldier by the same distance
     "s_tie": 56000,
     # the add-on's soldiers from the side (addons/league_azir; tools/art/design_azir_side_soldier.py): ticks a standing
-    # stamp, the rise and the stab last (a stamp every ss_stand ticks faces the nearest enemy; a stab starts on one)
-    "ss_stand": 4, "ss_rise": 20, "ss_stab": 16,
+    # stamp, the rise and the stab last (a stamp every ss_stand ticks faces the nearest enemy; a stab starts on one); 0.3.0:
+    # a dash stamp with Conquering Sands (a stamp every ss_dash ticks along its path: smooth at 30 a second)
+    "ss_stand": 4, "ss_rise": 20, "ss_stab": 16, "ss_dash": 2,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # skill: Q Conquering Sands
     "q_cd": 480, "q_range": 75000, "q_dur": 24, "q_rel": 8, "q_speed": 5000, "q_w": 9000, "q_dmg": 110, "q_ap": 65,
-    "q_slow": 25, "q_slow_t": 60, "q_travel": 12,
+    # q_travel: the soldiers' dash, 12 -> 18 ticks on 2026-11-17 (League's soldiers cross ~500 in 0.3 s; the add-on draws
+    # them sliding all the way)
+    "q_slow": 25, "q_slow_t": 60, "q_travel": 18,
     # skill2: E Shifting Sands
     "e_cd": 900, "e_range": 55000, "e_dur": 24, "e_go_at": 6, "e_speed": 5000, "e_self": 25000, "e_back": 3500,
     "e_back_t": 8, "e_sh": 80, "e_ap": 60, "e_t": 90, "e_r": 18000, "e_dmg": 90, "e_ratio": 55, "e_near": 20000,
@@ -133,9 +164,13 @@ P = {
     "native": 0,
 }
 SLOTS = "abc"
-GENS = "ABC"
+# four generations since 2026-11-17 (s_life 600 > q_cd + s_step: with three, a generation could come back after a Q, an R
+# refund and a Q while its old soldiers still stood): one comes back after four Qs, at least 2 x q_cd apart (build())
+GENS = "ABCD"
 NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step",
-               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half", "r_w", "s_life", "s_tie", "d_cd")
+               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half", "r_w", "s_life", "s_tie", "d_cd",
+               # 0.3.0 (2026-11-17): the line stab and Conquering Sands' dash are the add-on's
+               "s_dmg", "s_ap", "s_r", "s_line", "q_dmg", "q_ap", "q_w", "q_slow", "q_slow_t", "q_travel", "ss_dash")
 
 
 def lp(path):
@@ -261,6 +296,11 @@ def decoy(dmg, ratio, kind=attack):
     return combine(flag("x", 1), sw("x", combine(*rm("x")), kind(dmg, ratio)), *rm("x"))
 
 
+def nat(what):
+    """The add-on's native effect `league_azir:<what>` (the --native copy only)."""
+    return {"type": "Native", "effect_ref": f"{ID}:{what}"}
+
+
 def homing(name, target, effects, speed, y=0):
     return {"type": "TargetProjectile", "name": n(name), "speed": speed, "y_offset": y, "applied_target": target,
             "applied_effects": [T(e) for e in effects]}
@@ -302,34 +342,51 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
+FLAGGED = GENS[:-1]     # each generation but the last has its flag g<G>; the last is up when none is
+
+
 def gate(g, effect):
-    """Only while generation g is up: A = gA, B = gB, C = neither."""
-    if g == "A":
-        return sw("gA", effect)
-    if g == "B":
-        return sw("gB", effect)
-    return sw("gA", NONE, sw("gB", NONE, effect))
+    """Only while generation g is up: g<G>, or none of the flags for the last one."""
+    if g in FLAGGED:
+        return sw("g" + g, effect)
+    out = effect
+    for h in reversed(FLAGGED):
+        out = sw("g" + h, NONE, out)
+    return out
 
 
 def by_gen(make):
     """make(g) for the generation up now."""
-    return sw("gA", make("A"), sw("gB", make("B"), make("C")))
+    out = make(GENS[-1])
+    for g in reversed(FLAGGED):
+        out = sw("g" + g, make(g), out)
+    return out
 
 
-NEXT = {"A": "B", "B": "C", "C": "A"}
+NEXT = {g: GENS[(i + 1) % len(GENS)] for i, g in enumerate(GENS)}
+# the add-on's copy offers Q's move every enemy this much past Q's reach (its target may have stepped on before the
+# controller's next run)
+Q_REACH = 20000
 
 
 def to_gen(g):
     """Start generation g (the old one's soldiers stop at their next checkpoint)."""
-    return combine(*rm("gA", "gB"), *([flag("g" + g, None)] if g != "C" else []))
+    return combine(*rm(*("g" + h for h in FLAGGED)), *([flag("g" + g, None)] if g in FLAGGED else []))
 
 
 def build(p):
-    if p["s_life"] > p["q_cd"] + p["s_step"]:
-        raise SystemExit("s_life > q_cd + s_step: a generation could come back while its old soldiers stand")
+    # a generation comes back after len(GENS) Qs: one of those cooldowns may be all but gone (R's refund, q_ref), the others
+    # run q_cd each - its old soldiers (s_life, the last checkpoint s_step before) must be gone by then
+    back = (len(GENS) - 2) * p["q_cd"] + p["s_step"]
+    if p["s_life"] > back:
+        raise SystemExit(f"s_life > {back} ((generations - 2) x q_cd + s_step): a generation could come back while its "
+                         "old soldiers stand")
 
     # ------------------------------------------------------------------ passive: the soldiers
-    stab = [ap(p["s_dmg"], p["s_ap"]), view("s_stab"), tsfx("s_stab"), refresh("stabbed", 6)]
+    # the stab's and Q's numbers: the copy's own with the add-on (its line stab, its dash: n_*), else the main pack's
+    sd, sa, qd, qa = ((p["n_s_dmg"], p["n_s_ap"], p["n_q_dmg"], p["n_q_ap"]) if p["native"] else
+                      (p["s_dmg"], p["s_ap"], p["q_dmg"], p["q_ap"]))
+    stab = [ap(sd, sa), view("s_stab"), tsfx("s_stab"), refresh("stabbed", 6)]
 
     def kept(s, effect):
         """The add-on's copy: only while slot s's soldier has not crumbled (the add-on hangs `x<s>` on him when it does:
@@ -342,9 +399,10 @@ def build(p):
         add-on's centre-to-centre measure (7 stabs a day at 67157-75253 from him, all in the window before the crumble)."""
         return sw(f"o{s}", NONE, effect) if p["native"] else effect
 
-    def soldier(s, g):
+    def soldier(s, g, moved=False):
         """Slot s's soldier of generation g on this spot (a landing's end_effects): its picture re-stamped every
-        s_step ticks and two stab zones (champions first), all only while g is up."""
+        s_step ticks and two stab zones (champions first), all only while g is up. `moved`: one Conquering Sands brought
+        there - the add-on's copy draws it arriving from its old spot (league_azir:dash_<s>), no sand pile."""
         # the add-on's copy draws the soldier itself, from the side (it faces the nearest enemy, it stabs): its natives
         # take the spot (the rise, every checkpoint) and the unit stabbed
         native = lambda what: {"type": "Native", "effect_ref": f"{ID}:{what}_{s}"}
@@ -362,7 +420,8 @@ def build(p):
         # a new soldier in the slot takes the crumbled one's latch off (only when it does rise: generation g still up);
         # a crumbled one's checkpoints still call the add-on, which no longer draws it
         up_ = combine(*rm(f"x{s}"), rise_) if p["native"] else rise_
-        out = [view("s_spawn"), sfx("s_spawn"), gate(g, up_)]   # out of the sand, then standing
+        # out of the sand, then standing (one the copy's dash brings arrives standing: q_land's burst is its dust)
+        out = ([] if moved and p["native"] else [view("s_spawn"), sfx("s_spawn")]) + [gate(g, up_)]
         out += [delayed(t, gate(g, stand_)) for t in range(p["s_step"], p["s_life"], p["s_step"])]
         out += [field(f"s{s}_ch", p["s_r"], p["s_life"], p["s_per"], 1, [poke()], "EnemyChampion"),
                 field(f"s{s}_all", p["s_r"], p["s_life"], p["s_per"], 1, [poke()])]
@@ -385,18 +444,29 @@ def build(p):
     # ------------------------------------------------------------------ the controller: Q's move, E's soldier
     def move(g):
         """Q at a champion from generation g: every standing soldier moves to its spot as generation NEXT[g] (none
-        standing: one rises there), then they stab at once."""
+        standing: one rises there), then they stab at once. The add-on's copy: at any enemy Q aimed at; the add-on reads
+        the slots moving (`m<s>`, `qn` when none stood) as the hidden lob leaves (league_azir:q_fly) and draws each soldier
+        sliding from its spot to the landing, its path dealing Q's damage and slow."""
         h = NEXT[g]
-        land = [sw(f"m{s}", combine(*rm(f"m{s}"), *soldier(s, h))) for s in SLOTS]
+        land = [sw(f"m{s}", combine(*rm(f"m{s}"), *soldier(s, h, moved=True))) for s in SLOTS]
         land += [view("q_land"), sfx("q_land"), delayed(2, refresh("cmd", p["cmd_t"]))]
         # a crumbled soldier (the add-on's copy) is gone: Q moves only the ones standing
         marks = [sw(f"b{s}", kept(s, combine(refresh(f"m{s}", p["q_travel"] + 4), refresh(f"b{s}", p["s_life"]))))
                  for s in SLOTS]
-        none = combine(refresh("ma", p["q_travel"] + 4), refresh("ba", p["s_life"]))
-        return combine(any_up("up"), sw("up", combine(*rm("up"), *marks), none), to_gen(h),
-                       lob("q_move", p["q_travel"], land, "EnemyChampion"))
+        none = combine(refresh("ma", p["q_travel"] + 4), refresh("ba", p["s_life"]),
+                       *([refresh("qn", 2)] if p["native"] else []))
+        fly = [nat("q_fly")] if p["native"] else []
+        return combine(any_up("up"), sw("up", combine(*rm("up"), *marks), none), to_gen(h), *fly,
+                       lob("q_move", p["q_travel"], land, "EnemyWithoutTower" if p["native"] else "EnemyChampion"))
 
-    q_move = pick(p["q_range"], "EnemyChampion", by_gen(move))
+    if p["native"]:
+        # the add-on's copy (0.3.0, the user's pick 「Q 沙兵真的冲过去」: whatever enemy Q targets): every enemy within
+        # reach is offered and league_azir:q_pick flags `qt` on the one Q aimed at (or, gone, the nearest one to where it
+        # stood) - the move goes there. The main pack cannot tell Q's target apart here: a random champion in range
+        q_move = around(p["q_range"] + Q_REACH, "EnemyWithoutTower",
+                        [combine(nat("q_pick"), sw("qt", combine(*rm("qt"), by_gen(move))))])
+    else:
+        q_move = pick(p["q_range"], "EnemyChampion", by_gen(move))
     e_soldier = pick(p["e_near"], "EnemyChampion", by_gen(lambda g: rise(on_spot("EnemyChampion"), g)))
     ctl = combine(refresh("polling", p["ctl_p"] + 2),
                   sw("q_go", combine(*rm("q_go"), q_move)),
@@ -404,8 +474,13 @@ def build(p):
     hang = on_me(sw("polling", NONE, combine(refresh("polling", p["ctl_p"] + 2), casted(p["ctl_t"], p["ctl_p"], ctl))))
 
     # ------------------------------------------------------------------ attack: the sceptre points
-    # the soldier rises between him and his target (League's W in front of Azir, his spear reaching the target), not on it
-    ahead = lambda effects: place("s_place", p["s_speed"], p["s_place"], effects)
+    # the soldier rises by the enemy (League's W: at a spot within 500 of him, the enemy in its spear's reach): a hidden
+    # bolt from his feet (y_offset 5000) toward the target stops on the first enemy on the way, s_stop from it (so it
+    # stands before it, not inside it), else at s_place
+    def ahead(effects):
+        return {"type": "LinearProjectile", "name": n("s_place"), "speed": p["s_speed"], "range": p["s_place"],
+                "y_offset": 5000, "penetrate": False, "shape": circle(p["s_stop"]), "applied_target": "EnemyWithoutTower",
+                "applied_effects": [], "end_effects": list(effects)}
     spawn = sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), by_gen(lambda g: rise(ahead, g))))
     bolt = homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], p["a_speed"], p["a_y"])
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
@@ -416,14 +491,23 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Conquering Sands
     wave = line("q_wave", p["q_speed"], p["q_range"], p["q_w"], "EnemyWithoutTower",
-                [ap(p["q_dmg"], p["q_ap"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
+                [ap(qd, qa), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
                  view("q_hit"), tsfx("q_hit")])
     champ = combine(*rm("q_ch"), pick(p["q_range"], "EnemyChampion", flag("q_ch", 1)),
                     sw("q_ch", combine(*rm("q_ch"), sw("polling", refresh("q_go", 4)))))
+    go = [wave, champ]
+    if p["native"]:
+        # the add-on's copy: Q aims the move at its own target whatever it is (league_azir:q_go records it, q_pick finds
+        # it for the controller). With soldiers up and a controller to move them, their paths deal Q's damage and slow
+        # (league_azir:q_fly / dash_<s>, each enemy once a cast; League: the soldiers' paths): no wave. With none (or no
+        # controller yet in this life) the wave as in the main pack (league_azir:q_wave)
+        go = [any_up("q_up"), sw("polling", NONE, combine(*rm("q_up"))),
+              sw("q_up", combine(*rm("q_up"), nat("q_go")), combine(wave, nat("q_wave"))),
+              sw("polling", refresh("q_go", 4))]
     # the slot's own cooltime is Q's cooldown: R's refund (skill_cooldown_mult) shortens it
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(decoy(p["q_dmg"], p["q_ap"], ap), voice("vo_q", p), sfx("q"),
-                           delayed(p["q_rel"] - 1, alive(wave, champ))))
+                   combine(decoy(qd, qa, ap), voice("vo_q", p), sfx("q"),
+                           delayed(p["q_rel"] - 1, alive(*go))))
 
     # ------------------------------------------------------------------ skill2: E Shifting Sands
     guard_ = combine(on_me(shield(p["e_sh"], p["e_ap"], p["e_t"])), cview("e_shield"))
@@ -502,12 +586,15 @@ def build(p):
     # the Sun Disc's (the add-on plays them: the disc's rise and stamps, its ring, its solar ray)
     views_e += [E("disc_rise", DISC, 1, False, "disc_rise"), E("disc", DISC, 1, False, "disc"), E("d_rise", BIG, 1, False),
                 E("d_glow", FX, -1, False), E("d_beam", BIG, 3)]
-    # the add-on's soldier from the side (it stamps them: standing, rising, stabbing, facing right or left)
-    views_e += [E(f"ss_{t}_{d_}", SIDE, 1, False, f"{t}_{d_}") for t in ("stand", "rise", "stab") for d_ in "rl"]
+    # the add-on's soldier from the side (it stamps them: standing, rising, stabbing, facing right or left; 0.3.0 dashing
+    # with Conquering Sands, a stamp every dash's ticks along its path)
+    views_e += [E(f"ss_{t}_{d_}", SIDE, 1, False, f"{t}_{d_}") for t in ("stand", "rise", "stab", "dash") for d_ in "rl"]
     views_b = [B_("q_slow", FX, -1, "slow")]
     extra = {}
     if p["native"]:
-        extra["passive"] = {"passive_ref": f"{ID}:disc", "params": {k_: int(p[k_]) for k_ in NATIVE_KEYS}}
+        params = {k_: int(p[k_]) for k_ in NATIVE_KEYS}
+        params.update(s_dmg=int(sd), s_ap=int(sa), q_dmg=int(qd), q_ap=int(qa))    # the copy's own (n_*)
+        extra["passive"] = {"passive_ref": f"{ID}:disc", "params": params}
     return {
         "id": ID, "category": "Magician", **extra, "tags": ["AP", "Magic", "Range", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
