@@ -85,7 +85,7 @@
 
 - **10:00 前的 W 开团 24% 白冲**（10:00 后 4%）：对线纪律附加包 league_lane 在对线期拦下他落地后的普攻（目标在他们塔下 80000 内、
   或李青以少打多）。现在对线期（`LANE_END`，10:00 前）`engage_target` 照 league_lane 的规则挑目标（`LANE_TOWER_R`、`LANE_DIVE_HP`、
-  `LANE_NEAR`、`LANE_KILL_HP`）：它会拦的就不冲。
+  `LANE_NEAR`、`LANE_KILL_HP`）：它会拦的就不冲。2026-11-10（0.1.16）运营钩子（league_lane 在内）被用户删掉，这条规则也删了（「删了吧 李青的」）：对线期和之后一样挑。
 - **Q 的「预判」从来没放出去过**（两次启动 0 行 `Q AIM`）：主包的 Q 是指向技能（Targeting），方向在按下那一刻朝目标站的地方定死，
   方向输入引擎不收，一直悄悄退回了内置 AI 的 Q。现在只决定放不放：朝他现在的位置飞、他照现在的速度走，波飞到时还在波的宽度里
   （`Q_RADIUS` + 他的半径）就放（`Q THROW`），会走出波就先不放（`Q SKIP … he walks out of the wave`）。

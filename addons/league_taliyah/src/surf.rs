@@ -6,8 +6,8 @@
 //! 数据读不到地图上的墙，所以是「脱战时 +10%」（交战 = 她打中英雄后 `f_t` tick 内，主包的 `league_taliyah_fight`）。
 //!
 //! 副本（`native=1`）不再由数据挂加速的 `league_taliyah_surf`，改由这里每 tick 判断：
-//! - **贴着地形**：她离地图的墙格（游戏自己的 5v5 图：league_camille_wall 的 `maps.rs`，每格 32000，加上四边画出来的墙面）
-//!   或她立着的墙幔（本包的 [`super::Wall`]）在 `NEAR` 以内；
+//! - **贴着地形**：她离地图的墙格（游戏自己的 5v5 图：league_camille_wall 的 `maps.rs`，每格 32000，加上四边画出来的墙面；
+//!   召唤师峡谷：墙体文件读得到才有，读不到就没有地形）或她立着的墙幔（本包的 [`super::Wall`]）在 `NEAR` 以内；
 //! - **交战 / 放技能**：身上有主包的 `league_taliyah_fight`，或者技能、技能 2、大招的冷却刚跳起来（`CAST_BLOCK` tick 内）：
 //!   加速立刻没了；
 //! - 渐强渐弱照英雄联盟：贴着地形连着 `ARM` tick 后每 tick 涨一点，`BUILD` tick 到满；离开地形 `LINGER` tick 后每 tick 落一点；
@@ -18,8 +18,9 @@
 //! 一顿一顿的）。脱战骑石头的动作（`view.rs`）照旧按「没在打架」换（用户 2026-11-14：「保持现在」），只有加速跟着墙走。
 //! 放完墙幔的 +40%（主包的 `league_taliyah_r_surf`）照旧是数据的。
 
-use std::sync::Arc;
+use std::sync::{Arc, LazyLock};
 
+use game_places::terrain::{self as places, Map, Walls};
 use mod_api_stable::*;
 
 use super::{counted, head, inside, maps, wlog, Wall};
@@ -62,6 +63,11 @@ pub struct Ground {
 impl Ground {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Ground {
         Ground { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0), bounds }
+    }
+
+    /// 峡谷的墙（墙体文件读出来的）：它自己的格子边长和原点。
+    pub fn from_walls(w: &Walls) -> Ground {
+        Ground { cells: w.cells.clone(), cell: w.cell, origin: w.origin, bounds: None }
     }
 
     /// 游戏自己的三张图（5v5 加四边的墙面）。
@@ -127,6 +133,9 @@ pub fn pick(points: &[(f64, f64)]) -> (&'static str, Ground) {
         .expect("three built-in maps")
 }
 
+/// 峡谷的墙，换成本包的格子一次。
+static RIFT: LazyLock<Option<Arc<Ground>>> = LazyLock::new(|| places::rift_ground().map(|w| Arc::new(Ground::from_walls(w))));
+
 /// 渐强渐弱：贴着地形连着几 tick、离开几 tick、现在几成（0..=`BUILD`）。
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Ramp {
@@ -171,8 +180,8 @@ pub struct Rock {
     /// 技能、技能 2、大招上一 tick 的剩余冷却；放了技能后到这一 tick 为止没有加速。
     last_cd: Option<(usize, usize, usize)>,
     block_until: usize,
-    /// 这一局的墙（看过一次）。
-    ground: Option<Arc<Ground>>,
+    /// 这一局的墙（看过一次；`None`：没有地形可读——峡谷没有墙体文件）。
+    ground: Option<Option<Arc<Ground>>>,
 }
 
 impl Rock {
@@ -183,21 +192,26 @@ impl Rock {
         self.block_until = 0;
     }
 
-    fn ground(&mut self, sim: &StableSim<'_>, me: usize) -> Arc<Ground> {
-        self.ground
-            .get_or_insert_with(|| {
-                let points: Vec<(f64, f64)> = (0..sim.entity_count())
-                    .filter_map(|i| sim.entity_at(i))
-                    .filter(|e| e.is_alive())
-                    .map(|e| (e.pos().0 as f64, e.pos().1 as f64))
-                    .collect();
-                let (name, g) = pick(&points);
-                if let Some(k) = counted("ground") {
-                    wlog(format!("{} SURF ground: {name} ({} wall cells) #{k}", head(sim, me), g.walls()));
+    fn ground(&mut self, sim: &StableSim<'_>, me: usize) -> Option<Arc<Ground>> {
+        if self.ground.is_none() {
+            let g = match places::map_of_sim(sim) {
+                Map::Rift => RIFT.clone(),
+                Map::Native => {
+                    let points: Vec<(f64, f64)> = (0..sim.entity_count())
+                        .filter_map(|i| sim.entity_at(i))
+                        .filter(|e| e.is_alive())
+                        .map(|e| (e.pos().0 as f64, e.pos().1 as f64))
+                        .collect();
+                    let (name, g) = pick(&points);
+                    if let Some(k) = counted("ground") {
+                        wlog(format!("{} SURF ground: {name} ({} wall cells) #{k}", head(sim, me), g.walls()));
+                    }
+                    Some(Arc::new(g))
                 }
-                Arc::new(g)
-            })
-            .clone()
+            };
+            self.ground = Some(g);
+        }
+        self.ground.clone().flatten()
     }
 
     /// 每 tick（她活着）：贴着地形、没在交战就渐强，挂上 / 换掉 / 摘掉主包的 `league_taliyah_surf`。
@@ -220,7 +234,7 @@ impl Rock {
         }
         self.last_cd = Some(cd);
         let p = (at.0 as f64, at.1 as f64);
-        let by_wall = self.ground(sim, me).near(p, NEAR);
+        let by_wall = self.ground(sim, me).is_some_and(|g| g.near(p, NEAR));
         let by_own = walls.iter().any(|w| inside(w, at, NEAR as u64));
         let combat = fight || now < self.block_until;
         let before = self.ramp.power;

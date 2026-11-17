@@ -246,6 +246,7 @@ impl StablePlayerAi for QiyanaAi {
 mod tests {
     use super::*;
     use super::super::terrain::{Grid, CELL};
+    use game_places::terrain::Map;
 
     fn map(walls: &[(usize, usize)]) -> MapGrids {
         let rows: Vec<String> = (0..30).map(|y| (0..30).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
@@ -255,6 +256,7 @@ mod tests {
             walls: Some(Grid::from_rows(&rows.iter().map(|s| s.as_str()).collect::<Vec<_>>())),
             bushes: Some(Grid::from_rows(&empty.iter().map(|s| s.as_str()).collect::<Vec<_>>())),
             river: None,
+            map: Map::Native,
         }
     }
 

@@ -20,13 +20,19 @@
 //! 数字和主包 P 表的值写在这里（`R_*`、`W_*`、`PK_*`），主包改了这里一起改（`tests::the_numbers_match_the_kit` 读主包的
 //! 参数表核对）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_corki.log`，每次启动游戏重写；你看的那场全记，
 //! 服务端预模拟每种前 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行。
+//!
+//! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔站在 1000000 以外
+//! （`game_places::terrain::map_of_sim`）就是峡谷（[`Ground::Rift`]）：俯冲的落点和火箭的坐标照峡谷的 1614545 见方，墙是作者的
+//! 墙体坐标.json；没有这个文件时不知道哪里有墙，只有地图边以外算墙。游戏自己的图照旧（960000 见方、内置的 5v5 墙）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 pub mod maps;
@@ -171,6 +177,52 @@ pub fn is_wall(x: f64, y: f64) -> bool {
     maps::MOBA.get(cy).and_then(|row| row.as_bytes().get(cx)).is_none_or(|c| *c == b'#')
 }
 
+/// 这一局的地面：游戏自己的图（`true`：能用 5v5 的墙，[`field`] 看有没有单位站在它的墙里；`false`：别的图，不查墙）或
+/// 峡谷（作者的墙体坐标.json，`None`：没有文件，只有地图边以外算墙）。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Ground<'a> {
+    Native(bool),
+    Rift(Option<&'a Walls>),
+}
+
+impl From<bool> for Ground<'static> {
+    fn from(walls: bool) -> Self {
+        Ground::Native(walls)
+    }
+}
+
+impl Ground<'_> {
+    pub fn map(&self) -> Map {
+        match self {
+            Ground::Native(_) => Map::Native,
+            Ground::Rift(_) => Map::Rift,
+        }
+    }
+
+    /// 落不了脚：地图外（0..地图边长以外）或墙里。
+    pub fn blocked(&self, p: (f64, f64)) -> bool {
+        let side = self.map().extent();
+        let off = !(p.0 >= 0.0 && p.1 >= 0.0 && p.0 < side && p.1 < side);
+        off || match self {
+            Ground::Native(walls) => *walls && is_wall(p.0, p.1),
+            Ground::Rift(walls) => walls.is_some_and(|w| w.is_wall(p.0, p.1)),
+        }
+    }
+
+    /// 日志里的 `walls`：游戏自己的图 true / false（同以前）。
+    fn label(&self) -> &'static str {
+        match self {
+            Ground::Native(true) => "true",
+            Ground::Native(false) => "false",
+            Ground::Rift(Some(_)) => "rift",
+            Ground::Rift(None) => "rift (no walls file: none known)",
+        }
+    }
+}
+
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
+
 /// 一个敌人：位置、是不是英雄、血量比例（0..1）。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Foe {
@@ -247,9 +299,11 @@ pub fn best_shot(me: (f64, f64), target: Option<(f64, f64)>, foes: &[Foe], big: 
 }
 
 /// 俯冲的落点：24 个方向里路上没墙、能飞满 `reach` 的点，离最近的敌方英雄越远越好，朝队友（`allies` 的重心）加分，
-/// 落在敌方塔范围里扣分。都不行就返回 None（主包的数据方向不变：调用方背对 `from` 跳）。
-pub fn escape_spot(me: (f64, f64), reach: f64, foes: &[(f64, f64)], allies: &[(f64, f64)], towers: &[(f64, f64)],
-                   walls: bool) -> Option<(f64, f64)> {
+/// 落在敌方塔范围里扣分。都不行就返回 None（主包的数据方向不变：调用方背对 `from` 跳）。`walls`：这一局的地面
+/// （[`Ground`]；`true` / `false` 是游戏自己的图查不查 5v5 的墙）。
+pub fn escape_spot<'a>(me: (f64, f64), reach: f64, foes: &[(f64, f64)], allies: &[(f64, f64)], towers: &[(f64, f64)],
+                       walls: impl Into<Ground<'a>>) -> Option<(f64, f64)> {
+    let ground: Ground = walls.into();
     let nearest = |p: (f64, f64)| foes.iter().map(|f| dist(p, *f)).fold(f64::INFINITY, f64::min);
     let toward = if allies.is_empty() {
         None
@@ -264,8 +318,7 @@ pub fn escape_spot(me: (f64, f64), reach: f64, foes: &[(f64, f64)], allies: &[(f
             let d = (a.cos(), a.sin());
             let free = (1..=steps).all(|i| {
                 let f = reach * i as f64 / steps as f64;
-                let p = (me.0 + d.0 * f, me.1 + d.1 * f);
-                p.0 >= 0.0 && p.1 >= 0.0 && p.0 < MAP && p.1 < MAP && !(walls && is_wall(p.0, p.1))
+                !ground.blocked((me.0 + d.0 * f, me.1 + d.1 * f))
             });
             if !free {
                 return None;
@@ -314,20 +367,25 @@ fn corpse_at(sim: &StableSim<'_>, input: &InputTargetV1) -> Option<(f64, f64)> {
     ((x, y) != (0, 0)).then_some((x as f64, y as f64))
 }
 
-fn upos(p: (f64, f64)) -> (u64, u64) {
-    (p.0.round().clamp(0.0, MAP - 1.0) as u64, p.1.round().clamp(0.0, MAP - 1.0) as u64)
+/// 坐标取整，夹在 `map` 里（游戏自己的图 0..959999，峡谷 0..1614544）。
+fn upos(p: (f64, f64), map: Map) -> (u64, u64) {
+    let top = map.extent() - 1.0;
+    (p.0.round().clamp(0.0, top) as u64, p.1.round().clamp(0.0, top) as u64)
 }
 
-/// 场上的单位：敌人（活着、能选中、不是塔）、己方英雄（不含他）、敌方的塔，和这张图能不能用 5v5 的墙。
+/// 场上的单位：敌人（活着、能选中、不是塔）、己方英雄（不含他）、敌方的塔，和这一局的地面（峡谷，或游戏自己的图——能不能
+/// 用 5v5 的墙）。
 struct Field {
     foes: Vec<(usize, Foe)>,
     allies: Vec<(f64, f64)>,
     towers: Vec<(f64, f64)>,
-    walls: bool,
+    ground: Ground<'static>,
 }
 
 fn field(sim: &StableSim<'_>, me: usize, team: usize) -> Field {
-    let mut out = Field { foes: Vec::new(), allies: Vec::new(), towers: Vec::new(), walls: true };
+    let map = map_of_sim(sim);
+    let mut walls = true;
+    let mut out = Field { foes: Vec::new(), allies: Vec::new(), towers: Vec::new(), ground: Ground::Native(true) };
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
         if !u.is_alive() {
@@ -335,8 +393,8 @@ fn field(sim: &StableSim<'_>, me: usize, team: usize) -> Field {
         }
         let (x, y) = u.pos();
         let at = (x as f64, y as f64);
-        if is_wall(at.0, at.1) {
-            out.walls = false;
+        if map == Map::Native && is_wall(at.0, at.1) {
+            walls = false;
         }
         if u.team() == team {
             if u.is_champion() && u.id() != me {
@@ -355,6 +413,15 @@ fn field(sim: &StableSim<'_>, me: usize, team: usize) -> Field {
         let hp = if max > 0 { now as f64 / max as f64 } else { 1.0 };
         out.foes.push((u.id(), Foe { at, champion: u.is_champion(), hp }));
     }
+    out.ground = if map == Map::Rift {
+        if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
+            wlog(format!("== Rift: Valkyrie and the Package land on the Rift's 1614545 square clear of its walls (none known \
+                          without the walls file: only its edge), the missiles fly there; {} ==", rift_status()));
+        }
+        Ground::Rift(rift_ground())
+    } else {
+        Ground::Native(walls)
+    };
     out
 }
 
@@ -435,8 +502,8 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
         }
         return;
     };
-    let (x, y) = upos(me);
-    let (tx, ty) = upos(stop);
+    let (x, y) = upos(me, f.ground.map());
+    let (tx, ty) = upos(stop, f.ground.map());
     let d = dist(me, stop);
     let spec = ProjectileSpawnV1 {
         caster_id: caster,
@@ -551,7 +618,7 @@ fn fly(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, package: bo
     let reach = speed * ticks as f64;
     let champs: Vec<(f64, f64)> = f.foes.iter().filter(|x| x.1.champion).map(|x| x.1.at).collect();
     let from = input_unit(sim, &input).or_else(|| input_pos(&input));
-    let spot = escape_spot(me, reach, &champs, &f.allies, &f.towers, f.walls).or_else(|| {
+    let spot = escape_spot(me, reach, &champs, &f.allies, &f.towers, f.ground).or_else(|| {
         let u = unit((me.0 - from?.0, me.1 - from?.1))?;
         Some((me.0 + u.0 * reach, me.1 + u.1 * reach))
     });
@@ -578,7 +645,7 @@ fn fly(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, package: bo
             near,
             champs.iter().map(|c| dist(me, *c)).fold(f64::INFINITY, f64::min),
             f.allies.len(),
-            f.walls
+            f.ground.label()
         ));
     }
 }
@@ -798,5 +865,66 @@ mod tests {
         for x in ["r_missile", "r_big_missile", "r_big_boom", "r_boom", "r_hit"] {
             assert!(ck(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// cells walls, plus every cell in columns `xs`, rows `ys`.
+    fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
+        let rows: Vec<String> = (0..296)
+            .map(|y| {
+                (0..295)
+                    .map(|x| {
+                        let border = x == 0 || y == 0 || x == 294 || y == 295;
+                        if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        let side = Map::Rift.extent();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (side, side))
+    }
+
+    #[test]
+    fn on_the_rift_he_flies_past_960000_and_clear_of_its_walls() {
+        let me = (1_300_000.0, 1_300_000.0);
+        let enemy = (1_320_000.0, 1_300_000.0);
+        let reach = W_SPEED * W_TICK as f64;
+        // the game's own map ends at 960000: no spot at all out here
+        assert_eq!(escape_spot(me, reach, &[enemy], &[], &[], false), None);
+        // the Rift, no wall known: straight away from him
+        let w = escape_spot(me, reach, &[enemy], &[], &[], Ground::Rift(None)).unwrap();
+        assert!(w.0 < me.0 - 30_000.0, "{w:?}");
+        // a Rift wall 10000-32000 west of him (columns 232-235: x 1268182-1290000): not through it
+        let walls = rift_file(232..236, 229..248);
+        assert!(walls.is_wall(1_280_000.0, 1_300_000.0) && !walls.is_wall(me.0, me.1));
+        let g = Ground::Rift(Some(&walls));
+        let w = escape_spot(me, reach, &[enemy], &[], &[], g).unwrap();
+        let path_clear = (0..=40).all(|i| {
+            let f = i as f64 / 40.0;
+            !walls.is_wall(me.0 + (w.0 - me.0) * f, me.1 + (w.1 - me.1) * f)
+        });
+        assert!(path_clear && dist(w, enemy) > dist(me, enemy), "{w:?}");
+        assert!(g.blocked((1_280_000.0, 1_300_000.0)) && !g.blocked(me));
+        // the game's own wall cells are open ground on the Rift (row 3, columns 15-16: x 480000-544000, y 96000-128000)
+        assert!(is_wall(500_000.0, 110_000.0) && !Ground::Rift(Some(&walls)).blocked((500_000.0, 110_000.0)));
+    }
+
+    #[test]
+    fn never_off_the_rift() {
+        let side = Map::Rift.extent();
+        let walls = rift_file(0..0, 0..0);
+        for g in [Ground::Rift(None), Ground::Rift(Some(&walls))] {
+            // in the far corner, chased from the middle: along the edge, never past it (nor into the grid's border walls)
+            let me = (side - 20_000.0, side - 20_000.0);
+            let w = escape_spot(me, PK_SPEED * PK_TICK as f64, &[(side - 45_000.0, side - 45_000.0)], &[], &[], g).unwrap();
+            assert!(w.0 >= 0.0 && w.1 >= 0.0 && w.0 < side && w.1 < side && !g.blocked(w), "{g:?}: {w:?}");
+            assert!(g.blocked((side + 1.0, 5_000.0)) && g.blocked((-1.0, 5_000.0)));
+        }
+        assert!(Ground::Rift(Some(&walls)).blocked((side - 5_000.0, 800_000.0)), "the grid's border cells are walls");
+        // the missiles' spots stay on the map they fly on (959999 was the end of every map)
+        assert_eq!(upos((1_500_000.4, 1_700_000.0), Map::Rift), (1_500_000, 1_614_544));
+        assert_eq!(upos((1_500_000.0, 5.0), Map::Native), (959_999, 5));
+        assert_eq!(Ground::from(true).label(), "true");
     }
 }

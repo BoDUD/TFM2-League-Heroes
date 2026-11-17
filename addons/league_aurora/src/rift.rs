@@ -20,7 +20,16 @@
 //!
 //! 状态都在她的被动里（每局、每个她一份），不用全局变量。日志：`RIFT OPEN` / `RIFT CROSS` / `RIFT EDGE` / `RIFT CLOSED`
 //! （你看的那场每行都写，预模拟每种前 40 行、之后每 100 行一行）。
+//!
+//! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：冲到对面的落点避的墙按这局的塔和水晶判断是哪张图
+//! （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷（1614545 见方；本文件别处的「领域」是她的
+//! 大招，不是这张图）用峡谷作者的墙体文件（`terrain::rift_walls`，295 x 296 格、每格 60000/11），没有文件时峡谷上只有地图外
+//! 算墙（以前 960000 以外全算墙：峡谷远半边每次都往圈心退到底、冲不过去）。
 
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::LazyLock;
+
+use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
 use super::maps;
@@ -109,20 +118,24 @@ pub fn touches(c: Pt, u: Pt) -> bool {
     (dist(c, u) - RING).abs() <= BAND
 }
 
-/// 地图的墙格（league_camille_wall 的内置地图，Tahm Kench、Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。
+/// 地图的墙格（league_camille_wall 的内置地图，Tahm Kench、Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。每格 `cell`
+/// 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、(0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    pub cell: f64,
+    pub origin: (f64, f64),
 }
 
-/// 地图格子的边长。
+/// 游戏自己的地图格子的边长。
 pub const CELL: f64 = 32_000.0;
 /// 5v5 地图四边（上下的石墙、左右的石堆）以内的可走范围（league_camille_wall 的 `MOBA_BOUNDS`）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL,
+               origin: (0.0, 0.0) }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -134,9 +147,17 @@ impl Grid {
         ]
     }
 
+    /// 召唤师峡谷的墙：有墙体文件就是文件的墙格（四边在文件里就是墙）；没有就是一格地图大小的空地（只有地图外算墙）。
+    pub fn summoners_rift(walls: Option<&terrain::Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), bounds: None, cell: w.cell, origin: w.origin },
+            None => Grid { cells: vec![vec![false]], bounds: None, cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
+        }
+    }
+
     /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        if x < 0.0 || y < 0.0 {
+        if x < self.origin.0 || y < self.origin.1 {
             return true;
         }
         if let Some((x0, y0, x1, y1)) = self.bounds {
@@ -144,7 +165,7 @@ impl Grid {
                 return true;
             }
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        let (cx, cy) = (((x - self.origin.0) / self.cell) as usize, ((y - self.origin.1) / self.cell) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
@@ -160,6 +181,29 @@ pub fn current(grids: &[Grid], points: &[Pt]) -> Option<usize> {
         .enumerate()
         .min_by_key(|(_, g)| (points.iter().filter(|&&(x, y)| g.is_wall(x, y)).count(), std::cmp::Reverse(g.walls())))
         .map(|(i, _)| i)
+}
+
+/// 游戏的三张内置地图，和召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
+static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static SR_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::summoners_rift(terrain::rift_ground()));
+
+/// 这局的墙：召唤师峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
+fn walls_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            static MET: AtomicBool = AtomicBool::new(false);
+            if !MET.swap(true, Ordering::Relaxed) {
+                wlog(format!("== Rift (Summoner's Rift, the map): her crossing lands clear of its walls (from its walls \
+                              file; with no file only the map's edges count); {} ==", terrain::rift_status()));
+            }
+            Some(&*SR_GRID)
+        }
+        Map::Native => {
+            let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
+                .map(|u| pt(u.pos())).collect();
+            current(&*GRIDS, &points).map(|i| &GRIDS[i])
+        }
+    }
 }
 
 /// 落点：对面那一点；在墙里（或地图外）就沿直径一步步往圈心退，退到圈心还在墙里就不冲（None）。
@@ -401,12 +445,9 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
 /// 她碰到了边界：冲到对面。
 fn cross(sim: &mut StableSim<'_>, me: usize, r: &mut Rift, here: Pt, p: &Params) {
     let now = sim.tick();
-    let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
-        .map(|u| pt(u.pos())).collect();
-    let grids = Grid::builtin();
     let far = across(r.c, here);
-    let to = match current(&grids, &points) {
-        Some(g) => landing(&grids[g], r.c, far),
+    let to = match walls_now(sim) {
+        Some(g) => landing(g, r.c, far),
         None => Some(far),
     };
     let Some(to) = to else {
@@ -540,6 +581,48 @@ mod tests {
         assert_eq!(landing(&walled, c, (78_000.0, 48_000.0)), None);
         // off the map counts as a wall
         assert!(g.is_wall(-1.0, 10.0));
+    }
+
+    /// 世界坐标的一个矩形：(左上, 右下)。
+    type Rect = ((f64, f64), (f64, f64));
+
+    /// 召唤师峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// （世界坐标的 (左上, 右下)）里的格子是墙。
+    fn rift_walls(rects: &[Rect]) -> terrain::Walls {
+        let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
+        let rows: Vec<String> = (0..296)
+            .map(|cy| {
+                (0..295)
+                    .map(|cx| {
+                        let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
+                        let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
+                        if wall { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        terrain::Walls::from_rows(&rows, cell, origin, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    #[test]
+    fn on_summoners_rift_the_crossing_lands_clear_of_its_walls() {
+        // her rift in the map's far half, the far end of the diameter in one of its walls
+        let g = Grid::summoners_rift(Some(&rift_walls(&[((1_325_000.0, 1_190_000.0), (1_345_000.0, 1_210_000.0))])));
+        let c = (1_300_000.0, 1_200_000.0);
+        let far = across(c, (c.0 - EDGE, c.1));
+        assert!(g.is_wall(far.0, far.1), "{far:?}");
+        let q = landing(&g, c, far).expect("stepped in from the wall");
+        assert!(!g.is_wall(q.0, q.1) && q.0 < far.0 && q.0 >= c.0, "{q:?}");
+        // the game's own grid called all of it wall out there: no crossing at all (the old code)
+        assert_eq!(landing(&Grid::builtin()[0], c, far), None);
+        // with no walls file only the map's edges are walls: straight across
+        let open = Grid::summoners_rift(None);
+        assert_eq!(landing(&open, c, far), Some(far));
+        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(1_614_546.0, 800_000.0) && open.is_wall(-1.0, 5.0));
+        // a wall of the game's own 5v5 map is none on the Rift
+        let native = (15.5 * CELL, 3.5 * CELL);
+        assert!(Grid::builtin()[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));
     }
 
     #[test]

@@ -20,6 +20,8 @@
 //! - **R 惊才绝景**（[`ult`]）：风只击退不伤害，碰到第一面墙停下；冲击波沿路过的草丛、河道和撞上的墙边走，伤害 + 最大生命的
 //!   `r_hp`%（野怪最多 `r_mon_cap`）、按离起点的远近晕 `r_stun_min`..`r_stun_max` tick。AI 钩子只在冲击波打得到敌方英雄时放 R。
 //!   读不到地图时照主包：路上的人都伤害、击退、晕。
+//! - **两张 5v5 地图**（2026-11-10）：游戏自己的地图照旧读地图文档；Rin 的召唤师峡谷 α 上（`current_map`）W、R 按峡谷的墙格子
+//!   （没有墙体文件时只有地图四边算墙）和放大的河道斜带，没有草丛（只有艾翁的草丛给草元素），见 [`terrain`]。
 //! 被动 `league_qiyana:empress` 把数字（`passive.params`）留给这些原生效果，并跑 W、草地和复活的元素。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_qiyana.log`，每次启动游戏重写。
@@ -31,6 +33,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, LazyLock, Mutex};
 
+use game_places::terrain::{self as places, Map};
 use mod_api_stable::*;
 
 pub mod ai;
@@ -308,8 +311,12 @@ fn me_in_ivern_brush(sim: &StableSim<'_>, me: usize) -> bool {
     has_buff(sim, me, IVERN_BRUSH)
 }
 
-/// 当前对局的地图（读不到为 None：照主包）。
+/// 当前对局的地图（读不到为 None：照主包）。峡谷（2026-11-10，game_places 从塔和水晶看出来）用峡谷的地形
+/// （[`terrain::rift_map`]：它的墙格子，没有草丛，放大的河道斜带），不用地图文档里游戏自己的 5v5 地图的格子。
 pub(crate) fn current_map(sim: &StableSim<'_>) -> Option<Arc<MapGrids>> {
+    if places::map_of_sim(sim) == Map::Rift {
+        return Some(terrain::rift_map());
+    }
     let maps = terrain::maps();
     if maps.is_empty() {
         return None;

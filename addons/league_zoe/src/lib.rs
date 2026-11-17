@@ -41,8 +41,10 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map};
 use mod_api_stable::*;
 
 mod maps;
@@ -535,6 +537,21 @@ fn wake_from_sleep(sim: &mut StableSim<'_>, target: usize, left: u64) {
     }
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
+
+/// 闪现落在哪张图上：塔站在 1000000 以外就是召唤师峡谷（它的墙：作者的墙体坐标.json，没有时只有地图外），否则游戏自己的图。
+fn ground(sim: &StableSim<'_>) -> summon::Ground<'static> {
+    if map_of_sim(sim) == Map::Native {
+        return summon::Ground::Native;
+    }
+    if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: Zoe's Flash lands on the Rift's 1614545 square clear of its walls (none known without the walls \
+                      file: only its edge); {} ==", rift_status()));
+    }
+    summon::Ground::Rift(rift_ground())
+}
+
 /// Living enemy champions of `team`: (id, position).
 fn enemies(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (u64, u64))> {
     let mut out = Vec::new();
@@ -591,7 +608,8 @@ impl Sparkles {
                 // 怎么看不出效果？」 - one small 0.2 s burst at each end, a body apart, read as nothing)
                 sim.play_view_effect(&zo("s_flash"), me, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
                 let from = target.and_then(|t| sim.get_entity(t)).map(|t| t.pos());
-                if let Some(to) = from.and_then(|f| summon::flash_spot(pos, f)) {
+                let on = ground(sim);
+                if let Some(to) = from.and_then(|f| summon::flash_spot_on(on, pos, f)) {
                     sim.entity_set_pos(me, to.0, to.1);
                     for k in 1..=FLASH_TRAIL {
                         let f = k as f64 / (FLASH_TRAIL + 1) as f64;

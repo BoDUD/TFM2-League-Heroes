@@ -4,7 +4,8 @@
 //!
 //! - **整身变豹**（`view.rs`，游戏 0.6.4 起的 Windows 版）：美洲狮形态时站着、跑着、挨打、阵亡也是豹子（凯隐附加包的做法）。
 //! - **草丛加速**（被动 `prowl`，英雄联盟的「寻觅」）：在草丛里、以及离开草丛后 `brush_t` tick 内移速 +`brush_ms`%；
-//!   这期间 `near` 以内有看得见的敌方英雄时 +`brush_near_ms`%。草丛格子从地图读（`bush.rs`，同雷恩加尔附加包）。
+//!   这期间 `near` 以内有看得见的敌方英雄时 +`brush_near_ms`%。草丛格子从地图读（`bush.rs`，同雷恩加尔附加包）；
+//!   Rin 的召唤师峡谷 α 上没有草丛数据，没有草丛加速（2026-11-10）。
 //! - **标枪挑目标**（AI 钩子）：人形、标枪好了，AI 要放 Q 时，换成射程内**线上没有小兵野怪挡着**的敌方英雄：被捕猎的
 //!   优先，再按飞得远（伤害高）、血少排；没有挡不住的英雄就不换。
 //! - **猛扑猎杀挑目标**（AI 钩子）：大招扑向射程内被捕猎的、血量比例最低的敌方英雄。
@@ -23,6 +24,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::Map;
 use mod_api_stable::*;
 
 pub mod bush;
@@ -289,14 +291,17 @@ impl StablePassive for Prowl {
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, team, (x, y)) = (e.is_alive(), e.team(), e.pos());
         if self.grid.is_none() {
+            // the Rift (game_places: its towers and nexuses) has no bush data: no brush speed there
+            let map = bush::match_map(sim, "no bush data there - no brush speed (Prowl)");
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.is_alive())
                 .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
                 .collect();
-            let g = bush::pick_bushes(&points, &bush::maps());
+            let g = bush::bushes_on(map, &points, &bush::maps());
             wlog(match &g {
                 Some(g) => format!("{} BUSHES: {} bush cells", head(sim, me), g.count()),
+                None if map == Map::Rift => format!("{} BUSHES: the Rift - no bush data, no brush speed", head(sim, me)),
                 None => format!("{} BUSHES: no bush grid - no brush speed", head(sim, me)),
             });
             self.grid = Some(g);
