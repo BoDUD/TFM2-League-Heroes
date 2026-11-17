@@ -52,11 +52,13 @@ struct Unit {
     stunned: bool,
     hp: usize,
     dead: bool,
+    /// banished (swallowed by Tahm Kench): alive, not targetable
+    hidden: bool,
 }
 
 fn unit(x: f64, y: f64, team: usize, champion: bool) -> Unit {
     Unit { x, y, team, champion, tower: false, attack: 100, buffs: vec![], ccs: vec![], damage: 0, stunned: false, hp: 1000,
-           dead: false }
+           dead: false, hidden: false }
 }
 
 /// A projectile in flight: where it is, its spawn (a `Linear` one flies `speed` a tick to its target point), a floor piece?
@@ -159,8 +161,8 @@ unsafe extern "C" fn champion(s: *const c_void, h: EntityHandleV1) -> bool {
 unsafe extern "C" fn tower(s: *const c_void, h: EntityHandleV1) -> bool {
     u(s, h).is_some_and(|e| e.tower)
 }
-unsafe extern "C" fn yes(s: *const c_void, h: EntityHandleV1) -> bool {
-    u(s, h).is_some()
+unsafe extern "C" fn targetable(s: *const c_void, h: EntityHandleV1) -> bool {
+    u(s, h).is_some_and(|e| !e.hidden)
 }
 unsafe extern "C" fn alive(s: *const c_void, h: EntityHandleV1) -> bool {
     u(s, h).is_some_and(|e| !e.dead)
@@ -307,7 +309,7 @@ fn vtable() -> SimVtableV1 {
     vt.entity_is_champion = Some(champion);
     vt.entity_is_tower = Some(tower);
     vt.entity_is_alive = Some(alive);
-    vt.entity_is_targetable = Some(yes);
+    vt.entity_is_targetable = Some(targetable);
     vt.entity_radius = Some(radius);
     vt.entity_buff_count = Some(buff_count);
     vt.entity_buff_at = Some(buff_at);
@@ -723,6 +725,22 @@ fn hookshot_from_cast_to_landing() {
         assert_eq!(world.pieces.len(), 10);
         assert!(world.on_floor[50 + FLOOR_STEP - 1..].iter().all(|&n| n == 0), "{:?}", &world.on_floor[45..]);
         assert_eq!(world.units[1].x, 600_000.0, "held while she lay dead");
+        // 0.4.13（用户 2026-11-17：「青钢影的bug没修好啊」）：塔姆在第 71 tick 吞下被锁的目标（放逐：活着、不可选中），
+        // 英雄联盟里大招当场结束：她身上的 r_on 当场摘掉，地面 FLOOR_STEP tick 内没了，标记摘掉，肚子里的人被带出去不拉回
+        let mine = fresh();
+        let mut world = r_world();
+        world.units[1].buffs[0].1 = ARENA_TICKS;
+        run_with(&mut world, &fx, Some(&mine), 71);
+        assert!(has(&world, 0, "league_camille_r_on"));
+        world.units[1].hidden = true;
+        world.units[1].x = 600_000.0;
+        run_with(&mut world, &fx, Some(&mine), 1);
+        assert!(!has(&world, 0, "league_camille_r_on"), "the arena outlived the swallow");
+        run_with(&mut world, &fx, Some(&mine), 20);
+        assert_eq!(world.pieces.len(), 15, "a piece after the swallow");
+        assert!(world.on_floor[71 + FLOOR_STEP..].iter().all(|&n| n == 0), "{:?}", &world.on_floor[66..]);
+        assert!(!has(&world, 1, "league_camille_r_mark"), "the mark outlived the arena");
+        assert_eq!(world.units[1].x, 600_000.0, "a swallowed target put back");
 
         let text = std::fs::read_to_string(&log).expect("log written");
         if std::env::var_os("KEEP_LOG").is_none() {
@@ -752,6 +770,9 @@ fn hookshot_from_cast_to_landing() {
              with two after one)",
             "ARENA END after 100 of 240 ticks: she walked out at 2.22 of the picture (80000 from the centre)",
             "ARENA END after 50 of 240 ticks: she died",
+            // 0.4.13: the target swallowed ends it
+            "ARENA END after 71 of 240 ticks: her target was banished (swallowed by Tahm Kench or the like): League ends \
+             the ultimatum then",
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
