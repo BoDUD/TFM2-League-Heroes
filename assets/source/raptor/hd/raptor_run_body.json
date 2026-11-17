@@ -1,0 +1,205 @@
+{
+ "hero": "raptor",
+ "tag": "run",
+ "drawn": "assets/source/raptor/hd/raptor_run_drawn",
+ "from": 0,
+ "outline": [
+  12,
+  0,
+  10
+ ],
+ "waist": [
+  4,
+  3,
+  4,
+  5,
+  4,
+  3,
+  4,
+  5
+ ],
+ "bob": [
+  0,
+  -1,
+  1,
+  4,
+  0,
+  -1,
+  1,
+  4
+ ],
+ "below": "match",
+ "parts": [
+  {
+   "name": "chin",
+   "poly": [
+    [
+     44,
+     47
+    ],
+    [
+     44,
+     78
+    ],
+    [
+     49,
+     78
+    ],
+    [
+     49,
+     47
+    ]
+   ],
+   "lag": 0,
+   "range": [
+    0,
+    0
+   ]
+  }
+ ],
+ "chains": [
+  {
+   "name": "tail",
+   "colours": [
+    [
+     207,
+     34,
+     29
+    ],
+    [
+     252,
+     62,
+     42
+    ],
+    [
+     158,
+     8,
+     32
+    ],
+    [
+     168,
+     11,
+     31
+    ],
+    [
+     96,
+     1,
+     37
+    ],
+    [
+     64,
+     1,
+     9
+    ],
+    [
+     73,
+     0,
+     32
+    ],
+    [
+     95,
+     18,
+     13
+    ],
+    [
+     133,
+     4,
+     31
+    ],
+    [
+     36,
+     39,
+     60
+    ],
+    [
+     58,
+     63,
+     94
+    ],
+    [
+     19,
+     1,
+     16
+    ]
+   ],
+   "side": "left",
+   "root": 21,
+   "rows": [
+    9,
+    44
+   ],
+   "tip": [
+    2,
+    0,
+    -1,
+    -2,
+    2,
+    0,
+    -1,
+    -2
+   ],
+   "ink_depth": 2
+  }
+ ],
+ "bare_ground": true,
+ "keep_gaps": true,
+ "sink_edge": true,
+ "part_gaps": true,
+ "close_edges": true,
+ "keep_one": "assets/source/raptor/hd/raptor_run_one",
+ "notes": {
+  "made": "--init (the installed run, 419c6031d's tft/), then by hand (round 7, the TFT heroes: 「继续处理云顶的英雄吧」; R6: a static body bobs as one drawing over its drawn legs on the unit's own run clip)",
+  "drawn": "rig_raptor's walk: the design (idle) the same drawing in every frame, rising 1 2 1 0 1 2 1 0 rows; its two short legs (HIND under the rear feathers, FORE under the chin) lifted by losing their top rows and set 2 columns forward in turn (hind frames 0-2, landing on 3; fore 4-6, landing on 7): a 2-row bob",
+  "bob": "TFT's Crimson Raptor run (TFTSet18 tft18_raptor, 1.2 s, the same cycle as ours): Spine1 +2.5 -1.2 -3.5 +2.2 +2.5 -1.3 -3.4 +2.2 rows up at our 58-row height (6 rows, two beats); ours low as each foot lands (3 / 7), high mid-swing (1 / 5), never above a frame's own drawn place: the body's top -37 -38 -36 -33 (5 rows)",
+  "below": "match: the body is one drawing in every frame, so what of it sits below the waist (design row 41, the hind leg's top) - the chin over the fore talons - is found square for square and goes with it (part `chin`, lag 0)",
+  "chains": "the tail fan left of column -22 (its reds and grey-blue tips), 2 deep outline with it: the tip 150 ms behind the bob (2 0 -1 -2 rows off the body)",
+  "close_edges": "the belly's dark purple underside lowered into the gap between the legs gets its outline (2 squares on frames 3 / 7)"
+ },
+ "variants": {
+  "s2": {
+   "steps": 2,
+   "bob": [
+    2,
+    1,
+    0,
+    -1,
+    0,
+    1,
+    3,
+    4,
+    2,
+    1,
+    0,
+    -1,
+    0,
+    1,
+    3,
+    4
+   ],
+   "chains": {
+    "tail": {
+     "tip": [
+      1,
+      2,
+      1,
+      1,
+      0,
+      -1,
+      -2,
+      -2,
+      1,
+      2,
+      1,
+      1,
+      0,
+      -1,
+      -2,
+      -2
+     ]
+    }
+   },
+   "keep_one": "assets/source/raptor/hd/raptor_run_one2",
+   "notes": "each drawn step shown twice (16 x 75 ms, the same 1.2 s): the body moves on every frame - a smooth two-beat bob (5 rows), the tail 150 ms behind it; the fanim changes (16 frames)"
+  }
+ }
+}

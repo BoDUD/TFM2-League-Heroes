@@ -1,0 +1,21 @@
+{
+  "hero": "aoshin",
+  "tag": "run",
+  "drawn": "assets/source/aoshin/hd/aoshin_run_drawn",
+  "from": 0,
+  "outline": [10, 2, 25],
+  "lock": "own",
+  "waist": [0, 0, 0, 0, 0, 0],
+  "below": [],
+  "bob": [0, 0, 0, 0, 0, 0],
+  "shift": [0, 0, 0, 0, 0, 0],
+  "keep_one": "assets/source/aoshin/hd/aoshin_run_one",
+  "variants": {"pp133": {"cycle_ms": 800}, "pp167": {"cycle_ms": 1000}},
+  "notes": {
+    "why": "character runs round 7 (TFT, 11-17; the user: 「继续处理云顶的英雄吧」): his installed run is four poses from TFT7_AoShin_runA at 0 / 130 / 260 / 400 ms, 133 ms each - runA is only the rising half of his swim (TFTSet7: runA 0.533 s rises, runB / runC / runD 0.667 s fall / rise / fall, Neck1 96 -> 199 -> 85 units), so the loop swept the tail down and snapped it back up from the last pose to the first every 532 ms",
+    "sequence": "the drawn poses there and back: 0 1 2 3 2 1 (the way back reverses runA: the neck falls, the tail rises, the claws drop - runB / runD's half), 6 x 150 ms = 900 ms (League's whole wave A + B 1.2 s, C + D 1.333 s); every square as drawn (no pose moved, cut or added), no loop seam",
+    "one": "the 1x run is the installed 1x frames in the same order (keep_one: aoshin_run_one); the lo_ run is made from the dense frames (each pose's is the installed lo_ frame square for square)",
+    "variants": "base: 900 ms; pp133: 800 ms (the installed 133 ms a frame); pp167: 1000 ms",
+    "made": "C:/t/par_work/run_tft7/_c7_work/ao/build.py"
+  }
+}

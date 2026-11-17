@@ -1,0 +1,16 @@
+{
+  "hero": "violet",
+  "tag": "run",
+  "drawn": "assets/source/violet/hd/violet_run_drawn",
+  "from": 0,
+  "outline": [15, 4, 17],
+  "lock": "own",
+  "waist": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "keep_one": "assets/source/violet/hd/violet_run_one",
+  "notes": {
+    "kept": "the motion as drawn (rig_violet.py: Codex's 8 run poses after TFT13_Red's Run, 0.933 s a cycle; 8 x 117 ms kept): every frame a whole new pose - the gauntlets, both arms, the lean - and the head 89 87 86 90 91 90 85 87 rows over the ground, two beats of 5-6 rows a cycle already (3 game px); TFT's model has no hair or cloth joints to swing; TFT bobs her the other way round (lowest on the planted leg, 14 rows) - a sink there would lower the standing frames 8-10 rows over her legs. Her second step (frames 4-7) is drawn as a short shuffle: only the legs could change that, and they stay as drawn.",
+    "strays": "black strays cleared from the drawn run (C:/t/par_work/run_char2/_a7_work/strays7.py, keep 2: her outline (15, 4, 17) is two squares deep): outline squares more than 2 from every colour, open to the ground round her - a lump under the front heel (frame 1), a band at the back of the hair (frame 3), a blob beside the face (frame 4); 30 squares in all. The 1x run is the rig's own drawing (keep_one, clean at 2); the lo_ frames are made from the cleaned dense ones"
+  }
+}

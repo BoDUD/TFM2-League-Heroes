@@ -54,7 +54,23 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   landing's lowest, back the next; a chain's `with`: the part it hangs from, its rows on every column too (the back
   hair with that head); a square in two parts' corners is the first one's; a chain's `tip_lag` (with `tip`): frames
   the tip's path lags the root end by - each column takes the tip's path that much earlier by its share of the way out
-  (league_belveth's hair ribbon: League's Hair4..Hair8 follow one another, a wave running out along it);
+  (league_belveth's hair ribbon: League's Hair4..Hair8 follow one another, a wave running out along it); a chain's
+  `ink_depth` (N): its outline is every outline square within N of it that is nearer to it than to the rest's colours
+  (tft_kobuko's ponytail, outlined 2 deep round the silhouette: moved, the outer ring would stay behind as strays);
+- `sink_edge`: the body lowered over its legs (`bob` under its drawn place) left its own bottom outline with the legs'
+  drawing (under a hanging fist, at a crotch's apex): a laid body square of a colour with clear ground right under it,
+  from the frame's waist row down, gets one square of outline there (tft_kobuko); with `lock` "own" the same for a
+  frame's own upper body moved down by `shift`, under it or beside it (tft_meepsie);
+- `legs_front` (`lock` "own"): the frame's own legs laid back over its moved upper body - a walk drawn with its legs in
+  front of the body (tft_brock's rig pastes the stepping legs over the belly: a lifted foot overlaps its bottom rows);
+  with it `shift` may also lift the body (negative rows): the legs in front leave no gap to fill over them;
+- `part_fill`: what a moved part bares inside the laid body is filled from the body's own colours round it instead of
+  with outline (tft_sentry's glowing core drifting in its socket between the two shards);
+- `own_specks`: N - a piece of at most N squares of the frame's own drawing cut off from the rest of the figure goes
+  (the edge of a frame's own part that `own_clear` did not reach, left alone once the part is laid anew: tft_zippy);
+- `close_edges`: a colour square left touching the ground without outline gets the outline on the ground beside it (a
+  laid part's cut edge at a join with the frame's own drawing: tft_zippy; with `lock` "head" too: tft_krug's laid idle
+  body, whose boulder edge leaned on rocks the run frames do not have);
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
@@ -78,7 +94,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   is looked for (7 squares by default): league_nilah's leaping frames are drawn on the same rows of a rect 23-27 rows
   taller, so their centres sit 12-14 rows under where her upper body is.
 - `keep_lo`: like `keep_one` for the lo_ frames - they stay the drawn run's own (<hero>_run_lo.png), for a hero whose
-  lo_run is not add_lo's from his dense frames (league_malzahar's timing-only run keeps every square of it).
+  lo_run is not add_lo's from his dense frames (league_malzahar's timing-only run keeps every square of it); with `pad`
+  they keep their own sizes, as `keep_one`'s 1x frames do (tft_syfen: his dense frames grown for a laid head, his lo_
+  frames the installed ones square for square).
 - `frame_shift`: [rows, cols] a drawn frame - every square of that drawn frame moved by whole squares in its rect before
   anything else is made of it (down +, right +): a frame the artist drew off the others' place (league_soraka's frames
   3 and 6, her whole figure drawn 10-22 columns back: she lurched back and forth every step), re-registered; no square
@@ -89,6 +107,12 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   (rows / cols off its place in frame `from`, from the frames' centres, a frame each), `clear` (a mask spec a drawn frame,
   null: none - the frame's own drawing of it, exactly those squares go); laid in front, the gaps joined as the head's. A
   mask spec: (row, col) corners, or {"rows": [[row, first col, last col], ...]}, in the frame's own rows / cols.
+- `head` may also be such a {"rows": ...} mask spec (in frame `from`): the laid piece square for square, not a polygon's
+  squares (tft_zippy's laid body - saddle and tail - beside its mane and thighs).
+- `head_picture` (with `lock` "head"): a picture (path from the repo's root, one of the hero's own frames kept beside the
+  data) the head is cut from instead of frame `from`'s drawing, `head` in its rows / cols; it is laid on every drawn
+  frame, frame `from` too (tft_krug: his idle's body on each run frame's legs - Codex drew the boulder at a new size in
+  every run frame). Default: none.
 - `head_chains` (with `lock` "head"): pieces of the laid head that swing on their own (league_tristana's long ears
   flopping on League's Ear02 paths on her locked head): each the head's squares in `poly` (corners in frame `from`) on
   the `side` of its `root` column, every column off the laid head by its share of `tip` (rows a frame) as a chain's,
@@ -101,12 +125,17 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   never a turn) over its own legs, the legs square for square as drawn (compose_own) - with `steps` 2 the body bobs on
   every frame while each drawn pose is shown twice; `upper` (a mask spec a drawn frame) names that upper body square
   for square where no waist row and rects can (a tail leaving the hip under the belt: everything but the legs, cut off
-  at the hips).
+  at the hips); `own_under` (a mask spec a drawn frame, null: none) a region where the lowered body goes behind the
+  rest - it shows only on its own drawn squares there, every other square of the region stays as drawn (tft_baronnashor:
+  his neck sinking into the collar of his abdomen, the collar's violet rims and the neck tip's outline in front);
+  `own_lift` (true): a `shift` may be negative - the body lifted over its legs where lowering it would push what rests
+  on the ground under it (tft_sentinel's fists), the gap it opens over the legs filled from their own colours.
 - `shade`: which leg is near shown by its shade, as a run's legs cross (league_ambessa, both legs one dark armour:
   「安蓓萨感觉腿部没有交叉感 看的不是太明显」, then 「安蓓萨 你决定」) - in each drawn frame the `far` leg's squares (a mask
   spec a drawn frame) a step darker and the `near` leg's a step lighter along their colour's `ramps` (dark to light;
   `keep_dark`: never darker, `keep_light`: never lighter; another colour stays), laid on the drawn frame before it is
-  composed - the drawing's shapes square for square, only the shade. Default: none.
+  composed - the drawing's shapes square for square, only the shade. Default: none. `shade_steps`: [far, near] - that
+  many ramp steps each, a colour stopping at its ramp's end (tft_silco's far leg two steps down); default one each.
 - `strays`: the module of the hero's black-strays tool (league_warwick: "warwick_strays", tools/art/black_strays.py's
   rule): each composed dense frame cleaned by it before the thin_outline pass - the outline colour where it is no part's
   outline (the apex of a gap a laid tail closes against the drawing) goes as in every other tag of his (the user:
@@ -223,8 +252,10 @@ def load(hero, variant=None):
                 c["rows"] = [c["rows"][0] + pr, c["rows"][1] + pr]
             if c.get("poly"):
                 c["poly"] = [(r + pr, q + pc) for r, q in c["poly"]]
-        if cfg.get("head"):
-            cfg["head"] = [[r + pr, c + pc] for r, c in cfg["head"]]
+        if cfg.get("head") and not cfg.get("head_picture"):
+            # (a `head_picture`'s head and chin are in that picture's rows / cols: not grown)
+            cfg["head"] = shift_spec(cfg["head"], pr, pc) if isinstance(cfg["head"], dict) else \
+                [[r + pr, c + pc] for r, c in cfg["head"]]
             cfg["chin"] += pr
         if cfg.get("chin_rows"):
             cfg["chin_rows"] = [r + pr for r in cfg["chin_rows"]]
@@ -233,7 +264,7 @@ def load(hero, variant=None):
                             for rs in cfg["below"]]
         for a in cfg.get("add", []):
             a["at"] = [a["at"][0] + pr, a["at"][1] + pc]
-        for key in ("head_clear", "own_clear", "upper", "shift_parts"):
+        for key in ("head_clear", "own_clear", "upper", "shift_parts", "own_under"):
             if cfg.get(key):
                 cfg[key] = [None if q is None else
                             {"rows": [[r + pr, c0 + pc, c1 + pc] for r, c0, c1 in q["rows"]]} if isinstance(q, dict)
@@ -527,6 +558,15 @@ def pieces(src, cfg, i_src):
         # its outline: what touches it and no other solid square of hers, on its side of the root
         cink = ink & (every | (op & rows & ~upper)) & side & ndimage.binary_dilation(m, structure=K8) & \
             ~ndimage.binary_dilation(solid_rest, structure=K8) & ~taken & ~kept
+        if c.get("ink_depth"):
+            # `ink_depth`: N - its outline is every outline square within N of it (chessboard) that is nearer to it than
+            # to the rest's colour squares: a drawing whose outline is 2 deep round its silhouette (tft_kobuko's white
+            # ponytail) takes its outer ring along too (else the ring stays behind as black strays when it moves)
+            dch = ndimage.distance_transform_cdt(~m, metric="chessboard")
+            dre = ndimage.distance_transform_cdt(~solid_rest, metric="chessboard") if solid_rest.any() else \
+                np.full((H, W), 99, np.int32)
+            cink = ink & (every | (op & rows & ~upper)) & side & (dch <= int(c["ink_depth"])) & (dch < dre) & \
+                ~taken & ~kept
         out[c["name"]] = m | cink
         taken |= out[c["name"]]
         every |= out[c["name"]]
@@ -626,15 +666,22 @@ def shade_legs(a, cfg, i):
         return a
     ramps = [[tuple(c) for c in r] for r in sh["ramps"]]
     keep = {-1: {tuple(c) for c in sh.get("keep_dark", [])}, 1: {tuple(c) for c in sh.get("keep_light", [])}}
+    # `shade_steps`: [far, near] ramp steps (default one each: a colour with no step left stays); given, a colour runs
+    # out at its ramp's end instead (tft_silco's far leg two steps down, to his darkest trouser brown: one step on his
+    # dark browns did not read at game size - the user: 「希尔科腿部没有交叉步 问题有点严重」)
+    steps = cfg.get("shade_steps")
     b = a.copy()
     op = a[..., 3] > 0
     for key, step in (("far", -1), ("near", 1)):
+        n = int(steps[0 if key == "far" else 1]) if steps else 1
         q = (sh.get(key) or [None] * (i + 1))[i]
         for y, x in zip(*np.nonzero(spec_mask(q, a.shape) & op)):
             c = tuple(int(v) for v in a[y, x, :3])
             for r in ramps:
                 if c in r:
-                    j = r.index(c) + step
+                    j = r.index(c) + step * n
+                    if steps:
+                        j = max(0, min(len(r) - 1, j))
                     if 0 <= j < len(r) and c not in keep[step]:
                         b[y, x, :3] = r[j]
                     break
@@ -925,6 +972,14 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
     # inside her: from her legs' own colours where they are round it, else outline (between the laid layers)
     near_legs = inside & ndimage.binary_dilation(legs, structure=K8, iterations=2)
     fill_in(b, near_legs, legs & ~colour_mask(b, [out_c]))
+    pfill = np.zeros((H, W), bool)
+    if cfg.get("part_fill"):
+        # `part_fill`: what a moved part bares inside the body is filled from the laid body's own colours round it, not
+        # with outline - a core drifting in its socket (tft_sentry's glow between its two shards) leaves the socket's
+        # own blue behind it, not a black ring
+        voters_ = info["body"] & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        pfill = inside & revealed & (b[..., 3] == 0)
+        fill_in(b, pfill, voters_)
     rest = inside & (b[..., 3] == 0)
     b[rest, :3] = out_c
     b[rest, 3] = 255
@@ -981,7 +1036,40 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
                 shut &= ~m_
     b[shut, :3] = out_c
     b[shut, 3] = 255
-    info["joined"] = ((near_legs | rest | bare | shut) & (b[..., 3] > 0)) & ~put
+    sunk = np.zeros((H, W), bool)
+    if cfg.get("sink_edge"):
+        # `sink_edge`: the body lowered over its legs leaves its own bottom outline with the legs' drawing (the outline
+        # row under a hanging fist, the apex of a crotch: tft_kobuko's design body sinking over his short legs) - a
+        # laid body square of a colour with clear ground right under it, from the frame's waist row down, gets one
+        # square of outline there, as the drawing has under it
+        body_col = info["body"] & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        sunk[1:] = body_col[:-1]
+        sunk &= b[..., 3] == 0
+        sunk[:max(0, cy + cfg["waist"][pose])] = False
+        b[sunk, :3] = out_c
+        b[sunk, 3] = 255
+    closed = np.zeros((H, W), bool)
+    if cfg.get("close_edges"):
+        # `close_edges`: a square of a colour left touching the ground without its outline (a laid part's cut edge at a
+        # join with the frame's own drawing: tft_zippy's laid saddle and tail on frames drawn bigger) gets the outline
+        # on the ground beside it, as the drawing has round every colour
+        col_ = (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        closed = (b[..., 3] == 0) & ndimage.binary_dilation(col_, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
+                                                                                     bool))
+        b[closed, :3] = out_c
+        b[closed, 3] = 255
+    if cfg.get("own_specks"):
+        # `own_specks`: N - a piece of at most N squares cut off from the rest of the figure (8-connected) that is the
+        # frame's own drawing, nothing laid in it, goes: the edge of a frame's own part `own_clear` did not reach (the top
+        # of tft_zippy's own saddle, the end of its own tail's underside) left standing alone once the part is laid anew
+        lab_, n_ = ndimage.label(b[..., 3] > 0, structure=K8)
+        if n_ > 1:
+            size_ = ndimage.sum(np.ones((H, W)), lab_, range(1, n_ + 1))
+            for j in np.nonzero(size_ <= int(cfg["own_specks"]))[0]:
+                m_ = lab_ == j + 1
+                if not (m_ & put).any():
+                    b[m_] = 0
+    info["joined"] = ((near_legs | rest | bare | shut | sunk | pfill | closed) & (b[..., 3] > 0)) & ~put
     return b, info
 
 
@@ -1024,9 +1112,11 @@ def part_gaps(src, layers, mov, cfg, i, dy, dx, b):
 
 # ------------------------------------------------------------------------------------------------- the head alone
 def head_of(src, cfg):
-    """Frame `from`'s head (`lock` "head"): its squares inside `head` (corners in frame `from`), the piece of them joined
-    to its biggest run (8-connected)."""
-    m = poly_mask(cfg["head"], src.shape) & (src[..., 3] > 0)
+    """Frame `from`'s head (`lock` "head"): its squares inside `head` (corners in frame `from`, or a mask spec
+    {"rows": [[row, first col, last col], ...]} - tft_zippy's laid body: its saddle and tail exactly), the piece of them
+    joined to its biggest run (8-connected)."""
+    m = spec_mask(cfg["head"], src.shape) & (src[..., 3] > 0) if isinstance(cfg["head"], dict) else \
+        poly_mask(cfg["head"], src.shape) & (src[..., 3] > 0)
     lab, n = ndimage.label(m, structure=K8)
     if n > 1:
         m = lab == 1 + int(np.argmax(ndimage.sum(m, lab, range(1, n + 1))))
@@ -1092,7 +1182,7 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None, hchains=None)
     # league_kayle hovers, her figure rising and falling 20-odd squares in her frames, so her face is looked for further
     my, mx = find_head(src, a, tmpl, int(cfg.get("head_search", 10)))
     dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
-    same = pose == cfg["from"] or (a.shape == src.shape and np.array_equal(a, src))
+    same = (pose == cfg["from"] and not cfg.get("head_picture")) or (a.shape == src.shape and np.array_equal(a, src))
     props = props or []
     # (`props`: a frame whose own prop is cleared, or that gets one laid from another frame, is made)
     prop_here = any(pr["clear"][pose] or int(pr.get("from", cfg["from"])) != pose or any(pr["at"][i])
@@ -1346,8 +1436,18 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None, hchains=None)
                 if (m & by).any() and not (m & (put | carried)).any() and \
                         not (np.unique(lab_a[m]).size == 1 and (lab_a == lab_a[m][0]).sum() == m.sum()):
                     b[m] = 0
+    closed = np.zeros((H, W), bool)
+    if cfg.get("close_edges"):
+        # `close_edges` (as compose's): a colour square left touching the ground without its outline gets the outline on
+        # the ground beside it (tft_krug: the idle's boulder edge that leaned on the hind leg's top rocks, laid on run
+        # frames whose leg is elsewhere)
+        col_ = (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        closed = (b[..., 3] == 0) & ndimage.binary_dilation(col_, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
+                                                                                     bool))
+        b[closed, :3] = out_c
+        b[closed, 3] = 255
     info["carry"] = carried & (b[..., 3] > 0)
-    info["joined"] = ((inside | bare | shut) & (b[..., 3] > 0)) & ~put & ~carried
+    info["joined"] = ((inside | bare | shut | closed) & (b[..., 3] > 0)) & ~put & ~carried
     info["kept"] = np.zeros((H, W), bool)
     if sh:
         # the frame's own upper body moved: its legs are what is left under the waist (the rest is laid, as drawn)
@@ -1419,7 +1519,9 @@ def compose_own(a, i, cfg, pose):
     if not sh and not sx:
         return a.copy(), {"own": z, "legs": a[..., 3] > 0, "torso": z, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
                           "head": z, "joined": z, "kept": z, "shift": 0, "shift_x": 0}
-    if sh < 0:
+    if sh < 0 and not cfg.get("legs_front") and not cfg.get("own_lift"):
+        # (with `legs_front` the legs stay in front of the body: lifted, the body leaves no gap over them - what it
+        # leaves at its own bottom is the ground between them, its bared edges outlined as any)
         sys.exit(f"`lock` \"own\": shift {sh} at frame {i} - the body is only lowered over its hips (down +)")
     H, W = a.shape[:2]
     out_c = cfg["outline"]
@@ -1435,7 +1537,41 @@ def compose_own(a, i, cfg, pose):
     b[ty, tx] = a[ys, xs]
     put = np.zeros((H, W), bool)
     put[ty, tx] = True
+    if cfg.get("legs_front"):
+        # `legs_front`: the frame's own legs laid back over the moved body - a walk that drew its legs over the body
+        # (tft_brock's rig pastes the stepping legs over the belly and the fists: a lifted foot overlaps the body's
+        # bottom rows) keeps them in front, the body moving behind them
+        b[legs] = a[legs]
+        put &= ~legs
+    und = (cfg.get("own_under") or [None] * (pose + 1))[pose]
+    if und:
+        # `own_under`: in this region the lowered body slides behind what is drawn round it - it shows only on its own
+        # drawn squares (those it cleared), every other square there stays as drawn (a neck sinking into its collar)
+        stay = spec_mask(und, a.shape) & ~own
+        b[stay] = a[stay]
+        put &= ~stay
     vacated = (b[..., 3] == 0) & op0
+    lifted = np.zeros((H, W), bool)
+    if sh < 0 and cfg.get("own_lift"):
+        # `own_lift`: the body lifted (a lowered body would push what rests on the ground under it - tft_sentinel's
+        # fists): the gap it opens over its legs - squares it left that the laid body and the legs shut in from both
+        # sides within the lift + 1 - is filled from the legs' own colours, ring by ring up from them (an outline row
+        # across it read as a black seam; outline only where no leg colour reaches); what it leaves open to the ground
+        # (a fist's old lower edge) stays ground
+        # (a square whose source - where the moved body's drawing there came from - was clear in the drawing is the
+        # drawing's own gap carried up: the air between an arm and the chest stays air)
+        vy, vx = np.nonzero(vacated)
+        sy_, sx_ = vy - sh, vx - sx
+        okv = (sy_ >= 0) & (sy_ < H) & (sx_ >= 0) & (sx_ < W)
+        carried = np.zeros((H, W), bool)
+        carried[vy[okv], vx[okv]] = ~op0[sy_[okv], sx_[okv]]
+        inside = vacated & ~carried & T.between(put | legs, abs(sh) + 1)
+        fill_in(b, inside, legs & ~colour_mask(b, [out_c]))
+        rest_ = inside & (b[..., 3] == 0)
+        b[rest_, :3] = out_c
+        b[rest_, 3] = 255
+        lifted = inside & (b[..., 3] > 0)
+        vacated = (b[..., 3] == 0) & op0
     # a leg's colour square the body bares to the ground (a fist that hung by the thigh moved down) gets outline
     leg_col = legs & ~put & ~colour_mask(b, [out_c])
     bare = vacated & ndimage.binary_dilation(leg_col, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], bool))
@@ -1445,7 +1581,7 @@ def compose_own(a, i, cfg, pose):
     # but a pinhole of 1-2 squares none of the drawings has (no pocket of the frame's own moved there) is outline
     moved_pk = np.zeros((H, W), bool)
     py, px_ = np.nonzero(pockets(a) & ndimage.binary_dilation(own, structure=K8))
-    okp = (py + sh < H) & (px_ + sx >= 0) & (px_ + sx < W)
+    okp = (py + sh >= 0) & (py + sh < H) & (px_ + sx >= 0) & (px_ + sx < W)
     moved_pk[py[okp] + sh, px_[okp] + sx] = True
     lab, n = ndimage.label(b[..., 3] == 0)
     outer = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
@@ -1456,9 +1592,21 @@ def compose_own(a, i, cfg, pose):
             pin |= m_
     b[pin, :3] = out_c
     b[pin, 3] = 255
+    sunk = np.zeros((H, W), bool)
+    if cfg.get("sink_edge") and (sh > 0 or (sh < 0 and cfg.get("legs_front"))):
+        # `sink_edge` (as compose's): a moved square of a colour with clear ground right under it - the body's own
+        # bottom outline stayed with the legs' drawing (tft_meepsie's rock body sinking over the gap between its legs;
+        # tft_brock's lifted over its legs in front) - gets one square of outline there
+        col_ = put & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        sunk[1:] = col_[:-1]
+        sunk[:, 1:] |= col_[:, :-1]                     # (and beside it: its side outline the legs kept, at the hips)
+        sunk[:, :-1] |= col_[:, 1:]
+        sunk &= b[..., 3] == 0
+        b[sunk, :3] = out_c
+        b[sunk, 3] = 255
     op = b[..., 3] > 0
-    joined = (bare | pin) & op
-    return b, {"own": z, "legs": legs & op & ~put, "torso": put & op, "at": (sh, sx), "lost": 0, "drawn_at": (0, 0),
+    joined = (bare | pin | sunk | lifted) & op
+    return b, {"own": z, "legs": legs & op & ~put & ~lifted, "torso": put & op, "at": (sh, sx), "lost": 0, "drawn_at": (0, 0),
                "head": z, "joined": joined, "kept": z, "shift": sh, "shift_x": sx}
 
 
@@ -1495,6 +1643,12 @@ def make(hero, cfg=None):
     n = len(frames)
     i0 = cfg["from"]
     src = added(frames[i0][0], cfg)                     # (`add`: pieces the drawing lacks, in frame `from`'s drawing)
+    if cfg.get("lock") == "head" and cfg.get("head_picture"):
+        # `head_picture` (`lock` "head"): the head is cut from this picture (a path from the repo's root: one of the hero's
+        # own frames kept beside the data) instead of frame `from`'s drawing - `head` in its rows / cols - and laid on
+        # every drawn frame, frame `from` too (tft_krug: Codex drew his boulder at 957-1424 squares from run frame to run
+        # frame; his idle's body, 1561, goes on each one's legs)
+        src = np.array(Image.open(lp(os.path.join(ROOT, cfg["head_picture"]))).convert("RGBA"))
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     head_only = cfg.get("lock") == "head"
     own_only = cfg.get("lock") == "own"                 # (`lock` "own": nothing laid - compose_own)
@@ -1573,6 +1727,7 @@ def make(hero, cfg=None):
         one_sz, lo_sz = [one_sz[i // steps] for i in range(N)], [lo_sz[i // steps] for i in range(N)]
     k = P.PPU[short(hero)]
     pr, pc = cfg.get("pad", (0, 0))
+    lo_own = list(lo_sz)                             # (the drawn run's own lo_ sizes: `keep_lo`'s, with `pad` too)
     if pr or pc:                                     # (grown frames: the lo_ side bounds the 1x side - grown alike)
         gl = lambda v, p_: v + 2 * int(math.ceil(p_ * P.UI_PPU / k))  # noqa: E731
         lo_sz = [(gl(lw, pc), gl(lh, pr)) for lw, lh in lo_sz]
@@ -1641,8 +1796,15 @@ def make(hero, cfg=None):
         # frames (league_malzahar: 173-195 squares a frame off), so a timing-only run keeps every square of it
         s2 = np.array(Image.open(lp(os.path.join(ROOT, cfg["keep_lo"] + ".png"))).convert("RGBA"))
         kept2, x2 = [], 0
-        for (_, ms), (lw, lh) in zip(lo, lo_sz):
-            kept2.append((s2[:lh, x2:x2 + lw].copy(), ms))
+        for (_, ms), (lw, lh), (pw, ph) in zip(lo, lo_own, lo_sz):
+            k2 = s2[:lh, x2:x2 + lw].copy()
+            if cfg.get("keep_lo_centred") and (ph, pw) != (lh, lw):
+                # `keep_lo_centred` (with `pad`): the kept frames grown alike at both ends to the grown rects, their
+                # centre kept (tft_brock's run, lifted over its legs) - without it they keep their own sizes (tft_syfen)
+                g2 = np.zeros((ph, pw, 4), np.uint8)
+                g2[(ph - lh) // 2:(ph - lh) // 2 + lh, (pw - lw) // 2:(pw - lw) // 2 + lw] = k2
+                k2 = g2
+            kept2.append((k2, ms))
             x2 += lw + 1
         lo = kept2
     for inf, n_ in zip(info, lost):

@@ -1,0 +1,38 @@
+{
+  "hero": "sentry",
+  "tag": "run",
+  "drawn": "assets/source/sentry/hd/sentry_run_drawn",
+  "from": 0,
+  "outline": [18, 3, 18],
+  "waist": [14, 14, 14, 14],
+  "steps": 2,
+  "cycle_ms": 960,
+  "bob": [1, 0, -1, -2, -2, -1, 0, 1],
+  "below": [
+    [],
+    [],
+    [],
+    []
+  ],
+  "parts": [
+    {"name": "core", "poly": [[19, 21], [19, 31], [31, 31], [31, 21]], "skip": [[94, 119, 118], [62, 83, 88], [32, 52, 67], [30, 14, 39], [132, 147, 133], [19, 29, 54], [42, 68, 91], [59, 110, 147], [23, 65, 110], [67, 145, 188], [56, 96, 118], [46, 18, 52], [18, 3, 18], [191, 196, 166]], "rows": [0, 0, 1, 1, 0, 0, -1, -1]}
+  ],
+  "chains": [],
+  "x": 0,
+  "part_fill": true,
+  "keep_gaps": true,
+  "bare_ground": true,
+  "keep_one": "assets/source/sentry/hd/sentry_run_one",
+  "keep_lo": "assets/source/sentry/hd/sentry_run_lo",
+  "variants": {"t480": {"cycle_ms": 480, "notes": "the same float at the installed cycle: 8 x 60 ms"}, "t720": {"cycle_ms": 720, "notes": "8 x 90 ms"}},
+  "notes": {
+    "made": "--init (the installed run, 419c6031d), then by hand (round 7, the TFT heroes: 「继续处理云顶的英雄吧」)",
+    "drawn": "rig_sentry's glide: ONE picture (the design leaned ~7 degrees) at 0 -1 -2 -1 rows, 4 x 120 ms = 480 ms: a 2-row bob in single-row steps",
+    "league": "the TFT unit (TFTSet18 tft18_sentry) has no run clip, and set 18's WAD is not in this client; its skin borrows SRU_BlueMini - League's own Sentry by the Blue Sentinel, the same rig (C_Rock, L_Rock, R_Rock, L_Rock_Top): Map11's SRU_BlueMini_run (2.0 s) floats it 4.4 rows up and down (at its 44-row height) once a cycle, both shards together, the core (C_Rock) a quarter cycle behind them, +-1.8 rows",
+    "bob": "the picture laid on a smooth float, 8 frames (`steps` 2 on the 4 drawn frames, all the same picture): 1 0 -1 -2 -2 -1 0 1 rows = 3 rows (2.3 game px) against the drawn 2, in 960 ms (8 x 120: League's float is slower still, 2.0 s)",
+    "core": "the glowing core (its blues and white, the socket's dark rim left with the shards) a part a quarter cycle behind the body: 0 0 1 1 0 0 -1 -1 rows off it (League's C_Rock against the shards, scaled); what it bares in the socket is filled from the socket's own colours round it (`part_fill`), never a black ring",
+    "keep_one": "the 1x run is rig_sentry's own drawing: kept as installed, each frame twice for the 8 frames",
+    "keep_lo": "the lo_run is not add_lo's from the dense frames (~125 squares a frame with nothing moved): kept, each frame twice",
+    "fanim": "8 frames instead of 4: the run tags' rects and times change - league.dll's tft hd table is built again"
+  }
+}
