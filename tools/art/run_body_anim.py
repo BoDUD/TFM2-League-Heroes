@@ -1796,8 +1796,15 @@ def make(hero, cfg=None):
         # frames (league_malzahar: 173-195 squares a frame off), so a timing-only run keeps every square of it
         s2 = np.array(Image.open(lp(os.path.join(ROOT, cfg["keep_lo"] + ".png"))).convert("RGBA"))
         kept2, x2 = [], 0
-        for (_, ms), (lw, lh) in zip(lo, lo_own):
-            kept2.append((s2[:lh, x2:x2 + lw].copy(), ms))
+        for (_, ms), (lw, lh), (pw, ph) in zip(lo, lo_own, lo_sz):
+            k2 = s2[:lh, x2:x2 + lw].copy()
+            if cfg.get("keep_lo_centred") and (ph, pw) != (lh, lw):
+                # `keep_lo_centred` (with `pad`): the kept frames grown alike at both ends to the grown rects, their
+                # centre kept (tft_brock's run, lifted over its legs) - without it they keep their own sizes (tft_syfen)
+                g2 = np.zeros((ph, pw, 4), np.uint8)
+                g2[(ph - lh) // 2:(ph - lh) // 2 + lh, (pw - lw) // 2:(pw - lw) // 2 + lw] = k2
+                k2 = g2
+            kept2.append((k2, ms))
             x2 += lw + 1
         lo = kept2
     for inf, n_ in zip(info, lost):
