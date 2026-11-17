@@ -8,6 +8,11 @@
 //! 动画名不在 `FORM_TAGS` 里、她图里也没有（`SHEET_TAGS`），画面就画回人形；那一刻读不到龙形 buff 也会画回人形。现在
 //! 一旦是龙就一直按龙画，直到游戏播出变回人形的动作（`revert`）或阵亡后复活（[`Forms::form`]）；龙形时她图里没有的
 //! 动画名换成 `d_hit`（挨打的龙），每个名字记一行 `plays "<名字>" - drawn as d_hit`。
+//! 0.1.3（用户 2026-11-17：「龙女的变身机制有问题 变了龙之后一直就是龙 然后会龙和人体形态之间切换」）：龙形时间到后，数据
+//! 等她下一个动作才变回人形，可只有普攻播 `revert`；先放 Q、E、大招时数据也变回了人形（`restore`），却直接播人形的出招
+//! （`skill` …），本包一直等不到 `revert`，就把她的待机、跑步、挨打、普攻一直画成龙，出招又是人形，两种形态来回跳。现在
+//! 没有龙形 buff 时：播的是人形的出招（`HUMAN_CASTS`）就马上变回人形；在她图里有的动作上龙形 buff 连续 `LOST` 帧都不在
+//! （击飞那种她图里没有的动作不算）也变回人形。
 
 use std::sync::{Mutex, Once};
 
@@ -32,6 +37,10 @@ pub const SHEET_TAGS: [&str; 23] = ["idle", "hit", "run", "attack", "skill", "sk
 pub const STATE_TAG: &str = "d_hit";
 /// 龙形结束：数据让她播这个动作变回人形。
 pub const REVERT: &str = "revert";
+/// 人形的出招（龙形的是 `d_` 开头的）：没有龙形 buff 还在播这些，就是数据已经把她变回人形了（0.1.3）。
+pub const HUMAN_CASTS: [&str; 5] = ["skill", "skill_b", "skill2", "ult", REVERT];
+/// 龙形 buff 在她图里有的动作上连续这么多帧都读不到，就当龙形已经结束（显示处理约 90 帧一秒；击飞那一刻读不到的只有几帧）。
+pub const LOST: u32 = 120;
 
 /// 正在播的动画名 + 是不是龙 → 该播的名字（不用换就是 None）。人形时把本包换上去的 `d_idle` 等换回来。
 pub fn anim_for(cur: &str, dragon: bool) -> Option<String> {
@@ -46,10 +55,10 @@ pub fn anim_for(cur: &str, dragon: bool) -> Option<String> {
     (want != cur).then_some(want)
 }
 
-/// 每个希瓦娜记下的形态：(显示世界, 实体号, 龙, 播过 dead)。
+/// 每个希瓦娜记下的形态：(显示世界, 实体号, 龙, 播过 dead, 龙形 buff 连续读不到的帧数)。
 #[derive(Default)]
 pub struct Forms {
-    seen: Vec<(usize, u64, bool, bool)>,
+    seen: Vec<(usize, u64, bool, bool, u32)>,
 }
 
 impl Forms {
@@ -60,7 +69,7 @@ impl Forms {
         let i = match self.seen.iter().position(|e| e.0 == world && e.1 == key) {
             Some(i) => i,
             None => {
-                self.seen.push((world, key, false, false));
+                self.seen.push((world, key, false, false, 0));
                 if self.seen.len() > 64 {
                     self.seen.remove(0);
                 }
@@ -71,10 +80,17 @@ impl Forms {
         if dead {
             e.3 = true;
             e.2 |= has_buff;
+            e.4 = 0;
         } else if has_buff {
-            (e.2, e.3) = (true, false);
-        } else if cur == REVERT || e.3 {
-            (e.2, e.3) = (false, false);
+            (e.2, e.3, e.4) = (true, false, 0);
+        } else if HUMAN_CASTS.contains(&cur) || e.3 {
+            (e.2, e.3, e.4) = (false, false, 0);
+        } else if e.2 && SHEET_TAGS.contains(&cur) {
+            // 0.1.3: the buffs stay gone on a state of her sheet (a knock-up plays a name her sheet lacks): the dragon ended
+            e.4 += 1;
+            if e.4 >= LOST {
+                (e.2, e.4) = (false, 0);
+            }
         }
         e.2
     }
@@ -243,6 +259,43 @@ mod tests {
         assert!(!f.form(1, 7, false, "revert"));
         assert!(!f.form(1, 7, false, "idle"));
         assert!(!f.form(1, 7, false, "airborne")); // a human knocked up stays human
+    }
+
+    /// 2026-11-17: the dragon ran out and her next action was Q / E / R - the data turned her back (`restore`) without
+    /// the attack's `revert`, and she was drawn a dragon for the rest of the game, her human casts in between.
+    #[test]
+    fn a_human_cast_after_the_dragon_turns_her_back() {
+        for cast in ["skill", "skill_b", "skill2", "ult"] {
+            let mut f = Forms::default();
+            assert!(f.form(1, 7, true, "d_idle"));
+            assert!(f.form(1, 7, true, "d_run")); // the dragon ran out: was_dg still on until her next action
+            assert!(!f.form(1, 7, false, cast), "{cast}"); // the data's human cast
+            assert!(!f.form(1, 7, false, "run")); // and she stays human
+            assert!(!f.form(1, 7, false, "attack"));
+        }
+    }
+
+    #[test]
+    fn the_dragon_ends_when_its_buffs_stay_gone() {
+        let mut f = Forms::default();
+        assert!(f.form(1, 7, true, "d_run"));
+        for k in 1..LOST {
+            assert!(f.form(1, 7, false, "run"), "frame {k}"); // a moment without the buff read: still the dragon
+        }
+        assert!(!f.form(1, 7, false, "run")); // gone for LOST frames: human
+        // a knock-up's state her sheet lacks never counts
+        let mut g = Forms::default();
+        assert!(g.form(1, 7, true, "d_run"));
+        for _ in 0..LOST * 3 {
+            assert!(g.form(1, 7, false, "airborne"));
+        }
+        assert!(g.form(1, 7, true, "d_idle")); // landed, still a dragon
+        // the count starts again after the buff is read
+        for _ in 1..LOST {
+            assert!(g.form(1, 7, false, "idle"));
+        }
+        assert!(g.form(1, 7, true, "d_idle"));
+        assert!(g.form(1, 7, false, "idle"));
     }
 
     #[test]
