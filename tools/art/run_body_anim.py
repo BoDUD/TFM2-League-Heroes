@@ -117,7 +117,8 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   「安蓓萨感觉腿部没有交叉感 看的不是太明显」, then 「安蓓萨 你决定」) - in each drawn frame the `far` leg's squares (a mask
   spec a drawn frame) a step darker and the `near` leg's a step lighter along their colour's `ramps` (dark to light;
   `keep_dark`: never darker, `keep_light`: never lighter; another colour stays), laid on the drawn frame before it is
-  composed - the drawing's shapes square for square, only the shade. Default: none.
+  composed - the drawing's shapes square for square, only the shade. Default: none. `shade_steps`: [far, near] - that
+  many ramp steps each, a colour stopping at its ramp's end (tft_silco's far leg two steps down); default one each.
 - `strays`: the module of the hero's black-strays tool (league_warwick: "warwick_strays", tools/art/black_strays.py's
   rule): each composed dense frame cleaned by it before the thin_outline pass - the outline colour where it is no part's
   outline (the apex of a gap a laid tail closes against the drawing) goes as in every other tag of his (the user:
@@ -646,15 +647,22 @@ def shade_legs(a, cfg, i):
         return a
     ramps = [[tuple(c) for c in r] for r in sh["ramps"]]
     keep = {-1: {tuple(c) for c in sh.get("keep_dark", [])}, 1: {tuple(c) for c in sh.get("keep_light", [])}}
+    # `shade_steps`: [far, near] ramp steps (default one each: a colour with no step left stays); given, a colour runs
+    # out at its ramp's end instead (tft_silco's far leg two steps down, to his darkest trouser brown: one step on his
+    # dark browns did not read at game size - the user: 「希尔科腿部没有交叉步 问题有点严重」)
+    steps = cfg.get("shade_steps")
     b = a.copy()
     op = a[..., 3] > 0
     for key, step in (("far", -1), ("near", 1)):
+        n = int(steps[0 if key == "far" else 1]) if steps else 1
         q = (sh.get(key) or [None] * (i + 1))[i]
         for y, x in zip(*np.nonzero(spec_mask(q, a.shape) & op)):
             c = tuple(int(v) for v in a[y, x, :3])
             for r in ramps:
                 if c in r:
-                    j = r.index(c) + step
+                    j = r.index(c) + step * n
+                    if steps:
+                        j = max(0, min(len(r) - 1, j))
                     if 0 <= j < len(r) and c not in keep[step]:
                         b[y, x, :3] = r[j]
                     break
