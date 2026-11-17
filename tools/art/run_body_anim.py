@@ -69,7 +69,8 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
 - `own_specks`: N - a piece of at most N squares of the frame's own drawing cut off from the rest of the figure goes
   (the edge of a frame's own part that `own_clear` did not reach, left alone once the part is laid anew: tft_zippy);
 - `close_edges`: a colour square left touching the ground without outline gets the outline on the ground beside it (a
-  laid part's cut edge at a join with the frame's own drawing: tft_zippy);
+  laid part's cut edge at a join with the frame's own drawing: tft_zippy; with `lock` "head" too: tft_krug's laid idle
+  body, whose boulder edge leaned on rocks the run frames do not have);
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
@@ -108,6 +109,10 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   mask spec: (row, col) corners, or {"rows": [[row, first col, last col], ...]}, in the frame's own rows / cols.
 - `head` may also be such a {"rows": ...} mask spec (in frame `from`): the laid piece square for square, not a polygon's
   squares (tft_zippy's laid body - saddle and tail - beside its mane and thighs).
+- `head_picture` (with `lock` "head"): a picture (path from the repo's root, one of the hero's own frames kept beside the
+  data) the head is cut from instead of frame `from`'s drawing, `head` in its rows / cols; it is laid on every drawn
+  frame, frame `from` too (tft_krug: his idle's body on each run frame's legs - Codex drew the boulder at a new size in
+  every run frame). Default: none.
 - `head_chains` (with `lock` "head"): pieces of the laid head that swing on their own (league_tristana's long ears
   flopping on League's Ear02 paths on her locked head): each the head's squares in `poly` (corners in frame `from`) on
   the `side` of its `root` column, every column off the laid head by its share of `tip` (rows a frame) as a chain's,
@@ -247,7 +252,8 @@ def load(hero, variant=None):
                 c["rows"] = [c["rows"][0] + pr, c["rows"][1] + pr]
             if c.get("poly"):
                 c["poly"] = [(r + pr, q + pc) for r, q in c["poly"]]
-        if cfg.get("head"):
+        if cfg.get("head") and not cfg.get("head_picture"):
+            # (a `head_picture`'s head and chin are in that picture's rows / cols: not grown)
             cfg["head"] = shift_spec(cfg["head"], pr, pc) if isinstance(cfg["head"], dict) else \
                 [[r + pr, c + pc] for r, c in cfg["head"]]
             cfg["chin"] += pr
@@ -1176,7 +1182,7 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None, hchains=None)
     # league_kayle hovers, her figure rising and falling 20-odd squares in her frames, so her face is looked for further
     my, mx = find_head(src, a, tmpl, int(cfg.get("head_search", 10)))
     dy, dx = my + mov["body"][i], mx + x_at(cfg, i)
-    same = pose == cfg["from"] or (a.shape == src.shape and np.array_equal(a, src))
+    same = (pose == cfg["from"] and not cfg.get("head_picture")) or (a.shape == src.shape and np.array_equal(a, src))
     props = props or []
     # (`props`: a frame whose own prop is cleared, or that gets one laid from another frame, is made)
     prop_here = any(pr["clear"][pose] or int(pr.get("from", cfg["from"])) != pose or any(pr["at"][i])
@@ -1430,8 +1436,18 @@ def compose_head(a, i, src, head, mov, cfg, pose=None, props=None, hchains=None)
                 if (m & by).any() and not (m & (put | carried)).any() and \
                         not (np.unique(lab_a[m]).size == 1 and (lab_a == lab_a[m][0]).sum() == m.sum()):
                     b[m] = 0
+    closed = np.zeros((H, W), bool)
+    if cfg.get("close_edges"):
+        # `close_edges` (as compose's): a colour square left touching the ground without its outline gets the outline on
+        # the ground beside it (tft_krug: the idle's boulder edge that leaned on the hind leg's top rocks, laid on run
+        # frames whose leg is elsewhere)
+        col_ = (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        closed = (b[..., 3] == 0) & ndimage.binary_dilation(col_, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
+                                                                                     bool))
+        b[closed, :3] = out_c
+        b[closed, 3] = 255
     info["carry"] = carried & (b[..., 3] > 0)
-    info["joined"] = ((inside | bare | shut) & (b[..., 3] > 0)) & ~put & ~carried
+    info["joined"] = ((inside | bare | shut | closed) & (b[..., 3] > 0)) & ~put & ~carried
     info["kept"] = np.zeros((H, W), bool)
     if sh:
         # the frame's own upper body moved: its legs are what is left under the waist (the rest is laid, as drawn)
@@ -1627,6 +1643,12 @@ def make(hero, cfg=None):
     n = len(frames)
     i0 = cfg["from"]
     src = added(frames[i0][0], cfg)                     # (`add`: pieces the drawing lacks, in frame `from`'s drawing)
+    if cfg.get("lock") == "head" and cfg.get("head_picture"):
+        # `head_picture` (`lock` "head"): the head is cut from this picture (a path from the repo's root: one of the hero's
+        # own frames kept beside the data) instead of frame `from`'s drawing - `head` in its rows / cols - and laid on
+        # every drawn frame, frame `from` too (tft_krug: Codex drew his boulder at 957-1424 squares from run frame to run
+        # frame; his idle's body, 1561, goes on each one's legs)
+        src = np.array(Image.open(lp(os.path.join(ROOT, cfg["head_picture"]))).convert("RGBA"))
     cy0, cx0 = src.shape[0] // 2, src.shape[1] // 2
     head_only = cfg.get("lock") == "head"
     own_only = cfg.get("lock") == "own"                 # (`lock` "own": nothing laid - compose_own)
