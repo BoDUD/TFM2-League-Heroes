@@ -30,6 +30,11 @@
 //! - **日志**：每个场地一行 `ARENA END`（多久、为什么结束：满时间、她离开（走出去 / 被挪走 / 自己的 E / 被放逐）、阵亡；
 //!   拉回几次、地面放了几段），看的那场比赛另有 `ARENA START` 和每一次拉回、每一次 AI 被改。
 //!
+//! 0.4.13（用户 2026-11-17：「青钢影的bug没修好啊」）：看的那场比赛里，塔姆在场地开了 71 tick 时吞下被锁的希瓦娜（放逐），
+//! 带着她走出场地，地面还亮着；她在肚子里谁也打不着，卡蜜尔的 AI 当场地里没人可打，220 tick 时也走了出去。英雄联盟里被锁的
+//! 目标被吞下（或被拖走），大招当场结束：被动看到被锁的目标被放逐（活着、不可选中），就摘掉她身上主包的 `r_on`，场地连同
+//! 地面当场结束（[`swallowed`]）；被放逐的人也不再被拉回。
+//!
 //! 判断在 [`call`]、[`clamp`]、[`floor_frame`]、[`end_reason`]（纯计算、单元测试）。
 
 use mod_api_stable::*;
@@ -243,6 +248,9 @@ pub enum End {
     Moved,
     HerE,
     Banished,
+    /// her marked target was banished - swallowed by Tahm Kench's Devour or the like (0.4.13): League ends the
+    /// ultimatum then, so her passive takes the main pack's `r_on` off her
+    Swallowed,
     /// her passive stopped seeing it (not called for a while: dead and gone, or the clock went back)
     Unseen,
 }
@@ -342,8 +350,24 @@ pub fn update(sim: &mut StableSim<'_>, me: usize, field: &mut Field) {
     if e_on || forced {
         up.moved = Some((tick, e_on));
     }
+    // League: the target swallowed (Tahm Kench's Devour) or dragged off ends the ultimatum at once (0.4.13). Here a
+    // banish takes him off the map: the main pack's tether cannot mark him, the hold cannot put him back, and Tahm Kench
+    // walked the marked Shyvana out under a floor that stood on.
+    if up.target.is_some_and(|t| swallowed(sim, t)) {
+        sim.entity_remove_buff(me, R_ON);
+        if let Some(up) = field.up.take() {
+            finish(sim, me, up, End::Swallowed, tick, Some(at));
+        }
+        return;
+    }
     hold(sim, me, team, up);
     draw_floor(sim, me, team, up, tick);
+}
+
+/// The arena's target banished (0.4.13): swallowed by Tahm Kench's Devour, or another banish (Bard's stasis too) - alive
+/// and off the map (not targetable), where the main pack's tether cannot mark him and the hold cannot put him back.
+pub fn swallowed(sim: &StableSim<'_>, t: usize) -> bool {
+    sim.get_entity(t).is_some_and(|u| u.is_alive() && !u.is_targetable())
 }
 
 /// Her passive's `on_dead`: the arena up ends with her (`update` would see it too, if her passive still runs while she
@@ -366,7 +390,8 @@ fn hold(sim: &mut StableSim<'_>, me: usize, team: usize, up: &mut Up) {
     let mut moves = Vec::new();
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
-        if u.team() == team || !u.is_alive() || !u.is_champion() || !has(&u, R_MARK) {
+        // a banished one (0.4.13) is off the map: not put back
+        if u.team() == team || !u.is_alive() || !u.is_champion() || !u.is_targetable() || !has(&u, R_MARK) {
             continue;
         }
         up.target.get_or_insert(u.id());
@@ -424,7 +449,7 @@ fn draw_floor(sim: &mut StableSim<'_>, me: usize, team: usize, up: &mut Up, tick
 }
 
 /// Arenas ended so far, every simulation of this launch: by `End` (its order).
-static ENDS: [AtomicUsize; 7] = [const { AtomicUsize::new(0) }; 7];
+static ENDS: [AtomicUsize; 8] = [const { AtomicUsize::new(0) }; 8];
 
 fn end_slot(why: End) -> usize {
     match why {
@@ -435,6 +460,7 @@ fn end_slot(why: End) -> usize {
         End::Banished => 4,
         End::Died => 5,
         End::Unseen => 6,
+        End::Swallowed => 7,
     }
 }
 
@@ -457,6 +483,8 @@ fn finish(sim: &mut StableSim<'_>, me: usize, up: Up, why: End, tick: usize, at:
         End::Moved => format!("she was moved out{place} (a knock-back, pull or dash on her)"),
         End::HerE => format!("she hooked out with her E{place}"),
         End::Banished => format!("she was banished{place}"),
+        End::Swallowed => "her target was banished (swallowed by Tahm Kench or the like): League ends the ultimatum then"
+            .to_string(),
         End::Unseen => format!("her passive stopped seeing it after t={} (dead and gone, or another match)", up.seen),
     };
     let target = match up.target {
@@ -476,11 +504,11 @@ fn finish(sim: &mut StableSim<'_>, me: usize, up: Up, why: End, tick: usize, at:
         "{} ARENA END after {lasted} of {ARENA_TICKS} ticks: {why_s} - started t={} at {}; {target}; put back {} times \
          (farthest {:.2} of the picture); she reached {:.2}; floor: {} pieces, the one before still on the floor at {} of {} \
          handovers ({} gone early, {} with another; {} ticks with two after one){}; so far, all simulations: time out {}, \
-         she left {} (walked {}, moved {}, her E {}, banished {}), died {}, unseen {}",
+         she left {} (walked {}, moved {}, her E {}, banished {}), target swallowed {}, died {}, unseen {}",
         head(sim, me), up.start, pt(up.centre), up.held, up.worst, up.far, up.pieces, up.handover[0], handovers,
         up.handover[1], up.handover[2], up.after,
         if up.refused > 0 { format!(", {} refused", up.refused) } else { String::new() },
-        n[0], n[1] + n[2] + n[3] + n[4], n[1], n[2], n[3], n[4], n[5], n[6]
+        n[0], n[1] + n[2] + n[3] + n[4], n[1], n[2], n[3], n[4], n[7], n[5], n[6]
     ));
 }
 
@@ -678,6 +706,15 @@ mod tests {
         assert!(outward((0.0, 0.0), (0.0, 0.0), walk_end((0.0, 0.0), (0.0, 24_000.0), 5_000.0).unwrap()));
         assert!(!leaves((0.0, 0.0), (0.0, 0.0), inside));
         assert_eq!(call((0.0, 0.0), (0.0, 0.0), inside, &foes), None);
+    }
+
+    /// 0.4.13: every way an arena ends has its own count in the `ARENA END` totals.
+    #[test]
+    fn every_end_has_its_own_count() {
+        let all = [End::TimeOut, End::Died, End::Walked, End::Moved, End::HerE, End::Banished, End::Swallowed, End::Unseen];
+        let mut slots: Vec<usize> = all.iter().map(|&e| end_slot(e)).collect();
+        slots.sort();
+        assert_eq!(slots, (0..ENDS.len()).collect::<Vec<_>>());
     }
 
     #[test]

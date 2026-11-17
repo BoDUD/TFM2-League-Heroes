@@ -11,10 +11,10 @@
       "version": ">=0.429.0"
     }
   ],
-  "description": "Test build of Camille's Hookshot that hooks walls and towers (needs League of Legends Heroes): replaces the main pack's Camille so her E hooks a wall, the map's edge or a tower in range near an enemy champion (aimed at where he will be), is pulled to it, clings and dives at him; a passive casts E whenever it is ready. No wall or tower nearby, no cast. Her R arena keeps its target in and its floor is drawn only while the arena lasts. Writes a log for testing.",
+  "description": "Test build of Camille's Hookshot that hooks walls and towers (needs League of Legends Heroes): replaces the main pack's Camille so her E hooks a wall, the map's edge or a tower in range near an enemy champion (aimed at where he will be), is pulled to it, clings and dives at him; a passive casts E whenever it is ready. No wall or tower nearby, no cast. Her R arena keeps its target in, ends when the target is swallowed (Tahm Kench, as in League) and its floor is drawn only while the arena lasts. Writes a log for testing.",
   "last_updated": "2026-11-17",
   "mod_id": "league_camille_wall",
   "mod_type": "native",
   "name": "League Heroes: Camille Wall Hookshot (test)",
-  "version": "0.4.12"
+  "version": "0.4.13"
 }
