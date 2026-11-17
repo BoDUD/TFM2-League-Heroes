@@ -38,6 +38,14 @@
 
 ## 最近的改动
 
+2026-11-17（联盟英雄）：
+
+- **阿兹尔的沙兵照英雄联盟**（[#773](https://github.com/BoDUD/TFM2-League-Heroes/pull/773)，用户：「我们的沙皇是不是不能移动沙兵？」「感觉有些机制还能和英雄联盟里面不一样 没完全还原」）：狂沙猛攻（Q）的沙兵真的冲过去（任何目标，路上的敌人受伤害和减速），沙兵刺击刺穿一条线，沙兵在目标附近升起、存在 10 秒（[league_azir](addons/league_azir/README.md) 0.3.0）；E 没动。平衡重新跑过模拟。
+- **希瓦娜变龙后一直是龙**（[#773](https://github.com/BoDUD/TFM2-League-Heroes/pull/773)，用户：「龙女的变身机制有问题 变了龙之后一直就是龙 然后会龙和人体形态之间切换」）：龙形结束后只有普攻会放 `revert`，她先放 Q / E / R 时画面一直等不到它。现在人形技能一放、或者龙的 buff 没了 120 帧，就画回人形（[league_shyvana](addons/league_shyvana/README.md) 0.1.3）。
+- **锐雯的跑步按英雄联盟重画**（[#773](https://github.com/BoDUD/TFM2-League-Heroes/pull/773)，用户：「锐雯这个跑步姿势不太对吧 不然让codex补一补动作？」→「锐雯拿剑的姿势有点怪 联盟里不是这样拿的吧」→「感觉右手和没了一样」→「装 A」）：Codex 按定稿逐帧重画 8 帧，大步、前倾，剑平举在身前；后面那只手握剑，拳头收在下巴下面，用她 E 冲刺时那只拳头。读回工具是 [`tools/art/actions_riven_hd.py`](tools/art/actions_riven_hd.py) `--run`。
+- **卡蜜尔 R 场地的地面跟着场地走**（[#773](https://github.com/BoDUD/TFM2-League-Heroes/pull/773)，用户：「顺便查一下卡密尔的大招也有bug吧 怎么敌人走的出去？」「卡密尔离开磁场后 磁场也不消失？」）：主包的地面是一个 240 tick 的区域，放出来就停不下来，场地提前结束后还会留满 4 秒。钩墙附加包的副本改成场地开着时每 5 tick 放一段，场地一结束地面就没了。AI 让她去打场地外的人时，也不再走出场地（[league_camille_wall](addons/league_camille_wall/README.md) 0.4.12）。
+- 版本：league.dll 0.9.100、主包 0.429.0。
+
 2026-11-17（云顶）：
 
 - **云顶英雄的跑步（39 位）**（[#772](https://github.com/BoDUD/TFM2-League-Heroes/pull/772)，用户：「继续处理云顶的英雄吧」；每位都先给用户看像素原样的动图再装）：和联盟英雄同一套做法，原画的腿不动，上身随落脚起伏，头发、尾巴、翅膀尖跟着甩，节奏按云顶 / 联盟里这个单位自己的跑步（[`tools/art/run_body_anim.py`](tools/art/run_body_anim.py)，每位的设置在 `assets/source/<英雄>/hd/<英雄>_run_body.json`，新键都默认关）。31 位改了；刀疤、荏妮、诺拉、绯红印记树怪、绯红树怪、魔沼蛙、石傲玉、海克斯霸龙原画本来就活，保留。
@@ -194,6 +202,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 - **数据里的放逐（`Banish`）不看 `cc_immune`。** 塔姆可以吞开着护盾的希维尔。要判断免疫，只能在附加包的代码里做（[#612](https://github.com/BoDUD/TFM2-League-Heroes/pull/612)）。
 - **游戏自带的 AI 不打躲在泉水里的敌人，但会在旁边等。** 卡尔萨斯的灵体原来留在死的地方，敌人就围着等；改成灵体回泉水后，敌人就散了（[#737](https://github.com/BoDUD/TFM2-League-Heroes/pull/737)）。
 - **n tick 的标记只在 n−1 个 tick 里读得到。** `ult_cooldown_mult` 会把大招剩余冷却封顶在 冷却 /(1 + m/100)，可以拿来做返还冷却。`tools/kit/check_arm_refund.py` 在 CI 里核对这两点。
+- **区域的画面放出来就停不下来。** 地面这类该跟着状态走的画面，如果放成一个长区域，状态提前结束后画面还会留满时间，看着就像规则坏了。卡蜜尔 R 就是这样：她被击退出场地、阵亡以后，地面还留着，用户问「卡密尔离开磁场后 磁场也不消失？」。改成让附加包在状态还在时，每几 tick 放一段投射物画面，状态一没就不再放（[#773](https://github.com/BoDUD/TFM2-League-Heroes/pull/773)）。
 
 **美术和 PPU**
 
@@ -209,6 +218,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 - **「看着很活」的跑步保留前，也要按一个不动的部件把每帧对齐了查。** 呲呲第 5 帧画了两个鞍、身体和尾巴一帧长一帧短，艾达丝的头和远古石甲虫背上的石头一帧大一帧小，第一眼都看不出来。
 - **两条腿画得一样，就看不出交叉步。** 4 帧只画了一步、两条腿同色时，看起来永远是同一条腿在前（希尔科、苍蓝雕纹魔像）。做成两步一圈，第二步要么前后腿一深一浅，要么把那一帧里两条腿自己的画对调；只差一档深浅在游戏里看不出来，要差两档。
 - **两个分支各修一次同一个工具问题，会修出两种结果。** `keep_lo` 和 `pad` 一起用时，赛芬那次让留下的 lo_ 帧保持原大小，岩宝那次把它们居中放大；合在一起时加一个默认关的键（`keep_lo_centred`），两人的 `--check` 都要对上。
+- **握着东西的手要在游戏大小下看。** Codex 改手臂时，锐雯握剑的拳头只画了 3 × 3 格，游戏里大约 2 个像素，用户：「感觉右手和没了一样」。拳头至少要和另一只手一样大；锐雯换成了她 E 冲刺时那只 5 × 4 的拳头（[#773](https://github.com/BoDUD/TFM2-League-Heroes/pull/773)）。
 
 **安装和发布**
 
