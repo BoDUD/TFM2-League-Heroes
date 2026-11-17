@@ -61,6 +61,9 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   drawing (under a hanging fist, at a crotch's apex): a laid body square of a colour with clear ground right under it,
   from the frame's waist row down, gets one square of outline there (tft_kobuko); with `lock` "own" the same for a
   frame's own upper body moved down by `shift`, under it or beside it (tft_meepsie);
+- `legs_front` (`lock` "own"): the frame's own legs laid back over its moved upper body - a walk drawn with its legs in
+  front of the body (tft_brock's rig pastes the stepping legs over the belly: a lifted foot overlaps its bottom rows);
+  with it `shift` may also lift the body (negative rows): the legs in front leave no gap to fill over them;
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
@@ -1448,7 +1451,9 @@ def compose_own(a, i, cfg, pose):
     if not sh and not sx:
         return a.copy(), {"own": z, "legs": a[..., 3] > 0, "torso": z, "at": (0, 0), "lost": 0, "drawn_at": (0, 0),
                           "head": z, "joined": z, "kept": z, "shift": 0, "shift_x": 0}
-    if sh < 0:
+    if sh < 0 and not cfg.get("legs_front"):
+        # (with `legs_front` the legs stay in front of the body: lifted, the body leaves no gap over them - what it
+        # leaves at its own bottom is the ground between them, its bared edges outlined as any)
         sys.exit(f"`lock` \"own\": shift {sh} at frame {i} - the body is only lowered over its hips (down +)")
     H, W = a.shape[:2]
     out_c = cfg["outline"]
@@ -1471,6 +1476,12 @@ def compose_own(a, i, cfg, pose):
         stay = spec_mask(und, a.shape) & ~own
         b[stay] = a[stay]
         put &= ~stay
+    if cfg.get("legs_front"):
+        # `legs_front`: the frame's own legs laid back over the moved body - a walk that drew its legs over the body
+        # (tft_brock's rig pastes the stepping legs over the belly and the fists: a lifted foot overlaps the body's
+        # bottom rows) keeps them in front, the body moving behind them
+        b[legs] = a[legs]
+        put &= ~legs
     vacated = (b[..., 3] == 0) & op0
     # a leg's colour square the body bares to the ground (a fist that hung by the thigh moved down) gets outline
     leg_col = legs & ~put & ~colour_mask(b, [out_c])
@@ -1481,7 +1492,7 @@ def compose_own(a, i, cfg, pose):
     # but a pinhole of 1-2 squares none of the drawings has (no pocket of the frame's own moved there) is outline
     moved_pk = np.zeros((H, W), bool)
     py, px_ = np.nonzero(pockets(a) & ndimage.binary_dilation(own, structure=K8))
-    okp = (py + sh < H) & (px_ + sx >= 0) & (px_ + sx < W)
+    okp = (py + sh >= 0) & (py + sh < H) & (px_ + sx >= 0) & (px_ + sx < W)
     moved_pk[py[okp] + sh, px_[okp] + sx] = True
     lab, n = ndimage.label(b[..., 3] == 0)
     outer = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
@@ -1493,10 +1504,10 @@ def compose_own(a, i, cfg, pose):
     b[pin, :3] = out_c
     b[pin, 3] = 255
     sunk = np.zeros((H, W), bool)
-    if cfg.get("sink_edge") and sh > 0:
+    if cfg.get("sink_edge") and (sh > 0 or (sh < 0 and cfg.get("legs_front"))):
         # `sink_edge` (as compose's): a moved square of a colour with clear ground right under it - the body's own
-        # bottom outline stayed with the legs' drawing (tft_meepsie's rock body sinking over the gap between its legs) -
-        # gets one square of outline there
+        # bottom outline stayed with the legs' drawing (tft_meepsie's rock body sinking over the gap between its legs;
+        # tft_brock's lifted over its legs in front) - gets one square of outline there
         col_ = put & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
         sunk[1:] = col_[:-1]
         sunk[:, 1:] |= col_[:, :-1]                     # (and beside it: its side outline the legs kept, at the hips)
