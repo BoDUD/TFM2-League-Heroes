@@ -54,7 +54,12 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   landing's lowest, back the next; a chain's `with`: the part it hangs from, its rows on every column too (the back
   hair with that head); a square in two parts' corners is the first one's; a chain's `tip_lag` (with `tip`): frames
   the tip's path lags the root end by - each column takes the tip's path that much earlier by its share of the way out
-  (league_belveth's hair ribbon: League's Hair4..Hair8 follow one another, a wave running out along it);
+  (league_belveth's hair ribbon: League's Hair4..Hair8 follow one another, a wave running out along it); a chain's
+  `ink_depth` (N): its outline is every outline square within N of it that is nearer to it than to the rest's colours
+  (tft_kobuko's ponytail, outlined 2 deep round the silhouette: moved, the outer ring would stay behind as strays);
+- `sink_edge`: the body lowered over its legs (`bob` under its drawn place) left its own bottom outline with the legs'
+  drawing (under a hanging fist, at a crotch's apex): a laid body square of a colour with clear ground right under it,
+  from the frame's waist row down, gets one square of outline there (tft_kobuko);
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
@@ -527,6 +532,15 @@ def pieces(src, cfg, i_src):
         # its outline: what touches it and no other solid square of hers, on its side of the root
         cink = ink & (every | (op & rows & ~upper)) & side & ndimage.binary_dilation(m, structure=K8) & \
             ~ndimage.binary_dilation(solid_rest, structure=K8) & ~taken & ~kept
+        if c.get("ink_depth"):
+            # `ink_depth`: N - its outline is every outline square within N of it (chessboard) that is nearer to it than
+            # to the rest's colour squares: a drawing whose outline is 2 deep round its silhouette (tft_kobuko's white
+            # ponytail) takes its outer ring along too (else the ring stays behind as black strays when it moves)
+            dch = ndimage.distance_transform_cdt(~m, metric="chessboard")
+            dre = ndimage.distance_transform_cdt(~solid_rest, metric="chessboard") if solid_rest.any() else \
+                np.full((H, W), 99, np.int32)
+            cink = ink & (every | (op & rows & ~upper)) & side & (dch <= int(c["ink_depth"])) & (dch < dre) & \
+                ~taken & ~kept
         out[c["name"]] = m | cink
         taken |= out[c["name"]]
         every |= out[c["name"]]
@@ -981,7 +995,19 @@ def compose(a, i, src, cy0, cx0, layers, mov, cfg, match=None, pose=None):
                 shut &= ~m_
     b[shut, :3] = out_c
     b[shut, 3] = 255
-    info["joined"] = ((near_legs | rest | bare | shut) & (b[..., 3] > 0)) & ~put
+    sunk = np.zeros((H, W), bool)
+    if cfg.get("sink_edge"):
+        # `sink_edge`: the body lowered over its legs leaves its own bottom outline with the legs' drawing (the outline
+        # row under a hanging fist, the apex of a crotch: tft_kobuko's design body sinking over his short legs) - a
+        # laid body square of a colour with clear ground right under it, from the frame's waist row down, gets one
+        # square of outline there, as the drawing has under it
+        body_col = info["body"] & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        sunk[1:] = body_col[:-1]
+        sunk &= b[..., 3] == 0
+        sunk[:max(0, cy + cfg["waist"][pose])] = False
+        b[sunk, :3] = out_c
+        b[sunk, 3] = 255
+    info["joined"] = ((near_legs | rest | bare | shut | sunk) & (b[..., 3] > 0)) & ~put
     return b, info
 
 
