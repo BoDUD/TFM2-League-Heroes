@@ -153,9 +153,13 @@ def find_fist(d, want):
 # - the standing point: the template cell's middle, measured from the head (Codex drew every head within half a square
 #   of the same place from it, so the head keeps its column), the lowest sole on the ground (every frame has a foot
 #   down);
-# - her sword fist: the front fist at her chest, the one furthest forward in the RUN_CHEST rows (Codex drew it there in
-#   every frame, in front where League's blade comes out; the far fist of its frames 1-3 is raised behind her
-#   shoulder, where League hides the hand), RUN_FIST by hand where the rule picks badly;
+# - her sword fist: the far fist tucked under her chin at the collarbone, where League grips the sword in its run (the
+#   user on the first version, the sword in her near fist held straight out: 「锐雯拿剑的姿势有点怪 联盟里不是这样拿的吧」;
+#   Codex redrew the two arms only, assets/source/riven/RUN_ARMS_FIX_PROMPT_PPU.md): the skin piece of a hand's size
+#   nearest FIST_NEAR from the design head's chin. It is one drawing in every frame, RUN_FIST_FROM's, laid where that
+#   frame has it from the chin (Codex drew it within half a square of the same place from the chin in every frame,
+#   but 2 x 3 squares in frames 1-3 and 3 x 3 in 4-8), each frame's own cleared first; RUN_FIST by hand where the
+#   rule picks badly;
 # - clean: her palette, the outline closed, loose specks and pinholes gone (ppu_rig.tidy), no outline square more than a
 #   square from a colour nor a piece of outline alone (tools/art/black_strays.py's rule), RUN_FIX squares by hand.
 RUN_RAW = os.path.join(HD, "run_raw")
@@ -164,13 +168,14 @@ RUN_PITCH = 8.5                        # raw px a design square in every run fra
 RUN_CHIN = 18                          # Codex's head: rows from its hair's top to the chin (16-18 measured)
 DESIGN_CHIN = 20                       # the design's head (PA.no_sword_canvas): its chin's last skin row
 HEAD_AT = (-1, -2)                     # the design's hair box from Codex's: eye on eye, chin on chin
-RUN_CHEST = (18, 34)                   # rows under the hair's top: her front fist's middle
+FIST_NEAR = (-2.7, 3.3)                # her far fist's middle from the design head's chin, about (squares)
+RUN_FIST_FROM = 5                      # the frame whose far fist every frame shows
 RUN_SKIN = SKIN + [(195, 117, 61), (182, 106, 56)]
 INK = (14, 3, 12)                      # the design's outline
 # her palette's dark slate (one square of the design's far bracer): in the run it is only Codex's soft edge between a
 # light square and the outline read as it (single squares on the outline) - the outline's colour there
 RUN_TO_INK = [(52, 54, 62)]
-RUN_FIST = {}                          # n: (x, y) her front fist's middle, by eye
+RUN_FIST = {}                          # n: (x, y) a square of her far fist, by eye
 RUN_FIX = {}                           # n: {(x, y): (r, g, b) or None} squares set by hand after the read
 
 
@@ -281,20 +286,39 @@ class _Ink:
         return cols[cnt.argmax()]
 
 
-def front_fist(d, hair_top):
-    """Her front fist: the skin piece of a hand's size furthest forward with its middle in the RUN_CHEST rows."""
-    skin = np.zeros(d.shape[:2], bool)
+def skin_of(d):
+    m = np.zeros(d.shape[:2], bool)
     for c in RUN_SKIN:
-        skin |= (d[..., :3] == c).all(-1) & (d[..., 3] > 0)
-    lab, n = nd.label(skin, structure=np.ones((3, 3)))
+        m |= (d[..., :3] == c).all(-1) & (d[..., 3] > 0)
+    return m
+
+
+def chin_of(head, hm):
+    """The design head's chin: the middle of its face's lowest skin row (squares of the head's canvas, edges)."""
+    ys, xs = np.nonzero(skin_of(head) & hm)
+    return float(xs[ys == ys.max()].mean() + 0.5), float(ys.max() + 0.5)
+
+
+def far_fist(d, chin, keep_out, n):
+    """Her far fist under the chin: the skin piece of a hand's size (not the head) nearest chin + FIST_NEAR, within 3
+    squares of it - or the one holding RUN_FIST[n]."""
+    lab, k = nd.label(skin_of(d) & ~keep_out, structure=np.ones((3, 3)))
+    if n in RUN_FIST:
+        x, y = RUN_FIST[n]
+        return lab == lab[y, x]
+    want = (chin[0] + FIST_NEAR[0], chin[1] + FIST_NEAR[1])
     best = None
-    for k in range(1, n + 1):
-        ys, xs = np.nonzero(lab == k)
-        if not 4 <= len(ys) <= HAND_MAX or not RUN_CHEST[0] <= ys.mean() - hair_top <= RUN_CHEST[1]:
+    for j in range(1, k + 1):
+        m = lab == j
+        ys, xs = np.nonzero(m)
+        if not 3 <= len(ys) <= HAND_MAX:
             continue
-        if best is None or xs.max() > best[0]:
-            best = (xs.max(), float(xs.mean() + 0.5), float(ys.mean() + 0.5))
-    return best[1:] if best else None
+        dist = float(np.hypot(xs.mean() + 0.5 - want[0], ys.mean() + 0.5 - want[1]))
+        if dist <= 3 and (best is None or dist < best[0]):
+            best = (dist, m)
+    if best is None:
+        sys.exit(f"run_{n}: no far fist under the chin")
+    return best[1]
 
 
 def read_run(review=None):
@@ -303,8 +327,10 @@ def read_run(review=None):
     design = PA.no_sword_canvas()
     pal = np.unique(design[design[..., 3] > 0][:, :3], axis=0).astype(np.uint8)
     hm = head_mask(design, DESIGN_CHIN)
+    hl, ht, _, _ = box(hair_piece(design))
+    dchin = chin_of(design, hm)
     reads = run_pieces(pal)
-    laid = []
+    laid = {}
     for n, d, stand in reads:
         for c in RUN_TO_INK:
             d[(d[..., :3] == c).all(-1) & (d[..., 3] > 0), :3] = INK
@@ -312,23 +338,48 @@ def read_run(review=None):
         head = f.copy()
         # (a square of room round her first: the outline closed under a sole or past an edge the read cut flush)
         f, at, head = (np.pad(v, ((1, 1), (1, 1)) + ((0, 0),) * (v.ndim - 2)) for v in (f, at, head))
+        cl, ct, stand = cl + 1, ct + 1, stand + dx + 1
         f = R.tidy(f, INK)
         f, cleared, filled = BS.clean(f, _Ink(), "one", ctx=at)
         f[at] = head[at]                                         # (the design's head square for square)
+        chin = (cl + HEAD_AT[0] - hl + dchin[0], ct + HEAD_AT[1] - ht + dchin[1])
+        laid[n] = dict(f=f, at=at, head=head, chin=chin, stand=stand, cl=cl, ct=ct, cleared=int(cleared.sum()),
+                       filled=int(filled.sum()), fist=far_fist(f, chin, at, n))
+    # the far fist: RUN_FIST_FROM's (its skin and the outline round it), where that frame has it from the chin
+    src = laid[RUN_FIST_FROM]
+    fm = src["fist"]
+    ring = nd.binary_dilation(fm, structure=np.ones((3, 3))) & ~fm & (src["f"][..., :3] == INK).all(-1) & \
+        (src["f"][..., 3] > 0)
+    fy, fx = np.nonzero(fm | ring)
+    fpx = src["f"][fy, fx]
+    sx0, sy0 = int(np.floor(src["chin"][0])), int(np.floor(src["chin"][1]))
+    fist_mid = (float(np.nonzero(fm)[1].mean() + 0.5) - sx0, float(np.nonzero(fm)[0].mean() + 0.5) - sy0)
+    os.makedirs(lp(RUN_DIR), exist_ok=True)
+    frames_ = {}
+    for n, v in laid.items():
+        f = v["f"].copy()
+        cx0, cy0 = int(np.floor(v["chin"][0])), int(np.floor(v["chin"][1]))
+        f[v["fist"]] = 0                                         # (its own far fist off)
+        at_f = np.zeros(f.shape[:2], bool)
+        at_f[fy - sy0 + cy0, fx - sx0 + cx0] = True
+        f[at_f] = fpx
+        f = R.tidy(f, INK)
+        keep = v["at"] | at_f
+        f, cleared, filled = BS.clean(f, _Ink(), "one", ctx=keep)
+        f[v["at"]] = v["head"][v["at"]]
+        f[at_f] = fpx
         ys, xs = np.nonzero(f[..., 3] > 0)
         x0, y0 = int(xs.min()), int(ys.min())
         f = f[y0:ys.max() + 1, x0:xs.max() + 1].copy()
         for (x, y), c in RUN_FIX.get(n, {}).items():           # (the saved frame's squares)
             f[y, x] = (0, 0, 0, 0) if c is None else (*c, 255)
-        laid.append((n, f, stand + dx + 1 - x0, cl + 1 - x0, ct + 1 - y0, int(cleared.sum()), int(filled.sum())))
+        frames_[n] = (f, v["stand"] - x0, v["cl"] - x0, v["ct"] - y0, (cx0 - x0 + fist_mid[0], cy0 - y0 + fist_mid[1]),
+                      v["cleared"] + int(cleared.sum()), v["filled"] + int(filled.sum()))
     # the standing point from the head: the cell's middle where Codex put it on average from its hair box
-    off = float(np.median([stand - cl for _, _, stand, cl, _, _, _ in laid]))
-    os.makedirs(lp(RUN_DIR), exist_ok=True)
+    off = float(np.median([stand - cl for _, stand, cl, _, _, _, _ in frames_.values()]))
     info = {}
-    for n, f, stand, cl, ct, cleared, filled in laid:
-        fist = RUN_FIST.get(n) or front_fist(f, ct)
-        if fist is None:
-            sys.exit(f"run_{n}: no front fist")
+    for n in sorted(frames_):
+        f, stand, cl, ct, fist, cleared, filled = frames_[n]
         info[str(n)] = dict(pivot=[round(cl + off, 2), f.shape[0]], fist=[round(v, 2) for v in fist],
                             head=[cl + HEAD_AT[0], ct + HEAD_AT[1]], size=[f.shape[1], f.shape[0]],
                             stand_off=round(stand - cl - off, 2), strays=[cleared, filled])

@@ -650,12 +650,14 @@ def redrawn_frame(rig, drv, base, n, j, kind):
 
 # ------------------------------------------------------------------------------------------------- the run, redrawn
 # The user, 2026-11-17: 「锐雯这个跑步姿势不太对吧 不然让codex补一补动作？」→「只做跑步」. The run (and the R form's
-# rf_run) is Codex's eight whole-frame redraws (tools/art/actions_riven_hd.py --run: hd/run/, her head the design's),
-# each stood on its pivot, the sword held in her front fist level in front of her, pointing forward, as League's
-# riven_run holds it all the way (the run posed above swung it from low in front to over her shoulder). One drawing in
-# every frame, the one nearest RUN_HEADING: League's blade turns -10 to +7 degrees through the cycle and the drawings
-# come at +-7 and +-18 degrees from level, so following it would swap the blade between two drawings. Behind her: her
-# fist holds the grip (none of the sword behind the grip's middle).
+# rf_run) is Codex's eight whole-frame redraws (tools/art/actions_riven_hd.py --run: hd/run/, her head and her far fist
+# one drawing each), each stood on its pivot, the sword gripped in her far fist tucked under her chin, level, pointing
+# forward, as League's riven_run holds it all the way (the run posed above swung it from low in front to over her
+# shoulder; the first redraw held it in her near fist, the arm straight out: 「锐雯拿剑的姿势有点怪 联盟里不是这样拿的吧」).
+# One drawing in every frame, the one nearest RUN_HEADING: League's blade turns -10 to +7 degrees through the cycle and
+# the drawings come at +-7 and +-18 degrees from level, so following it would swap the blade between two drawings.
+# Behind her, as League's render shows it: the blade comes out from under her chin, her fist over the grip, the near
+# arm swung forward in front of it (none of the sword behind the grip's middle).
 RUN_HEADING = -2.0                     # degrees: League's riven_run weapon over its eight frames, on average
 _RUN = {}
 
@@ -674,8 +676,8 @@ def run_drawn():
 
 
 def run_frame(rig, n, kind):
-    """Frame n of the redrawn run with the `kind` sword: in her front fist, behind her, nothing of it behind the grip's
-    middle (the pommel and the hilt's end showed between her forearm and her chest as a stray green square)."""
+    """Frame n of the redrawn run with the `kind` sword: in her far fist, behind her, nothing of it behind the grip's
+    middle (the pommel and the hilt's end would show in the gaps round her fist as stray squares)."""
     img, info = run_drawn()[n]
     x0 = int(round(rig.CX - info["pivot"][0]))
     y0 = int(round(rig.GY - info["pivot"][1]))
