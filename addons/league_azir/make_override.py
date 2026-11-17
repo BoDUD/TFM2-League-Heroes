@@ -21,7 +21,12 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_azir/o
     d_cd (the Sun Disc's 90-second cooldown, its sentence below);
   * 0.2.4: view_effects `league_azir_r_one_<a|b|la|lb>`, one guard alone (league/effects/league_azir_guard's
     one_<r|l>_<a|b>, tools/art/rig_azir.py): the add-on stands them in one line across the charge (the user 2026-11-11:
-    「沙皇R的大招推起来像是有三排士兵」 - three stamps of three guards overlapped into three ranks).
+    「沙皇R的大招推起来像是有三排士兵」 - three stamps of three guards overlapped into three ranks);
+  * 0.3.0 (the user, 2026-11-17: 「Q 沙兵真的冲过去」「沙兵刺击穿透一条线」): the copy's skill aims Q's move with
+    league_azir:q_go / q_wave, its controller offers every enemy to league_azir:q_pick and calls league_azir:q_fly as the
+    soldiers leave (the add-on draws them dashing, ss_dash views, their paths dealing Q); its stab and Q numbers are its
+    own (P's n_*: the line stab and the dash make each hit lighter), so the attack text says the line stab with them and
+    the add-on's text carries Q's text too.
 Every other champion stays untouched. Run it again whenever the main pack's Azir changes.
 """
 import json
@@ -41,17 +46,35 @@ TETHER = "league_azir_tether"   # the add-on's own sheet: the line of sand to th
 mag, t, n = setup.mag, setup.t, setup.n
 # lang -> the add-on's sentence after the main pack's attack text
 DISC = {
-    "zh-hans": "【附加包】" + n("太阳圆盘") + "：倒下的塔旁每" + t("{d_cd}秒") + "可立一次，" + t("{d_life}秒") + "内每" + t("{d_per}秒") +
+    "zh-hans": "【附加包】" + n("太阳圆盘") + "：倒塔旁每" + t("{d_cd}秒") + "可立，" + t("{d_life}秒") + "内每" + t("{d_per}秒") +
                "打最近敌人" + mag("d_dmg", "d_ap") + "。",
-    "zh-hant": "【附加包】" + n("太陽圓盤") + "：倒下的塔旁每" + t("{d_cd}秒") + "可立一次，" + t("{d_life}秒") + "內每" + t("{d_per}秒") +
+    "zh-hant": "【附加包】" + n("太陽圓盤") + "：倒塔旁每" + t("{d_cd}秒") + "可立，" + t("{d_life}秒") + "內每" + t("{d_per}秒") +
                "打最近的敵人" + mag("d_dmg", "d_ap") + "。",
     "en": "[Add-on] " + n("Sun Disc") + ": every " + t("{d_cd}s") + " one can rise by a fallen tower, for " + t("{d_life}s") +
           " striking the nearest enemy every " + t("{d_per}s") + ": " + mag("d_dmg", "d_ap") + ".",
     "ko": "[확장] " + n("태양 원반") + ": " + t("{d_cd}초") + "마다 무너진 포탑 옆에 솟아 " + t("{d_life}초") + "간 " + t("{d_per}초") +
           "마다 가장 가까운 적에게 " + mag("d_dmg", "d_ap") + ".",
-    "ja": "【拡張】" + n("太陽の円盤") + "：" + t("{d_cd}秒") + "毎に倒れたタワー跡に立ち" + t("{d_life}秒") + "間" + t("{d_per}秒") + "毎に最寄りの敵へ" +
+    "ja": "【拡張】" + n("太陽の円盤") + "：" + t("{d_cd}秒") + "毎にタワー跡に立ち" + t("{d_life}秒") + "間" + t("{d_per}秒") + "毎に最寄りの敵へ" +
           mag("d_dmg", "d_ap") + "。",
 }
+# 0.3.0 (the user, 2026-11-17: 「沙兵刺击穿透一条线」): lang -> (the main pack's stab clause, the copy's: the soldiers
+# stab through a line); the disc sentence was shortened to fit (zh 倒下的塔旁…可立一次 -> 倒塔旁…可立, ja 倒れたタワー跡 -> タワー跡)
+LINE = {
+    "zh-hans": ("他附近的士兵代他刺击", "他附近的士兵代他刺穿一线"),
+    "zh-hant": ("他附近的砂兵代他刺擊", "他附近的砂兵代他刺穿一線"),
+    "en": ("the soldiers near him stab for him", "the soldiers near him stab through a line for him"),
+    "ko": ("가까운 병사가 대신 찔러", "가까운 병사가 대신 일직선으로 꿰뚫어"),
+    "ja": ("近くの砂兵が代わりに突き", "近くの砂兵が代わりに一直線に突き"),
+}
+
+
+def attack_text(lang):
+    """The copy's attack text: the main pack's with the line stab, then the Sun Disc's sentence."""
+    old, new = LINE[lang]
+    main = setup.TEXT[lang]["attack"]
+    if main.count(old) != 1:
+        sys.exit(f"{lang}: the main pack's attack text has no `{old}` to make the line stab of: update LINE")
+    return main.replace(old, new) + DISC[lang]
 
 
 def lp(path):
@@ -93,10 +116,12 @@ def main():
         shipped = f.read()
     if dumps_main(kit.build(p)) != shipped:
         sys.exit("the main pack's league_azir differs from build_azir.P: rebuild it first")
-    wrong = {k: (v, p[k]) for k, v in rust_defaults().items() if v != p[k]}
-    if wrong:
-        sys.exit("src/lib.rs Params defaults differ from build_azir.P (rust, P): %s" % wrong)
     champion = kit.build(dict(p, native=1))
+    # the add-on's numbers are the copy's passive params (0.3.0: its own stab and Q, n_*; the rest P's)
+    params = champion.get("passive", {}).get("params", {})
+    wrong = {k: (v, params.get(k, p.get(k))) for k, v in rust_defaults().items() if v != params.get(k, p.get(k))}
+    if wrong:
+        sys.exit("src/lib.rs Params defaults differ from the copy's params (build_azir.P; rust, copy): %s" % wrong)
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":disc":
         sys.exit("the copy has no league_azir:disc passive: update this script")
     if '"league_azir:r_wall"' not in json.dumps(champion):
@@ -113,11 +138,14 @@ def main():
         sys.exit("the main pack's Azir already has the tether's view names: update this script")
     champion["view_projectiles"] = champion["view_projectiles"] + tethers
 
-    values = dict(setup.values(p), d_life=setup.secs(p["d_life"]), d_per=setup.secs(p["d_per"]), d_cd=setup.secs(p["d_cd"]),
+    # the copy's stab and Q numbers are its own (n_*, 0.3.0): its attack text and its Q text show them
+    own = dict(p, s_dmg=p["n_s_dmg"], s_ap=p["n_s_ap"], q_dmg=p["n_q_dmg"], q_ap=p["n_q_ap"])
+    values = dict(setup.values(own), d_life=setup.secs(p["d_life"]), d_per=setup.secs(p["d_per"]), d_cd=setup.secs(p["d_cd"]),
                   d_dmg=p["d_dmg"], d_ap=p["d_ap"])
-    texts = {lang: {"attack": (setup.TEXT[lang]["attack"] + DISC[lang]).format(**values)} for lang in DISC}
-    long = {f"{lang}.attack": setup.shown_length(setup.TEXT[lang]["attack"] + DISC[lang]) for lang in DISC
-            if setup.shown_length(setup.TEXT[lang]["attack"] + DISC[lang]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+    texts = {lang: {"attack": attack_text(lang).format(**values), "skill": setup.TEXT[lang]["skill"].format(**values)}
+             for lang in DISC}
+    long = {f"{lang}.attack": setup.shown_length(attack_text(lang)) for lang in DISC
+            if setup.shown_length(attack_text(lang)) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 
@@ -138,7 +166,7 @@ def main():
                            ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
-    print("tooltip lengths", {f"{lang}.attack": f"{setup.shown_length(setup.TEXT[lang]['attack'] + DISC[lang])}/"
+    print("tooltip lengths", {f"{lang}.attack": f"{setup.shown_length(attack_text(lang))}/"
                               f"{setup.TOOLTIP_MAX[lang]}" for lang in DISC})
 
 
