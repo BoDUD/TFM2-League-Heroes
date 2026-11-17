@@ -59,7 +59,8 @@ git revision - and writes a first data file, tools/art/run_body_init.py). Every 
   (tft_kobuko's ponytail, outlined 2 deep round the silhouette: moved, the outer ring would stay behind as strays);
 - `sink_edge`: the body lowered over its legs (`bob` under its drawn place) left its own bottom outline with the legs'
   drawing (under a hanging fist, at a crotch's apex): a laid body square of a colour with clear ground right under it,
-  from the frame's waist row down, gets one square of outline there (tft_kobuko);
+  from the frame's waist row down, gets one square of outline there (tft_kobuko); with `lock` "own" the same for a
+  frame's own upper body moved down by `shift`, under it or beside it (tft_meepsie);
 - `keep_gaps`: what was ground between the pieces of frame `from`'s drawing (by the body's rows; under its waist, away
   from the frame's legs) stays ground where the frame's own upper body was - without it a square shut in from both
   sides is filled, which closes the drawing's own gaps once the body sits further off its drawn place;
@@ -1482,8 +1483,20 @@ def compose_own(a, i, cfg, pose):
             pin |= m_
     b[pin, :3] = out_c
     b[pin, 3] = 255
+    sunk = np.zeros((H, W), bool)
+    if cfg.get("sink_edge") and sh > 0:
+        # `sink_edge` (as compose's): a moved square of a colour with clear ground right under it - the body's own
+        # bottom outline stayed with the legs' drawing (tft_meepsie's rock body sinking over the gap between its legs) -
+        # gets one square of outline there
+        col_ = put & (b[..., 3] > 0) & ~colour_mask(b, [out_c])
+        sunk[1:] = col_[:-1]
+        sunk[:, 1:] |= col_[:, :-1]                     # (and beside it: its side outline the legs kept, at the hips)
+        sunk[:, :-1] |= col_[:, 1:]
+        sunk &= b[..., 3] == 0
+        b[sunk, :3] = out_c
+        b[sunk, 3] = 255
     op = b[..., 3] > 0
-    joined = (bare | pin) & op
+    joined = (bare | pin | sunk) & op
     return b, {"own": z, "legs": legs & op & ~put, "torso": put & op, "at": (sh, sx), "lost": 0, "drawn_at": (0, 0),
                "head": z, "joined": joined, "kept": z, "shift": sh, "shift_x": sx}
 
