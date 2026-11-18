@@ -7,10 +7,10 @@
       "version": ">=0.4.11"
     }
   ],
-  "description": "League of Legends esports for the career (test build): the career's leagues and cups take League of Legends names (LCK, LPL, LEC, LCS, CBLOL, LJL and their second divisions LCK CL, LDL, ERL, NACL, CBLOL Academy, LJL Academy; the Masters becomes the Mid-Season Invitational, the Champions the World Championship, the Challengers cups Rift Rivals East and West). This first build also writes a read-only probe of the career's year schedule and competitions (league_esports_probe.json next to the game's log) for the next one, which will change formats and dates from year to year. Changes nothing in the save. Writes a log for testing.\n\n英雄联盟赛事（测试版）：生涯里的联赛和杯赛换成英雄联盟的名字（LCK、LPL、LEC、LCS、CBLOL、LJL，二级联赛 LCK CL、LDL、ERL、NACL、CBLOL 学院、LJL 学院；大师赛叫季中冠军赛 MSI，冠军赛叫全球总决赛，东 / 西挑战者杯叫洲际赛）。这一版另外把生涯的全年赛程和赛事结构只读地导出来（游戏日志旁的 league_esports_probe.json），下一版据此做每年变赛制、变赛程。不改存档。",
+  "description": "League of Legends esports for the career (test build). The career's leagues and cups take League of Legends names (LCK, LPL, LEC, LCS, CBLOL, LJL and their second divisions LCK CL, LDL, ERL, NACL, CBLOL Academy, LJL Academy; the Masters becomes the Mid-Season Invitational, the Champions the World Championship, the Challengers cups Rift Rivals East and West). Every year has its own formats, rolled once per save and kept in it: each league's regular season BO1 or BO3, the Swiss stages as the game has them or all BO3, MSI and Worlds hosts and prize pools, the international stages a few days earlier or later, and in some halves no Rift Rivals; the year's announcement comes in your team's news. Knockout stages keep your own series lengths. The first year it is installed only the autumn changes. settings.ini switches each part off. Writes a log for testing.\n\n英雄联盟赛事（测试版）：生涯里的联赛和杯赛换成英雄联盟的名字（LCK、LPL、LEC、LCS、CBLOL、LJL，二级联赛 LCK CL、LDL、ERL、NACL、CBLOL 学院、LJL 学院；大师赛叫季中冠军赛 MSI，冠军赛叫全球总决赛，东 / 西挑战者杯叫洲际赛）。每年的赛制不一样（每个存档随机一次，存在存档里）：各联赛常规赛 BO1 或 BO3，瑞士轮照原版或全程 BO3，MSI、全球总决赛的主办地和奖金池，国际赛赛程前后挪几天，有的半年不办洲际赛；年度公告发在你球队的新闻里。淘汰赛的局数照你自己的设置。装上的第一年只改下半年。settings.ini 可以分别关掉。",
   "last_updated": "2026-11-18",
   "mod_id": "league_esports",
   "mod_type": "native",
   "name": "League Heroes: Esports / 英雄联盟赛事",
-  "version": "0.0.1"
+  "version": "0.1.0"
 }
