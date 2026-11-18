@@ -257,6 +257,8 @@ def first_para(md):
     for i, p in enumerate(paras[1:], 1):
         if not p or p.startswith(("#", "|", "```", "!")) or p.startswith("用户"):
             continue
+        if re.match(r"\d+\.\d+\.\d+[\uff08(]", p):   # a version note (0.1.9（date）：...), not what the add-on does
+            continue
         if p.endswith(("：", ":")) and i + 1 < len(paras) and paras[i + 1].startswith("- "):
             p += "\n\n" + paras[i + 1]
         return p
