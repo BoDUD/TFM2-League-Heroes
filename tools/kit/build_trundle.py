@@ -267,9 +267,10 @@ def build(p):
     def w_cast():
         # the add-on keeps the domain on the ground: `w_on` only marks it, its 2-tick `w_in` holds the stats inside
         dom = {} if native else dict(attack_speed_mult=p["w_as"], move_speed_mult=p["w_ms"], hp_regen=p["w_regen"])
+        views = [view("w_hop")] if native else [view("w_domain"), view("w_hop")]
         return combine(*rm("w_go"), refresh("w_cd", p["w_cd"]), refresh("w_on", p["w_t"], **dom),
                        anim("w", p["w_dur"]), sfx("w"), voice("vo_w", p),
-                       on_me(view("w_domain"), view("w_hop")))
+                       on_me(*views))
 
     # ------------------------------------------------------------------ Q Chomp
     def q_cast():
@@ -307,9 +308,10 @@ def build(p):
     # skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on him is not (league_zac):
     # his attacks and the ult hang one (ctl_t ticks, period ctl_p) unless `polling` says one runs; only for Trundle
     # himself (`own`, a flag his attack raises: league_sylas's stolen ult hangs it too)
+    w_ready = sw("w_on", combine(*rm("w_go")), w_cast()) if native else w_cast()
     ctl = combine(refresh("polling", ctl_p + 2), sw("own", combine(
         None if native else tribute_heal,
-        sw("w_go", sw("busy", NONE, sw("w_cd", combine(*rm("w_go")), w_cast()))),
+        sw("w_go", sw("busy", NONE, sw("w_cd", combine(*rm("w_go")), w_ready))),
         sw("q_go", sw("busy", NONE, sw("q_cd", NONE, pick(p["q_range"], "EnemyChampion", q_cast())))))))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", ctl_p + 2), casted(p["ctl_t"], ctl_p, ctl))))
 

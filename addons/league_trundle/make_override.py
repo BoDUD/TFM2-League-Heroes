@@ -102,7 +102,7 @@ def lp(path):
 
 
 def dumps_main(o):
-    return json.dumps(o, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
+    return json.dumps(o, ensure_ascii=False, indent=2) + "\n"
 
 
 def check_defaults(p):
@@ -124,7 +124,7 @@ def files(draft):
         sys.exit("the copy does not call the add-on: update this script")
     out = {}
     if not draft:
-        with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
+        with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8") as f:
             shipped = f.read()
         if dumps_main(kit.build(p)) != shipped:
             sys.exit("the main pack's league_trundle differs from build_trundle.P: rebuild it first")
@@ -154,7 +154,7 @@ def main():
     out, champion = files(draft)
     if "--check" in sys.argv[1:]:
         stale = [os.path.relpath(path, ROOT) for path, text in out.items()
-                 if not os.path.isfile(lp(path)) or open(lp(path), encoding="utf-8", newline="").read() != text]
+                 if not os.path.isfile(lp(path)) or open(lp(path), encoding="utf-8").read() != text]
         if stale:
             sys.exit("not as make_override.py writes them: %s" % stale)
         print("ok")
