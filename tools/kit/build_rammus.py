@@ -315,7 +315,7 @@ def build(p):
         extra["passive"] = {"passive_ref": f"{ID}:shell", "params": {
             k: p[k] for k in ("p_dmg", "p_ap", "p_arm", "q_ball_t", "q_touch", "q_ms0", "q_ms1", "q_ramp")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

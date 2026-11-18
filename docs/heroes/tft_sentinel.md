@@ -9,7 +9,7 @@
 | id | `tft_sentinel` |
 | 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
 | 分路 | 打野 |
-| 分类 / 标签 | 近战（Melee） · AP / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.7 |
 | 附加包 | 无 |
 

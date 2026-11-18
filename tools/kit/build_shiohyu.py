@@ -224,7 +224,7 @@ def build(p, is_native=False):
                E("r2_hit"), E("r3_hit"), E("p", BIG, 4)]
     views_b = [B_("e_slow", FX, 3), B_("r_jade", BIG, 3), B_("p_skin", BIG, 3)]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC", "Tank"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "CC", "Tank"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],

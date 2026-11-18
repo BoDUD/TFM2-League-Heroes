@@ -9,7 +9,7 @@
 | id | `league_sion` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / CC / Shield |
 | 高清帧 | 1 倍像素（无高清帧） |
 | 附加包 | [赛恩附加包](#附加包)（`league_sion`） |
 

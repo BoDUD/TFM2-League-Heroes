@@ -418,7 +418,7 @@ def build(p):
                E("p_shake", FX, 3), E("p_land", FX, 0, False), E("p_tank", FX, 0, False), E("p_pick", FX, 3, False), E("p_break", FX, 2, False)]
     views_b = [B_("q_slow", FX, -1), B_("w_on", BIG, -1), B_("r_on", FX, 3)]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "Heal"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "Heal"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],

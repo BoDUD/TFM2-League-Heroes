@@ -9,7 +9,7 @@
 | id | `league_galio` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
-| 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.65（画成 110%） |
 | 附加包 | [加里奥附加包](#附加包)（`league_galio`） |
 

@@ -9,7 +9,7 @@
 | id | `league_skarner` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / CC |
 | 高清帧 | PPU 1.75 |
 | 附加包 | [斯卡纳附加包](#附加包)（`league_skarner`） |
 

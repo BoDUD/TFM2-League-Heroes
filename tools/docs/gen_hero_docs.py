@@ -48,7 +48,7 @@ LANE_FALLBACK = {"league_garen": "上单", "league_ashe": "ADC", "league_lux": "
 # old README section titles that are not the hero's name in league/text
 TITLE_ALIAS = {"蛮王": "league_tryndamere", "爆爆": "tft_powder"}
 
-CATEGORY = {"Melee": "近战", "Magician": "法师", "Range": "射手", "Util": "功能型", "Assassin": "刺客"}
+CATEGORY = {"Melee": "近战", "Magician": "法师", "Range": "射手", "Util": "功能型", "Assassin": "刺客", "Tank": "坦克"}
 TARGET = {"EnemyWithoutTower": "敌人（不含防御塔）", "EnemyChampion": "敌方英雄", "Enemy": "敌人",
           "EnemyChampionRecentlyAttacked": "刚交过手的敌方英雄", "AllyChampion": "友方英雄",
           "AllyNotSelf": "友方（不含自己）", "EnemyChampionInCC": "被控制的敌方英雄", "Self": "自己"}

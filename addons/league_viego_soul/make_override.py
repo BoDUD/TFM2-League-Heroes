@@ -33,7 +33,9 @@ import generated  # noqa: E402  --check
 
 MOD_ID = "league_viego_soul"
 HERO = "league_viego"
-CATS = {"Melee": "melee", "Range": "range", "Magician": "mage", "Util": "util", "Assassin": "assassin"}
+# 0.7.3 added the Tank role (the base game's eight tanks and 28 of ours, formerly Melee): a tank's soul fights with
+# the melee kit, as it did before
+CATS = {"Melee": "melee", "Range": "range", "Magician": "mage", "Util": "util", "Assassin": "assassin", "Tank": "melee"}
 O, A, R, E = setup.O, setup.A, setup.R, setup.E
 TEXT = {
     "zh-hans": O + "君命已决" + E + "（附加包）：他伤过的敌方英雄{p_win}秒内阵亡，尸体处留下灵魂{soul_t}秒，靠近即附身" + A + "{p_t}秒" + E +

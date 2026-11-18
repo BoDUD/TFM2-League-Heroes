@@ -428,7 +428,7 @@ def build(p):
             "split_t": p["split_t"], "split_cd": p["split_cd"], "split_hp": p["split_hp"],
             "r_kb": p["r_kb"], "r_kb_t": p["r_kb_t"], "r_dmg": p["r_dmg"], "r_ap": p["r_ap"], "r_k": p["r_k"]}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],

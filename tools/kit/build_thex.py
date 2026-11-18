@@ -248,7 +248,7 @@ def build(p, is_native=False):
     if not is_native:
         views_p += [B_("r_line", FX, 2, "r_hit")]   # a LineRangeProjectile's picture stands at its feet: a burn
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],

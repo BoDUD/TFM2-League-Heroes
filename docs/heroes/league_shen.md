@@ -9,7 +9,7 @@
 | id | `league_shen` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.81 |
 | 附加包 | [慎「秘奥义！慈悲度魂落」护盾按生命值附加包](#附加包)（`league_shen_shield`） |
 

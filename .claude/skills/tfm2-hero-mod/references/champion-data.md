@@ -20,7 +20,7 @@ Contents
 | Field | Notes |
 |---|---|
 | `id` | Unique, namespaced (`league_garen`). Also the key for text and champion_view. |
-| `category` | `Melee` \| `Range` \| `Magician` \| `Util` \| `Assassin` (drives UI filter + AI role) |
+| `category` | `Melee` \| `Range` \| `Magician` \| `Util` \| `Assassin` \| `Tank` (game 0.7.3+, ABI 11; older games cannot read it). The UI filters; the match AI's battle role (0.7.3 `get_battle_role`) takes the `Tank` category like the `Tank` tag (tank role), the rest by category |
 | `tags` | Free strings used in packs: `AD` `AP` `Melee` `Range` `Tank` `CC` `Magic` `Heal` `Shield` `Dot` |
 | `sprite` | `asset/<mod_id>/champions/<hero>` (no extension) |
 | `anim_prefix` | `""` in every pack |
