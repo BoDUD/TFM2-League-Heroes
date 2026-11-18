@@ -1,0 +1,16 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    }
+  ],
+  "description": "League of Legends esports for the career (test build): the career's leagues and cups take League of Legends names (LCK, LPL, LEC, LCS, CBLOL, LJL and their second divisions LCK CL, LDL, ERL, NACL, CBLOL Academy, LJL Academy; the Masters becomes the Mid-Season Invitational, the Champions the World Championship, the Challengers cups Rift Rivals East and West). This first build also writes a read-only probe of the career's year schedule and competitions (league_esports_probe.json next to the game's log) for the next one, which will change formats and dates from year to year. Changes nothing in the save. Writes a log for testing.\n\n英雄联盟赛事（测试版）：生涯里的联赛和杯赛换成英雄联盟的名字（LCK、LPL、LEC、LCS、CBLOL、LJL，二级联赛 LCK CL、LDL、ERL、NACL、CBLOL 学院、LJL 学院；大师赛叫季中冠军赛 MSI，冠军赛叫全球总决赛，东 / 西挑战者杯叫洲际赛）。这一版另外把生涯的全年赛程和赛事结构只读地导出来（游戏日志旁的 league_esports_probe.json），下一版据此做每年变赛制、变赛程。不改存档。",
+  "last_updated": "2026-11-18",
+  "mod_id": "league_esports",
+  "mod_type": "native",
+  "name": "League Heroes: Esports / 英雄联盟赛事",
+  "version": "0.0.1"
+}

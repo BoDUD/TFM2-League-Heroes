@@ -1,0 +1,68 @@
+{
+  "zh-hans": {
+    "league": {
+      "tack": "LCK",
+      "tacc": "LPL",
+      "tace": "LEC",
+      "taca": "LCS",
+      "tacs": "CBLOL",
+      "tacj": "LJL",
+      "tack2": "LCK CL",
+      "tacc2": "LDL",
+      "tace2": "ERL",
+      "taca2": "NACL",
+      "tacs2": "CBLOL 学院",
+      "tacj2": "LJL 学院"
+    },
+    "tournament": {
+      "masters": "季中冠军赛 MSI",
+      "champions": "全球总决赛",
+      "challengers_east": "洲际赛（东部）",
+      "challengers_west": "洲际赛（西部）"
+    }
+  },
+  "zh-hant": {
+    "league": {
+      "tack": "LCK",
+      "tacc": "LPL",
+      "tace": "LEC",
+      "taca": "LCS",
+      "tacs": "CBLOL",
+      "tacj": "LJL",
+      "tack2": "LCK CL",
+      "tacc2": "LDL",
+      "tace2": "ERL",
+      "taca2": "NACL",
+      "tacs2": "CBLOL 學院",
+      "tacj2": "LJL 學院"
+    },
+    "tournament": {
+      "masters": "季中邀請賽 MSI",
+      "champions": "世界大賽",
+      "challengers_east": "洲際賽（東部）",
+      "challengers_west": "洲際賽（西部）"
+    }
+  },
+  "en": {
+    "league": {
+      "tack": "LCK",
+      "tacc": "LPL",
+      "tace": "LEC",
+      "taca": "LCS",
+      "tacs": "CBLOL",
+      "tacj": "LJL",
+      "tack2": "LCK CL",
+      "tacc2": "LDL",
+      "tace2": "ERL",
+      "taca2": "NACL",
+      "tacs2": "CBLOL Academy",
+      "tacj2": "LJL Academy"
+    },
+    "tournament": {
+      "masters": "Mid-Season Invitational",
+      "champions": "World Championship",
+      "challengers_east": "Rift Rivals East",
+      "challengers_west": "Rift Rivals West"
+    }
+  }
+}
