@@ -18,7 +18,7 @@ pub struct Anim {
 }
 
 /// The sheet's size in pixels.
-pub const SHEET: (u16, u16) = (1056, 1660);
+pub const SHEET: (u16, u16) = (1056, 1668);
 
 pub const ANIMS: [Anim; 25] = [
     Anim { name: "infernal_blast", x: 0, y: 0, w: 72, h: 64, frames: 7, per_row: 7, ax: 36, ay: 50, ticks: 4 },
@@ -40,10 +40,10 @@ pub const ANIMS: [Anim; 25] = [
     Anim { name: "wind_d", x: 0, y: 1120, w: 48, h: 48, frames: 8, per_row: 8, ax: 0, ay: 0, ticks: 5 },
     Anim { name: "gate", x: 0, y: 1168, w: 60, h: 48, frames: 8, per_row: 8, ax: 30, ay: 28, ticks: 6 },
     Anim { name: "gate_flash", x: 0, y: 1216, w: 48, h: 76, frames: 6, per_row: 6, ax: 24, ay: 62, ticks: 4 },
-    Anim { name: "brush_ocean", x: 0, y: 1292, w: 96, h: 92, frames: 4, per_row: 4, ax: 48, ay: 48, ticks: 15 },
-    Anim { name: "brush_chem", x: 0, y: 1384, w: 96, h: 92, frames: 4, per_row: 4, ax: 48, ay: 48, ticks: 15 },
-    Anim { name: "fruit", x: 0, y: 1476, w: 28, h: 34, frames: 4, per_row: 4, ax: 14, ay: 29, ticks: 12 },
-    Anim { name: "fruit_eat", x: 0, y: 1510, w: 44, h: 48, frames: 5, per_row: 5, ax: 22, ay: 36, ticks: 5 },
-    Anim { name: "rock", x: 0, y: 1558, w: 64, h: 66, frames: 6, per_row: 6, ax: 32, ay: 42, ticks: 30 },
-    Anim { name: "ember", x: 0, y: 1624, w: 24, h: 34, frames: 6, per_row: 6, ax: 12, ay: 30, ticks: 6 },
+    Anim { name: "brush_ocean", x: 0, y: 1292, w: 96, h: 96, frames: 4, per_row: 4, ax: 48, ay: 48, ticks: 15 },
+    Anim { name: "brush_chem", x: 0, y: 1388, w: 96, h: 96, frames: 4, per_row: 4, ax: 48, ay: 48, ticks: 15 },
+    Anim { name: "fruit", x: 0, y: 1484, w: 28, h: 34, frames: 4, per_row: 4, ax: 14, ay: 29, ticks: 12 },
+    Anim { name: "fruit_eat", x: 0, y: 1518, w: 44, h: 48, frames: 5, per_row: 5, ax: 22, ay: 36, ticks: 5 },
+    Anim { name: "rock", x: 0, y: 1566, w: 64, h: 66, frames: 6, per_row: 6, ax: 32, ay: 42, ticks: 30 },
+    Anim { name: "ember", x: 0, y: 1632, w: 24, h: 34, frames: 6, per_row: 6, ax: 12, ay: 30, ticks: 6 },
 ];
