@@ -8,6 +8,10 @@
 //!   它的部分直接扣掉、结束后也不还。数据读不到当前生命（`hp_mult` 是按比例缩放最大生命，结束时又按比例长回来，不是这条规则），
 //!   所以放在本包的比赛钩子 [`Cap`] 里：每 tick 身上有 `league_ksante_ao` 的活着的英雄，生命高于最大生命的 [`CAP_PCT`]% 就设回
 //!   这条线（`entity_set_hp`）。附加包合集里由 league_addons 的 `BundleMatch` 转发。日志 `CAP`。
+//! - **开大的时机**（0.1.2，用户 2026-11-18：「奎桑提为什么总是喜欢大招起手 很奇怪啊 高手的奎桑提不会这样打啊」，
+//!   `opener.rs`）：游戏的 AI 敌人一进射程就放 R，满血开团第一下就进全盛、白丢三成多的血。AI 钩子 [`opener::Opener`]
+//!   等他自己掉到最大生命的 70% 以下、目标残血、目标扑在残血队友身上，或者 AI 连着要了 4 秒才放，别的时候改成普攻那个
+//!   目标。日志 `R HELD` / `R LET`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ksante.log`，每次启动游戏重写，上一次的留在 .prev.log：`FORM`（画面里换
 //! 姿态，限了条数）和显示统计。
@@ -20,6 +24,7 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod opener;
 pub mod view;
 
 const ID: &str = "league_ksante";
@@ -121,7 +126,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (K'Sante: the All Out body, health held at {CAP_PCT}% in All Out) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (K'Sante: the All Out body, health held at {CAP_PCT}% in All Out, R held for a reason) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -131,7 +136,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     view::install_once();
     // the bundle (league_addons) sets its own match hook after every register and forwards to this one
     module.set_match_hook(Cap);
-    host.log(LogLevel::Info, "league_ksante loaded (the All Out body, the All Out health cap).");
+    // 0.1.2: the game AI's R waits for a reason (opener.rs)
+    module.add_player_input_ai(opener::Opener::default());
+    host.log(LogLevel::Info, "league_ksante loaded (the All Out body, the All Out health cap, R held for a reason).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
