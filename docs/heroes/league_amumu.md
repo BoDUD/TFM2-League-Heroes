@@ -9,7 +9,7 @@
 | id | `league_amumu` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
-| 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC |
 | 高清帧 | 1 倍像素（无高清帧） |
 | 附加包 | 无 |
 

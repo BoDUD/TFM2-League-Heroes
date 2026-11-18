@@ -9,7 +9,7 @@
 | id | `league_malphite` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC |
 | 高清帧 | 1 倍像素（无高清帧） |
 | 附加包 | [大招瞄准附加包](#附加包)（`league_ult_aim`） |
 

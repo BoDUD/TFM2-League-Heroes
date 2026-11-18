@@ -9,7 +9,7 @@
 | id | `league_sejuani` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
-| 分类 / 标签 | 近战（Melee） · AP / Melee / CC / Tank |
+| 分类 / 标签 | 坦克（Tank） · AP / Melee / CC / Tank |
 | 高清帧 | PPU 2 |
 | 附加包 | [瑟庄妮附加包](#附加包)（`league_sejuani`）、[英雄联盟彩蛋](#附加包)（`league_eggs`） |
 

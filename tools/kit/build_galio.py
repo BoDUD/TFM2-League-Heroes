@@ -364,7 +364,7 @@ def build(p):
                E("w_burst", BIG, 2, False), E("r_cast", FX, 3), E("r_land", BIG, 2, False), E("r_hit")]
     views_b = [B_("w_taunt", FX, 3), B_("r_shield", FX, 3)]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

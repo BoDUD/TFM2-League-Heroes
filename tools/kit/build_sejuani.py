@@ -391,7 +391,7 @@ def build(p):
                             "params": {k: p[k] for k in ("f_n", "e_stun", "e_dmg", "e_ap", "sh_cd", "sh_dmg", "sh_ap",
                                                          "sh_pct", "q_t", "fa_out", "f_im")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Melee", "CC", "Tank"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AP", "Melee", "CC", "Tank"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],

@@ -9,7 +9,7 @@
 | id | `tft_elderdragon` |
 | 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Dot / CC / Tank |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Dot / CC / Tank |
 | 高清帧 | PPU 2.84 |
 | 附加包 | 无 |
 

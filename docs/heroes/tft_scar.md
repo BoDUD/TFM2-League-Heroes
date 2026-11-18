@@ -9,7 +9,7 @@
 | id | `tft_scar` |
 | 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AP / Melee / Tank / CC / Heal |
+| 分类 / 标签 | 坦克（Tank） · AP / Melee / Tank / CC / Heal |
 | 高清帧 | PPU 2 |
 | 附加包 | 无 |
 

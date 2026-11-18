@@ -207,7 +207,7 @@ def build(p, is_native=False):
     views_e = [E("a_hit"), E("q_hit"), E("p", FX, 3), E("e", FX, 3), E("r_hit"), E("r_slam", BIG, -1, False)]
     views_b = [B_("q_slow", FX, 3), B_("p_rush", FX, 3), B_("e_guard", FX, 3), B_("r_up", FX, 3)]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Heal"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC", "Heal"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],

@@ -9,7 +9,7 @@
 | id | `tft_terra` |
 | 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.45 |
 | 附加包 | 无 |
 

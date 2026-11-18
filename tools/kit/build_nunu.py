@@ -342,7 +342,7 @@ def build(p):
     views_b = [B_("p_on", FX, -1), B_("p_buff", FX, -1), B_("e_slow", FX, 3), B_("e_mark", FX, 3),
                B_("e_root", FX, 3), B_("r_slow", FX, 3), B_("r_shield", FX, 3)]
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],

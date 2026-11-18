@@ -372,7 +372,7 @@ def build(p):
     if nat:   # addons/league_skarner: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_skarner:sovereign", "params": {k: p[k] for k in NATIVE_KEYS}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],

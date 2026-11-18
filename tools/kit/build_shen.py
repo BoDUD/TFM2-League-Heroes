@@ -338,7 +338,7 @@ def build(p):
         extra["passive"] = {"passive_ref": "league_shen_shield:shield",
                             "params": {k: p[k] for k in ("r_sh_base", "r_sh_hp", "r_sh_t")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],

@@ -315,7 +315,7 @@ def build(p):
                E("r_grow", BIG, -1)]            # the ring round his feet under him: his body hides its far side
     views_b = [B_("e_slow"), B_("q_slow"), B_("w_sil")]
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],
