@@ -314,31 +314,13 @@ struct Queued {
     stole: Option<(i32, i32)>,
 }
 
-#[derive(Clone, Default)]
-struct FrozenDomain {
-    center: Option<(u64, u64)>,
-    until: usize,
-}
-
-impl FrozenDomain {
-    fn update(&mut self, tick: usize, pos: (u64, u64), remaining: Option<usize>) -> bool {
-        // `w_on` can briefly disappear. Keep the first position until this cast expires.
-        if tick < self.until {
-            return false;
-        }
-        self.center = None;
-        let Some(left) = remaining.filter(|&left| left > 0) else { return false };
-        self.center = Some(pos);
-        self.until = tick.saturating_add(left);
-        true
-    }
-}
-
 /// 每个特朗德尔一份：参数、冰面、冰柱、吸取，和日志计数。
 #[derive(Clone, Default)]
 struct Troll {
     p: Params,
-    domain: FrozenDomain,
+    /// The domain's centre while `w_on` lasts, and `w_on`'s remaining ticks last tick (a renewal = a new domain).
+    domain: Option<(u64, u64)>,
+    w_left: usize,
     /// The tick the frozen field's picture plays again.
     field_at: usize,
     /// His health at the end of last tick (the domain's heal amplifier reads the rise).
@@ -364,7 +346,7 @@ struct Troll {
 
 impl Troll {
     fn on_domain(&self, sim: &StableSim<'_>, me: usize) -> bool {
-        let (Some(c), Some(e)) = (self.domain.center, sim.get_entity(me)) else { return false };
+        let (Some(c), Some(e)) = (self.domain, sim.get_entity(me)) else { return false };
         dist2(c, e.pos()) <= self.p.w_r.saturating_mul(self.p.w_r)
     }
 
@@ -377,22 +359,32 @@ impl Troll {
         h
     }
 
-    /// Frozen Domain stays where `w_on` first appeared and grants its stats inside that area.
+    /// Frozen Domain: where `w_on` appeared (or was renewed) it stays; inside it the stats and the heal amplifier.
     fn domain(&mut self, sim: &mut StableSim<'_>, me: usize) -> bool {
         let Some(e) = sim.get_entity(me) else { return false };
         let left = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == W_ON).map(|b| b.duration_tick);
         let pos = e.pos();
-        let tick = sim.tick();
-        if self.domain.update(tick, pos, left) {
-            self.field_at = tick;
-            self.n_domain += 1;
-            if often(self.n_domain) {
-                wlog(format!("{} DOMAIN frozen at ({}, {}) for {} ticks ({} in all)", head(sim, me), pos.0, pos.1,
-                             self.domain.until - tick, self.n_domain));
+        match left {
+            None => {
+                self.domain = None;
+                self.w_left = 0;
+            }
+            Some(l) => {
+                if self.domain.is_none() || l > self.w_left {
+                    self.domain = Some(pos);
+                    self.field_at = sim.tick();
+                    self.n_domain += 1;
+                    if often(self.n_domain) {
+                        wlog(format!("{} DOMAIN frozen at ({}, {}) for {l} ticks ({} in all)", head(sim, me), pos.0, pos.1,
+                                     self.n_domain));
+                    }
+                }
+                self.w_left = l;
             }
         }
         // the frozen field where it froze, a second at a time while it lasts
-        if let Some((x, y)) = self.domain.center {
+        if let Some((x, y)) = self.domain {
+            let tick = sim.tick();
             if tick >= self.field_at {
                 sim.play_view_effect(W_FIELD, me, &InputTargetV1::pos(x, y), 0, 0, 0);
                 self.field_at = tick + FIELD_EVERY;
@@ -627,7 +619,8 @@ impl StablePassive for Troll {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        self.domain = FrozenDomain::default();
+        self.domain = None;
+        self.w_left = 0;
         self.near.clear();
         self.drains.clear();
         self.queued.clear();
@@ -640,7 +633,8 @@ impl StablePassive for Troll {
         // the pillars stand on while he is dead (terrain)
         self.pillars(sim, me, tick);
         if !sim.get_entity(me).is_some_and(|e| e.is_alive()) {
-            self.domain.center = None;
+            self.domain = None;
+            self.w_left = 0;
             self.near.clear();
             self.queued.clear(); // he fell before his last drain landed: no heal for it
             self.last_hp = 0;
@@ -697,21 +691,6 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn a_returning_w_marker_does_not_restart_the_ice() {
-        let mut domain = FrozenDomain::default();
-        let first = (10000, 20000);
-        let moved = (50000, 70000);
-        assert!(domain.update(36738, first, Some(479)));
-        assert!(!domain.update(36906, moved, None));
-        assert!(!domain.update(36907, moved, Some(310)));
-        assert_eq!(domain.center, Some(first));
-        assert!(!domain.update(37217, moved, None));
-        assert_eq!(domain.center, None);
-        assert!(domain.update(37476, moved, Some(479)));
-        assert_eq!(domain.center, Some(moved));
-    }
 
     #[test]
     fn params_come_from_the_champion_data() {

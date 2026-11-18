@@ -13,7 +13,6 @@
 //!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时）。0.2.1（11-03 夜里的日志：誓约者是蕾欧娜，
 //!   6 次大招里 2 次甩出去的是龙王、努努）：英雄联盟里这一招只能对誓约者放，他死了、太远、选不中时 AI 的大招不放
 //!   （`FATE HELD`），改成打最近的敌方英雄（远了走过去）。
-//! - **救人**：誓约者血量低、身边有敌方英雄，而卡莉丝塔站得安全时，AI 会主动用 R 把人拉到自己身边。
 //! - **命运的召唤的飞行**：数据把队友拉进来、保护、定身，甩出时挂 `r_launch`；本包挑落点（离她最近的敌方英雄，`r_range` 内；
 //!   没有就 2 倍范围内最近的），逐 tick 把队友朝那个英雄现在的位置飞过去（`r_fly_v`），到 `r_catch` 内挂 `r_landed`，数据在队友脚下
 //!   击飞周围敌人。
@@ -53,7 +52,6 @@ pub const HOP_GO: &str = "league_kalista_hop_go";
 pub const R_LAUNCH: &str = "league_kalista_r_launch";
 pub const R_LANDED: &str = "league_kalista_r_landed";
 pub const R_SAFE: &str = "league_kalista_r_safe";
-const R_RESCUE: &str = "league_kalista_r_rescue";
 pub const E_OK: &str = "league_kalista_e_ok";
 pub const E_CD: &str = "league_kalista_e_cd";
 pub const E_POP: &str = "league_kalista_e_pop";
@@ -368,15 +366,6 @@ pub fn fate_target(sworn: Option<Sworn>, r_bind: f64) -> Result<usize, &'static 
     Ok(id)
 }
 
-const RESCUE_HP: usize = 30;
-const RESCUE_THREAT: f64 = 30_000.0;
-const RESCUE_CLEAR: f64 = 45_000.0;
-
-fn rescue_is_safer(at: Pt, ally: Pt, enemies: &[Foe]) -> bool {
-    enemies.iter().any(|e| dist(ally, e.at) <= RESCUE_THREAT)
-        && enemies.iter().all(|e| dist(at, e.at) >= RESCUE_CLEAR)
-}
-
 /// 一串连着的只记一行（league_ult_press 的 `ORDER_FRESH`）：AI 留着的大招每 4 tick 都再按一次。
 pub const ORDER_FRESH: usize = 30;
 
@@ -558,51 +547,23 @@ fn set_flag(sim: &mut StableSim<'_>, me: usize, name: &str, ticks: usize) {
     sim.add_buff(me, &BuffV1::timed(name, ticks));
 }
 
-fn oath_mates(sim: &StableSim<'_>, me: &StableEntity<'_, '_>) -> Vec<Mate> {
-    (0..sim.player_count()).filter_map(|i| sim.player_at(i)).filter_map(|pl| {
-        let champ = pl.champion();
-        if pl.team() != me.team() || champ.as_ref().is_some_and(|c| c.id() == me.id()) {
-            return None;
-        }
-        Some(Mate { player: pl.id(), support: pl.lane() == Some(LaneV1::Support),
-                    at: champ.filter(|c| c.is_alive()).map(|c| (c.pos().0 as f64, c.pos().1 as f64)) })
-    }).collect()
-}
-
-fn sworn_champion<'s, 'a>(sim: &'s StableSim<'a>, player: Option<usize>) -> Option<StableEntity<'s, 'a>> {
-    sim.get_player(player?)?.champion().filter(|c| c.is_alive())
-}
-
-fn sworn_status(me: &StableEntity<'_, '_>, ally: Option<&StableEntity<'_, '_>>) -> Sworn {
-    let at = (me.pos().0 as f64, me.pos().1 as f64);
-    Sworn {
-        id: ally.map(|c| c.id()),
-        targetable: ally.is_some_and(|c| c.is_targetable()),
-        d: ally.map_or(f64::MAX, |c| dist(at, (c.pos().0 as f64, c.pos().1 as f64))),
-        bodies: me.radius() as f64 + ally.map_or(0.0, |c| c.radius() as f64),
-    }
-}
-
-fn rescue_target(sim: &StableSim<'_>, me: &StableEntity<'_, '_>, p: &Params) -> Option<usize> {
-    if !me.is_alive() || !me.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && c.remaining == 0) {
-        return None;
-    }
-    let at = (me.pos().0 as f64, me.pos().1 as f64);
-    let ally = sworn_champion(sim, pick_oath(at, &oath_mates(sim, me)))?;
-    let (hp, max_hp) = ally.hp();
-    if max_hp == 0 || hp.saturating_mul(100) > max_hp.saturating_mul(RESCUE_HP) || ent_has(&ally, R_SAFE) {
-        return None;
-    }
-    let id = fate_target(Some(sworn_status(me, Some(&ally))), p.r_bind as f64).ok()?;
-    let there = (ally.pos().0 as f64, ally.pos().1 as f64);
-    rescue_is_safer(at, there, &foes(sim, me.team())).then_some(id)
-}
-
 impl Oath {
     fn choose_oath(&mut self, sim: &StableSim<'_>, me: usize) {
         let Some(at) = pos_of(sim, me) else { return };
-        let Some(entity) = sim.get_entity(me) else { return };
-        let mates = oath_mates(sim, &entity);
+        let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
+        let mut mates = Vec::new();
+        for i in 0..sim.player_count() {
+            let Some(pl) = sim.player_at(i) else { continue };
+            if pl.team() != team {
+                continue;
+            }
+            let champ = pl.champion();
+            if champ.as_ref().is_some_and(|c| c.id() == me) {
+                continue;
+            }
+            mates.push(Mate { player: pl.id(), support: pl.lane() == Some(LaneV1::Support),
+                              at: champ.filter(|c| c.is_alive()).map(|c| (c.pos().0 as f64, c.pos().1 as f64)) });
+        }
         let pick = pick_oath(at, &mates);
         if pick != self.oath {
             self.oath = pick;
@@ -842,12 +803,6 @@ impl StablePassive for Oath {
         if self.oath.is_none() || sim.tick() % 60 == 0 {
             self.choose_oath(sim, me);
         }
-        let rescue = sim.get_entity(me).and_then(|e| rescue_target(sim, &e, &p)).is_some();
-        if rescue {
-            set_flag(sim, me, R_RESCUE, 2);
-        } else if has_buff(sim, me, R_RESCUE) {
-            sim.entity_remove_buff(me, R_RESCUE);
-        }
         self.update_hop(sim, me, &p);
         self.update_fate(sim, me, &p);
         self.update_rend(sim, me, &p);
@@ -954,10 +909,6 @@ impl StablePlayerAi for FateAi {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let was = base.and_then(|b| InputKindV1::from_code(b.kind));
-        let p = shared();
-        if let Some(input) = self.rescue_now(ctx, &p) {
-            return Some(input);
-        }
         if was != Some(InputKindV1::Ult) {
             return self.rend_now(ctx, was);
         }
@@ -968,6 +919,7 @@ impl StablePlayerAi for FateAi {
         let current = b.target.target_id;
         let player = ctx.player_id();
         let tick = ctx.tick();
+        let p = shared();
         let (pick, head, names, instead, here) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
@@ -977,9 +929,33 @@ impl StablePlayerAi for FateAi {
             let (mid, team) = (me.id(), me.team());
             let at = (me.pos().0 as f64, me.pos().1 as f64);
             let my_r = me.radius() as f64;
-            let oath = pick_oath(at, &oath_mates(&sim, &me));
-            let ally = sworn_champion(&sim, oath);
-            let sworn = oath.map(|_| sworn_status(&me, ally.as_ref()));
+            let mut mates = Vec::new();
+            for i in 0..sim.player_count() {
+                let Some(pl) = sim.player_at(i) else { continue };
+                if pl.team() != team {
+                    continue;
+                }
+                let champ = pl.champion();
+                if champ.as_ref().is_some_and(|c| c.id() == mid) {
+                    continue;
+                }
+                // the live champion as it stands: (id, targetable, distance, radius)
+                let live = champ.as_ref().filter(|c| c.is_alive()).map(|c| {
+                    (c.id(), c.is_targetable(), dist(at, (c.pos().0 as f64, c.pos().1 as f64)), c.radius() as f64)
+                });
+                let c = champ.filter(|c| c.is_alive() && c.is_targetable());
+                mates.push((Mate { player: pl.id(), support: pl.lane() == Some(LaneV1::Support),
+                                   at: c.as_ref().map(|c| (c.pos().0 as f64, c.pos().1 as f64)) },
+                            live));
+            }
+            let list: Vec<Mate> = mates.iter().map(|m| m.0).collect();
+            let oath = pick_oath(at, &list);
+            let sworn = oath.and_then(|o| mates.iter().find(|m| m.0.player == o)).map(|&(_, live)| Sworn {
+                id: live.map(|l| l.0),
+                targetable: live.is_some_and(|l| l.1),
+                d: live.map_or(f64::MAX, |l| l.2),
+                bodies: my_r + live.map_or(0.0, |l| l.3),
+            });
             let oath_name = oath.and_then(|o| sim.get_player(o)).and_then(|pl| pl.champion())
                 .map_or_else(|| "nobody".to_string(), |c| who(&sim, c.id()));
             let away = sworn.filter(|s| s.id.is_some()).map_or(String::new(), |s| format!(", {:.0} away", s.d));
@@ -1039,28 +1015,6 @@ impl StablePlayerAi for FateAi {
 }
 
 impl FateAi {
-    fn rescue_now(&mut self, ctx: &mut StableAiContext<'_>, p: &Params) -> Option<InputV1> {
-        let player = ctx.player_id();
-        let (id, line) = {
-            let sim = ctx.sim()?;
-            let me = sim.get_player(player)?.champion()?;
-            let codes = || (0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind);
-            if !ent_has(&me, R_RESCUE) || any_cc(codes(), &NO_CAST) || any_cc(codes(), &BUSY) {
-                return None;
-            }
-            let id = rescue_target(&sim, &me, p)?;
-            (id, format!("{} FATE RESCUE: pulling {} out", head(&sim, me.id()), who(&sim, id)))
-        };
-        let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(id));
-        if !ctx.is_valid_input(&input) {
-            return None;
-        }
-        if self.burst("fate_rescue", ctx.tick()) {
-            wlog(line);
-        }
-        Some(input)
-    }
-
     /// 「拔了能杀」（被动在她身上挂 `E_OK`、在那个敌人身上挂 `E_AIM`）时自己按技能 2：数据只在矛打中英雄、或游戏的 AI 按技能 2
     /// 的时候看 `e_ok`，游戏的 AI 一两分钟才按一次，「立刻拔」常常等到下一矛（2026-11-01 复查：18 次 rip now 都没拔）。
     /// 0.2.3（2026-11-06 的日志：`REND PRESS` 每 tick 一行、一串 5–10 tick，目标的血一点没掉；REND PRESS 记到 #1150，rip now
@@ -1411,17 +1365,6 @@ mod tests {
         // the support bound for the game and dead (pick_oath keeps her): held
         assert!(fate_target(Some(Sworn { id: None, targetable: false, d: f64::MAX, bodies: 10_000.0 }), r_bind).is_err());
         assert!(fate_target(None, r_bind).is_err(), "no teammate at all");
-    }
-
-    #[test]
-    fn rescue_requires_a_threat_near_the_ally_and_room_to_pull_them_back() {
-        let ally = (150_000.0, 100_000.0);
-        let kalista = (100_000.0, 100_000.0);
-        let on_ally = Foe { id: 21, at: (155_000.0, 100_000.0), hp_pct: 100, gain: 0.0, came: 0.0 };
-        let on_kalista = Foe { id: 22, at: (90_000.0, 100_000.0), ..on_ally };
-        assert!(rescue_is_safer(kalista, ally, &[on_ally]));
-        assert!(!rescue_is_safer(kalista, ally, &[]));
-        assert!(!rescue_is_safer(kalista, ally, &[on_ally, on_kalista]));
     }
 
     #[test]

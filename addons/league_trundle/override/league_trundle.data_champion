@@ -229,122 +229,113 @@
                                         ]
                                       },
                                       "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_trundle_w_on",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_trundle_w_go"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_trundle_w_go"
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_trundle_w_cd"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_trundle_w_cd",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 720
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_trundle_w_on"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_trundle_w_on",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 480
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "CasterAnimation",
-                                              "name": "w",
-                                              "tick": 14
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_trundle_w"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_trundle_vo_cd",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_trundle_w_go"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_trundle_w_cd"
                                               },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_trundle_vo_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 600
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "Sfx",
-                                                    "name": "league_trundle_vo_w"
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_trundle_w_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 720
+                                                    }
                                                   }
-                                                ]
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_trundle_w_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_trundle_w_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 480
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "w",
+                                            "tick": 14
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_trundle_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_trundle_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_trundle_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_trundle_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
                                               }
                                             },
-                                            {
-                                              "type": "RangeEffect",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 1000
-                                                }
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_trundle_w_domain"
                                               },
-                                              "target": "AllyOnlySelf",
-                                              "apply_type": "AroundCaster",
-                                              "effects": [
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_trundle_w_hop"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_trundle_w_hop"
+                                              }
+                                            ]
+                                          }
+                                        ]
                                       }
                                     }
                                   },
@@ -1543,122 +1534,113 @@
                                         ]
                                       },
                                       "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_trundle_w_on",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_trundle_w_go"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_trundle_w_go"
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_trundle_w_cd"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_trundle_w_cd",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 720
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_trundle_w_on"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_trundle_w_on",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 480
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "CasterAnimation",
-                                              "name": "w",
-                                              "tick": 14
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_trundle_w"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_trundle_vo_cd",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_trundle_w_go"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_trundle_w_cd"
                                               },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_trundle_vo_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 600
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "Sfx",
-                                                    "name": "league_trundle_vo_w"
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_trundle_w_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 720
+                                                    }
                                                   }
-                                                ]
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_trundle_w_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_trundle_w_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 480
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "w",
+                                            "tick": 14
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_trundle_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_trundle_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_trundle_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_trundle_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
                                               }
                                             },
-                                            {
-                                              "type": "RangeEffect",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 1000
-                                                }
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_trundle_w_domain"
                                               },
-                                              "target": "AllyOnlySelf",
-                                              "apply_type": "AroundCaster",
-                                              "effects": [
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_trundle_w_hop"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_trundle_w_hop"
+                                              }
+                                            ]
+                                          }
+                                        ]
                                       }
                                     }
                                   },
