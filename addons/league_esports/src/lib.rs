@@ -14,7 +14,9 @@
 //!   CBLOL 学院 / LJL 学院，季中冠军赛 MSI，全球总决赛，洲际赛（东部 / 西部）。
 //! - **每年的规则**（0.1.0，[`Rules`]，[`roll`]：新的一年第一次有比赛等着打时定，存进存档，读档不变；随机种子每个存档一个）：
 //!   - 各联赛常规赛 BO1 或 BO3（一级联赛三成 BO1，二级联赛一半一半）；
-//!   - 上半年（MSI）、下半年（全球总决赛）的瑞士轮：照原版，或者全程 BO3（四成）；洲际赛跟着同半年的主赛事；
+//!   - 瑞士轮不随年份变：全程 BO1（用户 11-18 看到「瑞士轮全程 BO3」的公告后：「瑞士轮应该改成BO1吧？淘汰赛BO7就行」）；
+//!     settings.ini `swiss_bo1 = 0` 回到游戏自己的（BO1，决定晋级、淘汰的场次 BO3）。0.1.0 存下的规则里还有每年的瑞士轮
+//!     赛制（`swiss_bo3`）：[`migrate`] 去掉它，公告过「全程 BO3」而瑞士轮还没打的，补发一条赛制调整的新闻；
 //!   - 洲际赛（东 / 西挑战者杯）上半年、下半年各自办不办（三成停办）；
 //!   - 上半年、下半年国际赛的赛程前后挪几天（[`room`]：前面不早于升降级赛之后，后面不晚于下个赛季开始 / 赛季补丁）；
 //!   - MSI、全球总决赛的主办赛区（不连着两年同一个赛区，两项不在同一个赛区）和奖金池（Tournament 记录的 `prize_money`）。
@@ -24,13 +26,13 @@
 //!   抽签后核对主赛事的小组赛是不是落在挪过的日子上（[`plan_b`]）：是，往前挪的淘汰赛这时跟上；不是（游戏没按改过的日程
 //!   排），挪过的事件放回原来的日子，发一条说明。改之前的日程存进存档（`orig_schedule:<年>`）。
 //! - **赛制公告**：定下一年的规则时，往用户队伍的新闻里发一条（`news_push`）。
-//! - **局数**（[`target`]）：每 10 秒（或者比赛表变了）看一遍还没打的比赛（`running_state` = `Wait`），常规赛、瑞士轮按
-//!   这一年的规则改 `need_win`。
+//! - **局数**（[`target`]）：每 10 秒（或者比赛表变了）看一遍还没打的比赛（`running_state` = `Wait`），常规赛按这一年的
+//!   规则、瑞士轮按 `swiss_bo1` 改 `need_win`。
 //! - **探测**（0.0.1）：载入生涯后写一次 `league_esports_probe.json`（只读）。
 //! - 日志 `league_esports.log`：规则、公告、改日程（写之后再读一遍对照）、抽签后的核对、改了多少场局数、赛季切换。
 //!
-//! 设置：本包文件夹的 `settings.ini`：`yearly_formats`（每年变赛制）、`schedule_float`（赛程浮动、洲际赛停办）、`probe`
-//! （探测），1 开 0 关。
+//! 设置：本包文件夹的 `settings.ini`：`yearly_formats`（每年变赛制）、`schedule_float`（赛程浮动、洲际赛停办）、
+//! `swiss_bo1`（瑞士轮全程 BO1）、`probe`（探测），1 开 0 关。
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs::OpenOptions;
@@ -121,13 +123,15 @@ pub struct Config {
     pub yearly_formats: bool,
     /// the international stages' dates move and Rift Rivals is sometimes not held
     pub schedule_float: bool,
+    /// every Swiss match BO1 (off: as the game has them - BO1, the matches that decide advancing or going out BO3)
+    pub swiss_bo1: bool,
     /// the read-only probe file at each load
     pub probe: bool,
 }
 
 impl Default for Config {
     fn default() -> Config {
-        Config { yearly_formats: true, schedule_float: true, probe: true }
+        Config { yearly_formats: true, schedule_float: true, swiss_bo1: true, probe: true }
     }
 }
 
@@ -141,6 +145,7 @@ pub fn parse_config(text: &str) -> Config {
         match k.trim() {
             "yearly_formats" => c.yearly_formats = on,
             "schedule_float" => c.schedule_float = on,
+            "swiss_bo1" => c.swiss_bo1 = on,
             "probe" => c.probe = on,
             _ => {}
         }
@@ -256,9 +261,6 @@ pub struct Rules {
     pub year: i64,
     /// regular-season series length per league (1 or 3; 0 = the game's own)
     pub regular: [u8; 12],
-    /// every Swiss match BO3 (true) or the game's own (BO1, the matches that decide advancing or going out BO3) -
-    /// spring (MSI and that half's Rift Rivals), autumn (Worlds and that half's Rift Rivals)
-    pub swiss_bo3: [bool; 2],
     /// Rift Rivals (the Challengers cups) held - spring, autumn
     pub rivals: [bool; 2],
     /// days the half's international stage moves - spring, autumn (after [`settle`]: the move applied)
@@ -284,7 +286,6 @@ pub fn roll(year: i64, salt: u64, last: Option<&Rules>, from_autumn: bool) -> Ru
             3
         }
     });
-    let swiss_bo3 = [r.chance(40), r.chance(40)];
     let rivals = [r.chance(70), r.chance(70)];
     let mut shift = [r.range(-3, 0), r.range(-3, 2)];
     if from_autumn {
@@ -300,9 +301,8 @@ pub fn roll(year: i64, salt: u64, last: Option<&Rules>, from_autumn: bool) -> Ru
         host = [r.below(6) as usize, r.below(6) as usize];
     }
     let prize = [r.range(90, 130) as u32, r.range(90, 140) as u32];
-    let mut rules = Rules { year, regular, swiss_bo3, rivals, shift, host, prize, from_autumn };
+    let mut rules = Rules { year, regular, rivals, shift, host, prize, from_autumn };
     if from_autumn {
-        rules.swiss_bo3[0] = false;
         rules.rivals[0] = true;
     }
     rules
@@ -317,11 +317,9 @@ impl Rules {
     pub fn to_text(&self) -> String {
         let b = |x: bool| if x { "1" } else { "0" };
         format!(
-            "year={};regular={};swiss_bo3={},{};rivals={},{};shift={};host={};prize={};from_autumn={}",
+            "year={};regular={};rivals={},{};shift={};host={};prize={};from_autumn={}",
             self.year,
             join(&self.regular),
-            b(self.swiss_bo3[0]),
-            b(self.swiss_bo3[1]),
             b(self.rivals[0]),
             b(self.rivals[1]),
             join(&self.shift),
@@ -349,7 +347,6 @@ impl Rules {
         Some(Rules {
             year: m.get("year")?.parse().ok()?,
             regular: std::array::from_fn(|i| regular[i] as u8),
-            swiss_bo3: two("swiss_bo3")?.map(|x| x != 0),
             rivals: two("rivals")?.map(|x| x != 0),
             shift: two("shift")?,
             host: two("host")?.map(|x| x as usize),
@@ -644,15 +641,15 @@ pub enum Stage {
     Swiss(usize),
 }
 
-/// The need_win the year's rules give a match (None: leave it as the game has it).
-pub fn target(rules: &Rules, stage: Stage) -> Option<i64> {
+/// The need_win the year's rules (and `swiss_bo1`) give a match (None: leave it as the game has it).
+pub fn target(rules: &Rules, stage: Stage, swiss_bo1: bool) -> Option<i64> {
     match stage {
         Stage::Regular(league) => match rules.regular.get(league)? {
             1 => Some(1),
             3 => Some(2),
             _ => None,
         },
-        Stage::Swiss(half) => (half < 2 && !(rules.from_autumn && half == 0) && rules.swiss_bo3[half]).then_some(2),
+        Stage::Swiss(half) => (swiss_bo1 && half < 2 && !(rules.from_autumn && half == 0)).then_some(1),
     }
 }
 
@@ -666,10 +663,18 @@ fn bo(n: u8) -> &'static str {
     }
 }
 
+/// The Swiss stages' format in words.
+pub fn swiss_words(swiss_bo1: bool) -> &'static str {
+    if swiss_bo1 {
+        "全程 BO1"
+    } else {
+        "照原版（BO1，决定晋级、淘汰的场次 BO3）"
+    }
+}
+
 /// The year's announcement: (title, content). `days`: each half's main event, its first Swiss day and its final.
-pub fn announcement(rules: &Rules, days: [Option<(i64, i64)>; 2]) -> (String, String) {
+pub fn announcement(rules: &Rules, days: [Option<(i64, i64)>; 2], swiss_bo1: bool) -> (String, String) {
     let y = rules.year;
-    let swiss = |bo3: bool| if bo3 { "瑞士轮全程 BO3" } else { "瑞士轮照原版（BO1，决定晋级、淘汰的场次 BO3）" };
     let when = |d: Option<(i64, i64)>| d.map_or(String::new(), |(a, b)| format!("，{}开打、{}决赛", md(a), md(b)));
     let rivals = |held: bool| if held { "照常举办" } else { "停办，没进国际赛的队伍休整" };
     let mut lines = Vec::new();
@@ -682,10 +687,10 @@ pub fn announcement(rules: &Rules, days: [Option<(i64, i64)>; 2]) -> (String, St
             continue;
         }
         lines.push(format!(
-            "{}：{}主办，{}{}；奖金池为原版的 {}%。",
+            "{}：{}主办，瑞士轮{}{}；奖金池为原版的 {}%。",
             CUP[half],
             HOSTS[rules.host[half] % HOSTS.len()],
-            swiss(rules.swiss_bo3[half]),
+            swiss_words(swiss_bo1),
             when(days[half]),
             rules.prize[half]
         ));
@@ -1038,9 +1043,51 @@ fn settle(
     ctx.save_set_string(&rules_key(year), &rules.to_text());
     wlog(format!("RULES {year} (today {}): {}", date_str(today), rules.to_text()));
     set_prizes(ctx, &rules);
-    let (title, content) = announcement(&rules, days);
+    let (title, content) = announcement(&rules, days, cfg.swiss_bo1);
     news(ctx, &title, &content);
     Some(rules)
+}
+
+/// Rules kept by 0.1.0 carry the yearly Swiss format (`swiss_bo3`, all BO3 some halves) the user dropped on 11-18
+/// (「瑞士轮应该改成BO1吧？淘汰赛BO7就行」): the year is written again without it, and a half announced as all BO3 whose
+/// Swiss stage is not over gets a news item with the format it has now.
+fn migrate(ctx: &mut StableServerCtx<'_>, cfg: Config, year: i64, all: &[Cup]) {
+    let Some(text) = ctx.save_get_string(&rules_key(year)) else { return };
+    let Some(old) = old_swiss(&text) else { return };
+    let Some(rules) = Rules::from_text(&text) else { return };
+    let halves = changed_halves(&rules, old, |half| {
+        all.iter().any(|c| c.ty == MAIN[half] && c.year == Some(year) && c.finalized)
+    });
+    if !halves.is_empty() {
+        let (title, content) = correction(year, &halves, cfg.swiss_bo1);
+        news(ctx, &title, &content);
+    }
+    let kept = ctx.save_set_string(&rules_key(year), &rules.to_text());
+    wlog(format!(
+        "RULES {year} written again without the yearly Swiss format (was swiss_bo3={},{}; kept {kept}): {}",
+        u8::from(old[0]),
+        u8::from(old[1]),
+        rules.to_text()
+    ));
+}
+
+/// The yearly Swiss format of a 0.1.0 rules text (`swiss_bo3=a,b`), if it has one.
+pub fn old_swiss(text: &str) -> Option<[bool; 2]> {
+    let v: Vec<bool> =
+        text.split(';').find_map(|p| p.strip_prefix("swiss_bo3="))?.split(',').map(|x| x.trim() == "1").collect();
+    (v.len() == 2).then(|| [v[0], v[1]])
+}
+
+/// The halves announced as all BO3 whose Swiss stage is still to come (`over`: the half's main event finished).
+pub fn changed_halves(rules: &Rules, old: [bool; 2], over: impl Fn(usize) -> bool) -> Vec<usize> {
+    [0, 1].into_iter().filter(|&h| old[h] && !(h == 0 && rules.from_autumn) && !over(h)).collect()
+}
+
+/// The news for the halves whose Swiss format changed after the announcement.
+pub fn correction(year: i64, halves: &[usize], swiss_bo1: bool) -> (String, String) {
+    let names: Vec<String> =
+        halves.iter().map(|&h| format!("{}和{}洲际赛", CUP[h], if h == 0 { "上半年" } else { "下半年" })).collect();
+    (format!("{year} 国际赛赛制调整"), format!("{}的瑞士轮改为{}，淘汰赛不变。", names.join("、"), swiss_words(swiss_bo1)))
 }
 
 /// Each half's checks once its draws are done (see [`plan_b`]), and before them that the floated schedule still stands.
@@ -1135,21 +1182,27 @@ fn phases(ctx: &mut StableServerCtx<'_>, st: &mut State, rules: &Rules, sched: u
 }
 
 /// The waiting matches' series lengths by their year's rules: (changed, waiting ones looked at).
-fn apply_need_win(ctx: &mut StableServerCtx<'_>, st: &mut State, leagues: &[(usize, usize)], all: &[Cup]) -> (usize, usize) {
+fn apply_need_win(
+    ctx: &mut StableServerCtx<'_>,
+    st: &mut State,
+    cfg: Config,
+    leagues: &[(usize, usize)],
+    all: &[Cup],
+) -> (usize, usize) {
     let mut cache: BTreeMap<i64, Option<Rules>> = BTreeMap::new();
     let mut jobs: Vec<(Vec<usize>, i64)> = Vec::new();
     for &(id, league) in leagues {
         let list = ids_at(ctx, RecordKindV1::LeagueCompetition, id, "matches");
         let Some(year) = list.first().and_then(|&m| match_day(ctx, m)).map(|d| civil_from_days(d).0) else { continue };
         let rules = cache.entry(year).or_insert_with(|| load_rules(ctx, year));
-        if let Some(want) = rules.as_ref().and_then(|r| target(r, Stage::Regular(league))) {
+        if let Some(want) = rules.as_ref().and_then(|r| target(r, Stage::Regular(league), cfg.swiss_bo1)) {
             jobs.push((list, want));
         }
     }
     for c in all.iter().filter(|c| !c.finalized) {
         let Some(year) = c.year else { continue };
         let rules = cache.entry(year).or_insert_with(|| load_rules(ctx, year));
-        if let Some(want) = rules.as_ref().and_then(|r| target(r, Stage::Swiss(c.half))) {
+        if let Some(want) = rules.as_ref().and_then(|r| target(r, Stage::Swiss(c.half), cfg.swiss_bo1)) {
             jobs.push((c.group.clone(), want));
         }
     }
@@ -1189,6 +1242,9 @@ fn scan(ctx: &mut StableServerCtx<'_>, st: &mut State, cfg: Config) {
     let Some((&year, &sched)) = years.iter().next_back() else { return };
     let leagues = open_leagues(ctx);
     let all = cups(ctx);
+    for &y in years.keys().rev().take(2) {
+        migrate(ctx, cfg, y, &all);
+    }
     if load_rules(ctx, year).is_none() {
         settle(ctx, st, cfg, year, sched, &leagues, &all);
     }
@@ -1199,7 +1255,7 @@ fn scan(ctx: &mut StableServerCtx<'_>, st: &mut State, cfg: Config) {
             }
         }
     }
-    let (changed, seen) = apply_need_win(ctx, st, &leagues, &all);
+    let (changed, seen) = apply_need_win(ctx, st, cfg, &leagues, &all);
     if changed > 0 {
         wlog(format!("NEED_WIN {changed} matches changed ({seen} waiting ones looked at)"));
     }
@@ -1559,17 +1615,15 @@ mod tests {
         // set up mid-year: the regular seasons and the spring stay the game's, the autumn always moves
         for salt in 0..50 {
             let f = roll(2028, salt, None, true);
-            assert!(f.regular.iter().all(|&b| b == 0) && f.shift[0] == 0 && f.rivals[0] && !f.swiss_bo3[0]);
+            assert!(f.regular.iter().all(|&b| b == 0) && f.shift[0] == 0 && f.rivals[0]);
             assert!(f.shift[1] != 0 && (-3..=2).contains(&f.shift[1]));
         }
         // over many saves every choice shows up about as often as meant
         let n = 400;
         let bo1 = (0..n).filter(|s| roll(2029, *s, None, false).regular[2] == 1).count();
         let off = (0..n).filter(|s| !roll(2029, *s, None, false).rivals[1]).count();
-        let bo3 = (0..n).filter(|s| roll(2029, *s, None, false).swiss_bo3[1]).count();
         assert!((80..=160).contains(&bo1), "BO1 {bo1}");
         assert!((80..=160).contains(&off), "Rift Rivals off {off}");
-        assert!((120..=200).contains(&bo3), "Swiss BO3 {bo3}");
     }
 
     #[test]
@@ -1577,49 +1631,71 @@ mod tests {
         let mut r = roll(2029, 7, None, false);
         r.regular[0] = 1;
         r.regular[1] = 3;
-        r.swiss_bo3 = [true, false];
-        assert_eq!(target(&r, Stage::Regular(0)), Some(1));
-        assert_eq!(target(&r, Stage::Regular(1)), Some(2));
-        assert_eq!(target(&r, Stage::Swiss(0)), Some(2));
-        assert_eq!(target(&r, Stage::Swiss(1)), None);
+        assert_eq!(target(&r, Stage::Regular(0), true), Some(1));
+        assert_eq!(target(&r, Stage::Regular(1), true), Some(2));
+        // every Swiss match BO1 (the user: 「瑞士轮应该改成BO1吧？淘汰赛BO7就行」), or as the game has them
+        assert_eq!(target(&r, Stage::Swiss(0), true), Some(1));
+        assert_eq!(target(&r, Stage::Swiss(1), true), Some(1));
+        assert_eq!(target(&r, Stage::Swiss(1), false), None);
         r.regular[2] = 0;
-        assert_eq!(target(&r, Stage::Regular(2)), None);
+        assert_eq!(target(&r, Stage::Regular(2), true), None);
+        // the install year's spring is over before the mod: left alone
         r.from_autumn = true;
-        assert_eq!(target(&r, Stage::Swiss(0)), None);
+        assert_eq!(target(&r, Stage::Swiss(0), true), None);
+        assert_eq!(target(&r, Stage::Swiss(1), true), Some(1));
+    }
+
+    #[test]
+    fn rules_kept_by_0_1_0_lose_their_swiss_format() {
+        // what 0.1.0 wrote into the user's save on 11-18 (announced: Worlds' Swiss stage all BO3)
+        let text = "year=2028;regular=0,0,0,0,0,0,0,0,0,0,0,0;swiss_bo3=0,1;rivals=1,1;shift=0,1;host=5,4;prize=127,119;from_autumn=1";
+        let r = Rules::from_text(text).unwrap();
+        assert_eq!((r.shift, r.host, r.prize, r.from_autumn), ([0, 1], [5, 4], [127, 119], true));
+        assert!(!r.to_text().contains("swiss"));
+        assert_eq!(Rules::from_text(&r.to_text()), Some(r.clone()));
+        assert_eq!(old_swiss(text), Some([false, true]));
+        assert_eq!(old_swiss(&r.to_text()), None);
+        // the autumn still to come: one news item; over, or the spring of the install year: none
+        assert_eq!(changed_halves(&r, [false, true], |_| false), vec![1]);
+        assert_eq!(changed_halves(&r, [false, true], |h| h == 1), Vec::<usize>::new());
+        assert_eq!(changed_halves(&r, [true, false], |_| false), Vec::<usize>::new());
+        let (title, body) = correction(2028, &[1], true);
+        assert_eq!(title, "2028 国际赛赛制调整");
+        assert_eq!(body, "全球总决赛和下半年洲际赛的瑞士轮改为全程 BO1，淘汰赛不变。");
     }
 
     #[test]
     fn the_announcement_says_it_all() {
         let mut r = roll(2029, 3, None, false);
         r.regular = [3, 3, 1, 1, 3, 3, 1, 3, 1, 1, 3, 3];
-        r.swiss_bo3 = [false, true];
         r.rivals = [true, false];
         r.host = [3, 1];
         r.prize = [110, 125];
         let d = |a: &str, b: &str| Some((day_of(a).unwrap(), day_of(b).unwrap()));
-        let (title, text) = announcement(&r, [d("2029-05-08", "2029-06-20"), d("2029-10-30", "2029-12-12")]);
+        let (title, text) = announcement(&r, [d("2029-05-08", "2029-06-20"), d("2029-10-30", "2029-12-12")], true);
         assert_eq!(title, "2029 赛季赛制公告");
         for want in [
             "LCK BO3",
             "LEC BO1",
-            "季中冠军赛 MSI：美国洛杉矶主办，瑞士轮照原版（BO1，决定晋级、淘汰的场次 BO3），5 月 8 日开打、6 月 20 日决赛；奖金池为原版的 110%",
+            "季中冠军赛 MSI：美国洛杉矶主办，瑞士轮全程 BO1，5 月 8 日开打、6 月 20 日决赛；奖金池为原版的 110%",
             "上半年洲际赛：照常举办",
-            "全球总决赛：中国上海主办，瑞士轮全程 BO3，10 月 30 日开打、12 月 12 日决赛；奖金池为原版的 125%",
+            "全球总决赛：中国上海主办，瑞士轮全程 BO1，10 月 30 日开打、12 月 12 日决赛；奖金池为原版的 125%",
             "下半年洲际赛：停办",
         ] {
             assert!(text.contains(want), "{want} in {text}");
         }
         r.from_autumn = true;
-        let (title, text) = announcement(&r, [None, d("2029-10-30", "2029-12-12")]);
+        let (title, text) = announcement(&r, [None, d("2029-10-30", "2029-12-12")], false);
         assert_eq!(title, "2029 下半年国际赛公告");
         assert!(!text.contains("联赛常规赛") && !text.contains("季中冠军赛") && text.contains("全球总决赛"));
+        assert!(text.contains("瑞士轮照原版（BO1，决定晋级、淘汰的场次 BO3）"));
     }
 
     #[test]
     fn settings_read_their_switches() {
         assert_eq!(parse_config(""), Config::default());
-        let c = parse_config("\u{feff}; comment\nyearly_formats = 0\nschedule_float=1 ; on\nprobe = 0\n");
-        assert_eq!(c, Config { yearly_formats: false, schedule_float: true, probe: false });
+        let c = parse_config("\u{feff}; comment\nyearly_formats = 0\nschedule_float=1 ; on\nswiss_bo1 = 0\nprobe = 0\n");
+        assert_eq!(c, Config { yearly_formats: false, schedule_float: true, swiss_bo1: false, probe: false });
         assert_eq!(parse_config(include_str!("../settings.ini")), Config::default());
     }
 
