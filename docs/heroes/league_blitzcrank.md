@@ -9,7 +9,7 @@
 | id | `league_blitzcrank` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.79 |
 | 附加包 | [低血量附加包：布里茨、乐芙兰、丽桑卓](#附加包)（`league_lowhp`） |
 
@@ -55,7 +55,7 @@
 
 ### 低血量附加包：布里茨、乐芙兰、丽桑卓
 
-[低血量附加包：布里茨、乐芙兰、丽桑卓](../../addons/league_lowhp/README.md)：`league_lowhp` v0.3.2
+[低血量附加包：布里茨、乐芙兰、丽桑卓](../../addons/league_lowhp/README.md)：`league_lowhp` v0.3.3
 
 | 英雄 | 主包（纯数据） | 装了附加包（英雄联盟） |
 |---|---|---|

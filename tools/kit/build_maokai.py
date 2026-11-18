@@ -390,7 +390,7 @@ def build(p):
                             "params": {"heal_lo": p["p_heal_lo"], "heal_hi": p["p_heal_hi"], "p_t": p["p_t"],
                                        "window": p["p_win"], "stand": p["e_stand"]}}
     return {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Heal"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["ap"], "hp": p["hp"], "defence": p["def"],

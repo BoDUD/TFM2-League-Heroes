@@ -278,7 +278,7 @@ def build(p):
                E("p_roar", BIG, 1, False), E("p_heal", FX, 2), E("r_cast", BIG, 1, False)]
     views_b = [P_("e_stun", FX, 2), P_("r_on", BIG, -1)]   # the rage aura behind him: its flames stand round him
     return {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Heal"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Heal"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

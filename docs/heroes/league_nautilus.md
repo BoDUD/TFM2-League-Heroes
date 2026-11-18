@@ -9,7 +9,7 @@
 | id | `league_nautilus` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.8 |
 | 附加包 | [诺提勒斯钩墙附加包](#附加包)（`league_nautilus`） |
 
@@ -55,11 +55,9 @@
 
 ### 诺提勒斯钩墙附加包
 
-[诺提勒斯钩墙附加包](../../addons/league_nautilus/README.md)：`league_nautilus` v0.1.8
+[诺提勒斯钩墙附加包](../../addons/league_nautilus/README.md)：`league_nautilus` v0.1.9
 
-主包 `league` 保持纯数据、全平台可用；钩墙要读地图的墙，只能用原生代码，所以放在这个附加包里（合集 `league_addons` 也带着它）。
-装上后，诺提勒斯的 Q「疏通航道」：锚沿路线**先碰到野区的墙**（引擎的碰撞墙，5v5 地图 90 格）时，把他拉到墙边，并**返还一半冷却**——
-和英雄联盟一样；先碰到敌方英雄时照主包钩人（两人拉向彼此）。
+0.1.9（2026-11-18，游戏 0.7.3）：副本里诺提勒斯的职业跟主包从辅助改成坦克（`"category": "Tank"`；英雄联盟官网坦克筛选里的辅助，游戏一个英雄只能有一个职业），别的没动。
 
 ## 相关脚本和素材
 

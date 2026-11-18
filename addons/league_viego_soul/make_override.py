@@ -36,6 +36,10 @@ HERO = "league_viego"
 # 0.7.3 added the Tank role (the base game's eight tanks and 28 of ours, formerly Melee): a tank's soul fights with
 # the melee kit, as it did before
 CATS = {"Melee": "melee", "Range": "range", "Magician": "mage", "Util": "util", "Assassin": "assassin", "Tank": "melee"}
+# Nine of ours moved Util -> Tank afterwards (the League supports that are tanks, as on the official site's Tank
+# filter; the user 2026-11-18): their souls, Neeko's copies and Sylas's stolen ults keep the support kit
+KIT = {f"league_{h}": "util" for h in ("alistar", "blitzcrank", "braum", "leona", "maokai", "nautilus", "poppy", "rell",
+                                        "tahmkench")}
 O, A, R, E = setup.O, setup.A, setup.R, setup.E
 TEXT = {
     "zh-hans": O + "君命已决" + E + "（附加包）：他伤过的敌方英雄{p_win}秒内阵亡，尸体处留下灵魂{soul_t}秒，靠近即附身" + A + "{p_t}秒" + E +
@@ -101,7 +105,7 @@ def souls(game):
             anim = os.path.join(ROOT, pack, "champions", os.path.basename(c["sprite"]) + "#anim.fanim")
             if not os.path.exists(lp(anim)) or c.get("category") not in CATS:
                 continue
-            out[c["id"]] = (CATS[c["category"]], sorted(load(anim).get("anims", {}).keys()))
+            out[c["id"]] = (KIT.get(c["id"], CATS[c["category"]]), sorted(load(anim).get("anims", {}).keys()))
     return dict(sorted(out.items()))
 
 

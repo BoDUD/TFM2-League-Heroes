@@ -9,7 +9,7 @@
 | id | `league_leona` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC |
 | 高清帧 | PPU 1.5 |
 | 附加包 | [蕾欧娜附加包](#附加包)（`league_leona`） |
 
@@ -55,7 +55,7 @@
 
 ### 蕾欧娜附加包
 
-[蕾欧娜附加包](../../addons/league_leona/README.md)：`league_leona` v0.1.0
+[蕾欧娜附加包](../../addons/league_leona/README.md)：`league_leona` v0.1.1
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

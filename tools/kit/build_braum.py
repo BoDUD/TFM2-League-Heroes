@@ -301,7 +301,7 @@ def build(p):
                B_("e_ally", FX, 3), B_("w_guard", FX, 3), B_("w_self", FX, 3, "w_guard"),
                B_("r_slow", FX, -1, "q_slow")]   # his own guard and the fissure's slow: the same pictures
     kit = {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],
