@@ -40,8 +40,8 @@
 
 2026-11-18（游戏 0.7.3）：
 
-- **适配游戏 0.7.3**（用户：「游戏又更新SDK到0.7.3了 你按照之前那种方式帮我更新SDK吧」）：高清帧引擎的版本表加上 0.7.3（图鉴 / 头像和选人位又变回 0.7.1 的写法，用图片节点的设置函数），`game_places` 的特征码重新生成；稳定版 SDK 升到 ABI 11（只多了坦克职业），`addons/vendor` 同步；冰鸟的蛋在 0.7.3 上照旧清显示计时；阿克尚 / 卡尔萨斯复活读的两个函数、GPU 缓存放大的特征码在 0.7.3 上都核对过。
-- **坦克职业**（用户：「好像还有英雄加入了坦克标签 另外分析一下我们的mod英雄受影响吗」「有的英雄要改成坦克吧」）：英雄联盟 15 个（阿木木、科加斯、蒙多医生、加里奥、奎桑提、墨菲特、努努和威朗普、奥恩、拉莫斯、瑟庄妮、慎、辛吉德、赛恩、斯卡纳、扎克）和云顶 13 个（纳什男爵、岩宝、远古巨龙、可酷伯、远古石甲虫、荏妮、峡谷先锋、刀疤、苍蓝雕纹魔像、石傲玉、泰拉、海克斯霸龙、范德尔）从战士改成坦克；坦克辅助留在辅助。比赛 AI 把坦克职业和 `Tank` 标签一样看，这些英雄本来就有这个标签，打法不变。佛耶戈 / 妮蔻 / 塞拉斯按职业的表里坦克用近战那一套。
+- **适配游戏 0.7.3**（[#778](https://github.com/BoDUD/TFM2-League-Heroes/pull/778)，用户：「游戏又更新SDK到0.7.3了 你按照之前那种方式帮我更新SDK吧」）：高清帧引擎的版本表加上 0.7.3（图鉴 / 头像和选人位又变回 0.7.1 的写法，用图片节点的设置函数），`game_places` 的特征码重新生成；稳定版 SDK 升到 ABI 11（只多了坦克职业），`addons/vendor` 同步；冰鸟的蛋在 0.7.3 上照旧清显示计时；阿克尚 / 卡尔萨斯复活读的两个函数、GPU 缓存放大的特征码在 0.7.3 上都核对过。
+- **坦克职业**（[#778](https://github.com/BoDUD/TFM2-League-Heroes/pull/778)，用户：「好像还有英雄加入了坦克标签 另外分析一下我们的mod英雄受影响吗」「有的英雄要改成坦克吧」）：英雄联盟 15 个（阿木木、科加斯、蒙多医生、加里奥、奎桑提、墨菲特、努努和威朗普、奥恩、拉莫斯、瑟庄妮、慎、辛吉德、赛恩、斯卡纳、扎克）和云顶 13 个（纳什男爵、岩宝、远古巨龙、可酷伯、远古石甲虫、荏妮、峡谷先锋、刀疤、苍蓝雕纹魔像、石傲玉、泰拉、海克斯霸龙、范德尔）从战士改成坦克；坦克辅助留在辅助。比赛 AI 把坦克职业和 `Tank` 标签一样看，这些英雄本来就有这个标签，打法不变。佛耶戈 / 妮蔻 / 塞拉斯按职业的表里坦克用近战那一套。
 - 版本：league.dll 0.9.101、主包 0.430.0、tft.dll 0.68.0（tft 包 0.72.0）、大小龙 0.5.3。
 
 2026-11-17（联盟英雄）：
@@ -112,7 +112,7 @@
   - 提莫把蘑菇种进草丛（[#627](https://github.com/BoDUD/TFM2-League-Heroes/pull/627)）；阿兹尔和沙兵之间的流沙线（[#625](https://github.com/BoDUD/TFM2-League-Heroes/pull/625)）。
 - **引擎和工具**：
   - 高清帧引擎 `hd_engine` 由 league.dll 和 tft.dll 共用，只开 tft 包也有高清帧（[#666](https://github.com/BoDUD/TFM2-League-Heroes/pull/666) [#667](https://github.com/BoDUD/TFM2-League-Heroes/pull/667)）。
-  - 游戏的 GPU 图片缓存放大，现在是 1.5 GiB（[#622](https://github.com/BoDUD/TFM2-League-Heroes/pull/622)）；适配游戏 0.7.1（[#690](https://github.com/BoDUD/TFM2-League-Heroes/pull/690)）、0.7.2（[#744](https://github.com/BoDUD/TFM2-League-Heroes/pull/744)，同一个 PR 里冰鸟的蛋改成按屏幕时钟画；它把 0.7.2 的头像 / 选人位认错了，BP 界面又卡，[#746](https://github.com/BoDUD/TFM2-League-Heroes/pull/746) 改对，[#748](https://github.com/BoDUD/TFM2-League-Heroes/pull/748) 去掉了一个会把这两处的小图集误关掉的保护）。
+  - 游戏的 GPU 图片缓存放大，现在是 1.5 GiB（[#622](https://github.com/BoDUD/TFM2-League-Heroes/pull/622)）；适配游戏 0.7.1（[#690](https://github.com/BoDUD/TFM2-League-Heroes/pull/690)）、0.7.3（[#778](https://github.com/BoDUD/TFM2-League-Heroes/pull/778)）、0.7.2（[#744](https://github.com/BoDUD/TFM2-League-Heroes/pull/744)，同一个 PR 里冰鸟的蛋改成按屏幕时钟画；它把 0.7.2 的头像 / 选人位认错了，BP 界面又卡，[#746](https://github.com/BoDUD/TFM2-League-Heroes/pull/746) 改对，[#748](https://github.com/BoDUD/TFM2-League-Heroes/pull/748) 去掉了一个会把这两处的小图集误关掉的保护）。
   - 加射程改走官方的 `range_adjust`（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)）；区域 `first_delay` 从 0 改成 1（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）；英雄死后不再反复触发（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。
   - 存档里英雄副本的迁移工具（[#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#647](https://github.com/BoDUD/TFM2-League-Heroes/pull/647)）；`pose_ref` 读皮肤真正的隐藏名单（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)）；撤掉 Mac 版（[#642](https://github.com/BoDUD/TFM2-League-Heroes/pull/642)）。
   - 每天按对局日志修 bug（[#618](https://github.com/BoDUD/TFM2-League-Heroes/pull/618) [#632](https://github.com/BoDUD/TFM2-League-Heroes/pull/632) [#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#659](https://github.com/BoDUD/TFM2-League-Heroes/pull/659) [#674](https://github.com/BoDUD/TFM2-League-Heroes/pull/674) [#685](https://github.com/BoDUD/TFM2-League-Heroes/pull/685) [#692](https://github.com/BoDUD/TFM2-League-Heroes/pull/692) [#699](https://github.com/BoDUD/TFM2-League-Heroes/pull/699) [#718](https://github.com/BoDUD/TFM2-League-Heroes/pull/718) [#721](https://github.com/BoDUD/TFM2-League-Heroes/pull/721)）。
