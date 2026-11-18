@@ -55,7 +55,7 @@
 
 ### 拉莫斯附加包
 
-[拉莫斯附加包](../../addons/league_rammus/README.md)：`league_rammus` v0.1.3
+[拉莫斯附加包](../../addons/league_rammus/README.md)：`league_rammus` v0.1.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

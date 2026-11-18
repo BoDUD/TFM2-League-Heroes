@@ -9,7 +9,7 @@
 | id | `league_maokai` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Heal |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Heal |
 | 高清帧 | PPU 1.3 |
 | 附加包 | [茂凯附加包](#附加包)（`league_maokai`） |
 
@@ -55,7 +55,7 @@
 
 ### 茂凯附加包
 
-[茂凯附加包](../../addons/league_maokai/README.md)：`league_maokai` v0.1.5
+[茂凯附加包](../../addons/league_maokai/README.md)：`league_maokai` v0.1.6
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

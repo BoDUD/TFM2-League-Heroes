@@ -9,7 +9,7 @@
 | id | `league_braum` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.98（画成 95%） |
 | 附加包 | [布隆附加包](#附加包)（`league_braum`） |
 
@@ -55,7 +55,7 @@
 
 ### 布隆附加包
 
-布隆附加包：`league_braum` v0.1.3
+布隆附加包：`league_braum` v0.1.4
 
 （这个附加包没有 README，下面是它 `mod.mod_info` 里的英文说明）
 

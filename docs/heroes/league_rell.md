@@ -9,7 +9,7 @@
 | id | `league_rell` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.5 |
 | 附加包 | [芮尔附加包](#附加包)（`league_rell`） |
 
@@ -55,7 +55,7 @@
 
 ### 芮尔附加包
 
-[芮尔附加包](../../addons/league_rell/README.md)：`league_rell` v0.1.6
+[芮尔附加包](../../addons/league_rell/README.md)：`league_rell` v0.1.7
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

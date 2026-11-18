@@ -389,7 +389,7 @@ def build(p):
     views_b = [B_("t_pip1", FX, 3), B_("t_pip2", FX, 3), B_("t_pip3", FX, 3), B_("q_slow", FX, -1),
                B_("r_full", FX, 3), B_("r_ally", FX, 3, "r_bubble"), B_("r_enemy", FX, 3, "r_bubble")]
     kit = {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],
