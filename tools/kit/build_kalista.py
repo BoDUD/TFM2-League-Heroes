@@ -368,23 +368,29 @@ def build(p):
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(*rm("r_got"), pick(p["r_bind"], "AllyNotSelf", *take), sw("r_got", fire, refund)), key="ult")
     if p["native"]:
-        # the copy: R cast on the Oathsworn (the add-on's AI hook picks him) when an enemy champion is in reach; the
-        # take on him is the action's target; at the launch r_launch tells the add-on, which flies him to an enemy
-        # champion and raises r_landed there: the knock-up round him (a 1-tick lob onto the action's target)
+        # R targets the Oathsworn. On an engage the add-on handles flight and sets r_landed for the knock-up.
         land_n = combine(*rm("r_landed"), lob("r_mark", 1, 1000, "AllyChampion", [], end=[knock, view("r_land")]),
                          tsfx("r_hit"))
         polls = [delayed(p["r_hold"] + k, sw("r_landed", land_n)) for k in range(3, p["r_poll"] + 1, 3)]
         polls.append(on_me(delayed(p["r_hold"] + p["r_poll"] // 2, sw("e_cd", NONE, sw("e_ok2", e_fire)))))
-        take_n = [{"type": "Grab", "speed": p["r_grab_v"]}, *regrab,
-                  delayed(p["r_hold"] - 2, {"type": "Stun", "duration": p["r_poll"] + 4}),
-                  {"type": "Invisible", "tick": p["r_hold"] + p["r_poll"]},
-                  buff("r_safe", p["r_hold"] + p["r_poll"], damaged_reduce=p["r_safe"]), view("r_take"), tsfx("r_take")]
-        fire_n = combine(*take_n, anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
+        pull = [{"type": "Grab", "speed": p["r_grab_v"]}, *regrab]
+
+        def protect(ticks):
+            return [{"type": "Invisible", "tick": ticks}, buff("r_safe", ticks, damaged_reduce=p["r_safe"]),
+                    view("r_take"), tsfx("r_take")]
+
+        start = [anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p)]
+        take_n = [*pull, delayed(p["r_hold"] - 2, {"type": "Stun", "duration": p["r_poll"] + 4}),
+                  *protect(p["r_hold"] + p["r_poll"])]
+        fire_n = combine(*take_n, *start,
                          delayed(p["r_hold"], lives(refresh("r_launch", 6), anim("ult2", p["r_throw"]), sfx("r_fly"),
                                                     voice("vo_r_fly", p))), *polls)
+        # A rescue ends beside Kalista once the pull finishes.
+        rescue = combine(*rm("r_rescue"), *pull, *protect(p["r_hold"]), *start)
+        engage = combine(*rm("r_foe"), pick(p["r_range"], "EnemyChampion", flag("r_foe", 2)),
+                         sw("r_foe", fire_n, refund), *rm("r_foe"))
         ult = action("idle", 3, p["r_cd"], 1, p["r_bind"], "Targeting", "AllyNotSelf",
-                     combine(*rm("r_foe"), pick(p["r_range"], "EnemyChampion", flag("r_foe", 2)),
-                             sw("r_foe", fire_n, refund), *rm("r_foe")), key="ult")
+                     sw("r_rescue", rescue, engage), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

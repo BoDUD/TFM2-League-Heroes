@@ -3080,1542 +3080,282 @@
     "casting_target": "AllyNotSelf",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "RemoveCasterBuff",
-          "name": "league_kalista_r_foe"
-        },
-        {
-          "type": "RandomTarget",
-          "range": 90000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_kalista_r_foe",
-                "duration": {
-                  "Time": {
-                    "tick": 2
-                  }
-                }
-              },
-              "only_to_enemy": false
-            }
-          ]
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_kalista_r_foe",
-          "effect_buff": {
-            "type": "Combine",
+      "type": "SwitchByBuff",
+      "buff_name": "league_kalista_r_rescue",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_kalista_r_rescue"
+          },
+          {
+            "type": "Grab",
+            "speed": 4000
+          },
+          {
+            "type": "Delayed",
+            "tick": 8,
             "effects": [
               {
                 "type": "Grab",
                 "speed": 4000
-              },
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 16,
+            "effects": [
               {
-                "type": "Delayed",
-                "tick": 8,
-                "effects": [
-                  {
-                    "type": "Grab",
-                    "speed": 4000
-                  }
-                ]
-              },
+                "type": "Grab",
+                "speed": 4000
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 24,
+            "effects": [
               {
-                "type": "Delayed",
-                "tick": 16,
-                "effects": [
-                  {
-                    "type": "Grab",
-                    "speed": 4000
-                  }
-                ]
+                "type": "Grab",
+                "speed": 4000
+              }
+            ]
+          },
+          {
+            "type": "Invisible",
+            "tick": 30
+          },
+          {
+            "type": "AddBuff",
+            "buff_state": {
+              "name": "league_kalista_r_safe",
+              "duration": {
+                "Time": {
+                  "tick": 30
+                }
               },
-              {
-                "type": "Delayed",
-                "tick": 24,
-                "effects": [
-                  {
-                    "type": "Grab",
-                    "speed": 4000
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 28,
-                "effects": [
-                  {
-                    "type": "Stun",
-                    "duration": 48
-                  }
-                ]
-              },
-              {
-                "type": "Invisible",
-                "tick": 74
-              },
-              {
-                "type": "AddBuff",
-                "buff_state": {
-                  "name": "league_kalista_r_safe",
-                  "duration": {
-                    "Time": {
-                      "tick": 74
+              "damaged_reduce": 90
+            }
+          },
+          {
+            "type": "ViewEffect",
+            "name": "league_kalista_r_take"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "league_kalista_r_take"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "ult",
+            "tick": 24
+          },
+          {
+            "type": "Sfx",
+            "name": "league_kalista_r"
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_kalista_vo_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_kalista_vo_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 600
+                      }
                     }
                   },
-                  "damaged_reduce": 90
-                }
-              },
-              {
-                "type": "ViewEffect",
-                "name": "league_kalista_r_take"
-              },
-              {
-                "type": "TargetSfx",
-                "name": "league_kalista_r_take"
-              },
-              {
-                "type": "CasterAnimation",
-                "name": "ult",
-                "tick": 24
-              },
-              {
-                "type": "Sfx",
-                "name": "league_kalista_r"
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_kalista_vo_cd",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
+                  "only_to_enemy": false
                 },
-                "effect_none": {
-                  "type": "Combine",
+                {
+                  "type": "Sfx",
+                  "name": "league_kalista_vo_r"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_kalista_r_foe"
+          },
+          {
+            "type": "RandomTarget",
+            "range": 90000,
+            "casting_target": "EnemyChampion",
+            "from_projectile": false,
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_kalista_r_foe",
+                  "duration": {
+                    "Time": {
+                      "tick": 2
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_kalista_r_foe",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Grab",
+                  "speed": 4000
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 8,
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_kalista_vo_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 600
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_kalista_vo_r"
+                      "type": "Grab",
+                      "speed": 4000
                     }
                   ]
-                }
-              },
-              {
-                "type": "Delayed",
-                "tick": 30,
-                "effects": [
-                  {
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 16,
+                  "effects": [
+                    {
+                      "type": "Grab",
+                      "speed": 4000
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 24,
+                  "effects": [
+                    {
+                      "type": "Grab",
+                      "speed": 4000
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 28,
+                  "effects": [
+                    {
+                      "type": "Stun",
+                      "duration": 48
+                    }
+                  ]
+                },
+                {
+                  "type": "Invisible",
+                  "tick": 74
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_kalista_r_safe",
+                    "duration": {
+                      "Time": {
+                        "tick": 74
+                      }
+                    },
+                    "damaged_reduce": 90
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_kalista_r_take"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_kalista_r_take"
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "ult",
+                  "tick": 24
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_kalista_r"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kalista_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
                     "type": "Combine",
                     "effects": [
                       {
-                        "type": "RandomTarget",
-                        "range": 1,
-                        "casting_target": "AllyOnlySelf",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_kalista_live",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_kalista_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
                           }
-                        ]
+                        },
+                        "only_to_enemy": false
                       },
                       {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kalista_live",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kalista_r_launch"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_kalista_r_launch",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 6
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "ult2",
-                              "tick": 18
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_kalista_r_fly"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_kalista_vo_cd",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kalista_vo_cd",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 600
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_kalista_vo_r_fly"
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        },
-                        "effect_none": {
+                        "type": "Sfx",
+                        "name": "league_kalista_vo_r"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 30,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
                           "type": "RandomTarget",
                           "range": 1,
                           "casting_target": "AllyOnlySelf",
                           "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kalista_r_launch"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_kalista_r_launch",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 6
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "ult2",
-                              "tick": 18
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_kalista_r_fly"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_kalista_vo_cd",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kalista_vo_cd",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 600
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_kalista_vo_r_fly"
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_kalista_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
                                   }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kalista_live"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 33,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
                                 }
                               },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
+                              "only_to_enemy": false
                             }
                           ]
                         },
                         {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 36,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 39,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 42,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 45,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 48,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 51,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 54,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 57,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 60,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 63,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 66,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 69,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 72,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kalista_r_landed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_r_landed"
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_kalista_r_mark",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "range_effect_name": "",
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "RangeProjectile",
-                              "name": "league_kalista_r_knock",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 26000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Airborne",
-                                    "duration": 75
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 80,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_kalista_r_up"
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_kalista_r_land"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kalista_r_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 1000
-                  }
-                },
-                "target": "AllyOnlySelf",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "Delayed",
-                    "tick": 52,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kalista_e_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_kalista_e_ok2",
+                          "buff_name": "league_kalista_live",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": [
@@ -4624,15 +3364,15 @@
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_kalista_e_cd"
+                                    "name": "league_kalista_r_launch"
                                   },
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_kalista_e_cd",
+                                      "name": "league_kalista_r_launch",
                                       "duration": {
                                         "Time": {
-                                          "tick": 600
+                                          "tick": 6
                                         }
                                       }
                                     },
@@ -4641,33 +3381,13 @@
                                 ]
                               },
                               {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_kalista_h1"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_kalista_h2"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_kalista_h3"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_kalista_e_ok"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_kalista_e_ok2"
-                              },
-                              {
                                 "type": "CasterAnimation",
-                                "name": "skill2",
-                                "tick": 23
+                                "name": "ult2",
+                                "tick": 18
                               },
                               {
                                 "type": "Sfx",
-                                "name": "league_kalista_e"
+                                "name": "league_kalista_r_fly"
                               },
                               {
                                 "type": "SwitchByBuff",
@@ -4693,161 +3413,1428 @@
                                     },
                                     {
                                       "type": "Sfx",
-                                      "name": "league_kalista_vo_e"
+                                      "name": "league_kalista_vo_r_fly"
                                     }
                                   ]
                                 }
-                              },
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
                               {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
+                                "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "Delayed",
-                                    "tick": 4,
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_kalista_r_launch"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_kalista_r_launch",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "ult2",
+                                "tick": 18
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_kalista_r_fly"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kalista_vo_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_kalista_vo_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 600
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_kalista_vo_r_fly"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_kalista_live"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 33,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 36,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 39,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 42,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 45,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 48,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 51,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 54,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 57,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 60,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 63,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 66,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 69,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 72,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kalista_r_landed",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_r_landed"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_kalista_r_mark",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "range_effect_name": "",
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_kalista_r_knock",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 26000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 75
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 80,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_kalista_r_up"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_kalista_r_land"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kalista_r_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Delayed",
+                      "tick": 52,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_kalista_e_cd",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_e_ok2",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kalista_e_cd"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_kalista_e_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 600
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_h1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_h2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_h3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_e_ok"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_e_ok2"
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "skill2",
+                                  "tick": 23
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_e"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kalista_vo_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
                                     "effects": [
                                       {
-                                        "type": "CasterViewEffect",
-                                        "name": "league_kalista_e_cast"
-                                      },
-                                      {
-                                        "type": "RangeEffect",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 110000
-                                          }
-                                        },
-                                        "target": "EnemyChampion",
-                                        "apply_type": "AroundCaster",
-                                        "effects": [
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_kalista_k_e"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_kalista_k_e",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 40
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "Delayed",
-                                            "tick": 3,
-                                            "effects": [
-                                              {
-                                                "type": "AddCasted",
-                                                "casted_type": "Heal",
-                                                "duration": 3,
-                                                "period": 1,
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_kalista_k_e"
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_kalista_e_pop"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_kalista_e_pop",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 3
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "Delayed",
-                                        "tick": 3,
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_kalista_e_pop"
-                                          },
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_kalista_g_a",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_kalista_g_a"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_kalista_g_b",
-                                                    "duration": "Permanent"
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_kalista_g_b",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_kalista_g_b"
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_kalista_g_a",
-                                                  "duration": "Permanent"
-                                                },
-                                                "only_to_enemy": false
-                                              }
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kalista_vo_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
                                             }
                                           }
-                                        ]
+                                        },
+                                        "only_to_enemy": false
                                       },
                                       {
-                                        "type": "Delayed",
-                                        "tick": 7,
-                                        "effects": [
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_kalista_k_e",
-                                            "effect_buff": {
+                                        "type": "Sfx",
+                                        "name": "league_kalista_vo_e"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 4,
+                                      "effects": [
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_kalista_e_cast"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 110000
+                                            }
+                                          },
+                                          "target": "EnemyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
                                               "type": "Combine",
                                               "effects": [
                                                 {
@@ -4855,68 +4842,190 @@
                                                   "name": "league_kalista_k_e"
                                                 },
                                                 {
-                                                  "type": "Combine",
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kalista_k_e",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 40
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 3,
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasted",
+                                                  "casted_type": "Heal",
+                                                  "duration": 3,
+                                                  "period": 1,
                                                   "effects": [
                                                     {
                                                       "type": "RemoveCasterBuff",
-                                                      "name": "league_kalista_e_cd"
-                                                    },
-                                                    {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_kalista_e_reset"
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_kalista_e_reset"
+                                                      "name": "league_kalista_k_e"
                                                     }
                                                   ]
                                                 }
                                               ]
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
                                             }
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": []
+                                          ]
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_kalista_e_pop"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_kalista_e_pop",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 3,
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_kalista_e_pop"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_kalista_g_a",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_kalista_g_a"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_kalista_g_b",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_kalista_g_b",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_kalista_g_b"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kalista_g_a",
+                                                    "duration": "Permanent"
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 7,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_kalista_k_e",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_kalista_k_e"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_kalista_e_cd"
+                                                      },
+                                                      {
+                                                        "type": "CasterViewEffect",
+                                                        "name": "league_kalista_e_reset"
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_kalista_e_reset"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
                           }
                         }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_kalista_r_refund",
-              "duration": {
-                "Time": {
-                  "tick": 3
+                      ]
+                    }
+                  ]
                 }
-              },
-              "ult_cooldown_mult": 4900
+              ]
             },
-            "only_to_enemy": false
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_kalista_r_refund",
+                "duration": {
+                  "Time": {
+                    "tick": 3
+                  }
+                },
+                "ult_cooldown_mult": 4900
+              },
+              "only_to_enemy": false
+            }
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_kalista_r_foe"
           }
-        },
-        {
-          "type": "RemoveCasterBuff",
-          "name": "league_kalista_r_foe"
-        }
-      ]
+        ]
+      }
     }
   },
   "view_projectiles": [
