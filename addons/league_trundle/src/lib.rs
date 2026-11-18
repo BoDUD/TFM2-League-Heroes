@@ -314,15 +314,42 @@ struct Queued {
     stole: Option<(i32, i32)>,
 }
 
+#[derive(Clone, Default)]
+struct FrozenDomain {
+    center: Option<(u64, u64)>,
+    until: usize,
+    next_frame: usize,
+}
+
+impl FrozenDomain {
+    fn update(&mut self, tick: usize, pos: (u64, u64), remaining: Option<usize>) -> bool {
+        // w_on may disappear briefly. Keep the center and expiry of this cast.
+        if tick < self.until {
+            return false;
+        }
+        self.center = None;
+        let Some(left) = remaining.filter(|&n| n > 0) else { return false };
+        self.center = Some(pos);
+        self.until = tick.saturating_add(left);
+        self.next_frame = tick;
+        true
+    }
+
+    fn frame_at(&mut self, tick: usize) -> Option<(u64, u64)> {
+        let center = self.center?;
+        if tick >= self.until || tick < self.next_frame {
+            return None;
+        }
+        self.next_frame = tick + FIELD_EVERY;
+        Some(center)
+    }
+}
+
 /// 每个特朗德尔一份：参数、冰面、冰柱、吸取，和日志计数。
 #[derive(Clone, Default)]
 struct Troll {
     p: Params,
-    /// The domain's centre while `w_on` lasts, and `w_on`'s remaining ticks last tick (a renewal = a new domain).
-    domain: Option<(u64, u64)>,
-    w_left: usize,
-    /// The tick the frozen field's picture plays again.
-    field_at: usize,
+    domain: FrozenDomain,
     /// His health at the end of last tick (the domain's heal amplifier reads the rise).
     last_hp: usize,
     /// Enemy units near him last tick: (id, max health).
@@ -346,7 +373,7 @@ struct Troll {
 
 impl Troll {
     fn on_domain(&self, sim: &StableSim<'_>, me: usize) -> bool {
-        let (Some(c), Some(e)) = (self.domain, sim.get_entity(me)) else { return false };
+        let (Some(c), Some(e)) = (self.domain.center, sim.get_entity(me)) else { return false };
         dist2(c, e.pos()) <= self.p.w_r.saturating_mul(self.p.w_r)
     }
 
@@ -359,35 +386,22 @@ impl Troll {
         h
     }
 
-    /// Frozen Domain: where `w_on` appeared (or was renewed) it stays; inside it the stats and the heal amplifier.
+    /// Keep W at the cast position. Refresh its stats only while Trundle stands inside.
     fn domain(&mut self, sim: &mut StableSim<'_>, me: usize) -> bool {
         let Some(e) = sim.get_entity(me) else { return false };
         let left = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == W_ON).map(|b| b.duration_tick);
         let pos = e.pos();
-        match left {
-            None => {
-                self.domain = None;
-                self.w_left = 0;
-            }
-            Some(l) => {
-                if self.domain.is_none() || l > self.w_left {
-                    self.domain = Some(pos);
-                    self.field_at = sim.tick();
-                    self.n_domain += 1;
-                    if often(self.n_domain) {
-                        wlog(format!("{} DOMAIN frozen at ({}, {}) for {l} ticks ({} in all)", head(sim, me), pos.0, pos.1,
-                                     self.n_domain));
-                    }
-                }
-                self.w_left = l;
-            }
+        let tick = sim.tick();
+        let started = self.domain.update(tick, pos, left);
+        if started {
+            self.n_domain += 1;
         }
-        // the frozen field where it froze, a second at a time while it lasts
-        if let Some((x, y)) = self.domain {
-            let tick = sim.tick();
-            if tick >= self.field_at {
-                sim.play_view_effect(W_FIELD, me, &InputTargetV1::pos(x, y), 0, 0, 0);
-                self.field_at = tick + FIELD_EVERY;
+        if let Some((x, y)) = self.domain.frame_at(tick) {
+            let played = sim.play_view_effect(W_FIELD, me, &InputTargetV1::pos(x, y), 0, 0, 0);
+            if started && often(self.n_domain) {
+                wlog(format!("{} DOMAIN frozen at ({x}, {y}) for {} ticks ({} in all), field {}",
+                             head(sim, me), self.domain.until - tick, self.n_domain,
+                             if played { "played" } else { "refused" }));
             }
         }
         let inside = self.on_domain(sim, me);
@@ -619,8 +633,7 @@ impl StablePassive for Troll {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        self.domain = None;
-        self.w_left = 0;
+        self.domain = FrozenDomain::default();
         self.near.clear();
         self.drains.clear();
         self.queued.clear();
@@ -633,8 +646,7 @@ impl StablePassive for Troll {
         // the pillars stand on while he is dead (terrain)
         self.pillars(sim, me, tick);
         if !sim.get_entity(me).is_some_and(|e| e.is_alive()) {
-            self.domain = None;
-            self.w_left = 0;
+            self.domain.center = None;
             self.near.clear();
             self.queued.clear(); // he fell before his last drain landed: no heal for it
             self.last_hp = 0;
@@ -691,6 +703,34 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn one_w_stays_at_the_cast_position_through_a_missing_marker() {
+        let mut domain = FrozenDomain::default();
+        let at = (10000, 20000);
+        let moved = (50000, 70000);
+        let first = 36_738;
+        let mut starts = Vec::new();
+        let mut draws = Vec::new();
+        for elapsed in 0..=480 {
+            let left = match elapsed {
+                168 | 479 | 480 => None,
+                _ => Some(479 - elapsed),
+            };
+            let tick = first + elapsed;
+            if domain.update(tick, if elapsed == 0 { at } else { moved }, left) {
+                starts.push(tick);
+            }
+            if let Some(pos) = domain.frame_at(tick) {
+                draws.push((tick, pos));
+            }
+        }
+        assert_eq!(starts, [first]);
+        assert_eq!(draws, (0..8).map(|i| (first + i * FIELD_EVERY, at)).collect::<Vec<_>>());
+        assert_eq!(domain.center, None);
+        assert!(domain.update(first + 738, moved, Some(479)));
+        assert_eq!(domain.frame_at(first + 738), Some(moved));
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

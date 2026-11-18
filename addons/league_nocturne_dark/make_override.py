@@ -1,4 +1,4 @@
-"""Build the add-on's copy of Nocturne from the main pack (Paranoia darkness v3).
+"""Build the add-on's copy of Nocturne from the main pack.
 
     python addons/league_nocturne_dark/make_override.py
 
@@ -7,13 +7,11 @@ addons/league_nocturne_dark/override/league_nocturne.data_champion, .../text/cha
 .../effects/league_nocturne_dark#sheet.png + #anim.fanim: the same kit with three changes -
   * R's "every allied champion Invisible" at the cast (until the landing, at most 60 ticks) and at the
     landing (20 ticks, the burst) are dropped and R calls the add-on's native effects
-    league_nocturne_dark:start / :land instead, which for as long hide each allied champion that has no
-    enemy champion within 40000 (re-applied every tick) and play the map veil below (v4: only while
-    the ult plays - 180 ticks outlasted it: 「魔腾不放大的时候也全队隐身」); the veil pictures, the mist on
-    enemies, the flight and the hit stay as they are;
+    league_nocturne_dark:start / :land. They set the darkness duration for the enemy AI and play
+    the map veil. The mist on enemies, the flight and the hit stay as they are;
   * a view effect league_nocturne_dark_veil: one 1280 x 1280 frame of translucent night blue
     (the whole map picture, 128 px border included) shown for 0.75 s under the units (z -1); the
-    native code plays it three times at the map centre, a few ticks apart, so the map darkens in
+    native code plays it three times at Nocturne’s cast position, a few ticks apart, so the map darkens in
     steps and lightens the same way. It is an ordinary effect event, so it plays in step with the
     match picture (v1 darkened the screen from the client and drifted, see the README);
   * R's tooltip points to description.league_nocturne_dark.ult (the darkness text with a
@@ -30,20 +28,19 @@ MOD_ID = "league_nocturne_dark"
 TEXT_KEY = "description.league_nocturne_dark.ult"
 AD = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TEXT = {
-    "zh-hans": "【黑暗测试版】黑暗降临：<#ffb900ff>魔腾飞扑和落地期间<>全地图变暗，敌人只看得见、只打得到身边的我方单位；"
+    "zh-hans": "【黑暗测试版】黑暗降临：<#ffb900ff>魔腾飞扑和落地期间<>全地图变暗，敌方英雄会先靠近我方单位再出手；"
                f"魔腾飞扑一名敌方英雄，落地造成<#ff9028ff>120<> + {AD}<#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，"
                "飞行中免疫控制。",
-    "zh-hant": "【黑暗測試版】黑暗降臨：<#ffb900ff>夜曲飛撲和落地期間<>全地圖變暗，敵人只看得見、只打得到身邊的我方單位；"
+    "zh-hant": "【黑暗測試版】黑暗降臨：<#ffb900ff>夜曲飛撲和落地期間<>全地圖變暗，敵方英雄會先靠近我方單位再出手；"
                f"夜曲飛撲一名敵方英雄，落地造成<#ff9028ff>120<> + {AD}<#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，"
                "飛行中免疫控制。",
-    "en": "[Darkness test build] Darkness falls: <#ffb900ff>while Nocturne flies and lands<> the map goes dark and enemies see and hit "
-          "only the allied units right next to them; Nocturne flies at an enemy champion, dealing "
+    "en": "[Darkness test build] Darkness falls: <#ffb900ff>while Nocturne flies and lands<> the map goes dark and enemy champions move closer before attacking or casting; Nocturne flies at an enemy champion, dealing "
           f"<#ff9028ff>120<> + {AD}<#ff9028ff>120% AD<> <#ff9028ff>physical damage<> on landing. He is immune to "
           "crowd control in flight.",
-    "ko": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>녹턴이 날아가 착지하는 동안<> 지도가 어두워지고, 적은 바로 옆의 아군 유닛만 "
-          f"보고 공격할 수 있습니다. 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 120%<> "
+    "ko": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>녹턴이 날아가 착지하는 동안<> 지도가 어두워지고, 적 챔피언은 아군에게 가까이 다가간 뒤 공격합니다. "
+          f" 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 120%<> "
           "<#ff9028ff>물리 피해<>를 입힙니다. 비행 중 군중 제어에 면역입니다.",
-    "ja": "【闇の試験版】闇が訪れ<#ffb900ff>飛びかかって着地するまで<>マップが暗くなり、敵はすぐ近くの味方ユニットしか見えず攻撃できない。"
+    "ja": "【闇の試験版】闇が訪れ<#ffb900ff>飛びかかって着地するまで<>マップが暗くなり、敵チャンピオンは味方に近づいてから攻撃する。"
           f"敵チャンピオンへ飛びかかり、着地で<#ff9028ff>120<> + {AD}<#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>。"
           "飛行中は行動妨害無効。",
 }

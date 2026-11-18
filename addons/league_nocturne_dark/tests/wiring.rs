@@ -1,6 +1,5 @@
-//! 走真实的导出入口：在一个迷你模拟里放魔腾的 R，检查黑暗期间每 tick 隐身的是「身边没有敌方英雄」的
-//! 己方英雄、贴近的看得见、到时结束；地图暗色是在模拟里播的特效（地图中心，叠 3 层、错开几 tick），
-//! 服务端预模拟和你看的那场一样（播不播由游戏决定），没开 R 时一层也不播；不再注册客户端扩展。
+//! 走真实的导出入口，检查 R 的黑暗时长、敌方 AI 输入和叠层特效。
+//! 预模拟和客户端回放都不能收到对友军的隐身调用。
 
 use std::collections::HashMap;
 use std::ffi::c_void;
@@ -201,7 +200,7 @@ fn test_log() -> (std::sync::MutexGuard<'static, ()>, std::path::PathBuf) {
 }
 
 #[test]
-fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
+fn paranoia_veils_the_map_without_hiding_allies() {
     let (_serial, log) = test_log();
     unsafe {
         let mut host: HostApiV1 = zeroed();
@@ -220,15 +219,16 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             run(&mut idle, &fx, 400);
             assert!(idle.views.is_empty() && idle.hidden.is_empty(), "darkness without the R");
 
-            // 开 R（没落地）：#0、#2 每 tick 隐身，#1 身边有敌人看得见；FLY_T 后结束
+            // 开 R（没落地）：黑暗标记到 FLY_T 结束，站在远处的队友仍然可见。
             let mut w = world(view);
             call(&mut w, &fx, "league_nocturne_dark:start", 0);
             for t in 0..FLY_T {
+                assert!(darkness_active(&w), "darkness missing at {t}");
                 run(&mut w, &fx, 1);
-                assert_eq!(w.hidden.get(&t).cloned().unwrap_or_default(), [0, 2], "tick {t}");
             }
             run(&mut w, &fx, 30);
-            assert!((FLY_T + 2..FLY_T + 30).all(|t| !w.hidden.contains_key(&t)), "still hidden after the darkness");
+            assert!(!darkness_active(&w));
+            assert!(w.hidden.is_empty());
             assert!(w.queue.is_empty());
 
             // 暗色：播在魔腾身上，叠 VEIL_LAYERS 层、每层隔 VEIL_STEP tick，之后不再播
@@ -246,28 +246,24 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
         call(&mut w, &fx, "league_nocturne_dark:start", 0);
         run(&mut w, &fx, 10);
         call(&mut w, &fx, "league_nocturne_dark:land", 0);
-        run(&mut w, &fx, LAND_T + 30);
-        // (the landing tick hides twice: `land` itself and the running chain's `tick`)
-        let seen = |w: &World, t: usize| {
-            let mut v = w.hidden.get(&t).cloned().unwrap_or_default();
-            v.sort();
-            v.dedup();
-            v
-        };
-        assert!((10..10 + LAND_T).all(|t| seen(&w, t) == [0, 2]), "hidden while it lands");
-        assert!((10 + LAND_T + 2..10 + LAND_T + 30).all(|t| !w.hidden.contains_key(&t)), "hidden after the landing");
+        run(&mut w, &fx, LAND_T - 1);
+        assert!(darkness_active(&w));
+        run(&mut w, &fx, 1);
+        assert!(!darkness_active(&w));
+        assert!(w.hidden.is_empty());
         assert!(w.queue.is_empty());
 
         // 飞得比 FLY_T 久（黑暗已经停了）：落地再黑 LAND_T
         let mut w = world(true);
         call(&mut w, &fx, "league_nocturne_dark:start", 0);
         run(&mut w, &fx, FLY_T + 5);
-        assert!(!w.hidden.contains_key(&(FLY_T + 4)));
+        assert!(!darkness_active(&w));
         call(&mut w, &fx, "league_nocturne_dark:land", 0);
-        run(&mut w, &fx, LAND_T + 30);
-        let t0 = FLY_T + 5;
-        assert!((t0..t0 + LAND_T).all(|t| w.hidden.contains_key(&t)), "a late landing did not darken again");
-        assert!((t0 + LAND_T + 2..t0 + LAND_T + 30).all(|t| !w.hidden.contains_key(&t)));
+        run(&mut w, &fx, LAND_T - 1);
+        assert!(darkness_active(&w));
+        run(&mut w, &fx, 1);
+        assert!(!darkness_active(&w));
+        assert!(w.hidden.is_empty());
         assert!(w.queue.is_empty());
 
         // 黑暗中再开一次 R（重置时长）：重新叠一遍暗色，黑暗从第二次算起
@@ -276,7 +272,8 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
         run(&mut w, &fx, 20);
         call(&mut w, &fx, "league_nocturne_dark:start", 0);
         run(&mut w, &fx, FLY_T - 2);
-        assert!(w.hidden.contains_key(&(20 + FLY_T - 3)), "the second R did not reset the darkness");
+        assert!(darkness_active(&w), "the second R did not reset the darkness");
+        assert!(w.hidden.is_empty());
         assert_eq!(w.views.len(), 2 * VEIL_LAYERS);
 
         let text = std::fs::read_to_string(&log).expect("log written");
@@ -284,14 +281,16 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             let _ = std::fs::remove_file(&log);
         }
         assert!(text.starts_with(&format!("=== league_nocturne_dark v{}", env!("CARGO_PKG_VERSION"))), "{text}");
-        assert!(text.contains("DARKNESS until the landing (at most 60 ticks), then 20: 2 of 3 allies unseen"), "{text}");
+        assert!(text.contains("DARKNESS until the landing (at most 60 ticks), then 20: enemy targeting only"), "{text}");
         assert!(text.contains("landed: darkness for 20 more ticks"), "{text}");
-        assert!(text.contains("darkness over"), "{text}");
     }
 }
 
-/// 飞扑多久都不断：出手到落地每 tick 都黑、落地后再 `LAND_T`，只结束一次。
-/// (10-24 的日志里 54% 的 R 落地晚于原来的 32 tick 上限，黑暗先停再开：`darkness over` 比 `DARKNESS` 多 100 行。)
+fn darkness_active(w: &World) -> bool {
+    w.units[0].buffs.iter().any(|(b, left)| b.name() == "league_nocturne_dark_on" && *left > 0)
+}
+
+/// 覆盖不同的飞扑时长，直到落地结算完成为止。
 #[test]
 fn the_darkness_lasts_until_the_landing_however_long_the_dive() {
     let (_serial, log) = test_log();
@@ -310,12 +309,16 @@ fn the_darkness_lasts_until_the_landing_however_long_the_dive() {
         for fly in dives {
             let mut w = world(true);
             call(&mut w, &fx, "league_nocturne_dark:start", 0);
-            run(&mut w, &fx, fly);
+            for _ in 0..fly {
+                assert!(darkness_active(&w), "a {fly}-tick dive cut the darkness at {}", w.tick);
+                run(&mut w, &fx, 1);
+            }
             call(&mut w, &fx, "league_nocturne_dark:land", 0);
-            run(&mut w, &fx, LAND_T + 30);
-            let gap: Vec<usize> = (0..fly + LAND_T).filter(|t| !w.hidden.contains_key(t)).collect();
-            assert!(gap.is_empty(), "a {fly}-tick dive: allies seen at ticks {gap:?}");
-            assert!((fly + LAND_T + 2..fly + LAND_T + 30).all(|t| !w.hidden.contains_key(&t)), "a {fly}-tick dive");
+            run(&mut w, &fx, LAND_T - 1);
+            assert!(darkness_active(&w));
+            run(&mut w, &fx, 1);
+            assert!(!darkness_active(&w));
+            assert!(w.hidden.is_empty());
             assert!(w.queue.is_empty());
         }
 
@@ -323,7 +326,6 @@ fn the_darkness_lasts_until_the_landing_however_long_the_dive() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert_eq!(text.matches("darkness over").count(), dives.len(), "the darkness stopped before a landing: {text}");
         assert_eq!(text.matches("DARKNESS until the landing (at most 60 ticks)").count(), dives.len(), "{text}");
     }
 }

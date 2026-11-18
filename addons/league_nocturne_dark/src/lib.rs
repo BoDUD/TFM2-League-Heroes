@@ -4,9 +4,7 @@
 //! `mod.override_info` 把主包的魔腾换成 `override/` 里的副本：那条「全体隐身 180 tick」换成本包的
 //! 原生效果 `start`，别的（黑雾、飞扑、伤害、画面、声音）照旧。
 //!
-//! - 模拟里（`start` + 每 tick 的 `tick`）：魔腾一方的每个英雄，`NEAR` 内没有敌方英雄
-//!   时隐身 2 tick（每 tick 续上），有敌人贴近就现身——League 里被黑暗笼罩的人视野缩到身边，
-//!   本作没有按队伍改视野的接口，用「贴近才看得见」来做。
+//! - 模拟里用魔腾身上的标记记录黑暗时段。敌方 AI 根据自己到目标的距离决定能不能出手。
 //! - 黑暗只在大招的动作里（v4）：从出手到落地（最长 `FLY_T`），落地（`land`）后再 `LAND_T`（落地爆开的动作）。
 //!   原来固定 180 tick（3 秒），魔腾 0.75 秒就落地爆开完了，之后两秒多看不出在放大、队友却还隐着身
 //!   （用户：「魔腾不放大的时候也全队隐身」，选了「只在大招动作期间隐身」）。
@@ -52,14 +50,10 @@ pub const LONGEST_DIVE: usize = 51;
 const _: () = assert!(FLY_T > LONGEST_DIVE, "the darkness would end before the longest dive lands");
 /// 落地后黑暗再留这么久（同主包落地时的隐身）：落地爆开的动作 ult_hit 20 tick。
 pub const LAND_T: usize = 20;
-/// 敌方英雄这么近才看得见魔腾一方的英雄。
-pub const NEAR: f64 = 40_000.0;
-/// 每 tick 续的隐身时长。
-const VEIL_T: usize = 2;
 /// 魔腾身上的标记：黑暗还在。
 const ON: &str = "league_nocturne_dark_on";
-/// 黑暗里敌方英雄看得见（打得到）的魔腾一方单位：身边这么近（同 `NEAR`）。
-pub const SIGHT: f64 = NEAR;
+/// 黑暗里敌方 AI 可以对这个距离以内的目标出手。
+pub const SIGHT: f64 = 40_000.0;
 /// 指向点的技能：点旁边这么近有魔腾一方的单位，就算瞄的它。
 pub const AIM_POS: f64 = 15_000.0;
 /// 指方向的技能：方向两侧这么多度、这么远以内的魔腾一方单位，算瞄的它。
@@ -136,37 +130,8 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 这一 tick 要隐身的己方英雄：`NEAR` 内没有敌方英雄的。
-pub fn to_hide(allies: &[(usize, (f64, f64))], enemies: &[(f64, f64)]) -> Vec<usize> {
-    allies.iter().filter(|(_, at)| enemies.iter().all(|e| dist(*at, *e) > NEAR)).map(|(id, _)| *id).collect()
-}
-
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).any(|i| e.buff_at(i).is_some_and(|b| b.name() == name)))
-}
-
-/// 隐身 `NEAR` 外的己方英雄；返回 (隐身的, 己方总数)。
-fn veil(sim: &mut StableSim<'_>, nocturne: usize) -> (usize, usize) {
-    let team = sim.get_entity(nocturne).map_or(0, |e| e.team());
-    let mut allies = Vec::new();
-    let mut enemies = Vec::new();
-    for i in 0..sim.entity_count() {
-        let Some(e) = sim.entity_at(i) else { continue };
-        if !e.is_champion() || !e.is_alive() {
-            continue;
-        }
-        let (x, y) = e.pos();
-        if e.team() == team {
-            allies.push((e.id(), (x as f64, y as f64)));
-        } else {
-            enemies.push((x as f64, y as f64));
-        }
-    }
-    let hide = to_hide(&allies, &enemies);
-    for id in &hide {
-        sim.entity_set_invisible(*id, VEIL_T);
-    }
-    (hide.len(), allies.len())
 }
 
 fn queue(sim: &mut StableSim<'_>, step: &str, nocturne: usize, delay: usize) {
@@ -187,38 +152,21 @@ fn dark_layer(sim: &mut StableSim<'_>, nocturne: usize) {
 fn start(sim: &mut StableSim<'_>, nocturne: usize) {
     sim.entity_remove_buff(nocturne, ON);
     sim.add_buff(nocturne, &BuffV1::timed(ON, FLY_T));
-    let (hidden, allies) = veil(sim, nocturne);
     dark_layer(sim, nocturne);
     for k in 1..VEIL_LAYERS {
         queue(sim, "layer", nocturne, k * VEIL_STEP);
     }
-    queue(sim, "tick", nocturne, 1);
     wlog(format!(
-        "{} DARKNESS until the landing (at most {FLY_T} ticks), then {LAND_T}: {hidden} of {allies} allies unseen",
+        "{} DARKNESS until the landing (at most {FLY_T} ticks), then {LAND_T}: enemy targeting only",
         head(sim, nocturne)
     ));
 }
 
 /// R 落地：黑暗只再留 `LAND_T` tick（落地爆开的动作），之后结束；万一飞得比 `FLY_T` 还久、黑暗已经停了，就从落地再开 `LAND_T`。
 fn land(sim: &mut StableSim<'_>, nocturne: usize) {
-    let running = has_buff(sim, nocturne, ON);
     sim.entity_remove_buff(nocturne, ON);
     sim.add_buff(nocturne, &BuffV1::timed(ON, LAND_T));
-    veil(sim, nocturne);
-    if !running {
-        queue(sim, "tick", nocturne, 1);
-    }
     wlog(format!("{} landed: darkness for {LAND_T} more ticks", head(sim, nocturne)));
-}
-
-/// 每 tick：黑暗还在就重新隐身（贴近的敌人看得见），没了就结束。
-fn tick(sim: &mut StableSim<'_>, nocturne: usize) {
-    if !has_buff(sim, nocturne, ON) {
-        wlog(format!("{} darkness over", head(sim, nocturne)));
-        return;
-    }
-    veil(sim, nocturne);
-    queue(sim, "tick", nocturne, 1);
 }
 
 // ===================== 鬼影重重：只打得到身边的 =====================
@@ -261,7 +209,7 @@ pub fn aimed_along(me: (f64, f64), dir: (f64, f64), dark: &[(f64, f64)]) -> Opti
 fn darkness_against(sim: &StableSim<'_>, team: usize) -> Option<usize> {
     (0..sim.entity_count()).find_map(|i| {
         let e = sim.entity_at(i)?;
-        (e.is_champion() && e.team() != team && has_buff(sim, e.id(), ON)).then(|| e.team())
+        (e.is_champion() && e.is_alive() && e.team() != team && has_buff(sim, e.id(), ON)).then(|| e.team())
     })
 }
 
@@ -341,13 +289,6 @@ impl StableEffectType for Land {
     }
 }
 
-struct Tick;
-impl StableEffectType for Tick {
-    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
-        tick(sim, caster);
-    }
-}
-
 struct Layer;
 impl StableEffectType for Layer {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
@@ -371,7 +312,6 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:start"), Start);
     module.add_native_effect(format!("{ID}:land"), Land);
-    module.add_native_effect(format!("{ID}:tick"), Tick);
     module.add_native_effect(format!("{ID}:layer"), Layer);
     module.add_player_input_ai(Paranoia::default());
     host.log(LogLevel::Info, "league_nocturne_dark v4 loaded (Nocturne's R darkens the map while he flies and lands; enemies hit only what is near).");
@@ -391,15 +331,6 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn only_allies_with_an_enemy_close_are_seen() {
-        let allies = [(1, (100_000.0, 100_000.0)), (2, (300_000.0, 300_000.0)), (3, (500_000.0, 500_000.0))];
-        let enemies = [(130_000.0, 100_000.0), (500_000.0, 545_000.0)];
-        // #1 有敌人在 30000 内：看得见；#3 的敌人在 45000：看不见
-        assert_eq!(to_hide(&allies, &enemies), [2, 3]);
-        assert_eq!(to_hide(&allies, &[]), [1, 2, 3]);
-    }
 
     #[test]
     fn far_targets_turn_into_a_walk() {
