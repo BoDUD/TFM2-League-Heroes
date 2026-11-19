@@ -12,8 +12,9 @@ Names: Data Dragon 16.20.1 - zh_CN 佐伊 (暮光星灵): 烟火四射！, 飞�
 Slots: skill = Q Paddle Star, skill2 = E Sleepy Trouble Bubble, ult = R Portal Jump (its star and W Spell Thief's
 missiles in the ult's text); the passive More Sparkles! is in the attack's text. No combo sentence in any text (the
 user's rule). The main pack's rules are the ones written (the star's damage by distance tiers; the sleep a stun of
-e_sleep with the Zz - the game's own Sleep of 0.7.0 never reached her targets, see build_zoe.py); the add-on league_zoe
-scales the star by the real distance, wakes the sleeper on any damage and drops Spell Thief's shards, and says so
+e_sleep with the Zz - the game's own Sleep of 0.7.0 never reached her targets, see build_zoe.py; the bubble stops on
+the first enemy unit, 2026-11-20); the add-on league_zoe throws the star out and redirects it (damage by the whole
+distance flown), wakes the sleeper on any damage and leaves Spell Thief to the shards enemy ults drop, and says so
 itself.
 """
 import argparse
@@ -53,7 +54,7 @@ TEXT = {
         "name": "佐伊",
         "attack": "射出一颗小星星。" + O + "烟火四射！" + E + "：每放一个技能，下一次普攻多造成" + mag("p_dmg", "p_ratio") + "魔法伤害。",
         "skill": "掷出一颗飞星，打中第一个敌人造成" + mag("q_dmg", "q_ratio") + "魔法伤害；飞得越远伤害越高，最远" + A + "{q_far}%" + E + "。",
-        "skill2": "踢出气泡，打中敌方英雄造成" + mag("e_dmg", "e_ratio") + "魔法伤害，" + R + "困倦" + E + "（减速{e_slow}%）" + A + "{e_drowsy}秒" +
+        "skill2": "踢出气泡，打中第一个敌人造成" + mag("e_dmg", "e_ratio") + "魔法伤害，" + R + "困倦" + E + "（减速{e_slow}%）" + A + "{e_drowsy}秒" +
                   E + "后" + R + "睡眠" + E + A + "{e_sleep}秒" + E + "；没打中就留在原地。",
         "ult": "跳进传送门闪向敌方英雄，掷出飞星造成" + mag("r_dmg", "r_ratio") + "魔法伤害；" + O + "窃法巧手" + E + "：再射{w_n}颗飞弹，每颗" +
                mag("w_dmg", "w_ratio") + "，加速{w_ms}%。" + A + "{r_back}秒" + E + "后跳回原地。",
@@ -63,7 +64,7 @@ TEXT = {
         "name": "柔依",
         "attack": "射出一顆小星星。" + O + "閃耀星火" + E + "：每放一個技能，下一次普攻多造成" + mag("p_dmg", "p_ratio") + "魔法傷害。",
         "skill": "擲出一顆飛星，打中第一個敵人造成" + mag("q_dmg", "q_ratio") + "魔法傷害；飛得越遠傷害越高，最遠" + A + "{q_far}%" + E + "。",
-        "skill2": "踢出泡泡，打中敵方英雄造成" + mag("e_dmg", "e_ratio") + "魔法傷害，" + R + "睏倦" + E + "（緩速{e_slow}%）" + A + "{e_drowsy}秒" +
+        "skill2": "踢出泡泡，打中第一個敵人造成" + mag("e_dmg", "e_ratio") + "魔法傷害，" + R + "睏倦" + E + "（緩速{e_slow}%）" + A + "{e_drowsy}秒" +
                   E + "後" + R + "睡眠" + E + A + "{e_sleep}秒" + E + "；沒打中就留在原地。",
         "ult": "跳進傳送門閃向敵方英雄，擲出飛星造成" + mag("r_dmg", "r_ratio") + "魔法傷害；" + O + "法術竊盜" + E + "：再射{w_n}顆飛彈，每顆" +
                mag("w_dmg", "w_ratio") + "，加速{w_ms}%。" + A + "{r_back}秒" + E + "後跳回原地。",
@@ -75,7 +76,7 @@ TEXT = {
                   " " + M + "magic damage" + E + " more.",
         "skill": "Throws a star at the first enemy hit for " + mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + "; the farther it flies "
                  "the harder it hits, up to " + A + "{q_far}%" + E + ".",
-        "skill2": "Kicks a bubble: the enemy champion hit takes " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E + ", turns " + R +
+        "skill2": "Kicks a bubble: the first enemy hit takes " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E + ", turns " + R +
                   "drowsy" + E + " (slowed {e_slow}%) for " + A + "{e_drowsy}s" + E + ", then falls " + R + "asleep" + E + " for " + A +
                   "{e_sleep}s" + E + ". A miss leaves it lying as a trap.",
         "ult": "Jumps through a portal toward an enemy champion and throws a star for " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" +
@@ -87,7 +88,7 @@ TEXT = {
         "name": "조이",
         "attack": "작은 별을 던진다. " + O + "반짝반짝!" + E + ": 스킬을 쓸 때마다 다음 기본 공격이 " + mag("p_dmg", "p_ratio") + " 마법 피해 추가.",
         "skill": "별을 던져 처음 맞힌 적에게 " + mag("q_dmg", "q_ratio") + " 마법 피해. 멀리 날아갈수록 피해가 커져 최대 " + A + "{q_far}%" + E + ".",
-        "skill2": "방울을 차서 맞힌 적 챔피언에게 " + mag("e_dmg", "e_ratio") + " 마법 피해, " + A + "{e_drowsy}초" + E + " " + R + "졸음" + E +
+        "skill2": "방울을 차서 처음 맞힌 적에게 " + mag("e_dmg", "e_ratio") + " 마법 피해, " + A + "{e_drowsy}초" + E + " " + R + "졸음" + E +
                   "({e_slow}% 둔화) 뒤 " + A + "{e_sleep}초" + E + " " + R + "수면" + E + ". 빗나가면 그 자리에 남는다.",
         "ult": "차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 " + mag("r_dmg", "r_ratio") + " 마법 피해. " + O + "주문도둑" + E + ": 투사체 {w_n}개, "
                "개당 " + mag("w_dmg", "w_ratio") + ", 이동 속도 +{w_ms}%. " + A + "{r_back}초" + E + " 뒤 제자리로.",
@@ -97,7 +98,7 @@ TEXT = {
         "name": "ゾーイ",
         "attack": "小さな星を投げる。" + O + "スパークル！" + E + "：スキルを使うたび次の通常攻撃に" + mag("p_dmg", "p_ratio") + "の魔法ダメージ追加。",
         "skill": "星を投げ、最初に当たった敵に" + mag("q_dmg", "q_ratio") + "の魔法ダメージ。遠くまで飛ぶほど強く、最大" + A + "{q_far}%" + E + "。",
-        "skill2": "泡を蹴り、当たった敵チャンピオンに" + mag("e_dmg", "e_ratio") + "の魔法ダメージ、" + A + "{e_drowsy}秒" + E + R + "まどろみ" + E +
+        "skill2": "泡を蹴り、最初に当たった敵に" + mag("e_dmg", "e_ratio") + "の魔法ダメージ、" + A + "{e_drowsy}秒" + E + R + "まどろみ" + E +
                   "（{e_slow}%スロウ）の後" + A + "{e_sleep}秒" + E + R + "睡眠" + E + "。外れるとその場に残る。",
         "ult": "ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて" + mag("r_dmg", "r_ratio") + "の魔法ダメージ。" + O + "スペルシーフ" + E +
                "：弾{w_n}発、1発" + mag("w_dmg", "w_ratio") + "、移動速度+{w_ms}%。" + A + "{r_back}秒" + E + "後に元の場所へ戻る。",

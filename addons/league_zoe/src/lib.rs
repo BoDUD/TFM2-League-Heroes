@@ -1,34 +1,42 @@
-//! 佐伊附加包：照英雄联盟的规则做主包数据做不到的三件事。
+//! 佐伊附加包：照英雄联盟的规则做主包数据做不到的几件事。
 //!
-//! 主包保持纯数据：飞星按飞行时间分近 / 中 / 远三档伤害，窃法巧手只跟着大招射飞弹，昏睡是固定时长的眩晕（打不醒）。
+//! 主包保持纯数据：飞星直着飞、按飞行时间分近 / 中 / 远三档伤害，窃法巧手只跟着大招射飞弹，昏睡是固定时长的眩晕（打不醒）。
 //! `mod.override_info` 把主包的佐伊换成 `override/` 里的副本（`tools/kit/build_zoe.py --native`），被动 `league_zoe:sparkles`：
 //!
-//! - **催眠气泡**（0.6.0，用户 2026-11-05：「佐伊问题很大 好像不能催眠别人？」）：困倦结束时数据在被打中的英雄身上落下
-//!   `e_sleep_n` tick 的眩晕（英雄联盟 2.25 秒）。副本里气泡打中英雄时另挂 `league_zoe_e_mark`（困倦那 `e_drowsy` tick）；被动
+//! - **催眠气泡**（0.6.0，用户 2026-11-05：「佐伊问题很大 好像不能催眠别人？」）：困倦结束时数据在被打中的单位身上落下
+//!   `e_sleep_n` tick 的眩晕（英雄联盟 2.25 秒）。副本里气泡打中谁就另给谁挂 `league_zoe_e_mark`（困倦那 `e_drowsy` tick）；被动
 //!   看见新的标记，眩晕落下时给他挂睡泡 `league_zoe_e_zz`；睡着时生命 + 护盾少了（**任何伤害**，谁打的都算）就**叫醒**：
 //!   只解除这一份眩晕（[`kept_after_wake`]），那一下掉的血再来一遍真实伤害，最多 `e_cap` + `e_cap_ratio`% 法强（英雄联盟：
 //!   打醒的第一下双倍，有封顶），放 `league_zoe_e_wake` 的画面和声音（[`watch`]）。0.4.0～0.5.2 用的是游戏的官方睡眠（催眠师
 //!   E 的原生效果 `hypnotist_skill2`）：它按输入目标的**位置**放一个范围，被打中的英雄是单位、不是位置，范围落在佐伊自己
 //!   脚下（游戏 0.7.1 的 0x19f8726），一个人也没睡着；给它位置也会被拉回到她 E 的施法距离以内，困倦结束时多数目标在那之外。
-//! - **飞星乱入！**：副本里飞星打中的单位挂 `league_zoe_q_hit`（2 tick），伤害只算近的一档；她出手时身上有 `league_zoe_q_go`。
-//!   被动记下出手的位置，打中时按真实距离补上：`q_n0` 以内不加，到 `q_n1d` 加到 `q_far`%（中间线性）。
+//!   0.8.0（用户 2026-11-20：「按照你的建议改吧」）：气泡照英雄联盟碰到第一个敌方单位就停（小兵、野怪也挡，主包和副本一样），
+//!   所以睡的也可能是小兵、野怪：她踢出气泡（身上的 `league_zoe_e_go`）后 `E_WINDOW` tick 内所有敌方单位都看标记，其余时候只看
+//!   英雄（落地的陷阱只抓英雄）。
+//! - **飞星乱入！**（0.8.0，`star.rs`）：英雄联盟的 Q 扔出去还能再按一次改方向，所以玩家先往身后扔、再拐回来砸人。副本的 Q
+//!   不再放数据里的直线飞星：出手时她身上有 `league_zoe_q_go`、目标身上有 `league_zoe_q_aim`，本包自己飞一颗：先往她身后
+//!   （正后方被小兵挡着就往左边或右边）飞 `q_out`，再拐向目标这时站的地方，一路上碰到的第一个敌方单位挨打，伤害按两段一共
+//!   飞了多远：`q_n0` 以内 100%，到 `q_n1d` 线性加到 `q_far`%（[`star_pct`]）。画面是每 tick 放一段 `q_star`（同飞弹的做法）。
+//!   日志 `STAR`。
 //! - **窃法巧手**：敌方英雄放大招（大招冷却从 0 跳起来）时原地掉下一块法术碎片（`league_zoe_w_shard`，`s_t` tick），她走到 `s_r`
 //!   以内就捡起来：`w_n` 颗飞弹（每 `w_gap` tick 一颗，打 `w_r` 以内最近的敌方英雄，每颗 `w_dmg` + `w_ratio`% 法强魔法伤害）
-//!   和 `w_ms`% 移速 `w_ms_t` tick（英雄联盟：捡起召唤师技能 / 主动装备的碎片）。
-//! - **窃法巧手的飞弹**（0.7.0，用户 2026-11-09：「佐伊的飞弹做的要像英雄联盟那样啊 从背后过来的 现在不太像」）：大招的 3 颗和
-//!   碎片的 3 颗都由本包飞（副本的大招不再射数据里的直线飞弹；她身上的 `league_zoe_w_haste` 刚挂上就排好，第 `w_rel` tick 起
-//!   每 `w_gap` tick 一颗）：英雄联盟的飞弹（ZoeWPassiveMissile）先绕着她转（CircleMovement）再直线追（ZoeWPassiveMissileTwo）。
-//!   每颗在她身后出现，从头顶划半个椭圆到身前（[`orbit_at`]，`ORBIT_T` tick），再以 `w_speed` 追向目标的胸口（[`chase`]），
-//!   追上了才结算伤害、放 `w_hit` 的画面和声音，目标死了就消失。游戏的投射物只有直线和追踪，弧线是每 tick 放一段 `w_missile`
-//!   的画面拼出来的（[`piece_spec`]，league_azir 沙线的做法）。日志 `MISSILE`。
+//!   和 `w_ms`% 移速 `w_ms_t` tick（英雄联盟：捡起召唤师技能 / 主动装备的碎片；游戏里没有召唤师技能和主动装备，用大招代替）。
+//!   0.8.0 起**只有捡碎片**才发动：英雄联盟的折返跃迁不触发窃法巧手（只有她自己放召唤师技能才触发），副本的大招不再挂
+//!   `league_zoe_w_haste`、不再甩手射飞弹，门口那颗飞星接过飞弹的伤害（`build_zoe.py` 的 `r_dmg_n` / `r_ratio_n`；主包没有附加包、
+//!   没有碎片，大招照旧带着飞弹和加速，那是它唯一的窃法巧手）。
+//! - **窃法巧手的飞弹**（0.7.0，用户 2026-11-09：「佐伊的飞弹做的要像英雄联盟那样啊 从背后过来的 现在不太像」）：碎片的 3 颗由
+//!   本包飞，捡起那一 tick 起每 `w_gap` tick 一颗：英雄联盟的飞弹（ZoeWPassiveMissile）先绕着她转（CircleMovement）再
+//!   直线追（ZoeWPassiveMissileTwo）。每颗在她身后出现，从头顶划半个椭圆到身前（[`orbit_at`]，`ORBIT_T` tick），再以 `w_speed`
+//!   追向目标的胸口（[`chase`]），追上了才结算伤害、放 `w_hit` 的画面和声音，目标死了就消失。游戏的投射物只有直线和追踪，
+//!   弧线是每 tick 放一段 `w_missile` 的画面拼出来的（[`piece_spec`]，league_azir 沙线的做法）。日志 `MISSILE`。
 //!
-//! - **召唤师技能**（0.2.0，用户：「可以改成召唤师技能那种效果吗 随机的」「能做成智能释放吗」）：窃法巧手每次发动（大招射
-//!   飞弹那一刻 = 身上的 `league_zoe_w_haste` 刚挂上，或捡起碎片时）先放一个召唤师技能，再射原来的飞弹：按局面挑（`summon.rs`：
+//! - **召唤师技能**（0.2.0，用户：「可以改成召唤师技能那种效果吗 随机的」「能做成智能释放吗」）：窃法巧手每次发动（捡起碎片时；
+//!   0.8.0 以前大招也算）先放一个召唤师技能，再射飞弹：按局面挑（`summon.rs`：
 //!   被控净化、残血被贴脸闪现、残血或队友快死治疗、敌人快死点燃、被贴脸虚弱、打架掉血屏障、附近没人幽灵疾步），都不是就在
 //!   点燃 / 虚弱 / 屏障 / 幽灵疾步里随机（比赛的种子定，两份模拟一样）。数字在下面的 `S_*`。日志 `SUMMON`。
 //!   画面（0.3.0，用户：「加啊」「地面上最好也要有图标显示」）：放的时候她脚下的地上亮起那个技能的图标
 //!   （`league_zoe_sg_<技能>`）；闪现在起点和落点各炸开一团星芒（`s_flash`），中间一串金色拖影（`s_flash_trail`），落点也亮
-//!   图标（0.5.0；大招里不挑闪现，传送门半秒后就把她送回原地），净化一道光环从脚扫到头（`s_cleanse`），屏障一个金色
+//!   图标（0.5.0；她在大招里（身上有 `league_zoe_r_on`）不挑闪现，传送门马上就把她送回原地），净化一道光环从脚扫到头（`s_cleanse`），屏障一个金色
 //!   气泡（`s_barrier`），治疗、点燃、虚弱、幽灵疾步是它们 buff 的画面；地上的碎片每次重画换一个图标（`ss_<技能>`，七个轮流），
 //!   捡起来才按局面定是哪个。图在 `league_zoe_spells`（闪现，高清）、`league_zoe_spells_1x`（跟着人的那些，1 倍：0.6.0，
 //!   用户 2026-11-05：「捡起来的召唤师技能的技能特效完全错位」）和 `league_zoe_spell_icons`（tools/art/draw_zoe_spells.py）。
@@ -46,7 +54,9 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 mod maps;
+pub mod star;
 pub mod summon;
+pub mod wall;
 
 const ID: &str = "league_zoe";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -55,8 +65,6 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_zoe") {
     Some(v) => v,
     None => env!("CARGO_PKG_VERSION"),
 };
-/// 窃法巧手由大招发动时 `summon` 的 `why`（大招里不闪现，传送门半秒后就把她送回原地）。
-const ULT: &str = "the ult";
 /// 闪现的起点和落点之间放几团金色拖影（`s_flash_trail`，等分）。
 const FLASH_TRAIL: usize = 4;
 /// 场上最多同时留几块碎片（多了丢最早的）。
@@ -66,8 +74,10 @@ const MAX_SHARDS: usize = 3;
 pub const SHARD_NEAR: u64 = 150_000;
 /// 碎片的画面多少 tick 重放一次（画面 4 帧 x 约 100 ms）。
 const SHARD_VIEW: usize = 15;
-/// 飞星出手后多少 tick 内看打中（95000 / 4000 一 tick 不到 30 tick 就飞完）。
-const Q_WINDOW: usize = 60;
+/// 一颗飞星最多飞多少 tick（第一段 30000 / 2000 + 第二段离她 95000 / 4000，正常 50 tick 以内就飞完；防一直飞）。
+const Q_TICKS: usize = 120;
+/// 她踢出气泡后多少 tick 内看所有敌方单位身上的气泡标记（85000 / 3500 不到 25 tick 就飞完，多留一些）。
+const E_WINDOW: usize = 45;
 /// 大招冷却从 0 跳到多少以上算放了大招。
 const ULT_JUMP: usize = 60;
 /// 困倦结束后多少 tick 内看见眩晕才算这一泡的睡眠（数据里的眩晕在标记掉的那一 tick 前后落下）。
@@ -176,11 +186,23 @@ pub struct Params {
     pub q_far: usize,
     pub q_n0: usize,
     pub q_n1d: usize,
+    /// 飞星怎么飞（0.8.0）：第一段长 `q_out`、每 tick `q_out_v`，拐弯后每 tick `q_speed`，飞到离她 `q_len` 远就没了，星的半径
+    /// `q_w`。`star` = 副本带着 `q_out`（0.8.0 以后的副本）：旧存档里的旧副本自己放数据的飞星，这里就不再扔一颗。
+    pub q_out: usize,
+    pub q_out_v: usize,
+    pub q_speed: usize,
+    pub q_len: usize,
+    pub q_w: usize,
+    pub star: bool,
     /// 催眠气泡：困倦的 tick，睡眠的 tick（数据里眩晕的时长），打醒那一下补的真实伤害的封顶（固定值、法强 %）。
     pub e_drowsy: usize,
     pub e_sleep_n: usize,
     pub e_cap: usize,
     pub e_cap_ratio: usize,
+    /// 气泡飞过墙（0.8.0，wall.rs）：平常飞 `e_len`，线上有墙时数据踢长 `e_wall` 的那颗；`e_rel` 是开始踢到出手的 tick。
+    pub e_len: usize,
+    pub e_wall: usize,
+    pub e_rel: usize,
     /// 碎片的飞弹：每颗伤害（固定值、法强 %）、颗数、间隔 tick、找目标的距离；移速 % 和 tick。
     pub w_dmg: usize,
     pub w_ratio: usize,
@@ -205,7 +227,16 @@ impl Default for Params {
             q_far: 250,
             q_n0: 20000,
             q_n1d: 85000,
+            q_out: 30000,
+            q_out_v: 2000,
+            q_speed: 4000,
+            q_len: 95000,
+            q_w: 6000,
+            star: true,
             e_drowsy: 84,
+            e_len: 85000,
+            e_wall: 35000,
+            e_rel: 13,
             e_sleep_n: 135,
             e_cap: 100,
             e_cap_ratio: 60,
@@ -224,21 +255,33 @@ impl Default for Params {
     }
 }
 
-/// `{"q_dmg":105,...}` -> 参数；缺的键用默认值，认不得的键忽略。
+/// `{"q_dmg":105,...}` -> 参数；缺的键用默认值，认不得的键忽略。没有 `q_out` 的是 0.8.0 以前的副本（`star` = false）。
 pub fn parse_params(json: &str) -> Params {
     let mut p = Params::default();
+    p.star = false;
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
     for pair in body.split(',') {
         let Some((k, v)) = pair.split_once(':') else { continue };
         let k = k.trim().trim_matches('"');
         let Ok(v) = v.trim().parse::<usize>() else { continue };
+        if k == "q_out" {
+            p.star = true;
+        }
         let slot = match k {
             "q_dmg" => &mut p.q_dmg,
             "q_ratio" => &mut p.q_ratio,
             "q_far" => &mut p.q_far,
             "q_n0" => &mut p.q_n0,
             "q_n1d" => &mut p.q_n1d,
+            "q_out" => &mut p.q_out,
+            "q_out_v" => &mut p.q_out_v,
+            "q_speed" => &mut p.q_speed,
+            "q_len" => &mut p.q_len,
+            "q_w" => &mut p.q_w,
             "e_drowsy" => &mut p.e_drowsy,
+            "e_len" => &mut p.e_len,
+            "e_wall" => &mut p.e_wall,
+            "e_rel" => &mut p.e_rel,
             "e_sleep_n" => &mut p.e_sleep_n,
             "e_cap" => &mut p.e_cap,
             "e_cap_ratio" => &mut p.e_cap_ratio,
@@ -259,6 +302,8 @@ pub fn parse_params(json: &str) -> Params {
     }
     p.q_n1d = p.q_n1d.max(p.q_n0 + 1);
     p.q_far = p.q_far.max(100);
+    p.q_out_v = p.q_out_v.max(1);
+    p.q_speed = p.q_speed.max(1);
     p.w_gap = p.w_gap.max(1);
     p.w_speed = p.w_speed.max(1);
     p
@@ -273,10 +318,10 @@ pub fn star_pct(p: &Params, dist: u64) -> usize {
     100 + ((p.q_far - 100) as u64 * (d - lo) / (hi - lo)) as usize
 }
 
-/// 飞星在近的一档之外补的魔法伤害（减免前）。
-pub fn star_bonus(p: &Params, dist: u64, ap: usize) -> usize {
+/// 飞星飞了 `dist` 打中时的魔法伤害（减免前）：`q_dmg` + `q_ratio`% 法强，乘上 [`star_pct`]。
+pub fn star_damage(p: &Params, dist: u64, ap: usize) -> usize {
     let base = p.q_dmg + p.q_ratio * ap / 100;
-    base * (star_pct(p, dist) - 100) / 100
+    base * star_pct(p, dist) / 100
 }
 
 /// 打醒那一下补的真实伤害：那一下掉的生命 + 护盾，最多封顶。
@@ -445,18 +490,45 @@ struct Missile {
     from: &'static str,
 }
 
+/// 一颗飞着的飞星（0.8.0，`star.rs`）：第几颗、目标、飞向哪（拐弯前是出手时目标站的地方，拐弯时换成他那时站的地方）、
+/// 现在在哪、拐弯的地方、拐了没有、拐弯后的方向、两段一共飞了多远、出手的 tick、第一段往哪扔。
+#[derive(Clone, Debug)]
+struct Flying {
+    no: usize,
+    target: usize,
+    aim: Pt,
+    at: Pt,
+    out: Pt,
+    turned: bool,
+    dir: Pt,
+    flown: f64,
+    born: usize,
+    how: star::Out,
+}
+
 /// 每个佐伊一份。
 #[derive(Clone, Default)]
 struct Sparkles {
     p: Params,
     sleepers: Vec<Sleeper>,
-    /// 上一 tick 身上有气泡标记的敌方英雄。
+    /// 上一 tick 身上有气泡标记的敌方单位。
     marked: Vec<usize>,
-    /// 飞星出手的位置和看打中到哪一 tick。
-    q_from: Option<((u64, u64), usize)>,
+    /// 上一 tick 她身上有没有 e_go（刚踢出气泡）；到这一 tick 为止所有敌方单位都看气泡标记（不只是英雄）。
+    e_go_was: bool,
+    e_scan_until: usize,
+    /// 上一 tick 身上有 e_aim（她正对着他踢气泡）的敌方英雄；线上有墙、气泡踢长的那颗的次数。
+    e_aimed: Vec<usize>,
+    walls: usize,
+    /// 飞着的飞星，上一 tick 她身上有没有 q_go；扔出、打中英雄、打中别的单位、没打中、往旁边扔（正后方被挡着）的颗数。
+    stars: Vec<Flying>,
     q_go_was: bool,
-    /// 上一 tick 身上有飞星标记的单位。
-    q_seen: Vec<usize>,
+    thrown: usize,
+    star_champs: usize,
+    star_units: usize,
+    star_misses: usize,
+    sideways: usize,
+    /// 旧副本（没有 q_out）的那一行日志写过了。
+    old_copy: bool,
     /// 每个敌方英雄上一 tick 的大招冷却。
     ult_cd: Vec<(usize, usize)>,
     shards: Vec<Shard>,
@@ -468,8 +540,9 @@ struct Sparkles {
     hits: usize,
     fizzled: usize,
     refused: usize,
-    stars: usize,
+    /// 睡着的（其中不是英雄的）。
     sleeps: usize,
+    unit_sleeps: usize,
     /// 挨打叫醒的、睡眠被净化掉的。
     wakes: usize,
     freed: usize,
@@ -478,8 +551,7 @@ struct Sparkles {
     picked: usize,
     dropped: usize,
     next_report: usize,
-    /// 上一 tick 身上有没有 w_haste（刚挂上 = 大招的窃法巧手）、点燃：(目标, 下一跳的 tick, 还剩几跳)、放过几次召唤师技能。
-    haste_was: bool,
+    /// 点燃：(目标, 下一跳的 tick, 还剩几跳)、放过几次召唤师技能。
     burns: Vec<(usize, usize, usize)>,
     summons: usize,
     /// 屏障放出的 tick（护盾归零后摘掉气泡，放出那一 tick 不算）。
@@ -548,9 +620,52 @@ fn enemies(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (u64, u64))> {
     out
 }
 
+/// 飞星碰得到的敌方单位：活着、能被选中、不是塔和水晶（同主包飞星的 `EnemyWithoutTower`）：(编号, 位置, 身体半径)。
+fn bodies(sim: &StableSim<'_>, team: usize) -> Vec<star::Body> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|e| e.team() != team && e.is_alive() && e.is_targetable() && !e.is_tower())
+        .filter(|e| e.kind() != Some(EntityKindV1::Nexus))
+        .map(|e| {
+            let p = e.pos();
+            (e.id(), (p.0 as f64, p.1 as f64), e.radius() as f64)
+        })
+        .collect()
+}
+
+/// 身上挂着 `name` 的第一个敌方单位（不只是英雄）。
+fn marked_unit(sim: &StableSim<'_>, team: usize, name: &str) -> Option<(usize, (u64, u64))> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .find(|e| e.team() != team && e.is_alive() && (0..e.buff_count()).filter_map(|k| e.buff_at(k)).any(|b| b.name() == name))
+        .map(|e| (e.id(), e.pos()))
+}
+
+/// 日志里写的单位种类。
+fn what(sim: &StableSim<'_>, id: usize) -> &'static str {
+    match sim.get_entity(id).and_then(|e| e.kind()) {
+        Some(EntityKindV1::Champion) => "champion",
+        Some(EntityKindV1::Minion) => "minion",
+        Some(EntityKindV1::Jungle) => "monster",
+        Some(EntityKindV1::Epic) => "epic monster",
+        Some(EntityKindV1::Summon) => "summon",
+        _ => "unit",
+    }
+}
+
+fn fpos(p: (u64, u64)) -> Pt {
+    (p.0 as f64, p.1 as f64)
+}
+
+fn fdist(a: Pt, b: Pt) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
 impl Sparkles {
-    /// 窃法巧手发动：按局面挑一个召唤师技能放（summon.rs），`why` 是谁触发的（大招 / 捡碎片）。
+    /// 窃法巧手发动：按局面挑一个召唤师技能放（summon.rs），`why` 是谁触发的（0.8.0 起只有捡碎片）。
     fn summon(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str) {
+        // 在大招里（传送门马上把她拉回原地）不挑闪现，闪出去也白闪
+        let in_ult = has_buff(sim, me, &zo("r_on"));
         let Some(e) = sim.get_entity(me) else { return };
         let (team, pos, ap) = (e.team(), e.pos(), e.stat().magic_power);
         let share = |e: &StableEntity<'_, '_>| {
@@ -575,7 +690,6 @@ impl Sparkles {
             }
         }
         let tick = sim.tick();
-        let in_ult = why == ULT;
         let (spell, target, reason) =
             summon::pick(me_hp, controlled, in_ult, &foes, &allies, summon::roll(sim.seed(), tick, me));
         let on_me = InputTargetV1::target(me);
@@ -675,53 +789,163 @@ impl Sparkles {
         self.burns = left;
     }
 
-    /// 飞星：出手时记下位置，打中时按真实距离补伤害。
-    fn star(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, pos: (u64, u64), ap: usize, tick: usize) {
+    /// 飞星出手（0.8.0）：她身上的 q_go 刚挂上就扔一颗（star.rs 挑第一段往哪扔）。目标是身上有 q_aim 的敌方单位（Q 出手前
+    /// 数据挂上的），没找到（他出手前死了，补刀时常有）就是离她最近的敌方单位（英雄、小兵都算，同数据的飞星飞向他倒下的地方）。
+    fn throw_star(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, pos: (u64, u64), tick: usize) {
         let go = has_buff(sim, me, &zo("q_go"));
-        if go && !self.q_go_was {
-            self.q_from = Some((pos, tick + Q_WINDOW));
-        }
+        let rising = go && !self.q_go_was;
         self.q_go_was = go;
-        let Some((from, until)) = self.q_from else { return };
-        if tick > until {
-            self.q_from = None;
-            self.q_seen.clear();
+        if !rising {
             return;
         }
-        let mark = zo("q_hit");
-        let mut now = Vec::new();
-        for i in 0..sim.entity_count() {
-            let Some(e) = sim.entity_at(i) else { continue };
-            if e.team() == team || !e.is_alive() || e.is_tower() {
+        if !self.p.star {
+            // 0.8.0 以前的副本（存档里没刷新的英雄数据）自己放数据里的飞星，这里再扔一颗就是两颗
+            if !self.old_copy {
+                self.old_copy = true;
+                wlog(format!("{} OLD COPY: this Zoe's hero data is older than league_zoe 0.8.0 (no q_out in its params) - \
+                              its own data star flies and the add-on throws none; refresh the save's hero copies", head(sim, me)));
+            }
+            return;
+        }
+        let her = (pos.0 as f64, pos.1 as f64);
+        let all = bodies(sim, team);
+        let reach = self.p.q_len as f64;
+        let target = marked_unit(sim, team, &zo("q_aim")).map(|(id, p)| (id, fpos(p))).or_else(|| {
+            all.iter().filter(|u| fdist(her, u.1) <= reach).min_by(|a, b| fdist(her, a.1).total_cmp(&fdist(her, b.1)))
+                .map(|u| (u.0, u.1))
+        });
+        let Some((target, aim)) = target else {
+            wlog(format!("{} STAR not thrown: no target (no q_aim mark, no enemy unit within {reach:.0})", head(sim, me)));
+            return;
+        };
+        let (how, out) = star::pick_out(her, aim, self.p.q_out as f64, self.p.q_w as f64, &all, target);
+        self.thrown += 1;
+        if how != star::Out::Back {
+            self.sideways += 1;
+        }
+        let dir = unit((out.0 - her.0, out.1 - her.1)).unwrap_or((1.0, 0.0));
+        self.stars.push(Flying { no: self.thrown, target, aim, at: her, out, turned: false, dir, flown: 0.0, born: tick, how });
+        if self.thrown <= 12 || self.thrown % 25 == 0 {
+            wlog(format!("{} STAR #{} thrown at #{target} ({}) {:.0} away: out {} {}{}", head(sim, me), self.thrown,
+                         what(sim, target), fdist(her, aim), how.name(), self.p.q_out,
+                         if how == star::Out::Back { "" } else { " (the way behind her was blocked or off the map)" }));
+        }
+    }
+
+    /// 飞着的飞星（0.8.0）：第一段飞到拐弯的地方，朝目标这时站的地方拐过去，一路上碰到的第一个敌方单位挨打，伤害按两段一共
+    /// 飞了多远（[`star_damage`]），放 `q_hit` 的画面和声音；飞到离她 `q_len` 远没打中就没了。她死了也飞完。每 tick 放一段
+    /// `q_star` 的画面（[`piece_spec`]）。
+    fn fly_stars(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, pos: (u64, u64), ap: usize, tick: usize) {
+        if self.stars.is_empty() {
+            return;
+        }
+        let all = bodies(sim, team);
+        let her = (pos.0 as f64, pos.1 as f64);
+        let w = self.p.q_w as f64;
+        let mut keep = Vec::new();
+        for mut s in std::mem::take(&mut self.stars) {
+            let from = s.at;
+            let (next, reached) = if s.turned {
+                let v = self.p.q_speed as f64;
+                ((from.0 + s.dir.0 * v, from.1 + s.dir.1 * v), false)
+            } else {
+                star::advance(from, s.out, self.p.q_out_v as f64)
+            };
+            let step = fdist(from, next);
+            if let Some((id, t)) = star::first_on(from, next, w, &all, None) {
+                let d = s.flown + step * t;
+                let dmg = star_damage(&self.p, d as u64, ap);
+                let on = InputTargetV1::target(id);
+                sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+                sim.play_view_effect(&zo("q_hit"), me, &on, 0, 0, 0);
+                sim.play_sfx(&zo("q_hit"), me, &on);
+                let kind = what(sim, id);
+                if kind == "champion" {
+                    self.star_champs += 1;
+                } else {
+                    self.star_units += 1;
+                }
+                if s.no <= 12 || s.no % 25 == 0 {
+                    wlog(format!("{} STAR #{} hit #{id} ({kind}{}) {} (thrown out {}) after {d:.0} flown -> x{}% = {dmg} magic",
+                                 head(sim, me), s.no, if id == s.target { ", the target" } else { ", in the way" },
+                                 if s.turned { "on the way in" } else { "on the way out" }, s.how.name(),
+                                 star_pct(&self.p, d as u64)));
+                }
                 continue;
             }
-            let id = e.id();
-            if (0..e.buff_count()).filter_map(|k| e.buff_at(k)).any(|b| b.name() == mark) {
-                now.push((id, e.pos()));
+            s.flown += step;
+            s.at = next;
+            if reached {
+                // 拐弯：朝他这时站的地方（他死了、不能选中了就朝最后看见他的地方）
+                if let Some(p) = sim.get_entity(s.target).filter(|e| e.is_alive() && e.is_targetable()).map(|e| e.pos()) {
+                    s.aim = (p.0 as f64, p.1 as f64);
+                }
+                s.dir = unit((s.aim.0 - s.at.0, s.aim.1 - s.at.1)).unwrap_or((-s.dir.0, -s.dir.1));
+                s.turned = true;
             }
-        }
-        for &(id, at) in &now {
-            if self.q_seen.contains(&id) {
+            if (s.turned && fdist(s.at, her) > self.p.q_len as f64) || tick >= s.born + Q_TICKS {
+                self.star_misses += 1;
+                if s.no <= 12 || s.no % 25 == 0 {
+                    wlog(format!("{} STAR #{} gone after {:.0} flown ({} ticks), nobody hit", head(sim, me), s.no, s.flown,
+                                 tick - s.born));
+                }
                 continue;
             }
-            let d = dist(from, at);
-            let bonus = star_bonus(&self.p, d, ap);
-            if bonus > 0 {
-                sim.deal_damage_typed(me, id, bonus, DamageTypeV1::Ap, AttackTypeV1::Skill);
+            let mv = unit((next.0 - from.0, next.1 - from.1)).unwrap_or(s.dir);
+            if !sim.spawn_projectile(&zo("q_star"), &format!("{ID}:noop"), &piece_spec(me, team, next, mv, step)) {
+                self.refused += 1;
+                if self.refused <= 4 || self.refused % 100 == 0 {
+                    wlog(format!("{} STAR picture refused #{}: spawn_projectile {}", head(sim, me), self.refused, zo("q_star")));
+                }
             }
-            self.stars += 1;
-            if self.stars <= 8 || self.stars % 25 == 0 {
-                wlog(format!("{} STAR #{}: #{id} hit {d} away -> x{}% (+{bonus} magic)", head(sim, me), self.stars,
-                             star_pct(&self.p, d)));
+            keep.push(s);
+        }
+        self.stars = keep;
+    }
+
+    /// 催眠气泡飞过墙（0.8.0，wall.rs）：她开始踢（目标身上刚挂上 e_aim）时看她到目标这条线，前 e_len 的空地以内有一段墙、
+    /// 穿得出去，就给她挂 e_far，出手时数据踢长 e_wall 的那颗（英雄联盟：穿墙那段不算射程）。
+    fn aim_bubble(&mut self, sim: &mut StableSim<'_>, me: usize, foes: &[(usize, (u64, u64))], pos: (u64, u64)) {
+        let mark = zo("e_aim");
+        let now: Vec<usize> = foes.iter().map(|f| f.0).filter(|&id| has_buff(sim, id, &mark)).collect();
+        let new: Vec<(usize, (u64, u64))> =
+            foes.iter().filter(|f| now.contains(&f.0) && !self.e_aimed.contains(&f.0)).copied().collect();
+        self.e_aimed = now;
+        for (id, tp) in new {
+            let champs: Vec<Pt> =
+                (0..sim.champion_count()).filter_map(|i| sim.get_entity(sim.champion_id_at(i))).map(|e| fpos(e.pos())).collect();
+            let rows = wall::grid_of(&champs);
+            let Some(run) = wall::crossing(rows, fpos(pos), fpos(tp), self.p.e_len as f64) else { continue };
+            sim.entity_remove_buff(me, &zo("e_far"));
+            sim.add_buff(me, &BuffV1::timed(&zo("e_far"), self.p.e_rel + 4));
+            self.walls += 1;
+            if self.walls <= 8 || self.walls % 20 == 0 {
+                wlog(format!("{} BUBBLE #{} over a wall: the line to #{id} ({:.0} away) crosses {run:.0} of wall -> the long                               bubble ({} instead of {})", head(sim, me), self.walls, fdist(fpos(pos), fpos(tp)),
+                             self.p.e_len + self.p.e_wall, self.p.e_len));
             }
         }
-        self.q_seen = now.into_iter().map(|(id, _)| id).collect();
     }
 
     /// 催眠气泡：新标记 -> 困倦结束时数据的眩晕落下，挂上睡泡；睡着时挨了打就叫醒（补真实伤害），净化了或到时间摘掉睡泡。
-    fn bubble(&mut self, sim: &mut StableSim<'_>, me: usize, foes: &[(usize, (u64, u64))], ap: usize, tick: usize) {
+    /// 0.8.0：飞着的气泡碰到第一个敌方单位就停，小兵、野怪也会中：她踢出气泡后 E_WINDOW tick 内所有敌方单位都看标记，
+    /// 其余时候只看英雄（落地的陷阱只抓英雄）。
+    fn bubble(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, foes: &[(usize, (u64, u64))], ap: usize, tick: usize) {
+        let go = has_buff(sim, me, &zo("e_go"));
+        if go && !self.e_go_was {
+            self.e_scan_until = tick + E_WINDOW;
+        }
+        self.e_go_was = go;
         let mark = zo("e_mark");
-        let now: Vec<usize> = foes.iter().map(|f| f.0).filter(|&id| has_buff(sim, id, &mark)).collect();
+        let now: Vec<usize> = if tick <= self.e_scan_until {
+            (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|e| e.team() != team && e.is_alive())
+                .filter(|e| (0..e.buff_count()).filter_map(|k| e.buff_at(k)).any(|b| b.name() == mark))
+                .map(|e| e.id())
+                .collect()
+        } else {
+            foes.iter().map(|f| f.0).filter(|&id| has_buff(sim, id, &mark)).collect()
+        };
         for &id in &now {
             if !self.marked.contains(&id) {
                 self.sleepers.retain(|s| s.target != id);
@@ -749,8 +973,12 @@ impl Sparkles {
                     s.until = tick + self.p.e_sleep_n;
                     s.guard = guard;
                     self.sleeps += 1;
+                    let kind = what(sim, s.target);
+                    if kind != "champion" {
+                        self.unit_sleeps += 1;
+                    }
                     if self.sleeps <= 8 || self.sleeps % 25 == 0 {
-                        wlog(format!("{} SLEEP #{}: #{} asleep {} ticks after the drowsy ended, {} ticks", head(sim, me),
+                        wlog(format!("{} SLEEP #{}: #{} ({kind}) asleep {} ticks after the drowsy ended, {} ticks", head(sim, me),
                                      self.sleeps, s.target, tick - s.sleep_at, self.p.e_sleep_n));
                     }
                     keep.push(s);
@@ -778,8 +1006,8 @@ impl Sparkles {
                     }
                     self.wakes += 1;
                     if self.wakes <= 8 || self.wakes % 20 == 0 {
-                        wlog(format!("{} WAKE #{}: #{} hit for {drop} asleep ({left} ticks left) -> +{bonus} true",
-                                     head(sim, me), self.wakes, s.target));
+                        wlog(format!("{} WAKE #{}: #{} ({}) hit for {drop} asleep ({left} ticks left) -> +{bonus} true",
+                                     head(sim, me), self.wakes, s.target, what(sim, s.target)));
                     }
                 }
                 Watch::Woke => {
@@ -833,8 +1061,7 @@ impl Sparkles {
                 b.move_speed_mult = self.p.w_ms as i32;
                 sim.add_buff(me, &b);
                 wlog(format!("{} PICK #{}: shard at {:?} -> {} missiles", head(sim, me), self.picked, s.at, self.p.w_n));
-                // the shard's summoner spell (its w_haste is not the ult's: no second summon next tick)
-                self.haste_was = true;
+                // 碎片的召唤师技能（0.8.0 起窃法巧手只从这里发动，大招不再触发）
                 self.summon(sim, me, "a shard");
                 continue;
             }
@@ -849,8 +1076,8 @@ impl Sparkles {
             keep.push(s);
         }
         self.shards = keep;
-        // the missiles (the ult's and the shards'): one every w_gap ticks at the nearest enemy champion within w_r, flown by
-        // fly() - out behind her, over her head, then after him (0.7.0; it was the hit at once, nothing flying)
+        // the shards' missiles (0.8.0: the ult fires none any more): one every w_gap ticks at the nearest enemy champion within
+        // w_r, flown by fly() - out behind her, over her head, then after him (0.7.0; it was the hit at once, nothing flying)
         let mut left = Vec::new();
         for (at, n, from) in std::mem::take(&mut self.volleys) {
             if tick < at {
@@ -947,6 +1174,7 @@ impl StablePassive for Sparkles {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.q_go_was = false;
+        self.e_go_was = false;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Zoe (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
@@ -959,28 +1187,26 @@ impl StablePassive for Sparkles {
         let alive = e.is_alive();
         let tick = sim.tick();
         let foes = enemies(sim, team);
-        // the ult's Spell Thief: its w_haste just put on - the summoner spell first, then its missiles from w_rel on (0.7.0:
-        // flown here, the copy's ult fires none of the data's)
-        let haste = alive && has_buff(sim, me, &zo("w_haste"));
-        if haste && !self.haste_was {
-            self.summon(sim, me, ULT);
-            self.volleys.push((tick + self.p.w_rel.saturating_sub(1), self.p.w_n, ULT));
-        }
-        self.haste_was = haste;
+        // 0.8.0 起大招不再触发窃法巧手（英雄联盟的折返跃迁不触发），副本的大招也不再挂 w_haste：召唤师技能和飞弹只从碎片来
         if tick > self.barrier_at + 1 && has_buff(sim, me, &zo("s_barrier")) && sim.get_entity(me).is_some_and(|e| e.shield() == 0) {
             sim.entity_remove_buff(me, &zo("s_barrier"));
         }
         self.burn(sim, me, ap, tick);
-        // the star flying and the sleepers go on after her death; only a living Zoe picks a shard up
-        self.star(sim, me, team, pos, ap, tick);
-        self.bubble(sim, me, &foes, ap, tick);
+        // the stars flying and the sleepers go on after her death; only a living Zoe picks a shard up
+        self.throw_star(sim, me, team, pos, tick);
+        self.fly_stars(sim, me, team, pos, ap, tick);
+        if alive {
+            self.aim_bubble(sim, me, &foes, pos);
+        }
+        self.bubble(sim, me, team, &foes, ap, tick);
         self.shards(sim, me, &foes, pos, alive, ap, tick);
         self.fly(sim, me, team, pos, tick);
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             if tick > 0 {
-                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, freed {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}, missiles {} hit {} gone {} refused {}",
-                             head(sim, me), self.stars, self.sleeps, self.wakes, self.freed, self.misses, self.dropped, self.picked,
+                wlog(format!("{} WATCH: stars {} (hit {} champions, {} other units, {} missed, {} thrown round the side), sleeps {} ({} not champions), bubbles over walls {}, wakes {}, freed {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}, missiles {} hit {} gone {} refused {}",
+                             head(sim, me), self.thrown, self.star_champs, self.star_units, self.star_misses, self.sideways,
+                             self.sleeps, self.unit_sleeps, self.walls, self.wakes, self.freed, self.misses, self.dropped, self.picked,
                              self.summons, self.launched, self.hits, self.fizzled, self.refused));
             }
         }
@@ -995,7 +1221,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards, its missiles out behind her and over her head) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (a sleep any damage breaks, on any unit; Paddle Star thrown out and redirected, by the distance flown; Spell Thief from the shards only, its missiles out behind her and over her head) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1005,7 +1231,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:sparkles"), Sparkles::default());
     // 0.7.0: the missiles' pictures are projectiles spawned piece by piece; a projectile needs an effect to apply on a hit
     module.add_native_effect(format!("{ID}:noop"), Noop);
-    host.log(LogLevel::Info, "league_zoe v1 loaded (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards).");
+    host.log(LogLevel::Info, "league_zoe v1 loaded (a sleep any damage breaks, Paddle Star redirected, Spell Thief's shards).");
 }
 
 /// 飞弹的画面一段一段地放（`piece_spec`），什么都不打（投射物要有一个打中时的效果）。
@@ -1094,11 +1320,44 @@ mod tests {
     }
 
     #[test]
+    fn the_copy_leaves_the_star_and_spell_thief_to_the_add_on() {
+        // 0.8.0 (「按照你的建议改吧」): the copy's Q throws no data star - it marks the target and lights q_go, this add-on flies
+        // the star out and back; the copy's R no longer starts Spell Thief (no w_haste, no toss, no missiles); the bubble stops
+        // on the first enemy unit and lights e_go for the sleep's wider look
+        let copy = include_str!("../override/league_zoe.data_champion");
+        let part = |from: &str, to: &str| {
+            let a = copy.find(from).expect(from);
+            &copy[a..a + copy[a..].find(to).expect(to)]
+        };
+        let q = part("\"skill\": {", "\"skill2\": {");
+        assert!(!q.contains("LinearProjectile"), "the copy's Q still throws a data star");
+        assert!(q.contains("\"league_zoe_q_go\"") && q.contains("\"league_zoe_q_aim\""));
+        let e = part("\"skill2\": {", "\"ult\": {");
+        assert!(e.contains("\"applied_target\": \"EnemyWithoutTower\""), "the bubble still passes minions");
+        assert!(e.contains("\"league_zoe_e_go\""));
+        // over a wall the long bubble (wall.rs): the target's e_aim at the start, her e_far picks it at the release
+        assert!(e.contains("\"league_zoe_e_aim\"") && e.contains("\"buff_name\": \"league_zoe_e_far\""));
+        let p = Params::default();
+        assert!(e.contains(&format!("\"range\": {}", p.e_len + p.e_wall)) && e.contains(&format!("\"range\": {}", p.e_len)));
+        let r = part("\"ult\": {", "\"view_projectiles\"");
+        assert!(!r.contains("league_zoe_w_haste") && !r.contains("\"skill_w\"") && !r.contains("league_zoe_w_missile"),
+                "the copy's R still starts Spell Thief");
+        assert!(r.contains("league_zoe_r_star"), "the portal's star is gone");
+        let params = part("\"params\": {", "}");
+        assert!(params.contains("\"q_out\""), "no q_out: the add-on would take the copy for an old one");
+    }
+
+    #[test]
     fn params_come_from_the_champion_data() {
         let p = parse_params(r#"{"q_dmg":90,"q_far":220,"e_sleep_n":120,"e_cap":80,"w_n":2,"s_r":15000,"x":1}"#);
         assert_eq!((p.q_dmg, p.q_far, p.e_sleep_n, p.e_cap, p.w_n, p.s_r), (90, 220, 120, 80, 2, 15000));
         assert_eq!(p.q_ratio, Params::default().q_ratio);
-        assert_eq!(parse_params("{}"), Params::default());
+        // a copy without q_out is older than 0.8.0: it flies its own data star
+        assert!(!p.star);
+        assert_eq!(parse_params("{}"), Params { star: false, ..Params::default() });
+        let p = parse_params(r#"{"q_out":25000,"q_out_v":1800,"q_speed":4200,"q_len":90000,"q_w":5000}"#);
+        assert!(p.star);
+        assert_eq!((p.q_out, p.q_out_v, p.q_speed, p.q_len, p.q_w), (25000, 1800, 4200, 90000, 5000));
         assert_eq!(parse_params(r#"{"w_gap":0,"q_far":50}"#).w_gap, 1);
         assert_eq!(parse_params(r#"{"q_far":50}"#).q_far, 100);
     }
@@ -1111,9 +1370,9 @@ mod tests {
         assert_eq!(star_pct(&p, 52500), 175); // half way: half of the +150 %
         assert_eq!(star_pct(&p, 85000), 250);
         assert_eq!(star_pct(&p, 200000), 250);
-        // 105 + 60 % of 100 AP = 165; at the far end 150 % more
-        assert_eq!(star_bonus(&p, 85000, 100), 247);
-        assert_eq!(star_bonus(&p, 10000, 100), 0);
+        // 105 + 60 % of 100 AP = 165; at the far end 250 % of it
+        assert_eq!(star_damage(&p, 85000, 100), 412);
+        assert_eq!(star_damage(&p, 10000, 100), 165);
     }
 
 
@@ -1128,7 +1387,7 @@ mod tests {
 
     #[test]
     fn buff_names_fit() {
-        for x in ["e_mark", "e_zz", "e_wake", "q_go", "q_hit", "w_haste", "w_shard", "w_shot", "w_hit", "e_sleep", "s_heal", "s_ignite", "s_exhaust", "s_ghost", "s_flash", "s_flash_trail", "s_cleanse", "s_barrier"] {
+        for x in ["e_mark", "e_zz", "e_wake", "e_go", "e_aim", "e_far", "q_go", "q_aim", "q_hit", "q_star", "r_on", "w_haste", "w_shard", "w_shot", "w_hit", "e_sleep", "s_heal", "s_ignite", "s_exhaust", "s_ghost", "s_flash", "s_flash_trail", "s_cleanse", "s_barrier"] {
             assert!(zo(x).len() <= BUFF_NAME_CAP);
         }
         for s in summon::Spell::ALL {
