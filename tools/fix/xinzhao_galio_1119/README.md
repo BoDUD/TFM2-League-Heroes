@@ -10,8 +10,9 @@ One-off edits of the two heroes' sheets (each refuses a sheet it has already cha
 3. `galio_fix.py <repo>` - Galio's wings flap in the run and while he stands (「走路时翅膀不动 待机也是」, `wings.py`:
    RotSprite turn about the root, behind the body), his run legs cleaned (「腿部像素缺失」「不干净的黑边」, `legclean.py`),
    the tail left as drawn; tag `idle_loop`. `check2.py`: stray black pieces, stone pixels changed.
-3b. `tailfix.py` (run after `galio_fix.py`, through `sheetkit`) - Galio's tail reaches his left leg in the run frames where
-   the striding leg leaves 2-6 clear squares after the tail's end (「尾巴这里对吗 走路的时候」): run[0], [1], [7] (+1 square in [6]).
+3b. Galio's final run strips turn the tail up behind the near fist toward the back of his waist. The earlier
+    `tailfix.py` records the intermediate edit that extended the horizontal strip to the leg. The current atlas
+    and run strips contain the separated silhouette.
 4. `python tools/art/hero_reels.py --hero league_galio,league_xinzhao` - their reels, the holds playing `idle_loop`
    (hero_reels.json "hold"); then the idle strips = idle_base (`sheetkit.Kit.strip`), `tools/art/illaoi_souls.py`,
    `addons/league_viego_soul/make_override.py`.
