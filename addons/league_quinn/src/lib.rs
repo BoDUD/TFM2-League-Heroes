@@ -104,10 +104,23 @@ const LOG_EVERY: usize = 200;
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+    counted_on(kind, false)
+}
+
+/// 同上，`shown`：这一行出自你看的那场（画面、观战、回放），每条都记（0.6.0）。以前整次启动每种行只记前 `LOG_FIRST` 条，
+/// 后台预演先把它用完，11-19 你看的那场骑没骑、为什么，日志里一行都没有。
+pub(crate) fn counted_on(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// 这一场在屏幕上（你看的、观战、回放），不是服务器的后台预演。
+pub(crate) fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -303,7 +316,7 @@ impl StablePassive for Ride {
         let riding = alive && has_buff(sim, me, RIDE);
         if !riding {
             if let Some(t) = self.riding.take() {
-                if let Some(k) = counted("ride") {
+                if let Some(k) = counted_on("ride", on_screen(sim)) {
                     let far = match (self.from, pos(sim, me)) {
                         (Some(a), Some(b)) => dist(a, b),
                         _ => 0.0,
@@ -320,7 +333,7 @@ impl StablePassive for Ride {
             None => {
                 self.from = pos(sim, me);
                 self.ended = false;
-                if let Some(k) = counted("ride") {
+                if let Some(k) = counted_on("ride", on_screen(sim)) {
                     wlog(format!("{} RIDE mounted Valor #{k}", head(sim, me)));
                 }
                 0
@@ -343,7 +356,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Quinn: League's ride on Valor, ridden to roam and to chase, Skystrike when it runs out, the riding body) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Quinn: League's ride on Valor, ridden out to her lane, to allies in a fight, to roam and to chase, Skystrike when it runs out, the riding body) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -353,7 +366,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     view::install_once();
     module.add_native_passive(format!("{ID}:ride"), Ride::default());
     module.add_player_input_ai(ride_ai::RideAi::default());
-    host.log(LogLevel::Info, "league_quinn loaded (the ride on Valor, pressed to roam and to chase, Skystrike, the riding body).");
+    host.log(LogLevel::Info, "league_quinn loaded (the ride on Valor, pressed to lane, to allies, to roam and to chase, Skystrike, the riding body).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -417,5 +430,13 @@ mod tests {
         assert!(s.contains("\"league_quinn:ride\""));
         assert!(s.contains(&format!("\"{RIDE}\"")) && s.contains(&format!("\"{END}\"")));
         assert!(s.contains(&format!("\"r_ride_t\": {R_RIDE_T}")));
+    }
+
+    #[test]
+    fn the_match_on_screen_keeps_every_line() {
+        // 11-19：后台预演先把每种行的前 40 条用完，你看的那场（m=6778）一行都没有
+        let hidden = (0..LOG_EVERY + 10).filter(|_| counted_on("test_hidden", false).is_some()).count();
+        assert_eq!(hidden, LOG_FIRST + 1, "the first 40, then one every 200");
+        assert!((0..LOG_EVERY + 10).all(|_| counted_on("test_shown", true).is_some()));
     }
 }
