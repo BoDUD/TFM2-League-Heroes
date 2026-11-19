@@ -27,6 +27,10 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           lands. A generation comes back after four Qs, at least 2 x q_cd apart (one may be refunded by R), and its old
           soldiers are gone by then while s_life <= 2 x q_cd + s_step (build() checks it; three generations until
           2026-11-17, when s_life 600 passed q_cd + s_step).
+          2026-11-20（用户：「改成联盟的」）：Q 挪过去的沙兵不再重新算 10 秒。联盟的沙兵从召出来起就是 10 秒，挪到哪都不续。
+          所以挪的时候不再把槽位的 b<s> 续满，挪过去的那一代沙兵只在 b<s> 还在的时候刺、盖画面，原来的 10 秒到了就没了。
+          槽位空出来以后召的新兵会挂上 z<s>，老的那个不会跟着又活过来（它的区域还在，只是一直关着）。离 10 秒到头已经不够
+          冲一次（w<s> 没了）的沙兵不挪，Q 换代时就没了。以前每挪一次都是新的 10 秒。
           The Sun Disc (太阳圆盘): the add-on's copy only (--native, the passive league_azir:disc - a tower ruin of his
           team; data cannot see towers).
   The controller. skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on the hero is not
@@ -417,6 +421,13 @@ def build(p):
         add-on's centre-to-centre measure (7 stabs a day at 67157-75253 from him, all in the window before the crumble)."""
         return sw(f"o{s}", NONE, effect) if p["native"] else effect
 
+    # 能被 Q 挪的沙兵：离 10 秒到头至少还有一次冲刺加一点余量（w<s>，召兵时挂）
+    movable_t = p["s_life"] - p["q_travel"] - 4
+
+    def lives(s, effect):
+        """挪过去的沙兵还活着：槽位的 b<s> 还在（从它最早召出来算的 10 秒），这个槽位之后也还没召过新兵（z<s>）。"""
+        return sw(f"z{s}", NONE, sw(f"b{s}", effect))
+
     def soldier(s, g, moved=False):
         """Slot s's soldier of generation g on this spot (a landing's end_effects): its picture re-stamped every
         s_step ticks and two stab zones (champions first), all only while g is up. `moved`: one Conquering Sands brought
@@ -431,22 +442,29 @@ def build(p):
         # past the two flags it asks alive() (league_maokai's sapling); then whether he stands within League's tether
         # radius of it (tied: s_tie from the zone's centre plus his body = 660), and in the add-on's copy whether it
         # crumbled (kept) or stands out of his reach this tick (commanded)
-        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, kept(s, commanded(s, alive(tied(p["s_tie"], flag(f"k{s}", p["cmd_t"] + 1),
-                                                                                             *stab, *told)))))))
+        # 挪过去的沙兵还要过 lives()：原来的 10 秒到了，或者这个槽位后来召了新兵，就不再刺、不再盖画面
+        own = (lambda e: lives(s, e)) if moved else (lambda e: e)
+        poke = lambda: gate(g, own(sw("cmd", sw(f"k{s}", NONE, kept(s, commanded(s, alive(tied(p["s_tie"], flag(f"k{s}", p["cmd_t"] + 1),
+                                                                                                 *stab, *told))))))))
         rise_, stand_ = ((native("rise"), native("sold")) if p["native"] else
                          (view(f"sold_{s}_rise"), view(f"sold_{s}")))
         # a new soldier in the slot takes the crumbled one's latch off (only when it does rise: generation g still up);
         # a crumbled one's checkpoints still call the add-on, which no longer draws it
         up_ = combine(*rm(f"x{s}"), rise_) if p["native"] else rise_
+        if moved:
+            # 落地就摘掉 z<s>：这个槽位现在就是它
+            up_ = combine(*rm(f"z{s}"), up_)
         # out of the sand, then standing (one the copy's dash brings arrives standing: q_land's burst is its dust)
         out = ([] if moved and p["native"] else [view("s_spawn"), sfx("s_spawn")]) + [gate(g, up_)]
-        out += [delayed(t, gate(g, stand_)) for t in range(p["s_step"], p["s_life"], p["s_step"])]
+        out += [delayed(t, gate(g, own(stand_))) for t in range(p["s_step"], p["s_life"], p["s_step"])]
         out += [field(f"s{s}_ch", p["s_r"], p["s_life"], p["s_per"], 1, [poke()], "EnemyChampion"),
                 field(f"s{s}_all", p["s_r"], p["s_life"], p["s_per"], 1, [poke()])]
         return out
 
     def put(s, g, where):
-        return combine(refresh(f"b{s}", p["s_life"]), where(soldier(s, g)))
+        # 新兵占这个槽位：b<s> 是它的 10 秒，w<s> 是还能被 Q 挪的那段，z<s> 让之前从这个槽位挪走、区域还没散的老兵别再醒
+        return combine(refresh(f"b{s}", p["s_life"]), refresh(f"w{s}", movable_t), refresh(f"z{s}", None),
+                       where(soldier(s, g)))
 
     def rise(where, g, i=0):
         """A soldier of generation g in the first free slot (all three up: none)."""
@@ -457,7 +475,11 @@ def build(p):
         """`name` up for a tick when a soldier stands (in the add-on's copy: one that has not crumbled)."""
         return combine(*rm(name), *[sw(f"b{s}", kept(s, refresh(name, 1))) for s in SLOTS])
 
-    on_spot = lambda target: (lambda effects: lob("s_lob", 1, effects, target))
+    def movable_up(name):
+        """`name` 挂一 tick：有能被 Q 挪的沙兵（站着、没塌，离 10 秒到头还够冲一次）。"""
+        return combine(*rm(name), *[sw(f"b{s}", kept(s, sw(f"w{s}", refresh(name, 1)))) for s in SLOTS])
+
+    on_spot =lambda target: (lambda effects: lob("s_lob", 1, effects, target))
 
     # ------------------------------------------------------------------ the controller: Q's move, E's soldier
     def move(g):
@@ -476,12 +498,12 @@ def build(p):
             volley = sw("qc", combine(*rm("qc"), volley))
         land += [view("q_land"), sfx("q_land"), volley]
         # a crumbled soldier (the add-on's copy) is gone: Q moves only the ones standing
-        marks = [sw(f"b{s}", kept(s, combine(refresh(f"m{s}", p["q_travel"] + 4), refresh(f"b{s}", p["s_life"]))))
-                 for s in SLOTS]
-        none = combine(refresh("ma", p["q_travel"] + 4), refresh("ba", p["s_life"]),
+        # 2026-11-20：挪的时候不再续 b<s>（挪过去还是原来那条命），快到头的（w<s> 没了）不挪；一个能挪的都没有就在那里召一个新的
+        marks = [sw(f"b{s}", kept(s, sw(f"w{s}", refresh(f"m{s}", p["q_travel"] + 4)))) for s in SLOTS]
+        none = combine(refresh("ma", p["q_travel"] + 4), refresh("ba", p["s_life"]), refresh("wa", movable_t),
                        *([refresh("qn", 2)] if p["native"] else []))
         fly = [nat("q_fly")] if p["native"] else []
-        return combine(any_up("up"), sw("up", combine(*rm("up"), *marks), none), to_gen(h), *fly,
+        return combine(movable_up("up"), sw("up", combine(*rm("up"), *marks), none), to_gen(h), *fly,
                        lob("q_move", p["q_travel"], land, "EnemyWithoutTower" if p["native"] else "EnemyChampion"))
 
     if p["native"]:
@@ -526,7 +548,7 @@ def build(p):
         # it for the controller). With soldiers up and a controller to move them, their paths deal Q's damage and slow
         # (league_azir:q_fly / dash_<s>, each enemy once a cast; League: the soldiers' paths): no wave. With none (or no
         # controller yet in this life) the wave as in the main pack (league_azir:q_wave)
-        go = [any_up("q_up"), sw("polling", NONE, combine(*rm("q_up"))),
+        go = [movable_up("q_up"), sw("polling", NONE, combine(*rm("q_up"))),
               sw("q_up", combine(*rm("q_up"), nat("q_go")), combine(wave, nat("q_wave"))),
               sw("polling", refresh("q_go", 4))]
     # the slot's own cooltime is Q's cooldown: R's refund (skill_cooldown_mult) shortens it
