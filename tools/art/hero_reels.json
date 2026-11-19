@@ -102,7 +102,7 @@
   "league_nasus": {"idle": [["attack", [0, 1]], ["skill", [5]]], "b_idle": [["b_attack", [0, 1]], ["b_skill", [5]]]},
   "league_nautilus": {"idle": [["attack", [0]], ["skill2", [1]]]},
   "league_neeko": {"idle": []},
-  "league_nidalee": {"idle": [["attack", [0, 1]], ["skill", [5]]], "c_idle": [["c_attack", [1]], ["c_skill", [4]]]},
+  "league_nidalee": {"idle": [["idle_base", [1, 2]], ["idle_base", [3]]], "c_idle": [["c_attack", [1]], ["c_skill", [4]]]},
   "league_nilah": {"idle": [["attack", [4]], ["skill2", [3]]]},
   "league_nocturne": {"idle": [["ult", [0, 1]], ["attack_p", [0]]]},
   "league_olaf": {"idle": [["ult", [3]], ["attack", [7]]]},
