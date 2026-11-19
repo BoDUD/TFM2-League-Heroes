@@ -6,7 +6,7 @@ value 0.10 + 0.62 v^1.15 (a square darker than 0.2 keeps its value: the outline 
 sash and blade keep theirs; his effect sheets hold no blue (left). lo_ again from the dense frames
 (tools/fix/xinzhao_galio_1119/sheetkit.py, ppu_hd.add_lo's replica).
 
-    python tools/fix/gpt784_review/yasuo_navy.py            # once (refuses a sheet already navy)
+    python tools/fix/gpt784_review/yasuo_navy.py            # again after new frames: only squares not navy yet change
     python tools/fix/gpt784_review/yasuo_navy.py --check
 """
 import glob
@@ -58,8 +58,11 @@ def cool(a):
 
 
 def navy(a):
+    """every blue / violet square not at the navy hue yet (so a rerun after new frames were drawn in only changes
+    those; a dark square's hue is left alone too: its value is kept anyway)"""
     out = a.copy()
     m, h, s, v = cool(a)
+    m &= ~((np.abs(h - HUE) <= 3) | (v < 0.2))
     V = np.where(v < 0.2, v, 0.10 + 0.62 * v ** 1.15)
     new = rgb(np.full_like(h, HUE), np.clip(s * 0.75, 0, 0.55), np.clip(V, 0, 1))
     out[m, :3] = np.clip(np.round(new[m] * 255), 0, 255).astype(np.uint8)
@@ -99,8 +102,6 @@ def main():
                     bad += 1
         print("yasuo navy: OK" if not bad else f"yasuo navy: {bad} pictures / lo_ frames not as this tool leaves them")
         sys.exit(1 if bad else 0)
-    if done_share(k.sheet) > 0.9:
-        sys.exit("his sheet is navy already")
     k.sheet = navy(k.sheet)
     n = 0
     for t in plain:
