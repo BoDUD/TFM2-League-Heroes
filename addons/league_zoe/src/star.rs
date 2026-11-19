@@ -70,15 +70,17 @@ pub fn turn(f: Pt, how: Out) -> Pt {
     }
 }
 
-/// 地图上这一点能扔过去吗（星飞过墙没关系，只是别扔到地图外面去）。
-fn on_map(p: Pt) -> bool {
-    const MAP: f64 = 960_000.0;
-    p.0 >= 0.0 && p.1 >= 0.0 && p.0 < MAP && p.1 < MAP
+/// 游戏自己的图的边长（5v5、单线、死斗都是 960000 见方）。
+pub const MAP_SIDE: f64 = 960_000.0;
+
+/// 地图上这一点能扔过去吗（星飞过墙没关系，只是别扔到地图外面去）。`side` 是这张图的边长。
+fn on_map(p: Pt, side: f64) -> bool {
+    p.0 >= 0.0 && p.1 >= 0.0 && p.0 < side && p.1 < side
 }
 
-/// 挑第一段：她在 `her`、目标（编号 `target`）在 `aim`，第一段长 `len`，星的半径 `w`。返回方向和拐弯的地方。
+/// 挑第一段：她在 `her`、目标（编号 `target`）在 `aim`，第一段长 `len`，星的半径 `w`，地图边长 `side`。返回方向和拐弯的地方。
 /// 两段路上除了目标都没有别的敌人才算空；正后方空就扔正后方，不然左、右，都不空还是正后方。
-pub fn pick_out(her: Pt, aim: Pt, len: f64, w: f64, bodies: &[Body], target: usize) -> (Out, Pt) {
+pub fn pick_out(her: Pt, aim: Pt, len: f64, w: f64, bodies: &[Body], target: usize, side: f64) -> (Out, Pt) {
     let f = unit((aim.0 - her.0, aim.1 - her.1)).unwrap_or((1.0, 0.0));
     let spot = |how| {
         let d = turn(f, how);
@@ -87,18 +89,18 @@ pub fn pick_out(her: Pt, aim: Pt, len: f64, w: f64, bodies: &[Body], target: usi
     let clear = |o: Pt| first_on(her, o, w, bodies, Some(target)).is_none() && first_on(o, aim, w, bodies, Some(target)).is_none();
     for how in [Out::Back, Out::Left, Out::Right] {
         let o = spot(how);
-        if on_map(o) && clear(o) {
+        if on_map(o, side) && clear(o) {
             return (how, o);
         }
     }
     let back = spot(Out::Back);
-    if on_map(back) {
+    if on_map(back, side) {
         return (Out::Back, back);
     }
     // 背靠地图边上：往左右里在地图里的那边扔，都不行就原地拐（只剩第二段）
     for how in [Out::Left, Out::Right] {
         let o = spot(how);
-        if on_map(o) {
+        if on_map(o, side) {
             return (how, o);
         }
     }
@@ -122,7 +124,7 @@ mod tests {
     fn a_clear_lane_throws_it_straight_behind_her() {
         let her = (400_000.0, 500_000.0);
         let foe = (460_000.0, 500_000.0);
-        let (how, o) = pick_out(her, foe, 30_000.0, 6_000.0, &[(7, foe, 15_000.0)], 7);
+        let (how, o) = pick_out(her, foe, 30_000.0, 6_000.0, &[(7, foe, 15_000.0)], 7, MAP_SIDE);
         assert_eq!(how, Out::Back);
         assert_eq!(o, (370_000.0, 500_000.0));
     }
@@ -134,24 +136,24 @@ mod tests {
         // a minion a third of the way: behind her the second leg runs through it; from her left (up the screen) the star
         // comes in at an angle and passes 17900 from it (the star's 6000 + its body 8000 would touch)
         let bodies = [(7, foe, 15_000.0), (30, (420_000.0, 500_000.0), 8_000.0)];
-        let (how, o) = pick_out(her, foe, 30_000.0, 6_000.0, &bodies, 7);
+        let (how, o) = pick_out(her, foe, 30_000.0, 6_000.0, &bodies, 7, MAP_SIDE);
         assert_eq!(how, Out::Left);
         assert!((o.0 - 400_000.0).abs() < 1.0 && (o.1 - 470_000.0).abs() < 1.0, "{o:?}");
         // a second minion on that way in: the right side
         let bodies = [(7, foe, 15_000.0), (30, (420_000.0, 500_000.0), 8_000.0), (31, (425_000.0, 483_000.0), 8_000.0)];
-        assert_eq!(pick_out(her, foe, 30_000.0, 6_000.0, &bodies, 7).0, Out::Right);
+        assert_eq!(pick_out(her, foe, 30_000.0, 6_000.0, &bodies, 7, MAP_SIDE).0, Out::Right);
         // walled in by minions all round: behind her anyway (it hits the first of them)
         let mut many = vec![(7, foe, 15_000.0)];
         for (k, y) in [470_000.0, 485_000.0, 500_000.0, 515_000.0, 530_000.0].iter().enumerate() {
             many.push((40 + k, (430_000.0, *y), 8_000.0));
         }
-        assert_eq!(pick_out(her, foe, 30_000.0, 6_000.0, &many, 7).0, Out::Back);
+        assert_eq!(pick_out(her, foe, 30_000.0, 6_000.0, &many, 7, MAP_SIDE).0, Out::Back);
     }
 
     #[test]
     fn never_off_the_map() {
         // her back to the map's left edge: behind her is off the map
-        let (how, o) = pick_out((10_000.0, 500_000.0), (70_000.0, 500_000.0), 30_000.0, 6_000.0, &[], 1);
+        let (how, o) = pick_out((10_000.0, 500_000.0), (70_000.0, 500_000.0), 30_000.0, 6_000.0, &[], 1, MAP_SIDE);
         assert_ne!(how, Out::Back);
         assert!(o.0 >= 0.0 && o.1 >= 0.0);
     }

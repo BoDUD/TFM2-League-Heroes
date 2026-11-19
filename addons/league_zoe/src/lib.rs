@@ -818,7 +818,7 @@ impl Sparkles {
             wlog(format!("{} STAR not thrown: no target (no q_aim mark, no enemy unit within {reach:.0})", head(sim, me)));
             return;
         };
-        let (how, out) = star::pick_out(her, aim, self.p.q_out as f64, self.p.q_w as f64, &all, target);
+        let (how, out) = star::pick_out(her, aim, self.p.q_out as f64, self.p.q_w as f64, &all, target, star::MAP_SIDE);
         self.thrown += 1;
         if how != star::Out::Back {
             self.sideways += 1;
@@ -920,7 +920,7 @@ impl Sparkles {
             sim.add_buff(me, &BuffV1::timed(&zo("e_far"), self.p.e_rel + 4));
             self.walls += 1;
             if self.walls <= 8 || self.walls % 20 == 0 {
-                wlog(format!("{} BUBBLE #{} over a wall: the line to #{id} ({:.0} away) crosses {run:.0} of wall -> the long                               bubble ({} instead of {})", head(sim, me), self.walls, fdist(fpos(pos), fpos(tp)),
+                wlog(format!("{} BUBBLE #{} over a wall: the line to #{id} ({:.0} away) crosses {run:.0} of wall -> the long bubble ({} instead of {})", head(sim, me), self.walls, fdist(fpos(pos), fpos(tp)),
                              self.p.e_len + self.p.e_wall, self.p.e_len));
             }
         }
