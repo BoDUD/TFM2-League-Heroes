@@ -22,6 +22,13 @@ yasuo_navy.py leaves them (tools/fix/xinzhao_galio_1119/sheetkit.py, ppu_hd.add_
 (assets/source/ppu[/orig]/yasuo_<tag>.png, the idle_base frames in yasuo_idle.png) are rewritten from the dense frames.
 `--from REV` first puts REV's Yasuo sheet, anim and strips back (bc563ba4a: the purple-red sets as drawn).
 
+The navy (hair, trousers, scabbard) is matched the same way, by itself: those sets' navy came out of yasuo_navy.py darker
+than REF's (mean Lab L 19.9-22.2 against 24.9; hair and trousers are 45 % of his figure), so with the skin matched he
+still went dark in the idle frames and light in attack[0] (the sheathed frame his idle reel plays between them): the
+user, 「那为什么亚索看起来会一会儿亮的 一会儿黑的？」. Each set's navy colours not in REF's navy go to REF's navy lightness at
+their own quantile, raised by the offset that brings the set's mean navy lightness to REF's, and there to the REF navy
+colour nearest in lightness; every REF navy colour is yasuo_navy.py's hue, so its --check holds.
+
 Once done every skin colour of those frames is one of REF's, so a second run maps nothing; --check also wants each
 set's mean body lightness within 1.0 of REF's.
 
@@ -97,6 +104,39 @@ def parts(p):
     return navy | orange | tan
 
 
+def navy_px(c):
+    """the navy squares (hair, trousers, scabbard): blue above red, not near-black"""
+    p = c[c[..., 3] > 0][:, :3].astype(int)
+    r, g, b = p[:, 0], p[:, 1], p[:, 2]
+    return p[(b > r + 8) & (b >= g) & (p.max(1) >= 30)]
+
+
+def navy_counts(cells):
+    n = Counter()
+    for c in cells:
+        n.update(map(tuple, navy_px(c).tolist()))
+    return n
+
+
+def navy_mean(cells):
+    p = np.concatenate([q for q in (navy_px(c) for c in cells) if len(q)])
+    return float(lab(p)[:, 0].mean())
+
+
+def build_navy(src, own, ref, delta):
+    fl, fq = quantiles(own)
+    rl, rq = quantiles(ref)
+    cand = list(ref)
+    cl = lab(cand)
+    f = {}
+    for k in src:
+        kl = lab(k)
+        tl = np.interp(np.interp(kl[0], fl, fq), rq, rl) + delta
+        d = (cl[:, 0] - tl) ** 2 + 0.2 * ((cl[:, 1] - kl[1]) ** 2 + (cl[:, 2] - kl[2]) ** 2)
+        f[k] = tuple(int(v) for v in cand[int(np.argmin(d))])
+    return f
+
+
 def body(c):
     """the body's squares two in from the outline, not navy / orange / tan: skin and the dark line work inside it"""
     inner = ndimage.binary_erosion(c[..., 3] > 0, iterations=2)
@@ -155,23 +195,32 @@ def apply_map(c, f):
     return out
 
 
+def is_navy(k):
+    return k[2] > k[0] + 8 and k[2] >= k[1] and max(k) >= 30
+
+
 def recolour(c, f, ref_all):
+    """f on c; a colour not in f (a 1x frame's) takes the map of the nearest key of its own kind (skin / navy) within
+    NEAR"""
     out = c.copy()
-    keys = list(f)
-    karr = np.array(keys, float)
+    kinds = {}
+    for key in f:
+        kinds.setdefault(is_navy(key), []).append(key)
+    arrs = {kind: np.array(keys, float) for kind, keys in kinds.items()}
     cache = {}
     ys, xs = np.nonzero(c[..., 3] > 0)
     for y, x in zip(ys, xs):
         k = tuple(int(v) for v in c[y, x, :3])
         if k not in cache:
             cache[k] = k
+            kind = is_navy(k)
             if k in f:
                 cache[k] = f[k]
-            elif k not in ref_all and skin([k])[0] and lab(k)[0] >= DARK:
-                d = ((karr - np.array(k, float)) ** 2).sum(1)
+            elif k not in ref_all and lab(k)[0] >= DARK and (kind or skin([k])[0]) and kind in kinds:
+                d = ((arrs[kind] - np.array(k, float)) ** 2).sum(1)
                 j = int(np.argmin(d))
                 if d[j] <= NEAR * NEAR:
-                    cache[k] = f[keys[j]]
+                    cache[k] = f[kinds[kind][j]]
         out[y, x, :3] = cache[k]
     return out
 
@@ -225,6 +274,7 @@ def main():
     refc = [k.cell("hd_" + t, i) for t, ii in REF.items() for i in ii]
     ref_skin, ref_all = skin_counts(refc), all_colours(refc)
     ref_body, ref_mean = body_counts(refc), body_mean(refc)
+    ref_navy, ref_navy_mean = navy_counts(refc), navy_mean(refc)
     check = "--check" in sys.argv
     bad = 0
     done = set()
@@ -235,11 +285,13 @@ def main():
         src = Counter({c: v for c, v in own.items() if c not in ref_all and lab(c)[0] >= DARK})
         n = sum(src.values())
         mean = body_mean(cells)
-        if check or not src:
-            far = abs(mean - ref_mean) > 1.0
-            print(f"yasuo {name}: {n} skin squares not in the sheathed / blade-out colours; body lightness {mean:.1f}"
-                  f" (REF {ref_mean:.1f})" + (" - apart" if far else ""))
-            bad += n + int(far)
+        nmean = navy_mean(cells)
+        nn = sum(v for c, v in navy_counts(cells).items() if c not in ref_navy)
+        if check or (not src and not nn):
+            far = abs(mean - ref_mean) > 1.0 or abs(nmean - ref_navy_mean) > 1.0
+            print(f"yasuo {name}: {n} skin / {nn} navy squares not in the sheathed / blade-out colours; body lightness"
+                  f" {mean:.1f} (REF {ref_mean:.1f}), navy {nmean:.1f} (REF {ref_navy_mean:.1f})" + (" - apart" if far else ""))
+            bad += n + nn + int(far)
             continue
         own_body = body_counts(cells)
         best = None
@@ -249,6 +301,17 @@ def main():
             if best is None or abs(m - ref_mean) < abs(best[1] - ref_mean):
                 best = (float(delta), m, f)
         delta, m, f = best
+        # the navy, by itself
+        ncells = [apply_map(c, f) for c in cells]
+        own_navy = navy_counts(ncells)
+        nsrc = [c for c in own_navy if c not in ref_navy]
+        nbest = None
+        for nd in np.arange(-4.0, 10.5, 0.5):
+            g = build_navy(nsrc, own_navy, ref_navy, float(nd))
+            nm = navy_mean([apply_map(c, g) for c in ncells])
+            if nbest is None or abs(nm - ref_navy_mean) < abs(nbest[1] - ref_navy_mean):
+                nbest = (float(nd), nm, g)
+        f = {**f, **{k: v for k, v in nbest[2].items()}}
         moved = 0
         for t, ii in sel.items():
             for pre in ("hd_", ""):
@@ -269,8 +332,9 @@ def main():
                     continue
                 done.add(r)
                 k.put("lo_" + t, i, k.lo_of(k.cell(t, i).shape[:2], k.cell("hd_" + t, i)))
-        print(f"yasuo {name}: {len(f)} skin colours mapped (offset {delta:+.1f} L), body lightness {mean:.1f} -> {m:.1f}"
-              f" (REF {ref_mean:.1f}), {moved} squares recoloured")
+        print(f"yasuo {name}: {len(f)} colours mapped (skin offset {delta:+.1f} L, navy {nbest[0]:+.1f} L), body lightness"
+              f" {mean:.1f} -> {m:.1f} (REF {ref_mean:.1f}), navy {nmean:.1f} -> {nbest[1]:.1f} (REF {ref_navy_mean:.1f}),"
+              f" {moved} squares recoloured")
     if check:
         print("yasuo skin: OK" if not bad else "yasuo skin: run tools/fix/gpt784_review/yasuo_skin.py")
         sys.exit(1 if bad else 0)
