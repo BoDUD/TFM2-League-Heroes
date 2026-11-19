@@ -27,3 +27,22 @@ Left for the user (needs new pictures, not edits): Tryndamere is three separatel
 horned mask / long hair + horned mask in the run / wild mane + big mask, bulkier, in W Q R hit death) with blades of
 different sizes; Yasuo's blade-out frames (ys_flare) are another colouring (bright blue trousers, gold trims) than his
 idle and run.
+
+## After GPT's second delivery (bdbda7d47, the redraw pack)
+
+GPT redrew Tryndamere's run / cast frames in the tb_swing look (checked: one face, one blade size), Braum's run[0..3]
+shield, Nasus's n_cast frames, Yasuo's blade-out frames and Nidalee's skill2[0], [3]. Checked again, then:
+
+- `nidalee_run_spear.py --from 02b3aa862`: her run keeps the shoulder carry (the user: 「豹女跑步保持这个姿势就行了 我指出的问题
+  是枪看起来在脸的另外一边」); in frames 4-7 the shaft span her collar and hair covered is painted in front of her face.
+- `braum_run_outline.py`: the smaller shield left straight cuts with no outline where the big one covered him (underside
+  of the forearm, side of the chest, the shield's top-left bevel; 44-52 light edge squares a frame, 0-1 elsewhere): the
+  2-square outline round them, body untouched.
+- `nasus_cast_colours.py`: the new n_cast frames (skill[0], skill2, skill_w, ult[0, 1, 2, 4, 5], dead, b_ twins) were
+  drawn in his palette but much lighter (median Lab L 27 against 21, a grey-brown as the commonest body colour, lava all
+  over): mapped onto the n_hit set's colours by lightness quantile.
+- Yasuo: the new blade-out frames came out charcoal with no chest glow and no horned mask; the user picked the sheathed
+  frame's colours (「我要的是这个皮肤颜色吧」, a screenshot of attack[0]), which 02b3aa862's blade-out frames have: those
+  are back, and `yasuo_skin.py` brings the idle, run and cast sets' purple-red skin to that stone-brown (skin only:
+  navy, glow, sash, mask and blade stay).
+- illaoi_souls.py again.
