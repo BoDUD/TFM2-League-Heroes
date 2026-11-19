@@ -25,7 +25,8 @@ The game reads every mod file except background music into memory when it starts
   .fanim change.
 - Every hero's two UI sheets written next to the package's sheets, ui_sheets/<kind>/<hero>#sheet.png + #anim.fanim:
   only the frames the screens that show many heroes at once draw, pixel for pixel - ui_sheets/idle: `idle` (the
-  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's hd_idle, marked `ui_hd`); ui_sheets/bp: `bp`
+  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's hd_idle, marked `ui_hd`, where
+  it is denser than its lo_idle - else the lo_idle); ui_sheets/bp: `bp`
   (the ban/pick grid's reel: hd_bp) and `dead` (a banned hero in the grid: hd_dead). league.dll draws those screens
   from them (addons/hd_engine/src/lookup.rs): they drew every hero from its whole battle sheet, 589 MiB of RGBA for
   167 heroes against the game's 256 MiB image cache, so every frame decoded them again (2026-10-24, the user:
@@ -362,14 +363,25 @@ def strip_frames(a):
     return {k: v for k, v in a.items() if k != "frames"}
 
 
-def ui_sources(anim):
-    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- hd_idle (else lo_idle; the user, 2026-11-19:
-    「都要PPU高清帧的」 - the pick slot's 「熟练度加成」 card drew the lo_ idle, 1.5 squares a game pixel), bp <- hd_bp (else
-    hd_idle), dead <- hd_dead; a 1x hero idle, bp (else idle), dead. Empty without an idle."""
+def denser_than_lo(px, anim):
+    """The hd_ idle draws its hero with more squares a game pixel than the lo_ idle (the lo_ one is UI_PPU = 1.5): its
+    figure (frame 0's opaque rows in the sheet's pixels `px`) taller than the lo_ one's by 3 % or more. A hero drawn
+    coarser (league_nasus at PPU 1.2: his lo_ frames are grown to 1.5) or as dense (league_galio, 1.65 / 1.1) keeps the
+    lo_ idle - the hd_ one would only show bigger squares."""
+    lo = figure_rows(px, anim, "lo_idle")
+    return lo > 0 and figure_rows(px, anim, "hd_idle") >= 1.03 * lo
+
+
+def ui_sources(anim, hd_idle=False):
+    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- hd_idle when `hd_idle` (denser_than_lo; the
+    user, 2026-11-19: 「都要PPU高清帧的」 - the pick slot's 「熟练度加成」 card drew the lo_ idle, 1.5 squares a game
+    pixel), else lo_idle (else hd_idle), bp <- hd_bp (else hd_idle), dead <- hd_dead; a 1x hero idle, bp (else idle),
+    dead. Empty without an idle."""
     anims = anim.get("anims", {})
     first = lambda *tags: next((t for t in tags if anims.get(t, {}).get("frames")), None)
     if any(t.startswith("hd_") for t in anims):
-        src = {"idle": first("hd_idle", "lo_idle"), "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
+        idle = first("hd_idle", "lo_idle") if hd_idle else first("lo_idle", "hd_idle")
+        src = {"idle": idle, "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
     else:
         src = {"idle": first("idle"), "bp": first("bp", "idle"), "dead": first("dead")}
     return {k: t for k, t in src.items() if t} if src["idle"] else {}
@@ -392,16 +404,29 @@ def ui_pads(anim, src):
     return out
 
 
+def figure_rows(px, anim, tag):
+    """The opaque rows of frame 0 of `tag` (0: no such tag or frame, or a rect that is not whole pixels)."""
+    fr = anim.get("anims", {}).get(tag, {}).get("frames")
+    if not fr:
+        return 0
+    r = tuple(fr[0].get("data", {}).get(c) for c in ("x", "y", "w", "h"))
+    if any(not isinstance(v, (int, float)) or v != int(v) for v in r):
+        return 0
+    x, y, w, h = (int(v) for v in r)
+    rows = np.nonzero((px[y:y + h, x:x + w, 3] > 0).any(1))[0]
+    return int(rows.max() - rows.min() + 1) if len(rows) else 0
+
+
 def ui_sheets(png_raw, anim, where):
     """-> [(kind, png bytes, fanim object)]: a hero's UI sheets (UI_KINDS) - the frames of ui_sources at the sheet's own
     pixels and nothing else - or [] (no idle, or a frame rect that is not whole pixels). Identical frames share one rect,
     each with the clear pixels of ui_pads round it."""
-    src = ui_sources(anim)
+    px = np.asarray(Image.open(io.BytesIO(png_raw)).convert("RGBA"))
+    src = ui_sources(anim, denser_than_lo(px, anim))
     if not src:
         return []
     anims = anim["anims"]
     pads = ui_pads(anim, src)
-    px = np.asarray(Image.open(io.BytesIO(png_raw)).convert("RGBA"))
     out = []
     for kind, tags in UI_KINDS.items():
         part = {k: src[k] for k in tags if k in src}
@@ -467,7 +492,8 @@ def check_ui(pa, anim_a, png_b, ui, kind, where):
     """The UI sheet of `kind` holds its tags' source frames: same count, timing and size, the same pixels, and nothing
     opaque within its pads outside them."""
     pb = np.asarray(Image.open(io.BytesIO(png_b)).convert("RGBA"))
-    src = {k: t for k, t in ui_sources(anim_a).items() if k in UI_KINDS[kind]}
+    every = ui_sources(anim_a, denser_than_lo(pa, anim_a))
+    src = {k: t for k, t in every.items() if k in UI_KINDS[kind]}
     mark = {UI_HD_MARK} if src.get("idle") == "hd_idle" else set()
     if set(src) | mark != set(ui["anims"]):
         raise ValueError(f"{where}: UI sheet {kind} has tags {sorted(ui['anims'])}, want {sorted(src)}")
@@ -483,7 +509,7 @@ def check_ui(pa, anim_a, png_b, ui, kind, where):
             if not np.array_equal(pa[ya:ya + h, xa:xa + w], pb[yb:yb + h, xb:xb + w]):
                 raise ValueError(f"{where}: UI frame {k}[{i}] pixels differ from {t}[{i}]")
     op = pb[..., 3] > 0
-    for k, (l, r, t, b) in ui_pads(anim_a, ui_sources(anim_a)).items():
+    for k, (l, r, t, b) in ui_pads(anim_a, every).items():
         for i, fr in enumerate(ui["anims"].get(k, {}).get("frames", [])):
             x, y, w, h = (int(fr["data"][c]) for c in ("x", "y", "w", "h"))
             y0, x0 = max(0, y - t), max(0, x - l)
