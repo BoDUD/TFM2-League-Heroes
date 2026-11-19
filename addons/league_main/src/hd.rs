@@ -825,6 +825,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// club, his body 1601 solid game px, the heaviest with Ornn's 1583, against Garen's 42 x 48 / 1051; 85 % = 37 x 45,
 /// 1157), his dense frames 4 squares lower (RESTYLE trundle lift_sq: 12 x 2.0 x (1 / 0.85 - 1) = 4.2, his feet 12 game
 /// px under his centre), written by the restyle itself (it reproduces his committed strips bit for bit).
+/// Cho'Gath: 79 % (2026-11-19, review of #784): GPT's full redraw (「科加斯也可以全部重做 做的像英雄联盟一点」) came out 58
+/// dense rows spikes to soles at his PPU 1.2 - 48 game px against the user's 「38 像素」 (rig_chogath.py's 46 rows); 79 % =
+/// 38 again with the drawing kept as drawn, his dense frames 4 squares lower (11.5 x 1.2 x (1 / 0.79 - 1) = 3.7, Zaahen's
+/// drop: each frame's size kept, its picture moved down inside it; tools/fix/gpt784_review/chogath_size.py). Feast's
+/// GROWTH still scales the drawn body about the soles on top of this.
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -834,7 +839,7 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
                                     ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85),
-                                    ("league_belveth", 0.85), ("league_trundle", 0.85)];
+                                    ("league_belveth", 0.85), ("league_trundle", 0.85), ("league_chogath", 0.79)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent

@@ -92,8 +92,8 @@
     },
     "league_yasuo": {
       "face": {
-        "x": 10,
-        "y": -32
+        "x": 6,
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -806,7 +806,7 @@
     },
     "league_tryndamere": {
       "face": {
-        "x": 11,
+        "x": 5,
         "y": -32
       },
       "center": {
@@ -1598,7 +1598,7 @@
     },
     "league_nasus": {
       "face": {
-        "x": 7,
+        "x": 4,
         "y": -39
       },
       "center": {
@@ -1792,8 +1792,8 @@
     },
     "league_chogath": {
       "face": {
-        "x": 15,
-        "y": -23
+        "x": 12,
+        "y": -18
       },
       "center": {
         "x": 0,
