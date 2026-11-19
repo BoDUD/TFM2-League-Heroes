@@ -47,3 +47,27 @@ shield, Nasus's n_cast frames, Yasuo's blade-out frames and Nidalee's skill2[0],
   (2026-11-19: 「亚索恢复到之前的版本吧 不改了」): every Yasuo file, his face point and idle picks are main's
   (099abf3b3) again; the two tools are gone.
 - illaoi_souls.py again.
+
+## Nasus: ears, outline, and League's motions (2026-11-19 night)
+
+The user on GPT's Nasus: 「狗头的右耳朵我还感觉少了一块」「狗头的耳朵画精致一点啊」「还有狗头的黑边处理干净点」
+「放Q的时候头部有个黑色阴影块没处理干净 头旁边」 and 「狗头的平A动作不像英雄联盟的 重改 包括释放其他技能时都要像英雄联盟的
+动作才行」. Run in this order, each from the state the one before leaves (all have --check):
+
+1. `nasus_clean.py` (+ `nasus_ears.json`): one pair of ears per form, square for square, outlined, the near one with a
+   dark-red inner ear, standing on the head at one place for every frame (GPT's broken one-square near ear, and ears
+   one or two rows higher or lower from frame to frame); then every picture's outline: the body's edge outlined where
+   GPT left it bare, the outline one square deep all round (near-black shade under it counted as outline), the inside
+   of solid-black areas (the shoulder and neck painted black beside the head in the Q / attack blow) turned into the
+   dark of the colours round them, lone squares and specks off the body gone, thin_outline.py's own pass last. The 1x
+   and lo_ frames get only the change, the strips frame by frame.
+2. `nasus_actions.py` (+ `nasus_actions.json`): attack, Q (skill) and E (skill2), both forms, as League's clips
+   (tools/lol/pose_ref.py: nasus_attack1 a chop over the head, Nasus_Spell1 a slam into a low crouch with the staff along
+   the ground, Nasus_Base_Spell3_Full the staff raised high then cast forward), from pictures the sheet already has;
+   same lengths. The hit's frame 0 keeps the braced guard (`nasus_hit.py` now reads its rects from the table).
+3. `nasus_w.py`: W as League's Spell2 - his stance's free back arm turned up over his head (a top-to-bottom mirror about
+   the shoulder, behind the pauldron) and, half way, swung back (90 degrees); the staff stays low in the front hand.
+4. tools/art/hero_reels.py --hero nasus (the idle / BP reels come from the new actions), illaoi_souls.py, league.dll
+   0.9.109 (hd.rs compiles his .fanim in).
+
+R (ult) keeps GPT's frames: crouch, rise, the staff raised, the big form - as League's Spell4.
