@@ -13,7 +13,12 @@ has. The gap between his chest and the shield stays (in run[0..3] he holds the s
 
 Under the shield's bottom-left corner each of those frames also kept a hook of the old shield's outline (the user:
 「布隆盾牌下面有个黑边没处理干净」): a dark square one row under the left end of the bottom outline and a 4-square dash
-to the left of it, hanging in the air (run[4..7] have none). HOOKS lists them; they are cleared.
+to the left of it, hanging in the air (run[4..7] have none). HOOKS lists them; they are cleared. So are STRAYS (the user
+then: 「腿上好像也有」): one-square-wide dark strokes run[4..7] and the frames before bdbda7d47 do not have - a 3-square
+piece of the old shield's left edge standing beside his trousers in run[2], single squares on the shield's top outline
+and its top-left bevel, a spur on run[0]'s boot toe; FILLS closes the notch that spur left in the toe's outline, and a
+clear square with the figure on all four sides that bdbda7d47 left (a pinhole in the outline band under his forearm)
+takes the darkest colour beside it.
 
 The 1x and lo_ frames are not made anew (#784's own 1x frames are not pixel_down's: ~8 % of their squares differ from
 it, so a fresh one would differ from run[4..7] all over): each is derived from the dense frame before and after
@@ -47,19 +52,40 @@ HOOKS = {0: [(100, 81), (97, 82), (98, 82), (99, 82), (100, 82)], 1: [(97, 82), 
          2: [(105, 80), (102, 81), (103, 81), (104, 81), (105, 81)], 3: [(97, 79), (94, 80), (95, 80), (96, 80), (97, 80)]}
 
 
+# one-square-wide dark strokes left of the old shield / grown at the new one's bevel: (x, y) per frame, all outline-dark
+STRAYS = {0: [(95, 30), (88, 79)], 1: [(126, 26), (92, 31)], 2: [(134, 24), (100, 29), (90, 52), (90, 53), (90, 54)],
+          3: [(126, 23), (92, 28)]}
+# outline squares to add: the toe's outline joined to the boot's once its spur is gone
+FILLS = {0: [(87, 80)]}
+
 def unhook(c, i):
     out = c.copy()
-    for x, y in HOOKS.get(i, ()):
+    for x, y in list(HOOKS.get(i, [])) + list(STRAYS.get(i, [])):
         if out[y, x, 3] > 0:
             if int(out[y, x, :3].max()) >= 40:
                 sys.exit(f"run[{i}] ({x}, {y}) is not outline-dark: {out[y, x].tolist()}")
             out[y, x] = 0
+    for x, y in FILLS.get(i, ()):
+        if out[y, x, 3] == 0:
+            out[y, x] = OUTLINE
+    for y, x in np.argwhere(pinholes(out)):
+        nb = [out[y + dy, x + dx] for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+        out[y, x] = min(nb, key=lambda q: int(q[0]) + int(q[1]) + int(q[2]))
     return out
+
+
+def pinholes(c):
+    a = c[..., 3] > 0
+    pad = np.pad(a, 1)
+    return ~a & pad[:-2, 1:-1] & pad[2:, 1:-1] & pad[1:-1, :-2] & pad[1:-1, 2:]
 
 
 def outline_of():
     t = json.load(open(os.path.join(ROOT, "tools", "art", "thin_outline.json"), encoding="utf-8"))["league_braum"]
     return np.array(list(t["grow"]) + [255], np.uint8), int(t["hd"]["keep"])
+
+
+OUTLINE = outline_of()[0]
 
 
 def clear_beside(a):
@@ -91,7 +117,9 @@ def main():
     k = Kit(ROOT, "league", "braum")
     if "--check" in sys.argv:
         bad = [i for i in FRAMES if cuts(k.cell("hd_run", i), i).any()]
-        bad += [i for i in FRAMES if any(k.cell("hd_run", i)[y, x, 3] > 0 for x, y in HOOKS[i])]
+        bad += [i for i in FRAMES if any(k.cell("hd_run", i)[y, x, 3] > 0 for x, y in HOOKS[i] + STRAYS[i])]
+        bad += [i for i in FRAMES if any(k.cell("hd_run", i)[y, x, 3] == 0 for x, y in FILLS.get(i, ()))]
+        bad += [i for i in FRAMES if pinholes(k.cell("hd_run", i)).any()]
         print("braum run outline: OK" if not bad else f"braum run outline: frames {sorted(set(bad))} still cut / hooked")
         sys.exit(1 if bad else 0)
     colour, keep = outline_of()
