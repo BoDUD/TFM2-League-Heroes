@@ -329,8 +329,6 @@ def main():
     ears = {tuple(r): e for e in table["frames"] for r in e["rects"]}
     todo, swap, tags, squares = 0, {}, set(), 0
     for rects in pictures(k):
-        if all(t in ("hd_skill_w", "hd_b_skill_w") for t, _ in rects) and                 not any(k.rect(t, i) in ears for t, i in rects):
-            continue                     # nasus_w.py's raised-arm pictures: that tool cleans them its own way
         old = k.cell(*rects[0])
         e = next((ears[k.rect(t, i)] for t, i in rects if k.rect(t, i) in ears), None)
         new = draw(old, *e["eye"], e["own"], e["form"], {r: tuple(v) for r, v in e["pal"].items()}) if e else old

@@ -65,11 +65,10 @@ The user on GPT's Nasus: 「狗头的右耳朵我还感觉少了一块」「狗�
    (tools/lol/pose_ref.py: nasus_attack1 a chop over the head, Nasus_Spell1 a slam into a low crouch with the staff along
    the ground, Nasus_Base_Spell3_Full the staff raised high then cast forward), from pictures the sheet already has;
    same lengths. The hit's frame 0 keeps the braced guard (`nasus_hit.py` now reads its rects from the table).
-3. `nasus_w.py`: W as League's Spell2 - the free hand raised over his head, the staff low in the other hand: his
-   stance with the hanging back arm taken away and GPT's own W forearm (a quarter turn to point up) with its open hand
-   (fingers up, as GPT drew it) rising from behind the pauldron; half way is the same arm a few rows lower. The staff,
-   head and body are the stance's squares (a first try mirrored the hanging arm upside down and recoloured the staff's
-   end: 「左手变形了啊 武器也变形 你自己不review的吗」).
+3. W (skill_w) keeps GPT's frames (the free hand pushed forward, the staff raised): League's Spell2 raises the free
+   hand over his head, and two tries at that from GPT's drawings deformed him (the hanging arm mirrored upside down;
+   then GPT's thin, foreshortened forward forearm turned up, his side hollow where the big arm hung - 「左手变形了啊
+   武器也变形 你自己不review的吗」「还是有点变形」): that pose needs the arm and shoulder drawn anew.
 4. tools/art/hero_reels.py --hero nasus (the idle / BP reels come from the new actions), illaoi_souls.py, league.dll
    0.9.109 (hd.rs compiles his .fanim in).
 
