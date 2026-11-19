@@ -20,6 +20,13 @@
 //!   被动每拍看它走了多远：走起来以后一拍走不到 `STALL` 成（或者 `STALL_T` 拍都没走起来）就是半路撞上了墙，当场砸、晕
 //!   （同撞地图的墙）。被别人定身、眩晕时不算，免疫控制的不砸。英雄联盟里英雄造的墙也是地形，拖到上面一样晕。
 //!
+//! 0.2.0（2026-11-20，用户：「按照你的建议改吧」）：主包照英雄联盟改了两处，副本跟着主包一起变，本包的代码没加东西：
+//! W 震地壁垒成了自己的技能（自己的冷却，从普攻那一下命中里放，不再跟着 E 拖人结束出）；举着巨石时 Q 的目标在普攻
+//! 够不着的地方就马上扔。另外查了毒刺贯体的压制吃不吃韧性：英雄联盟的压制不吃。本包用 `apply_cc` 上的眩晕，读 0.7.2 的
+//! exe（宿主的 apply_cc 0x3493a60 -> 0x348fea0 -> 实体加控制 0x148df30 -> 眩晕 0x148e480）一路没有乘 (100 - 韧性)%，
+//! 也不看免疫控制（所以下面自己看）；数据里的 Stun（StunEffect 的 apply 0x171b660）才在调用前乘。和 2026-11-13 量到的
+//! 「强制位移不吃韧性」是同一回事，所以本包的压制本来就是满的，不用每拍补。主包的 R 是数据的 Stun，照样被韧性缩短。
+//!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。计数在目标身上（按斯卡纳的编号起名）
 //! 和被动自己身上，不用全局变量，服务端预模拟和你看的那场各算各的。
 //!
@@ -485,6 +492,7 @@ fn impale(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     if !sim.get_entity(target).is_some_and(|e| e.is_alive()) || cc_immune(sim, target) {
         return;
     }
+    // apply_cc 加的控制引擎不按韧性缩短（见文件开头），压制满 R_SUP 拍，和英雄联盟一样
     sim.apply_cc(target, &CcV1::stun(R_SUP as u64));
     retimed(sim, target, &n("r_held"), R_SUP);
     retimed(sim, target, &dragged_name(me), R_SUP);
@@ -785,6 +793,24 @@ mod tests {
         }
         assert!(!copy.contains("\"type\": \"Knockback\""), "the copy still drags in data");
         assert!(!copy.contains("\"type\": \"Grab\""), "the copy still pulls in data");
+    }
+
+    /// 0.2.0：副本里 W 是普攻放的（自己的冷却），E 拖完不再出护盾；举着巨石时 Q 先打探针看够不够得着。
+    #[test]
+    fn the_copy_casts_w_from_the_attack() {
+        let copy = include_str!("../override/league_skarner.data_champion");
+        // 顶层的键缩进两格，往下的更深：从这个键到下一个顶层键就是这一栏
+        let slot = |k: &str| {
+            let start = copy.find(&format!("\n  \"{k}\": ")).unwrap_or_else(|| panic!("no {k} in the copy")) + 1;
+            let rest = &copy[start..];
+            let end = rest[1..].find("\n  \"").map_or(rest.len(), |e| e + 1);
+            rest[..end].to_string()
+        };
+        assert!(slot("attack").contains("league_skarner_w_cd"), "W is not cast from the attack");
+        assert!(slot("attack").contains("\"Shield\""), "the attack has no W shield");
+        assert!(!slot("skill2").contains("\"Shield\""), "E's carry still gives W's shield");
+        assert!(!slot("skill2").contains("league_skarner_w_on"), "E's carry still shows W's shield");
+        assert!(slot("skill").contains("league_skarner_q_probe"), "Q does not look whether its target is in reach");
     }
 
     /// 2026-11-13: the map wall's slam needs him at the wall - one stopped short by another's crowd control stands in open

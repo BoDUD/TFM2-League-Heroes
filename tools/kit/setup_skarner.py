@@ -11,8 +11,8 @@ Names: Data Dragon 16.21.1 - zh_CN 斯卡纳 (上古领主): 战栗; 撼地 / �
 震動餘波; 翻天覆地 / 尖岩飛彈, 壁壘波動, 伊克斯塔爾衝擊, 蠍尾穿刺; ja スカーナー: 響振動; 砕けし大地 / 大地の怒り, 激震の砦,
 イシュタルの衝動, インペイル; ko 스카너: 진동의 가닥; 부서진 대지 / 지반 돌출, 대지의 수호자, 이쉬탈의 격돌, 꿰뚫기.
 Slots: skill = Shattered Earth (its Upheaval throw in the same text), skill2 = Ixtal's Impact, ult = Impale; Threads of
-Vibration and Seismic Bastion in the attack's text (the bastion's trigger - the charge's carry ending - is how W is cast
-at all, so it is said). The texts say the main pack's rules (the add-on's copy has its own:
+Vibration and Seismic Bastion in the attack's text (2026-11-20 起 W 从普攻里放，自己的冷却：文字写明冷却和什么时候放；
+Q 的文字加上目标在攻击范围外就马上扔). The texts say the main pack's rules (the add-on's copy has its own:
 addons/league_skarner/make_override.py). No combo sentence in any text (the user's rule: the combos are the README's).
 champion_view's face is his hood's crown measured up from the feet (text-audio.md): the face sits low at the front of
 his body, not at the top of the tails tfm2_ase.py face takes for a crown.
@@ -63,10 +63,10 @@ TEXT = {
     "zh-hans": {
         "name": "斯卡纳",
         "attack": "毒刺扎击。" + n("战栗") + "：普攻、巨石、毒刺打中英雄叠层，满{p_n}层" + t("{p_t}秒") + "内每秒掉最大生命{p_pct}%。" +
-                  n("震地壁垒") + "：冲锋停下时得" + phys("w_sh", "w_sh_r") + "护盾" + t("{w_sh_t}秒") + "，震伤周围" +
-                  phys("w_dmg", "w_ratio") + "、" + cc("减速") + "{w_slow}%。",
+                  n("震地壁垒") + "（每" + t("{w_cd}秒") + "）：身边有敌方英雄时普攻就得" + phys("w_sh", "w_sh_r") + "护盾" +
+                  t("{w_sh_t}秒") + "，震伤周围" + phys("w_dmg", "w_ratio") + "、" + cc("减速") + "{w_slow}%。",
         "skill": "掘起巨石" + t("{q_t}秒") + "，攻速+{q_as}%；3次普攻溅射" + phys("q_dmg", "q_ratio") + "，第3次加最大生命{q_hp}%、" +
-                 cc("减速") + "{q_slow}%。举满" + t("{q_hold}秒") + "就扔出" + n("擎天") + "：" + phys("q_toss_dmg", "q_toss_ratio") +
+                 cc("减速") + "{q_slow}%。目标在攻击范围外或举满" + t("{q_hold}秒") + "就扔出" + n("擎天") + "：" + phys("q_toss_dmg", "q_toss_ratio") +
                  "+最大生命{q_hp}%。",
         "skill2": "冲向敌方英雄，撞上后拖着走，停下时造成" + phys("e_dmg", "e_ratio") + "物理伤害并" + cc("晕眩") + t("{e_stun}秒") + "。",
         "ult": "三根毒刺往前扎：直线上的敌方英雄受到" + phys("r_dmg", "r_ratio") + "物理伤害，被" + cc("压制") + t("{r_sup}秒") +
@@ -76,10 +76,10 @@ TEXT = {
     "zh-hant": {
         "name": "史加納",
         "attack": "毒刺扎擊。" + n("震動餘波") + "：普攻、巨石、毒刺打中英雄疊層，滿{p_n}層" + t("{p_t}秒") + "內每秒掉最大生命{p_pct}%。" +
-                  n("壁壘波動") + "：衝鋒停下時得" + phys("w_sh", "w_sh_r") + "護盾" + t("{w_sh_t}秒") + "，震傷周圍" +
-                  phys("w_dmg", "w_ratio") + "、" + cc("緩速") + "{w_slow}%。",
+                  n("壁壘波動") + "（每" + t("{w_cd}秒") + "）：身邊有敵方英雄時普攻就得" + phys("w_sh", "w_sh_r") + "護盾" +
+                  t("{w_sh_t}秒") + "，震傷周圍" + phys("w_dmg", "w_ratio") + "、" + cc("緩速") + "{w_slow}%。",
         "skill": "掘起巨石" + t("{q_t}秒") + "，攻速+{q_as}%；3次普攻濺射" + phys("q_dmg", "q_ratio") + "，第3次加最大生命{q_hp}%、" +
-                 cc("緩速") + "{q_slow}%。舉滿" + t("{q_hold}秒") + "就扔出" + n("尖岩飛彈") + "：" + phys("q_toss_dmg", "q_toss_ratio") +
+                 cc("緩速") + "{q_slow}%。目標在攻擊範圍外或舉滿" + t("{q_hold}秒") + "就扔出" + n("尖岩飛彈") + "：" + phys("q_toss_dmg", "q_toss_ratio") +
                  "+最大生命{q_hp}%。",
         "skill2": "衝向敵方英雄，撞上後拖著走，停下時造成" + phys("e_dmg", "e_ratio") + "物理傷害並" + cc("暈眩") + t("{e_stun}秒") + "。",
         "ult": "三根毒刺往前扎：直線上的敵方英雄受到" + phys("r_dmg", "r_ratio") + "物理傷害，被" + cc("壓制") + t("{r_sup}秒") +
@@ -90,12 +90,12 @@ TEXT = {
         "name": "Skarner",
         "attack": "Stinger strikes. " + n("Threads of Vibration") + ": his attacks, the boulder and Impale stack Quaking on "
                   "champions; at {p_n} they take {p_pct}% max health a second for " + t("{p_t}s") + ". " +
-                  n("Seismic Bastion") + ": when his charge stops he gains a " + phys("w_sh", "w_sh_r") + " shield for " +
-                  t("{w_sh_t}s") + " and quakes the ground for " + phys("w_dmg", "w_ratio") + ", " + cc("slowing") +
-                  " {w_slow}%.",
+                  n("Seismic Bastion") + " (every " + t("{w_cd}s") + "): attacking near an enemy champion, a " +
+                  phys("w_sh", "w_sh_r") + " shield for " + t("{w_sh_t}s") + " and a quake of " + phys("w_dmg", "w_ratio") +
+                  ", " + cc("slowing") + " {w_slow}%.",
         "skill": "Rips up a boulder for " + t("{q_t}s") + ": +{q_as}% attack speed, his next 3 attacks splash " +
-                 phys("q_dmg", "q_ratio") + ", the third {q_hp}% max health more and " + cc("slows") + " {q_slow}%. Held " +
-                 t("{q_hold}s") + ", it is thrown (" + n("Upheaval") + "): " + phys("q_toss_dmg", "q_toss_ratio") +
+                 phys("q_dmg", "q_ratio") + ", the third {q_hp}% max health more and " + cc("slows") + " {q_slow}%. Thrown (" +
+                 n("Upheaval") + ") at a target out of reach or after " + t("{q_hold}s") + ": " + phys("q_toss_dmg", "q_toss_ratio") +
                  " + {q_hp}% max health.",
         "skill2": "Charges an enemy champion and carries it along; when the charge stops it takes " + phys("e_dmg", "e_ratio") +
                   " physical damage and is " + cc("stunned") + " for " + t("{e_stun}s") + ".",
@@ -107,10 +107,11 @@ TEXT = {
     "ko": {
         "name": "스카너",
         "attack": "독침 공격. " + n("진동의 가닥") + ": 기본 공격, 바위, 꿰뚫기가 챔피언에게 진동 중첩, {p_n}중첩이면 " + t("{p_t}초") +
-                  " 동안 매초 최대 체력 {p_pct}% 피해. " + n("대지의 수호자") + ": 돌진이 멈추면 " + phys("w_sh", "w_sh_r") +
-                  " 보호막 " + t("{w_sh_t}초") + ", 주변에 " + phys("w_dmg", "w_ratio") + " 피해, {w_slow}% " + cc("둔화") + ".",
+                  " 동안 매초 최대 체력 {p_pct}% 피해. " + n("대지의 수호자") + "(" + t("{w_cd}초") + "마다): 근처에 적 챔피언이 있을 때 기본 공격하면 " +
+                  phys("w_sh", "w_sh_r") + " 보호막 " + t("{w_sh_t}초") + ", 주변에 " + phys("w_dmg", "w_ratio") + " 피해, {w_slow}% " +
+                  cc("둔화") + ".",
         "skill": "바위를 " + t("{q_t}초") + " 들어 올림: 공격 속도 +{q_as}%, 다음 기본 공격 3회가 " + phys("q_dmg", "q_ratio") +
-                 " 범위 피해, 3번째는 최대 체력 {q_hp}% 추가와 {q_slow}% " + cc("둔화") + ". " + t("{q_hold}초") + " 들고 있으면 던짐(" +
+                 " 범위 피해, 3번째는 최대 체력 {q_hp}% 추가와 {q_slow}% " + cc("둔화") + ". 대상이 사거리 밖이거나 " + t("{q_hold}초") + " 들고 있으면 던짐(" +
                  n("지반 돌출") + "): " + phys("q_toss_dmg", "q_toss_ratio") + " + 최대 체력 {q_hp}%.",
         "skill2": "적 챔피언에게 돌진해 끌고 감; 돌진이 멈추면 " + phys("e_dmg", "e_ratio") + " 물리 피해와 " + t("{e_stun}초") + " " +
                   cc("기절") + ".",
@@ -121,10 +122,11 @@ TEXT = {
     "ja": {
         "name": "スカーナー",
         "attack": "毒針で攻撃。" + n("響振動") + "：通常攻撃・岩・インペイルがチャンピオンに振動を付与、{p_n}スタックで" + t("{p_t}秒") +
-                  "間毎秒最大体力{p_pct}%のダメージ。" + n("激震の砦") + "：突進が止まるとシールド" + phys("w_sh", "w_sh_r") +
-                  "を" + t("{w_sh_t}秒") + "得て周囲に" + phys("w_dmg", "w_ratio") + "、{w_slow}%" + cc("スロウ") + "。",
+                  "間毎秒最大体力{p_pct}%のダメージ。" + n("激震の砦") + "（" + t("{w_cd}秒") + "毎）：敵チャンピオン付近で通常攻撃するとシールド" +
+                  phys("w_sh", "w_sh_r") + "を" + t("{w_sh_t}秒") + "、周囲に" + phys("w_dmg", "w_ratio") + "、{w_slow}%" +
+                  cc("スロウ") + "。",
         "skill": "岩を" + t("{q_t}秒") + "掲げる：攻撃速度+{q_as}%、次の通常攻撃3回が" + phys("q_dmg", "q_ratio") + "の範囲ダメージ、"
-                 "3回目は最大体力{q_hp}%追加と{q_slow}%" + cc("スロウ") + "。" + t("{q_hold}秒") + "持つと投げる（" + n("大地の怒り") +
+                 "3回目は最大体力{q_hp}%追加と{q_slow}%" + cc("スロウ") + "。対象が射程外か" + t("{q_hold}秒") + "持つと投げる（" + n("大地の怒り") +
                  "）：" + phys("q_toss_dmg", "q_toss_ratio") + "+最大体力{q_hp}%。",
         "skill2": "敵チャンピオンに突進して引きずる；止まると" + phys("e_dmg", "e_ratio") + "の物理ダメージと" + t("{e_stun}秒") +
                   cc("スタン") + "。",
@@ -151,7 +153,7 @@ def values(p):
     v = {k: p[k] for k in ("p_n", "p_pct", "w_sh", "w_sh_r", "w_dmg", "w_ratio", "w_slow", "q_as", "q_dmg", "q_ratio",
                            "q_hp", "q_slow", "q_toss_dmg", "q_toss_ratio", "e_dmg", "e_ratio", "r_dmg", "r_ratio", "r_ms")}
     assert p["p_p"] == 60, "the texts say Quaking burns every second"
-    for k in ("p_t", "w_sh_t", "q_t", "q_hold", "e_stun", "r_sup", "r_ms_t"):
+    for k in ("p_t", "w_cd", "w_sh_t", "q_t", "q_hold", "e_stun", "r_sup", "r_ms_t"):
         v[k] = secs(p[k])
     return v
 

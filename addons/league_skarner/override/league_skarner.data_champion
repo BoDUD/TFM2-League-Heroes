@@ -478,6 +478,229 @@
                                     "effects": []
                                   }
                                 }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_skarner_w_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_skarner_w_go"
+                                      },
+                                      {
+                                        "type": "RandomTarget",
+                                        "range": 20000,
+                                        "casting_target": "EnemyChampion",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_skarner_w_go",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_skarner_w_go",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_skarner_w_go"
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_skarner_w_cd"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_skarner_w_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 600
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "w",
+                                                  "tick": 16
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 1000
+                                                    }
+                                                  },
+                                                  "target": "AllyOnlySelf",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Shield",
+                                                      "amount": 40,
+                                                      "attack_ratio": 20,
+                                                      "ap_ratio": 0,
+                                                      "tick": 180
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_skarner_w_on",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 180
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 1000
+                                                    }
+                                                  },
+                                                  "target": "AllyOnlySelf",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 6,
+                                                      "effects": [
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RandomTarget",
+                                                              "range": 1,
+                                                              "casting_target": "AllyOnlySelf",
+                                                              "from_projectile": false,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_skarner_lives",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 1
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_skarner_lives",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_skarner_w_quake"
+                                                                  },
+                                                                  {
+                                                                    "type": "Sfx",
+                                                                    "name": "league_skarner_w"
+                                                                  },
+                                                                  {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 20000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Attack",
+                                                                        "damage": 20,
+                                                                        "attack_ratio": 30,
+                                                                        "hp_ratio": 0,
+                                                                        "target_hp_ratio": 0,
+                                                                        "attack_effect_type": "Target"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_skarner_w_slow",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 90
+                                                                            }
+                                                                          },
+                                                                          "move_speed_mult": -30
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "type": "ViewEffect",
+                                                                        "name": "league_skarner_w_hit"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
+                                                            },
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_skarner_lives"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             ]
                           },
@@ -577,231 +800,432 @@
           "type": "SwitchByBuff",
           "buff_name": "league_skarner_rock",
           "effect_buff": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_skarner_q_toss",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": []
-            },
-            "effect_none": {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "CasterAnimation",
-                  "name": "skill_toss",
-                  "tick": 24
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_skarner_q_seen"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_skarner_q_near"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_skarner_q_go"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_skarner_q_toss",
+                "effect_buff": {
+                  "type": "TargetProjectile",
+                  "name": "league_skarner_q_probe",
+                  "speed": 60000,
+                  "y_offset": 0,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_skarner_q_seen",
+                              "duration": {
+                                "Time": {
+                                  "tick": 6
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 25000,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": true,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_skarner_q_near",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 6
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 },
-                {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_skarner_rock"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_skarner_rock_v"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_skarner_rk1"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_skarner_rk2"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_skarner_q_toss"
-                    },
-                    {
-                      "type": "Delayed",
-                      "tick": 8,
-                      "effects": [
-                        {
+                "effect_none": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_skarner_q_go",
+                    "duration": {
+                      "Time": {
+                        "tick": 6
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 3,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_skarner_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_skarner_lives",
+                        "effect_buff": {
                           "type": "Combine",
                           "effects": [
                             {
-                              "type": "RandomTarget",
-                              "range": 1,
-                              "casting_target": "AllyOnlySelf",
-                              "from_projectile": false,
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_skarner_lives",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 1
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_skarner_lives",
+                              "buff_name": "league_skarner_rock",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_skarner_q_toss"
-                                      },
-                                      {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_skarner_q_throw",
-                                        "travel_time": 16,
-                                        "range": 400000,
-                                        "range_effect_name": "",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 9000
-                                          }
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_skarner_q_seen",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_skarner_q_seen"
                                         },
-                                        "applied_target": "EnemyWithoutTower",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Attack",
-                                              "damage": 50,
-                                              "attack_ratio": 80,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 3,
-                                              "attack_effect_type": "Target"
-                                            }
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_skarner_q_near",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
                                           },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_skarner_q_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 60
-                                                  }
-                                                },
-                                                "move_speed_mult": -40
-                                              }
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ViewEffect",
-                                              "name": "league_skarner_q_hit"
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "TargetSfx",
-                                              "name": "league_skarner_q_hit"
-                                            }
-                                          }
-                                        ],
-                                        "end_effects": [
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_skarner_q_land"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_skarner_q_land"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_skarner_q_tc",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 9000
+                                          "effect_none": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_skarner_q_go",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 6
+                                                }
                                               }
                                             },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "EnemyChampion",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Native",
-                                                  "effect_ref": "league_skarner:quake"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_skarner_e_far",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_skarner_e_far"
-                                                      },
-                                                      {
+                                            "only_to_enemy": false
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_skarner_q_near"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_skarner_q_go",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_skarner_q_go"
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill_toss",
+                                          "tick": 24
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_skarner_rock"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_skarner_rock_v"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_skarner_rk1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_skarner_rk2"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_skarner_q_toss"
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 8,
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RandomTarget",
+                                                      "range": 1,
+                                                      "casting_target": "AllyOnlySelf",
+                                                      "from_projectile": false,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_skarner_lives",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_skarner_lives",
+                                                      "effect_buff": {
                                                         "type": "Combine",
                                                         "effects": [
                                                           {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_skarner_e_cd"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_skarner_e_cd",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 240
-                                                                }
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "Sfx",
+                                                                "name": "league_skarner_q_toss"
+                                                              },
+                                                              {
+                                                                "type": "ParabolicProjectile",
+                                                                "name": "league_skarner_q_throw",
+                                                                "travel_time": 16,
+                                                                "range": 400000,
+                                                                "range_effect_name": "",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 9000
+                                                                  }
+                                                                },
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "Attack",
+                                                                      "damage": 50,
+                                                                      "attack_ratio": 80,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 3,
+                                                                      "attack_effect_type": "Target"
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_skarner_q_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 60
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -40
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_skarner_q_hit"
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_skarner_q_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_skarner_q_land"
+                                                                  },
+                                                                  {
+                                                                    "type": "Sfx",
+                                                                    "name": "league_skarner_q_land"
+                                                                  },
+                                                                  {
+                                                                    "type": "RangeProjectile",
+                                                                    "name": "league_skarner_q_tc",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 9000
+                                                                      }
+                                                                    },
+                                                                    "delay": 1,
+                                                                    "apply": 1,
+                                                                    "applied_target": "EnemyChampion",
+                                                                    "applied_effects": [
+                                                                      {
+                                                                        "casting_type": "Targeting",
+                                                                        "effect": {
+                                                                          "type": "Native",
+                                                                          "effect_ref": "league_skarner:quake"
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "casting_type": "Targeting",
+                                                                        "effect": {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_skarner_e_far",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_skarner_e_far"
+                                                                              },
+                                                                              {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_skarner_e_cd"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_skarner_e_cd",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 240
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
                                                               }
-                                                            },
-                                                            "only_to_enemy": false
+                                                            ]
                                                           }
                                                         ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
                                                       }
-                                                    ]
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "Combine",
-                                                    "effects": []
-                                                  }
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_skarner_lives"
+                                                    }
+                                                  ]
                                                 }
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 ]
                               },
                               "effect_none": {
                                 "type": "Combine",
-                                "effects": []
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_skarner_q_seen"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_skarner_q_near"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_skarner_q_go"
+                                  }
+                                ]
                               }
-                            },
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_skarner_lives"
                             }
                           ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
                         }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_skarner_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           },
           "effect_none": {
             "type": "SwitchByBuff",
@@ -1209,129 +1633,6 @@
                                         {
                                           "type": "RemoveCasterBuff",
                                           "name": "league_skarner_q_cd"
-                                        },
-                                        {
-                                          "type": "Delayed",
-                                          "tick": 6,
-                                          "effects": [
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyOnlySelf",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_skarner_lives",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 1
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_skarner_lives",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RangeEffect",
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 1000
-                                                          }
-                                                        },
-                                                        "target": "AllyOnlySelf",
-                                                        "apply_type": "AroundCaster",
-                                                        "effects": [
-                                                          {
-                                                            "type": "Shield",
-                                                            "amount": 40,
-                                                            "attack_ratio": 20,
-                                                            "ap_ratio": 0,
-                                                            "tick": 180
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_skarner_w_on",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 180
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_skarner_w_quake"
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_skarner_w"
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "RangeEffect",
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 16000
-                                                          }
-                                                        },
-                                                        "target": "EnemyWithoutTower",
-                                                        "apply_type": "AroundCaster",
-                                                        "effects": [
-                                                          {
-                                                            "type": "Attack",
-                                                            "damage": 20,
-                                                            "attack_ratio": 30,
-                                                            "hp_ratio": 0,
-                                                            "target_hp_ratio": 0,
-                                                            "attack_effect_type": "Target"
-                                                          },
-                                                          {
-                                                            "type": "AddBuff",
-                                                            "buff_state": {
-                                                              "name": "league_skarner_w_slow",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 90
-                                                                }
-                                                              },
-                                                              "move_speed_mult": -30
-                                                            }
-                                                          },
-                                                          {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_skarner_w_hit"
-                                                          }
-                                                        ]
-                                                      }
-                                                    ]
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "Combine",
-                                                    "effects": []
-                                                  }
-                                                },
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_skarner_lives"
-                                                }
-                                              ]
-                                            }
-                                          ]
                                         }
                                       ]
                                     }
