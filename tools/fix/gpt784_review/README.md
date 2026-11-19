@@ -10,8 +10,9 @@ CI's 57 Python checks and the Rust suites.
 
 Fixed here:
 
-- `chogath_size.py`: GPT's Cho'Gath stood 58 dense rows (48 game px) against the user's 「38 像素」: hd.rs SIZES 0.79,
-  his dense frames 4 rows lower (Zaahen's drop), lo_ frames again with the size in them, strips.
+- Cho'Gath: GPT's redo and the fixes on it (`chogath_size.py` hd.rs SIZES 0.79, `chogath_run.py`, `chogath_holes.py`,
+  the reel picks and face point) are undone at the user's word (2026-11-19: 「科加斯也还原吧不改了」): every
+  Cho'Gath file, SIZES, face point and idle picks are main's (099abf3b3) again; the three tools are gone.
 - `nasus_hit.py`: his hit (both forms) flipped the staff from across to upright and back inside 0.2 s: frame 0 is now
   the braced guard of his attack (attack[4] / b_attack[4]), no pixel drawn.
 - `galio_loop.py`: idle_loop frames 1 and 7 stood a row higher than the idle (a bob in every hold): moved down a row.

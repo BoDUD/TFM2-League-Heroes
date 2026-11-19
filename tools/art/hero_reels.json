@@ -16,7 +16,7 @@
   "league_caitlyn": {"idle": [["skill2", [0, 1]], ["attack", [0]], ["ult", [0]]]},
   "league_camille": {"idle": [["attack_q", [5]], ["ult", [5]]]},
   "league_cassiopeia": {"idle": [["ult", [0, 1, 2, 3]], ["skill", [0, 1, 2, 3]]]},
-  "league_chogath": {"idle": [["skill2", [1, 2, 3]], ["skill", [4, 5]]]},
+  "league_chogath": {"idle": [["skill", [1, 2]], ["skill2", [1, 2, 3]]]},
   "league_corki": {"idle": [["ult", [0, 1, 2, 3]], ["attack", [0, 1, 2, 3]]]},
   "league_darius": {"idle": [["skill", [0, 1, 2]], ["attack", [5]]]},
   "league_diana": {"idle": [["ult", [0]], ["skill2_w", [6]]]},
