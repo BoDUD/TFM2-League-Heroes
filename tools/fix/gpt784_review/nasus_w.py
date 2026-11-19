@@ -1,23 +1,22 @@
 """league_nasus's W (Wither, skill_w / b_skill_w) the way League's Nasus casts it (the user, 2026-11-19: 「狗头的平A动作不像
-英雄联盟的 重改 包括释放其他技能时都要像英雄联盟的动作才行」): Nasus_Base_Spell2_Full raises his free hand high over his
-head and holds it there, the staff low in the other hand. GPT's W pushed the free hand out in front with the staff
-raised beside the head - no room there for a raised arm (it would cover his snout or the staff's blade).
+英雄联盟的 重改 包括释放其他技能时都要像英雄联盟的动作才行」, then on the first try, an arm turned upside down: 「左手变形了啊
+武器也变形 你自己不review的吗」): Nasus_Base_Spell2_Full raises his free hand high over his head and holds it there, the
+staff low in the other hand. GPT's W pushed the free hand out in front with the staff raised beside the head.
 
 His stance (idle_base[0] / b_idle_base[0]) already holds the staff low in his front hand alone; the back arm hangs
-free beside him, apart from the body. Two pictures are made from it, nothing redrawn square by square:
+free beside him. The up picture: that hanging arm (HANG: its rows, its columns per row) taken away, and in its place
+GPT's own W arm raised - the forearm GPT drew pointing forward (FORE) turned a quarter to point up (no square scaled
+or redrawn: a quarter turn keeps every square), the open hand at its end (HAND: fingers up, as GPT drew it) left as it
+is on top - rising from behind the pauldron (only clear squares take it: the pauldron and the head stay in front). The
+mid picture is the same arm DROP rows lower, the hand just over the pauldron: the arm comes up, it never changes shape.
+Where the arm hung the body's bare edge is outlined (nasus_clean.py's first step only: its band pass, which counts
+near-black shade as outline, would take the thin staff end the fist hid), then tools/art/thin_outline.py's own pass
+(pure outline only); the staff, the head and the rest stay the stance's squares.
 
-- up: the hanging arm (ARM: its rows, its columns per row) turned up - mirrored top to bottom about FLIP, so its
-  shoulder end sits behind the pauldron and the fist stands over his head, left of the ears; it goes behind the body
-  (only clear squares take it). No square is rotated or scaled, so it keeps its shape;
-- mid: the same arm swung back (turned 90 degrees about its shoulder, PIVOT), half way up.
-Where the fist rested on the staff the staff's rear end stays: its near-black core squares (box KEEP) take the
-shaft's dark brown (CORE), so the outline pass of tools/fix/gpt784_review/nasus_clean.py keeps the thin shaft; then
-that pass (the arm's old place gets the body's outline). The 1x and lo_ frames of the two pictures are sheetkit's
-(tools/fix/xinzhao_galio_1119/sheetkit.py), the same frame sizes as the stance's.
-
-The W plays: the stance, the arm back, the arm up (held), the arm back, the stance - 300 ms like GPT's four frames
-(data_champion plays it as an effect; its timing is the effect's own). The strips nasus_[b_]skill_w (assets/source/
-ppu[/orig]) are written from the tags. Run after nasus_clean.py and nasus_actions.py.
+The W plays: the stance, half up, up (held), half up, the stance - 300 ms like GPT's four frames. The 1x and lo_
+frames of the two pictures are sheetkit's (tools/fix/xinzhao_galio_1119/sheetkit.py), the stance's frame sizes. The
+strips nasus_[b_]skill_w (assets/source/ppu[/orig]) are written from the tags. Run after nasus_clean.py and
+nasus_actions.py; nasus_clean.py leaves the two pictures alone (only skill_w tags show them).
 
     python tools/fix/gpt784_review/nasus_w.py [--check]
 """
@@ -37,48 +36,61 @@ _spec = importlib.util.spec_from_file_location("nasus_clean", os.path.join(os.pa
 nc = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(nc)
 
-CORE = (47, 36, 35)
-# per form: the stance tag, ARM (first row, last row, [(up to this row, first column, last column)]), FLIP (row = FLIP -
-# row), PIVOT (row, column) of the swing back, KEEP (rows, columns) of the staff's rear end
+# per form: the stance tag; GPT's W picture (its rect: GPT's skill_w[2] / b_skill_w[2], no tag plays it since); HANG
+# (first row, last row, [(up to row, first column, last column)]); FORE and HAND (rows, columns) in GPT's W picture;
+# PLACE (top row, left column of the raised arm, the hand's shift right of the forearm, rows the hand overlaps it); DROP
 FORMS = {
-    "": ("idle_base", (24, 37, [(33, 26, 35), (37, 30, 36)]), 40, (24, 30), ((38, 42), (22, 38))),
-    "b_": ("b_idle_base", (32, 50, [(45, 29, 40), (50, 33, 42)]), 52, (32, 35), ((51, 56), (24, 46))),
+    "": ("idle_base", (0, 3609, 88, 85), (24, 37, [(33, 26, 35), (37, 30, 36)]), ((21, 26), (53, 63)),
+         ((16, 25), (64, 71)), (0, 28, 0, 3), 7),
+    "b_": ("b_idle_base", (219, 4542, 104, 116), (32, 50, [(45, 29, 40), (50, 33, 42)]), ((26, 34), (63, 80)),
+           ((21, 34), (80, 89)), (0, 33, -1, 8), 9),
 }
-# (picture, ms): s stance, m arm back, u arm up
+# (picture, ms): s stance, m half up, u up
 PLAY = [("s", 50), ("m", 50), ("u", 140), ("m", 30), ("s", 30)]
 
 
-def arm(c, spec):
-    r0, r1, parts = spec
-    m = np.zeros(c.shape[:2], bool)
+def raised_arm(w, fore, hand, dx, overlap):
+    """GPT's W forearm turned to point up, the hand on top -> RGBA patch, the forearm's column offset in it."""
+    (fy0, fy1), (fx0, fx1) = fore
+    (hy0, hy1), (hx0, hx1) = hand
+    fp = w[fy0:fy1 + 1, fx0:fx1 + 1]
+    hp = w[hy0:hy1 + 1, hx0:hx1 + 1]
+    fv = np.rot90(fp, 1)                       # a quarter turn: its wrist end (right) on top
+    fx = max(0, -dx)
+    out = np.zeros((hp.shape[0] - overlap + fv.shape[0], max(fx + fv.shape[1], fx + dx + hp.shape[1]), 4), np.uint8)
+    y = hp.shape[0] - overlap
+    sub = out[y:y + fv.shape[0], fx:fx + fv.shape[1]]
+    out[y:y + fv.shape[0], fx:fx + fv.shape[1]] = np.where(fv[..., 3:] > 0, fv, sub)
+    sub = out[:hp.shape[0], fx + dx:fx + dx + hp.shape[1]]
+    out[:hp.shape[0], fx + dx:fx + dx + hp.shape[1]] = np.where(hp[..., 3:] > 0, hp, sub)
+    return out
+
+
+def edge_outline(a):
+    """nasus_clean.py's first step alone: the body's bare edge outlined where the body goes on inside it."""
+    a = a.copy()
+    op = a[..., 3] > 0
+    is_o = op & (a[..., :3] == nc.OUTLINE).all(-1)
+    edge = op & nc.four(~op, True)
+    a[edge & ~is_o & ~nc.glows(a) & nc.four(op & ~edge, False), :3] = nc.OUTLINE
+    return a
+
+
+def pose(c, w, form, drop):
+    _, _, (r0, r1, parts), fore, hand, (top, left, dx, overlap), _ = FORMS[form]
+    out = c.copy()
     for r in range(r0, r1 + 1):
         c0, c1 = next((a, b) for upto, a, b in parts if r <= upto)
-        m[r, c0:c1 + 1] = True
-    return m & (c[..., 3] > 0)
-
-
-def pose(c, form, up):
-    _, spec, flip, pivot, (rows, cols) = FORMS[form]
-    m = arm(c, spec)
-    out = c.copy()
-    out[m] = 0
-    ys, xs = np.nonzero(m)
-    h, w = c.shape[:2]
-    if up:
-        ny, nx = flip - ys, xs
-    else:
-        py, px = pivot
-        ny, nx = py - (xs - px), px - (ys - py)
-    ok = (ny >= 0) & (ny < h) & (nx >= 0) & (nx < w)
-    moved = np.zeros_like(out)
-    moved[ny[ok], nx[ok]] = c[ys[ok], xs[ok]]
-    behind = (moved[..., 3] > 0) & (out[..., 3] == 0)
-    out[behind] = moved[behind]
-    box = np.zeros(c.shape[:2], bool)
-    box[rows[0]:rows[1] + 1, cols[0]:cols[1] + 1] = True
-    core = box & (out[..., 3] > 0) & (nc.lab_l(out[..., :3]) < nc.INK_L) & ~(out[..., :3] == nc.OUTLINE).all(-1)
-    out[core, :3] = CORE
-    return nc.clean(out)
+        out[r, c0:c1 + 1] = 0
+    arm = raised_arm(w, fore, hand, dx, overlap)
+    h, wd = out.shape[:2]
+    ys, xs = np.nonzero(arm[..., 3] > 0)
+    for y, x in zip(ys, xs):
+        Y, X = top + drop + y, left + x
+        if 0 <= Y < h and 0 <= X < wd and out[Y, X, 3] == 0:
+            out[Y, X] = arm[y, x]
+    # thin_outline.py's own pass (outline = pure (4, 3, 1) only, so the staff's near-black end stays) for its CI check
+    return nc.th.change_fixed(edge_outline(out), nc.TP["hd"], nc.TP["outline"], nc.TP["grow"])[0]
 
 
 def rect(k, tag, i):
@@ -95,7 +107,9 @@ def main():
         s = {pre: rect(k, pre + stance, 0) for pre in ("hd_", "", "lo_")}
         hd = k.cell("hd_" + stance, 0)
         one_shape = k.cell(stance, 0).shape
-        pics = {"m": pose(hd, form, False), "u": pose(hd, form, True)}
+        x, y, w, h = FORMS[form][1]
+        src = k.sheet[y:y + h, x:x + w]
+        pics = {"m": pose(hd, src, form, FORMS[form][6]), "u": pose(hd, src, form, 0)}
         # where the two pictures live: the rects the tag already gives them (same size), else new ones
         cur = k.anims["hd_" + tag]["frames"]
         others = {tuple(int(round(f["data"][q])) for q in "xywh") for t, a in k.anims.items()
