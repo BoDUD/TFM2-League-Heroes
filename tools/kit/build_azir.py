@@ -109,6 +109,11 @@ pack's ~13, each move a fresh 10 s on the target; without the line +2.25 - the l
 the landing's stab on champions only (`qc`: balance-neutral, the combo as it was) - so the copy has its own stab and Q
 (n_*): 60 + 80 / 90 + 50 +1.08, 50 + 60 / 75 + 40 -0.43 (both before `qc`), 54 + 68 / 80 + 44 +0.10 (deal 10387; +0.33 on
 seeds 25-48).
+2026-11-20（Q 挪过去的沙兵不再重新算 10 秒，同一个模拟器 C:/t/azq_sim，每组 720 局）：改动前的副本重跑一遍还是 +0.10（和 11-17
+一样，模拟器能原样复现）。改完数字不动：副本 +0.72，反而强了。挪过的兵不再一直占着槽位，普攻在眼前的目标旁边召新兵多了
+（每局 49 -> 73 个），刺得更准。所以副本的刺击往下调：50 + 62% -0.09，52 + 65% +0.12 / +0.07（种子 1-24 / 25-48，伤害
+10489 / 10362），定 52 + 65%（改动前两组的平均约 +0.22，差距在误差里）。主包的 Q 只挪向英雄（每局十几次），数字不动：
++0.20（种子 1-24，改动前 +0.37）。
 """
 import argparse
 import json
@@ -148,7 +153,7 @@ P = {
     # the add-on's copy's own stab and Q (0.3.0): there the soldiers stab through a line and every Q dashes them (at any
     # target, their paths dealing Q, a stab on landing), so each hit is lighter - balanced on the classic engine with the
     # add-on emulated (sim3az, the docstring); the main pack keeps s_dmg / s_ap / q_dmg / q_ap
-    "n_s_dmg": 54, "n_s_ap": 68, "n_q_dmg": 80, "n_q_ap": 44,
+    "n_s_dmg": 52, "n_s_ap": 65, "n_q_dmg": 80, "n_q_ap": 44,
     # s_ap 100 -> 106 with the tether (2026-11-04): the soldiers past 660 had dealt 6.5% of his damage (classic seeds 1-24,
     # 720 games: kill difference +0.14 -> +0.06, back to +0.14 at 106); s_dmg 75 -> 74, s_ap 106 -> 88 on 2026-11-17 (the
     # soldiers by the target for 10 s: +0.14 -> +0.60, back to +0.37 / -0.11 on seeds 1-24 / 25-48 - the docstring's Numbers)
@@ -479,7 +484,7 @@ def build(p):
         """`name` 挂一 tick：有能被 Q 挪的沙兵（站着、没塌，离 10 秒到头还够冲一次）。"""
         return combine(*rm(name), *[sw(f"b{s}", kept(s, sw(f"w{s}", refresh(name, 1)))) for s in SLOTS])
 
-    on_spot =lambda target: (lambda effects: lob("s_lob", 1, effects, target))
+    on_spot = lambda target: (lambda effects: lob("s_lob", 1, effects, target))
 
     # ------------------------------------------------------------------ the controller: Q's move, E's soldier
     def move(g):

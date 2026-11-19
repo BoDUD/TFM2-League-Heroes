@@ -301,7 +301,7 @@ impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
                r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
-               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 54, s_ap: 68,
+               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 52, s_ap: 65,
                s_r: 42000, s_line: 5000, q_dmg: 80, q_ap: 44, q_w: 9000, q_slow: 25, q_slow_t: 60, q_travel: 18,
                ss_dash: 2, tied: false, lined: false }
     }
