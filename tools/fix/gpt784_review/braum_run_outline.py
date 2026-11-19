@@ -1,0 +1,100 @@
+"""league_braum's run frames 0-3 after GPT's smaller shield (bdbda7d47): the outline round the cuts.
+
+The old run[0..3] held a shield ~15 % bigger than run[4..7] and the idle; bdbda7d47 drew the smaller one in its place,
+and where the big one had covered him his body now ends in a straight cut with no outline: the underside of his
+forearm (a flat light row from the shoulder to the hand), the side of his chest under the arm (a flat light column), the
+shield's own top-left bevel and a few squares round the gripping hand - 44-52 light squares on the edge of each frame,
+where run[4..7], the idle and the attack have 0-1.
+
+Here every such square (light, with a clear square beside it, not one the frame already had before bdbda7d47) gets the
+hero's outline round it: the clear squares within KEEP (league_braum's hd_ outline: 2, tools/art/thin_outline.json) of
+it take the outline colour, so the body keeps every square it had and shows the 2-square outline every other edge of his
+has. The gap between his chest and the shield stays (in run[0..3] he holds the shield out further than in run[4..7]).
+
+The 1x and lo_ frames are not made anew (#784's own 1x frames are not pixel_down's: ~8 % of their squares differ from
+it, so a fresh one would differ from run[4..7] all over): each is derived from the dense frame before and after
+(tools/fix/xinzhao_galio_1119/sheetkit.py) and only the squares that differ between the two are written into it - the
+outline at that scale. The strips are rewritten from the dense frames. Then
+`python -I tools/art/thin_outline.py --hero league_braum` evens the lo_ outline as on every other frame.
+
+    python tools/fix/gpt784_review/braum_run_outline.py
+    python -I tools/art/thin_outline.py --hero league_braum
+    python tools/fix/gpt784_review/braum_run_outline.py --check
+"""
+import json
+import os
+import sys
+
+import numpy as np
+
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+sys.path.insert(0, os.path.join(ROOT, "tools", "fix", "xinzhao_galio_1119"))
+from sheetkit import Kit  # noqa: E402
+
+FRAMES = (0, 1, 2, 3)
+# light edge squares each frame had before bdbda7d47 (its own drawing: a hair-thin highlight on the head's outline):
+# left as they are
+OLD = {0: {(12, 63), (13, 81)}, 1: {(15, 57), (17, 84), (19, 40), (41, 86), (83, 66)}, 2: {(11, 66)},
+       3: {(9, 60), (11, 78), (14, 93), (14, 94), (19, 108)}}
+
+
+def outline_of():
+    t = json.load(open(os.path.join(ROOT, "tools", "art", "thin_outline.json"), encoding="utf-8"))["league_braum"]
+    return np.array(list(t["grow"]) + [255], np.uint8), int(t["hd"]["keep"])
+
+
+def clear_beside(a):
+    pad = np.pad(a, 1)
+    return ~pad[:-2, 1:-1] | ~pad[2:, 1:-1] | ~pad[1:-1, :-2] | ~pad[1:-1, 2:]
+
+
+def cuts(c, i):
+    a = c[..., 3] > 0
+    m = a & clear_beside(a) & (c[..., :3].astype(int).sum(-1) > 150)
+    for y, x in OLD.get(i, ()):
+        m[y, x] = False
+    return m
+
+
+def outline(c, i, colour, keep):
+    out = c.copy()
+    front = cuts(c, i)
+    for _ in range(keep):
+        pad = np.pad(front, 1)
+        near = pad[:-2, 1:-1] | pad[2:, 1:-1] | pad[1:-1, :-2] | pad[1:-1, 2:]
+        new = near & ~(out[..., 3] > 0)
+        out[new] = colour
+        front = new
+    return out
+
+
+def main():
+    k = Kit(ROOT, "league", "braum")
+    if "--check" in sys.argv:
+        bad = [i for i in FRAMES if cuts(k.cell("hd_run", i), i).any()]
+        print("braum run outline: OK" if not bad else f"braum run outline: frames {bad} still cut")
+        sys.exit(1 if bad else 0)
+    colour, keep = outline_of()
+    for i in FRAMES:
+        c = k.cell("hd_run", i)
+        n = int(cuts(c, i).sum())
+        new = outline(c, i, colour, keep)
+        shape = k.cell("run", i).shape[:2]
+        moved = []
+        for pre, make in (("", k.one_of), ("lo_", k.lo_of)):
+            old, a, b = k.cell(pre + "run", i), make(shape, c), make(shape, new)
+            if a.shape != old.shape or b.shape != old.shape:
+                sys.exit(f"run[{i}] {pre or '1x'}: derived {a.shape} / {b.shape} vs the sheet's {old.shape}")
+            diff = (a != b).any(-1)
+            old[diff] = b[diff]
+            k.put(pre + "run", i, old)
+            moved.append(f"{pre or '1x '}{int(diff.sum())}")
+        print(f"run[{i}]: {n} cut squares, {int((new[..., 3] > 0).sum() - (c[..., 3] > 0).sum())} outline squares added"
+              f" (squares written: {', '.join(moved)})")
+        k.put("hd_run", i, new)
+    k.save()
+    k.strip("run")
+
+
+if __name__ == "__main__":
+    main()
