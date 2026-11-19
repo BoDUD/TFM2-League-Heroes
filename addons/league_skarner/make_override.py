@@ -9,7 +9,7 @@ constants in src/lib.rs are P's numbers, and writes addons/league_skarner/overri
   * passive = league_skarner:sovereign (params build_skarner.NATIVE_KEYS);
   * Quaking's climb = league_skarner:quake (Impale's native quakes its own champions), no ladder on him; E's contact =
     league_skarner:impact (no Knockback, no slam of its own); Impale's hit = league_skarner:impale (no damage, Stun or
-    Grab of its own);
+    Grab of its own); W 放出来时调 league_skarner:bastion、擎天够不着就扔时调 league_skarner:upheaval（这两个只记日志）;
   * the slots' tooltips (keys of the add-on's own id) say the League rules, so the tooltip in game shows whether the
     override took.
 Every other champion stays untouched. Run it again whenever the main pack's Skarner changes.

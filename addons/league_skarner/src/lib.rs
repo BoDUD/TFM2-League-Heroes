@@ -20,9 +20,10 @@
 //!   被动每拍看它走了多远：走起来以后一拍走不到 `STALL` 成（或者 `STALL_T` 拍都没走起来）就是半路撞上了墙，当场砸、晕
 //!   （同撞地图的墙）。被别人定身、眩晕时不算，免疫控制的不砸。英雄联盟里英雄造的墙也是地形，拖到上面一样晕。
 //!
-//! 0.2.0（2026-11-20，用户：「按照你的建议改吧」）：主包照英雄联盟改了两处，副本跟着主包一起变，本包的代码没加东西：
-//! W 震地壁垒成了自己的技能（自己的冷却，从普攻那一下命中里放，不再跟着 E 拖人结束出）；举着巨石时 Q 的目标在普攻
-//! 够不着的地方就马上扔。另外查了毒刺贯体的压制吃不吃韧性：英雄联盟的压制不吃。本包用 `apply_cc` 上的眩晕，读 0.7.2 的
+//! 0.2.0（2026-11-20，用户：「按照你的建议改吧」）：主包照英雄联盟改了两处，副本跟着主包一起变，本包只加了日志：
+//! W 震地壁垒成了自己的技能（自己的冷却，从普攻那一下命中里放，不再跟着 E 拖人结束出），副本放 W 时调
+//! `league_skarner:bastion` 记一行 `BASTION`；举着巨石时 Q 的目标在普攻够不着的地方就马上扔，副本在这一支调
+//! `league_skarner:upheaval` 记一行 `UPHEAVAL`。另外查了毒刺贯体的压制吃不吃韧性：英雄联盟的压制不吃。本包用 `apply_cc` 上的眩晕，读 0.7.2 的
 //! exe（宿主的 apply_cc 0x3493a60 -> 0x348fea0 -> 实体加控制 0x148df30 -> 眩晕 0x148e480）一路没有乘 (100 - 韧性)%，
 //! 也不看免疫控制（所以下面自己看）；数据里的 Stun（StunEffect 的 apply 0x171b660）才在调用前乘。和 2026-11-13 量到的
 //! 「强制位移不吃韧性」是同一回事，所以本包的压制本来就是满的，不用每拍补。主包的 R 是数据的 Stun，照样被韧性缩短。
@@ -32,7 +33,8 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_skarner.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`、`QUAKE`（叠层 / 战栗）、`IMPACT`（撞墙 / 没墙）、`WALL`（撞墙眩晕；半路撞上英雄造的墙是 `slammed into a wall the map
-//! does not show`）、`IMPALE`（压制 / 超过 R_N 个）、`DRAG`，限了条数。
+//! does not show`）、`IMPALE`（压制 / 超过 R_N 个；0.2.0 起带上加完眩晕读回来的拍数和目标的韧性）、`DRAG`、`BASTION`（W）、
+//! `UPHEAVAL`（够不着就扔的擎天），限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -497,7 +499,36 @@ fn impale(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     retimed(sim, target, &n("r_held"), R_SUP);
     retimed(sim, target, &dragged_name(me), R_SUP);
     if let Some(k) = counted("impale") {
-        wlog(format!("{} IMPALE #{target}: champion {c}/{R_N}, {} magic, suppressed {R_SUP} ticks #{k}", head(sim, me), impale_damage(ad)));
+        // 加完眩晕马上读回来，连同目标的韧性记进日志：游戏里看压制有没有被韧性缩短
+        let (stun, tough) = sim.get_entity(target).map_or((0, 0), |e| (stun_left(&e), push_rules::toughness(&e)));
+        wlog(format!("{} IMPALE #{target}: champion {c}/{R_N}, {} magic, suppressed {R_SUP} ticks (stun read back {stun}, \
+                      toughness {tough}) #{k}", head(sim, me), impale_damage(ad)));
+    }
+}
+
+/// 身上眩晕还剩多少拍（读回来的，几个眩晕取最长的）。
+fn stun_left(e: &StableEntity<'_, '_>) -> u64 {
+    (0..e.cc_count()).filter_map(|i| e.cc_at(i)).filter(|c| c.kind == CcKindV1::Stun.code()).map(|c| c.tick).max().unwrap_or(0)
+}
+
+/// 副本的 W 放出来了（普攻那一下命中，身边有敌方英雄）：只记一行。
+fn bastion(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    if let Some(k) = counted("bastion") {
+        let on = target_of(&input).map_or_else(|| "-".to_string(), |t| format!("#{t}"));
+        wlog(format!("{} BASTION: W from his attack on {on} (an enemy champion within reach): shield now, the quake on the slam \
+                      frame #{k}", head(sim, me)));
+    }
+}
+
+/// 副本的 Q 栏举着巨石、目标在普攻够不着的地方，马上扔擎天：只记一行（离目标多远）。
+fn upheaval(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    let Some(t) = target_of(&input) else { return };
+    if let Some(k) = counted("upheaval") {
+        let away = match (pos(sim, me), pos(sim, t)) {
+            (Some(a), Some(b)) => format!("{:.0}", dist(a, b)),
+            _ => "-".to_string(),
+        };
+        wlog(format!("{} UPHEAVAL #{t}: {away} away, out of his reach: the boulder thrown at once #{k}", head(sim, me)));
     }
 }
 
@@ -699,6 +730,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:burn"), Step(burn));
     module.add_native_effect(format!("{ID}:impact"), Step(impact));
     module.add_native_effect(format!("{ID}:impale"), Step(impale));
+    module.add_native_effect(format!("{ID}:bastion"), Step(bastion));
+    module.add_native_effect(format!("{ID}:upheaval"), Step(upheaval));
     module.add_native_passive(format!("{ID}:sovereign"), Sovereign::default());
     host.log(LogLevel::Info, "league_skarner loaded (Quaking per champion, wall stun, Impale drags the first three).");
 }
@@ -783,7 +816,7 @@ mod tests {
     fn the_copy_uses_the_natives_and_the_numbers() {
         let copy = include_str!("../override/league_skarner.data_champion");
         for r in ["league_skarner:quake", "league_skarner:impact", "league_skarner:impale",
-                  "league_skarner:sovereign"] {
+                  "league_skarner:sovereign", "league_skarner:bastion", "league_skarner:upheaval"] {
             assert!(copy.contains(r), "the copy never uses {r}");
         }
         for (k, v) in [("p_n", P_N), ("p_t", P_T), ("p_p", P_P), ("p_pct", P_PCT), ("e_kb_speed", E_KB_SPEED),

@@ -586,6 +586,10 @@
                                                   ]
                                                 },
                                                 {
+                                                  "type": "Native",
+                                                  "effect_ref": "league_skarner:bastion"
+                                                },
+                                                {
                                                   "type": "RangeEffect",
                                                   "shape": {
                                                     "Circle": {
@@ -936,16 +940,25 @@
                                             "effects": []
                                           },
                                           "effect_none": {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_skarner_q_go",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 6
-                                                }
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_skarner_q_go",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 6
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Native",
+                                                "effect_ref": "league_skarner:upheaval"
                                               }
-                                            },
-                                            "only_to_enemy": false
+                                            ]
                                           }
                                         }
                                       ]

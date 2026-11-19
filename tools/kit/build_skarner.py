@@ -315,7 +315,9 @@ def build(p):
     probe = homing("q_probe", "EnemyWithoutTower",
                    [combine(flag("q_seen", 6), pick(p["atk_range"], "AllyOnlySelf", flag("q_near", 6),
                                                     from_projectile=True))], speed=60000)
-    decide = combine(sw("q_seen", combine(*rm("q_seen"), sw("q_near", NONE, flag("q_go", 6)))), *rm("q_near"),
+    # 附加包的副本在「够不着就扔」这一支多调一个只记日志的原生效果（league_skarner:upheaval）
+    far_go = combine(flag("q_go", 6), native("upheaval")) if nat else flag("q_go", 6)
+    decide = combine(sw("q_seen", combine(*rm("q_seen"), sw("q_near", NONE, far_go))), *rm("q_near"),
                      sw("q_go", combine(*rm("q_go"), anim("skill_toss", p["q_toss"]), toss(p["q_toss_rel"]))))
     holding = combine(*rm("q_seen", "q_near", "q_go"), sw("q_toss", probe, flag("q_go", 6)),
                       delayed(3, alive(sw("rock", decide, combine(*rm("q_seen", "q_near", "q_go"))))))
@@ -330,7 +332,8 @@ def build(p):
                         buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]), view("w_hit"))
     # 震地那一下挂在他自己身上等（on_me 里的 Delayed）：挂在普攻打中的那个单位上的话，它被这一下打死，后面的就可能
     # 不来了（卡莎 E 的教训，champion-data.md）
-    w_cast = combine(refresh("w_cd", p["w_cd"]), anim("w", p["w_dur"]), shield,
+    # 附加包的副本放 W 时多调一个只记日志的原生效果（league_skarner:bastion），游戏里看它放没放
+    w_cast = combine(refresh("w_cd", p["w_cd"]), anim("w", p["w_dur"]), shield, native("bastion") if nat else None,
                      on_me(delayed(p["w_rel"] - 1, alive(view("w_quake"), sfx("w"), quake_ring))))
     w_try = sw("w_cd", NONE, combine(*rm("w_go"), pick(p["w_r"], "EnemyChampion", flag("w_go", 1)),
                                      sw("w_go", combine(*rm("w_go"), w_cast))))
