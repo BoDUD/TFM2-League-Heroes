@@ -2,24 +2,25 @@
 mock-up at 1.25x / 1.4x / 1.6x: 「用这个就行」 for 1.25x, 「可以，全部做」).
 
 GPT's frames are generations, not a body + a blade layer: each draws its own blade, in the body's own colours (48 of the
-blade's 49 colours are the body's too), so no colour or layer tells the blade apart. Here one standard blade replaces
-them all:
+blade's 49 colours are the body's too; only the bright edge's are the blade's alone), so no colour or layer tells the
+blade apart. A first pass drew one standard blade into every frame: the run's long thin blade turned into the idle's
+broad one (the user: 「刀变形了吧 1.25的」). So each frame keeps the blade it drew, 1.25x:
 
-- the sprite: idle_base[0]'s blade (opaque, left of x 29 and below y 46, not skin: the largest piece) and the dark
-  outline squares next to it on the outside; its grip (29, 48), where the fist holds it;
-- per frame (tryndamere_blade.json, read off by matching the sprite, turned and mirrored, against each frame): the
-  mirror, the angle the sprite fits the drawn blade at ("fit"), the grip, and the angle the new blade is drawn at
-  ("angle": the fit turned so the sprite's tip points where the drawn blade's tip is, then turned a little more only
-  where the bigger blade would go below the feet and the drawn blade by more than 3 squares);
-- the drawn blade is taken out: the sprite's squares at the grip at every length (0.85-1.25x) and a few degrees either
-  side of "fit" (their union), widened by one, not skin, and the bright edge squares within 3 of them;
-- the sprite x 1.25 at "angle" is drawn in, sampled from an 8x EPX (scale2x) picture of it (RotSprite's way: edges stay
-  one colour, no new colours), only on clear squares and on the drawn blade's (the fist stays over the hilt); squares of
-  the drawn blade it does not cover go clear, or take the nearest figure colour where they are inside the figure; the
-  drawn blade's outline left in the air (dark squares that had a coloured square within 2 and have none now) goes, so
-  do pieces of up to 12 squares cut off near the blade; new pinholes are closed, new one-square-wide dark strokes go;
-- ult[5] and ult[6] hold the blade up over the fire, drawn short (foreshortened): their own blade (the box over the
-  guard) is scaled 1.25x about the guard instead; ult[1..4] are left: the blade is inside the fire there;
+- where the blade is: idle_base[0]'s blade (opaque, left of x 29 and below y 46, not skin: the largest piece, with the
+  dark outline squares next to it outside) is the probe; per frame (tryndamere_blade.json, read off by matching it,
+  turned and mirrored, against each frame) the mirror, the angle and length it fits the drawn blade at and the grip;
+- the drawn blade: the probe's squares at that grip / length, the fitted angle +-2, widened by one, not skin; the bright
+  edge squares within 3 of them; the dark outline squares next to that which touch clear (tight: a looser one took
+  the boot beside skill_q's blade tip and the fire beside ult[7]'s along);
+- that blade, alone on a clear layer, x 1.25 about the grip (turned by "turn" degrees where it would go more than 3
+  squares below the feet and the drawn blade), sampled from an 8x EPX (scale2x) picture of the layer (edges stay one
+  colour, no new colours), drawn in only on clear squares and on the drawn blade's (the fist stays over the hilt); old
+  bright-edge squares (the blade's alone) it did not cover go; squares of the drawn blade it does not cover go clear,
+  or take the nearest figure colour inside the figure; the old outline left in the air (dark squares that had a
+  coloured square within 2 and have none now) goes, so do pieces of up to 12 squares cut off near the blade; new
+  pinholes are closed, new one-square-wide dark strokes go;
+- ult[5] and ult[6] hold the blade up over the fire: their own blade (the box over the guard) is scaled 1.25x about the
+  guard; ult[1..4] are left: the blade is inside the fire there;
 - the effect bakes (skill_fx1 = skill + e_spin, skill_q_fx1 = skill_q + q_heal; tryndamere_bake.json) are made again:
   each frame's own effect squares (where it differs from the base frame it was baked on, at the offset given) over the
   new base frame.
@@ -29,7 +30,9 @@ frame (tools/fix/xinzhao_galio_1119/sheetkit.py); the strips (assets/source/ppu[
 idle_base frames in tryndamere_idle.png) are rewritten from the dense frames.
 
     python tools/fix/gpt784_review/tryndamere_blade.py --from 32af55934     # the frames before the change
-    python tools/fix/gpt784_review/tryndamere_blade.py --check              # the sheet's frames = this tool's from REV
+    python -I tools/art/thin_outline.py --hero league_tryndamere             # evens the outline (a few squares)
+    python tools/fix/gpt784_review/tryndamere_blade.py --check              # the sheet's frames = this tool's from REV,
+                                                                             # but for outline squares
 """
 import io
 import json
@@ -138,20 +141,41 @@ def footprint_offsets(big, scale, angle, mirror, R=60):
 
 # ---- one base frame
 
-def old_blade(f, big, p):
+def tight_blade(f, big, p):
     H, W = f.shape[:2]
     foot = np.zeros((H, W), bool)
-    for sc in (0.85, 0.95, 1.05, 1.15, 1.25):
-        for da in (-6, -3, 0, 3, 6):
-            off = footprint_offsets(big, sc, p["fit"] + da, p["mirror"])
-            x = p["grip"][0] + off[:, 0]
-            y = p["grip"][1] + off[:, 1]
-            ok = (x >= 0) & (x < W) & (y >= 0) & (y < H)
-            foot[y[ok], x[ok]] = True
+    for da in (-2, 0, 2):
+        off = footprint_offsets(big, p["scale"], p["fit"] + da, p["mirror"])
+        x = p["grip"][0] + off[:, 0]
+        y = p["grip"][1] + off[:, 1]
+        ok = (x >= 0) & (x < W) & (y >= 0) & (y < H)
+        foot[y[ok], x[ok]] = True
     a = f[..., 3] > 0
     M = ndimage.binary_dilation(foot, iterations=1) & a & ~skinlike(f[..., :3])
     near = ndimage.binary_dilation(M, iterations=3) & a & ~M
-    return M | (near & bright_edge(f[..., :3]))
+    M = M | (near & bright_edge(f[..., :3]))
+    pa = np.pad(a, 1)
+    clear_nb = ~pa[:-2, 1:-1] | ~pa[2:, 1:-1] | ~pa[1:-1, :-2] | ~pa[1:-1, 2:]
+    ring = ndimage.binary_dilation(M, iterations=1) & a & dark(f) & clear_nb & ~M
+    return M | ring
+
+
+def edge_leftovers(old, new, MM, nbm):
+    left = (old[..., 3] > 0) & bright_edge(old[..., :3]) & ~nbm & ~MM & (new == old).all(-1)
+    left &= ndimage.binary_dilation(nbm | MM, iterations=3)
+    if not left.any():
+        return new
+    out = new.copy()
+    a = out[..., 3] > 0
+    pa = np.pad(a, 1)
+    clear_nb = ~pa[:-2, 1:-1] | ~pa[2:, 1:-1] | ~pa[1:-1, :-2] | ~pa[1:-1, 2:]
+    out[left & clear_nb] = 0
+    rest = left & ~clear_nb
+    if rest.any():
+        src = (out[..., 3] > 0) & ~bright_edge(out[..., :3])
+        idx = ndimage.distance_transform_edt(~src, return_distances=False, return_indices=True)
+        out[rest] = out[idx[0][rest], idx[1][rest]]
+    return out
 
 
 def finish(base, old, MM, nbm):
@@ -184,18 +208,24 @@ def drop_islands(base, zone):
     return base
 
 
-def with_sprite(f, big, p):
+def with_own_blade(f, big, p):
+    """the frame's own blade (tight_blade) x SCALE about the grip, turned by p["turn"]"""
     H, W = f.shape[:2]
-    M = old_blade(f, big, p)
+    M = tight_blade(f, big, p)
+    layer = np.zeros_like(f)
+    layer[M] = f[M]
+    lbig = scale2x(scale2x(scale2x(layer)))
     base = np.zeros((H + 2 * PAD, W + 2 * PAD, 4), np.uint8)
     base[PAD:PAD + H, PAD:PAD + W] = f
     old = base.copy()
     MM = np.zeros(base.shape[:2], bool)
     MM[PAD:PAD + H, PAD:PAD + W] = M
-    nb = transform(big, GRIP, SCALE, p["angle"], p["mirror"], base.shape[:2], (p["grip"][0] + PAD, p["grip"][1] + PAD))
+    g = (p["grip"][0] + 0.5, p["grip"][1] + 0.5)
+    nb = transform(lbig, g, SCALE, p["turn"], False, base.shape[:2], (g[0] + PAD, g[1] + PAD))
     base[MM] = 0
     put = (nb[..., 3] > 0) & ((old[..., 3] == 0) | MM)
     base[put] = nb[put]
+    base = edge_leftovers(old, base, MM, nb[..., 3] > 0)
     base, zone = finish(base, old, MM, nb[..., 3] > 0)
     return drop_islands(base, zone)
 
@@ -309,7 +339,7 @@ def build(sheet, anims):
             out[r] = f.copy()
             padded[r] = np.pad(f, ((PAD, PAD), (PAD, PAD), (0, 0)))
             continue
-        o = with_own(f, p["own"], p["grip"]) if "own" in p else with_sprite(f, big, p)
+        o = with_own(f, p["own"], p["grip"]) if "own" in p else with_own_blade(f, big, p)
         H, W = f.shape[:2]
         pic = clean(f, o[PAD:PAD + H, PAD:PAD + W].copy())
         o[PAD:PAD + H, PAD:PAD + W] = pic
@@ -364,7 +394,22 @@ def main():
     first, new = build(sheet, anims)
     k = Kit(ROOT, "league", "tryndamere")
     if "--check" in sys.argv:
-        bad = [f"{t}[{i}]" for r, (t, i) in first.items() if not np.array_equal(k.cell("hd_" + t, i), new[r])]
+        # thin_outline.py --hero league_tryndamere evens the outline after this tool: a square may differ only
+        # between the outline colour and clear
+        oc = json.load(open(os.path.join(ROOT, "tools", "art", "thin_outline.json"), encoding="utf-8"))["league_tryndamere"]
+        outline = [tuple(c) for c in oc["outline"]]
+        bad = []
+        for r, (t, i) in first.items():
+            have, want = k.cell("hd_" + t, i), new[r]
+            if have.shape != want.shape:
+                bad.append(f"{t}[{i}]")
+                continue
+            diff = (have != want).any(-1)
+            for y, x in np.argwhere(diff):
+                ok = all(px[3] == 0 or tuple(int(v) for v in px[:3]) in outline for px in (have[y, x], want[y, x]))
+                if not ok:
+                    bad.append(f"{t}[{i}]")
+                    break
         print("tryndamere blade: OK" if not bad else f"tryndamere blade: {len(bad)} frames not as this tool leaves them: {bad[:8]}")
         sys.exit(1 if bad else 0)
     touched = set()
