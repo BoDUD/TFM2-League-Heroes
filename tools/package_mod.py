@@ -25,7 +25,7 @@ The game reads every mod file except background music into memory when it starts
   .fanim change.
 - Every hero's two UI sheets written next to the package's sheets, ui_sheets/<kind>/<hero>#sheet.png + #anim.fanim:
   only the frames the screens that show many heroes at once draw, pixel for pixel - ui_sheets/idle: `idle` (the
-  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's lo_idle); ui_sheets/bp: `bp`
+  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's hd_idle, marked `ui_hd`); ui_sheets/bp: `bp`
   (the ban/pick grid's reel: hd_bp) and `dead` (a banned hero in the grid: hd_dead). league.dll draws those screens
   from them (addons/hd_engine/src/lookup.rs): they drew every hero from its whole battle sheet, 589 MiB of RGBA for
   167 heroes against the game's 256 MiB image cache, so every frame decoded them again (2026-10-24, the user:
@@ -103,6 +103,7 @@ MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the s
 GAP = 1                    # transparent pixels between packed frames
 IDLE_PAD = 8               # clear pixels round every idle frame (the cards draw past its rect)
 UI_DIR = "ui_sheets"       # each hero's UI sheets (ui_sheets): addons/hd_engine/src/ui.rs looks them up by this path
+UI_HD_MARK = "ui_hd"       # a UI idle sheet holding the hd_ idle carries this one-frame tag (src/ui.rs HD_MARK)
 # ui_sheets/<kind>/<hero>: idle for the encyclopedia, faces, pick slots, pick moment and scoreboard; bp (the reel and
 # dead) for the ban/pick grid alone - a screen showing every hero keeps only the one it draws
 UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
@@ -362,12 +363,13 @@ def strip_frames(a):
 
 
 def ui_sources(anim):
-    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- lo_idle (else hd_idle), bp <- hd_bp (else
+    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- hd_idle (else lo_idle; the user, 2026-11-19:
+    「都要PPU高清帧的」 - the pick slot's 「熟练度加成」 card drew the lo_ idle, 1.5 squares a game pixel), bp <- hd_bp (else
     hd_idle), dead <- hd_dead; a 1x hero idle, bp (else idle), dead. Empty without an idle."""
     anims = anim.get("anims", {})
     first = lambda *tags: next((t for t in tags if anims.get(t, {}).get("frames")), None)
     if any(t.startswith("hd_") for t in anims):
-        src = {"idle": first("lo_idle", "hd_idle"), "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
+        src = {"idle": first("hd_idle", "lo_idle"), "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
     else:
         src = {"idle": first("idle"), "bp": first("bp", "idle"), "dead": first("dead")}
     return {k: t for k, t in src.items() if t} if src["idle"] else {}
@@ -450,6 +452,9 @@ def ui_sheets(png_raw, anim, where):
                 d["x"] = float(nx) if isinstance(d["x"], float) else nx
                 d["y"] = float(ny) if isinstance(d["y"], float) else ny
             ui["anims"][k] = a
+        if part.get("idle") == "hd_idle":
+            # the mark league.dll's src/ui.rs reads: this idle is the hd_ one (its divisors), not the lo_ one
+            ui["anims"][UI_HD_MARK] = {"frames": [copy.deepcopy(ui["anims"]["idle"]["frames"][0])]}
         buf = io.BytesIO()
         Image.fromarray(sheet, "RGBA").save(buf, "PNG", optimize=True)
         png = buf.getvalue()
@@ -463,7 +468,8 @@ def check_ui(pa, anim_a, png_b, ui, kind, where):
     opaque within its pads outside them."""
     pb = np.asarray(Image.open(io.BytesIO(png_b)).convert("RGBA"))
     src = {k: t for k, t in ui_sources(anim_a).items() if k in UI_KINDS[kind]}
-    if set(src) != set(ui["anims"]):
+    mark = {UI_HD_MARK} if src.get("idle") == "hd_idle" else set()
+    if set(src) | mark != set(ui["anims"]):
         raise ValueError(f"{where}: UI sheet {kind} has tags {sorted(ui['anims'])}, want {sorted(src)}")
     for k, t in src.items():
         fa, fb = anim_a["anims"][t]["frames"], ui["anims"][k]["frames"]
