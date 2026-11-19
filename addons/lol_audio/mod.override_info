@@ -282,5 +282,13 @@
   "asset/base/sound/sfx/lol_victory_red": {
     "remapping": "asset/lol_audio/sound/sfx/lol_victory_red",
     "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_rumble_overheat": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_rumble_overheat",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_rumble_overheat": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_rumble_overheat",
+    "type": "override"
   }
 }

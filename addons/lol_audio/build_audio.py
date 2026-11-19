@@ -23,6 +23,10 @@ Reads (never writes) the League client and writes into addons/lol_audio/sound/ (
   victory / defeat. Each of those clips also gets its sound event (sound/sfx/lol_audio_<name>.sound_info) and both
   remappings in mod.override_info (`write_events`): the game looks both up under asset/base/sound/sfx/.
 
+- Champions' own lines lol_audio.dll plays (`CHAMP`): Rumble's Overheat line (Champions/Rumble.zh_CN.wad.client: like
+  the announcer, the zh_CN client keeps the en_us path with the Chinese clips; `Play_vo_Rumble_Spell3DPCast`, a random
+  container of three, the variant the user picked), as sound/sfx/lol_rumble_overheat.mp3 + its event.
+
 `--only CLIP ...` builds just those clips (file names without .mp3, e.g. lol_executed) and leaves every other file as
 it is: a full run rebuilds everything from the League client as it is now, which a League patch may have changed.
 
@@ -165,6 +169,22 @@ def trim_tail(x, floor_db=-60.0, fade=0.05):
 
 
 
+# champions' own lines lol_audio.dll plays: clip -> (champion, event, variant: the event's media in bank order)
+# Rumble's Overheat: Spell3DPCast has three variants (1.48 / 4.56 / 9.72 s); the first is two ~0.5 s words with a pause,
+# the same word twice (spectral likeness 0.78; the other clips' parts 0.42 at most): 「警告，警告」 (no zh speech
+# recogniser on this PC; the user: 「你自己选语音用哪一段」)
+CHAMP = {"lol_rumble_overheat": ("Rumble", "Play_vo_Rumble_Spell3DPCast", 0)}
+CHAMPS = "Game/DATA/FINAL/Champions/"
+
+
+def champ_vo(lol, champion):
+    name = champion.lower()
+    wad = Wad(os.path.join(lol, CHAMPS, f"{champion}.zh_CN.wad.client"))
+    base = f"assets/sounds/wwise2016/vo/en_us/characters/{name}/skins/base/{name}_base_vo_"
+    media = parse_wpk(wad.read_path(base + "audio.wpk"))
+    return media, SoundBanks([wad.read_path(base + "events.bnk"), wad.read_path(base + "audio.bnk")], media)
+
+
 # the clips the game plays itself (its own multi-kill events, remapped in mod.override_info by hand)
 OWN = {"lol_double_kill": "dual_takedown", "lol_triple_kill": "triple_takedown", "lol_quadra_kill": "devastation",
        "lol_penta_kill": "annihilation"}
@@ -177,7 +197,7 @@ def write_events(root=HERE):
     path = os.path.join(root, "mod.override_info")
     with open(path, encoding="utf-8") as f:
         info = json.load(f)
-    for clip in VOICE:
+    for clip in list(VOICE) + list(CHAMP):
         if clip in OWN:
             continue
         event = "lol_audio_" + clip[len("lol_"):]
@@ -192,7 +212,11 @@ def write_events(root=HERE):
 def write(path, x):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     sf.write(path, np.clip(x, -1, 1), SR, format="MP3")
-    print(f"  {os.path.relpath(path, HERE)}  {len(x) / SR:.1f} s")
+    try:
+        shown = os.path.relpath(path, HERE)
+    except ValueError:
+        shown = path
+    print(f"  {shown}  {len(x) / SR:.1f} s")
 
 
 def main():
@@ -211,10 +235,10 @@ def main():
     if not a.lol or not a.vgmstream:
         ap.error("--lol and --vgmstream are needed to build audio")
     only = set(a.only or ())
-    unknown = sorted(c for c in only if c not in DRAFT and c not in VOICE and not RIFT.fullmatch(c))
+    unknown = sorted(c for c in only if c not in DRAFT and c not in VOICE and c not in CHAMP and not RIFT.fullmatch(c))
     if unknown:
         ap.error(f"unknown clip {', '.join(unknown)}; the clips: {', '.join(DRAFT)}, lol_rift_music1..3, "
-                 f"{', '.join(VOICE)}")
+                 f"{', '.join(VOICE)}, {', '.join(CHAMP)}")
 
     def want(clip):
         return not only or clip in only
@@ -257,6 +281,17 @@ def main():
                 sys.exit(f"no media for {VO_EVENT + event}")
             x = trim_tail(wem(media[ids[0]], a.vgmstream)).mean(1, keepdims=True)  # mono, like the game's own
             write(os.path.join(a.out, "sfx", clip + ".mp3"), level(x, VOICE_RMS, VOICE_PEAK, limit=True))
+        write_events()
+
+    for clip, (champion, event, k) in CHAMP.items():
+        if not want(clip):
+            continue
+        media, banks = champ_vo(a.lol, champion)
+        ids = banks.event_media(event)
+        if len(ids) <= k:
+            sys.exit(f"{event}: {len(ids)} media, no variant {k}")
+        x = trim_tail(wem(media[ids[k]], a.vgmstream)).mean(1, keepdims=True)
+        write(os.path.join(a.out, "sfx", clip + ".mp3"), level(x, VOICE_RMS, VOICE_PEAK, limit=True))
         write_events()
 
 
