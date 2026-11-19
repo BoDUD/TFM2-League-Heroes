@@ -41,8 +41,8 @@ shield, Nasus's n_cast frames, Yasuo's blade-out frames and Nidalee's skill2[0],
 - `nasus_cast_colours.py`: the new n_cast frames (skill[0], skill2, skill_w, ult[0, 1, 2, 4, 5], dead, b_ twins) were
   drawn in his palette but much lighter (median Lab L 27 against 21, a grey-brown as the commonest body colour, lava all
   over): mapped onto the n_hit set's colours by lightness quantile.
-- Yasuo: the new blade-out frames came out charcoal with no chest glow and no horned mask; the user picked the sheathed
-  frame's colours (「我要的是这个皮肤颜色吧」, a screenshot of attack[0]), which 02b3aa862's blade-out frames have: those
-  are back, and `yasuo_skin.py` brings the idle, run and cast sets' purple-red skin to that stone-brown (skin only:
-  navy, glow, sash, mask and blade stay).
+- Yasuo: GPT's redo (Nightbringer, d6f8abdb0 / 9dc47a6a0 / d8b29e512 / bdbda7d47) and the fixes made on it
+  (`yasuo_navy.py`, `yasuo_skin.py`, the skin / navy / idle reel rounds) are undone at the user's word
+  (2026-11-19: 「亚索恢复到之前的版本吧 不改了」): every Yasuo file, his face point and idle picks are main's
+  (099abf3b3) again; the two tools are gone.
 - illaoi_souls.py again.
