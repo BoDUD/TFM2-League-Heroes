@@ -2,20 +2,22 @@
 重改 包括释放其他技能时都要像英雄联盟的动作才行」), both forms (base and the R form's b_ tags), from pictures his sheet
 already holds - no square is drawn or moved, a frame is a rect the sheet has.
 
-League's clips (tools/lol/pose_ref.py --champ Nasus, renders local only):
+League's clips (tools/lol/pose_ref.py --champ Nasus, renders local only). Only pictures of his stance's set are used
+(the idle, GPT's attack, hit, skill[1..5], ult[3]): GPT drew his cast frames (skill[0], skill2, skill_w, the other ult
+frames) in a second generation - slimmer, lava all over (tools/fix/gpt784_review/nasus_cast_colours.py only matched
+their colours) - and mixed into these actions they read as the model changing (「还是有点变形」):
 - nasus_attack1: the staff swung up and over his head, then down in front of him - a chop. GPT's attack was a lunge
-  with the staff thrust forward like a spear. Now: the stance, the staff raised (skill[0]), over his head (skill[1],
-  skill[2]), chopped down to the ground in front (skill[3], held longest: the blow), back up (skill[4]) - the windup
-  and blow GPT drew for his Q;
-- Nasus_Spell1 (Q, Siphoning Strike): the staff raised high, then a slam into a low crouch, the staff along the ground
-  in front, held for most of the clip. Now: the stance, both hands over his head (ult[3]), the slam (skill[3]), the
-  crouch with the staff along the ground (skill_w[1], held), rising (skill[4]), GPT's last Q frame (skill[5], the
-  idle reel's pick); the R form the same with its own pictures (b_skill[2] for the raise: the R form has no ult);
+  with the staff thrust forward like a spear. Now: the stance, the staff raised (GPT's attack[1]), over his head
+  (skill[1], skill[2]), chopped down to the ground in front (skill[3], held longest: the blow), back up (skill[4]);
+- Nasus_Spell1 (Q, Siphoning Strike): the staff raised high, then a slam into a low crouch, held for most of the clip.
+  Now: the stance, both hands over his head (ult[3]), the slam into the crouch (skill[3], held over two frames),
+  rising (skill[4]), GPT's last Q frame (skill[5], the idle reel's pick); the R form the same with its own pictures
+  (b_skill[2] for the raise: the R form has no ult);
 - Nasus_Base_Spell3_Full (E, Spirit Fire): the staff lifted high over his head, then aimed forward at the ground.
-  Now: the stance, the staff raised (skill[0]), over his head (ult[3]), the cast forward (skill2[3]), the stance with
-  the staff (skill2[4]).
+  Now: the stance, the staff raised (attack[1]), over his head (ult[3], held), aimed forward and down (skill[4]), back
+  (skill[5]).
 Each keeps its length (data_champion: attack 26 ticks = 433 ms, skill / skill2 24 = 400 ms). W (skill_w) and R (ult)
-are not changed here.
+keep GPT's frames.
 
 nasus_actions.json: per action its frames - the source picture (as GPT's tags held it before this), its ms and its
 rects in the hd_, 1x and lo_ frames - and the hit's frame 0 (hit0: the braced guard tools/fix/gpt784_review/
