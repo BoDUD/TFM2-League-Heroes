@@ -11,6 +11,10 @@ hero's outline round it: the clear squares within KEEP (league_braum's hd_ outli
 it take the outline colour, so the body keeps every square it had and shows the 2-square outline every other edge of his
 has. The gap between his chest and the shield stays (in run[0..3] he holds the shield out further than in run[4..7]).
 
+Under the shield's bottom-left corner each of those frames also kept a hook of the old shield's outline (the user:
+「布隆盾牌下面有个黑边没处理干净」): a dark square one row under the left end of the bottom outline and a 4-square dash
+to the left of it, hanging in the air (run[4..7] have none). HOOKS lists them; they are cleared.
+
 The 1x and lo_ frames are not made anew (#784's own 1x frames are not pixel_down's: ~8 % of their squares differ from
 it, so a fresh one would differ from run[4..7] all over): each is derived from the dense frame before and after
 (tools/fix/xinzhao_galio_1119/sheetkit.py) and only the squares that differ between the two are written into it - the
@@ -36,6 +40,21 @@ FRAMES = (0, 1, 2, 3)
 # left as they are
 OLD = {0: {(12, 63), (13, 81)}, 1: {(15, 57), (17, 84), (19, 40), (41, 86), (83, 66)}, 2: {(11, 66)},
        3: {(9, 60), (11, 78), (14, 93), (14, 94), (19, 108)}}
+
+
+# the old shield's outline hanging under the new one's bottom-left corner: (x, y) per frame, all outline-dark
+HOOKS = {0: [(100, 81), (97, 82), (98, 82), (99, 82), (100, 82)], 1: [(97, 82), (94, 83), (95, 83), (96, 83), (97, 83)],
+         2: [(105, 80), (102, 81), (103, 81), (104, 81), (105, 81)], 3: [(97, 79), (94, 80), (95, 80), (96, 80), (97, 80)]}
+
+
+def unhook(c, i):
+    out = c.copy()
+    for x, y in HOOKS.get(i, ()):
+        if out[y, x, 3] > 0:
+            if int(out[y, x, :3].max()) >= 40:
+                sys.exit(f"run[{i}] ({x}, {y}) is not outline-dark: {out[y, x].tolist()}")
+            out[y, x] = 0
+    return out
 
 
 def outline_of():
@@ -72,13 +91,14 @@ def main():
     k = Kit(ROOT, "league", "braum")
     if "--check" in sys.argv:
         bad = [i for i in FRAMES if cuts(k.cell("hd_run", i), i).any()]
-        print("braum run outline: OK" if not bad else f"braum run outline: frames {bad} still cut")
+        bad += [i for i in FRAMES if any(k.cell("hd_run", i)[y, x, 3] > 0 for x, y in HOOKS[i])]
+        print("braum run outline: OK" if not bad else f"braum run outline: frames {sorted(set(bad))} still cut / hooked")
         sys.exit(1 if bad else 0)
     colour, keep = outline_of()
     for i in FRAMES:
         c = k.cell("hd_run", i)
         n = int(cuts(c, i).sum())
-        new = outline(c, i, colour, keep)
+        new = unhook(outline(c, i, colour, keep), i)
         shape = k.cell("run", i).shape[:2]
         moved = []
         for pre, make in (("", k.one_of), ("lo_", k.lo_of)):
@@ -89,7 +109,7 @@ def main():
             old[diff] = b[diff]
             k.put(pre + "run", i, old)
             moved.append(f"{pre or '1x '}{int(diff.sum())}")
-        print(f"run[{i}]: {n} cut squares, {int((new[..., 3] > 0).sum() - (c[..., 3] > 0).sum())} outline squares added"
+        print(f"run[{i}]: {n} cut squares, {int((new[..., 3] > 0).sum() - (c[..., 3] > 0).sum())} squares added (outline - hook)"
               f" (squares written: {', '.join(moved)})")
         k.put("hd_run", i, new)
     k.save()
