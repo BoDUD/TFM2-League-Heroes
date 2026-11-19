@@ -473,7 +473,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_nautilus.png" width="32"> | [诺提勒斯](docs/heroes/league_nautilus.md)<br>Nautilus | 辅助 | 疏通航道 · 泰坦之怒 · 大招 深海冲击 | [诺提勒斯钩墙附加包](addons/league_nautilus/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_poppy.png" width="32"> | [波比](docs/heroes/league_poppy.md)<br>Poppy | 辅助 | 圣锤猛击 · 英勇冲锋 · 大招 持卫的裁决 | [波比附加包](addons/league_poppy/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_pyke.png" width="32"> | [派克](docs/heroes/league_pyke.md)<br>Pyke | 辅助 | 被动 溺水之幸 · 透骨尖钉 · 魅影浪洄 · 大招 涌泉之恨 | [派克精确斩杀附加包](addons/league_pyke/README.md) | PPU 1.78 |
-| <img src="docs/heroes/img/league_rakan.png" width="32"> | [洛](docs/heroes/league_rakan.md)<br>Rakan | 辅助 | 被动 异色羽裳 · 微光飞翎 · 盛大登场·轻舞成双 · 大招 惊鸿过隙 | — | PPU 1.8 |
+| <img src="docs/heroes/img/league_rakan.png" width="32"> | [洛](docs/heroes/league_rakan.md)<br>Rakan | 辅助 | 被动 异色羽裳 · 轻舞成双 · 盛大登场 · 大招 惊鸿过隙 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_rell.png" width="32"> | [芮尔](docs/heroes/league_rell.md)<br>Rell | 辅助 | 裂阵 · 驭铁术：轰落 · 大招 极涌 | [芮尔附加包](addons/league_rell/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_renata.png" width="32"> | [烈娜塔](docs/heroes/league_renata.md)<br>Renata | 辅助 | 忠诚激励 · 铁腕竞合 · 大招 恶意收购 | [烈娜塔附加包](addons/league_renata/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_senna.png" width="32"> | [赛娜](docs/heroes/league_senna.md)<br>Senna | 辅助 | 黑暗洞灭 · 无尽厮守 · 大招 暗影燎原 | [赛娜黑雾常驻附加包](addons/league_senna_mist/README.md) | PPU 1.87 |
