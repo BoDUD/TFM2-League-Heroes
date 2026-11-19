@@ -38,6 +38,11 @@
 
 ## 最近的改动
 
+2026-11-19（联盟英雄）：
+
+- **洛的 W、E 拆成两个技能**（[#785](https://github.com/BoDUD/TFM2-League-Heroes/pull/785)，玩家反馈经用户转述：洛不开团就不放 E，只有 W 打到敌人后才给队友上盾；用户：「按 A 改」）：技能1 改成 E「轻舞成双」单独施放（附近有敌方英雄时放，先找被控制的队友，再找最近的），技能2 只剩 W「盛大登场」，Q「微光飞翎」并进普攻（每 5.5 秒一次）；SDK 模拟击杀差 +0.91 → +1.24、+0.30 → +0.62。
+- 版本：主包 0.433.0。
+
 2026-11-18（游戏 0.7.3）：
 
 - **适配游戏 0.7.3**（[#778](https://github.com/BoDUD/TFM2-League-Heroes/pull/778)，用户：「游戏又更新SDK到0.7.3了 你按照之前那种方式帮我更新SDK吧」）：高清帧引擎的版本表加上 0.7.3（图鉴 / 头像和选人位又变回 0.7.1 的写法，用图片节点的设置函数），`game_places` 的特征码重新生成；稳定版 SDK 升到 ABI 11（只多了坦克职业），`addons/vendor` 同步；冰鸟的蛋在 0.7.3 上照旧清显示计时；阿克尚 / 卡尔萨斯复活读的两个函数、GPU 缓存放大的特征码在 0.7.3 上都核对过。
@@ -473,7 +478,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_nautilus.png" width="32"> | [诺提勒斯](docs/heroes/league_nautilus.md)<br>Nautilus | 辅助 | 疏通航道 · 泰坦之怒 · 大招 深海冲击 | [诺提勒斯钩墙附加包](addons/league_nautilus/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_poppy.png" width="32"> | [波比](docs/heroes/league_poppy.md)<br>Poppy | 辅助 | 圣锤猛击 · 英勇冲锋 · 大招 持卫的裁决 | [波比附加包](addons/league_poppy/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_pyke.png" width="32"> | [派克](docs/heroes/league_pyke.md)<br>Pyke | 辅助 | 被动 溺水之幸 · 透骨尖钉 · 魅影浪洄 · 大招 涌泉之恨 | [派克精确斩杀附加包](addons/league_pyke/README.md) | PPU 1.78 |
-| <img src="docs/heroes/img/league_rakan.png" width="32"> | [洛](docs/heroes/league_rakan.md)<br>Rakan | 辅助 | 被动 异色羽裳 · 微光飞翎 · 盛大登场·轻舞成双 · 大招 惊鸿过隙 | — | PPU 1.8 |
+| <img src="docs/heroes/img/league_rakan.png" width="32"> | [洛](docs/heroes/league_rakan.md)<br>Rakan | 辅助 | 被动 异色羽裳 · 轻舞成双 · 盛大登场 · 大招 惊鸿过隙 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_rell.png" width="32"> | [芮尔](docs/heroes/league_rell.md)<br>Rell | 辅助 | 裂阵 · 驭铁术：轰落 · 大招 极涌 | [芮尔附加包](addons/league_rell/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_renata.png" width="32"> | [烈娜塔](docs/heroes/league_renata.md)<br>Renata | 辅助 | 忠诚激励 · 铁腕竞合 · 大招 恶意收购 | [烈娜塔附加包](addons/league_renata/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_senna.png" width="32"> | [赛娜](docs/heroes/league_senna.md)<br>Senna | 辅助 | 黑暗洞灭 · 无尽厮守 · 大招 暗影燎原 | [赛娜黑雾常驻附加包](addons/league_senna_mist/README.md) | PPU 1.87 |
