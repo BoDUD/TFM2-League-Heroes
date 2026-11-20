@@ -283,7 +283,10 @@
                                                       "Time": {
                                                         "tick": 480
                                                       }
-                                                    }
+                                                    },
+                                                    "attack_speed_mult": 50,
+                                                    "move_speed_mult": 15,
+                                                    "hp_regen": 6
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -326,6 +329,22 @@
                                                   }
                                                 ]
                                               }
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_trundle_w_hop"
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -1581,7 +1600,10 @@
                                                       "Time": {
                                                         "tick": 480
                                                       }
-                                                    }
+                                                    },
+                                                    "attack_speed_mult": 50,
+                                                    "move_speed_mult": 15,
+                                                    "hp_regen": 6
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -1624,6 +1646,22 @@
                                                   }
                                                 ]
                                               }
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_trundle_w_hop"
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -2156,14 +2194,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_trundle_w_domain",
-      "anim": "asset/league/effects/league_trundle_big",
-      "tag": "w_domain",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_trundle_e_pillar",
       "anim": "asset/league/effects/league_trundle_big",
       "tag": "e_pillar",
@@ -2201,17 +2231,17 @@
       "tag": "r_chain",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_trundle_w_field",
-      "anim": "asset/league/effects/league_trundle_fx",
-      "tag": "w_field",
-      "z": -1,
-      "is_follow": false
     }
   ],
   "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_trundle_w_on",
+      "anim": "asset/league/effects/league_trundle_fx",
+      "tag": "w_aura",
+      "repeat": true,
+      "z": -1
+    },
     {
       "type": "Animated",
       "name": "league_trundle_q_slow",

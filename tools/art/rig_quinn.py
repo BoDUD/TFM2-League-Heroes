@@ -418,7 +418,7 @@ RUN_HIPS = {"near": (19.5, 43.0), "far": (23.0, 43.5)}
 
 # ms per frame; the kit's ticks (tools/kit/build_quinn.py) come from these
 MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
-      "skill": [90, 80, 100, 90, 110], "skill2": [60, 60], "e_flip": [30, 40, 45, 45, 40, 50, 50],
+      "skill": [90, 80, 100, 90, 110], "skill2": [60, 60], "e_flip": [60, 70, 80, 70, 70, 120, 130],
       "ult": [80, 100, 120, 200], "ult_ride": [50] * 8, "ult_land": [70, 70, 70, 70, 100, 100],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
       "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100], "r_beat": [120] * 8}
@@ -468,7 +468,8 @@ def frames_all(F):
     # counter-clockwise), lands (League's landing frame), stands
     # 后空翻补帧（用户 2026-11-20：「旧模型你只要把E后空翻的问题解决了」）：原来只有转 90°、180°、270° 三张就直接落地，
     # 没有蹬离那一下，也没有翻满一圈回正。现在 7 帧：蹬离（不转，离地 4 行）、转 90°、180°（最高）、270°、
-    # 转满一圈回正（还离地 5 行）、落地、站起。一共还是 300 毫秒，技能数据的时长不用改。
+    # 转满一圈回正（还离地 5 行）、落地、站起。用户在游戏里看：「翻了，但一闪而过」——0.3 秒太快，现在 600 毫秒
+    # （转圈每帧 70–80 毫秒，落地、站起各留一百多毫秒），技能数据的 e_flip 跟着改成 36 tick。
     kick_off = dr(T["e_flip"][0])
     tumble = lambda k, dx, up: shift(R.lie(rig, kick_off, k, dx=dx, sink=0), 0, -up)
     out["e_flip"] = [shift(kick_off, 0, -4), tumble(1, 0, 12), tumble(2, -2, 21), tumble(3, -3, 14), tumble(4, -3, 5),

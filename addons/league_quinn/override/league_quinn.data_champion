@@ -1375,11 +1375,31 @@
                     {
                       "type": "CasterAnimation",
                       "name": "e_flip",
-                      "tick": 18
+                      "tick": 36
                     },
                     {
                       "type": "Sfx",
                       "name": "league_quinn_e_flip"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "BlockAttack",
+                          "tick": 36
+                        },
+                        {
+                          "type": "BlockSkill",
+                          "tick": 36
+                        }
+                      ]
                     },
                     {
                       "type": "Combine",

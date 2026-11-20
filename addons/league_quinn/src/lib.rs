@@ -8,7 +8,7 @@
 //!   施放鹰翼天翔（伤害、标记、华洛回到头顶、落地动作，和出招时一样）。
 //! - **旋翔掠杀踢完翻回去**（用户 2026-10-22：「奎因E完人不会拉开距离」）：冲刺停在目标身上、和它重合，数据的 MoveBack「背离目标」没有
 //!   方向、挪 0（经典引擎模拟里量的）。副本踢中时挂 `league_quinn_e_vault`，本包逐 tick 把她往冲过来的方向挪 `E_BACK`，共
-//!   `E_BACK_T` tick（4000 x 12 = 48000，约一个攻击距离），被控就停。0.3.0（用户 2026-10-23：「奎因的E后空翻不拉开距离」）：
+//!   `E_BACK_T` tick（2400 x 20 = 48000，约一个攻击距离；0.6.1 起放慢，和 0.6 秒的后空翻对上），被控就停。0.3.0（用户 2026-10-23：「奎因的E后空翻不拉开距离」）：
 //!   0.2.0 装进游戏后所有对局（预演和画面）一次 VAULT 都没有——冲刺 end_effects 里挂的标记本包从来没看到。现在副本出 E 时就挂
 //!   `league_quinn_e_dash`（`DASH_T` tick，和 `r_ride` 一样挂在动作里，本包看得到），本包看着她冲：冲起来（一 tick 挪 `DASH_STEP`
 //!   以上）后停下的那一 tick，或者 `STILL_T` tick 都没冲（贴身踢）就翻；踢中的标记要是看到了也照样翻，一次 E 只翻一次。
@@ -48,8 +48,8 @@ pub const END_LEAD: usize = 2;
 /// 旋翔掠杀踢中时副本挂的信号：本包把她往冲过来的方向翻回去（冲刺停在目标身上、和目标重合，数据的 MoveBack 没有方向、挪 0）。
 pub const VAULT: &str = "league_quinn_e_vault";
 /// 每 tick 挪多远、挪几 tick（build_quinn.P 的 e_back / e_back_t，单元测试核对）。
-pub const E_BACK: f64 = 4000.0;
-pub const E_BACK_T: usize = 12;
+pub const E_BACK: f64 = 2400.0;
+pub const E_BACK_T: usize = 20;
 /// 出 E 时副本挂的标记和它的时长（build_quinn.P 的 e_dash_t，单元测试核对）：本包看着这段时间里的冲刺。
 pub const DASH: &str = "league_quinn_e_dash";
 pub const DASH_T: usize = 40;

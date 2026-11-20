@@ -351,10 +351,6 @@
                                             "effects": [
                                               {
                                                 "type": "ViewEffect",
-                                                "name": "league_trundle_w_domain"
-                                              },
-                                              {
-                                                "type": "ViewEffect",
                                                 "name": "league_trundle_w_hop"
                                               }
                                             ]
@@ -2011,10 +2007,6 @@
                                             "effects": [
                                               {
                                                 "type": "ViewEffect",
-                                                "name": "league_trundle_w_domain"
-                                              },
-                                              {
-                                                "type": "ViewEffect",
                                                 "name": "league_trundle_w_hop"
                                               }
                                             ]
@@ -2734,14 +2726,6 @@
       "name": "league_trundle_w_hop",
       "anim": "asset/league/effects/league_trundle_fx",
       "tag": "w_hop",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_trundle_w_domain",
-      "anim": "asset/league/effects/league_trundle_big",
-      "tag": "w_domain",
       "z": -1,
       "is_follow": false
     },

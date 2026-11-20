@@ -34,8 +34,8 @@ cast while its flag is up does nothing (a 3-tick idle). Flags die with him: a re
           Trundle himself: `own`): the combos' casts.
 The add-on copy (--native, addons/league_trundle: every place the data is not League's): the passive league_trundle:troll
 heals him for p_pct% of the maximum health of every enemy unit that dies within p_r of him, whoever killed it (the main
-pack: the units he kills), and twice that on the domain; keeps the domain on the ground where it froze (w_r round that
-spot: the buff `w_on` holds only while he stands in it) and makes every heal on him there w_amp% bigger; makes the pillar
+pack: the units he kills), and twice that on the domain; makes every heal on him while the domain (`w_on`, on him,
+moving with him since 2026-11-20 as next door's OPPI does it) lasts w_amp% bigger; makes the pillar
 terrain (enemies pushed out of e_wall round it while it stands, no `Bind`); turns Chomp's sap into League's flat steal
 (he gains q_flat% of the unit's attack, it loses half that); and Subjugate into League's (r_steal% of the champion's own
 defence and magic resistance moved to him, the drain as magic damage, every point drained healing him).
@@ -265,11 +265,12 @@ def build(p):
 
     # ------------------------------------------------------------------ passive: W Frozen Domain (on the controller)
     def w_cast():
-        # the add-on keeps the domain on the ground: `w_on` only marks it, its 2-tick `w_in` holds the stats inside
-        dom = {} if native else dict(attack_speed_mult=p["w_as"], move_speed_mult=p["w_ms"], hp_regen=p["w_regen"])
+        # 冰面跟着他走，照隔壁 OPPI 的做法（用户 2026-11-20：「你W看隔壁OPPI怎么做的 我们做的明显不对」）：`w_on` 自己带
+        # 攻速、移速、回血，冰面是挂在 `w_on` 上的画面（w_aura），他走到哪跟到哪；冻地那一下只播一次小冰花（w_hop）。
+        # 以前附加包把冰面钉在冻住的地方、主包冻地时还另播一个不跟人的大冰圈（w_domain），他一走开地上就是两块冰。
+        dom = dict(attack_speed_mult=p["w_as"], move_speed_mult=p["w_ms"], hp_regen=p["w_regen"])
         return combine(*rm("w_go"), refresh("w_cd", p["w_cd"]), refresh("w_on", p["w_t"], **dom),
-                       anim("w", p["w_dur"]), sfx("w"), voice("vo_w", p),
-                       None if native else on_me(view("w_domain"), view("w_hop")))
+                       anim("w", p["w_dur"]), sfx("w"), voice("vo_w", p), on_me(view("w_hop")))
 
     # ------------------------------------------------------------------ Q Chomp
     def q_cast():
@@ -352,14 +353,11 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_e = [E("a_hit"), E("p_heal"), E("q_hit"), E("w_hop", FX, -1, False), E("w_domain", BIG, -1, False),
+    views_e = [E("a_hit"), E("p_heal"), E("q_hit"), E("w_hop", FX, -1, False),
                E("e_pillar", BIG, 1, False), E("e_hit"), E("r_hit"), E("r_tick"), E("r_chain")]
-    views_b = [B_("q_slow", FX, -1, "slow"), B_("e_slow", FX, -1, "slow"),
+    # 冰面挂在 w_on 上、跟着他走（两版一样）
+    views_b = [B_("w_on", FX, -1, "w_aura"), B_("q_slow", FX, -1, "slow"), B_("e_slow", FX, -1, "slow"),
                B_("q_take" if native else "q_ad", FX, 3, "q_buff")]
-    if not native:   # the domain under him while it lasts (it follows him)
-        views_b.insert(0, B_("w_on", FX, -1, "w_aura"))
-    else:            # the add-on plays the frozen field where it froze, a second at a time (w_field), and the pillar
-        views_e.append(E("w_field", FX, -1, False))
     if native:
         views_b += [B_("q_lose", FX, 3, "q_sap"), B_("r_drain", FX, 3, "r_sap")]
     else:

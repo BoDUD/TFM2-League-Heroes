@@ -51,7 +51,7 @@ BIG = "asset/league/effects/league_quinn_big"
 # League units x 100 = ours for skill ranges (League's 525 attack range -> 52500). Timings from the strips
 # (tools/art/rig_quinn.py MS, 60 ticks a second): the attack 440 ms (atk_dur 26), the bolt off the crossbow's kick on
 # frame 3 at 150 ms (a_hit 10); Q 470 ms (q_dur 28), Valor out on frame 2 (q_rel 9); E's dash 120 ms (e_dur 8), the
-# flip 300 ms (e_flip 18); R's call 500 ms (r_mount 30), Skystrike's landing 480 ms (r_land 29). League 16.20 (Quinn.bin): passive Harrier every 8 s, mark 4 s, ADRatio 0.4 (+ level part); Q 1025
+# flip 600 ms (e_flip 36, 2026-11-20: 0.3 s read as a flash in game); R's call 500 ms (r_mount 30), Skystrike's landing 480 ms (r_land 29). League 16.20 (Quinn.bin): passive Harrier every 8 s, mark 4 s, ADRatio 0.4 (+ level part); Q 1025
 # range, missile 1550, burst r 210, 20-100 + 80-140% AD + 50% AP, nearsight 1.75 s, cd 11.5-9; W after a Harrier hit
 # +15-93% attack speed (by level), +15-45% ms for 2 s; E 600 range, 40-140 + 20% bonus AD, slow 50% decaying over
 # 1.5 s, cd 13-8; R channel 2 s, then +40-220% ms ride, Skystrike r 700, 30-210 + 35-100% AD, cd 3 s.
@@ -74,7 +74,7 @@ P = {
     "q_r": 21000, "q_dmg": 90, "q_ratio": 110, "q_blind": 45, "q_back": 7000,
     # E Vault
     "e_cd": 660, "e_range": 60000, "e_dur": 8, "e_speed": 4000, "e_dmg": 50, "e_ratio": 60, "e_stun": 6,
-    "e_slow": 50, "e_slow_t": 90, "e_back": 4000, "e_back_t": 12, "e_flip": 18,
+    "e_slow": 50, "e_slow_t": 90, "e_back": 2400, "e_back_t": 20, "e_flip": 36,
     # the add-on's copy: how long its cast flag watches the dash ((e_range + 40000) / e_speed = 25 ticks at most)
     "e_dash_t": 40,
     # R Behind Enemy Lines + Skystrike
@@ -278,6 +278,9 @@ def build(p):
     contact = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]},
                buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]), view("e_hit"), tsfx("e_hit"), mark,
                anim("e_flip", p["e_flip"]), sfx("e_flip"),
+               # 翻完才出手（用户 2026-11-20 看后空翻「一闪而过」）：翻的这段时间不普攻、不放技能，不然 AI 贴着目标马上
+               # 接普攻，后空翻没放完就被普攻的动作切掉了（league_graves 换弹也是给自己挂 BlockAttack）
+               on_me({"type": "BlockAttack", "tick": p["e_flip"]}, {"type": "BlockSkill", "tick": p["e_flip"]}),
                # the add-on's copy: a flag, league_quinn moves her (the dash ends on the target's own spot, so `MoveBack`
                # has no way to go: 0 units in the classic simulation, the user in game 10-22: 「奎因E完人不会拉开距离」)
                refresh("e_vault", 4) if nat else {"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]}]
