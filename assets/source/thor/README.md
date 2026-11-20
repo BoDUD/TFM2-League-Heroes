@@ -18,7 +18,17 @@
 
 音频（16 条原创音效、10 条官方日语原声）不进仓库：`python tools/kit/seed_thor_audio.py` 从交付里复制到 `ragnarok/sound/sfx/`。
 
-## 待补（第一轮补画，`D:/TFM2-Workshop/thor_packs/THOR_REQ1_PROMPT.md`）
+## 第一轮补画（2026-11-20，Codex 分支 `codex/ragnarok-thor-req1`，`D:/TFM2-Workshop/thor_packs/THOR_REQ1_PROMPT.md`）
 
-- 雷槌：普攻第 4-7 帧、技能第 4-7 帧、死亡第 4-8 帧里锤头只有待机的一半长，大招 8 帧换成了另一把短方锤（必须改）。
-- 选人立绘：A 手绘风格，和别的英雄一样。
+- 雷槌：普攻第 4-7 帧、技能第 4-7 帧、大招 8 帧、死亡第 4-8 帧（21 格）换成和待机一样大的同一把锤子（锤头 61 x 20 的模板，
+  每帧只转角度、平移；死亡帧人往左挪 8 格放下整把锤子）。另外 43 格逐像素相同，`#anim.fanim` 一个字节没变，色板还是 40 色。
+  我们接入时补了 32 个像素：死亡第 8 帧头发下面被擦成方口子的 27 格（从原画往左挪 8 格的同一位置拿回来），普攻第 4 帧拳头里 3 格、
+  第 5 帧 1 格、大招第 2 帧小臂上 1 格的透明小洞（描边色、皮肤色）。`codex_v01/ragnarok_thor_native#sheet.png` 就是补过的这张。
+- 选人立绘：Codex 没扩边的原图（`raw/generated_original.png`，1145 x 1374）用 `tools/art/bp_illustrations.py` 裁成卡面，
+  在 `ragnarok/banpick_illustrations/ragnarok_thor.png`。
+
+## 待补（第二轮，`D:/TFM2-Workshop/thor_packs/THOR_REQ2_PROMPT.md`）
+
+- 人物大小：普攻、技能的人只有待机的 85-87%，投锤、受击、死亡 90-96%，放技能时人一大一小（用户：「人物放技能的时候别一大一小啊」）。
+  原因是 Codex 的 `build_pixel_v01.py` 每张原图用同一个 `80 / 原图格宽` 缩放，几张原图里人画得大小不一。请 Codex 从原图按统一比例
+  重缩，再把雷槌装回去（锤子大小不变）。
