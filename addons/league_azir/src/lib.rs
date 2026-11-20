@@ -96,6 +96,10 @@
 //!      `s_ap`% 法强的魔法伤害（技能类型的伤害：一条线的人不各吃一次普攻的附带效果），每人身上放一个 `s_stab`。被刺的那个只吃数据那一下。
 //!   3. 召兵位置和时长（数据，主包一起改）：沙兵在目标附近升起、站 10 秒（`build_azir.py`）。
 //!   0.3.0 以前的副本（存档里留着的旧定义，没有 `s_line`）：不穿透、不冲（`lined`）。
+//! - 0.3.1（用户 2026-11-20：「改成联盟的」）：**Q 挪过去的沙兵不再重新算 10 秒。** 联盟的沙兵从召出来起就是 10 秒，挪到哪都
+//!   不续；以前数据每挪一次就换一代新兵，又是整整 10 秒。现在数据挪的时候不续槽位的 `b<槽>`，挪过去的那个只活到原来的 10 秒
+//!   （`build_azir.py` 的 `lives`），快到头、不够冲一次的不挪。本包让冲到的兵接着原来的出生时刻和年龄算（塔下老得快照旧算），
+//!   画面也只画到那时候（`life_end`）。日志：`ARRIVES` 写出还剩几 tick，画面到头时记 `ENDS`。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -297,7 +301,7 @@ impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
                r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
-               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 54, s_ap: 68,
+               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 52, s_ap: 65,
                s_r: 42000, s_line: 5000, q_dmg: 80, q_ap: 44, q_w: 9000, q_slow: 25, q_slow_t: 60, q_travel: 18,
                ss_dash: 2, tied: false, lined: false }
     }
@@ -1521,13 +1525,26 @@ struct Soldier {
     /// 0.3.0 (the user, 2026-11-17: 「Q 沙兵真的冲过去」): Conquering Sands is moving it - no stamps of its own, no line, no
     /// ageing: the dash's chain (`dash_<slot>`) draws it on its way, the data's soldier rising where it lands takes over.
     slide: Option<Slide>,
+    /// 0.3.1：被 Q 挪过（出生时刻、年龄是挪之前那个兵的），画面到头时记一行 `ENDS`
+    moved: bool,
 }
 
 impl Soldier {
     fn new(at: (f64, f64), right: bool, chain: usize, until: usize, next: usize, tick: usize, up: usize) -> Self {
         Soldier { at, right, chain, stab: None, until, next, last: tick, up, born: tick, age: 0, out: 0, away: false,
-                  gone: false, flips: 0, marked: false, slide: None }
+                  gone: false, flips: 0, marked: false, slide: None, moved: false }
     }
+}
+
+/// 0.3.1：Q 挪过去的沙兵还是原来那个兵，出生时刻照旧，年龄接着算，冲的那几 tick 也算进去。-> (出生, 年龄)
+pub fn carried_life(born: usize, age: usize, left_at: usize, now: usize) -> (usize, usize) {
+    (born, age + now.saturating_sub(left_at))
+}
+
+/// 沙兵的画面最晚画到这个 tick：出生后 s_life，加一张站立图，再留 2 tick 余量。
+/// 原地站满 10 秒的兵本来就画到这里；被 Q 挪过的兵数据那边到原来的 10 秒就停了，画面也跟着停，不多站半秒多。
+pub fn life_end(born: usize, s_life: usize, ss_stand: usize) -> usize {
+    born + s_life + ss_stand + 2
 }
 
 // ===================== 0.3.0：狂沙猛攻沙兵冲过去，刺击刺穿一条线 =====================
@@ -2077,19 +2094,28 @@ impl StableEffectType for SoldierFx {
                 // 0.3.0: one Conquering Sands brought here (its dash drawn on the way) arrives standing, not out of the sand
                 let arrived = map.get(&key).and_then(|s| s.slide).filter(|sl| rising && dist(sl.to, at) <= ARRIVE_NEAR);
                 if let Some(sl) = arrived {
+                    // 0.3.1（用户 2026-11-20：「改成联盟的」）：冲过来的还是原来那个兵，接着原来的出生时刻和年龄算
+                    let (born, age) = map.get(&key).map_or((tick, 0), |s| carried_life(s.born, s.age, sl.t0, tick));
                     prune_soldiers(&mut map, key.0, tick, p.s_life);
                     let enemy = nearest(sim, team, at, FACE_R).map(|(_, _, e)| e);
                     let right = turn_to(at, enemy, sl.right);
                     let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
-                    map.insert(key, Soldier::new(at, right, chain, until, tick + p.ss_stand, tick, tick));
+                    let mut s = Soldier::new(at, right, chain, until.min(life_end(born, p.s_life, p.ss_stand)),
+                                             tick + p.ss_stand, tick, tick);
+                    s.born = born;
+                    s.age = age;
+                    s.moved = true;
+                    map.insert(key, s);
                     drop(map);
                     // what is left of its path (a step of the dash lost on the way) deals now
                     sweep_path(sim, me, self.slot, &sl, 1.0);
                     draw_soldier(sim, me, self.slot, at, "stand", right);
                     queue_stamp(sim, me, self.slot, at, chain, p.ss_stand);
                     if let Some(k) = counted("arrive") {
-                        wlog(format!("{} SOLDIER {s_} ARRIVES #{k} at {} from {} ({} ticks after it left), facing {}",
+                        wlog(format!("{} SOLDIER {s_} ARRIVES #{k} at {} from {} ({} ticks after it left), {} ticks of its \
+                                      {} left (risen on tick {born}), facing {}",
                                      head(sim, me), pt(at), pt(sl.from), tick.saturating_sub(sl.t0),
+                                     (born + p.s_life).saturating_sub(tick), p.s_life,
                                      if right { "right" } else { "left" }));
                     }
                     return;
@@ -2100,7 +2126,8 @@ impl StableEffectType for SoldierFx {
                             // 0.2.0: it crumbled (the data's checkpoints are latched off it; never drawn again)
                             return;
                         }
-                        s.until = until;
+                        // 0.3.1：最多画到出生后 s_life（被 Q 挪过的兵出生时刻是原来的）
+                        s.until = until.min(life_end(s.born, p.s_life, p.ss_stand));
                         if tick.saturating_sub(s.last) <= REDRAW {
                             return;
                         }
@@ -2194,6 +2221,13 @@ impl StableEffectType for SoldierFx {
                     else { return };
                 if tick >= s.until {
                     map.remove(&key);
+                    drop(map);
+                    if s.moved {
+                        if let Some(k) = counted("moved ends") {
+                            wlog(format!("{} SOLDIER {s_} ENDS #{k} at {}: moved by Conquering Sands, {} ticks after it rose \
+                                          (its own {})", head(sim, me), pt(s.at), tick.saturating_sub(s.born), p.s_life));
+                        }
+                    }
                     return;
                 }
                 let (what, right, next) = match s.stab {
@@ -2559,7 +2593,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier that outlives its tick, soldiers out of his reach stop and crumble, twice as fast by enemy towers, the wall stands 5 s, the disc every 90 s on any ruin outside the enemy base, Conquering Sands' soldiers dash to any target and their paths deal, a soldier's stab goes through a line) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier that outlives its tick, soldiers out of his reach stop and crumble, twice as fast by enemy towers, the wall stands 5 s, the disc every 90 s on any ruin outside the enemy base, Conquering Sands' soldiers dash to any target and their paths deal, a soldier's stab goes through a line, a moved soldier keeps its own 10 s) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -3069,6 +3103,34 @@ mod tests {
         let main = include_str!("../../../league/champion/league_azir.data_champion");
         for s in SLOTS {
             assert!(!main.contains(&format!("league_azir_o{s}")) && !main.contains(&format!("league_azir_x{s}")));
+        }
+    }
+
+    /// 0.3.1：Q 挪过去的沙兵还是原来那条命：出生时刻不变，年龄把冲的那几 tick 也算上；画面最多画到原来的 10 秒。
+    #[test]
+    fn a_moved_soldier_keeps_its_first_life() {
+        let p = Params::default();
+        // 第 100 tick 召出来、年龄 300（塔下多老了 100），第 400 tick 起冲，第 418 tick 到
+        assert_eq!(carried_life(100, 300, 400, 418), (100, 318));
+        // 原地站满的兵：最后一个检查点在出生后 s_life - s_step，画面本来就画到它再加 s_step + ss_stand，不会被截（晚一 tick 也不会）
+        let born = 1000;
+        assert!(born + p.s_life + 1 + p.ss_stand <= life_end(born, p.s_life, p.ss_stand));
+        // 挪过的兵：到点的检查点再晚也只画到出生后 s_life 多一点
+        assert!(life_end(born, p.s_life, p.ss_stand) <= born + p.s_life + 10);
+    }
+
+    /// 0.3.1：数据里挪过去的沙兵要问槽位的 b<槽> 和 z<槽>，召兵时挂 w<槽> / z<槽>；主包和副本一样。
+    #[test]
+    fn the_moved_soldiers_ask_their_first_life() {
+        let copy = include_str!("../override/league_azir.data_champion");
+        let main = include_str!("../../../league/champion/league_azir.data_champion");
+        for (name, kit) in [("copy", copy), ("main", main)] {
+            for s in SLOTS {
+                for flag in ["z", "w"] {
+                    assert!(kit.contains(&format!("\"buff_name\": \"league_azir_{flag}{s}\"")), "{name}: asks {flag}{s}");
+                    assert!(kit.contains(&format!("\"name\": \"league_azir_{flag}{s}\"")), "{name}: hangs {flag}{s}");
+                }
+            }
         }
     }
 
