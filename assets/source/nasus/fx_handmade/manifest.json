@@ -79,9 +79,9 @@
      41
     ]
    ],
-   "of_1x": "034d3f717605677ab54486c7bb0432d18270111a73c31beed64a6e0a62e07cc5",
-   "by": "fx_vector 4",
-   "sha256": "949b470ebe872cd30e9fae62f764da9233ab7e2f5fbe9de396aa025df3ceb337",
+   "of_1x": "eade9a108d73fbb429ecf29076a6a2aad02c6e69bf04337bc5a369bb34d2934b",
+   "by": "original skin palette",
+   "sha256": "959a6d5def20e0980b43bca27f4c2f8f815c3ee8e5fa90438190653061b5af8a",
    "note": "batch 07 league other 2026-11-14"
   },
   {
@@ -124,9 +124,9 @@
      59
     ]
    ],
-   "of_1x": "776f398798edad8d0209ec418fb29fb23a9ac4388049f2ec6f642162dc2bda49",
-   "by": "fx_vector 3",
-   "sha256": "c90cbfdf5df11b2c19fcddf3d3f0cdc3614ae16ec499b5593015704316f6fb0e",
+   "of_1x": "f72934ba6b7a7448f3251132f69933694f89d8ab79bae90f78b3237e0055bc25",
+   "by": "original skin palette",
+   "sha256": "cffcffde898bb59c13e2cde52976cb3544cdca3ff06fc2e7b3799b5863e452d1",
    "note": "batch 04 auras and buffs 2026-11-14"
   }
  ]
