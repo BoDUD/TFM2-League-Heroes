@@ -69,5 +69,6 @@
   held / put back n times)`；显示钩子第一次看到每个落地的小菊写 `DAISY DROP on screen: unit #.. plays 'drop'`（引擎自己播了）或
   `-> 'drop'`（钩子换的）。
 - 测试：假宿主（萨科附加包的 `summon_mock.rs`）里动画定身的单位不走不打；接线测试查单位身上有定身和标记、落地时一拳没打。
-- 小菊现在还是正面的图，走路、转向要等四分之三侧面的新图（`assets/source/ivern/DAISY_SIDE_PROMPTS.md`，给 GPT 的图包
-  `tools/art/pack_daisy_side.py`）。
+- 小菊的单位图同一天换成四分之三侧面朝右（Codex 照正面定稿画的 15 张，`assets/source/ivern/codex_side`；图包
+  `tools/art/pack_daisy_side.py`，提示词 `assets/source/ivern/DAISY_SIDE_PROMPTS.md`）：会走、会转身，`drop` 是从天而降落地那 4 帧；
+  挂在目标身上的那套（没有单位时）还是正面的特效图。
