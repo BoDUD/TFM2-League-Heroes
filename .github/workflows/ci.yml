@@ -4,6 +4,8 @@
 #           * PPU: every champion's UI sheets, and the screens that show every hero inside the 256 MiB image cache
 #             (tools/ci/ui_sheets.py; league.dll's tests below); the dense frames' outlines as tools/art/thin_outline.py
 #             thinned them (the user, 2026-11-14: 「有些英雄黑边太粗了」);
+#           * 选人立绘（league/ 和 tft/ 的 banpick_illustrations/）：文件名是英雄id、304×405、上面 48 行透明
+#             （tools/ci/bp_illustrations.py）;
 #           * the add-ons' copies of main-pack heroes rebuilt and compared (make_override.py --check): Sylas's stolen
 #             ults, Viego's possession, Neeko's disguise, Kayn's form;
 #           * the dense-frame engine both pack DLLs share (hd_engine: PPU, UI sheets, the host / guest handshake),
@@ -55,6 +57,8 @@ jobs:
           workspaces: addons -> target
       - name: PPU - every hero's UI sheets, inside the image cache
         run: python -I tools/ci/ui_sheets.py
+      - name: BP illustrations - named after a champion, 304x405, top 48 rows clear
+        run: python -I tools/ci/bp_illustrations.py
       - name: The add-ons' hero copies up to date (Sylas's stolen ults, Viego, Neeko, Kayn)
         run: |
           python -I addons/league_sylas/make_override.py --check

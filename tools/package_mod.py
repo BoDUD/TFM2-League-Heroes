@@ -95,7 +95,9 @@ GAME_DIRS = [
 ]
 JSON_EXT = (".data_champion", ".fanim", ".i18n", ".champion_view", ".override_info", ".sound_info")
 SHARED = ("text/champion.i18n", "style/champion_view.champion_view", "mod.override_info")
-HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx", "sound/bgm")   # bgm: a packed source
+# banpick_illustrations: 选人 / 英雄交换界面的立绘，游戏按 <英雄id>.png 自己读（tools/ci/bp_illustrations.py）
+HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx", "sound/bgm",   # bgm: a packed source
+             "banpick_illustrations")
 AUDIO_EXT = (".wav", ".mp3")
 SFX_DIR = "sound/sfx"      # where the sources keep the clips, next to their .sound_info
 STREAM_DIR = "sound/bgm"   # where the package puts them: opened when played, not read at start
