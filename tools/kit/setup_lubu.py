@@ -32,7 +32,7 @@ from build_lubu import P, lp, MOD_ID, ID  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 NAME = "Record of Ragnarok Heroes"
 HEROES = ["Lu Bu"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "

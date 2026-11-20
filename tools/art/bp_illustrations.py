@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Codex 交来的选人立绘原图 -> 游戏用的立绘卡（league/ 或 tft/ 下的 banpick_illustrations/<英雄id>.png）。
+"""Codex 交来的选人立绘原图 -> 游戏用的立绘卡（league/、tft/ 或 ragnarok/ 下的 banpick_illustrations/<英雄id>.png）。
 
     python -I tools/art/bp_illustrations.py <交付的 zip 或文件夹> [--write] [--sheet 检查图.png]
 
-- 交付里每张 `league_xxx.png` / `tft_xxx.png`（raw/ 里的不算）就是一个英雄的原图，生图工具给的竖版尺寸，不缩不裁。
+- 交付里每张 `league_xxx.png` / `tft_xxx.png` / `ragnarok_xxx.png`（raw/ 里的不算）就是一个英雄的原图，生图工具给的竖版尺寸，不缩不裁。
 - 按卡片的比例 304:357 裁：宽度全留，多出来的高度上面裁 25%、下面裁 75%（头留着，裁掉的是腿和下面的背景）。
   不拉伸：2026-11-20 试点时 Codex 自己把 1062×1481 硬拉成 1216×1428，人横着宽了约 19%。
 - LANCZOS 缩到 304×357，贴到 304×405 透明画布的 y=48（照公主连结的立绘，上面 48 行全透明；
@@ -33,7 +33,7 @@ def originals(src):
     def want(name):
         parts = name.replace("\\", "/").split("/")
         f = parts[-1]
-        return "raw" not in parts[:-1] and f.endswith(".png") and f.startswith(("league_", "tft_"))
+        return "raw" not in parts[:-1] and f.endswith(".png") and f.startswith(("league_", "tft_", "ragnarok_"))
 
     if zipfile.is_zipfile(src):
         with zipfile.ZipFile(src) as z:
@@ -67,7 +67,7 @@ def card(im):
 
 
 def pack_of(cid):
-    return "tft" if cid.startswith("tft_") else "league"
+    return cid.split("_", 1)[0] if cid.startswith(("tft_", "ragnarok_")) else "league"
 
 
 def sheet(cards, path):
@@ -87,7 +87,7 @@ def sheet(cards, path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("src", help="Codex 交付的 zip 或解压后的文件夹")
-    ap.add_argument("--write", action="store_true", help="写进 league/ 和 tft/ 的 banpick_illustrations/")
+    ap.add_argument("--write", action="store_true", help="写进各包（league/、tft/、ragnarok/）的 banpick_illustrations/")
     ap.add_argument("--sheet", help="转好的卡排成一张检查图，写到这里")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # 控制台不是 UTF-8 时中文也能打印

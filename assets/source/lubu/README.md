@@ -18,3 +18,14 @@ Codex 做的 4 倍高清图集（4096 x 4096）是原画逐像素放大 4 倍，
 技能图标三张（`ragnarok/icons/`）是用户确认的高清版，原样 256 x 256，哈希和清单一致。
 
 音频（15 条原创音效、10 条官方日语原声）不进仓库：`python tools/kit/seed_lubu_audio.py` 从交付里复制到 `ragnarok/sound/sfx/`。
+
+## 第一轮补画（2026-11-20，Codex 分支 `codex/ragnarok-lubu-req1`）
+
+我们提的需求：`D:/TFM2-Workshop/lubu_packs/LUBU_REQ1_PROMPT.md`。
+
+- 方天画戟：普攻第 4-6 帧、横扫第 5-6 帧里戟杆没了，重画成完整长戟、双手握杆。`codex_v02/ragnarok_lubu_native#sheet.png`
+  换成补画后的（另外 59 帧逐像素相同，`#anim.fanim` 一个字节没变，帧时长不变；接入前逐帧核过）。
+- 天喰斩波：`codex_req1/ragnarok_lubu_wave_native`，8 帧 132 x 40，画朝右、上下对称，0.05 秒一帧。挂在天喰那一刀的
+  画面直线上（`tools/kit/build_lubu.py` 的 `r_wave`），1 倍，转向跟着斩的方向。
+- 选人立绘：Codex 选定的原图（`raw/card_selected.png`，1157 x 1359）用 `tools/art/bp_illustrations.py` 裁成卡面，
+  在 `ragnarok/banpick_illustrations/ragnarok_lubu.png`。

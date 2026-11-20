@@ -336,6 +336,16 @@
                             }
                           }
                         ]
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_lubu_r_wave",
+                        "width": 10000,
+                        "length": 75000,
+                        "delay": 24,
+                        "apply": 24,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
                       }
                     ]
                   },
@@ -391,6 +401,16 @@
                             }
                           }
                         ]
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_lubu_r_wave",
+                        "width": 10000,
+                        "length": 75000,
+                        "delay": 24,
+                        "apply": 24,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
                       }
                     ]
                   }
@@ -406,7 +426,16 @@
       ]
     }
   },
-  "view_projectiles": [],
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "ragnarok_lubu_r_wave",
+      "anim": "asset/ragnarok/effects/ragnarok_lubu_proj",
+      "tag": "ult_wave",
+      "repeat": false,
+      "z": 2
+    }
+  ],
   "view_effects": [
     {
       "type": "Animation",
