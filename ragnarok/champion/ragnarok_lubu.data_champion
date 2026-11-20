@@ -1,0 +1,453 @@
+{
+  "id": "ragnarok_lubu",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_lubu:breaker",
+    "params": {
+      "p_pen": 15,
+      "p_shield": 100,
+      "p_break": 30
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_lubu",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_lubu_skill",
+    "asset/ragnarok/icons/ragnarok_lubu_skill2",
+    "asset/ragnarok/icons/ragnarok_lubu_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 1060,
+    "defence": 32,
+    "magic_resistance": 25,
+    "move_speed": 1020,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 19,
+    "magic_power": 0,
+    "hp": 105,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_lubu.attack",
+    "duration": 30,
+    "cooltime": 72,
+    "start_timing": 18,
+    "cancelable": true,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_lubu_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_lubu_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_lubu_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_lubu.skill",
+    "duration": 46,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 25,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_lubu_q_swing"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 38000,
+                  "range": 400
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 50,
+                  "attack_ratio": 130,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "ragnarok_lubu_q_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 90
+                      }
+                    },
+                    "move_speed_mult": -40
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "ragnarok_lubu_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "TargetSfx",
+              "name": "ragnarok_lubu_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_lubu.skill2",
+    "duration": 40,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 20,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_lubu_e"
+            },
+            {
+              "type": "RushTime",
+              "speed": 3200,
+              "tick": 11,
+              "range": 15000,
+              "casting_target": "EnemyWithoutTower",
+              "penetrate": true,
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 40,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Airborne",
+                    "duration": 36
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "ragnarok_lubu_e_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_lubu_e_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_lubu.ult",
+    "duration": 96,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_lubu_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 74
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_lubu_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_lubu_r_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 71,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_lubu_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_lubu_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_lubu_r_slash"
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_lubu_r_cut",
+                        "width": 10000,
+                        "length": 75000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 200,
+                              "attack_ratio": 280,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 48
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_lubu_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_lubu_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_lubu_r_slash"
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_lubu_r_cut",
+                        "width": 10000,
+                        "length": 75000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 200,
+                              "attack_ratio": 280,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 48
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_lubu_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_lubu_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_lubu_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_lubu_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_lubu_fx",
+      "tag": "hit_spark",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_lubu_q_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_lubu_fx",
+      "tag": "hit_spark",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_lubu_e_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_lubu_fx",
+      "tag": "hit_spark",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_lubu_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_lubu_fx",
+      "tag": "ult_impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_lubu_p_break",
+      "anim": "asset/ragnarok/effects/ragnarok_lubu_fx",
+      "tag": "shield_break",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

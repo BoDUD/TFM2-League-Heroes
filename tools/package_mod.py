@@ -114,8 +114,9 @@ UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
 
 # each native pack's own code, next to its mod.mod_info: mod_id -> (the DLL, its crate in addons/) - the main pack's
 # league.dll (addons/league_main), the tft pack's tft.dll (addons/tft: its heroes' rules the data cannot play and,
-# since 0.42.0, their dense frames); both carry the dense-frame engine (addons/hd_engine)
-DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft")}
+# since 0.42.0, their dense frames), the ragnarok pack's ragnarok.dll (addons/ragnarok: Record of Ragnarok's
+# fighters, 2026-11-20); all carry the dense-frame engine (addons/hd_engine)
+DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft"), "ragnarok": ("ragnarok.dll", "ragnarok")}
 
 
 def build_dll(explicit, mod_id="league"):

@@ -1,0 +1,14 @@
+[package]
+name = "ragnarok"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# 终末的女武神包自己的 DLL（ragnarok.dll）：数据做不到的英雄规则，加上它们的高清帧表（src/hd.rs，交给和 league.dll、
+# tft.dll 共用的 hd_engine，谁先加载谁挂钩）。
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }
+hd_engine = { path = "../hd_engine" }
