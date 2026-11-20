@@ -1,0 +1,170 @@
+{
+  "asset/base/text/champion": {
+    "remapping": "asset/ragnarok/text/champion",
+    "type": "merge"
+  },
+  "asset/base/style/champion_view": {
+    "remapping": "asset/ragnarok/style/champion_view",
+    "type": "merge"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_a": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_a_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_q_swing": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_q_swing",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_q_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_e": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_e_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_r": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_r_vo": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_vo",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_r_slash": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_slash",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_r_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_p_break": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_p_break",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_select": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_select",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_start": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_taunt_strong": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_taunt_strong",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_taunt_gods": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_taunt_gods",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_challenge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_challenge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_swing_call": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_swing_call",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_praise": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_praise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_encounter": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_encounter",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_power": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_power",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_attack_hit_1": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_attack_hit_1",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_attack_swing_2": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_attack_swing_2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_shield_break": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_shield_break",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_skill2_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_skill2_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_skill2_thrust": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_skill2_thrust",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_skill_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_skill_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_skill_swing": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_skill_swing",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_ult_charge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_ult_charge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_ult_impact": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_ult_impact",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_sfx_ult_release": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_ult_release",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_challenge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_challenge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_encounter": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_encounter",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_power": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_power",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_praise": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_praise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_select": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_select",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_start": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_swing_call": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_swing_call",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_taunt_gods": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_taunt_gods",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_taunt_strong": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_taunt_strong",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_vo_ult": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_ult",
+    "type": "override"
+  }
+}

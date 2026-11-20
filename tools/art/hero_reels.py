@@ -1,7 +1,7 @@
 """Every hero's idle and ban/pick card reel cut from the frames the sheet already has (the user, 2026-10-22:
 「BP页面的动图可以随便切动画帧里面的动作来做吧 包括待机的时候」, then 「待机时候那个上下摆动也可以换成这个BP界面的思路了吧」).
 
-    python tools/art/hero_reels.py                      # write every hero's idle / bp tags (league/ and tft/)
+    python tools/art/hero_reels.py                      # write every hero's idle / bp tags (league/, tft/, ragnarok/)
     python tools/art/hero_reels.py --hero garen,jinx    # only these
     python tools/art/hero_reels.py --check              # exit 1 when a .fanim is not what this would write
     python tools/art/hero_reels.py --list               # each hero's picks (snippets, card actions, held frames)
@@ -57,7 +57,7 @@ from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
-PACKS = ("league", "tft")
+PACKS = ("league", "tft", "ragnarok")
 PICKS = os.path.join(HERE, "hero_reels.json")
 PREFIXES = ("", "hd_", "lo_")
 CORE = ("attack", "skill", "skill2", "ult")
@@ -87,13 +87,14 @@ def lp(path):
 
 
 def hd_rs():
-    """The dense heroes {id: PPU} and UI_SIZES {id: size} of both dense-frame tables: league.dll's
-    (addons/league_main/src/hd.rs) and tft.dll's (addons/tft/src/hd.rs), drawn by addons/hd_engine."""
+    """The dense heroes {id: PPU} and UI_SIZES {id: size} of the dense-frame tables: league.dll's
+    (addons/league_main/src/hd.rs), tft.dll's (addons/tft/src/hd.rs) and ragnarok.dll's (addons/ragnarok/src/hd.rs),
+    drawn by addons/hd_engine."""
     ppu, sizes = {}, {}
-    for crate in ("league_main", "tft"):
+    for crate in ("league_main", "tft", "ragnarok"):
         src = open(lp(os.path.join(REPO, "addons", crate, "src", "hd.rs")), encoding="utf-8").read()
         ppu.update({h: float(p) for h, p in
-                    re.findall(r'\("((?:league|tft)_\w+)", ([0-9.]+), include_str!\("[^"]*/champions/', src)})
+                    re.findall(r'\("((?:league|tft|ragnarok)_\w+)", ([0-9.]+), include_str!\("[^"]*/champions/', src)})
         body = src[src.index("pub const UI_SIZES"):]
         body = body[:body.index("];")]
         sizes.update({h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)})

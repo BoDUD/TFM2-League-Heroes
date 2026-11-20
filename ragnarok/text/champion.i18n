@@ -1,0 +1,92 @@
+{
+  "zh-hans": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "吕布奉先",
+        "attack": "方天画戟重击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>盾牌破坏者<>：无视<#ffb900ff>15%<>护甲；对护盾的伤害提高<#ffb900ff>100%<>，打碎护盾时再造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害。",
+        "skill": "方天画戟横扫前方扇形，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，并减速<#ffb900ff>40%<>，持续<#ffb900ff>1.5秒<>。",
+        "skill2": "朝目标突刺冲阵，穿过路上的敌人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.6秒<>。",
+        "ult": "举戟蓄力<#ffb900ff>1.2秒<>（不受控制，受到的伤害降低<#ffb900ff>30%<>），随后朝目标斩出天喰：直线上的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.8秒<>。"
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "横扫",
+        "skill2": "破阵",
+        "ult": "天喰"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "呂布奉先",
+        "attack": "方天畫戟重擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>盾牌破壞者<>：無視<#ffb900ff>15%<>護甲；對護盾的傷害提高<#ffb900ff>100%<>，擊碎護盾時再造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害。",
+        "skill": "方天畫戟橫掃前方扇形，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，並緩速<#ffb900ff>40%<>，持續<#ffb900ff>1.5秒<>。",
+        "skill2": "朝目標突刺衝陣，穿過路上的敵人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.6秒<>。",
+        "ult": "舉戟蓄力<#ffb900ff>1.2秒<>（不受控制，受到的傷害降低<#ffb900ff>30%<>），隨後朝目標斬出天喰：直線上的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.8秒<>。"
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "橫掃",
+        "skill2": "破陣",
+        "ult": "天喰"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "Lu Bu",
+        "attack": "Swings the Sky Piercer for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Shield Breaker<>: ignores <#ffb900ff>15%<> armor; deals <#ffb900ff>100%<> more damage to shields, and breaking a shield deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> more physical damage.",
+        "skill": "Sweeps the halberd through a cone in front, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<> and slowing by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Charges through the enemy line toward the target: enemies in his path take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.6s<>.",
+        "ult": "Gathers himself for <#ffb900ff>1.2s<> (unstoppable, taking <#ffb900ff>30%<> less damage), then cuts the sky toward the target: enemies on the line take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.8s<>."
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "Sweep",
+        "skill2": "Formation Breaker",
+        "ult": "Sky Eater"
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "여포 봉선",
+        "attack": "방천화극으로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>방패 파괴자<>: 방어력 <#ffb900ff>15%<> 무시; 보호막에 주는 피해 <#ffb900ff>100%<> 증가, 보호막을 깨면 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해 추가.",
+        "skill": "방천화극으로 전방 부채꼴을 휩쓸어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>1.5초<> 동안 <#ffb900ff>40%<> 둔화.",
+        "skill2": "대상을 향해 적진을 꿰뚫고 돌격: 경로의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.6초 에어본<>.",
+        "ult": "<#ffb900ff>1.2초<> 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 <#ffb900ff>30%<> 감소) 대상 쪽으로 하늘을 베는 천식: 직선 위의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.8초 기절<>."
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "휩쓸기",
+        "skill2": "파진",
+        "ult": "천식"
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "呂布奉先",
+        "attack": "方天画戟の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>シールドブレイカー<>：物理防御の<#ffb900ff>15%<>を無視、シールドへのダメージ+<#ffb900ff>100%<>、シールドを砕くと<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージを追加。",
+        "skill": "方天画戟で前方の扇状範囲を薙ぎ払い、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1.5秒<>間<#ffb900ff>40%<>のスロウ。",
+        "skill2": "目標へ敵陣を突き破って突進：通り道の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.6秒のノックアップ<>。",
+        "ult": "<#ffb900ff>1.2秒<>力を溜め（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）、目標の方向へ天喰を放つ：直線上の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.8秒のスタン<>。"
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "薙ぎ払い",
+        "skill2": "破陣",
+        "ult": "天喰"
+      }
+    }
+  }
+}

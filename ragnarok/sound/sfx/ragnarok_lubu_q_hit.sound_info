@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "ragnarok_lubu_sfx_skill_hit",
+      "volume": 0.5
+    }
+  ]
+}
