@@ -62,6 +62,14 @@ pub const TRAIL: usize = 40;
 /// 离踢中的地方至少这么远的旧位置才算「从那边冲过来」。
 pub const CAME_MIN: f64 = 3000.0;
 const MAP: f64 = 960_000.0;
+/// 后空翻每帧多少毫秒（tools/art/rig_quinn.py 的 MS["e_flip"]，单元测试核对），合计 600 毫秒 = 技能数据的 e_flip 36 tick。
+pub const FLIP_MS: [usize; 7] = [60, 70, 80, 70, 70, 120, 130];
+/// 正在翻第几帧：踢中后本包每 tick 给她挂 `league_quinn_flip<k>`，view.rs 看到就把画面上正在播的动画换成单帧标签
+/// `e_flip_<k>`。被往后挪的那 E_BACK_T tick 里游戏看来不往下播强制动作（画面停在第一帧，用户 2026-11-20：「奎因E往后拉距离
+/// 为什么还是没动画」），只能按 tick 一帧一帧换上去。
+pub const FLIP: &str = "league_quinn_flip";
+/// 一秒几 tick。
+const TPS: usize = 60;
 
 // ===================== 日志 =====================
 
@@ -166,6 +174,21 @@ pub fn dash_over(ticks: usize, moved: bool, step: f64) -> bool {
     if moved { step < DASH_STEP } else { ticks >= STILL_T }
 }
 
+/// 踢中后第 `t` tick（踢中那一 tick 是 0）该画后空翻的第几帧；翻完了是 None。
+pub fn flip_frame(t: usize) -> Option<usize> {
+    let ms = t * 1000 / TPS;
+    let mut end = 0;
+    FLIP_MS.iter().position(|d| {
+        end += d;
+        ms < end
+    })
+}
+
+/// 第 `k` 帧的标记名（view.rs 认它）。
+pub fn flip_buff(k: usize) -> String {
+    format!("{FLIP}{k}")
+}
+
 /// 骑了 `age` tick（骑上那一 tick 是 0）时要不要挂落地信号：只在 R_RIDE_T - END_LEAD 那一 tick。
 pub fn time_to_land(age: usize) -> bool {
     age + END_LEAD == R_RIDE_T
@@ -195,6 +218,19 @@ struct Ride {
     vault: Option<(Pt, usize, Pt, usize)>,
     /// 出 E 的标记在她身上时：看到它几 tick、冲起来过没有、这次 E 翻过没有（标记没了才清掉，一次 E 只翻一次）。
     dash: Option<(usize, bool, bool)>,
+    /// 后空翻的画面：踢中后第几 tick、现在挂着第几帧的标记。
+    flip: Option<(usize, Option<usize>)>,
+}
+
+/// 她身上的强制动作（名字、还剩几 tick），日志用。
+fn anims_on(sim: &StableSim<'_>, id: usize) -> String {
+    let Some(e) = sim.get_entity(id) else { return String::new() };
+    let v: Vec<String> = (0..e.cc_count())
+        .filter_map(|i| e.cc_at(i))
+        .filter(|c| c.kind == CcKindV1::Animation.code())
+        .map(|c| format!("{} {}", c.name(), c.tick))
+        .collect();
+    if v.is_empty() { "none".to_string() } else { v.join(", ") }
 }
 
 /// 控住她的（翻到一半被控就停）。
@@ -252,6 +288,12 @@ impl Ride {
             self.dash = None;
         }
         if let (Some(why), None) = (why, self.vault) {
+            // 翻的画面跟着这一下走（找不到方向、原地翻也一样翻）
+            self.flip = Some((0, self.flip.and_then(|f| f.1)));
+            if let Some(k) = counted_on("flip", on_screen(sim)) {
+                wlog(format!("{} FLIP frame by frame on screen ({why}); animations on her: {} #{k}", head(sim, me),
+                             anims_on(sim, me)));
+            }
             let trail: Vec<Pt> = self.trail.iter().copied().collect();
             match vault_dir(at, &trail, nearest_foe(sim, me, at)) {
                 Some(d) => {
@@ -286,6 +328,32 @@ impl Ride {
             }
         }
     }
+
+    /// 后空翻（踢中后 FLIP_MS 那 600 毫秒）：每 tick 给她挂这一帧的标记 `league_quinn_flip<k>`，view.rs 照它换画面；
+    /// 翻完、被控就摘掉。标记只挂 2 tick、每 tick 重挂：本包哪一 tick 没跑到，画面也会自己回到游戏播的动作。
+    fn flip(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let Some((t, shown)) = self.flip else { return };
+        let held = hard_cc(sim, me);
+        let k = if held { None } else { flip_frame(t) };
+        if let Some(old) = shown.filter(|&o| Some(o) != k) {
+            sim.entity_remove_buff(me, &flip_buff(old));
+        }
+        match k {
+            Some(k) => {
+                let name = flip_buff(k);
+                sim.entity_remove_buff(me, &name);
+                sim.add_buff(me, &BuffV1::timed(&name, 2));
+                self.flip = Some((t + 1, Some(k)));
+            }
+            None => {
+                if let Some(n) = counted_on("flip_done", on_screen(sim)) {
+                    wlog(format!("{} FLIP over after {t} ticks{}; animations on her: {} #{n}", head(sim, me),
+                                 if held { ", cut by CC" } else { "" }, anims_on(sim, me)));
+                }
+                self.flip = None;
+            }
+        }
+    }
 }
 
 impl StablePassive for Ride {
@@ -302,6 +370,7 @@ impl StablePassive for Ride {
         match pos(sim, me).filter(|_| alive) {
             Some(at) => {
                 self.vault(sim, me, at);
+                self.flip(sim, me);
                 self.trail.push_back(at);
                 if self.trail.len() > TRAIL {
                     self.trail.pop_front();
@@ -311,6 +380,7 @@ impl StablePassive for Ride {
                 self.trail.clear();
                 self.vault = None;
                 self.dash = None;
+                self.flip = None;
             }
         }
         let riding = alive && has_buff(sim, me, RIDE);
@@ -422,6 +492,42 @@ mod tests {
         assert!(s.contains(&format!("\"{VAULT}\"")), "the copy flags no vault");
         assert!(s.contains(&format!("\"{DASH}\"")), "the copy flags no cast");
         assert!(!s.contains("\"MoveBack\""), "the copy still has the data's MoveBack");
+    }
+
+    #[test]
+    fn the_flip_goes_frame_by_frame_as_the_sheet_times_it() {
+        // 踢中那一 tick 是蹬离（第 0 帧），一 tick 1000/60 毫秒：60 毫秒后第 1 帧……600 毫秒（36 tick）翻完
+        assert_eq!(flip_frame(0), Some(0));
+        assert_eq!(flip_frame(3), Some(0));
+        assert_eq!(flip_frame(4), Some(1));
+        assert_eq!(flip_frame(8), Some(2));
+        assert_eq!(flip_frame(21), Some(5));
+        assert_eq!(flip_frame(35), Some(6));
+        assert_eq!(flip_frame(36), None);
+        let seen: Vec<usize> = (0..36).filter_map(flip_frame).collect();
+        assert_eq!(seen.len(), 36);
+        assert!(seen.windows(2).all(|w| w[1] == w[0] || w[1] == w[0] + 1), "{seen:?}");
+        assert_eq!(*seen.last().unwrap(), FLIP_MS.len() - 1);
+        assert_eq!(flip_buff(3), "league_quinn_flip3");
+    }
+
+    #[test]
+    fn the_flip_timing_matches_the_sheet_and_the_kit() {
+        let ms: Vec<String> = FLIP_MS.iter().map(|m| m.to_string()).collect();
+        let rig = include_str!("../../../tools/art/rig_quinn.py");
+        assert!(rig.contains(&format!("\"e_flip\": [{}]", ms.join(", "))), "rig_quinn.py MS[\"e_flip\"] is not {ms:?}");
+        let ticks = FLIP_MS.iter().sum::<usize>() * TPS / 1000;
+        let kit = include_str!("../../../tools/kit/build_quinn.py");
+        assert!(kit.contains(&format!("\"e_flip\": {ticks}")), "build_quinn.py e_flip is not {ticks} ticks");
+        // 踢中时先摘掉冲刺的动作再翻，两份数据都是
+        for s in [include_str!("../override/league_quinn.data_champion"),
+                  include_str!("../../../league/champion/league_quinn.data_champion")] {
+            let at = s.find("\"name\": \"e_flip\"").expect("no e_flip animation");
+            let rm = s[..at].rfind("\"RemoveCasterAnimation\"").expect("the dash animation is not taken off");
+            assert!(at - rm < 200 && s[rm..at].contains("\"name\": \"skill2\""), "skill2 is not taken off right before the flip");
+        }
+        // 只挪的那几 tick 里也在翻
+        assert!(E_BACK_T < ticks);
     }
 
     #[test]

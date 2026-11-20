@@ -1188,6 +1188,16 @@ dashes only when no champion is within the spin's radius, with `MoveTo` (to wher
 within one pulse: a `MoveToTarget` after a runner went on past the spin's end), restarts the spin
 only where a dash ends while the spin lasts, and takes it off at the spin's end: dashes on 10% of the
 spin's ticks. league_garen E still dashes every pulse.
+An add-on's per-tick `entity_set_pos` looks the same (league_quinn E, 2026-11-20, *inferred from two reports*): the
+flip started at the kick with a 12-tick move back read 「翻了，但一闪而过」 (18 ticks of flip, 6 left after the move) and
+the 36-tick flip with a 20-tick move 「往后拉距离…没动画」. league_quinn 0.7.0 draws it frame by frame instead: one-frame
+copies of the flip's frames (`e_flip_0` ... `e_flip_6`, tools/art/rig_quinn.py `FLIP_ONE`, the same rects' pixels in
+1x / hd_ / lo_), a per-tick flag `league_quinn_flip<k>` and the display hook (view.rs) writing `e_flip_<k>` as the
+playing animation - a one-frame tag shows its frame whether the clock runs or not; when the flag goes, the name the game
+last wrote goes back. The kit also takes the cast's 60-tick `skill2` off at the kick (`RemoveCasterAnimation`, league_sett
+R's way) so it cannot come back after the flip. 67 dash + multi-frame `CasterAnimation` pairs in the League kits (a
+dash of 8+ ticks, a forced animation of 3+ frames and 10+ ticks: league_volibear Q's run, league_rammus Q's roll,
+league_vi R, league_nocturne R ...) would show their first frame the same way if this holds.
 Make the spin reach past the cast distance. The AI starts an action at `range` plus both units'
 radii (league_garen E, range 28000, began with its target about 45 px away, centre to centre), so
 a 30000 spin missed whoever stood at its edge and players still called the skill useless, though

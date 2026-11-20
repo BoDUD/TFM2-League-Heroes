@@ -277,6 +277,9 @@ def build(p):
     # ------------------------------------------------------------------ skill2: E Vault
     contact = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]},
                buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]), view("e_hit"), tsfx("e_hit"), mark,
+               # 先摘掉冲刺的动作再翻（用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」）：冲刺动作挂了 60 tick，
+               # 踢中时才过去 20 tick 左右，不摘它就一直挂到后空翻放完以后（league_sett 大招落地也是先摘 ult_dash）
+               {"type": "RemoveCasterAnimation", "name": "skill2"},
                anim("e_flip", p["e_flip"]), sfx("e_flip"),
                # 翻完才出手（用户 2026-11-20 看后空翻「一闪而过」）：翻的这段时间不普攻、不放技能，不然 AI 贴着目标马上
                # 接普攻，后空翻没放完就被普攻的动作切掉了（league_graves 换弹也是给自己挂 BlockAttack）
