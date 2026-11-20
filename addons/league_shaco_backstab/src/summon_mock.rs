@@ -538,6 +538,10 @@ impl World {
             if me.banished > 0 {
                 continue;
             }
+            // 动画定身（召唤物落地那几帧）：站着播，不走也不打
+            if me.ccs.iter().any(|c| CcKindV1::from_code(c.0.kind) == Some(CcKindV1::Animation)) {
+                continue;
+            }
             let foe = self.units.iter().enumerate()
                 .filter(|(_, o)| o.valid && o.died.is_none() && o.hp > 0 && o.team != me.team && o.kind != EntityKindV1::Tower
                                  && o.banished == 0 && o.invisible == 0)
