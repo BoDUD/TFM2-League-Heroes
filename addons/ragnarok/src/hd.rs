@@ -5,9 +5,10 @@ use hd_engine::Table;
 
 /// 英雄 id、一个游戏像素几格、图的 .fanim（ragnarok/ 里的原样）。
 pub const HEROES: &[(&str, f32, &str)] = &[
-    // 吕布（ragnarok_lubu）：Codex 画的 128 格原画就是高清帧，头发到脚底 66 格、翎子尖 73 格；PPU 1.65 在游戏里头顶 40、
-    // 翎子 44 个游戏像素，比原版英雄高一点。1 倍帧由 tools/art/import_lubu.py 从高清帧缩出来，高清帧原样
-    ("ragnarok_lubu", 1.65, include_str!("../../../ragnarok/champions/ragnarok_lubu#anim.fanim")),
+    // 吕布（ragnarok_lubu）：Codex 画的 128 格原画就是高清帧，头发到脚底 66 格、翎子尖 73 格。原来 PPU 1.65（头顶 40），
+    // 用户说比索尔高出不少，改成 1.94：同样的像素画成 85% 大，头顶 34、翎子 37.6 个游戏像素。1 倍帧由
+    // tools/art/import_lubu.py 从高清帧缩出来，高清帧原样；他的特效图还是 1.65（下面 EFFECTS）
+    ("ragnarok_lubu", 1.94, include_str!("../../../ragnarok/champions/ragnarok_lubu#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
