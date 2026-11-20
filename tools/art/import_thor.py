@@ -39,10 +39,14 @@ PPU = 1.65                  # tools/art/ppu_hd.py PPU and addons/ragnarok/src/hd
 SOLE = (64, 116)
 GROUND = (64, 116)          # Codex's origin of the ground pictures (ground_lightning, ult_impact)
 # (action, effect, from seconds, anchor from the soles, seconds a frame or None, the effect's origin in its cell)
+# 2026-11-20 Codex's second round drew the actions at the idle's size (attack x1.17, skill x1.18, the ult x1.075):
+# the swing's arc follows the hammer head up and forward (24, -40 -> 27, -46), the slam's lightning is centred
+# under the far half of the hammer and the AoE (q_off 14000 = 23 px ahead: 28, 0), the charge ring scaled
+# with him (-15, -72 -> -16, -77); the ult's bolt still lands on the hammer on the ground
 BAKE = [
-    ("attack", "hammer_swing", 0.34, (24, -40), 0.035),
-    ("skill", "ground_lightning", 0.43, (35, 0), 0.042, GROUND),
-    ("ult", "ult_charge", 0.0, (-15, -72), 1.24 / 8),
+    ("attack", "hammer_swing", 0.34, (27, -46), 0.035),
+    ("skill", "ground_lightning", 0.43, (28, 0), 0.042, GROUND),
+    ("ult", "ult_charge", 0.0, (-16, -77), 1.24 / 8),
     ("ult", "ult_slam", 1.24, (32, -38), None),
 ]
 # the attack is a 36-tick action (build_thor atk_dur): the blow on frame 4 at 0.42 s as drawn, the recovery shortened;
