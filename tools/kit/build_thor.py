@@ -9,11 +9,11 @@ lightning through the ground, a hammer that flies out and comes back, and Mjolni
 (category Tank, game 0.7.3+), his blows scaling with his health; Lu Bu is the pack's fighter.
   passive Mjolnir Awakening (雷槌觉醒): every third cast of Thunder God's Hammer or Returning Hammer awakens Mjolnir for
           p_t ticks (the red cracks and their sound; a counter of caster flags, t1 / t2). Awake, his attacks add p_dmg +
-          p_hp% of his max health as magic damage (lightning) and the slam stuns q_stun ticks instead of slowing.
+          p_hp% of his max health as magic damage (lightning) and the slam stuns q_stun ticks instead of q_stun0.
   attack  a hammer blow on `Enemy` (towers too): 100% AD on atk_st, the thunder spark on the target.
   skill   Thunder God's Hammer (雷神之锤), `Targeting` on `EnemyWithoutTower` (q_range): the hammer comes down on q_hit;
           the ground lightning hits every enemy within q_r of a point q_off in front of him: q_dmg + q_ad% AD + q_hp% of
-          his max health, slowed q_slow% for q_slow_t ticks (awake: stunned q_stun).
+          his max health, stunned q_stun0 ticks (awake: q_stun; a q_stun0 of 0 slows q_slow% for q_slow_t instead).
   skill2  Returning Hammer (回旋雷槌), `Direction` on `EnemyWithoutTower` (e_range): on e_go he throws Mjolnir
           e_len straight ahead and it flies back to him (league_sivir's Q: a LinearProjectile whose end starts a
           BackToCasterLinearProjectile), through every enemy both ways: e_dmg + e_ad% AD + e_hp% max health, slowed
@@ -26,7 +26,8 @@ lightning through the ground, a hammer that flies out and comes back, and Mjolni
           up r_up ticks. A Thor killed while gathering does not strike (the alive search).
 
 Timings are the frames' (Codex's asset_manifest_v01.json presentation_events, 60 ticks a second): the attack's blow on
-frame 4 (0.42 s), the slam on frame 4 (0.62 s), the throw on frame 3 (0.36 s), the ult's blow on frame 5 (1.24 s).
+frame 4 (0.42 s), the throw on frame 3 (0.36 s), the ult's blow on frame 5 (1.24 s); the slam's frame 4 is drawn at
+0.62 s and played at 0.43 s (q_hit 26, tools/art/import_thor.py RETIME).
 
 ragnarok.dll (addons/ragnarok/src/thor.rs): the passive ragnarok_thor:voice - only his voice lines (the rules are all
 data: --plain is the same kit with category Melee for the classic engine, which has no Tank).
@@ -44,25 +45,32 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 PROJ = f"asset/{MOD_ID}/effects/{ID}_proj"
 
 # Units: melee range 25000 for the base tanks, his hammer a little longer; radii count the unit's collision radius
-# (~15000) on top. Ticks: 60 a second. Numbers: the classic-SDK simulations (C:/t/lb_sim, top lane), see the end of
-# this comment once tuned.
+# (~15000) on top. Ticks: 60 a second. Numbers: the classic-SDK simulations (C:/t/lb_sim, lane 0, 600 s, 288 games a
+# batch of seeds, kill diff with its s.e. +-0.4), 2026-11-20 - the League tank controls (two batches each): Cho'Gath
+# +0.99 / +1.05, Dr. Mundo +0.82 / +0.38, Malphite +0.23 / +1.44, Nasus +0.96 / +0.96, Olaf +0.31 / +1.17, Ornn +1.86 /
+# +1.53, Shen +1.96 / +1.37, Sion +1.51 / +1.58 (mean +1.13). The draft -1.95 / -2.85: the slam and the throw quicker
+# (q_hit 26 / q_dur 46, e_len 44000 at e_speed 5000) -0.86, the plain slam stunning (q_stun0) -0.62, a wider ult +-0,
+# q_cd 360 + e_slow 40 +0.36; more health / armour / shield -0.49, a longer awakening +0.28, more AD or a quicker
+# attack no better; the ult (r_dr 45, r_cd 2400, r_dmg 180) +0.65, with the stun and a little health +0.68, its throw
+# 1.5 s over r_r 44000 +1.22; this P +1.41 / +0.77 (K/D/A 1.67 / 1.00 / 3.86, 97 attacks, 41 slams, 34 throws, 6.7 ults
+# a game).
 P = {
     # stats (Tank, top): the base tanks' (atk 80 +6, hp 1100 +120, def 40 +10, mr 30 +5), a god a little more
-    "hp": 1150, "hp_g": 120, "atk": 84, "atk_g": 12, "apw": 0, "apw_g": 0, "def": 38, "def_g": 9, "mr": 30,
+    "hp": 1220, "hp_g": 120, "atk": 84, "atk_g": 12, "apw": 0, "apw_g": 0, "def": 40, "def_g": 9, "mr": 30,
     "mr_g": 5, "ms": 990, "ms_g": 10,
     "atk_range": 27000, "atk_dur": 36, "atk_cd": 76, "atk_st": 24,
     # passive Mjolnir Awakening
     "p_t": 360, "p_dmg": 25, "p_hp": 3, "p_n": 3,
     # Thunder God's Hammer
-    "q_cd": 420, "q_range": 30000, "q_dur": 66, "q_hit": 37, "q_off": 14000, "q_r": 26000, "q_dmg": 60, "q_ad": 70,
-    "q_hp": 4, "q_slow": 40, "q_slow_t": 60, "q_stun": 48, "q_stun0": 0,
+    "q_cd": 360, "q_range": 30000, "q_dur": 46, "q_hit": 26, "q_off": 14000, "q_r": 26000, "q_dmg": 60, "q_ad": 70,
+    "q_hp": 4, "q_slow": 40, "q_slow_t": 60, "q_stun": 66, "q_stun0": 42,
     # Returning Hammer
-    "e_cd": 480, "e_range": 55000, "e_dur": 26, "e_go": 22, "e_speed": 4000, "e_len": 56000, "e_r": 12000,
-    "e_dmg": 40, "e_ad": 60, "e_hp": 2, "e_slow": 25, "e_slow_t": 60, "e_wait": 60, "e_catch": 10, "e_sh": 60,
+    "e_cd": 480, "e_range": 55000, "e_dur": 26, "e_go": 22, "e_speed": 5000, "e_len": 44000, "e_r": 12000,
+    "e_dmg": 40, "e_ad": 60, "e_hp": 2, "e_slow": 40, "e_slow_t": 60, "e_wait": 40, "e_catch": 10, "e_sh": 60,
     "e_sh_ad": 50, "e_sh_t": 150,
     # Awakened Thunder Hammer
-    "r_cd": 3000, "r_range": 40000, "r_dur": 108, "r_go": 75, "r_off": 16000, "r_r": 36000, "r_dmg": 150, "r_ad": 100,
-    "r_hp": 8, "r_up": 60, "r_dr": 30, "r_awake": 480,
+    "r_cd": 2400, "r_range": 55000, "r_dur": 108, "r_go": 75, "r_off": 24000, "r_r": 44000, "r_dmg": 180, "r_ad": 100,
+    "r_hp": 8, "r_up": 90, "r_dr": 45, "r_awake": 480,
 }
 
 

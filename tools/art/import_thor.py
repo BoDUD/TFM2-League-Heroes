@@ -11,8 +11,8 @@ PPU 1.65 (the two the same pixel size) he stands 33 game px to his hair, 46 to t
 tools/art/ragnarok_art.py (Lu Bu's import_lubu.py tells why each step is so).
 
 - Baked into his frames (pictures with a front and a back): the hammer swing's arc on the attack from 0.34 s (played a
-  little quicker, 35 ms a frame, so all of it fits the 0.6 s attack), the ground lightning on the slam from 0.62 s (its
-  ground point at (64, 116), as Codex lays it; 60 ms a frame to end with the action), the ult's charge ring stretched
+  little quicker, 35 ms a frame, so all of it fits the 0.6 s attack), the ground lightning on the slam from 0.43 s (its
+  ground point at (64, 116), as Codex lays it; 42 ms a frame to end with the action), the ult's charge ring stretched
   over the 1.24 s gathering and its lightning-bolt slam from 1.24 s.
 - skill2, the returning hammer: Codex's frames 3-6 are his empty hands. The action tag keeps the throw (frames 0-3),
   `skill2_wait` the empty hands (4-6: the kit holds it with a CasterAnimation while the hammer is away) and
@@ -41,12 +41,15 @@ GROUND = (64, 116)          # Codex's origin of the ground pictures (ground_ligh
 # (action, effect, from seconds, anchor from the soles, seconds a frame or None, the effect's origin in its cell)
 BAKE = [
     ("attack", "hammer_swing", 0.34, (24, -40), 0.035),
-    ("skill", "ground_lightning", 0.62, (35, 0), 0.06, GROUND),
+    ("skill", "ground_lightning", 0.43, (35, 0), 0.042, GROUND),
     ("ult", "ult_charge", 0.0, (-15, -72), 1.24 / 8),
     ("ult", "ult_slam", 1.24, (32, -38), None),
 ]
-# the attack is a 36-tick action (build_thor atk_dur): the blow on frame 4 at 0.42 s as drawn, the recovery shortened
-RETIME = {"attack": [0.12, 0.10, 0.12, 0.08, 0.05, 0.05, 0.04, 0.04]}
+# the attack is a 36-tick action (build_thor atk_dur): the blow on frame 4 at 0.42 s as drawn, the recovery shortened;
+# the slam a 46-tick one (q_dur), its blow (frame 4, 0.62 s as drawn) at q_hit 26 = 0.43 s, so the wind-up is played
+# 0.69x and the ground lightning (8 frames, 42 ms each) ends with it
+RETIME = {"attack": [0.12, 0.10, 0.12, 0.08, 0.05, 0.05, 0.04, 0.04],
+          "skill": [0.10, 0.10, 0.12, 0.11, 0.08, 0.08, 0.09, 0.09]}
 # skill2: frames 0-3 the throw (the action's own tag), 4-6 the empty hands while the hammer flies (skill2_wait, looped by
 # the kit's CasterAnimation until the return), 7 the catch (skill2_catch, played by the return's end_effects)
 SPLIT = {"skill2": [("skill2_wait", 4), ("skill2_catch", 7)]}
@@ -56,9 +59,12 @@ TARGET_FX = {
     "hammer_awakening": (64, 64 + round(72 - A.FEET * PPU)),
 }
 PROJ_FX = {"hammer_flight": (64, 59)}
+# Codex's idle stands forward of his soles' point: torso and feet 7 px right of the run, the attack and the slam
+# (median columns 72 / 73 against 65), so he would hop 4 game px forward each time he stops; moved back whole
+SHIFT = {"idle": -7}
 
 THOR = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
-        "TARGET_FX": TARGET_FX, "SPLIT": SPLIT, "PROJ_FX": PROJ_FX}
+        "TARGET_FX": TARGET_FX, "SPLIT": SPLIT, "PROJ_FX": PROJ_FX, "SHIFT": SHIFT}
 
 if __name__ == "__main__":
     A.main(THOR, __doc__)

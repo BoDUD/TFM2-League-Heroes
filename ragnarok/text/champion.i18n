@@ -7,6 +7,13 @@
         "skill": "方天画戟横扫前方扇形，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，并减速<#ffb900ff>40%<>，持续<#ffb900ff>1.5秒<>。",
         "skill2": "朝目标突刺冲阵，穿过路上的敌人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.6秒<>。",
         "ult": "举戟蓄力<#ffb900ff>1.2秒<>（不受控制，受到的伤害降低<#ffb900ff>30%<>），随后朝目标斩出天喰：直线上的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.8秒<>。"
+      },
+      "ragnarok_thor": {
+        "name": "索尔",
+        "attack": "雷槌重击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>雷槌觉醒<>：每放<#ffb900ff>3次<>技能，雷槌觉醒<#ffb900ff>6秒<>：普攻再造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法伤害<>，雷神之锤改为<#ef5350ff>眩晕1.1秒<>。",
+        "skill": "举锤砸地，<#ffb900ff>0.43秒<>后雷电在前方炸开：敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.7秒<>（觉醒时<#ef5350ff>1.1秒<>）。",
+        "skill2": "朝目标方向掷出雷槌，雷槌飞回手中，来回穿过的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>40%<>，持续<#ffb900ff>1秒<>。雷槌回手前原地等待，接住时获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>50%<><#e8d44dff>护盾<><#ffb900ff>2.5秒<>。",
+        "ult": "雷槌立即觉醒<#ffb900ff>8秒<>，蓄力<#ffb900ff>1.25秒<>（不受控制，受到的伤害降低<#ffb900ff>45%<>）后砸下：前方的敌人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞1.5秒<>。"
       }
     },
     "skill_name": {
@@ -14,6 +21,11 @@
         "skill1": "横扫",
         "skill2": "破阵",
         "ult": "天喰"
+      },
+      "ragnarok_thor": {
+        "skill1": "雷神之锤",
+        "skill2": "回旋雷槌",
+        "ult": "觉醒雷槌"
       }
     }
   },
@@ -25,6 +37,13 @@
         "skill": "方天畫戟橫掃前方扇形，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，並緩速<#ffb900ff>40%<>，持續<#ffb900ff>1.5秒<>。",
         "skill2": "朝目標突刺衝陣，穿過路上的敵人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.6秒<>。",
         "ult": "舉戟蓄力<#ffb900ff>1.2秒<>（不受控制，受到的傷害降低<#ffb900ff>30%<>），隨後朝目標斬出天喰：直線上的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.8秒<>。"
+      },
+      "ragnarok_thor": {
+        "name": "索爾",
+        "attack": "雷槌重擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>雷槌覺醒<>：每施放<#ffb900ff>3次<>技能，雷槌覺醒<#ffb900ff>6秒<>：普攻再造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法傷害<>，雷神之錘改為<#ef5350ff>暈眩1.1秒<>。",
+        "skill": "舉錘砸地，<#ffb900ff>0.43秒<>後雷電在前方炸開：敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.7秒<>（覺醒時<#ef5350ff>1.1秒<>）。",
+        "skill2": "朝目標方向擲出雷槌，雷槌飛回手中，來回穿過的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>40%<>，持續<#ffb900ff>1秒<>。雷槌回手前原地等待，接住時獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>50%<><#e8d44dff>護盾<><#ffb900ff>2.5秒<>。",
+        "ult": "雷槌立即覺醒<#ffb900ff>8秒<>，蓄力<#ffb900ff>1.25秒<>（不受控制，受到的傷害降低<#ffb900ff>45%<>）後砸下：前方的敵人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛1.5秒<>。"
       }
     },
     "skill_name": {
@@ -32,6 +51,11 @@
         "skill1": "橫掃",
         "skill2": "破陣",
         "ult": "天喰"
+      },
+      "ragnarok_thor": {
+        "skill1": "雷神之錘",
+        "skill2": "迴旋雷槌",
+        "ult": "覺醒雷槌"
       }
     }
   },
@@ -43,6 +67,13 @@
         "skill": "Sweeps the halberd through a cone in front, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<> and slowing by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>.",
         "skill2": "Charges through the enemy line toward the target: enemies in his path take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.6s<>.",
         "ult": "Gathers himself for <#ffb900ff>1.2s<> (unstoppable, taking <#ffb900ff>30%<> less damage), then cuts the sky toward the target: enemies on the line take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.8s<>."
+      },
+      "ragnarok_thor": {
+        "name": "Thor",
+        "attack": "Strikes with Mjolnir for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Mjolnir Awakening<>: every <#ffb900ff>third<> skill cast awakens Mjolnir for <#ffb900ff>6s<>: his attacks add <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<> <#a974ffff>magic damage<> and Thor's Hammer <#ef5350ff>stuns for 1.1s<>.",
+        "skill": "Brings the hammer down: after <#ffb900ff>0.43s<> lightning bursts through the ground ahead, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>physical damage<> and <#ef5350ff>stunning for 0.7s<> (<#ef5350ff>1.1s<> awakened).",
+        "skill2": "Throws Mjolnir toward the target and it flies back to his hand, hitting every enemy it passes both ways for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> <#ff9028ff>physical damage<> and slowing by <#ffb900ff>40%<> for <#ffb900ff>1s<>. He waits empty-handed until it returns; the catch grants a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>50%<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
+        "ult": "Awakens Mjolnir at once for <#ffb900ff>8s<>, gathers himself for <#ffb900ff>1.25s<> (unstoppable, taking <#ffb900ff>45%<> less damage), then smashes the ground ahead: enemies take <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 1.5s<>."
       }
     },
     "skill_name": {
@@ -50,6 +81,11 @@
         "skill1": "Sweep",
         "skill2": "Formation Breaker",
         "ult": "Sky Eater"
+      },
+      "ragnarok_thor": {
+        "skill1": "Thor's Hammer",
+        "skill2": "Returning Mjolnir",
+        "ult": "Awakened Thunder Hammer"
       }
     }
   },
@@ -61,6 +97,13 @@
         "skill": "방천화극으로 전방 부채꼴을 휩쓸어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>1.5초<> 동안 <#ffb900ff>40%<> 둔화.",
         "skill2": "대상을 향해 적진을 꿰뚫고 돌격: 경로의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.6초 에어본<>.",
         "ult": "<#ffb900ff>1.2초<> 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 <#ffb900ff>30%<> 감소) 대상 쪽으로 하늘을 베는 천식: 직선 위의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.8초 기절<>."
+      },
+      "ragnarok_thor": {
+        "name": "토르",
+        "attack": "묠니르로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>묠니르 각성<>: 스킬을 <#ffb900ff>3번<> 쓸 때마다 묠니르가 <#ffb900ff>6초<> 각성: 기본 공격에 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<> <#a974ffff>마법 피해<> 추가, 토르 해머 <#ef5350ff>기절 1.1초<>.",
+        "skill": "망치를 내리쳐 <#ffb900ff>0.43초<> 뒤 번개가 앞쪽 땅에서 터진다: 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.7초 기절<>(각성 시 <#ef5350ff>1.1초<>).",
+        "skill2": "대상 방향으로 묠니르를 던지면 손으로 돌아온다: 오가며 지나친 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>1초<> 동안 <#ffb900ff>40%<> 둔화. 돌아올 때까지 제자리에서 기다리고, 받아내면 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>50%<> <#e8d44dff>보호막<>(<#ffb900ff>2.5초<>).",
+        "ult": "묠니르가 즉시 <#ffb900ff>8초<> 각성하고 <#ffb900ff>1.25초<> 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 <#ffb900ff>45%<> 감소) 앞쪽을 내리친다: 적에게 <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>1.5초 에어본<>."
       }
     },
     "skill_name": {
@@ -68,6 +111,11 @@
         "skill1": "휩쓸기",
         "skill2": "파진",
         "ult": "천식"
+      },
+      "ragnarok_thor": {
+        "skill1": "토르 해머",
+        "skill2": "돌아오는 묠니르",
+        "ult": "각성 묠니르"
       }
     }
   },
@@ -79,6 +127,13 @@
         "skill": "方天画戟で前方の扇状範囲を薙ぎ払い、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1.5秒<>間<#ffb900ff>40%<>のスロウ。",
         "skill2": "目標へ敵陣を突き破って突進：通り道の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.6秒のノックアップ<>。",
         "ult": "<#ffb900ff>1.2秒<>力を溜め（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）、目標の方向へ天喰を放つ：直線上の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>280%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.8秒のスタン<>。"
+      },
+      "ragnarok_thor": {
+        "name": "トール",
+        "attack": "雷槌の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ミョルニル覚醒<>：スキルを<#ffb900ff>3回<>使うごとにミョルニルが<#ffb900ff>6秒<>覚醒：通常攻撃に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<>の<#a974ffff>魔法ダメージ<>を追加、トールハンマーは<#ef5350ff>1.1秒のスタン<>。",
+        "skill": "槌を振り下ろし、<#ffb900ff>0.43秒<>後に前方で雷が炸裂：敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.7秒のスタン<>（覚醒時<#ef5350ff>1.1秒<>）。",
+        "skill2": "目標の方向へミョルニルを投げ、手元へ戻ってくる：往復で通った敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1秒<>間<#ffb900ff>40%<>のスロウ。戻るまでその場で待ち、受け止めると<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>50%<>の<#e8d44dff>シールド<>（<#ffb900ff>2.5秒<>）。",
+        "ult": "ミョルニルが即座に<#ffb900ff>8秒<>覚醒、<#ffb900ff>1.25秒<>力を溜め（行動妨害無効、被ダメージ<#ffb900ff>45%<>軽減）、前方を叩き潰す：敵に<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1.5秒のノックアップ<>。"
       }
     },
     "skill_name": {
@@ -86,6 +141,11 @@
         "skill1": "薙ぎ払い",
         "skill2": "破陣",
         "ult": "天喰"
+      },
+      "ragnarok_thor": {
+        "skill1": "トールハンマー",
+        "skill2": "回旋雷槌",
+        "ult": "覚醒雷槌"
       }
     }
   }

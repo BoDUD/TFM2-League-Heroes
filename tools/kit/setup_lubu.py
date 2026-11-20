@@ -1,14 +1,11 @@
-"""Lu Bu's text (5 languages), sound_info files and the ragnarok pack's shared files, numbers from build_lubu.P.
+"""Lu Bu's text (5 languages), sound_info files and champion_view, numbers from build_lubu.P.
 
     python tools/kit/setup_lubu.py [--check]
 
-Writes in ragnarok/ (the Record of Ragnarok pack, mod_id ragnarok, its first hero): mod.mod_info (VERSION, the pack's
-description with every hero of HEROES, contains_code / mod_type native for ragnarok.dll, the keys sorted),
-text/champion.i18n (ragnarok_lubu in every language, description + skill_name), sound/sfx/ragnarok_lubu_*.sound_info,
-mod.override_info (the text and champion_view merges and two entries a sound: its event -> our .sound_info, its clip
--> our audio, the custom-sound rule), style/champion_view (face, centre, banpick_center). Only his keys change in the
-shared files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against TOOLTIP_MAX and the
-texts themselves.
+Writes his keys in ragnarok/ (tools/kit/ragnarok_pack.py writes them and the pack's own files: mod.mod_info naming
+every hero, the merges of mod.override_info): text/champion.i18n (ragnarok_lubu in every language, description +
+skill_name), sound/sfx/ragnarok_lubu_*.sound_info and their override entries, style/champion_view (face, centre,
+banpick_center). --check only prints each text's shown length against TOOLTIP_MAX and the texts themselves.
 
 Names: Record of Ragnarok's own - 吕布奉先 / 呂布奉先 (ja, zh-hant) / Lu Bu / 여포 봉선; his halberd the Sky Piercer
 (方天画戟), his technique Sky Eater (天喰); Sweep (横扫), Formation Breaker (破阵) and Shield Breaker (盾牌破坏者) name
@@ -16,55 +13,24 @@ Codex's four icons (assets/source/lubu/, the user's approved set).
 Sounds: Codex's delivery (assets/source/lubu/README.md): 15 original SFX (the swings and hits apart, the charge, the
 cut, its impact, the shield break) and ten lines of the official Japanese voice (Seki Tomokazu, the official
 countdown and the Lu Bu vs Thor PV). Clips are git-ignored (tools/kit/seed_lubu_audio.py copies them from the
-delivery into ragnarok/sound/sfx/); package_mod moves them to sound/bgm/ at install. An event never shares a clip's
-name: event ragnarok_lubu_<x> plays clip ragnarok_lubu_sfx_<...> or ragnarok_lubu_vo_<...>.
+delivery into ragnarok/sound/sfx/); package_mod moves them to sound/bgm/ at install.
 """
 import argparse
-import json
 import os
-import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from build_lubu import P, lp, MOD_ID, ID  # noqa: E402
+from build_lubu import P, ID  # noqa: E402
+from ragnarok_pack import (MOD, lp, ADi, AD, O, A, R, E, phys, ratio, secs, check_lengths,  # noqa: E402,F401
+                           print_texts, write_hero, write_mod_info)
 
-REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
-MOD = os.path.join(REPO, MOD_ID)
 SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
-VERSION = "0.1.2"
-NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu"]
-DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
-        "fights; Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
-        "own code, ragnarok.dll). Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes "
-        "and Teamfight Tactics Heroes packs. Pixel art, effects, icons and sound effects made for this pack; Japanese "
-        "voice lines from the official promotional recordings. Non-commercial fan project; Record of Ragnarok (c) its "
-        "creators and publishers.")
-
-ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
-# the game's tooltip box (lint_mod's TOOLTIP_MAX, the tft pack's numbers)
-TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
-O = "<#ff9028ff>"      # names, physical damage
-A = "<#ffb900ff>"      # durations, counts
-R = "<#ef5350ff>"      # crowd control
-E = "<>"
 # champion_view (game px from his soles' point, up negative): set from the built sheet (tools/art/import_lubu.py
 # prints the face point it measures on the 1x idle), the ban/pick card by bp_card_audit.py's rule
 # 2026-11-20 at PPU 1.94 (85 % of the first size): eyes 50 rows over the soles = 26 game px; the encyclopedia centre by
 # bp_card_audit --centers (-9); the ban/pick card by its rule, y = -39 - top (the plume's tip 26 over the centre)
 VIEW = {"face": {"x": 3, "y": -26}, "center": {"x": 0, "y": -9}, "banpick_center": {"x": 0, "y": -13}}
-
-
-def phys(d, r):
-    return f"{O}{{{d}}}{E} + {ADi}{O}{{{r}}}%{E}"
-
-
-def ratio(r):
-    return f"{ADi}{O}{{{r}}}%{E}"
-
-
-AD = ADi + O + "100%" + E
 
 TEXT = {
     "zh-hans": {
@@ -153,60 +119,12 @@ SOUNDS = {
 }
 
 
-def secs(t):
-    return f"{t / 60:.2f}".rstrip("0").rstrip(".")
-
-
 def values(p):
     v = {k: p[k] for k in ("p_pen", "p_shield", "p_break", "q_dmg", "q_ad", "q_slow", "e_dmg", "e_ad", "r_dmg", "r_ad",
                            "r_dr")}
     for k in ("q_slow_t", "e_air", "r_go", "r_stun"):
         v[k] = secs(p[k])
     return v
-
-
-def shown_length(s):
-    s = re.sub(r"\{\w+\}", "000", s)
-    s = re.sub(r"<i#[^>]*>", "*", s)
-    return len(re.sub(r"<[^>]*>", "", s))
-
-
-def load(path, default=None):
-    if default is not None and not os.path.isfile(lp(path)):
-        return default
-    return json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
-
-
-def save(path, data):
-    os.makedirs(os.path.dirname(lp(path)), exist_ok=True)
-    text = json.dumps(data, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
-    with open(lp(path), "w", encoding="utf-8", newline="") as f:
-        f.write(text)
-
-
-def kit_sounds():
-    """Every Sfx / TargetSfx name the kit plays."""
-    found = set()
-
-    def walk(o):
-        if isinstance(o, dict):
-            if o.get("type") in ("Sfx", "TargetSfx"):
-                found.add(o["name"])
-            for v in o.values():
-                walk(v)
-        elif isinstance(o, list):
-            for v in o:
-                walk(v)
-    walk(load(os.path.join(MOD, "champion", f"{ID}.data_champion")))
-    return found
-
-
-def dll_sounds():
-    """The sounds ragnarok.dll plays (`vo("...")` in a play_sfx of addons/ragnarok/src/lubu.rs, and its voice lines)."""
-    src = open(lp(os.path.join(REPO, "addons", "ragnarok", "src", "lubu.rs")), encoding="utf-8").read()
-    names = {f"{ID}_{x}" for x in re.findall(r'play_sfx\(&vo\("(\w+)"\)', src)}
-    names |= {f"{ID}_{x}" for x in re.findall(r'"(v_\w+)"', src)}
-    return names
 
 
 def texts(p):
@@ -224,66 +142,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
-    p = dict(P)
-    tx = texts(p)
-    bad = False
-    for lang, (d, _) in tx.items():
-        lens = {k: shown_length(TEXT[lang][k]) for k in ("attack", "skill", "skill2", "ult")}
-        bad |= any(n > TOOLTIP_MAX[lang] for n in lens.values())
-        print(lang, " ".join(f"{k}:{n}/{TOOLTIP_MAX[lang]}" for k, n in lens.items()))
+    tx = texts(dict(P))
+    bad = check_lengths(TEXT)
     if a.check:
-        sys.stdout.reconfigure(encoding="utf-8")
-        for lang, (d, _) in tx.items():
-            for k in ("attack", "skill", "skill2", "ult"):
-                print(lang, k, re.sub(r"<[^>]*>", "", d[k]))
+        print_texts(tx)
         return
     if bad:
         sys.exit("a text is longer than TOOLTIP_MAX")
-
-    played = kit_sounds() | dll_sounds()
-    if played != set(SOUNDS):
-        sys.exit(f"the kit or the DLL plays {sorted(played - set(SOUNDS))} without a sound_info, SOUNDS has unused "
-                 f"{sorted(set(SOUNDS) - played)}")
-
-    i18n = load(os.path.join(MOD, "text", "champion.i18n"), {})
-    for lang, (d, names) in tx.items():
-        i18n.setdefault(lang, {}).setdefault("description", {})[ID] = d
-        i18n[lang].setdefault("skill_name", {})[ID] = names
-    save(os.path.join(MOD, "text", "champion.i18n"), i18n)
-
-    clips = set()
-    for name, plays in SOUNDS.items():
-        for c, _, _ in plays:
-            if c == name:
-                sys.exit(f"{name}: plays a clip of its own name")
-            if not any(os.path.isfile(lp(os.path.join(MOD, "sound", "sfx", c + ext))) for ext in (".mp3", ".wav")):
-                print(f"warning: {c}.mp3 missing - run tools/kit/seed_lubu_audio.py")
-            clips.add(c)
-        save(os.path.join(MOD, "sound", "sfx", name + ".sound_info"),
-             {"plays": [{"delay": d, "clip": c, "volume": v} for c, v, d in plays]})
-
-    ov = load(os.path.join(MOD, "mod.override_info"), {})
-    ov.setdefault("asset/base/text/champion", {"remapping": f"asset/{MOD_ID}/text/champion", "type": "merge"})
-    ov.setdefault("asset/base/style/champion_view",
-                  {"remapping": f"asset/{MOD_ID}/style/champion_view", "type": "merge"})
-    for k in [k for k in ov if k.startswith(f"asset/base/sound/sfx/{ID}_")]:   # his sound keys rebuilt
-        del ov[k]
-    for name in list(SOUNDS) + sorted(clips):
-        ov[f"asset/base/sound/sfx/{name}"] = {"remapping": f"asset/{MOD_ID}/sound/sfx/{name}", "type": "override"}
-    save(os.path.join(MOD, "mod.override_info"), ov)
-
-    cv = load(os.path.join(MOD, "style", "champion_view.champion_view"), {"entries": {}})
-    cv["entries"][ID] = json.loads(json.dumps(VIEW))
-    save(os.path.join(MOD, "style", "champion_view.champion_view"), cv)
-
-    mi = load(os.path.join(MOD, "mod.mod_info"), {})
-    if tuple(int(x) for x in mi.get("version", "0.0.0").split(".")) < tuple(int(x) for x in VERSION.split(".")):
-        mi["version"] = VERSION
-    mi.update({"author": "BoDUD", "dependencies": [{"mod_id": "base", "version": ">=0.4.11"}], "mod_id": MOD_ID,
-               "name": NAME, "description": DESC.format(heroes=", ".join(HEROES)), "contains_code": True,
-               "mod_type": "native", "last_updated": "2026-11-20"})
-    save(os.path.join(MOD, "mod.mod_info"), dict(sorted(mi.items())))
-    print(len(SOUNDS), "sounds,", len(clips), "clips; texts, champion_view and mod_info written")
+    n, c = write_hero(ID, tx, SOUNDS, VIEW, "lubu", "tools/kit/seed_lubu_audio.py")
+    write_mod_info()
+    print(n, "sounds,", c, "clips; texts, champion_view and mod_info written")
 
 
 if __name__ == "__main__":

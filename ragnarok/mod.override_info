@@ -15,14 +15,6 @@
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_a_hit",
     "type": "override"
   },
-  "asset/base/sound/sfx/ragnarok_lubu_q_swing": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_q_swing",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_q_hit": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_q_hit",
-    "type": "override"
-  },
   "asset/base/sound/sfx/ragnarok_lubu_e": {
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_e",
     "type": "override"
@@ -31,60 +23,32 @@
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_e_hit",
     "type": "override"
   },
+  "asset/base/sound/sfx/ragnarok_lubu_p_break": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_p_break",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_q_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_q_swing": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_q_swing",
+    "type": "override"
+  },
   "asset/base/sound/sfx/ragnarok_lubu_r": {
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_r_vo": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_vo",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_r_slash": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_slash",
     "type": "override"
   },
   "asset/base/sound/sfx/ragnarok_lubu_r_hit": {
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_hit",
     "type": "override"
   },
-  "asset/base/sound/sfx/ragnarok_lubu_p_break": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_p_break",
+  "asset/base/sound/sfx/ragnarok_lubu_r_slash": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_slash",
     "type": "override"
   },
-  "asset/base/sound/sfx/ragnarok_lubu_v_select": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_select",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_start": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_start",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_taunt_strong": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_taunt_strong",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_taunt_gods": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_taunt_gods",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_challenge": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_challenge",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_swing_call": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_swing_call",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_praise": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_praise",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_encounter": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_encounter",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/ragnarok_lubu_v_power": {
-    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_power",
+  "asset/base/sound/sfx/ragnarok_lubu_r_vo": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_r_vo",
     "type": "override"
   },
   "asset/base/sound/sfx/ragnarok_lubu_sfx_attack_hit_1": {
@@ -127,6 +91,42 @@
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_sfx_ult_release",
     "type": "override"
   },
+  "asset/base/sound/sfx/ragnarok_lubu_v_challenge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_challenge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_encounter": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_encounter",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_power": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_power",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_praise": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_praise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_select": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_select",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_start": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_swing_call": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_swing_call",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_taunt_gods": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_taunt_gods",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_lubu_v_taunt_strong": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_v_taunt_strong",
+    "type": "override"
+  },
   "asset/base/sound/sfx/ragnarok_lubu_vo_challenge": {
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_challenge",
     "type": "override"
@@ -165,6 +165,198 @@
   },
   "asset/base/sound/sfx/ragnarok_lubu_vo_ult": {
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_lubu_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_a": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_a_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_dead": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_e": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_e_catch": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_e_catch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_e_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_e_turn": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_e_turn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_p_awake": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_p_awake",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_q": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_q_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_q_slam": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_q_slam",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_r": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_r_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_r_slam": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_r_slam",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_r_vo": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_r_vo",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_attack_hit_1": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_attack_hit_1",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_attack_hit_2": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_attack_hit_2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_attack_hit_3": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_attack_hit_3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_attack_swing_2": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_attack_swing_2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_awakening": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_awakening",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_body_fall": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_body_fall",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_skill2_catch": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_skill2_catch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_skill2_return": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_skill2_return",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_skill2_throw": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_skill2_throw",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_skill_charge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_skill_charge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_skill_slam": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_skill_slam",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_ult_charge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_ult_charge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_ult_impact": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_ult_impact",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_sfx_ult_slam": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_sfx_ult_slam",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_address": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_address",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_anticipation": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_anticipation",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_praise": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_praise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_sleepy": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_sleepy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_smash_call": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_smash_call",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_wake": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_wake",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_warning": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_warning",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_weapon": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_weapon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_v_worthy": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_v_worthy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_address": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_address",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_anticipation": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_anticipation",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_one_strike": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_one_strike",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_praise": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_praise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_sleepy": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_sleepy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_smash_call": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_smash_call",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_wake": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_wake",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_warning": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_warning",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_weapon": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_weapon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_thor_vo_worthy": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_worthy",
     "type": "override"
   }
 }

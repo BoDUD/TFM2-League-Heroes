@@ -33,12 +33,12 @@ ACTIONS = ("idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead")
 # the hero being imported (setup): Codex's folder, ids, PPU, the soles' point, the baked swings, retimed actions, the
 # pictures played on units - each hero's import_<hero>.py holds them
 SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = FX_PPU = SOLE = None
-BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX = [], {}, {}, {}, {}, []
+BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT = [], {}, {}, {}, {}, [], {}
 
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
-    global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX
+    global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
     # FX_PPU: the effect sheets' own density (the pictures on units and the projectile pictures keep their size when
     # the hero is drawn smaller: Lu Bu at 1.94 since 2026-11-20, his effects at Codex's 1.65); his baked swings follow him
@@ -51,6 +51,9 @@ def setup(cfg):
     # EXTRA_FX: more of Codex's effect sheets (stems of <stem>#sheet.png / #anim.fanim), their tags added to the effects
     # (Lu Bu's Sky Eater wave came on its own in the first redraw round)
     EXTRA_FX = cfg.get("EXTRA_FX", [])
+    # SHIFT {action: dx}: an action Codex drew off his soles' point, moved whole by dx dense px (a plain move, nothing
+    # redrawn): Thor's idle stands 7 px forward of his run and attack, he would hop forward each time he stops
+    SHIFT = cfg.get("SHIFT", {})
     SHEET = os.path.join(MOD, "champions", ID)
     FX_SHEET = os.path.join(MOD, "effects", f"{ID}_fx")
     PROJ_SHEET = os.path.join(MOD, "effects", f"{ID}_proj")
@@ -126,6 +129,7 @@ def baked(body, fx):
         starts = np.cumsum([0.0] + durs[:-1])
         end = float(sum(durs))
         bakes = [b for b in BAKE if b[0] == tag]
+        dx = SHIFT.get(tag, 0)
         cuts = {0.0, end} | {float(s) for s in starts}
         plays = []
         for b in bakes:
@@ -145,11 +149,11 @@ def baked(body, fx):
                 continue
             i = int(np.searchsorted(starts, a + 1e-9, side="right") - 1)
             canvas = np.zeros((CH, CW, 4), np.uint8)
-            over(canvas, frames[i][0], CS[0] - SOLE[0], CS[1] - SOLE[1])
+            over(canvas, frames[i][0], CS[0] - SOLE[0] + dx, CS[1] - SOLE[1])
             for name, t0, (ax, ay), dt, fr, (ox, oy) in plays:
                 j = int(np.floor((a - t0) / dt + 1e-9))
                 if 0 <= j < len(fr):
-                    over(canvas, fr[j][0], CS[0] + ax - ox, CS[1] + ay - oy)
+                    over(canvas, fr[j][0], CS[0] + ax - ox + dx, CS[1] + ay - oy)
             canvas = no_specks(canvas)
             if segs and np.array_equal(segs[-1][0], canvas) and segs[-1][2] == i:
                 segs[-1] = (canvas, segs[-1][1] + (b - a), i)
