@@ -11,8 +11,11 @@ Names: Data Dragon 16.20.1 - zh_CN 拉莫斯 (披甲龙龟): 锥刺甲壳, 动�
 가시박힌 껍질, 대회전, 몸 말아 웅크리기, 광란의 도발, 지진 폭격.
 Slots: skill = Q Powerball, skill2 = E Frenzying Taunt, ult = R Soaring Slam; the passive Spiked Shell and W Defensive
 Ball Curl (cast by the watch) are in the attack's text. No combo sentence in any text (the user's rule). The main
-pack's rules are the ones written (the shell scales with max health, W returns a share of every hit); the add-on
-league_rammus pays them from his armour and rolls Powerball League's way, and says so itself.
+pack's rules are the ones written (the shell scales with max health, W comes after a Powerball (w_gate) and returns a
+share of every hit; the curl's flat armour / MR is shown with its own percentage on it, as the engine adds it before the
+percentage); the add-on
+league_rammus gives League's attack damage from his armour and MR, returns League's flat hit to basic attackers and rolls
+Powerball League's way, and says so itself.
 """
 import argparse
 import json
@@ -55,7 +58,8 @@ TEXT = {
     "zh-hans": {
         "name": "拉莫斯",
         "attack": "翻身撞击。" + O + "锥刺甲壳" + E + "：普攻多造成" + shell("p_dmg", "p_ap", "p_hp") + "魔法伤害。" + O + "尖刺防御" + E +
-                  "：敌方英雄靠近时蜷起来，" + A + "{w_t}秒" + E + "内双抗+{w_def}%，反弹{w_ref}%受到的伤害。",
+                  "：放过动力冲刺后敌方英雄靠近时蜷起来，" + A + "{w_t}秒" + E + "内护甲+{w_arm_s}（+{w_arm_p}%）、魔抗+{w_mr_s}（+{w_mr_p}%），"
+                  "反弹{w_ref}%受到的伤害；放动力冲刺、冲天猛撞时收起。",
         "skill": "缩成球滚向目标，撞上时对周围造成" + mag("q_dmg", "q_ap") + "魔法伤害，" + R + "击退" + E + "、" + R + "眩晕" + E + A +
                  "{q_stun}秒" + E + "并" + R + "减速{q_slow}%" + E + A + "{q_slow_t}秒" + E + "。",
         "skill2": R + "嘲讽" + E + "一名敌方英雄" + A + "{e_taunt}秒" + E + "。",
@@ -66,7 +70,8 @@ TEXT = {
     "zh-hant": {
         "name": "拉姆斯",
         "attack": "翻身撞擊。" + O + "錐刺甲殼" + E + "：普攻多造成" + shell("p_dmg", "p_ap", "p_hp") + "魔法傷害。" + O + "尖刺防禦" + E +
-                  "：敵方英雄靠近時蜷起來，" + A + "{w_t}秒" + E + "內雙抗+{w_def}%，反彈{w_ref}%受到的傷害。",
+                  "：放過動力衝刺後敵方英雄靠近時蜷起來，" + A + "{w_t}秒" + E + "內護甲+{w_arm_s}（+{w_arm_p}%）、魔抗+{w_mr_s}（+{w_mr_p}%），"
+                  "反彈{w_ref}%受到的傷害；施放動力衝刺、飛天動地時收起。",
         "skill": "縮成球滾向目標，撞上時對周圍造成" + mag("q_dmg", "q_ap") + "魔法傷害，" + R + "擊退" + E + "、" + R + "暈眩" + E + A +
                  "{q_stun}秒" + E + "並" + R + "緩速{q_slow}%" + E + A + "{q_slow_t}秒" + E + "。",
         "skill2": R + "嘲諷" + E + "一名敵方英雄" + A + "{e_taunt}秒" + E + "。",
@@ -77,8 +82,9 @@ TEXT = {
     "en": {
         "name": "Rammus",
         "attack": "A tumbling slam. " + O + "Spiked Shell" + E + ": attacks deal " + shell("p_dmg", "p_ap", "p_hp") + " " + M +
-                  "magic damage" + E + " more. " + O + "Defensive Ball Curl" + E + ": with an enemy champion close he curls up: for " + A +
-                  "{w_t}s" + E + " +{w_def}% armour and magic resist, and {w_ref}% of the damage he takes is returned.",
+                  "magic damage" + E + " more. " + O + "Defensive Ball Curl" + E + ": after a Powerball, with an enemy champion close he curls up: for " + A +
+                  "{w_t}s" + E + " +{w_arm_s} (+{w_arm_p}%) armour and +{w_mr_s} (+{w_mr_p}%) magic resist, and {w_ref}% of the "
+                  "damage he takes is returned; Powerball or Soaring Slam ends it.",
         "skill": "Curls into a ball and rolls at the target; on impact nearby enemies take " + mag("q_dmg", "q_ap") + " " + M +
                  "magic damage" + E + ", are " + R + "knocked back" + E + ", " + R + "stunned" + E + " for " + A + "{q_stun}s" + E +
                  " and " + R + "slowed {q_slow}%" + E + " for " + A + "{q_slow_t}s" + E + ".",
@@ -91,8 +97,8 @@ TEXT = {
     "ko": {
         "name": "람머스",
         "attack": "몸통 박치기. " + O + "가시박힌 껍질" + E + ": 기본 공격이 " + shell("p_dmg", "p_ap", "p_hp") + " 마법 피해 추가. " + O +
-                  "몸 말아 웅크리기" + E + ": 적 챔피언이 가까우면 웅크려 " + A + "{w_t}초" + E + " 동안 방어력·마법 저항력 +{w_def}%, "
-                  "받은 피해의 {w_ref}% 반사.",
+                  "몸 말아 웅크리기" + E + ": 대회전 뒤 적 챔피언이 가까우면 웅크려 " + A + "{w_t}초" + E + " 동안 방어력 +{w_arm_s}(+{w_arm_p}%), "
+                  "마법 저항력 +{w_mr_s}(+{w_mr_p}%), 받은 피해의 {w_ref}% 반사. 대회전·지진 폭격을 쓰면 풀림.",
         "skill": "몸을 말아 대상에게 굴러가 부딪히면 주변 적에게 " + mag("q_dmg", "q_ap") + " 마법 피해, " + R + "밀쳐내기" + E + ", " + A +
                  "{q_stun}초" + E + " " + R + "기절" + E + ", " + A + "{q_slow_t}초" + E + " " + R + "{q_slow}% 둔화" + E + ".",
         "skill2": "적 챔피언 하나를 " + A + "{e_taunt}초" + E + " " + R + "도발" + E + ".",
@@ -103,7 +109,8 @@ TEXT = {
     "ja": {
         "name": "ラムス",
         "attack": "体当たり。" + O + "トゲトゲ" + E + "：通常攻撃に" + shell("p_dmg", "p_ap", "p_hp") + "の魔法ダメージ追加。" + O + "かたくなる" +
-                  E + "：敵チャンピオンが近いと丸まり、" + A + "{w_t}秒" + E + "物防・魔防+{w_def}%、受けたダメージの{w_ref}%を反射。",
+                  E + "：ころころの後、敵チャンピオンが近いと丸まり、" + A + "{w_t}秒" + E + "物防+{w_arm_s}(+{w_arm_p}%)・魔防+{w_mr_s}(+{w_mr_p}%)、"
+                  "受けたダメージの{w_ref}%を反射。ころころ・どーんどーんで解除。",
         "skill": "丸まって対象へ転がり、ぶつかると周りの敵に" + mag("q_dmg", "q_ap") + "の魔法ダメージ、" + R + "ノックバック" + E + "、" + A +
                  "{q_stun}秒" + E + R + "スタン" + E + "と" + A + "{q_slow_t}秒" + E + "の" + R + "{q_slow}%スロウ" + E + "。",
         "skill2": "敵チャンピオン1体を" + A + "{e_taunt}秒" + E + R + "挑発" + E + "。",
@@ -139,10 +146,14 @@ def secs(t):
 
 
 def values(p):
-    v = {k: p[k] for k in ("p_dmg", "p_ap", "p_hp", "w_def", "w_ref", "q_dmg", "q_ap", "q_slow", "r_dmg", "r_ap",
+    v = {k: p[k] for k in ("p_dmg", "p_ap", "p_hp", "w_arm_p", "w_mr_p", "w_ref", "q_dmg", "q_ap", "q_slow", "r_dmg", "r_ap",
                            "r_slow", "r_pulses")}
     for k in ("w_t", "q_slow_t", "e_taunt", "r_up", "q_stun"):
         v[k] = secs(p[k])
+    # the engine adds the curl's flat armour / MR before its percentage: (his + flat) x (100 + pct)%, i.e. League's
+    # "flat + pct% of his" with flat x (100 + pct)% as the flat part - the number shown
+    v["w_arm_s"] = round(p["w_arm"] * (100 + p["w_arm_p"]) / 100)
+    v["w_mr_s"] = round(p["w_mr"] * (100 + p["w_mr_p"]) / 100)
     return v
 
 
@@ -183,6 +194,8 @@ def main():
     p = dict(P)
     if a.params:
         p.update(json.load(open(a.params, encoding="utf-8")))
+    if not p["w_gate"]:
+        sys.exit("the attack's text says the curl comes after a Powerball (w_gate 1): update TEXT")
     tx = texts(p)
     bad = False
     for lang, (d, _) in tx.items():
