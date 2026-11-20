@@ -19,7 +19,9 @@ sheet the game draws the 1x frames: the same size, a square a game pixel.
           pixel over the other leg, sinks again, lifts the other one; the outline is closed again where a move opened it;
   hit     the standing frame, everything above her shins a pixel higher;
   dead    her wave and sinking into the ground (the four frames of the bye sheet) and an empty frame, as base's dead
-          tags end.
+          tags end;
+  drop    her drop (the five frames of the drop sheet, 0.9 s): league_ivern 0.3.0 plays it on the unit (an Animation CC)
+          as soon as she is spawned, instead of the copy's picture on the champion (two Daisies showed at the landing).
 
 Every frame is the effect sheets' own pixels, moved 9 game px down (12 dense px): on the effects her feet stand
 DAISY_BACK (9) game px behind the champion she rides on, 2 under the frame's centre; a unit's are FEET (11) under it like
@@ -210,14 +212,18 @@ def build():
             punch_ms = [round(f["duration"] * 1000) for f in json.load(fh)["anims"][sc.tag]["frames"]]
         with open(G.lp(SRC + "bye#anim.fanim"), encoding="utf-8-sig") as fh:
             bye_ms = [round(f["duration"] * 1000) for f in json.load(fh)["anims"][sc.tag]["frames"]]
+        drop = sc.frames("drop")
+        with open(G.lp(SRC + "drop#anim.fanim"), encoding="utf-8-sig") as fh:
+            drop_ms = [round(f["duration"] * 1000) for f in json.load(fh)["anims"][sc.tag]["frames"]]
         blank = np.zeros((sc.S, sc.S, 4), np.uint8)
         tags[pre + "idle"] = [(idle_frame(sc, stand, k), IDLE_MS) for k in range(4)]
         tags[pre + "run"] = run
         tags[pre + "attack"] = list(zip(punch[:4], punch_ms[:4]))
         tags[pre + "hit"] = [(hit, HIT_MS)]
         tags[pre + "dead"] = list(zip(bye, bye_ms)) + [(blank, 100)]
+        tags[pre + "drop"] = list(zip(drop, drop_ms))
     # the 1x tags first, then their hd_ twins (a hero sheet's order)
-    order = ["idle", "run", "attack", "hit", "dead"]
+    order = ["idle", "run", "attack", "hit", "dead", "drop"]
     return {t: tags[t] for t in order + ["hd_" + t for t in order]}, report, scales
 
 

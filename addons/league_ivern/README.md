@@ -51,3 +51,23 @@
 - 现在等小菊的最大生命读出来（萨科附加包 `summon.rs` 的 `Unit::settled`）才接手，`DAISY #n LOOK` 行是站稳以后的数字；5 次还没读出来就照样接手，行末写 `(its health cap still reads 1 after 5 looks)`。她身上不挂东西、不设生命，只晚一两拍接手。
 - 每秒一行的计数（U4 发现的）：`if let (Some(line), Some(k)) = (line, tally(..))` 每 tick 都数一次，预模拟里每秒那一行几乎出不来；现在有一行才数。
 - 测试多一个「站稳要两拍」的（假宿主 `World::settle = 2`），别的测试没改。
+
+## 落地时只有一个小菊（v0.3.0，2026-11-21）
+
+用户：「艾翁有bug 现在大招会召唤出来两个」（问了是什么时候：「刚召唤落地时」）。0.2.x 落下那一下是副本放的画面：小菊掉在目标
+身上（`league_ivern_r_drop`，跟着他，0.9 秒），画面放完被动才在他身后要单位——游戏里两个叠在一起出现过（倍速下画面按真实时间放、
+单位按 tick 出来，对不齐）。
+
+- 副本不再放落下的画面（`make_override.py` 把那一条从 R 里拿掉，视效的定义留着）；被动一看到 `league_ivern_r_mark` 当即
+  （`D_FIRST` = 1）在他身后 `D_BEHIND` 要单位。
+- 单位一生成就给她挂动画定身 `drop`（`D_DROP` = 54 tick）：她图里新加的 `drop` / `hd_drop`（主包 league_ivern_daisy_drop 那 5 帧，
+  `tools/art/unit_ivern_daisy.py`），落完了才走、才打；她活 `D_DROP + D_LIFE` tick（落地以后照旧打 8 秒）。落地时不按钟点算拳。
+- 定身在她初始化那几拍被清掉就补上（最多 3 次）；她身上同时挂 `league_ivern_daisy_dropping`，引擎要是不给召唤物播定身里的动作，
+  显示钩子（`src/view.rs`，合集晚挂的那一层）照它把正在播的换成 `drop`。
+- 没有单位（测试开关 `unit=off`、宿主不给、读不成单位、刚出来就没了）：被动自己在目标身上放落下的画面，挂在他身上的那串拳照旧。
+- 日志：`DAISY #n ASK`（「she plays her drop there herself」）、`DAISY #n DROP #k: her drop played on the unit ... (the Animation CC
+  held / put back n times)`；显示钩子第一次看到每个落地的小菊写 `DAISY DROP on screen: unit #.. plays 'drop'`（引擎自己播了）或
+  `-> 'drop'`（钩子换的）。
+- 测试：假宿主（萨科附加包的 `summon_mock.rs`）里动画定身的单位不走不打；接线测试查单位身上有定身和标记、落地时一拳没打。
+- 小菊现在还是正面的图，走路、转向要等四分之三侧面的新图（`assets/source/ivern/DAISY_SIDE_PROMPTS.md`，给 GPT 的图包
+  `tools/art/pack_daisy_side.py`）。

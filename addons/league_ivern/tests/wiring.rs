@@ -6,7 +6,7 @@
 use std::collections::HashMap;
 use std::mem::{size_of, zeroed};
 
-use league_ivern::daisy::{slam_damage, D_FIRST, D_LIFE, D_MARK, D_UNIT};
+use league_ivern::daisy::{slam_damage, D_DROP, D_DROPPING, D_DROP_TAG, D_FIRST, D_LIFE, D_MARK, D_UNIT};
 use mod_api_stable::*;
 
 #[path = "../../league_shaco_backstab/src/summon_mock.rs"]
@@ -71,9 +71,19 @@ fn daisy_is_spawned_as_a_unit_through_the_export() {
         }
         assert_eq!(w.spawns.len(), 1);
         let s = w.spawns[0].clone();
-        assert_eq!((s.name.as_str(), s.summoner, s.team, s.life as usize, s.at), ("league_ivern_daisy", 0, 0, D_LIFE, (360_000, 291_000)));
+        assert_eq!((s.name.as_str(), s.summoner, s.team, s.life as usize, s.at),
+                   ("league_ivern_daisy", 0, 0, D_DROP + D_LIFE, (360_000, 291_000)));
         let daisy = s.gave.unwrap();
         assert!(w.has(0, D_UNIT), "no flag on him: the riding punches would play too");
+        // 0.3.0: she plays her drop herself - the Animation CC of her `drop` tag and the flag the display hook reads
+        assert!(w.units[daisy].ccs.iter().any(|c| CcKindV1::from_code(c.0.kind) == Some(CcKindV1::Animation) && c.0.name() == D_DROP_TAG),
+                "no drop on her: {:?}", w.units[daisy].ccs);
+        assert!(w.has(daisy, D_DROPPING));
+        assert!(w.damage.iter().all(|d| d.1 != daisy), "she punched in her drop");
+        for _ in 0..D_DROP {
+            tick(&mut w, &fx, &passive);
+        }
+        assert!(!w.has(daisy, D_DROPPING), "her drop outlasted its ticks");
         for _ in 0..D_LIFE + 20 {
             tick(&mut w, &fx, &passive);
         }
@@ -98,8 +108,8 @@ fn daisy_is_spawned_as_a_unit_through_the_export() {
                                     of his ability power a punch every 60 ticks, every third on the same champion 40 + 30% more and a \
                                     knock-up of 50 ticks. Test knobs ("), "{second}");
         assert!(second.ends_with(".cfg): none"), "{second}");
-        for what in ["DAISY #1 ASK #", "DAISY SPAWN #", "DAISY #1 LOOK #", "DAISY #1 SLAM #", "DAISY #1 OVER #", "TIMED OUT after",
-                     "DAISY #1 WAKE #"] {
+        for what in ["DAISY #1 ASK #", "DAISY SPAWN #", "DAISY #1 LOOK #", "DAISY #1 DROP #", "her drop played", "DAISY #1 SLAM #",
+                     "DAISY #1 OVER #", "TIMED OUT after", "DAISY #1 WAKE #"] {
             assert!(text.contains(what), "missing {what:?} in the log:\n{text}");
         }
     }
