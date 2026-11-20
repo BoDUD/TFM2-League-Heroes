@@ -1200,8 +1200,8 @@
       },
       "league_skarner": {
         "name": "斯卡纳",
-        "attack": "毒刺扎击。<#ff9028ff>战栗<>：普攻、巨石、毒刺打中英雄叠层，满3层<#ffb900ff>4秒<>内每秒掉最大生命1%。<#ff9028ff>震地壁垒<>：冲锋停下时得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>护盾<#ffb900ff>3秒<>，震伤周围<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>减速<>30%。",
-        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻溅射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>减速<>40%。举满<#ffb900ff>3秒<>就扔出<#ff9028ff>擎天<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "attack": "毒刺扎击。<#ff9028ff>战栗<>：普攻、巨石、毒刺打中英雄叠层，满3层<#ffb900ff>4秒<>内每秒掉最大生命1%。<#ff9028ff>震地壁垒<>（每<#ffb900ff>10秒<>）：身边有敌方英雄时普攻就得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>护盾<#ffb900ff>3秒<>，震伤周围<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>减速<>30%。",
+        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻溅射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>减速<>40%。目标在攻击范围外或举满<#ffb900ff>3秒<>就扔出<#ff9028ff>擎天<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
         "skill2": "冲向敌方英雄，撞上后拖着走，停下时造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>晕眩<><#ffb900ff>0.67秒<>。",
         "ult": "三根毒刺往前扎：直线上的敌方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害，被<#ef5350ff>压制<><#ffb900ff>0.75秒<>并拖到身边跟着走；扎中后移速+30%<#ffb900ff>2.5秒<>。"
       },
@@ -3282,8 +3282,8 @@
       },
       "league_skarner": {
         "name": "史加納",
-        "attack": "毒刺扎擊。<#ff9028ff>震動餘波<>：普攻、巨石、毒刺打中英雄疊層，滿3層<#ffb900ff>4秒<>內每秒掉最大生命1%。<#ff9028ff>壁壘波動<>：衝鋒停下時得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>護盾<#ffb900ff>3秒<>，震傷周圍<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>緩速<>30%。",
-        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻濺射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>緩速<>40%。舉滿<#ffb900ff>3秒<>就扔出<#ff9028ff>尖岩飛彈<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "attack": "毒刺扎擊。<#ff9028ff>震動餘波<>：普攻、巨石、毒刺打中英雄疊層，滿3層<#ffb900ff>4秒<>內每秒掉最大生命1%。<#ff9028ff>壁壘波動<>（每<#ffb900ff>10秒<>）：身邊有敵方英雄時普攻就得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>護盾<#ffb900ff>3秒<>，震傷周圍<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>緩速<>30%。",
+        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻濺射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>緩速<>40%。目標在攻擊範圍外或舉滿<#ffb900ff>3秒<>就扔出<#ff9028ff>尖岩飛彈<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
         "skill2": "衝向敵方英雄，撞上後拖著走，停下時造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>暈眩<><#ffb900ff>0.67秒<>。",
         "ult": "三根毒刺往前扎：直線上的敵方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害，被<#ef5350ff>壓制<><#ffb900ff>0.75秒<>並拖到身邊跟著走；扎中後移速+30%<#ffb900ff>2.5秒<>。"
       },
@@ -5364,8 +5364,8 @@
       },
       "league_skarner": {
         "name": "Skarner",
-        "attack": "Stinger strikes. <#ff9028ff>Threads of Vibration<>: his attacks, the boulder and Impale stack Quaking on champions; at 3 they take 1% max health a second for <#ffb900ff>4s<>. <#ff9028ff>Seismic Bastion<>: when his charge stops he gains a <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> shield for <#ffb900ff>3s<> and quakes the ground for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>, <#ef5350ff>slowing<> 30%.",
-        "skill": "Rips up a boulder for <#ffb900ff>6s<>: +20% attack speed, his next 3 attacks splash <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>, the third 3% max health more and <#ef5350ff>slows<> 40%. Held <#ffb900ff>3s<>, it is thrown (<#ff9028ff>Upheaval<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 3% max health.",
+        "attack": "Stinger strikes. <#ff9028ff>Threads of Vibration<>: his attacks, the boulder and Impale stack Quaking on champions; at 3 they take 1% max health a second for <#ffb900ff>4s<>. <#ff9028ff>Seismic Bastion<> (every <#ffb900ff>10s<>): attacking near an enemy champion, a <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> shield for <#ffb900ff>3s<> and a quake of <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>, <#ef5350ff>slowing<> 30%.",
+        "skill": "Rips up a boulder for <#ffb900ff>6s<>: +20% attack speed, his next 3 attacks splash <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>, the third 3% max health more and <#ef5350ff>slows<> 40%. Thrown (<#ff9028ff>Upheaval<>) at a target out of reach or after <#ffb900ff>3s<>: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 3% max health.",
         "skill2": "Charges an enemy champion and carries it along; when the charge stops it takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and is <#ef5350ff>stunned<> for <#ffb900ff>0.67s<>.",
         "ult": "His three tails lash forward: enemy champions on the line take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage, are <#ef5350ff>suppressed<> for <#ffb900ff>0.75s<> and dragged along beside him; on a hit he gains 30% move speed for <#ffb900ff>2.5s<>."
       },
@@ -7446,8 +7446,8 @@
       },
       "league_skarner": {
         "name": "스카너",
-        "attack": "독침 공격. <#ff9028ff>진동의 가닥<>: 기본 공격, 바위, 꿰뚫기가 챔피언에게 진동 중첩, 3중첩이면 <#ffb900ff>4초<> 동안 매초 최대 체력 1% 피해. <#ff9028ff>대지의 수호자<>: 돌진이 멈추면 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 보호막 <#ffb900ff>3초<>, 주변에 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 피해, 30% <#ef5350ff>둔화<>.",
-        "skill": "바위를 <#ffb900ff>6초<> 들어 올림: 공격 속도 +20%, 다음 기본 공격 3회가 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 범위 피해, 3번째는 최대 체력 3% 추가와 40% <#ef5350ff>둔화<>. <#ffb900ff>3초<> 들고 있으면 던짐(<#ff9028ff>지반 돌출<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 3%.",
+        "attack": "독침 공격. <#ff9028ff>진동의 가닥<>: 기본 공격, 바위, 꿰뚫기가 챔피언에게 진동 중첩, 3중첩이면 <#ffb900ff>4초<> 동안 매초 최대 체력 1% 피해. <#ff9028ff>대지의 수호자<>(<#ffb900ff>10초<>마다): 근처에 적 챔피언이 있을 때 기본 공격하면 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 보호막 <#ffb900ff>3초<>, 주변에 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 피해, 30% <#ef5350ff>둔화<>.",
+        "skill": "바위를 <#ffb900ff>6초<> 들어 올림: 공격 속도 +20%, 다음 기본 공격 3회가 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 범위 피해, 3번째는 최대 체력 3% 추가와 40% <#ef5350ff>둔화<>. 대상이 사거리 밖이거나 <#ffb900ff>3초<> 들고 있으면 던짐(<#ff9028ff>지반 돌출<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 3%.",
         "skill2": "적 챔피언에게 돌진해 끌고 감; 돌진이 멈추면 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ffb900ff>0.67초<> <#ef5350ff>기절<>.",
         "ult": "세 꼬리로 앞을 꿰뚫음: 직선 위 적 챔피언에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해, <#ffb900ff>0.75초<> <#ef5350ff>제압<>하고 곁으로 끌고 다님; 적중하면 이동 속도 +30% <#ffb900ff>2.5초<>."
       },
@@ -9528,8 +9528,8 @@
       },
       "league_skarner": {
         "name": "スカーナー",
-        "attack": "毒針で攻撃。<#ff9028ff>響振動<>：通常攻撃・岩・インペイルがチャンピオンに振動を付与、3スタックで<#ffb900ff>4秒<>間毎秒最大体力1%のダメージ。<#ff9028ff>激震の砦<>：突進が止まるとシールド<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>を<#ffb900ff>3秒<>得て周囲に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、30%<#ef5350ff>スロウ<>。",
-        "skill": "岩を<#ffb900ff>6秒<>掲げる：攻撃速度+20%、次の通常攻撃3回が<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の範囲ダメージ、3回目は最大体力3%追加と40%<#ef5350ff>スロウ<>。<#ffb900ff>3秒<>持つと投げる（<#ff9028ff>大地の怒り<>）：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力3%。",
+        "attack": "毒針で攻撃。<#ff9028ff>響振動<>：通常攻撃・岩・インペイルがチャンピオンに振動を付与、3スタックで<#ffb900ff>4秒<>間毎秒最大体力1%のダメージ。<#ff9028ff>激震の砦<>（<#ffb900ff>10秒<>毎）：敵チャンピオン付近で通常攻撃するとシールド<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>を<#ffb900ff>3秒<>、周囲に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、30%<#ef5350ff>スロウ<>。",
+        "skill": "岩を<#ffb900ff>6秒<>掲げる：攻撃速度+20%、次の通常攻撃3回が<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の範囲ダメージ、3回目は最大体力3%追加と40%<#ef5350ff>スロウ<>。対象が射程外か<#ffb900ff>3秒<>持つと投げる（<#ff9028ff>大地の怒り<>）：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力3%。",
         "skill2": "敵チャンピオンに突進して引きずる；止まると<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと<#ffb900ff>0.67秒<><#ef5350ff>スタン<>。",
         "ult": "三本の尾で前方を貫く：直線上の敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージ、<#ffb900ff>0.75秒<><#ef5350ff>サプレッション<>して引きずる；命中すると移動速度+30%を<#ffb900ff>2.5秒<>。"
       },
