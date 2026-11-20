@@ -185,10 +185,15 @@ def build(p, is_native=False):
            "applied_effects": [{"casting_type": "Targeting", "effect": e} for e in
                                (attack(p["r_dmg"], p["r_ad"]), {"type": "Stun", "duration": p["r_stun"]},
                                 view("r_hit"), tsfx("r_hit"))]}
+    # the cut's picture: Codex's wave along the whole line (assets/source/lubu/codex_req1), on a line of its own that
+    # lives the wave's 0.4 s - the damage line lives 2 ticks, its picture would be gone at once (champion-data "Long laser
+    # with a telegraph": the look apart from the damage). Drawn at the line's middle, turned with the cut.
+    wave = {"type": "LineRangeProjectile", "name": n("r_wave"), "width": p["r_w"], "length": p["r_len"], "delay": 24,
+            "apply": 24, "applied_target": "EnemyWithoutTower", "applied_effects": []}
     guard = flag("r_guard", p["r_go"] + 2, cc_immune=True, damaged_reduce=p["r_dr"])
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(first, guard, sfx("r"), sfx("r_vo"),
-                         delayed(p["r_go"] - 1, alive_only(sfx("r_slash"), cut))))
+                         delayed(p["r_go"] - 1, alive_only(sfx("r_slash"), cut, wave))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, tag, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z,
@@ -208,7 +213,9 @@ def build(p, is_native=False):
                    "magic_resistance": p["mr_g"], "move_speed": p["ms_g"], "hp_regen": 0, "stack": 0,
                    "crit_chance": 0},
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
-        "view_projectiles": [], "view_effects": views_e, "view_buffs": [],
+        "view_projectiles": [{"type": "Animated", "name": n("r_wave"), "anim": f"asset/{MOD_ID}/effects/{ID}_proj",
+                              "tag": "ult_wave", "repeat": False, "z": 2}],
+        "view_effects": views_e, "view_buffs": [],
     }
     if is_native:   # ragnarok.dll (addons/ragnarok/src/lubu.rs): the armour each life, the shields, the voice
         kit = {"id": ID, "category": kit["category"], "tags": kit["tags"],

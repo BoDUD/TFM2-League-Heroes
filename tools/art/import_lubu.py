@@ -57,7 +57,15 @@ TARGET_FX = {
     "ult_impact": (64, 116 - A.FEET * PPU),   # the burst's ground line under the pivot like the soles
 }
 
-LUBU = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME, "TARGET_FX": TARGET_FX}
+# Codex's first redraw round (2026-11-20, branch codex/ragnarok-lubu-req1): the halberd whole again in attack 3-5 and
+# skill 4-5 (codex_v02's sheet replaced, the other 59 frames byte for byte the same) and Sky Eater's wave along the cut
+# (codex_req1/ragnarok_lubu_wave_native: 8 frames of 132 x 40, drawn pointing right, top and bottom alike) - the picture
+# of the ult's view-only line (build_lubu.py r_wave), at 1x like every projectile picture, its centre the line's middle
+EXTRA_FX = [os.path.join(ROOT, "assets", "source", "lubu", "codex_req1", f"{ID}_wave_native")]
+PROJ_FX = {"ult_wave": (66, 20)}
+
+LUBU = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME, "TARGET_FX": TARGET_FX,
+        "EXTRA_FX": EXTRA_FX, "PROJ_FX": PROJ_FX}
 
 if __name__ == "__main__":
     A.main(LUBU, __doc__)

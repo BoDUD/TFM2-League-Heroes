@@ -33,18 +33,21 @@ ACTIONS = ("idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead")
 # the hero being imported (setup): Codex's folder, ids, PPU, the soles' point, the baked swings, retimed actions, the
 # pictures played on units - each hero's import_<hero>.py holds them
 SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = SOLE = None
-BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX = [], {}, {}, {}, {}
+BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX = [], {}, {}, {}, {}, []
 
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
-    global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX
+    global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
     BAKE, RETIME, TARGET_FX = cfg["BAKE"], cfg["RETIME"], cfg["TARGET_FX"]
     # SPLIT {action: [(new tag, its first body frame), ...]}: parts of an action that only an event plays (Thor's empty
     # hands while the hammer flies, his catch on its real return), cut off in order; PROJ_FX {tag: centre}: pictures a
     # projectile carries (drawn at 1x, turned with its flight)
     SPLIT, PROJ_FX = cfg.get("SPLIT", {}), cfg.get("PROJ_FX", {})
+    # EXTRA_FX: more of Codex's effect sheets (stems of <stem>#sheet.png / #anim.fanim), their tags added to the effects
+    # (Lu Bu's Sky Eater wave came on its own in the first redraw round)
+    EXTRA_FX = cfg.get("EXTRA_FX", [])
     SHEET = os.path.join(MOD, "champions", ID)
     FX_SHEET = os.path.join(MOD, "effects", f"{ID}_fx")
     PROJ_SHEET = os.path.join(MOD, "effects", f"{ID}_proj")
@@ -300,6 +303,8 @@ def main(cfg, doc=None):
     a = ap.parse_args()
     body = read(os.path.join(SRC, f"{ID}_native"))
     fx = read(os.path.join(SRC, f"{ID}_fx_native"))
+    for stem in EXTRA_FX:
+        fx.update(read(stem))
     ones, denses = hero_sheets(body, fx)
     fxs = fx_sheet(fx)
     if a.check:
