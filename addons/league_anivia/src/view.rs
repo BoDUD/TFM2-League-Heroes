@@ -431,11 +431,10 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match game_places::hook::add("league_anivia", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "FORM whole-body egg on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x}); the egg is drawn \
+        match game_places::hook::add("league_anivia", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!(
+                "FORM whole-body egg on: {p}; the egg is drawn \
                  by the screen clock from the eggs the passive notes (the egg buff when the clock cannot be read)",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("FORM whole-body egg off ({e}): the egg is drawn only while the data's watch plays it")),
         }

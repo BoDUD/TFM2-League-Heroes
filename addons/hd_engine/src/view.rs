@@ -302,7 +302,6 @@ impl State {
 }
 
 static STATE: Mutex<State> = Mutex::new(State::new());
-static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
 #[link(name = "kernel32")]
@@ -310,7 +309,6 @@ extern "system" {
     fn ReadProcessMemory(h: isize, base: *const c_void, buf: *mut c_void, size: usize, read: *mut usize) -> i32;
     fn GetCurrentProcess() -> isize;
     fn GetModuleHandleW(name: *const u16) -> usize;
-    fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
 }
 
 /// The game EXE's base in this process.
@@ -336,15 +334,9 @@ fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
     (ok != 0 && got == len).then_some(buf)
 }
 
-type Update = unsafe extern "system" fn(usize, usize, usize, f32);
-
-unsafe extern "system" fn update(this: usize, a2: usize, world: usize, dt: f32) {
-    let prev = PREV.load(Ordering::Acquire);
-    if prev != 0 {
-        let f: Update = std::mem::transmute(prev);
-        f(this, a2, world, dt);
-    }
-    let _ = std::panic::catch_unwind(|| unsafe { shrink(world) });
+/// 战场缩放：game_places 显示钩子上登记的一位（每帧拿到显示世界，[`shrink`] 自己走实体表）。
+unsafe fn shrink_world(world: usize, _ents: &[game_places::hook::Ent]) {
+    shrink(world)
 }
 
 unsafe fn q(addr: usize) -> usize {
@@ -1301,36 +1293,17 @@ pub fn body_runs(kinds: &[u8]) -> Vec<(usize, usize)> {
     extra_runs(&flipped)
 }
 
-fn install(b: &Build) -> Result<(usize, usize), String> {
-    let module = unsafe { GetModuleHandleW(std::ptr::null()) };
-    if module == 0 {
-        return Err("no module handle".into());
-    }
-    let slot = module + b.display_slot;
-    let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;
-    if !plausible(cur) {
-        return Err(format!("the slot holds {cur:#x}"));
-    }
-    PREV.store(cur, Ordering::Release);
-    let mut old = 0u32;
-    if unsafe { VirtualProtect(slot as *mut c_void, 8, 0x04, &mut old) } == 0 {
-        return Err("VirtualProtect failed".into());
-    }
-    unsafe { std::ptr::write_volatile(slot as *mut usize, update as Update as usize) };
-    let mut tmp = 0u32;
-    unsafe { VirtualProtect(slot as *mut c_void, 8, old, &mut tmp) };
-    Ok((slot, cur))
-}
-
-/// 加载时换槽（一个进程只换一次）。
+/// 挂钩（一个进程一次）：战场缩放登记到 game_places 的显示钩子（2026-11-21 起和英雄变身同一层：DLL 晚挂时第一帧才换槽，
+/// 被跳过会接回来），身体、特效、飞行物的绘制照旧在这里挂。
 pub fn install_once(b: &'static Build) {
     HOOK.call_once(|| {
         let module = unsafe { GetModuleHandleW(std::ptr::null()) };
-        match install(b) {
-            Ok((slot, prev)) => wlog(format!(
-                "battlefield scale on: display slot {slot:#x} now calls this pack, then {} ({prev:#x})",
-                if prev == module + b.display_fn { "the game's own handler" } else { "another mod's handler (chained)" }
-            )),
+        // 这个版本的显示函数和槽按指纹认得：game_places 自己没找到时用这一对
+        if module != 0 {
+            game_places::hook::use_pair(module + b.display_fn, module + b.display_slot);
+        }
+        match game_places::hook::add("hd_engine", shrink_world, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!("battlefield scale on: {p}")),
             Err(e) => wlog(format!("battlefield scale off ({e})")),
         }
         GROW.store(module + b.cmd_grow, Ordering::Release);

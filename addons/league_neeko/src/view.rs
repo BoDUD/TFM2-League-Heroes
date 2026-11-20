@@ -312,11 +312,8 @@ unsafe fn dress_neeko(world: usize, ents: &[Ent]) {
 
 /// 加载时挂上显示钩子（一个进程只挂一次）。
 pub fn install_once() {
-    HOOK.call_once(|| match game_places::hook::add("league_neeko", dress_neeko) {
-        Ok((slot, prev)) => wlog(format!(
-            "disguise look on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-            if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
-        )),
+    HOOK.call_once(|| match game_places::hook::add("league_neeko", dress_neeko, |m: &str| wlog(m)) {
+        Ok(p) => wlog(format!("disguise look on: {p}")),
         Err(e) => wlog(format!("disguise look off ({e}): she keeps her own body")),
     });
 }

@@ -157,11 +157,8 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match game_places::hook::add("league_nasus", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "FORM whole-body big form on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
-            )),
+        match game_places::hook::add("league_nasus", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!("FORM whole-body big form on: {p}")),
             Err(e) => wlog(format!("FORM whole-body big form off ({e}): between casts he keeps his size on screen (the main pack's look)")),
         }
     });

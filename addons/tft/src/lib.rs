@@ -116,6 +116,9 @@ fn init(host: &StableHost) -> StableMod {
     let v = host.game_version();
     wlog(format!("=== tft.dll {VERSION} (the tft heroes' rules and dense frames) loaded: game {}.{}.{} abi {} log={} ===",
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
+    // 显示钩子晚挂（2026-11-21）：当主时战场缩放第一帧（Frame）再换槽
+    #[cfg(windows)]
+    hd_engine::defer_display();
     // the dense frames first: this pack's table to the engine, which hooks the game from here or hands the table to the
     // pack DLL that did (league.dll loaded first)
     #[cfg(windows)]
@@ -165,7 +168,20 @@ fn init(host: &StableHost) -> StableMod {
     vander::register(host, &mut module);
     violet::register(host, &mut module);
     zippy::register(host, &mut module);
+    #[cfg(windows)]
+    module.set_extension(Frame);
     module
+}
+
+/// 每帧：高清帧引擎当主时的显示钩子第一帧挂上、被跳过就接回来（hd_engine::frame）。本包原来没有客户端扩展。
+#[cfg(windows)]
+struct Frame;
+
+#[cfg(windows)]
+impl StableExtension for Frame {
+    fn post_update(&self, ctx: &mut StableClient<'_>, _dt: u64) {
+        hd_engine::frame(ctx.is_in_game(), |p| ctx.ui_visible(p), |p| ctx.ui_text(p));
+    }
 }
 
 declare_stable_mod!(init, requires = 9);
