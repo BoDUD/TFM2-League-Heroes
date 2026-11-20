@@ -1373,6 +1373,10 @@
                       ]
                     },
                     {
+                      "type": "RemoveCasterAnimation",
+                      "name": "skill2"
+                    },
+                    {
                       "type": "CasterAnimation",
                       "name": "e_flip",
                       "tick": 36

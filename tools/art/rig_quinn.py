@@ -422,6 +422,11 @@ MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
       "ult": [80, 100, 120, 200], "ult_ride": [50] * 8, "ult_land": [70, 70, 70, 70, 100, 100],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
       "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100], "r_beat": [120] * 8}
+# 后空翻每帧另有一个单帧标签 e_flip_0 … e_flip_6（frames() 里抄 e_flip 的帧）：附加包把她往后挪的那 20 tick，
+# 游戏看来不往下播强制动作，画面停在第一帧（用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」），league_quinn 按 tick
+# 逐帧把正在播的动画换成这几个标签。单帧标签的时长给长一点，播到哪儿都是这一帧。
+FLIP_ONE = [f"e_flip_{k}" for k in range(len(MS["e_flip"]))]
+MS.update({t: [1000] for t in FLIP_ONE})
 # Valor's wing tips in the ride's loops, rows up a frame (the downstroke while the group rises): ult_ride rises 6 to 9
 # and sinks to 7, r_run rises 6 9 and sinks 8 5 (2026-11-14: both were one picture moved up and down; ult_ride's four
 # 100-ms frames are eight of 50 now, r_run keeps its four)
@@ -532,6 +537,7 @@ def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
     a = {"idle": a["idle"], "run": a["run"], **{k: v for k, v in a.items() if k not in ("idle", "run")}}
+    a.update({t: [c] for t, c in zip(FLIP_ONE, a["e_flip"])})
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]
