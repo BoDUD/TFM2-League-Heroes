@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC |
-| 高清帧 | PPU 1.2（画成 79%） |
+| 高清帧 | PPU 1.2 |
 | 附加包 | [科加斯附加包](#附加包)（`league_chogath`） |
 
 ![科加斯演示](../preview/league_chogath_showcase.gif)

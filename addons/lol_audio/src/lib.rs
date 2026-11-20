@@ -45,6 +45,11 @@
 //! 播报、第一遍结束时还没轮到的播报算进 dropped（0.2.1 哪里都没算：SET 行 queued 比 played + dropped 多 1–2 条），各记一行
 //! `DROPPED`。
 //!
+//! 0.2.3（用户 2026-11-19：「兰博红温的时候 警告警告那个语音要补进去」）：兰博过热（主包的 buff `league_rumble_oh`，
+//! 热量满 100 时挂上，`league_rumble` 附加包按它把整身换成红温）挂上的那一 tick，在他身上放英雄联盟里他过热时那句
+//! 「警告，警告」（`build_audio.py` 从 Rumble.zh_CN 的语音包取：`Play_vo_Rumble_Spell3DPCast`）。英雄自己的话不排队、不等
+//! 播报员。第一次看到这一局时已经在过热的不补放。日志一行 `RUMBLE`。
+//!
 //! 播报排队放：一条放完（`GAP` tick）才放下一条，等了 `EXPIRE` tick 还没轮到的扔掉（胜负那句插到最前面、清掉别的）。
 //!
 //! 只在看得见、听得见的比赛里放（观看、观战、回放）；后台预演的比赛（`ServerPresim`）和别的队伍在后台打的比赛
@@ -104,6 +109,10 @@ pub const SERPEN_BUFF: &str = "serpen_";
 pub const EPIC_BUFF: &str = "epic_";
 /// Team 0 is the blue side (the classic map's blue nexus is team 0's).
 pub const BLUE: usize = 0;
+/// Rumble's Overheat (the main pack's buff, on at 100 heat).
+pub const OVERHEAT_BUFF: &str = "league_rumble_oh";
+/// His line the moment it comes on (sound/sfx/lol_audio_rumble_overheat.sound_info).
+pub const RUMBLE_OVERHEAT: &str = "lol_audio_rumble_overheat";
 
 // ===================== 日志 =====================
 
@@ -508,9 +517,20 @@ pub struct Watch {
     pub tally: Tally,
     /// The SET line was written.
     summed: bool,
+    /// The champions overheated on the last tick (Rumble: `OVERHEAT_BUFF`), and whether a tick was read yet.
+    heat: Vec<usize>,
+    heat_seen: bool,
 }
 
 impl Watch {
+    /// The champions whose Overheat came on since the last tick (none on the first tick read: already hot then).
+    pub fn overheat_starts(&mut self, hot: Vec<usize>) -> Vec<usize> {
+        let started = if self.heat_seen { hot.iter().copied().filter(|e| !self.heat.contains(e)).collect() } else { Vec::new() };
+        self.heat = hot;
+        self.heat_seen = true;
+        started
+    }
+
     /// The run filter: `Live` while the ticks never go down, `Again` from the first tick below the top on (for good:
     /// the second run's ticks pass the first run's top too, and stay ignored).
     pub fn pass(&mut self, tick: usize) -> Pass {
@@ -928,6 +948,21 @@ fn evidence(sim: &StableSim<'_>) -> Evidence {
     ev
 }
 
+/// The live champions carrying `OVERHEAT_BUFF`, and where they stand.
+fn overheated(sim: &StableSim<'_>) -> Vec<(usize, (u64, u64))> {
+    let mut out = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        if !matches!(e.kind(), Some(EntityKindV1::Champion)) || !e.is_alive() {
+            continue;
+        }
+        if (0..e.buff_count()).filter_map(|j| e.buff_at(j)).any(|b| b.name() == OVERHEAT_BUFF) {
+            out.push((e.id(), e.pos()));
+        }
+    }
+    out
+}
+
 /// Squared distance between two map points.
 fn dist2(a: (u64, u64), b: (u64, u64)) -> u64 {
     let (dx, dy) = (a.0.abs_diff(b.0), a.1.abs_diff(b.1));
@@ -1116,7 +1151,15 @@ impl StableMatchHook for Announcer {
             w.summed = true;
             set = Some(set_line(&o, w, "match over"));
         }
+        // Rumble's Overheat: his own line, not queued behind the announcer
+        let hot = overheated(sim);
+        let started = w.overheat_starts(hot.iter().map(|&(e, _)| e).collect());
         drop(book);
+        for e in started {
+            let at = hot.iter().find(|&&(x, _)| x == e).map_or((0, 0), |&(_, p)| p);
+            let how = play(sim, RUMBLE_OVERHEAT, Some(e), at, &living);
+            logs.push(format!("RUMBLE {} t={} #{e} overheated -> {RUMBLE_OVERHEAT} {how}", head(&o), clock(now)));
+        }
 
         if let Some(l) = line {
             let side = *SIDE.lock().unwrap_or_else(|e| e.into_inner());
@@ -1640,5 +1683,23 @@ mod tests {
         assert_eq!(b.keys.len(), KEEP);
         assert_eq!(b.watch((2, 0, 1, 0)).pass(0), Pass::Live);
         assert_eq!(b.watch((2, 2, 1, 0)).pass(0), Pass::Again { first: true });
+    }
+}
+
+
+#[cfg(test)]
+mod overheat_tests {
+    use super::*;
+
+    #[test]
+    fn overheat_comes_on_once() {
+        let mut w = Watch::default();
+        // already hot on the first tick read: no line
+        assert!(w.overheat_starts(vec![7]).is_empty());
+        assert!(w.overheat_starts(vec![7]).is_empty());
+        // cooled, then hot again: one line; a second Rumble at the same time: his own line
+        assert!(w.overheat_starts(vec![]).is_empty());
+        assert_eq!(w.overheat_starts(vec![7, 9]), vec![7, 9]);
+        assert!(w.overheat_starts(vec![7, 9]).is_empty());
     }
 }

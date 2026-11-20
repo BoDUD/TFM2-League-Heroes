@@ -2,7 +2,8 @@
 the stance (n_hit 8: the staff held across him), so the staff jumped from upright to across inside a 0.2 s flinch, and
 from the idle's across to upright going in. Frame 0 is now the braced guard his attack already plays (attack[4] /
 b_attack[4]: n_hit 7, the staff across, the body pulled back): the same rects (1x, hd_, lo_), no pixel drawn; the hd
-strips (assets/source/ppu[/orig]/nasus_[b_]hit.png + .json sizes) rewritten from the new hd_ frames.
+strips (assets/source/ppu[/orig]/nasus_[b_]hit.png + .json sizes) rewritten from the new hd_ frames. Since
+nasus_actions.py the attack plays other pictures: the guard's rects are its table's "hit0" (what attack[4] was).
 
     python tools/fix/gpt784_review/nasus_hit.py [--check]
 """
@@ -25,12 +26,15 @@ def main():
     an = doc["anims"]
     sheet = np.asarray(Image.open(STEM + "#sheet.png").convert("RGBA"))
     bad = 0
+    guard = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "nasus_actions.json"),
+                           encoding="utf-8"))["hit0"]
     for form in ("", "b_"):
-        for pre in ("", "hd_", "lo_"):
-            hit, att = an[f"{pre}{form}hit"]["frames"], an[f"{pre}{form}attack"]["frames"]
-            if hit[0]["data"] != att[4]["data"]:
+        for pre, key in (("", "1x"), ("hd_", "hd_"), ("lo_", "lo_")):
+            hit = an[f"{pre}{form}hit"]["frames"]
+            want = {k: float(v) for k, v in zip(("x", "y", "w", "h"), guard[form][key])}
+            if hit[0]["data"] != want:
                 bad += 1
-                hit[0]["data"] = dict(att[4]["data"])
+                hit[0]["data"] = want
         # the strips: the hit's hd_ frames as the sheet now holds them
         pics = []
         for f in an[f"hd_{form}hit"]["frames"]:

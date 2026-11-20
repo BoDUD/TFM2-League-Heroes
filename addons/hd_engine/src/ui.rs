@@ -6,7 +6,8 @@
 //! 只有 256 MiB（Rin 的 PPU Core 0.2.16 / 0.2.18 查到的也是它），于是每一帧都在重新解码；局内只有十个英雄，装得下。
 //!
 //! 这里让这五处改画小图集。tools/package_mod.py 给每个英雄打出两张，只有界面要画的帧、像素原样：
-//! `asset/<包>/ui_sheets/idle/<id>`（图鉴、头像、选人位、选中特写、记分板画的 idle：PPU 英雄是 lo_idle）和
+//! `asset/<包>/ui_sheets/idle/<id>`（图鉴、头像、选人位、选中特写、记分板画的 idle：PPU 英雄是 hd_idle，标着 `ui_hd`——
+//! 2026-11-19 用户：「都要PPU高清帧的」，之前是 lo_idle，没标记的旧图集照旧按 lo_ 的除数画）和
 //! `.../ui_sheets/bp/<id>`（BP 格子的 reel 和被禁时的 dead：PPU 英雄是 hd_bp / hd_dead）。全部英雄合起来解码后 idle
 //! 28 MiB、bp 137 MiB。
 //!
@@ -166,16 +167,22 @@ fn kind(b: &Build, k: usize) -> usize {
 }
 
 /// What drawer `k` divides the UI sheet's frame pixels by: what it divided the battle sheet's by (src/lookup.rs
-/// ui_table, the dense table) - a 1x hero 1; a dense hero with lo_ frames the BP grid's hd divisor or the UI's; one
-/// without them its shown PPU.
-fn divisor(b: &Build, k: usize, hero: Option<&Hero>) -> f32 {
+/// ui_table, the dense table) - a 1x hero 1; a dense hero with lo_ frames the BP grid's hd divisor or the UI's (`hd`:
+/// its UI idle sheet holds the hd_ idle, marked `ui_hd` by tools/package_mod.py - [`Hero::ui_hd_for`], the hero as
+/// large as its lo_ frames drew it); one without them its shown PPU.
+fn divisor(b: &Build, k: usize, hero: Option<&Hero>, hd: bool) -> f32 {
+    let sized = b.ui_sized_anim_ret.contains(&b.ui_anim_ret[k]);
     match hero {
         None => 1.0,
         Some(h) if !h.lo => h.shown(),
         Some(h) if kind(b, k) == REEL => h.bp_hd(),
-        Some(h) => h.ui_for(b.ui_sized_anim_ret.contains(&b.ui_anim_ret[k])),
+        Some(h) if hd => h.ui_hd_for(sized),
+        Some(h) => h.ui_for(sized),
     }
 }
+
+/// The tag tools/package_mod.py adds to a UI idle sheet that holds the hd_ idle (the user, 2026-11-19: 「都要PPU高清帧的」).
+pub const HD_MARK: &[u8] = b"ui_hd";
 
 /// The frames of bucket `b` (x, y, w, h, duration each) with x, y, w, h divided by `div`, leaked (the copies share them).
 unsafe fn frames(b: usize, div: f32) -> Option<(usize, usize)> {
@@ -270,7 +277,8 @@ unsafe fn copy_of(t: usize, ut: usize, k: usize, reel: bool, div: f32) -> Option
 /// whose name the next sink call that hands on the same name gets swapped for the UI sheet's.
 #[derive(Default)]
 struct State {
-    anim: Option<(usize, usize)>,
+    /// (drawer, its Names, its UI idle sheet holds the hd_ idle: `ui_hd`)
+    anim: Option<(usize, usize, bool)>,
     name: Vec<u8>,
     swap: Option<(&'static Names, usize, usize)>,
 }
@@ -493,14 +501,15 @@ pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Op
         }
         return None;
     }
-    let div = divisor(b, k, hero);
+    let hd = kd == IDLE && lookup::bucket_of(ut, HD_MARK).is_some();
+    let div = divisor(b, k, hero, hd);
     let t = copy_of(got, ut, k, kd == REEL, div)?;
-    with_state(|s| s.anim = Some((k, n as *const Names as usize)));
+    with_state(|s| s.anim = Some((k, n as *const Names as usize, hd)));
     if let Ok(mut s) = SEEN.lock() {
         let key = (n as *const Names as usize, k);
         if s.len() < 2000 && !s.contains(&key) {
             s.push(key);
-            line(|| format!("{id}: UI drawer {k} draws {} (frames / {div})", n.sheet[kd]));
+            line(|| format!("{id}: UI drawer {k} draws {} (frames / {div}{})", n.sheet[kd], if hd { ", the hd_ idle" } else { "" }));
         }
     }
     Some(t)
@@ -524,7 +533,8 @@ pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, sp: usize, k: usi
     let name = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)).ok()?;
     let (id, pack) = hero_id(name, &hd::heroes().packs)?;
     let n = names_of(id, pack)?;
-    if from != Some((k, n as *const Names as usize)) {
+    let Some((fk, fnames, hd)) = from else { return None };
+    if (fk, fnames) != (k, n as *const Names as usize) {
         return None;
     }
     let b = lookup::build();
@@ -534,7 +544,7 @@ pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, sp: usize, k: usi
         return None;
     }
     if let Some(h) = hero {
-        lookup::proxy_of(ue, h);
+        lookup::proxy_of_ui(ue, h, hd);
     }
     if b.ui_inline.contains(&k) {
         return inline(ptr, len, sp, n, kd, k).then_some(ue);
