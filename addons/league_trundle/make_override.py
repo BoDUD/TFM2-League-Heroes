@@ -1,4 +1,4 @@
-"""Build the add-on's copy of Trundle from the main pack (King's Tribute, a fixed domain, terrain pillars, League's Chomp
+"""Build the add-on's copy of Trundle from the main pack (King's Tribute, a domain on him, terrain pillars, League's Chomp
 and Subjugate).
 
     python addons/league_trundle/make_override.py [--draft] [--check]
@@ -8,8 +8,8 @@ league/champion/league_trundle.data_champion byte for byte (so the copy never dr
 defaults in src/lib.rs's Params are P's numbers, and writes addons/league_trundle/override/league_trundle.data_champion and
 .../text/champion.i18n: the build with native=1 (build_trundle.py's docstring) -
   * passive = league_trundle:troll (params build_trundle.NATIVE_KEYS);
-  * no kill trigger (the add-on heals for every enemy dying near him); `w_on` a plain mark (the add-on's `w_in` holds the
-    domain's stats while he stands in it); the pillar marks its champions `e_at` (no hold); Chomp marks `q_mark` (no sap,
+  * no kill trigger (the add-on heals for every enemy dying near him); `w_on` carries the
+    domain's stats and the ice under him (it moves with him, as in the main pack and next door's OPPI); the pillar marks its champions `e_at` (no hold); Chomp marks `q_mark` (no sap,
     no `q_ad`); Subjugate marks `r_drain` (no true damage, heal or stat cut of its own);
   * the attack's and the ult's tooltips (keys of the add-on's own id) say the League rules, so the tooltip in game shows
     whether the override took.
@@ -37,7 +37,7 @@ phys, t, n, cc = setup.phys, setup.t, setup.n, setup.cc
 NATIVE = {
     "zh-hans": {
         "attack": "【附加包】抡冰棒。" + n("国王的贡品") + "：身边敌方单位倒下时回复它最大生命{p_pct}%，冰面上双倍。" + n("冰封领域") +
-                  "：利齿撕咬咬中英雄时在原地冻出冰面" + t("{w_t}秒") + "（每" + t("{w_cd}秒") + "一次），站在上面攻速+{w_as}%、"
+                  "：利齿撕咬咬中英雄时脚下冻出冰面" + t("{w_t}秒") + "（每" + t("{w_cd}秒") + "一次），冰面跟着他走：攻速+{w_as}%、"
                   "移速+{w_ms}%，受到的治疗+{w_amp}%。",
         "skill": "【附加包】咬一口造成" + phys("q_dmg", "q_ratio") + "物理伤害并" + cc("减速") + "{q_slow}%；" + t("{q_t}秒") +
                  "内偷走对方攻击力的{q_flat}%（对方少一半）。",
@@ -48,7 +48,7 @@ NATIVE = {
     },
     "zh-hant": {
         "attack": "【附加包】揮冰棒。" + n("帝王獻祭") + "：身邊敵方單位倒下時回復它最大生命{p_pct}%，冰面上雙倍。" + n("極凍領地") +
-                  "：狂野撕咬咬中英雄時在原地凍出冰面" + t("{w_t}秒") + "（每" + t("{w_cd}秒") + "一次），站在上面攻速+{w_as}%、"
+                  "：狂野撕咬咬中英雄時腳下凍出冰面" + t("{w_t}秒") + "（每" + t("{w_cd}秒") + "一次），冰面跟著他走：攻速+{w_as}%、"
                   "移速+{w_ms}%，受到的治療+{w_amp}%。",
         "skill": "【附加包】咬一口造成" + phys("q_dmg", "q_ratio") + "物理傷害並" + cc("緩速") + "{q_slow}%；" + t("{q_t}秒") +
                  "內偷走對方攻擊力的{q_flat}%（對方少一半）。",
@@ -60,8 +60,8 @@ NATIVE = {
     "en": {
         "attack": "[Add-on] Ice club blows. " + n("King's Tribute") + ": an enemy unit dying near him heals him {p_pct}% of its "
                   "max health, doubled on his domain. " + n("Frozen Domain") + ": Chomp biting a champion freezes the ground "
-                  "where he stands for " + t("{w_t}s") + " (once every " + t("{w_cd}s") + "): on it +{w_as}% attack speed, "
-                  "+{w_ms}% move speed and {w_amp}% more healing.",
+                  "under him for " + t("{w_t}s") + " (once every " + t("{w_cd}s") + "); the ice moves with him: +{w_as}% attack "
+                  "speed, +{w_ms}% move speed and {w_amp}% more healing.",
         "skill": "[Add-on] Bites for " + phys("q_dmg", "q_ratio") + " physical damage and " + cc("slows") + " {q_slow}%; for " +
                  t("{q_t}s") + " he steals {q_flat}% of the target's attack (it loses half that).",
         "skill2": "[Add-on] Raises a Pillar of Ice behind an enemy champion for " + t("{e_t}s") + ": terrain no one can walk "
@@ -72,8 +72,8 @@ NATIVE = {
     },
     "ko": {
         "attack": "[확장] 얼음 몽둥이 공격. " + n("헌납") + ": 주변 적 유닛이 죽으면 그 최대 체력의 {p_pct}% 회복, 얼음 위에서는 2배. " +
-                  n("얼음 왕국") + ": 깨물기가 챔피언을 물면 그 자리 땅을 " + t("{w_t}초") + " 얼림(" + t("{w_cd}초") + "마다 한 번), "
-                  "그 위에서 공격 속도 +{w_as}%, 이동 속도 +{w_ms}%, 받는 회복 +{w_amp}%.",
+                  n("얼음 왕국") + ": 깨물기가 챔피언을 물면 발밑 땅을 " + t("{w_t}초") + " 얼림(" + t("{w_cd}초") + "마다 한 번), "
+                  "얼음은 함께 움직임: 공격 속도 +{w_as}%, 이동 속도 +{w_ms}%, 받는 회복 +{w_amp}%.",
         "skill": "[확장] 깨물어 " + phys("q_dmg", "q_ratio") + " 물리 피해, {q_slow}% " + cc("둔화") + "; " + t("{q_t}초") +
                  " 동안 대상 공격력의 {q_flat}%를 빼앗음(대상은 그 절반 감소).",
         "skill2": "[확장] 적 챔피언 뒤에 얼음 기둥을 " + t("{e_t}초") + " 세움: 누구도 지나갈 수 없는 지형, 주변 적 {e_slow}% " +
@@ -83,8 +83,8 @@ NATIVE = {
     },
     "ja": {
         "attack": "【拡張】氷の棍棒で攻撃。" + n("王への貢物") + "：近くの敵ユニットが倒れるとその最大体力の{p_pct}%回復、氷の上では2倍。" +
-                  n("凍てつく大地") + "：咬み付きがチャンピオンに当たるとその場の地面を" + t("{w_t}秒") + "凍らせる（" +
-                  t("{w_cd}秒") + "に1回）、その上で攻撃速度+{w_as}%、移動速度+{w_ms}%、受ける回復+{w_amp}%。",
+                  n("凍てつく大地") + "：咬み付きがチャンピオンに当たると足元の地面を" + t("{w_t}秒") + "凍らせる（" +
+                  t("{w_cd}秒") + "に1回）、氷は一緒に動く：攻撃速度+{w_as}%、移動速度+{w_ms}%、受ける回復+{w_amp}%。",
         "skill": "【拡張】咬み付いて" + phys("q_dmg", "q_ratio") + "の物理ダメージ、{q_slow}%" + cc("スロウ") + "；" + t("{q_t}秒") +
                  "間 相手の攻撃力の{q_flat}%を奪う（相手はその半分減少）。",
         "skill2": "【拡張】敵チャンピオンの背後に氷冷の柱を" + t("{e_t}秒") + "立てる：誰も通れない地形、周囲の敵に{e_slow}%" +
