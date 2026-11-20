@@ -159,6 +159,27 @@ def anim(name, tick):
     return {"type": "CasterAnimation", "name": name, "tick": tick}
 
 
+# 后空翻每帧多少毫秒（tools/art/rig_quinn.py 的 MS["e_flip"]、league_quinn 的 FLIP_MS，单元测试核对）
+FLIP_MS = [60, 70, 80, 70, 70, 120, 130]
+
+
+def flip_flags():
+    """附加包副本：踢中后按后空翻每帧的时间给她挂 league_quinn_flip0 … flip6，league_quinn 的画面钩子照它把正在播的
+    e_flip 换成单帧标签 e_flip_<k>（她被往后挪的那几十 tick，游戏自己的 e_flip 看来停在第一帧）。0.7.0 是附加包原生代码
+    逐 tick 挂的（画面也认得出来），改由数据挂，附加包少一段原生代码。每个多挂 1 tick，和下一帧接上不留空，画面取帧号
+    最大的那个。"""
+    ms, starts = 0, []
+    for d in FLIP_MS:
+        starts.append(-(-ms * 60 // 1000))
+        ms += d
+    ends = starts[1:] + [-(-ms * 60 // 1000)]
+    out = []
+    for k, (s, e) in enumerate(zip(starts, ends)):
+        f = refresh(f"flip{k}", e - s + 1)
+        out.append(f if s == 0 else delayed(s, f))
+    return out
+
+
 def circle(r):
     return {"Circle": {"radius": r}}
 
@@ -287,6 +308,9 @@ def build(p):
                # the add-on's copy: a flag, league_quinn moves her (the dash ends on the target's own spot, so `MoveBack`
                # has no way to go: 0 units in the classic simulation, the user in game 10-22: 「奎因E完人不会拉开距离」)
                refresh("e_vault", 4) if nat else {"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]}]
+    if nat:
+        # 附加包副本：后空翻逐帧的标记，画面钩子照它换帧（见 flip_flags）
+        contact += flip_flags()
     e_cast = combine(anim("skill2", 60), sfx("e"), voice("vo_e", p),
                      {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,
                       "end_effects": contact})

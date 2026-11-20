@@ -64,9 +64,10 @@ pub const CAME_MIN: f64 = 3000.0;
 const MAP: f64 = 960_000.0;
 /// 后空翻每帧多少毫秒（tools/art/rig_quinn.py 的 MS["e_flip"]，单元测试核对），合计 600 毫秒 = 技能数据的 e_flip 36 tick。
 pub const FLIP_MS: [usize; 7] = [60, 70, 80, 70, 70, 120, 130];
-/// 正在翻第几帧：踢中后本包每 tick 给她挂 `league_quinn_flip<k>`，view.rs 看到就把画面上正在播的动画换成单帧标签
-/// `e_flip_<k>`。被往后挪的那 E_BACK_T tick 里游戏看来不往下播强制动作（画面停在第一帧，用户 2026-11-20：「奎因E往后拉距离
-/// 为什么还是没动画」），只能按 tick 一帧一帧换上去。
+/// 正在翻第几帧：踢中后附加包副本的数据按 FLIP_MS 给她挂 `league_quinn_flip<k>`（build_quinn.py 的 flip_flags），view.rs
+/// 看到就把画面上正在播的 e_flip 换成单帧标签 `e_flip_<k>`。被往后挪的那 E_BACK_T tick 里游戏看来不往下播强制动作（画面停在
+/// 第一帧，用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」），只能一帧一帧换上去。0.7.0 是本包原生代码每 tick 挂的
+/// （画面也认得出来，11-20 23:11 那局换了帧），0.7.1 改由数据挂，本包少一段原生代码。
 pub const FLIP: &str = "league_quinn_flip";
 /// 一秒几 tick。
 const TPS: usize = 60;
@@ -218,8 +219,6 @@ struct Ride {
     vault: Option<(Pt, usize, Pt, usize)>,
     /// 出 E 的标记在她身上时：看到它几 tick、冲起来过没有、这次 E 翻过没有（标记没了才清掉，一次 E 只翻一次）。
     dash: Option<(usize, bool, bool)>,
-    /// 后空翻的画面：踢中后第几 tick、现在挂着第几帧的标记。
-    flip: Option<(usize, Option<usize>)>,
 }
 
 /// 她身上的强制动作（名字、还剩几 tick），日志用。
@@ -288,11 +287,11 @@ impl Ride {
             self.dash = None;
         }
         if let (Some(why), None) = (why, self.vault) {
-            // 翻的画面跟着这一下走（找不到方向、原地翻也一样翻）
-            self.flip = Some((0, self.flip.and_then(|f| f.1)));
+            // 踢中时她身上的强制动作（应该只剩 e_flip）；逐帧的标记是数据挂的，这里只记一笔
             if let Some(k) = counted_on("flip", on_screen(sim)) {
-                wlog(format!("{} FLIP frame by frame on screen ({why}); animations on her: {} #{k}", head(sim, me),
-                             anims_on(sim, me)));
+                wlog(format!("{} FLIP ({why}); animations on her: {}; flags: {} #{k}", head(sim, me), anims_on(sim, me),
+                             (0..FLIP_MS.len()).filter(|&j| has_buff(sim, me, &flip_buff(j))).map(|j| j.to_string())
+                                 .collect::<Vec<_>>().join(",")));
             }
             let trail: Vec<Pt> = self.trail.iter().copied().collect();
             match vault_dir(at, &trail, nearest_foe(sim, me, at)) {
@@ -328,32 +327,6 @@ impl Ride {
             }
         }
     }
-
-    /// 后空翻（踢中后 FLIP_MS 那 600 毫秒）：每 tick 给她挂这一帧的标记 `league_quinn_flip<k>`，view.rs 照它换画面；
-    /// 翻完、被控就摘掉。标记只挂 2 tick、每 tick 重挂：本包哪一 tick 没跑到，画面也会自己回到游戏播的动作。
-    fn flip(&mut self, sim: &mut StableSim<'_>, me: usize) {
-        let Some((t, shown)) = self.flip else { return };
-        let held = hard_cc(sim, me);
-        let k = if held { None } else { flip_frame(t) };
-        if let Some(old) = shown.filter(|&o| Some(o) != k) {
-            sim.entity_remove_buff(me, &flip_buff(old));
-        }
-        match k {
-            Some(k) => {
-                let name = flip_buff(k);
-                sim.entity_remove_buff(me, &name);
-                sim.add_buff(me, &BuffV1::timed(&name, 2));
-                self.flip = Some((t + 1, Some(k)));
-            }
-            None => {
-                if let Some(n) = counted_on("flip_done", on_screen(sim)) {
-                    wlog(format!("{} FLIP over after {t} ticks{}; animations on her: {} #{n}", head(sim, me),
-                                 if held { ", cut by CC" } else { "" }, anims_on(sim, me)));
-                }
-                self.flip = None;
-            }
-        }
-    }
 }
 
 impl StablePassive for Ride {
@@ -370,7 +343,6 @@ impl StablePassive for Ride {
         match pos(sim, me).filter(|_| alive) {
             Some(at) => {
                 self.vault(sim, me, at);
-                self.flip(sim, me);
                 self.trail.push_back(at);
                 if self.trail.len() > TRAIL {
                     self.trail.pop_front();
@@ -380,7 +352,6 @@ impl StablePassive for Ride {
                 self.trail.clear();
                 self.vault = None;
                 self.dash = None;
-                self.flip = None;
             }
         }
         let riding = alive && has_buff(sim, me, RIDE);
@@ -528,6 +499,29 @@ mod tests {
         }
         // 只挪的那几 tick 里也在翻
         assert!(E_BACK_T < ticks);
+    }
+
+    #[test]
+    fn the_copy_lays_each_flip_frames_flag_on_time() {
+        // 附加包副本的数据踢中后按 FLIP_MS 挂 league_quinn_flip<k>：第 k 帧从 flip_frame 换到 k 的那一 tick 起，挂到下一帧
+        // 开始再多 1 tick（接上不留空）；第 0 帧不延时，别的都在 Delayed 里。主包的数据里没有（没有画面钩子）。
+        let ticks = FLIP_MS.iter().sum::<usize>() * TPS / 1000;
+        let starts: Vec<usize> = (0..FLIP_MS.len()).map(|k| (0..ticks).find(|&t| flip_frame(t) == Some(k)).unwrap()).collect();
+        assert_eq!(starts, vec![0, 4, 8, 13, 17, 21, 29]);
+        let copy: String = include_str!("../override/league_quinn.data_champion").split_whitespace().collect();
+        for (k, &s) in starts.iter().enumerate() {
+            let end = starts.get(k + 1).copied().unwrap_or(ticks);
+            let name = flip_buff(k);
+            let lay = format!("{{\"type\":\"RemoveCasterBuff\",\"name\":\"{name}\"}},{{\"type\":\"AddCasterBuff\",\"buff_state\":\
+                               {{\"name\":\"{name}\",\"duration\":{{\"Time\":{{\"tick\":{}}}}}}}", end - s + 1);
+            let delayed = format!("\"type\":\"Delayed\",\"tick\":{s},\"effects\":[{{\"type\":\"Combine\",\"effects\":[{lay}");
+            if s == 0 {
+                assert!(copy.contains(&lay), "{name} is not laid at the kick for {} ticks", end - s + 1);
+            } else {
+                assert!(copy.contains(&delayed), "{name} is not laid {s} ticks after the kick for {} ticks", end - s + 1);
+            }
+        }
+        assert!(!include_str!("../../../league/champion/league_quinn.data_champion").contains(FLIP), "the main pack lays flip flags");
     }
 
     #[test]

@@ -1425,6 +1425,189 @@
                           "only_to_enemy": false
                         }
                       ]
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_quinn_flip0"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_quinn_flip0",
+                            "duration": {
+                              "Time": {
+                                "tick": 5
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 4,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_quinn_flip1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_quinn_flip1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 5
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 8,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_quinn_flip2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_quinn_flip2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 6
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 13,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_quinn_flip3"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_quinn_flip3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 5
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 17,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_quinn_flip4"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_quinn_flip4",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 5
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 21,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_quinn_flip5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_quinn_flip5",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 9
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 29,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_quinn_flip6"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_quinn_flip6",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 8
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }

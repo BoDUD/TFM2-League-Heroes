@@ -1192,8 +1192,11 @@ An add-on's per-tick `entity_set_pos` looks the same (league_quinn E, 2026-11-20
 flip started at the kick with a 12-tick move back read 「翻了，但一闪而过」 (18 ticks of flip, 6 left after the move) and
 the 36-tick flip with a 20-tick move 「往后拉距离…没动画」. league_quinn 0.7.0 draws it frame by frame instead: one-frame
 copies of the flip's frames (`e_flip_0` ... `e_flip_6`, tools/art/rig_quinn.py `FLIP_ONE`, the same rects' pixels in
-1x / hd_ / lo_), a per-tick flag `league_quinn_flip<k>` and the display hook (view.rs) writing `e_flip_<k>` as the
-playing animation - a one-frame tag shows its frame whether the clock runs or not; when the flag goes, the name the game
+1x / hd_ / lo_), a flag `league_quinn_flip<k>` per frame and the display hook (view.rs) writing `e_flip_<k>` as the
+playing animation (0.7.1 lays the flags from the data: `flip_flags` in build_quinn.py, `Delayed` `AddCasterBuff`s in the
+dash's `end_effects`; 0.7.0 laid them from the add-on's `on_update` and the display hook saw those too - 40 `FLIP
+display` lines in one 0.7.3 game, native buffs reach the display world since 0.6.4 - yet the user still called the flip
+wrong, cause not found yet; the `FLIP display` / `FLIP raw` logs are there to find it) - a one-frame tag shows its frame whether the clock runs or not; when the flag goes, the name the game
 last wrote goes back. The kit also takes the cast's 60-tick `skill2` off at the kick (`RemoveCasterAnimation`, league_sett
 R's way) so it cannot come back after the flip. 67 dash + multi-frame `CasterAnimation` pairs in the League kits (a
 dash of 8+ ticks, a forced animation of 3+ frames and 10+ ticks: league_volibear Q's run, league_rammus Q's roll,
