@@ -13,6 +13,14 @@
 //!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时）。0.2.1（11-03 夜里的日志：誓约者是蕾欧娜，
 //!   6 次大招里 2 次甩出去的是龙王、努努）：英雄联盟里这一招只能对誓约者放，他死了、太远、选不中时 AI 的大招不放
 //!   （`FATE HELD`），改成打最近的敌方英雄（远了走过去）。
+//!   0.2.7（用户 11-20：「可以救队友 也可以用来开团」）：
+//!   - **救人**：誓约者生命不高于 `r_save_hp`%、身边 `r_save_near` 内有敌方英雄（他被硬控时看两倍距离），而且她身边的敌方英雄
+//!     比他身边少，被动就在她身上挂 `r_rescue`、在他身上挂 `r_save`，AI 钩子马上对他按 R；数据看到 `r_rescue` 只把他拉回来、
+//!     保护 `r_hold` tick，不定身、不甩出去（`FATE RESCUE`）。
+//!   - **开团**：游戏的 AI 按 R 时，誓约者生命不低于 `r_go_hp`%，落点（`r_range` 内离她最近的敌方英雄）周围 `r_fight` 内我方
+//!     （她、誓约者和那一圈里的队友）不比对方少、或者那个敌人残血（`r_low`% 以下）才放（`FATE GO`），不然留着。
+//!   - 大招留着的时候先接着做 AI 自己上一个打算（`REPLAY_FRESH` tick 内它给的走位、普攻、回城），没有就打射程里的敌方英雄，
+//!     再没有就打射程里的小兵，都没有就往最近的队友那边靠。以前是走向最近的敌方英雄：誓约者死了、离得远的时候她会一个人往前送。
 //! - **命运的召唤的飞行**：数据把队友拉进来、保护、定身，甩出时挂 `r_launch`；本包挑落点（离她最近的敌方英雄，`r_range` 内；
 //!   没有就 2 倍范围内最近的），逐 tick 把队友朝那个英雄现在的位置飞过去（`r_fly_v`），到 `r_catch` 内挂 `r_landed`，数据在队友脚下
 //!   击飞周围敌人。
@@ -52,6 +60,11 @@ pub const HOP_GO: &str = "league_kalista_hop_go";
 pub const R_LAUNCH: &str = "league_kalista_r_launch";
 pub const R_LANDED: &str = "league_kalista_r_landed";
 pub const R_SAFE: &str = "league_kalista_r_safe";
+/// 0.2.7 救人：被动在她身上挂 `R_RESCUE`（数据的大招看到它只拉人、保护，不定身、不甩出去），在誓约者身上挂 `R_SAVE`
+/// （AI 钩子按 R 拉的就是挂着它的那个队友）；条件还在就每 tick 续上 `SAVE_FLAG` tick。
+pub const R_RESCUE: &str = "league_kalista_r_rescue";
+pub const R_SAVE: &str = "league_kalista_r_save";
+pub const SAVE_FLAG: usize = 3;
 pub const E_OK: &str = "league_kalista_e_ok";
 pub const E_CD: &str = "league_kalista_e_cd";
 pub const E_POP: &str = "league_kalista_e_pop";
@@ -141,12 +154,20 @@ pub struct Params {
     pub sp_t: usize,
     pub e_dmg: usize,
     pub e_ratio: usize,
+    /// 0.2.7 救人：誓约者生命不高于这个百分比、身边这么近有敌方英雄。
+    pub r_save_hp: usize,
+    pub r_save_near: usize,
+    /// 0.2.7 开团：誓约者生命不低于这个百分比；落点周围这么大一圈里数人头；落点那个敌人低于这个百分比算残血。
+    pub r_go_hp: usize,
+    pub r_fight: usize,
+    pub r_low: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Self { hop_thr: 40000, hop_v: 2000, hop_t: 12, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
-               r_catch: 14000, sp_t: 240, e_dmg: 20, e_ratio: 50 }
+               r_catch: 14000, sp_t: 240, e_dmg: 20, e_ratio: 50, r_save_hp: 30, r_save_near: 30000, r_go_hp: 50,
+               r_fight: 60000, r_low: 40 }
     }
 }
 
@@ -169,6 +190,11 @@ pub fn parse_params(json: &str) -> Params {
             "sp_t" => p.sp_t = v,
             "e_dmg" => p.e_dmg = v,
             "e_ratio" => p.e_ratio = v,
+            "r_save_hp" => p.r_save_hp = v,
+            "r_save_near" => p.r_save_near = v,
+            "r_go_hp" => p.r_go_hp = v,
+            "r_fight" => p.r_fight = v,
+            "r_low" => p.r_low = v,
             _ => {}
         }
     }
@@ -387,6 +413,66 @@ pub fn landing_pick(me: Pt, foes: &[Foe], p: &Params) -> Option<Foe> {
     None
 }
 
+/// 生命百分比（上限是 0 的当满血）。
+pub fn pct((hp, max): (usize, usize)) -> usize {
+    if max == 0 { 100 } else { hp * 100 / max }
+}
+
+/// 0.2.7 救人（用户 11-20：「可以救队友 也可以用来开团」）：誓约者（在 `him`，生命 `hp_pct`%，`held` 被硬控）生命不高于
+/// `r_save_hp`%、身边 `r_save_near` 内有敌方英雄（他被硬控时看两倍距离），而且她身边的敌方英雄比他身边少——拉回来得是往
+/// 安全的地方拉。
+pub fn rescue_due(me: Pt, him: Pt, hp_pct: usize, held: bool, foes: &[Foe], p: &Params) -> bool {
+    if hp_pct > p.r_save_hp {
+        return false;
+    }
+    let near = p.r_save_near as f64;
+    let count = |at: Pt, r: f64| foes.iter().filter(|f| dist(at, f.at) <= r).count();
+    let on_him = count(him, near);
+    let threat = on_him > 0 || (held && count(him, near * 2.0) > 0);
+    threat && count(me, near) < on_him.max(1)
+}
+
+/// 开团判定的结果：落点那个敌人、那一圈里我方几个（她和誓约者算两个）、对方几个。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Engage {
+    pub target: Foe,
+    pub ours: usize,
+    pub theirs: usize,
+}
+
+/// 0.2.7 开团：誓约者生命不低于 `r_go_hp`%；落点（`r_range` 内离她最近的敌方英雄，和甩出去时挑的一样）周围 `r_fight` 内，
+/// 我方（她、誓约者，加上那一圈里的其他队友 `mates`）不比对方少，或者那个敌人残血（`r_low`% 以下）。不开时给出原因。
+pub fn engage_ok(me: Pt, oath_hp: usize, foes: &[Foe], mates: &[Pt], p: &Params) -> Result<Engage, &'static str> {
+    if oath_hp < p.r_go_hp {
+        return Err("the Oathsworn is too low to be hurled in");
+    }
+    let reach = p.r_range as f64;
+    let target = foes.iter().filter(|f| dist(me, f.at) <= reach)
+        .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at))).copied()
+        .ok_or("no enemy champion in reach")?;
+    let r = p.r_fight as f64;
+    let theirs = foes.iter().filter(|f| dist(target.at, f.at) <= r).count();
+    let ours = 2 + mates.iter().filter(|m| dist(target.at, **m) <= r).count();
+    if ours >= theirs || target.hp_pct <= p.r_low {
+        Ok(Engage { target, ours, theirs })
+    } else {
+        Err("outnumbered where he would land")
+    }
+}
+
+/// 大招留着时接着做的 AI 上一个打算，最多是这么多 tick 以前给的（0.2.7）。
+pub const REPLAY_FRESH: usize = 45;
+
+/// AI 上一个打算（`last`：输入和那一 tick）到 `tick` 还算不算数。
+pub fn fresh_replay(last: Option<(InputV1, usize)>, tick: usize) -> Option<InputV1> {
+    last.filter(|&(_, t)| tick >= t && tick - t <= REPLAY_FRESH).map(|(i, _)| i)
+}
+
+/// 记下来留给 `fresh_replay` 的 AI 输入：走位、普攻、回城。按技能的不记，重放一个过时的技能没有意义。
+pub fn worth_replaying(kind: Option<InputKindV1>) -> bool {
+    matches!(kind, Some(InputKindV1::Move | InputKindV1::Attack | InputKindV1::Return))
+}
+
 /// 飞行的一步：朝 `to` 走 `v`，到 `catch` 内就算到了（停在原地）。-> (下一步的位置, 到了没有)
 pub fn fly_step(at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
     let d = dist(at, to);
@@ -474,6 +560,8 @@ struct Oath {
     /// 0.2.5：本包上次判定「拔了能杀」挂的标记到哪个 tick（`REND_FLAG`）。斩杀判定只等这个，不再等身上的 `E_OK`——数据的
     /// 阶梯（3 根矛打中英雄）也挂 `E_OK`，一挂 240 tick，以前这段时间本包的斩杀判定整个停住。
     rend_until: usize,
+    /// 0.2.7：上一次判定「该救人」的 tick（`FATE RESCUE due` 一串只记一行）。
+    rescue_last: Option<usize>,
 }
 
 /// 「拔了能杀」时她身上的 `E_OK`、那个敌人身上的 `E_AIM` 挂多少 tick；本包的斩杀判定也歇这么久（`rend_until`）。
@@ -720,6 +808,47 @@ impl Oath {
         }
     }
 
+    /// 0.2.7 救人：大招好了，誓约者活着、选得中、在 `r_bind` 内（加两人的身体）、身上没有 `R_SAFE`（已经在大招里），
+    /// `rescue_due` 也成立，就在她身上挂 `R_RESCUE`、在他身上挂 `R_SAVE`（`SAVE_FLAG` tick，条件还在下一 tick 续上），
+    /// AI 钩子看到就对他按 R（`FateAi::rescue_now`）。
+    fn update_rescue(&mut self, sim: &mut StableSim<'_>, me: usize, p: &Params) {
+        let tick = sim.tick();
+        let Some((at, team, my_r, ready)) = sim.get_entity(me).map(|e| {
+            ((e.pos().0 as f64, e.pos().1 as f64), e.team(), e.radius() as f64,
+             e.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && c.remaining == 0))
+        }) else {
+            return;
+        };
+        if !ready {
+            return;
+        }
+        let Some((id, there, r, hp_pct, covered)) = self.oath.and_then(|o| sim.get_player(o)).and_then(|pl| pl.champion())
+            .filter(|c| c.is_alive() && c.is_targetable())
+            .map(|c| (c.id(), (c.pos().0 as f64, c.pos().1 as f64), c.radius() as f64, pct(c.hp()), ent_has(&c, R_SAFE)))
+        else {
+            return;
+        };
+        if covered || dist(at, there) > p.r_bind as f64 + my_r + r {
+            return;
+        }
+        let held = hard_cc(sim, id);
+        let fs = foes(sim, team);
+        if !rescue_due(at, there, hp_pct, held, &fs, p) {
+            return;
+        }
+        set_flag(sim, me, R_RESCUE, SAVE_FLAG);
+        set_flag(sim, id, R_SAVE, SAVE_FLAG);
+        if new_burst(self.rescue_last, tick) {
+            if let Some(k) = counted("fate_rescue_due") {
+                let near = |a: Pt| fs.iter().filter(|f| dist(a, f.at) <= p.r_save_near as f64).count();
+                wlog(format!("{} FATE RESCUE due: the Oathsworn {} at {hp_pct}% hp{}, {} enemy champions within {} of him, {} of her #{k}",
+                             head(sim, me), who(sim, id), if held { " and held" } else { "" }, near(there), p.r_save_near,
+                             near(at)));
+            }
+        }
+        self.rescue_last = Some(tick);
+    }
+
     fn update_rend(&mut self, sim: &mut StableSim<'_>, me: usize, p: &Params) {
         let tick = sim.tick();
         if has_buff(sim, me, E_POP) {
@@ -783,6 +912,7 @@ impl StablePassive for Oath {
         self.flight = None;
         self.spears.clear();
         self.rend_until = 0;
+        self.rescue_last = None;
         self.oath = None;
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN {} (the add-on's Kalista) #{k}", head(sim, entity), who(sim, entity)));
@@ -805,6 +935,7 @@ impl StablePassive for Oath {
         }
         self.update_hop(sim, me, &p);
         self.update_fate(sim, me, &p);
+        self.update_rescue(sim, me, &p);
         self.update_rend(sim, me, &p);
     }
 }
@@ -820,6 +951,8 @@ struct FateAi {
     hold_until: usize,
     /// 这一段「拔了能杀」（E_OK）从哪个 tick 起、为什么没按记过没有（`waits`，0.2.4）。
     rip: Option<(usize, bool)>,
+    /// 0.2.7：游戏的 AI 上一次给的走位、普攻、回城和那一 tick（大招留着时接着做它，`fresh_replay`）。
+    last: Option<(InputV1, usize)>,
 }
 
 /// 「拔了能杀」挂了这么多 tick 还没按出去，记一行是哪道门挡着（0.2.4）。
@@ -883,12 +1016,8 @@ impl FateAi {
     }
 }
 
-/// 大招不放时改做的（0.2.1）：最近的看得见的敌方英雄在射程里（加两人的身体）就打他，远了走过去，一个都没有就站一下。
-enum Instead {
-    Attack(usize),
-    Walk((u64, u64)),
-    Stand,
-}
+/// 大招留着时往最近的队友那边靠，离他已经这么近就不走了（0.2.7）。
+pub const REGROUP: f64 = 20_000.0;
 
 impl StablePlayerAi for FateAi {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -909,6 +1038,15 @@ impl StablePlayerAi for FateAi {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let was = base.and_then(|b| InputKindV1::from_code(b.kind));
+        let tick = ctx.tick();
+        // 0.2.7：记下游戏的 AI 自己的打算，大招留着的时候接着做
+        if let Some(b) = base.filter(|_| worth_replaying(was)) {
+            self.last = Some((b, tick));
+        }
+        // 0.2.7：被动判了该救人（她身上 r_rescue、誓约者身上 r_save），不管 AI 想做什么，先把人拉回来
+        if let Some(input) = self.rescue_now(ctx) {
+            return Some(input);
+        }
         if was != Some(InputKindV1::Ult) {
             return self.rend_now(ctx, was);
         }
@@ -918,9 +1056,9 @@ impl StablePlayerAi for FateAi {
         }
         let current = b.target.target_id;
         let player = ctx.player_id();
-        let tick = ctx.tick();
         let p = shared();
-        let (pick, head, names, instead, here) = {
+        let last = self.last;
+        let (pick, head, names, go_line, tries, here) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
@@ -959,26 +1097,62 @@ impl StablePlayerAi for FateAi {
             let oath_name = oath.and_then(|o| sim.get_player(o)).and_then(|pl| pl.champion())
                 .map_or_else(|| "nobody".to_string(), |c| who(&sim, c.id()));
             let away = sworn.filter(|s| s.id.is_some()).map_or(String::new(), |s| format!(", {:.0} away", s.d));
-            // R held: the nearest enemy champion she can see - in her reach an attack, further a walk toward him
-            let foe = (0..sim.entity_count())
-                .filter_map(|i| sim.entity_at(i))
-                .filter(|u| {
-                    u.team() != team && u.is_champion() && u.is_alive() && u.is_targetable() && sim.is_visible(team, u.id())
-                })
-                .map(|u| (u.id(), u.pos(), dist(at, (u.pos().0 as f64, u.pos().1 as f64)), u.radius() as f64))
-                .min_by(|a, b| a.2.total_cmp(&b.2));
-            let instead = match foe {
-                Some((id, _, d, r)) if d <= p.atk_range as f64 + my_r + r => Instead::Attack(id),
-                Some((_, pos, _, _)) => Instead::Walk(pos),
-                None => Instead::Stand,
+            // 0.2.7 开团：誓约者血量够，落点那一圈我方不吃亏（或者目标残血）才甩
+            let fs = foes(&sim, team);
+            let oath_hp = sworn.and_then(|s| s.id).and_then(|id| sim.get_entity(id)).map_or(0, |e| pct(e.hp()));
+            let others: Vec<Pt> = list.iter().filter(|m| Some(m.player) != oath).filter_map(|m| m.at).collect();
+            let pick = fate_target(sworn, p.r_bind as f64)
+                .and_then(|id| engage_ok(at, oath_hp, &fs, &others, &p).map(|go| (id, go)));
+            let names = (who(&sim, current), match pick {
+                Ok((id, _)) => who(&sim, id),
+                Err(_) => format!("{oath_name}{away}"),
+            });
+            let go_line = pick.ok().map(|(_, go)| {
+                format!("at {} ({}% hp; ours {} vs theirs {} round him; the Oathsworn at {oath_hp}% hp)", who(&sim, go.target.id),
+                        go.target.hp_pct, go.ours, go.theirs)
+            });
+            // 0.2.7 大招留着时改做的，按顺序挑第一个游戏收的：AI 自己上一个打算、射程里的敌方英雄、射程里的小兵、
+            // 往最近的队友那边靠（0.2.1 起是走向最近的敌方英雄：誓约者死了、离得远时她一个人往前送）
+            let in_reach = |champ: bool| {
+                (0..sim.entity_count())
+                    .filter_map(|i| sim.entity_at(i))
+                    .filter(|u| {
+                        u.team() != team && u.is_alive() && u.is_targetable() && sim.is_visible(team, u.id())
+                            && if champ { u.is_champion() } else { matches!(u.kind(), Some(EntityKindV1::Minion | EntityKindV1::Summon)) }
+                    })
+                    .map(|u| (u.id(), dist(at, (u.pos().0 as f64, u.pos().1 as f64)), u.radius() as f64))
+                    .filter(|&(_, d, r)| d <= p.atk_range as f64 + my_r + r)
+                    .min_by(|a, b| a.1.total_cmp(&b.1))
+                    .map(|(id, _, _)| id)
             };
-            let pick = fate_target(sworn, p.r_bind as f64);
-            let names = (who(&sim, current), pick.map_or_else(|_| format!("{oath_name}{away}"), |id| who(&sim, id)));
-            (pick, head(&sim, mid), names, instead, me.pos())
+            let attack = |t: usize| InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+            let mut tries: Vec<(InputV1, String)> = Vec::new();
+            if let Some(r) = fresh_replay(last, tick) {
+                tries.push((r, "carrying on with the AI's own last order".to_string()));
+            }
+            for champ in [true, false] {
+                if let Some(t) = in_reach(champ) {
+                    tries.push((attack(t), format!("attacking {} instead", who(&sim, t))));
+                }
+            }
+            let ally = list.iter().filter_map(|m| m.at).map(|a| (a, dist(at, a))).filter(|&(_, d)| d > REGROUP)
+                .min_by(|a, b| a.1.total_cmp(&b.1)).map(|(a, _)| a);
+            if let Some((x, y)) = ally {
+                tries.push((InputV1::move_to(x.max(0.0) as u64, y.max(0.0) as u64),
+                            "walking toward the nearest ally champion".to_string()));
+            }
+            (pick, head(&sim, mid), names, go_line, tries, me.pos())
         };
         let why = match pick {
-            Ok(id) if id == current => return None,
-            Ok(id) => {
+            Ok((id, _)) => {
+                if self.burst("fate_go", tick) {
+                    if let Some(k) = counted("fate_go") {
+                        wlog(format!("{head} FATE GO: hurling the Oathsworn {} {} #{k}", names.1, go_line.unwrap_or_default()));
+                    }
+                }
+                if id == current {
+                    return None;
+                }
                 let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(id));
                 if ctx.is_valid_input(&input) {
                     if let Some(k) = counted("fate_ai") {
@@ -991,20 +1165,11 @@ impl StablePlayerAi for FateAi {
             Err(why) => why,
         };
         // 0.2.1 (11-03 night logs: 2 of 6 Fate's Calls hurled Aurelion Sol and Nunu with Leona bound): in League R only
-        // takes the Oathsworn - dead, out of reach or untargetable, the AI's R is held and she fights on
+        // takes the Oathsworn - dead, out of reach or untargetable, the AI's R is held; 0.2.7: so is an engage he is
+        // too low for or one that loses the fight where he lands
         let stand = InputV1::move_to(here.0, here.1);
-        let (input, did) = match instead {
-            Instead::Attack(t) => {
-                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
-                if ctx.is_valid_input(&attack) {
-                    (attack, format!("attacking #{t} instead"))
-                } else {
-                    (stand, "standing (the attack not taken)".to_string())
-                }
-            }
-            Instead::Walk((x, y)) => (InputV1::move_to(x, y), "walking toward the nearest enemy champion".to_string()),
-            Instead::Stand => (stand, "standing (no enemy champion in sight)".to_string()),
-        };
+        let (input, did) = tries.into_iter().find(|(i, _)| ctx.is_valid_input(i))
+            .unwrap_or((stand, "standing (nothing else the game takes)".to_string()));
         if self.burst("fate_held", tick) {
             if let Some(k) = counted("fate_held") {
                 wlog(format!("{head} FATE HELD: the AI's R on {}, but {why} ({}) - {did} #{k}", names.0, names.1));
@@ -1015,6 +1180,42 @@ impl StablePlayerAi for FateAi {
 }
 
 impl FateAi {
+    /// 0.2.7 救人：被动挂了 `R_RESCUE`（她身上）和 `R_SAVE`（誓约者身上），大招好了、她没在出招也没被控，就对挂着 `R_SAVE`
+    /// 的队友按 R——数据看到 `R_RESCUE` 只拉回来保护，不甩出去。被动每 tick 续标记，这一下没按出去下一 tick 再按。
+    fn rescue_now(&mut self, ctx: &mut StableAiContext<'_>) -> Option<InputV1> {
+        let tick = ctx.tick();
+        let player = ctx.player_id();
+        let (id, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?;
+            if !me.is_alive() || !ent_has(&me, R_RESCUE) {
+                return None;
+            }
+            let codes: Vec<u32> = (0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind).collect();
+            if any_cc(codes.iter().copied(), &BUSY) || any_cc(codes, &NO_CAST)
+                || !me.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && c.remaining == 0)
+            {
+                return None;
+            }
+            let (mid, team) = (me.id(), me.team());
+            let him = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).find(|u| {
+                u.team() == team && u.id() != mid && u.is_alive() && u.is_champion() && u.is_targetable() && ent_has(u, R_SAVE)
+            })?;
+            (him.id(), format!("{} FATE RESCUE: pulling the Oathsworn {} out ({}% hp)", head(&sim, mid), who(&sim, him.id()),
+                               pct(him.hp())))
+        };
+        let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(id));
+        if !ctx.is_valid_input(&input) {
+            return None;
+        }
+        if self.burst("fate_rescue", tick) {
+            if let Some(k) = counted("fate_rescue") {
+                wlog(format!("{line} #{k}"));
+            }
+        }
+        Some(input)
+    }
+
     /// 「拔了能杀」（被动在她身上挂 `E_OK`、在那个敌人身上挂 `E_AIM`）时自己按技能 2：数据只在矛打中英雄、或游戏的 AI 按技能 2
     /// 的时候看 `e_ok`，游戏的 AI 一两分钟才按一次，「立刻拔」常常等到下一矛（2026-11-01 复查：18 次 rip now 都没拔）。
     /// 0.2.3（2026-11-06 的日志：`REND PRESS` 每 tick 一行、一串 5–10 tick，目标的血一点没掉；REND PRESS 记到 #1150，rip now
@@ -1144,7 +1345,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Kalista: the hop's way, the Oathsworn and Fate's Call's flight, Rend's execute) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Kalista: the hop's way, the Oathsworn, Fate's Call's rescue / engage / flight, Rend's execute) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1153,7 +1354,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:oath"), Oath::default());
     module.add_player_input_ai(FateAi::default());
-    host.log(LogLevel::Info, "league_kalista loaded (hop forward / back / sideways, Oathsworn, Fate's Call flight, Rend execute).");
+    host.log(LogLevel::Info, "league_kalista loaded (hop forward / back / sideways, Oathsworn, Fate's Call rescue / engage / flight, Rend execute).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -1169,6 +1370,69 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 0.2.7（用户 11-20：「可以救队友 也可以用来开团」）：救人要誓约者残血、身边有敌方英雄（被硬控时看两倍距离），而且她这边
+    /// 比他那边安全。
+    #[test]
+    fn a_rescue_wants_him_low_threatened_and_her_side_safer() {
+        let p = Params::default();
+        let me = (100_000.0, 100_000.0);
+        let him = (160_000.0, 100_000.0);
+        let foe = |id, x: f64| Foe { id, at: (x, 100_000.0), hp_pct: 100, gain: 0.0, came: 0.0 };
+        let on_him = [foe(21, 175_000.0)];
+        assert!(rescue_due(me, him, 25, false, &on_him, &p));
+        assert!(rescue_due(me, him, 30, false, &on_him, &p), "30% is still low");
+        assert!(!rescue_due(me, him, 31, false, &on_him, &p), "not low enough");
+        assert!(!rescue_due(me, him, 20, false, &[], &p), "nobody on him");
+        // 45000 from him: past r_save_near, inside twice it - a threat only while he is held
+        let far = [foe(22, 205_000.0)];
+        assert!(!rescue_due(me, him, 20, false, &far, &p));
+        assert!(rescue_due(me, him, 20, true, &far, &p));
+        // as many on her as on him: pulling him to her saves nothing
+        let both = [foe(21, 175_000.0), foe(23, 90_000.0)];
+        assert!(!rescue_due(me, him, 20, false, &both, &p));
+        // two on him, one on her: hers is the safer side
+        let two = [foe(21, 175_000.0), foe(24, 170_000.0), foe(23, 90_000.0)];
+        assert!(rescue_due(me, him, 20, false, &two, &p));
+    }
+
+    /// 0.2.7：开团要誓约者血量过半，落点那一圈我方不比对方少，或者落点那个敌人残血。
+    #[test]
+    fn the_engage_wants_him_healthy_and_the_fight_not_lost() {
+        let p = Params::default();
+        let me = (100_000.0, 100_000.0);
+        let foe = |id, x: f64, hp| Foe { id, at: (x, 100_000.0), hp_pct: hp, gain: 0.0, came: 0.0 };
+        let one = [foe(31, 170_000.0, 100)];
+        assert_eq!(engage_ok(me, 80, &one, &[], &p).map(|g| (g.target.id, g.ours, g.theirs)), Ok((31, 2, 1)));
+        assert_eq!(engage_ok(me, 50, &one, &[], &p).map(|g| g.target.id), Ok(31), "half health is enough");
+        assert_eq!(engage_ok(me, 49, &one, &[], &p).map(|g| g.target.id), Err("the Oathsworn is too low to be hurled in"));
+        assert_eq!(engage_ok(me, 80, &[foe(31, 195_000.0, 100)], &[], &p).map(|g| g.target.id),
+                   Err("no enemy champion in reach"));
+        // three where he would land against her two (a mate far behind does not count) - held, unless the target is low
+        let three = [foe(31, 170_000.0, 100), foe(32, 180_000.0, 100), foe(33, 190_000.0, 100)];
+        assert_eq!(engage_ok(me, 80, &three, &[(20_000.0, 100_000.0)], &p).map(|g| g.target.id),
+                   Err("outnumbered where he would land"));
+        assert_eq!(engage_ok(me, 80, &three, &[(160_000.0, 100_000.0)], &p).map(|g| (g.ours, g.theirs)), Ok((3, 3)));
+        let low = [foe(31, 170_000.0, 40), foe(32, 180_000.0, 100), foe(33, 190_000.0, 100)];
+        assert_eq!(engage_ok(me, 80, &low, &[], &p).map(|g| g.target.id), Ok(31));
+    }
+
+    /// 0.2.7：大招留着时接着做 AI 自己最近的走位、普攻、回城（太旧的不算），不再走向敌人。
+    #[test]
+    fn a_held_r_carries_on_with_the_ais_own_last_order() {
+        let walk = InputV1::move_to(5, 6);
+        assert_eq!(fresh_replay(Some((walk, 1_000)), 1_000), Some(walk));
+        assert_eq!(fresh_replay(Some((walk, 1_000)), 1_000 + REPLAY_FRESH), Some(walk));
+        assert_eq!(fresh_replay(Some((walk, 1_000)), 1_000 + REPLAY_FRESH + 1), None, "too old");
+        assert_eq!(fresh_replay(Some((walk, 1_000)), 999), None, "from a later tick (another run)");
+        assert_eq!(fresh_replay(None, 1_000), None);
+        assert!(worth_replaying(Some(InputKindV1::Move)) && worth_replaying(Some(InputKindV1::Attack)));
+        assert!(worth_replaying(Some(InputKindV1::Return)));
+        assert!(!worth_replaying(Some(InputKindV1::Ult)) && !worth_replaying(Some(InputKindV1::Skill2)));
+        assert!(!worth_replaying(None));
+        assert_eq!(pct((30, 100)), 30);
+        assert_eq!(pct((5, 0)), 100);
+    }
 
     #[test]
     fn rend_waits_while_she_casts_and_backs_off_a_run_nothing_took() {
@@ -1235,10 +1499,11 @@ mod tests {
         let params = &copy[at..];
         let d = Params::default();
         for (k, v) in [("hop_v", d.hop_v), ("hop_t", d.hop_t), ("r_fly_v", d.r_fly_v), ("r_catch", d.r_catch),
-                       ("e_dmg", d.e_dmg), ("e_ratio", d.e_ratio), ("sp_t", d.sp_t)] {
+                       ("e_dmg", d.e_dmg), ("e_ratio", d.e_ratio), ("sp_t", d.sp_t), ("r_save_hp", d.r_save_hp),
+                       ("r_save_near", d.r_save_near), ("r_go_hp", d.r_go_hp), ("r_fight", d.r_fight), ("r_low", d.r_low)] {
             assert!(params.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in the copy's passive params");
         }
-        for name in [HOP_F, HOP_B, HOP_GO, R_LAUNCH, R_LANDED, R_SAFE, E_OK, E_CD, E_POP] {
+        for name in [HOP_F, HOP_B, HOP_GO, R_LAUNCH, R_LANDED, R_SAFE, R_RESCUE, E_OK, E_CD, E_POP] {
             assert!(copy.contains(&format!("\"{name}\"")), "{name} is not in the copy");
         }
         let ult = &copy[copy.find("\"ult\"").unwrap()..];
