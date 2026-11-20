@@ -5,11 +5,12 @@ use hd_engine::Table;
 
 /// 英雄 id、一个游戏像素几格、图的 .fanim（ragnarok/ 里的原样）。
 pub const HEROES: &[(&str, f32, &str)] = &[
-    // 吕布（ragnarok_lubu）：Codex 画的 128 格原画就是高清帧，头发到脚底 66 格、翎子尖 73 格；PPU 1.65 在游戏里头顶 40、
-    // 翎子 44 个游戏像素，比原版英雄高一点。1 倍帧由 tools/art/import_lubu.py 从高清帧缩出来，高清帧原样
-    ("ragnarok_lubu", 1.65, include_str!("../../../ragnarok/champions/ragnarok_lubu#anim.fanim")),
-    // 索尔（ragnarok_thor）：同样是 Codex 的 128 格原画，头发到脚底 55 格、肩上雷槌顶 76 格；和吕布一样 PPU 1.65（两人
-    // 像素一样粗），游戏里头顶 33、锤顶 46 个游戏像素。投锤的接锤单独一个标签 skill2_catch（锤子真飞回来才播）
+    // 吕布（ragnarok_lubu）：Codex 画的 128 格原画就是高清帧，头发到脚底 66 格、翎子尖 73 格。原来 PPU 1.65（头顶 40），
+    // 用户说比索尔高出不少，改成 1.94：同样的像素画成 85% 大，头顶 34、翎子 37.6 个游戏像素。1 倍帧由
+    // tools/art/import_lubu.py 从高清帧缩出来，高清帧原样；他的特效图还是 1.65（下面 EFFECTS）
+    ("ragnarok_lubu", 1.94, include_str!("../../../ragnarok/champions/ragnarok_lubu#anim.fanim")),
+    // 索尔（ragnarok_thor）：同样是 Codex 的 128 格原画，头发到脚底 55 格、肩上雷槌顶 76 格；PPU 1.65，游戏里头顶 33、
+    // 锤顶 46 个游戏像素（和缩过的吕布头顶齐平）。投锤的接锤单独一个标签 skill2_catch（锤子真飞回来才播）
     ("ragnarok_thor", 1.65, include_str!("../../../ragnarok/champions/ragnarok_thor#anim.fanim")),
 ];
 

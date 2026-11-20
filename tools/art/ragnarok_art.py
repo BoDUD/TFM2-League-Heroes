@@ -32,14 +32,17 @@ FEET = 11.5                 # game px from a frame's pivot (its centre) down to 
 ACTIONS = ("idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead")
 # the hero being imported (setup): Codex's folder, ids, PPU, the soles' point, the baked swings, retimed actions, the
 # pictures played on units - each hero's import_<hero>.py holds them
-SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = SOLE = None
+SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = FX_PPU = SOLE = None
 BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX = [], {}, {}, {}, {}, []
 
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
-    global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX
+    global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
+    # FX_PPU: the effect sheets' own density (the pictures on units and the projectile pictures keep their size when
+    # the hero is drawn smaller: Lu Bu at 1.94 since 2026-11-20, his effects at Codex's 1.65); his baked swings follow him
+    FX_PPU = cfg.get("FX_PPU", PPU)
     BAKE, RETIME, TARGET_FX = cfg["BAKE"], cfg["RETIME"], cfg["TARGET_FX"]
     # SPLIT {action: [(new tag, its first body frame), ...]}: parts of an action that only an event plays (Thor's empty
     # hands while the hammer flies, his catch on its real return), cut off in order; PROJ_FX {tag: centre}: pictures a
@@ -59,10 +62,10 @@ def tags():
 
 
 def idle_pair():
-    """The empty idle / hd_idle pair an effect sheet carries for hd_engine to read its PPU from: a width w with PPU x w
+    """The empty idle / hd_idle pair an effect sheet carries for hd_engine to read its FX_PPU from: a width w with FX_PPU x w
     whole (1.65 x 20 = 33)."""
-    w = min(range(12, 41), key=lambda n: (abs(n * PPU - round(n * PPU)), n))
-    return w, round(w * PPU)
+    w = min(range(12, 41), key=lambda n: (abs(n * FX_PPU - round(n * FX_PPU)), n))
+    return w, round(w * FX_PPU)
 
 
 def read(stem):
@@ -231,15 +234,15 @@ def hero_sheets(body, fx):
 
 def fx_sheet(fx):
     """{tag: [(frame, ms)]} of TARGET_FX: each tag's 1x frames (pixel_down.scale_fx, centred on its point) and their
-    hd_ twins (Codex's own frames cut round the same point, round(PPU x the 1x frame)), plus the empty `idle` /
-    `hd_idle` pair hd_engine reads the sheet's PPU from (20 x 20 and 33 x 33: 1.65 x 20 is whole)."""
+    hd_ twins (Codex's own frames cut round the same point, round(FX_PPU x the 1x frame)), plus the empty `idle` /
+    `hd_idle` pair hd_engine reads the sheet's FX_PPU from (20 x 20 and 33 x 33: 1.65 x 20 is whole)."""
     w1, wd = idle_pair()
     out = {"idle": [(np.zeros((w1, w1, 4), np.uint8), 100.0)]}
     dense = {"hd_idle": [(np.zeros((wd, wd, 4), np.uint8), 100.0)]}
     for name, (px, py) in TARGET_FX.items():
         frames, twins = [], []
         for a, secs in fx[name]:
-            small, (nx, ny) = D.scale_fx(a, 1.0 / PPU, (px, py), mote=0)
+            small, (nx, ny) = D.scale_fx(a, 1.0 / FX_PPU, (px, py), mote=0)
             op = small[..., 3] > 0
             rx = ry = 1
             if op.any():
@@ -249,14 +252,14 @@ def fx_sheet(fx):
             # the dense twin must hold Codex's whole picture round the same centre
             ys2, xs2 = np.nonzero(a[..., 3] > 0)
             if len(xs2):
-                rx = max(rx, int(np.ceil(max(px - xs2.min(), xs2.max() + 1 - px) / PPU)))
-                ry = max(ry, int(np.ceil(max(py - ys2.min(), ys2.max() + 1 - py) / PPU)))
+                rx = max(rx, int(np.ceil(max(px - xs2.min(), xs2.max() + 1 - px) / FX_PPU)))
+                ry = max(ry, int(np.ceil(max(py - ys2.min(), ys2.max() + 1 - py) / FX_PPU)))
             W, H = 2 * rx, 2 * ry
             f = np.zeros((H, W, 4), np.uint8)
             if op.any():
                 f[ys - int(ny) + ry, xs - int(nx) + rx] = small[ys, xs]
             frames.append((f, round(secs * 1000, 3)))
-            twins.append((dense_of(a, (px, py), (round(W * PPU), round(H * PPU))), round(secs * 1000, 3)))
+            twins.append((dense_of(a, (px, py), (round(W * FX_PPU), round(H * FX_PPU))), round(secs * 1000, 3)))
         out[name] = frames
         dense["hd_" + name] = twins
     return {**out, **dense}
@@ -269,7 +272,7 @@ def proj_sheet(fx):
     for name, (px, py) in PROJ_FX.items():
         frames = []
         for a, secs in fx[name]:
-            small, (nx, ny) = D.scale_fx(a, 1.0 / PPU, (px, py), mote=0)
+            small, (nx, ny) = D.scale_fx(a, 1.0 / FX_PPU, (px, py), mote=0)
             op = small[..., 3] > 0
             rx = ry = 1
             if op.any():

@@ -3,15 +3,15 @@
     "ragnarok_lubu": {
       "face": {
         "x": 3,
-        "y": -30
+        "y": -26
       },
       "center": {
         "x": 0,
-        "y": -16
+        "y": -9
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -13
       }
     }
   }

@@ -32,7 +32,7 @@ from build_lubu import P, lp, MOD_ID, ID  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 NAME = "Record of Ragnarok Heroes"
 HEROES = ["Lu Bu"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
@@ -51,7 +51,9 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view (game px from his soles' point, up negative): set from the built sheet (tools/art/import_lubu.py
 # prints the face point it measures on the 1x idle), the ban/pick card by bp_card_audit.py's rule
-VIEW = {"face": {"x": 3, "y": -30}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -8}}
+# 2026-11-20 at PPU 1.94 (85 % of the first size): eyes 50 rows over the soles = 26 game px; the encyclopedia centre by
+# bp_card_audit --centers (-9); the ban/pick card by its rule, y = -39 - top (the plume's tip 26 over the centre)
+VIEW = {"face": {"x": 3, "y": -26}, "center": {"x": 0, "y": -9}, "banpick_center": {"x": 0, "y": -13}}
 
 
 def phys(d, r):

@@ -37,7 +37,11 @@ import ragnarok_art as A  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "lubu", "codex_v02")
 ID = "ragnarok_lubu"
 HERO = "lubu"
-PPU = 1.65                  # tools/art/ppu_hd.py PPU and addons/ragnarok/src/hd.rs HEROES say the same
+# tools/art/ppu_hd.py PPU and addons/ragnarok/src/hd.rs HEROES say the same. 1.65 at first (40 game px to his hair); the
+# user, 2026-11-20, beside Thor: 「吕布是不是有点大啊 缩小一点 比雷神高出来不少」 - 1.94 = 1.65 / 0.85: the same pixels drawn
+# 85 % as big, 34 game px to his hair (Thor 33), 37.6 to the plume
+PPU = 1.94
+FX_PPU = 1.65               # his effect sheets keep Codex's size: hits and the wave go by game distance, not by his size
 SOLE = (64, 116)            # Codex's cells: the soles' point (the bottom edge of the feet's last row)
 # (action, effect, from seconds, anchor from the soles in Codex's px, seconds a frame or None for the effect's own)
 BAKE = [
@@ -54,7 +58,7 @@ RETIME = {"attack": [0.08, 0.08, 0.10, 0.06, 0.06, 0.04, 0.04, 0.04]}
 TARGET_FX = {
     "hit_spark": (64, 64),
     "shield_break": (64, 64 + 14),          # lifted ~8 game px: on his chest, not his belt
-    "ult_impact": (64, 116 - A.FEET * PPU),   # the burst's ground line under the pivot like the soles
+    "ult_impact": (64, 116 - A.FEET * FX_PPU),   # the burst's ground line under the pivot like the soles
 }
 
 # Codex's first redraw round (2026-11-20, branch codex/ragnarok-lubu-req1): the halberd whole again in attack 3-5 and
@@ -64,7 +68,7 @@ TARGET_FX = {
 EXTRA_FX = [os.path.join(ROOT, "assets", "source", "lubu", "codex_req1", f"{ID}_wave_native")]
 PROJ_FX = {"ult_wave": (66, 20)}
 
-LUBU = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME, "TARGET_FX": TARGET_FX,
+LUBU = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME, "TARGET_FX": TARGET_FX,
         "EXTRA_FX": EXTRA_FX, "PROJ_FX": PROJ_FX}
 
 if __name__ == "__main__":
