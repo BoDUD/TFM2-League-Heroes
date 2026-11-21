@@ -1,26 +1,19 @@
-"""Build the add-on's copy of Yorick from the main pack (graves from kills, the Maiden's bonus on her target, the walkers
-and the Maiden units of their own - as in League).
+"""Build the add-on's copy of Yorick from the main pack (League's rules the data cannot read: graves from kills and deaths
+near him, the real Dark Procession wall, Last Rites by missing health, the haste toward the mist's mark, the Maiden
+following him with her bolts and mark; the walkers and the Maiden units of their own).
 
     python addons/league_yorick/make_override.py [--draft] [--check]
 
 Rebuilds Yorick with tools/kit/build_yorick.py (its parameter table P), checks that the plain build is the main pack's
 league/champion/league_yorick.data_champion byte for byte (so the copy never drifts from the shipped kit) and that the
 defaults in src/lib.rs's Params are P's numbers, and writes addons/league_yorick/override/league_yorick.data_champion and
-.../text/champion.i18n: the build with native=1 -
-  * passive = league_yorick:shepherd (params r_pct g_t);
-  * Last Rites' blow raises `q_win` on him (the add-on digs a grave for each minion or monster that dies meanwhile) in
-    place of the main pack's every-second-blow grave;
-  * the ult puts `maiden` on her champion and his attacks a 3-tick `hit` on the champions they strike while she stands
-    (the add-on deals the bonus on her target only), in place of the main pack's bonus on any champion;
-  * 0.2.0, the summons as units (src/lib.rs; tools/art/unit_yorick_summons.py draws their sheets): the Awakening's cast
-    takes `K_UNIT` off him and lays `K_ASK` (3 ticks) on its target, and the three walkers riding on the target play only
-    without `K_UNIT` (the passive spawns them as units and lays the flag when the host gives units); Mourning Mist's
-    champion twin lays `E_ASK` on the champion it strikes (the walker units leap to him); R takes `M_UNIT` off and lays
-    `M_ASK` on its champion, and the riding Maiden with her two walkers (her rising, her claws, her picture) plays only
-    without `M_UNIT`. The numbers the units use (WALK_*, LEAP_*, MAID_*, K_N, R_N ...) are checked against P and the
-    unit sheets' attack frames: change the main pack and this script stops until lib.rs follows;
-  * the attack's and the ult's tooltips (keys of the add-on's own id) say the League rules, so the tooltip in game shows
-    whether the override took.
+.../text/champion.i18n: the build with native=1 (0.3.0: build_yorick.py writes every native change itself - the asks,
+the flags, the riding pictures behind K_UNIT / M_UNIT, no data heal, no data haste, the wall's W_ASK / W_UP; see its
+docstring). This script checks the copy against src/lib.rs: the units' numbers (WALK_*, LEAP_*, MAID_*, K_N, R_N ...)
+against P and the unit sheets' attack frames, every name the natives read or lay present in the copy (and none of the
+add-on's own in the main pack), the pictures and sounds the natives play among the kit's - change the main pack and this
+script stops until lib.rs follows. The attack's, Q's, E's and R's tooltips (keys of the add-on's own id) say the League
+rules, so the tooltip in game shows whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Yorick changes.
 --draft: only the copy, without the main-pack check and the texts. --check: write nothing, exit 1 when the files on disk
 are not what this would write (the CI's check).
@@ -38,49 +31,73 @@ import setup_yorick as setup  # noqa: E402
 
 MOD_ID = "league_yorick"
 HERO = "league_yorick"
-KEYS = ("r_pct", "g_t")
+KEYS = ("r_pct", "g_t", "w_r", "w_half", "w_t", "w_delay")
 UNITS = os.path.join(ROOT, "league", "champions")
+SLOTS = ("attack", "skill", "skill2", "ult")
 phys, t, n, cc = setup.phys, setup.t, setup.n, setup.cc
-# lang -> the add-on's attack and ult texts (the main pack's with the add-on's rules)
+# lang -> the add-on's texts (the main pack's with the add-on's rules)
 NATIVE = {
     "zh-hans": {
-        "attack": "【附加包】抡铲。" + n("牧魂人") + "：临终仪式打英雄或打死单位挖一座坟，满{g_n}座时下一铲在目标身边唤醒{k_n}只" +
-                  n("雾行者") + "，自己追咬敌人" + t("{walk_t}秒") + "（每口" + phys("k_dmg", "k_ratio") + "，可被击杀），同时" +
-                  n("暗灵缠身") + "把附近的敌方英雄" + cc("定身") + t("{w_root}秒") + "。",
-        "ult": "【附加包】在敌方英雄身后召唤" + n("迷雾室女") + "和{r_n}只雾行者，自己追击敌人" + t("{maid_t}秒") + "，她" + t("每秒") +
-               "抓" + phys("r_dmg", "r_ratio") + "，可被击杀；她在场时约里克普攻她的目标额外造成最大生命{r_pct}%真实伤害。",
+        "attack": "【附加包】抡铲。" + n("牧魂人") + "：临终仪式打英雄或打死单位挖坟，附近每死几个敌人也挖一座（最多4座）；满{g_n}座时" +
+                  "下一铲每座坟唤醒1只" + n("雾行者") + "，自己追咬" + t("{walk_t}秒") + "（每口" + phys("k_dmg", "k_ratio") +
+                  "，可被击杀）。" + n("暗灵缠身") + "：自动施放，" + t("{w_delay}秒") + "后立起一圈真正的墙" + t("{w_t}秒") + "，只挡敌人。",
+        "skill": "【附加包】下一铲造成" + phys("q_dmg", "q_ratio") + "物理伤害，回复10–76 + 已损失生命6–10%（按等级；打英雄以外减半）。",
+        "skill2": "【附加包】扔出一团黑雾：范围内敌人受到" + phys("e_dmg", "e_ratio") + "+最大生命{e_hp}%物理伤害，护甲-{e_arm}%持续" +
+                  t("{e_t}秒") + "，" + cc("减速") + "{e_slow}%；约里克、雾行者、室女朝被标记的英雄走时移速+18–30%，附近的雾行者扑过去。",
+        "ult": "【附加包】召唤可被击杀的" + n("迷雾室女") + "和2–4只雾行者：室女跟着约里克" + t("{maid_t}秒") + "，" + t("每秒") +
+               "向最近的敌人放魂弹（" + phys("r_dmg", "r_ratio") + "魔法），打中英雄留下标记，约里克普攻或黑雾打中这名英雄时额外造成最大生命" +
+               "2–3%魔法伤害；她附近有敌人阵亡就拉起雾行者。",
     },
     "zh-hant": {
-        "attack": "【附加包】揮鏟。" + n("亡魂牧人") + "：臨終葬儀打英雄或打死單位挖一座墳，滿{g_n}座時下一鏟在目標身邊喚醒{k_n}隻" +
-                  n("霧行者") + "，自己追咬敵人" + t("{walk_t}秒") + "（每口" + phys("k_dmg", "k_ratio") + "，可被擊殺），同時" +
-                  n("黯影屍陣") + "把附近的敵方英雄" + cc("定身") + t("{w_root}秒") + "。",
-        "ult": "【附加包】在敵方英雄身後召喚" + n("迷霧少女") + "和{r_n}隻霧行者，自己追擊敵人" + t("{maid_t}秒") + "，她" + t("每秒") +
-               "抓" + phys("r_dmg", "r_ratio") + "，可被擊殺；她在場時約瑞科普攻她的目標額外造成最大生命{r_pct}%真實傷害。",
+        "attack": "【附加包】揮鏟。" + n("亡魂牧人") + "：臨終葬儀打英雄或打死單位挖墳，附近每死幾個敵人也挖一座（最多4座）；滿{g_n}座時" +
+                  "下一鏟每座墳喚醒1隻" + n("霧行者") + "，自己追咬" + t("{walk_t}秒") + "（每口" + phys("k_dmg", "k_ratio") +
+                  "，可被擊殺）。" + n("黯影屍陣") + "：自動施放，" + t("{w_delay}秒") + "後立起一圈真正的牆" + t("{w_t}秒") + "，只擋敵人。",
+        "skill": "【附加包】下一鏟造成" + phys("q_dmg", "q_ratio") + "物理傷害，回復10–76 + 已損失生命6–10%（按等級；打英雄以外減半）。",
+        "skill2": "【附加包】丟出一團黑霧：範圍內敵人受到" + phys("e_dmg", "e_ratio") + "+最大生命{e_hp}%物理傷害，護甲-{e_arm}%持續" +
+                  t("{e_t}秒") + "，" + cc("緩速") + "{e_slow}%；約瑞科、霧行者、少女朝被標記的英雄走時移速+18–30%，附近的霧行者撲過去。",
+        "ult": "【附加包】召喚可被擊殺的" + n("迷霧少女") + "和2–4隻霧行者：少女跟著約瑞科" + t("{maid_t}秒") + "，" + t("每秒") +
+               "向最近的敵人放魂彈（" + phys("r_dmg", "r_ratio") + "魔法），打中英雄留下標記，約瑞科普攻或黑霧打中這名英雄時額外造成最大生命" +
+               "2–3%魔法傷害；她附近有敵人陣亡就拉起霧行者。",
     },
     "en": {
-        "attack": "[Add-on] Shovel blows. " + n("Shepherd of Souls") + ": Last Rites digs a grave on a champion or on a unit it "
-                  "kills; with {g_n} graves the next one raises {k_n} " + n("Mist Walkers") + " beside the target that hunt on "
-                  "their own for " + t("{walk_t}s") + " (" + phys("k_dmg", "k_ratio") + " a bite; they can be killed), and " +
-                  n("Dark Procession") + " " + cc("roots") + " the enemy champions near it for " + t("{w_root}s") + ".",
-        "ult": "[Add-on] Raises the " + n("Maiden of the Mist") + " and {r_n} walkers behind an enemy champion; they hunt on their "
-               "own for " + t("{maid_t}s") + ", she claws for " + phys("r_dmg", "r_ratio") + " " + t("every second") + " and can "
-               "be killed, and while she stands his attacks on her target deal {r_pct}% max health more as true damage.",
+        "attack": "[Add-on] Shovel blows. " + n("Shepherd of Souls") + ": graves (up to 4) from units Last Rites kills or "
+                  "champions it hits, and every few deaths near him; with {g_n}+ the next raises a " + n("Mist Walker") +
+                  " a grave, hunting on its own " + t("{walk_t}s") + " (" + phys("k_dmg", "k_ratio") + " a bite, killable). " +
+                  n("Dark Procession") + " (auto): after " + t("{w_delay}s") + " a real wall ring stands " + t("{w_t}s") +
+                  ", blocking enemies only.",
+        "skill": "[Add-on] His next blow deals " + phys("q_dmg", "q_ratio") + " physical damage and heals him 10-76 + 6-10% of his "
+                 "missing health (by level; half on anything but a champion).",
+        "skill2": "[Add-on] Throws a globule of Black Mist: enemies hit take " + phys("e_dmg", "e_ratio") + " + {e_hp}% max health "
+                  "physical damage, lose {e_arm}% armour for " + t("{e_t}s") + " and are " + cc("slowed") + " {e_slow}%; he, his "
+                  "walkers and the Maiden move 18-30% faster toward a marked champion, and walkers near it leap at it.",
+        "ult": "[Add-on] Raises the killable " + n("Maiden of the Mist") + " and 2-4 walkers: she follows him for " +
+               t("{maid_t}s") + ", firing " + t("every second") + " at the nearest enemy (" + phys("r_dmg", "r_ratio") + " magic) "
+               "and marking champions; his attack or mist on a marked one deals 2-3% of its max health as magic damage. Enemies "
+               "dying near her rise as walkers.",
     },
     "ko": {
-        "attack": "[확장] 삽 공격. " + n("영혼의 길잡이") + ": 최후의 의식으로 챔피언을 치거나 유닛을 처치하면 무덤 생성, {g_n}개가 차면 "
-                  "다음 일격에 대상 곁에서 " + n("안개 망령") + " {k_n}마리가 일어나 " + t("{walk_t}초") + " 동안 스스로 적을 물어뜯음(한 번에 " +
-                  phys("k_dmg", "k_ratio") + ", 처치 가능), " + n("망자의 진") + "이 주변 적 챔피언 " + t("{w_root}초") + " " + cc("속박") +
-                  ".",
-        "ult": "[확장] 적 챔피언 뒤에 " + n("안개 처녀") + "와 망령 {r_n}마리 소환, " + t("{maid_t}초") + " 동안 스스로 적을 쫓으며 " +
-               t("매초") + " " + phys("r_dmg", "r_ratio") + "(처치 가능); 처녀가 있는 동안 요릭이 그 대상을 공격하면 최대 체력 {r_pct}% 고정 "
-               "피해 추가.",
+        "attack": "[확장] 삽 공격. " + n("영혼의 길잡이") + ": 최후의 의식이 챔피언을 치거나 유닛을 처치하면, 주변 적이 몇 번 죽을 때마다 "
+                  "무덤 생성(최대 4개), {g_n}개 이상이면 다음 일격에 무덤마다 " + n("안개 망령") + "이 " + t("{walk_t}초") +
+                  " 동안 스스로 물어뜯음(" + phys("k_dmg", "k_ratio") + ", 처치 가능). " + n("망자의 진") + ": 자동 시전, " +
+                  t("{w_delay}초") + " 후 진짜 벽 " + t("{w_t}초") + ", 적만 막음.",
+        "skill": "[확장] 다음 공격이 " + phys("q_dmg", "q_ratio") + " 물리 피해, 체력 10-76 + 잃은 체력 6-10% 회복(레벨 비례; 챔피언 외 절반).",
+        "skill2": "[확장] 검은 안개: 범위 적에게 " + phys("e_dmg", "e_ratio") + " + 최대 체력 {e_hp}% 물리 피해, 방어력 -{e_arm}% " +
+                  t("{e_t}초") + ", {e_slow}% " + cc("둔화") + "; 요릭·망령·처녀가 표식 챔피언 쪽으로 이동 속도 +18-30%, 근처 망령이 덮침.",
+        "ult": "[확장] 처치 가능한 " + n("안개 처녀") + "와 망령 2-4마리 소환: 처녀는 " + t("{maid_t}초") + " 동안 요릭을 따라다니며 " +
+               t("매초") + " 가장 가까운 적에게 영혼탄(" + phys("r_dmg", "r_ratio") + " 마법), 맞은 챔피언에 표식: 요릭의 공격이나 안개가 "
+               "닿으면 최대 체력 2-3% 마법 피해; 그녀 근처에서 죽은 적은 망령이 됨.",
     },
     "ja": {
-        "attack": "【拡張】シャベル攻撃。" + n("魂の導き手") + "：葬送でチャンピオンを打つかユニットを倒すと墓を掘る、{g_n}つ溜まると次の一撃で" +
-                  "対象のそばに" + n("ミストウォーカー") + "{k_n}体が現れ" + t("{walk_t}秒") + "自ら噛みつく（1回" + phys("k_dmg", "k_ratio") +
-                  "、倒せる）、" + n("屍の列") + "が周囲の敵チャンピオンを" + t("{w_root}秒") + cc("スネア") + "。",
-        "ult": "【拡張】敵チャンピオンの背後に" + n("霧の乙女") + "とウォーカー{r_n}体を召喚、" + t("{maid_t}秒") + "自ら敵を追い" + t("毎秒") +
-               phys("r_dmg", "r_ratio") + "、倒せる；乙女がいる間ヨリックがその対象を攻撃すると最大体力{r_pct}%の確定ダメージ。",
+        "attack": "【拡張】シャベル攻撃。" + n("魂の導き手") + "：葬送でチャンピオンを打つかユニットを倒す、近くの敵が数体倒れるたびに墓（最大4）、" +
+                  "{g_n}つ以上で次の一撃は墓1つに" + n("ミストウォーカー") + "1体が" + t("{walk_t}秒") + "自ら噛みつく（" +
+                  phys("k_dmg", "k_ratio") + "、倒せる）。" + n("屍の列") + "：自動、" + t("{w_delay}秒") + "後に本物の壁の輪が" +
+                  t("{w_t}秒") + "、敵だけ阻む。",
+        "skill": "【拡張】次の攻撃が" + phys("q_dmg", "q_ratio") + "の物理ダメージ、体力10–76 + 失った体力の6–10%回復（レベル比例；チャンピオン以外は半分）。",
+        "skill2": "【拡張】黒い霧：範囲の敵に" + phys("e_dmg", "e_ratio") + "+最大体力{e_hp}%の物理ダメージ、物理防御-{e_arm}%（" +
+                  t("{e_t}秒") + "）、{e_slow}%" + cc("スロウ") + "；ヨリック・ウォーカー・乙女は印の敵へ向かうと移動速度+18–30%、近くのウォーカーが飛びかかる。",
+        "ult": "【拡張】倒せる" + n("霧の乙女") + "とウォーカー2–4体を召喚：乙女は" + t("{maid_t}秒") + "ヨリックに付き従い" + t("毎秒") +
+               "最寄りの敵へ魂弾（" + phys("r_dmg", "r_ratio") + "魔法）、当たったチャンピオンに印：ヨリックの攻撃か霧で最大体力2–3%の魔法ダメージ；" +
+               "近くで倒れた敵はウォーカーになる。",
     },
 }
 
@@ -100,48 +117,11 @@ def consts(src):
     out = {}
     for name, kind, value in re.findall(r"pub const (\w+): (usize|u64|f64|&str) = ([^;]+);", src):
         value = value.strip()
-        out[name] = value.strip('"') if kind == "&str" else int(float(value.replace("_", "")))
+        if kind == "&str":
+            out[name] = value.strip('"')
+        elif re.fullmatch(r"[0-9_]+(\.[0-9_]*)?", value):     # a literal (HELD_TICKS = Q_HIT - 4 and the like are left out)
+            out[name] = int(float(value.replace("_", "")))
     return out
-
-
-def walk(o):
-    """every dict of a tree"""
-    if isinstance(o, dict):
-        yield o
-        for v in o.values():
-            yield from walk(v)
-    elif isinstance(o, list):
-        for v in o:
-            yield from walk(v)
-
-
-def replace(o, match, make, count):
-    """the tree with every dict `match` takes replaced by `make` of it (counted in `count`)"""
-    if isinstance(o, dict):
-        if match(o):
-            count.append(o)
-            return make(o)
-        return {k: replace(v, match, make, count) for k, v in o.items()}
-    if isinstance(o, list):
-        return [replace(v, match, make, count) for v in o]
-    return o
-
-
-NONE = {"type": "Combine", "effects": []}
-
-
-def rm(name):
-    return {"type": "RemoveCasterBuff", "name": name}
-
-
-def mark(name):
-    """3 ticks on the effect's target: the passive's ask"""
-    return {"type": "AddBuff", "buff_state": {"name": name, "duration": {"Time": {"tick": 3}}}}
-
-
-def unless(flag, *effects):
-    return {"type": "SwitchByBuff", "buff_name": flag, "effect_buff": NONE,
-            "effect_none": {"type": "Combine", "effects": list(effects)}}
 
 
 def attack_ticks(name):
@@ -152,92 +132,49 @@ def attack_ticks(name):
     return round(sum(secs) * 60), round(sum(secs[:2]) * 60)
 
 
-def units(champion, p, c):
-    """0.2.0: the copy asks for the walkers and the Maiden as units; the riding ones play only without the flags. The
-    natives' numbers (c: src/lib.rs) checked against P and the unit sheets."""
-    want = {"K_N": p["k_n"], "WALK_HIT": p["k_dmg"], "WALK_HIT_AD": p["k_ratio"], "WALK_COOL": p["k_p"], "K_T": p["k_t"],
+def names_in(champion):
+    """every buff / flag / projectile / view / sound name the kit uses"""
+    text = json.dumps(champion)
+    return set(re.findall(r'"(?:name|buff_name)": "(league_yorick_[a-z0-9_]+)"', text))
+
+
+def check_units(copy, main, p, c):
+    """The natives' numbers (c: src/lib.rs) against P and the unit sheets; the names they read and lay against the copy."""
+    want = {"K_N": p["g_n"], "WALK_HIT": p["k_dmg"], "WALK_HIT_AD": p["k_ratio"], "WALK_COOL": p["k_p"], "K_T": p["k_t"],
             "LEAP_HIT": p["k_jmp"], "LEAP_HIT_AD": p["k_jmp_r"], "R_N": p["r_n"], "MAID_HIT": p["r_dmg"],
-            "MAID_HIT_AD": p["r_ratio"], "MAID_COOL": p["r_p"], "R_T": p["r_t"], "Q_HIT": p["q_hit"], "R_REL": p["r_rel"]}
+            "MAID_HIT_AD": p["r_ratio"], "MAID_COOL": p["r_p"], "R_T": p["r_t"], "Q_HIT": p["q_hit"], "R_REL": p["r_rel"],
+            "MARK_T": p["r_mk_t"], "BOLT_SPEED": p["r_bolt"], "MAID_RANGE": p["r_reach"]}
     for name, act, lands in ((c["WALKER"], "WALK_ACT", "WALK_LANDS"), (c["MAIDEN_UNIT"], "MAID_ACT", "MAID_LANDS")):
         want[act], want[lands] = attack_ticks(name)
     wrong = {k: (c.get(k), v) for k, v in want.items() if c.get(k) != v}
     if wrong:
         sys.exit(f"the units' numbers differ from src/lib.rs (lib, kit or sheet): {wrong}")
-    views = {v["name"] for v in champion["view_effects"]}
-    kit = json.dumps(champion)
-    if c["K_LEAP_VIEW"] not in views:
-        sys.exit(f"src/lib.rs's K_LEAP_VIEW = {c['K_LEAP_VIEW']} is no view effect of the main pack's Yorick")
-    for k in ("K_SPAWN_SFX", "K_LEAP_VIEW", "R_SPAWN_SFX"):
-        if not re.search(r'"type": "(Target)?Sfx", "name": "' + re.escape(c[k]) + '"', kit):
-            sys.exit(f"src/lib.rs's {k} = {c[k]} is no sound the main pack's Yorick plays")
-    names = {x["buff_state"]["name"] for x in walk(champion) if isinstance(x.get("buff_state"), dict)}
-    names |= {x.get("name") for x in walk(champion) if x.get("type") == "RemoveCasterBuff"}
-    names |= {x.get("buff_name") for x in walk(champion) if x.get("type") == "SwitchByBuff"}
-    if any(c[k] in names for k in ("K_ASK", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK")) or \
-            any(str(b).startswith((c["W_UID"], c["M_UID"])) for b in names):
-        sys.exit("the main pack's Yorick already uses one of the add-on's buff names: update src/lib.rs")
-    if c["R_ON"] not in names or c["MAIDEN"] not in names:
-        sys.exit("the copy no longer has the flag r_on or the Maiden's mark: update src/lib.rs")
-
-    def counted(found, n, what):
-        if len(found) != n:
-            sys.exit(f"{what}: {len(found)} found, not {n} (the slot's and the two controllers'): update this script")
-
-    # the Awakening's cast (the animation it switches to with three graves): the flag off, the ask on its target
-    found = []
-    champion = replace(champion, lambda o: o.get("type") == "SwitchByBuff" and o.get("buff_name") == "league_yorick_g3"
-                       and o["effect_buff"].get("type") == "CasterAnimation" and o["effect_buff"].get("name") == "awaken",
-                       lambda o: dict(o, effect_buff={"type": "Combine", "effects": [o["effect_buff"], rm(c["K_UNIT"]),
-                                                                                     mark(c["K_ASK"])]}), found)
-    counted(found, 3, "the Awakening's cast")
-
-    # the walkers riding on the Awakening's target: only without K_UNIT
-    def raise_(o):
-        effs = o["applied_effects"]
-        kinds = [e["effect"].get("type") for e in effs]
-        riding = json.dumps(effs[0]["effect"])
-        if kinds != ["Combine", "ParabolicProjectile"] or "league_yorick_k_on" not in riding or \
-                "league_yorick_k_bite" not in riding:
-            sys.exit("the Awakening's walkers (league_yorick_q_raise) changed in the main pack: update this script")
-        return dict(o, applied_effects=[dict(effs[0], effect=unless(c["K_UNIT"], effs[0]["effect"]))] + effs[1:])
-    found = []
-    champion = replace(champion, lambda o: o.get("type") == "TargetProjectile" and o.get("name") == "league_yorick_q_raise",
-                       raise_, found)
-    counted(found, 3, "league_yorick_q_raise")
-
-    # the mist's champion twin: the pounce's ask on the champion it strikes, once a cast (inside its e_lk lock)
-    def twin(o):
-        effs = o["applied_effects"]
-        sw = effs[0]["effect"] if len(effs) == 1 else {}
-        once = sw.get("effect_none", {})
-        if sw.get("type") != "SwitchByBuff" or sw.get("buff_name") != "league_yorick_e_lk" or once.get("type") != "Combine":
-            sys.exit("Mourning Mist's champion twin (league_yorick_e_tw) changed in the main pack: update this script")
-        return dict(o, applied_effects=[dict(effs[0], effect=dict(sw, effect_none=dict(
-            once, effects=once["effects"] + [mark(c["E_ASK"])])))])
-    found = []
-    champion = replace(champion, lambda o: o.get("type") == "TargetProjectile" and o.get("name") == "league_yorick_e_tw",
-                       twin, found)
-    counted(found, 3, "league_yorick_e_tw")
-
-    # R: the flag off and the ask on its champion at the cast; the riding Maiden and her walkers only without M_UNIT
-    ult = champion["ult"]
-    ult["effect"] = dict(ult["effect"], effects=ult["effect"]["effects"] + [rm(c["M_UNIT"]), mark(c["M_ASK"])])
-
-    def rise(o):
-        effs = o["applied_effects"]
-        kinds = [e["effect"].get("type") for e in effs]
-        if kinds != ["ViewEffect", "TargetSfx", "Combine", "AddCasted", "AddCasted", "SwitchByBuff", "AddBuff"] or \
-                effs[0]["effect"].get("name") != "league_yorick_r_spawn" or \
-                effs[6]["effect"]["buff_state"]["name"] != c["MAIDEN"]:
-            sys.exit("the Maiden's rising (league_yorick_r_rise) changed in the main pack: update this script")
-        riding = {"casting_type": effs[0]["casting_type"], "effect": unless(c["M_UNIT"], *[e["effect"] for e in effs[:5]])}
-        return dict(o, applied_effects=[riding] + effs[5:])
-    found = []
-    champion["ult"] = replace(ult, lambda o: o.get("type") == "TargetProjectile" and o.get("name") == "league_yorick_r_rise",
-                              rise, found)
-    if len(found) != 1:
-        sys.exit("R raises the Maiden %d times, not once: update this script" % len(found))
-    return champion
+    have, plain = names_in(copy), names_in(main)
+    read = ("Q_WIN", "Q_HL", "Q_CH", "HIT", "K_ASK", "K_ASK4", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK", "W_ASK", "W_UP", "R_ON",
+            "E_MARK", "R_MKV", "R_BOLT", "R_CLAW", "R_MARK_VIEW", "Q_GRAVE", "K_LEAP_VIEW", "K_SPAWN_SFX", "R_SPAWN_SFX")
+    missing = [k for k in read if c[k] not in have]
+    if missing:
+        sys.exit(f"src/lib.rs names {missing} the copy does not use: update src/lib.rs or build_yorick.py")
+    if "league_yorick_g4" not in have or any(f"league_yorick_g{k}" not in have for k in range(1, 5)):
+        sys.exit("the copy has no grave ladder g1..g4: src/lib.rs's GRAVES reads it")
+    own = ("Q_WIN", "Q_HL", "HIT", "K_ASK", "K_ASK4", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK", "W_ASK", "W_UP")
+    if any(c[k] in plain for k in own) or any(b.startswith((c["W_UID"], c["M_UID"])) for b in plain):
+        sys.exit("the main pack's Yorick uses one of the add-on's own names: update src/lib.rs")
+    if c["E_MS"] in have:
+        sys.exit("the copy still has the data's haste (E_MS): the add-on lays it by direction")
+    views = {v["name"] for v in copy["view_effects"]}
+    if not {c["R_CLAW"], c["R_MARK_VIEW"], c["K_LEAP_VIEW"], c["Q_GRAVE"]} <= views:
+        sys.exit("a picture src/lib.rs plays is no view effect of the kit")
+    if c["R_BOLT"] not in {v["name"] for v in copy["view_projectiles"]}:
+        sys.exit("the Maiden's bolt (R_BOLT) has no projectile picture in the kit")
+    if c["R_MKV"] not in {v["name"] for v in copy["view_buffs"]}:
+        sys.exit("the Maiden's mark (R_MKV) has no buff picture in the kit")
+    kit_text = json.dumps(copy)
+    for k in ("K_SPAWN_SFX", "R_SPAWN_SFX", "R_CLAW", "K_LEAP_VIEW"):
+        if not re.search(r'"type": "(Target)?Sfx", "name": "' + re.escape(c[k]) + '"', kit_text):
+            sys.exit(f"src/lib.rs's {k} = {c[k]} is no sound the kit plays")
+    if copy.get("passive", {}).get("passive_ref") != MOD_ID + ":shepherd":
+        sys.exit("the copy does not call the add-on: update this script")
 
 
 def check_defaults(p):
@@ -255,17 +192,16 @@ def files(draft):
     p = dict(kit.P)
     check_defaults(p)
     champion = kit.build(dict(p, native=1))
-    if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":shepherd":
-        sys.exit("the copy does not call the add-on: update this script")
+    main = kit.build(p)
     c = consts(open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read())
-    champion = units(champion, p, c)
+    check_units(champion, main, p, c)
     out = {}
     if not draft:
         with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
             shipped = f.read()
-        if dumps_main(kit.build(p)) != shipped:
+        if dumps_main(main) != shipped:
             sys.exit("the main pack's league_yorick differs from build_yorick.P: rebuild it first")
-        for slot in ("attack", "ult"):
+        for slot in SLOTS:
             champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
         values = dict(setup.values(p), walk_t=setup.secs(c["WALK_LIFE"]), maid_t=setup.secs(c["MAID_LIFE"]))
         texts = {lang: {k: tx.format(**values) for k, tx in d.items()} for lang, d in NATIVE.items()}

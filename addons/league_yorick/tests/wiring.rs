@@ -2,12 +2,12 @@
 //! 就没）里放一次唤醒和一次海屿悼词：按名字取到注册的被动和两个原生效果，被动每 tick 调一次，排队的效果到点从注册表里取出来
 //! 调。检查这条线接得上：副本的数据挂的 `K_ASK` → 被动排 `:walkers` → 三次 `spawn_unit` → 约里克身上有 `K_UNIT`（副本的数据在
 //! 这一铲落地时读它）→ 雾行者到时间；`M_ASK` → `:maiden` → 室女和两只雾行者、`M_UNIT`；日志开头两行写着版本、单位开没开、
-//! 读到的测试开关。
+//! 读到的测试开关。0.3.0：五个原生效果都注册了（雾行者、室女、尸体上拉起、魂弹、室女消散），墙从 `W_ASK` + `W_UP` 立起来。
 
 use std::collections::HashMap;
 use std::mem::{size_of, zeroed};
 
-use league_yorick::{K_ASK, K_UNIT, MAID_LIFE, MAIDEN_UNIT, M_ASK, M_UNIT, Q_HIT, R_N, R_REL, WALKER, WALK_LIFE};
+use league_yorick::{K_ASK, K_UNIT, MAID_LIFE, MAIDEN_UNIT, M_ASK, M_UNIT, Q_HIT, R_N, R_REL, WALKER, WALK_LIFE, W_ASK, W_UP};
 use mod_api_stable::*;
 
 #[path = "../../league_shaco_backstab/src/summon_mock.rs"]
@@ -47,13 +47,13 @@ fn the_awakening_and_the_ult_spawn_units() {
         assert_eq!(passives.iter().map(|p| p.name.as_str()).collect::<Vec<_>>(), ["league_yorick:shepherd"]);
         let regs = std::slice::from_raw_parts(ex.native_effects_ptr, ex.native_effects_len);
         let fx: Effects = regs.iter().map(|e| (e.name.as_str().to_string(), e)).collect();
-        for name in ["walkers", "maiden"] {
+        for name in ["walkers", "maiden", "raise", "bolt", "fade"] {
             assert!(fx.contains_key(&format!("league_yorick:{name}")), "{name} not registered");
         }
-        assert_eq!(fx.len(), 2);
+        assert_eq!(fx.len(), 5);
         let proto = &passives[0].passive;
         let passive = PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
-        let params = r#"{"g_t":1800,"r_pct":3}"#;
+        let params = r#"{"g_t":3600,"r_pct":3,"w_delay":45,"w_half":10000,"w_r":30000,"w_t":240}"#;
         ((*proto.vtable).configure.expect("configure"))(passive.userdata, params.as_ptr(), params.len());
 
         // Yorick #0, Garen #1 40000 east of him, Darius #2 far off (the field round them all)
@@ -86,6 +86,11 @@ fn the_awakening_and_the_ult_spawn_units() {
         assert_eq!(w.spawns.iter().filter(|s| s.name == WALKER).count(), 3 + R_N);
         assert!(w.spawns.iter().filter(|s| s.name == MAIDEN_UNIT).all(|s| s.life as usize == MAID_LIFE));
         assert!(w.has(0, M_UNIT), "no flag on him when the Maiden rises: the data's would ride too");
+        // Dark Procession under Garen: the ask, then the data's flag on Yorick - the ring rises round where Garen stood
+        w.units[1].buffs.push((BuffV1::timed(W_ASK, 3), 3));
+        tick(&mut w, &fx, &passive);
+        w.units[0].buffs.push((BuffV1::timed(W_UP, 3), 3));
+        tick(&mut w, &fx, &passive);
         // their whole time
         for _ in 0..MAID_LIFE + 200 {
             tick(&mut w, &fx, &passive);
@@ -102,15 +107,17 @@ fn the_awakening_and_the_ult_spawn_units() {
         }
         let mut lines = text.lines();
         let first = lines.next().unwrap();
-        assert!(first.starts_with(&format!("=== league_yorick v{} (graves from kills", env!("CARGO_PKG_VERSION"))), "{first}");
+        assert!(first.starts_with(&format!("=== league_yorick v{} (graves from kills and deaths near him, the real Dark Procession \
+                                            wall", env!("CARGO_PKG_VERSION"))), "{first}");
         let second = lines.next().unwrap();
         assert!(second.starts_with("UNITS: the Mist Walkers ('league_yorick_walker') and the Maiden of the Mist ('league_yorick_maiden') \
-                                    are units (spawn_unit) - ON; the Awakening 3 walkers for 600 ticks"), "{second}");
+                                    are units (spawn_unit) - ON; the Awakening a walker a grave for 600 ticks"), "{second}");
         assert!(second.ends_with(".cfg): none"), "{second}");
         for what in ["SPAWN: the add-on's Yorick (player 0", "WALKERS ASK #1", "WALKERS SPAWN #1 (the queued effect): 3 of 3 units",
                      "WALKER #1 LOOK #1 (the Awakening's)", "MAIDEN ASK #1", "MAIDEN SPAWN #1 (the queued effect)",
                      "MAIDEN #1 LOOK #1", "MAIDEN #1 DRESS #1", "WALKER #4 LOOK #4 (the Maiden's escort)", "WALKER #1 OVER #1 (the \
-                     Awakening's): TIMED OUT", "MAIDEN #1 OVER #1: TIMED OUT", "WALKER #1 WAKE #"] {
+                     Awakening's): TIMED OUT", "MAIDEN #1 OVER #1: TIMED OUT", "WALKER #1 WAKE #", "WALL ASK #1", "WALL #1 (wall 1): \
+                     ring at (", "WALL DOWN #1 (wall 1)"] {
             assert!(text.contains(what), "missing {what:?} in the log:\n{text}");
         }
         assert!(text.contains(&format!("t={t0} #0 WALKERS ASK")));
