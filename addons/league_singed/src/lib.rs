@@ -2,9 +2,12 @@
 //! 辛吉德换成 `override/` 里的副本（`make_override.py` 用 tools/kit/build_singed.py 的 `native=1` 生成：技能、时机一字不改，只有
 //! 过肩摔的「拉过去 + 胶在地上就禁锢」换成本包的原生效果 `league_singed:fling`），按英雄联盟的规则做：
 //!
-//! - **真的过肩摔**：目标击飞 `E_FLY` tick，从他头顶飞过、落到他身后 `E_BEHIND` 远的地方（路上碰到墙就落在墙边，地图墙格同
-//!   波比附加包）。击飞期间每 tick 由本包把它往落点挪一段（`entity_set_pos`：数据里击飞和拉扯同时上会被定在原地，2026-10-23 的
-//!   模拟查出 0/33 移动）。主包：没有击飞，`Pull` 把目标从他身上拉过去。
+//! - **真的过肩摔**：目标从他身上过去、落到他身后 `E_BEHIND` 远的地方，`E_FLY` tick 飞完（路上碰到墙就落在墙边，地图墙格同
+//!   波比附加包）。0.1.5（用户 2026-11-21：「炼金不能把人背回来」）：以前是击飞 + 本包每 tick 改坐标（`entity_set_pos`），游戏
+//!   0.7.x 的画面不跟 set_pos（奎因的后空翻同一天查出来的），被摔的人在画面上原地飞起、原地落下，下次走动才闪到他身后。现在摔
+//!   出去那一 tick 给它一段强制位移（`CcKindV1::ForceMove`），宿主每 tick 挪、画面连着动。不再击飞：引擎里被击飞的单位不吃强制
+//!   位移（数据里击飞和拉扯同时上，2026-10-23 的模拟 0/33 移动）。强制位移没了（被别的控制顶掉、没生效）又还差得远，本包才
+//!   自己走一步。主包：`Pull` 把目标从他身上拉过去。
 //! - **落进胶里才禁锢**：落地后 `LAND_AT` 这几个 tick 看它身上有没有强力粘胶的减速（`league_singed_w_slow`，粘胶每
 //!   `W_P` tick 给站在胶里的敌人挂一次）：有就是落在胶里——禁锢 `E_ROOT` tick。飞的途中每 tick 都摘掉这个减速，所以起飞前、
 //!   空中经过的胶不算。主包：数据读不到单位站在哪，只要地上有他的胶（`league_singed_w_out`），被摔的就禁锢。
@@ -208,12 +211,34 @@ pub fn fly_step(cur: Pt, end: Pt, step: f64) -> Pt {
     }
 }
 
+/// 摔出去的强制位移 (dx, dy, 每 tick 多远, 几 tick)：`E_FLY` tick 从 `from` 走到 `to`。强制位移走的是 速度 x tick 那么远，
+/// dx / dy 只管方向，所以速度按 tick 数算（向上取整，最多多走不到 `E_FLY`）。不到 1 就不挪。
+pub fn fling_push(from: Pt, to: Pt) -> Option<(i64, i64, u64, u64)> {
+    let d = dist(from, to);
+    if d < 1.0 {
+        return None;
+    }
+    let ticks = E_FLY as u64;
+    Some(((to.0 - from.0).round() as i64, (to.1 - from.1).round() as i64, (d / ticks as f64).ceil() as u64, ticks))
+}
+
+/// 强制位移没在挪它的这一 tick 要不要自己走一步：离落点还超过两步才走。差一两步多半是强制位移的头尾（哪一 tick 开始挪、
+/// 取整），自己补那一下画面上是一闪，不补。
+pub fn own_step_needed(cur: Pt, end: Pt, step: f64) -> bool {
+    dist(cur, end) > 2.0 * step
+}
+
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
 fn cc_immune(sim: &StableSim<'_>, id: usize) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.cc_immune))
+}
+
+/// 身上有没有强制位移（宿主正在挪它）。
+fn force_moved(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| c.kind == CcKindV1::ForceMove.code()))
 }
 
 fn pos(sim: &StableSim<'_>, id: usize) -> Option<Pt> {
@@ -258,7 +283,7 @@ fn clamp_u(v: f64) -> u64 {
 
 // ===================== 原生效果 =====================
 
-/// 过肩摔抓住目标（主包 E 的 `e_grab` 那一 tick）：击飞，排好每 tick 的飞行和落地后的查看。
+/// 过肩摔抓住目标（主包 E 的 `e_grab` 那一 tick）：一段强制位移把它从他身上带到身后，排好每 tick 的飞行和落地后的查看。
 fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let Some(target) = target_of(&input) else { return };
     let Some(body) = sim.get_entity(target).filter(|e| e.is_alive() && e.is_targetable()).map(|e| e.radius() as f64) else {
@@ -276,7 +301,15 @@ fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let len = wall.unwrap_or(reach);
     let end = (at.0 + dir.0 * len, at.1 + dir.1 * len);
     sim.entity_remove_buff(target, &n("w_slow"));
-    sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, E_FLY as u64));
+    // 强制位移：宿主每 tick 挪它一段，画面上是连着的。不能再上击飞，被击飞的单位不吃强制位移
+    let push = fling_push(at, end);
+    if let Some((dx, dy, speed, ticks)) = push {
+        let mut mv = CcV1::of_kind(CcKindV1::ForceMove, ticks);
+        mv.dx = dx;
+        mv.dy = dy;
+        mv.speed = speed;
+        sim.apply_cc(target, &mv);
+    }
     sim.entity_remove_buff(target, &n("e_air"));
     sim.add_buff(target, &BuffV1::timed(&n("e_air"), LAND_AT[LAND_AT.len() - 1] + 2));
     // each step carries the landing (x, y) and the take-off (dir_x, dir_y): the step length is the whole flight / E_FLY
@@ -298,11 +331,14 @@ fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     if let Some(k) = counted("fling") {
         let why = if wall.is_some() { format!("a wall after {len:.0}") } else { format!("{len:.0}, no wall") };
-        wlog(format!("{} FLING #{target} from {} over him at {} to {} ({why}) #{k}", head(sim, me), pt(at), pt(him), pt(end)));
+        let how = push.map_or("no move".to_string(), |(_, _, sp, t)| format!("forced move {t} ticks x {sp}"));
+        wlog(format!("{} FLING #{target} from {} over him at {} to {} ({why}), {how} #{k}", head(sim, me), pt(at), pt(him),
+                     pt(end)));
     }
 }
 
-/// 飞行中的一 tick：往落点挪一段；空中经过的胶不算（摘掉减速）。
+/// 飞行中的一 tick：空中经过的胶不算（摘掉减速）。宿主在用强制位移挪它就不管；强制位移没了（被别的控制顶掉、没生效）又离
+/// 落点还远，本包自己往落点走一步（位置是对的，这一步画面上不显示）。
 fn fly(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let target = input.target_id;
     if !has_buff(sim, target, &n("e_air")) {
@@ -313,11 +349,21 @@ fn fly(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         return;
     };
     sim.entity_remove_buff(target, &n("w_slow"));
+    if force_moved(sim, target) {
+        return;
+    }
     let start = (input.dir_x as f64, input.dir_y as f64);
     let end = (input.x as f64, input.y as f64);
-    let to = fly_step(cur, end, dist(start, end) / E_FLY as f64);
+    let step = dist(start, end) / E_FLY as f64;
+    if !own_step_needed(cur, end, step) {
+        return;
+    }
+    let to = fly_step(cur, end, step);
     sim.entity_set_pos(target, clamp_u(to.0), clamp_u(to.1));
-    let _ = me;
+    if let Some(k) = counted("own_step") {
+        wlog(format!("{} FLY #{target}: no forced move on it at {}, {:.0} short - stepped to {} itself #{k}", head(sim, me),
+                     pt(cur), dist(cur, end), pt(to)));
+    }
 }
 
 /// 落地后看一眼：身上有粘胶的减速就是落在胶里——禁锢。
@@ -362,7 +408,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Singed: Fling knocks up over him, roots in the glue) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Singed: Fling carries the target over him by a forced move, roots in the glue) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -415,6 +461,27 @@ mod tests {
             }
         }
         assert_eq!(cur, end);
+    }
+
+    #[test]
+    fn the_fling_is_one_forced_move() {
+        // 64000 in E_FLY ticks: aimed the whole way, speed x ticks covers it (at most E_FLY too far from rounding up)
+        let (dx, dy, speed, ticks) = fling_push((0.0, 0.0), (64_000.0, 0.0)).expect("a move");
+        assert_eq!((dx, dy, ticks), (64_000, 0, E_FLY as u64));
+        assert_eq!(speed, 4_000);
+        let (_, _, speed, ticks) = fling_push((10.0, 20.0), (40_011.0, -30_000.0)).expect("a move");
+        let d = dist((10.0, 20.0), (40_011.0, -30_000.0));
+        assert!((speed * ticks) as f64 >= d && ((speed * ticks) as f64) < d + E_FLY as f64, "{speed} x {ticks} for {d}");
+        // nothing to go: no move
+        assert_eq!(fling_push((5.0, 5.0), (5.4, 5.0)), None);
+    }
+
+    #[test]
+    fn steps_of_its_own_only_when_far_behind() {
+        let step = 4_000.0;
+        assert!(!own_step_needed((60_000.0, 0.0), (64_000.0, 0.0), step), "one step short: the forced move's tail");
+        assert!(!own_step_needed((56_000.0, 0.0), (64_000.0, 0.0), step), "two steps short: still left alone");
+        assert!(own_step_needed((40_000.0, 0.0), (64_000.0, 0.0), step), "the forced move stopped halfway");
     }
 
     #[test]
