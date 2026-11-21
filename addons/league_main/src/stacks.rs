@@ -14,6 +14,23 @@
 //! 附加包自己的数也走梯子（0.9.36）：普朗克附加包把手里的银蛇币挂成 `league_gangplank_sv_<n>`（rungs 9999），只有附加包的
 //! 副本有 `stack_skill_index`（stack_nums.py 的 `passive`：主包的普朗克没有银蛇币，不露出层数格）。
 //!
+//! 2026-11-22（用户：「还有很多叠层的技能在技能列表里看不到层数 想个办法解决一下」）又加了三种数法和「数敌人身上的」：
+//! - [`Rule::Most`]：几个名字各对一个数，身上有的里取最大（名字不成梯子的：亚索的 `q_stack` 1、`q_ready` 2，阿狸第 6 级叫
+//!   `et_ready`，梅尔的光弹 `p_3` / `p_6` / `p_9`）；
+//! - [`Rule::Total`]：几个名字各对一个数，身上有的加起来（厄斐琉斯的子弹是 5 位二进制 `b0`..`b4`，辛德拉的法球是各自计时的
+//!   四个槽 `o1`..`o4`）；
+//! - [`Rule::Prefix`]：名字以它开头的 buff 有几个（附加包挂在敌人身上的层数名字后面带施法者的实体号：布兰德的
+//!   `league_brand_bz_<id>`）；
+//! - [`Stack::foes`]：这一行不数他自己，数每个活着的敌方英雄身上的，取最多的那个（附加包照英雄联盟把层数记在每个敌人身上：
+//!   布隆的震荡猛击、韦鲁斯的枯萎、图奇的毒）。
+//! 一个英雄可以有几行（主包的数据记在他自己身上、附加包记在敌人身上，各读各的名字），面板上是几行里最大的那个：每份英雄数据
+//! 只挂得出自己那一行的 buff，另一行读出来是 0。
+//! 后来又加了 [`Rule::Charges`]（技能的充能：提莫的蘑菇）和 [`Rule::Per`]（一项数值除以一层的量）。
+//!
+//! **tft.dll 也用这个文件**（addons/tft/src/lib.rs 用 `#[path]` 引进来）：表是它自己的 src/stack_table.rs（云顶的英雄，
+//! `PREFIX` 是 `tft_`），比赛钩子只调 [`on_tick`]。两个 DLL 各写各表里的英雄，谁先加载都一样。所以这里只用得到
+//! `crate::wlog` 和 `crate::stack_table`，两边的根上都有。
+//!
 //! **写进 `stack`。** 稳定接口改属性只有 `entity_set_base_stat`：整块换掉基础属性（9 项）。可 `stat()` 读到的是算好的那块
 //! （经典 SDK 0.5.1 的 `Entity::calculate_stat_cached`：每项 = (基础 + buff 的加值) x (100 + buff 的倍率) / 100，
 //! `stack` = 基础的 `stack`），拿它当基础写回去，buff 就进了基础属性。所以 [`layout`] 从宿主自己这两个函数的机器码里读出：
@@ -29,7 +46,7 @@ use std::sync::{Mutex, OnceLock};
 
 use mod_api_stable::*;
 
-pub use crate::stack_table::STACKS;
+pub use crate::stack_table::{PREFIX, STACKS};
 
 /// 怎么从英雄自己的 buff 读出层数。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -41,14 +58,30 @@ pub enum Rule {
     /// 梯子 `<前缀>1`..`<前缀>rungs` 里身上最高的那一级乘 `step`（兰博的热量一级 10、泰达米尔的怒气一级 20：照英雄联盟的
     /// 0..100）；身上有 `full`（满了的旗子：德莱厄斯的诺克萨斯之力、纳尔的满怒）就是它后面的那个数。
     Ladder { prefix: &'static str, rungs: usize, step: usize, full: Option<(&'static str, usize)> },
+    /// 几个名字各对一个数，身上有的里面取最大（不成梯子的几级：亚索的 `q_stack` 是 1、`q_ready` 是 2）。
+    Most(&'static [(&'static str, usize)]),
+    /// 几个名字各对一个数，身上有的加起来，同名的只算一次（厄斐琉斯的子弹 `b0`..`b4` 是二进制的 1 / 2 / 4 / 8 / 16，
+    /// 辛德拉各自到时的四个法球槽各算 1）。
+    Total(&'static [(&'static str, usize)]),
+    /// 名字以它开头的 buff 有几个（附加包挂在敌人身上的层数名字里带着施法者的实体号）。
+    Prefix(&'static str),
+    /// 这个技能的充能还剩几次（0 技能、1 技能 2、2 大招，和 `stack_skill_index` 一样数）：读游戏自己的冷却
+    /// （`entity_cooldown` 的 `charges`），不是 buff。没学会、不是充能技能的时候是 0。
+    Charges(usize),
+    /// 这个 buff 的一项数值加起来、再除以一层的量（四舍五入）：原生代码把层数折成一个 buff 的数值的（云顶赛芬的怒气
+    /// 一层 5 攻击力、麦迪的赏金一份 15% 攻速、呲呲身边一个队友 10 护甲）。
+    Per(&'static str, Stat, usize),
 }
 
-/// [`Rule::Sum`] 加哪一项。
+/// [`Rule::Sum`] / [`Rule::Per`] 加哪一项。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Stat {
     MagicPower,
     Hp,
     Attack,
+    Defence,
+    AttackSpeedMult,
+    DamagedReduce,
 }
 
 impl Stat {
@@ -57,23 +90,28 @@ impl Stat {
             Stat::MagicPower => b.magic_power as i64,
             Stat::Hp => b.hp as i64,
             Stat::Attack => b.attack as i64,
+            Stat::Defence => b.defence as i64,
+            Stat::AttackSpeedMult => b.attack_speed_mult as i64,
+            Stat::DamagedReduce => b.damaged_reduce as i64,
         }
     }
 }
 
-/// 一个显示层数的英雄。
+/// 表里的一行：一个英雄的一种数法（一个英雄可以有几行，面板上取最大的）。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Stack {
     pub hero: &'static str,
     pub rule: Rule,
     /// 最多显示到这个数。
     pub cap: usize,
+    /// 数每个活着的敌方英雄身上的（取最多的那个），不数他自己的。
+    pub foes: bool,
 }
 
 /// 隔几 tick 数一次（0.1 秒）：层数变了，面板上最多晚这么久。
 pub const EVERY: usize = 6;
 
-/// 他身上的 buff -> 层数。
+/// 一串 buff -> 层数。
 pub fn count(rule: Rule, buffs: &[BuffV1]) -> usize {
     match rule {
         Rule::Count(name) => buffs.iter().filter(|b| b.name() == name).count(),
@@ -94,12 +132,52 @@ pub fn count(rule: Rule, buffs: &[BuffV1]) -> usize {
                 .unwrap_or(0)
                 * step
         }
+        Rule::Most(names) => names
+            .iter()
+            .filter(|(n, _)| buffs.iter().any(|b| b.name() == *n))
+            .map(|&(_, v)| v)
+            .max()
+            .unwrap_or(0),
+        Rule::Total(names) => names.iter().filter(|(n, _)| buffs.iter().any(|b| b.name() == *n)).map(|&(_, v)| v).sum(),
+        Rule::Prefix(prefix) => buffs.iter().filter(|b| b.name().starts_with(prefix)).count(),
+        // 充能不在 buff 里，见 [`value`]
+        Rule::Charges(_) => 0,
+        Rule::Per(name, stat, per) => {
+            let total = buffs.iter().filter(|b| b.name() == name).map(|b| stat.of(b)).sum::<i64>().max(0) as usize;
+            (total + per / 2) / per.max(1)
+        }
     }
 }
 
-/// 表里的这个英雄。
-pub fn find(hero: &str) -> Option<&'static Stack> {
-    STACKS.iter().find(|s| s.hero == hero)
+/// 表里的技能格（0 技能、1 技能 2、2 大招）是游戏的哪个技能栏。
+pub fn slot_of(k: usize) -> Option<SkillSlotV1> {
+    [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult].get(k).copied()
+}
+
+/// 一个技能栏现在还剩几次充能：学会了、而且是充能技能（最多不止 1 次）才算，别的是 0。
+pub fn charges_now(cd: Option<CooldownV1>) -> usize {
+    cd.filter(|c| c.unlocked && c.max_charges > 1).map_or(0, |c| c.charges.min(c.max_charges))
+}
+
+/// 这一行读出的数：他自己身上的、他技能的充能（`charges` 按技能格），或者（`foes`）敌方英雄里身上最多的那个；
+/// 截到 `cap`。
+pub fn value(st: &Stack, mine: &[BuffV1], charges: &[usize; 3], foes: &[&[BuffV1]]) -> usize {
+    let n = match st.rule {
+        Rule::Charges(k) => charges.get(k).copied().unwrap_or(0),
+        _ if st.foes => foes.iter().map(|b| count(st.rule, b)).max().unwrap_or(0),
+        _ => count(st.rule, mine),
+    };
+    n.min(st.cap)
+}
+
+/// 表里这个英雄的几行。
+pub fn rows(hero: &str) -> impl Iterator<Item = &'static Stack> + '_ {
+    STACKS.iter().filter(move |s| s.hero == hero)
+}
+
+/// 面板上的数：这个英雄几行里最大的（每份英雄数据只挂得出自己那一行的名字，别的行读出来是 0）。
+pub fn number(hero: &str, mine: &[BuffV1], charges: &[usize; 3], foes: &[&[BuffV1]]) -> usize {
+    rows(hero).map(|st| value(st, mine, charges, foes)).max().unwrap_or(0)
 }
 
 // ===================== 宿主的属性布局 =====================
@@ -229,16 +307,16 @@ const MISMATCH_MAX: usize = 40;
 static LOGGED: Mutex<Option<HashMap<&'static str, usize>>> = Mutex::new(None);
 const LOG_LINES: usize = 40;
 
-fn note(st: &Stack, id: usize, was: usize, now: usize, base: &StatV1, calc: &StatV1) {
+fn note(hero: &'static str, id: usize, was: usize, now: usize, base: &StatV1, calc: &StatV1) {
     let mut guard = LOGGED.lock().unwrap_or_else(|e| e.into_inner());
-    let n = guard.get_or_insert_with(HashMap::new).entry(st.hero).or_insert(0);
+    let n = guard.get_or_insert_with(HashMap::new).entry(hero).or_insert(0);
     if *n >= LOG_LINES {
         return;
     }
     *n += 1;
     crate::wlog(format!(
         "STACKS {}#{id}: {was} -> {now} (base attack {} ap {} hp {} def {} mr {} ms {}; calculated {} / {} / {} / {} / {} / {})",
-        st.hero, base.attack, base.magic_power, base.hp, base.defence, base.magic_resistance, base.move_speed, calc.attack,
+        hero, base.attack, base.magic_power, base.hp, base.defence, base.magic_resistance, base.move_speed, calc.attack,
         calc.magic_power, calc.hp, calc.defence, calc.magic_resistance, calc.move_speed
     ));
 }
@@ -251,21 +329,63 @@ fn off(why: String) {
     }
 }
 
+/// 这一 tick 看到的一个活着的英雄。
+struct Seen {
+    id: usize,
+    team: usize,
+    /// 表里有他就是表里的名字。
+    hero: Option<&'static str>,
+    /// 要数的时候才读（表里的英雄，或者有人要数敌人身上的）。
+    buffs: Vec<BuffV1>,
+    /// 他表里有充能那一行的技能格的充能（别的格不读，是 0）。
+    charges: [usize; 3],
+    calc: StatV1,
+}
+
 /// 比赛钩子（src/lib.rs 的 `Match`）每 tick 调一次。
 pub fn on_tick(sim: &mut StableSim<'_>) {
     if sim.tick() % EVERY != 0 || *OFF.lock().unwrap_or_else(|e| e.into_inner()) {
         return;
     }
     let ids: Vec<usize> = (0..sim.champion_count()).map(|i| sim.champion_id_at(i)).collect();
+    let mut seen: Vec<Seen> = Vec::new();
     for id in ids {
         let Some(e) = sim.get_entity(id) else { continue };
-        let Some(st) = e.name().and_then(|n| find(&n)) else { continue };
         if !e.is_alive() {
             continue;
         }
-        let buffs: Vec<BuffV1> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect();
-        let n = count(st.rule, &buffs).min(st.cap);
-        let calc = e.stat();
+        // 别的包的英雄（云顶的、诸神的）名字前缀就对不上，不用翻表
+        let hero = e.name().filter(|n| n.starts_with(PREFIX)).and_then(|n| STACKS.iter().find(|s| s.hero == n).map(|s| s.hero));
+        seen.push(Seen { id, team: e.team(), hero, buffs: Vec::new(), charges: [0; 3], calc: StatV1::default() });
+    }
+    if seen.iter().all(|s| s.hero.is_none()) {
+        return;
+    }
+    // 表里有人要数敌人身上的，才把场上每个人的 buff 都读一遍
+    let foes_wanted = seen.iter().any(|s| s.hero.is_some_and(|h| rows(h).any(|st| st.foes)));
+    for s in seen.iter_mut() {
+        if s.hero.is_none() && !foes_wanted {
+            continue;
+        }
+        let Some(e) = sim.get_entity(s.id) else { continue };
+        s.buffs = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect();
+        if let Some(hero) = s.hero {
+            s.calc = e.stat();
+            // 只读表里有充能那一行的技能格（提莫的蘑菇、库奇的导弹），一个英雄一两次
+            for st in rows(hero) {
+                if let Rule::Charges(k) = st.rule {
+                    if let (Some(slot), Some(c)) = (slot_of(k), s.charges.get_mut(k)) {
+                        *c = charges_now(e.cooldown(slot));
+                    }
+                }
+            }
+        }
+    }
+    for s in seen.iter() {
+        let Some(hero) = s.hero else { continue };
+        let foes: Vec<&[BuffV1]> = seen.iter().filter(|o| o.team != s.team).map(|o| o.buffs.as_slice()).collect();
+        let n = number(hero, &s.buffs, &s.charges, &foes);
+        let (id, calc) = (s.id, s.calc);
         let Some(l) = host_layout(sim) else { return };
         let Some(base) = read_base(sim, l, id) else { continue };
         if base.stack == n {
@@ -276,7 +396,7 @@ pub fn on_tick(sim: &mut StableSim<'_>) {
             *m += 1;
             if *m > MISMATCH_MAX {
                 drop(m);
-                off(format!("{}#{id}: the calculated stack {} is not the base's {} ({MISMATCH_MAX} times)", st.hero,
+                off(format!("{hero}#{id}: the calculated stack {} is not the base's {} ({MISMATCH_MAX} times)",
                             calc.stack, base.stack));
                 return;
             }
@@ -286,9 +406,9 @@ pub fn on_tick(sim: &mut StableSim<'_>) {
         want.stack = n;
         sim.entity_set_base_stat(id, &want);
         match read_base(sim, l, id) {
-            Some(back) if back == want => note(st, id, base.stack, n, &base, &calc),
+            Some(back) if back == want => note(hero, id, base.stack, n, &base, &calc),
             back => {
-                off(format!("{}#{id}: wrote stack {n}, read back {back:?}", st.hero));
+                off(format!("{hero}#{id}: wrote stack {n}, read back {back:?}"));
                 return;
             }
         }
@@ -366,16 +486,103 @@ mod tests {
     }
 
     #[test]
+    fn most_total_and_prefix() {
+        let yasuo = Rule::Most(&[("league_yasuo_q_stack", 1), ("league_yasuo_q_ready", 2)]);
+        assert_eq!(count(yasuo, &buffs(&["league_yasuo_q_stack"])), 1);
+        assert_eq!(count(yasuo, &buffs(&["x", "league_yasuo_q_ready"])), 2);
+        assert_eq!(count(yasuo, &[]), 0);
+        let ammo = Rule::Total(&[("league_aphelios_b0", 1), ("league_aphelios_b1", 2), ("league_aphelios_b2", 4),
+                                 ("league_aphelios_b3", 8), ("league_aphelios_b4", 16)]);
+        assert_eq!(count(ammo, &buffs(&["league_aphelios_b2", "league_aphelios_b4"])), 20, "20 = 0b10100");
+        assert_eq!(count(ammo, &buffs(&["league_aphelios_b0", "league_aphelios_b0"])), 1, "a name counts once");
+        let blaze = Rule::Prefix("league_brand_bz_");
+        assert_eq!(count(blaze, &buffs(&["league_brand_bz_17", "league_brand_bz_17", "league_brand_b_1"])), 2);
+    }
+
+    #[test]
+    fn foes_read_the_enemy_with_the_most() {
+        let st = Stack {
+            hero: "league_varus",
+            rule: Rule::Ladder { prefix: "league_varus_blight_", rungs: 3, step: 1, full: None },
+            cap: 3,
+            foes: true,
+        };
+        let (a, b) = (buffs(&["league_varus_blight_1"]), buffs(&["league_varus_blight_2", "league_varus_blight_1"]));
+        let mine = buffs(&["league_varus_blight_3"]);
+        let none = [0; 3];
+        assert_eq!(value(&st, &mine, &none, &[&a, &b]), 2, "the most on one enemy, not his own");
+        assert_eq!(value(&st, &mine, &none, &[]), 0);
+        let own = Stack { foes: false, ..st };
+        assert_eq!(value(&own, &mine, &none, &[&a, &b]), 3);
+        assert_eq!(value(&Stack { cap: 2, ..own }, &mine, &none, &[]), 2, "capped");
+    }
+
+    #[test]
+    fn per_divides_the_stat_by_a_stack() {
+        // 赛芬的怒气：一个 buff，攻击力是层数 x 5
+        let mut rage = BuffV1::named("tft_syfen_p_rage");
+        rage.attack = 15;
+        assert_eq!(count(Rule::Per("tft_syfen_p_rage", Stat::Attack, 5), &[rage]), 3);
+        // 麦迪的赏金（攻速倍率）、呲呲的冒险家之魂（护甲）、峡谷先锋的甲壳（受到的伤害减少）
+        let mut bounty = BuffV1::named("tft_maddie_p_bounty");
+        bounty.attack_speed_mult = 45;
+        assert_eq!(count(Rule::Per("tft_maddie_p_bounty", Stat::AttackSpeedMult, 15), &[bounty]), 3);
+        let mut guild = BuffV1::named("tft_zippy_p_guild");
+        guild.defence = 20;
+        assert_eq!(count(Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), &[guild]), 2);
+        let mut shell = BuffV1::named("tft_riftherald_p_shell");
+        shell.damaged_reduce = 12;
+        assert_eq!(count(Rule::Sum("tft_riftherald_p_shell", Stat::DamagedReduce), &[shell]), 12);
+        assert_eq!(count(Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), &[]), 0);
+        guild.defence = 14;
+        assert_eq!(count(Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), &[guild]), 1, "rounded");
+    }
+
+    fn cooldown(unlocked: bool, max_charges: usize, charges: usize) -> Option<CooldownV1> {
+        Some(CooldownV1 { unlocked, max_charges, charges, ..CooldownV1::default() })
+    }
+
+    #[test]
+    fn charges_come_from_the_skill_slot() {
+        assert_eq!(slot_of(0), Some(SkillSlotV1::Skill));
+        assert_eq!(slot_of(2), Some(SkillSlotV1::Ult));
+        assert_eq!(slot_of(3), None);
+        assert_eq!(charges_now(cooldown(true, 3, 2)), 2, "two mushrooms left");
+        assert_eq!(charges_now(cooldown(false, 3, 3)), 0, "the ult not learnt yet");
+        assert_eq!(charges_now(cooldown(true, 1, 1)), 0, "not a skill with charges");
+        assert_eq!(charges_now(cooldown(true, 3, 7)), 3);
+        assert_eq!(charges_now(None), 0, "an old host");
+        let st = Stack { hero: "league_teemo", rule: Rule::Charges(2), cap: 3, foes: false };
+        let mine = buffs(&["league_teemo_r_alive_a"]);
+        assert_eq!(value(&st, &mine, &[0, 0, 2], &[]), 2);
+        assert_eq!(value(&st, &mine, &[3, 3, 0], &[]), 0, "the ult's slot only");
+        assert_eq!(count(Rule::Charges(2), &mine), 0, "no buff counts");
+    }
+
+    #[test]
     fn the_table_is_sound() {
+        // 表里的英雄都以表的前缀开头（league.dll 的 league_，tft.dll 的 tft_：两个 DLL 共用这个文件）
+        let prefix = PREFIX;
         for st in STACKS.iter() {
-            assert!(st.hero.starts_with("league_") && st.cap > 0, "{}", st.hero);
+            assert!(st.hero.starts_with(prefix) && st.cap > 0, "{}", st.hero);
+            // 他自己身上的名字以他开头；敌人身上的可以是附加包起的名字（图奇的毒 league_takedowns_tw_v<n>）
+            let own = |n: &str| if st.foes { n.starts_with(prefix) } else { n.starts_with(st.hero) };
             match st.rule {
-                Rule::Count(b) | Rule::Sum(b, _) => assert!(b.starts_with(st.hero), "{} counts {b}", st.hero),
+                Rule::Count(b) | Rule::Sum(b, _) | Rule::Prefix(b) => assert!(own(b), "{} counts {b}", st.hero),
                 Rule::Ladder { prefix, rungs, step, full } => {
-                    assert!(prefix.starts_with(st.hero) && rungs > 0 && step > 0, "{} climbs {prefix}", st.hero);
-                    assert!(full.is_none_or(|(f, top)| f.starts_with(st.hero) && top <= st.cap), "{}", st.hero);
+                    assert!(own(prefix) && rungs > 0 && step > 0, "{} climbs {prefix}", st.hero);
+                    assert!(full.is_none_or(|(f, top)| own(f) && top <= st.cap), "{}", st.hero);
                 }
+                Rule::Most(names) | Rule::Total(names) => {
+                    assert!(!names.is_empty() && names.iter().all(|&(n, v)| own(n) && v > 0), "{}", st.hero);
+                }
+                Rule::Charges(k) => assert!(slot_of(k).is_some() && !st.foes, "{} charges {k}", st.hero),
+                Rule::Per(b, _, per) => assert!(own(b) && per > 0, "{} counts {b} by {per}", st.hero),
             }
+        }
+        // 同一个英雄的几行挨在一起（表按英雄排序）
+        for w in STACKS.windows(3) {
+            assert!(!(w[0].hero == w[2].hero && w[1].hero != w[0].hero), "{} split", w[0].hero);
         }
     }
 }

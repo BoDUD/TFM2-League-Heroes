@@ -1677,5 +1677,6 @@
       "e_ally": 20,
       "e_ally_r": 25000
     }
-  }
+  },
+  "stack_skill_index": 0
 }

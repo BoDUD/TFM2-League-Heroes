@@ -1199,5 +1199,6 @@
       "q_fuse": 60,
       "q_wall": 15
     }
-  }
+  },
+  "stack_skill_index": 1
 }

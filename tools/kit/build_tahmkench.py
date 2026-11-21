@@ -45,6 +45,7 @@ skill2, R Devour as the ult, E Thick Skin folded into the passive; R saves an al
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -407,6 +408,10 @@ def build(p):
                                      "r_sh_ap": p["r_sh_ap"], "r_sh_t": p["r_sh_t"], "q_stun": p["q_stun"],
                                      "e_near": p["e_near"], "e_cd": p["e_cd"], "store": p["e_store"]}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

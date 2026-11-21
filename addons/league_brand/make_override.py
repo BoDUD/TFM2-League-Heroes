@@ -24,6 +24,7 @@ ADDON = os.path.join(ROOT, "addons", "league_brand")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import build_brand as kit  # noqa: E402
 import setup_brand as setup  # noqa: E402
+import stack_nums  # noqa: E402  (技能栏层数格：这份副本数敌人身上的炽热之焰)
 
 MOD_ID = "league_brand"
 M, W, E, mag = setup.M, setup.W, setup.E, setup.mag
@@ -97,6 +98,7 @@ def main():
         sys.exit("the main pack's Brand has a passive now: update this script (the copy's is the watch)")
     champion["passive"] = {"passive_ref": f"{MOD_ID}:watch", "params": {}}   # diagnostics: SPAWN / WATCH lines
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
+    champion = stack_nums.apply(champion)   # 被动换成本包的以后再定层数格（只有这份副本有）
 
     values = setup.values(p)
     texts = {}

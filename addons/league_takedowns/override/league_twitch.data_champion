@@ -6364,5 +6364,6 @@
   "passive": {
     "passive_ref": "league_takedowns:twitch",
     "params": {}
-  }
+  },
+  "stack_skill_index": 1
 }

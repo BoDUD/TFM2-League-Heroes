@@ -42,6 +42,7 @@ whirl from 100 ms (p_rel 7), the stab from 100 ms (w_rel 7), the slam from 110 m
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -386,6 +387,10 @@ def build(p, native=False, own=()):
                                                             "q_range", "e_range", "e_dur", "r_range", "r_keep",
                                                             "r2_r", "r_cd", "r_dur", "r2_ad", "r2_ad_t")}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

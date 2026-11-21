@@ -1721,6 +1721,7 @@
       "z": 1
     }
   ],
+  "stack_skill_index": 1,
   "passive": {
     "passive_ref": "league_milio:fired",
     "params": {
