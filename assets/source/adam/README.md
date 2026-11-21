@@ -49,7 +49,7 @@
 
 ## 接入（Claude，2026-11-21）
 
-- `tools/art/import_adam.py` 从 `runtime/sprites/ragnarok_adam_native` 和 `ragnarok_adam_fx_native` 出 1 倍帧和高清帧（PPU 1.65，和索尔一样，头顶 33 个游戏像素）。拳风、睁眼的光、闪避气流、模仿标记、反击火花、时间之拳的蓄势和释放按 `cues.json` 画进他自己的帧，跟着他左右翻；睁眼的光和模仿标记逐帧跟着头和身子挪。普攻的命中火花放在目标身上。
+- `tools/art/import_adam.py` 从 `rebuild/ragnarok_adam_native` 和 `rebuild/ragnarok_adam_fx_native` 出 1 倍帧和高清帧（PPU 3.3，头顶 33 个游戏像素）。身体是 Codex 照动画第一季重画的（2026-11-21，原样在 `rebuild/codex/`），`tools/art/adam_rebuild_fix.py` 修：64 帧都贴 `rebuild/head_master.png`（Codex 只有待机第 1 帧用了它，别的帧的头各画各的），后仰的帧同一颗头转角度、补上脖子的缝，眼睛改成白眼底蓝眼珠，技能二和大招的大铁块换回普攻里的指虎，整张收到 64 色。跑步时人在格子里前后晃，`import_adam.py` 的 SHIFT 逐帧挪平。特效图是 `tools/art/adam_repixel.py` 按两倍密度从 `art/` 的原画重出的（`repixel/` 里还留着它重出的上一版身体当参照）。拳风、睁眼的光、闪避气流、模仿标记、反击火花、时间之拳的蓄势和释放画进他自己的帧，跟着他左右翻；睁眼的光和模仿标记逐帧跟着头和身子挪。普攻的命中火花放在目标身上。顺序：`adam_rebuild_fix.py` → `import_adam.py` → `ppu_hd.py --hero adam` → `hero_reels.py --hero adam`。
 - 技能数据 `tools/kit/build_adam.py`，文本和音效 `tools/kit/setup_adam.py`，配音代码 `addons/ragnarok/src/adam.rs`。
 - 音频：`python tools/kit/seed_adam_audio.py`（默认从 `D:/TFM2-Workshop/adam_packs/outputs/adam_assets` 拷，先核对 SHA-256）。用到 12 条音效（普攻只用第一组）和全部七句配音。
 - 选人立绘 `ragnarok/banpick_illustrations/ragnarok_adam.png` 是 `tools/art/bp_illustrations.py` 从 `art/illustration/` 的原图裁的，和 `runtime/banpick_illustrations/` 那张逐像素一样。技能图标用 `runtime/icons/` 的 skill / skill2 / ult；被动图标不装，游戏只有三个技能图标位。

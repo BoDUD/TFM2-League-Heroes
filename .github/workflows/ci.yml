@@ -141,7 +141,7 @@ jobs:
         run: cargo test --manifest-path addons/Cargo.toml -p league_dragons
       - name: The tft pack's tft.dll (its heroes' rules, its dense-frame table)
         run: cargo test --manifest-path addons/Cargo.toml -p tft
-      - name: The ragnarok pack's ragnarok.dll (Lu Bu's Shield Breaker, Thor's voice, Zeus's three bodies, Adam's voice, its dense-frame table)
+      - name: The ragnarok pack's ragnarok.dll (Lu Bu's Shield Breaker, Thor's voice, Zeus's three bodies, Adam's voice, Poseidon's A God Needs No One, Kojiro's Prediction and two swords, its dense-frame table)
         run: cargo test --manifest-path addons/Cargo.toml -p ragnarok
 
   package:

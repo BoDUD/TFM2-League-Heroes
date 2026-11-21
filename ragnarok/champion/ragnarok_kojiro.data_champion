@@ -1,0 +1,631 @@
+{
+  "id": "ragnarok_kojiro",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_kojiro:predict",
+    "params": {
+      "p_per": 3,
+      "p_max": 8
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_kojiro",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_kojiro_skill",
+    "asset/ragnarok/icons/ragnarok_kojiro_skill2",
+    "asset/ragnarok/icons/ragnarok_kojiro_ult"
+  ],
+  "stat": {
+    "attack": 98,
+    "magic_power": 0,
+    "hp": 1200,
+    "defence": 40,
+    "magic_resistance": 32,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 110,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_kojiro.attack",
+    "duration": 36,
+    "cooltime": 60,
+    "start_timing": 14,
+    "cancelable": true,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "ragnarok_kojiro_niten",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100,
+            "hp_ratio": 0,
+            "target_hp_ratio": 0,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "Sfx",
+            "name": "ragnarok_kojiro_a2"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "ragnarok_kojiro_a_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "ragnarok_kojiro_a_hit"
+          },
+          {
+            "type": "Delayed",
+            "tick": 6,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 40,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "ragnarok_kojiro_a_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "ragnarok_kojiro_a_hit2"
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100,
+            "hp_ratio": 0,
+            "target_hp_ratio": 0,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "Sfx",
+            "name": "ragnarok_kojiro_a"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "ragnarok_kojiro_a_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "ragnarok_kojiro_a_hit"
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_kojiro.skill",
+    "duration": 38,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_kojiro_q1"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 36000,
+                  "range": 700
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 60,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "ragnarok_kojiro_q_hit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 22,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_kojiro_q2"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 36000,
+                  "range": 700
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 60,
+                  "attack_ratio": 90,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "ragnarok_kojiro_q_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    },
+                    "move_speed_mult": -35
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "ragnarok_kojiro_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "TargetSfx",
+              "name": "ragnarok_kojiro_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_kojiro.skill2",
+    "duration": 41,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_kojiro_e"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "ragnarok_kojiro_e_read",
+                "duration": {
+                  "Time": {
+                    "tick": 150
+                  }
+                },
+                "damaged_reduce": 30,
+                "attack_speed_mult": 50
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_kojiro_e_dodge"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_kojiro.ult",
+    "duration": 48,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_kojiro_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 23
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_kojiro_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_kojiro_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_kojiro_r1"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 80,
+                            "attack_ratio": 100,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_kojiro_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_kojiro_r1"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 80,
+                            "attack_ratio": 100,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_kojiro_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_kojiro_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 28,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_kojiro_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_kojiro_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_kojiro_r2"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 120,
+                            "attack_ratio": 140,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 36
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_kojiro_r_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_kojiro_r_hit"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_kojiro_niten",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "attack_speed_mult": 30
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_kojiro_r2"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 120,
+                            "attack_ratio": 140,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 36
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_kojiro_r_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_kojiro_r_hit"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_kojiro_niten",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "attack_speed_mult": 30
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_kojiro_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_kojiro_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_kojiro_fx",
+      "tag": "steel_impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_kojiro_q_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_kojiro_fx",
+      "tag": "steel_impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_kojiro_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_kojiro_fx",
+      "tag": "steel_impact",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

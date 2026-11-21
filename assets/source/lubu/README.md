@@ -29,3 +29,17 @@ Codex 做的 4 倍高清图集（4096 x 4096）是原画逐像素放大 4 倍，
   画面直线上（`tools/kit/build_lubu.py` 的 `r_wave`），1 倍，转向跟着斩的方向。
 - 选人立绘：Codex 选定的原图（`raw/card_selected.png`，1157 x 1359）用 `tools/art/bp_illustrations.py` 裁成卡面，
   在 `ragnarok/banpick_illustrations/ragnarok_lubu.png`。
+
+## 照动画第一季重画（2026-11-21，`rebuild/`）
+
+Codex 照首季设定重画了全部 64 帧（紫色鳞纹、金色双翎、单侧月牙方天戟），两倍格子：一格 256，脚底点 (128, 232)，个子和
+原来一样（PPU 3.88，特效 3.3）。
+
+- `rebuild/codex/ragnarok_lubu_native`：Codex 交来的原样，不改。`CODEX_HANDOFF.md`、`checks.csv`（每帧戟的位置和角度）、
+  `weapon_master.png`（那把戟，64 帧都是它原样转过去的）也是交付原样。
+- `rebuild/ragnarok_lubu_native`：`tools/art/lubu_rebuild_fix.py` 从上面那张做出来的：Codex 每帧的脸都单独画、大小不一，
+  跑起来脸在变形，整套只用跑步第 1 帧的头（倒地低头的几帧用同一个头转过去）。
+- `rebuild/ragnarok_lubu_fx_native`：特效图，`tools/art/lubu_fx.py` 照 Codex 的原画（游戏目录下 Codex 的检出，只读）按两倍重出。
+
+顺序：`python tools/art/lubu_rebuild_fix.py`、`python tools/art/import_lubu.py`、`python tools/art/ppu_hd.py --hero lubu`、
+`python tools/art/hero_reels.py --hero lubu`。烤进身体的特效位置按新画的帧量过（`import_lubu.py` 的 `BAKE`）。
