@@ -10,16 +10,23 @@
 //! run / hit 换成 `r_*`（新名字用游戏同一个堆分配，旧的照游戏的做法释放）。高清帧不用另管：league.dll 把登记英雄动画表里每个动作
 //! （r_idle 也在内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。
 //!
-//! 后空翻（0.7.0，用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」）：旋翔掠杀踢中后本包把她往后挪 20 tick，这段时间
-//! 游戏看来不往下播强制动作（从游戏里两版的样子推的），画面停在第一帧，挪完才把剩下的几帧一闪播掉。lib.rs 每 tick 给她挂这一帧的标记
-//! `league_quinn_flip<k>`，这里看到就把正在播的动画换成单帧标签 `e_flip_<k>`（图里 e_flip 第 k 帧的复制，
-//! tools/art/rig_quinn.py 的 FLIP_ONE）：一个标签只有一帧，停不停都是这一帧。标记没了、画面还停在单帧标签上，就换回游戏
-//! 自己最后写进来的名字。
+//! 后空翻（用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」，11-21：「我看局内是不会后空翻的」）：旋翔掠杀踢中后她往后
+//! 翻 20 tick。lib.rs 每 tick 给她挂这一帧的标记 `league_quinn_flip<k>`，这里看到就把正在播的动画换成单帧标签 `e_flip_<k>`
+//! （图里 e_flip 第 k 帧的复制，tools/art/rig_quinn.py 的 FLIP_ONE）：一个标签只有一帧，游戏的动画时间走不走都是这一帧；阵亡
+//! 时不换。标记没了、画面还停在单帧标签上，就换回游戏自己最后写进来的名字。
+//!
+//! 游戏怎么画身体见 game_places/src/hook.rs 开头（0.7.3 的反汇编）：每帧按实体值里的动画名和动画时间取帧，名字不以 idle /
+//! run / loop 结尾的不循环——这里换了名字，身体下一帧就照新名字画，单帧标签画的就是那一帧。
+//!
+//! 日志 `FLIP display`：每次翻画了哪几帧、画了多少帧画面、她在画面上走过的位置、动画时间和播放速度；前两次每帧一行 `FLIP raw`。
+//! 0.7.1 的日志（11-21）：帧是换上了，可她在画面上整个后空翻都钉在原地（13 次里 11 次挪 0）——那时本包逐 tick 直接改坐标，
+//! 画面不跟；0.7.2 起 lib.rs 改用强制位移，画面上是连着退的。
 
 use std::sync::{Mutex, Once};
 
 use super::{flip_buff, wlog, FLIP_MS, RIDE};
-use game_places::hook::{Ent, VALUE, NAME_PTR, NAME_LEN_AT, ANIM_CAP, ANIM_PTR, ANIM_LEN, BUFFS_PTR, BUFFS_LEN, BUFF_SIZE};
+use game_places::hook::{Ent, VALUE, NAME_PTR, NAME_LEN_AT, ANIM_CAP, ANIM_PTR, ANIM_LEN, ANIM_SPEED, ANIM_TIME, BUFFS_PTR, BUFFS_LEN,
+                        BUFF_SIZE, POS_X, POS_Y};
 
 /// 显示更新函数和它的槽：游戏版本不同地址不同，由 game_places::display() 在加载时找（2026-10-20，以前写死 0.6.4 的
 /// rva 0x23312a0 / 0x3c82db8 和函数开头 24 个字节）。
@@ -51,10 +58,15 @@ pub fn is_flip_tag(s: &str) -> bool {
     s.strip_prefix("e_flip_").is_some_and(|d| !d.is_empty() && d.bytes().all(|b| b.is_ascii_digit()))
 }
 
-/// 正在播的 `cur`、正在翻第几帧（`flip`）、骑没骑着、游戏自己最后写进来的名字 `base` → 该播的名字（不用换是 None）。
-/// 翻着就画这一帧；翻完了画面还停在单帧标签上，换回 `base`（没有就站着）；别的时候照骑乘换。
+/// 阵亡：标记还在也不画后空翻。
+pub const DEAD: &str = "dead";
+
+/// 正在播的 `cur`、数据挂的逐帧标记（帧号最大的那个，`flip`）、骑没骑着、游戏自己最后写进来的名字 `base` → 该播的名字
+/// （不用换是 None）。有标记就画这一帧：踢中后这 36 tick 她不能普攻、不能放技能（数据挂了 BlockAttack / BlockSkill），游戏
+/// 自己播的只会是 e_flip、被挪时也许是 run / idle、挨打 hit，都换成这一帧；只有阵亡不换。没有标记、画面还停在单帧标签上，
+/// 换回 `base`（没有就站着）；别的时候照骑乘换。
 pub fn want_anim(cur: &str, flip: Option<usize>, riding: bool, base: Option<&str>) -> Option<String> {
-    match flip {
+    match flip.filter(|_| base != Some(DEAD) && cur != DEAD) {
         Some(k) => {
             let w = flip_tag(k);
             (w != cur).then_some(w)
@@ -64,6 +76,44 @@ pub fn want_anim(cur: &str, flip: Option<usize>, riding: bool, base: Option<&str
     }
 }
 
+/// 前几次翻每帧记一行（名字、帧号、位置、动画时间、速度）。
+const RAW_FLIPS: u32 = 2;
+/// 一次翻最多记几个位置。
+const PATH_MAX: usize = 40;
+
+/// 画面上的一次后空翻：画过的帧号（按先后、不重复）、画了几帧画面、走过的位置（变了才记：第几帧画面、x、y）、开始时的
+/// 动画时间。
+#[derive(Clone)]
+struct FlipSeen {
+    frames: Vec<usize>,
+    draws: u32,
+    path: Vec<(u32, f32, f32)>,
+    time0: f32,
+    raw: bool,
+}
+
+/// 走过的位置写成一行：`0:(145.5,89.9) 2:(143.2,90.1) …`。
+pub fn path_text(path: &[(u32, f32, f32)]) -> String {
+    path.iter().map(|(n, x, y)| format!("{n}:({x:.1},{y:.1})")).collect::<Vec<_>>().join(" ")
+}
+
+/// 一共挪了多远（首尾直线）。
+pub fn path_moved(path: &[(u32, f32, f32)]) -> f32 {
+    match (path.first(), path.last()) {
+        (Some(a), Some(b)) => ((b.1 - a.1).powi(2) + (b.2 - a.2).powi(2)).sqrt(),
+        _ => 0.0,
+    }
+}
+
+/// 显示世界里的一个奎因：游戏自己最后写进来的动画名、正在画的后空翻、有标记却没画的那次记过没有。
+struct Game {
+    world: usize,
+    key: u64,
+    base: String,
+    flip: Option<FlipSeen>,
+    missed: bool,
+}
+
 struct Stats {
     calls: u64,
     seen: u64,
@@ -71,12 +121,13 @@ struct Stats {
     last: Option<std::time::Instant>,
     /// 每个（显示世界, 实体号）上次记下的形态：变了才记一行 FORM。
     looks: Vec<(usize, u64, bool)>,
-    /// 每个（显示世界, 实体号）：游戏自己最后写进来的动画名、上一帧是不是在翻（翻的开头和结尾各记一行 FLIP）。
-    games: Vec<(usize, u64, String, bool)>,
+    games: Vec<Game>,
+    raw_flips: u32,
 }
 
-static STATS: Mutex<Stats> =
-    Mutex::new(Stats { calls: 0, seen: 0, writes: 0, last: None, looks: Vec::new(), games: Vec::new() });
+static STATS: Mutex<Stats> = Mutex::new(Stats {
+    calls: 0, seen: 0, writes: 0, last: None, looks: Vec::new(), games: Vec::new(), raw_flips: 0,
+});
 static HOOK: Once = Once::new();
 
 #[link(name = "kernel32")]
@@ -88,6 +139,10 @@ extern "system" {
 
 unsafe fn q(addr: usize) -> usize {
     std::ptr::read_unaligned(addr as *const usize)
+}
+
+unsafe fn rf(addr: usize) -> f32 {
+    std::ptr::read_unaligned(addr as *const f32)
 }
 
 fn plausible(p: usize) -> bool {
@@ -148,29 +203,77 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
                 }));
             }
         }
-        let flip = (0..FLIP_MS.len()).find(|&k| has(&flip_buff(k)));
-        // 游戏自己写进来的名字（不是本包换上去的单帧标签）记下来：翻完了换回它
-        let gi = match st.games.iter().position(|g| g.0 == world && g.1 == key) {
+        // 本包每 tick 挂的这一帧的标记（换帧的那一 tick 新旧可能都在，取帧号大的）
+        let flip = (0..FLIP_MS.len()).rev().find(|&k| has(&flip_buff(k)));
+        // 游戏自己写进来的名字（不是本包换上去的单帧标签）记下来：翻完换回它
+        let gi = match st.games.iter().position(|g| g.world == world && g.key == key) {
             Some(i) => i,
             None => {
-                st.games.push((world, key, String::new(), false));
+                st.games.push(Game { world, key, base: String::new(), flip: None, missed: false });
                 if st.games.len() > 64 {
                     st.games.remove(0);
                 }
                 st.games.len() - 1
             }
         };
-        if !is_flip_tag(cur) && st.games[gi].2 != cur {
-            st.games[gi].2 = cur.to_string();
+        if !is_flip_tag(cur) && st.games[gi].base != cur {
+            st.games[gi].base = cur.to_string();
         }
-        if st.games[gi].3 != flip.is_some() {
-            st.games[gi].3 = flip.is_some();
-            if let Some(k) = super::counted("flip_view") {
-                wlog(format!("FLIP display world {world:#x} Quinn #{key}: {} (the game plays {}) #{k}",
-                             if flip.is_some() { "drawn frame by frame (e_flip_0 ...)" } else { "over" }, st.games[gi].2));
+        let base = st.games[gi].base.clone();
+        let drawn = flip.filter(|_| base != DEAD && cur != DEAD);
+        let at = (rf(v + POS_X), rf(v + POS_Y));
+        let (time, speed) = (rf(v + ANIM_TIME), rf(v + ANIM_SPEED));
+        let raw_free = st.raw_flips < RAW_FLIPS;
+        let mut raw_done = false;
+        let g = &mut st.games[gi];
+        if let Some(k) = drawn {
+            if let Some(f) = g.flip.as_mut() {
+                if f.frames.last() != Some(&k) {
+                    f.frames.push(k);
+                }
+                if f.path.last().is_some_and(|l| (l.1, l.2) != at) && f.path.len() < PATH_MAX {
+                    f.path.push((f.draws, at.0, at.1));
+                }
+                f.draws += 1;
+            } else {
+                g.flip = Some(FlipSeen { frames: vec![k], draws: 1, path: vec![(0, at.0, at.1)], time0: time, raw: raw_free });
+                g.missed = false;
+                if let Some(n) = super::counted("flip_view") {
+                    wlog(format!("FLIP display world {world:#x} Quinn #{key}: drawn from frame {k} (the game plays {base}) at \
+                                  ({:.1}, {:.1}), animation time {time:.3} speed {speed:.3} #{n}", at.0, at.1));
+                }
             }
+        } else if let Some(mut f) = g.flip.take() {
+            if f.path.last().is_some_and(|l| (l.1, l.2) != at) {
+                f.path.push((f.draws, at.0, at.1));
+            }
+            if let Some(n) = super::counted("flip_view_done") {
+                wlog(format!("FLIP display world {world:#x} Quinn #{key}: over - frames {:?} over {} display frames, moved \
+                              {:.1} on screen, path {}; animation time {:.3} -> {time:.3} speed {speed:.3}; the game plays \
+                              {base} #{n}", f.frames, f.draws, path_moved(&f.path), path_text(&f.path), f.time0));
+            }
+            raw_done = f.raw;
+        } else if let (Some(k), false) = (flip, g.missed) {
+            // 有标记却没画（阵亡），每次翻只记一行
+            g.missed = true;
+            if let Some(n) = super::counted("flip_view_missed") {
+                wlog(format!("FLIP display world {world:#x} Quinn #{key}: flag {k} on her but the game plays {base} - not \
+                              drawn #{n}"));
+            }
+        } else if flip.is_none() {
+            g.missed = false;
         }
-        let base = st.games[gi].2.clone();
+        let raw_now = g.flip.as_ref().is_some_and(|f| f.raw);
+        if raw_done {
+            st.raw_flips += 1;
+        }
+        // 前两次翻每帧一行：游戏写的名字、帧号、位置、动画时间和播放速度，还有身体绘制读的那几个字节（+0x1b8 起 10 个：
+        // 朝向大概在里面，下次对着冲过来的方向认）
+        if raw_now {
+            let bytes: Vec<String> = (0..10).map(|i| format!("{:02x}", *((v + 0x1b8 + i) as *const u8))).collect();
+            wlog(format!("FLIP raw Quinn #{key} {cur} k={} at ({:.1}, {:.1}) time {time:.3} speed {speed:.3} bytes@1b8 {}",
+                         drawn.map_or(-1, |k| k as i64), at.0, at.1, bytes.join(" ")));
+        }
         let Some(want) = want_anim(cur, flip, form, Some(base.as_str()).filter(|b| !b.is_empty())) else { continue };
         let heap = GetProcessHeap();
         let fresh = HeapAlloc(heap, 0, want.len());
@@ -237,12 +340,15 @@ mod tests {
 
     #[test]
     fn the_flip_is_drawn_frame_by_frame_then_handed_back() {
-        // 翻着：不管游戏在播什么（冲刺、e_flip、走路）都画这一帧
+        // 身上有标记：游戏播的是 e_flip、被挪时的 run / idle、挨打，都画这一帧
         assert_eq!(want_anim("e_flip", Some(0), false, Some("e_flip")).as_deref(), Some("e_flip_0"));
-        assert_eq!(want_anim("skill2", Some(2), false, Some("skill2")).as_deref(), Some("e_flip_2"));
+        assert_eq!(want_anim("run", Some(1), false, Some("run")).as_deref(), Some("e_flip_1"));
+        assert_eq!(want_anim("hit", Some(5), false, Some("hit")).as_deref(), Some("e_flip_5"));
         assert_eq!(want_anim("e_flip_2", Some(3), false, Some("e_flip")).as_deref(), Some("e_flip_3"));
         assert_eq!(want_anim("e_flip_3", Some(3), false, Some("e_flip")), None);
-        assert_eq!(want_anim("r_idle", Some(1), true, Some("r_idle")).as_deref(), Some("e_flip_1"));
+        // 阵亡：标记还在也不画；画面上本包换上去的单帧标签换回游戏的
+        assert_eq!(want_anim("dead", Some(4), false, Some("dead")), None);
+        assert_eq!(want_anim("e_flip_4", Some(4), false, Some("dead")).as_deref(), Some("dead"));
         // 翻完：换回游戏自己最后写进来的名字，没有就站着
         assert_eq!(want_anim("e_flip_6", None, false, Some("idle")).as_deref(), Some("idle"));
         assert_eq!(want_anim("e_flip_6", None, false, Some("e_flip")).as_deref(), Some("e_flip"));
@@ -251,6 +357,11 @@ mod tests {
         assert_eq!(want_anim("idle", None, true, Some("idle")).as_deref(), Some("r_idle"));
         assert_eq!(want_anim("e_flip", None, false, Some("e_flip")), None);
         assert!(is_flip_tag("e_flip_0") && is_flip_tag("e_flip_12"));
+        // 日志里走过的位置
+        let path = [(0u32, 145.5f32, 89.9f32), (2, 143.1, 89.9), (21, 97.5, 89.9)];
+        assert_eq!(path_text(&path), "0:(145.5,89.9) 2:(143.1,89.9) 21:(97.5,89.9)");
+        assert!((path_moved(&path) - 48.0).abs() < 1e-3);
+        assert_eq!(path_moved(&[]), 0.0);
         assert!(!is_flip_tag("e_flip") && !is_flip_tag("e_flip_") && !is_flip_tag("hd_e_flip_1") && !is_flip_tag("e_flip_x"));
     }
 }

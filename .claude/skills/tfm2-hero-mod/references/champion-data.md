@@ -1188,16 +1188,29 @@ dashes only when no champion is within the spin's radius, with `MoveTo` (to wher
 within one pulse: a `MoveToTarget` after a runner went on past the spin's end), restarts the spin
 only where a dash ends while the spin lasts, and takes it off at the spin's end: dashes on 10% of the
 spin's ticks. league_garen E still dashes every pulse.
-An add-on's per-tick `entity_set_pos` looks the same (league_quinn E, 2026-11-20, *inferred from two reports*): the
-flip started at the kick with a 12-tick move back read 「翻了，但一闪而过」 (18 ticks of flip, 6 left after the move) and
-the 36-tick flip with a 20-tick move 「往后拉距离…没动画」. league_quinn 0.7.0 draws it frame by frame instead: one-frame
-copies of the flip's frames (`e_flip_0` ... `e_flip_6`, tools/art/rig_quinn.py `FLIP_ONE`, the same rects' pixels in
-1x / hd_ / lo_), a per-tick flag `league_quinn_flip<k>` and the display hook (view.rs) writing `e_flip_<k>` as the
-playing animation - a one-frame tag shows its frame whether the clock runs or not; when the flag goes, the name the game
-last wrote goes back. The kit also takes the cast's 60-tick `skill2` off at the kick (`RemoveCasterAnimation`, league_sett
-R's way) so it cannot come back after the flip. 67 dash + multi-frame `CasterAnimation` pairs in the League kits (a
-dash of 8+ ticks, a forced animation of 3+ frames and 10+ ticks: league_volibear Q's run, league_rammus Q's roll,
-league_vi R, league_nocturne R ...) would show their first frame the same way if this holds.
+**An add-on's `entity_set_pos` is not drawn; a forced move is (league_quinn E, 2026-11-21, read from the display hook's
+log).** The vault back after her kick was 20 per-tick `entity_set_pos` steps of 2400. On screen she stayed on the kick's spot
+through the whole 36-tick flip in 11 of 13 flips (`moved 0.0 on screen`, the body's position at +0x17c / +0x180 of the
+display entity) and jumped to the landing spot when she next walked or acted - what the user had called 「往后拉距离…
+没动画」 since the vault existed. The display follows walking and `ForceMove` events only. league_quinn 0.7.2 applies one
+`CcKindV1::ForceMove` (dx, dy = the whole way, speed 2400, 20 ticks) at the kick and steps her itself only on a tick the
+host did not move her (the way league_talon_vault and league_leesin_hop finish theirs). league_kalista's hop and
+league_leesin_hop's insec follow still move by `entity_set_pos`.
+**The flip is drawn frame by frame**: one-frame copies of the flip's frames (`e_flip_0` ... `e_flip_6`, tools/art/rig_quinn.py
+`FLIP_ONE`, 1x / hd_ / lo_), a flag `league_quinn_flip<k>` the add-on lays every tick and the display hook (view.rs) writing
+`e_flip_<k>` as the playing animation; when the flag goes, the name the game last wrote goes back. The flags are native:
+0.7.1 laid them from the data (`Delayed` `AddCasterBuff`s in the dash's `end_effects`) and 7 of 13 flips got frame 0 only -
+an `AddCasterBuff` whose target is dead is skipped (section 4's note on effects on a dying unit), and a kicked minion often
+dies. The kit also takes the cast's 60-tick `skill2` off at the kick (`RemoveCasterAnimation`, league_sett R's way).
+**How the game draws a body (0.7.3 EXE, disassembled 2026-11-21; addons/game_places/src/hook.rs has the offsets):** the
+body draw (rva 0x2751f90) asks the frame picker (0x2789460) with the display entity's animation name (+0x68) and its
+animation time (+0x170, f32 seconds); the entity update (0x2756ae0) adds `speed (+0x174) x dt` to that time every frame.
+**An animation loops only when its name ends in `idle`, `run` or `loop`** - any other name holds its last frame once its
+frames ran out. So a name a display hook writes is drawn from the next frame on, and whether it loops is its own suffix's
+business (`b_run` loops, `skill_roll` or `e_flip_3` do not). 67 dash + multi-frame `CasterAnimation` pairs in the League
+kits (a dash of 8+ ticks, a forced animation of 3+ frames and 10+ ticks: league_volibear Q's run, league_vi R,
+league_nocturne R ...) - whether a forced animation's time runs during a `ForceMove` is still not measured (the
+league_wukong / league_garen notes above are inferences); league_quinn's `FLIP raw` lines log time and speed per frame.
 Make the spin reach past the cast distance. The AI starts an action at `range` plus both units'
 radii (league_garen E, range 28000, began with its target about 45 px away, centre to centre), so
 a 30000 spin missed whoever stood at its edge and players still called the skill useless, though
