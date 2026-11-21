@@ -43,3 +43,7 @@
 - 日志 `REND #n: the empowered W's first strike broke 1 shield layer(s), 230 in all`。测试 `the_empowered_ws_first_strike_breaks_shields`。
 
 经典引擎跑不了原生代码；下一局看 `REND` 行。怒气脱战 12 秒后才慢慢掉（英雄联盟）没做：怒气的计时在普攻的效果树里，普攻现在不能动。
+
+## 0.1.5：过日更快（2026-11-22）
+
+玩法不变。怒气阶梯的每一阶（原来比每个名字都拼一次字符串，现在先拼好一次再比）。

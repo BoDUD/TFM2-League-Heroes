@@ -51,3 +51,7 @@
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_quinn` 文件夹放进 `<游戏目录>\mods\`（文件夹里要有 `league_quinn.dll`、`mod.mod_info`、
    `mod.override_info`、`override\`、`text\`）。
 3. 进游戏，鼠标停在奎因的大招上，说明开头是【扩展包】就说明副本生效了；打一局后看日志里的 RIDE / RIDE AI / OUT ON FOOT / FORM。
+
+## 0.7.3：过日更快（2026-11-22）
+
+玩法不变。看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查（过日时别的比赛里每 tick 都在比）。

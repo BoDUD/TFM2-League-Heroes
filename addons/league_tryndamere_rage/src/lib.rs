@@ -45,8 +45,11 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_tryndamere_rage") 
 
 /// 主包蛮王的名字（buff、特效、音效都以它开头）。
 fn tr(x: &str) -> String {
-    format!("league_tryndamere_{x}")
+    format!("{TR_PREFIX}{x}")
 }
+
+/// 本包所有名字的开头（[`tr`]）。
+const TR_PREFIX: &str = "league_tryndamere_";
 
 // ===================== 日志 =====================
 
@@ -260,7 +263,17 @@ fn buff_names(sim: &StableSim<'_>, id: usize) -> Vec<String> {
 
 /// 身上怒气最高的那一层（`f_1`..`f_n` 全在身上，最高一层就是层数）。
 pub fn fury_of(names: &[String], f_n: usize) -> usize {
-    (1..=f_n).rev().find(|k| names.iter().any(|b| *b == tr(&format!("f_{k}")))).unwrap_or(0)
+    // 1..=f_n 里身上有的最大的那一层。原来每一层、每个名字都拼两次字符串比（2026-11-22 过日采样：每 tick 几百次分配）
+    names.iter().filter_map(|b| fury_level(b)).filter(|k| (1..=f_n).contains(k)).max().unwrap_or(0)
+}
+
+/// `tr("f_<k>")` 里的 k：只认 `format!("f_{k}")` 写出来的样子（十进制数字、不带前导 0），和原来逐个拼出来比的结果一样。
+fn fury_level(name: &str) -> Option<usize> {
+    let d = name.strip_prefix(TR_PREFIX)?.strip_prefix("f_")?;
+    if d.is_empty() || !d.bytes().all(|c| c.is_ascii_digit()) || (d.len() > 1 && d.starts_with('0')) {
+        return None;
+    }
+    d.parse().ok()
 }
 
 /// 打断施法的控制。
@@ -408,7 +421,8 @@ impl Guard {
         }
         let top = self.seen.iter().map(|s| s.1).fold(hp, f64::max);
         let names = buff_names(sim, me);
-        let has = |x: &str| names.iter().any(|b| *b == tr(x));
+        // b == tr(x)：前缀对上、剩下的等于 x 就是（原来每比一个名字就拼一次 tr(x)）
+        let has = |x: &str| names.iter().any(|b| b.strip_prefix(TR_PREFIX) == Some(x));
         let n = Now {
             hp,
             top,
@@ -489,7 +503,8 @@ pub fn parse_mark(name: &str) -> Option<Params> {
 impl StableEffectType for RageEnd {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
         let names = buff_names(sim, caster);
-        let Some(mark) = names.iter().find(|b| b.starts_with(&tr("rg_p"))).cloned() else { return };
+        let rg_p = tr("rg_p");
+        let Some(mark) = names.iter().find(|b| b.starts_with(&rg_p)).cloned() else { return };
         let Some(p) = parse_mark(&mark) else { return };
         let mut cd = BuffV1::timed(&tr("q_cd"), p.q_cd);
         cd.duration_kind = BuffDurationV1::Time.code();
@@ -758,8 +773,9 @@ impl StablePlayerAi for UltAi {
             let (now, max) = me.hp();
             let hp = if max > 0 { now as f64 * 100.0 / max as f64 } else { 100.0 };
             let names = buff_names(&sim, me.id());
-            let raging = names.iter().any(|b| *b == tr("r_rage"));
-            let busy = raging || names.iter().any(|b| *b == tr("r_armed"));
+            // b == tr(x)：前缀对上、剩下的等于 x 就是（原来每比一个名字就拼一次 tr(x)）
+            let raging = names.iter().any(|b| b.strip_prefix(TR_PREFIX) == Some("r_rage"));
+            let busy = raging || names.iter().any(|b| b.strip_prefix(TR_PREFIX) == Some("r_armed"));
             // `is_valid_input` does not look at cooldowns (league_pyke): the slot's own state decides
             let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
             let (id, team) = (me.id(), me.team());
@@ -902,6 +918,32 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn fury_and_has_are_the_old_string_compares() {
+        // 原来：fury_of 逐层拼 tr(format!("f_{k}")) 比，has 逐个拼 tr(x) 比。不拼字符串的写法结果一样（含写法不规范的名字）
+        let old_fury = |names: &[String], f_n: usize| {
+            (1..=f_n).rev().find(|k| names.iter().any(|b| *b == tr(&format!("f_{k}")))).unwrap_or(0)
+        };
+        let s = |v: &[&str]| v.iter().map(|x| x.to_string()).collect::<Vec<_>>();
+        let sets = [
+            s(&[]),
+            s(&["league_tryndamere_f_1", "league_tryndamere_f_2", "league_tryndamere_f_3"]),
+            s(&["league_tryndamere_f_05", "league_tryndamere_f_0", "league_tryndamere_f_", "league_tryndamere_f_+3"]),
+            s(&["league_tryndamere_f_10", "league_tryndamere_f_9", "x", "league_tryndamere_f_3x", "league_tryndamere_f_7"]),
+            s(&["league_tryndamere_f_99999999999999999999999", "league_tryndamere_f_2", "league_tryndamere_q_cd"]),
+            s(&["league_tryndamere_r_armed", "league_tryndamere_r_rage", "league_tryndamere_", "r_rage"]),
+        ];
+        for names in &sets {
+            for f_n in [0, 1, 2, 3, 5, 9, 10, 12] {
+                assert_eq!(fury_of(names, f_n), old_fury(names, f_n), "{names:?} f_n={f_n}");
+            }
+            for x in ["r_armed", "r_rage", "q_cd", "", "f_2"] {
+                let old = names.iter().any(|b| *b == tr(x));
+                assert_eq!(names.iter().any(|b| b.strip_prefix(TR_PREFIX) == Some(x)), old, "{names:?} {x}");
+            }
+        }
+    }
 
     fn now(hp: f64) -> Now {
         Now { hp, top: hp, enemy_near: true, armed: true, r_free: false, raging: false, q_cd: false, fury: 3, controlled: false }

@@ -317,12 +317,11 @@ pub fn should_travel(me: Pt, hp_pct: usize, far: Pt, foes: &[Pt]) -> Option<&'st
     None
 }
 
-fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
-    sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect())
-}
-
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    buffs(sim, id).iter().any(|b| b.name() == name)
+    // 一个个看、找到就停，按字节比（原来先把身上所有 buff 收进一个 Vec 再逐个做 UTF-8 检查；2026-11-22 过日采样）
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes())
+    })
 }
 
 fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
@@ -525,7 +524,7 @@ impl Fury {
                 continue;
             }
             let id = u.id();
-            if (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| b.name() == PREY) {
+            if (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == PREY.as_bytes()) {
                 self.prey.insert(id, now + p.prey_t);
             }
             if self.prey.get(&id).is_none_or(|&until| until < now) {

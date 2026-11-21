@@ -477,9 +477,19 @@ pub const ATTACK_RANGE: [(&str, u64); 173] = [
 /// 远程：盯住的目标走出普攻距离这么多就不追。
 pub const RANGED_KEEP: f64 = 10_000.0;
 
+/// [`ATTACK_RANGE`] 按名字查的表：原来每次在 173 个英雄里一个个比名字，decide 每次 think 要查好几回（2026-11-22 过日采样）。
+/// 同名的只留表里第一个，和原来的 find 一样。
+static ATTACK_RANGE_BY_NAME: LazyLock<HashMap<&'static str, u64>> = LazyLock::new(|| {
+    let mut m = HashMap::with_capacity(ATTACK_RANGE.len());
+    for &(n, r) in ATTACK_RANGE.iter() {
+        m.entry(n).or_insert(r);
+    }
+    m
+});
+
 /// 主包数据里的普攻距离（不是主包的英雄就 `None`）。
 pub fn attack_range(name: &str) -> Option<u64> {
-    ATTACK_RANGE.iter().find(|(n, _)| *n == name).map(|&(_, r)| r)
+    ATTACK_RANGE_BY_NAME.get(name).copied()
 }
 
 /// 交给站桩规则管的英雄：主包所有英雄。
@@ -1257,9 +1267,20 @@ fn busy(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| BUSY.iter().any(|k| k.code() == c.kind)))
 }
 
-/// The attack range her buffs add.
-fn buff_range(e: &StableEntity<'_, '_>) -> f64 {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.range as f64).sum()
+/// 身上的 buff 看一遍：骑没骑在队友身上（`YUUMI_RIDE`），buff 一共加了多少普攻距离（the attack range her buffs add）。
+/// decide 原来为这两样每次 think 扫四遍（骑乘一遍、加的距离三遍；2026-11-22 过日采样里占本包的一半）。
+fn ride_and_range(e: &StableEntity<'_, '_>) -> (bool, f64) {
+    ride_and_range_of((0..e.buff_count()).filter_map(|i| e.buff_at(i)))
+}
+
+/// [`ride_and_range`] 的计算：距离按 buff 的顺序加，起点和标准库的 `sum()` 一样（结果和原来 `.map(..).sum()` 逐位相同）。
+pub fn ride_and_range_of(buffs: impl Iterator<Item = BuffV1>) -> (bool, f64) {
+    let (mut riding, mut range) = (false, std::iter::empty::<f64>().sum::<f64>());
+    for b in buffs {
+        riding |= name_of(&b) == YUUMI_RIDE.as_bytes();
+        range += b.range as f64;
+    }
+    (riding, range)
 }
 
 /// buff 的名字（字节）：比的都是 ASCII 常量，不用每个 buff 都做一遍 UTF-8 检查（2026-11-22 过日采样）。
@@ -1725,8 +1746,10 @@ impl UltPress {
             let me = pl.champion()?;
             let (mid, team) = (me.id(), me.team());
             let name = me.name().unwrap_or_default();
-            // a Yuumi riding an ally is no holder: her "stay" is the ride (0.6.4)
-            let holder = holds(&name, has_buff(&me, YUUMI_RIDE));
+            // a Yuumi riding an ally is no holder: her "stay" is the ride (0.6.4). 骑乘和 buff 加的普攻距离一遍看完（下面站桩
+            // 那段要用后者；一次 think 里 buff 不会变）
+            let (riding, range_buff) = ride_and_range(&me);
+            let holder = holds(&name, riding);
             let slots = slots_of(&name);
             if slots.is_empty() && !holder {
                 return None;
@@ -1932,8 +1955,8 @@ impl UltPress {
                 .collect();
             if holder && atk_ready {
                 let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
-                let reach = hold_reach_with(&name, buff_range(&me));
-                let stretched = buff_range(&me) > 0.0;
+                let reach = hold_reach_with(&name, range_buff);
+                let stretched = range_buff > 0.0;
                 // held with a range buff: a champion a little past the stretched reach counts too (the AI parks them there)
                 let look_reach = if stretched { (reach.0 + STRETCH_LOOK, reach.1 + STRETCH_LOOK) } else { reach };
                 // walking with an enemy champion in reach and not away from him (Kha'Zix follows and never attacks)
@@ -1947,7 +1970,7 @@ impl UltPress {
                     _ => false,
                 };
                 self.walk_ticks = if walking { self.walk_ticks + 1 } else { 0 };
-                let (still_t, walk_t) = hold_waits(&name, buff_range(&me) > 0.0);
+                let (still_t, walk_t) = hold_waits(&name, range_buff > 0.0);
                 let still_held = holding(base, my_at) && self.still_ticks >= still_t;
                 let walk_held = self.walk_ticks >= walk_t;
                 // the AI's attack at a minion, a monster or a tower: is it the one shot that kills it (a last hit)?
@@ -2257,6 +2280,41 @@ mod tests {
             for want in [YUUMI_RIDE, KOG_VOLLEY, SAMIRA_R_ON, SAMIRA_GRADES[5], "x"] {
                 assert_eq!(name_of(b) == want.as_bytes(), b.name() == want, "{:?} vs {want}", b.name());
             }
+        }
+    }
+
+    #[test]
+    fn ride_and_range_are_the_old_two_lookups() {
+        // 原来：has_buff(YUUMI_RIDE) 一遍，buff_range = .map(|b| b.range as f64).sum() 三遍。逐位一样（含一个 buff 都没有）
+        let with = |name: &str, range| {
+            let mut b = BuffV1::named(name);
+            b.range = range;
+            b
+        };
+        let sets: Vec<Vec<BuffV1>> = vec![
+            vec![],
+            vec![with("x", 0)],
+            vec![with("x", 27_500), with(YUUMI_RIDE, 0), with("y", 10_000)],
+            vec![with(YUUMI_RIDE, 5), garbled(YUUMI_RIDE)],
+            vec![garbled(YUUMI_RIDE), with("z", 1), with("z", 2), with("z", 3)],
+        ];
+        for bs in &sets {
+            let old_range: f64 = bs.iter().map(|b| b.range as f64).sum();
+            let old_ride = bs.iter().any(|b| b.name() == YUUMI_RIDE);
+            let (ride, range) = ride_and_range_of(bs.iter().copied());
+            assert_eq!(ride, old_ride);
+            assert_eq!(range.to_bits(), old_range.to_bits(), "{range} vs {old_range}");
+        }
+    }
+
+    #[test]
+    fn attack_range_lookup_is_the_old_find() {
+        let old = |name: &str| ATTACK_RANGE.iter().find(|(n, _)| *n == name).map(|&(_, r)| r);
+        for &(n, _) in ATTACK_RANGE.iter() {
+            assert_eq!(attack_range(n), old(n), "{n}");
+        }
+        for n in ["", "league_", "league_garen ", "monk", "LEAGUE_GAREN", "league_garen\0"] {
+            assert_eq!(attack_range(n), old(n), "{n:?}");
         }
     }
 

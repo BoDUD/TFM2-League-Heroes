@@ -192,7 +192,7 @@ impl StablePassive for Flock {
             self.was_alive = alive;
         }
         let all = buffs(sim, me);
-        let have: Vec<BuffV1> = all.iter().filter(|b| b.name() == FRAG).copied().collect();
+        let have: Vec<BuffV1> = all.iter().filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == FRAG.as_bytes()).copied().collect();
         let gone = missing(&self.kept, &have);
         if gone.is_empty() {
             if alive && have.len() > self.kept.len() {
@@ -212,7 +212,7 @@ impl StablePassive for Flock {
             }
         }
         // the demon rising (the data's own moment): who is round him
-        let r_on = alive && all.iter().any(|b| b.name() == FORM);
+        let r_on = alive && all.iter().any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == FORM.as_bytes());
         if r_on && !self.r_on {
             let d = |u: (i64, i64)| (((u.0 - at.0) as f64).powi(2) + ((u.1 - at.1) as f64).powi(2)).sqrt();
             let n = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| {

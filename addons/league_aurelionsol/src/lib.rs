@@ -297,7 +297,7 @@ fn stacks_on(sim: &StableSim<'_>, me: usize, d_max: usize) -> Vec<BuffV1> {
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes())
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
