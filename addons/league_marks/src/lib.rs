@@ -331,7 +331,7 @@ impl StablePassive for Kennen {
     }
 }
 
-/// 面板上的电浆数：league.dll 的技能栏层数格读 `league_kaisa_pn_<n>`（tools/kit/stack_nums.py 的梯子规则，0.1.9）。
+/// 面板上的电浆数：league.dll 的技能栏层数格读 `league_kaisa_pn_<n>`（tools/kit/stack_nums.py 的梯子规则，0.1.10）。
 pub fn kaisa_panel_name(n: usize) -> String {
     format!("league_kaisa_pn_{n}")
 }
@@ -577,7 +577,7 @@ mod tests {
         assert_eq!(kaisa_hit(1, 2, false), (3, None, false));
     }
 
-    /// 0.1.9：面板上是活着的敌人里电浆最多的那个（league.dll 读 `league_kaisa_pn_<n>`，tools/kit/stack_nums.py）。
+    /// 0.1.10：面板上是活着的敌人里电浆最多的那个（league.dll 读 `league_kaisa_pn_<n>`，tools/kit/stack_nums.py）。
     #[test]
     fn kaisa_panel_shows_the_most_plasma() {
         assert_eq!(kaisa_panel_name(4), "league_kaisa_pn_4");

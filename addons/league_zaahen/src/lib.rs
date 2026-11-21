@@ -25,7 +25,7 @@
 //! - **大赦的护甲穿透随技能等级**：副本的 `own` 给 `r_pen_n`%，本包按等级再加（`league_zaahen_pen`：英雄联盟 10/20/30%，大招
 //!   在 6/11/16 级升级）。
 //!
-//! - **面板上的果决层数**（0.2.2，用户 2026-11-22：「还有很多叠层的技能在技能列表里看不到层数」）：层数挂成
+//! - **面板上的果决层数**（0.2.3，用户 2026-11-22：「还有很多叠层的技能在技能列表里看不到层数」）：层数挂成
 //!   `league_zaahen_dn_<n>`（0 层不挂），league.dll 的技能栏层数格读它（tools/kit/stack_nums.py 的梯子规则）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
@@ -830,7 +830,7 @@ declare_stable_mod!(init, requires = 9);
 mod tests {
     use super::*;
 
-    /// 0.2.2：league.dll 的技能栏层数格读 `league_zaahen_dn_` 后面的数（tools/kit/stack_nums.py 里亚恒附加包那一行的梯子）。
+    /// 0.2.3：league.dll 的技能栏层数格读 `league_zaahen_dn_` 后面的数（tools/kit/stack_nums.py 里亚恒附加包那一行的梯子）。
     #[test]
     fn determination_count_on_the_panel() {
         assert_eq!(panel_name(1), "league_zaahen_dn_1");
