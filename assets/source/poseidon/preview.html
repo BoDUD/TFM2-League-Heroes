@@ -149,7 +149,6 @@
       ctx.fillRect(-150,116,430,1);
     }
     if (el("mirror").checked) {ctx.translate(128,0);ctx.scale(-1,1)}
-    cell(type,spec.row,step,0,0);
     if (type === "actor" && el("fx").checked) {
       for (const cue of data.cues.cues) {
         if (cue.action !== key || !cue.fx || (cue.phase === "confirmed_hit" && !el("hit").checked)) continue;
@@ -159,6 +158,7 @@
         }
       }
     }
+    cell(type,spec.row,step,0,0);
     ctx.restore();
     el("frame").textContent = (step+1)+" / "+spec.frames;
     if (Object.values(sheets).every(img=>img.complete && img.naturalWidth)) document.body.dataset.ready = "true";

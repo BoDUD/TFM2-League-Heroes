@@ -7,7 +7,6 @@ from PIL import Image
 
 LENGTH = 79
 THICKNESS = 21
-MIDLINE = THICKNESS // 2
 SIZE = 128
 
 
@@ -35,7 +34,15 @@ def template(image):
     assert shaft_columns.any(axis=0).all(), "A straight trident shaft must span its length"
     centres = [float(np.median(np.where(shaft_columns[:, x])[0])) for x in range(shaft_columns.shape[1])]
     assert max(centres) - min(centres) <= 1.0, centres
-    return prop, float(np.median(centres))
+    axis = int(math.floor(float(np.median(centres)) + .5))
+    # The source highlight disappears when the shaft is sampled at 128px.
+    # Keep the painted fin, tips and butt. Give the long bare shaft a continuous
+    # steel-blue edge, indigo core and thin shadow on the same straight axis.
+    pixels = np.array(prop)
+    pixels[axis - 1, 11:57] = (151, 189, 221, 255)
+    pixels[axis, 11:57] = (64, 97, 158, 255)
+    pixels[axis + 1, 11:57] = (17, 26, 57, 255)
+    return Image.fromarray(pixels), axis
 
 
 def transform(prop, socket_y, x, y, angle, socket_x):
@@ -63,18 +70,27 @@ def attach(body, prop, axis, pose):
     spear, tip = transform(prop, axis, x, y, angle, socket_x)
     if not held:
         return Image.alpha_composite(spear, body), tip
-    # Place the shaft over the sleeve and recover the exposed knuckles at
-    # the hand socket. Bare fingers occlude the centre of the rigid shaft.
+    # Let the fingers wrap in front of the shaft at the exact hand socket.
+    # A visible section on each side makes the grip readable at native size.
     actor = np.asarray(body)
     gy, gx = np.ogrid[:SIZE, :SIZE]
-    grip = (np.abs(gx - x) <= 2) & (np.abs(gy - y) <= 2)
+    dx, dy = gx - x, gy - y
+    grip = (np.abs(dx) <= 2) & (np.abs(dy) <= 2)
     if not np.any(actor[y-1:y+2, x-1:x+2, 3] == 255):
         raise ValueError(f"Grip at {(x, y)} is detached from actor")
     color = actor[:, :, :3].astype(np.int16)
     skin = (color[:, :, 0] >= 119) & (color[:, :, 0] - color[:, :, 2] > 9)
-    occlusion = grip & skin & (actor[:, :, 3] > 0)
-    if not occlusion.any():
-        raise ValueError(f"No visible hand pixels near grip at {(x, y)}")
+    weapon_pixels = np.asarray(spear)
+    weapon_mask = weapon_pixels[:, :, 3] > 0
+    occlusion = grip & skin & (actor[:, :, 3] > 0) & weapon_mask
+    if np.count_nonzero(occlusion) < 3:
+        raise ValueError(f"Trident must pass under the knuckles at {(x, y)}")
+    angle = math.radians(angle)
+    along = math.cos(angle) * dx + math.sin(angle) * dy
+    steel_edge = np.all(weapon_pixels == (151, 189, 221, 255), axis=2) & ~occlusion
+    for direction in (-1, 1):
+        side = along * direction
+        assert np.any(steel_edge & (side >= 2) & (side <= 8)), (pose, direction)
     combined = np.array(Image.alpha_composite(body, spear))
     combined[occlusion] = actor[occlusion]
     return Image.fromarray(combined), tip

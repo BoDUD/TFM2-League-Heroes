@@ -41,4 +41,4 @@
 
 `python assets/source/poseidon/tools/verify_pack.py --art-only` 验证无音频的分支。用完整解压包检查时省略 `--art-only`。重建可运行 `tools/build_art.py`、`tools/build_audio.py <官方倒计时媒体> <官方对决 PV 媒体>`，需要 Pillow、NumPy、SciPy，音频另用 SoundFile 与 imageio-ffmpeg。
 
-校验覆盖角色与特效边界、二值透明、精确 4 倍采样、同一把戟的逐帧合成、三叉戟未裁切、平刺角度、立绘尺寸、音频解码和触发时序。Claude 负责技能代码、实际判定、AI、注册和 PPU 实机接入。
+校验覆盖角色与特效边界、二值透明、精确 4 倍采样、同一把戟的逐帧合成、三叉戟未裁切、平刺角度、立绘尺寸、音频解码和触发时序。每个持戟帧复查杆身与指节重叠，握点两侧各保留一段高光。预览中角色与三叉戟绘制在合成特效前方。Claude 负责技能代码、实际判定、AI、注册和 PPU 实机接入。
