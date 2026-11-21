@@ -21,6 +21,13 @@
         "skill": "连打两拳，每拳<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<><#ff9028ff>物理伤害<>；膨胀时第二拳减速<#ffb900ff>40%<>，持续<#ffb900ff>1秒<>，阿陀磨须时第二拳<#ef5350ff>眩晕0.6秒<>。",
         "skill2": "拳头快过时间，出拳之前伤害就已打到：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.5秒<>（阿陀磨须时<#ef5350ff>0.9秒<>）。",
         "ult": "把膨胀的肌肉压缩<#ffb900ff>1.03秒<>（老人状态先膨胀；不受控制，受到的伤害降低<#ffb900ff>50%<>），随后震飞周围敌人：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.7秒<>，以阿陀磨须作战<#ffb900ff>10秒<>：攻击力+<#ffb900ff>45%<>、双抗+<#ffb900ff>60%<>、攻速+<#ffb900ff>30%<>、吸血<#ffb900ff>25%<>。结束后变回老人。"
+      },
+      "ragnarok_adam": {
+        "name": "亚当",
+        "attack": "快拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>神虚视<>读过一招就记下来（<#ffb900ff>5秒<>），有记录时<#ff9028ff>模仿反击<>会复刻那一招。",
+        "skill": "睁开神虚视读出对手的动作，闪身躲开：<#ffb900ff>2.5秒<>内普攻全部落空，受到的技能伤害降低<#ffb900ff>50%<>，并记下一招。",
+        "skill2": "反击一拳，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。有记录时复刻那一招：再加<#ff9028ff>60<>和目标<#ffb900ff>8%<>最大生命值的物理伤害，并<#ef5350ff>眩晕1秒<>，用掉记录。",
+        "ult": "从宙斯那里学来的拳：蓄势<#ffb900ff>0.43秒<>（不受控制，受到的伤害降低<#ffb900ff>50%<>），然后朝目标打出一道拳劲，路上的敌人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.8秒<>。"
       }
     },
     "skill_name": {
@@ -38,6 +45,11 @@
         "skill1": "连拳",
         "skill2": "超越时间之拳",
         "ult": "阿陀磨须"
+      },
+      "ragnarok_adam": {
+        "skill1": "神虚视",
+        "skill2": "模仿反击",
+        "ult": "超越时间之拳"
       }
     }
   },
@@ -63,6 +75,13 @@
         "skill": "連打兩拳，每拳<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<><#ff9028ff>物理傷害<>；膨脹時第二拳緩速<#ffb900ff>40%<>，持續<#ffb900ff>1秒<>，阿陀磨須時第二拳<#ef5350ff>暈眩0.6秒<>。",
         "skill2": "拳頭快過時間，出拳之前傷害就已打到：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.5秒<>（阿陀磨須時<#ef5350ff>0.9秒<>）。",
         "ult": "把膨脹的肌肉壓縮<#ffb900ff>1.03秒<>（老人狀態先膨脹；不受控制，受到的傷害降低<#ffb900ff>50%<>），隨後震飛周圍敵人：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.7秒<>，以阿陀磨須作戰<#ffb900ff>10秒<>：攻擊力+<#ffb900ff>45%<>、雙抗+<#ffb900ff>60%<>、攻速+<#ffb900ff>30%<>、吸血<#ffb900ff>25%<>。結束後變回老人。"
+      },
+      "ragnarok_adam": {
+        "name": "亞當",
+        "attack": "快拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>神虛視<>讀過一招就記下來（<#ffb900ff>5秒<>），有記錄時<#ff9028ff>模仿反擊<>會複刻那一招。",
+        "skill": "睜開神虛視讀出對手的動作，閃身躲開：<#ffb900ff>2.5秒<>內普攻全部落空，受到的技能傷害降低<#ffb900ff>50%<>，並記下一招。",
+        "skill2": "反擊一拳，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。有記錄時複刻那一招：再加<#ff9028ff>60<>和目標<#ffb900ff>8%<>最大生命值的物理傷害，並<#ef5350ff>暈眩1秒<>，用掉記錄。",
+        "ult": "從宙斯那裡學來的拳：蓄勢<#ffb900ff>0.43秒<>（不受控制，受到的傷害降低<#ffb900ff>50%<>），然後朝目標打出一道拳勁，路上的敵人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.8秒<>。"
       }
     },
     "skill_name": {
@@ -80,6 +99,11 @@
         "skill1": "連拳",
         "skill2": "超越時間之拳",
         "ult": "阿陀磨須"
+      },
+      "ragnarok_adam": {
+        "skill1": "神虛視",
+        "skill2": "模仿反擊",
+        "ult": "超越時間之拳"
       }
     }
   },
@@ -105,6 +129,13 @@
         "skill": "Two quick punches, each <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> <#ff9028ff>physical damage<>; swollen, the second slows by <#ffb900ff>40%<> for <#ffb900ff>1s<>, as Adamas it <#ef5350ff>stuns for 0.6s<>.",
         "skill2": "A punch faster than time: the blow lands before he throws it, <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> and a <#ef5350ff>0.5s stun<> (<#ef5350ff>0.9s<> as Adamas).",
         "ult": "Presses his swollen muscles down for <#ffb900ff>1.03s<> (the old man swells first; unstoppable, taking <#ffb900ff>50%<> less damage), then blasts nearby enemies for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking them up for 0.7s<>, and fights as Adamas for <#ffb900ff>10s<>: +<#ffb900ff>45%<> attack, +<#ffb900ff>60%<> armor and magic resistance, +<#ffb900ff>30%<> attack speed, <#ffb900ff>25%<> lifesteal. Then he is old again."
+      },
+      "ragnarok_adam": {
+        "name": "Adam",
+        "attack": "A quick jab for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>God Reader<> remembers a move it has read (<#ffb900ff>5s<>); with one remembered, <#ff9028ff>Mimic Counter<> copies it.",
+        "skill": "Opens his God Reader eyes and slips aside: for <#ffb900ff>2.5s<> basic attacks miss him and skills deal <#ffb900ff>50%<> less damage; he remembers a move.",
+        "skill2": "A counter punch for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. With a remembered move he copies it: <#ff9028ff>60<> more plus <#ffb900ff>8%<> of the target's max health and a <#ef5350ff>1s stun<>, using the move up.",
+        "ult": "The punch he copied from Zeus: winds up for <#ffb900ff>0.43s<> (unstoppable, taking <#ffb900ff>50%<> less damage), then drives a blast at the target that deals <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<> to enemies in its path and <#ef5350ff>knocks them up for 0.8s<>."
       }
     },
     "skill_name": {
@@ -122,6 +153,11 @@
         "skill1": "Barrage",
         "skill2": "Fist That Transcends Time",
         "ult": "Adamas"
+      },
+      "ragnarok_adam": {
+        "skill1": "God Reader",
+        "skill2": "Mimic Counter",
+        "ult": "Fist That Transcends Time"
       }
     }
   },
@@ -147,6 +183,13 @@
         "skill": "두 번 연속 주먹, 각 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> <#ff9028ff>물리 피해<>; 팽창 상태면 두 번째 주먹이 <#ffb900ff>1초<> 동안 <#ffb900ff>40%<> 둔화, 아다마스 상태면 <#ef5350ff>0.6초 기절<>.",
         "skill2": "시간보다 빠른 주먹: 주먹을 뻗기 전에 이미 맞는다. <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 기절<>(아다마스 <#ef5350ff>0.9초<>).",
         "ult": "팽창한 근육을 <#ffb900ff>1.03초<> 동안 압축(노인 상태면 먼저 팽창; 군중 제어 면역, 받는 피해 <#ffb900ff>50%<> 감소)한 뒤 주변 적을 날린다: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.7초 에어본<>, <#ffb900ff>10초<> 동안 아다마스: 공격력 +<#ffb900ff>45%<>, 방어·마저 +<#ffb900ff>60%<>, 공격 속도 +<#ffb900ff>30%<>, 생명력 흡수 <#ffb900ff>25%<>. 끝나면 노인으로 돌아온다."
+      },
+      "ragnarok_adam": {
+        "name": "아담",
+        "attack": "빠른 잽으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>신허시<>로 읽은 기술은 <#ffb900ff>5초<> 동안 기억하며, 기억이 있으면 <#ff9028ff>모방 반격<>이 그 기술을 따라 한다.",
+        "skill": "신허시로 상대의 움직임을 읽고 피한다: <#ffb900ff>2.5초<> 동안 기본 공격이 모두 빗나가고 받는 스킬 피해 <#ffb900ff>50%<> 감소, 기술 하나를 기억한다.",
+        "skill2": "반격 주먹으로 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. 기억한 기술이 있으면 따라 해서 <#ff9028ff>60<>와 대상 최대 체력의 <#ffb900ff>8%<> 피해를 더하고 <#ef5350ff>1초 기절<>시키며 기억을 쓴다.",
+        "ult": "제우스에게서 배운 주먹: <#ffb900ff>0.43초<> 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 <#ffb900ff>50%<> 감소) 대상을 향해 주먹 기운을 날려 경로의 적에게 <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.8초 에어본<>."
       }
     },
     "skill_name": {
@@ -164,6 +207,11 @@
         "skill1": "연타",
         "skill2": "시간을 넘어선 주먹",
         "ult": "아다마스"
+      },
+      "ragnarok_adam": {
+        "skill1": "신허시",
+        "skill2": "모방 반격",
+        "ult": "시간을 넘어선 주먹"
       }
     }
   },
@@ -189,6 +237,13 @@
         "skill": "二連打、各<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>の<#ff9028ff>物理ダメージ<>。膨張中は二発目が<#ffb900ff>1秒<>間<#ffb900ff>40%<>のスロウ、阿陀磨須なら<#ef5350ff>0.6秒のスタン<>。",
         "skill2": "時を超える拳：拳を振るより先に当たっている。<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒のスタン<>（阿陀磨須なら<#ef5350ff>0.9秒<>）。",
         "ult": "膨張した筋肉を<#ffb900ff>1.03秒<>圧縮（老人なら先に膨張、行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）し、周囲の敵を吹き飛ばす：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.7秒のノックアップ<>、<#ffb900ff>10秒<>阿陀磨須で戦う：攻撃力+<#ffb900ff>45%<>、両防御+<#ffb900ff>60%<>、攻撃速度+<#ffb900ff>30%<>、吸血<#ffb900ff>25%<>。終わると老人に戻る。"
+      },
+      "ragnarok_adam": {
+        "name": "アダム",
+        "attack": "素早いジャブで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>神虚視<>で読んだ技を<#ffb900ff>5秒<>覚え、覚えていれば<#ff9028ff>模倣カウンター<>がその技を写す。",
+        "skill": "神虚視で相手の動きを読みかわす：<#ffb900ff>2.5秒<>間通常攻撃はすべて外れ、受けるスキルダメージ<#ffb900ff>50%<>軽減、技をひとつ覚える。",
+        "skill2": "カウンターの一撃で<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。覚えた技があれば写して<#ff9028ff>60<>と対象の最大体力<#ffb900ff>8%<>を上乗せし<#ef5350ff>1秒スタン<>、記憶を使う。",
+        "ult": "ゼウスから写した拳：<#ffb900ff>0.43秒<>溜め（行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）、標的へ拳圧を放ち、通り道の敵に<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.8秒のノックアップ<>。"
       }
     },
     "skill_name": {
@@ -206,6 +261,11 @@
         "skill1": "連打",
         "skill2": "時を超える拳",
         "ult": "阿陀磨須"
+      },
+      "ragnarok_adam": {
+        "skill1": "神虚視",
+        "skill2": "模倣カウンター",
+        "ult": "時を超える拳"
       }
     }
   }

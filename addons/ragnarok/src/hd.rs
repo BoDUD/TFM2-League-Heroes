@@ -16,6 +16,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 67 格、阿陀磨须（ad_*）59 格，和索尔一样 PPU 1.65，游戏里 31 / 41 / 36 个游戏像素。站着、跑着、出手、挨打、倒下按身上
     // 的形态 buff 换成那种身体的帧（src/zeus.rs 的显示钩子），变身过程 expand / ult / revert 由数据播
     ("ragnarok_zeus", 1.65, include_str!("../../../ragnarok/champions/ragnarok_zeus#anim.fanim")),
+    // 亚当（ragnarok_adam）：Codex 的 128 格原画，头顶离脚底 54 格，和索尔一样 PPU 1.65，游戏里 33 个游戏像素
+    ("ragnarok_adam", 1.65, include_str!("../../../ragnarok/champions/ragnarok_adam#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -34,10 +36,13 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("ragnarok_thor_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_thor_fx#anim.fanim")),
     // 宙斯打在人身上的拳光、连拳的雷光、变身完成时脚下炸开的一圈（拳风、蓄力和变身的光画在他自己的帧里）
     ("ragnarok_zeus_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_zeus_fx#anim.fanim")),
+    // 亚当普攻打在人身上的火花（拳风、闪避、模仿标记、反击火花、时间之拳都画在他自己的帧里）
+    ("ragnarok_adam_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_adam_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
-pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx"];
+pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx",
+                                         "ragnarok_adam_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[];
