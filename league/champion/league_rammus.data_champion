@@ -100,128 +100,146 @@
                             "effects": []
                           },
                           "effect_none": {
-                            "type": "RandomTarget",
-                            "range": 30000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rammus_q_ball",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rammus_q_cd",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 30000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": false,
                                 "effects": [
                                   {
-                                    "type": "Combine",
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
                                     "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_rammus_w_cd",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 840
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
                                       {
                                         "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_busy"
-                                          },
-                                          {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_rammus_busy",
+                                              "name": "league_rammus_w_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 16
+                                                  "tick": 840
                                                 }
                                               }
                                             },
                                             "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "skill_w",
-                                        "tick": 16
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_rammus_w"
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_rammus_vo_cd",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_rammus_vo_cd",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 600
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_rammus_vo_w"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        "type": "CasterViewEffect",
-                                        "name": "league_rammus_w_cast"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_w_on"
                                           },
                                           {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_rammus_w_on",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 420
-                                                }
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_busy"
                                               },
-                                              "defence_mult": 60,
-                                              "magic_resistance_mult": 60,
-                                              "damage_reflect": 25
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_busy",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 16
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill_w",
+                                            "tick": 16
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_rammus_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_rammus_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
                                             },
-                                            "only_to_enemy": false
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rammus_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_rammus_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_rammus_w_cast"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_w_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_w_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 420
+                                                    }
+                                                  },
+                                                  "defence": 30,
+                                                  "defence_mult": 40,
+                                                  "magic_resistance": 20,
+                                                  "magic_resistance_mult": 40,
+                                                  "damage_reflect": 25
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
                                     ]
                                   }
                                 ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
                               }
-                            ]
+                            }
                           }
                         }
                       }
@@ -390,128 +408,146 @@
                             "effects": []
                           },
                           "effect_none": {
-                            "type": "RandomTarget",
-                            "range": 30000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rammus_q_ball",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rammus_q_cd",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 30000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": false,
                                 "effects": [
                                   {
-                                    "type": "Combine",
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
                                     "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_rammus_w_cd",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 840
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
                                       {
                                         "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_busy"
-                                          },
-                                          {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_rammus_busy",
+                                              "name": "league_rammus_w_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 16
+                                                  "tick": 840
                                                 }
                                               }
                                             },
                                             "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "skill_w",
-                                        "tick": 16
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_rammus_w"
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_rammus_vo_cd",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_rammus_vo_cd",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 600
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_rammus_vo_w"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        "type": "CasterViewEffect",
-                                        "name": "league_rammus_w_cast"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_w_on"
                                           },
                                           {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_rammus_w_on",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 420
-                                                }
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_busy"
                                               },
-                                              "defence_mult": 60,
-                                              "magic_resistance_mult": 60,
-                                              "damage_reflect": 25
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_busy",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 16
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill_w",
+                                            "tick": 16
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_rammus_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_rammus_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
                                             },
-                                            "only_to_enemy": false
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rammus_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_rammus_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_rammus_w_cast"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_w_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_w_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 420
+                                                    }
+                                                  },
+                                                  "defence": 30,
+                                                  "defence_mult": 40,
+                                                  "magic_resistance": 20,
+                                                  "magic_resistance_mult": 40,
+                                                  "damage_reflect": 25
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
                                     ]
                                   }
                                 ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
                               }
-                            ]
+                            }
                           }
                         }
                       }
@@ -521,6 +557,60 @@
               }
             ]
           }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_rammus_w_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_rammus_w_on"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_rammus_w_cd"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_rammus_w_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 420
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_rammus_q_cd"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_rammus_q_cd",
+                "duration": {
+                  "Time": {
+                    "tick": 420
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
         },
         {
           "type": "Combine",
@@ -842,128 +932,146 @@
                             "effects": []
                           },
                           "effect_none": {
-                            "type": "RandomTarget",
-                            "range": 30000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rammus_q_ball",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rammus_q_cd",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 30000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": false,
                                 "effects": [
                                   {
-                                    "type": "Combine",
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
                                     "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_rammus_w_cd",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 840
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
                                       {
                                         "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_busy"
-                                          },
-                                          {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_rammus_busy",
+                                              "name": "league_rammus_w_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 16
+                                                  "tick": 840
                                                 }
                                               }
                                             },
                                             "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "skill_w",
-                                        "tick": 16
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_rammus_w"
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_rammus_vo_cd",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_rammus_vo_cd",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 600
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_rammus_vo_w"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        "type": "CasterViewEffect",
-                                        "name": "league_rammus_w_cast"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_w_on"
                                           },
                                           {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_rammus_w_on",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 420
-                                                }
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_busy"
                                               },
-                                              "defence_mult": 60,
-                                              "magic_resistance_mult": 60,
-                                              "damage_reflect": 25
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_busy",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 16
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill_w",
+                                            "tick": 16
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_rammus_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_rammus_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
                                             },
-                                            "only_to_enemy": false
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rammus_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_rammus_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_rammus_w_cast"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_w_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_w_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 420
+                                                    }
+                                                  },
+                                                  "defence": 30,
+                                                  "defence_mult": 40,
+                                                  "magic_resistance": 20,
+                                                  "magic_resistance_mult": 40,
+                                                  "damage_reflect": 25
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
                                     ]
                                   }
                                 ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
                               }
-                            ]
+                            }
                           }
                         }
                       }
@@ -1210,128 +1318,146 @@
                             "effects": []
                           },
                           "effect_none": {
-                            "type": "RandomTarget",
-                            "range": 30000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rammus_q_ball",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rammus_q_cd",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 30000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": false,
                                 "effects": [
                                   {
-                                    "type": "Combine",
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
                                     "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_rammus_w_cd",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 840
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
                                       {
                                         "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_busy"
-                                          },
-                                          {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_rammus_busy",
+                                              "name": "league_rammus_w_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 16
+                                                  "tick": 840
                                                 }
                                               }
                                             },
                                             "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "skill_w",
-                                        "tick": 16
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_rammus_w"
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_rammus_vo_cd",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_rammus_vo_cd",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 600
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_rammus_vo_w"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        "type": "CasterViewEffect",
-                                        "name": "league_rammus_w_cast"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rammus_w_on"
                                           },
                                           {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_rammus_w_on",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 420
-                                                }
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_busy"
                                               },
-                                              "defence_mult": 60,
-                                              "magic_resistance_mult": 60,
-                                              "damage_reflect": 25
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_busy",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 16
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill_w",
+                                            "tick": 16
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_rammus_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_rammus_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
                                             },
-                                            "only_to_enemy": false
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rammus_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_rammus_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_rammus_w_cast"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_rammus_w_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rammus_w_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 420
+                                                    }
+                                                  },
+                                                  "defence": 30,
+                                                  "defence_mult": 40,
+                                                  "magic_resistance": 20,
+                                                  "magic_resistance_mult": 40,
+                                                  "damage_reflect": 25
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
                                     ]
                                   }
                                 ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
                               }
-                            ]
+                            }
                           }
                         }
                       }
@@ -1340,6 +1466,39 @@
                 ]
               }
             ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_rammus_w_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_rammus_w_on"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_rammus_w_cd"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_rammus_w_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 420
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
           }
         },
         {
