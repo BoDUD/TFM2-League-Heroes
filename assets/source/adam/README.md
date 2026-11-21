@@ -46,3 +46,10 @@
 日常核对美术用 `python assets/source/adam/tools/verify_pack.py --art-only`，含本地 WAV/MP3 时去掉 `--art-only`。重建用 `tools/build_art.py` 和 `tools/build_audio.py <官方倒计时媒体> <对决 PV 媒体>`。在素材根目录使用这些相对路径。依赖 Pillow、NumPy、SciPy，音频另用 SoundFile 和 imageio-ffmpeg。
 
 交付核对覆盖帧边界、逐帧差异、二值透明度、4 倍像素一致性、图标和立绘尺寸、音频解码、触发时序及打包文件完整性。当前为素材级验证，技能与 PPU 尚待实机接入和验证。
+
+## 接入（Claude，2026-11-21）
+
+- `tools/art/import_adam.py` 从 `runtime/sprites/ragnarok_adam_native` 和 `ragnarok_adam_fx_native` 出 1 倍帧和高清帧（PPU 1.65，和索尔一样，头顶 33 个游戏像素）。拳风、睁眼的光、闪避气流、模仿标记、反击火花、时间之拳的蓄势和释放按 `cues.json` 画进他自己的帧，跟着他左右翻；睁眼的光和模仿标记逐帧跟着头和身子挪。普攻的命中火花放在目标身上。
+- 技能数据 `tools/kit/build_adam.py`，文本和音效 `tools/kit/setup_adam.py`，配音代码 `addons/ragnarok/src/adam.rs`。
+- 音频：`python tools/kit/seed_adam_audio.py`（默认从 `D:/TFM2-Workshop/adam_packs/outputs/adam_assets` 拷，先核对 SHA-256）。用到 12 条音效（普攻只用第一组）和全部七句配音。
+- 选人立绘 `ragnarok/banpick_illustrations/ragnarok_adam.png` 是 `tools/art/bp_illustrations.py` 从 `art/illustration/` 的原图裁的，和 `runtime/banpick_illustrations/` 那张逐像素一样。技能图标用 `runtime/icons/` 的 skill / skill2 / ult；被动图标不装，游戏只有三个技能图标位。

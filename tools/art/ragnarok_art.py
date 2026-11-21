@@ -156,9 +156,11 @@ def baked(body, fx):
             i = int(np.searchsorted(starts, a + 1e-9, side="right") - 1)
             canvas = np.zeros((CH, CW, 4), np.uint8)
             over(canvas, frames[i][0], CS[0] - SOLE[0] + dx, CS[1] - SOLE[1])
-            for name, t0, (ax, ay), dt, fr, (ox, oy) in plays:
+            for name, t0, anchor, dt, fr, (ox, oy) in plays:
                 j = int(np.floor((a - t0) / dt + 1e-9))
                 if 0 <= j < len(fr):
+                    # 锚点也可以按身体帧给一串，特效跟着身体走（亚当睁眼的光跟着头）
+                    ax, ay = anchor[i] if isinstance(anchor, list) else anchor
                     over(canvas, fr[j][0], CS[0] + ax - ox + dx, CS[1] + ay - oy)
             canvas = no_specks(canvas)
             if segs and np.array_equal(segs[-1][0], canvas) and segs[-1][2] == i:
