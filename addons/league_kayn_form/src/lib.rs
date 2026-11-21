@@ -242,7 +242,14 @@ fn name_of(b: &BuffV1) -> &[u8] {
 /// 身上有没有这个 buff：一个个看，找到就停（2026-11-22 过日采样：原来先把身上所有 buff 收进一个 Vec 再找，
 /// 每 tick 好几次）。
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| name_of(&b) == name.as_bytes()))
+    has_any(sim, id, &[name])
+}
+
+/// 身上有没有这几个 buff 里的任何一个：扫一遍。
+fn has_any(sim: &StableSim<'_>, id: usize, names: &[&str]) -> bool {
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| names.iter().any(|n| name_of(&b) == n.as_bytes()))
+    })
 }
 
 /// 从被动参数（排好序的整数 JSON，如 `{"darkin_need":14,"shadow_need":14}`）读一个值。
@@ -294,7 +301,8 @@ impl Orbs {
     /// 身上没有形态 buff、也没有准备标记时补上永久的形态 buff（复活后、或主包的变身没播成）。
     fn keep_form(&self, sim: &mut StableSim<'_>, me: usize, why: &str) {
         let Some(f) = self.form else { return };
-        if has_buff(sim, me, f.buff()) || has_buff(sim, me, f.ready()) {
+        // 形态 buff 和准备标记一遍看完（原来各扫一遍）
+        if has_any(sim, me, &[f.buff(), f.ready()]) {
             return;
         }
         sim.add_buff(me, &BuffV1::named(f.buff()));
@@ -311,6 +319,10 @@ impl Orbs {
     /// 进墙时挂一次、出墙时去掉，动画连着循环），进墙、出墙那一刻各播一次暗影溅开（`league_kayn_wall_burst{,_d,_s}`）。
     /// 两个画面只登记在本包的凯隐副本里（make_override.py）。
     fn wall_fx(&mut self, sim: &mut StableSim<'_>, me: usize, in_wall: bool) {
+        // 不在墙里、上一 tick 也不在：下面不播、不挂、不摘，不用看形态（多数 tick 都是这样）
+        if !in_wall && !self.was_in_wall {
+            return;
+        }
         // 两种形态 buff 一遍看完（原来扫两遍）；画面的名字是常量（原来每 tick 拼两个字符串）
         let (mut d, mut s) = (false, false);
         if let Some(e) = sim.get_entity(me) {
