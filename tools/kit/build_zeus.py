@@ -242,6 +242,19 @@ def build(p, is_native=False):
     return kit
 
 
+def sylas_ult(p=None):
+    """塞拉斯偷到的阿陀磨须（addons/league_sylas/make_override.py 的 STOLEN）。他没有宙斯的三种身体：不播膨胀，到时间
+    也不强制播变回老人；蓄势 r_go 拍（换成他自己的施法动作，不受控制、减伤），然后震飞周围，拿到 r_t 拍的阿陀磨须强化。"""
+    p = dict(P) if p is None else p
+    adamas = flag("ad", p["r_t"], attack_mult=p["r_atk"], defence_mult=p["r_def"], magic_resistance_mult=p["r_def"],
+                  attack_speed_mult=p["r_as"], vamp=p["r_vamp"])
+    blast = around(p["r_r"], [attack(p["r_dmg"], p["r_ad"]), {"type": "Airborne", "duration": p["r_up"]},
+                              view("r_hit")])
+    guard = flag("guard", p["r_go"] + 2, cc_immune=True, damaged_reduce=p["r_dr"])
+    return combine(guard, sfx("r"), anim("ult", p["r_go"]),
+                   delayed(p["r_go"] - 1, alive_only(adamas, cview("x_burst"), sfx("r_burst"), blast)))
+
+
 def chain(marks):
     """c1 unset -> set c1; c1 set, c2 unset -> set c2; ... all set -> clear them and set rdy."""
     e = combine(*[unflag(m) for m in marks], flag("rdy", None))

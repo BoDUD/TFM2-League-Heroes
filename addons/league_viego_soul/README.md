@@ -72,3 +72,7 @@
 ## 射程 buff 改成主包 league.dll 的 league:range（v0.2.64，2026-11-07）
 
 带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。本包原生代码补回 / 挂上的 buff 也不再带 `range`。
+
+## 终末的女武神包的英雄（v0.2.73，2026-11-21）
+
+用户：「佛耶戈妮蔻之类的也要真正的能变身成这些角色」。`make_override.py` 的 `souls()` 也扫 `ragnarok/`：吕布、索尔、宙斯、亚当进了 `src/souls.rs`，附身后是他们的身体，招式按各自数据的类别（都是近战那套）。宙斯的显示钩子只认他自己的实体，所以佛耶戈附身后总是老人的样子。测试也读 `ragnarok/champion`。

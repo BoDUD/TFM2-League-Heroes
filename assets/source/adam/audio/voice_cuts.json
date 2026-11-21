@@ -1,0 +1,9 @@
+[
+  {"id":"introduce","source":"countdown","start":15.07,"end":16.72,"label":"自报姓名","event":"pick"},
+  {"id":"recognized","source":"countdown","start":17.66,"end":19.15,"label":"大家认得我吗","event":"lobby"},
+  {"id":"first_human","source":"countdown","start":20.10,"end":23.18,"label":"最早的人类","event":"lobby"},
+  {"id":"duel_resolve","source":"countdown","start":33.65,"end":38.92,"label":"与神交手","event":"intro"},
+  {"id":"unfazed","source":"countdown","start":50.63,"end":52.76,"label":"对手是神也无所谓","event":"taunt"},
+  {"id":"full_force","source":"countdown","start":53.86,"end":55.91,"label":"全力出拳","event":"signature_windup_rare"},
+  {"id":"protect","source":"duel","start":9.48,"end":14.68,"label":"保护孩子","event":"intro_rare"}
+]

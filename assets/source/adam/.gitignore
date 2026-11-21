@@ -1,0 +1,4 @@
+# Match the Ragnarok pack's local audio delivery convention.
+/audio/sfx/*.wav
+/audio/voice_ja/*.wav
+/runtime/sound/sfx/*.mp3
