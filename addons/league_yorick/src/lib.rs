@@ -1,40 +1,36 @@
 //! 约里克附加包：数据做不到、和英雄联盟不一样的地方，这里照英雄联盟做。
 //!
-//! `mod.override_info` 把主包的约里克换成 `override/` 里的副本（tools/kit/build_yorick.py --native，再由 make_override.py
-//! 加上召唤单位的开关），`passive` 换成本包的 `league_yorick:shepherd`：
+//! `mod.override_info` 把主包的约里克换成 `override/` 里的副本（tools/kit/build_yorick.py --native，make_override.py 写），
+//! `passive` 换成本包的 `league_yorick:shepherd`：
 //!
 //! - **坟墓照英雄联盟挖**：主包读不到「这一铲打死了谁」，所以临终仪式打英雄挖一座坟、打别的每两下挖一座。副本的这一铲给
 //!   约里克挂几拍 `league_yorick_q_win`，本包在它还在时，每有一个小兵 / 野怪被他打死就挖一座坟（打英雄照旧由数据挖），
-//!   不再「每两下」。0.1.1（2026-11-03 夜里的日志：6 条命一座坟都没挖）：`q_win` 和这一铲同一拍挂上——以前晚两拍才挂，
-//!   追踪的那一铲下一拍就落地打死了小兵，`q_win` 还没在。
-//! - **室女的加伤只打她的目标**：主包读不到「室女跟着谁」，所以室女在场时约里克普攻任何英雄都加伤。副本给室女的目标挂
-//!   `league_yorick_maiden`，普攻打中英雄时给它挂 3 拍 `league_yorick_hit`；本包看到同时有这两个的英雄，才造成它最大生命
-//!   `r_pct`% 的真实伤害。
+//!   不再「每两下」。0.1.1（2026-11-03 夜里的日志：6 条命一座坟都没挖）：`q_win` 和这一铲同一拍挂上。
+//!   0.3.0：最多 4 座（g1..g4，和数据一样一起计时）；附近别的敌人死掉，每第 N 个也挖一座（N 按等级 8 -> 2）。
+//! - **雾行者和迷雾室女是真的单位（0.2.0）**：稳定 mod API 的 `spawn_unit`（公用部分在萨科附加包的 `summon.rs`，一个召唤者
+//!   好几个单位用它的 `Flock`）。唤醒的雾行者（副本给目标挂 `K_ASK` / `K_ASK4`：3 / 4 只，0.3.0 每座坟一只）、黑雾让雾行者
+//!   扑过去（`E_ASK`）、迷雾室女和她的雾行者（`M_ASK`）。宿主给不出单位时数据照主包放挂着的那一套（`K_UNIT` / `M_UNIT`）。
+//!   0.2.1：雾行者那本账一次只等一个要（[`Held`]）。
 //!
-//! **雾行者和迷雾少女是真的单位（0.2.0，2026-11-14；用户：「召唤物的全做啊 剩下的一批英雄也做了啊」）。** 主包里雾行者和室女
-//! 是挂在目标身上的画面和伤害（数据里召唤物不会走）。英雄联盟里它们是自己走、自己打、能被打死的小鬼和女幽灵。稳定 mod API 的
-//! `spawn_unit`（公用部分在萨科附加包的 `summon.rs`，这里用 `#[path]` 引进来；一个召唤者好几个单位用它的 `Flock`）：
+//! 0.3.0（2026-11-22，用户：「之前玩掘墓我也发现没完美还原 没有那个地形框出来的技能 其他我不知道 你再核对一下」）照英雄联盟
+//! 现在的约里克：
 //!
-//! - **唤醒的雾行者**：副本的 Q 在坟满（唤醒）出手时给目标挂 `K_ASK`（3 tick），去掉上一次的 `K_UNIT`。被动看到就排原生效果
-//!   `:walkers`：在目标周围 `WALK_SPREAD` 生成 `K_N` 只 `league_yorick_walker`（[`walker_spec`]），成功了给约里克挂 `K_UNIT`——
-//!   副本的数据在这一铲落地（出手后约 15 tick）时读它：有，就不放挂在目标身上的那三只；没有（宿主没有这个接口、生成失败、
-//!   测试开关关了、读不成单位、一出来就没了），就和今天一模一样。
-//! - **黑雾让雾行者扑过去**：副本的 E 的英雄分身给它打中的英雄挂 `E_ASK`；被动让离它 `LEAP_REACH` 以内的每只雾行者单位跳到
-//!   它身边（`entity_set_pos`），主包的扑咬伤害（`LEAP_HIT` + `LEAP_HIT_AD`% 攻击力）由约里克打一次。
-//! - **迷雾少女**：副本的 R 出手时给目标挂 `M_ASK`，去掉上一次的 `M_UNIT`；被动排 `:maiden`，在它身后 `MAID_BEHIND` 生成
-//!   `league_yorick_maiden`（[`maiden_spec`]）和她身边的 `R_N` 只雾行者，成功了挂 `M_UNIT`——数据在室女升起（出手后约 17 tick）
-//!   时读它，有就不放挂在目标身上的室女和她的两只雾行者。她站着的时候约里克的 `r_on`（Q 冷却减半、普攻加伤）和她目标身上的
-//!   `league_yorick_maiden` 跟着她的时间（`MAID_LIFE`）；她被打死就一起去掉。
-//! - 约里克先死了：单位由引擎管着接着打，到时间为止（没有「让单位消失」的接口）。
-//! - **雾行者一次只等一个要**（0.2.1，2026-11-14，用户：「这个要修」）：唤醒的雾行者和迷雾少女的护卫记在同一本账
-//!   （`Flock`）里，一 tick 交接来的单位都算最早那个还在等的要的。唤醒的雾行者没生成出来、它还在等（`FLOCK_WAIT` tick）的
-//!   时候 R 又要了护卫，护卫就被记成唤醒的（`Awake`、`WALK_LIFE`、出生在 Q 那一拍）：账上提前 300 tick 算它没了，黑雾也
-//!   不再让它扑。现在雾行者那本账还有要在等时，新的 Q / R 的要先压着（[`Held`]，日志 `HELD`），等前一个有了结果（单位到了，
-//!   或等满时间作罢）再发出去，目标那时站在哪就在哪生成。正常 Q 和 R 隔好几秒，压不到；压着的最多等几 tick。
+//! - **暗灵缠身是一圈真的墙**（[`wall`]）：副本的 W 给落点的英雄挂 `W_ASK`（记圆心），立墙那一 tick 给他挂 `W_UP`：本包立墙
+//!   `w_t` tick，只挡敌人，墙线上的拨开，闪现、无视地形的放过；不能被打塌（原因见 wall.rs）。
+//! - **临终仪式按已损失生命回复**：副本的这一铲挂 `Q_HL`（数据自己的回复去掉），本包两拍后回复 [`q_heal`]：按等级的固定值 +
+//!   已损失生命的 6–10%，打的不是英雄（没有 `Q_CH`）减半。
+//! - **朝被标记的英雄走时加速**：黑雾的标记（`E_MARK`，数据挂在英雄身上）在时，约里克、雾行者、室女这一 tick 是朝它走的
+//!   （位移和朝向它的方向夹角小于 60 度）就挂 3 tick 的 `E_MS`，移速 +18–30%（按等级）。
+//! - **室女跟着约里克、远程攻击、挂标记**：她不再自己追人（移速 1，本包用强制位移让她跟在他身后 `MAID_BACK`），每
+//!   `MAID_COOL` tick 朝她 `MAID_RANGE` 以内最近的敌方英雄（没有就打别的敌人）放一道魂弹（`spawn_projectile`，画面是数据的
+//!   `r_bolt`），打中造成魔法伤害，英雄挂上她的标记（`R_MKV`，画面在数据的 view_buffs 里）；约里克的普攻或黑雾打中有标记的
+//!   英雄（副本挂 3 tick 的 `HIT`）消耗标记，造成它最大生命 2 / 2.5 / 3% 的魔法伤害（按等级）。带的雾行者按等级 2 / 3 / 4 只；
+//!   **亡灵大军**：她附近的敌人死掉、她手下的雾行者不到 4 只时，从尸体上拉起一只。约里克阵亡时雾行者跟着没、室女 3 秒内
+//!   掉光生命（`entity_set_hp`；设成 0 不死的话放逐到时间）。
 //!
-//! 数字从英雄数据的 `passive.params`（坟和加伤）和 `src/lib.rs` 的常量来（单位的数字，`make_override.py` 和主包的参数表 P、
+//! 数字从英雄数据的 `passive.params`（坟、加伤、墙）和 `src/lib.rs` 的常量来（单位的数字，`make_override.py` 和主包的参数表 P、
 //! 单位图的动作对照）。不用全局变量，服务端预模拟和你看的那场各算各的。日志：
-//! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yorick.log`，每次启动游戏重写；单位的行以 `WALKER` / `MAIDEN` 开头。
+//! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yorick.log`，每次启动游戏重写。
 //! 测试开关：日志旁边的 `league_yorick.cfg`（`summon.rs`：`unit=off` / `still=1` / `name=`）。
 
 use std::collections::HashMap;
@@ -47,6 +43,7 @@ use mod_api_stable::*;
 
 #[path = "../../league_shaco_backstab/src/summon.rs"]
 pub mod summon;
+pub mod wall;
 
 use summon::{Event, Flock, Pt};
 
@@ -58,18 +55,20 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_yorick") {
     None => env!("CARGO_PKG_VERSION"),
 };
 /// On him for a few ticks after a Last Rites blow: a unit dying meanwhile died to it.
-const Q_WIN: &str = "league_yorick_q_win";
-/// On the Maiden's champion while she stands.
-pub const MAIDEN: &str = "league_yorick_maiden";
-/// On a champion his attack struck while she stands (3 ticks).
-const HIT: &str = "league_yorick_hit";
-/// His graves, counted on him (the data's ladder: the first g1, then g2, then g3; the Awakening takes them off).
-const GRAVES: [&str; 3] = ["league_yorick_g1", "league_yorick_g2", "league_yorick_g3"];
+pub const Q_WIN: &str = "league_yorick_q_win";
+/// On him with a Last Rites blow (the copy has no heal of its own): the add-on heals by his missing health.
+pub const Q_HL: &str = "league_yorick_q_hl";
+/// On him when the blow's champion twin landed: the blow struck a champion (the full heal).
+pub const Q_CH: &str = "league_yorick_q_ch";
+/// On a champion his attack or the mist struck while the Maiden stands (3 ticks): her mark on it is spent.
+pub const HIT: &str = "league_yorick_hit";
+/// His graves, counted on him (the data's ladder: g1, g1 + g2, ... all four together; the Awakening takes them off).
+pub const GRAVES: [&str; 4] = ["league_yorick_g1", "league_yorick_g2", "league_yorick_g3", "league_yorick_g4"];
 
 // ---- 雾行者和迷雾少女作为单位（0.2.0）：主包的数字（make_override.py 对照参数表 P 检查，改主包就改这里）----
 
-/// The Awakening's walkers (k_n), each bite (k_dmg + k_ratio % of his attack, every k_p ticks); the riding walkers' time
-/// (k_t: what the units replace).
+/// The Awakening's walkers with three graves (k_n), each bite (k_dmg + k_ratio % of his attack, every k_p ticks); the
+/// riding walkers' time (k_t: what the units replace).
 pub const K_N: usize = 3;
 pub const WALK_HIT: usize = 9;
 pub const WALK_HIT_AD: usize = 13;
@@ -78,8 +77,8 @@ pub const K_T: usize = 360;
 /// The pounce when Mourning Mist strikes a champion (k_jmp + k_jmp_r % of his attack, once).
 pub const LEAP_HIT: usize = 20;
 pub const LEAP_HIT_AD: usize = 30;
-/// The Maiden's escort (r_n); her claws (r_dmg + r_ratio % of his attack, every r_p ticks); the riding Maiden's time and
-/// r_on's (r_t).
+/// The Maiden's escort at the main pack's level (r_n); her bolts (r_dmg + r_ratio % of his attack, every r_p ticks);
+/// the riding Maiden's time and r_on's (r_t).
 pub const R_N: usize = 2;
 pub const MAID_HIT: usize = 20;
 pub const MAID_HIT_AD: usize = 45;
@@ -102,49 +101,83 @@ pub const MAID_LANDS: usize = 11;
 /// to the main pack's league/champions/<name>.
 pub const WALKER: &str = "league_yorick_walker";
 pub const MAIDEN_UNIT: &str = "league_yorick_maiden";
-/// A walker lives `WALK_LIFE` ticks (League: until killed; the riding ones 6 s - walking to its prey and killable, 10 s),
-/// with `WALK_HP_PCT` % of his health cap (League: 100-331 against his 650-2588), no armour or magic resistance (League's),
-/// his move speed (League: 325, +60 near him, against his 340), reach `WALK_RANGE` (League: 125 against his 175).
+/// A walker lives `WALK_LIFE` ticks (League: until killed or he dies; the riding ones 6 s), with `WALK_HP_PCT` % of his
+/// health cap (League: 100-331 against his 650-2588), no armour or magic resistance (League's), his move speed (League:
+/// 325, +60 near him, against his 340), reach `WALK_RANGE` (League: 125 against his 175).
 pub const WALK_LIFE: usize = 600;
 pub const WALK_HP_PCT: usize = 15;
 pub const WALK_RANGE: usize = 18_000;
-/// The Maiden lives `MAID_LIFE` ticks (League: until killed; riding, 10 s), with `MAID_HP_PCT` % of his health cap (League:
-/// 1050-3700 against his 1220-2588), `MAID_DEF_PCT` % of his armour as armour and magic resistance (League: 30-100 both,
-/// against his 36-112), his move speed (League: 300, +60 near him), his own reach (League's 600 range is not taken: a
-/// unit's attack has no projectile, she would strike from 86000 away with nothing flying).
+/// The Maiden lives `MAID_LIFE` ticks (League: until killed or he dies; the main pack's r_t), with `MAID_HP_PCT` % of his
+/// health cap (League: 1050-3700 against his 1220-2588), `MAID_DEF_PCT` % of his armour as armour and magic resistance
+/// (League: 30-100 both, against his 36-112). 0.3.0: she does not walk by herself (move speed 1, her own attack reaches
+/// nobody: range 1) - the add-on keeps her `MAID_BACK` behind him and shoots her bolts at `MAID_RANGE` (League: 600, R's
+/// range here).
 pub const MAID_LIFE: usize = 900;
 pub const MAID_HP_PCT: usize = 120;
 pub const MAID_DEF_PCT: usize = 85;
-pub const MAID_RANGE: usize = 25_000;
+pub const MAID_RANGE: f64 = 40_000.0;
+pub const MAID_BACK: f64 = 15_000.0;
+/// She glides to her spot behind him once she is farther than this from it (League: she trails him, and comes back from
+/// beyond 1200 of him), at his speed, faster from beyond `MAID_LEASH`.
+pub const MAID_SLACK: f64 = 15_000.0;
+pub const MAID_LEASH: f64 = 80_000.0;
+/// Her bolt's speed a tick and its mark's ticks on a champion (League: until spent; 4 s here).
+pub const BOLT_SPEED: u64 = 3_500;
+pub const MARK_T: usize = 240;
+/// After his death she loses her health in `FADE_STEPS` steps `FADE_EVERY` ticks apart (League: within 3 s).
+pub const FADE_STEPS: usize = 6;
+pub const FADE_EVERY: usize = 30;
 /// The walkers rise this far round the Awakening's target; the Maiden this far behind (up the screen from) the champion
-/// she is raised on (the riding picture's place), her escort as far round her.
+/// she is raised on, her escort as far round her.
 pub const WALK_SPREAD: f64 = 12_000.0;
 pub const MAID_BEHIND: f64 = 11_000.0;
 /// Walkers within `LEAP_REACH` of the champion the mist struck leap to `LEAP_SIDE` from him (League: within 1500 of the
 /// cursed enemy - 2.14 times E's 700 - against our E range of 55000).
 pub const LEAP_REACH: f64 = 118_000.0;
 pub const LEAP_SIDE: f64 = 9_000.0;
+/// Deaths near him count toward a grave within `GRAVE_NEAR` (League: "nearby"), near her toward a raised walker within
+/// `MAID_RANGE`; her escort is raised up to `ARMY_CAP` (League: fewer than 4 under her).
+pub const GRAVE_NEAR: f64 = 60_000.0;
+pub const ARMY_CAP: usize = 4;
+/// The haste toward a champion marked by the mist: within this, moving within 60 degrees of it.
+pub const HASTE_NEAR: f64 = 90_000.0;
 /// The copy's asks (on the target, 3 ticks), the flags on him while units stand in for the riding pictures, the handoffs.
 pub const K_ASK: &str = "league_yorick_k_ask";
+pub const K_ASK4: &str = "league_yorick_k_ask4";
 pub const K_UNIT: &str = "league_yorick_k_unit";
 pub const M_ASK: &str = "league_yorick_m_ask";
 pub const M_UNIT: &str = "league_yorick_m_unit";
 pub const E_ASK: &str = "league_yorick_e_ask";
+pub const W_ASK: &str = "league_yorick_w_ask";
+pub const W_UP: &str = "league_yorick_w_up";
+/// On him once the wall broke (wall.rs): the copy's next piece of the picture is the fall, the rest none.
+pub const W_DOWN: &str = "league_yorick_w_down";
 pub const W_UID: &str = "league_yorick_w_uid";
 pub const M_UID: &str = "league_yorick_m_uid";
-/// The data's flag while the Maiden stands (Q's cooldown halved, the bonus on her target).
+/// The data's flag while the Maiden stands (Q's cooldown halved; the copy's attack marks the champions it strikes).
 pub const R_ON: &str = "league_yorick_r_on";
-/// The main pack's sounds the natives play.
+/// The mist's mark on a champion (the data's), the haste toward it, the Maiden's mark on a champion (its picture is the
+/// data's view buff), her bolt (the data's projectile picture).
+pub const E_MARK: &str = "league_yorick_e_mark";
+pub const E_MS: &str = "league_yorick_e_ms";
+pub const R_MKV: &str = "league_yorick_r_mkv";
+pub const R_BOLT: &str = "league_yorick_r_bolt";
+/// The main pack's sounds and pictures the natives play.
 pub const K_SPAWN_SFX: &str = "league_yorick_k_spawn";
 pub const K_LEAP_VIEW: &str = "league_yorick_k_leap";
 pub const R_SPAWN_SFX: &str = "league_yorick_r_spawn";
+pub const R_CLAW: &str = "league_yorick_r_claw";
+pub const R_MARK_VIEW: &str = "league_yorick_r_mark";
+pub const Q_GRAVE: &str = "league_yorick_q_grave";
 /// Walkers on the books at once (two Awakenings and an escort).
-pub const WALK_CAP: usize = 8;
+pub const WALK_CAP: usize = 10;
 /// Ticks a flag stays (the data reads it once, about 15 ticks after the cast), and the handoff buffs.
 const FLAG_TICKS: usize = 60;
 const UID_TICKS: usize = 6;
 /// A unit gone within this many ticks was never really there: the flag goes and the data's picture plays.
 pub const LOST_AGE: usize = 6;
+/// The level the numbers by level end at (TFM2's champions reach about 12).
+pub const MAX_LEVEL: usize = 12;
 
 // ===================== 日志 =====================
 
@@ -231,15 +264,20 @@ fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
 /// 主包参数表 P 里本包用到的数字（`passive.params`）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Params {
-    /// 室女的目标被约里克普攻打中时，额外受到它最大生命的这么多百分比（真实伤害）。
+    /// 室女的标记被消耗时，按它最大生命的这么多百分比（最高一级；低两级是它的 2/3、5/6）。
     pub r_pct: usize,
-    /// 一座坟留多少拍（数据的 g1..g3 一样长）。
+    /// 一座坟留多少拍（数据的 g1..g4 一起计时）。
     pub g_t: usize,
+    /// 墙线半径、墙的半厚（圈里的中心离圆心不超过 w_r - w_half，圈外的不少于 w_r + w_half）、立多久、立墙前的延时。
+    pub w_r: usize,
+    pub w_half: usize,
+    pub w_t: usize,
+    pub w_delay: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { r_pct: 3, g_t: 1800 }
+        Self { r_pct: 3, g_t: 1800, w_r: 30000, w_half: 10000, w_t: 120, w_delay: 45 }
     }
 }
 
@@ -254,6 +292,10 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "r_pct" => p.r_pct = v,
             "g_t" => p.g_t = v,
+            "w_r" => p.w_r = v,
+            "w_half" => p.w_half = v,
+            "w_t" => p.w_t = v,
+            "w_delay" => p.w_delay = v,
             _ => {}
         }
     }
@@ -262,19 +304,69 @@ pub fn parse_params(json: &str) -> Params {
 
 // ===================== 计算 =====================
 
-/// The Maiden's bonus on her target: r_pct% of its maximum health (at least 1).
-pub fn maiden_bonus(p: &Params, max_hp: usize) -> usize {
-    (max_hp * p.r_pct / 100).max(1)
+fn lvl(level: usize) -> usize {
+    level.clamp(1, MAX_LEVEL) - 1
 }
 
-/// Which grave flag a new grave raises, given which he has (the data's ladder): g1, then g2, then g3; None when full.
-pub fn next_grave(has: [bool; 3]) -> Option<usize> {
-    match has {
-        [_, _, true] => None,
-        [_, true, _] => Some(2),
-        [true, _, _] => Some(1),
-        _ => Some(0),
+/// Graves after one more is dug, with `have` on him (the data's ladder: at most 4).
+pub fn graves_after(have: usize) -> usize {
+    (have + 1).min(GRAVES.len())
+}
+
+/// Graves on him: the highest rung (the rungs go up and run out together).
+pub fn graves_of(has: [bool; 4]) -> usize {
+    has.iter().rposition(|&h| h).map_or(0, |k| k + 1)
+}
+
+/// Deaths near him that dig a grave (League: every 8th at level 1 down to every 2nd at 18; 1..12 here).
+pub fn deaths_per_grave(level: usize) -> usize {
+    8 - (6 * lvl(level) + 5) / 11
+}
+
+/// Last Rites' heal (League: 10-78 by level + 6-10% of his missing health, half on anything but a champion).
+pub fn q_heal(level: usize, hp: usize, max: usize, champion: bool) -> usize {
+    let l = lvl(level);
+    let amount = 10 + 6 * l + max.saturating_sub(hp) * (6 + 4 * l / (MAX_LEVEL - 1)) / 100;
+    if champion { amount } else { amount / 2 }
+}
+
+/// The haste toward a champion the mist marked, in % (League: 18-30% by E's rank; by level here).
+pub fn haste(level: usize) -> usize {
+    18 + 12 * lvl(level) / (MAX_LEVEL - 1)
+}
+
+/// R's rank by level (League: 6 / 11 / 16 of 18; 5 / 8 / 11 of 12 here).
+pub fn r_rank(level: usize) -> usize {
+    match level {
+        0..=7 => 1,
+        8..=10 => 2,
+        _ => 3,
     }
+}
+
+/// The Maiden's escort (League: 2 / 3 / 4 by R's rank).
+pub fn escort(level: usize) -> usize {
+    1 + r_rank(level)
+}
+
+/// Her mark spent, in per mille of the champion's max health (League: 2 / 2.5 / 3%; r_pct is the top rank).
+pub fn mark_per_mille(p: &Params, level: usize) -> usize {
+    p.r_pct * 10 * (r_rank(level) + 3) / 6
+}
+
+/// Is a unit that stepped from `last` to `now` going toward `foe` (within 60 degrees)?
+pub fn toward(last: Pt, now: Pt, foe: Pt) -> bool {
+    let (sx, sy) = (now.0 - last.0, now.1 - last.1);
+    let (fx, fy) = (foe.0 - now.0, foe.1 - now.1);
+    let (s, f) = (sx.hypot(sy), fx.hypot(fy));
+    s > 1.0 && f > 1.0 && (sx * fx + sy * fy) / (s * f) > 0.5
+}
+
+/// Where the Maiden keeps to: `MAID_BACK` from him on her side (up the screen when she is on top of him).
+pub fn follow_spot(him: Pt, her: Pt) -> Pt {
+    let d = summon::dist(him, her);
+    let (ux, uy) = if d < 1.0 { (0.0, -1.0) } else { ((her.0 - him.0) / d, (her.1 - him.1) / d) };
+    (him.0 + ux * MAID_BACK, him.1 + uy * MAID_BACK)
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -300,15 +392,16 @@ pub fn walker_spec(stat: &StatV1, max_hp: usize, life: usize) -> summon::Spec {
 }
 
 /// The Maiden of the Mist from his numbers now: `MAID_HP_PCT` % of his health cap, `MAID_DEF_PCT` % of his armour as armour
-/// and magic resistance, his attack and speed; each claw `MAID_HIT` + `MAID_HIT_AD` % of his attack.
+/// and magic resistance, his attack, move speed 1 (the add-on moves her), her own claw reaching nobody (range 1): her bolts
+/// are the add-on's.
 pub fn maiden_spec(stat: &StatV1, max_hp: usize) -> summon::Spec {
     let def = stat.defence * MAID_DEF_PCT / 100;
     summon::Spec {
         name: MAIDEN_UNIT.to_string(),
         life: MAID_LIFE,
         stat: StatV1 { attack: stat.attack, magic_power: 0, hp: (max_hp * MAID_HP_PCT / 100).max(1), defence: def,
-                       magic_resistance: def, move_speed: stat.move_speed, hp_regen: 0, stack: 0, crit_chance: 0 },
-        attack: UnitAttackV1 { attack_ratio: MAID_HIT_AD, attack: MAID_HIT, range: MAID_RANGE, cooltime: MAID_COOL,
+                       magic_resistance: def, move_speed: 1, hp_regen: 0, stack: 0, crit_chance: 0 },
+        attack: UnitAttackV1 { attack_ratio: MAID_HIT_AD, attack: MAID_HIT, range: 1, cooltime: MAID_COOL,
                                duration: MAID_ACT, start_timing: MAID_LANDS, cancelable: false,
                                attack_type: AttackTypeV1::BaseAttack.code() },
     }
@@ -336,6 +429,11 @@ pub fn leap_damage(attack: usize) -> usize {
     LEAP_HIT + attack * LEAP_HIT_AD / 100
 }
 
+/// A bolt's damage before magic resistance, from his attack.
+pub fn bolt_damage(attack: usize) -> usize {
+    MAID_HIT + attack * MAID_HIT_AD / 100
+}
+
 fn fx(name: &str) -> String {
     format!("{ID}:{name}")
 }
@@ -346,6 +444,10 @@ fn at_input(at: Pt) -> InputTargetV1 {
 
 fn point(input: &InputTargetV1) -> Option<Pt> {
     (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Pos)).then_some((input.x as f64, input.y as f64))
+}
+
+fn target_of(input: &InputTargetV1) -> Option<usize> {
+    (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)).then_some(input.target_id)
 }
 
 // ===================== 原生效果：生成 =====================
@@ -368,12 +470,12 @@ fn flag(sim: &mut StableSim<'_>, me: usize, name: &str) {
     sim.add_buff(me, &BuffV1::timed(name, FLAG_TICKS));
 }
 
-/// The Awakening's walkers for Yorick `me` round `at`: `K_N` of them, the flag for the data on him when any came. -> how
-/// many came.
-fn make_walkers(sim: &mut StableSim<'_>, me: usize, at: Pt, by: &str) -> usize {
+/// The Awakening's walkers for Yorick `me` round `at`: `n` of them (a grave each), the flag for the data on him when any
+/// came. -> how many came.
+fn make_walkers(sim: &mut StableSim<'_>, me: usize, at: Pt, n: usize, by: &str) -> usize {
     let Some((team, stat, max, here)) = sim.get_entity(me).map(|e| (e.team(), e.stat(), e.hp().1, pos(&e))) else { return 0 };
     let spec = walker_spec(&stat, max, WALK_LIFE).with(&KNOBS);
-    let ids = spawn_all(sim, me, team, &walker_points(at, here, K_N), &spec, W_UID);
+    let ids = spawn_all(sim, me, team, &walker_points(at, here, n), &spec, W_UID);
     if ids.is_empty() {
         if let Some(k) = tally(sim, "walkers fail") {
             wlog(format!("{} WALKERS SPAWN FAILED #{k} ({by}): spawn_unit gave no unit for '{}' round {} - the walkers ride on \
@@ -384,54 +486,132 @@ fn make_walkers(sim: &mut StableSim<'_>, me: usize, at: Pt, by: &str) -> usize {
     flag(sim, me, K_UNIT);
     sim.play_sfx(K_SPAWN_SFX, me, &at_input(at));
     if let Some(k) = tally(sim, "walkers spawn") {
-        wlog(format!("{} WALKERS SPAWN #{k} ({by}): {} of {K_N} units {:?} for team {team} round {}: {}", head(sim, me), ids.len(),
+        wlog(format!("{} WALKERS SPAWN #{k} ({by}): {} of {n} units {:?} for team {team} round {}: {}", head(sim, me), ids.len(),
                      ids, summon::pt(at), spec.shown()));
     }
     ids.len()
 }
 
-/// The Maiden for Yorick `me` behind the champion at `at`, and her escort round her; the flag for the data on him when
-/// she came. -> she came.
-fn make_maiden(sim: &mut StableSim<'_>, me: usize, at: Pt, by: &str) -> bool {
+/// The Maiden for Yorick `me` behind the champion at `at`, and her escort (`n`) round her; the flag for the data on him
+/// when she came. -> she came.
+fn make_maiden(sim: &mut StableSim<'_>, me: usize, at: Pt, n: usize, by: &str) -> bool {
     let Some((team, stat, max, here)) = sim.get_entity(me).map(|e| (e.team(), e.stat(), e.hp().1, pos(&e))) else { return false };
     let spec = maiden_spec(&stat, max).with(&KNOBS);
     let spot = (at.0, (at.1 - MAID_BEHIND).max(0.0));
     let her = spawn_all(sim, me, team, &[spot], &spec, M_UID);
     let Some(&id) = her.first() else {
         if let Some(k) = tally(sim, "maiden fail") {
-            wlog(format!("{} MAIDEN SPAWN FAILED #{k} ({by}): spawn_unit gave no unit for '{}' at {} - she rides behind the \
-                          champion as before", head(sim, me), spec.name, summon::pt(spot)));
+            wlog(format!("{} MAIDEN SPAWN FAILED #{k} ({by}): spawn_unit gave no unit for '{}' at {} - she follows him as a \
+                          picture as before", head(sim, me), spec.name, summon::pt(spot)));
         }
         return false;
     };
     flag(sim, me, M_UNIT);
     sim.play_sfx(R_SPAWN_SFX, me, &at_input(spot));
     let escort = walker_spec(&stat, max, MAID_LIFE).with(&KNOBS);
-    let ids = spawn_all(sim, me, team, &walker_points(spot, here, R_N), &escort, W_UID);
+    let ids = spawn_all(sim, me, team, &walker_points(spot, here, n), &escort, W_UID);
     if let Some(k) = tally(sim, "maiden spawn") {
-        wlog(format!("{} MAIDEN SPAWN #{k} ({by}): unit #{id} for team {team} at {}: {}; her escort: {} of {R_N} walkers {:?}",
+        wlog(format!("{} MAIDEN SPAWN #{k} ({by}): unit #{id} for team {team} at {}: {}; her escort: {} of {n} walkers {:?}",
                      head(sim, me), summon::pt(spot), spec.shown(), ids.len(), ids));
     }
     true
 }
 
-/// `:walkers` - the passive queues it when the Awakening is cast; the input is the target's spot.
+/// One walker raised from a body near the Maiden (League's Army of the Dead), living `life` ticks.
+fn make_raised(sim: &mut StableSim<'_>, me: usize, at: Pt, life: usize) -> bool {
+    let Some((team, stat, max)) = sim.get_entity(me).map(|e| (e.team(), e.stat(), e.hp().1)) else { return false };
+    let spec = walker_spec(&stat, max, life.max(1)).with(&KNOBS);
+    let ids = spawn_all(sim, me, team, &[at], &spec, W_UID);
+    if let Some(k) = tally(sim, "raised") {
+        wlog(format!("{} RAISED #{k}: a walker from the body at {} (the Maiden's army of the dead): {}", head(sim, me),
+                     summon::pt(at), if ids.is_empty() { "spawn_unit gave no unit".to_string() } else { format!("unit #{} for {life} ticks", ids[0]) }));
+    }
+    !ids.is_empty()
+}
+
+/// `:walkers` - the passive queues it when the Awakening is cast; the input is the target's spot, `dir_x` how many.
 struct WalkersFx;
 
 impl StableEffectType for WalkersFx {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
         let Some(at) = point(&input).or_else(|| sim.get_entity(caster).map(|e| pos(&e))) else { return };
-        make_walkers(sim, caster, at, "the queued effect");
+        let n = if input.dir_x > 0 { input.dir_x as usize } else { K_N };
+        make_walkers(sim, caster, at, n, "the queued effect");
     }
 }
 
-/// `:maiden` - the passive queues it when R is cast; the input is the champion's spot.
+/// `:maiden` - the passive queues it when R is cast; the input is the champion's spot, `dir_x` her escort.
 struct MaidenFx;
 
 impl StableEffectType for MaidenFx {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
         let Some(at) = point(&input).or_else(|| sim.get_entity(caster).map(|e| pos(&e))) else { return };
-        make_maiden(sim, caster, at, "the queued effect");
+        let n = if input.dir_x > 0 { input.dir_x as usize } else { R_N };
+        make_maiden(sim, caster, at, n, "the queued effect");
+    }
+}
+
+/// `:raise` - a walker from a body near the Maiden; the input is where it fell, `dir_x` the ticks it lives.
+struct RaiseFx;
+
+impl StableEffectType for RaiseFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        let Some(at) = point(&input) else { return };
+        make_raised(sim, caster, at, input.dir_x.max(1) as usize);
+    }
+}
+
+/// `:bolt` - the Maiden's bolt hit (spawn_projectile's effect): magic from his attack, her mark on a champion.
+struct BoltFx;
+
+impl StableEffectType for BoltFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        let Some(t) = target_of(&input) else { return };
+        let Some(champion) = sim.get_entity(t).filter(|e| e.is_alive() && e.is_targetable()).map(|e| e.is_champion()) else { return };
+        let Some(attack) = sim.get_entity(caster).map(|e| e.stat().attack) else { return };
+        let dmg = bolt_damage(attack);
+        sim.deal_damage_typed(caster, t, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        let on = InputTargetV1::target(t);
+        sim.play_view_effect(R_CLAW, caster, &on, 0, 0, 0);
+        sim.play_sfx(R_CLAW, caster, &on);
+        if champion {
+            sim.entity_remove_buff(t, R_MKV);
+            sim.add_buff(t, &BuffV1::timed(R_MKV, MARK_T));
+        }
+        if let Some(k) = tally(sim, "bolt hit") {
+            wlog(format!("{} BOLT HIT #{k}: #{t} {} took {dmg} magic{}", head(sim, caster), name_of(sim, t),
+                         if champion { format!("; her mark on it for {MARK_T} ticks") } else { String::new() }));
+        }
+    }
+
+    fn expected_damage(&self, caster_stat: &StatV1) -> (usize, usize) {
+        (0, bolt_damage(caster_stat.attack))
+    }
+}
+
+/// `:fade` - after his death the Maiden loses her health a step at a time (`dir_x` the step); the last step leaves her at 0,
+/// and one not dead a step later is banished to her time.
+struct FadeFx;
+
+impl StableEffectType for FadeFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        let Some(her) = target_of(&input) else { return };
+        let step = input.dir_x.max(1) as usize;
+        let Some((hp, max)) = sim.get_entity(her).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
+        if step > FADE_STEPS {
+            let ok = sim.entity_banish(caster, her, input.dir_y.max(1) as usize, "", "");
+            if let Some(k) = tally(sim, "fade") {
+                wlog(format!("{} MAIDEN FADE #{k}: #{her} still up at {hp} health after her last step - banished to her time: {}",
+                             head(sim, caster), if ok { "yes" } else { "entity_banish REFUSED" }));
+            }
+            return;
+        }
+        let goal = max * (FADE_STEPS - step) / FADE_STEPS;
+        let set = goal < hp && sim.entity_set_hp(her, goal);
+        if let Some(k) = tally(sim, "fade") {
+            wlog(format!("{} MAIDEN FADE #{k}: step {step} of {FADE_STEPS} - #{her} {hp} -> {goal} health ({})", head(sim, caster),
+                         if set { "set" } else if goal >= hp { "she had less" } else { "entity_set_hp REFUSED" }));
+        }
     }
 }
 
@@ -443,7 +623,7 @@ pub enum Walk {
     /// Raised by the Awakening.
     #[default]
     Awake,
-    /// The Maiden's escort.
+    /// The Maiden's escort (and the walkers her army raises).
     Escort,
 }
 
@@ -456,24 +636,46 @@ impl Walk {
     }
 }
 
-/// A walker as the passive keeps it.
+/// A walker as the passive keeps it: its kind, where it stood a tick ago (the haste toward a marked champion).
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct WalkerBook {
     pub kind: Walk,
+    pub last: Option<Pt>,
 }
 
-/// The Maiden as the passive keeps her: the champion she was raised on, the tick she was read as a unit, whether the
-/// look a tick later was logged.
+/// The Maiden as the passive keeps her: the tick she was read as a unit, whether the look a tick later was logged, the
+/// tick of her next bolt, where she stood a tick ago.
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct MaidBook {
-    pub target: usize,
     pub looked: usize,
     pub dressed: bool,
+    pub next_bolt: usize,
+    pub last: Option<Pt>,
 }
 
-/// A Q or R ask the copy laid while the walkers' last ask still waited for its units: kept until that one is answered
-/// (summon::Flock gives all the handoffs of a tick to the oldest waiting ask, so two waiting at once would take each
-/// other's walkers - the Maiden's escort read as the Awakening's when the Awakening's never came).
+/// What an ask brings.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Ask {
+    /// The Awakening's walkers (how many).
+    Awake(usize),
+    /// The Maiden and her escort (how many walkers).
+    Maiden(usize),
+    /// A walker from a body near her (the ticks it lives).
+    Raise(usize),
+}
+
+impl Ask {
+    fn shown(self) -> &'static str {
+        match self {
+            Ask::Awake(_) => "WALKERS",
+            Ask::Maiden(_) => "MAIDEN",
+            Ask::Raise(_) => "RAISE",
+        }
+    }
+}
+
+/// An ask laid while the walkers' last ask still waited for its units: kept until that one is answered (summon::Flock
+/// gives all the handoffs of a tick to the oldest waiting ask, so two waiting at once would take each other's walkers).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Held {
     /// The tick it was laid.
@@ -481,8 +683,7 @@ pub struct Held {
     pub target: usize,
     /// Where the target stood then (used if it is gone when the ask goes out).
     pub at: Pt,
-    /// The Awakening's walkers (else the Maiden and her escort).
-    pub walkers: bool,
+    pub what: Ask,
 }
 
 /// Asks held at once (the oldest is dropped past it), and the ticks one is held at most before it is dropped. A waiting
@@ -492,12 +693,21 @@ pub struct Held {
 pub const HELD_MAX: usize = 4;
 pub const HELD_TICKS: usize = Q_HIT - 4;
 
-/// 每个约里克一份：参数、日志计数、他的单位。
+/// An enemy as this tick's scan read it.
+#[derive(Clone, Copy, Debug)]
+struct Foe {
+    id: usize,
+    at: Pt,
+    champion: bool,
+    counts: bool,
+}
+
+/// 每个约里克一份：参数、日志计数、他的单位、他的墙。
 #[derive(Clone)]
 struct Shepherd {
     p: Params,
     graves: usize,
-    bonuses: usize,
+    marks: usize,
     /// His own unit (on_dead is given the player).
     me: usize,
     walkers: Flock<WalkerBook>,
@@ -505,86 +715,172 @@ struct Shepherd {
     /// Asks held while the walkers' last one waits (oldest first), and the tick of the last ask that went out.
     held: Vec<Held>,
     asked: usize,
+    walls: wall::Walls,
+    /// The enemies (minions, monsters, champions) alive near him at the last scan, and the units Last Rites killed
+    /// (their deaths dug through q_win already); deaths near him since the last grave they dug.
+    near: HashMap<usize, (Pt, bool)>,
+    q_dug: Vec<usize>,
+    deaths: usize,
+    /// Last Rites' heal: the tick it is due (two after q_hl was first seen).
+    heal_due: Option<usize>,
+    /// Where he stood a tick ago (the haste).
+    last: Option<Pt>,
+    /// W_UP was on him the last tick (a wall rises when it comes up).
+    had_up: bool,
 }
 
 impl Default for Shepherd {
     fn default() -> Self {
-        Shepherd { p: Params::default(), graves: 0, bonuses: 0, me: 0, walkers: Flock::new(W_UID, WALK_CAP, WALK_LIFE),
-                   maiden: Flock::new(M_UID, 1, MAID_LIFE), held: Vec::new(), asked: 0 }
+        Shepherd { p: Params::default(), graves: 0, marks: 0, me: 0, walkers: Flock::new(W_UID, WALK_CAP, WALK_LIFE),
+                   maiden: Flock::new(M_UID, 1, MAID_LIFE), held: Vec::new(), asked: 0, walls: wall::Walls::default(),
+                   near: HashMap::new(), q_dug: Vec::new(), deaths: 0, heal_due: None, last: None, had_up: false }
     }
 }
 
 impl Shepherd {
-    /// A unit died to Last Rites: one grave more (the data's ladder; full graves stay full).
-    fn dig(&mut self, sim: &mut StableSim<'_>, me: usize, victim: usize) {
+    /// One grave more (the data's ladder: all the rungs up to the new count, timed together; full stays full).
+    fn dig(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str) {
         let Some(e) = sim.get_entity(me) else { return };
-        if !has(&e, Q_WIN) {
-            return;
+        let have = graves_of([has(&e, GRAVES[0]), has(&e, GRAVES[1]), has(&e, GRAVES[2]), has(&e, GRAVES[3])]);
+        let at = pos(&e);
+        let k = graves_after(have);
+        for g in &GRAVES[..k] {
+            sim.entity_remove_buff(me, g);
+            sim.add_buff(me, &BuffV1::timed(g, self.p.g_t));
         }
-        let Some(k) = next_grave([has(&e, GRAVES[0]), has(&e, GRAVES[1]), has(&e, GRAVES[2])]) else { return };
-        sim.entity_remove_buff(me, GRAVES[k]);
-        sim.add_buff(me, &BuffV1::timed(GRAVES[k], self.p.g_t));
+        sim.play_view_effect(Q_GRAVE, me, &at_input(at), 0, 0, 0);
         self.graves += 1;
-        if self.graves <= 40 || self.graves % 100 == 0 {
-            wlog(format!("{} GRAVE {} died to Last Rites: grave {} ({} in all)", head(sim, me), name_of(sim, victim),
-                         k + 1, self.graves));
+        if let Some(n) = tally(sim, "grave") {
+            wlog(format!("{} GRAVE #{n}: {why} - {k} grave(s) now ({} dug by the add-on)", head(sim, me), self.graves));
         }
     }
 
-    /// His attacks on the Maiden's own target: the bonus, once a hit.
-    fn maiden(&mut self, sim: &mut StableSim<'_>, me: usize) {
-        let Some(e) = sim.get_entity(me) else { return };
-        let team = e.team();
-        let ids: Vec<usize> = (0..sim.champion_count()).map(|i| sim.champion_id_at(i)).collect();
-        for id in ids {
-            let Some(c) = sim.get_entity(id) else { continue };
-            if c.team() == team || !c.is_alive() || !has(&c, HIT) {
-                continue;
-            }
-            let target = has(&c, MAIDEN);
-            let max_hp = c.hp().1;
-            sim.entity_remove_buff(id, HIT);
-            if !target {
-                continue;
-            }
-            let dmg = maiden_bonus(&self.p, max_hp);
-            sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-            self.bonuses += 1;
-            if self.bonuses <= 40 || self.bonuses % 100 == 0 {
-                wlog(format!("{} MAIDEN bonus {dmg} on her target {} ({} in all)", head(sim, me), name_of(sim, id),
-                             self.bonuses));
-            }
+    /// The enemies near him this tick, against the last scan: who died (a grave every Nth; a walker near the Maiden),
+    /// the copy's asks, the marks to spend. -> the enemies (for the haste).
+    fn scan(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, here: Pt) -> Vec<Foe> {
+        struct Seen {
+            foe: Foe,
+            k: bool,
+            k4: bool,
+            m: bool,
+            e: bool,
+            w: bool,
+            hit: bool,
+            mark: bool,
+            e_mark: bool,
         }
-    }
-
-    /// The copy's asks on his enemies: the Awakening's walkers, the Maiden, the mist's pounce.
-    fn asks(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize) {
-        let marked: Vec<(usize, Pt, bool, bool, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
-            .filter(|u| u.team() != team)
-            .map(|u| (u.id(), pos(&u), has(&u, K_ASK), has(&u, M_ASK), has(&u, E_ASK)))
-            .filter(|m| m.2 || m.3 || m.4)
+        let seen: Vec<Seen> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && u.is_alive())
+            .map(|u| {
+                let kind = u.kind();
+                let counts = matches!(kind, Some(EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Champion));
+                let mut s = Seen { foe: Foe { id: u.id(), at: pos(&u), champion: u.is_champion(), counts }, k: false, k4: false,
+                                   m: false, e: false, w: false, hit: false, mark: false, e_mark: false };
+                // 每 tick 每个敌人都看一遍：不拷名字，直接比
+                for b in (0..u.buff_count()).filter_map(|i| u.buff_at(i)) {
+                    match b.name() {
+                        K_ASK => s.k = true,
+                        K_ASK4 => s.k4 = true,
+                        M_ASK => s.m = true,
+                        E_ASK => s.e = true,
+                        W_ASK => s.w = true,
+                        HIT => s.hit = true,
+                        R_MKV => s.mark = true,
+                        E_MARK => s.e_mark = true,
+                        _ => {}
+                    }
+                }
+                s
+            })
             .collect();
-        for (id, at, k, m, e) in marked {
-            if k {
+        // deaths: near him at the last scan, not alive now
+        let alive: std::collections::HashSet<usize> = seen.iter().map(|s| s.foe.id).collect();
+        let gone: Vec<(usize, Pt, bool)> = self.near.iter().filter(|(id, _)| !alive.contains(id)).map(|(id, (at, c))| (*id, *at, *c)).collect();
+        self.near = seen.iter().filter(|s| s.foe.counts && summon::dist(s.foe.at, here) <= GRAVE_NEAR.max(MAID_RANGE + MAID_LEASH))
+            .map(|s| (s.foe.id, (s.foe.at, s.foe.champion))).collect();
+        for (id, at, champion) in gone {
+            self.died(sim, me, id, at, champion, here);
+        }
+        let now = sim.tick();
+        for s in &seen {
+            let (id, at) = (s.foe.id, s.foe.at);
+            if s.k || s.k4 {
                 sim.entity_remove_buff(id, K_ASK);
-                self.ask_or_hold(sim, me, id, at, true);
+                sim.entity_remove_buff(id, K_ASK4);
+                self.ask_or_hold(sim, me, id, at, Ask::Awake(if s.k4 { 4 } else { K_N }));
             }
-            if m {
+            if s.m {
                 sim.entity_remove_buff(id, M_ASK);
-                self.ask_or_hold(sim, me, id, at, false);
+                let n = escort(sim.get_entity(me).map_or(1, |e| e.level()));
+                self.ask_or_hold(sim, me, id, at, Ask::Maiden(n));
             }
-            if e {
+            if s.e {
                 sim.entity_remove_buff(id, E_ASK);
                 self.leap(sim, me, id, at);
             }
+            if s.w {
+                sim.entity_remove_buff(id, W_ASK);
+                self.walls.asked(now, id, at);
+                if let Some(k) = tally(sim, "wall ask") {
+                    wlog(format!("{} WALL ASK #{k}: Dark Procession lands under #{id} {} at {} - the ring rises in {} ticks",
+                                 head(sim, me), name_of(sim, id), summon::pt(at), self.p.w_delay));
+                }
+            }
+            if s.hit {
+                sim.entity_remove_buff(id, HIT);
+                if s.mark && s.foe.champion {
+                    self.spend(sim, me, id);
+                }
+            }
+        }
+        seen.into_iter().filter(|s| s.e_mark && s.foe.champion).map(|s| s.foe).collect()
+    }
+
+    /// An enemy that was near him died at `at`: Last Rites' kill dug already; every Nth other death near him digs a grave
+    /// (League); one near the Maiden raises a walker while her escort is under `ARMY_CAP`.
+    fn died(&mut self, sim: &mut StableSim<'_>, me: usize, id: usize, at: Pt, champion: bool, here: Pt) {
+        if let Some(i) = self.q_dug.iter().position(|v| *v == id) {
+            self.q_dug.remove(i);
+        } else if summon::dist(at, here) <= GRAVE_NEAR {
+            self.deaths += 1;
+            let level = sim.get_entity(me).map_or(1, |e| e.level());
+            let every = deaths_per_grave(level);
+            if self.deaths >= every {
+                self.deaths = 0;
+                self.dig(sim, me, &format!("{} #{id} died near him, the {every}th death since the last such grave (level {level})",
+                                           if champion { "the champion" } else { "a unit" }));
+            }
+        }
+        // the Maiden's army of the dead
+        let Some(her) = self.maiden.live.first().map(|m| (m.unit.id, m.unit.at, m.unit.left(sim.tick()))) else { return };
+        let under = self.walkers.live.iter().filter(|m| m.extra.kind == Walk::Escort).count() + self.walkers.waiting();
+        if summon::dist(at, her.1) <= MAID_RANGE && under < ARMY_CAP && her.2 > 60 {
+            self.ask_or_hold(sim, me, id, at, Ask::Raise(her.2));
         }
     }
 
-    /// An ask the copy laid: out now, or held while the walkers' last ask still waits for its units (or older ones are
-    /// held already: they go out first).
-    fn ask_or_hold(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, walkers: bool) {
+    /// Her mark spent on champion `id` (his attack or the mist struck it): a share of its max health as magic.
+    fn spend(&mut self, sim: &mut StableSim<'_>, me: usize, id: usize) {
+        let Some(max) = sim.get_entity(id).filter(|c| c.is_alive()).map(|c| c.hp().1) else { return };
+        let level = sim.get_entity(me).map_or(1, |e| e.level());
+        let pm = mark_per_mille(&self.p, level);
+        let dmg = (max * pm / 1000).max(1);
+        sim.entity_remove_buff(id, R_MKV);
+        sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        let on = InputTargetV1::target(id);
+        sim.play_view_effect(R_MARK_VIEW, me, &on, 0, 0, 0);
+        self.marks += 1;
+        if let Some(k) = tally(sim, "mark") {
+            wlog(format!("{} MARK SPENT #{k}: the Maiden's mark on #{id} {} - {dmg} magic ({pm} per mille of its {max} max \
+                          health, level {level}; {} in all)", head(sim, me), name_of(sim, id), self.marks));
+        }
+    }
+
+    /// An ask the copy laid (or the army's): out now, or held while the walkers' last ask still waits for its units (or
+    /// older ones are held already: they go out first).
+    fn ask_or_hold(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, what: Ask) {
         if self.walkers.waiting() == 0 && self.held.is_empty() {
-            self.ask(sim, me, target, at, walkers, None);
+            self.ask(sim, me, target, at, what, None);
             return;
         }
         let tick = sim.tick();
@@ -592,11 +888,10 @@ impl Shepherd {
             let old = self.held.remove(0);
             self.dropped(sim, me, old, "too many held");
         }
-        self.held.push(Held { tick, target, at, walkers });
+        self.held.push(Held { tick, target, at, what });
         if let Some(k) = tally(sim, "held") {
-            wlog(format!("{} {} HELD #{k}: {} on #{target} {} - the walkers' ask of t={} still waits for its units ({} held): \
-                          it goes out once that one is answered", head(sim, me), if walkers { "WALKERS" } else { "MAIDEN" },
-                         if walkers { "the Awakening" } else { "Eulogy of the Isles" }, name_of(sim, target), self.asked,
+            wlog(format!("{} {} HELD #{k}: on #{target} {} - the walkers' ask of t={} still waits for its units ({} held): it \
+                          goes out once that one is answered", head(sim, me), what.shown(), name_of(sim, target), self.asked,
                          self.held.len()));
         }
     }
@@ -605,7 +900,7 @@ impl Shepherd {
     fn dropped(&mut self, sim: &StableSim<'_>, me: usize, h: Held, why: &str) {
         if let Some(k) = tally(sim, "held drop") {
             wlog(format!("{} {} HELD DROPPED #{k}: the ask of t={} on #{} ({why}) - the data's riding pictures play instead",
-                         head(sim, me), if h.walkers { "WALKERS" } else { "MAIDEN" }, h.tick, h.target));
+                         head(sim, me), h.what.shown(), h.tick, h.target));
         }
     }
 
@@ -621,43 +916,68 @@ impl Shepherd {
             return;
         }
         let h = self.held.remove(0);
-        let at = sim.get_entity(h.target).filter(|e| e.is_alive()).map_or(h.at, |e| pos(&e));
-        self.ask(sim, me, h.target, at, h.walkers, Some(now - h.tick));
+        let at = match h.what {
+            Ask::Raise(_) => h.at,
+            _ => sim.get_entity(h.target).filter(|e| e.is_alive()).map_or(h.at, |e| pos(&e)),
+        };
+        self.ask(sim, me, h.target, at, h.what, Some(now - h.tick));
     }
 
-    /// The Awakening's walkers (`walkers`) or the Maiden asked for on `target` at `at`; `held`: the ticks it was held.
-    fn ask(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, walkers: bool, held: Option<usize>) {
+    /// Units asked for on `target` at `at`; `held`: the ticks it was held.
+    fn ask(&mut self, sim: &mut StableSim<'_>, me: usize, target: usize, at: Pt, what: Ask, held: Option<usize>) {
         let tick = sim.tick();
-        let (what, kind) = if walkers { ("WALKERS", "walkers off") } else { ("MAIDEN", "maiden off") };
         if KNOBS.off {
-            if let Some(k) = tally(sim, kind) {
-                wlog(format!("{} {what} OFF #{k}: cast on #{target}, unit=off in the test knobs - {} as before", head(sim, me),
-                             if walkers { "the walkers ride on the target" } else { "she rides behind the champion" }));
+            if let Some(k) = tally(sim, "units off") {
+                wlog(format!("{} {} OFF #{k}: cast on #{target}, unit=off in the test knobs - the riding pictures as before",
+                             head(sim, me), what.shown()));
             }
             return;
         }
-        let effect = if walkers { "walkers" } else { "maiden" };
         self.asked = tick;
-        if walkers {
-            self.walkers.ask(tick, WALK_LIFE, WalkerBook { kind: Walk::Awake });
-        } else {
-            self.maiden.ask(tick, MAID_LIFE, MaidBook { target, looked: 0, dressed: false });
-            self.walkers.ask(tick, MAID_LIFE, WalkerBook { kind: Walk::Escort });
-        }
-        let queued = sim.queue_effect(&fx(effect), AttackTypeV1::Skill, me, &at_input(at), 1);
+        let effect = match what {
+            Ask::Awake(_) => {
+                self.walkers.ask(tick, WALK_LIFE, WalkerBook { kind: Walk::Awake, last: None });
+                "walkers"
+            }
+            Ask::Maiden(_) => {
+                self.maiden.ask(tick, MAID_LIFE, MaidBook { looked: 0, dressed: false, next_bolt: 0, last: None });
+                self.walkers.ask(tick, MAID_LIFE, WalkerBook { kind: Walk::Escort, last: None });
+                "maiden"
+            }
+            Ask::Raise(life) => {
+                self.walkers.ask(tick, life, WalkerBook { kind: Walk::Escort, last: None });
+                "raise"
+            }
+        };
+        // 几只（唤醒、护卫）或活多久（尸体上拉起的）放在 dir_x 里给排队的效果
+        let mut input = at_input(at);
+        input.dir_x = match what {
+            Ask::Awake(n) | Ask::Maiden(n) | Ask::Raise(n) => n as i64,
+        };
+        let queued = sim.queue_effect(&fx(effect), AttackTypeV1::Skill, me, &input, 1);
         if !queued {
-            if walkers {
-                make_walkers(sim, me, at, "queue_effect refused: spawned by the passive");
-            } else {
-                make_maiden(sim, me, at, "queue_effect refused: spawned by the passive");
+            match what {
+                Ask::Awake(n) => {
+                    make_walkers(sim, me, at, n, "queue_effect refused: spawned by the passive");
+                }
+                Ask::Maiden(n) => {
+                    make_maiden(sim, me, at, n, "queue_effect refused: spawned by the passive");
+                }
+                Ask::Raise(life) => {
+                    make_raised(sim, me, at, life);
+                }
             }
         }
-        let k = tally(sim, if walkers { "walkers ask" } else { "maiden ask" });
-        if let Some(k) = k {
-            wlog(format!("{} {what} ASK #{k}: {} on #{target} {} at {}: {}{}{}", head(sim, me),
-                         if walkers { "the Awakening" } else { "Eulogy of the Isles" }, name_of(sim, target), summon::pt(at),
-                         if walkers { format!("{K_N} walkers asked for round it") }
-                         else { format!("the Maiden asked for {MAID_BEHIND:.0} behind it, {R_N} walkers round her") },
+        if let Some(k) = tally(sim, match what { Ask::Awake(_) => "walkers ask", Ask::Maiden(_) => "maiden ask", Ask::Raise(_) => "raise ask" }) {
+            let body = match what {
+                Ask::Awake(n) => format!("the Awakening on #{target} {} at {}: {n} walkers asked for round it", name_of(sim, target),
+                                         summon::pt(at)),
+                Ask::Maiden(n) => format!("Eulogy of the Isles on #{target} {} at {}: the Maiden asked for {MAID_BEHIND:.0} behind \
+                                           it, {n} walkers round her", name_of(sim, target), summon::pt(at)),
+                Ask::Raise(life) => format!("#{target} died at {} near the Maiden: a walker asked for from the body ({life} ticks)",
+                                            summon::pt(at)),
+            };
+            wlog(format!("{} {} ASK #{k}: {body}{}{}", head(sim, me), what.shown(),
                          held.map_or(String::new(), |n| format!(" (held {n} tick(s) while the walkers' ask before it waited)")),
                          if queued { "" } else { " - queue_effect REFUSED" }));
         }
@@ -711,7 +1031,7 @@ impl Shepherd {
                     wlog(format!("{} WALKERS NONE #{k}: no walker came within {} ticks of the ask at t={asked} ({}) - {}",
                                  head(sim, me), summon::FLOCK_WAIT, what.kind.shown(),
                                  if what.kind == Walk::Awake { "the walkers ride on the target as before" }
-                                 else { "the Maiden has no escort of units" }));
+                                 else { "no walker of hers this time" }));
                 }
             }
             Event::Look { id, n, line } => {
@@ -765,37 +1085,29 @@ impl Shepherd {
     fn maiden_event(&mut self, sim: &mut StableSim<'_>, me: usize, ev: Event<MaidBook>) {
         let tick = sim.tick();
         match ev {
-            Event::NoUnit { asked, what } => {
+            Event::NoUnit { asked, .. } => {
                 if let Some(k) = tally(sim, "maiden none") {
-                    wlog(format!("{} MAIDEN NONE #{k}: no Maiden came within {} ticks of the ask at t={asked} (on #{}) - she \
-                                  rides behind the champion as before", head(sim, me), summon::FLOCK_WAIT, what.target));
+                    wlog(format!("{} MAIDEN NONE #{k}: no Maiden came within {} ticks of the ask at t={asked} - she follows him as a \
+                                  picture as before", head(sim, me), summon::FLOCK_WAIT));
                 }
             }
             Event::Look { id, n, line } => {
-                // she stands for her time: r_on (Q's cooldown halved, the bonus) and the mark on her champion with her
-                let target = self.maiden.get(id).map_or(0, |m| m.extra.target);
+                // she stands for her time: r_on (Q's cooldown halved; the copy's attack marks for her) with her
                 let left = self.maiden.get(id).map_or(MAID_LIFE, |m| m.unit.left(tick));
                 sim.entity_remove_buff(me, R_ON);
                 sim.add_buff(me, &BuffV1::timed(R_ON, left));
-                let marked = sim.get_entity(target).is_some_and(|c| c.is_alive() && c.is_champion());
-                if marked {
-                    sim.entity_remove_buff(target, MAIDEN);
-                    sim.add_buff(target, &BuffV1::timed(MAIDEN, left));
-                }
                 if let Some(m) = self.maiden.get_mut(id) {
-                    (m.extra.looked, m.extra.dressed) = (tick, false);
+                    (m.extra.looked, m.extra.dressed, m.extra.next_bolt) = (tick, false, tick + 1);
                 }
                 if let Some(k) = tally(sim, "maiden look") {
-                    wlog(format!("{} MAIDEN #{n} LOOK #{k}: {line}; {R_ON} on Yorick and {MAIDEN} on #{target} {} for her \
-                                  {left} ticks", head(sim, me), if marked { "set" } else { "(gone: not set)" }));
+                    wlog(format!("{} MAIDEN #{n} LOOK #{k}: {line}; {R_ON} on Yorick for her {left} ticks", head(sim, me)));
                 }
             }
             Event::Lost { id, why, .. } => {
                 sim.entity_remove_buff(me, M_UNIT);
                 if let Some(k) = tally(sim, "maiden lost") {
                     wlog(format!("{} MAIDEN LOST #{k}: the unit #{id} spawn_unit named never read as one in {} ticks ({why}) - \
-                                  the flag is off, she rides behind the champion as before", head(sim, me),
-                                 summon::FLOCK_LOOKS));
+                                  the flag is off, she follows him as a picture as before", head(sim, me), summon::FLOCK_LOOKS));
                 }
             }
             Event::Line { n, line, .. } => {
@@ -804,17 +1116,16 @@ impl Shepherd {
                 }
             }
             Event::Over { member, end } => {
-                let (n, target) = (member.unit.n, member.extra.target);
+                let n = member.unit.n;
                 let why = if end.age <= LOST_AGE {
                     // never really there: the data has not read the flag yet, so its Maiden can still rise
                     sim.entity_remove_buff(me, M_UNIT);
-                    format!(" - gone {} ticks after she was asked for: the flag is off, she rides behind the champion as before",
+                    format!(" - gone {} ticks after she was asked for: the flag is off, she follows him as a picture as before",
                             end.age)
                 } else if end.fate == summon::Fate::Killed {
-                    // she no longer stands: Q's halved cooldown and the bonus on her champion go with her
+                    // she no longer stands: Q's halved cooldown goes with her
                     sim.entity_remove_buff(me, R_ON);
-                    sim.entity_remove_buff(target, MAIDEN);
-                    format!(" - {R_ON} and the mark on #{target} taken off")
+                    format!(" - {R_ON} taken off")
                 } else {
                     String::new()
                 };
@@ -845,19 +1156,121 @@ impl Shepherd {
         for ev in self.maiden.tick(sim, me, team, player, Some(here)) {
             self.maiden_event(sim, me, ev);
         }
-        let due: Vec<(usize, usize, usize)> = self.maiden.live.iter()
-            .filter(|m| !m.extra.dressed && tick > m.extra.looked)
-            .map(|m| (m.unit.id, m.unit.n, m.extra.target)).collect();
-        for (id, n, target) in due {
+        let due: Vec<(usize, usize)> = self.maiden.live.iter().filter(|m| !m.extra.dressed && tick > m.extra.looked)
+            .map(|m| (m.unit.id, m.unit.n)).collect();
+        for (id, n) in due {
             if let Some(m) = self.maiden.get_mut(id) {
                 m.extra.dressed = true;
             }
             let on_him = sim.get_entity(me).is_some_and(|e| has(&e, R_ON));
-            let on_it = sim.get_entity(target).is_some_and(|c| has(&c, MAIDEN));
             if let Some(k) = tally(sim, "maiden dress") {
-                wlog(format!("{} MAIDEN #{n} DRESS #{k}: a tick on, {R_ON} {} on Yorick, {MAIDEN} {} on #{target}", head(sim, me),
-                             if on_him { "is" } else { "is NOT" }, if on_it { "is" } else { "is NOT" }));
+                wlog(format!("{} MAIDEN #{n} DRESS #{k}: a tick on, {R_ON} {} on Yorick", head(sim, me),
+                             if on_him { "is" } else { "is NOT" }));
             }
+        }
+    }
+
+    /// The Maiden follows him (a forced move to her spot behind him when she is off it) and shoots a bolt every
+    /// `MAID_COOL` ticks at the nearest enemy champion within `MAID_RANGE` of her (else the nearest other enemy).
+    fn maiden_acts(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, here: Pt, speed: u64) {
+        let tick = sim.tick();
+        let Some((id, n, her, next)) = self.maiden.live.first().map(|m| (m.unit.id, m.unit.n, m.unit.at, m.extra.next_bolt)) else {
+            return;
+        };
+        let Some(e) = sim.get_entity(id).filter(|e| e.is_alive()) else { return };
+        let moving = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| c.kind == CcKindV1::ForceMove.code());
+        let spot = follow_spot(here, her);
+        let off = summon::dist(her, spot);
+        if !moving && off > MAID_SLACK {
+            let step = (speed.max(400) as f64) * if summon::dist(her, here) > MAID_LEASH { 3.0 } else { 1.0 };
+            let ticks = (off / step).ceil().max(1.0) as u64;
+            let mut mv = CcV1::of_kind(CcKindV1::ForceMove, ticks);
+            (mv.dx, mv.dy, mv.speed) = ((spot.0 - her.0).round() as i64, (spot.1 - her.1).round() as i64, (off / ticks as f64).ceil() as u64);
+            sim.apply_cc(id, &mv);
+            if let Some(k) = tally(sim, "maiden follow") {
+                wlog(format!("{} MAIDEN #{n} FOLLOW #{k}: {:.0} off her spot {} behind Yorick at {} - a forced move of {ticks} ticks",
+                             head(sim, me), off, summon::pt(spot), summon::pt(here)));
+            }
+        }
+        if tick < next {
+            return;
+        }
+        // 看得见的才打（宿主没有 is_visible 这个槽时连他自己都「看不见」：那就不看这一条）
+        let sight = sim.is_visible(team, me);
+        let foes: Vec<(usize, Pt, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && (!sight || sim.is_visible(team, u.id())))
+            .filter(|u| matches!(u.kind(), Some(EntityKindV1::Champion | EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon)))
+            .map(|u| (u.id(), pos(&u), u.is_champion()))
+            .filter(|u| summon::dist(u.1, her) <= MAID_RANGE)
+            .collect();
+        let pick = foes.iter().filter(|f| f.2).min_by(|a, b| summon::dist(a.1, her).total_cmp(&summon::dist(b.1, her)))
+            .or_else(|| foes.iter().min_by(|a, b| summon::dist(a.1, her).total_cmp(&summon::dist(b.1, her)))).copied();
+        let Some((t, _, _)) = pick else { return };
+        if let Some(m) = self.maiden.get_mut(id) {
+            m.extra.next_bolt = tick + MAID_COOL;
+        }
+        let spec = ProjectileSpawnV1 { caster_id: me, team, x: her.0.round().max(0.0) as u64, y: her.1.round().max(0.0) as u64,
+                                       speed: BOLT_SPEED, target_id: t, attack_type: AttackTypeV1::Skill.code(),
+                                       casting_type: CastingTypeV1::Targeting.code(), casting_target: CastingTargetV1::Enemy.code(),
+                                       ..Default::default() };
+        let flew = sim.spawn_projectile(R_BOLT, &fx("bolt"), &spec);
+        if !flew {
+            BoltFx.apply(sim, 0, me, InputTargetV1::target(t));
+        }
+        if let Some(k) = tally(sim, "bolt") {
+            wlog(format!("{} MAIDEN #{n} BOLT #{k}: at #{t} {} {:.0} away{}", head(sim, me), name_of(sim, t),
+                         summon::dist(her, pick.map_or(her, |p| p.1)), if flew { "" } else { " - spawn_projectile REFUSED: dealt at once" }));
+        }
+    }
+
+    /// The haste toward a champion the mist marked: him, his walkers and the Maiden, each moving toward one within
+    /// `HASTE_NEAR`.
+    fn hastes(&mut self, sim: &mut StableSim<'_>, me: usize, here: Pt, marked: &[Foe]) {
+        let level = sim.get_entity(me).map_or(1, |e| e.level());
+        let mut movers: Vec<(usize, Option<Pt>, Pt)> = vec![(me, self.last, here)];
+        for m in self.walkers.live.iter_mut() {
+            movers.push((m.unit.id, m.extra.last, m.unit.at));
+            m.extra.last = Some(m.unit.at);
+        }
+        for m in self.maiden.live.iter_mut() {
+            movers.push((m.unit.id, m.extra.last, m.unit.at));
+            m.extra.last = Some(m.unit.at);
+        }
+        self.last = Some(here);
+        if marked.is_empty() {
+            return;
+        }
+        let ms = haste(level) as i32;
+        for (id, last, now) in movers {
+            let Some(last) = last else { continue };
+            if !marked.iter().any(|f| summon::dist(f.at, now) <= HASTE_NEAR && toward(last, now, f.at)) {
+                continue;
+            }
+            sim.entity_remove_buff(id, E_MS);
+            let mut b = BuffV1::timed(E_MS, 3);
+            b.move_speed_mult = ms;
+            sim.add_buff(id, &b);
+        }
+    }
+
+    /// Last Rites' heal, two ticks after its flag was first seen (the champion twin's `Q_CH` is up by then).
+    fn heal(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let tick = sim.tick();
+        let Some(e) = sim.get_entity(me) else { return };
+        let (flagged, champion, level, (hp, max)) = (has(&e, Q_HL), has(&e, Q_CH), e.level(), e.hp());
+        match self.heal_due {
+            None if flagged => self.heal_due = Some(tick + 2),
+            Some(due) if tick >= due => {
+                self.heal_due = None;
+                sim.entity_remove_buff(me, Q_HL);
+                let amount = q_heal(level, hp, max, champion);
+                sim.heal(me, me, amount);
+                if let Some(k) = tally(sim, "heal") {
+                    wlog(format!("{} HEAL #{k}: Last Rites {} - {amount} ({hp}/{max} health, level {level})", head(sim, me),
+                                 if champion { "on a champion" } else { "on a unit (half)" }));
+                }
+            }
+            _ => {}
         }
     }
 
@@ -881,18 +1294,34 @@ impl Shepherd {
         }
     }
 
-    /// Everything of his units let go (he died or a new life began).
-    fn orphans(&mut self, sim: &StableSim<'_>, why: &str) {
+    /// He died (or a new life began): League's walkers go with him (health set to 0), the Maiden fades within 3 s; the
+    /// books let go.
+    fn orphans(&mut self, sim: &mut StableSim<'_>, why: &str) {
         let (w, m) = (self.walkers.orphans(), self.maiden.orphans());
         if w.is_empty() && m.is_empty() {
             return;
         }
         let tick = sim.tick();
-        let list: Vec<String> = w.iter().map(|x| format!("walker #{} ({} ticks left)", x.unit.id, x.unit.left(tick)))
-            .chain(m.iter().map(|x| format!("Maiden #{} ({} ticks left)", x.unit.id, x.unit.left(tick)))).collect();
+        let me = self.me;
+        let mut gone = 0;
+        for x in &w {
+            if sim.get_entity(x.unit.id).is_some_and(|e| e.is_alive()) && sim.entity_set_hp(x.unit.id, 0) {
+                gone += 1;
+            }
+        }
+        let mut fades = 0;
+        for x in &m {
+            for step in 1..=FADE_STEPS + 1 {
+                let mut input = InputTargetV1::target(x.unit.id);
+                (input.dir_x, input.dir_y) = (step as i64, x.unit.left(tick) as i64);
+                if sim.queue_effect(&fx("fade"), AttackTypeV1::Skill, me, &input, step * FADE_EVERY) {
+                    fades += 1;
+                }
+            }
+        }
         if let Some(k) = tally(sim, "orphan") {
-            wlog(format!("{} ORPHAN #{k}: {why} - {} fight on unwatched until their time: {}", head(sim, self.me), list.len(),
-                         list.join(", ")));
+            wlog(format!("{} ORPHAN #{k}: {why} - {} walker(s): health set to 0 for {gone}; {} Maiden: {fades} fade steps queued \
+                          ({FADE_STEPS} x {FADE_EVERY} ticks)", head(sim, me), w.len(), m.len()));
         }
     }
 }
@@ -913,13 +1342,13 @@ impl StablePassive for Shepherd {
         for h in std::mem::take(&mut self.held) {
             self.dropped(sim, me, h, "Yorick respawned");
         }
-        self.me = me;
+        (self.me, self.heal_due, self.last, self.had_up, self.deaths) = (me, None, None, false, 0);
+        self.q_dug.clear();
         wlog(format!("{} SPAWN: the add-on's Yorick (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
-        // a dead champion's passive does not run: his units fight on by themselves (no API ends a unit early); an ask
-        // still held never goes out
+        // a dead champion's passive does not run: his units are seen to now; an ask still held never goes out
         self.orphans(sim, "Yorick died");
         let me = self.me;
         for h in std::mem::take(&mut self.held) {
@@ -937,19 +1366,39 @@ impl StablePassive for Shepherd {
 
     fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
         self.hooked(sim, "on_unit_kill", me, victim, None);
-        // a minion or a camp (a champion hit digs its own grave in the data)
-        self.dig(sim, me, victim);
+        // a minion or a camp Last Rites killed (a champion hit digs its own grave in the data)
+        if sim.get_entity(me).is_some_and(|e| has(&e, Q_WIN)) {
+            self.q_dug.push(victim);
+            if self.q_dug.len() > 16 {
+                self.q_dug.remove(0);
+            }
+            let what = name_of(sim, victim);
+            self.dig(sim, me, &format!("{what} #{victim} died to Last Rites"));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
-        let Some((alive, team, here)) = sim.get_entity(me).map(|e| (e.is_alive(), e.team(), pos(&e))) else { return };
+        let Some((alive, team, here, speed)) = sim.get_entity(me).map(|e| (e.is_alive(), e.team(), pos(&e), e.stat().move_speed as u64))
+        else { return };
         if !alive {
+            // a wall stands on (League's does) for as long as anything runs this
+            self.walls.block(sim, me);
             return;
         }
         self.me = me;
-        self.maiden(sim, me);
-        self.asks(sim, me, team);
+        let marked = self.scan(sim, me, team, here);
+        let up = sim.get_entity(me).is_some_and(|e| has(&e, W_UP));
+        if up && !self.had_up {
+            sim.entity_remove_buff(me, W_UP);
+            let p = self.p.clone();
+            self.walls.rise(sim, me, &p);
+        }
+        self.had_up = up;
+        self.walls.block(sim, me);
+        self.heal(sim, me);
         self.units(sim, player, me, team, here);
+        self.maiden_acts(sim, me, team, here, speed);
+        self.hastes(sim, me, here, &marked);
         self.release(sim, me);
     }
 }
@@ -962,8 +1411,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (graves from kills, the Maiden's bonus on her target; the walkers and the Maiden units of their \
-         own) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (graves from kills and deaths near him, the real Dark Procession wall, Last Rites by missing health, \
+         the Maiden following him with her bolts and mark; the walkers and the Maiden units of their own) loaded: game {}.{}.{} \
+         abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -971,20 +1421,23 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     wlog(format!(
-        "UNITS: the Mist Walkers ('{}') and the Maiden of the Mist ('{}') are units (spawn_unit) - {}; the Awakening {K_N} walkers \
+        "UNITS: the Mist Walkers ('{}') and the Maiden of the Mist ('{}') are units (spawn_unit) - {}; the Awakening a walker a grave \
          for {WALK_LIFE} ticks ({WALK_HIT} + {WALK_HIT_AD}% of his attack a bite, {WALK_HP_PCT}% of his health), the Maiden for \
-         {MAID_LIFE} ticks ({MAID_HIT} + {MAID_HIT_AD}% a claw, {MAID_HP_PCT}% of his health) with {R_N} walkers, the mist's \
-         leap within {LEAP_REACH:.0}. Test knobs ({}): {}",
+         {MAID_LIFE} ticks ({MAID_HP_PCT}% of his health) behind him, a bolt every {MAID_COOL} ticks ({MAID_HIT} + {MAID_HIT_AD}% \
+         magic, reach {MAID_RANGE:.0}) with 2-4 walkers, the mist's leap within {LEAP_REACH:.0}. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(WALKER),
         KNOBS.name.as_deref().unwrap_or(MAIDEN_UNIT),
-        if KNOBS.off { "OFF by the test knobs: they ride on the target as before" } else { "ON" },
+        if KNOBS.off { "OFF by the test knobs: the riding pictures as before" } else { "ON" },
         LOG_PATH.with_extension("cfg").display(),
         KNOBS.shown()
     ));
     module.add_native_passive(format!("{ID}:shepherd"), Shepherd::default());
     module.add_native_effect(fx("walkers"), WalkersFx);
     module.add_native_effect(fx("maiden"), MaidenFx);
-    host.log(LogLevel::Info, "league_yorick loaded (graves from kills, the Maiden's bonus on her target; walkers and Maiden as units).");
+    module.add_native_effect(fx("raise"), RaiseFx);
+    module.add_native_effect(fx("bolt"), BoltFx);
+    module.add_native_effect(fx("fade"), FadeFx);
+    host.log(LogLevel::Info, "league_yorick loaded (graves, the real wall, the Maiden; walkers and Maiden as units).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -1003,448 +1456,4 @@ declare_stable_mod!(init, requires = 10);
 mod mock;
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn params_come_from_the_champion_data() {
-        let p = parse_params(r#"{"g_t":1200,"r_pct":5,"x":1}"#);
-        assert_eq!(p, Params { r_pct: 5, g_t: 1200 });
-        assert_eq!(parse_params("{}"), Params::default());
-    }
-
-    #[test]
-    fn the_graves_climb_the_data_s_ladder() {
-        assert_eq!(next_grave([false, false, false]), Some(0));
-        assert_eq!(next_grave([true, false, false]), Some(1));
-        assert_eq!(next_grave([true, true, false]), Some(2));
-        assert_eq!(next_grave([false, true, false]), Some(2)); // g1 ran out first: the ladder goes on from g2
-        assert_eq!(next_grave([true, true, true]), None);
-    }
-
-    #[test]
-    fn the_maiden_s_bonus_is_a_share_of_max_health() {
-        let p = Params::default();
-        assert_eq!(maiden_bonus(&p, 2000), 60);
-        assert_eq!(maiden_bonus(&p, 10), 1);
-    }
-
-    #[test]
-    fn names_are_the_data_s() {
-        for n in [Q_WIN, MAIDEN, HIT, K_ASK, K_UNIT, M_ASK, M_UNIT, E_ASK, R_ON].iter().chain(GRAVES.iter()) {
-            assert!(n.starts_with("league_yorick_"), "{n}");
-        }
-        for name in [K_ASK, K_UNIT, M_ASK, M_UNIT, E_ASK, &summon::handoff(W_UID, usize::MAX), &summon::handoff(M_UID, usize::MAX)] {
-            assert!(name.len() <= BUFF_NAME_CAP, "{name}");
-        }
-    }
-
-    /// 0.1.1 (2026-11-03 night logs: 6 lives, 0 GRAVE): the copy raised `q_win` from a Delayed 2 after the blow, and the
-    /// homing blow lands - and kills - on the next tick. Every blow (the slot's and the controller's) now raises it in its
-    /// own Combine, ahead of the projectile, and no late one is left.
-    #[test]
-    fn every_blow_raises_q_win_before_it_lands() {
-        let copy = include_str!("../override/league_yorick.data_champion");
-        let parts: Vec<&str> = copy.split("\"name\": \"league_yorick_q_blow\"").collect();
-        assert!(parts.len() > 1, "no Last Rites blow in the copy");
-        for (i, before) in parts[..parts.len() - 1].iter().enumerate() {
-            let at = before.rfind(Q_WIN).unwrap_or_else(|| panic!("blow {i}: no {Q_WIN} before it"));
-            assert!(!before[at..].contains("\"Delayed\""), "blow {i}: its {Q_WIN} waits in a Delayed");
-        }
-        assert!(!parts[parts.len() - 1].contains(Q_WIN), "a {Q_WIN} after the last blow (a late one)");
-    }
-
-    /// 0.2.0: the copy asks for the units and lets the riding pictures play only without the flags (make_override.py
-    /// writes it; here the copy as shipped is read back).
-    #[test]
-    fn the_copy_asks_for_the_units_and_keeps_the_riding_pictures_behind_the_flags() {
-        let copy = include_str!("../override/league_yorick.data_champion");
-        // the Awakening: in the slot's Q and the two controllers' (hung by the attack and the ult)
-        assert_eq!(copy.matches(&format!("\"name\": \"{K_ASK}\"")).count(), 3);
-        assert_eq!(copy.matches(&format!("\"buff_name\": \"{K_UNIT}\"")).count(), 3);
-        assert_eq!(copy.matches(&format!("\"name\": \"{E_ASK}\"")).count(), 3);
-        assert_eq!(copy.matches(&format!("\"name\": \"{M_ASK}\"")).count(), 1);
-        assert_eq!(copy.matches(&format!("\"buff_name\": \"{M_UNIT}\"")).count(), 1);
-        // every flag taken off where its ask is laid, before the units' effect lays it again
-        assert_eq!(copy.matches(&format!("\"name\": \"{K_UNIT}\"")).count(), 3);
-        assert_eq!(copy.matches(&format!("\"name\": \"{M_UNIT}\"")).count(), 1);
-    }
-
-    #[test]
-    fn the_flags_are_up_before_the_data_reads_them_and_a_lost_unit_is_told_before_it() {
-        // the units come at most 3 ticks after the cast; the data reads K_UNIT when the blow lands (Q_HIT + 1) and M_UNIT
-        // when the Maiden rises (R_REL + 1): a unit unreadable for FLOCK_LOOKS ticks, or gone by LOST_AGE, takes the flag
-        // off before that
-        assert!(3 + summon::FLOCK_WAIT + summon::FLOCK_LOOKS < Q_HIT + 1);
-        assert!(3 + LOST_AGE < Q_HIT + 1);
-        assert!(R_REL >= Q_HIT);
-        assert!(FLAG_TICKS > R_REL + 1 && FLAG_TICKS < WALK_LIFE);
-        assert!(UID_TICKS > 2);
-    }
-
-    #[test]
-    fn the_units_are_built_from_his_numbers() {
-        let his = StatV1 { attack: 150, magic_power: 30, hp: 900, defence: 80, magic_resistance: 40, move_speed: 1080,
-                           hp_regen: 5, stack: 1, crit_chance: 10 };
-        let w = walker_spec(&his, 2000, WALK_LIFE);
-        assert_eq!((w.name.as_str(), w.life), ("league_yorick_walker", 600));
-        assert_eq!(w.stat, StatV1 { attack: 150, magic_power: 0, hp: 300, defence: 0, magic_resistance: 0, move_speed: 1080,
-                                    hp_regen: 0, stack: 0, crit_chance: 0 });
-        // a bite: 9 + 13 % of 150 = 28, every 60 ticks (the riding walkers' second)
-        let a = w.attack;
-        assert_eq!(a.attack + w.stat.attack * a.attack_ratio / 100, 28);
-        assert_eq!((a.range, a.cooltime, a.duration, a.start_timing), (18_000, 60, 23, 10));
-        assert!(a.start_timing < a.duration && a.duration < a.cooltime);
-        let m = maiden_spec(&his, 2000);
-        assert_eq!((m.name.as_str(), m.life), ("league_yorick_maiden", 900));
-        assert_eq!((m.stat.hp, m.stat.defence, m.stat.magic_resistance, m.stat.move_speed), (2400, 68, 68, 1080));
-        // a claw: 20 + 45 % of 150 = 87
-        assert_eq!(m.attack.attack + m.stat.attack * m.attack.attack_ratio / 100, 87);
-        assert_eq!((m.attack.range, m.attack.cooltime, m.attack.duration, m.attack.start_timing), (25_000, 60, 24, 11));
-        assert_eq!(walker_spec(&StatV1::default(), 0, 1).stat.hp, 1);
-        assert_eq!(leap_damage(150), 65);
-    }
-
-    /// The arithmetic of the README: what the units can deal against what the riding pictures dealt.
-    #[test]
-    fn the_units_damage_is_about_the_riding_ones() {
-        let bite = |ad: usize| WALK_HIT + ad * WALK_HIT_AD / 100;
-        let claw = |ad: usize| MAID_HIT + ad * MAID_HIT_AD / 100;
-        for ad in [91, 150, 250, 400] {
-            // riding: three walkers bite their target once a second for K_T ticks; the Maiden claws once a second for R_T
-            let (walk_old, maid_old) = (K_N * (K_T / WALK_COOL) * bite(ad), (R_T / MAID_COOL) * claw(ad));
-            // units: every bite / claw of their life (the first landing at WALK_LANDS / MAID_LANDS)
-            let walk_max = K_N * (WALK_LANDS..WALK_LIFE).step_by(WALK_COOL).count() * bite(ad);
-            let maid_max = (MAID_LANDS..MAID_LIFE).step_by(MAID_COOL).count() * claw(ad);
-            assert_eq!(walk_max * 6, walk_old * 10, "ad {ad}");
-            assert_eq!(maid_max * 10, maid_old * 15, "ad {ad}");
-            // in reach of their prey 60 % (the walkers) and two thirds (the Maiden) of their life: what the riding ones dealt
-            assert_eq!(walk_max * 60 / 100, walk_old, "ad {ad}");
-            assert_eq!(maid_max * 2 / 3, maid_old, "ad {ad}");
-        }
-    }
-
-    #[test]
-    fn the_walkers_rise_round_the_target_and_leap_beside_their_prey() {
-        let (at, here) = ((500_000.0, 300_000.0), (450_000.0, 300_000.0));
-        let p = walker_points(at, here, 3);
-        assert_eq!(p.len(), 3);
-        for q in &p {
-            assert!((summon::dist(*q, at) - WALK_SPREAD).abs() < 1.0);
-            // none between him and the target
-            assert!(!(q.0 < at.0 && (q.1 - at.1).abs() < 1.0), "{q:?}");
-        }
-        assert_eq!(leap_spot((100_000.0, 100_000.0), (100_000.0, 160_000.0)), (100_000.0, 109_000.0));
-        assert_eq!(leap_spot((100_000.0, 100_000.0), (104_000.0, 100_000.0)), (104_000.0, 100_000.0));
-    }
-
-    // ---- the units on the mock world (summon_mock.rs: our guess of the host, to check this side's logic) ----
-
-    use super::mock::{champion, unit, MPlayer, World};
-
-    const GAREN: usize = 1;
-    const DARIUS: usize = 2;
-
-    fn log_file() -> PathBuf {
-        static SET: std::sync::Once = std::sync::Once::new();
-        let path = std::env::temp_dir().join(format!("league_yorick_test_{}.log", std::process::id()));
-        SET.call_once(|| {
-            std::env::set_var("LEAGUE_YORICK_LOG", &path);
-            let _ = std::fs::remove_file(&path);
-            let _ = std::fs::remove_file(path.with_extension("cfg"));
-        });
-        path
-    }
-
-    /// Yorick #0 (team 0, attack 150, 2000 health) at (300000, 300000); Garen #1 40000 east of him, Darius #2 far south-east,
-    /// an enemy minion #3 far north; a player each for the champions.
-    fn world() -> (World, Shepherd) {
-        log_file();
-        let mut w = World::default();
-        let mut yorick = champion("league_yorick", 0, 300_000.0, 300_000.0);
-        (yorick.hp, yorick.max, yorick.stat.attack, yorick.stat.defence) = (2000, 2000, 150, 80);
-        let mut garen = champion("league_garen", 1, 340_000.0, 300_000.0);
-        (garen.hp, garen.max) = (5000, 5000);
-        let mut darius = champion("league_darius", 1, 600_000.0, 500_000.0);
-        (darius.hp, darius.max) = (5000, 5000);
-        w.units = vec![yorick, garen, darius, unit("melee_minion", EntityKindV1::Minion, 1, 300_000.0, 50_000.0, 300)];
-        w.players = vec![MPlayer { team: 0, champion: 0, ..Default::default() }, MPlayer { team: 1, champion: GAREN, ..Default::default() },
-                         MPlayer { team: 1, champion: DARIUS, ..Default::default() }];
-        let mut me = Shepherd::default();
-        w.sim(|sim| me.on_spawn(sim, 0, 0));
-        (w, me)
-    }
-
-    fn tick(w: &mut World, me: &mut Shepherd) {
-        for (name, caster, input) in w.due() {
-            w.sim(|sim| match name.as_str() {
-                "league_yorick:walkers" => WalkersFx.apply(sim, 0, caster, input),
-                "league_yorick:maiden" => MaidenFx.apply(sim, 0, caster, input),
-                other => panic!("an effect nobody registered: {other}"),
-            });
-        }
-        if w.units[0].hp > 0 {
-            w.sim(|sim| me.on_update(sim, 0, 0, 0));
-        }
-        w.step();
-    }
-
-    fn run(w: &mut World, me: &mut Shepherd, n: usize) {
-        for _ in 0..n {
-            tick(w, me);
-        }
-    }
-
-    /// The copy's ask as the data lays it on the cast's target (3 ticks).
-    fn ask(w: &mut World, target: usize, name: &str) -> usize {
-        w.units[target].buffs.push((BuffV1::timed(name, 3), 3));
-        w.tick
-    }
-
-    fn spawned(w: &World, name: &str) -> Vec<usize> {
-        w.spawns.iter().filter(|s| s.name == name).filter_map(|s| s.gave).collect()
-    }
-
-    #[test]
-    fn the_awakening_raises_three_walkers_that_fight_and_time_out() {
-        let (mut w, mut me) = world();
-        let t0 = ask(&mut w, GAREN, K_ASK);
-        run(&mut w, &mut me, Q_HIT + 1);
-        // three spawn_unit calls round Garen, his team, his numbers; the flag up when the data looks
-        let walkers = spawned(&w, WALKER);
-        assert_eq!(walkers.len(), 3);
-        for s in w.spawns.iter() {
-            assert_eq!((s.summoner, s.team, s.life as usize), (0, 0, WALK_LIFE));
-            assert!(s.tick <= t0 + 3);
-            let d = summon::dist((s.at.0 as f64, s.at.1 as f64), (340_000.0, 300_000.0));
-            assert!((d - WALK_SPREAD).abs() < 2.0, "{d}");
-            assert_eq!((s.stat.attack, s.stat.hp, s.attack.attack, s.attack.attack_ratio), (150, 300, 9, 13));
-        }
-        assert!(w.has(0, K_UNIT), "no flag on him when the data looks: the riding walkers would play too");
-        assert_eq!(me.walkers.live.len(), 3);
-        assert!(!w.has(GAREN, K_ASK) && !w.units[0].buffs.iter().any(|b| b.0.name().starts_with(W_UID)));
-        // they bite Garen, 28 a bite, at most 10 bites each in their life
-        run(&mut w, &mut me, WALK_LIFE);
-        for id in &walkers {
-            let bites = w.dealt(*id, DamageTypeV1::Ad);
-            assert!(!bites.is_empty() && bites.len() <= 10 && bites.iter().all(|b| *b == (GAREN, 28)), "{bites:?}");
-            assert!(!w.units[*id].valid || w.units[*id].died.is_some());
-        }
-        run(&mut w, &mut me, summon::WAKE_TICKS + 5);
-        assert!(me.walkers.is_empty() && me.maiden.is_empty() && w.queue.is_empty());
-        assert!(!w.has(0, K_UNIT), "the flag outlived its use");
-    }
-
-    #[test]
-    fn no_unit_from_the_host_leaves_the_data_its_walkers() {
-        // no slot, a refusal, an id that never reads as a unit, units gone at once
-        for case in 0..4 {
-            let (mut w, mut me) = world();
-            match case {
-                0 => w.has_spawn = false,
-                1 => w.spawn_ok = false,
-                2 => w.spawn_never = true,
-                _ => {}
-            }
-            let t0 = ask(&mut w, GAREN, K_ASK);
-            if case == 3 {
-                run(&mut w, &mut me, 3);
-                assert!(w.has(0, K_UNIT) && me.walkers.live.len() == 3, "case {case}");
-                for id in spawned(&w, WALKER) {
-                    w.units[id].valid = false;
-                }
-            }
-            while w.tick < t0 + Q_HIT + 1 {
-                tick(&mut w, &mut me);
-            }
-            assert!(!w.has(0, K_UNIT), "case {case}: the flag is on him when the data looks - no walkers at all");
-            run(&mut w, &mut me, 200);
-            assert!(me.walkers.is_empty() && w.queue.is_empty(), "case {case}");
-        }
-    }
-
-    #[test]
-    fn the_mist_makes_the_walkers_leap_and_pounce_once() {
-        let (mut w, mut me) = world();
-        ask(&mut w, GAREN, K_ASK);
-        run(&mut w, &mut me, 30);
-        let walkers = spawned(&w, WALKER);
-        // the mist strikes Darius far south-east: only walkers within LEAP_REACH leap - none here
-        ask(&mut w, DARIUS, E_ASK);
-        run(&mut w, &mut me, 2);
-        assert!(w.moves.is_empty());
-        // Darius steps in, 100000 from the walkers: they leap to his side, the pounce (20 + 30 % of 150 = 65) once
-        (w.units[DARIUS].x, w.units[DARIUS].y) = (440_000.0, 300_000.0);
-        ask(&mut w, DARIUS, E_ASK);
-        run(&mut w, &mut me, 2);
-        assert_eq!(w.moves.len(), 3, "{:?}", w.moves);
-        for (_, id, at) in &w.moves {
-            assert!(walkers.contains(id));
-            let d = summon::dist((at.0 as f64, at.1 as f64), (440_000.0, 300_000.0));
-            assert!(d <= LEAP_SIDE + 1.0, "{d}");
-        }
-        assert_eq!(w.dealt(0, DamageTypeV1::Ad), vec![(DARIUS, 65)]);
-        assert_eq!(w.viewed(K_LEAP_VIEW), 1);
-        // no walkers out: the mist does nothing natively
-        let (mut w, mut me) = world();
-        ask(&mut w, DARIUS, E_ASK);
-        run(&mut w, &mut me, 2);
-        assert!(w.moves.is_empty() && w.damage.is_empty() && !w.has(DARIUS, E_ASK));
-    }
-
-    #[test]
-    fn the_maiden_comes_with_her_escort_and_her_time_holds_the_bonus() {
-        let (mut w, mut me) = world();
-        // the data's R: r_on on him and the mark on Garen for R_T, the ask on Garen
-        w.units[0].buffs.push((BuffV1::timed(R_ON, R_T), R_T));
-        w.units[GAREN].buffs.push((BuffV1::timed(MAIDEN, R_T), R_T));
-        let t0 = ask(&mut w, GAREN, M_ASK);
-        run(&mut w, &mut me, R_REL + 1);
-        let her = spawned(&w, MAIDEN_UNIT);
-        assert_eq!(her.len(), 1);
-        let s = w.spawns.iter().find(|s| s.name == MAIDEN_UNIT).unwrap().clone();
-        assert_eq!((s.at, s.life as usize), ((340_000, 289_000), MAID_LIFE));
-        assert_eq!((s.stat.hp, s.stat.defence, s.attack.attack, s.attack.attack_ratio), (2400, 68, 20, 45));
-        assert_eq!(spawned(&w, WALKER).len(), R_N);
-        assert!(w.spawns.iter().filter(|s| s.name == WALKER).all(|s| s.life as usize == MAID_LIFE));
-        assert!(w.has(0, M_UNIT), "no flag when the data raises the riding Maiden");
-        assert_eq!((me.maiden.live.len(), me.walkers.live.len()), (1, R_N));
-        assert!(me.walkers.live.iter().all(|m| m.extra.kind == Walk::Escort));
-        // r_on and the mark follow her time, not R_T
-        let left = |w: &World, id: usize, name: &str| w.units[id].buffs.iter().filter(|b| b.0.name() == name).map(|b| b.1).max();
-        assert!(left(&w, 0, R_ON).unwrap() > R_T, "r_on not stretched to her time");
-        assert!(left(&w, GAREN, MAIDEN).unwrap() > R_T);
-        assert_eq!(w.units[0].buffs.iter().filter(|b| b.0.name() == R_ON).count(), 1);
-        // she claws Garen: 20 + 45 % of 150 = 87
-        run(&mut w, &mut me, 200);
-        let claws = w.dealt(her[0], DamageTypeV1::Ad);
-        assert!(!claws.is_empty() && claws.iter().all(|c| *c == (GAREN, 87)), "{claws:?}");
-        // killed: she no longer stands - r_on and the mark go with her
-        w.hurt(her[0], 1_000_000);
-        run(&mut w, &mut me, 3);
-        assert!(!w.has(0, R_ON) && !w.has(GAREN, MAIDEN));
-        assert!(me.maiden.live.is_empty());
-        let _ = t0;
-    }
-
-    /// The books when an ask's units never come and another ask follows while it waits (summon::Flock gives all handoffs
-    /// of a tick to the oldest waiting ask): the Awakening's walkers refused, the Maiden asked for 2 ticks later - her
-    /// escort must read as hers (Escort, MAID_LIFE from her ask), not as the Awakening's (Awake, WALK_LIFE); and the
-    /// other way round, her escort refused and the Awakening asked for 2 ticks later.
-    #[test]
-    fn an_ask_made_while_the_walkers_last_one_waits_keeps_its_own_units() {
-        for maiden_first in [false, true] {
-            let (mut w, mut me) = world();
-            if maiden_first {
-                w.units[0].buffs.push((BuffV1::timed(R_ON, R_T), R_T));
-                w.units[GAREN].buffs.push((BuffV1::timed(MAIDEN, R_T), R_T));
-            }
-            // the first ask: no unit from the host
-            w.spawn_ok = false;
-            ask(&mut w, GAREN, if maiden_first { M_ASK } else { K_ASK });
-            run(&mut w, &mut me, 2);
-            assert!(spawned(&w, WALKER).is_empty() && spawned(&w, MAIDEN_UNIT).is_empty());
-            // the second, while the first still waits: the host gives units again; held until the first is given up,
-            // its units' flag on him by the time the data reads it (Q_HIT / R_REL ticks after the cast)
-            w.spawn_ok = true;
-            let t1 = ask(&mut w, GAREN, if maiden_first { K_ASK } else { M_ASK });
-            let (read, flag) = if maiden_first { (Q_HIT, K_UNIT) } else { (R_REL, M_UNIT) };
-            while w.tick < t1 + read {
-                tick(&mut w, &mut me);
-            }
-            assert!(w.has(0, flag), "maiden_first {maiden_first}: no {flag} when the data reads it");
-            run(&mut w, &mut me, summon::FLOCK_LOOKS);
-            let (kind, life, n) = if maiden_first { (Walk::Awake, WALK_LIFE, K_N) } else { (Walk::Escort, MAID_LIFE, R_N) };
-            assert_eq!(spawned(&w, WALKER).len(), n, "maiden_first {maiden_first}");
-            assert!(w.spawns.iter().filter(|s| s.name == WALKER && s.gave.is_some()).all(|s| s.life as usize == life && s.tick >= t1));
-            assert_eq!(me.walkers.live.len(), n, "maiden_first {maiden_first}");
-            for m in &me.walkers.live {
-                assert_eq!((m.extra.kind, m.unit.life), (kind, life), "maiden_first {maiden_first}: {m:?}");
-                assert!(m.unit.born >= t1, "maiden_first {maiden_first}: born {} before its ask at {t1}", m.unit.born);
-            }
-            assert_eq!(me.maiden.live.len(), usize::from(!maiden_first));
-        }
-    }
-
-    #[test]
-    fn no_maiden_from_the_host_leaves_the_data_its_maiden() {
-        for case in 0..3 {
-            let (mut w, mut me) = world();
-            match case {
-                0 => w.has_spawn = false,
-                1 => w.spawn_never = true,
-                _ => {}
-            }
-            let t0 = ask(&mut w, GAREN, M_ASK);
-            if case == 2 {
-                run(&mut w, &mut me, 3);
-                assert!(w.has(0, M_UNIT));
-                for id in spawned(&w, MAIDEN_UNIT) {
-                    w.units[id].valid = false;
-                }
-            }
-            while w.tick < t0 + R_REL + 1 {
-                tick(&mut w, &mut me);
-            }
-            assert!(!w.has(0, M_UNIT), "case {case}: the flag is on him when the data looks - no Maiden at all");
-        }
-    }
-
-    #[test]
-    fn his_death_leaves_the_units_fighting() {
-        let (mut w, mut me) = world();
-        ask(&mut w, GAREN, K_ASK);
-        run(&mut w, &mut me, 60);
-        let walkers = spawned(&w, WALKER);
-        let before: usize = walkers.iter().map(|id| w.dealt(*id, DamageTypeV1::Ad).len()).sum();
-        (w.units[0].hp, w.units[0].died) = (0, Some(w.tick));
-        w.sim(|sim| me.on_dead(sim, 0));
-        assert!(me.walkers.is_empty());
-        run(&mut w, &mut me, 200);
-        let after: usize = walkers.iter().map(|id| w.dealt(*id, DamageTypeV1::Ad).len()).sum();
-        assert!(after > before, "the walkers stopped when he died");
-        assert!(w.queue.is_empty());
-    }
-
-    #[test]
-    fn the_log_tells_the_units_whole_lives() {
-        let (mut w, mut me) = world();
-        ask(&mut w, GAREN, K_ASK);
-        run(&mut w, &mut me, 100);
-        let walkers = spawned(&w, WALKER);
-        let mut dealt = 28;
-        w.sim(|sim| me.on_attack(sim, 0, walkers[0], GAREN, &mut dealt));
-        w.players[1].gold += 14;
-        w.hurt(walkers[1], 100_000);
-        w.units[0].buffs.push((BuffV1::timed(R_ON, R_T), R_T));
-        ask(&mut w, GAREN, M_ASK);
-        run(&mut w, &mut me, 100);
-        (w.units[DARIUS].x, w.units[DARIUS].y) = (400_000.0, 300_000.0);
-        ask(&mut w, DARIUS, E_ASK);
-        run(&mut w, &mut me, 600);
-        let text = std::fs::read_to_string(log_file()).expect("the log");
-        let mine: Vec<&str> = text.lines().filter(|l| l.contains(" WALKER") || l.contains(" MAIDEN ") || l.contains(" HOOK ")).collect();
-        let has = |what: &str| mine.iter().any(|l| l.contains(what));
-        for what in [
-            "WALKERS ASK #", "the Awakening on #1 league_garen at (340000,300000): 3 walkers asked for round it",
-            "WALKERS SPAWN #", "3 of 3 units [4, 5, 6] for team 0 round (340000,300000): 'league_yorick_walker' for 600 ticks, attack \
-             150 ap 0 hp 300 def 0 mr 0 speed 1100; hits 9 + 13% of its attack, range 18000, every 60 ticks (23 long, lands at 10)",
-            "WALKER #1 LOOK #", "(the Awakening's): #4 reads back as name 'league_yorick_walker' kind summon team 0",
-            " of 600 ticks, at (", "near it: champion #1 league_garen",
-            "OVER #", "KILLED after ", "p1 gold +14",
-            "HOOK #", "on_attack: entity #4 (the walker #1) -> #1 league_garen, damage 28",
-            "MAIDEN ASK #", "Eulogy of the Isles on #1 league_garen at (", "the Maiden asked for 11000 behind it, 2 walkers round her",
-            "MAIDEN SPAWN #", "'league_yorick_maiden' for 900 ticks", "her escort: 2 of 2 walkers",
-            "MAIDEN #1 LOOK #", "league_yorick_r_on on Yorick and league_yorick_maiden on #1 set for her 899 ticks",
-            "MAIDEN #1 DRESS #", "league_yorick_r_on is on Yorick, league_yorick_maiden is on #1",
-            "(the Maiden's escort)", "WALKERS LEAP #", "the mist struck #2 league_darius at (400000,300000): ",
-            "moved by entity_set_pos), 0 out of reach; the pounce 65 physical, once",
-            "TIMED OUT after ", "WAKE #",
-        ] {
-            assert!(has(what), "missing {what:?} in the log:\n{}", mine.join("\n"));
-        }
-        assert!(mine.iter().all(|l| l.starts_with("[view m=7 s=1] t=")));
-        let longest = mine.iter().map(|l| l.len()).max().unwrap();
-        assert!(longest < 700, "a line of {longest} bytes");
-    }
-}
+mod tests;

@@ -6,7 +6,7 @@ use super::stacks::{Rule, Stack, Stat};
 /// 表里的英雄都以它开头（stacks.rs 翻表前先比它，the_table_is_sound 也按它查）。
 pub const PREFIX: &str = "league_";
 
-pub const STACKS: [Stack; 101] = [
+pub const STACKS: [Stack; 102] = [
     Stack { hero: "league_ahri", rule: Rule::Most(&[("league_ahri_et1", 1), ("league_ahri_et2", 2), ("league_ahri_et3", 3), ("league_ahri_et4", 4), ("league_ahri_et5", 5), ("league_ahri_et_ready", 6), ("league_ahri_et7", 7), ("league_ahri_et8", 8)]), cap: 8, foes: false },
     Stack { hero: "league_ahri", rule: Rule::Ladder { prefix: "league_ahri_es_", rungs: 99, step: 1, full: None }, cap: 99, foes: false },
     Stack { hero: "league_akshan", rule: Rule::Ladder { prefix: "league_akshan_p_", rungs: 2, step: 1, full: None }, cap: 2, foes: false },
@@ -104,6 +104,7 @@ pub const STACKS: [Stack; 101] = [
     Stack { hero: "league_xinzhao", rule: Rule::Ladder { prefix: "league_xinzhao_p_", rungs: 2, step: 1, full: None }, cap: 2, foes: false },
     Stack { hero: "league_yasuo", rule: Rule::Most(&[("league_yasuo_q_stack", 1), ("league_yasuo_q_ready", 2)]), cap: 2, foes: false },
     Stack { hero: "league_yone", rule: Rule::Most(&[("league_yone_q_stack", 1), ("league_yone_q_ready", 2)]), cap: 2, foes: false },
+    Stack { hero: "league_yorick", rule: Rule::Ladder { prefix: "league_yorick_g", rungs: 4, step: 1, full: None }, cap: 4, foes: false },
     Stack { hero: "league_yunara", rule: Rule::Ladder { prefix: "league_yunara_u", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
     Stack { hero: "league_zaahen", rule: Rule::Ladder { prefix: "league_zaahen_d", rungs: 11, step: 1, full: Some(("league_zaahen_full", 12)) }, cap: 12, foes: false },
     Stack { hero: "league_zaahen", rule: Rule::Ladder { prefix: "league_zaahen_dn_", rungs: 12, step: 1, full: None }, cap: 12, foes: false },

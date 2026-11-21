@@ -273,6 +273,9 @@ STACKS = [
      "cap": 12, "skill": 0, "label": "亚恒「不落之志」果决层数（12 = 满）"},
     {"hero": "league_zaahen", "ladder": "league_zaahen_dn_", "rungs": 12, "cap": 12, "skill": 0,
      "passive": "league_zaahen:darkin", "label": "亚恒「不落之志」果决层数（附加包）"},
+    # 约里克的坟（2026-11-22）：主包和附加包的副本都把 g1..g4 一起挂、一起计时（tools/kit/build_yorick.py），最高一级就是坟数
+    {"hero": "league_yorick", "ladder": "league_yorick_g", "rungs": 4, "cap": 4, "skill": 0,
+     "label": "约里克「牧魂人」坟数（3 座起唤醒雾行者）"},
 ]
 
 # 云顶（tft 包，2026-11-22）：tft.dll 的表（addons/tft/src/stack_table.rs），数据在 tft/champion/。cap / per 写成字符串的是
