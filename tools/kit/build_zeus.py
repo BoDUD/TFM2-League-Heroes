@@ -65,7 +65,7 @@ P = {
     # The Fist That Transcends Time
     "e_cd": 540, "e_range": 40000, "e_dur": 40, "e_dmg": 70, "e_ad": 110, "e_stun": 30, "e_stun_ad": 54,
     # Adamas
-    "r_cd": 2700, "r_range": 30000, "r_go": 62, "r_dr": 40, "r_r": 30000, "r_dmg": 120, "r_ad": 100, "r_up": 42,
+    "r_cd": 2700, "r_range": 30000, "r_go": 62, "r_dr": 50, "r_r": 30000, "r_dmg": 120, "r_ad": 100, "r_up": 42,
     "r_t": 600, "r_atk": 45, "r_def": 60, "r_as": 30, "r_vamp": 25, "v_dur": 56,
 }
 
@@ -166,11 +166,11 @@ def by_form(adamas, muscle, elder):
 def build(p, is_native=False):
     # ------------------------------------------------------------------ the forms
     muscle = flag("mu", None, attack_mult=p["m_atk"], defence_mult=p["m_def"], magic_resistance_mult=p["m_def"])
-    guard = lambda t: flag("guard", t, cc_immune=True, damaged_reduce=p["x_dr"])
+    guard = lambda t, dr: flag("guard", t, cc_immune=True, damaged_reduce=dr)
     burst = around(p["x_r"], [attack(p["x_dmg"], p["x_ad"]), slow("x_slow", p["x_slow"], p["x_slow_t"]),
                               view("x_hit")])
     # the expansion: the change, then the burst and the muscle buff (a Zeus killed meanwhile stays old)
-    expand = combine(unflag("rdy"), anim("expand", p["x_dur"]), guard(p["x_dur"]), sfx("x"),
+    expand = combine(unflag("rdy"), anim("expand", p["x_dur"]), guard(p["x_dur"], p["x_dr"]), sfx("x"),
                      delayed(p["x_dur"] - 1, alive_only(muscle, cview("x_burst"), sfx("x_burst"), burst)))
     # warming up: p_n punches as the old man (flags c1, c2, c3 ...), then the next attack expands
     marks = [f"c{i}" for i in range(1, p["p_n"])]
@@ -212,8 +212,8 @@ def build(p, is_native=False):
     ult = action("ult", p["r_go"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(*[unflag(m) for m in marks], unflag("rdy"), sfx("r"),
                          # Adamas cannot cast it again (r_cd > r_t): the muscle body presses down, the old man swells first
-                         when("mu", combine(guard(p["r_go"] + 2), pressed(0)),
-                              combine(guard(p["x_dur"] + p["r_go"] + 2), from_old))))
+                         when("mu", combine(guard(p["r_go"] + 2, p["r_dr"]), pressed(0)),
+                              combine(guard(p["x_dur"] + p["r_go"] + 2, p["r_dr"]), from_old))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, tag, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z,
