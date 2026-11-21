@@ -20,6 +20,16 @@
 //! 显示世界 +0x138 的 hashbrown 表（控制字节指针、+0x140 掩码、+0x150 元素数），每格 0x1d0 字节，键是 8 字节实体号，
 //! 值从 +8 开始：+0x40 / +0x48 名字（String 指针、长度），+0x68 / +0x70 / +0x78 正在播的动画名（String：容量、指针、
 //! 长度），+0xb8 / +0xc0 buff 列表（每个 0x28 字节，名字指针 +8、长度 +0x10）。
+//!
+//! 身体是怎么画的（0.7.3 的 EXE 反汇编，2026-11-21，查奎因后空翻、拉莫斯滚球时读的）：
+//! - 身体绘制（rva 0x2751f90，league.dll 也挂在这里）每帧拿实体值里的动画名和**动画时间**（+0x170，f32 秒）去取帧
+//!   （rva 0x2789460：表里按名字找到动作，再按时间数帧）。名字以 `idle`、`run`、`loop` 结尾的循环播，别的播到最后一帧就
+//!   停在那一帧。所以钩子换了名字，身体下一帧就照新名字画；换上去的名字循不循环也只看它自己的结尾（`b_run` 循环，
+//!   `e_flip_3` 不循环）。
+//! - 实体更新（rva 0x2756ae0）每帧 `动画时间 += 播放速度（+0x174，f32）x dt`。
+//! - 画在哪：位置 +0x17c / +0x180（f32，千分之一模拟单位），离地 +0x18c。位置只跟着走路和强制位移的事件走；原生代码直接
+//!   改坐标（`entity_set_pos`）画面不跟，要等她下一次走路 / 出手才一下跳过去（奎因 0.7.1 的日志：模拟里退了 48000，画面上
+//!   整个后空翻都钉在原地）。要画面上连着挪，用强制位移（`CcKindV1::ForceMove`）。
 
 use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
@@ -32,6 +42,12 @@ pub const ELEM: usize = 0x1d0;
 pub const VALUE: usize = 8;
 pub const NAME_PTR: usize = 0x40;
 pub const NAME_LEN_AT: usize = 0x48;
+/// 动画时间（f32 秒）和播放速度（f32）：0.7.3 身体绘制 / 实体更新的反汇编，别的版本没核对过，只拿来读（日志）。
+pub const ANIM_TIME: usize = 0x170;
+pub const ANIM_SPEED: usize = 0x174;
+/// 画在哪（f32，千分之一模拟单位）。
+pub const POS_X: usize = 0x17c;
+pub const POS_Y: usize = 0x180;
 pub const ANIM_CAP: usize = 0x68;
 pub const ANIM_PTR: usize = 0x70;
 pub const ANIM_LEN: usize = 0x78;
