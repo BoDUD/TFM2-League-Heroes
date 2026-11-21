@@ -8,6 +8,8 @@
 //! 笔直穿过去——引擎的强制位移（`ForceMove`，宿主就不再按寻路挪他），速度是他现在的移速；宿主没把他挪动时（撞墙停了）
 //! 逐 tick 自己走一步（`entity_set_pos`）。掠影步结束、人到了、或者人死了就停。
 
+use std::sync::LazyLock;
+
 use mod_api_stable::*;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
@@ -117,6 +119,9 @@ fn pos(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
     })
 }
 
+/// 三张图的墙格（[`Grid::builtin`]）：只建一次。
+static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+
 /// 每个凯隐一份（在被动里）：正在穿往哪里。
 #[derive(Clone, Debug, Default)]
 pub struct Walker {
@@ -127,6 +132,11 @@ pub struct Walker {
 impl Walker {
     /// 每 tick：掠影步期间隔墙追人。返回这一 tick 他是否站在墙格里（给完整变身的「墙里的暗影」用）。
     pub fn update(&mut self, sim: &mut StableSim<'_>, me: usize, ghost: bool, log: &dyn Fn(&StableSim<'_>, String)) -> bool {
+        // 不在掠影步、也没有正在走的路：往下算完也只是把两样本来就空的记录清掉、返回 false，直接回（2026-11-22 过日采样：
+        // 原来每 tick 都先把三张图的墙格重建一遍、把场上的人收一遍）
+        if !ghost && self.goal.is_none() && self.last.is_none() {
+            return false;
+        }
         let Some(here) = pos(sim, me) else { return false };
         let Some(k) = sim.get_entity(me) else { return false };
         let team = k.team();
@@ -143,8 +153,8 @@ impl Walker {
                 foes.push(p);
             }
         }
-        let grids = Grid::builtin();
-        let Some(gi) = current(&grids, &unit_points(sim, me)) else { return false };
+        let grids = &*GRIDS;
+        let Some(gi) = current(grids, &unit_points(sim, me)) else { return false };
         let grid = &grids[gi];
         // only during the Shadow Step: walking by the jungle his spot often falls on a wall cell (the cells are coarse),
         // and the in-wall shadow showed then - dark with red sparks, at level 1-2, gone again a moment later, it looked

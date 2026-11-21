@@ -1262,8 +1262,13 @@ fn buff_range(e: &StableEntity<'_, '_>) -> f64 {
     (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.range as f64).sum()
 }
 
+/// buff 的名字（字节）：比的都是 ASCII 常量，不用每个 buff 都做一遍 UTF-8 检查（2026-11-22 过日采样）。
+fn name_of(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
+}
+
 fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| name_of(&b) == name.as_bytes())
 }
 
 /// The biggest `ult_cooldown_mult` on him (the data's refund buff carries 300 or more: `REFUND_MULT`).
@@ -1273,7 +1278,12 @@ fn ult_cut_mult(e: &StableEntity<'_, '_>) -> i32 {
 
 /// 莎弥拉现在的评价（1..6 = E..S，0 = 没有）。
 fn samira_grade(e: &StableEntity<'_, '_>) -> usize {
-    SAMIRA_GRADES.iter().rposition(|g| has_buff(e, g)).map_or(0, |i| i + 1)
+    grade_in((0..e.buff_count()).filter_map(|i| e.buff_at(i)))
+}
+
+/// 这些 buff 里最高的评价（1..6 = E..S，0 = 没有）：一遍看完取最大（原来从 S 往下每档各扫一遍身上的 buff）。
+pub fn grade_in(buffs: impl Iterator<Item = BuffV1>) -> usize {
+    buffs.filter_map(|b| SAMIRA_GRADES.iter().position(|g| name_of(&b) == g.as_bytes())).max().map_or(0, |i| i + 1)
 }
 
 fn grade_name(g: usize) -> &'static str {
@@ -1322,12 +1332,17 @@ pub fn slots_of(name: &str) -> &'static [PressSlot] {
 /// The slots whose cooldowns are watched for the `CAST` / `R ARMED` lines: the pressed ones (`slots_of`), and the R of an
 /// armed ult the hook does not press (0.6.1: Rell, Lulu, Tryndamere - their refunds were never read). Only the log reads
 /// them; what is pressed stays `slots_of`'s.
+// 合集里只有测试用它（decide 用 watched_iter）
+#[cfg_attr(league_bundle, allow(dead_code))]
 pub fn watched_slots(name: &str) -> Vec<PressSlot> {
-    let mut v = slots_of(name).to_vec();
-    if is_armed_ult(name) && !v.iter().any(|s| s.slot == SkillSlotV1::Ult) {
-        v.push(P_R);
-    }
-    v
+    watched_iter(name).collect()
+}
+
+/// [`watched_slots`] 一个个给，不建列表（decide 每次 think 都要过一遍）。
+fn watched_iter(name: &str) -> impl Iterator<Item = PressSlot> {
+    let slots = slots_of(name);
+    let armed = (is_armed_ult(name) && !slots.iter().any(|s| s.slot == SkillSlotV1::Ult)).then_some(P_R);
+    slots.iter().copied().chain(armed)
 }
 
 /// 格子 -> 引擎的命令种类。
@@ -1781,7 +1796,7 @@ impl UltPress {
             self.last_grade = grade;
             // a watched slot went out when its cooldown starts: the press behind it, or the AI's own (the watch only logs:
             // an armed ult the hook never presses is watched too, 0.6.1)
-            for ps in &watched_slots(&name) {
+            for ps in watched_iter(&name) {
                 let i = ps.slot.code() as usize;
                 let remaining = me.cooldown(ps.slot).map(|c| c.remaining);
                 if let (Some(prev), Some(c)) = (self.last_cds[i], remaining) {
@@ -2225,6 +2240,55 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 不是 UTF-8 的名字（name() 给 ""）：按字节比也对不上任何常量。
+    fn garbled(name: &str) -> BuffV1 {
+        let mut b = BuffV1::named(name);
+        b.name_buf[2] = 0xFF;
+        b
+    }
+
+    #[test]
+    fn buff_names_compare_as_before() {
+        // 0.6.x 以前用 b.name() == 常量；按字节比给同样的答案（常量都是非空 ASCII）
+        let buffs = [BuffV1::named(YUUMI_RIDE), BuffV1::named(SAMIRA_GRADES[5]), BuffV1::named("x"), BuffV1::named(""),
+                     garbled(KOG_VOLLEY)];
+        for b in &buffs {
+            for want in [YUUMI_RIDE, KOG_VOLLEY, SAMIRA_R_ON, SAMIRA_GRADES[5], "x"] {
+                assert_eq!(name_of(b) == want.as_bytes(), b.name() == want, "{:?} vs {want}", b.name());
+            }
+        }
+    }
+
+    #[test]
+    fn samira_grade_is_the_old_downward_search() {
+        // 原来：SAMIRA_GRADES 从 S 往下找第一档身上有的（rposition）。每种组合、正着倒着、夹着别的 buff 都一样
+        let old = |bs: &[BuffV1]| SAMIRA_GRADES.iter().rposition(|g| bs.iter().any(|b| b.name() == *g)).map_or(0, |i| i + 1);
+        for mask in 0..64u32 {
+            let mut bs: Vec<BuffV1> = vec![BuffV1::named("league_samira_l_q"), garbled(SAMIRA_GRADES[0])];
+            bs.extend((0..6).filter(|i| mask & (1 << i) != 0).map(|i| BuffV1::named(SAMIRA_GRADES[i])));
+            assert_eq!(grade_in(bs.iter().copied()), old(&bs), "mask {mask:06b}");
+            bs.reverse();
+            assert_eq!(grade_in(bs.iter().copied()), old(&bs), "mask {mask:06b} reversed");
+        }
+    }
+
+    #[test]
+    fn watched_slots_are_the_old_list() {
+        // 原来：slots_of 的拷贝，备好式大招的 R 不在里面就补在最后
+        let old = |name: &str| {
+            let mut v = slots_of(name).to_vec();
+            if is_armed_ult(name) && !v.iter().any(|s| s.slot == SkillSlotV1::Ult) {
+                v.push(P_R);
+            }
+            v
+        };
+        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS,
+                  VLADIMIR, SWAIN, RENATA, WUKONG, YONE, CAMILLE, GWEN, VIEGO, SIVIR, ZILEAN, KALISTA, ORIANNA, KATARINA,
+                  SONA, RELL, LULU, TRYNDAMERE, "league_ahri", ""] {
+            assert_eq!(watched_iter(h).collect::<Vec<_>>(), old(h), "{h}");
+        }
+    }
 
     fn u(id: usize, x: f64, y: f64, hp: f64) -> Unit {
         Unit { id, at: (x, y), hp }
