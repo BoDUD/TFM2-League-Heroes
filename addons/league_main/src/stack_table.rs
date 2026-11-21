@@ -3,7 +3,10 @@
 
 use super::stacks::{Rule, Stack, Stat};
 
-pub const STACKS: [Stack; 98] = [
+/// 表里的英雄都以它开头（stacks.rs 的 the_table_is_sound 按它查）。
+pub const PREFIX: &str = "league_";
+
+pub const STACKS: [Stack; 101] = [
     Stack { hero: "league_ahri", rule: Rule::Most(&[("league_ahri_et1", 1), ("league_ahri_et2", 2), ("league_ahri_et3", 3), ("league_ahri_et4", 4), ("league_ahri_et5", 5), ("league_ahri_et_ready", 6), ("league_ahri_et7", 7), ("league_ahri_et8", 8)]), cap: 8, foes: false },
     Stack { hero: "league_ahri", rule: Rule::Ladder { prefix: "league_ahri_es_", rungs: 99, step: 1, full: None }, cap: 99, foes: false },
     Stack { hero: "league_akshan", rule: Rule::Ladder { prefix: "league_akshan_p_", rungs: 2, step: 1, full: None }, cap: 2, foes: false },
@@ -18,6 +21,7 @@ pub const STACKS: [Stack; 98] = [
     Stack { hero: "league_braum", rule: Rule::Count("league_braum_p_mark"), cap: 3, foes: true },
     Stack { hero: "league_caitlyn", rule: Rule::Ladder { prefix: "league_caitlyn_hs_", rungs: 5, step: 1, full: None }, cap: 5, foes: false },
     Stack { hero: "league_chogath", rule: Rule::Count("league_chogath_r_stack"), cap: 999, foes: false },
+    Stack { hero: "league_corki", rule: Rule::Charges(2), cap: 4, foes: false },
     Stack { hero: "league_darius", rule: Rule::Ladder { prefix: "league_darius_hemo_", rungs: 4, step: 1, full: Some(("league_darius_might", 5)) }, cap: 5, foes: false },
     Stack { hero: "league_diana", rule: Rule::Ladder { prefix: "league_diana_ms_", rungs: 2, step: 1, full: None }, cap: 2, foes: false },
     Stack { hero: "league_draven", rule: Rule::Ladder { prefix: "league_draven_p_", rungs: 6, step: 1, full: None }, cap: 6, foes: false },
@@ -48,6 +52,7 @@ pub const STACKS: [Stack; 98] = [
     Stack { hero: "league_locke", rule: Rule::Ladder { prefix: "league_locke_sl_", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
     Stack { hero: "league_masteryi", rule: Rule::Ladder { prefix: "league_masteryi_ds_", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
     Stack { hero: "league_mel", rule: Rule::Most(&[("league_mel_p_3", 3), ("league_mel_p_6", 6), ("league_mel_p_9", 9)]), cap: 9, foes: false },
+    Stack { hero: "league_milio", rule: Rule::Charges(1), cap: 2, foes: false },
     Stack { hero: "league_mordekaiser", rule: Rule::Ladder { prefix: "league_mordekaiser_p_s", rungs: 2, step: 1, full: Some(("league_mordekaiser_p_on", 3)) }, cap: 3, foes: false },
     Stack { hero: "league_nasus", rule: Rule::Sum("league_nasus_q_stack", Stat::MagicPower), cap: 999, foes: false },
     Stack { hero: "league_olaf", rule: Rule::Ladder { prefix: "league_olaf_p_", rungs: 4, step: 1, full: None }, cap: 4, foes: false },
@@ -79,6 +84,7 @@ pub const STACKS: [Stack; 98] = [
     Stack { hero: "league_talon", rule: Rule::Ladder { prefix: "league_talon_p_", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
     Stack { hero: "league_talon", rule: Rule::Count("league_talon_vault_w"), cap: 3, foes: true },
     Stack { hero: "league_taric", rule: Rule::Ladder { prefix: "league_taric_q_s", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
+    Stack { hero: "league_teemo", rule: Rule::Charges(2), cap: 3, foes: false },
     Stack { hero: "league_tristana", rule: Rule::Ladder { prefix: "league_tristana_e_", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
     Stack { hero: "league_tryndamere", rule: Rule::Ladder { prefix: "league_tryndamere_f_", rungs: 5, step: 20, full: None }, cap: 100, foes: false },
     Stack { hero: "league_twistedfate", rule: Rule::Ladder { prefix: "league_twistedfate_e", rungs: 3, step: 1, full: None }, cap: 3, foes: false },

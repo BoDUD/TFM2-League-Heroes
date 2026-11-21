@@ -87,6 +87,40 @@ mod stack_table;
 #[cfg(windows)]
 mod warm;
 
+/// 只和英雄联盟这张表有关的层数测试（stacks.rs 里的测试 tft.dll 也跑，那边是云顶的表）。
+#[cfg(test)]
+mod stack_rows {
+    use crate::stacks::{number, rows, Rule, STACKS};
+    use mod_api_stable::BuffV1;
+
+    fn buffs(names: &[&str]) -> Vec<BuffV1> {
+        names.iter().map(|n| BuffV1::named(n)).collect()
+    }
+
+    #[test]
+    fn a_hero_with_two_rows_shows_the_larger() {
+        // 韦鲁斯：主包把枯萎记在他自己身上（b_1..b_3），附加包记在每个敌人身上（league_varus_blight_1..3）
+        assert!(rows("league_varus").count() >= 2);
+        let none = [0; 3];
+        let main = buffs(&["league_varus_b_2"]);
+        assert_eq!(number("league_varus", &main, &none, &[]), 2);
+        let foe = buffs(&["league_varus_blight_3"]);
+        assert_eq!(number("league_varus", &[], &none, &[&foe, &main]), 3);
+        assert_eq!(number("league_nobody", &main, &none, &[&foe]), 0);
+    }
+
+    #[test]
+    fn the_charged_skills_are_listed() {
+        // 提莫的蘑菇、库奇的导弹（大招栏）、米利欧的融融情谊（技能 2 栏）读游戏的充能
+        for (hero, k) in [("league_teemo", 2), ("league_corki", 2), ("league_milio", 1)] {
+            assert!(rows(hero).any(|s| s.rule == Rule::Charges(k)), "{hero}");
+        }
+        assert!(STACKS.iter().all(|s| s.hero.starts_with("league_")));
+        assert_eq!(number("league_teemo", &[], &[0, 0, 3], &[]), 3);
+        assert_eq!(number("league_teemo", &[], &[0; 3], &[]), 0);
+    }
+}
+
 pub const ID: &str = "league";
 const VERSION: &str = "0.9.121";
 
