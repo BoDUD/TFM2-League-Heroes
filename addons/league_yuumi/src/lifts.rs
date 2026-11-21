@@ -238,7 +238,9 @@ pub const CROWNS: &[(&str, i32)] = &[
     ("tft_violet", 26),
     ("tft_zippy", 26),
     ("ragnarok_adam", 21),
+    ("ragnarok_kojiro", 22),
     ("ragnarok_lubu", 25),
-    ("ragnarok_thor", 33),
+    ("ragnarok_poseidon", 22),
+    ("ragnarok_thor", 31),
     ("ragnarok_zeus", 29),
 ];
