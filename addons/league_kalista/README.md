@@ -101,3 +101,7 @@ R 命运的召唤都在主包数据里。主包是纯数据：**数据只能往�
 
 - `python addons/league_kalista/make_override.py`：重新生成 `override/` 和 `text/`（先核对主包的卡莉丝塔和参数表一致）。
 - `cargo test -p league_kalista`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到一个短路径，不然链接器打不开参数文件）。
+
+## 0.2.8：过日更快（2026-11-22）
+
+玩法不变。看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查（过日时别的比赛里每 tick 都在比）。

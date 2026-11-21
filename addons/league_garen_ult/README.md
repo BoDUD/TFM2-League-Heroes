@@ -39,3 +39,7 @@ R 写成 150 + 120% 攻击力 + 12% **最大**生命的真实伤害，AI 一好�
 
 - `python addons/league_garen_ult/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。主包的盖伦改了就重跑。
 - `cargo test -p league_garen_ult`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 0.2.1：过日更快（2026-11-22）
+
+玩法不变。看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查（过日时别的比赛里每 tick 都在比）。

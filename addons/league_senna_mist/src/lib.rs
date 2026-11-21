@@ -106,7 +106,7 @@ pub fn odd_wanted(layers: usize) -> bool {
 
 fn buffs_named(sim: &StableSim<'_>, id: usize, name: &str) -> Vec<BuffV1> {
     sim.get_entity(id).map_or_else(Vec::new, |e| {
-        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == name).collect()
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()).collect()
     })
 }
 

@@ -350,7 +350,8 @@ impl Glory {
     /// 救人（0.3.0）：上膛时找被硬控的队友（`held_ally`），有就给他续 `r_cc`（副本的轮询读它）；记下来给 `CHARGE` 行。
     fn save_flag(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.held = None;
-        if !buffs(sim, me).iter().any(|b| b.name() == sn("r_arm")) {
+        let r_arm = sn("r_arm"); // （名字先拼好一次：原来比每个名字都拼一次，2026-11-22 过日采样）
+        if !buffs(sim, me).iter().any(|b| b.name() == r_arm) {
             return;
         }
         let Some(h) = held_ally(sim, me) else { return };

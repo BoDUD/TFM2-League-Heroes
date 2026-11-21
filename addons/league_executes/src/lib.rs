@@ -176,7 +176,7 @@ impl StablePassive for Execute {
         let marked: Vec<(usize, usize, usize)> = (0..sim.entity_count())
             .filter_map(|i| sim.entity_at(i))
             .filter(|u| u.team() != team && u.is_alive())
-            .filter(|u| (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| b.name() == mark))
+            .filter(|u| (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == mark.as_bytes()))
             .map(|u| (u.id(), u.hp().0, u.hp().1))
             .collect();
         for (id, hp, max) in marked {
@@ -198,7 +198,7 @@ impl StablePassive for Execute {
 }
 
 fn buff_left(e: &StableEntity<'_, '_>, name: &str) -> Option<usize> {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == name).map(|b| {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()).map(|b| {
         if BuffDurationV1::from_code(b.duration_kind) == Some(BuffDurationV1::Time) { b.duration_tick } else { usize::MAX }
     }).max()
 }
@@ -295,7 +295,7 @@ impl StablePassive for Riven {
         let marked: Vec<(usize, usize, usize)> = (0..sim.entity_count())
             .filter_map(|i| sim.entity_at(i))
             .filter(|u| u.team() != team && u.is_alive())
-            .filter(|u| (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| b.name() == RIVEN_MARK))
+            .filter(|u| (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == RIVEN_MARK.as_bytes()))
             .map(|u| (u.id(), u.hp().0, u.hp().1))
             .collect();
         for (id, hp, max) in marked {
