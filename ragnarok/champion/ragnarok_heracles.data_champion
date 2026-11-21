@@ -1,0 +1,737 @@
+{
+  "id": "ragnarok_heracles",
+  "category": "Tank",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_heracles:brand",
+    "params": {
+      "p_atk": 1,
+      "p_res": 2,
+      "p_max": 12,
+      "p_ult": 2
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_heracles",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_heracles_skill",
+    "asset/ragnarok/icons/ragnarok_heracles_skill2",
+    "asset/ragnarok/icons/ragnarok_heracles_ult"
+  ],
+  "stat": {
+    "attack": 90,
+    "magic_power": 0,
+    "hp": 1300,
+    "defence": 50,
+    "magic_resistance": 36,
+    "move_speed": 1040,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 14,
+    "magic_power": 0,
+    "hp": 120,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_heracles.attack",
+    "duration": 40,
+    "cooltime": 66,
+    "start_timing": 20,
+    "cancelable": true,
+    "range": 27000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_heracles_cerberus",
+          "effect_buff": {
+            "type": "Sfx",
+            "name": "ragnarok_heracles_ca"
+          },
+          "effect_none": {
+            "type": "Sfx",
+            "name": "ragnarok_heracles_a"
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_heracles_cerberus",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "ragnarok_heracles_ca_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "ragnarok_heracles_ca_hit"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "ragnarok_heracles_a_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "ragnarok_heracles_a_hit"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_heracles.skill",
+    "duration": 44,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 22,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "ragnarok_heracles_cerberus",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_heracles_cq"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 30000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 12000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 90,
+                        "attack_ratio": 120,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "Airborne",
+                        "duration": 30
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_heracles_ca_hit"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_heracles_q"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 42000,
+                        "range": 600
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 80,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "ragnarok_heracles_q_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 90
+                            }
+                          },
+                          "move_speed_mult": -30
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_heracles_a_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_heracles_q_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_heracles.skill2",
+    "duration": 44,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_heracles_cerberus",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 12,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_heracles_ce"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "ragnarok_heracles_ce_guard",
+                      "duration": {
+                        "Time": {
+                          "tick": 150
+                        }
+                      },
+                      "damaged_reduce": 35,
+                      "damage_reflect": 20
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 32000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Taunt",
+                        "duration": 60
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 21,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_heracles_e"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 30000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 15000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 70,
+                        "attack_ratio": 80,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "Stun",
+                        "duration": 45
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_heracles.ult",
+    "duration": 63,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_heracles_r_change",
+            "duration": {
+              "Time": {
+                "tick": 36
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 40
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 18,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_heracles_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_heracles_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_heracles_r1"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_heracles_r1"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_heracles_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 34,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_heracles_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_heracles_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_heracles_r2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_heracles_cerberus",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "attack_mult": 40,
+                          "attack_speed_mult": 50,
+                          "move_speed_mult": 15,
+                          "damaged_reduce": 20,
+                          "vamp": 15
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_heracles_r2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_heracles_cerberus",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "attack_mult": 40,
+                          "attack_speed_mult": 50,
+                          "move_speed_mult": 15,
+                          "damaged_reduce": 20,
+                          "vamp": 15
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_heracles_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 514,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_heracles_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_heracles_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "c_ult",
+                        "tick": 47
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_heracles_r_end"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "c_ult",
+                        "tick": 47
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_heracles_r_end"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_heracles_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 537,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_heracles_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_heracles_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 140,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Airborne",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_heracles_ca_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 140,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Airborne",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_heracles_ca_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_heracles_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_heracles_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_heracles_fx",
+      "tag": "club_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_heracles_ca_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_heracles_fx",
+      "tag": "cerberus_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

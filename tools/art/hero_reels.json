@@ -179,6 +179,7 @@
   "ragnarok_adam": {"idle": [["attack", [0, 1, 2]], ["hit", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "ragnarok_poseidon": {"idle": [["attack", [0, 1, 2]], ["skill2", [0, 1]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "ragnarok_kojiro": {"idle": [["attack", [0, 1, 2]], ["skill", [0, 1, 2]]], "niten_idle": [["niten_attack", [0, 1, 2]]], "bp": ["attack", "skill", "skill2", "ult"]},
+  "ragnarok_heracles": {"idle": [["attack", [0, 1]], ["ult", [0, 1]]], "c_idle": [["c_attack", [0, 1, 2]], ["c_skill2", [0, 1]]]},
   "tft_norra": {"idle": [["skill2", [1]], ["attack", [0]]]},
   "tft_powder": {"idle": [["skill", [2, 3, 4]], ["attack", [0, 1]]]},
   "tft_alune": {"idle": [["skill2", [0]]], "bp": ["skill2", "attack", "skill", "ult"]},

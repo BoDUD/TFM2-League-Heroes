@@ -4,7 +4,7 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 
 第一个英雄是吕布奉先（2026-11-20，用户：「codex/ragnarok-lubu-assets-v02 开始做新的mod了 codex完成了部分美术了 技能代码逻辑之类的都需要你来做」）。美术、图标、音频是 Codex 做的（[`assets/source/lubu/`](../../assets/source/lubu/README.md)），技能、数据、原生代码、高清帧接入和平衡是这里做的。
 
-**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的高清帧表，`init` 先把它交给三个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)：游戏里第一个加载的包 DLL 自己挂钩，后加载的把表交给它（[`share.rs`](../hd_engine/src/share.rs)），所以只开本包也有高清帧，和英雄联盟、金铲铲包一起开也不抢。现在六个人都是两倍密度（一格 256，脚底点 (128, 232)），个子和原来一样：宙斯照 Codex 的原画按两倍重出（`tools/art/zeus_repixel.py`，共用的取样在 `tools/art/ragnarok_repixel.py`），吕布、索尔、亚当是 Codex 照动画第一季重画的（`assets/source/<英雄>/rebuild/`，`tools/art/<英雄>_rebuild_fix.py` 修成同一个头、收到 64 色），波塞冬是 Codex 按同样标准画的两倍身体（`tools/art/poseidon_rebuild_fix.py` 收色、特效按两倍从原画重出）。小次郎是 Codex 直接按两倍画的。PPU：吕布 3.88、索尔 2.67、宙斯 3.3、亚当 3.3、波塞冬 3.3、小次郎 3.3；1 倍帧是从高清帧缩出来的后备。打在别人身上的特效图（`EFFECTS` / `DRAWN_EFFECTS`）也是高清的：吕布 3.3、索尔 2.67、其余 3.3。重画的帧在格子里站的位置和原来不一样的（跑步前后滑、出手往前跳），`import_*.py` 的 SHIFT 整帧挪回去。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok.log`。
+**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的高清帧表，`init` 先把它交给三个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)：游戏里第一个加载的包 DLL 自己挂钩，后加载的把表交给它（[`share.rs`](../hd_engine/src/share.rs)），所以只开本包也有高清帧，和英雄联盟、金铲铲包一起开也不抢。现在八个人都是两倍密度（一格 256，脚底点 (128, 232)），个子和原来一样：宙斯照 Codex 的原画按两倍重出（`tools/art/zeus_repixel.py`，共用的取样在 `tools/art/ragnarok_repixel.py`），吕布、索尔、亚当是 Codex 照动画第一季重画的（`assets/source/<英雄>/rebuild/`，`tools/art/<英雄>_rebuild_fix.py` 修成同一个头、收到 64 色），波塞冬是 Codex 按同样标准画的两倍身体（`tools/art/poseidon_rebuild_fix.py` 收色、特效按两倍从原画重出）。小次郎、赫拉克勒斯、杰克是 Codex 直接按两倍画的（`tools/art/<英雄>_fix.py` 收色）。PPU：吕布 3.88、索尔 2.67，其余六人 3.3；1 倍帧是从高清帧缩出来的后备。打在别人身上的特效图（`EFFECTS` / `DRAWN_EFFECTS`）也是高清的：吕布 3.3、索尔 2.67、其余 3.3。重画的帧在格子里站的位置和原来不一样的（跑步前后滑、出手往前跳），`import_*.py` 的 SHIFT 整帧挪回去。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok.log`。
 
 | 英雄 | 模块 | 做什么 |
 |---|---|---|
@@ -14,6 +14,8 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 | 亚当 `ragnarok_adam` | [`src/adam.rs`](src/adam.rs) | 配音、倒地声（闪避、记录、反击、时间之拳全在数据里） |
 | 波塞冬 `ragnarok_poseidon` | [`src/poseidon.rs`](src/poseidon.rs) | 被动「神无须依赖」、配音、倒地声（三个技能全在数据里） |
 | 佐佐木小次郎 `ragnarok_kojiro` | [`src/kojiro.rs`](src/kojiro.rs) | 被动「预判」、二天岩流后换成双刀的显示钩子、配音、倒地声（三个技能全在数据里） |
+| 赫拉克勒斯 `ragnarok_heracles` | [`src/heracles.rs`](src/heracles.rs) | 被动「十二御业的刻印」、刻耳柏洛斯形态的显示钩子、配音、倒地声（三个技能和变身全在数据里） |
+| 开膛手杰克 `ragnarok_jack` | [`src/jack.rs`](src/jack.rs) | 被动「心之色」、配音、倒地声（飞刀和三个技能全在数据里） |
 
 ## 吕布奉先
 
@@ -121,8 +123,47 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 
 经典引擎跑不了原生代码，平衡模拟用 `build_kojiro.py --plain`（被动按记到一半算：从第一次放技能起攻击力 +12%）。
 
+## 赫拉克勒斯
+
+数据：[`tools/kit/build_heracles.py`](../../tools/kit/build_heracles.py)（参数表 P，数值是 10 分钟经典引擎模拟调出来的，打野，见文件头），文本和音效：[`tools/kit/setup_heracles.py`](../../tools/kit/setup_heracles.py)，图：[`tools/art/import_heracles.py`](../../tools/art/import_heracles.py)（Codex 直接按两倍密度画的常态 8 个动作、刻耳柏洛斯形态 8 个动作 `c_*`，`tools/art/heracles_fix.py` 收色；弧光、狮头、变身的光环、拳风画进他自己的帧、在身子后面，砸地的冲击在前面）。素材和 Codex 的交接说明在 [`assets/source/heracles/`](../../assets/source/heracles/README.md)。分类是坦克（Tank），打野。
+
+| 技能 | 做法 |
+|---|---|
+| 普攻 | 巨棒一击，单体 100% 攻击力物理伤害，0.33 秒打到，射程 27000；刻耳柏洛斯形态是一拳，同一刻打到 |
+| 涅墨亚之狮（Q） | 巨棒前顶、狮头冲出，第 0.38 秒前方扇形（半径 42000、左右各约 53°）里的敌人 80 + 100% 物理伤害、减速 30% 1.5 秒；刻耳柏洛斯形态：一拳往前砸地，身前一圈（半径 30000）90 + 120% 物理伤害、击飞 0.5 秒 |
+| 克里特公牛（E） | 巨棒砸地，第 0.37 秒身前一圈（半径 30000）70 + 80% 物理伤害、眩晕 0.75 秒；刻耳柏洛斯形态：护势，第 0.22 秒起 2.5 秒受到的伤害降低 35%、反弹 20%，身边（半径 32000）的敌人被嘲讽 1 秒 |
+| 刻耳柏洛斯（R） | 对敌方英雄放：变身 1.05 秒（到第 0.58 秒变过去之前不受控制、受到的伤害降低 40%），之后 8 秒刻耳柏洛斯形态：攻击力 +40%、攻速 +50%、移速 +15%、受到的伤害降低 20%、吸血 15%；形态结束时最后一记重拳砸地（`c_ult`），身边一圈（半径 36000）140 + 150% 物理伤害、击飞 0.75 秒。变身前、砸地前被打死就什么都不发生 |
+| 被动 十二御业的刻印 | 下面 |
+
+被动 `ragnarok_heracles:brand`（参数 `p_atk` / `p_res` / `p_max` / `p_ult` 从数据的 `passive.params` 来）：
+
+- **刻印**：他每放一个技能（Q、E）刻印爬一格，放大招爬两格，最多 12 格；每格攻击力 +1%、护甲和魔抗 +2（挂在 `ragnarok_heracles_brand` 上，格数变了换一个）。放技能是看冷却从 0 跳上去认的（小次郎认大招的做法）。他死了刻印消退。写在普攻说明里。
+- **刻耳柏洛斯形态**：变过去那一刻数据挂 `ragnarok_heracles_cerberus`（8 秒）。显示钩子（`game_places::hook`，宙斯、小次郎的做法）在他有这个 buff 时把待机、跑、普攻、两个技能、挨打、倒下换成 `c_*`（Codex 画的空手、肩背骨爪的那一套），buff 没了换回来；变身（`ult`）和形态结束的重拳（`c_ult`，数据用 CasterAnimation 放）不换。形态里的普攻 `c_attack` 按常态普攻的节奏重排了时长（`import_heracles.py` 的 RETIME），两个技能的 `c_` 版和常态的一样长，数据按 buff 换效果（SwitchByBuff）。
+- **配音**：小西克幸的原声六句（Codex 截的）：一局第一次和敌方英雄交手说一句（我始终站在正义一边 / 作为神的代表而战，五次里一次是「既然诸神黄昏已经开始」），杀英雄（打到彻底取胜），变身时三成五的概率「我反对人类灭亡」，复活（要求拯救人类）；每类有自己的冷却，任意两句至少隔 8 秒。死的时候放巨棒落地和身子着地（0.349 秒、0.829 秒）。
+
+经典引擎跑不了原生代码，也没有 Tank 这个分类：平衡模拟用 `build_heracles.py --plain`（刻印按一半算：从第一次放技能起 6 格，分类写 Melee）。
+
+## 开膛手杰克
+
+数据：[`tools/kit/build_jack.py`](../../tools/kit/build_jack.py)（参数表 P，数值是 10 分钟经典引擎模拟调出来的，下路，见文件头），文本和音效：[`tools/kit/setup_jack.py`](../../tools/kit/setup_jack.py)，图：[`tools/art/import_jack.py`](../../tools/art/import_jack.py)（Codex 直接按两倍密度画的 8 个动作，`tools/art/jack_fix.py` 收色；扇形飞刀、伞前的护弧、手套触物画进他自己的帧、在身子后面，后撤时的雾在前面；飞出去的刀是 1 倍的弹道图 `ragnarok_jack_proj`，跟着飞行方向转）。素材和 Codex 的交接说明在 [`assets/source/jack/`](../../assets/source/jack/README.md)。本包第一个远程英雄，分类是射手（Range），下路。
+
+| 技能 | 做法 |
+|---|---|
+| 普攻 | 飞刀：第 0.15 秒（22 拍的动作第 9 拍，对上甩刀那一帧）出手，一把飞刀追着目标飞，打到 100% 攻击力物理伤害，射程 65000 |
+| 飞刀扇（Q） | 第 0.28 秒一扇飞刀出手，第 0.4 秒前方扇形（半径 58000、左右各约 35°）里的敌人 80 + 105% 物理伤害、减速 25% 1 秒 |
+| 伦敦之雾（E） | 有敌方英雄贴近（30000 以内）时放：第 0.2 秒撑开伞，到第 0.48 秒收伞受到的伤害降低 40%；第 0.27 秒往后退进雾里，隐身 1.5 秒，之后 3 秒攻速 +40% |
+| 亲爱的神（R） | 对敌方英雄放：第 0.13 秒对方身上亮起单片镜看穿的那道异色光，第 0.35 秒手套碰过的刀成了神器飞出去，打到 200 + 180% 物理伤害，之后 4 秒对方受到的伤害增加 20%（谁打都算）。出手前被打死就什么都不发生 |
+| 被动 心之色 | 下面 |
+
+被动 `ragnarok_jack:colour`（参数 `p_hp` / `p_dmg` 从数据的 `passive.params` 来）：
+
+- **心之色**：他打中的是敌方英雄、对方生命低于 50% 时（恐惧藏不住），这一下的伤害 +30%（普攻、技能都算，`on_attack` 里看目标的 `hp()`：现在 / 最多）。写在普攻说明里。
+- **配音**：杉田智和的原声六句（Codex 截的）：一局第一次和敌方英雄交手说一句（表演时间 / 我很期待，五次里一次是「接下来请认识我」），杀英雄（这就是规矩），放亲爱的神时三成的概率「神会染上什么颜色」（将近十秒，冷却一分钟），复活（决斗礼节）；每类有自己的冷却，任意两句至少隔 8 秒。死的时候放披风和身子落地（0.827 秒）。
+
+经典引擎跑不了原生代码，平衡模拟用 `build_jack.py --plain`（被动按一半算：攻击力一直 +15%）。
+
 ## 检查
 
-- 在 `addons/` 下 `cargo test -p ragnarok`（CI 也跑）：吕布的被动参数、护盾加成的算式（碎和没碎两种情况下血量都等于「对盾双倍」应有的数）、护甲 buff；六人配音的冷却和轮换、每句都是 Codex 交的原声之一（索尔的十句每句正好用一次，亚当的七句、波塞冬的九句、小次郎的八句都用上）；波塞冬的被动参数、身边有没有队友的判断、一个人时的 buff；小次郎每个对手各自记招、到顶为止、死了清空，双刀只换待机和普攻；宙斯的显示钩子换名规则（三种身体、尸体留形态）；`src/hd.rs` 的表（hd_ 帧正好是 1 倍帧的 PPU 倍、每个动作都有 hd_ / lo_ 帧、特效图有占位的 idle / hd_idle、表写成文本交给主再读回来一样）。
-- `python tools/kit/build_lubu.py` 每次核对 `src/lubu.rs` 的默认参数和 P 一致、DLL 播的画面在数据里有；`build_poseidon.py`、`build_kojiro.py` 同样核对 `src/poseidon.rs`、`src/kojiro.rs`。
+- 在 `addons/` 下 `cargo test -p ragnarok`（CI 也跑）：吕布的被动参数、护盾加成的算式（碎和没碎两种情况下血量都等于「对盾双倍」应有的数）、护甲 buff；八人配音的冷却和轮换、每句都是 Codex 交的原声之一（索尔的十句每句正好用一次，亚当的七句、波塞冬的九句、小次郎的八句、赫拉克勒斯和杰克的各六句都用上）；波塞冬的被动参数、身边有没有队友的判断、一个人时的 buff；小次郎每个对手各自记招、到顶为止、死了清空，双刀只换待机和普攻；赫拉克勒斯的刻印到顶为止、每格的 buff、冷却跳上去才算放了技能，刻耳柏洛斯形态换七个动作、变身和形态结束的重拳不换；杰克的心之色只在对方低于一半时加；宙斯的显示钩子换名规则（三种身体、尸体留形态）；`src/hd.rs` 的表（hd_ 帧正好是 1 倍帧的 PPU 倍、每个动作都有 hd_ / lo_ 帧、特效图有占位的 idle / hd_idle、表写成文本交给主再读回来一样）。
+- `python tools/kit/build_lubu.py` 每次核对 `src/lubu.rs` 的默认参数和 P 一致、DLL 播的画面在数据里有；`build_poseidon.py`、`build_kojiro.py`、`build_heracles.py`、`build_jack.py` 同样核对 `src/poseidon.rs`、`src/kojiro.rs`、`src/heracles.rs`、`src/jack.rs`。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok_lubu.log`：`SPAWN`、打到带盾的人 `SHIELD`（打之前的护盾、这一下、加了多少）、碎了 `BREAK`、没碎 `HELD`、配音 `VOICE`。

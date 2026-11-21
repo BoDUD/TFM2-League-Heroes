@@ -29,6 +29,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 佐佐木小次郎（ragnarok_kojiro）：Codex 直接按两倍密度画的（一格 256），站直 112 格，PPU 3.3，游戏里 34 个游戏像素；
     // 双刀待机、双刀普攻（niten_*）在同一张图里，二天岩流时 src/kojiro.rs 的显示钩子换上
     ("ragnarok_kojiro", 3.3, include_str!("../../../ragnarok/champions/ragnarok_kojiro#anim.fanim")),
+    // 赫拉克勒斯（ragnarok_heracles）：Codex 直接按两倍密度画的，站直 121 格，PPU 3.3，游戏里 37 个游戏像素（大个子）；
+    // 刻耳柏洛斯形态（c_*）在同一张图里，第十二御业以后 src/heracles.rs 的显示钩子换上
+    ("ragnarok_heracles", 3.3, include_str!("../../../ragnarok/champions/ragnarok_heracles#anim.fanim")),
+    // 开膛手杰克（ragnarok_jack）：Codex 直接按两倍密度画的，站直 115 格（连帽上的羽毛），PPU 3.3，35 个游戏像素
+    ("ragnarok_jack", 3.3, include_str!("../../../ragnarok/champions/ragnarok_jack#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -55,11 +60,17 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("ragnarok_poseidon_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_poseidon_fx#anim.fanim")),
     // 小次郎打在人身上的金属火花（燕返刀光、预判涟漪、双刀交错画在他自己的帧里）
     ("ragnarok_kojiro_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_kojiro_fx#anim.fanim")),
+    // 赫拉克勒斯打在人身上的巨棒、拳头命中（弧光、狮头、变身的光环、拳风、砸地的冲击画在他自己的帧里）
+    ("ragnarok_heracles_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_heracles_fx#anim.fanim")),
+    // 杰克的飞刀命中、收招、看穿人心时那道异色的光（扇形飞刀、护弧、雾、手套触物画在他自己的帧里；飞出去的刀是
+    // 弹道画面，1 倍，不在这里）
+    ("ragnarok_jack_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_jack_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
 pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx",
-                                         "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx"];
+                                         "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx",
+                                         "ragnarok_heracles_fx", "ragnarok_jack_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[];
