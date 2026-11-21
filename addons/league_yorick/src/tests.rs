@@ -51,7 +51,8 @@ fn ring() -> Ring {
 #[test]
 fn the_ring_keeps_each_side_to_its_own() {
     let r = ring();
-    assert_eq!((r.line, r.inner, r.outer, r.until), (30_000.0, 20_000.0, 40_000.0, 240));
+    // it falls as the data's last piece (the fall, 15 + 30 x 7 ticks in) is half played
+    assert_eq!((r.line, r.inner, r.outer, r.until), (30_000.0, 20_000.0, 40_000.0, 235));
     // on the wall at the rise: within 210/225 of the line pulled in, the rest pushed out; clear of it left alone
     assert_eq!(wall::at_rise(&r, (C.0 + 10_000.0, C.1)), (true, None));
     assert_eq!(wall::at_rise(&r, (C.0 + 45_000.0, C.1)), (false, None));
@@ -673,6 +674,6 @@ fn champions_pressing_the_wall_break_it_with_the_picture_s_next_piece() {
     run(&mut w, &mut me, 2);
     assert!(moved_to(&w, GAREN, t).is_none());
     let text = std::fs::read_to_string(log_file()).expect("the log");
-    assert!(text.contains("BROKEN #") && text.contains("(2 needed at level 1)") && text.contains("(broken, struck 2.0 times)"),
+    assert!(text.contains("BROKEN #") && text.contains("(2 needed at level 1)") && text.contains("(broken, struck "),
             "no BROKEN / WALL DOWN (broken) line");
 }

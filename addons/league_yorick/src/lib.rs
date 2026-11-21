@@ -277,7 +277,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { r_pct: 3, g_t: 3600, w_r: 30000, w_half: 10000, w_t: 240, w_delay: 45 }
+        Self { r_pct: 3, g_t: 1800, w_r: 30000, w_half: 10000, w_t: 240, w_delay: 45 }
     }
 }
 
@@ -774,14 +774,27 @@ impl Shepherd {
             .map(|u| {
                 let kind = u.kind();
                 let counts = matches!(kind, Some(EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Champion));
-                let names: Vec<String> = (0..u.buff_count()).filter_map(|i| u.buff_at(i)).map(|b| b.name().to_string()).collect();
-                let h = |n: &str| names.iter().any(|x| x == n);
-                Seen { foe: Foe { id: u.id(), at: pos(&u), champion: u.is_champion(), counts }, k: h(K_ASK), k4: h(K_ASK4),
-                       m: h(M_ASK), e: h(E_ASK), w: h(W_ASK), hit: h(HIT), mark: h(R_MKV), e_mark: h(E_MARK) }
+                let mut s = Seen { foe: Foe { id: u.id(), at: pos(&u), champion: u.is_champion(), counts }, k: false, k4: false,
+                                   m: false, e: false, w: false, hit: false, mark: false, e_mark: false };
+                // 每 tick 每个敌人都看一遍：不拷名字，直接比
+                for b in (0..u.buff_count()).filter_map(|i| u.buff_at(i)) {
+                    match b.name() {
+                        K_ASK => s.k = true,
+                        K_ASK4 => s.k4 = true,
+                        M_ASK => s.m = true,
+                        E_ASK => s.e = true,
+                        W_ASK => s.w = true,
+                        HIT => s.hit = true,
+                        R_MKV => s.mark = true,
+                        E_MARK => s.e_mark = true,
+                        _ => {}
+                    }
+                }
+                s
             })
             .collect();
         // deaths: near him at the last scan, not alive now
-        let alive: Vec<usize> = seen.iter().map(|s| s.foe.id).collect();
+        let alive: std::collections::HashSet<usize> = seen.iter().map(|s| s.foe.id).collect();
         let gone: Vec<(usize, Pt, bool)> = self.near.iter().filter(|(id, _)| !alive.contains(id)).map(|(id, (at, c))| (*id, *at, *c)).collect();
         self.near = seen.iter().filter(|s| s.foe.counts && summon::dist(s.foe.at, here) <= GRAVE_NEAR.max(MAID_RANGE + MAID_LEASH))
             .map(|s| (s.foe.id, (s.foe.at, s.foe.champion))).collect();

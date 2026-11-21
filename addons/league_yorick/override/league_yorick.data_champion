@@ -10,7 +10,7 @@
     "passive_ref": "league_yorick:shepherd",
     "params": {
       "r_pct": 3,
-      "g_t": 3600,
+      "g_t": 1800,
       "w_r": 30000,
       "w_half": 10000,
       "w_delay": 45,
@@ -868,7 +868,7 @@
                                                                                       "name": "league_yorick_g1",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -889,7 +889,7 @@
                                                                                       "name": "league_yorick_g2",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -910,7 +910,7 @@
                                                                                       "name": "league_yorick_g3",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -931,7 +931,7 @@
                                                                                       "name": "league_yorick_g4",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -960,7 +960,7 @@
                                                                                         "name": "league_yorick_g1",
                                                                                         "duration": {
                                                                                           "Time": {
-                                                                                            "tick": 3600
+                                                                                            "tick": 1800
                                                                                           }
                                                                                         }
                                                                                       },
@@ -981,7 +981,7 @@
                                                                                         "name": "league_yorick_g2",
                                                                                         "duration": {
                                                                                           "Time": {
-                                                                                            "tick": 3600
+                                                                                            "tick": 1800
                                                                                           }
                                                                                         }
                                                                                       },
@@ -1002,7 +1002,7 @@
                                                                                         "name": "league_yorick_g3",
                                                                                         "duration": {
                                                                                           "Time": {
-                                                                                            "tick": 3600
+                                                                                            "tick": 1800
                                                                                           }
                                                                                         }
                                                                                       },
@@ -1031,7 +1031,7 @@
                                                                                           "name": "league_yorick_g1",
                                                                                           "duration": {
                                                                                             "Time": {
-                                                                                              "tick": 3600
+                                                                                              "tick": 1800
                                                                                             }
                                                                                           }
                                                                                         },
@@ -1052,7 +1052,7 @@
                                                                                           "name": "league_yorick_g2",
                                                                                           "duration": {
                                                                                             "Time": {
-                                                                                              "tick": 3600
+                                                                                              "tick": 1800
                                                                                             }
                                                                                           }
                                                                                         },
@@ -1078,7 +1078,7 @@
                                                                                           "name": "league_yorick_g1",
                                                                                           "duration": {
                                                                                             "Time": {
-                                                                                              "tick": 3600
+                                                                                              "tick": 1800
                                                                                             }
                                                                                           }
                                                                                         },
@@ -1283,7 +1283,7 @@
                                                                   "damage": 40,
                                                                   "attack_ratio": 25,
                                                                   "hp_ratio": 0,
-                                                                  "target_hp_ratio": 8,
+                                                                  "target_hp_ratio": 6,
                                                                   "attack_effect_type": "Target"
                                                                 }
                                                               },
@@ -1550,7 +1550,7 @@
                                                     "name": "league_yorick_w_cd",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 960
+                                                        "tick": 1200
                                                       }
                                                     }
                                                   },
@@ -2036,32 +2036,54 @@
                                                                       {
                                                                         "casting_type": "Targeting",
                                                                         "effect": {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_yorick_e_cd"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_yorick_e_go"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_yorick_e_go",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 60
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_yorick_w_ccd",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_yorick_w_ccd",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 7200
+                                                                                    }
                                                                                   }
-                                                                                }
+                                                                                },
+                                                                                "only_to_enemy": false
                                                                               },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_yorick_e_cd"
+                                                                              },
+                                                                              {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_yorick_e_go"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_yorick_e_go",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 60
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
                                                                         }
                                                                       }
                                                                     ]
@@ -2988,7 +3010,7 @@
                                                         "name": "league_yorick_g1",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 3600
+                                                            "tick": 1800
                                                           }
                                                         }
                                                       },
@@ -3009,7 +3031,7 @@
                                                         "name": "league_yorick_g2",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 3600
+                                                            "tick": 1800
                                                           }
                                                         }
                                                       },
@@ -3030,7 +3052,7 @@
                                                         "name": "league_yorick_g3",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 3600
+                                                            "tick": 1800
                                                           }
                                                         }
                                                       },
@@ -3051,7 +3073,7 @@
                                                         "name": "league_yorick_g4",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 3600
+                                                            "tick": 1800
                                                           }
                                                         }
                                                       },
@@ -3080,7 +3102,7 @@
                                                           "name": "league_yorick_g1",
                                                           "duration": {
                                                             "Time": {
-                                                              "tick": 3600
+                                                              "tick": 1800
                                                             }
                                                           }
                                                         },
@@ -3101,7 +3123,7 @@
                                                           "name": "league_yorick_g2",
                                                           "duration": {
                                                             "Time": {
-                                                              "tick": 3600
+                                                              "tick": 1800
                                                             }
                                                           }
                                                         },
@@ -3122,7 +3144,7 @@
                                                           "name": "league_yorick_g3",
                                                           "duration": {
                                                             "Time": {
-                                                              "tick": 3600
+                                                              "tick": 1800
                                                             }
                                                           }
                                                         },
@@ -3151,7 +3173,7 @@
                                                             "name": "league_yorick_g1",
                                                             "duration": {
                                                               "Time": {
-                                                                "tick": 3600
+                                                                "tick": 1800
                                                               }
                                                             }
                                                           },
@@ -3172,7 +3194,7 @@
                                                             "name": "league_yorick_g2",
                                                             "duration": {
                                                               "Time": {
-                                                                "tick": 3600
+                                                                "tick": 1800
                                                               }
                                                             }
                                                           },
@@ -3198,7 +3220,7 @@
                                                             "name": "league_yorick_g1",
                                                             "duration": {
                                                               "Time": {
-                                                                "tick": 3600
+                                                                "tick": 1800
                                                               }
                                                             }
                                                           },
@@ -3446,7 +3468,7 @@
                                     "damage": 40,
                                     "attack_ratio": 25,
                                     "hp_ratio": 0,
-                                    "target_hp_ratio": 8,
+                                    "target_hp_ratio": 6,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -4479,7 +4501,7 @@
                                                                                       "name": "league_yorick_g1",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -4500,7 +4522,7 @@
                                                                                       "name": "league_yorick_g2",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -4521,7 +4543,7 @@
                                                                                       "name": "league_yorick_g3",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -4542,7 +4564,7 @@
                                                                                       "name": "league_yorick_g4",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 3600
+                                                                                          "tick": 1800
                                                                                         }
                                                                                       }
                                                                                     },
@@ -4571,7 +4593,7 @@
                                                                                         "name": "league_yorick_g1",
                                                                                         "duration": {
                                                                                           "Time": {
-                                                                                            "tick": 3600
+                                                                                            "tick": 1800
                                                                                           }
                                                                                         }
                                                                                       },
@@ -4592,7 +4614,7 @@
                                                                                         "name": "league_yorick_g2",
                                                                                         "duration": {
                                                                                           "Time": {
-                                                                                            "tick": 3600
+                                                                                            "tick": 1800
                                                                                           }
                                                                                         }
                                                                                       },
@@ -4613,7 +4635,7 @@
                                                                                         "name": "league_yorick_g3",
                                                                                         "duration": {
                                                                                           "Time": {
-                                                                                            "tick": 3600
+                                                                                            "tick": 1800
                                                                                           }
                                                                                         }
                                                                                       },
@@ -4642,7 +4664,7 @@
                                                                                           "name": "league_yorick_g1",
                                                                                           "duration": {
                                                                                             "Time": {
-                                                                                              "tick": 3600
+                                                                                              "tick": 1800
                                                                                             }
                                                                                           }
                                                                                         },
@@ -4663,7 +4685,7 @@
                                                                                           "name": "league_yorick_g2",
                                                                                           "duration": {
                                                                                             "Time": {
-                                                                                              "tick": 3600
+                                                                                              "tick": 1800
                                                                                             }
                                                                                           }
                                                                                         },
@@ -4689,7 +4711,7 @@
                                                                                           "name": "league_yorick_g1",
                                                                                           "duration": {
                                                                                             "Time": {
-                                                                                              "tick": 3600
+                                                                                              "tick": 1800
                                                                                             }
                                                                                           }
                                                                                         },
@@ -4894,7 +4916,7 @@
                                                                   "damage": 40,
                                                                   "attack_ratio": 25,
                                                                   "hp_ratio": 0,
-                                                                  "target_hp_ratio": 8,
+                                                                  "target_hp_ratio": 6,
                                                                   "attack_effect_type": "Target"
                                                                 }
                                                               },
@@ -5161,7 +5183,7 @@
                                                     "name": "league_yorick_w_cd",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 960
+                                                        "tick": 1200
                                                       }
                                                     }
                                                   },
@@ -5647,32 +5669,54 @@
                                                                       {
                                                                         "casting_type": "Targeting",
                                                                         "effect": {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_yorick_e_cd"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_yorick_e_go"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_yorick_e_go",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 60
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_yorick_w_ccd",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_yorick_w_ccd",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 7200
+                                                                                    }
                                                                                   }
-                                                                                }
+                                                                                },
+                                                                                "only_to_enemy": false
                                                                               },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_yorick_e_cd"
+                                                                              },
+                                                                              {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_yorick_e_go"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_yorick_e_go",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 60
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
                                                                         }
                                                                       }
                                                                     ]

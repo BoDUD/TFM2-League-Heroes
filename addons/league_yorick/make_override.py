@@ -204,7 +204,8 @@ def files(draft):
             sys.exit("the main pack's league_yorick differs from build_yorick.P: rebuild it first")
         for slot in SLOTS:
             champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
-        values = dict(setup.values(p), walk_t=setup.secs(c["WALK_LIFE"]), maid_t=setup.secs(c["MAID_LIFE"]))
+        values = dict(setup.values(p), walk_t=setup.secs(c["WALK_LIFE"]), maid_t=setup.secs(c["MAID_LIFE"]),
+                      w_t=setup.secs(p["w_tn"]))      # 附加包的墙按英雄联盟立 4 秒（能打塌）
         texts = {lang: {k: tx.format(**values) for k, tx in d.items()} for lang, d in NATIVE.items()}
         long = {f"{lang}.{k}": setup.shown_length(tx) for lang, d in NATIVE.items() for k, tx in d.items()
                 if setup.shown_length(tx) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}

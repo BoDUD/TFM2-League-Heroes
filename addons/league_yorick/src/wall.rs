@@ -17,7 +17,8 @@
 //!   （嘉文四世附加包 0.1.4）。
 //! - 打塌：英雄联盟里敌方英雄普攻 2–4 下（按技能等级）墙就塌。墙不是单位，游戏的 AI 不会拿它当目标，API 也说不出一下普攻
 //!   打的是谁（拿召唤单位拼墙又会让小兵、防御塔、技能都去打它、把 AI 引过去），所以照「想出去 / 想进来的英雄在打墙」算：
-//!   敌方英雄每被墙挡住一 tick，就算它打了 1 / 它的攻击间隔 下，所有敌方英雄加起来够 [`hits_needed`] 下墙就塌（`BROKEN`）。
+//!   敌方英雄每被墙挡住一 tick，就算它打了 1 / 攻击间隔 下（间隔最多按 `BLOW_EVERY` = 30 tick 算），所有敌方英雄加起来够
+//!   [`hits_needed`] 下墙就塌（`BROKEN`）。
 //!   塌在数据下一段画面的开头（每 30 tick 一段，[`next_piece`]），给约里克挂 `W_DOWN`：副本的数据那一段放塌掉的画面，
 //!   以后几段不放。防御塔一下就塌没做（防御塔不打墙）。
 
@@ -39,8 +40,10 @@ pub const PEND_SLACK: usize = 15;
 /// 数据的画面：立墙后 `RISE` tick 起每 `PIECE` tick 一段（build_yorick.py 的 w_stand / w_fall）。
 pub const RISE: usize = 15;
 pub const PIECE: usize = 30;
-/// 读不到攻击间隔时按这么多 tick 一下。
-pub const BLOW_EVERY: usize = 80;
+/// 一下打墙最多算这么多 tick（攻击间隔比它长也按它算；读不到攻击间隔时也按它）：团战经理的团战比英雄联盟快，墙困住人
+/// 的分量也大得多（经典引擎模拟主包：不能打塌的墙困 1 秒还行，1.5 秒、2 秒、4 秒击杀差多 +1、+2、+5），一个英雄打塌墙要
+/// 2 / 3 / 4 x 30 tick（1–2 秒），和主包墙立的 1 秒差不多。
+pub const BLOW_EVERY: usize = 30;
 
 /// 墙塌要敌方英雄打几下（英雄联盟：2 / 2 / 3 / 3 / 4，按技能等级；这里按英雄等级 1–4 级 2 下、5–8 级 3 下、9 级起 4 下）。
 pub fn hits_needed(level: usize) -> f64 {
@@ -74,7 +77,9 @@ pub struct Ring {
 impl Ring {
     pub fn new(c: Pt, p: &Params, from: usize) -> Ring {
         let (line, half) = (p.w_r as f64, p.w_half as f64);
-        Ring { c, line, inner: (line - half).max(0.0), outer: line + half, from, until: from + p.w_t }
+        // 倒在数据最后一段画面（塌掉，build_yorick.py 的 n_up）放到一半的时候：小鬼闪白、缩回土里
+        let n = ((p.w_t as f64 - 35.0) / PIECE as f64).round().max(0.0) as usize;
+        Ring { c, line, inner: (line - half).max(0.0), outer: line + half, from, until: from + RISE + PIECE * n + 10 }
     }
 
     /// 这个位置在这一侧合不合法（圈里的不碰内墙面，圈外的不碰外墙面）。
@@ -305,7 +310,7 @@ impl Walls {
                         moves.push((id, to, inside, *champion));
                         w.last.insert(id, to);
                         if *champion {
-                            w.blows += 1.0 / (if *every == 0 { BLOW_EVERY } else { *every }).max(20) as f64;
+                            w.blows += 1.0 / (if *every == 0 { BLOW_EVERY } else { (*every).min(BLOW_EVERY) }).max(20) as f64;
                         }
                     }
                     Hold::Leapt(side) | Hold::Ghost(side) => {

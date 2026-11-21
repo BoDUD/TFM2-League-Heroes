@@ -53,7 +53,7 @@ fn the_awakening_and_the_ult_spawn_units() {
         assert_eq!(fx.len(), 5);
         let proto = &passives[0].passive;
         let passive = PassiveRegV1 { userdata: ((*proto.vtable).clone.unwrap())(proto.userdata), vtable: proto.vtable };
-        let params = r#"{"g_t":3600,"r_pct":3,"w_delay":45,"w_half":10000,"w_r":30000,"w_t":240}"#;
+        let params = r#"{"g_t":1800,"r_pct":3,"w_delay":45,"w_half":10000,"w_r":30000,"w_t":240}"#;
         ((*proto.vtable).configure.expect("configure"))(passive.userdata, params.as_ptr(), params.len());
 
         // Yorick #0, Garen #1 40000 east of him, Darius #2 far off (the field round them all)

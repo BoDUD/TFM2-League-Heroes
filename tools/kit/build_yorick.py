@@ -35,6 +35,10 @@ his death, as League's Maiden does).
             buff 也相加：圈里两个抵消，只有墙那一圈净减速 99%）——圈里的走到墙边就走不动、也冲不出去，圈外的走到墙边也
             进不来；约里克和队友不受影响。
           圈外的冲刺、闪现数据挡不住；小兵、野怪不挡（只挡英雄）。附加包是真的墙（见下）。唤醒不再定身。
+          数值（经典引擎模拟，2026-11-22）：墙立 w_t = 1 秒（英雄联盟 4 秒，但敌方英雄普攻 2–4 下就塌；游戏的 AI 不打墙，主包
+          又做不了打塌，不能打塌的墙困 4 秒击杀差 +5、2 秒 +2、1 秒和不放 W 差不多），冷却 w_cd = 20 秒（英雄联盟 20 -> 12 秒
+          取最长那一级）。W -> E 每 w_ccd = 120 秒最多一次（以前的笼子跟着唤醒，一局约 4 次；现在 W 每 20 秒就有，每次都清 E
+          冷却的话击杀差多 +3）。
   attack  A shovel blow (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit; 室女的标记在他身上（r_mk）时，
           打中英雄消耗标记：英雄最大生命 r_pct% 的真实伤害（英雄联盟：魔法伤害，只打有标记的那个英雄；数据读不到目标身上
           的标记，主包是打中的任何英雄）。
@@ -107,7 +111,7 @@ P = {
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: graves (g1..g4; g_n of them wake the walkers, one walker a grave) and the walkers
-    "g_t": 3600, "g_n": 3, "k_t": 360, "k_p": 60, "k_dmg": 9, "k_ratio": 13,
+    "g_t": 1800, "g_n": 3, "k_t": 360, "k_p": 60, "k_dmg": 9, "k_ratio": 13,
     "k_jmp": 20, "k_jmp_r": 30,
     # W Dark Procession, cast by the controller: the ring's line w_r (30 px, tools/art/yorick_wall_ring.py), a champion's
     # centre kept within w_r - w_half inside and beyond w_r + w_half outside (20000 / 40000). The main pack's zones count
@@ -115,14 +119,14 @@ P = {
     # (20000 - 15000), the wall's band to w_out (40000 - 15000), the pull onto the inside at the rise (w_ps x w_pt = the
     # band's 20000), w_slow% each way; w_cage: the champions the wall caught (the add-on copy's W -> E and the hands:
     # League pulls in what stands within 210 of the line's 225, 28000 here)
-    "w_cd": 960, "w_range": 40000, "w_dur": 21, "w_rel": 17, "w_delay": 45, "w_t": 240, "w_r": 30000, "w_in": 5000,
-    "w_out": 25000, "w_slow": 99, "w_ps": 2000, "w_pt": 10, "w_cage": 13000, "w_block": 1, "w_combo": 1,
+    "w_cd": 1200, "w_range": 40000, "w_dur": 21, "w_rel": 17, "w_delay": 45, "w_t": 60, "w_r": 30000, "w_in": 5000,
+    "w_out": 25000, "w_slow": 99, "w_ps": 2000, "w_pt": 10, "w_cage": 13000, "w_block": 1, "w_combo": 1, "w_ccd": 7200,
     # skill: Q Last Rites
     "q_cd": 285, "q_cd_r": 150, "q_range": 25000, "q_dur": 30, "q_hit": 14, "q_dmg": 45, "q_ratio": 140,
     "q_heal": 30, "q_heal_r": 20, "q_go_t": 120, "q_near": 45000,
     # skill2: E Mourning Mist
     "e_cd": 540, "e_range": 55000, "e_dur": 26, "e_rel": 12, "e_fly": 16, "e_r": 15000, "e_dmg": 40, "e_ratio": 25,
-    "e_hp": 8, "e_arm": 25, "e_t": 240, "e_slow": 30, "e_slow_t": 90, "e_go_t": 60, "e_ms": 20,
+    "e_hp": 6, "e_arm": 25, "e_t": 240, "e_slow": 30, "e_slow_t": 90, "e_go_t": 60, "e_ms": 20,
     # ult: R Eulogy of the Isles - the Maiden follows him (her rising r_up ticks, then a bolt every r_p ticks at an enemy
     # within r_reach of him, r_bolt a tick), r_n walkers ride the champion
     "r_cd": 4800, "r_range": 40000, "r_dur": 34, "r_rel": 16, "r_t": 600, "r_p": 60, "r_dmg": 20, "r_ratio": 45,
@@ -369,11 +373,13 @@ def build(p):
     # ------------------------------------------------------------------ W Dark Procession (the controller casts it)
     def w_cast():
         combo = [*rm("e_cd"), refresh("e_go", p["e_go_t"])]
+        if p["w_ccd"]:      # W -> E 最多每 w_ccd tick 一次（墙困住几个英雄也只清一次）
+            combo = [sw("w_ccd", NONE, combine(flag("w_ccd", p["w_ccd"]), *combo))]
         if native:      # 附加包立真的墙：落点的英雄挂 w_ask（附加包记圆心），立墙那一 tick 他挂 w_up
             ask, rise = [buff("w_ask", 3)], [
                 sfx("w_wall"), refresh("w_up", 3),
-                zone("w_cage", p["w_cage"], "EnemyChampion", [view("w_hit"), tsfx("w_hit"), *rm("e_cd"),
-                                                              refresh("e_go", p["e_go_t"])])]
+                zone("w_cage", p["w_cage"], "EnemyChampion", [view("w_hit"), tsfx("w_hit"),
+                                                              *(combo if p["w_combo"] else [])])]
         else:           # 主包：圈里的先免控 3 tick，墙线上的拉进圈里，之后圈里不减速、墙那一圈减速 w_slow%
             ask, rise = [], [
                 sfx("w_wall"),
