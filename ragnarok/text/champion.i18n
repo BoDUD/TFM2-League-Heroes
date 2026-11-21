@@ -56,6 +56,27 @@
         "skill": "掷出一扇飞刀，前方扇形里的敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速25%<>。",
         "skill2": "撑开被手套变成神器的伞，到收伞受到的伤害降低<#ffb900ff>40%<>；往后退进雾里，<#ffb900ff>隐身1.5秒<>，之后<#ffb900ff>3秒<>攻速<#ffb900ff>+40%<>。",
         "ult": "单片镜后的眼睛看穿对方，手套碰过的刀成了神器飞出：造成<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<><#ff9028ff>物理伤害<>，之后<#ffb900ff>4秒<>里对方受到的伤害增加<#ffb900ff>20%<>。"
+      },
+      "ragnarok_raiden": {
+        "name": "雷电为右卫门",
+        "attack": "一掌推出，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>肌肉解放<>：每条命第一次放八咫乌前先放开压了一辈子的肌肉（<#ffb900ff>0.92秒<>，不受控制、受到的伤害降低<#ffb900ff>50%<>），之后攻击力<#ffb900ff>+20%<>、护甲和魔抗<#ffb900ff>+20<>、攻速<#ffb900ff>+20%<>。",
+        "skill": "连出两掌：第一掌造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>，第二掌造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>，打得人<#ef5350ff>踉跄0.67秒<>并<#ef5350ff>减速30%<>。",
+        "skill2": "抬脚跺地：身边的敌人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕1秒<>；地面余震让更大一圈的敌人<#ef5350ff>减速30%<>。",
+        "ult": "蓄劲（不受控制、受到的伤害降低<#ffb900ff>40%<>）后一掌推出：前方扇形的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>并被<#ef5350ff>冲击波震飞0.75秒<>。"
+      },
+      "ragnarok_shiva": {
+        "name": "湿婆",
+        "attack": "四臂一扫，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>；轮回舞踊里是火鞭，<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>。<#ff9028ff>节奏<>：每放一个技能记一拍（最多<#ffb900ff>4拍<>），每拍攻击力<#ffb900ff>+4%<>、攻速<#ffb900ff>+6%<>；<#ffb900ff>4秒<>没再放技能就散。",
+        "skill": "四臂连击两下：前方扇形的敌人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<><#ff9028ff>物理伤害<>，第二下<#ef5350ff>减速25%<>；轮回舞踊里伤害<#ffb900ff>130%<>。",
+        "skill2": "踏着舞步冲到目标身上，落脚时身边的敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>；轮回舞踊里是火步，伤害<#ffb900ff>130%<>。",
+        "ult": "点燃心脏（不受控制、受到的伤害降低<#ffb900ff>40%<>），<#ffb900ff>8秒<>轮回舞踊：攻击力<#ffb900ff>+35%<>、攻速<#ffb900ff>+40%<>、移速<#ffb900ff>+15%<>；结束时一记高踢，前方扇形的敌人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。"
+      },
+      "ragnarok_buddha": {
+        "name": "释迦",
+        "attack": "六道棍一击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>未来视<>：普攻和枪刃时看穿接下来的招（每<#ffb900ff>8秒<>一次），<#ffb900ff>1.5秒<>里普攻打不疼他。",
+        "skill": "六道棍化作枪刃往前一刺：前方的敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，<#ef5350ff>护甲降低25%<>，持续<#ffb900ff>4秒<>。",
+        "skill2": "看见要挨的打，举起观音盾：<#e8d44dff>护盾100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制。盾收起时莲光绽开，身边的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>。",
+        "ult": "召出大圆寂刀·零（斩中前不受控制、受到的伤害降低<#ffb900ff>40%<>）一刀斩下：前方扇形的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>加目标最大生命<#ff9028ff>8%<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.83秒<>。"
       }
     },
     "skill_name": {
@@ -98,6 +119,21 @@
         "skill1": "飞刀扇",
         "skill2": "伦敦之雾",
         "ult": "亲爱的神"
+      },
+      "ragnarok_raiden": {
+        "skill1": "连掌",
+        "skill2": "四股",
+        "ult": "八咫乌"
+      },
+      "ragnarok_shiva": {
+        "skill1": "四臂连击",
+        "skill2": "舞步",
+        "ult": "轮回舞踊"
+      },
+      "ragnarok_buddha": {
+        "skill1": "六道棍·枪刃",
+        "skill2": "观音盾",
+        "ult": "大圆寂刀·零"
       }
     }
   },
@@ -158,6 +194,27 @@
         "skill": "擲出一扇飛刀，前方扇形裡的敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速25%<>。",
         "skill2": "撐開被手套變成神器的傘，到收傘受到的傷害降低<#ffb900ff>40%<>；往後退進霧裡，<#ffb900ff>隱身1.5秒<>，之後<#ffb900ff>3秒<>攻速<#ffb900ff>+40%<>。",
         "ult": "單片鏡後的眼睛看穿對方，手套碰過的刀成了神器飛出：造成<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<><#ff9028ff>物理傷害<>，之後<#ffb900ff>4秒<>裡對方受到的傷害增加<#ffb900ff>20%<>。"
+      },
+      "ragnarok_raiden": {
+        "name": "雷電為右衛門",
+        "attack": "一掌推出，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>肌肉解放<>：每條命第一次放八咫烏前先放開壓了一輩子的肌肉（<#ffb900ff>0.92秒<>，不受控制、受到的傷害降低<#ffb900ff>50%<>），之後攻擊力<#ffb900ff>+20%<>、護甲和魔抗<#ffb900ff>+20<>、攻速<#ffb900ff>+20%<>。",
+        "skill": "連出兩掌：第一掌造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>，第二掌造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>，打得人<#ef5350ff>踉蹌0.67秒<>並<#ef5350ff>減速30%<>。",
+        "skill2": "抬腳跺地：身邊的敵人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩1秒<>；地面餘震讓更大一圈的敵人<#ef5350ff>減速30%<>。",
+        "ult": "蓄勁（不受控制、受到的傷害降低<#ffb900ff>40%<>）後一掌推出：前方扇形的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>並被<#ef5350ff>衝擊波震飛0.75秒<>。"
+      },
+      "ragnarok_shiva": {
+        "name": "濕婆",
+        "attack": "四臂一掃，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>；輪迴舞踊裡是火鞭，<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>。<#ff9028ff>節奏<>：每放一個技能記一拍（最多<#ffb900ff>4拍<>），每拍攻擊力<#ffb900ff>+4%<>、攻速<#ffb900ff>+6%<>；<#ffb900ff>4秒<>沒再放技能就散。",
+        "skill": "四臂連擊兩下：前方扇形的敵人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<><#ff9028ff>物理傷害<>，第二下<#ef5350ff>減速25%<>；輪迴舞踊裡傷害<#ffb900ff>130%<>。",
+        "skill2": "踏著舞步衝到目標身上，落腳時身邊的敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>；輪迴舞踊裡是火步，傷害<#ffb900ff>130%<>。",
+        "ult": "點燃心臟（不受控制、受到的傷害降低<#ffb900ff>40%<>），<#ffb900ff>8秒<>輪迴舞踊：攻擊力<#ffb900ff>+35%<>、攻速<#ffb900ff>+40%<>、移速<#ffb900ff>+15%<>；結束時一記高踢，前方扇形的敵人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。"
+      },
+      "ragnarok_buddha": {
+        "name": "釋迦",
+        "attack": "六道棍一擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>未來視<>：普攻和槍刃時看穿接下來的招（每<#ffb900ff>8秒<>一次），<#ffb900ff>1.5秒<>裡普攻打不疼他。",
+        "skill": "六道棍化作槍刃往前一刺：前方的敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，<#ef5350ff>護甲降低25%<>，持續<#ffb900ff>4秒<>。",
+        "skill2": "看見要挨的打，舉起觀音盾：<#e8d44dff>護盾100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制。盾收起時蓮光綻開，身邊的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>。",
+        "ult": "召出大圓寂刀·零（斬中前不受控制、受到的傷害降低<#ffb900ff>40%<>）一刀斬下：前方扇形的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>加目標最大生命<#ff9028ff>8%<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.83秒<>。"
       }
     },
     "skill_name": {
@@ -200,6 +257,21 @@
         "skill1": "飛刀扇",
         "skill2": "倫敦之霧",
         "ult": "親愛的神"
+      },
+      "ragnarok_raiden": {
+        "skill1": "連掌",
+        "skill2": "四股",
+        "ult": "八咫烏"
+      },
+      "ragnarok_shiva": {
+        "skill1": "四臂連擊",
+        "skill2": "舞步",
+        "ult": "輪迴舞踊"
+      },
+      "ragnarok_buddha": {
+        "skill1": "六道棍·槍刃",
+        "skill2": "觀音盾",
+        "ult": "大圓寂刀·零"
       }
     }
   },
@@ -260,6 +332,27 @@
         "skill": "Throws a fan of knives: enemies in a cone take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 25%<>.",
         "skill2": "Opens an umbrella his gloves made divine, <#ffb900ff>40%<> less damage until it closes, then steps back into the fog: <#ffb900ff>invisible for 1.5s<>, then <#ffb900ff>+40%<> attack speed for <#ffb900ff>3s<>.",
         "ult": "The eye behind the monocle reads the target; a knife his gloves touched flies as a divine weapon for <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> <#ff9028ff>physical damage<>, and for <#ffb900ff>4s<> the target takes <#ffb900ff>20%<> more damage from everyone."
+      },
+      "ragnarok_raiden": {
+        "name": "Raiden Tameemon",
+        "attack": "An open-hand thrust for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Muscle Release<>: the first Yatagarasu of each life begins by unbinding the muscles he held back all his life (<#ffb900ff>0.92s<>, unstoppable, <#ffb900ff>50%<> less damage); for the rest of the life <#ffb900ff>+20%<> attack, <#ffb900ff>+20<> armour and magic resistance, <#ffb900ff>+20%<> attack speed.",
+        "skill": "Two palm thrusts: the first for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, the second for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> that <#ef5350ff>staggers for 0.67s<> and <#ef5350ff>slows 30%<>.",
+        "skill2": "Lifts a leg and stamps: enemies around him take <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 1s<>; the aftershock <#ef5350ff>slows 30%<> a wider ring.",
+        "ult": "Gathers his strength (unstoppable, <#ffb900ff>40%<> less damage) and thrusts one palm: enemies in a cone take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.75s<> by the shockwave."
+      },
+      "ragnarok_shiva": {
+        "name": "Shiva",
+        "attack": "A four-armed sweep for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; in Tandava Karma a whip of fire for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>. <#ff9028ff>Rhythm<>: every skill is a beat (up to <#ffb900ff>4<>), each <#ffb900ff>+4%<> attack and <#ffb900ff>+6%<> attack speed; the beats fade after <#ffb900ff>4s<> without a skill.",
+        "skill": "Two strikes of his four arms: enemies in a cone take <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> and <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> <#ff9028ff>physical damage<>, the second <#ef5350ff>slowing 25%<>; in Tandava Karma <#ffb900ff>130%<> damage.",
+        "skill2": "Dances onto the target; where he lands, enemies around him take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>; in Tandava Karma a step of fire for <#ffb900ff>130%<> damage.",
+        "ult": "Sets his heart alight (unstoppable, <#ffb900ff>40%<> less damage): Tandava Karma for <#ffb900ff>8s<>, <#ffb900ff>+35%<> attack, <#ffb900ff>+40%<> attack speed, <#ffb900ff>+15%<> move speed; at its end a high kick for <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<> in a cone, <#ef5350ff>knocking up<>."
+      },
+      "ragnarok_buddha": {
+        "name": "Buddha",
+        "attack": "A blow of the Six Realms Staff for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Future Sight<>: on an attack or Spear Blade he reads the blows to come (once every <#ffb900ff>8s<>): for <#ffb900ff>1.5s<> basic attacks cannot hurt him.",
+        "skill": "The staff becomes a spear for one thrust: enemies in front take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> and lose <#ef5350ff>25% armour<> for <#ffb900ff>4s<>.",
+        "skill2": "He sees the blow coming and raises the Kannon Shield: a <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>, unstoppable for <#ffb900ff>1s<>. When it is lowered a lotus blooms: enemies around him take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>.",
+        "ult": "Draws the Great Nirvana Sword Zero (unstoppable and <#ffb900ff>40%<> less damage until it lands) and cuts: enemies in a cone take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> plus <#ff9028ff>8%<> of their maximum health as <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.83s<>."
       }
     },
     "skill_name": {
@@ -302,6 +395,21 @@
         "skill1": "Knife Fan",
         "skill2": "London Fog",
         "ult": "Dear God"
+      },
+      "ragnarok_raiden": {
+        "skill1": "Tsuppari",
+        "skill2": "Shiko",
+        "ult": "Yatagarasu"
+      },
+      "ragnarok_shiva": {
+        "skill1": "Four-Armed Flurry",
+        "skill2": "Dance Step",
+        "ult": "Tandava Karma"
+      },
+      "ragnarok_buddha": {
+        "skill1": "Spear Blade",
+        "skill2": "Kannon Shield",
+        "ult": "Great Nirvana Sword Zero"
       }
     }
   },
@@ -362,6 +470,27 @@
         "skill": "단검을 부채꼴로 던져 앞쪽 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>25% 둔화<>.",
         "skill2": "장갑으로 신기가 된 우산을 펼쳐 접을 때까지 받는 피해 <#ffb900ff>40%<> 감소, 뒤로 물러나 안개 속으로: <#ffb900ff>1.5초 은신<>, 이후 <#ffb900ff>3초<> 동안 공격 속도 <#ffb900ff>+40%<>.",
         "ult": "외알 안경 너머의 눈이 상대를 꿰뚫어 보고, 장갑이 닿은 칼이 신기가 되어 날아가 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> <#ff9028ff>물리 피해<>. 이후 <#ffb900ff>4초<> 동안 상대가 받는 피해 <#ffb900ff>+20%<>."
+      },
+      "ragnarok_raiden": {
+        "name": "라이덴 타메에몬",
+        "attack": "손바닥으로 밀어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>근육 해방<>: 목숨마다 첫 야타가라스 전에 평생 억눌러 온 근육을 풀고(<#ffb900ff>0.92초<>, 저지 불가, 받는 피해 <#ffb900ff>50%<> 감소) 그 뒤로 공격력 <#ffb900ff>+20%<>, 방어력과 마법 저항력 <#ffb900ff>+20<>, 공격 속도 <#ffb900ff>+20%<>.",
+        "skill": "두 번 밀어치기: 첫 번째 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, 두 번째 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.67초 기절<>과 <#ef5350ff>30% 둔화<>.",
+        "skill2": "다리를 들어 내리찍어 주변 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>1초 기절<>, 여진이 더 넓은 범위를 <#ef5350ff>30% 둔화<>.",
+        "ult": "힘을 모은 뒤(저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) 손바닥을 내질러 앞쪽 부채꼴의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 에어본<>."
+      },
+      "ragnarok_shiva": {
+        "name": "시바",
+        "attack": "네 팔로 휩쓸어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 윤회무용 중에는 불의 채찍으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>. <#ff9028ff>리듬<>: 스킬마다 한 박자(최대 <#ffb900ff>4박<>), 박자마다 공격력 <#ffb900ff>+4%<>, 공격 속도 <#ffb900ff>+6%<>. <#ffb900ff>4초<> 동안 스킬이 없으면 흩어짐.",
+        "skill": "네 팔 연타 두 번: 앞쪽 부채꼴의 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>, <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> <#ff9028ff>물리 피해<>, 두 번째는 <#ef5350ff>25% 둔화<>. 윤회무용 중 피해 <#ffb900ff>130%<>.",
+        "skill2": "춤사위로 대상에게 돌진해 착지할 때 주변 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>. 윤회무용 중에는 불꽃 걸음, 피해 <#ffb900ff>130%<>.",
+        "ult": "심장에 불을 붙여(저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) <#ffb900ff>8초<> 동안 윤회무용: 공격력 <#ffb900ff>+35%<>, 공격 속도 <#ffb900ff>+40%<>, 이동 속도 <#ffb900ff>+15%<>. 끝날 때 하이킥으로 앞쪽 부채꼴에 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>에어본<>."
+      },
+      "ragnarok_buddha": {
+        "name": "석가",
+        "attack": "육도곤으로 쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>미래시<>: 기본 공격이나 창날 때 다음 수를 꿰뚫어 보고(<#ffb900ff>8초<>마다 한 번) <#ffb900ff>1.5초<> 동안 기본 공격에 피해를 받지 않음.",
+        "skill": "육도곤이 창날로 변해 앞을 찌름: 앞쪽 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>, <#ffb900ff>4초<> 동안 <#ef5350ff>방어력 25% 감소<>.",
+        "skill2": "맞을 공격을 보고 관음 방패를 듦: <#e8d44dff>보호막 100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>(<#ffb900ff>2.5초<>), <#ffb900ff>1초<> 저지 불가. 방패를 거둘 때 연꽃이 피어 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>.",
+        "ult": "대원적도·영을 꺼내(베기 전까지 저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) 내리벰: 앞쪽 부채꼴의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> + 최대 체력 <#ff9028ff>8%<>의 <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 기절<>."
       }
     },
     "skill_name": {
@@ -404,6 +533,21 @@
         "skill1": "칼날 부채",
         "skill2": "런던의 안개",
         "ult": "디어 갓"
+      },
+      "ragnarok_raiden": {
+        "skill1": "연속 장타",
+        "skill2": "시코",
+        "ult": "야타가라스"
+      },
+      "ragnarok_shiva": {
+        "skill1": "네 팔 연타",
+        "skill2": "춤사위",
+        "ult": "윤회무용"
+      },
+      "ragnarok_buddha": {
+        "skill1": "육도곤·창날",
+        "skill2": "관음 방패",
+        "ult": "대원적도·영"
       }
     }
   },
@@ -464,6 +608,27 @@
         "skill": "ナイフを扇状に投げ、前方の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>25%スロウ<>。",
         "skill2": "手袋で神器となった傘を開き、閉じるまで被ダメージ<#ffb900ff>40%<>軽減。霧の中へ退き<#ffb900ff>1.5秒透明化<>、その後<#ffb900ff>3秒<>攻撃速度<#ffb900ff>+40%<>。",
         "ult": "片眼鏡の奥の目が相手を見抜き、手袋が触れたナイフが神器となって飛ぶ：<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>の<#ff9028ff>物理ダメージ<>、以後<#ffb900ff>4秒<>相手の被ダメージ<#ffb900ff>+20%<>。"
+      },
+      "ragnarok_raiden": {
+        "name": "雷電為右衛門",
+        "attack": "張り手で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>筋肉解放<>：命ごとに最初の八咫烏の前に、一生抑えてきた筋肉を解き放つ（<#ffb900ff>0.92秒<>、行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）。以後攻撃力<#ffb900ff>+20%<>、物防・魔防<#ffb900ff>+20<>、攻撃速度<#ffb900ff>+20%<>。",
+        "skill": "二連の突っ張り：一発目<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、二発目<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>、よろめかせ<#ef5350ff>0.67秒スタン<>と<#ef5350ff>30%スロウ<>。",
+        "skill2": "足を上げて四股を踏み、周囲の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1秒スタン<>。余震でより広い範囲に<#ef5350ff>30%スロウ<>。",
+        "ult": "力を溜め（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）掌を突き出す：前方扇形の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>衝撃波で0.75秒打ち上げ<>。"
+      },
+      "ragnarok_shiva": {
+        "name": "シヴァ",
+        "attack": "四本の腕で薙ぎ払い<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、輪廻舞踊中は炎の鞭で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>。<#ff9028ff>リズム<>：スキルごとに一拍（最大<#ffb900ff>4拍<>）、一拍ごとに攻撃力<#ffb900ff>+4%<>・攻撃速度<#ffb900ff>+6%<>。<#ffb900ff>4秒<>スキルがないと消える。",
+        "skill": "四臂の二連撃：前方扇形の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>の<#ff9028ff>物理ダメージ<>、二撃目は<#ef5350ff>25%スロウ<>。輪廻舞踊中はダメージ<#ffb900ff>130%<>。",
+        "skill2": "舞いながら対象に飛び込み、着地で周囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。輪廻舞踊中は炎の舞、ダメージ<#ffb900ff>130%<>。",
+        "ult": "心臓に火を灯す（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）。<#ffb900ff>8秒<>輪廻舞踊：攻撃力<#ffb900ff>+35%<>、攻撃速度<#ffb900ff>+40%<>、移動速度<#ffb900ff>+15%<>。終わりに上段蹴りで前方扇形に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。"
+      },
+      "ragnarok_buddha": {
+        "name": "釈迦",
+        "attack": "六道棍の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>未来視<>：通常攻撃や槍刃の時に次の手を見切り（<#ffb900ff>8秒<>に一度）、<#ffb900ff>1.5秒<>の間、通常攻撃のダメージを受けない。",
+        "skill": "六道棍を槍刃に変えて突く：前方の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>4秒<>の間<#ef5350ff>物防25%低下<>。",
+        "skill2": "受ける攻撃を見て観音盾を構える：<#e8d44dff>シールド100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>）、<#ffb900ff>1秒<>行動妨害無効。盾を収める時に蓮華が咲き、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。",
+        "ult": "大円寂刀・零を顕現させ（斬るまで行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）斬り下ろす：前方扇形の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>＋最大体力<#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒スタン<>。"
       }
     },
     "skill_name": {
@@ -506,6 +671,21 @@
         "skill1": "ナイフの扇",
         "skill2": "ロンドンの霧",
         "ult": "ディア・ゴッド"
+      },
+      "ragnarok_raiden": {
+        "skill1": "突っ張り",
+        "skill2": "四股",
+        "ult": "八咫烏"
+      },
+      "ragnarok_shiva": {
+        "skill1": "四臂連撃",
+        "skill2": "舞踏",
+        "ult": "輪廻舞踊"
+      },
+      "ragnarok_buddha": {
+        "skill1": "六道棍・槍刃",
+        "skill2": "観音盾",
+        "ult": "大円寂刀・零"
       }
     }
   }

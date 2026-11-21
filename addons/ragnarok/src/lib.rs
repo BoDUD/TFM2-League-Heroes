@@ -13,6 +13,9 @@ pub mod jack;
 pub mod kojiro;
 pub mod lubu;
 pub mod poseidon;
+pub mod raiden;
+pub mod shiva;
+pub mod buddha;
 pub mod thor;
 pub mod zeus;
 
@@ -96,6 +99,9 @@ fn init(host: &StableHost) -> StableMod {
     kojiro::register(host, &mut module);
     heracles::register(host, &mut module);
     jack::register(host, &mut module);
+    raiden::register(host, &mut module);
+    shiva::register(host, &mut module);
+    buddha::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

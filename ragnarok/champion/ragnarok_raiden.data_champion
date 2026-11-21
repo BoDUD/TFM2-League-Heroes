@@ -1,0 +1,1143 @@
+{
+  "id": "ragnarok_raiden",
+  "category": "Tank",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_raiden:voice",
+    "params": {}
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_raiden",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_raiden_skill",
+    "asset/ragnarok/icons/ragnarok_raiden_skill2",
+    "asset/ragnarok/icons/ragnarok_raiden_ult"
+  ],
+  "stat": {
+    "attack": 72,
+    "magic_power": 0,
+    "hp": 1300,
+    "defence": 50,
+    "magic_resistance": 40,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 11,
+    "magic_power": 0,
+    "hp": 120,
+    "defence": 9,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_raiden.attack",
+    "duration": 40,
+    "cooltime": 70,
+    "start_timing": 19,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_raiden_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_raiden_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_raiden_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_raiden.skill",
+    "duration": 38,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "ragnarok_raiden_q1"
+                },
+                {
+                  "type": "Attack",
+                  "damage": 55,
+                  "attack_ratio": 80,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "ragnarok_raiden_a_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "ragnarok_raiden_q_hit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_raiden_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_raiden_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_raiden_q2"
+                          },
+                          {
+                            "type": "Attack",
+                            "damage": 80,
+                            "attack_ratio": 105,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 40
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_raiden_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_raiden_a_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_raiden_q_hit2"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_raiden_q2"
+                          },
+                          {
+                            "type": "Attack",
+                            "damage": 80,
+                            "attack_ratio": 105,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 40
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_raiden_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_raiden_a_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_raiden_q_hit2"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_raiden_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_raiden.skill2",
+    "duration": 47,
+    "cooltime": 780,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 24000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_raiden_e_lift"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_raiden_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_raiden_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_raiden_e"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 34000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 65,
+                            "attack_ratio": 65,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 60
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_raiden_e"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 34000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 65,
+                            "attack_ratio": 65,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 60
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_raiden_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 27,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_raiden_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_raiden_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_raiden_e2"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 44000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_raiden_e_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_raiden_e2"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 44000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_raiden_e_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_raiden_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_raiden.ult",
+    "duration": 51,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "ragnarok_raiden_released",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "ragnarok_raiden_r_guard",
+              "duration": {
+                "Time": {
+                  "tick": 29
+                }
+              },
+              "cc_immune": true,
+              "damaged_reduce": 40
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "Delayed",
+            "tick": 16,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_raiden_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "ragnarok_raiden_live",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_raiden_r1"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_raiden_r1"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "ragnarok_raiden_live"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 27,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_raiden_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "ragnarok_raiden_live",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_raiden_r2"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 48000,
+                              "range": 700
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 200,
+                              "attack_ratio": 160,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "Airborne",
+                              "duration": 45
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_raiden_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "ragnarok_raiden_r_hit"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_raiden_r2"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 48000,
+                              "range": 700
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 200,
+                              "attack_ratio": 160,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "Airborne",
+                              "duration": 45
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_raiden_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "ragnarok_raiden_r_hit"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "ragnarok_raiden_live"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "CasterAnimation",
+            "name": "muscle_release",
+            "tick": 55
+          },
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "ragnarok_raiden_rel_guard",
+              "duration": {
+                "Time": {
+                  "tick": 56
+                }
+              },
+              "cc_immune": true,
+              "damaged_reduce": 50
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "Delayed",
+            "tick": 22,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_raiden_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "ragnarok_raiden_live",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_raiden_rel"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_raiden_released",
+                            "duration": "Permanent",
+                            "attack_mult": 20,
+                            "defence": 20,
+                            "magic_resistance": 20,
+                            "attack_speed_mult": 20
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_raiden_rel"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_raiden_released",
+                            "duration": "Permanent",
+                            "attack_mult": 20,
+                            "defence": 20,
+                            "magic_resistance": 20,
+                            "attack_speed_mult": 20
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "ragnarok_raiden_live"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 54,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_raiden_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "ragnarok_raiden_live",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "ult",
+                          "tick": 51
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "ult",
+                          "tick": 51
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "ragnarok_raiden_live"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Delayed",
+                "tick": 55,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "ragnarok_raiden_r_guard",
+                      "duration": {
+                        "Time": {
+                          "tick": 29
+                        }
+                      },
+                      "cc_immune": true,
+                      "damaged_reduce": 40
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 71,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_raiden_live",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "ragnarok_raiden_live",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_raiden_r1"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_raiden_r1"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "ragnarok_raiden_live"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 82,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_raiden_live",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "ragnarok_raiden_live",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_raiden_r2"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 48000,
+                                  "range": 700
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 200,
+                                  "attack_ratio": 160,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "Airborne",
+                                  "duration": 45
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_raiden_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_raiden_r_hit"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_raiden_r2"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 48000,
+                                  "range": 700
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 200,
+                                  "attack_ratio": 160,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "Airborne",
+                                  "duration": 45
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_raiden_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_raiden_r_hit"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "ragnarok_raiden_live"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_raiden_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_raiden_fx",
+      "tag": "palm_contact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_raiden_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_raiden_fx",
+      "tag": "yatagarasu_impact",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

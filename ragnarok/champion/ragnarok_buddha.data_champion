@@ -1,0 +1,1023 @@
+{
+  "id": "ragnarok_buddha",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Shield",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_buddha:voice",
+    "params": {}
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_buddha",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_buddha_skill",
+    "asset/ragnarok/icons/ragnarok_buddha_skill2",
+    "asset/ragnarok/icons/ragnarok_buddha_ult"
+  ],
+  "stat": {
+    "attack": 92,
+    "magic_power": 0,
+    "hp": 1250,
+    "defence": 42,
+    "magic_resistance": 32,
+    "move_speed": 1060,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 110,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_buddha.attack",
+    "duration": 36,
+    "cooltime": 60,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_buddha_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_buddha_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_buddha_a_hit"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_buddha_sight_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "ragnarok_buddha_sight",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "base_attack_damaged_reduce": 100
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "ragnarok_buddha_sight_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 480
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "ragnarok_buddha_p"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "ragnarok_buddha_p_sight"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_buddha.skill",
+    "duration": 35,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 38000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_buddha_sight_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "ragnarok_buddha_sight",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "base_attack_damaged_reduce": 100
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "ragnarok_buddha_sight_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 480
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "ragnarok_buddha_p"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "ragnarok_buddha_p_sight"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_buddha_q_load"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_buddha_q"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 50000,
+                            "range": 940
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 70,
+                            "attack_ratio": 110,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_buddha_q_shred",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              },
+                              "defence_mult": -25
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_buddha_a_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_buddha_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 50000,
+                            "range": 940
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 70,
+                            "attack_ratio": 110,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_buddha_q_shred",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              },
+                              "defence_mult": -25
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_buddha_a_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_buddha_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_buddha.skill2",
+    "duration": 43,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_buddha_e_eye"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_e"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 100,
+                            "attack_ratio": 80,
+                            "ap_ratio": 0,
+                            "tick": 150
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_buddha_e_guard",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "cc_immune": true
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_e"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 100,
+                            "attack_ratio": 80,
+                            "ap_ratio": 0,
+                            "tick": 150
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_buddha_e_guard",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "cc_immune": true
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 162,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_e_end"
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "ragnarok_buddha_e_lotus"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 60,
+                            "attack_ratio": 60,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_buddha_e_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_buddha_e_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_buddha_e_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_e_end"
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "ragnarok_buddha_e_lotus"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 60,
+                            "attack_ratio": 60,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_buddha_e_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_buddha_e_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_buddha_e_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_buddha.ult",
+    "duration": 56,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 36000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_buddha_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 36
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 40
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_r_load"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_r_load"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_r_show"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_r_show"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 30,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_r"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_buddha_r"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 34,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_buddha_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_buddha_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 54000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 200,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 8,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 50
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_buddha_r_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_buddha_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 54000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 200,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 8,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 50
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_buddha_r_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_buddha_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_buddha_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_buddha_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_buddha_fx",
+      "tag": "staff_impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_buddha_e_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_buddha_fx",
+      "tag": "shield_impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_buddha_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_buddha_fx",
+      "tag": "staff_impact",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_buddha_p_sight",
+      "anim": "asset/ragnarok/effects/ragnarok_buddha_fx",
+      "tag": "future_sight",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_buddha_e_lotus",
+      "anim": "asset/ragnarok/effects/ragnarok_buddha_fx",
+      "tag": "lotus_guard",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}
