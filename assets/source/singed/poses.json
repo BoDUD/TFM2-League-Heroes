@@ -1,0 +1,61 @@
+{
+ "hero": "singed",
+ "champ": "Singed",
+ "camera": {
+  "yaw": 45,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.8,
+  "legs": 0.9,
+  "hair": 1.0
+ },
+ "height": 45,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "singed_idle1@0",
+ "tags": {
+  "run": {
+   "flat": true,
+   "head_like": "singed_idle1@0",
+   "frames": [
+    [
+     "singed_run@0",
+     121
+    ],
+    [
+     "singed_run@121",
+     121
+    ],
+    [
+     "singed_run@242",
+     121
+    ],
+    [
+     "singed_run@363",
+     121
+    ],
+    [
+     "singed_run@484",
+     121
+    ],
+    [
+     "singed_run@605",
+     121
+    ],
+    [
+     "singed_run@726",
+     121
+    ],
+    [
+     "singed_run@847",
+     121
+    ]
+   ]
+  }
+ }
+}
