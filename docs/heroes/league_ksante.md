@@ -55,7 +55,7 @@
 
 ### 奎桑提附加包
 
-[奎桑提附加包](../../addons/league_ksante/README.md)：`league_ksante` v0.1.2
+[奎桑提附加包](../../addons/league_ksante/README.md)：`league_ksante` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

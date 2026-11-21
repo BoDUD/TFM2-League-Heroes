@@ -50,15 +50,68 @@ pub fn capped(hp: usize, max: usize) -> Option<usize> {
 /// [`capped`]'s line.
 pub struct Cap;
 
+/// 奎桑提这位英雄的 id（实体的名字就是英雄 id）。
+const KSANTE: &str = "league_ksante";
+
+fn is_all_out(b: &BuffV1) -> bool {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == ALL_OUT.as_bytes()
+}
+
+/// 一份模拟：来历 + 种子（league_eggs 的 Origin，同一份比赛的预演、画面里的两遍阵容都一样）。
+type SimKey = (u32, u64, u64, u64, u64);
+
+fn sim_key(sim: &StableSim<'_>) -> SimKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (o.kind, o.match_id, o.set_index, o.replay_id, sim.seed())
+}
+
+/// 这份模拟的英雄里有没有奎桑提。阵容一局里不变：每条线程记最近 16 份模拟的答案，同一份每 600 tick（或 tick 倒回去了，
+/// 说明是另一份）再看一次名单；读不到名字的英雄当作可能是他（照旧扫）。
+fn has_ksante(sim: &StableSim<'_>) -> bool {
+    use std::cell::RefCell;
+    thread_local! {
+        static SEEN: RefCell<Vec<(SimKey, usize, bool)>> = const { RefCell::new(Vec::new()) };
+    }
+    let (key, now) = (sim_key(sim), sim.tick());
+    let fresh = |sim: &StableSim<'_>| {
+        (0..sim.champion_count()).any(|i| {
+            sim.get_entity(sim.champion_id_at(i)).and_then(|e| e.name()).is_none_or(|n| n == KSANTE)
+        })
+    };
+    SEEN.with(|s| {
+        let mut s = s.borrow_mut();
+        if let Some(e) = s.iter_mut().find(|e| e.0 == key) {
+            if now < e.1 || now - e.1 >= 600 {
+                *e = (key, now, fresh(sim));
+            }
+            return e.2;
+        }
+        let v = fresh(sim);
+        if s.len() >= 16 {
+            s.remove(0);
+        }
+        s.push((key, now, v));
+        v
+    })
+}
+
 impl StableMatchHook for Cap {
     fn on_match_tick(&self, sim: &mut StableSim<'_>, _rng_seed: u64) {
+        // 这份模拟里没有奎桑提，就没有人能进全盛（只有他的大招、或塞拉斯从他身上偷的那份挂这个 buff）：不用每 tick 把
+        // 每个英雄的 buff 扫一遍（2026-11-22 过日采样：别人的比赛里也天天在扫，占附加包合集的 5%）
+        if !has_ksante(sim) {
+            return;
+        }
+        // 先看生命（便宜），够不着上限的就不用扫 buff；挑出来的和原来一样
         let over: Vec<(usize, usize, usize, usize)> = (0..sim.champion_count())
             .filter_map(|i| sim.get_entity(sim.champion_id_at(i)))
-            .filter(|e| e.is_alive() && (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == ALL_OUT))
+            .filter(|e| e.is_alive())
             .filter_map(|e| {
                 let (hp, max) = e.hp();
-                capped(hp, max).map(|cap| (e.id(), hp, max, cap))
+                capped(hp, max).map(|cap| (e, hp, max, cap))
             })
+            .filter(|(e, ..)| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| is_all_out(&b)))
+            .map(|(e, hp, max, cap)| (e.id(), hp, max, cap))
             .collect();
         for (id, hp, max, cap) in over {
             if sim.entity_set_hp(id, cap) {
