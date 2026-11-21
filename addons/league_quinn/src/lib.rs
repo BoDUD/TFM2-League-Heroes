@@ -7,17 +7,24 @@
 //!   看她身上的 `r_ride`：骑了 `R_RIDE_T - 2` tick 还没出招，就挂 2 tick 的 `league_quinn_r_end`，副本里骑上时起的每 tick 守望看到就
 //!   施放鹰翼天翔（伤害、标记、华洛回到头顶、落地动作，和出招时一样）。
 //! - **旋翔掠杀踢完翻回去**（用户 2026-10-22：「奎因E完人不会拉开距离」）：冲刺停在目标身上、和它重合，数据的 MoveBack「背离目标」没有
-//!   方向、挪 0（经典引擎模拟里量的）。副本踢中时挂 `league_quinn_e_vault`，本包逐 tick 把她往冲过来的方向挪 `E_BACK`，共
-//!   `E_BACK_T` tick（2400 x 20 = 48000，约一个攻击距离；0.6.1 起放慢，和 0.6 秒的后空翻对上），被控就停。0.3.0（用户 2026-10-23：「奎因的E后空翻不拉开距离」）：
-//!   0.2.0 装进游戏后所有对局（预演和画面）一次 VAULT 都没有——冲刺 end_effects 里挂的标记本包从来没看到。现在副本出 E 时就挂
+//!   方向、挪 0（经典引擎模拟里量的）。副本踢中时挂 `league_quinn_e_vault`，本包把她往冲过来的方向翻回去 `E_BACK` x `E_BACK_T`
+//!   （2400 x 20 = 48000，约一个攻击距离），被控就停。0.3.0（用户 2026-10-23：「奎因的E后空翻不拉开距离」）：0.2.0 装进游戏后
+//!   所有对局（预演和画面）一次 VAULT 都没有——冲刺 end_effects 里挂的标记本包从来没看到。现在副本出 E 时就挂
 //!   `league_quinn_e_dash`（`DASH_T` tick，和 `r_ride` 一样挂在动作里，本包看得到），本包看着她冲：冲起来（一 tick 挪 `DASH_STEP`
 //!   以上）后停下的那一 tick，或者 `STILL_T` tick 都没冲（贴身踢）就翻；踢中的标记要是看到了也照样翻，一次 E 只翻一次。
+//!   0.7.2（用户 2026-11-21：「我看局内是不会后空翻的」）：以前逐 tick 直接改坐标（`entity_set_pos`），画面不跟——11-21 那局
+//!   的日志里她在画面上整个后空翻都钉在踢中的地方，翻完才一下被拉到落点。现在踢中时给她一段强制位移（`CcKindV1::ForceMove`，
+//!   宿主每 tick 挪她，画面上是连着退的），宿主哪一 tick 没挪（被挡、被缩短）本包才自己走一步。
+//! - **后空翻一帧一帧画**（0.7.0 / 0.7.2，`view.rs`）：踢中后本包每 tick 给她挂这一帧的标记 `league_quinn_flip<k>`，画面钩子把
+//!   正在播的动画换成单帧标签 `e_flip_<k>`。0.7.1 让数据挂过标记，被踢的单位一死就挂不全（同上），0.7.2 改回本包挂；数据的
+//!   踢中效果没跑时 `e_flip` 也由本包补。
 //! - **什么时候骑**（0.4.0，`ride_ai.rs`）：游戏的 AI 从来不按这一招，钩子照英雄联盟高手的用法替它按——走远路（回线、游走、
 //!   支援）且不在交战中就骑，远处有残血、她血量健康就骑过去追。
 //! - **骑乘的样子**（`view.rs`，游戏 0.6.4 起的 Windows 版）：骑着的时候站着、走着、挨打都是骑在华洛背上的 `r_idle` / `r_run` / `r_hit`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_quinn.log`，每次启动游戏重写，上一次的留在 .prev.log：`RIDE`（骑上、
-//! 出招落地 / 到时落地、骑了多久多远）、`E`（出 E、冲了几 tick）、`VAULT`（为什么翻、往哪翻、挪了多远）、`FORM`（画面里换形态），
+//! 出招落地 / 到时落地、骑了多久多远）、`E`（出 E、冲了几 tick）、`VAULT`（为什么翻、往哪翻、给了多长的强制位移、挪了多远、自己走了
+//! 几步）、`FLIP`（逐帧标记挂完没有；画面那边画了哪几帧、她在画面上走过的位置）、`FORM`（画面里换形态），
 //! 都限了条数。
 
 use std::collections::{HashMap, VecDeque};
@@ -64,11 +71,16 @@ pub const CAME_MIN: f64 = 3000.0;
 const MAP: f64 = 960_000.0;
 /// 后空翻每帧多少毫秒（tools/art/rig_quinn.py 的 MS["e_flip"]，单元测试核对），合计 600 毫秒 = 技能数据的 e_flip 36 tick。
 pub const FLIP_MS: [usize; 7] = [60, 70, 80, 70, 70, 120, 130];
-/// 正在翻第几帧：踢中后附加包副本的数据按 FLIP_MS 给她挂 `league_quinn_flip<k>`（build_quinn.py 的 flip_flags），view.rs
-/// 看到就把画面上正在播的 e_flip 换成单帧标签 `e_flip_<k>`。被往后挪的那 E_BACK_T tick 里游戏看来不往下播强制动作（画面停在
-/// 第一帧，用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」），只能一帧一帧换上去。0.7.0 是本包原生代码每 tick 挂的
-/// （画面也认得出来，11-20 23:11 那局换了帧），0.7.1 改由数据挂，本包少一段原生代码。
+/// 正在翻第几帧：踢中后本包每 tick 给她挂 `league_quinn_flip<k>`，view.rs 看到就把画面上正在播的动画换成单帧标签
+/// `e_flip_<k>`。0.7.1 改由数据挂过：被踢的单位一死，游戏就跳过它身上的 AddCasterBuff（延时的也一样），11-21 那局画面上
+/// 13 次里 7 次只挂上第 0 帧，所以 0.7.2 改回本包自己挂（不管目标死活）。
 pub const FLIP: &str = "league_quinn_flip";
+/// 翻回去那段强制位移给出去以后最多再等几 tick：给的那一 tick 宿主还没开始挪；宿主没挪满（被挡、被缩短）时本包自己补。
+pub const VAULT_SLACK: usize = 4;
+/// 离落点这么近就算到了。
+pub const ARRIVE: f64 = 1500.0;
+/// 游戏自己播的后空翻（技能数据踢中时的 CasterAnimation）；冲刺没碰到目标、数据没播时本包补上。
+pub const FLIP_ANIM: &str = "e_flip";
 /// 一秒几 tick。
 const TPS: usize = 60;
 
@@ -170,6 +182,37 @@ pub fn clamp(p: Pt) -> Pt {
     (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
 }
 
+/// 翻回去的落点：从踢中的地方朝 `d` 退 E_BACK x E_BACK_T，夹在地图里。
+pub fn vault_to(at: Pt, d: Pt) -> Pt {
+    let far = E_BACK * E_BACK_T as f64;
+    clamp((at.0 + d.0 * far, at.1 + d.1 * far))
+}
+
+/// 从 `from` 到 `to` 的强制位移 (dx, dy, 每 tick 多远, 几 tick)：每 tick 一样长、不超过 E_BACK，走满正好到；不到 1 就不挪。
+pub fn vault_push(from: Pt, to: Pt) -> Option<(i64, i64, u64, u64)> {
+    let d = dist(from, to);
+    if d < 1.0 {
+        return None;
+    }
+    let ticks = (d / E_BACK).ceil().max(1.0);
+    Some(((to.0 - from.0).round() as i64, (to.1 - from.1).round() as i64, (d / ticks).ceil() as u64, ticks as u64))
+}
+
+/// 这一 tick 本包要不要自己走一步：上一 tick 记下的位置 `last` 和现在一样（宿主没挪她）。给强制位移的那一 tick 还没有
+/// `last`，不算。
+pub fn stalled(last: Option<Pt>, at: Pt) -> bool {
+    last.is_some_and(|l| dist(l, at) < 1.0)
+}
+
+/// 自己走的一步：从 `at` 朝 `to` 最多 E_BACK。
+pub fn own_step(at: Pt, to: Pt) -> Pt {
+    let off = dist(at, to);
+    if off <= E_BACK {
+        return to;
+    }
+    (at.0 + (to.0 - at.0) / off * E_BACK, at.1 + (to.1 - at.1) / off * E_BACK)
+}
+
 /// 出 E 后第 `ticks` tick、这一 tick 挪了 `step`、之前冲起来过没有（`moved`）：冲刺是不是结束了（该翻了）。
 pub fn dash_over(ticks: usize, moved: bool, step: f64) -> bool {
     if moved { step < DASH_STEP } else { ticks >= STILL_T }
@@ -183,6 +226,11 @@ pub fn flip_frame(t: usize) -> Option<usize> {
         end += d;
         ms < end
     })
+}
+
+/// 后空翻一共几 tick（技能数据的 e_flip）。
+pub fn flip_ticks() -> usize {
+    FLIP_MS.iter().sum::<usize>() * TPS / 1000
 }
 
 /// 第 `k` 帧的标记名（view.rs 认它）。
@@ -215,21 +263,43 @@ struct Ride {
     ended: bool,
     /// 最近 TRAIL tick 的位置（旧的在前）：旋翔掠杀从哪边冲过来。
     trail: VecDeque<Pt>,
-    /// 正在翻回去：方向、还剩几 tick、起点、游戏拒绝挪人的次数。
-    vault: Option<(Pt, usize, Pt, usize)>,
+    /// 正在翻回去。
+    vault: Option<Vault>,
     /// 出 E 的标记在她身上时：看到它几 tick、冲起来过没有、这次 E 翻过没有（标记没了才清掉，一次 E 只翻一次）。
     dash: Option<(usize, bool, bool)>,
+    /// 后空翻的画面：踢中后第几 tick、现在挂着第几帧的标记。
+    flip: Option<(usize, Option<usize>)>,
 }
 
-/// 她身上的强制动作（名字、还剩几 tick），日志用。
-fn anims_on(sim: &StableSim<'_>, id: usize) -> String {
+/// 翻回去的一程：落点、起点、还能用几 tick、上一 tick 的位置（看宿主挪没挪）、本包自己走了几步。
+#[derive(Clone, Copy)]
+struct Vault {
+    to: Pt,
+    from: Pt,
+    left: usize,
+    last: Option<Pt>,
+    own: usize,
+}
+
+/// 她身上的控制（种类、还剩几 tick；强制动作带名字，强制位移带速度），日志用。
+fn ccs_on(sim: &StableSim<'_>, id: usize) -> String {
     let Some(e) = sim.get_entity(id) else { return String::new() };
     let v: Vec<String> = (0..e.cc_count())
         .filter_map(|i| e.cc_at(i))
-        .filter(|c| c.kind == CcKindV1::Animation.code())
-        .map(|c| format!("{} {}", c.name(), c.tick))
+        .map(|c| match CcKindV1::from_code(c.kind) {
+            Some(CcKindV1::Animation) => format!("anim {} {}", c.name(), c.tick),
+            Some(CcKindV1::ForceMove) => format!("move {}x{}", c.tick, c.speed),
+            Some(k) => format!("{k:?} {}", c.tick),
+            None => format!("cc{} {}", c.kind, c.tick),
+        })
         .collect();
     if v.is_empty() { "none".to_string() } else { v.join(", ") }
+}
+
+fn has_cc(sim: &StableSim<'_>, id: usize, kind: CcKindV1, name: Option<&str>) -> bool {
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| c.kind == kind.code() && name.is_none_or(|n| c.name() == n)))
+    })
 }
 
 /// 控住她的（翻到一半被控就停）。
@@ -254,8 +324,8 @@ fn nearest_foe(sim: &StableSim<'_>, me: usize, at: Pt) -> Option<Pt> {
 }
 
 impl Ride {
-    /// 旋翔掠杀：出 E 的标记 DASH 在时看着她冲，冲刺停下（或踢中的标记 VAULT 来了）就逐 tick 把她往冲过来的方向挪 E_BACK，
-    /// 共 E_BACK_T tick。
+    /// 旋翔掠杀：出 E 的标记 DASH 在时看着她冲，冲刺停下（或踢中的标记 VAULT 来了）就把她往冲过来的方向翻回去 E_BACK x
+    /// E_BACK_T：给她一段强制位移（宿主挪她，画面跟着走），宿主没挪的 tick 本包自己走一步。
     fn vault(&mut self, sim: &mut StableSim<'_>, me: usize, at: Pt) {
         let step = self.trail.back().map_or(0.0, |p| dist(*p, at));
         let kicked = has_buff(sim, me, VAULT);
@@ -286,44 +356,97 @@ impl Ride {
         } else {
             self.dash = None;
         }
-        if let (Some(why), None) = (why, self.vault) {
-            // 踢中时她身上的强制动作（应该只剩 e_flip）；逐帧的标记是数据挂的，这里只记一笔
-            if let Some(k) = counted_on("flip", on_screen(sim)) {
-                wlog(format!("{} FLIP ({why}); animations on her: {}; flags: {} #{k}", head(sim, me), anims_on(sim, me),
-                             (0..FLIP_MS.len()).filter(|&j| has_buff(sim, me, &flip_buff(j))).map(|j| j.to_string())
-                                 .collect::<Vec<_>>().join(",")));
+        if let (Some(why), true) = (why, self.vault.is_none()) {
+            let shown = on_screen(sim);
+            let before = ccs_on(sim, me);
+            // 后空翻的画面从这一 tick 起逐帧走（找不到方向、原地翻也一样翻）
+            self.flip = Some((0, self.flip.and_then(|f| f.1)));
+            // 冲刺没碰到目标（目标先死了、冲刺被打断）时数据的踢中效果没跑，她身上没有 e_flip：本包补上，翻完之前也不走动
+            if !has_cc(sim, me, CcKindV1::Animation, Some(FLIP_ANIM)) {
+                let mut a = CcV1::of_kind(CcKindV1::Animation, flip_ticks() as u64);
+                a.set_name(FLIP_ANIM);
+                sim.apply_cc(me, &a);
             }
             let trail: Vec<Pt> = self.trail.iter().copied().collect();
             match vault_dir(at, &trail, nearest_foe(sim, me, at)) {
                 Some(d) => {
-                    self.vault = Some((d, E_BACK_T, at, 0));
-                    if let Some(k) = counted("vault") {
+                    let to = vault_to(at, d);
+                    // 强制位移：宿主每 tick 挪她一段，画面上是连着的一段位移。以前逐 tick 直接改坐标，画面不跟：11-21 那局
+                    // 13 次里 11 次她在画面上整个后空翻都钉在原地，翻完才一下被拉到落点（「往后拉距离…没动画」）
+                    let push = vault_push(at, to);
+                    if let Some((dx, dy, speed, ticks)) = push {
+                        let mut mv = CcV1::of_kind(CcKindV1::ForceMove, ticks);
+                        mv.dx = dx;
+                        mv.dy = dy;
+                        mv.speed = speed;
+                        sim.apply_cc(me, &mv);
+                    }
+                    self.vault = Some(Vault { to, from: at, left: E_BACK_T + VAULT_SLACK, last: None, own: 0 });
+                    if let Some(k) = counted_on("vault", shown) {
                         let came = trail.iter().rev().find(|p| dist(**p, at) >= CAME_MIN).is_some();
-                        wlog(format!("{} VAULT ({why}) flip back ({:.2}, {:.2}){} #{k}", head(sim, me), d.0, d.1,
-                                     if came { ", the way she dashed in" } else { ", away from the nearest enemy" }));
+                        wlog(format!("{} VAULT ({why}) flip back ({:.2}, {:.2}){}: forced move {} over {:.0}; on her before: {before}; \
+                                      now: {} #{k}", head(sim, me), d.0, d.1,
+                                     if came { ", the way she dashed in" } else { ", away from the nearest enemy" },
+                                     push.map_or("none".to_string(), |(_, _, sp, t)| format!("{t} ticks x {sp}")), dist(at, to),
+                                     ccs_on(sim, me)));
                     }
                 }
                 None => {
-                    if let Some(k) = counted("vault") {
-                        wlog(format!("{} VAULT no way to tell where to flip, stays #{k}", head(sim, me)));
+                    if let Some(k) = counted_on("vault", shown) {
+                        wlog(format!("{} VAULT ({why}) no way to tell where to flip, flips on the spot; on her: {} #{k}",
+                                     head(sim, me), ccs_on(sim, me)));
                     }
                 }
             }
         }
-        if let Some((d, left, from, refused)) = self.vault.as_mut() {
+        if let Some(v) = self.vault.as_mut() {
             let held = hard_cc(sim, me);
-            if *left == 0 || held {
-                if let Some(k) = counted("vault_done") {
-                    wlog(format!("{} VAULT DONE moved {:.0} of {:.0} ({} steps refused{}) #{k}", head(sim, me), dist(*from, at),
-                                 E_BACK * E_BACK_T as f64, refused, if held { ", cut by CC" } else { "" }));
-                }
+            let off = dist(at, v.to);
+            if held || off <= ARRIVE || v.left == 0 {
+                let (from, to, own, left) = (v.from, v.to, v.own, v.left);
                 self.vault = None;
-            } else {
-                let next = clamp((at.0 + d.0 * E_BACK, at.1 + d.1 * E_BACK));
-                if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
-                    *refused += 1;
+                if let Some(k) = counted_on("vault_done", on_screen(sim)) {
+                    let why = if held { ", cut by CC" } else if off > ARRIVE { ", out of time" } else { "" };
+                    wlog(format!("{} VAULT DONE moved {:.0} of {:.0} in {} ticks ({own} steps of her own{why}) #{k}",
+                                 head(sim, me), dist(from, at), dist(from, to), E_BACK_T + VAULT_SLACK - left));
                 }
-                *left -= 1;
+            } else {
+                // 宿主这一 tick 没挪她（强制位移被挡住、被缩短）：自己走一步，位置是对的，这一步画面上不显示
+                if stalled(v.last, at) {
+                    let next = own_step(at, v.to);
+                    sim.entity_set_pos(me, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
+                    v.own += 1;
+                    v.last = Some(next);
+                } else {
+                    v.last = Some(at);
+                }
+                v.left -= 1;
+            }
+        }
+    }
+
+    /// 后空翻的画面（踢中后 FLIP_MS 那 600 毫秒）：每 tick 给她挂这一帧的标记 `league_quinn_flip<k>`，view.rs 照它换画面；
+    /// 翻完、被控就摘掉。标记只挂 2 tick、每 tick 重挂：本包哪一 tick 没跑到，画面也会自己回到游戏播的动作。
+    fn flip(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let Some((t, shown)) = self.flip else { return };
+        let held = hard_cc(sim, me);
+        let k = if held { None } else { flip_frame(t) };
+        if let Some(old) = shown.filter(|&o| Some(o) != k) {
+            sim.entity_remove_buff(me, &flip_buff(old));
+        }
+        match k {
+            Some(k) => {
+                let name = flip_buff(k);
+                sim.entity_remove_buff(me, &name);
+                sim.add_buff(me, &BuffV1::timed(&name, 2));
+                self.flip = Some((t + 1, Some(k)));
+            }
+            None => {
+                if let Some(n) = counted_on("flip_done", on_screen(sim)) {
+                    wlog(format!("{} FLIP over after {t} ticks{}; on her: {} #{n}", head(sim, me),
+                                 if held { ", cut by CC" } else { "" }, ccs_on(sim, me)));
+                }
+                self.flip = None;
             }
         }
     }
@@ -343,6 +466,7 @@ impl StablePassive for Ride {
         match pos(sim, me).filter(|_| alive) {
             Some(at) => {
                 self.vault(sim, me, at);
+                self.flip(sim, me);
                 self.trail.push_back(at);
                 if self.trail.len() > TRAIL {
                     self.trail.pop_front();
@@ -352,6 +476,7 @@ impl StablePassive for Ride {
                 self.trail.clear();
                 self.vault = None;
                 self.dash = None;
+                self.flip = None;
             }
         }
         let riding = alive && has_buff(sim, me, RIDE);
@@ -502,26 +627,50 @@ mod tests {
     }
 
     #[test]
-    fn the_copy_lays_each_flip_frames_flag_on_time() {
-        // 附加包副本的数据踢中后按 FLIP_MS 挂 league_quinn_flip<k>：第 k 帧从 flip_frame 换到 k 的那一 tick 起，挂到下一帧
-        // 开始再多 1 tick（接上不留空）；第 0 帧不延时，别的都在 Delayed 里。主包的数据里没有（没有画面钩子）。
-        let ticks = FLIP_MS.iter().sum::<usize>() * TPS / 1000;
-        let starts: Vec<usize> = (0..FLIP_MS.len()).map(|k| (0..ticks).find(|&t| flip_frame(t) == Some(k)).unwrap()).collect();
-        assert_eq!(starts, vec![0, 4, 8, 13, 17, 21, 29]);
-        let copy: String = include_str!("../override/league_quinn.data_champion").split_whitespace().collect();
-        for (k, &s) in starts.iter().enumerate() {
-            let end = starts.get(k + 1).copied().unwrap_or(ticks);
-            let name = flip_buff(k);
-            let lay = format!("{{\"type\":\"RemoveCasterBuff\",\"name\":\"{name}\"}},{{\"type\":\"AddCasterBuff\",\"buff_state\":\
-                               {{\"name\":\"{name}\",\"duration\":{{\"Time\":{{\"tick\":{}}}}}}}", end - s + 1);
-            let delayed = format!("\"type\":\"Delayed\",\"tick\":{s},\"effects\":[{{\"type\":\"Combine\",\"effects\":[{lay}");
-            if s == 0 {
-                assert!(copy.contains(&lay), "{name} is not laid at the kick for {} ticks", end - s + 1);
-            } else {
-                assert!(copy.contains(&delayed), "{name} is not laid {s} ticks after the kick for {} ticks", end - s + 1);
-            }
+    fn the_flip_flags_are_this_crates_not_the_datas() {
+        // 0.7.1 让数据挂逐帧标记：被踢的单位一死，游戏跳过它身上的 AddCasterBuff，13 次里 7 次只挂上第 0 帧。两份数据里
+        // 都不许再有这个标记，本包每 tick 自己挂（flip）
+        for s in [include_str!("../override/league_quinn.data_champion"),
+                  include_str!("../../../league/champion/league_quinn.data_champion")] {
+            assert!(!s.contains(FLIP), "the data lays flip flags");
         }
-        assert!(!include_str!("../../../league/champion/league_quinn.data_champion").contains(FLIP), "the main pack lays flip flags");
+        assert_eq!(flip_ticks(), 36);
+        let kit = include_str!("../../../tools/kit/build_quinn.py");
+        assert!(kit.contains(&format!("\"e_flip\": {}", flip_ticks())));
+    }
+
+    #[test]
+    fn the_vault_is_one_forced_move_to_where_she_lands() {
+        // 落点：朝冲过来的方向退 E_BACK x E_BACK_T，夹在地图里
+        assert_eq!(vault_to((500_000.0, 500_000.0), (-1.0, 0.0)), (452_000.0, 500_000.0));
+        assert_eq!(vault_to((10_000.0, 500_000.0), (-1.0, 0.0)), (0.0, 500_000.0));
+        let (x, y) = vault_to((500_000.0, 500_000.0), (0.6, 0.8));
+        assert!((x - 528_800.0).abs() < 1e-6 && (y - 538_400.0).abs() < 1e-6);
+        // 强制位移：整段的位移、每 tick 2400、20 tick；贴着地图边只剩一小段时 tick 数跟着少，每 tick 不超过 E_BACK
+        assert_eq!(vault_push((500_000.0, 500_000.0), (452_000.0, 500_000.0)), Some((-48_000, 0, 2400, 20)));
+        assert_eq!(vault_push((10_000.0, 500_000.0), (0.0, 500_000.0)), Some((-10_000, 0, 2000, 5)));
+        assert_eq!(vault_push((0.0, 0.0), (0.4, 0.0)), None);
+        let (dx, dy, speed, ticks) = vault_push((500_000.0, 500_000.0), (528_800.0, 538_400.0)).unwrap();
+        assert_eq!((dx, dy, ticks), (28_800, 38_400, 20));
+        assert!(speed as f64 <= E_BACK && speed * ticks >= 48_000);
+    }
+
+    #[test]
+    fn she_steps_herself_only_when_the_host_did_not_move_her() {
+        let at = (100_000.0, 100_000.0);
+        assert!(!stalled(None, at)); // 给强制位移的那一 tick：宿主还没开始挪
+        assert!(!stalled(Some((102_400.0, 100_000.0)), at)); // 宿主挪了
+        assert!(stalled(Some(at), at)); // 没挪：自己走
+        assert_eq!(own_step(at, (90_000.0, 100_000.0)), (97_600.0, 100_000.0));
+        assert_eq!(own_step(at, (99_000.0, 100_000.0)), (99_000.0, 100_000.0)); // 不到一步：正好到
+        // 一直没人挪她：20 步走完 48000
+        let (mut p, to, mut n) = (at, (52_000.0, 100_000.0), 0);
+        while dist(p, to) > ARRIVE {
+            p = own_step(p, to);
+            n += 1;
+        }
+        assert_eq!(n, 20);
+        assert!(E_BACK_T + VAULT_SLACK > n);
     }
 
     #[test]
