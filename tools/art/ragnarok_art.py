@@ -39,9 +39,12 @@ TAGS, BANKS = ACTIONS, None
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
+    global CW, CH, CS
     global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT
     global TAGS, BANKS
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
+    # CANVAS：合成用的画布（宽、高、脚底点），格子比 128 大时跟着放大（亚当、宙斯按两倍重出，一格 256）
+    CW, CH, CS = cfg.get("CANVAS", (288, 224, (144, 176)))
     # FX_PPU: the effect sheets' own density (the pictures on units and the projectile pictures keep their size when
     # the hero is drawn smaller: Lu Bu at 1.94 since 2026-11-20, his effects at Codex's 1.65); his baked swings follow him
     FX_PPU = cfg.get("FX_PPU", PPU)
@@ -54,7 +57,8 @@ def setup(cfg):
     # (Lu Bu's Sky Eater wave came on its own in the first redraw round)
     EXTRA_FX = cfg.get("EXTRA_FX", [])
     # SHIFT {action: dx}: an action Codex drew off his soles' point, moved whole by dx dense px (a plain move, nothing
-    # redrawn): Thor's idle stands 7 px forward of his run and attack, he would hop forward each time he stops
+    # redrawn): Thor's idle stands 7 px forward of his run and attack, he would hop forward each time he stops.
+    # dx 也可以按帧给一串（每个身体帧一个）：波塞冬重画的跑步，人在格子里前后滑，逐帧挪回原来的位置；画进帧里的特效跟着挪
     SHIFT = cfg.get("SHIFT", {})
     # BANKS [(Codex 的图名, {它的标签: 本表的标签})]：一个英雄几张身体图（宙斯三种形态各一张、变身过渡一张）按顺序合成一张，
     # 标签照表改名（膨胀的 idle -> mu_idle）；不给就是 <ID>_native 一张、标签原样。TAGS 是合成后本表的动作，顺序就是图里的顺序
@@ -135,33 +139,41 @@ def baked(body, fx):
         starts = np.cumsum([0.0] + durs[:-1])
         end = float(sum(durs))
         bakes = [b for b in BAKE if b[0] == tag]
-        dx = SHIFT.get(tag, 0)
+        shift = SHIFT.get(tag, 0)
         cuts = {0.0, end} | {float(s) for s in starts}
         plays = []
         for b in bakes:
             _, name, t0, anchor, step = b[:5]
             origin = b[5] if len(b) > 5 else (64, 64)
+            # 第 7 项 "behind"：画在身子后面（索尔大招蓄力的雷圈围着锤头，锤子横在胸前、竖在身前时画在前面会从脸上划过）
+            behind = len(b) > 6 and b[6] == "behind"
             fr = fx[name]
             dt = step if step is not None else fr[0][1]
             for j in range(len(fr) + 1):
                 t = t0 + j * dt
                 if t < end:
                     cuts.add(round(t, 6))
-            plays.append((name, t0, anchor, dt, fr, origin))
+            plays.append((name, t0, anchor, dt, fr, origin, behind))
         cuts = sorted(c for c in cuts if c <= end)
         segs = []
         for a, b in zip(cuts, cuts[1:]):
             if b - a < 1e-6:
                 continue
             i = int(np.searchsorted(starts, a + 1e-9, side="right") - 1)
+            dx = shift[i] if isinstance(shift, (list, tuple)) else shift
             canvas = np.zeros((CH, CW, 4), np.uint8)
-            over(canvas, frames[i][0], CS[0] - SOLE[0] + dx, CS[1] - SOLE[1])
-            for name, t0, anchor, dt, fr, (ox, oy) in plays:
-                j = int(np.floor((a - t0) / dt + 1e-9))
-                if 0 <= j < len(fr):
-                    # 锚点也可以按身体帧给一串，特效跟着身体走（亚当睁眼的光跟着头）
-                    ax, ay = anchor[i] if isinstance(anchor, list) else anchor
-                    over(canvas, fr[j][0], CS[0] + ax - ox + dx, CS[1] + ay - oy)
+            for layer in ("behind", "body", "front"):
+                if layer == "body":
+                    over(canvas, frames[i][0], CS[0] - SOLE[0] + dx, CS[1] - SOLE[1])
+                    continue
+                for name, t0, anchor, dt, fr, (ox, oy), behind in plays:
+                    if behind != (layer == "behind"):
+                        continue
+                    j = int(np.floor((a - t0) / dt + 1e-9))
+                    if 0 <= j < len(fr):
+                        # 锚点也可以按身体帧给一串，特效跟着身体走（亚当睁眼的光跟着头）
+                        ax, ay = anchor[i] if isinstance(anchor, list) else anchor
+                        over(canvas, fr[j][0], CS[0] + ax - ox + dx, CS[1] + ay - oy)
             canvas = no_specks(canvas)
             if segs and np.array_equal(segs[-1][0], canvas) and segs[-1][2] == i:
                 segs[-1] = (canvas, segs[-1][1] + (b - a), i)
@@ -277,14 +289,17 @@ def fx_sheet(fx):
     return {**out, **dense}
 
 
-def proj_sheet(fx):
+def proj_sheet(fx, own=None):
     """{tag: [(1x frame, ms)]} of PROJ_FX: a projectile's picture, centred on its position, at 1x (a projectile's picture is
     dense only where hd_engine's full door is on; at 1x it is right everywhere)."""
     out = {}
+    own = own or {}
     for name, (px, py) in PROJ_FX.items():
         frames = []
-        for a, secs in fx[name]:
-            small, (nx, ny) = D.scale_fx(a, 1.0 / FX_PPU, (px, py), mote=0)
+        # 按整数倍放大读进来的（EXTRA_FX 给了倍数的）用原来那张按它自己的密度缩，缩出来和放大前一模一样
+        src, k = own.get(name, (fx[name], 1))
+        for a, secs in src:
+            small, (nx, ny) = D.scale_fx(a, k / FX_PPU, (px / k, py / k), mote=0)
             op = small[..., 3] > 0
             rx = ry = 1
             if op.any():
@@ -324,8 +339,16 @@ def main(cfg, doc=None):
     else:
         body = read(os.path.join(SRC, f"{ID}_native"))
     fx = read(os.path.join(SRC, f"{ID}_fx_native"))
+    own = {}
     for stem in EXTRA_FX:
-        fx.update(read(stem))
+        # 也可以给（路径, 倍数）：按最近邻放大整数倍再用（吕布的斩波：身体和特效是两倍的，它没重画）；
+        # 当弹道图用的时候还是拿原来那张缩（proj_sheet）
+        stem, k = stem if isinstance(stem, tuple) else (stem, 1)
+        got = read(stem)
+        if k != 1:
+            own.update({t: (fr, k) for t, fr in got.items()})
+            got = {t: [(np.repeat(np.repeat(a, k, 0), k, 1), d) for a, d in fr] for t, fr in got.items()}
+        fx.update(got)
     ones, denses = hero_sheets(body, fx)
     fxs = fx_sheet(fx)
     if a.check:
@@ -344,7 +367,7 @@ def main(cfg, doc=None):
         Image.fromarray(strip(frames)).save(os.path.join(PPU_DIR, f"{HERO}_{tag}.png"))
     fw, fh = G.write_sheet(FX_SHEET, fxs)
     if PROJ_FX:
-        G.write_sheet(PROJ_SHEET, proj_sheet(fx))
+        G.write_sheet(PROJ_SHEET, proj_sheet(fx, own))
     print(f"{ID}#sheet.png {w}x{h} (1x), {ID}_fx#sheet.png {fw}x{fh}; dense strips in {PPU_DIR}")
     for tag in tags():
         f = ones[tag][0][0]

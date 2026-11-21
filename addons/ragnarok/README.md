@@ -4,7 +4,7 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 
 第一个英雄是吕布奉先（2026-11-20，用户：「codex/ragnarok-lubu-assets-v02 开始做新的mod了 codex完成了部分美术了 技能代码逻辑之类的都需要你来做」）。美术、图标、音频是 Codex 做的（[`assets/source/lubu/`](../../assets/source/lubu/README.md)），技能、数据、原生代码、高清帧接入和平衡是这里做的。
 
-**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的高清帧表，`init` 先把它交给三个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)：游戏里第一个加载的包 DLL 自己挂钩，后加载的把表交给它（[`share.rs`](../hd_engine/src/share.rs)），所以只开本包也有高清帧，和英雄联盟、金铲铲包一起开也不抢。吕布、索尔的高清帧就是 Codex 的原画（128 格；吕布 PPU 1.94、索尔 1.65，两人头顶一样高），1 倍帧是从它缩出来的后备；他们打在别人身上的特效图（火花、天喰冲击、碎盾、雷击、落锤冲击、雷槌觉醒）也是高清的（`EFFECTS` / `DRAWN_EFFECTS`，都是 1.65）。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok.log`。
+**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的高清帧表，`init` 先把它交给三个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)：游戏里第一个加载的包 DLL 自己挂钩，后加载的把表交给它（[`share.rs`](../hd_engine/src/share.rs)），所以只开本包也有高清帧，和英雄联盟、金铲铲包一起开也不抢。现在六个人都是两倍密度（一格 256，脚底点 (128, 232)），个子和原来一样：宙斯照 Codex 的原画按两倍重出（`tools/art/zeus_repixel.py`，共用的取样在 `tools/art/ragnarok_repixel.py`），吕布、索尔、亚当是 Codex 照动画第一季重画的（`assets/source/<英雄>/rebuild/`，`tools/art/<英雄>_rebuild_fix.py` 修成同一个头、收到 64 色），波塞冬是 Codex 按同样标准画的两倍身体（`tools/art/poseidon_rebuild_fix.py` 收色、特效按两倍从原画重出）。小次郎是 Codex 直接按两倍画的。PPU：吕布 3.88、索尔 2.67、宙斯 3.3、亚当 3.3、波塞冬 3.3、小次郎 3.3；1 倍帧是从高清帧缩出来的后备。打在别人身上的特效图（`EFFECTS` / `DRAWN_EFFECTS`）也是高清的：吕布 3.3、索尔 2.67、其余 3.3。重画的帧在格子里站的位置和原来不一样的（跑步前后滑、出手往前跳），`import_*.py` 的 SHIFT 整帧挪回去。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok.log`。
 
 | 英雄 | 模块 | 做什么 |
 |---|---|---|
@@ -12,6 +12,8 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 | 索尔 `ragnarok_thor` | [`src/thor.rs`](src/thor.rs) | 配音、倒地声（技能全在数据里） |
 | 宙斯 `ragnarok_zeus` | [`src/zeus.rs`](src/zeus.rs) | 三种身体的显示钩子、配音、倒地声（技能和变身全在数据里） |
 | 亚当 `ragnarok_adam` | [`src/adam.rs`](src/adam.rs) | 配音、倒地声（闪避、记录、反击、时间之拳全在数据里） |
+| 波塞冬 `ragnarok_poseidon` | [`src/poseidon.rs`](src/poseidon.rs) | 被动「神无须依赖」、配音、倒地声（三个技能全在数据里） |
+| 佐佐木小次郎 `ragnarok_kojiro` | [`src/kojiro.rs`](src/kojiro.rs) | 被动「预判」、二天岩流后换成双刀的显示钩子、配音、倒地声（三个技能全在数据里） |
 
 ## 吕布奉先
 
@@ -80,8 +82,47 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 
 `ragnarok_adam:voice`（没有参数）：齐藤壮马的原声七句。一局第一次和敌方英雄交手说一句（与神交手的决意或自报姓名，五次里一次是保护孩子那句），杀英雄、复活（最早的人类 / 大家认得我吗）各有一句，放超越时间之拳时三成五的概率喊「全力出拳」；各有冷却，任意两句至少隔 8 秒。死的时候放倒地声（对上死亡动作第 6 帧着地）。
 
+## 波塞冬
+
+数据：[`tools/kit/build_poseidon.py`](../../tools/kit/build_poseidon.py)（参数表 P，数值是 10 分钟经典引擎模拟调出来的，中路，见文件头），文本和音效：[`tools/kit/setup_poseidon.py`](../../tools/kit/setup_poseidon.py)，图：[`tools/art/import_poseidon.py`](../../tools/art/import_poseidon.py)（Codex 两倍重画的身体在 `assets/source/poseidon/rebuild/`，`tools/art/poseidon_rebuild_fix.py` 收色、特效按两倍重出；戟风、连刺的扇形戟风、斜刺的升势和坠刺、大洪水的蓄势画进他自己的帧）。素材和 Codex 的交接说明在 [`assets/source/poseidon/`](../../assets/source/poseidon/README.md)。
+
+| 技能 | 做法 |
+|---|---|
+| 普攻 | 三叉戟水平突刺，单体 100% 攻击力物理伤害，0.23 秒出手，射程 30000（比一般近战长） |
+| 怒涛连刺（Q） | 第 0.1 秒朝目标踏进一段（引擎自己的冲刺，最多 15000，碰到敌人就停），第 0.23 秒起每 0.05 秒朝前刺一次、共 4 次，每次前方扇形（半径 42000、左右各约 26°）里的敌人 60 + 85% 攻击力物理伤害 |
+| 暴雨斜刺（E） | 抬戟 0.18 秒，第 0.28 秒斜着压下去：目标脚下半径 16000 里的敌人 145 + 195% 物理伤害、眩晕 0.7 秒 |
+| 四十昼夜的大洪水（R） | 蓄势 0.38 秒（受到的伤害降低 30%），然后目标脚下半径 22000 的圈里戟影连刺 6 轮（每 0.07 秒一轮），每轮 85 + 115% 物理伤害，第一轮定身 0.75 秒；蓄势时被打死就不出手 |
+| 被动 神无须依赖 | 下面 |
+
+被动 `ragnarok_poseidon:alone`（参数 `p_r` / `p_atk` / `p_dr` 从数据的 `passive.params` 来）：
+
+- **一个人更强**：每 6 拍看一次，身边 70000 以内没有活着的友方英雄（不算自己）就挂上 `ragnarok_poseidon_p_alone`（攻击力 +15%、受到的伤害降低 10%），有队友过来就去掉。写在普攻说明里（游戏只有三个技能图标位）。
+- **配音**：樱井孝宏的原声九句（Codex 截的，用法照他的 `audio/voice_cuts.json`）：一局第一次和敌方英雄交手说一句（人类的命运与我无关 / 休想反抗神明，五次里一次是「无需同伴」），杀英雄三句轮流（偶尔是「神无须依赖」），放大洪水时三成五的概率说「这才是神」，复活两句轮流；每类有自己的冷却，任意两句至少隔 8 秒。死的时候放三叉戟落地和身子着地（0.33 秒、0.785 秒，对上死亡动作）。
+
+经典引擎跑不了原生代码，平衡模拟用 `build_poseidon.py --plain`（被动从第一次放技能起一直开着：对线时他本来就是一个人）。
+
+## 佐佐木小次郎
+
+数据：[`tools/kit/build_kojiro.py`](../../tools/kit/build_kojiro.py)（参数表 P，数值是 10 分钟经典引擎模拟调出来的，上路，见文件头），文本和音效：[`tools/kit/setup_kojiro.py`](../../tools/kit/setup_kojiro.py)，图：[`tools/art/import_kojiro.py`](../../tools/art/import_kojiro.py)（Codex 直接按两倍密度画的单刀 8 个动作、双刀待机，`tools/art/kojiro_fix.py` 收色；燕返刀光、预判涟漪、双刀交错画进他自己的帧、在身子后面）。素材和 Codex 的交接说明在 [`assets/source/kojiro/`](../../assets/source/kojiro/README.md)。
+
+| 技能 | 做法 |
+|---|---|
+| 普攻 | 长刀一斩，单体 100% 攻击力物理伤害，0.23 秒出刀，射程 28000（物干竿比一般近战长）；二天岩流之后是双刀：先一刀 100%，0.1 秒后交错一刀 40% |
+| 燕返（Q） | 第 0.28 秒往前斩下，前方扇形（半径 36000、左右各约 46°）里的敌人 40 + 60% 物理伤害；第 0.38 秒反刃上撩，同一个扇形 60 + 90% 物理伤害、减速 35% 1 秒 |
+| 千手无双（E） | 对敌方英雄放：第 0.18 秒预判，之后 2.5 秒受到的伤害降低 30%、攻速 +50%（第 0.25 秒侧避的声音） |
+| 二天岩流（R） | 起手到第一刀受到的伤害降低 30%、不受控制；第 0.37 秒双刀斩下，前方扇形 80 + 100% 物理伤害；第 0.48 秒双刀交错，120 + 140% 物理伤害、眩晕 0.6 秒；之后 8 秒拿着两把刀（攻速 +30%，普攻多一刀）。出刀前被打死就什么都不发生 |
+| 被动 预判 | 下面 |
+
+被动 `ragnarok_kojiro:predict`（参数 `p_per` / `p_max` 从数据的 `passive.params` 来）：
+
+- **记招**：他每打中一个敌方英雄一次（普攻和技能，`on_attack`），就记下那个人一招，之后打那个人的每一下伤害按记下的招数加（每招 3%，每个人最多 8 招，也就是最多 +24%）。对手按「队伍 + 英雄名」认，对手死了复活还认得；小次郎自己死了全部重新记。写在普攻说明里。
+- **双刀**：二天岩流交错那一刀以后数据挂 `ragnarok_kojiro_niten`。显示钩子（`game_places::hook`，宙斯三种身体的做法）在他有这个 buff 时把正在播的 `idle` / `attack` 换成 `niten_idle`（Codex 画的双刀待机）/ `niten_attack`（大招的双刀两连斩，按普攻的节奏重排时长），buff 没了换回来；跑、挨打、倒下只画了单刀。
+- **配音**：山路和弘的原声八句（Codex 截的）：一局第一次和敌方英雄交手说一句（轮到我了吗 / 能和神打到什么地步，五次里一次是与神交手前的思考），杀英雄两句轮流（神也会败 / 请亲眼见证），放二天岩流时三成五的概率「小次郎上阵」，复活两句轮流（一直败下来的剑士 / 回神）；每类有自己的冷却，任意两句至少隔 8 秒。死的时候放刀落地和身子着地（0.33 秒、0.805 秒）。
+
+经典引擎跑不了原生代码，平衡模拟用 `build_kojiro.py --plain`（被动按记到一半算：从第一次放技能起攻击力 +12%）。
+
 ## 检查
 
-- 在 `addons/` 下 `cargo test -p ragnarok`（CI 也跑）：吕布的被动参数、护盾加成的算式（碎和没碎两种情况下血量都等于「对盾双倍」应有的数）、护甲 buff；四人配音的冷却和轮换、每句都是 Codex 交的原声之一（索尔的十句每句正好用一次，亚当的七句都用上）；宙斯的显示钩子换名规则（三种身体、尸体留形态）；`src/hd.rs` 的表（hd_ 帧正好是 1 倍帧的 PPU 倍、每个动作都有 hd_ / lo_ 帧、特效图有占位的 idle / hd_idle、表写成文本交给主再读回来一样）。
-- `python tools/kit/build_lubu.py` 每次核对 `src/lubu.rs` 的默认参数和 P 一致、DLL 播的画面在数据里有。
+- 在 `addons/` 下 `cargo test -p ragnarok`（CI 也跑）：吕布的被动参数、护盾加成的算式（碎和没碎两种情况下血量都等于「对盾双倍」应有的数）、护甲 buff；六人配音的冷却和轮换、每句都是 Codex 交的原声之一（索尔的十句每句正好用一次，亚当的七句、波塞冬的九句、小次郎的八句都用上）；波塞冬的被动参数、身边有没有队友的判断、一个人时的 buff；小次郎每个对手各自记招、到顶为止、死了清空，双刀只换待机和普攻；宙斯的显示钩子换名规则（三种身体、尸体留形态）；`src/hd.rs` 的表（hd_ 帧正好是 1 倍帧的 PPU 倍、每个动作都有 hd_ / lo_ 帧、特效图有占位的 idle / hd_idle、表写成文本交给主再读回来一样）。
+- `python tools/kit/build_lubu.py` 每次核对 `src/lubu.rs` 的默认参数和 P 一致、DLL 播的画面在数据里有；`build_poseidon.py`、`build_kojiro.py` 同样核对 `src/poseidon.rs`、`src/kojiro.rs`。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok_lubu.log`：`SPAWN`、打到带盾的人 `SHIELD`（打之前的护盾、这一下、加了多少）、碎了 `BREAK`、没碎 `HELD`、配音 `VOICE`。

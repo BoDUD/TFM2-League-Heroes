@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.33,
+      "clip": "ragnarok_kojiro_sfx_sword_drop",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.805,
+      "clip": "ragnarok_kojiro_sfx_body_drop",
+      "volume": 0.5
+    }
+  ]
+}

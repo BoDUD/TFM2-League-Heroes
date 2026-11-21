@@ -1,0 +1,215 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/1st/news/127/",
+  "method": "Short cuts from the credited single-character announcement. Original ambience retained.",
+  "clips": [
+    {
+      "id": "voice_entry",
+      "kind": "official_ja",
+      "title": "入场 · 轮到我了吗",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        1.2,
+        4.23
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 3.03,
+      "wav_sha256": "7ffb3ea0838dc48859fc391d3b225aa7d8317195a1fed0f65806a9d6b4c358df",
+      "mp3_sha256": "152f2c5ac982e48c966685e51aa5493b4ca35cbbb2ff3376fad7b211763e2520"
+    },
+    {
+      "id": "voice_idle",
+      "kind": "official_ja",
+      "title": "待机 · 回神",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        4.71,
+        7.04
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 2.33,
+      "wav_sha256": "d00e2339b6927ddabaf4a083e589445c267647d1dcfd60bca20b38e18dc1e1be",
+      "mp3_sha256": "b9e65e6764462e5da6f579a45c073d5478a81bb58e9b195a3adceaf3863cf42d"
+    },
+    {
+      "id": "voice_focus",
+      "kind": "official_ja",
+      "title": "展示 · 与神交手前的思考",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        7.5,
+        11.88
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 4.38,
+      "wav_sha256": "970679f5ea422bf2f2395b47c88a32860ab5fe2718785f9d6b1533f04bb57efa",
+      "mp3_sha256": "8511571049638aeb6c9f60360b67e251cea490bd572f2501dc315e8ef4c51bc2"
+    },
+    {
+      "id": "voice_defeats",
+      "kind": "official_ja",
+      "title": "展示 · 一直败下来的剑士",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        12.96,
+        18.99
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 6.03,
+      "wav_sha256": "19c7ede853ad75e07b38362b2c6d575806f521d56f6b55dcd2837ce6ad4d1b3f",
+      "mp3_sha256": "b8fe5e21da7a38c74f3e71da13be3b9ce2d2a25547f23be7c8338f03bc42879e"
+    },
+    {
+      "id": "voice_challenge",
+      "kind": "official_ja",
+      "title": "入场 · 能与神打到什么地步",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        19.14,
+        23.12
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 3.98,
+      "wav_sha256": "73336da927f89ee391f99acdab6317851e3fff7b7a02c7a4040420b6d403efda",
+      "mp3_sha256": "11d52dc80a293595ba8fa5aea51ce2cfee094d0ca63587d5c0eb7ff14073a95c"
+    },
+    {
+      "id": "voice_witness",
+      "kind": "official_ja",
+      "title": "展示 · 请亲眼见证",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        23.24,
+        26.63
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 3.39,
+      "wav_sha256": "d7871688693fb628b5ee699996e52abaf3bcae7f6c0ae224dd88f2c660188ff7",
+      "mp3_sha256": "b40a4c0d69ee84b3e10e18a5a83bac0b66ce9f5aae00198558adaabca2e338d8"
+    },
+    {
+      "id": "voice_victory",
+      "kind": "official_ja",
+      "title": "胜利 · 神也会败",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        35.77,
+        38.27
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 2.5,
+      "wav_sha256": "f5228ab926f6a86b407263069e81e9c591ec0f63383b7983dc019a0899872c05",
+      "mp3_sha256": "bb4e10b1c230a80bb39e1c82e2398f9d8d65b5754d47d27f77f470bd09ea6d14"
+    },
+    {
+      "id": "voice_charge",
+      "kind": "official_ja",
+      "title": "登场或大招 · 小次郎上阵",
+      "speaker": "山路和弘",
+      "range_seconds": [
+        38.75,
+        42.1
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1403909992336424960",
+      "duration_seconds": 3.35,
+      "wav_sha256": "4273bfc3df42327b88b01dd60ce4b4aeb484d6869990b7d138ffaf73814139f5",
+      "mp3_sha256": "ac45d00814934bfc322cb7ae68a138265aeab126cf69c6fc1afa25e51ab0800a"
+    },
+    {
+      "id": "sfx_cut_1",
+      "kind": "original_foley",
+      "title": "刀风 · 普攻",
+      "duration_seconds": 0.25,
+      "wav_sha256": "9cc561c6e8ad6f5ddce51006082dfe0bc63a740ddbb7e8eb02ebdf4be12ff71a",
+      "mp3_sha256": "e676427ee633178918ba2b699d7067fb959786e3b31a5ed7fd5d199616cdbf80"
+    },
+    {
+      "id": "sfx_cut_2",
+      "kind": "original_foley",
+      "title": "刀风 · 普攻变化",
+      "duration_seconds": 0.27,
+      "wav_sha256": "1b2002cd2f977c036d827288096d3580824363282d3d955387caf3a28023fa87",
+      "mp3_sha256": "2505786ec4581e67ac19bac77785366fbc2640f612531a3ebcaf5a0628070248"
+    },
+    {
+      "id": "sfx_hit_1",
+      "kind": "original_foley",
+      "title": "命中 · 金属接触",
+      "duration_seconds": 0.21,
+      "wav_sha256": "61c3b44da712cd5d9c61d0a7fdca33c3592dda2931d425482ff476186dedff76",
+      "mp3_sha256": "63cc31adb4bc2192135f3aa9c00ea936fb423d70f750cdedc7d9902eabe35989"
+    },
+    {
+      "id": "sfx_hit_2",
+      "kind": "original_foley",
+      "title": "命中 · 金属接触变化",
+      "duration_seconds": 0.2,
+      "wav_sha256": "1c7107c9bd2ddc21f8850a1820472ff8b07f335aa5abcc799136671a555f573c",
+      "mp3_sha256": "0418c55823f6e3da971f4926cfcac819c2e4bad8970d1cdedebe2585ebd08dba"
+    },
+    {
+      "id": "sfx_tsubame_down",
+      "kind": "original_foley",
+      "title": "燕返 · 下斩",
+      "duration_seconds": 0.33,
+      "wav_sha256": "78c843c94a0577c2f6b7ead7f2f05cc81dfcdd08c5f134314a610a92e3c630df",
+      "mp3_sha256": "3b4db9c22a8bccc9378fd9f642aecb6a3ccb25d29c8e7937f50b48e0569c6b19"
+    },
+    {
+      "id": "sfx_tsubame_up",
+      "kind": "original_foley",
+      "title": "燕返 · 反刃",
+      "duration_seconds": 0.3,
+      "wav_sha256": "482e94f9b381f5ce3fd756756e9fa7e8eae45be4bf53546edfe05db40daa2a5c",
+      "mp3_sha256": "32edaa2eed58a700982033594a772753e68473837b50f7d0d9eff42a83337f66"
+    },
+    {
+      "id": "sfx_prediction",
+      "kind": "original_foley",
+      "title": "千手无双 · 预判",
+      "duration_seconds": 0.41,
+      "wav_sha256": "6e701f0d5ef3df068e7a003c38fa13efd024dcc2792e419953790875830f1a12",
+      "mp3_sha256": "6d0a0f9e282396dfa83fa57eab353da71c1de4a09299fb1fb2d4504ea4ce760e"
+    },
+    {
+      "id": "sfx_dodge",
+      "kind": "original_foley",
+      "title": "千手无双 · 移步",
+      "duration_seconds": 0.25,
+      "wav_sha256": "e492eaf270367bc801f92ec1ac935b786494aefda4a1bb5687845a85db8459df",
+      "mp3_sha256": "d9703a21d9330c4d34ba8ba9b5859454ee3a15fa1aae3daaa04feb43e3be17e5"
+    },
+    {
+      "id": "sfx_niten_first",
+      "kind": "original_foley",
+      "title": "二天岩流 · 第一刀",
+      "duration_seconds": 0.34,
+      "wav_sha256": "d8e1106334186a64343fd25db03771688c06c7c8cbe943a13179d98f336bd560",
+      "mp3_sha256": "7c93cc189869ed4fa3c2e9061f32ecaa589a373cfdb97478e5232e6f3da8b22c"
+    },
+    {
+      "id": "sfx_niten_cross",
+      "kind": "original_foley",
+      "title": "二天岩流 · 双刀交错",
+      "duration_seconds": 0.43,
+      "wav_sha256": "b7d19e64c47b1201cba6e7c303909d0dcea59b03ea6f9ab18135c0e13948338c",
+      "mp3_sha256": "281ee80c1663187dc1541c678f3901608c2f68464eea99ccc2d0d18f02032b6e"
+    },
+    {
+      "id": "sfx_sword_drop",
+      "kind": "original_foley",
+      "title": "倒地 · 落刀",
+      "duration_seconds": 0.37,
+      "wav_sha256": "fc70f46e5f6f95b0f54280fe203fa79e37340ea4d88b8990cdf930d962ca99b0",
+      "mp3_sha256": "e6b12f6cffaecf9feed66965e05eb60f4b89fe2767b0825cdb9a776e7654b11a"
+    },
+    {
+      "id": "sfx_body_drop",
+      "kind": "original_foley",
+      "title": "倒地 · 布料和落地",
+      "duration_seconds": 0.28,
+      "wav_sha256": "6d112cac977f96f1428b55c9a0ab7e531c0e141a25589d28648570c3eb8a4dbe",
+      "mp3_sha256": "68f2614b8f9eac3ed991ed37282bff86a8063849823b6b9cb372ddfef5e33d83"
+    }
+  ]
+}

@@ -7,17 +7,28 @@ use hd_engine::Table;
 pub const HEROES: &[(&str, f32, &str)] = &[
     // 吕布（ragnarok_lubu）：Codex 画的 128 格原画就是高清帧，头发到脚底 66 格、翎子尖 73 格。原来 PPU 1.65（头顶 40），
     // 用户说比索尔高出不少，改成 1.94：同样的像素画成 85% 大，头顶 34、翎子 37.6 个游戏像素。1 倍帧由
-    // tools/art/import_lubu.py 从高清帧缩出来，高清帧原样；他的特效图还是 1.65（下面 EFFECTS）
-    ("ragnarok_lubu", 1.94, include_str!("../../../ragnarok/champions/ragnarok_lubu#anim.fanim")),
+    // tools/art/import_lubu.py 从高清帧缩出来，高清帧原样；他的特效图还是 1.65（下面 EFFECTS）。2026-11-21 换成 Codex 照动画
+    // 第一季重画的两倍帧（assets/source/lubu/rebuild），PPU 都乘 2：身体 3.88、特效 3.3，个子不变
+    ("ragnarok_lubu", 3.88, include_str!("../../../ragnarok/champions/ragnarok_lubu#anim.fanim")),
     // 索尔（ragnarok_thor）：同样是 Codex 的 128 格原画，头发到脚底 55 格、肩上雷槌顶 76 格；PPU 1.65，游戏里头顶 33、
-    // 锤顶 46 个游戏像素（和缩过的吕布头顶齐平）。投锤的接锤单独一个标签 skill2_catch（锤子真飞回来才播）
-    ("ragnarok_thor", 1.65, include_str!("../../../ragnarok/champions/ragnarok_thor#anim.fanim")),
+    // 锤顶 46 个游戏像素（和缩过的吕布头顶齐平）。投锤的接锤单独一个标签 skill2_catch（锤子真飞回来才播）。
+    // 2026-11-21 换成 Codex 照动画第一季重画的帧（assets/source/thor/rebuild，一格 256），他在格子里站高约 89 格，
+    // PPU 2.67，游戏里还是 33 个游戏像素；特效图也按 2.67 出
+    ("ragnarok_thor", 2.67, include_str!("../../../ragnarok/champions/ragnarok_thor#anim.fanim")),
     // 宙斯（ragnarok_zeus）：Codex 的 128 格原画，三种身体合在一张图里：老人（idle .. dead）头顶离脚底 51 格、膨胀（mu_*）
     // 67 格、阿陀磨须（ad_*）59 格，和索尔一样 PPU 1.65，游戏里 31 / 41 / 36 个游戏像素。站着、跑着、出手、挨打、倒下按身上
-    // 的形态 buff 换成那种身体的帧（src/zeus.rs 的显示钩子），变身过程 expand / ult / revert 由数据播
-    ("ragnarok_zeus", 1.65, include_str!("../../../ragnarok/champions/ragnarok_zeus#anim.fanim")),
-    // 亚当（ragnarok_adam）：Codex 的 128 格原画，头顶离脚底 54 格，和索尔一样 PPU 1.65，游戏里 33 个游戏像素
-    ("ragnarok_adam", 1.65, include_str!("../../../ragnarok/champions/ragnarok_adam#anim.fanim")),
+    // 的形态 buff 换成那种身体的帧（src/zeus.rs 的显示钩子），变身过程 expand / ult / revert 由数据播。
+    // 2026-11-21 按两倍密度重出（tools/art/zeus_repixel.py），PPU 3.3，个子不变
+    ("ragnarok_zeus", 3.3, include_str!("../../../ragnarok/champions/ragnarok_zeus#anim.fanim")),
+    // 亚当（ragnarok_adam）：从 Codex 的原画按两倍密度重出的像素图（tools/art/adam_repixel.py：Codex 的版本发糊、
+    // 描边断），一格 256、站高 108 格，PPU 3.3，游戏里还是 33 个游戏像素
+    ("ragnarok_adam", 3.3, include_str!("../../../ragnarok/champions/ragnarok_adam#anim.fanim")),
+    // 波塞冬（ragnarok_poseidon）：Codex 先交的 128 格站直约 58 格（PPU 1.65 是 35 个游戏像素），后来照重画那三个人的
+    // 标准按两倍密度重画（assets/source/poseidon/rebuild，一格 256），PPU 3.3，个子不变
+    ("ragnarok_poseidon", 3.3, include_str!("../../../ragnarok/champions/ragnarok_poseidon#anim.fanim")),
+    // 佐佐木小次郎（ragnarok_kojiro）：Codex 直接按两倍密度画的（一格 256），站直 112 格，PPU 3.3，游戏里 34 个游戏像素；
+    // 双刀待机、双刀普攻（niten_*）在同一张图里，二天岩流时 src/kojiro.rs 的显示钩子换上
+    ("ragnarok_kojiro", 3.3, include_str!("../../../ragnarok/champions/ragnarok_kojiro#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -31,18 +42,24 @@ pub const FORMS: &[(&str, &[&str], f32, f32)] = &[];
 
 /// 像英雄的图一样画高清的特效图：吕布打在人身上的火花、天喰的冲击、碎盾，原画就是高清帧（tools/art/import_lubu.py）。
 pub const EFFECTS: &[(&str, f32, &str)] = &[
-    ("ragnarok_lubu_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_lubu_fx#anim.fanim")),
+    ("ragnarok_lubu_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_lubu_fx#anim.fanim")),
     // 索尔打在人身上的雷击、觉醒重砸的冲击、雷槌觉醒的红纹（飞出去的锤子是弹道画面，1 倍，不在这里）
-    ("ragnarok_thor_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_thor_fx#anim.fanim")),
+    ("ragnarok_thor_fx", 2.67, include_str!("../../../ragnarok/effects/ragnarok_thor_fx#anim.fanim")),
     // 宙斯打在人身上的拳光、连拳的雷光、变身完成时脚下炸开的一圈（拳风、蓄力和变身的光画在他自己的帧里）
-    ("ragnarok_zeus_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_zeus_fx#anim.fanim")),
-    // 亚当普攻打在人身上的火花（拳风、闪避、模仿标记、反击火花、时间之拳都画在他自己的帧里）
-    ("ragnarok_adam_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_adam_fx#anim.fanim")),
+    // 宙斯的特效图和身体一样按两倍重出，3.3
+    ("ragnarok_zeus_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_zeus_fx#anim.fanim")),
+    // 亚当普攻打在人身上的火花（拳风、闪避、模仿标记、反击火花、时间之拳都画在他自己的帧里），和身体一样两倍重出
+    ("ragnarok_adam_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_adam_fx#anim.fanim")),
+    // 波塞冬打在人身上的命中水花、大洪水围住目标的环形戟影（戟风、连刺扇形、斜刺、蓄势画在他自己的帧里），
+    // 和身体一样按两倍从 Codex 的原画重出（tools/art/poseidon_rebuild_fix.py），3.3
+    ("ragnarok_poseidon_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_poseidon_fx#anim.fanim")),
+    // 小次郎打在人身上的金属火花（燕返刀光、预判涟漪、双刀交错画在他自己的帧里）
+    ("ragnarok_kojiro_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_kojiro_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
 pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx",
-                                         "ragnarok_adam_fx"];
+                                         "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[];

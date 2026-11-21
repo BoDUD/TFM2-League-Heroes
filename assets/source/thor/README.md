@@ -38,3 +38,16 @@
   `codex_v01/ragnarok_thor_native#sheet.png` 现在就是第二轮这张加上这 8 格。
 - 人变大以后画进帧里的特效跟着挪（`tools/art/import_thor.py` BAKE）：挥锤弧光 (24, -40) -> (27, -46)，砸地雷电 (35, 0) -> (28, 0)
   （对着锤头前半段和技能的判定区），大招蓄力 (-15, -72) -> (-16, -77)；大招落雷还落在地上的锤头上，不动。
+
+## 照动画第一季重画（2026-11-21，`rebuild/`）
+
+Codex 照动画第一季重画了索尔（交付在 `D:/TFM2-Workshop/ragnarok_hd_packs`，说明 `rebuild/CODEX_HANDOFF.md`）：一格 256，脚底点
+(128, 232)，站高约 89 格，锤头 122 x 40（`rebuild/weapon_master.png`）。游戏里 PPU 2.67，头顶还是 33 个游戏像素。
+
+- `rebuild/ragnarok_thor_native#sheet.png`、`checks.csv`：`tools/art/thor_rebuild_fix.py` 照 Codex 的 `build_rebuild.py` 从他的原画
+  （`ragnarok_hd_packs/codex_rebuild`）重出，改了四处：几个动作的大小（大招、投锤、倒地被他的缩放算大、算小了）、站着的帧都换成
+  待机第 1 格的头、头上不画锤子、整张收成 64 色（选人、百科的 `lo_` 帧和 1 倍帧要靠颜色取样）。`#anim.fanim` 是他的原样。
+- `rebuild/ragnarok_thor_fx_native`：`tools/art/thor_fx.py` 把 Codex 第二轮的特效原画按 2.67 的密度重出（一格 207），飞出去的雷槌
+  换成新锤子（`weapon_master.png` 加短锤柄，每帧逆时针转 45 度）。
+- 顺序：`thor_rebuild_fix.py` → `thor_fx.py` → `import_thor.py` → `ppu_hd.py --hero thor` → `hero_reels.py --hero thor`，
+  每个都有 `--check`。

@@ -16,14 +16,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu", "Thor", "Zeus", "Adam"]
+HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
         "fights: Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
         "own code, ragnarok.dll); Thor's Mjolnir flies out and back to his hand and awakens on every third skill; Zeus swells into his muscle "
         "body once he warms up and presses it down into Adamas for his ultimate; Adam reads every move with God Reader, "
-        "dodges it and hits back with a copy, down to the Fist That Transcends Time. "
+        "dodges it and hits back with a copy, down to the Fist That Transcends Time; Poseidon needs no one - alone he "
+        "hits harder and takes less (the pack's own code), and his trident floods a target for forty days and nights; "
+        "Sasaki Kojiro, the greatest loser in history, learns every foe he strikes and hits them harder each time (the "
+        "pack's own code), turns his blade back with Swallow Return and draws two swords for Niten Ganryu. "
         "Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes and Teamfight Tactics "
         "Heroes packs. Pixel art, effects, icons and sound effects made for this pack; Japanese voice lines from the "
         "official promotional recordings. Non-commercial fan project; Record of Ragnarok (c) its creators and "
@@ -172,5 +175,5 @@ def write_mod_info():
         mi["version"] = VERSION
     mi.update({"author": "BoDUD", "dependencies": [{"mod_id": "base", "version": ">=0.4.11"}], "mod_id": MOD_ID,
                "name": NAME, "description": DESC.format(heroes=", ".join(HEROES)), "contains_code": True,
-               "mod_type": "native", "last_updated": "2026-11-20"})
+               "mod_type": "native", "last_updated": "2026-11-21"})
     save(os.path.join(MOD, "mod.mod_info"), dict(sorted(mi.items())))

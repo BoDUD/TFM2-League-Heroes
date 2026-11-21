@@ -1,0 +1,116 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 240,
+    "sound": "sfx_cut_1",
+    "event": "release"
+  },
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 240,
+    "fx": "steel_impact",
+    "sound": "sfx_hit_1",
+    "event": "confirmed_hit",
+    "anchor": [
+      172,
+      159
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 275,
+    "fx": "swallow_slash",
+    "sound": "sfx_tsubame_down",
+    "event": "release",
+    "anchor": [
+      155,
+      137
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 380,
+    "sound": "sfx_tsubame_up",
+    "event": "release"
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 380,
+    "fx": "steel_impact",
+    "sound": "sfx_hit_2",
+    "event": "confirmed_hit",
+    "anchor": [
+      170,
+      157
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 3,
+    "ms": 180,
+    "fx": "prediction_ring",
+    "sound": "sfx_prediction",
+    "event": "windup",
+    "anchor": [
+      128,
+      145
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 4,
+    "ms": 245,
+    "sound": "sfx_dodge",
+    "event": "dodge"
+  },
+  {
+    "action": "ult",
+    "frame": 4,
+    "ms": 365,
+    "fx": "dual_cross",
+    "sound": "sfx_niten_first",
+    "event": "release",
+    "anchor": [
+      163,
+      144
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 6,
+    "ms": 487,
+    "sound": "sfx_niten_cross",
+    "event": "release"
+  },
+  {
+    "action": "ult",
+    "frame": 6,
+    "ms": 487,
+    "fx": "steel_impact",
+    "sound": "sfx_hit_1",
+    "event": "confirmed_hit",
+    "anchor": [
+      181,
+      160
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 4,
+    "ms": 330,
+    "sound": "sfx_sword_drop",
+    "event": "drop"
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 805,
+    "sound": "sfx_body_drop",
+    "event": "land"
+  }
+]

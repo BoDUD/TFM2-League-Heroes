@@ -8,7 +8,9 @@
 
 pub mod adam;
 pub mod hd;
+pub mod kojiro;
 pub mod lubu;
+pub mod poseidon;
 pub mod thor;
 pub mod zeus;
 
@@ -88,6 +90,8 @@ fn init(host: &StableHost) -> StableMod {
     thor::register(host, &mut module);
     zeus::register(host, &mut module);
     adam::register(host, &mut module);
+    poseidon::register(host, &mut module);
+    kojiro::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

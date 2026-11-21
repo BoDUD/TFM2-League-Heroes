@@ -28,6 +28,20 @@
         "skill": "睁开神虚视读出对手的动作，闪身躲开：<#ffb900ff>2.5秒<>内普攻全部落空，受到的技能伤害降低<#ffb900ff>50%<>，并记下一招。",
         "skill2": "反击一拳，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。有记录时复刻那一招：再加<#ff9028ff>60<>和目标<#ffb900ff>8%<>最大生命值的物理伤害，并<#ef5350ff>眩晕1秒<>，用掉记录。",
         "ult": "从宙斯那里学来的拳：蓄势<#ffb900ff>0.43秒<>（不受控制，受到的伤害降低<#ffb900ff>50%<>），然后朝目标打出一道拳劲，路上的敌人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.8秒<>。"
+      },
+      "ragnarok_poseidon": {
+        "name": "波塞冬",
+        "attack": "三叉戟水平突刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>神无须依赖<>：身边没有友方英雄时，攻击力<#ffb900ff>+15%<>，受到的伤害降低<#ffb900ff>10%<>。",
+        "skill": "踏前一步，朝前方连刺<#ffb900ff>4次<>，每次对前方扇形里的敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理伤害<>。",
+        "skill2": "高举三叉戟斜刺而下，目标脚下的敌人受到<#ff9028ff>145<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>195%<><#ff9028ff>物理伤害<>并被<#ef5350ff>眩晕0.7秒<>。",
+        "ult": "蓄势<#ffb900ff>0.38秒<>（受到的伤害降低<#ffb900ff>30%<>），戟影如洪水般围住目标连刺<#ffb900ff>6轮<>，每轮对周围的敌人造成<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理伤害<>，第一轮<#ef5350ff>定身0.75秒<>。"
+      },
+      "ragnarok_kojiro": {
+        "name": "佐佐木小次郎",
+        "attack": "长刀一斩，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>预判<>：每打中一个敌方英雄一次就记下他一招（每人最多<#ffb900ff>8招<>），之后对他的伤害每招<#ffb900ff>+3%<>；死后重新记。",
+        "skill": "往前斩下，前方扇形里的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>；随即反刃上撩，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速35%<>。",
+        "skill2": "预判对手的一千种走法，侧身让开：<#ffb900ff>2.5秒<>内受到的伤害降低<#ffb900ff>30%<>，攻速<#ffb900ff>+50%<>。",
+        "ult": "拔出第二把刀，双刀斩下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，再交错一刀造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.6秒<>；之后<#ffb900ff>8秒<>双刀：攻速<#ffb900ff>+30%<>，普攻多一刀<#ffb900ff>40%<>。"
       }
     },
     "skill_name": {
@@ -50,6 +64,16 @@
         "skill1": "神虚视",
         "skill2": "模仿反击",
         "ult": "超越时间之拳"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "怒涛连刺",
+        "skill2": "暴雨斜刺",
+        "ult": "四十昼夜的大洪水"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "燕返",
+        "skill2": "千手无双",
+        "ult": "二天岩流"
       }
     }
   },
@@ -82,6 +106,20 @@
         "skill": "睜開神虛視讀出對手的動作，閃身躲開：<#ffb900ff>2.5秒<>內普攻全部落空，受到的技能傷害降低<#ffb900ff>50%<>，並記下一招。",
         "skill2": "反擊一拳，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。有記錄時複刻那一招：再加<#ff9028ff>60<>和目標<#ffb900ff>8%<>最大生命值的物理傷害，並<#ef5350ff>暈眩1秒<>，用掉記錄。",
         "ult": "從宙斯那裡學來的拳：蓄勢<#ffb900ff>0.43秒<>（不受控制，受到的傷害降低<#ffb900ff>50%<>），然後朝目標打出一道拳勁，路上的敵人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.8秒<>。"
+      },
+      "ragnarok_poseidon": {
+        "name": "波塞頓",
+        "attack": "三叉戟水平突刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>神無須依賴<>：身邊沒有友方英雄時，攻擊力<#ffb900ff>+15%<>，受到的傷害降低<#ffb900ff>10%<>。",
+        "skill": "踏前一步，朝前方連刺<#ffb900ff>4次<>，每次對前方扇形裡的敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理傷害<>。",
+        "skill2": "高舉三叉戟斜刺而下，目標腳下的敵人受到<#ff9028ff>145<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>195%<><#ff9028ff>物理傷害<>並被<#ef5350ff>暈眩0.7秒<>。",
+        "ult": "蓄勢<#ffb900ff>0.38秒<>（受到的傷害降低<#ffb900ff>30%<>），戟影如洪水般圍住目標連刺<#ffb900ff>6輪<>，每輪對周圍的敵人造成<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理傷害<>，第一輪<#ef5350ff>定身0.75秒<>。"
+      },
+      "ragnarok_kojiro": {
+        "name": "佐佐木小次郎",
+        "attack": "長刀一斬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>預判<>：每打中一個敵方英雄一次就記下他一招（每人最多<#ffb900ff>8招<>），之後對他的傷害每招<#ffb900ff>+3%<>；死後重新記。",
+        "skill": "往前斬下，前方扇形裡的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>；隨即反刃上撩，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速35%<>。",
+        "skill2": "預判對手的一千種走法，側身讓開：<#ffb900ff>2.5秒<>內受到的傷害降低<#ffb900ff>30%<>，攻速<#ffb900ff>+50%<>。",
+        "ult": "拔出第二把刀，雙刀斬下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，再交錯一刀造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.6秒<>；之後<#ffb900ff>8秒<>雙刀：攻速<#ffb900ff>+30%<>，普攻多一刀<#ffb900ff>40%<>。"
       }
     },
     "skill_name": {
@@ -104,6 +142,16 @@
         "skill1": "神虛視",
         "skill2": "模仿反擊",
         "ult": "超越時間之拳"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "怒濤連刺",
+        "skill2": "暴雨斜刺",
+        "ult": "四十晝夜的大洪水"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "燕返",
+        "skill2": "千手無雙",
+        "ult": "二天岩流"
       }
     }
   },
@@ -136,6 +184,20 @@
         "skill": "Opens his God Reader eyes and slips aside: for <#ffb900ff>2.5s<> basic attacks miss him and skills deal <#ffb900ff>50%<> less damage; he remembers a move.",
         "skill2": "A counter punch for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. With a remembered move he copies it: <#ff9028ff>60<> more plus <#ffb900ff>8%<> of the target's max health and a <#ef5350ff>1s stun<>, using the move up.",
         "ult": "The punch he copied from Zeus: winds up for <#ffb900ff>0.43s<> (unstoppable, taking <#ffb900ff>50%<> less damage), then drives a blast at the target that deals <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<> to enemies in its path and <#ef5350ff>knocks them up for 0.8s<>."
+      },
+      "ragnarok_poseidon": {
+        "name": "Poseidon",
+        "attack": "A level trident thrust for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>A God Needs No One<>: with no allied champion near him he gains <#ffb900ff>15%<> attack and takes <#ffb900ff>10%<> less damage.",
+        "skill": "Steps in and thrusts <#ffb900ff>4 times<>, each dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>physical damage<> to enemies in a cone ahead.",
+        "skill2": "Raises the trident and drives it down at a slant: enemies at the target's feet take <#ff9028ff>145<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>195%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.7s<>.",
+        "ult": "Gathers himself for <#ffb900ff>0.38s<> (taking <#ffb900ff>30%<> less damage), then a flood of trident images rings the target for <#ffb900ff>6 rounds<> of thrusts, each dealing <#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>physical damage<> around it; the first <#ef5350ff>roots for 0.75s<>."
+      },
+      "ragnarok_kojiro": {
+        "name": "Sasaki Kojiro",
+        "attack": "A long-sword cut for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Prediction<>: each hit on an enemy champion learns one of his moves (up to <#ffb900ff>8<> a foe); every move learned adds <#ffb900ff>3%<> to Kojiro's damage against him. Forgotten when Kojiro dies.",
+        "skill": "Cuts down through a cone ahead for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, then turns the blade back up for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and a <#ef5350ff>35% slow<>.",
+        "skill2": "Reads a thousand ways the fight can go and steps aside: for <#ffb900ff>2.5s<> he takes <#ffb900ff>30%<> less damage and attacks <#ffb900ff>50%<> faster.",
+        "ult": "Draws a second sword: a double cut for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, then a cross for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<> that <#ef5350ff>stuns for 0.6s<>. For <#ffb900ff>8s<> after, two swords: <#ffb900ff>30%<> attack speed and a second cut of <#ffb900ff>40%<> on every attack."
       }
     },
     "skill_name": {
@@ -158,6 +220,16 @@
         "skill1": "God Reader",
         "skill2": "Mimic Counter",
         "ult": "Fist That Transcends Time"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "Raging Wave Thrusts",
+        "skill2": "Downpour Thrust",
+        "ult": "Flood of Forty Days and Nights"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "Swallow Return",
+        "skill2": "Senju Muso",
+        "ult": "Niten Ganryu"
       }
     }
   },
@@ -190,6 +262,20 @@
         "skill": "신허시로 상대의 움직임을 읽고 피한다: <#ffb900ff>2.5초<> 동안 기본 공격이 모두 빗나가고 받는 스킬 피해 <#ffb900ff>50%<> 감소, 기술 하나를 기억한다.",
         "skill2": "반격 주먹으로 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. 기억한 기술이 있으면 따라 해서 <#ff9028ff>60<>와 대상 최대 체력의 <#ffb900ff>8%<> 피해를 더하고 <#ef5350ff>1초 기절<>시키며 기억을 쓴다.",
         "ult": "제우스에게서 배운 주먹: <#ffb900ff>0.43초<> 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 <#ffb900ff>50%<> 감소) 대상을 향해 주먹 기운을 날려 경로의 적에게 <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.8초 에어본<>."
+      },
+      "ragnarok_poseidon": {
+        "name": "포세이돈",
+        "attack": "삼지창 수평 찌르기로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>신은 기대지 않는다<>: 주변에 아군 챔피언이 없으면 공격력 <#ffb900ff>+15%<>, 받는 피해 <#ffb900ff>10%<> 감소.",
+        "skill": "한 걸음 내디디며 앞쪽으로 <#ffb900ff>4번<> 연속으로 찔러, 매번 앞쪽 부채꼴의 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "삼지창을 들어 비스듬히 내리찍어, 대상 발밑의 적에게 <#ff9028ff>145<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>195%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.7초 기절<>.",
+        "ult": "<#ffb900ff>0.38초<> 동안 힘을 모은 뒤(받는 피해 <#ffb900ff>30%<> 감소) 삼지창의 그림자가 홍수처럼 대상을 에워싸 <#ffb900ff>6번<> 찌르며, 매번 주변의 적에게 <#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>물리 피해<>, 첫 번째는 <#ef5350ff>0.75초 속박<>."
+      },
+      "ragnarok_kojiro": {
+        "name": "사사키 코지로",
+        "attack": "장검으로 베어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>예측<>: 적 챔피언을 맞힐 때마다 그 수를 하나 익혀(한 명당 최대 <#ffb900ff>8수<>) 그 적에게 주는 피해가 수마다 <#ffb900ff>+3%<>. 죽으면 처음부터.",
+        "skill": "앞쪽 부채꼴을 내려베어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 곧바로 칼날을 되돌려 올려베어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>35% 둔화<>.",
+        "skill2": "천 가지 수를 미리 읽고 몸을 비켜 <#ffb900ff>2.5초<> 동안 받는 피해 <#ffb900ff>30%<> 감소, 공격 속도 <#ffb900ff>+50%<>.",
+        "ult": "두 번째 검을 뽑아 쌍검으로 베어 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 엇갈려 베어 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.6초 기절<>. 이후 <#ffb900ff>8초<> 쌍검: 공격 속도 <#ffb900ff>+30%<>, 평타마다 <#ffb900ff>40%<> 추가 베기."
       }
     },
     "skill_name": {
@@ -212,6 +298,16 @@
         "skill1": "신허시",
         "skill2": "모방 반격",
         "ult": "시간을 넘어선 주먹"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "성난 파도 연속 찌르기",
+        "skill2": "폭우 내려찍기",
+        "ult": "사십 주야의 대홍수"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "츠바메가에시",
+        "skill2": "센주무소",
+        "ult": "니텐간류"
       }
     }
   },
@@ -244,6 +340,20 @@
         "skill": "神虚視で相手の動きを読みかわす：<#ffb900ff>2.5秒<>間通常攻撃はすべて外れ、受けるスキルダメージ<#ffb900ff>50%<>軽減、技をひとつ覚える。",
         "skill2": "カウンターの一撃で<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。覚えた技があれば写して<#ff9028ff>60<>と対象の最大体力<#ffb900ff>8%<>を上乗せし<#ef5350ff>1秒スタン<>、記憶を使う。",
         "ult": "ゼウスから写した拳：<#ffb900ff>0.43秒<>溜め（行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）、標的へ拳圧を放ち、通り道の敵に<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.8秒のノックアップ<>。"
+      },
+      "ragnarok_poseidon": {
+        "name": "ポセイドン",
+        "attack": "三叉槍の水平突きで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>神は何者にも頼らず<>：近くに味方チャンピオンがいないと攻撃力<#ffb900ff>+15%<>、被ダメージ<#ffb900ff>10%<>軽減。",
+        "skill": "一歩踏み込み前方へ<#ffb900ff>4回<>連続で突き、毎回前方扇形の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "三叉槍を掲げ斜めに突き下ろし、対象の足元の敵に<#ff9028ff>145<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>195%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.7秒スタン<>。",
+        "ult": "<#ffb900ff>0.38秒<>溜め（被ダメージ<#ffb900ff>30%<>軽減）、槍影が洪水のように対象を囲み<#ffb900ff>6回<>突く。毎回周囲の敵に<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の<#ff9028ff>物理ダメージ<>、初撃で<#ef5350ff>0.75秒拘束<>。"
+      },
+      "ragnarok_kojiro": {
+        "name": "佐々木小次郎",
+        "attack": "長刀の一太刀で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>予測<>：敵チャンピオンに当てるたびにその技を一つ覚え（一人<#ffb900ff>8つ<>まで）、以後その敵へのダメージが一つごとに<#ffb900ff>+3%<>。倒れると覚え直し。",
+        "skill": "前方扇形に斬り下ろし<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、返す刃で斬り上げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>。",
+        "skill2": "千の手を読み身をかわす：<#ffb900ff>2.5秒<>間被ダメージ<#ffb900ff>30%<>軽減、攻撃速度<#ffb900ff>+50%<>。",
+        "ult": "二本目の刀を抜き、二刀で斬り<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、交差の一太刀で<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.6秒スタン<>。以後<#ffb900ff>8秒<>二刀：攻撃速度<#ffb900ff>+30%<>、通常攻撃に<#ffb900ff>40%<>の追い太刀。"
       }
     },
     "skill_name": {
@@ -266,6 +376,16 @@
         "skill1": "神虚視",
         "skill2": "模倣カウンター",
         "ult": "時を超える拳"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "怒濤連刺",
+        "skill2": "暴雨斜刺",
+        "ult": "四十昼夜の大洪水"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "燕返し",
+        "skill2": "千手無双",
+        "ult": "二天岩流"
       }
     }
   }
