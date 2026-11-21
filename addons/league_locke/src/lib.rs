@@ -12,7 +12,8 @@
 //!   就处决（真实伤害打掉剩下的血；0.1.4 起选不中、受到的伤害被减到 0 的——弗拉基米尔的血池——先不处决、标记留着），
 //!   在它倒下的地方放下法器（`league_locke_r_land` 的画面）；洛克走到法器 `pick_r` 以内就捡起来：
 //!   封印 +1（最多 3 层，整局都在，死了也不掉），大招**剩下的冷却少 `r_cap`%**（`league_locke_r_seal` 的画面）。法器放 `r_drop`
-//!   拍没人捡就消失。
+//!   拍没人捡就消失。封印层数挂成 `league_locke_sl_<n>`（0.1.5，0 层不挂），league.dll 的技能栏层数格读它
+//!   （tools/kit/stack_nums.py 的梯子规则）。
 //! - **参与击杀刷新灰猎无影**：主包用一个击杀窗口（数据只能看到「被他打过的英雄的记号断了」）。副本不带窗口；本包记下每个敌方英雄
 //!   最近一次被他打（普攻的 `p_hit`、Q 的 `league_locke_q_mark`、R 的 `r_mark`）的拍数，`p_win` 拍内它倒下了（谁打死的都算）
 //!   就拿掉他身上的 `league_locke_e_cd`：E 立刻好。
@@ -283,6 +284,14 @@ struct Exorcist {
     n_pick: usize,
     n_reset: usize,
     n_held: usize,
+    /// 面板上挂着的封印数和挂在哪个身子上（复活是新的实体，buff 都没了）。
+    body: Option<usize>,
+    panel: Option<usize>,
+}
+
+/// 面板上的封印数：league.dll 的技能栏层数格读 `league_locke_sl_<n>`（tools/kit/stack_nums.py 的梯子规则）。
+pub fn seal_name(seals: usize) -> String {
+    format!("league_locke_sl_{seals}")
 }
 
 /// 0.1.4: the champions held this tick (`now`: id, why, hp, max) whose stretch is new against last tick's (`was`) - the
@@ -498,6 +507,27 @@ impl StablePassive for Exorcist {
         }
         self.stakes(sim, me);
         self.ignition(sim, me, tick);
+        self.panel(sim, me);
+    }
+}
+
+impl Exorcist {
+    /// 面板上的数跟着封印换：只在封印变了、或者换了身子（复活）时动 buff。
+    fn panel(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        if self.body != Some(me) {
+            self.body = Some(me);
+            self.panel = None;
+        }
+        if self.panel == Some(self.seals) {
+            return;
+        }
+        if let Some(old) = self.panel {
+            sim.entity_remove_buff(me, &seal_name(old));
+        }
+        if self.seals > 0 {
+            sim.add_buff(me, &BuffV1::named(&seal_name(self.seals)));
+        }
+        self.panel = Some(self.seals);
     }
 }
 
@@ -574,6 +604,14 @@ mod tests {
         assert_eq!(exec_line(&p, 2000, 2), 420);   // 21%
         assert_eq!(exec_line(&p, 2000, 3), 480);   // 24%
         assert_eq!(exec_line(&p, 2000, 9), 480);   // capped at three
+    }
+
+    /// 0.1.5：league.dll 的技能栏层数格读 `league_locke_sl_` 后面的数（tools/kit/stack_nums.py 里洛克附加包那一行的梯子）。
+    #[test]
+    fn seal_count_on_the_panel() {
+        assert_eq!(seal_name(1), "league_locke_sl_1");
+        assert_eq!(seal_name(SEALS), "league_locke_sl_3");
+        assert!(seal_name(SEALS).len() <= BUFF_NAME_CAP);
     }
 
     #[test]
