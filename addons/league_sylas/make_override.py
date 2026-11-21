@@ -18,11 +18,13 @@ league/champion/league_sylas.data_champion byte for byte (so the copy never drif
   * addons/league_sylas/src/classes.rs: champion id -> class for every base champion and every hero of this pack
     (league_viego_soul's table: the game's champion sheet's category, Melee / Range / Magician / Util / Assassin);
   * addons/league_sylas/src/stealable.rs: the champions whose own ult the copy carries;
-  * addons/league_sylas/effects/: the effect sheets a TFT hero's stolen ult draws (copies of tft/effects), so the copy
+  * addons/league_sylas/effects/: the effect sheets a TFT or ragnarok hero's stolen ult draws (copies of tft/effects and
+    ragnarok/effects), so the copy
     never points into the tft mod - the add-on bundle is on the Workshop and the tft mod is not, and a view whose
     sheet is missing breaks the game when the champion is picked (league_swain, 2026-10-25), not when it is played.
 The TFT heroes (tft/champion, 2026-10-26: 「塞拉斯不会偷拉露恩、诺拉、爆爆？」) are robbed like the League ones: their own
-ult when it is plain data that works in his hands, else BY_CLASS. Every other champion stays untouched. Run it again whenever the main pack's Sylas changes or heroes are added.
+ult when it is plain data that works in his hands, else BY_CLASS; so are the ragnarok pack's (ragnarok/champion, their
+effect sheets copied the same way, 2026-11-21: 「塞拉斯的大招也要能真正的能偷」). Every other champion stays untouched. Run it again whenever the main pack's Sylas changes or heroes are added.
 """
 import argparse
 import glob
@@ -47,18 +49,18 @@ O, M, A, R, G, E = setup.O, setup.M, setup.A, setup.R, setup.G, setup.E
 mag, hl = setup.mag, setup.hl
 # the ult's whole text in the add-on (the stolen ult by class)
 ULT = {
-    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招，一直留着，随时再放：英雄联盟和云顶英雄放出他自己的大招（攻击加成按法强换算），"
+    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招，一直留着，随时再放：英雄联盟、云顶和终末的女武神英雄放出他自己的大招（攻击加成按法强换算），"
                "其他英雄按类别放出" + mag("r2_dmg", "r2_ratio") + "魔法伤害的大招。",
-    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招，一直留著，隨時再放：英雄聯盟和雲頂英雄放出他自己的大招（攻擊加成按法強換算），"
+    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招，一直留著，隨時再放：英雄聯盟、雲頂和終末的女武神英雄放出他自己的大招（攻擊加成按法強換算），"
                "其他英雄按類別放出" + mag("r2_dmg", "r2_ratio") + "魔法傷害的大招。",
     "en": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate, kept until "
-          "he casts it again: a League or TFT champion's own ultimate (its attack ratios paid from his ability power), "
+          "he casts it again: a League, TFT or Record of Ragnarok champion's own ultimate (its attack ratios paid from his ability power), "
           "any other champion's one by its class for " + mag("r2_dmg", "r2_ratio") + " magic damage.",
     "ko": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗아 쓸 때까지 지님. " +
-          "다시 쓰면 리그 오브 레전드·TFT 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
+          "다시 쓰면 리그 오브 레전드·TFT·종말의 발키리 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
           mag("r2_dmg", "r2_ratio") + " 마법 피해 궁극기.",
     "ja": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪い、使うまで保持。" +
-          "再使用：LoLとTFTのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
+          "再使用：LoL・TFT・終末のワルキューレのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
           "の魔法ダメージ。",
 }
 # Kingslayer's heal grows with missing health: the attack's text with that ending
@@ -133,7 +135,9 @@ STOLEN = {"tft_silco": ("build_silco", "sylas_ult"), "tft_maddie": ("build_maddi
           "tft_scuttlecrab": ("build_scuttlecrab", "sylas_ult"),
           "tft_brock": ("build_brock", "sylas_ult"),
           "tft_thex": ("build_thex", "sylas_ult"),
-          "tft_mightymech": ("build_mightymech", "sylas_ult")}
+          "tft_mightymech": ("build_mightymech", "sylas_ult"),
+          # 宙斯的大招靠他的三种身体：塞拉斯拿到的是压缩一下就震飞、加阿陀磨须强化的那段，不播膨胀，到时间也不强制变回老人
+          "ragnarok_zeus": ("build_zeus", "sylas_ult")}
 
 
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,
@@ -324,7 +328,8 @@ def foreign_natives(o, out=None):
 
 
 # a TFT hero's effect sheets: tft/effects/<sheet> -> the add-on's own copy (asset/league_sylas/effects/<sheet>)
-TFT_FX = "asset/tft/effects/"
+# 终末的女武神包的特效图也一样拷一份：没开那个包时选塞拉斯，画面要在附加包里找得到，不然选人就崩
+PACK_FX = {"asset/tft/effects/": "tft", "asset/ragnarok/effects/": "ragnarok"}
 OWN_FX = "asset/league_sylas/effects/"
 
 # Views a champion's own file no longer has, because the champion now draws that look another way, while Sylas, who has
@@ -344,7 +349,7 @@ def key(cid):
 
 
 def full(sid):
-    return sid if sid.startswith("tft_") else "league_" + sid
+    return sid if sid.startswith(("tft_", "ragnarok_")) else "league_" + sid
 
 
 def own_ults():
@@ -355,6 +360,8 @@ def own_ults():
     seen, sheets = set(), set()
     paths = sorted(glob.glob(os.path.join(ROOT, "league", "champion", "league_*.data_champion")))
     paths += sorted(glob.glob(os.path.join(ROOT, "tft", "champion", "tft_*.data_champion")))
+    # 终末的女武神包的英雄也一样（2026-11-21：「塞拉斯的大招也要能真正的能偷」）
+    paths += sorted(glob.glob(os.path.join(ROOT, "ragnarok", "champion", "ragnarok_*.data_champion")))
     for path in paths:
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
         if c["id"] == HERO or key(c["id"]) in BY_CLASS:
@@ -375,11 +382,12 @@ def own_ults():
                 if v["name"] in used and v["name"] not in seen:
                     seen.add(v["name"])
                     anim = v.get("anim", "")
-                    if anim.startswith(TFT_FX):
-                        sheets.add(anim[len(TFT_FX):])
-                        v = {**v, "anim": OWN_FX + anim[len(TFT_FX):]}
-                    elif anim.startswith("asset/tft/"):
-                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/effects sheets are copied")
+                    pre = next((x for x in PACK_FX if anim.startswith(x)), None)
+                    if pre:
+                        sheets.add((PACK_FX[pre], anim[len(pre):]))
+                        v = {**v, "anim": OWN_FX + anim[len(pre):]}
+                    elif anim.startswith(("asset/tft/", "asset/ragnarok/")):
+                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/ and ragnarok/ effects are copied")
                     views[kind].append(v)
         for name, (kind, v) in KEPT_VIEWS.items():
             if name in used and name not in seen:
@@ -390,17 +398,17 @@ def own_ults():
 
 
 def sheet_files(sheets):
-    """[(the add-on's copy, the tft mod's file)] for every TFT sheet the copy draws."""
+    """[(the add-on's copy, the other pack's file)] for every TFT / ragnarok sheet the copy draws."""
     out = []
-    for name in sorted(sheets):
+    for pack, name in sorted(sheets):
         for ext in ("#anim.fanim", "#sheet.png"):
-            out.append((os.path.join(ADDON, "effects", name + ext), os.path.join(ROOT, "tft", "effects", name + ext)))
+            out.append((os.path.join(ADDON, "effects", name + ext), os.path.join(ROOT, pack, "effects", name + ext)))
     return out
 
 
 def stealable_rs(stolen):
     lines = ["//! The League champions whose own ult the add-on's copy of Sylas carries (`league_sylas_steal_<hero>`), sorted.",
-             "//! Generated by make_override.py from league/champion and tft/champion - do not edit by hand.", "",
+             "//! Generated by make_override.py from league/champion, tft/champion and ragnarok/champion - do not edit by hand.", "",
              "pub const STEALABLE: &[&str] = &["]
     lines += [f'    "{cid}",' for cid in sorted(full(sid) for sid, _ in stolen)]
     lines.append("];")
@@ -478,7 +486,7 @@ def main():
         stale = [os.path.relpath(c, ROOT) for c, src in copies
                  if not os.path.isfile(lp(c)) or open(lp(c), "rb").read() != open(lp(src), "rb").read()]
         if stale:
-            sys.exit("league_sylas: the TFT effect copies are out of date - run make_override.py and commit: "
+            sys.exit("league_sylas: the TFT / ragnarok effect copies are out of date - run make_override.py and commit: "
                      + ", ".join(stale))
         generated.check("league_sylas", [(out, copy_text), (tpath, dumps_main(i18n)), (spath, stealable_rs(stolen))],
                         ["src/classes.rs"])

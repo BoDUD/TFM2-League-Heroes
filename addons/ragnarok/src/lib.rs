@@ -6,6 +6,7 @@
 //! 一起开也不抢。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok.log`，每次启动重写，
 //! 上一次的留作 ragnarok.prev.log；每个英雄另有自己的日志。
 
+pub mod adam;
 pub mod hd;
 pub mod lubu;
 pub mod thor;
@@ -86,6 +87,7 @@ fn init(host: &StableHost) -> StableMod {
     lubu::register(host, &mut module);
     thor::register(host, &mut module);
     zeus::register(host, &mut module);
+    adam::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module
