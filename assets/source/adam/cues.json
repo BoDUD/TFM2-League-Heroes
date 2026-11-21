@@ -1,0 +1,17 @@
+{
+  "coordinates": "Logical pixels in a right-facing 128 x 128 actor cell. Multiply by four for the dense atlas. Mirror offsets around x=64 for left-facing play.",
+  "actor_baseline": [64, 116],
+  "cues": [
+    {"action": "attack", "ms": 225, "phase": "release", "fx": "jab_wind", "anchor": [88, 81], "sfx": "sfx_jab_wind_1"},
+    {"action": "attack", "ms": 225, "phase": "confirmed_hit", "fx": "jab_hit", "anchor": [93, 81], "sfx": "sfx_jab_hit_1"},
+    {"action": "skill", "ms": 0, "phase": "eyes_open", "fx": "eyes_ready", "anchor": [71, 74], "sfx": "sfx_eyes_on"},
+    {"action": "skill", "ms": 170, "phase": "evade", "fx": "dodge_wind", "anchor": [58, 86], "sfx": "sfx_dodge"},
+    {"action": "skill2", "ms": 100, "phase": "copy_armed", "fx": "copy_mark", "anchor": [72, 80], "sfx": "sfx_copy_ready"},
+    {"action": "skill2", "ms": 235, "phase": "release", "anchor": [87, 82], "sfx": "sfx_counter_wind"},
+    {"action": "skill2", "ms": 235, "phase": "confirmed_hit", "fx": "copy_hit", "anchor": [96, 82], "sfx": "sfx_counter_hit"},
+    {"action": "ult", "ms": 50, "phase": "windup", "fx": "time_charge", "anchor": [73, 86], "sfx": "sfx_time_charge"},
+    {"action": "ult", "ms": 430, "phase": "release", "fx": "time_release", "anchor": [104, 82], "sfx": "sfx_time_release"},
+    {"action": "ult", "ms": 430, "phase": "confirmed_hit", "anchor": [104, 82], "sfx": "sfx_time_hit"},
+    {"action": "dead", "ms": 620, "phase": "land", "anchor": [65, 116], "sfx": "sfx_body_fall"}
+  ]
+}
