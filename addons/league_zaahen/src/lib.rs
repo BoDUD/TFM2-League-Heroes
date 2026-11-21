@@ -339,7 +339,7 @@ pub fn other_undying(names_undying: &[(String, bool)]) -> bool {
 }
 
 fn has(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()))
 }
 
 fn fpos(p: (u64, u64)) -> (f64, f64) {
@@ -654,7 +654,7 @@ impl Darkin {
         let mut marked = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
-            if u.team() != team && (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| b.name() == mark) {
+            if u.team() != team && (0..u.buff_count()).filter_map(|k| u.buff_at(k)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == mark.as_bytes()) {
                 marked.push((u.id(), u.is_champion()));
             }
         }

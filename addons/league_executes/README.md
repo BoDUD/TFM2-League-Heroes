@@ -35,3 +35,7 @@
 ## 射程 buff 改成主包 league.dll 的 league:range（v0.2.3，2026-11-07）
 
 带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。
+
+## 0.2.4：过日更快（2026-11-22）
+
+玩法不变。看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查（过日时别的比赛里每 tick 都在比）。

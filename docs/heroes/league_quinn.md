@@ -55,7 +55,7 @@
 
 ### 奎因附加包
 
-[奎因附加包](../../addons/league_quinn/README.md)：`league_quinn` v0.7.2
+[奎因附加包](../../addons/league_quinn/README.md)：`league_quinn` v0.7.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

@@ -135,7 +135,12 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| name_of(&b) == name.as_bytes())
+}
+
+/// buff 名的字节（比的都是非空 ASCII 常量：不用每个 buff 都做一遍 UTF-8 检查，2026-11-22 过日采样）。
+fn name_of(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
 }
 
 /// Enemies of `team` alive with `name` on them.
@@ -248,19 +253,39 @@ pub fn kaisa_hits(
 /// (target, which of `marks`) for every mark on a living enemy of `team` (twice when it carries two).
 fn gather(sim: &StableSim<'_>, team: usize, marks: &[&str]) -> Vec<(usize, usize)> {
     let mut out = Vec::new();
+    // 每个单位的 buff 只看一遍（原来每种标记各扫一遍：凯莎的被动每 tick 对场上每个敌方单位扫 4 遍，2026-11-22 过日采样）
+    let mut counts = vec![0usize; marks.len()];
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
         if e.team() == team || !e.is_alive() {
             continue;
         }
+        tally_marks((0..e.buff_count()).filter_map(|j| e.buff_at(j)), marks, &mut counts);
+        push_marks(&mut out, e.id(), &counts);
+    }
+    out
+}
+
+/// 这些 buff 里每种标记各几层（`counts[k]` 对 `marks[k]`；同一个名字在 marks 里出现两次就两处都数）。
+fn tally_marks(buffs: impl Iterator<Item = BuffV1>, marks: &[&str], counts: &mut [usize]) {
+    counts.iter_mut().for_each(|c| *c = 0);
+    for b in buffs {
+        let n = name_of(&b);
         for (k, m) in marks.iter().enumerate() {
-            let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| b.name() == *m).count();
-            for _ in 0..n {
-                out.push((e.id(), k));
+            if n == m.as_bytes() {
+                counts[k] += 1;
             }
         }
     }
-    out
+}
+
+/// 照原来的顺序放进去：先按标记，同一种标记有几层放几个。
+fn push_marks(out: &mut Vec<(usize, usize)>, id: usize, counts: &[usize]) {
+    for (k, &n) in counts.iter().enumerate() {
+        for _ in 0..n {
+            out.push((id, k));
+        }
+    }
 }
 
 fn view(sim: &mut StableSim<'_>, me: usize, target: usize, name: &str, sound: bool) {
@@ -519,6 +544,32 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn gather_order_is_the_old_per_mark_scans() {
+        // 原来：每种标记各扫一遍 b.name() == m，数到几层放几个 (id, k)。一遍数完、照同样的顺序放，结果一样
+        let marks = ["league_kaisa_a", "league_kaisa_cc", "league_kaisa_w2", "league_kaisa_a"];
+        let mut garbled = BuffV1::named("league_kaisa_cc");
+        garbled.name_buf[3] = 0xFF;
+        let sets: Vec<Vec<BuffV1>> = vec![
+            vec![],
+            vec![BuffV1::named("x")],
+            vec![BuffV1::named(marks[1]), BuffV1::named(marks[0]), BuffV1::named(marks[1]), garbled],
+            vec![BuffV1::named(marks[2]), BuffV1::named(marks[0]), BuffV1::named(""), BuffV1::named(marks[2])],
+        ];
+        for bs in &sets {
+            let mut old = Vec::new();
+            for (k, m) in marks.iter().enumerate() {
+                for _ in 0..bs.iter().filter(|b| b.name() == *m).count() {
+                    old.push((7, k));
+                }
+            }
+            let (mut new, mut counts) = (Vec::new(), vec![0; marks.len()]);
+            tally_marks(bs.iter().copied(), &marks, &mut counts);
+            push_marks(&mut new, 7, &counts);
+            assert_eq!(new, old);
+        }
+    }
 
     #[test]
     fn kennen_stuns_on_the_third_mark_of_one_target() {
