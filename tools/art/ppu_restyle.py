@@ -834,6 +834,8 @@ RESTYLE = {
     # idle_base his old idle pose as Codex drew it, rig_pyke_hd.IDLE_FROM); fx: their <hero>_bake.json pictures baked on
     # again (rig_<hero>_hd, Rig.bake); the outline grown by 2 squares
     "alistar": dict(ppu=76 / 44, edge=2, fx=True),
+    # 蛮王 2026-11-21 起局内 115%（hd.rs SIZES，「放大到 1.15」）：GPT 重画以后他的帧不是这里出的（再跑会把 GPT 的描边
+    # 又加粗），脚底回到地面靠 raise_hd_frames.py 把战场帧的框往下加 5 行（画面高 2.5 格），没用 lift_sq
     "tryndamere": dict(ppu=67 / 37, edge=2, fx=True),
     "pyke": dict(ppu=73 / 41, edge=2, fx=True),
     "brand": dict(ppu=77 / 43, edge=2, fx=True),
