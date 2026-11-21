@@ -176,6 +176,8 @@ pub const SOULS: &[&str] = &[
     "league_zoe",
     "league_zyra",
     "ragnarok_adam",
+    "ragnarok_heracles",
+    "ragnarok_jack",
     "ragnarok_kojiro",
     "ragnarok_lubu",
     "ragnarok_poseidon",
