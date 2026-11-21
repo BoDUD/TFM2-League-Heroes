@@ -1194,7 +1194,10 @@ through the whole 36-tick flip in 11 of 13 flips (`moved 0.0 on screen`, the bod
 display entity) and jumped to the landing spot when she next walked or acted - what the user had called 「往后拉距离…
 没动画」 since the vault existed. The display follows walking and `ForceMove` events only. league_quinn 0.7.2 applies one
 `CcKindV1::ForceMove` (dx, dy = the whole way, speed 2400, 20 ticks) at the kick and steps her itself only on a tick the
-host did not move her (the way league_talon_vault and league_leesin_hop finish theirs). league_kalista's hop and
+host did not move her (the way league_talon_vault and league_leesin_hop finish theirs). league_singed 0.1.5 throws Fling's
+target the same way (the user, 2026-11-21: 「炼金不能把人背回来」 - on screen the target rose and fell where it stood): one
+`ForceMove` over him to the landing spot in 16 ticks, and no knock-up any more, since an airborne unit takes no forced move
+(knock-up and pull together in the data: 0 of 33 moved, classic simulation 2026-10-23). league_kalista's hop and
 league_leesin_hop's insec follow still move by `entity_set_pos`.
 **The flip is drawn frame by frame**: one-frame copies of the flip's frames (`e_flip_0` ... `e_flip_6`, tools/art/rig_quinn.py
 `FLIP_ONE`, 1x / hd_ / lo_), a flag `league_quinn_flip<k>` the add-on lays every tick and the display hook (view.rs) writing
