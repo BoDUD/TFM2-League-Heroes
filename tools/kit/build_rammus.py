@@ -99,7 +99,7 @@ P = {
     "w_gate": 1,
     # Q Powerball (League V26.21: rolls up to 6 s, its move speed growing, 80-240 + 100% AP r 250 on impact, knock-back
     # 125, stun 0.4 s, slow 40-80% 1 s, no E while rolling, ends W, cd 12-6)
-    "q_cd": 420, "q_range": 45000, "q_curl": 12, "q_speed": 4000, "q_roll": 120, "q_end": 14, "q_r": 18000,
+    "q_cd": 420, "q_range": 45000, "q_far": 100000, "q_cd_far": 600, "q_curl": 12, "q_speed": 4000, "q_roll": 120, "q_end": 14, "q_r": 18000,
     "q_dmg": 110, "q_ap": 110, "q_slow": 40, "q_slow_t": 60, "q_kb_speed": 2500, "q_kb_t": 5,
     # League's Powerball also stuns what it hits: "stunned and revealed for 0.4 seconds" (the user, 2026-11-14, on the
     # list of differences from League: 「全改吧」; before: the knock-back and the slow only)
@@ -325,7 +325,11 @@ def build(p):
                 {"type": "MoveToTarget", "speed": p["q_speed"], "range": p["q_range"] + 60000, "end_effects": q_hit}]
     # the add-on: the target carries q_aim through the curl (the passive reads it on the ball's first tick)
     aim = [buff("q_aim", p["q_curl"] + 2)] if nat else []
-    skill = action("skill", p["q_curl"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+    # 附加包副本的 Q 射程放到 q_far（2026-11-21，用户：「改，滚久一点」）：AI 钩子从这么远就开球滚过去，游戏的 AI 自己也会从远处按；
+    # 冷却跟着从 7 秒拉到 q_cd_far 10 秒（英雄联盟 12-8.8 秒）：滚得久了在经典引擎里击杀差 +3.97 -> +5.02（种子 1-12），10 秒两批合起来 +4.18 -> +4.50。
+    # 主包的 Q 是一次冲到目标的冲刺，射程、冷却都不变
+    skill = action("skill", p["q_curl"], p["q_cd_far"] if nat else p["q_cd"], 1, p["q_far"] if nat else p["q_range"], "Targeting",
+                   "EnemyWithoutTower",
                    combine(life, end_w, *([refresh("q_cd", p["q_cd"])] if gate else []), refresh("busy", p["q_curl"] + 10),
                            sfx("q"), voice("vo_q", p), *aim,
                            delayed(p["q_curl"] - 1, alive(*roll))))
