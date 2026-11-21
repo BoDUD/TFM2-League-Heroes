@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>波塞冬 · 素材预览</title>
+  <style>
+    :root{color-scheme:dark;--ink:#eef3eb;--muted:#a7b8b4;--panel:#151f23;--line:#304141;--accent:#a9e4ff}
+    *{box-sizing:border-box}
+    body{margin:0;background:#101819;color:var(--ink);font:15px/1.5 "Microsoft YaHei UI",system-ui,sans-serif}
+    main{width:min(1140px,calc(100% - 32px));margin:30px auto 48px}
+    h1{font-size:30px;letter-spacing:.04em;margin:0 0 18px} h2{margin:0 0 12px;font-size:17px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 274px;gap:16px}
+    section,aside{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+    .bar{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-bottom:10px}
+    button,select{font:inherit;color:inherit;padding:6px 9px;border:1px solid #405654;border-radius:6px;background:#202d30}
+    button:hover,select:hover{border-color:var(--accent)} button{cursor:pointer}
+    label{display:inline-flex;align-items:center;gap:4px;color:var(--muted)}
+    canvas{display:block;width:100%;height:clamp(260px,48vh,440px);background:#27323f;border-radius:8px;image-rendering:pixelated}
+    #frame{font-variant-numeric:tabular-nums;color:var(--accent)}
+    .under{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:10px}
+    .hero{display:block;width:100%;border-radius:7px}
+    .icons{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0 18px}
+    .icons img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid #435e5a}
+    audio,#audioList{width:100%;max-width:100%} audio{margin-top:8px;height:38px}
+    #detail{color:var(--muted);font-size:13px;min-height:20px;margin:6px 0 0}
+    a{color:var(--accent)} details{margin-top:12px;color:var(--muted)}
+    details img{display:block;width:100%;margin-top:8px}
+    @media(max-width:740px){main{margin-top:18px}.layout{grid-template-columns:1fr}aside{display:grid;gap:12px;grid-template-columns:1fr 1fr}.icons{margin-bottom:6px}}
+  </style>
+</head>
+<body>
+<main>
+  <h1>波塞冬</h1>
+  <div class="layout">
+    <section aria-label="逐帧动作预览">
+      <div class="bar">
+        <select id="bank" aria-label="素材类型"><option value="actor">角色动作</option><option value="fx">独立特效</option></select>
+        <select id="action" aria-label="动作"></select>
+        <button id="play" type="button">暂停</button>
+        <button id="prev" type="button" aria-label="上一帧">上一帧</button>
+        <button id="next" type="button" aria-label="下一帧">下一帧</button>
+        <output id="frame"></output>
+      </div>
+      <canvas id="stage" aria-label="波塞冬像素动作"></canvas>
+      <div class="under">
+        <label><input id="fx" type="checkbox" checked>合成特效</label>
+        <label><input id="hit" type="checkbox" checked>预览命中</label>
+        <label><input id="mirror" type="checkbox">面向左</label>
+        <label><input id="paper" type="checkbox">浅色背景</label>
+      </div>
+      <details><summary>查看动作与特效逐帧表</summary>
+        <img alt="角色动作逐帧表" src="qa/actor_contact.png">
+        <img alt="特效逐帧表" src="qa/effects_contact.png">
+      </details>
+    </section>
+    <aside>
+      <div>
+        <a href="art/illustration/ragnarok_poseidon_1216x1428.png" aria-label="打开原尺寸立绘">
+          <img class="hero" src="art/illustration/ragnarok_poseidon_1216x1428.png" alt="波塞冬立绘">
+        </a>
+        <div class="icons">
+          <img src="runtime/icons/ragnarok_poseidon_passive.png" alt="大海的暴君">
+          <img src="runtime/icons/ragnarok_poseidon_skill.png" alt="怒涛">
+          <img src="runtime/icons/ragnarok_poseidon_skill2.png" alt="暴雨">
+          <img src="runtime/icons/ragnarok_poseidon_ult.png" alt="四十昼夜的大洪水">
+        </div>
+      </div>
+      <div>
+        <h2>日语语音与音效</h2>
+        <select id="audioList" aria-label="选择试听"></select>
+        <audio id="listen" controls preload="none"></audio>
+        <p id="detail"></p>
+      </div>
+    </aside>
+  </div>
+</main>
+<script src="preview-data.js"></script>
+<script>
+  const el = id => document.getElementById(id);
+  const data = window.poseidonPreview;
+  const names = {
+    idle:"待机",run:"跑步",attack:"戟刺",skill:"怒涛连刺",skill2:"暴雨斜刺",
+    ult:"四十昼夜的大洪水",hit:"受击",dead:"倒地",thrust_wind:"戟风",thrust_hit:"戟刺命中",
+    flurry_wind:"怒涛突刺",flurry_hit:"怒涛命中",rain_rise:"暴雨升势",rain_fall:"暴雨坠刺",flood_charge:"洪流蓄势",flood_barrage:"洪流戟影"
+  };
+  const stage = el("stage"), ctx = stage.getContext("2d");
+  const sheets = {actor:new Image(),fx:new Image()};
+  sheets.actor.src = "runtime/sprites/ragnarok_poseidon_native%23sheet.png";
+  sheets.fx.src = "runtime/sprites/ragnarok_poseidon_fx_native%23sheet.png";
+  const params = new URLSearchParams(location.search);
+  const bank = el("bank"), action = el("action");
+  let playing = !params.has("frame"), started = performance.now(), step = 0;
+  bank.value = params.get("bank") === "fx" ? "fx" : "actor";
+
+  function setOptions(name) {
+    const keys = Object.keys(data.art[bank.value]);
+    action.replaceChildren(...keys.map(k => new Option(names[k],k)));
+    if (keys.includes(name)) action.value = name;
+  }
+  setOptions(params.get("action"));
+  const frameCount = () => data.art[bank.value][action.value].frames;
+  const seek = delta => {
+    playing = false;
+    step = (step + delta + frameCount()) % frameCount();
+    el("play").textContent = "播放";
+  };
+  const requested = Number(params.get("frame")) || 1;
+  step = Math.min(frameCount() - 1, Math.max(0, requested - 1));
+  el("play").textContent = playing ? "暂停" : "播放";
+  function reset(){step=0;started=performance.now()}
+  bank.onchange = () => {setOptions();reset()};
+  action.onchange = reset;
+  el("prev").onclick = () => seek(-1);
+  el("next").onclick = () => seek(1);
+  el("play").onclick = () => {
+    playing = !playing;
+    started = performance.now();
+    el("play").textContent = playing ? "暂停" : "播放";
+  };
+
+  function at(times, time) {
+    let i = 0;
+    while (i < times.length - 1 && time >= times[i]) time -= times[i++];
+    return i;
+  }
+  const total = times => times.reduce((a,b)=>a+b,0);
+  function cell(type, row, col, x, y) {
+    const img = sheets[type];
+    if (img.complete && img.naturalWidth) ctx.drawImage(img,col*128,row*128,128,128,x,y,128,128);
+  }
+  function draw(now) {
+    const rect = stage.getBoundingClientRect();
+    const width = Math.round(rect.width * devicePixelRatio), height = Math.round(rect.height * devicePixelRatio);
+    if (stage.width !== width || stage.height !== height) {stage.width=width;stage.height=height}
+    const bg = el("paper").checked;
+    ctx.fillStyle = bg ? "#a6b2ac" : "#27323f";
+    ctx.fillRect(0,0,width,height);
+    const zoom = Math.max(1,Math.floor(Math.min(width/185,height/128)));
+    const type = bank.value, key = action.value, spec = data.art[type][key];
+    const span = total(spec.ms), ms = playing ? Math.floor((now-started) % (span+(type==="actor"&&!data.art.loop.includes(key)?260:0))) : total(spec.ms.slice(0,step));
+    if (playing) step = at(spec.ms,ms);
+    ctx.save();
+    ctx.translate(Math.round((width-128*zoom)/2),Math.round((height-128*zoom)/2));
+    ctx.scale(zoom,zoom);
+    ctx.imageSmoothingEnabled = false;
+    if (type === "actor") {
+      ctx.fillStyle = bg ? "#6c8780" : "#4d6369";
+      ctx.fillRect(-150,116,430,1);
+    }
+    if (el("mirror").checked) {ctx.translate(128,0);ctx.scale(-1,1)}
+    cell(type,spec.row,step,0,0);
+    if (type === "actor" && el("fx").checked) {
+      for (const cue of data.cues.cues) {
+        if (cue.action !== key || !cue.fx || (cue.phase === "confirmed_hit" && !el("hit").checked)) continue;
+        const effect = data.art.fx[cue.fx], elapsed = ms-cue.ms;
+        if (elapsed >= 0 && elapsed < total(effect.ms)) {
+          cell("fx",effect.row,at(effect.ms,elapsed),cue.anchor[0]-64,cue.anchor[1]-64);
+        }
+      }
+    }
+    ctx.restore();
+    el("frame").textContent = (step+1)+" / "+spec.frames;
+    if (Object.values(sheets).every(img=>img.complete && img.naturalWidth)) document.body.dataset.ready = "true";
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  const list = el("audioList"), audio = el("listen");
+  for (const [group,clips] of [["官方日语",data.sound.voice],["原创战斗音效",data.sound.sfx]]) {
+    const choices = document.createElement("optgroup");
+    choices.label = group;
+    clips.forEach(clip=>choices.append(new Option(clip.label ?? clip.id.replace("sfx_",""),clip.id)));
+    list.append(choices);
+  }
+  function sound() {
+    const clip = [...data.sound.voice,...data.sound.sfx].find(it=>it.id===list.value);
+    audio.src = clip.mp3;
+    el("detail").textContent = clip.source === "duel" ? "樱井孝宏 · 对决 PV，保留背景音乐" : clip.source === "countdown" ? "樱井孝宏 · 官方倒计时" : "原创 Foley";
+  }
+  list.onchange = sound;
+  audio.onerror = () => {el("detail").textContent = "请从完整本地交付包打开试听。"};
+  sound();
+</script>
+</body>
+</html>

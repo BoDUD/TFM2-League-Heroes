@@ -1,0 +1,18 @@
+{
+  "coordinates": "Right-facing logical pixels. Mirror around x=64. Actors use (64,116) as floor anchor. Target cues follow the impacted unit when integrated.",
+  "actor_baseline": [64, 116],
+  "cues": [
+    {"action": "attack", "ms": 225, "phase": "release", "fx": "thrust_wind", "anchor": [109, 79], "sfx": "sfx_thrust_wind_1"},
+    {"action": "attack", "ms": 225, "phase": "confirmed_hit", "fx": "thrust_hit", "anchor": [118, 79], "sfx": "sfx_thrust_hit_1"},
+    {"action": "skill", "ms": 225, "phase": "release", "fx": "flurry_wind", "anchor": [109, 85], "sfx": "sfx_flurry_wind"},
+    {"action": "skill", "ms": 225, "phase": "confirmed_hit", "fx": "flurry_hit", "anchor": [121, 85], "sfx": "sfx_flurry_hit"},
+    {"action": "skill2", "ms": 180, "phase": "lift", "fx": "rain_rise", "anchor": [84, 63], "sfx": "sfx_rain_rise"},
+    {"action": "skill2", "ms": 285, "phase": "release", "fx": "rain_fall", "anchor": [105, 97], "sfx": "sfx_rain_drop"},
+    {"action": "skill2", "ms": 285, "phase": "confirmed_hit", "fx": "thrust_hit", "anchor": [115, 106], "sfx": "sfx_rain_hit"},
+    {"action": "ult", "ms": 0, "phase": "windup", "fx": "flood_charge", "anchor": [70, 89], "sfx": "sfx_flood_charge"},
+    {"action": "ult", "ms": 380, "phase": "release", "fx": "flood_barrage", "anchor": [109, 84], "sfx": "sfx_flood_barrage"},
+    {"action": "ult", "ms": 380, "phase": "confirmed_hit", "anchor": [109, 84], "sfx": "sfx_flood_hit"},
+    {"action": "dead", "ms": 330, "phase": "drop", "anchor": [65, 111], "sfx": "sfx_trident_drop"},
+    {"action": "dead", "ms": 785, "phase": "land", "anchor": [65, 116], "sfx": "sfx_body_fall"}
+  ]
+}
