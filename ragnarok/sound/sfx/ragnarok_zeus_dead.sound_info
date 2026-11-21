@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.66,
+      "clip": "ragnarok_zeus_sfx_fall",
+      "volume": 0.5
+    }
+  ]
+}

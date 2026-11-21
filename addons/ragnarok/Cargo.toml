@@ -1,6 +1,6 @@
 [package]
 name = "ragnarok"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 publish = false
 
@@ -12,3 +12,5 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
 hd_engine = { path = "../hd_engine" }
+# 宙斯三种身体的显示钩子（src/zeus.rs，和联盟包变身英雄的附加包同一个钩子）
+game_places = { path = "../game_places" }

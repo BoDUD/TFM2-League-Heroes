@@ -9,6 +9,7 @@
 pub mod hd;
 pub mod lubu;
 pub mod thor;
+pub mod zeus;
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -84,6 +85,7 @@ fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new("ragnarok");
     lubu::register(host, &mut module);
     thor::register(host, &mut module);
+    zeus::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

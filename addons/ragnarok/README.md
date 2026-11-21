@@ -10,6 +10,7 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 |---|---|---|
 | 吕布奉先 `ragnarok_lubu` | [`src/lubu.rs`](src/lubu.rs) | 被动「盾牌破坏者」、配音 |
 | 索尔 `ragnarok_thor` | [`src/thor.rs`](src/thor.rs) | 配音、倒地声（技能全在数据里） |
+| 宙斯 `ragnarok_zeus` | [`src/zeus.rs`](src/zeus.rs) | 三种身体的显示钩子、配音、倒地声（技能和变身全在数据里） |
 
 ## 吕布奉先
 
@@ -46,8 +47,26 @@ ragnarok 包（mod_id `ragnarok`，源文件在 [`ragnarok/`](../../ragnarok/)�
 
 被动 `ragnarok_thor:voice` 只管声音（没有参数）：绿川光的原声十句，事件照 Codex 的 audio_events.json 分：一局第一次和敌方英雄交手说一句（三句里按拍数挑）、杀英雄两句轮流、雷槌觉醒时一半概率说「このミョルニルで」、复活三句轮流；每类有自己的冷却，任意两句至少隔 8 秒。大招那句「一撃のもとに」是数据放的，大招一放就当刚说过，大招带出来的觉醒不再叠一句。死的时候放 Codex 的倒地声（延迟 0.5 秒，对上死亡动作躺下）。
 
+## 宙斯
+
+数据：[`tools/kit/build_zeus.py`](../../tools/kit/build_zeus.py)（参数表 P，数值是 10 分钟经典引擎模拟调出来的，见文件头），文本和音效：[`tools/kit/setup_zeus.py`](../../tools/kit/setup_zeus.py)，图：[`tools/art/import_zeus.py`](../../tools/art/import_zeus.py)（Codex 的五张图合成一张：老人的标签原样、膨胀 `mu_*`、阿陀磨须 `ad_*`、变身 `expand` / `ult` / `revert`）。
+
+一个英雄、三种身体：形态是他身上的 buff（`ragnarok_zeus_mu` 膨胀、`ragnarok_zeus_ad` 阿陀磨须，都没有就是老人）。
+
+| 技能 | 做法 |
+|---|---|
+| 被动 肌肉膨胀 | 每条命开始、阿陀磨须结束后是老人；老人打满几拳（数据里的施法者标记 c1、c2 …），下一拳改成膨胀：播 `expand`（1.02 秒，不受控制、减伤），完成时脚下一圈震伤周围的人并减速，此后这条命一直是膨胀（攻击、护甲、魔抗提高） |
+| 普攻 | 快拳，100% 攻击力 |
+| 连拳（Q） | 第 0.18、0.315 秒两拳；膨胀时第二拳减速，阿陀磨须时第二拳眩晕 |
+| 超越时间之拳（E） | 伤害和眩晕在放的那一刻就打到，0.4 秒后才看见出拳（拳比时间快） |
+| 阿陀磨须（R） | 压缩 1.04 秒（`ult`，不受控制、减伤；老人先播膨胀再压缩），完成时击飞周围的人，换成阿陀磨须几秒（攻击、双抗、攻速、吸血）；时间到播 `revert`（0.93 秒）变回老人，重新数拳；变身中被打死就什么都不发生 |
+
+`ragnarok_zeus:voice`（没有参数）：
+- **显示钩子**（`game_places::hook`，联盟包纳尔、奈德丽附加包的做法）：显示世界里名字是 `ragnarok_zeus` 的实体，按 buff 把正在播的 idle / run / hit / dead / attack / skill / skill2 换成 `mu_*` 或 `ad_*`；变身过程数据播，不碰；阵亡时 buff 清掉，尸体按倒下前的身体画。本 DLL 在 init 里先 `hd_engine::defer_display()`，真正换槽等第一帧（`Frame` 扩展），和别的 mod 共存不看加载顺序。
+- **配音**：高木涉的原声，一局第一次出场、肌肉膨胀、放连拳时三成概率、杀英雄、复活各一句，各有冷却，任意两句至少隔 8 秒；宣传口号那句只放演示页（Codex 的建议）。死的时候放倒地声（对上死亡动作第 6 帧着地）。
+
 ## 检查
 
-- 在 `addons/` 下 `cargo test -p ragnarok`（CI 也跑）：吕布的被动参数、护盾加成的算式（碎和没碎两种情况下血量都等于「对盾双倍」应有的数）、护甲 buff；两人配音的冷却和轮换、每句都是 Codex 的十句之一（索尔的十句每句正好用一次）；`src/hd.rs` 的表（hd_ 帧正好是 1 倍帧的 PPU 倍、每个动作都有 hd_ / lo_ 帧、特效图有占位的 idle / hd_idle、表写成文本交给主再读回来一样）。
+- 在 `addons/` 下 `cargo test -p ragnarok`（CI 也跑）：吕布的被动参数、护盾加成的算式（碎和没碎两种情况下血量都等于「对盾双倍」应有的数）、护甲 buff；三人配音的冷却和轮换、每句都是 Codex 交的原声之一（索尔的十句每句正好用一次）；宙斯的显示钩子换名规则（三种身体、尸体留形态）；`src/hd.rs` 的表（hd_ 帧正好是 1 倍帧的 PPU 倍、每个动作都有 hd_ / lo_ 帧、特效图有占位的 idle / hd_idle、表写成文本交给主再读回来一样）。
 - `python tools/kit/build_lubu.py` 每次核对 `src/lubu.rs` 的默认参数和 P 一致、DLL 播的画面在数据里有。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\ragnarok_lubu.log`：`SPAWN`、打到带盾的人 `SHIELD`（打之前的护盾、这一下、加了多少）、碎了 `BREAK`、没碎 `HELD`、配音 `VOICE`。
