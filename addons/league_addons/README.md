@@ -94,9 +94,19 @@ AI 钩子在大招解锁（5 级）前按 R、技能 2 解锁（3 级）前按�
 每次记进 `league_unlock_guard.log`（`GUARD` 行，正常对局里一行都不该有）。以后哪个钩子忘了上面的规矩，最多让英雄站一下，
 不会再卡死过日；规矩照旧要守，它只是兜底。
 
-显示钩子的规矩（2026-10-20）：整身变身的附加包不再自己换槽，用 `game_places::hook::add("<附加包>", dress)` 登记：每个 DLL（合集，
+显示钩子的规矩（2026-10-20；2026-11-21 起晚挂）：整身变身的附加包不再自己换槽，用 `game_places::hook::add("<附加包>", dress, |m: &str| wlog(m))` 登记：每个 DLL（合集，
 或单独装的附加包）只换一次显示更新槽（函数和槽由 `game_places::display()` 按特征码找，放进进程环境变量 `LEAGUE_DISPLAY_PLACES`
 给后面的 DLL 用），每帧把显示世界的实体表走一遍，把实体列表交给每个登记的 `dress(world, &[Ent])`（各自 `catch_unwind`）。显示
 世界和实体值的偏移只在 `game_places::hook`（`VALUE`、`NAME_PTR`、`ANIM_*`、`BUFFS_*` ……），不要再写死 rva 或抄偏移。合成一个前
 15 个附加包各自换槽、各自每帧走一遍表：合成后每帧约 10.6 µs，原来 13.3 µs（100 个实体的假表，`game_places` 的
 `one_walk_against_fifteen`），主要省的是维护。
+
+晚挂和接回来（2026-11-21，用户：「会不会和别的mod变身引起冲突 导致我们的或者别人的英雄不变身」→「那按你的建议改吧」）：合集、`league.dll`、
+龙包、tft.dll、ragnarok.dll 在 init 里先调 `game_places::hook::defer()`，之后 `add` 只登记英雄（日志写 `hooked at this DLL's first
+frame`），等所有 mod 都加载完、各自的客户端扩展第一次 post_update 调 `game_places::hook::tick()` 才换槽（日志 `display hook in at this
+DLL's first frame`）：只认「槽里还是游戏原函数」才肯挂的别的 mod 排在我们后面加载也挂得上，我们接在它后面。`tick()` 之后每帧看一眼：
+比赛的屏幕时钟（`game_places::clock`）走了 3 秒、这个 DLL 的层一次没被调用，就顺着槽往下找——我们自己各 DLL 的层靠环境变量
+`LEAGUE_DISPLAY_HOOKS` 看得穿；碰到别人的函数或一路到了游戏原函数，就是被后来不接着调用的 mod 跳过了，在最上面再挂一层（日志
+`hooked again on top`，一个 DLL 最多 4 层；几层同一次被调到时只有最外层把英雄过一遍）。所以：合集里的附加包别再自己 `set_extension`
+（会顶掉 `BundleClient`，时钟和 `tick()` 都停）；单独装的附加包没调 `defer()`，照旧登记时就换槽。高清帧引擎的战场缩放也登记在这里
+（`hd_engine`），不再自己换槽。

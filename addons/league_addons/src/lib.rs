@@ -470,6 +470,8 @@ struct BundleClient;
 impl StableExtension for BundleClient {
     fn post_update(&self, ctx: &mut StableClient<'_>, dt: u64) {
         viego_soul::view::ClockReader.post_update(ctx, dt);
+        // 显示钩子：第一帧挂上，之后被跳过就接回来（要上面喂过的屏幕时钟）
+        game_places::hook::tick();
     }
 
     fn post_render(&self, ctx: &mut StableClient<'_>) {
@@ -521,6 +523,8 @@ impl StableMatchHook for BundleMatch {
 
 fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
+    // 整身变身的显示钩子晚挂（2026-11-21）：各英雄登记时只记下，所有 mod 加载完、第一帧（BundleClient）再换槽
+    game_places::hook::defer();
     // its hook runs after every other one whatever the order here (the top priority): a skill2 / ult still
     // level-locked in the final input becomes an attack or a stand (league_unlock_guard/README.md)
     unlock_guard::register(host, &mut module);

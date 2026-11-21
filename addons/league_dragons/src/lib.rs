@@ -1799,6 +1799,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    // 显示钩子晚挂（2026-11-21）：龙的外观（和当主时的战场缩放）先登记，第一帧（screen::Overlay）再换槽；编进合集时由合集管
+    #[cfg(not(league_bundle))]
+    game_places::hook::defer();
     // its own dense frames since 0.3.5 (the user: 「不行 你要改成不依赖主包的」「就是用原版英雄也能用这个大小龙」): the 8 sheets
     // to the engine league.dll and tft.dll share - it hooks the game from here, or hands the table to the pack DLL that did -
     // before the display hook below swaps the slot (src/hd.rs)

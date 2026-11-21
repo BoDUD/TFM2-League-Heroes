@@ -28,6 +28,9 @@ use mod_api_stable::*;
 
 /// Daisy a unit of her own (0.2.0).
 pub mod daisy;
+// 小菊落地那几帧的显示兜底（0.3.0）
+#[cfg(windows)]
+pub mod view;
 
 const ID: &str = "league_ivern";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -296,6 +299,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     daisy::register(module);
+    #[cfg(windows)]
+    view::install_once();
     module.add_native_passive(format!("{ID}:brush"), Brushmaker::default());
     host.log(LogLevel::Info, "league_ivern loaded (Brushmaker's brush: Rengar and Qiyana read it; Daisy a unit).");
 }

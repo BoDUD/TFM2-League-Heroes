@@ -234,11 +234,8 @@ unsafe fn dress_kayn(world: usize, ents: &[Ent]) {
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match game_places::hook::add("league_kayn_form", dress_kayn) {
-            Ok((slot, prev)) => wlog(format!(
-                "full transform on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
-            )),
+        match game_places::hook::add("league_kayn_form", dress_kayn, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!("full transform on: {p}")),
             Err(e) => wlog(format!("full transform off ({e}): Kayn keeps the data pack's half transform")),
         }
     });

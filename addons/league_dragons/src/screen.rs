@@ -337,11 +337,13 @@ impl StableExtension for Overlay {
         // off the match (the management screens are "in game" too): the clock goes - it would keep the last second it read
         if !ctx.is_in_game() || off_match(ctx.client_scene_kind()) {
             game_places::clock::observe(false, None);
-            return;
+        } else {
+            let path = game_places::clock::CLOCK_PATH;
+            let text = shown(ctx, path).then(|| ctx.ui_text(path)).flatten();
+            game_places::clock::observe(true, text.as_deref());
         }
-        let path = game_places::clock::CLOCK_PATH;
-        let text = shown(ctx, path).then(|| ctx.ui_text(path)).flatten();
-        game_places::clock::observe(true, text.as_deref());
+        // 显示钩子：第一帧挂上，之后被跳过就接回来（要上面喂过的屏幕时钟）
+        game_places::hook::tick();
     }
 
     fn post_render(&self, ctx: &mut StableClient<'_>) {

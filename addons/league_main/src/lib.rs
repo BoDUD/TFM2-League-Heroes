@@ -86,7 +86,7 @@ mod stack_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.112";
+const VERSION: &str = "0.9.116";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -142,6 +142,10 @@ fn init(host: &StableHost) -> StableMod {
     // the GPU image cache first, whatever the build: it only needs Skia's GrResourceCache (src/cache.rs)
     #[cfg(windows)]
     cache::install_once(hd_engine::module_base());
+    // 显示钩子晚挂（2026-11-21）：战场缩放和整身外观先登记，等所有 mod 加载完、第一帧（warm::Warm）再换槽——只认游戏
+    // 原函数才肯挂的别的 mod 排在后面也挂得上（game_places::hook）
+    #[cfg(windows)]
+    game_places::hook::defer();
     // the dense frames: this pack's table to the engine - it hooks the game from here (build, display pair, lookups,
     // scale, as before 0.9.0), or hands the table to the pack DLL that did (tft.dll loaded first: hd_engine src/share.rs)
     #[cfg(windows)]

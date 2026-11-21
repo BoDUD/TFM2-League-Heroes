@@ -54,6 +54,19 @@ pub fn observe(in_game: bool, shown: Option<&str>) {
     }
 }
 
+/// 客户端扩展每帧喂一次时钟（league.dll、tft.dll 这样喂；league_addons 由佛耶戈的 ClockReader 喂，league_dragons 由它的
+/// Overlay 喂）：`in_game` 是不是在游戏里，`visible(路径)` 界面节点显示没有，`text(路径)` 节点上的字。
+pub fn feed(in_game: bool, visible: impl Fn(&str) -> Option<bool>, text: impl Fn(&str) -> Option<String>) {
+    if !in_game {
+        observe(false, None);
+        return;
+    }
+    let parts: Vec<&str> = CLOCK_PATH.split('.').collect();
+    let shown = (1..=parts.len()).all(|n| visible(&parts[..n].join(".")) == Some(true));
+    let t = if shown { text(CLOCK_PATH) } else { None };
+    observe(true, t.as_deref());
+}
+
 /// The screen's sim tick now (None until the clock has stepped once this match).
 pub fn screen_tick() -> Option<usize> {
     let c = CLOCK.lock().ok()?;

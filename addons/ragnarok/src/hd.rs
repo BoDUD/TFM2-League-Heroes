@@ -12,6 +12,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 索尔（ragnarok_thor）：同样是 Codex 的 128 格原画，头发到脚底 55 格、肩上雷槌顶 76 格；PPU 1.65，游戏里头顶 33、
     // 锤顶 46 个游戏像素（和缩过的吕布头顶齐平）。投锤的接锤单独一个标签 skill2_catch（锤子真飞回来才播）
     ("ragnarok_thor", 1.65, include_str!("../../../ragnarok/champions/ragnarok_thor#anim.fanim")),
+    // 宙斯（ragnarok_zeus）：Codex 的 128 格原画，三种身体合在一张图里：老人（idle .. dead）头顶离脚底 51 格、膨胀（mu_*）
+    // 67 格、阿陀磨须（ad_*）59 格，和索尔一样 PPU 1.65，游戏里 31 / 41 / 36 个游戏像素。站着、跑着、出手、挨打、倒下按身上
+    // 的形态 buff 换成那种身体的帧（src/zeus.rs 的显示钩子），变身过程 expand / ult / revert 由数据播
+    ("ragnarok_zeus", 1.65, include_str!("../../../ragnarok/champions/ragnarok_zeus#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -28,10 +32,12 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("ragnarok_lubu_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_lubu_fx#anim.fanim")),
     // 索尔打在人身上的雷击、觉醒重砸的冲击、雷槌觉醒的红纹（飞出去的锤子是弹道画面，1 倍，不在这里）
     ("ragnarok_thor_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_thor_fx#anim.fanim")),
+    // 宙斯打在人身上的拳光、连拳的雷光、变身完成时脚下炸开的一圈（拳风、蓄力和变身的光画在他自己的帧里）
+    ("ragnarok_zeus_fx", 1.65, include_str!("../../../ragnarok/effects/ragnarok_zeus_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
-pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx"];
+pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[];

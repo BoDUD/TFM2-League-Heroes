@@ -34,11 +34,13 @@ ACTIONS = ("idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead")
 # pictures played on units - each hero's import_<hero>.py holds them
 SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = FX_PPU = SOLE = None
 BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT = [], {}, {}, {}, {}, [], {}
+TAGS, BANKS = ACTIONS, None
 
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
     global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT
+    global TAGS, BANKS
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
     # FX_PPU: the effect sheets' own density (the pictures on units and the projectile pictures keep their size when
     # the hero is drawn smaller: Lu Bu at 1.94 since 2026-11-20, his effects at Codex's 1.65); his baked swings follow him
@@ -54,6 +56,10 @@ def setup(cfg):
     # SHIFT {action: dx}: an action Codex drew off his soles' point, moved whole by dx dense px (a plain move, nothing
     # redrawn): Thor's idle stands 7 px forward of his run and attack, he would hop forward each time he stops
     SHIFT = cfg.get("SHIFT", {})
+    # BANKS [(Codex 的图名, {它的标签: 本表的标签})]：一个英雄几张身体图（宙斯三种形态各一张、变身过渡一张）按顺序合成一张，
+    # 标签照表改名（膨胀的 idle -> mu_idle）；不给就是 <ID>_native 一张、标签原样。TAGS 是合成后本表的动作，顺序就是图里的顺序
+    BANKS = cfg.get("BANKS")
+    TAGS = tuple(cfg.get("TAGS", ACTIONS))
     SHEET = os.path.join(MOD, "champions", ID)
     FX_SHEET = os.path.join(MOD, "effects", f"{ID}_fx")
     PROJ_SHEET = os.path.join(MOD, "effects", f"{ID}_proj")
@@ -61,7 +67,7 @@ def setup(cfg):
 
 def tags():
     """The sheet's tags: the eight actions and the ones SPLIT cuts off them."""
-    return list(ACTIONS) + [new for parts in SPLIT.values() for new, _ in parts]
+    return list(TAGS) + [new for parts in SPLIT.values() for new, _ in parts]
 
 
 def idle_pair():
@@ -123,7 +129,7 @@ def baked(body, fx):
     """{action: [(dense frame on the canvas, seconds)]}: the body frames with the BAKE pictures, cut where an effect
     frame starts or ends."""
     out = {}
-    for tag in ACTIONS:
+    for tag in TAGS:
         frames = body[tag]
         durs = RETIME.get(tag, [d for _, d in frames])
         starts = np.cumsum([0.0] + durs[:-1])
@@ -210,7 +216,7 @@ def hero_sheets(body, fx):
     segs = baked(body, fx)
     every = [f for tag in tags() for f, _ in segs[tag]]
     outline = D.edge_colour(np.concatenate(every, axis=1))
-    pal = D.palette_of(np.concatenate([body[t][0][0] for t in ACTIONS], axis=1), 96)
+    pal = D.palette_of(np.concatenate([body[t][0][0] for t in TAGS], axis=1), 96)
     pivot = (CS[0], CS[1] - FEET * PPU)
     ones, denses = {}, {}
     for tag in tags():
@@ -308,7 +314,13 @@ def main(cfg, doc=None):
     ap = argparse.ArgumentParser(description=doc or __doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
-    body = read(os.path.join(SRC, f"{ID}_native"))
+    if BANKS:
+        body = {}
+        for stem, names in BANKS:
+            got = read(os.path.join(SRC, stem))
+            body.update({names[t]: got[t] for t in names})
+    else:
+        body = read(os.path.join(SRC, f"{ID}_native"))
     fx = read(os.path.join(SRC, f"{ID}_fx_native"))
     for stem in EXTRA_FX:
         fx.update(read(stem))

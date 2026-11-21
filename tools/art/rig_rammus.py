@@ -11,8 +11,10 @@ The designs (tools/art/design_rammus_model.py, the user's picks 2026-10-19; 36 g
 idle.png (A-2, 3/4 front, 41 x 42), side.png (S-1, side-on facing right, 39 x 43: every action's base), ball.png
 (Powerball's spiked ball, 45 x 44) and curl.png (Defensive Ball Curl, side-on, 41 x 41). Every pose is lossless: parts
 cut square by square from a design and only moved by whole squares, quarter turns about half-integer pivots and
-mirrors; the ball rolls by quarter turns of the whole ball. The side design is the rig's own (its standing point and
-ground); the other three stand on the same point and ground.
+mirrors. The side design is the rig's own (its standing point and ground); the other three stand on the same point and
+ground.
+滚球是唯一的例外（2026-11-21）：附加包的 b_run 和主包 Q 的 skill_roll 是球的设计图绕自己的重心每帧顺时针转 15 度、
+24 帧一圈（像素画的转法，见 turned_ball）；R 跳起来的球还是整颗球四分之一转。
 Parts of the side design: the near arm (hanging in front of the belly, claws at the bottom; it turns about its
 shoulder), the two feet (the bottom rows, split between the claws); the rest is the body (the shell, the head, the
 harness, the belly, the far arm).
@@ -23,6 +25,7 @@ the curl's walk (c_run) steps the curl design's own feet (cut where they leave t
 curl.
 """
 import argparse
+import math
 import os
 import sys
 
@@ -139,14 +142,15 @@ class Form:
         self.curl_parts = {k: self.placed(np.where(m[..., None], curl, 0).astype(np.uint8), ref=curl)
                            for k, m in cut.items()}
 
-    def placed(self, d, ref=None):
+    def placed(self, d, ref=None, m=0):
         """Another design in a padded layer of the side design's size, standing on the same point and ground (ref: the
         whole design a part `d` was cut from, which places it)."""
+        # m：d 比 ref 四边各多出 m 格（转过的球，turned_ball 留的边），照 ref 的位置放
         ref = d if ref is None else ref
         lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
         ys = np.nonzero((ref[..., 3] > 0).any(1))[0]
-        top = P + self.D.ground - (ys.max() + 1)
-        left = P + self.D.px - stand_col(ref)
+        top = P + self.D.ground - (ys.max() + 1) - m
+        left = P + self.D.px - stand_col(ref) - m
         lay[top:top + d.shape[0], left:left + d.shape[1]] = d
         return lay
 
@@ -221,6 +225,19 @@ class Form:
         xs = np.nonzero(can[..., 3].any(0))[0]
         return int(round(self._bx - (xs.min() + xs.max() + 1) / 2))
 
+    def rolled(self, deg):
+        """滚球的一帧：球的设计图绕自己的重心顺时针转 deg 度（turned_ball），放在 ball() 放球的地方，所以 0 度就是 ball()、
+        每帧的球心都在同一点。"""
+        if not hasattr(self, "_roll"):
+            b = load("ball.png")
+            b[b[..., 3] == 0] = 0
+            ys, xs = np.nonzero(b[..., 3] > 0)
+            # 球心 = 设计图不透明格的重心（设计图的格坐标）；外框的中心偏了大半格（上面的刺比下面的长），绕它转球会晃
+            self._roll = (b, magnified(b), (xs.mean() + 0.5, ys.mean() + 0.5))
+        b, big, about = self._roll
+        t = turned_ball(b, big, deg, about, ROLL_PAD, self.D.outline)
+        return R.compose(self.rig, [(self.placed(t, ref=b, m=ROLL_PAD), {})])
+
     ref_holes = None
     close_holes = _Form.close_holes                   # small enclosed holes the side lacks, filled (league_wukong)
     MOST = _Form.MOST
@@ -232,6 +249,61 @@ def shift(can, dx, dy):
     ys, xs = slice(max(0, dy), H + min(0, dy)), slice(max(0, dx), W + min(0, dx))
     yd, xd = slice(max(0, -dy), H + min(0, -dy)), slice(max(0, -dx), W + min(0, -dx))
     out[ys, xs] = can[yd, xd]
+    return out
+
+
+# ------------------------------------------------------------------------------------------------- 滚球：小角度转
+ROLL_UP = 8                           # 先放大 8 倍（Scale2x 做三次）再转
+ROLL_PAD = 6                          # 转过的刺会伸出设计图的边：四边各多留 6 格
+
+
+def scale2x(k):
+    """Scale2x（EPX）：每格放大成 2 x 2，台阶状的斜边按上下左右的邻格补成斜线，只用原来就有的颜色。
+    k：每格一个 uint32（RGBA 四个字节当一个数比较）。"""
+    p = np.pad(k, 1, mode="edge")
+    a, d, c, b = p[:-2, 1:-1], p[2:, 1:-1], p[1:-1, :-2], p[1:-1, 2:]       # 上、下、左、右
+    out = np.empty((2 * k.shape[0], 2 * k.shape[1]), np.uint32)
+    out[0::2, 0::2] = np.where((c == a) & (c != d) & (a != b), a, k)
+    out[0::2, 1::2] = np.where((a == b) & (a != c) & (b != d), b, k)
+    out[1::2, 0::2] = np.where((d == c) & (d != b) & (c != a), c, k)
+    out[1::2, 1::2] = np.where((b == d) & (b != a) & (d != c), d, k)
+    return out
+
+
+def magnified(d):
+    """设计图放大 ROLL_UP 倍（Scale2x 反复做），外面先垫两格透明（边上的格也有邻格）。-> 每格一个 uint32。"""
+    k = np.ascontiguousarray(np.pad(d, ((2, 2), (2, 2), (0, 0)))).view(np.uint32)[..., 0]
+    for _ in range(int(round(math.log2(ROLL_UP)))):
+        k = scale2x(k)
+    return k
+
+
+def turned_ball(d, big, deg, about, m, outline):
+    """设计图 d 绕 about（d 的格坐标）顺时针转 deg 度，四边各多留 m 格。像素画的转法（RotSprite 一类）：放大 8 倍的图
+    （magnified，斜边已经磨平）最近邻地转，再按格取回——每格取它的中心转回去落在放大图里的那一小格的颜色。只转不缩放，
+    不出新颜色。转完露在外面的浅色格（描边在那儿断了）原地涂成描边色：描边补上，轮廓不往外长。0 度原样返回。"""
+    if deg % 360 == 0:
+        return np.pad(d, ((m, m), (m, m), (0, 0)))
+    H, W = d.shape[:2]
+    cx, cy = about
+    t = math.radians(deg)
+    co, si = math.cos(t), math.sin(t)
+    yy, xx = np.mgrid[0:H + 2 * m, 0:W + 2 * m]
+    dx, dy = xx + 0.5 - m - cx, yy + 0.5 - m - cy
+    # 屏幕上 y 朝下：转回去（逆时针 deg 度）找它在设计图里的点；+2 是 magnified 垫的两格
+    sx = (cx + co * dx + si * dy + 2) * ROLL_UP
+    sy = (cy - si * dx + co * dy + 2) * ROLL_UP
+    ix, iy = np.floor(sx).astype(int), np.floor(sy).astype(int)
+    ok = (ix >= 0) & (iy >= 0) & (ix < big.shape[1]) & (iy < big.shape[0])
+    k = np.zeros(xx.shape, np.uint32)
+    k[ok] = big[iy[ok], ix[ok]]
+    out = k.view(np.uint8).reshape(k.shape + (4,)).copy()
+    op = out[..., 3] > 0
+    lbl, _ = ndimage.label(~op)
+    edge = set(np.r_[lbl[0], lbl[-1], lbl[:, 0], lbl[:, -1]].tolist()) - {0}
+    outside = np.isin(lbl, list(edge))
+    gap = op & (R.G.lum(out[..., :3]) >= 70) & ndimage.binary_dilation(outside, structure=R.CROSS)
+    out[gap, :3] = outline
     return out
 
 
@@ -249,17 +321,28 @@ def tries(F):
 FWD = dict(arm_rot=1, arm=(0, 8))     # the near arm swung forward, level under his face (never across it)
 BACK = dict(arm_rot=3, arm=(-1, 6))   # the near arm drawn back, level behind the belly
 DEAD_KICK = 3                         # columns the lying death's feet kick to either side
+# 滚球（b_run：附加包滚着走时播；skill_roll：主包 Q 冲刺时播）：球每帧顺时针转 ROLL_STEP 度，ROLL_N 帧转一整圈。
+# 刺大约 45 度一根，以前一帧转 90 度，转完和上一帧几乎一样，局内看着是原地闪的球（2026-11-21 用户：「Q技能目前看起来不会
+# 在局内滚动」）；一帧转 15 度是刺间距的三分之一，看得出往哪边滚。
+# 转速照他在地上滚的速度、不打滑（滚一圈走过的路 = 周长）：一个游戏像素 = 1000 单位（addons/league_dragons/src/world.rs
+# UNITS_PER_PX），附加包日志里一次滚了 69 tick、91390 单位 = 每 tick 1.32 游戏像素；球身（不算刺）半径约 18.4 格 = 15.3
+# 游戏像素（PPU 1.2，hd.rs 没有他的 SIZES），周长 96 游戏像素，1.21 秒一圈 -> 每帧 50 毫秒（24 帧 1.2 秒）。50 毫秒也是
+# 一帧最短的时长：日志里别的几次滚得更快（每 tick 1500-2100 单位），主包 Q 冲刺每 tick 4000，照理还要转得更快，都取 1.2 秒
+ROLL_STEP = 15
+ROLL_N = 360 // ROLL_STEP
+ROLL_MS = 50
 
 # ms per frame; the kit's ticks (tools/kit/build_rammus.py) come from these. The in-betweens (2026-11-14) keep every
 # action's length and the ticks the kit reads: Q still curls in 200 (now 4 x 50: crouch, arm forward, curl, ball), E
 # still rears up at 70 (the rearing curl's 100 now 50 + the arm-forward crouch 50 on the way down), W still 267, the
 # uncurls (skill_hit, ult_land) still 233 with the ball's 80 first
+# （skill_roll 在技能数据里是 anim("skill_roll", q_roll) 握着放到撞上为止，不按帧数计时，帧数可以变）
 MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [90, 90, 60, 80, 80, 100],
-      "skill": [50, 50, 50, 50], "skill_roll": [60] * 4, "skill_hit": [80, 50, 50, 53],
+      "skill": [50, 50, 50, 50], "skill_roll": [ROLL_MS] * ROLL_N, "skill_hit": [80, 50, 50, 53],
       "skill2": [70, 70, 50, 50, 93], "skill_w": [80, 60, 127],
       "ult": [100, 100, 100, 100, 100, 100], "ult_land": [80, 50, 50, 53],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
-      "b_idle": [200, 200], "b_run": [60] * 4, "b_hit": [100, 100],
+      "b_idle": [200, 200], "b_run": [ROLL_MS] * ROLL_N, "b_hit": [100, 100],
       "c_idle": [300, 300], "c_run": [100] * 4, "c_hit": [100, 100]}
 IDLE_LEG_ROW = 35                     # the idle design's legs: rows from here down stay while the body breathes
 
@@ -291,8 +374,9 @@ def frames_all(F):
     # Q Powerball (League's rammus_spell1_windup: he tucks in and curls up into the ball): crouched, the near arm swung
     # forward on its way up (the in-between, 2026-11-14), curled, the ball
     out["skill"] = [p(crouch=2), p(crouch=2, **FWD), F.whole("curl"), F.ball()]
-    # the roll: the ball a quarter turn clockwise each frame (rolling to the right)
-    out["skill_roll"] = [F.ball(k) for k in (0, 3, 2, 1)]
+    # 滚球：每帧顺时针转 ROLL_STEP 度（往右滚；朝左时游戏整张镜像），第 0 帧就是上一帧的球（ball()），接得上
+    roll = [F.rolled(ROLL_STEP * i) for i in range(ROLL_N)]
+    out["skill_roll"] = roll
     # the hit: the ball bounces back off the target, he uncurls (the arm coming down through forward), standing
     out["skill_hit"] = [F.ball(3, dx=-2, up=4), F.whole("curl", dx=-1), p(crouch=2, whole=(-1, 0), **FWD),
                         p(whole=(-1, 0))]
@@ -319,7 +403,7 @@ def frames_all(F):
                    lying(2, 8, -5)]
     # the add-on's forms (addons/league_rammus): the ball standing / rolling / hit, the curl standing / walking / hit
     out["b_idle"] = [F.ball(), F.ball()]
-    out["b_run"] = [F.ball(k) for k in (0, 3, 2, 1)]
+    out["b_run"] = list(roll)                       # 和主包 Q 的滚球同一套帧
     out["b_hit"] = [F.ball(dx=-2, flash=True), F.ball(dx=-1)]
     out["c_idle"] = [F.whole("curl"), F.whole("curl")]
     # the curl's walk: the curl rocking as before (up a row and a column forward / back on the passing frames), its
@@ -350,6 +434,19 @@ def walk(F, steps=None):
     return out
 
 
+def biggest(F, fr):
+    """一个动作所有帧里最大的 1x 半宽、半高（ppu_rig.Rig.export 的算法）。滚球每帧转出来的刺伸得不一样远，帧有大有小，
+    按中心对准站的点画时会差半格、球心一帧一帧地晃：都按最大那帧切（Rig.least），也就是 ball() 那张的大小。"""
+    rig = F.rig
+    px, py = float(rig.CX), rig.GY - R.FEET * PPU
+    hw = hh = 0
+    for can, _ in fr:
+        ys, xs = np.nonzero(rig.finish(can)[..., 3] > 0)
+        hw = max(hw, int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5)))
+        hh = max(hh, int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5)))
+    return hw, hh
+
+
 def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
@@ -371,7 +468,9 @@ def main():
     a = ap.parse_args()
     if not (a.audit or a.review or a.parts):
         F = form()
-        F.rig.export(frames(F))
+        acts = frames(F)
+        F.rig.least = {t: biggest(F, acts[t]) for t in ("skill_roll", "b_run")}
+        F.rig.export(acts)
         return
     if a.audit or a.review:
         F = form()

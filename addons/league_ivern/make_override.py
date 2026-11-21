@@ -16,7 +16,11 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_ivern/
   * R (0.2.0): Daisy a unit of her own - the drop marks its champion with src/daisy.rs's D_MARK (3 ticks), and the
     riding punches (the AddCasted count) and her wave at the end play only without D_UNIT on him, which the add-on lays
     when the host gives the unit; the numbers the natives use (daisy.rs: D_*) are checked against the kit, the drop's
-    picture and the unit sheet here; R's tooltip (description.league_ivern.ult) says she is a unit.
+    picture and the unit sheet here; R's tooltip (description.league_ivern.ult) says she is a unit;
+  * R (0.3.0): the drop's picture (view league_ivern_r_drop on the champion) is left out - the unit plays her own drop
+    (the unit sheet's `drop` tag, D_DROP ticks, under an Animation CC) as soon as she is spawned, so the game never shows
+    the picture and the unit at once (the user 2026-11-21: 「现在大招会召唤出来两个」); the passive plays the picture itself
+    only when no unit comes.
 Every other champion stays untouched. Run it again whenever the main pack's Ivern changes (--check: compare only).
 """
 import argparse
@@ -138,15 +142,18 @@ def daisy(champion, c, p):
         sys.exit("R's drop, its riding punches or her wave changed in the kit: update this script")
     effects = json.dumps(champion)
     views = {v["name"] for v in champion["view_effects"]}
-    for k in ("SHOCK_VIEW", "HIT_VIEW", "BYE_VIEW"):
+    for k in ("SHOCK_VIEW", "HIT_VIEW", "BYE_VIEW", "DROP_VIEW"):
         if c[k] not in views:
             sys.exit(f"src/daisy.rs's {k} = {c[k]} is no view effect of Ivern")
     if '"type": "TargetSfx", "name": "' + c["SLAM_SFX"] + '"' not in effects:
         sys.exit(f"src/daisy.rs's SLAM_SFX = {c['SLAM_SFX']} is no sound Ivern's R plays")
     got = {"D_HIT": p["r_dmg"], "D_HIT_AP": p["r_ratio"], "D_COOL": p["r_per"], "D_LANDS": p["r_hit_at"], "D_SLAM": p["r_slam"],
            "D_SLAM_AP": p["r_slam_r"], "D_UP": p["r_up"], "D_LIFE": p["r_t"] - 1,
-           "D_FIRST": ticks_of(os.path.join(ROOT, "league", "effects", HERO + "_daisy_drop"), "idle"),
+           "D_DROP": ticks_of(os.path.join(ROOT, "league", "effects", HERO + "_daisy_drop"), "idle"),
            "D_ACT": ticks_of(os.path.join(ROOT, "league", "champions", c["D_NAME"]), "attack")}
+    # the unit's own drop: her sheet's tag as long as the picture it replaces
+    got["D_DROP "] = ticks_of(os.path.join(ROOT, "league", "champions", c["D_NAME"]), c["D_DROP_TAG"])
+    c = dict(c, **{"D_DROP ": c.get("D_DROP")})
     wrong = {k: (c.get(k), v) for k, v in got.items() if c.get(k) != v}
     if wrong:
         sys.exit(f"Daisy's numbers differ from src/daisy.rs (daisy.rs, kit and sheets): {wrong}")
@@ -154,6 +161,12 @@ def daisy(champion, c, p):
     names |= {x.get("buff_name") for x in walk(champion) if x.get("type") == "SwitchByBuff"}
     if any(c[k] in names for k in ("D_MARK", "D_UNIT")) or any(str(b).startswith(c["D_UID"]) for b in names):
         sys.exit("Ivern's kit already uses one of src/daisy.rs's buff names: update it")
+    # 0.3.0: the drop's picture out - the unit plays it
+    drops = [i for i, x in enumerate(calls[0]["applied_effects"])
+             if x.get("effect", {}).get("type") == "ViewEffect" and x["effect"].get("name") == c["DROP_VIEW"]]
+    if len(drops) != 1:
+        sys.exit("R's drop picture changed in the kit: update this script")
+    del calls[0]["applied_effects"][drops[0]]
     calls[0]["applied_effects"].append({"casting_type": "Targeting", "effect": {
         "type": "AddBuff", "buff_state": {"name": c["D_MARK"], "duration": {"Time": {"tick": 3}}}}})
     punches[0]["effects"] = [sw(punches[0]["effects"][0])]
