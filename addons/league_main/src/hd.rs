@@ -593,7 +593,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read onto it at the median of the zooms his height, chest and area give (tools/art/casts_tryndamere_hd.py,
     // rig_tryndamere_hd.py; his death's thrown sword moved to where the old frames have it; R drawn from its native body
     // cells, its fire and the skill_fx1 / skill_q_fx1 copies' spin and heal baked on again by tryndamere_bake.json); 37
-    // game px as his 1x sprite, so no SIZES row
+    // game px as his 1x sprite. 2026-11-21 起局内画成 115%（SIZES，见那里）
     ("league_tryndamere", 1.811, include_str!("../../../league/champions/league_tryndamere#anim.fanim")),
     // Pyke (the same release): Codex's pyke-A read on its own ~16-px squares (68 x 73, tools/art/design_pyke_hd.py: 73
     // rows / 41 = 1.780); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
@@ -825,6 +825,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// club, his body 1601 solid game px, the heaviest with Ornn's 1583, against Garen's 42 x 48 / 1051; 85 % = 37 x 45,
 /// 1157), his dense frames 4 squares lower (RESTYLE trundle lift_sq: 12 x 2.0 x (1 / 0.85 - 1) = 4.2, his feet 12 game
 /// px under his centre), written by the restyle itself (it reproduces his committed strips bit for bit).
+/// 泰达米尔：115%（用户 2026-11-21：「蛮王新模型在局内感觉有点小了」，看了对比图「放大到 1.15」）。GPT 重画的腥红之月
+/// 造型站得直、身子瘦：待机第一帧脚到头顶 38 游戏像素（连发髻），比旧模型的 37 还高一点，可实打实只有 639 平方游戏像素
+/// （旧模型 914，盖伦 1022，赵信 864，亚索 702）；115% = 44 高、845。高清帧往上挪 3 格（脚底在中心下 20.5 格：
+/// 20.5 × (1 - 1 / 1.15) = 2.7），他的原帧早不是 restyle 出的了，由 tools/art/lift_hd_strips.py 直接挪原帧，再
+/// ppu_hd.py、hero_reels.py。
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -834,7 +839,8 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
                                     ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85),
-                                    ("league_belveth", 0.85), ("league_trundle", 0.85)];
+                                    ("league_belveth", 0.85), ("league_trundle", 0.85),
+                                    ("league_tryndamere", 1.15)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent
