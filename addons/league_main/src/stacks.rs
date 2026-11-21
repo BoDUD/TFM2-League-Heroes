@@ -25,6 +25,11 @@
 //!   布隆的震荡猛击、韦鲁斯的枯萎、图奇的毒）。
 //! 一个英雄可以有几行（主包的数据记在他自己身上、附加包记在敌人身上，各读各的名字），面板上是几行里最大的那个：每份英雄数据
 //! 只挂得出自己那一行的 buff，另一行读出来是 0。
+//! 后来又加了 [`Rule::Charges`]（技能的充能：提莫的蘑菇）和 [`Rule::Per`]（一项数值除以一层的量）。
+//!
+//! **tft.dll 也用这个文件**（addons/tft/src/lib.rs 用 `#[path]` 引进来）：表是它自己的 src/stack_table.rs（云顶的英雄，
+//! `PREFIX` 是 `tft_`），比赛钩子只调 [`on_tick`]。两个 DLL 各写各表里的英雄，谁先加载都一样。所以这里只用得到
+//! `crate::wlog` 和 `crate::stack_table`，两边的根上都有。
 //!
 //! **写进 `stack`。** 稳定接口改属性只有 `entity_set_base_stat`：整块换掉基础属性（9 项）。可 `stat()` 读到的是算好的那块
 //! （经典 SDK 0.5.1 的 `Entity::calculate_stat_cached`：每项 = (基础 + buff 的加值) x (100 + buff 的倍率) / 100，
@@ -63,14 +68,20 @@ pub enum Rule {
     /// 这个技能的充能还剩几次（0 技能、1 技能 2、2 大招，和 `stack_skill_index` 一样数）：读游戏自己的冷却
     /// （`entity_cooldown` 的 `charges`），不是 buff。没学会、不是充能技能的时候是 0。
     Charges(usize),
+    /// 这个 buff 的一项数值加起来、再除以一层的量（四舍五入）：原生代码把层数折成一个 buff 的数值的（云顶赛芬的怒气
+    /// 一层 5 攻击力、麦迪的赏金一份 15% 攻速、呲呲身边一个队友 10 护甲）。
+    Per(&'static str, Stat, usize),
 }
 
-/// [`Rule::Sum`] 加哪一项。
+/// [`Rule::Sum`] / [`Rule::Per`] 加哪一项。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Stat {
     MagicPower,
     Hp,
     Attack,
+    Defence,
+    AttackSpeedMult,
+    DamagedReduce,
 }
 
 impl Stat {
@@ -79,6 +90,9 @@ impl Stat {
             Stat::MagicPower => b.magic_power as i64,
             Stat::Hp => b.hp as i64,
             Stat::Attack => b.attack as i64,
+            Stat::Defence => b.defence as i64,
+            Stat::AttackSpeedMult => b.attack_speed_mult as i64,
+            Stat::DamagedReduce => b.damaged_reduce as i64,
         }
     }
 }
@@ -128,6 +142,10 @@ pub fn count(rule: Rule, buffs: &[BuffV1]) -> usize {
         Rule::Prefix(prefix) => buffs.iter().filter(|b| b.name().starts_with(prefix)).count(),
         // 充能不在 buff 里，见 [`value`]
         Rule::Charges(_) => 0,
+        Rule::Per(name, stat, per) => {
+            let total = buffs.iter().filter(|b| b.name() == name).map(|b| stat.of(b)).sum::<i64>().max(0) as usize;
+            (total + per / 2) / per.max(1)
+        }
     }
 }
 
@@ -499,6 +517,27 @@ mod tests {
         assert_eq!(value(&Stack { cap: 2, ..own }, &mine, &none, &[]), 2, "capped");
     }
 
+    #[test]
+    fn per_divides_the_stat_by_a_stack() {
+        // 赛芬的怒气：一个 buff，攻击力是层数 x 5
+        let mut rage = BuffV1::named("tft_syfen_p_rage");
+        rage.attack = 15;
+        assert_eq!(count(Rule::Per("tft_syfen_p_rage", Stat::Attack, 5), &[rage]), 3);
+        // 麦迪的赏金（攻速倍率）、呲呲的冒险家之魂（护甲）、峡谷先锋的甲壳（受到的伤害减少）
+        let mut bounty = BuffV1::named("tft_maddie_p_bounty");
+        bounty.attack_speed_mult = 45;
+        assert_eq!(count(Rule::Per("tft_maddie_p_bounty", Stat::AttackSpeedMult, 15), &[bounty]), 3);
+        let mut guild = BuffV1::named("tft_zippy_p_guild");
+        guild.defence = 20;
+        assert_eq!(count(Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), &[guild]), 2);
+        let mut shell = BuffV1::named("tft_riftherald_p_shell");
+        shell.damaged_reduce = 12;
+        assert_eq!(count(Rule::Sum("tft_riftherald_p_shell", Stat::DamagedReduce), &[shell]), 12);
+        assert_eq!(count(Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), &[]), 0);
+        guild.defence = 14;
+        assert_eq!(count(Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), &[guild]), 1, "rounded");
+    }
+
     fn cooldown(unlocked: bool, max_charges: usize, charges: usize) -> Option<CooldownV1> {
         Some(CooldownV1 { unlocked, max_charges, charges, ..CooldownV1::default() })
     }
@@ -538,6 +577,7 @@ mod tests {
                     assert!(!names.is_empty() && names.iter().all(|&(n, v)| own(n) && v > 0), "{}", st.hero);
                 }
                 Rule::Charges(k) => assert!(slot_of(k).is_some() && !st.foes, "{} charges {k}", st.hero),
+                Rule::Per(b, _, per) => assert!(own(b) && per > 0, "{} counts {b} by {per}", st.hero),
             }
         }
         // 同一个英雄的几行挨在一起（表按英雄排序）

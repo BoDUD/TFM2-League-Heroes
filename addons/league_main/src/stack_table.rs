@@ -3,7 +3,7 @@
 
 use super::stacks::{Rule, Stack, Stat};
 
-/// 表里的英雄都以它开头（stacks.rs 的 the_table_is_sound 按它查）。
+/// 表里的英雄都以它开头（stacks.rs 翻表前先比它，the_table_is_sound 也按它查）。
 pub const PREFIX: &str = "league_";
 
 pub const STACKS: [Stack; 101] = [

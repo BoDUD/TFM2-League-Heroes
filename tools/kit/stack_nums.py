@@ -1,7 +1,8 @@
 """Stack counts in the game's own champion panel, next to the skill icons, as in League (2026-11-11).
 
-    python tools/kit/stack_nums.py --write   # every listed hero's `stack_skill_index` (league/ and the add-ons' copies)
-                                             # and league.dll's table addons/league_main/src/stack_table.rs
+    python tools/kit/stack_nums.py --write   # every listed hero's `stack_skill_index` (league/, the add-ons' copies, tft/)
+                                             # and the tables: league.dll's addons/league_main/src/stack_table.rs,
+                                             # tft.dll's addons/tft/src/stack_table.rs
     python tools/kit/stack_nums.py --check   # (CI) both up to date, every row reads something in some copy
     python tools/kit/stack_nums.py --list    # the heroes, their rules and their icons
 
@@ -26,6 +27,9 @@ writes `stack` (addons/league_main/src/stacks.rs): STACKS below is its table (st
   挂得出它那些名字的那份英雄数据里读得出数，所以 `--check` 看每份带层数格的英雄数据里至少有一行「活着」：名字在这份数据里
   有人挂（AddCasterBuff / AddBuff），或者这份是 `native` 里那个附加包的副本（它的原生代码挂同样的名字），或者 `passive`
   对得上（附加包自己的梯子）；每一行也至少在一份数据里活着（改了名字就会报出来）。
+- `charges`：技能的充能（提莫的蘑菇），读游戏自己的冷却；`per`（和 sum 一起）：一项数值除以一层的量。
+- 云顶（tft 包）一张表 TFT_STACKS：tft.dll 用同一份 stacks.rs（`#[path]`）和自己的 addons/tft/src/stack_table.rs，
+  数据是 tft/champion/ 里的。云顶英雄多半是 tft.dll 的原生被动在叠（`passive`）。
 """
 import argparse
 import glob
@@ -36,6 +40,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LEAGUE = os.path.join(ROOT, "league")
 TABLE_RS = os.path.join(ROOT, "addons", "league_main", "src", "stack_table.rs")
+TFT_TABLE_RS = os.path.join(ROOT, "addons", "tft", "src", "stack_table.rs")
 FIELD = "stack_skill_index"
 
 # ---------------------------------------------------------------------------------------------------------------- table
@@ -43,7 +48,8 @@ FIELD = "stack_skill_index"
 #   count:  the instances of one buff (a stack is one more instance)
 #   sum:    one stat of those instances added up, when a stack is not always one (Veigar's champion stack is 5 ability
 #           power: League counts it 5 stacks, the number is his ability power from it; Nasus's Siphoning Strike damage;
-#           Sion's health from kills) - "stat" names the field (magic_power / hp / attack)
+#           Sion's health from kills) - "stat" names the field (magic_power / hp / attack / defence / attack_speed_mult /
+#           damaged_reduce); with "per" (a passive param of the hero's data: 一层的量) the sum divided by it, rounded
 #   ladder: the highest k with <prefix><k> on him, k = 1..rungs, times "step" (default 1: Rumble's heat and Gnar's /
 #           Shyvana's rage 10 a rung, Tryndamere's fury 20 - League's 0..100); with "full" (a flag buff: Darius's Noxian
 #           Might, Gnar's full Rage) on him, the number is "top"
@@ -269,6 +275,34 @@ STACKS = [
      "passive": "league_zaahen:darkin", "label": "亚恒「不落之志」果决层数（附加包）"},
 ]
 
+# 云顶（tft 包，2026-11-22）：tft.dll 的表（addons/tft/src/stack_table.rs），数据在 tft/champion/。cap / per 写成字符串的是
+# 那个英雄数据 passive.params 里的参数（tft.dll 按它们叠，表跟着数据走）。多半是 tft.dll 的原生被动在叠（passive）；
+# 拉露恩、绯红树怪、希尔科是数据自己的梯子
+TFT_STACKS = [
+    {"hero": "tft_alune", "ladder": "tft_alune_ph", "rungs": 3, "cap": 3, "skill": 2,
+     "label": "拉露恩「月相」（3 = 满月，大招砸得更重）"},
+    {"hero": "tft_cinderling", "ladder": "tft_cinderling_p_", "rungs": 3, "full": "tft_cinderling_p_full", "top": 4,
+     "cap": 4, "skill": 0, "label": "绯红树怪「绯红霸符」层数（4 = 满，普攻灼烧英雄）"},
+    {"hero": "tft_silco", "ladder": "tft_silco_d", "rungs": 5, "cap": 5, "skill": 0, "label": "希尔科「主宰」法强层数"},
+    {"hero": "tft_gromp", "count": "tft_gromp_p_ap", "cap": "p_max", "skill": 0, "passive": "tft_gromp:purple",
+     "label": "魔沼蛙「紫霸符」法强层数"},
+    {"hero": "tft_sohm", "count": "tft_sohm_p_tide", "cap": "p_max", "skill": 0, "passive": "tft_sohm:lagoon",
+     "label": "索姆「碧波之力」潮水层数"},
+    {"hero": "tft_raptor", "count": "tft_raptor_p_shred", "on": "foes", "cap": "p_max", "skill": 0,
+     "passive": "tft_raptor:flock", "label": "深红锋喙鸟「橙霸符」敌人身上最多的碎甲层数"},
+    {"hero": "tft_syfen", "sum": "tft_syfen_p_rage", "stat": "attack", "per": "p_ad", "cap": "p_max", "skill": 0,
+     "passive": "tft_syfen:whisper", "label": "赛芬「幽影低语」怒气层数"},
+    {"hero": "tft_maddie", "sum": "tft_maddie_p_bounty", "stat": "attack_speed_mult", "per": "w_as", "cap": "w_max",
+     "skill": 1, "passive": "tft_maddie:sniper", "label": "麦迪「通缉令」领到的赏金（份）"},
+    {"hero": "tft_zippy", "sum": "tft_zippy_p_guild", "stat": "defence", "per": "p_def", "cap": "p_max", "skill": 0,
+     "passive": "tft_zippy:guild", "label": "呲呲「冒险家之魂」身边的队友"},
+    {"hero": "tft_riftherald", "sum": "tft_riftherald_p_shell", "stat": "damaged_reduce", "cap": 90, "skill": 0,
+     "passive": "tft_riftherald:shell", "label": "峡谷先锋「虚空甲壳」受到的伤害减少（%）"},
+]
+# 包 -> (表, 生成的 Rust 表, 表里英雄的前缀, 谁读它)
+TABLES = {"league": (STACKS, TABLE_RS, "league_", "league.dll"), "tft": (TFT_STACKS, TFT_TABLE_RS, "tft_", "tft.dll")}
+ALL = STACKS + TFT_STACKS
+
 
 # --------------------------------------------------------------------------------------------------------- the data
 RULES = ("count", "sum", "ladder", "most", "total", "prefix", "charges")
@@ -276,7 +310,7 @@ SLOTS = ("skill", "skill2", "ult")      # 技能格 0 / 1 / 2：stack_skill_inde
 
 
 def rows(hero):
-    return [r for r in STACKS if r["hero"] == hero]
+    return [r for r in ALL if r["hero"] == hero]
 
 
 def row(hero):
@@ -328,9 +362,25 @@ def dumps_main(o):
 
 
 def copies():
-    """Every data file of a hero: league/champion/ and the add-ons' override/ copies."""
+    """Every data file of a hero: league/champion/, the add-ons' override/ copies and tft/champion/."""
     return sorted(glob.glob(os.path.join(LEAGUE, "champion", "*.data_champion")) +
-                  glob.glob(os.path.join(ROOT, "addons", "*", "override", "*.data_champion")))
+                  glob.glob(os.path.join(ROOT, "addons", "*", "override", "*.data_champion")) +
+                  glob.glob(os.path.join(ROOT, "tft", "champion", "*.data_champion")))
+
+
+def main_data(hero):
+    """这个英雄自己包里的那份数据（英雄联盟的在 league/，云顶的在 tft/）。"""
+    pack = "tft" if hero.startswith("tft_") else "league"
+    return load(os.path.join(ROOT, pack, "champion", hero + ".data_champion"))
+
+
+def param(r, key):
+    """cap / per：数字照写；字符串是这个英雄数据 passive.params 里的参数。"""
+    v = r[key]
+    if isinstance(v, str):
+        p = main_data(r["hero"]).get("passive") or {}
+        v = (p.get("params") or {}).get(v)
+    return v
 
 
 def addon_of(path):
@@ -368,7 +418,8 @@ def data_problems(write=False):
 
 
 # ------------------------------------------------------------------------------------------------------- league.dll
-STATS = {"magic_power": "MagicPower", "hp": "Hp", "attack": "Attack"}
+STATS = {"magic_power": "MagicPower", "hp": "Hp", "attack": "Attack", "defence": "Defence",
+         "attack_speed_mult": "AttackSpeedMult", "damaged_reduce": "DamagedReduce"}
 
 
 def pairs_rs(d):
@@ -378,6 +429,8 @@ def pairs_rs(d):
 def rule_rs(r):
     if "count" in r:
         return f'Rule::Count("{r["count"]}")'
+    if "sum" in r and "per" in r:
+        return f'Rule::Per("{r["sum"]}", Stat::{STATS[r["stat"]]}, {param(r, "per")})'
     if "sum" in r:
         return f'Rule::Sum("{r["sum"]}", Stat::{STATS[r["stat"]]})'
     if "most" in r:
@@ -393,25 +446,30 @@ def rule_rs(r):
             f'full: {full} }}')
 
 
-def table_rs():
-    lines = ["//! The stack counts league.dll writes for the champion panel (src/stacks.rs): generated by",
-             "//! tools/kit/stack_nums.py from its STACKS - do not edit by hand.", "",
+def table_rs(pack="league"):
+    table, _, prefix, dll = TABLES[pack]
+    name = "STACKS" if pack == "league" else "TFT_STACKS"
+    head = "src/stacks.rs" if pack == "league" else "league_main's src/stacks.rs"
+    lines = [f"//! The stack counts {dll} writes for the champion panel ({head}): generated by",
+             f"//! tools/kit/stack_nums.py from its {name} - do not edit by hand.", "",
              "use super::stacks::{Rule, Stack, Stat};", "",
-             "/// 表里的英雄都以它开头（stacks.rs 的 the_table_is_sound 按它查）。",
-             'pub const PREFIX: &str = "league_";', "",
-             f"pub const STACKS: [Stack; {len(STACKS)}] = ["]
-    for r in sorted(STACKS, key=lambda r: r["hero"]):       # stable: a hero's rows keep the table's order
+             "/// 表里的英雄都以它开头（stacks.rs 翻表前先比它，the_table_is_sound 也按它查）。",
+             f'pub const PREFIX: &str = "{prefix}";', "",
+             f"pub const STACKS: [Stack; {len(table)}] = ["]
+    for r in sorted(table, key=lambda r: r["hero"]):       # stable: a hero's rows keep the table's order
         foes = "true" if r.get("on") == "foes" else "false"
-        lines.append(f'    Stack {{ hero: "{r["hero"]}", rule: {rule_rs(r)}, cap: {r["cap"]}, foes: {foes} }},')
+        lines.append(f'    Stack {{ hero: "{r["hero"]}", rule: {rule_rs(r)}, cap: {param(r, "cap")}, foes: {foes} }},')
     lines += ["];", ""]
     return "\n".join(lines)
 
 
 def table_problems():
-    have = open(TABLE_RS, encoding="utf-8").read().replace("\r\n", "\n") if os.path.exists(TABLE_RS) else ""
-    if have != table_rs():
-        return [f"{os.path.relpath(TABLE_RS, ROOT)} is out of date: python tools/kit/stack_nums.py --write"]
-    return []
+    out = []
+    for pack, (_, path, _, _) in TABLES.items():
+        have = open(path, encoding="utf-8").read().replace("\r\n", "\n") if os.path.exists(path) else ""
+        if have != table_rs(pack):
+            out.append(f"{os.path.relpath(path, ROOT)} is out of date: python tools/kit/stack_nums.py --write")
+    return out
 
 
 def names(r):
@@ -472,7 +530,7 @@ def rules_problems():
         if champ.get("id") == os.path.basename(path).split(".")[0]:
             by_hero.setdefault(champ["id"], []).append((path, champ))
     addons = {os.path.basename(os.path.dirname(p)) for p in glob.glob(os.path.join(ROOT, "addons", "*", "Cargo.toml"))}
-    for r in STACKS:
+    for r in ALL:
         h = r["hero"]
         kinds = [k for k in RULES if k in r]
         if len(kinds) != 1:
@@ -482,8 +540,12 @@ def rules_problems():
             out.append(f"{h}: skill {r['skill']} is not 0, 1 or 2")
         if r.get("on", "foes") != "foes":
             out.append(f"{h}: on {r['on']!r} (only \"foes\")")
-        if r.get("cap", 0) <= 0:
-            out.append(f"{h}: cap {r.get('cap')}")
+        if not any(h.startswith(t[2]) and r in t[0] for t in TABLES.values()):
+            out.append(f"{h}: not in the table of its pack (league_ in STACKS, tft_ in TFT_STACKS)")
+        if not isinstance(param(r, "cap"), int) or param(r, "cap") <= 0:
+            out.append(f"{h}: cap {r.get('cap')} ({param(r, 'cap')})")
+        if "per" in r and ("sum" not in r or not isinstance(param(r, "per"), int) or param(r, "per") <= 0):
+            out.append(f"{h}: per {r['per']} ({param(r, 'per')}) goes with sum and is a positive number")
         if "sum" in r and r["stat"] not in STATS:
             out.append(f"{h}: stat {r['stat']} is not one of {sorted(STATS)}")
         if "charges" in r and (r["charges"] not in (0, 1, 2) or r["charges"] != r["skill"] or "on" in r):
@@ -501,7 +563,7 @@ def rules_problems():
             what = (f"{SLOTS[r['charges']]}.cooltime_use_count > 1" if "charges" in r else
                     r.get("prefix") or ", ".join(names(r)))
             out.append(f"{h}: no copy of him hangs {what} ({r['label']})")
-    for h in sorted({r["hero"] for r in STACKS}):
+    for h in sorted({r["hero"] for r in ALL}):
         if len({r["skill"] for r in rows(h)}) > 1:
             out.append(f"{h}: his rows show different icons")
         for path, champ in by_hero.get(h, []):
@@ -518,7 +580,7 @@ def what(r):
     if "count" in r:
         w = r["count"]
     elif "sum" in r:
-        w = f'{r["sum"]} {r["stat"]}'
+        w = f'{r["sum"]} {r["stat"]}' + (f' / {r["per"]}={param(r, "per")}' if "per" in r else "")
     elif "most" in r or "total" in r:
         d = r.get("most") or r["total"]
         w = ("most " if "most" in r else "total ") + " ".join(f"{n.replace(r['hero'] + '_', '')}={v}" for n, v in d.items())
@@ -540,12 +602,13 @@ def main():
     ap.add_argument("--list", action="store_true")
     a = ap.parse_args()
     if a.list:
-        for r in sorted(STACKS, key=lambda r: r["hero"]):
-            print(f'{r["hero"]:20s} {what(r):48s} cap {r["cap"]:5d}  icon {r["skill"]}  {r["label"]}')
+        for r in sorted(ALL, key=lambda r: r["hero"]):
+            print(f'{r["hero"]:20s} {what(r):48s} cap {param(r, "cap"):5d}  icon {r["skill"]}  {r["label"]}')
     if a.write:
-        with open(TABLE_RS, "w", encoding="utf-8", newline="\n") as f:
-            f.write(table_rs())
-        print("wrote", os.path.relpath(TABLE_RS, ROOT))
+        for pack, (_, path, _, _) in TABLES.items():
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write(table_rs(pack))
+            print("wrote", os.path.relpath(path, ROOT))
         for line in data_problems(write=True):
             print(line)
     if a.check:
@@ -554,8 +617,8 @@ def main():
             print(b)
         if bad:
             sys.exit(f"{len(bad)} problem(s)")
-        heroes = len({r["hero"] for r in STACKS})
-        print(f"stack counts: {heroes} heroes ({len(STACKS)} rows), {FIELD} and league.dll's table up to date")
+        said = ", ".join(f"{dll} {len({r['hero'] for r in t})} heroes ({len(t)} rows)" for t, _, _, dll in TABLES.values())
+        print(f"stack counts: {said}; {FIELD} and both tables up to date")
 
 
 if __name__ == "__main__":
