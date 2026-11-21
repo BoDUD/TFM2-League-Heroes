@@ -27,7 +27,8 @@ his death, as League's Maiden does).
           接着挖第 4 座。
   W       暗灵缠身 (Dark Procession), 由控制器放（没有技能格）：w_cd 好了、w_range 内有敌方英雄就放——铲子插进地里（`awaken`
           的前 w_dur tick），一个 1 tick 的隐藏抛射落在那名英雄脚下，地上先裂开一圈（w_wall 的画面），w_delay tick
-          （英雄联盟 0.75 秒）后墙立起来 w_t tick（4 秒）。数据造不了地形，主包这样近似：
+          （英雄联盟 0.75 秒）后墙立起来 w_t tick（英雄联盟 4 秒；主包 1 秒、附加包 w_tn = 2 秒，见下面的数值）。
+          数据造不了地形，主包这样近似：
           * 立墙那一 tick：离圆心 w_in 以内（算上身体）的敌方英雄挂 3 tick 免控，下一 tick w_out 以内的敌方英雄被往圆心
             拉 w_ps x w_pt（站在墙线上的被拉进圈里；英雄联盟里墙线外侧的会被推出去，数据推不出去，一律拉进来），
             同时脚下冒出抓脚的鬼手（w_hit），哀伤之雾冷却清零并扔向被困的英雄（W -> E）；
@@ -38,7 +39,9 @@ his death, as League's Maiden does).
           数值（经典引擎模拟，2026-11-22）：墙立 w_t = 1 秒（英雄联盟 4 秒，但敌方英雄普攻 2–4 下就塌；游戏的 AI 不打墙，主包
           又做不了打塌，不能打塌的墙困 4 秒击杀差 +5、2 秒 +2、1 秒和不放 W 差不多），冷却 w_cd = 20 秒（英雄联盟 20 -> 12 秒
           取最长那一级）。W -> E 每 w_ccd = 120 秒最多一次（以前的笼子跟着唤醒，一局约 4 次；现在 W 每 20 秒就有，每次都清 E
-          冷却的话击杀差多 +3）。
+          冷却的话击杀差多 +3）。附加包的真墙能打塌，最多立 w_tn = 2 秒：附加包副本在经典引擎里（C:/t/yo_sim 的 sim3yo，
+          src/yo_emul.rs 照附加包做墙、坟、回复、加速、标记）立 4 秒击杀差 +1.59 / +1.21、2 秒 +0.88 / +0.45、1.5 秒
+          -0.21 / +0.15（改前主包 +0.67 / +0.55）。
   attack  A shovel blow (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit; 室女的标记在他身上（r_mk）时，
           打中英雄消耗标记：英雄最大生命 r_pct% 的真实伤害（英雄联盟：魔法伤害，只打有标记的那个英雄；数据读不到目标身上
           的标记，主包是打中的任何英雄）。
@@ -126,7 +129,7 @@ P = {
     "q_heal": 30, "q_heal_r": 20, "q_go_t": 120, "q_near": 45000,
     # skill2: E Mourning Mist
     "e_cd": 540, "e_range": 55000, "e_dur": 26, "e_rel": 12, "e_fly": 16, "e_r": 15000, "e_dmg": 40, "e_ratio": 25,
-    "e_hp": 6, "e_arm": 25, "e_t": 240, "e_slow": 30, "e_slow_t": 90, "e_go_t": 60, "e_ms": 20,
+    "e_hp": 5, "e_arm": 25, "e_t": 240, "e_slow": 30, "e_slow_t": 90, "e_go_t": 60, "e_ms": 20,
     # ult: R Eulogy of the Isles - the Maiden follows him (her rising r_up ticks, then a bolt every r_p ticks at an enemy
     # within r_reach of him, r_bolt a tick), r_n walkers ride the champion
     "r_cd": 4800, "r_range": 40000, "r_dur": 34, "r_rel": 16, "r_t": 600, "r_p": 60, "r_dmg": 20, "r_ratio": 45,
@@ -134,9 +137,10 @@ P = {
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_yorick (League's rules the data cannot read; see the docstring); w_half: the real
-    # wall's half thickness (the add-on), w_tn: its ticks (League's 4 s - the add-on lets the champions it holds break it,
-    # the main pack's w_t stands for that), q_win: ticks of the flag that tells the add-on a unit died to Last Rites
-    "native": 0, "q_win": 4, "w_half": 10000, "w_tn": 240,
+    # wall's half thickness (the add-on), w_tn: its ticks (League's 4 s; the champions it holds break it there, the
+    # main pack's w_t stands for that; 2 s here: 附加包副本在经典引擎里模拟 4 秒 +1.40、2 秒 +0.67、1.5 秒 -0.03，
+    # 改前主包 +0.61), q_win: ticks of the flag that tells the add-on a unit died to Last Rites
+    "native": 0, "q_win": 4, "w_half": 10000, "w_tn": 120,
 }
 
 

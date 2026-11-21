@@ -1516,7 +1516,7 @@
                                                                   "damage": 40,
                                                                   "attack_ratio": 25,
                                                                   "hp_ratio": 0,
-                                                                  "target_hp_ratio": 6,
+                                                                  "target_hp_ratio": 5,
                                                                   "attack_effect_type": "Target"
                                                                 }
                                                               },
@@ -3697,7 +3697,7 @@
                                     "damage": 40,
                                     "attack_ratio": 25,
                                     "hp_ratio": 0,
-                                    "target_hp_ratio": 6,
+                                    "target_hp_ratio": 5,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -5389,7 +5389,7 @@
                                                                   "damage": 40,
                                                                   "attack_ratio": 25,
                                                                   "hp_ratio": 0,
-                                                                  "target_hp_ratio": 6,
+                                                                  "target_hp_ratio": 5,
                                                                   "attack_effect_type": "Target"
                                                                 }
                                                               },

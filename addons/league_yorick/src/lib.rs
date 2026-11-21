@@ -277,7 +277,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { r_pct: 3, g_t: 1800, w_r: 30000, w_half: 10000, w_t: 240, w_delay: 45 }
+        Self { r_pct: 3, g_t: 1800, w_r: 30000, w_half: 10000, w_t: 120, w_delay: 45 }
     }
 }
 

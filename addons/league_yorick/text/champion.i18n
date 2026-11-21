@@ -2,9 +2,9 @@
   "zh-hans": {
     "description": {
       "league_yorick": {
-        "attack": "【附加包】抡铲。<#ff9028ff>牧魂人<>：临终仪式打英雄或打死单位挖坟，附近每死几个敌人也挖一座（最多4座）；满3座时下一铲每座坟唤醒1只<#ff9028ff>雾行者<>，自己追咬<#ffb900ff>10秒<>（每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>，可被击杀）。<#ff9028ff>暗灵缠身<>：自动施放，<#ffb900ff>0.75秒<>后立起一圈真正的墙<#ffb900ff>4秒<>，只挡敌人。",
+        "attack": "【附加包】抡铲。<#ff9028ff>牧魂人<>：临终仪式打英雄或打死单位挖坟，附近每死几个敌人也挖一座（最多4座）；满3座时下一铲每座坟唤醒1只<#ff9028ff>雾行者<>，自己追咬<#ffb900ff>10秒<>（每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>，可被击杀）。<#ff9028ff>暗灵缠身<>：自动施放，<#ffb900ff>0.75秒<>后立起一圈真正的墙<#ffb900ff>2秒<>，只挡敌人。",
         "skill": "【附加包】下一铲造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害，回复10–76 + 已损失生命6–10%（按等级；打英雄以外减半）。",
-        "skill2": "【附加包】扔出一团黑雾：范围内敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大生命6%物理伤害，护甲-25%持续<#ffb900ff>4秒<>，<#ef5350ff>减速<>30%；约里克、雾行者、室女朝被标记的英雄走时移速+18–30%，附近的雾行者扑过去。",
+        "skill2": "【附加包】扔出一团黑雾：范围内敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大生命5%物理伤害，护甲-25%持续<#ffb900ff>4秒<>，<#ef5350ff>减速<>30%；约里克、雾行者、室女朝被标记的英雄走时移速+18–30%，附近的雾行者扑过去。",
         "ult": "【附加包】召唤可被击杀的<#ff9028ff>迷雾室女<>和2–4只雾行者：室女跟着约里克<#ffb900ff>15秒<>，<#ffb900ff>每秒<>向最近的敌人放魂弹（<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>魔法），打中英雄留下标记，约里克普攻或黑雾打中这名英雄时额外造成最大生命2–3%魔法伤害；她附近有敌人阵亡就拉起雾行者。"
       }
     }
@@ -12,9 +12,9 @@
   "zh-hant": {
     "description": {
       "league_yorick": {
-        "attack": "【附加包】揮鏟。<#ff9028ff>亡魂牧人<>：臨終葬儀打英雄或打死單位挖墳，附近每死幾個敵人也挖一座（最多4座）；滿3座時下一鏟每座墳喚醒1隻<#ff9028ff>霧行者<>，自己追咬<#ffb900ff>10秒<>（每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>，可被擊殺）。<#ff9028ff>黯影屍陣<>：自動施放，<#ffb900ff>0.75秒<>後立起一圈真正的牆<#ffb900ff>4秒<>，只擋敵人。",
+        "attack": "【附加包】揮鏟。<#ff9028ff>亡魂牧人<>：臨終葬儀打英雄或打死單位挖墳，附近每死幾個敵人也挖一座（最多4座）；滿3座時下一鏟每座墳喚醒1隻<#ff9028ff>霧行者<>，自己追咬<#ffb900ff>10秒<>（每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>，可被擊殺）。<#ff9028ff>黯影屍陣<>：自動施放，<#ffb900ff>0.75秒<>後立起一圈真正的牆<#ffb900ff>2秒<>，只擋敵人。",
         "skill": "【附加包】下一鏟造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害，回復10–76 + 已損失生命6–10%（按等級；打英雄以外減半）。",
-        "skill2": "【附加包】丟出一團黑霧：範圍內敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大生命6%物理傷害，護甲-25%持續<#ffb900ff>4秒<>，<#ef5350ff>緩速<>30%；約瑞科、霧行者、少女朝被標記的英雄走時移速+18–30%，附近的霧行者撲過去。",
+        "skill2": "【附加包】丟出一團黑霧：範圍內敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大生命5%物理傷害，護甲-25%持續<#ffb900ff>4秒<>，<#ef5350ff>緩速<>30%；約瑞科、霧行者、少女朝被標記的英雄走時移速+18–30%，附近的霧行者撲過去。",
         "ult": "【附加包】召喚可被擊殺的<#ff9028ff>迷霧少女<>和2–4隻霧行者：少女跟著約瑞科<#ffb900ff>15秒<>，<#ffb900ff>每秒<>向最近的敵人放魂彈（<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>魔法），打中英雄留下標記，約瑞科普攻或黑霧打中這名英雄時額外造成最大生命2–3%魔法傷害；她附近有敵人陣亡就拉起霧行者。"
       }
     }
@@ -22,9 +22,9 @@
   "en": {
     "description": {
       "league_yorick": {
-        "attack": "[Add-on] Shovel blows. <#ff9028ff>Shepherd of Souls<>: graves (up to 4) from units Last Rites kills or champions it hits, and every few deaths near him; with 3+ the next raises a <#ff9028ff>Mist Walker<> a grave, hunting on its own <#ffb900ff>10s<> (<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<> a bite, killable). <#ff9028ff>Dark Procession<> (auto): after <#ffb900ff>0.75s<> a real wall ring stands <#ffb900ff>4s<>, blocking enemies only.",
+        "attack": "[Add-on] Shovel blows. <#ff9028ff>Shepherd of Souls<>: graves (up to 4) from units Last Rites kills or champions it hits, and every few deaths near him; with 3+ the next raises a <#ff9028ff>Mist Walker<> a grave, hunting on its own <#ffb900ff>10s<> (<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<> a bite, killable). <#ff9028ff>Dark Procession<> (auto): after <#ffb900ff>0.75s<> a real wall ring stands <#ffb900ff>2s<>, blocking enemies only.",
         "skill": "[Add-on] His next blow deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage and heals him 10-76 + 6-10% of his missing health (by level; half on anything but a champion).",
-        "skill2": "[Add-on] Throws a globule of Black Mist: enemies hit take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> + 6% max health physical damage, lose 25% armour for <#ffb900ff>4s<> and are <#ef5350ff>slowed<> 30%; he, his walkers and the Maiden move 18-30% faster toward a marked champion, and walkers near it leap at it.",
+        "skill2": "[Add-on] Throws a globule of Black Mist: enemies hit take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> + 5% max health physical damage, lose 25% armour for <#ffb900ff>4s<> and are <#ef5350ff>slowed<> 30%; he, his walkers and the Maiden move 18-30% faster toward a marked champion, and walkers near it leap at it.",
         "ult": "[Add-on] Raises the killable <#ff9028ff>Maiden of the Mist<> and 2-4 walkers: she follows him for <#ffb900ff>15s<>, firing <#ffb900ff>every second<> at the nearest enemy (<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> magic) and marking champions; his attack or mist on a marked one deals 2-3% of its max health as magic damage. Enemies dying near her rise as walkers."
       }
     }
@@ -32,9 +32,9 @@
   "ko": {
     "description": {
       "league_yorick": {
-        "attack": "[확장] 삽 공격. <#ff9028ff>영혼의 길잡이<>: 최후의 의식이 챔피언을 치거나 유닛을 처치하면, 주변 적이 몇 번 죽을 때마다 무덤 생성(최대 4개), 3개 이상이면 다음 일격에 무덤마다 <#ff9028ff>안개 망령<>이 <#ffb900ff>10초<> 동안 스스로 물어뜯음(<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>, 처치 가능). <#ff9028ff>망자의 진<>: 자동 시전, <#ffb900ff>0.75초<> 후 진짜 벽 <#ffb900ff>4초<>, 적만 막음.",
+        "attack": "[확장] 삽 공격. <#ff9028ff>영혼의 길잡이<>: 최후의 의식이 챔피언을 치거나 유닛을 처치하면, 주변 적이 몇 번 죽을 때마다 무덤 생성(최대 4개), 3개 이상이면 다음 일격에 무덤마다 <#ff9028ff>안개 망령<>이 <#ffb900ff>10초<> 동안 스스로 물어뜯음(<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>, 처치 가능). <#ff9028ff>망자의 진<>: 자동 시전, <#ffb900ff>0.75초<> 후 진짜 벽 <#ffb900ff>2초<>, 적만 막음.",
         "skill": "[확장] 다음 공격이 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 체력 10-76 + 잃은 체력 6-10% 회복(레벨 비례; 챔피언 외 절반).",
-        "skill2": "[확장] 검은 안개: 범위 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> + 최대 체력 6% 물리 피해, 방어력 -25% <#ffb900ff>4초<>, 30% <#ef5350ff>둔화<>; 요릭·망령·처녀가 표식 챔피언 쪽으로 이동 속도 +18-30%, 근처 망령이 덮침.",
+        "skill2": "[확장] 검은 안개: 범위 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> + 최대 체력 5% 물리 피해, 방어력 -25% <#ffb900ff>4초<>, 30% <#ef5350ff>둔화<>; 요릭·망령·처녀가 표식 챔피언 쪽으로 이동 속도 +18-30%, 근처 망령이 덮침.",
         "ult": "[확장] 처치 가능한 <#ff9028ff>안개 처녀<>와 망령 2-4마리 소환: 처녀는 <#ffb900ff>15초<> 동안 요릭을 따라다니며 <#ffb900ff>매초<> 가장 가까운 적에게 영혼탄(<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> 마법), 맞은 챔피언에 표식: 요릭의 공격이나 안개가 닿으면 최대 체력 2-3% 마법 피해; 그녀 근처에서 죽은 적은 망령이 됨."
       }
     }
@@ -42,9 +42,9 @@
   "ja": {
     "description": {
       "league_yorick": {
-        "attack": "【拡張】シャベル攻撃。<#ff9028ff>魂の導き手<>：葬送でチャンピオンを打つかユニットを倒す、近くの敵が数体倒れるたびに墓（最大4）、3つ以上で次の一撃は墓1つに<#ff9028ff>ミストウォーカー<>1体が<#ffb900ff>10秒<>自ら噛みつく（<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>、倒せる）。<#ff9028ff>屍の列<>：自動、<#ffb900ff>0.75秒<>後に本物の壁の輪が<#ffb900ff>4秒<>、敵だけ阻む。",
+        "attack": "【拡張】シャベル攻撃。<#ff9028ff>魂の導き手<>：葬送でチャンピオンを打つかユニットを倒す、近くの敵が数体倒れるたびに墓（最大4）、3つ以上で次の一撃は墓1つに<#ff9028ff>ミストウォーカー<>1体が<#ffb900ff>10秒<>自ら噛みつく（<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>、倒せる）。<#ff9028ff>屍の列<>：自動、<#ffb900ff>0.75秒<>後に本物の壁の輪が<#ffb900ff>2秒<>、敵だけ阻む。",
         "skill": "【拡張】次の攻撃が<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、体力10–76 + 失った体力の6–10%回復（レベル比例；チャンピオン以外は半分）。",
-        "skill2": "【拡張】黒い霧：範囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大体力6%の物理ダメージ、物理防御-25%（<#ffb900ff>4秒<>）、30%<#ef5350ff>スロウ<>；ヨリック・ウォーカー・乙女は印の敵へ向かうと移動速度+18–30%、近くのウォーカーが飛びかかる。",
+        "skill2": "【拡張】黒い霧：範囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大体力5%の物理ダメージ、物理防御-25%（<#ffb900ff>4秒<>）、30%<#ef5350ff>スロウ<>；ヨリック・ウォーカー・乙女は印の敵へ向かうと移動速度+18–30%、近くのウォーカーが飛びかかる。",
         "ult": "【拡張】倒せる<#ff9028ff>霧の乙女<>とウォーカー2–4体を召喚：乙女は<#ffb900ff>15秒<>ヨリックに付き従い<#ffb900ff>毎秒<>最寄りの敵へ魂弾（<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>魔法）、当たったチャンピオンに印：ヨリックの攻撃か霧で最大体力2–3%の魔法ダメージ；近くで倒れた敵はウォーカーになる。"
       }
     }

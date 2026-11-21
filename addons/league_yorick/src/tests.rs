@@ -51,8 +51,8 @@ fn ring() -> Ring {
 #[test]
 fn the_ring_keeps_each_side_to_its_own() {
     let r = ring();
-    // it falls as the data's last piece (the fall, 15 + 30 x 7 ticks in) is half played
-    assert_eq!((r.line, r.inner, r.outer, r.until), (30_000.0, 20_000.0, 40_000.0, 235));
+    // it falls as the data's last piece (the fall, 15 + 30 x 3 ticks in) is half played
+    assert_eq!((r.line, r.inner, r.outer, r.until), (30_000.0, 20_000.0, 40_000.0, 115));
     // on the wall at the rise: within 210/225 of the line pulled in, the rest pushed out; clear of it left alone
     assert_eq!(wall::at_rise(&r, (C.0 + 10_000.0, C.1)), (true, None));
     assert_eq!(wall::at_rise(&r, (C.0 + 45_000.0, C.1)), (false, None));
@@ -315,7 +315,7 @@ fn the_wall_rises_where_the_mist_landed_and_holds_his_enemies_only() {
     run(&mut w, &mut me, 3);
     assert!(moved_to(&w, GAREN, t).is_none());
     let text = std::fs::read_to_string(log_file()).expect("the log");
-    for what in ["WALL ASK #", "WALL #", "ring at (340000,300000) line 30000 (inside within 20000, outside beyond 40000), 240 ticks",
+    for what in ["WALL ASK #", "WALL #", "ring at (340000,300000) line 30000 (inside within 20000, outside beyond 40000), 120 ticks",
                  "PUSHED #", "league_darius#2 IN on the wall line 25000", "melee_minion#3 OUT", "KEPT IN #", "league_garen#1 held at",
                  "LEAPT OUT #", "KEPT OUT #", "WALL DOWN #"] {
         assert!(text.contains(what), "missing {what:?} in the log");
