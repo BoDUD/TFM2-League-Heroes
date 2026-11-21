@@ -4060,6 +4060,70 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_adam",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_adam",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_adam_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_adam_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_lubu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_lubu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_lubu_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_lubu_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_thor",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_thor",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_thor_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_thor_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_zeus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_zeus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_zeus_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_zeus_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_alune",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_alune",

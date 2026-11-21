@@ -27,7 +27,10 @@ from build_yuumi import RIDE_LIFTS  # noqa: E402
 
 OUT = os.path.join(ROOT, "addons", "league_yuumi", "src", "lifts.rs")
 BAND = 6
-SIZE_TABLES = [os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), os.path.join(ROOT, "addons", "tft", "src", "hd.rs")]
+SIZE_TABLES = [os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), os.path.join(ROOT, "addons", "tft", "src", "hd.rs"),
+               os.path.join(ROOT, "addons", "ragnarok", "src", "hd.rs")]
+# 量头顶用的待机：宙斯大部分时间是膨胀的身体（每条命打满几拳就膨胀），按它量，猫才不会挡住他的脸
+IDLE_TAG = {"ragnarok_zeus": "mu_idle"}
 
 
 def sizes():
@@ -40,12 +43,12 @@ def sizes():
     return out
 
 
-def crown(fanim):
+def crown(fanim, tag="idle"):
     a = json.loads(open(fanim, "rb").read().decode("utf-8").lstrip("﻿"))["anims"]
-    if "idle" not in a:
+    if tag not in a:
         return None
     sh = Image.open(fanim.replace("#anim.fanim", "#sheet.png")).convert("RGBA")
-    d = a["idle"]["frames"][0]["data"]
+    d = a[tag]["frames"][0]["data"]
     x, y, w, h = (int(d[k]) for k in "xywh")
     op = np.asarray(sh.crop((x, y, x + w, y + h)))[..., 3] > 0
     mid = (w - 1) / 2
@@ -57,11 +60,11 @@ def crown(fanim):
 def main():
     drawn = sizes()
     rows = []
-    for pack in ("league", "tft"):
+    for pack in ("league", "tft", "ragnarok"):
         for f in sorted(glob.glob(os.path.join(ROOT, pack, "champions", "*#anim.fanim"))):
-            c = crown(f)
+            name = os.path.basename(f).split("#")[0]
+            c = crown(f, IDLE_TAG.get(name, "idle"))
             if c is not None:
-                name = os.path.basename(f).split("#")[0]
                 rows.append((name, int(round(c * drawn.get(name, 1.0)))))
     body = "\n".join(f'    ("{n}", {c}),' for n, c in rows)
     lifts = ", ".join(str(k) for k in RIDE_LIFTS)
