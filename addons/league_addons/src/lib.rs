@@ -150,9 +150,8 @@ mod recall_log;
 mod macro_log;
 #[path = "../../league_fight_log/src/lib.rs"]
 mod fight_log;
-#[allow(dead_code)] // items public in the add-on's own crate
-#[path = "../../league_ai_watch/src/lib.rs"]
-mod ai_watch;
+// league_ai_watch（只读的 AI 观察）2026-11-22 起不进合集：每个玩家每 tick 都在算，过日采样里占合集的 5%；要查 AI 时
+// 单独装它自己的 DLL。
 #[path = "../../league_macro/src/lib.rs"]
 mod macro_hook;
 #[path = "../../league_peel/src/lib.rs"]
@@ -578,7 +577,6 @@ fn init(host: &StableHost) -> StableMod {
     recall_log::register(host, &mut module);
     macro_log::register(host, &mut module);
     fight_log::register(host, &mut module);
-    ai_watch::register(host, &mut module);
     macro_hook::register(host, &mut module);
     peel::register(host, &mut module);
     lane::register(host, &mut module);
