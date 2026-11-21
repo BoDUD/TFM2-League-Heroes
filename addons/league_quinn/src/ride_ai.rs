@@ -358,7 +358,7 @@ fn busy(e: &StableEntity<'_, '_>) -> bool {
 }
 
 fn riding(e: &StableEntity<'_, '_>) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == RIDE)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == RIDE.as_bytes())
 }
 
 fn at(e: &StableEntity<'_, '_>) -> Pt {

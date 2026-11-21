@@ -291,7 +291,7 @@ fn buff_names(sim: &StableSim<'_>, id: usize) -> Vec<String> {
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()))
 }
 
 /// 一层（主包 gain() 的样子）：`p_st`（法术强度 +1）、`p_has`、待记的梯子再亮一级。
@@ -300,10 +300,14 @@ fn gain(sim: &mut StableSim<'_>, me: usize) {
     st.magic_power = 1;
     sim.add_buff(me, &st);
     let names = buff_names(sim, me);
-    if !names.iter().any(|n| *n == sm("p_has")) {
+    let p_has = sm("p_has"); // （名字先拼好一次：原来比每个名字都拼一次，2026-11-22 过日采样）
+    if !names.iter().any(|n| *n == p_has) {
         sim.add_buff(me, &BuffV1::named(&sm("p_has")));
     }
-    let lit: Vec<bool> = (1..=P_PEND).map(|k| names.iter().any(|n| *n == sm(&format!("pa{k}")))).collect();
+    let lit: Vec<bool> = (1..=P_PEND).map(|k| {
+        let want = sm(&format!("pa{k}"));
+        names.iter().any(|n| *n == want)
+    }).collect();
     if let Some(k) = next_rung(&lit) {
         sim.add_buff(me, &BuffV1::named(&sm(&format!("pa{k}"))));
     }
@@ -582,7 +586,7 @@ impl Dragon {
             (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| self.names.iter().any(|n| n == b.name())).collect()
         });
         let st_name = sm("p_st");
-        let st = have.iter().filter(|b| b.name() == st_name).count();
+        let st = have.iter().filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == st_name.as_bytes()).count();
         if st < self.kept_st {
             let gone = missing(&self.kept, &have);
             for b in &gone {

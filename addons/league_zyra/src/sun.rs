@@ -166,7 +166,7 @@ pub struct Sun {
 }
 
 fn count(sim: &StableSim<'_>, id: usize, name: &str) -> usize {
-    sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == name).count())
+    sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()).count())
 }
 
 impl Sun {
@@ -287,7 +287,7 @@ impl Sun {
                     continue;
                 }
                 let id = e.id();
-                let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| b.name() == SUNLIGHT).count();
+                let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == SUNLIGHT.as_bytes()).count();
                 let before = self.sunlit.iter().find(|s| s.0 == id).map(|s| s.1);
                 if before.is_some_and(|b| n > b) {
                     hits.extend(near(&self.plants, pos, UNIT_HIT).into_iter().map(|k| (k, format!("her sunlight on #{id}"))));

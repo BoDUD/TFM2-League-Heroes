@@ -37,3 +37,7 @@ R 虚空猛冲（只打被她伤过的英雄，目标被控住或有队友一起
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_reksai` 文件夹放进 `<游戏目录>\mods\`（文件夹里要有 `league_reksai.dll`、`mod.mod_info`、
    `mod.override_info`、`override\`、`text\`）。
 3. 进游戏，鼠标停在雷克塞的技能上，说明开头是【附加包】就说明副本生效了；打一局后看日志里的 FORM / HEAL / TUNNEL / RARM / RFIRE。
+
+## 0.1.3：过日更快（2026-11-22）
+
+玩法不变。has_buff 原来先把身上所有 buff 收进一个列表再找，现在一个个看、找到就停；看 buff 名按字节比。
