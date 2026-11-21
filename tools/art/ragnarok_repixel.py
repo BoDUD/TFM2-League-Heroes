@@ -321,6 +321,48 @@ def snap(sheet, n=64):
     return out
 
 
+def snap_to(sheet, pal, mask=None):
+    """不透明像素（mask 给了就只管 mask 里的）换成 pal 里最近的颜色。"""
+    out = sheet.copy()
+    op = sheet[..., 3] > 0
+    if mask is not None:
+        op &= mask
+    cols = sheet[op][:, :3].astype(int)
+    snapped = np.empty_like(cols)
+    for i in range(0, len(cols), 20000):
+        d = ((cols[i:i + 20000, None, :] - pal[None]) ** 2).sum(-1)
+        snapped[i:i + 20000] = pal[np.argmin(d, 1)]
+    out[op, :3] = snapped
+    return out
+
+
+def snap_delivery(src, out, bodies, fx, body_colours=64, fx_colours=32):
+    """Codex 直接按两倍密度交的一个英雄（小次郎以后都这样：一格 256、脚底 (128, 232)）收色，tools/art/kojiro_fix.py 的做法：
+    几张身体图合起来一套 body_colours 色的调色板（换形态时颜色不跳），特效图每组 fx_colours 色。
+    src 是 Codex 的 runtime/sprites（只读），返回 [(out 里的路径前缀, sheet, fanim)] 给 run()。"""
+    def read(stem):
+        sheet = np.asarray(Image.open(os.path.join(src, stem + "#sheet.png")).convert("RGBA"))
+        return sheet, json.load(open(os.path.join(src, stem + "#anim.fanim"), encoding="utf-8-sig"))
+
+    outs = []
+    sheets = [read(s) for s in bodies]
+    pool = np.concatenate([s[s[..., 3] > 0][:, :3] for s, _ in sheets])
+    pal = median_cut(pool, body_colours)
+    for stem, (sheet, fanim) in zip(bodies, sheets):
+        outs.append((os.path.join(out, stem), snap_to(sheet, pal), fanim))
+    sheet, fanim = read(fx)
+    done = sheet.copy()
+    for a in fanim["anims"].values():
+        mask = np.zeros(sheet.shape[:2], bool)
+        for f in a["frames"]:
+            x, y, w, h = (int(f["data"][k]) for k in "xywh")
+            mask[y:y + h, x:x + w] = True
+        cols = sheet[mask & (sheet[..., 3] > 0)][:, :3]
+        done = snap_to(done, median_cut(cols, fx_colours), mask)
+    outs.append((os.path.join(out, fx), done, fanim))
+    return outs
+
+
 def sheet_of(frames, codex, up):
     """照 Codex 那张图的排法放大 up 倍：每格换成重出的帧（frames[动作][第几帧]），#anim.fanim 的坐标跟着乘 up。"""
     old = Image.open(codex + "#sheet.png")

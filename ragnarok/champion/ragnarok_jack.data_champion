@@ -1,0 +1,590 @@
+{
+  "id": "ragnarok_jack",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_jack:colour",
+    "params": {
+      "p_hp": 50,
+      "p_dmg": 30
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_jack",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_jack_skill",
+    "asset/ragnarok/icons/ragnarok_jack_skill2",
+    "asset/ragnarok/icons/ragnarok_jack_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 900,
+    "defence": 20,
+    "magic_resistance": 15,
+    "move_speed": 930,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 20,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 6,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_jack.attack",
+    "duration": 22,
+    "cooltime": 60,
+    "start_timing": 9,
+    "cancelable": true,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ragnarok_jack_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "ragnarok_jack_a_knife",
+          "speed": 9000,
+          "y_offset": -9500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "ragnarok_jack_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_jack_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_jack.skill",
+    "duration": 41,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 52000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_jack_q"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 58000,
+                  "range": 820
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 80,
+                  "attack_ratio": 105,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "ragnarok_jack_q_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    },
+                    "move_speed_mult": -25
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "ragnarok_jack_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "TargetSfx",
+              "name": "ragnarok_jack_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_jack.skill2",
+    "duration": 43,
+    "cooltime": 780,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_jack_e"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "ragnarok_jack_e_guard",
+                "duration": {
+                  "Time": {
+                    "tick": 18
+                  }
+                },
+                "damaged_reduce": 40
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_jack_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_jack_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "MoveBack",
+                            "speed": 3500,
+                            "tick": 10
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 90
+                              }
+                            ]
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_jack_e_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 270
+                                }
+                              },
+                              "attack_speed_mult": 40
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_jack_e_back"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "MoveBack",
+                            "speed": 3500,
+                            "tick": 10
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 90
+                              }
+                            ]
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_jack_e_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 270
+                                }
+                              },
+                              "attack_speed_mult": 40
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_jack_e_back"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_jack_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 28,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_jack_e_close"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_jack.ult",
+    "duration": 48,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 62000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_jack_r1"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "ragnarok_jack_r_glint"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 20,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_jack_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_jack_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_jack_r2"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "ragnarok_jack_r_knife",
+                        "speed": 14000,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 200,
+                                  "attack_ratio": 180,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_jack_r_mark",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    },
+                                    "damaged_amplify": 20
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_jack_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "ragnarok_jack_r_hit"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_jack_r2"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "ragnarok_jack_r_knife",
+                        "speed": 14000,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 200,
+                                  "attack_ratio": 180,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_jack_r_mark",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    },
+                                    "damaged_amplify": 20
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_jack_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "ragnarok_jack_r_hit"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_jack_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "ragnarok_jack_a_knife",
+      "anim": "asset/ragnarok/effects/ragnarok_jack_proj",
+      "tag": "knife_flight",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "ragnarok_jack_r_knife",
+      "anim": "asset/ragnarok/effects/ragnarok_jack_proj",
+      "tag": "knife_flight",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_jack_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_jack_fx",
+      "tag": "knife_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_jack_q_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_jack_fx",
+      "tag": "knife_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_jack_r_glint",
+      "anim": "asset/ragnarok/effects/ragnarok_jack_fx",
+      "tag": "emotion_glint",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_jack_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_jack_fx",
+      "tag": "dear_god",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

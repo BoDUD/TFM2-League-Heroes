@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "ragnarok_jack_sfx_fan_release",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.22,
+      "clip": "ragnarok_jack_sfx_metal_stow",
+      "volume": 0.4
+    }
+  ]
+}

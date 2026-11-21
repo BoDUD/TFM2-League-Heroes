@@ -1,0 +1,187 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/2nd/special/countdown1/",
+  "method": "Short cuts from the credited single-character announcement. Original ambience retained.",
+  "clips": [
+    {
+      "id": "voice_principle",
+      "kind": "official_ja",
+      "title": "展示 · 我反对人类灭亡",
+      "speaker": "小西克幸",
+      "range_seconds": [
+        0.47,
+        3.89
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645713305766428672",
+      "duration_seconds": 3.42,
+      "wav_sha256": "45dcf7c775f5b5ab213ed681e45134edeafd3c67481b8876c11c9e6486b1e70c",
+      "mp3_sha256": "fb778cffbef43d1e89c1c5646aec03a74de192184a151174938f6f0ab223eabe"
+    },
+    {
+      "id": "voice_ragnarok",
+      "kind": "official_ja",
+      "title": "展示 · 既然诸神黄昏已经开始",
+      "speaker": "小西克幸",
+      "range_seconds": [
+        5.43,
+        9.03
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645713305766428672",
+      "duration_seconds": 3.6,
+      "wav_sha256": "335dd335b5807ab716e081d59f001db015c588bf6c38f8d2062fb9359d400616",
+      "mp3_sha256": "63aad75be68d81450706049c3b4cde88d99a69fb1aaee549860badd220ad17c3"
+    },
+    {
+      "id": "voice_representative",
+      "kind": "official_ja",
+      "title": "展示 · 作为神的代表而战",
+      "speaker": "小西克幸",
+      "range_seconds": [
+        10.01,
+        14.88
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645713305766428672",
+      "duration_seconds": 4.87,
+      "wav_sha256": "3d45db7d2b1eb3f32159113d11ff131cdc82009944b02b84effd6e3dfc0be297",
+      "mp3_sha256": "88416406d90ad6dc9f8dd65d2d3d97cabd7b7d3d23a2adcd83dc5426b88090e8"
+    },
+    {
+      "id": "voice_determination",
+      "kind": "official_ja",
+      "title": "迎战 · 打到彻底取胜",
+      "speaker": "小西克幸",
+      "range_seconds": [
+        15.76,
+        17.47
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645713305766428672",
+      "duration_seconds": 1.71,
+      "wav_sha256": "dbc9b06f8c3222cd5eb37cc8bfdca8ae723c870126f8e0c36d6d67da02e5dac2",
+      "mp3_sha256": "ed1bdb9b2f584c750236a1d0418dbaae1081790817ee78faac17ccd43ab4f765"
+    },
+    {
+      "id": "voice_humanity",
+      "kind": "official_ja",
+      "title": "展示 · 要求拯救人类",
+      "speaker": "小西克幸",
+      "range_seconds": [
+        19.68,
+        23.9
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645713305766428672",
+      "duration_seconds": 4.22,
+      "wav_sha256": "b5b9767091a693c204b7596b04d5027f58e549028cb438ce30c3f382ce743e64",
+      "mp3_sha256": "2cd38ef0c724b3f0e2e1ad13e9ccd00d220bac16472d1c3b8407f6a6b384ba6c"
+    },
+    {
+      "id": "voice_entry",
+      "kind": "official_ja",
+      "title": "入场 · 我始终站在正义一边",
+      "speaker": "小西克幸",
+      "range_seconds": [
+        36.2,
+        39.97
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645713305766428672",
+      "duration_seconds": 3.77,
+      "wav_sha256": "3737cdbf3d8abb7489b0467979c8645d009267c5c57139ccf36c6c90588f694a",
+      "mp3_sha256": "31a1befa4c9bf66c9cebcb5e199a12c84488c08882c54b2f93ae9a5f85ebf98d"
+    },
+    {
+      "id": "sfx_club_swing",
+      "kind": "original_foley",
+      "title": "巨棒 · 挥击",
+      "duration_seconds": 0.31,
+      "wav_sha256": "40b4cfd033a6a36e7551c565bc4e9c6d453ef9ad29932f155e531b61e1d26f75",
+      "mp3_sha256": "624dda234b89a166a9708278dbc7ac99b589f1a9dc1ff231c151f7ca7814a2ad"
+    },
+    {
+      "id": "sfx_club_hit",
+      "kind": "original_foley",
+      "title": "巨棒 · 命中",
+      "duration_seconds": 0.24,
+      "wav_sha256": "792af2731ee057204006fa0cdfdfc9821a32c6e5ffc97ac2f9988b3db083d09a",
+      "mp3_sha256": "f2ae523e8d80142609c9411532e4a3bafbb721ba2d09bc4c3b76e276638da99a"
+    },
+    {
+      "id": "sfx_lion_wave",
+      "kind": "original_foley",
+      "title": "狮子御业 · 出招",
+      "duration_seconds": 0.4,
+      "wav_sha256": "9431bd5b653bbb313d1786fdcc9545b77be088af720ed754239bf8159380adbb",
+      "mp3_sha256": "6f92167c1443464c67c2036491b6e6b12d32a537e391474ab0d9da0d951e6b26"
+    },
+    {
+      "id": "sfx_club_slam",
+      "kind": "original_foley",
+      "title": "巨棒 · 砸地",
+      "duration_seconds": 0.36,
+      "wav_sha256": "d8ae2fb4f70d5746314e2bd7faa60c47c77a77f5d87fc91fe4cefc4e304d88a5",
+      "mp3_sha256": "c83ecfbebbb1c9e34bfe2c719033ca7346522f511c80ca29dfd85c32f03bad41"
+    },
+    {
+      "id": "sfx_club_drop",
+      "kind": "original_foley",
+      "title": "倒地 · 巨棒落地",
+      "duration_seconds": 0.3,
+      "wav_sha256": "8c18a8d118447af3c3ac3de97b4bbde6a2fba841cbea8a35b7f9321251e96e21",
+      "mp3_sha256": "d314d750428b02fc0d2e00eb4c5ef902ed9f56dd771dc3674ebd4a38d14589a4"
+    },
+    {
+      "id": "sfx_awakening",
+      "kind": "original_foley",
+      "title": "御业 · 起势",
+      "duration_seconds": 0.49,
+      "wav_sha256": "ef6cc507b5829ef9556541f0489088008f769e28539240193181bfce552c603d",
+      "mp3_sha256": "8f5abb5381425d10c49e730c86fffc8f01f87e6e78e1a13ce1a7c600e0ecd294"
+    },
+    {
+      "id": "sfx_form_change",
+      "kind": "original_foley",
+      "title": "御业 · 变身",
+      "duration_seconds": 0.6,
+      "wav_sha256": "7373f290c4548eab5e6b86c40a5377f0813d63a15bed55c1f23f97245b3b42ca",
+      "mp3_sha256": "3b07d488f1d07bcaccdb866dff4623a47eede0fa6b5e53f05d8d1c7957d56482"
+    },
+    {
+      "id": "sfx_fist_whoosh",
+      "kind": "original_foley",
+      "title": "空手 · 拳风",
+      "duration_seconds": 0.22,
+      "wav_sha256": "6ad5c7b5f7443d99b473e5114fe44c92d4181749c5a24eef2ad0dc18f59fbaa4",
+      "mp3_sha256": "6aed55ea0435728c03409d2106a3605aa45f9a5ed5770d1d5c15d7e6ea6f5488"
+    },
+    {
+      "id": "sfx_fist_hit",
+      "kind": "original_foley",
+      "title": "空手 · 命中",
+      "duration_seconds": 0.21,
+      "wav_sha256": "71c1e16df139d7f1f88dc92ce1c78d6093d1c6f68926e1023fba7cb1fdf234e9",
+      "mp3_sha256": "e9d578b07d8755b1abbf87576d28dfdb3054fca041c7742332c8b261dad393a1"
+    },
+    {
+      "id": "sfx_fist_slam",
+      "kind": "original_foley",
+      "title": "空手 · 重拳落地",
+      "duration_seconds": 0.32,
+      "wav_sha256": "cd6dcce90b3581e3880f4f37a26361ede4c36af9bd394788ee31e465febe06a6",
+      "mp3_sha256": "c6bfedcd96626612827c476edc45429eb0acfb371636ef65344b6e23af26ff3c"
+    },
+    {
+      "id": "sfx_guard",
+      "kind": "original_foley",
+      "title": "御业 · 护势",
+      "duration_seconds": 0.39,
+      "wav_sha256": "3e83c60e0a7c37f6f974e95aa009df6116df31ebe6171ad1ce286cd14a78fb5e",
+      "mp3_sha256": "a7e20225f43d9409a98ef2a0abc294f0dec35e3898a947c8cf9572bd51f43b7e"
+    },
+    {
+      "id": "sfx_body_drop",
+      "kind": "original_foley",
+      "title": "倒地 · 身体接地",
+      "duration_seconds": 0.28,
+      "wav_sha256": "1794737a66817aa85956fb4986ad71532d3f03570f6628e812e034f44032d36b",
+      "mp3_sha256": "f6d03a7492e6a66540f8fbb4770df8cfff05620929ea1f9c04700a8aafb6b9fb"
+    }
+  ]
+}

@@ -83,6 +83,34 @@
         "x": 0,
         "y": -12
       }
+    },
+    "ragnarok_heracles": {
+      "face": {
+        "x": 1,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -7
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "ragnarok_jack": {
+      "face": {
+        "x": 2,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
     }
   }
 }

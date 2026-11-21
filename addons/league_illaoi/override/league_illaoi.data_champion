@@ -4076,6 +4076,38 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_heracles",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_heracles",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_heracles_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_heracles_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_jack",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_jack",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_jack_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_jack_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_ragnarok_kojiro",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_kojiro",

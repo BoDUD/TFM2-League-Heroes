@@ -16,9 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.5.0"
+VERSION = "0.6.0"
 NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro"]
+HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
         "fights: Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
         "own code, ragnarok.dll); Thor's Mjolnir flies out and back to his hand and awakens on every third skill; Zeus swells into his muscle "
@@ -26,7 +26,11 @@ DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits 
         "dodges it and hits back with a copy, down to the Fist That Transcends Time; Poseidon needs no one - alone he "
         "hits harder and takes less (the pack's own code), and his trident floods a target for forty days and nights; "
         "Sasaki Kojiro, the greatest loser in history, learns every foe he strikes and hits them harder each time (the "
-        "pack's own code), turns his blade back with Swallow Return and draws two swords for Niten Ganryu. "
+        "pack's own code), turns his blade back with Swallow Return and draws two swords for Niten Ganryu; "
+        "Heracles, the god of justice who fights for humanity, spreads the brand of his Twelve Labors with every "
+        "skill (the pack's own code) and makes his pact with Cerberus for his ultimate; Jack the Ripper sees the "
+        "colour of every heart and strikes the frightened harder (the pack's own code), slips into the London fog "
+        "under an umbrella his gloves made divine and throws a knife that Dear God made a divine weapon. "
         "Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes and Teamfight Tactics "
         "Heroes packs. Pixel art, effects, icons and sound effects made for this pack; Japanese voice lines from the "
         "official promotional recordings. Non-commercial fan project; Record of Ragnarok (c) its creators and "

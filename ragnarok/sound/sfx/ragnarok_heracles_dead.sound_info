@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.349,
+      "clip": "ragnarok_heracles_sfx_club_drop",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.829,
+      "clip": "ragnarok_heracles_sfx_body_drop",
+      "volume": 0.5
+    }
+  ]
+}
