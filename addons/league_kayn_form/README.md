@@ -103,3 +103,13 @@ python addons/league_kayn_form/make_override.py      # 主包的凯隐或别的�
 `each_set_follows_its_own_presim` / `a_full_list_drops_only_its_oldest_set`，`tests/wiring.rs` 第 6 段：第一局的 presim 定下暗裔，
 第一局的画面照着变，第二局的画面（另一个种子）不照着变、按自己的命中攒出影流。下一局看：画面的 `ready (as the server decided at t=…)`
 只出现在同一局，别的局的画面是自己的 `DARKIN ready` / `SHADOW ready`。
+
+## 0.3.11：过日更快（2026-11-22）
+
+玩法不变（用户：「为什么游戏加载过日速度这么慢」→ 第二轮）。过日时别的比赛里的凯隐每 tick 都在白做几件事：
+
+- 掠影步穿墙（`wall.rs`）每 tick 先把三张地图的墙格从字符串重建一遍、把场上活着的单位收一遍，然后才看他在不在掠影步。
+  现在不在掠影步、也没有正在走的路时直接返回（原来算完也只是把两样本来就空的记录清掉、返回「不在墙里」）；墙格只建一次。
+- 穿墙的暗影雾、溅开的名字原来每 tick 拼两个字符串，换成常量；暗裔、影流两种形态 buff 一遍看完（原来扫两遍）。
+- 看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查，也不先把身上所有 buff 收进一个列表再找。
+- 测试：`wall_names_are_the_old_formats`（常量和原来拼出来的一样）、`buff_names_compare_as_before`。

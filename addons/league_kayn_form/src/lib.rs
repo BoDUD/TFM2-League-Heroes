@@ -234,12 +234,15 @@ fn decide(match_id: u64, seed: u64, me: usize, f: Form, tick: usize) {
 
 // ===================== 被动 =====================
 
-fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
-    sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect())
+/// buff 的名字（字节；比的都是 ASCII 常量，不用每个都做 UTF-8 检查）。
+fn name_of(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
 }
 
+/// 身上有没有这个 buff：一个个看，找到就停（2026-11-22 过日采样：原来先把身上所有 buff 收进一个 Vec 再找，
+/// 每 tick 好几次）。
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    buffs(sim, id).iter().any(|b| b.name() == name)
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| name_of(&b) == name.as_bytes()))
 }
 
 /// 从被动参数（排好序的整数 JSON，如 `{"darkin_need":14,"shadow_need":14}`）读一个值。
@@ -299,33 +302,41 @@ impl Orbs {
     }
 }
 
+/// 穿墙的暗影雾、进出墙的溅开：没有形态、暗裔（`_d`）、影流（`_s`）三种（wall_fx 按下标取）。
+const WALL_AURA: [&str; 3] = ["league_kayn_in_wall", "league_kayn_in_wall_d", "league_kayn_in_wall_s"];
+const WALL_BURST: [&str; 3] = ["league_kayn_wall_burst", "league_kayn_wall_burst_d", "league_kayn_wall_burst_s"];
+
 impl Orbs {
     /// 穿墙的画面（Codex 画的，PROMPTS_WALL.md）：在墙格里时身上挂这个形态的暗影雾（`league_kayn_in_wall{,_d,_s}`，
     /// 进墙时挂一次、出墙时去掉，动画连着循环），进墙、出墙那一刻各播一次暗影溅开（`league_kayn_wall_burst{,_d,_s}`）。
     /// 两个画面只登记在本包的凯隐副本里（make_override.py）。
     fn wall_fx(&mut self, sim: &mut StableSim<'_>, me: usize, in_wall: bool) {
-        let suf = if has_buff(sim, me, FORM_D) {
-            "_d"
-        } else if has_buff(sim, me, FORM_S) {
-            "_s"
-        } else {
-            ""
-        };
-        let aura = format!("league_kayn_in_wall{suf}");
+        // 两种形态 buff 一遍看完（原来扫两遍）；画面的名字是常量（原来每 tick 拼两个字符串）
+        let (mut d, mut s) = (false, false);
+        if let Some(e) = sim.get_entity(me) {
+            for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
+                let n = name_of(&b);
+                d |= n == FORM_D.as_bytes();
+                s |= n == FORM_S.as_bytes();
+            }
+        }
+        let k = if d { 1 } else if s { 2 } else { 0 };
+        let aura = WALL_AURA[k];
         if in_wall != self.was_in_wall {
-            let burst = format!("league_kayn_wall_burst{suf}");
-            sim.play_view_effect(&burst, me, &InputTargetV1::target(me), 0, 0, 0);
+            sim.play_view_effect(WALL_BURST[k], me, &InputTargetV1::target(me), 0, 0, 0);
         }
         if in_wall {
-            for other in ["", "_d", "_s"].iter().filter(|o| **o != suf) {
-                sim.entity_remove_buff(me, &format!("league_kayn_in_wall{other}"));
+            for (j, other) in WALL_AURA.iter().enumerate() {
+                if j != k {
+                    sim.entity_remove_buff(me, other);
+                }
             }
-            if !has_buff(sim, me, &aura) {
-                sim.add_buff(me, &BuffV1::timed(&aura, 600));
+            if !has_buff(sim, me, aura) {
+                sim.add_buff(me, &BuffV1::timed(aura, 600));
             }
         } else if self.was_in_wall {
-            for other in ["", "_d", "_s"] {
-                sim.entity_remove_buff(me, &format!("league_kayn_in_wall{other}"));
+            for other in WALL_AURA {
+                sim.entity_remove_buff(me, other);
             }
         }
         self.was_in_wall = in_wall;
@@ -360,7 +371,7 @@ impl StablePassive for Orbs {
             if !e.is_champion() || e.team() == team {
                 continue;
             }
-            let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| b.name() == TAG).count();
+            let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| name_of(b) == TAG.as_bytes()).count();
             if n == 0 {
                 continue;
             }
@@ -455,6 +466,28 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn wall_names_are_the_old_formats() {
+        // 原来每 tick 拼的 format!("league_kayn_in_wall{suf}") / format!("league_kayn_wall_burst{suf}")
+        for (k, suf) in ["", "_d", "_s"].iter().enumerate() {
+            assert_eq!(WALL_AURA[k], format!("league_kayn_in_wall{suf}"));
+            assert_eq!(WALL_BURST[k], format!("league_kayn_wall_burst{suf}"));
+        }
+    }
+
+    #[test]
+    fn buff_names_compare_as_before() {
+        // 原来用 b.name() == 常量；按字节比给同样的答案（常量都是非空 ASCII；不是 UTF-8 的名字 name() 给 ""）
+        let mut garbled = BuffV1::named(FORM_D);
+        garbled.name_buf[2] = 0xFF;
+        let buffs = [BuffV1::named(TAG), BuffV1::named(FORM_D), BuffV1::named(FORM_S), BuffV1::named(""), garbled];
+        for b in &buffs {
+            for want in [TAG, FORM_D, FORM_S, wall::GHOST, WALL_AURA[1]] {
+                assert_eq!(name_of(b) == want.as_bytes(), b.name() == want, "{:?} vs {want}", b.name());
+            }
+        }
+    }
 
     #[test]
     fn each_set_follows_its_own_presim() {
