@@ -38,6 +38,13 @@
 
 ## 最近的改动
 
+2026-11-22（联盟英雄，约里克和技能栏层数）：
+
+- **约里克的暗灵缠身立起一圈墙**（附加包 league_yorick 0.3.0，用户：「之前玩掘墓我也发现没完美还原 没有那个地形框出来的技能 其他我不知道 你再核对一下」）：以前 W 折在唤醒里，只是 1 秒定身加一张画。现在照英雄联盟拆成单独的技能（没有技能格，控制器放，冷却 20 秒）：铲子插地，0.75 秒后在那名英雄脚下立起一圈 18 个小鬼的墙（[`tools/art/yorick_wall_ring.py`](tools/art/yorick_wall_ring.py) 用他自己鬼手 `w_hit` 里的小鬼拼的：裂地冒头、站起、扭动、塌掉，画在单位下面）。附加包里是真的墙：只挡敌人（英雄、小兵、野怪、召唤物），立墙时墙线上的照英雄联盟拉进圈里或推出去，走路碰墙贴着墙滑，冲刺放回，闪现和无视地形的放过去；被挡住的敌方英雄顶着墙 2 / 3 / 4 下就打塌（按等级），最多立 2 秒（英雄联盟 4 秒，经典引擎模拟里 4 秒击杀差高 0.8）。主包的数据造不了地形，用两圈移速把英雄关在圈里 1 秒。其余照英雄联盟核对着改：坟最多 4 座，3 座起唤醒、每座坟一只雾行者（附加包里附近别的敌人每死第 N 个也挖一座）；哀伤之雾按目标最大生命 5%，打中后约里克加速（附加包：他、雾行者、室女朝被标记的英雄走时加速）；室女跟着约里克、放魂弹挂标记，他下一次普攻或黑雾打中那名英雄时打最大生命 3%（附加包：2 / 2.5 / 3% 魔法伤害，带 2 / 3 / 4 只雾行者，从附近的尸体拉起雾行者）；临终仪式（附加包）按已损失生命回复。唤醒不再定身；连招都留着，W → E 每 120 秒最多一次。技能栏 Q 图标上显示坟数。经典引擎模拟（上路，每组 864 局）：改前 +0.67 / +0.55，主包 +0.52 / +0.81，附加包副本 +0.88 / +0.45。塞拉斯副本里偷来的约里克大招跟着重新生成。游戏里还没看过。
+- **技能栏的层数格补全**（用户：「还有很多叠层的技能在技能列表里看不到层数 想个办法解决一下」）：比赛里英雄信息面板三个技能图标右边的层数格以前只有 27 个英雄有。这次每个英雄的技能和附加包都对了一遍，英雄联盟在图标上显示层数、我们的技能里也做了的都进了表（[`tools/kit/stack_nums.py`](tools/kit/stack_nums.py)）：联盟 90 个英雄（102 行；一个英雄几行时显示最大的那个）、云顶 10 个英雄（`tft.dll` 用同一份 `stacks.rs`，云顶包第一次挂比赛钩子）。新的数法：同一组 buff 里取最大的、加起来、按名字前缀数（附加包挂在敌人身上带施法者编号的）、数敌方英雄身上的（卡莎的电浆、布兰德的烈焰这类，取最多的那个）、弹药型技能还剩几次（提莫的蘑菇、库奇的导弹、米利欧的技能2：游戏自己的图标只画冷却秒数）、按一项数值折算。只有附加包原生代码里才有的数，在 league_ahri 0.1.3、league_marks 0.1.9（卡莎）、league_locke 0.1.5、league_zaahen 0.2.2 里照普朗克 / 维克托挂了梯子。英雄数据除了层数格都没变（124 份逐份核对）。
+
+`league.dll` 0.9.122（层数表和约里克的特效图）、主包 0.449.0、`tft.dll` 0.70.0、云顶包 0.74.0。旧存档里的约里克和几个附加包英雄是旧副本，要刷新存档里的英雄。
+
 2026-11-22（联盟英雄，过日更快第二轮）：
 
 - **又改掉几处每 tick 白做的事，结果不变**（用户：「做第二轮」）：
@@ -414,7 +421,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_urgot.png" width="32"> | [厄加特](docs/heroes/league_urgot.md)<br>Urgot | 上单 | 腐蚀电荷 · 鄙弃 · 大招 超越死亡的恐惧 | [厄加特附加包](addons/league_urgot/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_vladimir.png" width="32"> | [弗拉基米尔](docs/heroes/league_vladimir.md)<br>Vladimir | 上单 | 被动 血色契约 · 鲜血转换 · 血之潮汐 · 大招 血之瘟疫 | [弗拉基米尔残血血池附加包](addons/league_vladimir_pool/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_volibear.png" width="32"> | [沃利贝尔](docs/heroes/league_volibear.md)<br>Volibear | 上单 | 擂首一击 · 霹天雳地 · 大招 天声震落 | [沃利贝尔附加包](addons/league_volibear/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包：坟照英雄联盟挖、雾行者和室女是真的单位](addons/league_yorick/README.md) | PPU 1.75 |
+| <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包：真的暗灵缠身墙、坟和唤醒照英雄联盟、室女跟着他、雾行者和室女是真的单位](addons/league_yorick/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_zaahen.png" width="32"> | [亚恒](docs/heroes/league_zaahen.md)<br>Zaahen | 上单 | 暗裔长刀 · 厄影回锋 · 大招 大赦 | [亚恒附加包](addons/league_zaahen/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/tft_brock.png" width="32"> | [岩宝](docs/heroes/tft_brock.md)<br>Brock（tft 包） | 上单 | 巨岩投掷 · 苔藤缠握 · 大招 震地猛击 | — | PPU 1.16 |
 | <img src="docs/heroes/img/tft_elderdragon.png" width="32"> | [远古巨龙](docs/heroes/tft_elderdragon.md)<br>Elder Dragon（tft 包） | 上单 | 烈焰吐息 · 龙翼风暴 · 大招 绝伦火热 | — | PPU 2.84 |

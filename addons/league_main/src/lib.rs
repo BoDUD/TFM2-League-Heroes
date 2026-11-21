@@ -122,7 +122,7 @@ mod stack_rows {
 }
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.121";
+const VERSION: &str = "0.9.122";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

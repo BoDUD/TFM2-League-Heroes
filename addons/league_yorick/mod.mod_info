@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.360.0"
+      "version": ">=0.449.0"
     }
   ],
   "description": "Test build of Yorick as in League (needs League of Legends Heroes): replaces the main pack's Yorick with League's rules the data cannot read. 0.3.0 (League's current Yorick): Dark Procession is a real ring of wall for enemies only - those on its line pulled in or pushed out, walkers slide along it, blinks and terrain-ignoring dashes pass, and enemy champions pressing it break it; up to 4 graves, from Last Rites kills and every Nth death near him, one Mist Walker a grave; Last Rites heals by his missing health; he, his walkers and the Maiden move faster toward a champion the mist marked; the Maiden follows him, fires bolts that mark champions, his next attack or mist on the marked one deals a share of its max health as magic damage, and she raises walkers from the dead. The Mist Walkers and the Maiden are units through the mod API's spawn_unit (0.2.0); a host that gives no unit keeps the main pack's pictures. Needs the main pack's sheets league/champions/league_yorick_walker and league_yorick_maiden. Other champions are untouched. Writes a log for testing.",
