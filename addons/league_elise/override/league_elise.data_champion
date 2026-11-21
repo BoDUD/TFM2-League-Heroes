@@ -2886,5 +2886,6 @@
       "e_w": 2500,
       "r_range": 75000
     }
-  }
+  },
+  "stack_skill_index": 0
 }

@@ -4492,5 +4492,6 @@
       "low": 50,
       "every": 2
     }
-  }
+  },
+  "stack_skill_index": 0
 }

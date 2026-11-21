@@ -619,6 +619,7 @@
     }
   ],
   "view_buffs": [],
+  "stack_skill_index": 2,
   "passive": {
     "passive_ref": "league_teemo_shrooms:shrooms",
     "params": {}

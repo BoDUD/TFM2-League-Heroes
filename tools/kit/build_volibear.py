@@ -36,6 +36,7 @@ import argparse
 import json
 import os
 import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -332,6 +333,9 @@ def nodes(o):
 # every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
 # (tools/kit/range_buffs.py, 2026-11-07)
 build = range_buffs.wrap(build)
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def main():

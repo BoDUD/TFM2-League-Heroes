@@ -55,7 +55,7 @@
 
 ### 阿狸附加包
 
-[阿狸附加包](../../addons/league_ahri/README.md)：`league_ahri` v0.1.2
+[阿狸附加包](../../addons/league_ahri/README.md)：`league_ahri` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

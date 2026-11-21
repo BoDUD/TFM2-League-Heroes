@@ -30,6 +30,7 @@ its death sound and logs Scarlet Buff's full stacks (--plain: no passive, for th
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -262,6 +263,10 @@ def build(p, is_native=True):
                "passive": {"passive_ref": f"{ID}:scarlet", "params": {}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

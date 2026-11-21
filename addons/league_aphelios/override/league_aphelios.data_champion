@@ -5499,5 +5499,6 @@
       "near": 60000,
       "low_cd": 360
     }
-  }
+  },
+  "stack_skill_index": 0
 }

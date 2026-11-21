@@ -2877,5 +2877,6 @@
   "passive": {
     "passive_ref": "league_brand:watch",
     "params": {}
-  }
+  },
+  "stack_skill_index": 0
 }

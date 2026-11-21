@@ -356,11 +356,44 @@ impl StablePassive for Kennen {
     }
 }
 
+/// 面板上的电浆数：league.dll 的技能栏层数格读 `league_kaisa_pn_<n>`（tools/kit/stack_nums.py 的梯子规则，0.1.10）。
+pub fn kaisa_panel_name(n: usize) -> String {
+    format!("league_kaisa_pn_{n}")
+}
+
+/// 还没过期、人还活着的那些里，电浆最多的有几层（英雄联盟在那个敌人头上显示的数）。
+pub fn kaisa_most(stacks: &[Stack], now: usize, alive: impl Fn(usize) -> bool) -> usize {
+    stacks.iter().filter(|s| now <= s.at + KAISA_LIFE && alive(s.id)).map(|s| s.n).max().unwrap_or(0)
+}
+
 #[derive(Clone, Default)]
 struct Kaisa {
     p: Vec<(String, usize)>,
     stacks: Vec<Stack>,
     pops: usize,
+    /// 面板上挂着的数和挂在哪个身子上（复活是新的实体，buff 都没了）。
+    body: Option<usize>,
+    panel: Option<usize>,
+}
+
+impl Kaisa {
+    /// 面板上的数跟着敌人身上最多的电浆换：只在数变了、或者换了身子时动 buff。
+    fn show(&mut self, sim: &mut StableSim<'_>, me: usize, n: usize) {
+        if self.body != Some(me) {
+            self.body = Some(me);
+            self.panel = None;
+        }
+        if self.panel == Some(n) {
+            return;
+        }
+        if let Some(old) = self.panel {
+            sim.entity_remove_buff(me, &kaisa_panel_name(old));
+        }
+        if n > 0 {
+            sim.add_buff(me, &BuffV1::named(&kaisa_panel_name(n)));
+        }
+        self.panel = Some(n);
+    }
 }
 
 impl StablePassive for Kaisa {
@@ -418,6 +451,10 @@ impl StablePassive for Kaisa {
             } else {
                 view(sim, me, target, &format!("league_kaisa_pl_{after}"), false);
             }
+        }
+        if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
+            let most = kaisa_most(&self.stacks, now, |id| sim.get_entity(id).is_some_and(|e| e.is_alive()));
+            self.show(sim, me, most);
         }
     }
 }
@@ -589,6 +626,22 @@ mod tests {
         assert_eq!(kaisa_hit(4, 1, true), (0, Some(4), true));
         assert_eq!(kaisa_hit(2, 3, false), (0, None, true));
         assert_eq!(kaisa_hit(1, 2, false), (3, None, false));
+    }
+
+    /// 0.1.10：面板上是活着的敌人里电浆最多的那个（league.dll 读 `league_kaisa_pn_<n>`，tools/kit/stack_nums.py）。
+    #[test]
+    fn kaisa_panel_shows_the_most_plasma() {
+        assert_eq!(kaisa_panel_name(4), "league_kaisa_pn_4");
+        let mut s = Vec::new();
+        set(&mut s, 7, 2, 100);
+        set(&mut s, 8, 4, 100);
+        set(&mut s, 9, 3, 300);
+        let alive = |id: usize| id != 8;
+        assert_eq!(kaisa_most(&s, 200, |_| true), 4);
+        assert_eq!(kaisa_most(&s, 200, alive), 3, "the one who died does not count");
+        assert_eq!(kaisa_most(&s, 100 + KAISA_LIFE + 1, |_| true), 3, "7 and 8 ran out");
+        assert_eq!(kaisa_most(&s, 300 + KAISA_LIFE + 1, |_| true), 0);
+        assert_eq!(kaisa_most(&[], 0, |_| true), 0);
     }
 
     #[test]

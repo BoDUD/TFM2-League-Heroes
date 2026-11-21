@@ -25,6 +25,9 @@
 //! - **大赦的护甲穿透随技能等级**：副本的 `own` 给 `r_pen_n`%，本包按等级再加（`league_zaahen_pen`：英雄联盟 10/20/30%，大招
 //!   在 6/11/16 级升级）。
 //!
+//! - **面板上的果决层数**（0.2.3，用户 2026-11-22：「还有很多叠层的技能在技能列表里看不到层数」）：层数挂成
+//!   `league_zaahen_dn_<n>`（0 层不挂），league.dll 的技能栏层数格读它（tools/kit/stack_nums.py 的梯子规则）。
+//!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zaahen.log`，每次启动游戏重写。
 
@@ -411,9 +414,36 @@ struct Darkin {
     e_at: usize,
     dash: Option<Dash>,
     strike_at: Option<usize>,
+    /// 面板上挂着的果决层数和挂在哪个身子上（复活是新的实体，buff 都没了）。
+    panel_body: Option<usize>,
+    panel: Option<usize>,
+}
+
+/// 面板上的果决层数：league.dll 的技能栏层数格读 `league_zaahen_dn_<n>`（tools/kit/stack_nums.py 的梯子规则）。
+pub fn panel_name(stacks: usize) -> String {
+    sn(&format!("dn_{stacks}"))
 }
 
 impl Darkin {
+    /// 面板上的数跟着果决层数换：只在层数变了、或者换了身子（复活）时动 buff。
+    fn panel(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        if self.panel_body != Some(me) {
+            self.panel_body = Some(me);
+            self.panel = None;
+        }
+        let n = self.stacks;
+        if self.panel == Some(n) {
+            return;
+        }
+        if let Some(old) = self.panel {
+            sim.entity_remove_buff(me, &panel_name(old));
+        }
+        if n > 0 {
+            sim.add_buff(me, &BuffV1::named(&panel_name(n)));
+        }
+        self.panel = Some(n);
+    }
+
     /// The Determination buffs as the stacks stand: `det` (his level's share a stack) below the top, `full` (twice
     /// that) at it; reaching the top raises `fill` for the data (the picture).
     fn show(&mut self, sim: &mut StableSim<'_>, me: usize, filled_now: bool) {
@@ -716,6 +746,7 @@ impl StablePassive for Darkin {
         if !sim.get_entity(me).is_some_and(|e| e.is_alive()) {
             return;
         }
+        self.panel(sim, me);
         if let Some(t0) = self.rising {
             self.rise(sim, me, now, t0);
             return;
@@ -798,6 +829,14 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 0.2.3：league.dll 的技能栏层数格读 `league_zaahen_dn_` 后面的数（tools/kit/stack_nums.py 里亚恒附加包那一行的梯子）。
+    #[test]
+    fn determination_count_on_the_panel() {
+        assert_eq!(panel_name(1), "league_zaahen_dn_1");
+        assert_eq!(panel_name(12), "league_zaahen_dn_12");
+        assert!(panel_name(Params::default().det_n).len() <= BUFF_NAME_CAP);
+    }
 
     #[test]
     fn params_from_the_kit() {
