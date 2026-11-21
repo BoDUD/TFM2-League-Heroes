@@ -8,6 +8,9 @@ from PIL import Image
 LENGTH = 79
 THICKNESS = 21
 SIZE = 128
+EDGE = (151, 189, 221, 255)
+CORE = (64, 97, 158, 255)
+SHADOW = (17, 26, 57, 255)
 
 
 def template(image):
@@ -35,13 +38,15 @@ def template(image):
     centres = [float(np.median(np.where(shaft_columns[:, x])[0])) for x in range(shaft_columns.shape[1])]
     assert max(centres) - min(centres) <= 1.0, centres
     axis = int(math.floor(float(np.median(centres)) + .5))
-    # The source highlight disappears when the shaft is sampled at 128px.
-    # Keep the painted fin, tips and butt. Give the long bare shaft a continuous
-    # steel-blue edge, indigo core and thin shadow on the same straight axis.
+    # Keep the painted fin and prongs. Carry the three-row profile through
+    # both joins so the butt and front collar read as parts of the same rod.
     pixels = np.array(prop)
-    pixels[axis - 1, 11:57] = (151, 189, 221, 255)
-    pixels[axis, 11:57] = (64, 97, 158, 255)
-    pixels[axis + 1, 11:57] = (17, 26, 57, 255)
+    pixels[axis - 1:axis + 2, 9:58] = np.array([EDGE, CORE, SHADOW])[:, None]
+    pixels[axis + 1, 5:9] = SHADOW
+    pixels[axis - 1:axis + 2, 58:60] = np.array([
+        (221, 195, 110, 255), (155, 114, 50, 255), (54, 42, 21, 255),
+    ])[:, None]
+    pixels[axis + 1, 61] = SHADOW
     return Image.fromarray(pixels), axis
 
 
@@ -49,10 +54,15 @@ def transform(prop, socket_y, x, y, angle, socket_x):
     """Rotate and translate in one inverse sample, about the hand's grip."""
     radians = math.radians(angle)
     c, s = math.cos(radians), math.sin(radians)
-    image = prop.transform((SIZE, SIZE), Image.Transform.AFFINE,
-                           (c, s, socket_x - c * x - s * y,
-                            -s, c, socket_y + s * x - c * y),
-                           Image.Resampling.NEAREST)
+    # Pillow samples pixel centres. Pivot about the centres of the authored
+    # socket and hand pixels, including when the rod is turned steeply.
+    hx, hy = x + .5, y + .5
+    image = prop.transform(
+        (SIZE, SIZE), Image.Transform.AFFINE,
+        (c, s, socket_x + .5 - c * hx - s * hy,
+         -s, c, socket_y + .5 + s * hx - c * hy),
+        Image.Resampling.NEAREST,
+    )
     # Test the forward mapping of every visible source pixel too, since
     # bounds from an already cropped image cannot prove there was no cut.
     ys, xs = np.where(np.asarray(prop)[:, :, 3] > 0)
@@ -60,9 +70,17 @@ def transform(prop, socket_y, x, y, angle, socket_x):
     py = y + s * (xs - socket_x) + c * (ys - socket_y)
     assert px.min() >= 1 and px.max() <= SIZE - 2, (x, y, angle, px.min(), px.max())
     assert py.min() >= 1 and py.max() <= SIZE - 2, (x, y, angle, py.min(), py.max())
-    tip_length = LENGTH - 1 - socket_x
-    tip = [round(x + c * tip_length), round(y + s * tip_length)]
-    return image, tip
+    left, _, right, _ = prop.getbbox()
+    pixels = np.array(image)
+    # A one-pixel terminal can fall between nearest-neighbour samples.
+    # Place the butt and tip explicitly on their projected axis points.
+    tail_distance = left - socket_x
+    tail = [round(x + c * tail_distance), round(y + s * tail_distance)]
+    tip_distance = right - 1 - socket_x
+    tip = [round(x + c * tip_distance), round(y + s * tip_distance)]
+    pixels[tail[1], tail[0]] = prop.getpixel((left, socket_y))
+    pixels[tip[1], tip[0]] = prop.getpixel((right - 1, socket_y))
+    return Image.fromarray(pixels), tip
 
 
 def attach(body, prop, axis, pose):
@@ -87,7 +105,7 @@ def attach(body, prop, axis, pose):
         raise ValueError(f"Trident must pass under the knuckles at {(x, y)}")
     angle = math.radians(angle)
     along = math.cos(angle) * dx + math.sin(angle) * dy
-    steel_edge = np.all(weapon_pixels == (151, 189, 221, 255), axis=2) & ~occlusion
+    steel_edge = np.all(weapon_pixels == EDGE, axis=2) & ~occlusion
     for direction in (-1, 1):
         side = along * direction
         assert np.any(steel_edge & (side >= 2) & (side <= 8)), (pose, direction)

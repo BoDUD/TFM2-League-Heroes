@@ -1,6 +1,7 @@
 """Verify files reread from disk, update the offline preview, and package them."""
 import argparse
 import json
+import math
 import shutil
 import subprocess
 from pathlib import Path
@@ -102,17 +103,40 @@ def verify_weapon(art):
     prop, axis = trident.template(dominant(raw, False))
     assert np.array_equal(prop, Image.open(ROOT / art["weapon"]["source"]))
     assert art["weapon"]["span_px"] == prop.width
+    left, _, right, _ = prop.getbbox()
+    source = np.asarray(prop)
+    assert source[axis, left:right, 3].all()
+    assert np.flatnonzero(source[:, left, 3]).tolist() == [axis]
+    assert np.flatnonzero(source[:, right - 1, 3]).tolist() == [axis]
     atlas = Image.open(DIST / f"sprites/{HERO}_native#sheet.png")
     sockets = read(grips)
     for action, frames in make_bodies().items():
         row = art["actor"][action]["row"]
         for col, body in enumerate(frames):
-            equipped, tip = trident.attach(body, prop, axis, sockets[action][col])
+            pose = sockets[action][col]
+            x, y, degrees, socket, _ = pose
+            render, _ = trident.transform(prop, axis, x, y, degrees, socket)
+            rendered = np.asarray(render)
+            c, s = math.cos(math.radians(degrees)), math.sin(math.radians(degrees))
+            ys, xs = np.nonzero(np.all(rendered == trident.CORE, axis=2))
+            assert len(xs) > 30
+            # Nearest-neighbour sampling permits a half-pixel of perpendicular
+            # quantization on a diagonal. A horizontal rod stays on one row.
+            offset = (ys - y) * c - (xs - x) * s
+            assert np.abs(offset).max() <= .501, (action, col)
+            for endpoint in (left, right - 1):
+                px = round(x + c * (endpoint - socket))
+                py = round(y + s * (endpoint - socket))
+                assert np.array_equal(rendered[py, px], source[axis, endpoint])
+                assert np.count_nonzero(rendered[py-1:py+2, px-1:px+2, 3]) >= 2, (action, col)
+            equipped, tip = trident.attach(body, prop, axis, pose)
             frame = atlas.crop((col * CELL, row * CELL, (col + 1) * CELL, (row + 1) * CELL))
             assert np.array_equal(equipped, frame), (action, col)
             assert tip == art["weapon"]["tip_by_frame"][action][col]
     drop_frames = sockets["dead"][3:]
     assert all(pose == drop_frames[0] and not pose[-1] for pose in drop_frames)
+    assert len({pose[2] for pose in sockets["idle"]}) == 1
+    assert all(pose[2] == 0 for pose in sockets["run"] + sockets["ult"][3:6])
     assert all(sockets[action][i][2] == 0 for action in ("attack", "skill") for i in (3, 4))
 
 
