@@ -1874,6 +1874,86 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
+                                                                "tick": 60,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 90,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 120,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 150,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 180,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 210,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 240,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 270,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_fall"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
                                                                 "tick": 45,
                                                                 "effects": [
                                                                   {
@@ -5705,6 +5785,86 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
+                                                                "tick": 60,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 90,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 120,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 150,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 180,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 210,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 240,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_stand"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 270,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_yorick_w_fall"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
                                                                 "tick": 45,
                                                                 "effects": [
                                                                   {
@@ -6512,7 +6672,23 @@
       "type": "Animation",
       "name": "league_yorick_w_wall",
       "anim": "asset/league/effects/league_yorick_big",
+      "tag": "w_ring_up",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_yorick_w_stand",
+      "anim": "asset/league/effects/league_yorick_big",
       "tag": "w_ring",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_yorick_w_fall",
+      "anim": "asset/league/effects/league_yorick_big",
+      "tag": "w_ring_fall",
       "z": -1,
       "is_follow": false
     },
@@ -6598,5 +6774,6 @@
       "repeat": true,
       "z": 3
     }
-  ]
+  ],
+  "stack_skill_index": 0
 }

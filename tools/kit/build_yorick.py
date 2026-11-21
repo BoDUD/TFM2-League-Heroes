@@ -116,7 +116,7 @@ P = {
     # band's 20000), w_slow% each way; w_cage: the champions the wall caught (the add-on copy's W -> E and the hands:
     # League pulls in what stands within 210 of the line's 225, 28000 here)
     "w_cd": 960, "w_range": 40000, "w_dur": 21, "w_rel": 17, "w_delay": 45, "w_t": 240, "w_r": 30000, "w_in": 5000,
-    "w_out": 25000, "w_slow": 99, "w_ps": 2000, "w_pt": 10, "w_cage": 13000,
+    "w_out": 25000, "w_slow": 99, "w_ps": 2000, "w_pt": 10, "w_cage": 13000, "w_block": 1, "w_combo": 1,
     # skill: Q Last Rites
     "q_cd": 285, "q_cd_r": 150, "q_range": 25000, "q_dur": 30, "q_hit": 14, "q_dmg": 45, "q_ratio": 140,
     "q_heal": 30, "q_heal_r": 20, "q_go_t": 120, "q_near": 45000,
@@ -130,8 +130,9 @@ P = {
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_yorick (League's rules the data cannot read; see the docstring); w_half: the real
-    # wall's half thickness (the add-on), q_win: ticks of the flag that tells the add-on a unit died to Last Rites
-    "native": 0, "q_win": 4, "w_half": 10000,
+    # wall's half thickness (the add-on), w_tn: its ticks (League's 4 s - the add-on lets the champions it holds break it,
+    # the main pack's w_t stands for that), q_win: ticks of the flag that tells the add-on a unit died to Last Rites
+    "native": 0, "q_win": 4, "w_half": 10000, "w_tn": 240,
 }
 
 
@@ -367,6 +368,7 @@ def build(p):
 
     # ------------------------------------------------------------------ W Dark Procession (the controller casts it)
     def w_cast():
+        combo = [*rm("e_cd"), refresh("e_go", p["e_go_t"])]
         if native:      # 附加包立真的墙：落点的英雄挂 w_ask（附加包记圆心），立墙那一 tick 他挂 w_up
             ask, rise = [buff("w_ask", 3)], [
                 sfx("w_wall"), refresh("w_up", 3),
@@ -377,13 +379,28 @@ def build(p):
                 sfx("w_wall"),
                 zone("w_safe", p["w_in"], "EnemyChampion", [buff("w_safe", 3, cc_immune=True)]),
                 zone("w_cage", p["w_out"], "EnemyChampion", [{"type": "Pull", "speed": p["w_ps"], "tick": p["w_pt"]},
-                                                             view("w_hit"), tsfx("w_hit"), *rm("e_cd"),
-                                                             refresh("e_go", p["e_go_t"])], delay=2, apply=2),
+                                                             view("w_hit"), tsfx("w_hit"), *(combo if p["w_combo"] else [])],
+                     delay=2, apply=2),
                 field("w_free", p["w_in"], p["w_t"], 1, "EnemyChampion",
                       [buff("w_free", 2, move_speed_mult=p["w_slow"])]),
                 field("w_band", p["w_out"], p["w_t"], 1, "EnemyChampion",
-                      [buff("w_band", 2, move_speed_mult=-p["w_slow"]), {"type": "BlockMoveSkill", "tick": 2}])]
-        drop = lob("w_drop", 1, 1000, "EnemyChampion", ask, end=[view("w_wall"), delayed(p["w_delay"], *rise)])
+                      [buff("w_band", 2, move_speed_mult=-p["w_slow"])] +
+                      ([{"type": "BlockMoveSkill", "tick": 2}] if p["w_block"] else []))]
+        # 画面一段一段放（tools/art/yorick_wall_ring.py）：落地时 w_wall（地上裂一圈 0.75 秒 + 升起 0.25 秒），之后每 30 tick
+        # 一段站着的 w_stand，最后 w_fall 塌掉。附加包副本：附加包把墙打塌时给他挂 w_down，下一段换成塌掉（只放一次：w_fell）
+        wt = p["w_tn"] if native else p["w_t"]
+        n_up = round((wt - 35) / 30)
+        pics = [view("w_wall")]
+        for k in range(n_up + 1):
+            at = p["w_delay"] + 15 + 30 * k
+            if not native:
+                pics.append(delayed(at, view("w_fall" if k == n_up else "w_stand")))
+            elif k < n_up:
+                pics.append(delayed(at, sw("w_down", sw("w_fell", NONE, combine(flag("w_fell", wt), view("w_fall"))),
+                                           view("w_stand"))))
+            else:
+                pics.append(delayed(at, sw("w_fell", combine(*rm("w_fell")), view("w_fall"))))
+        drop = lob("w_drop", 1, 1000, "EnemyChampion", ask, end=[*pics, delayed(p["w_delay"], *rise)])
         return combine(refresh("w_cd", p["w_cd"]), refresh("busy", p["w_dur"]), anim("awaken", p["w_dur"]), sfx("q"),
                        delayed(p["w_rel"] - 1, alive(drop)))
 
@@ -444,18 +461,19 @@ def build(p):
                                            "repeat": True, "z": 2}
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    # w_wall：整圈墙（tools/art/yorick_wall_ring.py 的 w_ring：地上裂一圈 -> 升起 -> 站 4 秒 -> 塌掉），画在单位下面——
+    # w_wall / w_stand / w_fall：整圈墙（tools/art/yorick_wall_ring.py：地上裂一圈 -> 升起 -> 站着 -> 塌掉），画在单位下面——
     # 墙段只有十来格高，人离墙线最近也隔着墙的半厚加身体，画在下面前后都对得上（见那个脚本的说明）。室女跟着他：
     # r_rise / r_follow 是 r_spawn / r_maiden 挪到他身后上方、画在他下面
     views_p = [Pj("e_mist"), Pj("r_bolt")]
     views_e = [E("a_hit"), E("q_hit"), E("q_grave", FX, -1, False), E("k_spawn", FX, -1), E("k_swarm", FX, -1),
-               E("k_bite"), E("k_leap"), E("w_wall", BIG, -1, False, "w_ring"), E("w_hit"), E("e_hit"),
+               E("k_bite"), E("k_leap"), E("w_wall", BIG, -1, False, "w_ring_up"), E("w_stand", BIG, -1, False, "w_ring"),
+               E("w_fall", BIG, -1, False, "w_ring_fall"), E("w_hit"), E("e_hit"),
                E("e_cloud", BIG, -1, False), E("r_rise", BIG, -1), E("r_follow", BIG, -1), E("r_claw"), E("r_mark")]
     views_b = [B_("e_mark", FX, -1, "e_mark"), B_("e_slow", FX, -1, "slow"), B_("r_mkv", FX, 3, "r_mkv")]
     extra = {}
     if native:   # addons/league_yorick: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_yorick:shepherd",
-                            "params": {k: p[k] for k in ("r_pct", "g_t", "w_r", "w_half", "w_t", "w_delay")}}
+                            "params": {**{k: p[k] for k in ("r_pct", "g_t", "w_r", "w_half", "w_delay")}, "w_t": p["w_tn"]}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

@@ -84,7 +84,7 @@ fn the_ring_keeps_each_side_to_its_own() {
 
 #[test]
 fn names_are_the_data_s() {
-    for n in [Q_WIN, Q_HL, Q_CH, HIT, K_ASK, K_ASK4, K_UNIT, M_ASK, M_UNIT, E_ASK, W_ASK, W_UP, R_ON, E_MARK, E_MS, R_MKV, R_BOLT,
+    for n in [Q_WIN, Q_HL, Q_CH, HIT, K_ASK, K_ASK4, K_UNIT, M_ASK, M_UNIT, E_ASK, W_ASK, W_UP, W_DOWN, R_ON, E_MARK, E_MS, R_MKV, R_BOLT,
               R_CLAW, R_MARK_VIEW, Q_GRAVE].iter().chain(GRAVES.iter()) {
         assert!(n.starts_with("league_yorick_"), "{n}");
         assert!(n.len() <= BUFF_NAME_CAP, "{n}");
@@ -637,4 +637,42 @@ fn the_flags_are_up_before_the_data_reads_them_and_a_lost_unit_is_told_before_it
     assert!(UID_TICKS > 2);
     // the wall's centre waits for its flag a little longer than the data's delay
     assert!(wall::PEND_SLACK > 2);
+}
+
+#[test]
+fn champions_pressing_the_wall_break_it_with_the_picture_s_next_piece() {
+    let (mut w, mut me) = world();
+    let c = (340_000.0, 300_000.0);
+    lay(&mut w, GAREN, W_ASK);
+    run(&mut w, &mut me, 1);
+    (w.units[GAREN].x, w.units[GAREN].y) = (c.0 + 10_000.0, c.1);
+    lay(&mut w, 0, W_UP);
+    run(&mut w, &mut me, 1);
+    let from = me.walls.live[0].ring.from;
+    assert_eq!((wall::next_piece(from, from), wall::next_piece(from, from + 15), wall::next_piece(from, from + 44)),
+               (from + 15, from + 45, from + 45));
+    // Garen keeps walking into the wall: at level 1 two blows (his attack interval unread: one a BLOW_EVERY ticks)
+    let need = (2 * wall::BLOW_EVERY) as usize;
+    let mut broke = None;
+    for k in 0..need + 40 {
+        w.units[GAREN].x = c.0 + 21_500.0;
+        tick(&mut w, &mut me);
+        if broke.is_none() && w.has(0, W_DOWN) {
+            broke = Some(k);
+        }
+        if me.walls.live.is_empty() {
+            break;
+        }
+    }
+    let k = broke.expect("never broke");
+    assert!((need - 2..=need + 1).contains(&k), "broke after {k} pressed ticks, not about {need}");
+    assert!(me.walls.live.is_empty(), "still standing past its next piece");
+    // fallen: walking out is free now
+    let t = w.tick;
+    w.units[GAREN].x = c.0 + 23_000.0;
+    run(&mut w, &mut me, 2);
+    assert!(moved_to(&w, GAREN, t).is_none());
+    let text = std::fs::read_to_string(log_file()).expect("the log");
+    assert!(text.contains("BROKEN #") && text.contains("(2 needed at level 1)") && text.contains("(broken, struck 2.0 times)"),
+            "no BROKEN / WALL DOWN (broken) line");
 }

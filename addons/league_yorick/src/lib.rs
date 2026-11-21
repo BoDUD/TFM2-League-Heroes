@@ -150,6 +150,8 @@ pub const M_UNIT: &str = "league_yorick_m_unit";
 pub const E_ASK: &str = "league_yorick_e_ask";
 pub const W_ASK: &str = "league_yorick_w_ask";
 pub const W_UP: &str = "league_yorick_w_up";
+/// On him once the wall broke (wall.rs): the copy's next piece of the picture is the fall, the rest none.
+pub const W_DOWN: &str = "league_yorick_w_down";
 pub const W_UID: &str = "league_yorick_w_uid";
 pub const M_UID: &str = "league_yorick_m_uid";
 /// The data's flag while the Maiden stands (Q's cooldown halved; the copy's attack marks the champions it strikes).

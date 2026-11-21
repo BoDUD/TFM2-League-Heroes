@@ -13,8 +13,8 @@
       "g_t": 3600,
       "w_r": 30000,
       "w_half": 10000,
-      "w_t": 240,
-      "w_delay": 45
+      "w_delay": 45,
+      "w_t": 240
     }
   },
   "sprite": "asset/league/champions/league_yorick",
@@ -1653,6 +1653,330 @@
                                                               {
                                                                 "type": "ViewEffect",
                                                                 "name": "league_yorick_w_wall"
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 60,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 90,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 120,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 150,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 180,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 210,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 240,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 270,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_fell",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_yorick_w_fell"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_fall"
+                                                                    }
+                                                                  }
+                                                                ]
                                                               },
                                                               {
                                                                 "type": "Delayed",
@@ -4943,6 +5267,330 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
+                                                                "tick": 60,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 90,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 120,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 150,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 180,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 210,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 240,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_down",
+                                                                    "effect_buff": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_yorick_w_fell",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_yorick_w_fell",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 240
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_yorick_w_fall"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_stand"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 270,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_yorick_w_fell",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_yorick_w_fell"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_yorick_w_fall"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
                                                                 "tick": 45,
                                                                 "effects": [
                                                                   {
@@ -5698,7 +6346,23 @@
       "type": "Animation",
       "name": "league_yorick_w_wall",
       "anim": "asset/league/effects/league_yorick_big",
+      "tag": "w_ring_up",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_yorick_w_stand",
+      "anim": "asset/league/effects/league_yorick_big",
       "tag": "w_ring",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_yorick_w_fall",
+      "anim": "asset/league/effects/league_yorick_big",
+      "tag": "w_ring_fall",
       "z": -1,
       "is_follow": false
     },
@@ -5784,5 +6448,6 @@
       "repeat": true,
       "z": 3
     }
-  ]
+  ],
+  "stack_skill_index": 0
 }

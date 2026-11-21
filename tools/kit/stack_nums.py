@@ -97,6 +97,9 @@ STACKS = [
     # exactly one league_viktor_hex_<held> (none at 0); the main pack's level-based kit has no fragments, so no box
     {"hero": "league_viktor", "ladder": "league_viktor_hex_", "rungs": 999, "cap": 999, "skill": 0,
      "passive": "league_viktor:evolve", "label": "维克托「光荣进化」攒着的海克斯碎片（附加包）"},
+    # 约里克的坟（2026-11-22）：主包和附加包的副本都把 g1..g4 一起挂、一起计时（tools/kit/build_yorick.py），最高一级就是坟数
+    {"hero": "league_yorick", "ladder": "league_yorick_g", "rungs": 4, "cap": 4, "skill": 0,
+     "label": "约里克「牧魂人」坟数（3 座起唤醒雾行者）"},
 ]
 
 

@@ -150,14 +150,14 @@ def check_units(copy, main, p, c):
     if wrong:
         sys.exit(f"the units' numbers differ from src/lib.rs (lib, kit or sheet): {wrong}")
     have, plain = names_in(copy), names_in(main)
-    read = ("Q_WIN", "Q_HL", "Q_CH", "HIT", "K_ASK", "K_ASK4", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK", "W_ASK", "W_UP", "R_ON",
+    read = ("Q_WIN", "Q_HL", "Q_CH", "HIT", "K_ASK", "K_ASK4", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK", "W_ASK", "W_UP", "W_DOWN", "R_ON",
             "E_MARK", "R_MKV", "R_BOLT", "R_CLAW", "R_MARK_VIEW", "Q_GRAVE", "K_LEAP_VIEW", "K_SPAWN_SFX", "R_SPAWN_SFX")
     missing = [k for k in read if c[k] not in have]
     if missing:
         sys.exit(f"src/lib.rs names {missing} the copy does not use: update src/lib.rs or build_yorick.py")
     if "league_yorick_g4" not in have or any(f"league_yorick_g{k}" not in have for k in range(1, 5)):
         sys.exit("the copy has no grave ladder g1..g4: src/lib.rs's GRAVES reads it")
-    own = ("Q_WIN", "Q_HL", "HIT", "K_ASK", "K_ASK4", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK", "W_ASK", "W_UP")
+    own = ("Q_WIN", "Q_HL", "HIT", "K_ASK", "K_ASK4", "K_UNIT", "M_ASK", "M_UNIT", "E_ASK", "W_ASK", "W_UP", "W_DOWN")
     if any(c[k] in plain for k in own) or any(b.startswith((c["W_UID"], c["M_UID"])) for b in plain):
         sys.exit("the main pack's Yorick uses one of the add-on's own names: update src/lib.rs")
     if c["E_MS"] in have:
@@ -182,7 +182,8 @@ def check_defaults(p):
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     m = re.search(r"Self \{ (r_pct: .*?) \}", src, re.S)
     got = dict((k.strip(), int(v)) for k, v in (kv.split(":") for kv in m.group(1).replace("\n", " ").split(",")))
-    bad = {k: (got.get(k), p[k]) for k in KEYS if got.get(k) != p[k]}
+    want = dict(p, w_t=p["w_tn"])      # the copy's wall time is the add-on's own (build_yorick.py w_tn)
+    bad = {k: (got.get(k), want[k]) for k in KEYS if got.get(k) != want[k]}
     if bad:
         sys.exit(f"src/lib.rs Params::default() differs from P (lib.rs, P): {bad}")
 

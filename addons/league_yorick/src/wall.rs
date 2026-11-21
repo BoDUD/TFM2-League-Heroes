@@ -15,8 +15,11 @@
 //!   tick 会一直卡住），一 tick 走了 `DASH_STEP` 以上的（冲刺）放回上一 tick 的位置；一 tick 挪了 `BLINK` 以上的（闪现、
 //!   飞越）放过去，以后按它落在的那一侧算（嘉文四世附加包 0.1.3）；身上有无视地形的 buff（`ignore_wall`）的穿过去
 //!   （嘉文四世附加包 0.1.4）。
-//! - 墙不能被打塌：英雄联盟里敌方英雄普攻 2–4 下或防御塔一下就塌，可墙不是单位，游戏的 AI 不会拿它当目标，API 也说不出
-//!   一下普攻打的是谁；拿召唤单位拼墙又会让小兵、防御塔、技能都去打它、把 AI 引过去，游戏里没法先看，所以没做。
+//! - 打塌：英雄联盟里敌方英雄普攻 2–4 下（按技能等级）墙就塌。墙不是单位，游戏的 AI 不会拿它当目标，API 也说不出一下普攻
+//!   打的是谁（拿召唤单位拼墙又会让小兵、防御塔、技能都去打它、把 AI 引过去），所以照「想出去 / 想进来的英雄在打墙」算：
+//!   敌方英雄每被墙挡住一 tick，就算它打了 1 / 它的攻击间隔 下，所有敌方英雄加起来够 [`hits_needed`] 下墙就塌（`BROKEN`）。
+//!   塌在数据下一段画面的开头（每 30 tick 一段，[`next_piece`]），给约里克挂 `W_DOWN`：副本的数据那一段放塌掉的画面，
+//!   以后几段不放。防御塔一下就塌没做（防御塔不打墙）。
 
 use std::collections::{HashMap, HashSet};
 
@@ -33,6 +36,29 @@ pub const PULL_IN: f64 = 210.0 / 225.0;
 pub const PUSH_TICKS: u64 = 4;
 /// 圆心记下以后最多等 `W_UP` 这么多 tick（数据在 `w_delay` tick 后挂；多出来的是余量）。
 pub const PEND_SLACK: usize = 15;
+/// 数据的画面：立墙后 `RISE` tick 起每 `PIECE` tick 一段（build_yorick.py 的 w_stand / w_fall）。
+pub const RISE: usize = 15;
+pub const PIECE: usize = 30;
+/// 读不到攻击间隔时按这么多 tick 一下。
+pub const BLOW_EVERY: usize = 80;
+
+/// 墙塌要敌方英雄打几下（英雄联盟：2 / 2 / 3 / 3 / 4，按技能等级；这里按英雄等级 1–4 级 2 下、5–8 级 3 下、9 级起 4 下）。
+pub fn hits_needed(level: usize) -> f64 {
+    match level {
+        0..=4 => 2.0,
+        5..=8 => 3.0,
+        _ => 4.0,
+    }
+}
+
+/// `now` 以后数据的下一段画面从哪一 tick 开始（墙 `from` 立起）。
+pub fn next_piece(from: usize, now: usize) -> usize {
+    let first = from + RISE;
+    if now < first {
+        return first;
+    }
+    first + PIECE * ((now - first) / PIECE + 1)
+}
 
 /// 一圈墙：圆心、墙线、圈里 / 圈外的中心界限、立起和倒下的 tick。
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -147,6 +173,11 @@ pub struct Live {
     pub held: HashMap<usize, (usize, bool)>,
     /// 已经记过 LEAPT / THROUGH 的单位（一道墙一个单位一行）。
     pub crossed: HashSet<usize>,
+    /// 敌方英雄打了几下墙（被挡住的 tick / 它的攻击间隔）、打塌以后倒下的 tick。
+    pub blows: f64,
+    pub broken: Option<usize>,
+    /// 原定倒下的 tick（`w_t` 到）。
+    pub planned: usize,
 }
 
 /// W_ASK 记下的圆心，等 W_UP。
@@ -203,7 +234,8 @@ impl Walls {
         let mine = sim.get_entity(me).map_or(0, |e| e.team());
         self.count += 1;
         let mut live = Live { ring, n: self.count, side: HashMap::new(), last: HashMap::new(), pushing: HashMap::new(),
-                              held: HashMap::new(), crossed: HashSet::new() };
+                              held: HashMap::new(), crossed: HashSet::new(), blows: 0.0, broken: None,
+                              planned: ring.until };
         let units: Vec<(usize, Pt, bool, bool, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|e| e.is_alive() && blocks(e.kind(), e.team(), mine))
             .map(|e| (e.id(), summon::at_of(&e), e.is_champion(), immune(&e), ignore_wall(&e).is_some()))
@@ -253,13 +285,14 @@ impl Walls {
         if self.live.is_empty() {
             return;
         }
-        let units: Vec<(usize, Pt, bool, Option<String>)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+        let units: Vec<(usize, Pt, bool, Option<String>, usize)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|e| e.is_alive() && blocks(e.kind(), e.team(), mine))
-            .map(|e| (e.id(), summon::at_of(&e), e.is_champion(), ignore_wall(&e)))
+            .map(|e| (e.id(), summon::at_of(&e), e.is_champion(), ignore_wall(&e), e.attack_interval()))
             .collect();
+        let level = sim.get_entity(me).map_or(1, |e| e.level());
         for w in self.live.iter_mut() {
             let mut moves = Vec::new();
-            for (id, now_at, champion, ghost) in &units {
+            for (id, now_at, champion, ghost, every) in &units {
                 let (id, now_at) = (*id, *now_at);
                 let inside = *w.side.entry(id).or_insert_with(|| w.ring.side_of(now_at));
                 let last = w.last.insert(id, now_at);
@@ -271,6 +304,9 @@ impl Walls {
                     Hold::Slide(to) | Hold::Back(to) => {
                         moves.push((id, to, inside, *champion));
                         w.last.insert(id, to);
+                        if *champion {
+                            w.blows += 1.0 / (if *every == 0 { BLOW_EVERY } else { *every }).max(20) as f64;
+                        }
                     }
                     Hold::Leapt(side) | Hold::Ghost(side) => {
                         w.side.insert(id, side);
@@ -284,6 +320,21 @@ impl Walls {
                             }
                         }
                     }
+                }
+            }
+            let need = hits_needed(level);
+            if w.broken.is_none() && w.blows >= need {
+                let fall = next_piece(w.ring.from, now).min(w.ring.until);
+                w.broken = Some(fall);
+                w.ring.until = fall;
+                // 副本的画面：下一段换成塌掉，之后几段都不放（挂到原定倒下以后）
+                let left = (w.planned + PIECE).saturating_sub(now);
+                sim.entity_remove_buff(me, W_DOWN);
+                sim.add_buff(me, &BuffV1::timed(W_DOWN, left.max(PIECE)));
+                if let Some(k) = tally(sim, "broken") {
+                    wlog(format!("{} BROKEN #{k} (wall {}): the enemy champions it held struck it {:.1} times ({need} needed at \
+                                  level {level}) - it falls at t={fall} with the picture's next piece", head(sim, me), w.n,
+                                 w.blows));
                 }
             }
             for (id, to, inside, champion) in moves {
@@ -308,8 +359,9 @@ fn fallen(sim: &StableSim<'_>, me: usize, w: &Live) {
     let longest = w.held.values().map(|v| v.0).max().unwrap_or(0);
     let champions = w.held.values().filter(|v| v.1).count();
     if let Some(k) = tally(sim, "wall down") {
-        wlog(format!("{} WALL DOWN #{k} (wall {}) at {} after {} ticks: held {} units ({champions} champions), {ticks} ticks in all, \
-                      the longest {longest}; {} crossed it", head(sim, me), w.n, pt(w.ring.c), w.ring.until - w.ring.from,
+        wlog(format!("{} WALL DOWN #{k} (wall {}) at {} after {} ticks{}: held {} units ({champions} champions), {ticks} ticks in \
+                      all, the longest {longest}; {} crossed it", head(sim, me), w.n, pt(w.ring.c), w.ring.until - w.ring.from,
+                     if w.broken.is_some() { format!(" (broken, struck {:.1} times)", w.blows) } else { String::new() },
                      w.held.len(), w.crossed.len()));
     }
 }
