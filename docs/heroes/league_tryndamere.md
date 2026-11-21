@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee |
-| 高清帧 | PPU 1.81 |
+| 高清帧 | PPU 1.81（画成 115%） |
 | 附加包 | [蛮王残血开大附加包](#附加包)（`league_tryndamere_rage`） |
 
 ![泰达米尔演示](../preview/league_tryndamere_showcase.gif)
@@ -107,6 +107,7 @@ SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_tryndamere.py`）：普攻挥剑、命中，E、W、Q、R；E、W、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（E / W / R），从本地客户端提取，缩到 64×64 |
 | 嗜血杀戮的被动：越残攻击力越高（附加包 0.3.2，2026-11-14） | 用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟的嗜血杀戮（wiki V26.06）被动：攻击力随已损失的生命增长，损失 90% 时到顶（按技能等级最多 +20–80）。主包读不到生命，这一份并在基础攻击力里，没有变。附加包现在由原生代码读生命：副本的基础攻击力和成长低 6%（86 +17 → 81 +16），被动按已损失的生命加攻击力，损失 90% 时 +20%（`league_tryndamere_q_ad`，`attack_mult`，整数百分点变了才换）——满血时比主包低 6%，损失 27% 时持平，损失 90% 以上高 13%。普攻说明后面加一句【附加包】嗜血杀戮。原生代码经典引擎模拟跑不了，数字是按「平均持平」定的，没有量过；单元测试 12 个通过。游戏里还没看过（日志 `BLOODLUST: hp N% -> attack +M%`，每变 10 个百分点一行） |
+| 局内大小（2026-11-21） | 用户：「蛮王新模型在局内感觉有点小了 还有刀是放大后的吗 你查一查」，看了对比图后「放大到 1.15」。GPT 重画的腥红之月造型（#784）站得直、身子瘦：待机第一帧脚到头顶 38 游戏像素（连发髻），旧模型 37；可实打实只有 639 平方游戏像素，旧模型 914，盖伦 1022、德莱厄斯 1220、奥拉夫 1190、亚索 702、贾克斯 957、赵信 864。刀查过：游戏里的就是放大 1.25 倍、每帧放大自己那把的版本（和 main 逐帧一样）。`league.dll` 的 `SIZES` 把他画成 115%（44 高、845）。游戏按帧的中心放大，脚底在中心下 20.5 格，会陷下去 1.7 游戏像素：[`tools/art/raise_hd_frames.py`](../../tools/art/raise_hd_frames.py) 给 150 个高清帧的框底下加 5 行空行（画面高 2.5 格，像素不变），脚底在中心下 11.4 游戏像素，原来 11.3。选人卡片的帧一起加（`hero_reels.py` 的待机和卡片是从同一批帧剪的），卡片里人高 1.4 游戏像素，他没有 `banpick_center`，不裁边。悠米骑他时的头顶高度 25 → 29（`league_yuumi` 0.2.21）；俄洛伊的灵魂图跟着重出（他那 6 帧）。`league.dll` 0.9.118、主包 0.445.0 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -130,6 +131,9 @@ python tools/art/rig_tryndamere_hd.py                         # 读回 -> 原始
 python tools/art/ppu_restyle.py --hero tryndamere && python tools/art/ppu_hd.py --hero tryndamere
 python tools/art/ppu_one.py --hero tryndamere && python tools/art/rig_tryndamere_hd.py --one-ground && python tools/art/hero_reels.py --hero tryndamere
 python tools/art/review_tryndamere_actions.py --out <文件夹>    # 旧版 / 新版对照动图
+# 局内 115%（2026-11-21，hd.rs SIZES）：脚底回到地面，只跑一次，之后再剪待机和卡片
+python tools/art/raise_hd_frames.py league/champions/league_tryndamere --rows 5 && python tools/art/hero_reels.py --hero tryndamere
+python tools/art/illaoi_souls.py && python tools/art/yuumi_ride_lifts.py
 ```
 
 美术（原画的提示词见 [`assets/source/tryndamere/PICTURE_PROMPT.md`](../../assets/source/tryndamere/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/tryndamere/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/tryndamere/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/tryndamere/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](../../assets/source/tryndamere/codex_picture)、[`codex_model/`](../../assets/source/tryndamere/codex_model)、[`codex_strips/`](../../assets/source/tryndamere/codex_strips)、[`codex_fx/`](../../assets/source/tryndamere/codex_fx)）：
