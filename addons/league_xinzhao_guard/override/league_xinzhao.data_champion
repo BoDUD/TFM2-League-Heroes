@@ -1660,5 +1660,6 @@
     "params": {
       "far": 36000
     }
-  }
+  },
+  "stack_skill_index": 0
 }

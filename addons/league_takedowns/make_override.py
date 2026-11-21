@@ -29,6 +29,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ADDON = os.path.join(ROOT, "addons", "league_takedowns")
 MOD_ID = "league_takedowns"
+sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
+import stack_nums  # noqa: E402  (图奇的层数格只在这份副本里：读敌人身上的毒，tools/kit/stack_nums.py)
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[확장] ", "ja": "【拡張】"}
 Y, O, E = "<#ffb900ff>", "<#ff9028ff>", "<>"
@@ -317,6 +319,7 @@ def main():
         d, slots = make(c)
         for hero, slot in slots:
             d[slot]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.{hero[7:]}_{slot}"
+        d = stack_nums.apply(d)     # 副本挂上本包的被动以后再定层数格（图奇的只给这份）
         changed += slots
         files[os.path.join(ADDON, "override", d["id"] + ".data_champion")] = json.dumps(d, ensure_ascii=False, indent=2) + "\n"
     files[os.path.join(ADDON, "text", "champion.i18n")] = json.dumps(texts(changed), ensure_ascii=False, indent=2) + "\n"

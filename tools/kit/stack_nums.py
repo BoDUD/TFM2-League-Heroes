@@ -2,7 +2,7 @@
 
     python tools/kit/stack_nums.py --write   # every listed hero's `stack_skill_index` (league/ and the add-ons' copies)
                                              # and league.dll's table addons/league_main/src/stack_table.rs
-    python tools/kit/stack_nums.py --check   # (CI) both up to date
+    python tools/kit/stack_nums.py --check   # (CI) both up to date, every row reads something in some copy
     python tools/kit/stack_nums.py --list    # the heroes, their rules and their icons
 
 Why (the user, 2026-11-11): 「现在叠层数的技能英雄在游戏里看不到多少层 有没有办法在游戏里能看到？」. A number over the head came
@@ -18,6 +18,14 @@ over-head number bindings (`<hero>_sn_*` view_buffs) of the first version.
 
 The data cannot count a stack (it only asks whether a buff is on a unit), so league.dll counts in the simulation and
 writes `stack` (addons/league_main/src/stacks.rs): STACKS below is its table (stack_table.rs, generated).
+
+2026-11-22（用户：「还有很多叠层的技能在技能列表里看不到层数 想个办法解决一下」）：表从 27 个英雄补到所有数得出来的。
+- 新的三种数法：`most`（几个名字各对一个数，身上有的取最大）、`total`（身上有的加起来）、`prefix`（名字以它开头的有几个）；
+- `"on": "foes"`：不数他自己，数每个活着的敌方英雄身上的，取最多的那个（附加包照英雄联盟把层数记在敌人身上）；
+- 一个英雄可以有几行：主包的数据记在他自己身上、附加包记在敌人身上或者自己挂梯子，league.dll 取几行里最大的。每行只在
+  挂得出它那些名字的那份英雄数据里读得出数，所以 `--check` 看每份带层数格的英雄数据里至少有一行「活着」：名字在这份数据里
+  有人挂（AddCasterBuff / AddBuff），或者这份是 `native` 里那个附加包的副本（它的原生代码挂同样的名字），或者 `passive`
+  对得上（附加包自己的梯子）；每一行也至少在一份数据里活着（改了名字就会报出来）。
 """
 import argparse
 import glob
@@ -39,10 +47,15 @@ FIELD = "stack_skill_index"
 #   ladder: the highest k with <prefix><k> on him, k = 1..rungs, times "step" (default 1: Rumble's heat and Gnar's /
 #           Shyvana's rage 10 a rung, Tryndamere's fury 20 - League's 0..100); with "full" (a flag buff: Darius's Noxian
 #           Might, Gnar's full Rage) on him, the number is "top"
+#   most:   {名字: 数}，身上有的里面取最大（亚索 q_stack 1 / q_ready 2；阿狸的第 6 级叫 et_ready）
+#   total:  {名字: 数}，身上有的加起来，同名只算一次（厄斐琉斯的子弹是二进制 b0..b4；辛德拉四个各自到时的法球槽）
+#   prefix: 名字以它开头的 buff 有几个（附加包挂在敌人身上的层数，名字后面带施法者的实体号）
 # cap: the most the number shows; skill: whose icon the panel shows beside it (0 skill, 1 skill2, 2 ult - the ability
 # the stacks feed, else the first); label: what the number is (for --list and the docs); passive: an add-on's own
 # counter (its code writes the rungs, no data does) - only the copy whose passive is that native shows the box, the
 # main pack's kit (no add-on, the number would stay 0) does not
+# on: "foes" 数每个活着的敌方英雄身上的，取最多的那个；native: 这些附加包的原生代码挂同样的名字（它们的副本数据里没有，
+# 只给 --check 看）。同一个英雄的几行：图标一样，league.dll 取最大的。
 STACKS = [
     {"hero": "league_veigar", "sum": "league_veigar_p_stack", "stat": "magic_power", "cap": 999, "skill": 0,
      "label": "维迦「超凡邪力」叠的法术强度（英雄联盟的层数）"},
@@ -52,9 +65,10 @@ STACKS = [
     {"hero": "league_smolder", "count": "league_smolder_p_st", "cap": 999, "skill": 0, "label": "斯莫德「龙之研习」层数"},
     {"hero": "league_senna", "count": "league_senna_mist", "cap": 999, "skill": 0, "label": "赛娜「赦除」黑雾层数"},
     {"hero": "league_swain", "count": "league_swain_frag", "cap": 999, "skill": 2, "label": "斯维因「灵魂碎片」"},
-    {"hero": "league_sion", "sum": "league_sion_k_hp", "stat": "hp", "cap": 999, "skill": 0,
+    {"hero": "league_sion", "sum": "league_sion_k_hp", "stat": "hp", "cap": 999, "skill": 0, "native": ["league_sion"],
      "label": "赛恩「灵魂熔炉」击杀加的生命"},
-    {"hero": "league_kindred", "count": "league_kindred_p_mark", "cap": 999, "skill": 0, "label": "千珏「千珏之印」印记"},
+    {"hero": "league_kindred", "count": "league_kindred_p_mark", "cap": 999, "skill": 0, "native": ["league_kindred"],
+     "label": "千珏「千珏之印」印记"},
     {"hero": "league_aurelionsol", "ladder": "league_aurelionsol_d", "rungs": 30, "cap": 30, "skill": 2,
      "label": "奥瑞利安·索尔「星海焕然」星尘层数"},
     {"hero": "league_belveth", "ladder": "league_belveth_l", "rungs": 8, "cap": 8, "skill": 0,
@@ -88,7 +102,7 @@ STACKS = [
     # the Bonetooth Necklace's trophies (2026-11-14, with League's necklace itself): the main kit and league_rengar_bush
     # both hang league_rengar_bt1..bt5 one after another, so the highest rung on him is the count
     {"hero": "league_rengar", "ladder": "league_rengar_bt", "rungs": 5, "cap": 5, "skill": 2,
-     "label": "雷恩加尔「骨齿项链」战利品"},
+     "native": ["league_rengar_bush"], "label": "雷恩加尔「骨齿项链」战利品"},
     # the add-on's Silver Serpents in hand (2026-11-12, the user: 「船长银蛇币的系统能做吗」): league_gangplank writes
     # league_gangplank_sv_<n> (its unit test serpent_count_on_the_panel)
     {"hero": "league_gangplank", "ladder": "league_gangplank_sv_", "rungs": 9999, "cap": 9999, "skill": 2,
@@ -97,18 +111,180 @@ STACKS = [
     # exactly one league_viktor_hex_<held> (none at 0); the main pack's level-based kit has no fragments, so no box
     {"hero": "league_viktor", "ladder": "league_viktor_hex_", "rungs": 999, "cap": 999, "skill": 0,
      "passive": "league_viktor:evolve", "label": "维克托「光荣进化」攒着的海克斯碎片（附加包）"},
+
+    # ---- 2026-11-22 补的（用户：「还有很多叠层的技能在技能列表里看不到层数 想个办法解决一下」）----
+    # 主包和附加包的副本都挂同一套名字的
+    {"hero": "league_alistar", "ladder": "league_alistar_e", "rungs": 4, "full": "league_alistar_e_ready", "top": 5,
+     "cap": 5, "skill": 0, "label": "阿利斯塔「践踏」踩中英雄的次数（5 = 下次普攻眩晕）"},
+    {"hero": "league_aphelios", "total": {"league_aphelios_b0": 1, "league_aphelios_b1": 2, "league_aphelios_b2": 4,
+                                          "league_aphelios_b3": 8, "league_aphelios_b4": 16},
+     "cap": 31, "skill": 0, "label": "厄斐琉斯主手武器剩下的子弹（每把 20 发）"},
+    {"hero": "league_aurora", "ladder": "league_aurora_s_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "阿萝拉「驱灵奇术」层数（第 3 层抽出灵物）"},
+    {"hero": "league_diana", "ladder": "league_diana_ms_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "黛安娜「月银之刃」普攻计数（第 3 下顺劈）"},
+    {"hero": "league_draven", "ladder": "league_draven_p_", "rungs": 6, "cap": 6, "skill": 0,
+     "label": "德莱文「德莱文联盟」崇拜层数"},
+    {"hero": "league_ekko", "ladder": "league_ekko_z", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "艾克「Z型驱动共振」层数（第 3 层爆发）"},
+    {"hero": "league_elise", "ladder": "league_elise_sl", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "伊莉丝「蜘蛛女皇」攒着的小蜘蛛"},
+    {"hero": "league_ezreal", "ladder": "league_ezreal_rsf_", "rungs": 5, "cap": 5, "skill": 0,
+     "label": "伊泽瑞尔「咒能高涨」攻速层数"},
+    {"hero": "league_graves", "ladder": "league_graves_e_g", "rungs": 4, "cap": 4, "skill": 1,
+     "label": "格雷福斯「纯爷们」层数"},
+    {"hero": "league_gwen", "ladder": "league_gwen_qs", "rungs": 4, "cap": 4, "skill": 0, "label": "格温「剪刀层数」"},
+    {"hero": "league_hecarim", "ladder": "league_hecarim_q", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "赫卡里姆「暴走」层数"},
+    {"hero": "league_jax", "ladder": "league_jax_ra_", "rungs": 8, "cap": 8, "skill": 0, "label": "贾克斯「无情连打」攻速层数"},
+    {"hero": "league_jhin", "ladder": "league_jhin_a_", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "烬「低语」打出的发数（第 4 发必暴击）"},
+    {"hero": "league_kalista", "ladder": "league_kalista_h", "rungs": 3, "cap": 3, "skill": 1,
+     "label": "卡莉丝塔插着的矛（插满 3 支自动拔出）"},
+    {"hero": "league_kassadin", "ladder": "league_kassadin_r_s", "rungs": 3, "cap": 3, "skill": 2,
+     "label": "卡萨丁「虚空行走」层数"},
+    {"hero": "league_kled", "ladder": "league_kled_c", "rungs": 9, "step": 10, "cap": 100, "skill": 0,
+     "label": "克烈下马时的勇气（满 100 上马）"},
+    {"hero": "league_kogmaw", "most": {"league_kogmaw_r_vol": 1, "league_kogmaw_r_c1": 2}, "cap": 2, "skill": 2,
+     "label": "克格莫「活体大炮」这一轮打了几发（第 3 发后进冷却）"},
+    {"hero": "league_ksante", "ladder": "league_ksante_q_s", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "奎桑提 Q 层数（2 层时变冲击波）"},
+    {"hero": "league_lillia", "ladder": "league_lillia_p", "rungs": 4, "cap": 4, "skill": 0, "label": "莉莉娅「腾跃」层数"},
+    {"hero": "league_mel", "most": {"league_mel_p_3": 3, "league_mel_p_6": 6, "league_mel_p_9": 9}, "cap": 9,
+     "skill": 0, "label": "梅尔「灼灼之光」下次普攻多射的光弹"},
+    {"hero": "league_mordekaiser", "ladder": "league_mordekaiser_p_s", "rungs": 2, "full": "league_mordekaiser_p_on",
+     "top": 3, "cap": 3, "skill": 0, "label": "莫德凯撒被动层数（3 = 黑暗之力开着）"},
+    {"hero": "league_orianna", "ladder": "league_orianna_p", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "奥莉安娜「发条协奏」层数"},
+    {"hero": "league_reksai", "ladder": "league_reksai_f", "rungs": 4, "step": 25, "cap": 100, "skill": 0,
+     "label": "雷克塞「艾克塞之怒」怒气（100 = 狂野之噬）"},
+    {"hero": "league_renekton", "ladder": "league_renekton_f", "rungs": 5, "step": 20, "cap": 100, "skill": 0,
+     "label": "雷克顿「怒之领域」怒气（100 = 下一个技能强化）"},
+    {"hero": "league_riven", "ladder": "league_riven_rune_", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "锐雯「符文之刃」层数"},
+    {"hero": "league_samira", "ladder": "league_samira_g", "rungs": 6, "cap": 6, "skill": 2,
+     "label": "莎弥拉「悍勇本色」评价（1 = E … 6 = S，S 才放大招）"},
+    {"hero": "league_seraphine", "most": {"league_seraphine_c1": 1, "league_seraphine_echo": 2}, "cap": 2, "skill": 0,
+     "label": "萨勒芬妮「星光漫射」计数（2 = 下一个技能回音）"},
+    {"hero": "league_sett", "ladder": "league_sett_grit_", "rungs": 5, "cap": 5, "skill": 1, "label": "瑟提「豪意」层数"},
+    {"hero": "league_shen", "ladder": "league_shen_q_", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "慎「暮临」剩下的强化普攻"},
+    {"hero": "league_sona", "ladder": "league_sona_pc_", "rungs": 2, "full": "league_sona_pc_ready", "top": 3, "cap": 3,
+     "skill": 0, "label": "娑娜「强音」计数（3 = 下次普攻强化）"},
+    {"hero": "league_sylas", "ladder": "league_sylas_p_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "塞拉斯「破敌禁法」层数"},
+    {"hero": "league_syndra", "total": {"league_syndra_o1": 1, "league_syndra_o2": 1, "league_syndra_o3": 1,
+                                        "league_syndra_o4": 1},
+     "cap": 4, "skill": 2, "label": "辛德拉场上的法球（大招多发几颗）"},
+    {"hero": "league_taric", "ladder": "league_taric_q_s", "rungs": 3, "cap": 3, "skill": 1,
+     "label": "塔里克「星光之触」充能"},
+    {"hero": "league_tristana", "ladder": "league_tristana_e_", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "崔丝塔娜「爆炸火花」炸弹层数（第 4 下引爆）"},
+    {"hero": "league_vi", "ladder": "league_vi_d_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "蔚「爆弹重拳」普攻计数（第 3 下）"},
+    {"hero": "league_volibear", "ladder": "league_volibear_p", "rungs": 5, "cap": 5, "skill": 0,
+     "label": "沃利贝尔「狂雷渐起」攻速层数"},
+    {"hero": "league_wukong", "ladder": "league_wukong_s_", "rungs": 5, "cap": 5, "skill": 0,
+     "label": "孙悟空「金刚不坏」层数"},
+    {"hero": "league_xayah", "ladder": "league_xayah_p", "rungs": 5, "cap": 5, "skill": 0,
+     "label": "霞「锐切」存着的穿透普攻"},
+    {"hero": "league_xinzhao", "ladder": "league_xinzhao_p_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "赵信「果决」普攻计数（第 3 下）"},
+    {"hero": "league_yasuo", "most": {"league_yasuo_q_stack": 1, "league_yasuo_q_ready": 2}, "cap": 2, "skill": 0,
+     "label": "亚索「旋风烈斩」层数（2 = 下一次放旋风）"},
+    {"hero": "league_yone", "most": {"league_yone_q_stack": 1, "league_yone_q_ready": 2}, "cap": 2, "skill": 0,
+     "label": "永恩「风暴聚集」层数（2 = 下一次冲刺击飞）"},
+    {"hero": "league_yunara", "ladder": "league_yunara_u", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "芸阿娜「灵蕴」（满了自动开启）"},
+    {"hero": "league_zeri", "ladder": "league_zeri_c", "rungs": 4, "step": 20, "full": "league_zeri_p_full", "top": 100,
+     "cap": 100, "skill": 0, "label": "泽丽「内能迁转」电量（100 = 下一击电击弹）"},
+    # 附加包照英雄联盟改了数法、主包副本的名字不再挂：olaf_rage 照已损失生命挂同样的 p_1..p_4
+    {"hero": "league_olaf", "ladder": "league_olaf_p_", "rungs": 4, "cap": 4, "skill": 0, "native": ["league_olaf_rage"],
+     "label": "奥拉夫「狂战之怒」层数"},
+    # 主包记在他自己身上（打谁都叠一个数），附加包记在每个敌人身上：两行，各在自己那份数据里读得出
+    {"hero": "league_akshan", "ladder": "league_akshan_p_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "阿克尚「无所不用」命中计数（第 3 下）"},
+    {"hero": "league_akshan", "prefix": "league_akshan_p_s:", "on": "foes", "cap": 2, "skill": 0,
+     "native": ["league_akshan"], "label": "阿克尚「无所不用」同一个敌人挨的下数（附加包）"},
+    {"hero": "league_sejuani", "ladder": "league_sejuani_f", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "瑟庄妮霜冻层数（第 4 层冻住）"},
+    {"hero": "league_sejuani", "count": "league_sejuani_frost", "on": "foes", "cap": 3, "skill": 0,
+     "native": ["league_sejuani"], "label": "瑟庄妮敌人身上最多的霜冻（附加包）"},
+    {"hero": "league_skarner", "ladder": "league_skarner_qk", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "斯卡纳「战栗」层数（第 3 层）"},
+    {"hero": "league_skarner", "prefix": "league_skarner_qk_", "on": "foes", "cap": 3, "skill": 0,
+     "native": ["league_skarner"], "label": "斯卡纳敌人身上最多的「战栗」（附加包）"},
+    {"hero": "league_tahmkench", "ladder": "league_tahmkench_t", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "塔姆「培养品味」层数"},
+    {"hero": "league_tahmkench", "count": "league_tahmkench_t_mark", "on": "foes", "cap": 3, "skill": 0,
+     "native": ["league_tahmkench"], "label": "塔姆敌人身上最多的「培养品味」（附加包）"},
+    {"hero": "league_talon", "ladder": "league_talon_p_", "rungs": 3, "cap": 3, "skill": 0,
+     "label": "泰隆「刀锋之末」伤口层数（3 层后下次普攻流血）"},
+    {"hero": "league_talon", "count": "league_talon_vault_w", "on": "foes", "cap": 3, "skill": 0,
+     "native": ["league_talon_vault"], "label": "泰隆敌人身上最多的伤口（附加包）"},
+    {"hero": "league_varus", "ladder": "league_varus_b_", "rungs": 3, "cap": 3, "skill": 0, "label": "韦鲁斯「枯萎」层数"},
+    {"hero": "league_varus", "ladder": "league_varus_blight_", "rungs": 3, "on": "foes", "cap": 3, "skill": 0,
+     "native": ["league_varus_blight"], "label": "韦鲁斯敌人身上最多的「枯萎」（附加包）"},
+    {"hero": "league_vayne", "ladder": "league_vayne_sb", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "薇恩「圣银弩箭」计数（第 3 下）"},
+    {"hero": "league_vayne", "count": "league_vayne_bolts_s", "on": "foes", "cap": 2, "skill": 0,
+     "native": ["league_vayne_bolts"], "label": "薇恩同一个敌人身上的「圣银弩箭」（附加包）"},
+    {"hero": "league_velkoz", "ladder": "league_velkoz_p_", "rungs": 2, "cap": 2, "skill": 0,
+     "label": "维克兹「有机体解构」层数（第 3 层）"},
+    {"hero": "league_velkoz", "prefix": "league_velkoz_pd_", "on": "foes", "cap": 3, "skill": 0,
+     "native": ["league_velkoz"], "label": "维克兹敌人身上最多的「有机体解构」（附加包）"},
+    # 附加包记在敌人身上、主包那份数法在附加包的副本里也读得出（布兰德的 b_1 附加包还在刷新、布隆的 p_mark 主包也挂在敌人
+    # 身上当图、图奇的 h1..h4 两份都有）：只给附加包的副本层数格，主包的不给
+    {"hero": "league_brand", "prefix": "league_brand_bz_", "on": "foes", "cap": 3, "skill": 0,
+     "passive": "league_brand:watch", "label": "布兰德敌人身上最多的「炽热之焰」（附加包）"},
+    {"hero": "league_braum", "count": "league_braum_p_mark", "on": "foes", "cap": 3, "skill": 0,
+     "passive": "league_braum:heart", "label": "布隆敌人身上最多的「震荡猛击」（附加包，第 4 层眩晕）"},
+    {"hero": "league_twitch", "ladder": "league_takedowns_tw_v", "rungs": 6, "on": "foes", "cap": 6, "skill": 1,
+     "passive": "league_takedowns:twitch", "label": "图奇敌人身上最多的「死亡毒液」（附加包）"},
+    # 附加包原生代码里才有的数：附加包自己在英雄身上挂梯子（照普朗克 / 维克托），主包的数据梯子留一行给不装附加包的
+    {"hero": "league_ahri", "most": {"league_ahri_et1": 1, "league_ahri_et2": 2, "league_ahri_et3": 3,
+                                     "league_ahri_et4": 4, "league_ahri_et5": 5, "league_ahri_et_ready": 6,
+                                     "league_ahri_et7": 7, "league_ahri_et8": 8},
+     "cap": 8, "skill": 0, "label": "阿狸「摄魂夺魄」精魄层数（第 9 层回血）"},
+    {"hero": "league_ahri", "ladder": "league_ahri_es_", "rungs": 99, "cap": 99, "skill": 0,
+     "passive": "league_ahri:essence", "label": "阿狸「摄魂夺魄」精魄层数（附加包）"},
+    {"hero": "league_kaisa", "ladder": "league_kaisa_pl_", "rungs": 4, "cap": 4, "skill": 0,
+     "label": "卡莎「体表活肤」电浆层数（第 5 层引爆）"},
+    {"hero": "league_kaisa", "ladder": "league_kaisa_pn_", "rungs": 4, "cap": 4, "skill": 0,
+     "passive": "league_marks:kaisa", "label": "卡莎敌人身上最多的电浆（附加包）"},
+    {"hero": "league_locke", "ladder": "league_locke_r_s", "rungs": 3, "cap": 3, "skill": 2,
+     "label": "洛克「万魔狱」封印层数"},
+    {"hero": "league_locke", "ladder": "league_locke_sl_", "rungs": 3, "cap": 3, "skill": 2,
+     "passive": "league_locke:exorcist", "label": "洛克「万魔狱」封印层数（附加包，整局都在）"},
+    {"hero": "league_zaahen", "ladder": "league_zaahen_d", "rungs": 11, "full": "league_zaahen_full", "top": 12,
+     "cap": 12, "skill": 0, "label": "亚恒「不落之志」果决层数（12 = 满）"},
+    {"hero": "league_zaahen", "ladder": "league_zaahen_dn_", "rungs": 12, "cap": 12, "skill": 0,
+     "passive": "league_zaahen:darkin", "label": "亚恒「不落之志」果决层数（附加包）"},
 ]
 
 
 # --------------------------------------------------------------------------------------------------------- the data
+RULES = ("count", "sum", "ladder", "most", "total", "prefix")
+
+
+def rows(hero):
+    return [r for r in STACKS if r["hero"] == hero]
+
+
 def row(hero):
-    return next((r for r in STACKS if r["hero"] == hero), None)
+    """The hero's first row (or None)."""
+    return next(iter(rows(hero)), None)
 
 
 def passive_ref(champ):
     """The native passive a copy calls (an add-on's), or None."""
     p = champ.get("passive")
     return p.get("passive_ref") if isinstance(p, dict) else None
+
+
+def applies(r, champ):
+    """这一行给不给这份英雄数据层数格：带 passive 的只给调那个原生被动的副本，别的给每一份。"""
+    return r["passive"] == passive_ref(champ) if "passive" in r else True
 
 
 def apply(champ):
@@ -118,12 +294,14 @@ def apply(champ):
     prefix = f"{hero}_sn_"
     if any(str(v.get("name", "")).startswith(prefix) for v in champ.get("view_buffs", [])):
         champ["view_buffs"] = [v for v in champ["view_buffs"] if not str(v.get("name", "")).startswith(prefix)]
-    r = row(hero)
-    if r is not None and r.get("passive", passive_ref(champ)) != passive_ref(champ):
+    mine = rows(hero)
+    if not mine:
+        return champ
+    here = [r for r in mine if applies(r, champ)]
+    if here:
+        champ[FIELD] = here[0]["skill"]
+    else:
         champ.pop(FIELD, None)      # an add-on's counter: not in a copy without its passive
-        r = None
-    if r is not None:
-        champ[FIELD] = r["skill"]
     return champ
 
 
@@ -147,6 +325,16 @@ def copies():
                   glob.glob(os.path.join(ROOT, "addons", "*", "override", "*.data_champion")))
 
 
+def addon_of(path):
+    """这份数据是哪个附加包的副本（主包的是 None）。"""
+    rel = os.path.relpath(path, ROOT).replace(os.sep, "/").split("/")
+    return rel[1] if rel[0] == "addons" else None
+
+
+def load(path):
+    return json.loads(open(path, "rb").read().decode("utf-8"))
+
+
 def data_problems(write=False):
     out = []
     for path in copies():
@@ -161,6 +349,8 @@ def data_problems(write=False):
             new = dumps_main(want)
             if "\r\n" not in raw:       # the add-ons' make_override.py write LF (git stores LF either way)
                 new = new.replace("\r\n", "\n")
+            if raw.count("\n") <= 1:    # 一行的紧凑副本（塞拉斯的带着所有人的大招）照原样写成一行
+                new = json.dumps(want, ensure_ascii=False, separators=(",", ":")) + "\n"
             with open(path, "w", encoding="utf-8", newline="") as f:
                 f.write(new)
             out.append(f"wrote {os.path.relpath(path, ROOT)}")
@@ -173,11 +363,21 @@ def data_problems(write=False):
 STATS = {"magic_power": "MagicPower", "hp": "Hp", "attack": "Attack"}
 
 
+def pairs_rs(d):
+    return "&[" + ", ".join(f'("{n}", {v})' for n, v in d.items()) + "]"
+
+
 def rule_rs(r):
     if "count" in r:
         return f'Rule::Count("{r["count"]}")'
     if "sum" in r:
         return f'Rule::Sum("{r["sum"]}", Stat::{STATS[r["stat"]]})'
+    if "most" in r:
+        return f'Rule::Most({pairs_rs(r["most"])})'
+    if "total" in r:
+        return f'Rule::Total({pairs_rs(r["total"])})'
+    if "prefix" in r:
+        return f'Rule::Prefix("{r["prefix"]}")'
     full = f'Some(("{r["full"]}", {r["top"]}))' if "full" in r else "None"
     return (f'Rule::Ladder {{ prefix: "{r["ladder"]}", rungs: {r["rungs"]}, step: {r.get("step", 1)}, '
             f'full: {full} }}')
@@ -188,8 +388,9 @@ def table_rs():
              "//! tools/kit/stack_nums.py from its STACKS - do not edit by hand.", "",
              "use super::stacks::{Rule, Stack, Stat};", "",
              f"pub const STACKS: [Stack; {len(STACKS)}] = ["]
-    for r in sorted(STACKS, key=lambda r: r["hero"]):
-        lines.append(f'    Stack {{ hero: "{r["hero"]}", rule: {rule_rs(r)}, cap: {r["cap"]} }},')
+    for r in sorted(STACKS, key=lambda r: r["hero"]):       # stable: a hero's rows keep the table's order
+        foes = "true" if r.get("on") == "foes" else "false"
+        lines.append(f'    Stack {{ hero: "{r["hero"]}", rule: {rule_rs(r)}, cap: {r["cap"]}, foes: {foes} }},')
     lines += ["];", ""]
     return "\n".join(lines)
 
@@ -201,32 +402,111 @@ def table_problems():
     return []
 
 
+def names(r):
+    """The buff names a row reads (a ladder: its first and last rung and the flag; a prefix: the prefix itself)."""
+    if "count" in r:
+        return [r["count"]]
+    if "sum" in r:
+        return [r["sum"]]
+    if "most" in r or "total" in r:
+        return list(r.get("most") or r["total"])
+    if "prefix" in r:
+        return [r["prefix"]]
+    return [f'{r["ladder"]}{k}' for k in (1, r["rungs"])] + ([r["full"]] if "full" in r else [])
+
+
+def added(champ):
+    """这份数据里挂过的 buff 名字（AddCasterBuff / AddBuff）。"""
+    out = set()
+
+    def walk(o):
+        if isinstance(o, dict):
+            if o.get("type") in ("AddCasterBuff", "AddBuff") and isinstance(o.get("buff_state"), dict):
+                out.add(o["buff_state"].get("name"))
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+    walk(champ)
+    return out
+
+
+def live(r, path, champ, have):
+    """这一行在这份数据里读不读得出数：原生被动对得上、它是 native 那个附加包的副本，或者名字在这份数据里有人挂。"""
+    if "passive" in r:
+        return passive_ref(champ) == r["passive"]
+    if addon_of(path) in r.get("native", ()):
+        return True
+    if "prefix" in r:
+        return any(n and n.startswith(r["prefix"]) for n in have)
+    return all(n in have for n in names(r))
+
+
 def rules_problems():
-    """Every counted buff / ladder rung exists in the hero's own data (a renamed buff would count nothing), every icon
-    is one of his three, and nothing still draws the old over-head numbers. An add-on's own counter ("passive"): some
-    copy of the hero calls that passive (its code writes the rungs, its unit tests check the names)."""
+    """Every row reads something in some copy of its hero (a renamed buff would count nothing), every copy that shows
+    the box has a row that reads something in it, every icon is one of his three, a hero's rows share their icon, and
+    nothing still draws the old over-head numbers. An add-on's own counter ("passive"): some copy of the hero calls
+    that passive (its code writes the rungs, its unit tests check the names)."""
     out = []
+    by_hero = {}
+    for path in copies():
+        champ = load(path)
+        if champ.get("id") == os.path.basename(path).split(".")[0]:
+            by_hero.setdefault(champ["id"], []).append((path, champ))
+    addons = {os.path.basename(os.path.dirname(p)) for p in glob.glob(os.path.join(ROOT, "addons", "*", "Cargo.toml"))}
     for r in STACKS:
-        if "passive" in r:
-            mine = [p for p in copies() if os.path.basename(p) == r["hero"] + ".data_champion"
-                    and passive_ref(json.loads(open(p, "rb").read().decode("utf-8"))) == r["passive"]]
-            if not mine:
-                out.append(f"{r['hero']}: no copy of it calls {r['passive']}")
-            names = []
-        else:
-            raw = open(os.path.join(LEAGUE, "champion", r["hero"] + ".data_champion"), encoding="utf-8").read()
-            names = ([r["count"]] if "count" in r else [r["sum"]] if "sum" in r else
-                     [f'{r["ladder"]}{k}' for k in (1, r["rungs"])] + ([r["full"]] if "full" in r else []))
-        if "sum" in r and f'"{r["stat"]}"' not in raw:
-            out.append(f"{r['hero']}: no buff of it carries {r['stat']}")
-        for n in names:
-            if f'"{n}"' not in raw:
-                out.append(f"{r['hero']}: {n} is not in its data")
+        h = r["hero"]
+        kinds = [k for k in RULES if k in r]
+        if len(kinds) != 1:
+            out.append(f"{h}: one rule of {RULES} a row, not {kinds}")
+            continue
         if r["skill"] not in (0, 1, 2):
-            out.append(f"{r['hero']}: skill {r['skill']} is not 0, 1 or 2")
+            out.append(f"{h}: skill {r['skill']} is not 0, 1 or 2")
+        if r.get("on", "foes") != "foes":
+            out.append(f"{h}: on {r['on']!r} (only \"foes\")")
+        if r.get("cap", 0) <= 0:
+            out.append(f"{h}: cap {r.get('cap')}")
+        if "sum" in r and r["stat"] not in STATS:
+            out.append(f"{h}: stat {r['stat']} is not one of {sorted(STATS)}")
+        for a in r.get("native", ()):
+            if a not in addons or not any(addon_of(p) == a for p, _ in by_hero.get(h, [])):
+                out.append(f"{h}: native {a} is not an add-on with a copy of him")
+        mine = by_hero.get(h, [])
+        if not mine:
+            out.append(f"{h}: no data of him")
+            continue
+        if "passive" in r and not any(passive_ref(c) == r["passive"] for _, c in mine):
+            out.append(f"{h}: no copy of it calls {r['passive']}")
+        elif not any(live(r, p, c, added(c)) for p, c in mine):
+            what = r.get("prefix") or ", ".join(names(r))
+            out.append(f"{h}: no copy of him hangs {what} ({r['label']})")
+    for h in sorted({r["hero"] for r in STACKS}):
+        if len({r["skill"] for r in rows(h)}) > 1:
+            out.append(f"{h}: his rows show different icons")
+        for path, champ in by_hero.get(h, []):
+            here = [r for r in rows(h) if applies(r, champ)]
+            have = added(champ)
+            if here and not any(live(r, path, champ, have) for r in here):
+                out.append(f"{os.path.relpath(path, ROOT)}: shows the box but none of his rows reads anything in it")
     if os.path.exists(os.path.join(LEAGUE, "effects", "league_stack_num#sheet.png")):
         out.append("league/effects/league_stack_num is still there (the over-head numbers are gone)")
     return out
+
+
+def what(r):
+    if "count" in r:
+        w = r["count"]
+    elif "sum" in r:
+        w = f'{r["sum"]} {r["stat"]}'
+    elif "most" in r or "total" in r:
+        d = r.get("most") or r["total"]
+        w = ("most " if "most" in r else "total ") + " ".join(f"{n.replace(r['hero'] + '_', '')}={v}" for n, v in d.items())
+    elif "prefix" in r:
+        w = r["prefix"] + "*"
+    else:
+        w = f'{r["ladder"]}1..{r["rungs"]}'
+    return ("foes: " if r.get("on") == "foes" else "") + w
 
 
 def main():
@@ -238,9 +518,8 @@ def main():
     ap.add_argument("--list", action="store_true")
     a = ap.parse_args()
     if a.list:
-        for r in STACKS:
-            what = r.get("count") or (f'{r["sum"]} {r["stat"]}' if "sum" in r else f'{r["ladder"]}1..{r["rungs"]}')
-            print(f'{r["hero"]:22s} {what:34s} cap {r["cap"]:5d}  icon {r["skill"]}  {r["label"]}')
+        for r in sorted(STACKS, key=lambda r: r["hero"]):
+            print(f'{r["hero"]:20s} {what(r):48s} cap {r["cap"]:5d}  icon {r["skill"]}  {r["label"]}')
     if a.write:
         with open(TABLE_RS, "w", encoding="utf-8", newline="\n") as f:
             f.write(table_rs())
@@ -253,7 +532,8 @@ def main():
             print(b)
         if bad:
             sys.exit(f"{len(bad)} problem(s)")
-        print(f"stack counts: {len(STACKS)} heroes, {FIELD} and league.dll's table up to date")
+        heroes = len({r["hero"] for r in STACKS})
+        print(f"stack counts: {heroes} heroes ({len(STACKS)} rows), {FIELD} and league.dll's table up to date")
 
 
 if __name__ == "__main__":

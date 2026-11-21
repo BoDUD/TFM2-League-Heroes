@@ -2624,6 +2624,7 @@
       "z": -1
     }
   ],
+  "stack_skill_index": 2,
   "passive": {
     "passive_ref": "league_kogmaw:life",
     "params": {}

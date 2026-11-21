@@ -3947,5 +3947,6 @@
       "e_roll_r": 13000,
       "e_roll_len": 700000
     }
-  }
+  },
+  "stack_skill_index": 0
 }

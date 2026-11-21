@@ -32,6 +32,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fix"))
 import red_side  # noqa: E402
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -276,6 +277,10 @@ def build(p, native=False):
     # the red-side pass (tools/fix/red_side_caster_fx.py): pictures with a front and a back drawn into his frames,
     # the rest made symmetric - the same changes on every build, the add-on's copy included
     return red_side.apply(kit, "xinzhao")
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

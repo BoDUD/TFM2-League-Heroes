@@ -1358,5 +1358,6 @@
       "extend": 240,
       "window": 180
     }
-  }
+  },
+  "stack_skill_index": 0
 }

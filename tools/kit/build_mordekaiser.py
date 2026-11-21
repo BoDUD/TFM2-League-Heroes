@@ -43,6 +43,7 @@ add-on addons/league_mordekaiser for the real 10% steal, the tether and W's real
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -387,6 +388,10 @@ def build(p):
                           "params": {"kill": p["r_kill"], "kill_ap": p["r_kill_ap"], "keep": p["r_keep"],
                                      "w_dealt": 45, "w_taken": 15, "w_cap": 30, "w_heal": 40}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

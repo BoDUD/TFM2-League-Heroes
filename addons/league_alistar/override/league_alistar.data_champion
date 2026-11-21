@@ -7098,6 +7098,7 @@
       "z": -1
     }
   ],
+  "stack_skill_index": 0,
   "passive": {
     "passive_ref": "league_alistar:roar",
     "params": {}

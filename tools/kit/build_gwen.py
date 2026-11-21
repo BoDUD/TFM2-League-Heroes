@@ -42,6 +42,7 @@ BIG = "asset/league/effects/league_gwen_big"
 sys.path.insert(0, os.path.join(REPO, "tools", "fix"))
 import mirror_union_fx  # noqa: E402
 import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 # Numbers = candidate g4 of the 10-min classic-SDK simulations (tr_sim's kd.py copied to Temp/gw_sim, top lane against
 # fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 24 seeds a batch,
@@ -343,6 +344,9 @@ def nodes(o):
 # every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
 # (tools/kit/range_buffs.py, 2026-11-07)
 build = range_buffs.wrap(build)
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def main():

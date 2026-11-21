@@ -4729,5 +4729,6 @@
       "tag": "w_shield",
       "z": 1
     }
-  ]
+  ],
+  "stack_skill_index": 0
 }

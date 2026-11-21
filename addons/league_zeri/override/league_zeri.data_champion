@@ -5042,5 +5042,6 @@
       "p_need": 5,
       "p_walk": 51200
     }
-  }
+  },
+  "stack_skill_index": 0
 }
