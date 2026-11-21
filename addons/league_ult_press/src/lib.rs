@@ -1332,6 +1332,8 @@ pub fn slots_of(name: &str) -> &'static [PressSlot] {
 /// The slots whose cooldowns are watched for the `CAST` / `R ARMED` lines: the pressed ones (`slots_of`), and the R of an
 /// armed ult the hook does not press (0.6.1: Rell, Lulu, Tryndamere - their refunds were never read). Only the log reads
 /// them; what is pressed stays `slots_of`'s.
+// 合集里只有测试用它（decide 用 watched_iter）
+#[cfg_attr(league_bundle, allow(dead_code))]
 pub fn watched_slots(name: &str) -> Vec<PressSlot> {
     watched_iter(name).collect()
 }
