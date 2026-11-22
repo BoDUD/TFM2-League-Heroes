@@ -729,6 +729,11 @@ def dragon_frames(C):
     head = [(1, 0), (1, -1), (1, 0), (1, 1), (1, 0), (1, -1), (1, 0), (1, 1)]
     out["d_run"] = [dragon_run(C, RL, k, far_wing=b, near_wing=-b * 0.5, tail=t, head=h)
                     for k, (b, t, h) in enumerate(zip(beat, tail, head))]
+    # 2026-11-22 用户「龙女变形的龙的跑步姿势也可以让codex重画一下 现在也很僵硬」：Codex 照英雄联盟 run1 重画的 8 帧
+    # （tools/art/read_shyvana_dragon_run.py 读回的画布）在就用它们；SHYVANA_RIG_RUN=1 还是上面挪方块的那版
+    codex = [os.path.join(SRC, "codex_dragon_run", "frames", f"d_run_{k}.png") for k in range(1, 9)]
+    if all(os.path.isfile(f) for f in codex) and not os.environ.get("SHYVANA_RIG_RUN"):
+        out["d_run"] = [np.array(Image.open(f).convert("RGBA")) for f in codex]
     # auto attack (League's Attack1: drawn back low, the head and the near fore claw thrown forward, the claw raking
     # down; the hit at ~230 ms = tick 14): drawn back, the claw raised, thrown forward, the rake (frame 4, the hit),
     # held, back
