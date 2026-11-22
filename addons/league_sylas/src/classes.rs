@@ -242,6 +242,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("ragnarok_raiden", "melee"),
     ("ragnarok_shiva", "assassin"),
     ("ragnarok_thor", "melee"),
+    ("ragnarok_zerofuku", "melee"),
     ("ragnarok_zeus", "melee"),
     ("sand_mage", "mage"),
     ("shadowmancer", "mage"),
