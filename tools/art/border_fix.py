@@ -1,35 +1,18 @@
 #!/usr/bin/env python3
-"""边境巡团（border）Codex 交的图收成游戏自带那种像素画风：身体只改颜色，形状、透明度一格不动。
+"""边境巡团（border）Codex 交的特效图收色、技能图标拷进包。身体帧不在这里：Codex v0.9.0 的高清帧由
+tools/art/border_hd.py 重出（PPU 2.5）。
 
-    python -I tools/art/border_fix.py --from <交付解压的文件夹>   # 第一次：交付里的运行时文件原样拷进 assets/source/border/runtime
-    python tools/art/border_fix.py                               # 读 runtime/，写 assets/source/border/snapped
+    python -I tools/art/border_fix.py --from <交付解压的文件夹>   # Codex 交运行时文件（特效、图标、立绘）时：原样拷进 runtime/
+    python tools/art/border_fix.py                               # 读 runtime/effects，写 assets/source/border/snapped/<id>_fx
     python tools/art/border_fix.py --check                       # 重算一遍和 snapped/ 比，不一样退出 1
-    python tools/art/border_fix.py --review <文件夹>              # 另出每人一张前后对比图（1 倍、2 倍）
-    （顺带把技能图标拷进 border/icons；选人立绘：python -I tools/art/bp_illustrations.py assets/source/border/runtime/banpick_illustrations --write）
-    然后 tools/art/border_heads.py（整套换成待机第 1 帧的头）、import_<英雄>.py、ppu_hd.py --hero <英雄>、hero_reels.py --hero <英雄>
+    （选人立绘：python -I tools/art/bp_illustrations.py assets/source/border/runtime/banpick_illustrations --write）
+    然后 tools/art/import_<英雄>.py、ppu_hd.py --hero <英雄>、hero_reels.py --hero <英雄>
 
-Codex 2026-11-22 交的（v0.4.0 六个人，v0.5.0 又加六个、前六个的图一个字节没变：Border_Patrol_Mirror_Sea_Anime_Assets_v0.5.0.zip，
-交接说明 assets/source/border/CLAUDE_HANDOFF.md）：十二个人，一格 256，脚底 (128, 184)，
-站高 100-110 格，8 个动作（跑步 8 帧，其余 4 帧），朝右；特效一格 128，中心 (64, 68)。原画是缩小的厚涂，一帧三四千种颜色，
-满是杂色点，没有成形的描边。用户要的是「利用PPU能把模型变成游戏那种自带的像素风格但是还能保持高清」：密度不变（PPU 3.3；2026-11-22 放大到联盟大小以后 2.54），
-看着要像原版的像素画——平涂、三四档硬明暗、一格的描边、没有杂点。
+特效：每个标签不超过 32 色（颜色在 OKLab 里算，按透明度加权取主色，饱和、离主色远的小色块单独固定），透明度照交的原样。
 
-身体（每人 8 个动作共用一套调色板，不超过 64 色）：
-- 颜色在 OKLab 里算，色度乘 CW（色相差算得比明暗差重：皮肤和米色布分得开，同一种材质的几档明暗合得狠）；
-- 先在人物里面做一遍保边的平均（邻近颜色差不到 TAU 的才平均，线条、眼睛、高光不糊）；
-- 调色板：k-means 取主色，再把饱和、离主色远的小色块单独聚类、固定下来（点缀色：岑垒盾上的青色宝石、盐汐的紫眼睛，
-  只用中位切分会变灰），然后把太近的两档合成一档（D_MIN），明暗就成了一档一档的；
-- 清杂点：同一档颜色连成的块不到 SPECK 格、或者八邻里没有同色的，并进周围最多的那档（只并相近的颜色，眼睛、
-  深色线条这类反差大的细节不动，点缀色不动）；只连着一两个同色、周围五个以上是另一档相近颜色的锯齿也并过去；
-- 描边：最外一圈换成「同色系最暗那档再压暗」的颜色（色系按往里 1-3 格不是原画深线条的像素挑；描边最亮只到 L 0.42，
-  不是一圈近黑的线）；紧贴描边里面那圈原画自带的深线（一两格粗）换成往里不深的颜色，描边只有一格。
-特效：每个标签不超过 32 色（同样的取色，点缀色固定），透明度照交的原样。
-
-调色板存在 assets/source/border/palettes/border_<英雄>.json，之后都套这一套：调色板是按整张表拟合的，表里换了几帧
-再重新拟合，没改的帧也会全部换色（2026-11-22 v0.6.0 重画九人的跑步第 5–8 帧时就是这样：待机帧平均差 27）。那九人的
-调色板是在 v0.5.0 的原图上拟合的（--refit --fit-from 一个放着 v0.5.0 champions/ 的文件夹），和当初用的一模一样。
-
-Codex 的原样在 runtime/，只读；音频、design/ 没拷进来。
+以前（v0.1-v0.7.2）身体帧也在这里收：Codex 交的是一格 256 的小图（他自己从原画缩的），这里给每人拟合一套 64 色调色板、
+清杂点、补同色系描边。2026-11-22 Codex 交了高清帧（v0.9.0），用户要在高清帧上用 PPU 重出（「稍微有点像素感」「比终末
+更有像素感一点」），身体改由 border_hd.py 出，那套调色板、描边就拿掉了（在 git 历史里）。
 """
 import argparse
 import json
@@ -47,8 +30,6 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 BASE = os.path.join(ROOT, "assets", "source", "border")
 RUNTIME = os.path.join(BASE, "runtime")
 OUT = os.path.join(BASE, "snapped")
-# 每人一套身体调色板（fit_palette 的结果）：以后重跑、Codex 返修几帧都套这一套，没改的帧颜色一格不变
-PALETTES = os.path.join(BASE, "palettes")
 HEROES = ("cenlei", "xiaolun", "dengmi", "zhumo", "fusuo", "yanxi", "yindu", "lanti", "luxin", "jiyan", "zhongli", "wuling")
 # 交付里拷进来的：运行时的图（不要音频）和 docs/border_patrol 的交接说明、json
 COPY_DIRS = ("champions", "effects", "icons", "banpick_illustrations", "portraits")
@@ -57,17 +38,9 @@ COPY_DIRS = ("champions", "effects", "icons", "banpick_illustrations", "portrait
 ICONS = os.path.join(ROOT, "border", "icons")
 ICON_SLOTS = ("skill", "skill2", "ult")
 
-# 身体的参数（2026-11-22 照岑垒、盐汐、伏梭对比着试出来的：杂点比例 0.13-0.19，和用户认可的泽丽、阿狸、亚索的高清帧
-# 0.08-0.18 一样干净；眼睛、宝石、腰带扣都在）
-STYLE = dict(cw=3.0, tau=0.10, radius=2, passes=2, n_main=48, d_min=0.085, acc_C=0.07, acc_d=0.08, acc_min=24,
-             diam=0.06, out_k=0.62, out_top=0.42, out_floor=0.12, merge_dE=0.13, clean_passes=6, speck=4,
-             jag_own=2, jag_maj=5, line_L=0.22, colours=64)
 FX_COLOURS = 32
 SEED = 0
 
-CROSS = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], bool)
-SQ = np.ones((3, 3), bool)
-NB8 = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
 
 # ---------------------------------------------------------------- OKLab
@@ -90,32 +63,6 @@ def to_rgb(lab):
     lin = np.clip(((np.asarray(lab, np.float64) @ M2I.T) ** 3) @ M1I.T, 0, 1)
     c = np.where(lin <= 0.0031308, 12.92 * lin, 1.055 * np.power(lin, 1 / 2.4) - 0.055)
     return np.clip(np.round(c * 255), 0, 255).astype(np.uint8)
-
-
-def shift(a, dy, dx, fill):
-    """out[y, x] = a[y + dy, x + dx]，出界的填 fill。"""
-    H, W = a.shape[:2]
-    out = np.full_like(a, fill)
-    ys0, ys1 = max(0, -dy), min(H, H - dy)
-    xs0, xs1 = max(0, -dx), min(W, W - dx)
-    out[ys0:ys1, xs0:xs1] = a[ys0 + dy:ys1 + dy, xs0 + dx:xs1 + dx]
-    return out
-
-
-def sigma_smooth(x, op, tau, passes, radius):
-    """保边平均：每格和周围 radius 以内颜色差不到 tau 的一起平均，只在人物里面（x 是工作空间的颜色）。"""
-    offs = [(dy, dx) for dy in range(-radius, radius + 1) for dx in range(-radius, radius + 1) if dy or dx]
-    x = x.copy()
-    for _ in range(passes):
-        acc = x * op[..., None]
-        n = op.astype(np.float64)
-        for dy, dx in offs:
-            nx_, no = shift(x, dy, dx, 0.0), shift(op, dy, dx, False)
-            close = no & op & (np.sqrt(((nx_ - x) ** 2).sum(-1)) < tau)
-            acc += nx_ * close[..., None]
-            n = n + close
-        x = np.where(op[..., None], acc / np.maximum(n, 1)[..., None], x)
-    return x
 
 
 def kmeans(x, k, w=None, iters=30, seed=SEED, init=None, fixed=0):
@@ -189,169 +136,6 @@ def palette(P, wts, n_main, d_min, acc_C, acc_d, acc_min, cw):
     return merge_close(cent, w, d_min, [True] * len(accents) + [False] * (len(cent) - len(accents)))
 
 
-def families(lab, diam, wl=0.25):
-    """调色板分色系：(a, b, wl*L) 里全连接聚类，直径不超过 diam（一种材质的几档明暗在一组）。"""
-    if len(lab) == 1:
-        return np.zeros(1, int)
-    x = np.stack([lab[:, 1], lab[:, 2], wl * lab[:, 0]], 1)
-    return fcluster(linkage(x, method="complete"), t=diam, criterion="distance") - 1
-
-
-def nb_counts(idx, op, K, r=1):
-    """每格周围 (2r+1)^2-1 格里各个颜色的个数 (H, W, K)。"""
-    H, W = idx.shape
-    oh = np.zeros((H + 2 * r, W + 2 * r, K), np.int16)
-    ys, xs = np.nonzero(op)
-    oh[ys + r, xs + r, idx[ys, xs]] = 1
-    cnt = np.zeros((H, W, K), np.int16)
-    for dy in range(-r, r + 1):
-        for dx in range(-r, r + 1):
-            if dy or dx:
-                cnt += oh[r + dy:r + dy + H, r + dx:r + dx + W]
-    return cnt
-
-
-def comp_sizes(idx, op):
-    """每格所在的同色块（八连通）有几格。"""
-    out = np.zeros(idx.shape, np.int32)
-    for k in np.unique(idx[op]):
-        m = op & (idx == k)
-        lab, n = ndimage.label(m, structure=SQ)
-        out[m] = np.asarray(ndimage.sum(m, lab, range(1, n + 1)))[lab[m] - 1]
-    return out
-
-
-def clean(idx, op, pal_w, protect, st):
-    """清杂点和锯齿：只并进相近的颜色（工作空间里差不到 merge_dE），点缀色不动。"""
-    K = len(pal_w)
-    dE = np.sqrt(((pal_w[:, None] - pal_w[None]) ** 2).sum(-1))
-    idx = idx.copy()
-    for _ in range(st["clean_passes"]):
-        cnt = nb_counts(idx, op, K)
-        own = np.take_along_axis(cnt, idx[..., None], 2)[..., 0]
-        other = cnt.copy()
-        np.put_along_axis(other, idx[..., None], -1, 2)
-        maj, majn = other.argmax(2), other.max(2)
-        near = (dE[maj, idx] < st["merge_dE"]) & ~protect[idx]
-        speck = op & ((own == 0) | (comp_sizes(idx, op) <= st["speck"])) & (majn >= 3) & near
-        jag = op & (own <= st["jag_own"]) & (majn >= st["jag_maj"]) & near
-        ch = speck | jag
-        if not ch.any():
-            break
-        idx[ch] = maj[ch]
-    return idx
-
-
-def edge_of(op):
-    return op & ~ndimage.binary_erosion(op, structure=CROSS, border_value=0)
-
-
-def outline(idx, op, lab, fam, otone, line_L):
-    """最外一圈换成色系的描边色，紧贴里面那圈原画自带的深线换成往里不深的颜色。"""
-    edge = edge_of(op)
-    inner = op & ~edge
-    famimg = fam[idx]
-    L = lab[idx][..., 0]
-    chroma = np.hypot(lab[idx][..., 1], lab[idx][..., 2])
-    # 原画的深色线条：很暗又几乎没颜色（深色的头发、裤子有颜色，不算）
-    plain = inner & ~((L < line_L) & (chroma < 0.04))
-    choice = np.full(idx.shape, -1)
-    for src, radii in ((plain, (1, 2, 3)), (inner, (1, 2))):
-        for r in radii:
-            size = 2 * r + 1
-            best, bestn = np.full(idx.shape, -1), np.zeros(idx.shape)
-            for f in np.unique(fam):
-                c = ndimage.uniform_filter((src & (famimg == f)).astype(float), size=size, mode="constant") * size * size
-                better = c > bestn + 1e-9
-                best[better], bestn[better] = f, c[better]
-            todo = edge & (choice < 0) & (bestn > 0.5)
-            choice[todo] = best[todo]
-    todo = edge & (choice < 0)
-    choice[todo] = famimg[todo]
-    out = idx.copy()
-    ys, xs = np.nonzero(edge)
-    out[ys, xs] = [otone[int(f)] for f in choice[ys, xs]]
-    ring = inner & ndimage.binary_dilation(edge, structure=CROSS)
-    near_out = ndimage.maximum_filter(np.where(edge, lab[out][..., 0], 0), size=3)
-    deep = inner & ~ring
-    cnt = nb_counts(np.where(deep, idx, 0), deep, len(lab), r=2)
-    Lp = lab[:, 0]
-    for y, x in zip(*np.nonzero(ring)):
-        Lr = Lp[out[y, x]]
-        if Lr > near_out[y, x] + 0.10 or Lr > 0.36:
-            continue
-        c = cnt[y, x].astype(int)
-        c[Lp < Lr + 0.12] = 0
-        if c.max() >= 3:
-            out[y, x] = int(c.argmax())
-    return out
-
-
-def _prep(frames, st):
-    """只算人物所在的那一块（全部帧的并集外扩 4 格，快很多），在人物里面做保边平均。"""
-    wv = np.array([1.0, st["cw"], st["cw"]])
-    ops = [f[..., 3] > 0 for f in frames]
-    union = np.logical_or.reduce(ops)
-    ys, xs = np.nonzero(union)
-    y0, y1, x0, x1 = max(0, ys.min() - 4), ys.max() + 5, max(0, xs.min() - 4), xs.max() + 5
-    crops = [f[y0:y1, x0:x1] for f in frames]
-    cops = [o[y0:y1, x0:x1] for o in ops]
-    sm = [sigma_smooth(to_lab(c[..., :3]) * wv, o, st["tau"], st["passes"], st["radius"]) for c, o in zip(crops, cops)]
-    return (y0, y1, x0, x1), cops, sm
-
-
-def fit_palette(frames, st=STYLE):
-    """一个英雄全部身体帧（RGBA）-> 调色板：OKLab 的颜色 lab、色系 fam、点缀色 fixed、每个色系的描边色 otone。"""
-    wv = np.array([1.0, st["cw"], st["cw"]])
-    _, cops, sm = _prep(frames, st)
-    P = np.concatenate([s_[o] for s_, o in zip(sm, cops)])
-    d_min = st["d_min"]
-    while True:
-        pal_w, _, fixed = palette(P, np.ones(len(P)), st["n_main"], d_min, st["acc_C"], st["acc_d"], st["acc_min"], st["cw"])
-        lab = pal_w / wv
-        fam = families(lab, st["diam"])
-        lab, fam, fixed = list(lab), list(fam), list(fixed)
-        otone = {}
-        for f in sorted(set(fam)):
-            m = [i for i in range(len(fam)) if fam[i] == f]
-            dk = min(m, key=lambda i: lab[i][0])
-            t = np.array([max(st["out_floor"], min(st["out_top"], st["out_k"] * lab[dk][0])), lab[dk][1], lab[dk][2]])
-            d = [np.sqrt((((q - t) * wv) ** 2).sum()) for q in lab]
-            if min(d) < 0.03:
-                otone[f] = int(np.argmin(d))
-            else:
-                lab.append(t)
-                fam.append(f)
-                fixed.append(False)
-                otone[f] = len(lab) - 1
-        if len(lab) <= st["colours"]:
-            break
-        d_min += 0.005
-    return {"lab": [[float(v) for v in q] for q in lab], "fam": [int(f) for f in fam], "fixed": [bool(x) for x in fixed],
-            "otone": {str(int(f)): int(i) for f, i in otone.items()}}
-
-
-def apply_palette(frames, pal, st=STYLE):
-    """按调色板给每帧上色（每格挑最近的一档，清杂点，描边）-> (新帧, 调色板 RGB)。只改颜色：透明度一模一样（断言）。"""
-    wv = np.array([1.0, st["cw"], st["cw"]])
-    lab, fam, fixed = np.array(pal["lab"]), np.array(pal["fam"]), np.array(pal["fixed"], bool)
-    otone = {int(f): i for f, i in pal["otone"].items()}
-    (y0, y1, x0, x1), cops, sm = _prep(frames, st)
-    pal_w, rgb = lab * wv, to_rgb(lab)
-    out = []
-    for f, s_, o in zip(frames, sm, cops):
-        idx = np.zeros(o.shape, np.int64)
-        idx[o] = ((s_[o][:, None] - pal_w[None]) ** 2).sum(-1).argmin(1)
-        idx = outline(clean(idx, o, pal_w, fixed, st), o, lab, fam, otone, st["line_L"])
-        g = f.copy()
-        sub_ = g[y0:y1, x0:x1]
-        sub_[o, :3] = rgb[idx[o]]
-        if not np.array_equal(g[..., 3], f[..., 3]):
-            sys.exit("restyle changed a frame's alpha")
-        out.append(g)
-    return out, rgb
-
-
 def fx_colours(frames, n=FX_COLOURS, cw=3.0):
     """一组特效帧（RGBA）收到不超过 n 色：按透明度加权取色，饱和的小色块固定；透明度不动。"""
     wv = np.array([1.0, cw, cw])
@@ -386,46 +170,6 @@ def read(stem):
     return sheet, fanim
 
 
-def rects(fanim):
-    """[(标签, 第几帧, (x, y, w, h))]，照 .fanim 的顺序。"""
-    return [(t, i, tuple(int(fr["data"][k]) for k in "xywh")) for t, a in fanim["anims"].items()
-            for i, fr in enumerate(a["frames"])]
-
-
-def body_frames(stem):
-    sheet, fanim = read(stem)
-    rs = rects(fanim)
-    return sheet, fanim, rs, [sheet[y:y + h, x:x + w] for _, _, (x, y, w, h) in rs]
-
-
-def fix_body(stem, hero, refit=False, fit_from=None, write=True):
-    """身体：调色板用 palettes/border_<英雄>.json（没有、或 refit 时重新拟合；fit_from 是拿来拟合的另一份图的文件夹），
-    再给 runtime/ 里的每帧上色。"""
-    sheet, fanim, rs, frames = body_frames(stem)
-    pal_path = os.path.join(PALETTES, f"border_{hero}.json")
-    if os.path.isfile(pal_path) and not refit:
-        with open(pal_path, encoding="utf-8") as f:
-            pal = json.load(f)
-    else:
-        src = frames if fit_from is None else body_frames(os.path.join(fit_from, "champions", f"border_{hero}"))[3]
-        pal = fit_palette(src)
-        if write:
-            os.makedirs(PALETTES, exist_ok=True)
-            with open(pal_path, "w", encoding="utf-8") as f:
-                json.dump(pal, f)
-        print(f"  border_{hero}: palette fitted" + (f" on {fit_from}" if fit_from else ""))
-    new, rgb = apply_palette(frames, pal)
-    out = sheet.copy()
-    for (_, _, (x, y, w, h)), g in zip(rs, new):
-        out[y:y + h, x:x + w] = g
-    if not np.array_equal(out[..., 3], sheet[..., 3]):
-        sys.exit(f"{stem}: alpha changed")
-    used = np.unique(out[out[..., 3] > 0][:, :3], axis=0)
-    if len(used) > STYLE["colours"]:
-        sys.exit(f"{stem}: {len(used)} colours")
-    return out, fanim, len(used)
-
-
 def fix_fx(stem):
     sheet, fanim = read(stem)
     out = sheet.copy()
@@ -450,13 +194,12 @@ def icon_files(hero):
             for s in ICON_SLOTS]
 
 
-def make_hero(hero, refit=False, fit_from=None, write=True):
-    """一个英雄：[(snapped 里的路径前缀, sheet, fanim)] 和要打印的话。"""
+def make_hero(hero, write=True):
+    """一个英雄的特效：[(snapped 里的路径前缀, sheet, fanim)] 和要打印的话。"""
     hid = f"border_{hero}"
-    body, bfan, n = fix_body(os.path.join(RUNTIME, "champions", hid), hero, refit, fit_from, write)
     fx, ffan, counts = fix_fx(os.path.join(RUNTIME, "effects", f"{hid}_fx"))
-    msg = f"{hid}: body {n} colours; fx " + ", ".join(f"{t} {c}" for t, c in counts.items())
-    return [(os.path.join(OUT, hid), body, bfan), (os.path.join(OUT, f"{hid}_fx"), fx, ffan)], msg
+    msg = f"{hid}: fx " + ", ".join(f"{t} {c}" for t, c in counts.items())
+    return [(os.path.join(OUT, f"{hid}_fx"), fx, ffan)], msg
 
 
 def import_delivery(src):
@@ -478,70 +221,18 @@ def import_delivery(src):
     print(f"copied {n} files into {os.path.relpath(BASE, ROOT)}")
 
 
-def review(hero, out_dir):
-    """前后对比：上一行 Codex 的、下一行收过的；左边 1 倍（一格 = 屏幕一个像素），右边 2 倍。"""
-    hid = f"border_{hero}"
-    a, fan = read(os.path.join(RUNTIME, "champions", hid))
-    b, _ = read(os.path.join(OUT, hid))
-    pick = [("idle", 0), ("run", 0), ("run", 4), ("attack", 2), ("skill", 2), ("skill2", 2), ("ult", 2), ("hit", 2),
-            ("dead", 3)]
-    rs = {(t, i): r for t, i, r in rects(fan)}
-    bg = np.array([112, 128, 104], np.float64)
-
-    def cells(sheet, which):
-        out = []
-        for key in which:
-            x, y, w, h = rs[key]
-            out.append(sheet[y:y + h, x:x + w])
-        return out
-
-    def strip(frames, z):
-        m = np.logical_or.reduce([f[..., 3] > 0 for f in frames])
-        ys, xs = np.nonzero(m)
-        y0, y1 = ys.min() - 3, ys.max() + 4
-        row = []
-        for f in frames:
-            mm = f[..., 3] > 0
-            fx_ = np.nonzero(mm.any(0))[0]
-            c = f[y0:y1, max(0, fx_.min() - 3):fx_.max() + 4]
-            al = c[..., 3:4] / 255.0
-            c = (c[..., :3] * al + bg * (1 - al)).round().astype(np.uint8)
-            row.append(np.repeat(np.repeat(c, z, 0), z, 1))
-            row.append(np.tile(bg.astype(np.uint8), (row[-1].shape[0], 6 * z, 1)))
-        return np.concatenate(row[:-1], 1)
-
-    def rows(z, which):
-        top, bot = strip(cells(a, which), z), strip(cells(b, which), z)
-        W = max(top.shape[1], bot.shape[1])
-        pad = lambda r: np.concatenate([r, np.tile(bg.astype(np.uint8), (r.shape[0], W - r.shape[1], 1))], 1)
-        return np.concatenate([pad(top), np.tile(bg.astype(np.uint8), (8, W, 1)), pad(bot)], 0)
-
-    one, two = rows(1, pick), rows(2, pick[:4])
-    H = max(one.shape[0], two.shape[0])
-    pad_h = lambda r: np.concatenate([r, np.tile(bg.astype(np.uint8), (H - r.shape[0], r.shape[1], 1))], 0)
-    img = np.concatenate([pad_h(one), np.tile(bg.astype(np.uint8), (H, 24, 1)), pad_h(two)], 1)
-    os.makedirs(out_dir, exist_ok=True)
-    p = os.path.join(out_dir, f"restyle_{hero}.png")
-    Image.fromarray(img).save(p)
-    return p
-
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--from", dest="src", help="交付解压的文件夹：先把运行时文件拷进 assets/source/border")
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--hero", action="append", help="只做这几个（默认六个）")
-    ap.add_argument("--review", help="另出前后对比图到这个文件夹")
-    ap.add_argument("--refit", action="store_true",
-                    help="重新拟合调色板、覆盖 palettes/（每一帧的颜色都会变；Codex 返修几帧时别用）")
-    ap.add_argument("--fit-from", help="和 --refit 一起：拿这个文件夹（结构同 runtime/）里的图拟合调色板")
     a = ap.parse_args()
     if a.src:
         import_delivery(a.src)
     heroes = a.hero or list(HEROES)
     bad = 0
     for hero in heroes:
-        outs, msg = make_hero(hero, a.refit, a.fit_from, write=not a.check)
+        outs, msg = make_hero(hero, write=not a.check)
         print(msg)
         for stem, sheet, fanim in outs:
             if a.check:
@@ -566,8 +257,6 @@ def main():
             os.makedirs(ICONS, exist_ok=True)
             with open(dst, "wb") as f:
                 f.write(raw)
-        if a.review and not a.check:
-            print("  review", review(hero, a.review))
     sys.exit(1 if bad else 0)
 
 

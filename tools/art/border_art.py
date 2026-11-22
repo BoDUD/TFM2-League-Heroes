@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """边境巡团（border 包）六个人的 tools/art/import_<英雄>.py 共用的设定和特效小工具；引擎是 tools/art/ragnarok_art.py。
 
-    python tools/art/border_fix.py                   # 先收色（snapped/，Codex 的原样在 runtime/）
-    python tools/art/border_heads.py                 # 再换头：整套只用待机第 1 帧的头（headed/，身体图从这里读）
+    python tools/art/border_hd.py                    # 身体：Codex v0.9.0 的高清帧按 PPU 2.5 重出（hd/）
+    python tools/art/border_fix.py                   # 特效收色（snapped/，Codex 的原样在 runtime/）
     python tools/art/import_<英雄>.py [--check]       # cenlei xiaolun dengmi zhumo fusuo yanxi
     python tools/art/ppu_hd.py --hero <英雄>          # 然后出 hd_ / lo_
     python tools/art/hero_reels.py --hero <英雄>      # 最后出待机和选人动图（顺序不能换）
 
-Codex 的格子：身体一格 256，脚底 (128, 184)，人站高 100-110 格；PPU 2.54：游戏里 38-43 个游戏像素，和联盟英雄一样高
-（2026-11-22 用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」，选了放大到联盟大小，边境巡团也一样；原来 PPU 3.3
-只有 29-33 个游戏像素，联盟中位数 41.5，统一放大 1.3 倍）。特效一格 128，Codex 把每张画的中心放在 (64, 68)；特效图不放大
-（FX_PPU 还是 3.3：地上的圈、命中、弹道按游戏里的距离画，放大了就比实际判定大一圈），画进他自己帧里的（BAKE）跟着他放大。
+身体的格子（tools/art/border_hd.py 从 Codex v0.9.0 的 512 格高清帧重出）：一格 256，脚底 (128, 184)，人站高 99-106 格；
+PPU 2.5：游戏里 40-42 个游戏像素，和终末包（放大以后宙斯 37、亚当 39、小次郎 41）、联盟英雄一样高，比终末的 PPU 2.75 粗一档
+（用户：「你需要比终末更有像素感一点」「局内模型也别太大啊 看看终末怎么搞的」）。特效一格 128，Codex 把每张画的中心放在
+(64, 68)；特效图不放大（FX_PPU 3.3：地上的圈、命中、弹道按游戏里的距离画），画进他自己帧里的（BAKE）跟着身体。
 
 放在单位身上的特效（TARGET_FX），画面帧的中心落在单位的位置上，也就是脚底往上 11.5 个游戏像素（特效格里 LIFT = 38 格）。所以：
 - 打中的火花（CONTACT）：Codex 的中心 (64, 68) 就是帧的中心；
-- 身上的（BODY）：画的中心要在身子中间：身体图上在脚底往上 54 格（BODY_MID），PPU 2.54 是 21.3 个游戏像素，比单位的位置
-  高 9.8 个游戏像素 = 特效格里 32 格：(64, 100)（放大前是 16.5 个游戏像素、(64, 84)）；
+- 身上的（BODY）：画的中心要在身子中间：身体图上在脚底往上 BODY_MID 格（站高的一半，52 格），PPU 2.5 是 20.8 个游戏像素，
+  比单位的位置高 9.3 个游戏像素 = 特效格里 31 格：(64, 99)；
 - 地上的（ground(y)）：画里贴地的那一点（圈的中心、脚印的中间）在第 y 行，帧的中心比它高 38 格：(64, y - 38)。
 弹道的图（PROJ_FX）1 倍、朝右，引擎按飞的方向转；画进身体帧的（BAKE）跟着他左右翻。
 
@@ -33,16 +33,16 @@ sys.path.insert(0, HERE)
 import ragnarok_art as A  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "border", "snapped")
-# 身体图读换过头的（tools/art/border_heads.py 写的），特效图还在 snapped/
-HEADED = os.path.join(ROOT, "assets", "source", "border", "headed")
+# 身体图读 tools/art/border_hd.py 重出的高清帧，特效图还在 snapped/
+HD = os.path.join(ROOT, "assets", "source", "border", "hd")
 MOD = os.path.join(ROOT, "border")
-PPU = 2.54                  # 和 tools/art/ppu_hd.py 的 PPU、addons/border/src/hd.rs 的 HEROES 一致
+PPU = 2.5                   # 和 tools/art/border_hd.py、ppu_hd.py 的 PPU、addons/border/src/hd.rs 的 HEROES 一致
 FX_PPU = 3.3                # 特效图的密度（addons/border/src/hd.rs 的 EFFECTS）：不跟着放大
 SOLE = (128, 184)
 FX_CENTRE = (64, 68)        # Codex 特效格的中心
 LIFT = round(A.FEET * FX_PPU)   # 38：单位的位置在脚底往上 11.5 个游戏像素（特效格）
 CONTACT = FX_CENTRE
-BODY_MID = 54               # 身子中间在脚底上面几格（身体图上的位置，PPU 3.3 时量的 16.5 个游戏像素）
+BODY_MID = 52               # 身子中间在脚底上面几格（身体图上的位置：站高 99-106 格的一半）
 BODY = (64, 68 + round((BODY_MID / PPU - A.FEET) * FX_PPU))
 # 合成用的画布（宽、高、脚底点）：最宽的出招（盾往前推、晶浪）往前伸 150 格以内
 CANVAS = (448, 288, (224, 232))
@@ -62,7 +62,7 @@ def at(x, y):
 def config(hero, **kw):
     """一个英雄给 ragnarok_art 的设定：border/ 包、Codex 的图名、半透明的特效。"""
     hid = f"border_{hero}"
-    cfg = {"SRC": SRC, "ID": hid, "HERO": hero, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "MOD": MOD, "BODY_STEM": os.path.join(HEADED, hid),
+    cfg = {"SRC": SRC, "ID": hid, "HERO": hero, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "MOD": MOD, "BODY_STEM": os.path.join(HD, hid),
            "FX_STEM": f"{hid}_fx", "BLEND": True, "SCALE_FX": scale_fx_alpha, "PROJ_IDLE": True, "RETIME": {},
            "CANVAS": CANVAS, "BAKE": [], "TARGET_FX": {}}
     cfg.update(kw)
