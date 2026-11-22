@@ -186,7 +186,7 @@ impl Salt {
             sim.entity_stack_buff(id, &slow, 1, true);
             let n = self.inside.entry(id).or_insert(0);
             *n += 1;
-            if *n % P.get("p_tick").max(1) == 0 {
+            if n.is_multiple_of(P.get("p_tick").max(1)) {
                 let k = add_crystal(sim, me, id, 1);
                 if k <= 2 {
                     log(sim, format!("CRYSTAL #{id} {k}"));

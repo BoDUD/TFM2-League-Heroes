@@ -104,7 +104,7 @@ impl Tide {
         if advancing {
             self.idle = 0;
             self.pushing += 1;
-            if self.pushing % step == 0 && self.stacks < P.get("p_max") {
+            if self.pushing.is_multiple_of(step) && self.stacks < P.get("p_max") {
                 self.stacks += 1;
                 if self.stacks == P.get("p_max") {
                     sim.play_view_effect(VIEW_TIDE, me, &InputTargetV1::target(me), 0, 0, 0);
@@ -112,7 +112,7 @@ impl Tide {
             }
         } else {
             self.idle += 1;
-            if self.idle >= P.get("p_keep") && (self.idle - P.get("p_keep")) % step == 0 && self.stacks > 0 {
+            if self.idle >= P.get("p_keep") && (self.idle - P.get("p_keep")).is_multiple_of(step) && self.stacks > 0 {
                 self.stacks -= 1;
             }
         }

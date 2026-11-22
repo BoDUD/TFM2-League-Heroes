@@ -151,8 +151,8 @@ impl Steps {
         let Some(at) = pos_of(sim, me) else { return };
         let Some(team) = team_of(sim, me) else { return };
         let peak = self.hp.iter().map(|h| h.1).max().unwrap_or(now);
-        let lost_pct = if max > 0 { peak.saturating_sub(now) * 100 / max } else { 0 };
-        let hp_pct = if max > 0 { now * 100 / max } else { 100 };
+        let lost_pct = (peak.saturating_sub(now) * 100).checked_div(max).unwrap_or(0);
+        let hp_pct = (now * 100).checked_div(max).unwrap_or(100);
         let crowd = live_champions(sim, team, false)
             .into_iter()
             .filter(|&f| pos_of(sim, f).is_some_and(|p| dist(at, p) <= CROWD_R))

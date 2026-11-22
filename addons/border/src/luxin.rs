@@ -98,7 +98,7 @@ impl Feather {
                 continue;
             }
             f.run += 1;
-            if f.run % P.get("p_every").max(1) != 0 {
+            if !f.run.is_multiple_of(P.get("p_every").max(1)) {
                 continue;
             }
             let Some(dir) = dir else { continue };

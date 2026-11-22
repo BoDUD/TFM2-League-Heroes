@@ -632,7 +632,7 @@ impl Counter {
 
     pub fn next(&self) -> Option<usize> {
         let n = self.n.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
-        (n <= 80 || n % 200 == 0).then_some(n)
+        (n <= 80 || n.is_multiple_of(200)).then_some(n)
     }
 }
 

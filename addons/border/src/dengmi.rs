@@ -48,6 +48,7 @@ const FLARE: &str = "border_dengmi_q_flare";
 const FLASH: &str = "border_dengmi_r_flash";
 
 /// 灯光晃眼：`center` 身边 `radius` 内的敌人（不算塔）减速；`dmg`（魔法伤害）不是 0 就先打一下。返回几个人。
+#[allow(clippy::too_many_arguments)]
 fn light_burst(sim: &mut StableSim<'_>, caster: usize, center: Pt, radius: f64, dmg: usize, name: &str, slow: usize,
                ticks: usize) -> usize {
     let Some(team) = team_of(sim, caster) else { return 0 };

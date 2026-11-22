@@ -138,7 +138,7 @@ impl Bell {
         for &e in &marked {
             let now = sim.get_entity(e).map_or(0, |x| x.hp().0);
             let before = self.hp.insert(e, now);
-            if !before.is_some_and(|b| b > now) {
+            if before.is_none_or(|b| b <= now) {
                 continue;
             }
             let Some(p) = pos_of(sim, e) else { continue };

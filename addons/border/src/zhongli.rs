@@ -64,7 +64,7 @@ pub fn plant_step(state: (usize, f64, usize), step: f64, stand: bool, still: usi
     if level == 0 && quiet >= still {
         level = 1;
         moved = 0.0;
-    } else if level > 0 && quiet >= still && (quiet - still) % every.max(1) == 0 && quiet > still {
+    } else if level > 0 && quiet >= still && (quiet - still).is_multiple_of(every.max(1)) && quiet > still {
         level = (level + 1).min(levels);
     }
     (quiet, moved, level)
