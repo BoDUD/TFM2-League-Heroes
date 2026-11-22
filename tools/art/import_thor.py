@@ -34,7 +34,10 @@ import ragnarok_art as A  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "thor", "rebuild")
 ID = "ragnarok_thor"
 HERO = "thor"
-PPU = 2.67                  # tools/art/ppu_hd.py PPU and addons/ragnarok/src/hd.rs HEROES say the same
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = 2.225                 # 放大前 2.67；tools/art/ppu_hd.py PPU and addons/ragnarok/src/hd.rs HEROES say the same
+FX_PPU = 2.67               # 特效图不放大（hd.rs 的 EFFECTS）
 SOLE = (128, 232)
 FX_ORIGIN = (103, 103)      # 特效格（thor_fx.CELL = 207）的中心
 GROUND = (103, 188)         # 落在地上的特效（雷电、大招落地）九成高度那行：thor_fx.GROUND_ROW
@@ -72,14 +75,15 @@ SPLIT = {"skill2": [("skill2_wait", 4), ("skill2_catch", 7)]}
 SHOULDER = 87
 TARGET_FX = {
     "thunder_hit": FX_ORIGIN,
-    "ult_impact": (GROUND[0], GROUND[1] - A.FEET * PPU),
-    "hammer_awakening": (FX_ORIGIN[0], FX_ORIGIN[1] + round(SHOULDER - A.FEET * PPU)),
+    "ult_impact": (GROUND[0], GROUND[1] - A.FEET * FX_PPU),
+    # 锤头在他身上的高度按放大后的个子：（离脚底的游戏像素 - 落点离脚底）x 特效图的密度
+    "hammer_awakening": (FX_ORIGIN[0], FX_ORIGIN[1] + round((SHOULDER / PPU - A.FEET) * FX_PPU)),
 }
 PROJ_FX = {"hammer_flight": (103.5, 103.5)}   # 飞锤的锤头中心（thor_fx.flight：格子正中）
 # 待机整体比跑步、普攻、技能站得靠前（胸口、腰、肩上的锤子都偏右 6 格），一停下来人会往前跳一下：整体挪回去（不重画）
 SHIFT = {"idle": -6}
 
-THOR = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
+THOR = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
         "TARGET_FX": TARGET_FX, "SPLIT": SPLIT, "PROJ_FX": PROJ_FX, "SHIFT": SHIFT, "CANVAS": CANVAS}
 
 if __name__ == "__main__":

@@ -27,7 +27,10 @@ import ragnarok_art as A  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "buddha", "snapped")
 ID = "ragnarok_buddha"
 HERO = "buddha"
-PPU = 3.3                   # 和 tools/art/ppu_hd.py 的 PPU、addons/ragnarok/src/hd.rs 的 HEROES 一致
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = 2.75                  # 放大前 3.3；和 tools/art/ppu_hd.py 的 PPU、addons/ragnarok/src/hd.rs 的 HEROES 一致
+FX_PPU = 3.3                # 特效图不放大（hd.rs 的 EFFECTS）
 SOLE = (128, 232)
 FX_ORIGIN = (128, 128)      # 特效格的中心
 CANVAS = (576, 448, (288, 352))
@@ -52,12 +55,15 @@ BAKE = [
     ("ult", "nirvana_charge", 0.305, at(157, 156), None, FX_ORIGIN, "behind"),
     ("ult", "nirvana_slash", 0.510, at(183, 153), None, FX_ORIGIN, "behind"),
 ]
-# 放在他身上的两个按身子对位：单位的落点在脚底上面 37 格（hd_idle 一帧 162 高、脚在 118），眼镜在脚底上面 114 格、胸口 70 格，
-# 所以未来视的准星往上挪 77 格（左右不挪，转身时不偏）、莲光挪 33 格；打在别人身上的和别的英雄一样放在落点
-TARGET_FX = {"staff_impact": FX_ORIGIN, "shield_impact": FX_ORIGIN, "future_sight": (128, 205),
-             "lotus_guard": (128, 161)}
+# 放在他身上的两个按身子对位：单位的落点在脚底上面 FEET 个游戏像素，眼镜、胸口离脚底 GLASSES、CHEST 格（高清帧），
+# 两者差多少游戏像素按特效图的密度换成格挪上去（左右不挪，转身时不偏）；打在别人身上的和别的英雄一样放在落点
+# 放大以后：眼镜离脚底 114 格 / PPU 个游戏像素，落点离脚底 FEET 个游戏像素，差多少按特效图的密度换成格（准星 +99、莲光 +46）
+GLASSES, CHEST = 114, 70
+TARGET_FX = {"staff_impact": FX_ORIGIN, "shield_impact": FX_ORIGIN,
+             "future_sight": (128, 128 + round((GLASSES / PPU - A.FEET) * FX_PPU)),
+             "lotus_guard": (128, 128 + round((CHEST / PPU - A.FEET) * FX_PPU))}
 
-BUDDHA = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": {},
+BUDDHA = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": {},
           "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS}
 
 if __name__ == "__main__":

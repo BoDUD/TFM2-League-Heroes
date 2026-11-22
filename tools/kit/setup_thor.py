@@ -32,7 +32,9 @@ SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
 # back, import_thor.SHIFT): eyes on Codex's row 68.5, 47.5 rows over the soles = 29 game px, 10 px forward = 6; the
 # encyclopedia centre by bp_card_audit's rule (his solid top is Mjolnir on his shoulder, 43 over the soles: -16); the
 # ban/pick card by its rule, y = -39 - top (the hammer's top 34.7 over the frame centre: -4, the whole hammer shown)
-VIEW = {"face": {"x": 6, "y": -29}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -4}}
+# 2026-11-22 整包放大 1.2 倍（「放大到联盟大小」，import 的 PPU 除以 1.2）以后重定：头像点乘 1.2；百科中心照
+# bp_card_audit.py --centers 的规则（和联盟一样）；选人卡照它的规则 y = -39 - 头顶（量头，不量头顶上的刀、叉、锤、翎子）
+VIEW = {"face": {"x": 7, "y": -35}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -14}}
 
 
 def hp(k, colour=O):
