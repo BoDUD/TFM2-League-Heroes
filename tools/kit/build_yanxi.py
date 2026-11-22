@@ -15,7 +15,7 @@
   ult     退潮：`Targeting` 敌方英雄（r_range）：r_hit 拍（第 3 帧，0.40 秒）让她现在的盐带从远端朝她扫回来（没有盐带就先
           穿过目标铺一条）：一道晶浪（速度 r_speed、宽 r_w）沿带子往她这边走，扫到的敌人 r_dmg + r_ap% 法强的魔法伤害、
           叠 r_stack 层结晶、被往她这边带 r_pull（r_pull_t 拍）。晶浪的画面跟着走的方向转（朝左时换上下翻过的那张）。
-          塞拉斯偷去一样（他身上没有盐带就先铺一条）。
+          塞拉斯偷去的是数据版（sylas_ult）：在目标脚下掀起晶浪扫回他身边，不走 border.dll。
 
 时间按 Codex 的 art_index.json（一秒 60 拍）：普攻 0.46 秒、撒线 / 凝结 0.56 秒（第 3 帧 0.26 秒）、退潮 0.87 秒（第 3 帧 0.40 秒）。
 
@@ -114,15 +114,17 @@ def build(p, is_native=True):
 
 
 def sylas_ult(p=None):
-    """塞拉斯偷到的退潮（STOLEN）：他没有盐带，r_hit 拍朝目标甩出一道晶浪再收回来（BackToCasterLinearProjectile，来回都打，
-    每趟 60% 伤害），扫到的人被往晶浪那边带、叠结晶。画面是盐汐的晶浪（跟着走的方向转）。不靠 border.dll。"""
+    """塞拉斯偷到的退潮（STOLEN）：他没有盐带，r_hit 拍在目标脚下掀起一道晶浪（kit.lob 丢过去），晶浪从那里扫回他身边
+    （BackToCasterLinearProjectile 是从生成的地方飞回施法者的：直接在他脚下生成就原地不动，什么也不打），扫到的人吃伤害、
+    被往回带。画面是盐汐朝右的晶浪（数据挑不了方向）。不靠 border.dll。"""
     p = dict(P) if p is None else p
-    hit = K.combine(K.ap_attack(p["r_dmg"] * 6 // 10, p["r_ap"] * 6 // 10),
+    hit = K.combine(K.ap_attack(p["r_dmg"], p["r_ap"]),
                     {"type": "Pull", "speed": p["r_pull"] // p["r_pull_t"], "tick": p["r_pull_t"]}, kit.view("a_hit"))
-    wave = {"type": "BackToCasterLinearProjectile", "name": kit.n("r_wave_r"), "speed": p["r_speed"],
-            "range": p["r_range"], "penetrate": True, "shape": {"Circle": {"radius": p["r_w"] // 2}},
-            "applied_target": "EnemyWithoutTower", "applied_effects": [{"casting_type": "Targeting", "effect": hit}]}
-    return K.combine({"type": "Sfx", "name": "ice_mage_ult"}, K.delayed(p["r_hit"] - 1, kit.alive_only(wave)))
+    wave = {"type": "BackToCasterLinearProjectile", "name": kit.n("r_wave_r"), "speed": p["r_speed"], "range": 400000,
+            "penetrate": True, "shape": {"Circle": {"radius": p["r_w"] // 2}}, "applied_target": "EnemyWithoutTower",
+            "applied_effects": [{"casting_type": "Targeting", "effect": hit}], "end_effects": []}
+    return K.combine({"type": "Sfx", "name": "ice_mage_ult"},
+                     K.delayed(p["r_hit"] - 1, kit.alive_only(kit.lob("r_lob", wave))))
 
 
 if __name__ == "__main__":

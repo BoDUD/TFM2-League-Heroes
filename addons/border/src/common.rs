@@ -32,7 +32,7 @@ pub fn get(m: &HashMap<String, i64>, k: &str, default: usize) -> usize {
 
 /// 一个英雄 border.dll 用的参数：默认值就是 tools/kit/build_<hero>.py 的 P（单元测试和生成的 .data_champion 对过），
 /// 他的被动出生时用数据里的 `passive.params` 盖掉（configure）。放在全局里：每场模拟的数一样，原生效果没有被动实例也读得到
-/// （塞拉斯偷来的大招、佛耶戈附身时都用它）。
+/// （佛耶戈附身、妮蔻变身时都用它）。
 pub struct Params {
     keys: &'static [(&'static str, usize)],
     live: std::sync::RwLock<Option<Vec<usize>>>,

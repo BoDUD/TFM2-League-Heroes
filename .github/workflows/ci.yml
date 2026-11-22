@@ -143,7 +143,7 @@ jobs:
         run: cargo test --manifest-path addons/Cargo.toml -p tft
       - name: The ragnarok pack's ragnarok.dll (Lu Bu's Shield Breaker, Thor's voice, Zeus's three bodies, Adam's voice, Poseidon's A God Needs No One, Kojiro's Prediction and two swords, Heracles's brand and Cerberus form, Jack's colours of the heart, Raiden's voice, Shiva's rhythm and Tandava form, Buddha's voice, Zerofuku's voice and Hajun form, its dense-frame table)
         run: cargo test --manifest-path addons/Cargo.toml -p ragnarok
-      - name: The border pack's border.dll (Codex's six original heroes - Cen Lei's back pressure, Xiao Lun's walking string, Deng Mi's stored light, Zhu Mo's afterheat, Fu Suo's counting steps, Yan Xi's salt band - its dense-frame table)
+      - name: The border pack's border.dll (Codex's twelve original heroes - Cen Lei's back pressure, Xiao Lun's walking string, Deng Mi's stored light, Zhu Mo's afterheat, Fu Suo's counting steps, Yan Xi's salt band, Yin Du's tide, Lan Ti's fracture, Lu Xin's feather trails, Ji Yan's star chart, Zhong Li's planted stance, Wu Ling's bells - its dense-frame table)
         run: cargo test --manifest-path addons/Cargo.toml -p border
 
   package:

@@ -19,7 +19,7 @@
 时间按 Codex 的 art_index.json（一秒 60 拍）：普攻 0.46 秒、扣舷 / 立标 0.56 秒（第 3 帧 0.26 秒）、合汛 0.87 秒（第 3 帧 0.40 秒）。
 
 border.dll（addons/border/src/yindu.rs）：被动 border_yindu:tide，原生效果 border_yindu:ram / ram_hit / beacon / tide / tide_hit。
---plain 和塞拉斯版：冲刺换成 MoveToTarget，航标换成目标身上的伤害减速，合汛在目标脚下结算（数据的 RangeProjectile）。
+--plain 和塞拉斯版：冲刺换成 MoveToTarget，航标换成目标身上的伤害减速，合汛在目标脚下结算（kit.lob 丢过去的 RangeProjectile）。
 """
 import os
 import sys

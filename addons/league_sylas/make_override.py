@@ -371,7 +371,7 @@ def own_ults():
     paths += sorted(glob.glob(os.path.join(ROOT, "tft", "champion", "tft_*.data_champion")))
     # 终末的女武神包的英雄也一样（2026-11-21：「塞拉斯的大招也要能真正的能偷」）
     paths += sorted(glob.glob(os.path.join(ROOT, "ragnarok", "champion", "ragnarok_*.data_champion")))
-    # 边境巡团包的六个英雄（2026-11-22：「塞拉斯要能真正的偷大招」）
+    # 边境巡团包的十二个英雄（2026-11-22：「塞拉斯要能真正的偷大招」）
     paths += sorted(glob.glob(os.path.join(ROOT, "border", "champion", "border_*.data_champion")))
     for path in paths:
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
