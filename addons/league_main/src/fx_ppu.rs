@@ -6,7 +6,7 @@
 //! effects, buffs and projectiles alike, so hd.rs lists them in EFFECTS, DRAWN_EFFECTS and full_effects() (dense
 //! only where the buff and projectile pictures are shrunk too: hd_engine Table::full_effects).
 
-/// (sheet, PPU, its .fanim) - 383 sheets
+/// (sheet, PPU, its .fanim) - 384 sheets
 pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_aatrox_big", 2.0, include_str!("../../../league/effects/league_aatrox_big#anim.fanim")),
     ("league_aatrox_fx", 2.0, include_str!("../../../league/effects/league_aatrox_fx#anim.fanim")),
@@ -313,6 +313,7 @@ pub const SHEETS: &[(&str, f32, &str)] = &[
     ("league_teemo_sym", 2.0, include_str!("../../../league/effects/league_teemo_sym#anim.fanim")),
     ("league_thresh_big", 2.0, include_str!("../../../league/effects/league_thresh_big#anim.fanim")),
     ("league_thresh_fx", 2.0, include_str!("../../../league/effects/league_thresh_fx#anim.fanim")),
+    ("league_thresh_lantern", 5.0, include_str!("../../../league/effects/league_thresh_lantern#anim.fanim")),
     ("league_tristana_big", 2.0, include_str!("../../../league/effects/league_tristana_big#anim.fanim")),
     ("league_tristana_fx", 2.0, include_str!("../../../league/effects/league_tristana_fx#anim.fanim")),
     ("league_tristana_sym", 2.0, include_str!("../../../league/effects/league_tristana_sym#anim.fanim")),
