@@ -61,9 +61,7 @@ pub fn feed(in_game: bool, visible: impl Fn(&str) -> Option<bool>, text: impl Fn
         observe(false, None);
         return;
     }
-    let parts: Vec<&str> = CLOCK_PATH.split('.').collect();
-    let shown = (1..=parts.len()).all(|n| visible(&parts[..n].join(".")) == Some(true));
-    let t = if shown { text(CLOCK_PATH) } else { None };
+    let t = if label_shown(visible) { text(CLOCK_PATH) } else { None };
     observe(true, t.as_deref());
 }
 
@@ -72,6 +70,13 @@ pub fn screen_tick() -> Option<usize> {
     let c = CLOCK.lock().ok()?;
     let (secs, at) = c.secs?;
     c.ticking.then(|| secs * 60 + ((at.elapsed().as_secs_f64() * c.rate) as usize).min(59))
+}
+
+/// 比赛时钟的标签这一帧在不在屏幕上：路径上每一层都显示着（`visible` 是客户端的 `ui_visible`）。离开比赛画面以后标签就没了，
+/// 可 [`screen_tick`] 还停在最后读到的那一秒，所以「比赛画面上才画」的东西要先问这个。
+pub fn label_shown(visible: impl Fn(&str) -> Option<bool>) -> bool {
+    let parts: Vec<&str> = CLOCK_PATH.split('.').collect();
+    (1..=parts.len()).all(|n| visible(&parts[..n].join(".")) == Some(true))
 }
 
 #[cfg(test)]
@@ -83,5 +88,15 @@ mod tests {
         assert_eq!(clock_secs("15:48"), Some(948));
         assert_eq!(clock_secs(" 0:05 "), Some(5));
         assert_eq!(clock_secs("x"), None);
+    }
+
+    #[test]
+    fn the_label_counts_only_with_every_level_shown() {
+        assert!(label_shown(|_| Some(true)));
+        // 禁选画面：比赛界面的根节点藏着
+        assert!(!label_shown(|p| Some(p != "ingame")));
+        assert!(!label_shown(|p| Some(p != "ingame.header.game_time.value")));
+        // 节点读不到也不算
+        assert!(!label_shown(|p| (p != "ingame.header").then_some(true)));
     }
 }

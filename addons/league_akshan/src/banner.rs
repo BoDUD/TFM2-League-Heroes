@@ -12,6 +12,11 @@
 //! 的被动记，第 2 局（738 场，没有阿克尚）开始后还认为在放第 1 局，屏幕时钟走到 8:28 时又把第 1 局的复活画了一遍。现在由 AI 钩子
 //! [`Screen`] 在每个屏幕模拟里记，有没有阿克尚都算。文字的键补上游戏自己用的 `#`（[`text`]）：0.2.0 不带它，什么都没查到，
 //! 画出来的是「akshan revived jax!」。
+//!
+//! 0.2.10（用户 2026-11-22，截图是下一局的禁选画面：「对局结束后阿克尚的这个复活提示还在」）：复活后一两秒比赛就结束了，屏幕
+//! 时钟停在大字那 3 秒里（离开比赛画面后它留着最后读到的那一秒），`is_in_game()` 在禁选、结算画面也是真的，大字就一直挂到
+//! 下一局开打。现在只在比赛画面上画（[`on_match_screen`]：时钟标签这一帧在屏幕上、游戏说的界面不是结算之类，龙魂 0.3.11
+//! 修同样毛病的判断）。
 
 use std::sync::Mutex;
 
@@ -178,9 +183,33 @@ fn name(ctx: &StableClient<'_>, id: &str) -> String {
 
 const FONT: &str = "asset/base/font/set/regular";
 
+/// 认得出**不是**比赛画面的界面：经营主界面、阵容、入场、结算、休息室、夺冠庆典、颁奖、局间反馈（照 league_dragons 0.3.11 的
+/// `off_match`）。游戏没说的（读不到、这份接口还不认识的新界面）不算，由比赛时钟的标签说了算。
+pub fn off_match(scene: Option<ClientSceneKindV1>) -> bool {
+    use ClientSceneKindV1::*;
+    match scene {
+        Some(Main | Lineup | StadiumEntrance | MatchResult | LockerRoom | ChampionshipCelebration | AwardsCeremony | SetFeedback) => true,
+        Some(Match | InGame | Prologue | PrologueFirst | TutorialMorgad | TutorialSerpen | Tutorial5v5) | None => false,
+    }
+}
+
+/// 这一帧屏幕上是不是比赛画面。`is_in_game()` 说的是整份经营游戏（经营主界面、禁选、结算都算），不是「在比赛里」；离开比赛
+/// 画面以后时钟的标签没了，屏幕时钟却停在最后读到的那一秒。所以三样都要：在游戏里、标签这一帧就在屏幕上、游戏说的界面不是
+/// 认得出的非比赛界面。
+pub fn match_screen(in_game: bool, scene: Option<ClientSceneKindV1>, clock_shown: bool) -> bool {
+    in_game && clock_shown && !off_match(scene)
+}
+
+fn on_match_screen(ctx: &StableClient<'_>) -> bool {
+    let in_game = ctx.is_in_game();
+    let scene = in_game.then(|| ctx.client_scene_kind()).flatten();
+    match_screen(in_game, scene, in_game && game_places::clock::label_shown(|p| ctx.ui_visible(p)))
+}
+
 /// 画大字（客户端扩展的 post_render 里调）。
 pub fn draw(ctx: &mut StableClient<'_>) {
-    if !ctx.is_in_game() {
+    // 不是比赛画面（禁选、结算、经营主界面）就不画：时钟停在哪一秒都不算
+    if !on_match_screen(ctx) {
         return;
     }
     let Some(t) = game_places::clock::screen_tick() else { return };
@@ -300,6 +329,31 @@ mod tests {
         assert_eq!(lang_of("報復のブーメラン"), Lang::Ja);
         assert_eq!(lang_of("Avengerang"), Lang::En);
         assert_eq!(line(Lang::Hans, "阿克尚", "盖伦"), "阿克尚 复活了 盖伦！");
+    }
+
+    /// 用户 2026-11-22 的截图：上一局阿克尚复活艾克的大字挂在下一局的禁选画面上。比赛在复活后一两秒就结束，屏幕时钟停在
+    /// 大字的 3 秒里；`is_in_game()` 在禁选画面也是真的。
+    #[test]
+    fn only_the_match_screen_draws_it() {
+        use ClientSceneKindV1::*;
+        // 比赛：游戏怎么叫都行，时钟标签在屏幕上
+        for scene in [InGame, Match, Tutorial5v5, TutorialSerpen, TutorialMorgad, Prologue, PrologueFirst] {
+            assert!(match_screen(true, Some(scene), true), "{scene:?}");
+            assert!(!match_screen(true, Some(scene), false), "{scene:?} 没有时钟（禁选画面、全屏的面板）");
+        }
+        // 回到经营界面时标签可能还读得到（跳过比赛、中途退出观战）：一律不算
+        for scene in [Main, Lineup, StadiumEntrance, MatchResult, LockerRoom, ChampionshipCelebration, AwardsCeremony, SetFeedback] {
+            assert!(off_match(Some(scene)), "{scene:?}");
+            assert!(!match_screen(true, Some(scene), true), "{scene:?} 标签还在");
+            assert!(!match_screen(true, Some(scene), false), "{scene:?}");
+        }
+        // 游戏说得出的界面都分好了：接口多了新界面要来这里决定算不算比赛
+        assert_eq!(ClientSceneKindV1::VARIANTS.len(), 15, "新界面：是不是比赛？（off_match）");
+        // 接口还叫不出名字的界面：看时钟标签
+        assert!(match_screen(true, None, true));
+        assert!(!match_screen(true, None, false));
+        // 根本不在经营游戏里（标题画面、数据库编辑器）
+        assert!(!match_screen(false, None, true) && !match_screen(false, Some(InGame), true));
     }
 
     #[test]
