@@ -77,6 +77,13 @@
         "skill": "六道棍化作枪刃往前一刺：前方的敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，<#ef5350ff>护甲降低25%<>，持续<#ffb900ff>4秒<>。",
         "skill2": "看见要挨的打，举起观音盾：<#e8d44dff>护盾100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制。盾收起时莲光绽开，身边的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>。",
         "ult": "召出大圆寂刀·零（斩中前不受控制、受到的伤害降低<#ffb900ff>40%<>）一刀斩下：前方扇形的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>加目标最大生命<#ff9028ff>8%<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.83秒<>。"
+      },
+      "ragnarok_zerofuku": {
+        "name": "零福",
+        "attack": "零福斧爻横砍、波旬臂刃横斩，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>不幸<>：零福打中的敌人<#ffb900ff>4秒<>里受到的伤害<#ffb900ff>+8%<>。<#ff9028ff>吞噬<>：波旬<#ffb900ff>吸血8%<>。",
+        "skill": "零福：斧爻吸了不幸变大后落下，前方的敌人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>，挂上不幸。波旬：前臂化成魔钻直线冲过去，路上的敌人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。",
+        "skill2": "零福：怨气从脚下往前涌，一条线上的敌人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。波旬：单臂化刃从上砸下，前方的敌人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。",
+        "ult": "零福被暗茧吞没（不受控制、减伤<#ffb900ff>40%<>），波旬破茧而出：回复<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>生命，这条命攻击力<#ffb900ff>+15%<>、攻速<#ffb900ff>+15%<>、移速<#ffb900ff>+5%<>、双抗<#ffb900ff>+10<>。再放是魔臂横断：前方的敌人受到<#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>加最大生命<#ff9028ff>6%<>的<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。"
       }
     },
     "skill_name": {
@@ -134,6 +141,11 @@
         "skill1": "六道棍·枪刃",
         "skill2": "观音盾",
         "ult": "大圆寂刀·零"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "斧爻／魔钻",
+        "skill2": "怨气冲击／魔刃碎击",
+        "ult": "破茧／魔臂横断"
       }
     }
   },
@@ -215,6 +227,13 @@
         "skill": "六道棍化作槍刃往前一刺：前方的敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，<#ef5350ff>護甲降低25%<>，持續<#ffb900ff>4秒<>。",
         "skill2": "看見要挨的打，舉起觀音盾：<#e8d44dff>護盾100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制。盾收起時蓮光綻開，身邊的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>。",
         "ult": "召出大圓寂刀·零（斬中前不受控制、受到的傷害降低<#ffb900ff>40%<>）一刀斬下：前方扇形的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>加目標最大生命<#ff9028ff>8%<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.83秒<>。"
+      },
+      "ragnarok_zerofuku": {
+        "name": "零福",
+        "attack": "零福斧爻橫砍、波旬臂刃橫斬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>不幸<>：零福打中的敵人<#ffb900ff>4秒<>裡受到的傷害<#ffb900ff>+8%<>。<#ff9028ff>吞噬<>：波旬<#ffb900ff>吸血8%<>。",
+        "skill": "零福：斧爻吸了不幸變大後落下，前方的敵人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>，掛上不幸。波旬：前臂化成魔鑽直線衝過去，路上的敵人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。",
+        "skill2": "零福：怨氣從腳下往前湧，一條線上的敵人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。波旬：單臂化刃從上砸下，前方的敵人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。",
+        "ult": "零福被暗繭吞沒（不受控制、減傷<#ffb900ff>40%<>），波旬破繭而出：回復<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>生命，這條命攻擊力<#ffb900ff>+15%<>、攻速<#ffb900ff>+15%<>、移速<#ffb900ff>+5%<>、雙抗<#ffb900ff>+10<>。再放是魔臂橫斷：前方的敵人受到<#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>加最大生命<#ff9028ff>6%<>的<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。"
       }
     },
     "skill_name": {
@@ -272,6 +291,11 @@
         "skill1": "六道棍·槍刃",
         "skill2": "觀音盾",
         "ult": "大圓寂刀·零"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "斧爻／魔鑽",
+        "skill2": "怨氣衝擊／魔刃碎擊",
+        "ult": "破繭／魔臂橫斷"
       }
     }
   },
@@ -353,6 +377,13 @@
         "skill": "The staff becomes a spear for one thrust: enemies in front take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> and lose <#ef5350ff>25% armour<> for <#ffb900ff>4s<>.",
         "skill2": "He sees the blow coming and raises the Kannon Shield: a <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>, unstoppable for <#ffb900ff>1s<>. When it is lowered a lotus blooms: enemies around him take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>.",
         "ult": "Draws the Great Nirvana Sword Zero (unstoppable and <#ffb900ff>40%<> less damage until it lands) and cuts: enemies in a cone take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> plus <#ff9028ff>8%<> of their maximum health as <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.83s<>."
+      },
+      "ragnarok_zerofuku": {
+        "name": "Zerofuku",
+        "attack": "Zerofuku hews with the Misery Cleaver, Hajun with his arm blade: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Misfortune<>: enemies Zerofuku hits take <#ffb900ff>8%<> more damage for <#ffb900ff>4s<>. <#ff9028ff>Devour<>: Hajun has <#ffb900ff>8% life steal<>.",
+        "skill": "Zerofuku: the cleaver drinks misfortune, grows and falls: enemies in front take <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>, are <#ef5350ff>slowed 30%<> and gain Misfortune. Hajun: his forearm turns into a drill and he charges through: enemies on the way take <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>.",
+        "skill2": "Zerofuku: grudge surges from his feet: enemies on a line take <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>. Hajun: an arm becomes a heavy blade and crushes down: enemies in front take <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.75s<>.",
+        "ult": "Zerofuku is swallowed by a dark cocoon (unstoppable, <#ffb900ff>40%<> less damage) and Hajun breaks out: heals <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, and for this life <#ffb900ff>+15%<> attack, <#ffb900ff>+15%<> attack speed, <#ffb900ff>+5%<> speed, <#ffb900ff>+10<> armour and magic resist. Again as Hajun, Demon Sever: enemies in a cone take <#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>."
       }
     },
     "skill_name": {
@@ -410,6 +441,11 @@
         "skill1": "Spear Blade",
         "skill2": "Kannon Shield",
         "ult": "Great Nirvana Sword Zero"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "Misery Cleaver / Demon Drill",
+        "skill2": "Grudge Surge / Demon Crush",
+        "ult": "Cocoon / Demon Sever"
       }
     }
   },
@@ -491,6 +527,13 @@
         "skill": "육도곤이 창날로 변해 앞을 찌름: 앞쪽 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>, <#ffb900ff>4초<> 동안 <#ef5350ff>방어력 25% 감소<>.",
         "skill2": "맞을 공격을 보고 관음 방패를 듦: <#e8d44dff>보호막 100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>(<#ffb900ff>2.5초<>), <#ffb900ff>1초<> 저지 불가. 방패를 거둘 때 연꽃이 피어 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>.",
         "ult": "대원적도·영을 꺼내(베기 전까지 저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) 내리벰: 앞쪽 부채꼴의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> + 최대 체력 <#ff9028ff>8%<>의 <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 기절<>."
+      },
+      "ragnarok_zerofuku": {
+        "name": "제로후쿠",
+        "attack": "제로후쿠는 부효로, 파순은 팔날로 베어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>불행<>: 제로후쿠에게 맞은 적은 <#ffb900ff>4초<> 동안 받는 피해 <#ffb900ff>+8%<>. <#ff9028ff>탐식<>: 파순은 <#ffb900ff>생명력 흡수 8%<>.",
+        "skill": "제로후쿠: 불행을 빨아 커진 부효를 내려쳐 앞쪽 적에게 <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>, <#ef5350ff>30% 둔화<>, 불행. 파순: 팔이 마찬이 되어 돌진, 지나간 적에게 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>.",
+        "skill2": "제로후쿠: 발밑에서 원한이 솟아 일직선의 적에게 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>. 파순: 팔날로 내리찍어 앞쪽 적에게 <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>.",
+        "ult": "검은 고치에 삼켜진 뒤(저지 불가, 피해 <#ffb900ff>40%<> 감소) 파순이 깨어남: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 회복, 이번 목숨 동안 공격력 <#ffb900ff>+15%<>, 공속 <#ffb900ff>+15%<>, 이속 <#ffb900ff>+5%<>, 방어·마저 <#ffb900ff>+10<>. 파순이 다시 쓰면 마비 횡단: 부채꼴 적에게 <#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> + 최대 체력 <#ff9028ff>6%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>."
       }
     },
     "skill_name": {
@@ -548,6 +591,11 @@
         "skill1": "육도곤·창날",
         "skill2": "관음 방패",
         "ult": "대원적도·영"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "부효 / 마찬",
+        "skill2": "원한 충격 / 마인 쇄격",
+        "ult": "파견 / 마비 횡단"
       }
     }
   },
@@ -629,6 +677,13 @@
         "skill": "六道棍を槍刃に変えて突く：前方の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>4秒<>の間<#ef5350ff>物防25%低下<>。",
         "skill2": "受ける攻撃を見て観音盾を構える：<#e8d44dff>シールド100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>）、<#ffb900ff>1秒<>行動妨害無効。盾を収める時に蓮華が咲き、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。",
         "ult": "大円寂刀・零を顕現させ（斬るまで行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）斬り下ろす：前方扇形の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>＋最大体力<#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒スタン<>。"
+      },
+      "ragnarok_zerofuku": {
+        "name": "零福",
+        "attack": "零福は斧爻、波旬は腕刃で斬り<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>不幸<>：零福が当てた敵は<#ffb900ff>4秒<>被ダメージ<#ffb900ff>+8%<>。<#ff9028ff>呑噬<>：波旬は<#ffb900ff>吸血8%<>。",
+        "skill": "零福：不幸を吸って大きくなった斧爻を振り下ろし、前方の敵に<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>、不幸を付与。波旬：前腕を魔鑽に変えて突進し、通った敵に<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。",
+        "skill2": "零福：足元から怨念が湧き、一直線の敵に<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。波旬：腕刃で叩き斬り、前方の敵に<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。",
+        "ult": "闇の繭に呑まれ（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）波旬が羽化：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>回復、この命の間攻撃<#ffb900ff>+15%<>・攻速<#ffb900ff>+15%<>・移速<#ffb900ff>+5%<>・両防御<#ffb900ff>+10<>。再使用で魔臂横断：扇形の敵に<#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>＋最大体力<#ff9028ff>6%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。"
       }
     },
     "skill_name": {
@@ -686,6 +741,11 @@
         "skill1": "六道棍・槍刃",
         "skill2": "観音盾",
         "ult": "大円寂刀・零"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "斧爻／魔鑽",
+        "skill2": "怨念衝撃／魔刃砕撃",
+        "ult": "破繭／魔臂横断"
       }
     }
   }

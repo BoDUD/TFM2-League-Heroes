@@ -165,6 +165,7 @@ pub const STEALABLE: &[&str] = &[
     "ragnarok_raiden",
     "ragnarok_shiva",
     "ragnarok_thor",
+    "ragnarok_zerofuku",
     "ragnarok_zeus",
     "tft_aoshin",
     "tft_baronnashor",

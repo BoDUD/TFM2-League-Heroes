@@ -4220,6 +4220,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_zerofuku",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_zerofuku",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_zerofuku_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_zerofuku_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_ragnarok_zeus",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_zeus",
