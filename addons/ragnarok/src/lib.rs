@@ -18,6 +18,7 @@ pub mod shiva;
 pub mod buddha;
 pub mod thor;
 pub mod zeus;
+pub mod zerofuku;
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -102,6 +103,7 @@ fn init(host: &StableHost) -> StableMod {
     raiden::register(host, &mut module);
     shiva::register(host, &mut module);
     buddha::register(host, &mut module);
+    zerofuku::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

@@ -42,6 +42,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("ragnarok_shiva", 3.3, include_str!("../../../ragnarok/champions/ragnarok_shiva#anim.fanim")),
     // 释迦（ragnarok_buddha）：Codex 直接按两倍密度画的，站直 112 格（发髻），PPU 3.3，34 个游戏像素
     ("ragnarok_buddha", 3.3, include_str!("../../../ragnarok/champions/ragnarok_buddha#anim.fanim")),
+    // 零福／波旬（ragnarok_zerofuku）：Codex 直接按两倍密度画的，零福站直 116 格、波旬连角 125 格，PPU 3.3，35 / 38 个游戏像素
+    ("ragnarok_zerofuku", 3.3, include_str!("../../../ragnarok/champions/ragnarok_zerofuku#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -79,13 +81,15 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("ragnarok_shiva_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_shiva_fx#anim.fanim")),
     // 释迦打在人身上的棍击、观音盾的挡击，他身上的未来视和莲光（棍风、枪刃、撤步的气流、大圆寂刀的气和刀光画在他自己的帧里）
     ("ragnarok_buddha_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_buddha_fx#anim.fanim")),
+    ("ragnarok_zerofuku_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_zerofuku_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
 pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx",
                                          "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx",
                                          "ragnarok_heracles_fx", "ragnarok_jack_fx",
-                                         "ragnarok_raiden_fx", "ragnarok_shiva_fx", "ragnarok_buddha_fx"];
+                                         "ragnarok_raiden_fx", "ragnarok_shiva_fx", "ragnarok_buddha_fx",
+                                         "ragnarok_zerofuku_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[];
