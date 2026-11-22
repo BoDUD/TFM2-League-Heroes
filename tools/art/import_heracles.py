@@ -32,7 +32,10 @@ import ragnarok_art as A  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "heracles", "snapped")
 ID = "ragnarok_heracles"
 HERO = "heracles"
-PPU = 3.3                   # 和 tools/art/ppu_hd.py 的 PPU、addons/ragnarok/src/hd.rs 的 HEROES 一致
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = 2.75                  # 放大前 3.3；和 tools/art/ppu_hd.py 的 PPU、addons/ragnarok/src/hd.rs 的 HEROES 一致
+FX_PPU = 3.3                # 特效图不放大（hd.rs 的 EFFECTS）
 SOLE = (128, 232)
 FX_ORIGIN = (128, 128)      # 特效格的中心
 CANVAS = (576, 448, (288, 352))
@@ -67,7 +70,7 @@ BAKE = [
 ]
 TARGET_FX = {"club_hit": FX_ORIGIN, "cerberus_hit": FX_ORIGIN}
 
-HERACLES = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
+HERACLES = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
             "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS}
 
 if __name__ == "__main__":

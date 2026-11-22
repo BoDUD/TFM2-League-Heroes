@@ -30,7 +30,10 @@ SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
 # prints the face point it measures on the 1x idle), the ban/pick card by bp_card_audit.py's rule
 # 2026-11-20 at PPU 1.94 (85 % of the first size): eyes 50 rows over the soles = 26 game px; the encyclopedia centre by
 # bp_card_audit --centers (-9); the ban/pick card by its rule, y = -39 - top (the plume's tip 26 over the centre)
-VIEW = {"face": {"x": 3, "y": -26}, "center": {"x": 0, "y": -9}, "banpick_center": {"x": 0, "y": -13}}
+# 2026-11-22 整包放大 1.2 倍（「放大到联盟大小」，import 的 PPU 除以 1.2）以后重定：头像点乘 1.2；百科中心照
+# bp_card_audit.py --centers 的规则（和联盟一样）；选人卡照它的规则 y = -39 - 头顶（量头，不量头顶上的刀、叉、锤、翎子）；
+# 放大后选人卡会挡 6 像素以上的腿：addons/ragnarok/src/hd.rs 的 UI_SIZES 把他在选人卡里缩小，这里按缩小后的头顶算
+VIEW = {"face": {"x": 4, "y": -31}, "center": {"x": 0, "y": -17}, "banpick_center": {"x": 0, "y": -10}}
 
 TEXT = {
     "zh-hans": {

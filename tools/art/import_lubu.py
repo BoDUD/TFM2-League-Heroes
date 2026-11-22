@@ -49,7 +49,9 @@ HERO = "lubu"
 # user, 2026-11-20, beside Thor: 「吕布是不是有点大啊 缩小一点 比雷神高出来不少」 - 1.94 = 1.65 / 0.85: the same pixels drawn
 # 85 % as big, 34 game px to his hair (Thor 33), 37.6 to the plume
 UP = 2.0
-PPU = round(1.94 * UP, 3)   # 3.88
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = round(1.94 * UP / 1.2, 3)   # 3.233（放大前 3.88）
 FX_PPU = round(1.65 * UP, 3)  # 3.3: his effect sheets keep Codex's size: hits and the wave go by game distance, not by his size
 
 

@@ -31,7 +31,9 @@ SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
 # cards show): eyes under the long white brows, 40 rows over the soles = 24 game px, 9 px forward = 5; the encyclopedia
 # centre by bp_card_audit's rule (-6, the old man is short); the ban/pick card needs no value of its own (his top is
 # 20 px over the frame centre, the rule starts at 28): base's -12
-VIEW = {"face": {"x": 5, "y": -24}, "center": {"x": 0, "y": -6}, "banpick_center": {"x": 0, "y": -12}}
+# 2026-11-22 整包放大 1.2 倍（「放大到联盟大小」，import 的 PPU 除以 1.2）以后重定：头像点乘 1.2；百科中心照
+# bp_card_audit.py --centers 的规则（和联盟一样）；选人卡照它的规则 y = -39 - 头顶（量头，不量头顶上的刀、叉、锤、翎子）
+VIEW = {"face": {"x": 6, "y": -29}, "center": {"x": 0, "y": -6}, "banpick_center": {"x": 0, "y": -12}}
 
 TEXT = {
     "zh-hans": {

@@ -50,10 +50,10 @@ def lp(path):
 
 
 def ui_sizes(league):
-    """UI_SIZES of both dense-frame tables (league.dll's addons/league_main/src/hd.rs, tft.dll's addons/tft/src/hd.rs;
-    addons/hd_engine draws them): tall HD heroes drawn smaller in the UI."""
+    """UI_SIZES of the dense-frame tables (league.dll's addons/league_main/src/hd.rs, tft.dll's addons/tft/src/hd.rs,
+    ragnarok.dll's addons/ragnarok/src/hd.rs; addons/hd_engine draws them): tall HD heroes drawn smaller in the UI."""
     out = {}
-    for crate in ("league_main", "tft"):
+    for crate in ("league_main", "tft", "ragnarok"):
         rs = os.path.join(os.path.dirname(league), "addons", crate, "src", "hd.rs")
         src = open(lp(rs), encoding="utf-8").read()
         body = src[src.index("pub const UI_SIZES"):]
@@ -151,7 +151,8 @@ def card(fr, div, y):
 
 def heroes(league):
     view = json.load(open(lp(os.path.join(league, "style", "champion_view.champion_view")), encoding="utf-8-sig"))
-    return {k: v for k, v in view["entries"].items() if k.startswith("league_")}
+    # 终末包（--league ragnarok）的英雄也查：两个包的选人卡是同一个格子
+    return {k: v for k, v in view["entries"].items() if k.startswith(("league_", "ragnarok_"))}
 
 
 def table(league):

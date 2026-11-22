@@ -27,7 +27,10 @@ from ragnarok_pack import (MOD, lp, ADi, AD, O, A, R, E, phys, secs, check_lengt
 SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
 # champion_view（离脚底点的游戏像素，往上是负）：待机第 1 帧的眼睛在脚底上约 106 格 = 32 个游戏像素、往前 3 格 = 1；
 # 百科中心照小次郎、波塞冬（1 倍待机的实心顶上方 22 格左右）：实心顶 -29 -> -7；选人卡用默认的 -12
-VIEW = {"face": {"x": 1, "y": -32}, "center": {"x": 0, "y": -7}, "banpick_center": {"x": 0, "y": -12}}
+# 2026-11-22 整包放大 1.2 倍（「放大到联盟大小」，import 的 PPU 除以 1.2）以后重定：头像点乘 1.2；百科中心照
+# bp_card_audit.py --centers 的规则（和联盟一样）；选人卡照它的规则 y = -39 - 头顶（量头，不量头顶上的刀、叉、锤、翎子）；
+# 放大后选人卡会挡 6 像素以上的腿：addons/ragnarok/src/hd.rs 的 UI_SIZES 把他在选人卡里缩小，这里按缩小后的头顶算
+VIEW = {"face": {"x": 1, "y": -38}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -11}}
 
 TEXT = {
     "zh-hans": {

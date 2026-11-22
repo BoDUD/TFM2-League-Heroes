@@ -32,7 +32,10 @@ SRC = os.path.join(ROOT, "assets", "source", "adam", "rebuild")
 ID = "ragnarok_adam"
 HERO = "adam"
 UP = 2.0                    # 和 tools/art/adam_repixel.py 的 UP 一样
-PPU = round(1.65 * UP, 3)   # 3.3：和 tools/art/ppu_hd.py 的 PPU、addons/ragnarok/src/hd.rs 的 HEROES / EFFECTS 一致
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = round(1.65 * UP / 1.2, 3)   # 2.75（放大前 3.3）
+FX_PPU = round(1.65 * UP, 3)     # 3.3：特效图不放大
 SOLE = (round(64 * UP), round(116 * UP))
 FX_ORIGIN = (round(64 * UP), round(64 * UP))      # 特效格的中心
 CANVAS = (round(288 * UP), round(224 * UP), (round(144 * UP), round(176 * UP)))
@@ -66,7 +69,7 @@ TARGET_FX = {"jab_hit": FX_ORIGIN}
 # 挪成和 128 格那版一样的起伏（各帧离平均的差照它）
 SHIFT = {"run": [-4, -1, -4, 0, 0, 4, 5, 0]}
 
-ADAM = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
+ADAM = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
         "TARGET_FX": TARGET_FX, "CANVAS": CANVAS, "SHIFT": SHIFT}
 
 if __name__ == "__main__":
