@@ -8,8 +8,7 @@
 
 一格 256，脚底 (128, 184)，站高 104 格（32 个游戏像素）。共用的设定、特效的放法在 tools/art/border_art.py。
 没有画进她自己帧里的特效。
-v0.7.1 撒线 skill 的第 5 帧（0.20-0.26 秒的过渡帧）整个人是 2x2 的粗马赛克（像低分辨率的稿子放大上来的），不用它：
-RETIME 把它的时长给下一帧（0.26 秒撒线那张提前到 0.20 秒出来，到 0.30 秒）。
+（v0.7.1 撒线 skill 的第 5 帧是 2x2 的粗马赛克，跳过过一回；v0.7.2 Codex 照前后两帧补画清楚了，照常用。）
 弹道图（1 倍，border/effects/border_yanxi_proj，朝右，引擎按飞的方向转）：
 - 普攻的盐晶碎片 a_shard（attack 八帧，中心 (60, 68)）；
 - 撒线的盐带 q_band_r：Codex 画的盐带往右上斜着（约 13 度），按铺满那帧（第 5 帧）的主方向转平（最近邻），从两头 22% 处
@@ -43,10 +42,7 @@ def fx_make(fx):
             "q_band_r": band, "q_band_l": B.flip_tb(band), "r_wave_r": wave, "r_wave_l": B.flip_tb(wave)}
 
 
-# 撒线第 5 帧是马赛克（见上），时长并给第 6 帧
-RETIME = {"skill": [0.053, 0.049, 0.038, 0.06, 0.0, 0.10, 0.066, 0.074, 0.065, 0.055]}
-
-YANXI = B.config("yanxi", TARGET_FX=TARGET_FX, PROJ_FX=PROJ_FX, FX_MAKE=fx_make, RETIME=RETIME)
+YANXI = B.config("yanxi", TARGET_FX=TARGET_FX, PROJ_FX=PROJ_FX, FX_MAKE=fx_make)
 
 if __name__ == "__main__":
     A.main(YANXI, __doc__)

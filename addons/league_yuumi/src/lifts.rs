@@ -254,7 +254,7 @@ pub const CROWNS: &[(&str, i32)] = &[
     ("border_fusuo", 20),
     ("border_jiyan", 20),
     ("border_lanti", 19),
-    ("border_luxin", 18),
+    ("border_luxin", 17),
     ("border_wuling", 20),
     ("border_xiaolun", 19),
     ("border_yanxi", 19),

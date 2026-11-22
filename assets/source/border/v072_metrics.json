@@ -1,0 +1,1443 @@
+{
+  "base": "0.7.1",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor": [
+    128,
+    184
+  ],
+  "luxin": {
+    "updated": {
+      "idle": [
+        {
+          "frame": 1,
+          "duration_ms": 160,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 196,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            87,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 155,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 228,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            85,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            87,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 145,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 222,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            87,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 140,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 214,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            85,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 145,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 209,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            85,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 135,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 185,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            85,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 130,
+          "hair_tie_xy": [
+            129,
+            87
+          ],
+          "changed_pixels": 188,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 130,
+          "hair_tie_xy": [
+            129,
+            87
+          ],
+          "changed_pixels": 189,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 9,
+          "duration_ms": 140,
+          "hair_tie_xy": [
+            129,
+            87
+          ],
+          "changed_pixels": 188,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 10,
+          "duration_ms": 130,
+          "hair_tie_xy": [
+            129,
+            87
+          ],
+          "changed_pixels": 191,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 11,
+          "duration_ms": 90,
+          "hair_tie_xy": [
+            129,
+            87
+          ],
+          "changed_pixels": 196,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 12,
+          "duration_ms": 60,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 219,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            85,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 13,
+          "duration_ms": 65,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 228,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 14,
+          "duration_ms": 145,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 230,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 15,
+          "duration_ms": 215,
+          "hair_tie_xy": [
+            129,
+            88
+          ],
+          "changed_pixels": 235,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 16,
+          "duration_ms": 255,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 256,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            85,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            87,
+            161,
+            184
+          ]
+        }
+      ],
+      "attack": [
+        {
+          "frame": 1,
+          "duration_ms": 64,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 225,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            87,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 46,
+          "hair_tie_xy": [
+            134,
+            93
+          ],
+          "changed_pixels": 326,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            87,
+            154,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            154,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 59,
+          "hair_tie_xy": [
+            135,
+            94
+          ],
+          "changed_pixels": 333,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            98,
+            88,
+            154,
+            184
+          ],
+          "new_bbox": [
+            98,
+            92,
+            154,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 75,
+          "hair_tie_xy": [
+            136,
+            92
+          ],
+          "changed_pixels": 303,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            105,
+            87,
+            162,
+            184
+          ],
+          "new_bbox": [
+            105,
+            90,
+            162,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 75,
+          "hair_tie_xy": [
+            130,
+            90
+          ],
+          "changed_pixels": 225,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            87,
+            160,
+            184
+          ],
+          "new_bbox": [
+            106,
+            88,
+            160,
+            184
+          ]
+        }
+      ],
+      "skill": [
+        {
+          "frame": 8,
+          "duration_ms": 74,
+          "hair_tie_xy": [
+            136,
+            95
+          ],
+          "changed_pixels": 310,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            101,
+            89,
+            157,
+            184
+          ],
+          "new_bbox": [
+            101,
+            93,
+            157,
+            184
+          ]
+        },
+        {
+          "frame": 9,
+          "duration_ms": 65,
+          "hair_tie_xy": [
+            135,
+            94
+          ],
+          "changed_pixels": 291,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            102,
+            88,
+            158,
+            184
+          ],
+          "new_bbox": [
+            102,
+            92,
+            158,
+            184
+          ]
+        },
+        {
+          "frame": 10,
+          "duration_ms": 55,
+          "hair_tie_xy": [
+            130,
+            90
+          ],
+          "changed_pixels": 207,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            105,
+            86,
+            160,
+            184
+          ],
+          "new_bbox": [
+            105,
+            88,
+            160,
+            184
+          ]
+        }
+      ],
+      "skill2": [
+        {
+          "frame": 1,
+          "duration_ms": 46,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 264,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            105,
+            84,
+            161,
+            184
+          ],
+          "new_bbox": [
+            105,
+            87,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 43,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 246,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            104,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            104,
+            87,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 41,
+          "hair_tie_xy": [
+            127,
+            89
+          ],
+          "changed_pixels": 208,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            103,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            103,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 74,
+          "hair_tie_xy": [
+            127,
+            89
+          ],
+          "changed_pixels": 187,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            101,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            101,
+            86,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 56,
+          "hair_tie_xy": [
+            126,
+            90
+          ],
+          "changed_pixels": 236,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            99,
+            84,
+            166,
+            184
+          ],
+          "new_bbox": [
+            99,
+            87,
+            166,
+            184
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 44,
+          "hair_tie_xy": [
+            126,
+            88
+          ],
+          "changed_pixels": 290,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            98,
+            82,
+            173,
+            184
+          ],
+          "new_bbox": [
+            98,
+            86,
+            173,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 76,
+          "hair_tie_xy": [
+            126,
+            90
+          ],
+          "changed_pixels": 311,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            98,
+            82,
+            166,
+            184
+          ],
+          "new_bbox": [
+            98,
+            87,
+            166,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 61,
+          "hair_tie_xy": [
+            128,
+            89
+          ],
+          "changed_pixels": 244,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            86,
+            159,
+            184
+          ],
+          "new_bbox": [
+            100,
+            87,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 9,
+          "duration_ms": 64,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 199,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            103,
+            86,
+            160,
+            184
+          ],
+          "new_bbox": [
+            103,
+            87,
+            160,
+            184
+          ]
+        },
+        {
+          "frame": 10,
+          "duration_ms": 55,
+          "hair_tie_xy": [
+            129,
+            89
+          ],
+          "changed_pixels": 185,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            105,
+            86,
+            160,
+            184
+          ],
+          "new_bbox": [
+            105,
+            87,
+            160,
+            184
+          ]
+        }
+      ],
+      "ult": [
+        {
+          "frame": 1,
+          "duration_ms": 66,
+          "hair_tie_xy": [
+            129,
+            90
+          ],
+          "changed_pixels": 294,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            104,
+            83,
+            161,
+            184
+          ],
+          "new_bbox": [
+            104,
+            88,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 58,
+          "hair_tie_xy": [
+            131,
+            92
+          ],
+          "changed_pixels": 238,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            105,
+            88,
+            167,
+            184
+          ],
+          "new_bbox": [
+            105,
+            90,
+            167,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 66,
+          "hair_tie_xy": [
+            135,
+            92
+          ],
+          "changed_pixels": 280,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            102,
+            87,
+            173,
+            184
+          ],
+          "new_bbox": [
+            102,
+            90,
+            173,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 57,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 286,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            87,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 59,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 364,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            85,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 61,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 404,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            83,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 33,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 380,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            86,
+            177,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            177,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 52,
+          "hair_tie_xy": [
+            129,
+            94
+          ],
+          "changed_pixels": 310,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            91,
+            89,
+            167,
+            184
+          ],
+          "new_bbox": [
+            91,
+            92,
+            167,
+            184
+          ]
+        },
+        {
+          "frame": 9,
+          "duration_ms": 63,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 294,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            88,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 10,
+          "duration_ms": 52,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 284,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            87,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 11,
+          "duration_ms": 53,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 350,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            86,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 12,
+          "duration_ms": 50,
+          "hair_tie_xy": [
+            136,
+            93
+          ],
+          "changed_pixels": 404,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            83,
+            178,
+            184
+          ],
+          "new_bbox": [
+            100,
+            91,
+            178,
+            184
+          ]
+        },
+        {
+          "frame": 13,
+          "duration_ms": 48,
+          "hair_tie_xy": [
+            129,
+            94
+          ],
+          "changed_pixels": 348,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            91,
+            86,
+            167,
+            184
+          ],
+          "new_bbox": [
+            91,
+            92,
+            167,
+            184
+          ]
+        },
+        {
+          "frame": 14,
+          "duration_ms": 79,
+          "hair_tie_xy": [
+            130,
+            92
+          ],
+          "changed_pixels": 320,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            96,
+            86,
+            162,
+            184
+          ],
+          "new_bbox": [
+            96,
+            90,
+            162,
+            184
+          ]
+        },
+        {
+          "frame": 15,
+          "duration_ms": 73,
+          "hair_tie_xy": [
+            128,
+            91
+          ],
+          "changed_pixels": 187,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            103,
+            87,
+            159,
+            184
+          ],
+          "new_bbox": [
+            103,
+            89,
+            159,
+            184
+          ]
+        }
+      ],
+      "hit": [
+        {
+          "frame": 1,
+          "duration_ms": 36,
+          "hair_tie_xy": [
+            119,
+            93
+          ],
+          "changed_pixels": 342,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            94,
+            85,
+            153,
+            184
+          ],
+          "new_bbox": [
+            95,
+            91,
+            153,
+            184
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 24,
+          "hair_tie_xy": [
+            119,
+            93
+          ],
+          "changed_pixels": 326,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            94,
+            87,
+            153,
+            184
+          ],
+          "new_bbox": [
+            96,
+            91,
+            153,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 80,
+          "hair_tie_xy": [
+            119,
+            93
+          ],
+          "changed_pixels": 300,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            95,
+            87,
+            153,
+            184
+          ],
+          "new_bbox": [
+            96,
+            91,
+            153,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 80,
+          "hair_tie_xy": [
+            109,
+            97
+          ],
+          "changed_pixels": 272,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            89,
+            94,
+            157,
+            184
+          ],
+          "new_bbox": [
+            91,
+            95,
+            157,
+            184
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 69,
+          "hair_tie_xy": [
+            132,
+            100
+          ],
+          "changed_pixels": 386,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            96,
+            93,
+            152,
+            184
+          ],
+          "new_bbox": [
+            96,
+            98,
+            152,
+            184
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 61,
+          "hair_tie_xy": [
+            129,
+            96
+          ],
+          "changed_pixels": 266,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            100,
+            90,
+            155,
+            184
+          ],
+          "new_bbox": [
+            100,
+            94,
+            155,
+            184
+          ]
+        }
+      ],
+      "dead": [
+        {
+          "frame": 1,
+          "duration_ms": 55,
+          "hair_tie_xy": [
+            129,
+            90
+          ],
+          "changed_pixels": 171,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            106,
+            86,
+            161,
+            184
+          ],
+          "new_bbox": [
+            106,
+            88,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 55,
+          "hair_tie_xy": [
+            144,
+            104
+          ],
+          "changed_pixels": 240,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            102,
+            99,
+            162,
+            184
+          ],
+          "new_bbox": [
+            102,
+            102,
+            162,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 78,
+          "hair_tie_xy": [
+            148,
+            110
+          ],
+          "changed_pixels": 317,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            99,
+            103,
+            166,
+            184
+          ],
+          "new_bbox": [
+            99,
+            108,
+            166,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 102,
+          "hair_tie_xy": [
+            148,
+            114
+          ],
+          "changed_pixels": 299,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            97,
+            107,
+            165,
+            184
+          ],
+          "new_bbox": [
+            97,
+            112,
+            165,
+            184
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 92,
+          "hair_tie_xy": [
+            153,
+            130
+          ],
+          "changed_pixels": 330,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            90,
+            120,
+            166,
+            184
+          ],
+          "new_bbox": [
+            90,
+            128,
+            166,
+            184
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 68,
+          "hair_tie_xy": [
+            155,
+            135
+          ],
+          "changed_pixels": 347,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            87,
+            123,
+            169,
+            184
+          ],
+          "new_bbox": [
+            87,
+            133,
+            169,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 60,
+          "hair_tie_xy": [
+            166,
+            158
+          ],
+          "changed_pixels": 117,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            80,
+            146,
+            177,
+            184
+          ],
+          "new_bbox": [
+            80,
+            152,
+            177,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 900,
+          "hair_tie_xy": [
+            167,
+            160
+          ],
+          "changed_pixels": 104,
+          "pixels_outside_hair_changed": 0,
+          "old_bbox": [
+            78,
+            149,
+            178,
+            184
+          ],
+          "new_bbox": [
+            78,
+            153,
+            178,
+            184
+          ]
+        }
+      ]
+    },
+    "unchanged_cels": 18,
+    "anim_sha256": "456dfa8b7ba112b9be2d4a7c08c9e039d4dcafd77c5c44eaec1ed0182f17830e"
+  },
+  "yanxi": {
+    "updated": {
+      "skill": [
+        {
+          "frame": 5,
+          "duration_ms": 60,
+          "exact_neighbor_rgb_repeat_before": 0.2122,
+          "exact_neighbor_rgb_repeat_after": 0.0348,
+          "old_bbox": [
+            97,
+            93,
+            161,
+            184
+          ],
+          "new_bbox": [
+            96,
+            93,
+            162,
+            184
+          ]
+        }
+      ]
+    },
+    "unchanged_cels": 79,
+    "anim_sha256": "28ab9f39c48488f7e8e591eeb12c1862cbca0e209e236db5475a3abbc71c8174"
+  }
+}
