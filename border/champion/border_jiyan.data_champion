@@ -1,0 +1,525 @@
+{
+  "id": "border_jiyan",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "border_jiyan:chart",
+    "params": {
+      "e_ap": 45,
+      "e_dmg": 60,
+      "e_r": 20000,
+      "e_slow": 25,
+      "e_slow_t": 60,
+      "p_max": 3,
+      "p_t": 240,
+      "q_ap": 70,
+      "q_bap": 40,
+      "q_br": 16000,
+      "q_burst": 60,
+      "q_dmg": 95,
+      "q_len": 85000,
+      "q_w": 9000,
+      "r_ap": 85,
+      "r_dmg": 200,
+      "r_r": 22000,
+      "r_slow": 30,
+      "r_slow_t": 60,
+      "r_spread": 22000
+    }
+  },
+  "sprite": "asset/border/champions/border_jiyan",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_jiyan_skill",
+    "asset/border/icons/border_jiyan_skill2",
+    "asset/border/icons/border_jiyan_ult"
+  ],
+  "stat": {
+    "attack": 76,
+    "magic_power": 50,
+    "hp": 860,
+    "defence": 20,
+    "magic_resistance": 22,
+    "move_speed": 940,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 24,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_jiyan.attack",
+    "duration": 28,
+    "cooltime": 90,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 64000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "TargetProjectile",
+          "name": "border_jiyan_a_bolt",
+          "speed": 6500,
+          "y_offset": -1500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "border_jiyan_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "astrologer_attack"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_jiyan.skill",
+    "duration": 34,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "astrologer_skill1_impact"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_jiyan_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_jiyan_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_jiyan:beam"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_jiyan:beam"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_jiyan_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_jiyan.skill2",
+    "duration": 34,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 90000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "astrologer_skill2"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 15,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_jiyan_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_jiyan_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_jiyan:chart"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_jiyan:chart"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_jiyan_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 45,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_jiyan_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_jiyan_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_jiyan:chart_pulse"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_jiyan:chart_pulse"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_jiyan_live"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_jiyan.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 90000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "astrologer_ult_burst"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 23,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_jiyan_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_jiyan_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_jiyan:almanac"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_jiyan:almanac"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_jiyan_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 45,
+              "effects": [
+                {
+                  "type": "Native",
+                  "effect_ref": "border_jiyan:star"
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 51,
+              "effects": [
+                {
+                  "type": "Native",
+                  "effect_ref": "border_jiyan:star"
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 57,
+              "effects": [
+                {
+                  "type": "Native",
+                  "effect_ref": "border_jiyan:star"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_jiyan_a_bolt",
+      "anim": "asset/border/effects/border_jiyan_proj",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_jiyan_q_beam_r",
+      "anim": "asset/border/effects/border_jiyan_proj",
+      "tag": "q_beam_r",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_jiyan_q_beam_l",
+      "anim": "asset/border/effects/border_jiyan_proj",
+      "tag": "q_beam_l",
+      "repeat": false,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_jiyan_a_hit",
+      "anim": "asset/border/effects/border_jiyan_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_jiyan_p_mark",
+      "anim": "asset/border/effects/border_jiyan_fx",
+      "tag": "p_mark",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_jiyan_e_chart",
+      "anim": "asset/border/effects/border_jiyan_fx",
+      "tag": "e_chart",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_jiyan_r_warn",
+      "anim": "asset/border/effects/border_jiyan_fx",
+      "tag": "r_warn",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_jiyan_r_star",
+      "anim": "asset/border/effects/border_jiyan_fx",
+      "tag": "r_star",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

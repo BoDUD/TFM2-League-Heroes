@@ -1,0 +1,468 @@
+{
+  "id": "border_lanti",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "border_lanti:fracture",
+    "params": {
+      "e_dr": 50,
+      "e_t": 150,
+      "p_t": 300,
+      "p_window": 30,
+      "q1_ad": 80,
+      "q1_dmg": 50,
+      "q2_ad": 130,
+      "q2_dmg": 80,
+      "q_mark": 60,
+      "q_slow": 20,
+      "q_slow_t": 45,
+      "r_ad": 160,
+      "r_cap": 300,
+      "r_dmg": 260,
+      "r_k": 60,
+      "r_len": 45000,
+      "r_slow": 30,
+      "r_slow_t": 60,
+      "r_speed": 6000,
+      "r_w": 16000,
+      "r_window": 480
+    }
+  },
+  "sprite": "asset/border/champions/border_lanti",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_lanti_skill",
+    "asset/border/icons/border_lanti_skill2",
+    "asset/border/icons/border_lanti_ult"
+  ],
+  "stat": {
+    "attack": 115,
+    "magic_power": 0,
+    "hp": 1200,
+    "defence": 44,
+    "magic_resistance": 28,
+    "move_speed": 1010,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 22,
+    "magic_power": 0,
+    "hp": 108,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_lanti.attack",
+    "duration": 28,
+    "cooltime": 62,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "gladiator_attack"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "border_lanti_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_lanti.skill",
+    "duration": 34,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "gladiator_attack_hit"
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_lanti_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_lanti_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:prism1"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:prism1"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_lanti_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_lanti_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_lanti_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:prism2"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:prism2"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_lanti_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_lanti.skill2",
+    "duration": 34,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "magic_knight_skill2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_lanti_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_lanti_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:guard"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:guard"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_lanti_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_lanti.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "gladiator_ult_hit"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_lanti_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_lanti_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:echo"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_lanti:echo"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_lanti_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_lanti_r_wave",
+      "anim": "asset/border/effects/border_lanti_proj",
+      "tag": "r_wave",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_lanti_r_wave_l",
+      "anim": "asset/border/effects/border_lanti_proj",
+      "tag": "r_wave_l",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_lanti_a_hit",
+      "anim": "asset/border/effects/border_lanti_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_lanti_hit",
+      "anim": "asset/border/effects/border_lanti_fx",
+      "tag": "hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_lanti_p_mark",
+      "anim": "asset/border/effects/border_lanti_fx",
+      "tag": "p_mark",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_lanti_q_punch",
+      "anim": "asset/border/effects/border_lanti_fx",
+      "tag": "q_punch",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_lanti_q_punch_l",
+      "anim": "asset/border/effects/border_lanti_fx",
+      "tag": "q_punch_l",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_lanti_e_guard",
+      "anim": "asset/border/effects/border_lanti_fx",
+      "tag": "e_guard",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

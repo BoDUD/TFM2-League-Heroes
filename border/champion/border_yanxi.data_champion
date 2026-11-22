@@ -1,0 +1,428 @@
+{
+  "id": "border_yanxi",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "CC",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "border_yanxi:salt",
+    "params": {
+      "e_ap": 40,
+      "e_dmg": 70,
+      "e_kap": 15,
+      "e_kdmg": 25,
+      "e_reach": 90000,
+      "e_root": 60,
+      "p_keep": 240,
+      "p_max": 5,
+      "p_slow": 25,
+      "p_tick": 45,
+      "q_ap": 60,
+      "q_dmg": 80,
+      "q_len": 50000,
+      "q_t": 240,
+      "q_w": 14000,
+      "r_ap": 90,
+      "r_dmg": 220,
+      "r_pull": 15000,
+      "r_pull_t": 10,
+      "r_speed": 3000,
+      "r_stack": 2,
+      "r_w": 16000
+    }
+  },
+  "sprite": "asset/border/champions/border_yanxi",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_yanxi_skill",
+    "asset/border/icons/border_yanxi_skill2",
+    "asset/border/icons/border_yanxi_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 45,
+    "hp": 900,
+    "defence": 20,
+    "magic_resistance": 24,
+    "move_speed": 960,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 22,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_yanxi.attack",
+    "duration": 28,
+    "cooltime": 85,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "TargetProjectile",
+          "name": "border_yanxi_a_shard",
+          "speed": 6000,
+          "y_offset": -1500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "border_yanxi_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "ice_mage_attack"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_yanxi.skill",
+    "duration": 34,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 62000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ice_mage_skill"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_yanxi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_yanxi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yanxi:line"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yanxi:line"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_yanxi_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_yanxi.skill2",
+    "duration": 34,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ice_mage_skill2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_yanxi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_yanxi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yanxi:congeal"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yanxi:congeal"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_yanxi_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_yanxi.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ice_mage_ult"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_yanxi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_yanxi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yanxi:ebb"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yanxi:ebb"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_yanxi_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_yanxi_a_shard",
+      "anim": "asset/border/effects/border_yanxi_proj",
+      "tag": "a_shard",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_yanxi_q_band_r",
+      "anim": "asset/border/effects/border_yanxi_proj",
+      "tag": "q_band_r",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_yanxi_q_band_l",
+      "anim": "asset/border/effects/border_yanxi_proj",
+      "tag": "q_band_l",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_yanxi_r_wave_r",
+      "anim": "asset/border/effects/border_yanxi_proj",
+      "tag": "r_wave_r",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_yanxi_r_wave_l",
+      "anim": "asset/border/effects/border_yanxi_proj",
+      "tag": "r_wave_l",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_yanxi_a_hit",
+      "anim": "asset/border/effects/border_yanxi_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_yanxi_e_burst",
+      "anim": "asset/border/effects/border_yanxi_fx",
+      "tag": "e_burst",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_yanxi_p_crystal",
+      "anim": "asset/border/effects/border_yanxi_fx",
+      "tag": "p_crystal",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

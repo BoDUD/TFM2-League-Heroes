@@ -1,0 +1,524 @@
+{
+  "id": "border_dengmi",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Heal",
+    "Shield",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "border_dengmi:light",
+    "params": {
+      "e_low": 50,
+      "e_ms": 35,
+      "e_ms_low": 20,
+      "e_reach": 60000,
+      "e_self": 15,
+      "e_t": 150,
+      "p_burst": 8,
+      "p_gain": 100,
+      "p_near": 90000,
+      "p_reach": 60000,
+      "q_ap": 70,
+      "q_flare_r": 30000,
+      "q_flare_slow": 50,
+      "q_flare_t": 90,
+      "q_hp": 6,
+      "q_reach": 60000,
+      "q_sh": 110,
+      "q_t": 150,
+      "r_ap": 80,
+      "r_burst": 90,
+      "r_burst_ap": 45,
+      "r_burst_r": 35000,
+      "r_burst_slow": 30,
+      "r_heal": 180,
+      "r_light": 100,
+      "r_near": 40000,
+      "r_reach": 75000
+    }
+  },
+  "sprite": "asset/border/champions/border_dengmi",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_dengmi_skill",
+    "asset/border/icons/border_dengmi_skill2",
+    "asset/border/icons/border_dengmi_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 40,
+    "hp": 1000,
+    "defence": 26,
+    "magic_resistance": 28,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 15,
+    "hp": 88,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_dengmi.attack",
+    "duration": 28,
+    "cooltime": 75,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "TargetProjectile",
+          "name": "border_dengmi_a_mote",
+          "speed": 5000,
+          "y_offset": 1500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 0,
+                    "attack_ratio": 60,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "border_dengmi_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "enchanter_attack"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_dengmi.skill",
+    "duration": 34,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "priest_skill"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_dengmi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_dengmi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_dengmi:lamp"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_dengmi:lamp"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_dengmi_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_dengmi.skill2",
+    "duration": 34,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "priest_skill2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_dengmi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_dengmi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_dengmi:path"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_dengmi:path"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_dengmi_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_dengmi.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "AllyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "enchanter_ult"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_dengmi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_dengmi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 180,
+                            "attack_ratio": 0,
+                            "ap_ratio": 80,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_dengmi:pulse1"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "priest_ult"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 180,
+                            "attack_ratio": 0,
+                            "ap_ratio": 80,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_dengmi:pulse1"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "priest_ult"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_dengmi_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 37,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_dengmi_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_dengmi_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_dengmi:pulse2"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "white_mage_ult_hit"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_dengmi:pulse2"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "white_mage_ult_hit"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_dengmi_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_dengmi_a_mote",
+      "anim": "asset/border/effects/border_dengmi_proj",
+      "tag": "a_mote",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_dengmi_a_hit",
+      "anim": "asset/border/effects/border_dengmi_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_dengmi_q_shield",
+      "anim": "asset/border/effects/border_dengmi_fx",
+      "tag": "q_shield",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_dengmi_e_path",
+      "anim": "asset/border/effects/border_dengmi_fx",
+      "tag": "e_path",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_dengmi_r_ring",
+      "anim": "asset/border/effects/border_dengmi_fx",
+      "tag": "r_ring",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_dengmi_p_glow",
+      "anim": "asset/border/effects/border_dengmi_fx",
+      "tag": "p_glow",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

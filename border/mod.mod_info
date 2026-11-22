@@ -1,0 +1,16 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    }
+  ],
+  "description": "Border Patrol, the Mirror Sea chapter: twelve original heroes for Teamfight Manager 2 - Cen Lei, Xiao Lun, Deng Mi, Zhu Mo, Fu Suo, Yan Xi, Yin Du, Lan Ti, Lu Xin, Ji Yan, Zhong Li, Wu Ling. Cen Lei takes the blows meant for a threatened ally and lets the stored Back Pressure out in one fan of waves; Xiao Lun winds her crossbow string as she runs and looses a Full Arc that picks a new target for every arrow; Deng Mi gathers light from the spells her friends take and hands out shield lamps and healing pulses; Zhu Mo heats up with every blow and opens his furnace to choose between guarding and smashing; Fu Suo counts the steps of whoever strays from their team and cuts an off-beat line a quick step can dodge; Yan Xi lays salt bands that crystallize whoever stays on them and pulls them back like an ebbing tide; Yin Du rams the first foe in his way and closes two tide walls on his beacon; Lan Ti marks the last caster who hurt her, catches the next spell in her guard and answers with an echo of what she blocked; Lu Xin follows the feather trails of the fleeing and reels them in with two cuts; Ji Yan charts coordinates that her star beam sets off and drops three warned stars along her aim; Zhong Li speeds up while he stands his ground and fires a four-shot chorus that stops if he is moved; Wu Ling rings bells on whoever touches her curtains and closes them on a crowd. Rules the data cannot play live in the pack's own code (border.dll), which also draws the heroes' sharper frames, with or without the League of Legends Heroes, Teamfight Tactics Heroes and Record of Ragnarok packs; Sylas, Viego, Neeko, Illaoi and Yuumi of the League pack work with them. Pixel art, effects, icons, illustrations and Mandarin trial voices made for this pack.",
+  "last_updated": "2026-11-22",
+  "mod_id": "border",
+  "mod_type": "native",
+  "name": "Border Patrol: Mirror Sea",
+  "version": "0.1.0"
+}

@@ -1292,6 +1292,198 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_border_cenlei",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_cenlei",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_cenlei_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_cenlei_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_dengmi",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_dengmi",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_dengmi_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_dengmi_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_fusuo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_fusuo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_fusuo_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_fusuo_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_jiyan",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_jiyan",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_jiyan_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_jiyan_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_lanti",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_lanti",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_lanti_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_lanti_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_luxin",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_luxin",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_luxin_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_luxin_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_wuling",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_wuling",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_wuling_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_wuling_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_xiaolun",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_xiaolun",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_xiaolun_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_xiaolun_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_yanxi",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_yanxi",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_yanxi_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_yanxi_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_yindu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_yindu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_yindu_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_yindu_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_zhongli",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_zhongli",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_zhongli_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_zhongli_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_zhumo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_zhumo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_border_zhumo_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "border_zhumo_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_aatrox",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_aatrox",

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""CI: the UI sheets (tools/package_mod.py ui_sheets, league.dll src/ui.rs) - every champion of league/ and tft/ gets
+"""CI: the UI sheets (tools/package_mod.py ui_sheets, league.dll src/ui.rs) - every champion of league/, tft/, ragnarok/ and
+border/ gets
 both, pixel for pixel (package_mod checks each UI frame against its source frame and its clear pads), and the screens
 that show every hero at once stay well inside the game's GPU image cache (Skia's GrResourceCache: 256 MiB by default,
 1 GiB with league.dll's src/cache.rs). 589 MiB of battle sheets on those screens
@@ -28,7 +29,7 @@ def main():
     t0 = time.time()
     total = {k: 0.0 for k in pm.UI_KINDS}
     sizes, bad, heroes_n = [], [], 0
-    for pack in ("league", "tft", "ragnarok"):
+    for pack in ("league", "tft", "ragnarok", "border"):
         src = os.path.join(pm.REPO, pack)
         heroes = pm.hero_ids(src)
         heroes_n += len(heroes)

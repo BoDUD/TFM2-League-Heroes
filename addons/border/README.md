@@ -1,0 +1,28 @@
+# border 包的代码（`border.dll`）
+
+border 包（mod_id `border`，源文件在 [`border/`](../../border/)）是原生 mod：《边境巡团 · 镜海篇》，Codex 设计、画的十二个原创英雄（2026-11-22，用户：「Codex做了原创英雄 现在美术素材已经做了 我希望你完成技能代码的逻辑 还有利用PPU能把模型变成游戏那种自带的像素风格但是还能保持高清」，随后「还有三个也做完了 六个英雄一起完成就行」「注意塞拉斯要能真正的偷大招 还有妮蔻佛耶戈之类的能完美变身 还有俄洛伊的幽灵图之类的」「还有六个也一起做了 一共完成12个」）。美术、图标、立绘、普通话试音是 Codex 的（[`assets/source/border/`](../../assets/source/border/)，交接说明 `CLAUDE_HANDOFF.md`），技能、数据、原生代码、高清帧接入和平衡是这里做的。数据做不到的地方写在这个 crate 里，编成 `border.dll` 跟着包一起装（`python tools/package_mod.py --src border ...` 会编好带上）。一个英雄一个模块，新英雄在 `src/` 加模块，在 `src/lib.rs` 的 `init` 里调用它的 `register`。
+
+**两种接口**：每个英雄一个原生被动（数据的 `passive.passive_ref`，记账：背压、张力、灯火、热量、跟踪、盐带、潮势、镜纹、羽迹、坐标、定脚、铃），几个原生效果（数据在技能的时间点上用 `{"type": "Native", "effect_ref": "border_<英雄>:<名字>"}` 调：选目标、结算）。原生效果只看施法的人自己身上的 buff，不认英雄 id；参数默认就是 `tools/kit/build_<英雄>.py` 的 P，被动出生时用数据的 `passive.params` 盖掉（单元测试核对两边一个不差）。跨拍的状态都记成单位身上的 buff（层数、写进名字的坐标），不放全局变量：游戏同时跑好几场模拟。
+
+**联盟英雄**：塞拉斯偷大招不走 `border.dll`（他的副本在附加包合集里，边境包没开时也得能加载），十一个靠原生效果的大招各有一份纯数据的 `sylas_ult()`（`addons/league_sylas/make_override.py` 的 `STOLEN`），伏梭的错拍本来就是纯数据；佛耶戈、妮蔻按动画标签换身体（`league_viego_soul` 的 `souls.rs`）；俄洛伊的灵魂图、悠米骑乘的头顶高度照十二个人的待机帧重出。
+
+**数据版要注意的一点**：`RangeProjectile` 直接写在招式里，是生成在施法的人脚下的（引擎的范围只有 `AroundCaster` 和 `Forward`）。`--plain` 和塞拉斯版里「目标脚下的圈」（霁砚的照盘、星历，雾绫的系铃、挪幕、合幕，殷渡的合汛）都装在 `kit.lob` 里：一个看不见的抛物弹，下一拍落在目标站的地方，圈在落点上生成（league_zyra、league_brand 的做法）。2026-11-22 之前这几个圈全落在施法的人脚下，模拟里雾绫整局一次都没打中人。原生版自己算位置，不受影响。
+
+**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的表，`init` 先把它交给几个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)，只开本包也有高清帧。十二个人都是 Codex 按两倍密度画的（一格 256，脚底点 (128, 184)），PPU 3.3；`tools/art/border_fix.py` 把原画收成游戏那种像素风（每人一套调色板、清掉杂点、同色系的 1 像素描边，形状一点不动）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\border.log`。
+
+| 英雄 | 模块 | 做什么 |
+|---|---|---|
+| 岑垒 `border_cenlei` | [`src/cenlei.rs`](src/cenlei.rs) | 被动「背压」（接肩的伤害转移）、横楔（优先打断施法）、接肩（挑受威胁的队友）、卸城、配音 |
+| 绡轮 `border_xiaolun` | [`src/xiaolun.rs`](src/xiaolun.rs) | 被动「走弦」（按走过的路上弦）、切角（侧移）、放扣、满弧（每支重新挑目标的原生投射物）、配音 |
+| 灯弥 `border_dengmi` | [`src/dengmi.rs`](src/dengmi.rs) | 被动「存光」（友军挨的技能伤害、挑最承压的友军）、递灯、引路、收灯的两个脉冲、配音 |
+| 铸沫 `border_zhumo` | [`src/zhumo.rs`](src/zhumo.rs) | 被动「余温」（普攻命中攒热量）、压坯、回火、开炉（每秒替 AI 挑回火防守还是攒热重击）、配音 |
+| 伏梭 `border_fusuo` | [`src/fusuo.rs`](src/fusuo.rs) | 被动「数步」（盯上落单的敌人）、掠阶（改冲被盯上的人）、留扣（回撤点，危险时闪回）、配音；错拍全在数据里 |
+| 盐汐 `border_yanxi` | [`src/yanxi.rs`](src/yanxi.rs) | 被动「析晶」（盐带上叠结晶、减速）、撒线（盐带）、凝结（只定身层数最多的）、退潮（晶浪扫回来）、配音 |
+| 殷渡 `border_yindu` | [`src/yindu.rs`](src/yindu.rs) | 被动「迎汐」（往前压攒潮势）、扣舷（短冲，路上第一个人挡住就停）、立标（敌群中点插航标）、合汛（在航标或目标脚下合拢、卷到汇合点）、配音 |
+| 澜缇 `border_lanti` | [`src/lanti.rs`](src/lanti.rs) | 被动「折纹」（只标最近一个用技能打她的人）、双棱（两拳，第二拳吃镜纹）、候击（架住技能就刷新双棱）、还响（挡下的伤害加进玻璃波）、配音 |
+| 鹭芯 `border_luxin` | [`src/luxin.rs`](src/luxin.rs) | 被动「追羽」（逃跑的人脚下留羽迹）、贴风（顺羽迹提前追）、折鸢（风线，穿过去的人挨打）、收线（顺两段羽迹各切一刀）、配音 |
+| 霁砚 `border_jiyan` | [`src/jiyan.rs`](src/jiyan.rs) | 坐标（定标）、长刻（星束，经过坐标就炸）、照盘（延时照一下）、星历（三处错开的星刻，身边有坐标就落在坐标上）、配音 |
+| 钟砾 `border_zhongli` | [`src/zhongli.rs`](src/zhongli.rs) | 被动「定脚」（站稳加攻速档）、落架（护盾、支架、满档）、齐鸣（四发，方向锁在出手那一刻，被控或挪开就停）、配音 |
+| 雾绫 `border_wuling` | [`src/wuling.rs`](src/wuling.rs) | 被动「闻铃」（碰过她技能区域的人挂铃，掉血时队友加速）、系铃（地铃，有人走近就响）、挪幕（穿过的友军加速、敌人减速）、合幕、配音 |
+
+配音：Codex 每人九句普通话试音（选人、普攻、走路、挨打、三个技能、倒下、胜利），[`src/common.rs`](src/common.rs) 的 `Chatter` 管节奏：一局开始说选人那句，技能刚进冷却时说技能那句，走远路、普攻英雄、挨一大下、杀人各有自己的冷却，任意两句至少隔 6 秒（大招、倒下只隔 1 秒）。

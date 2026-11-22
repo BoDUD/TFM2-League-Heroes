@@ -1,0 +1,476 @@
+{
+  "id": "border_yindu",
+  "category": "Tank",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "border_yindu:tide",
+    "params": {
+      "e_dmg": 70,
+      "e_group": 30000,
+      "e_hp": 4,
+      "e_r": 25000,
+      "e_slow": 20,
+      "e_slow_t": 60,
+      "e_t": 360,
+      "p_keep": 120,
+      "p_max": 8,
+      "p_reach": 90000,
+      "p_step": 15,
+      "q_ad": 80,
+      "q_dmg": 95,
+      "q_dur": 34,
+      "q_hp": 4,
+      "q_len": 40000,
+      "q_slow": 25,
+      "q_slow_k": 5,
+      "q_slow_t": 90,
+      "q_speed": 3500,
+      "q_stun": 26,
+      "q_w": 12000,
+      "r_ad": 60,
+      "r_beacon_r": 90000,
+      "r_dmg": 190,
+      "r_hp": 7,
+      "r_land": 12,
+      "r_pull_t": 8,
+      "r_r": 38000,
+      "r_stun": 57
+    }
+  },
+  "sprite": "asset/border/champions/border_yindu",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_yindu_skill",
+    "asset/border/icons/border_yindu_skill2",
+    "asset/border/icons/border_yindu_ult"
+  ],
+  "stat": {
+    "attack": 87,
+    "magic_power": 0,
+    "hp": 1270,
+    "defence": 47,
+    "magic_resistance": 32,
+    "move_speed": 1010,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 9,
+    "magic_power": 0,
+    "hp": 120,
+    "defence": 9,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_yindu.attack",
+    "duration": 28,
+    "cooltime": 75,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "knight_attack"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "border_yindu_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_yindu.skill",
+    "duration": 34,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "cavalry_knight_skill1"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "border_yindu:ram"
+            },
+            {
+              "type": "Delayed",
+              "tick": 15,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_yindu_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_yindu_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_yindu:ram_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_yindu:ram_hit"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_yindu_live"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_yindu.skill2",
+    "duration": 34,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "shield_bearer_skill2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_yindu_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_yindu_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yindu:beacon"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_yindu:beacon"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_yindu_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_yindu.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "knight_ult"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 23,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_yindu_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_yindu_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_yindu:tide"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_yindu:tide"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_yindu_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 35,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_yindu_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_yindu_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_yindu:tide_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_yindu:tide_hit"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_yindu_live"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_yindu_a_hit",
+      "anim": "asset/border/effects/border_yindu_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_yindu_hit",
+      "anim": "asset/border/effects/border_yindu_fx",
+      "tag": "hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_yindu_p_tide",
+      "anim": "asset/border/effects/border_yindu_fx",
+      "tag": "p_tide",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_yindu_e_buoy",
+      "anim": "asset/border/effects/border_yindu_fx",
+      "tag": "e_buoy",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_yindu_e_buoy_end",
+      "anim": "asset/border/effects/border_yindu_fx",
+      "tag": "e_buoy_end",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_yindu_r_tide",
+      "anim": "asset/border/effects/border_yindu_fx",
+      "tag": "r_tide",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

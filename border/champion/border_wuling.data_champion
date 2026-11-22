@@ -1,0 +1,495 @@
+{
+  "id": "border_wuling",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "CC",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "border_wuling:bell",
+    "params": {
+      "e_frac": 40,
+      "e_len": 30000,
+      "e_ms": 30,
+      "e_ms_t": 120,
+      "e_slow": 30,
+      "e_slow_t": 60,
+      "e_t": 240,
+      "p_ally_r": 60000,
+      "p_ms": 15,
+      "p_ms_t": 60,
+      "p_t": 300,
+      "q_ap": 60,
+      "q_dmg": 75,
+      "q_r": 26000,
+      "q_slow": 50,
+      "q_slow_t": 90,
+      "q_t": 300,
+      "q_trig": 16000,
+      "r_ap": 80,
+      "r_dmg": 160,
+      "r_land": 12,
+      "r_r": 33000,
+      "r_root": 75,
+      "r_slow": 45,
+      "r_slow_t": 30
+    }
+  },
+  "sprite": "asset/border/champions/border_wuling",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_wuling_skill",
+    "asset/border/icons/border_wuling_skill2",
+    "asset/border/icons/border_wuling_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 35,
+    "hp": 930,
+    "defence": 24,
+    "magic_resistance": 25,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 16,
+    "hp": 88,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_wuling.attack",
+    "duration": 28,
+    "cooltime": 85,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "TargetProjectile",
+          "name": "border_wuling_a_bolt",
+          "speed": 5500,
+          "y_offset": -1500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 0,
+                    "attack_ratio": 25,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "border_wuling_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "bard_attack"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_wuling.skill",
+    "duration": 34,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "bard_skill1"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_wuling_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_wuling_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_wuling:bell_drop"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_wuling:bell_drop"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_wuling_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_wuling.skill2",
+    "duration": 34,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "bard_skill2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_wuling_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_wuling_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_wuling:curtain"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_wuling:curtain"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_wuling_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_wuling.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "enchanter_ult"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 23,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_wuling_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_wuling_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_wuling:close"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_wuling:close"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_wuling_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 35,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_wuling_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_wuling_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_wuling:close_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_wuling:close_hit"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_wuling_live"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_wuling_a_bolt",
+      "anim": "asset/border/effects/border_wuling_proj",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_wuling_a_hit",
+      "anim": "asset/border/effects/border_wuling_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_wuling_p_bell",
+      "anim": "asset/border/effects/border_wuling_fx",
+      "tag": "p_bell",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_wuling_q_bell",
+      "anim": "asset/border/effects/border_wuling_fx",
+      "tag": "q_bell",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_wuling_q_ripple",
+      "anim": "asset/border/effects/border_wuling_fx",
+      "tag": "q_ripple",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_wuling_e_curtain",
+      "anim": "asset/border/effects/border_wuling_fx",
+      "tag": "e_curtain",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_wuling_r_close",
+      "anim": "asset/border/effects/border_wuling_fx",
+      "tag": "r_close",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

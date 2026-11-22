@@ -1,0 +1,471 @@
+{
+  "id": "border_luxin",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "border_luxin:feather",
+    "params": {
+      "e_ad": 60,
+      "e_dmg": 40,
+      "e_len": 40000,
+      "e_slow": 40,
+      "e_slow_t": 90,
+      "e_t": 240,
+      "p_away": 300,
+      "p_every": 30,
+      "p_t": 240,
+      "p_window": 240,
+      "q_ad": 130,
+      "q_dmg": 80,
+      "q_dur": 34,
+      "q_hit_r": 30000,
+      "q_lead": 8000,
+      "q_speed": 4500,
+      "q_stop": 12000,
+      "r_ad": 100,
+      "r_dmg": 120,
+      "r_low": 60,
+      "r_speed": 6000,
+      "r_through": 18000,
+      "r_trail": 20
+    }
+  },
+  "sprite": "asset/border/champions/border_luxin",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_luxin_skill",
+    "asset/border/icons/border_luxin_skill2",
+    "asset/border/icons/border_luxin_ult"
+  ],
+  "stat": {
+    "attack": 120,
+    "magic_power": 0,
+    "hp": 950,
+    "defence": 26,
+    "magic_resistance": 18,
+    "move_speed": 1090,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 27,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_luxin.attack",
+    "duration": 28,
+    "cooltime": 52,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 23000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "ninja_attack"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "border_luxin_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_luxin.skill",
+    "duration": 34,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ninja_skill2_dash"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "border_luxin:cling"
+            },
+            {
+              "type": "Delayed",
+              "tick": 15,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_luxin_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_luxin_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_luxin:cling_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_luxin:cling_hit"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_luxin_live"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_luxin.skill2",
+    "duration": 34,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "whip_master_skill1"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_luxin_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_luxin_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_luxin:kite"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_luxin:kite"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_luxin_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_luxin.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ninja_ult_attack"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_luxin_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_luxin_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_luxin:reel1"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_luxin:reel1"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_luxin_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 39,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_luxin_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_luxin_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_luxin:reel2"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_luxin:reel2"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_luxin_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_luxin_e_kite_r",
+      "anim": "asset/border/effects/border_luxin_proj",
+      "tag": "e_kite_r",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_luxin_e_kite_l",
+      "anim": "asset/border/effects/border_luxin_proj",
+      "tag": "e_kite_l",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_luxin_r_cut_r",
+      "anim": "asset/border/effects/border_luxin_proj",
+      "tag": "r_cut_r",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "border_luxin_r_cut_l",
+      "anim": "asset/border/effects/border_luxin_proj",
+      "tag": "r_cut_l",
+      "repeat": false,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_luxin_a_hit",
+      "anim": "asset/border/effects/border_luxin_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_luxin_hit",
+      "anim": "asset/border/effects/border_luxin_fx",
+      "tag": "hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_luxin_p_feather",
+      "anim": "asset/border/effects/border_luxin_fx",
+      "tag": "p_feather",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

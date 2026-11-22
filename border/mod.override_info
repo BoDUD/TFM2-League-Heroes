@@ -1,0 +1,874 @@
+{
+  "asset/base/text/champion": {
+    "remapping": "asset/border/text/champion",
+    "type": "merge"
+  },
+  "asset/base/style/champion_view": {
+    "remapping": "asset/border/style/champion_view",
+    "type": "merge"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_move": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_v_win": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_cenlei_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_cenlei_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_move": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_v_win": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_dengmi_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_dengmi_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_move": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_v_win": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_fusuo_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_fusuo_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_move": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_v_win": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_jiyan_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_jiyan_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_move": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_v_win": {
+    "remapping": "asset/border/sound/sfx/border_lanti_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_lanti_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_lanti_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_move": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_v_win": {
+    "remapping": "asset/border/sound/sfx/border_luxin_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_luxin_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_luxin_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_move": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_v_win": {
+    "remapping": "asset/border/sound/sfx/border_wuling_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_wuling_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_wuling_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_move": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_v_win": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_xiaolun_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_xiaolun_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_move": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_v_win": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yanxi_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_yanxi_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_move": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_v_win": {
+    "remapping": "asset/border/sound/sfx/border_yindu_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_yindu_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_yindu_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_move": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_v_win": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhongli_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_zhongli_vo_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_attack": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_dead": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_hit": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_move": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_pick": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_skill": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_skill2": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_ult": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_v_win": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_v_win",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_attack": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_dead": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_hit": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_move": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_move",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_pick": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_pick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_skill": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_skill2": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_ult": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/border_zhumo_vo_win": {
+    "remapping": "asset/border/sound/sfx/border_zhumo_vo_win",
+    "type": "override"
+  }
+}

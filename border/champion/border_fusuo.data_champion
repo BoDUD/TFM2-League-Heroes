@@ -1,0 +1,442 @@
+{
+  "id": "border_fusuo",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "border_fusuo:steps",
+    "params": {
+      "e_back": 8000,
+      "e_burst": 25,
+      "e_crowd": 3,
+      "e_dr": 30,
+      "e_dr_t": 30,
+      "e_low": 35,
+      "e_ms": 35,
+      "e_ms_t": 90,
+      "e_win": 240,
+      "p_alone": 50000,
+      "p_dmg": 15,
+      "p_keep": 180,
+      "p_steps": 60,
+      "q_ad": 160,
+      "q_dmg": 110,
+      "q_dur": 34,
+      "q_hit_r": 32000,
+      "q_reach": 60000,
+      "q_speed": 4000,
+      "q_stop": 14000,
+      "q_track": 30
+    }
+  },
+  "sprite": "asset/border/champions/border_fusuo",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/border/icons/border_fusuo_skill",
+    "asset/border/icons/border_fusuo_skill2",
+    "asset/border/icons/border_fusuo_ult"
+  ],
+  "stat": {
+    "attack": 128,
+    "magic_power": 0,
+    "hp": 1080,
+    "defence": 32,
+    "magic_resistance": 18,
+    "move_speed": 1080,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 28,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.border_fusuo.attack",
+    "duration": 28,
+    "cooltime": 50,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 23000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "dual_blader_attack"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "border_fusuo_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.border_fusuo.skill",
+    "duration": 34,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ninja_skill2_dash"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "border_fusuo:skim"
+            },
+            {
+              "type": "Delayed",
+              "tick": 15,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "border_fusuo_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "border_fusuo_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_fusuo:skim_hit"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Native",
+                            "effect_ref": "border_fusuo:skim_hit"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "border_fusuo_live"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.border_fusuo.skill2",
+    "duration": 34,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "hitman_skill2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_fusuo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_fusuo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_fusuo:clasp"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Native",
+                        "effect_ref": "border_fusuo:clasp"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_fusuo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.border_fusuo.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "LineRangeProjectile",
+          "name": "border_fusuo_r_line",
+          "width": 6000,
+          "length": 75000,
+          "delay": 46,
+          "apply": 35,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 380,
+                "attack_ratio": 210,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "border_fusuo_a_hit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "inquisitor_skill1_pre"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "border_fusuo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "border_fusuo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RushMoveToBack",
+                        "speed": 4500,
+                        "applied_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RushMoveToBack",
+                        "speed": 4500,
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "border_fusuo_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 33,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "dual_blader_ult"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "border_fusuo_r_line",
+      "anim": "asset/border/effects/border_fusuo_proj",
+      "tag": "r_line",
+      "repeat": false,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "border_fusuo_a_hit",
+      "anim": "asset/border/effects/border_fusuo_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_fusuo_hit",
+      "anim": "asset/border/effects/border_fusuo_fx",
+      "tag": "hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_fusuo_p_track",
+      "anim": "asset/border/effects/border_fusuo_fx",
+      "tag": "p_track",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "border_fusuo_e_anchor",
+      "anim": "asset/border/effects/border_fusuo_fx",
+      "tag": "e_anchor",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "border_fusuo_e_recall",
+      "anim": "asset/border/effects/border_fusuo_fx",
+      "tag": "e_recall",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

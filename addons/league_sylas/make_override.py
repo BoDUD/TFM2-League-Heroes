@@ -137,7 +137,15 @@ STOLEN = {"tft_silco": ("build_silco", "sylas_ult"), "tft_maddie": ("build_maddi
           "tft_thex": ("build_thex", "sylas_ult"),
           "tft_mightymech": ("build_mightymech", "sylas_ult"),
           # 宙斯的大招靠他的三种身体：塞拉斯拿到的是压缩一下就震飞、加阿陀磨须强化的那段，不播膨胀，到时间也不强制变回老人
-          "ragnarok_zeus": ("build_zeus", "sylas_ult")}
+          "ragnarok_zeus": ("build_zeus", "sylas_ult"),
+          # 边境巡团十一个英雄的大招靠 border.dll 的原生效果（选目标、背压、灯火、热量、盐带……）：给塞拉斯的是各自 build_<hero>.py
+          # 写的纯数据版（他没有那些层数，按 0 算），结算和画面照原版；伏梭的错拍本来就是纯数据，原样偷
+          "border_cenlei": ("build_cenlei", "sylas_ult"), "border_xiaolun": ("build_xiaolun", "sylas_ult"),
+          "border_dengmi": ("build_dengmi", "sylas_ult"), "border_zhumo": ("build_zhumo", "sylas_ult"),
+          "border_yanxi": ("build_yanxi", "sylas_ult"), "border_yindu": ("build_yindu", "sylas_ult"),
+          "border_lanti": ("build_lanti", "sylas_ult"), "border_luxin": ("build_luxin", "sylas_ult"),
+          "border_jiyan": ("build_jiyan", "sylas_ult"), "border_zhongli": ("build_zhongli", "sylas_ult"),
+          "border_wuling": ("build_wuling", "sylas_ult")}
 
 
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,
@@ -329,7 +337,8 @@ def foreign_natives(o, out=None):
 
 # a TFT hero's effect sheets: tft/effects/<sheet> -> the add-on's own copy (asset/league_sylas/effects/<sheet>)
 # 终末的女武神包的特效图也一样拷一份：没开那个包时选塞拉斯，画面要在附加包里找得到，不然选人就崩
-PACK_FX = {"asset/tft/effects/": "tft", "asset/ragnarok/effects/": "ragnarok"}
+# 边境巡团包（border/，2026-11-22）也一样
+PACK_FX = {"asset/tft/effects/": "tft", "asset/ragnarok/effects/": "ragnarok", "asset/border/effects/": "border"}
 OWN_FX = "asset/league_sylas/effects/"
 
 # Views a champion's own file no longer has, because the champion now draws that look another way, while Sylas, who has
@@ -349,7 +358,7 @@ def key(cid):
 
 
 def full(sid):
-    return sid if sid.startswith(("tft_", "ragnarok_")) else "league_" + sid
+    return sid if sid.startswith(("tft_", "ragnarok_", "border_")) else "league_" + sid
 
 
 def own_ults():
@@ -362,6 +371,8 @@ def own_ults():
     paths += sorted(glob.glob(os.path.join(ROOT, "tft", "champion", "tft_*.data_champion")))
     # 终末的女武神包的英雄也一样（2026-11-21：「塞拉斯的大招也要能真正的能偷」）
     paths += sorted(glob.glob(os.path.join(ROOT, "ragnarok", "champion", "ragnarok_*.data_champion")))
+    # 边境巡团包的六个英雄（2026-11-22：「塞拉斯要能真正的偷大招」）
+    paths += sorted(glob.glob(os.path.join(ROOT, "border", "champion", "border_*.data_champion")))
     for path in paths:
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
         if c["id"] == HERO or key(c["id"]) in BY_CLASS:
@@ -386,8 +397,8 @@ def own_ults():
                     if pre:
                         sheets.add((PACK_FX[pre], anim[len(pre):]))
                         v = {**v, "anim": OWN_FX + anim[len(pre):]}
-                    elif anim.startswith(("asset/tft/", "asset/ragnarok/")):
-                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/ and ragnarok/ effects are copied")
+                    elif anim.startswith(("asset/tft/", "asset/ragnarok/", "asset/border/")):
+                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/, ragnarok/ and border/ effects are copied")
                     views[kind].append(v)
         for name, (kind, v) in KEPT_VIEWS.items():
             if name in used and name not in seen:

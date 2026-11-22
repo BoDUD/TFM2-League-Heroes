@@ -28,7 +28,7 @@ from build_yuumi import RIDE_LIFTS  # noqa: E402
 OUT = os.path.join(ROOT, "addons", "league_yuumi", "src", "lifts.rs")
 BAND = 6
 SIZE_TABLES = [os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), os.path.join(ROOT, "addons", "tft", "src", "hd.rs"),
-               os.path.join(ROOT, "addons", "ragnarok", "src", "hd.rs")]
+               os.path.join(ROOT, "addons", "ragnarok", "src", "hd.rs"), os.path.join(ROOT, "addons", "border", "src", "hd.rs")]
 # 量头顶用的待机：宙斯大部分时间是膨胀的身体（每条命打满几拳就膨胀），按它量，猫才不会挡住他的脸
 IDLE_TAG = {"ragnarok_zeus": "mu_idle"}
 
@@ -60,7 +60,7 @@ def crown(fanim, tag="idle"):
 def main():
     drawn = sizes()
     rows = []
-    for pack in ("league", "tft", "ragnarok"):
+    for pack in ("league", "tft", "ragnarok", "border"):
         for f in sorted(glob.glob(os.path.join(ROOT, pack, "champions", "*#anim.fanim"))):
             name = os.path.basename(f).split("#")[0]
             c = crown(f, IDLE_TAG.get(name, "idle"))

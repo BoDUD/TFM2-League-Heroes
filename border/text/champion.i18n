@@ -1,0 +1,752 @@
+{
+  "zh-hans": {
+    "description": {
+      "border_cenlei": {
+        "name": "岑垒",
+        "attack": "盾击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1%<><#ff9028ff>物理伤害<>。<#ff9028ff>背压<>：接肩替队友挨的伤害攒成背压（最多最大生命的<#ffb900ff>25%<>），每攒十分之一护甲和魔抗<#ffb900ff>+2<>，卸城时全部放出。",
+        "skill": "朝前方扇形扫击，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速35%<>，扇形里的人<#ef5350ff>眩晕0.67秒<>；优先扫向正在施法的敌方英雄，<#ef5350ff>打断<>施法（<#ef5350ff>眩晕1秒<>）。",
+        "skill2": "给身边最受威胁的队友贴上盾板（<#ffb900ff>4秒<>）：他接下来<#ffb900ff>2<>次受到的伤害降低<#ffb900ff>40%<>，少挨的部分由岑垒承受（不会因此倒下）并攒成背压。没人受威胁时自己减伤<#ffb900ff>20%<>。",
+        "ult": "起手不受控制、减伤<#ffb900ff>30%<>，随后放出背压：前方扇形的敌人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 背压<#ffb900ff>60%<>的<#ff9028ff>物理伤害<>，被<#ef5350ff>推开<>并<#ef5350ff>减速30%<>；放出背压的<#ffb900ff>50%<>化为<#e8d44dff>护盾<>。"
+      },
+      "border_xiaolun": {
+        "name": "绡轮",
+        "attack": "弩箭造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>走弦<>：按实际走过的路上弦，走满十层后弦绷紧，下一箭额外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速20%<>。",
+        "skill": "朝目标侧面短移（只走得通的路，撞墙即停），随后射出一箭，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>。侧移的路也会上弦。",
+        "skill2": "放掉全部张力：<#ffb900ff>3秒<>内攻速<#ffb900ff>+35%<>，每层张力再<#ffb900ff>+5%<>（满弦<#ffb900ff>+85%<>）。",
+        "ult": "分三次射出星弧箭，每支在射出时重新选择目标（原目标优先，其次生命比例最低的敌方英雄），各造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>。被控制时停射。"
+      },
+      "border_dengmi": {
+        "name": "灯弥",
+        "attack": "灯火造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。<#ff9028ff>存光<>：身边的友军（含自己）受到技能伤害时攒灯火，每损失<#ffb900ff>1%<>生命攒<#ffb900ff>1<>点，最多<#ffb900ff>100<>点，强化收灯。",
+        "skill": "把灯递给身边最承压的友军，给予<#e8d44dff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + 对方<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>6%<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>；灯一亮，他身边的敌人被晃眼<#ef5350ff>减速50%<><#ffb900ff>1.5秒<>。",
+        "skill2": "为生命比例最低的友军引路：移速<#7ee08aff>+35%<>，持续<#ffb900ff>2.5秒<>；对方生命低于<#ffb900ff>50%<>时再<#7ee08aff>+20%<>。灯弥自己移速<#7ee08aff>+15%<>。",
+        "ult": "收回灯火化作两道脉冲：第一道<#7ee08aff>治疗<>选中的友军<#7ee08aff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>，第二道<#7ee08aff>治疗<>他身边生命比例最低的友军同样多；每点灯火使治疗<#ffb900ff>+1%<>（满灯火翻倍）。每道脉冲在受治疗的人身边炸开光：周围敌人受到<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。"
+      },
+      "border_zhumo": {
+        "name": "铸沫",
+        "attack": "锤击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>余温<>：每次普攻命中积攒热量（最多<#ffb900ff>10<>层），每层攻速<#ffb900ff>+3%<>；<#ffb900ff>3秒<>没打中东西后逐渐散热。",
+        "skill": "落锤重击，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>，每层热量再加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>10%<>，并<#ef5350ff>减速30%<>；热量<#ffb900ff>5<>层以上时<#ef5350ff>眩晕0.4秒<>。周围敌人受到<#ffb900ff>50%<>伤害。",
+        "skill2": "用掉全部热量回火：<#ffb900ff>2.5秒<>内受到的伤害降低<#ffb900ff>25%<>，每层热量再降低<#ffb900ff>4%<>（满热<#ffb900ff>65%<>）。",
+        "ult": "开炉：脚下的敌人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>；<#ffb900ff>5秒<>内攻速<#ffb900ff>+60%<>，每秒热量<#ffb900ff>+2<>层；危险时加快回火冷却，热量够且有敌人在旁时加快压坯冷却。"
+      },
+      "border_fusuo": {
+        "name": "伏梭",
+        "attack": "一刀造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>数步<>：离开队友、越走越远的敌方英雄会被盯上（<#ffb900ff>3秒<>），伏梭对其伤害<#ffb900ff>+15%<>。",
+        "skill": "冲向目标（附近有被盯上的敌方英雄时改冲向他），随后斩击，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>，对被盯上的目标再<#ffb900ff>+30%<>。",
+        "skill2": "在原地留下回撤点，移速<#7ee08aff>+35%<>；<#ffb900ff>4秒<>内陷入危险时自动闪回回撤点，短暂减伤<#ffb900ff>30%<>。",
+        "ult": "在自己和目标之间拉出一道延伸到目标身后的预告斩线，随即穿过目标；片刻后斩线结算：仍在线上的敌人受到<#ff9028ff>380<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>210%<><#ff9028ff>物理伤害<>。及时离开斩线就能躲开。"
+      },
+      "border_yanxi": {
+        "name": "盐汐",
+        "attack": "盐晶造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>析晶<>：留在盐带里的敌人<#ef5350ff>减速25%<>，每<#ffb900ff>0.75秒<>叠一层结晶（最多<#ffb900ff>5<>层）。",
+        "skill": "以目标为中心铺下一条盐带（<#ffb900ff>4秒<>），带上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并叠一层结晶。",
+        "skill2": "引爆附近敌人的结晶：造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，每层再加<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>；结晶最多的敌方英雄被<#ef5350ff>定身1秒<>。",
+        "ult": "让盐带朝自己退潮：晶浪扫过的敌人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，叠<#ffb900ff>2<>层结晶并被<#ef5350ff>卷向盐汐<>。没有盐带时先在目标处铺一条。"
+      },
+      "border_yindu": {
+        "name": "殷渡",
+        "attack": "一拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>迎汐<>：朝敌方英雄推进时攒潮势（最多<#ffb900ff>8<>层），下一次扣舷每层多<#ef5350ff>减速5%<>。",
+        "skill": "朝目标短冲，被路上第一个敌人挡住就停下撞他：<#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理伤害<>，<#ef5350ff>眩晕0.43秒<>并<#ef5350ff>减速25%<>。",
+        "skill2": "在目标那一群敌人中间插下航标（<#ffb900ff>6秒<>），落下时身边的敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速20%<>。",
+        "ult": "从航标（没有就在目标脚下）两侧掀起潮墙往中间合拢：圈里的敌人被卷到汇合点，受到<#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>7%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.95秒<>，每人只卷一次。"
+      },
+      "border_lanti": {
+        "name": "澜缇",
+        "attack": "一拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>折纹<>：只标记最近一个用技能伤到她的敌方英雄（<#ffb900ff>5秒<>）。",
+        "skill": "连出两拳：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>，再<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>；第二拳打到带折纹的人时用掉折纹，这一拳<#ffb900ff>+60%<>并<#ef5350ff>减速20%<>。",
+        "skill2": "起架<#ffb900ff>2.5秒<>：受到的技能伤害降低<#ffb900ff>50%<>；架着挨了一下技能就算成功，双棱冷却刷新，挡下的伤害记进还响。",
+        "ult": "推出一道玻璃波：路上的敌人受到<#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>，加上最近挡下伤害的<#ffb900ff>60%<>（最多<#ffb900ff>+300<>），并<#ef5350ff>减速30%<>。"
+      },
+      "border_luxin": {
+        "name": "鹭芯",
+        "attack": "一刀造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>追羽<>：被她打过的敌方英雄继续逃远时，脚下留下羽迹（最多两段，<#ffb900ff>4秒<>）。",
+        "skill": "顺着目标逃的方向追过去，贴近后切击，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>。",
+        "skill2": "在目标脚下拉一道风线（<#ffb900ff>4秒<>），之后穿过风线的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速40%<>。",
+        "ult": "顺着目标的两段羽迹各穿过他切一刀，每刀<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，每段羽迹再<#ffb900ff>+20%<>；第二刀按他已损失的生命最多<#ffb900ff>+60%<>。"
+      },
+      "border_jiyan": {
+        "name": "霁砚",
+        "attack": "星针造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>定标<>：长刻打中的地方、照盘放的地方留下坐标（<#ffb900ff>4秒<>，最多<#ffb900ff>3<>个）。",
+        "skill": "射出细长星束，线上的敌人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>；星束经过她的坐标时坐标炸开，周围受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。",
+        "skill2": "在远处目标脚下放坐标，片刻后照亮：周围敌人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速25%<>。",
+        "ult": "沿目标方向挑三处错开的落点（有坐标就落在坐标上），各自先亮预警圈，再落下星刻：受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。"
+      },
+      "border_zhongli": {
+        "name": "钟砾",
+        "attack": "弹丸造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>定脚<>：站稳<#ffb900ff>0.75秒<>后攻速逐渐提高（最多<#ffb900ff>+48%<>），明显走开就解除。",
+        "skill": "压上弹簧：下一发普攻额外造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，定脚时还无视<#ffb900ff>35%<>护甲。",
+        "skill2": "架起支架：获得<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>8%<>的<#e8d44dff>护盾<>（<#ffb900ff>2.5秒<>），定脚直接满档；走开时支架收起。",
+        "ult": "朝出手方向连放四发，每发<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理伤害<>，最后一发<#ffb900ff>200%<>；被控制或离开原地就停。"
+      },
+      "border_wuling": {
+        "name": "雾绫",
+        "attack": "铃音造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>。<#ff9028ff>闻铃<>：碰到她技能区域的敌人被挂铃（<#ffb900ff>5秒<>），他掉血时身边的友军移速<#7ee08aff>+15%<>。",
+        "skill": "在目标脚下放地铃（<#ffb900ff>5秒<>），敌人靠近就响：周围敌人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速50%<>。",
+        "skill2": "在她与目标之间竖起短幕（<#ffb900ff>4秒<>）：友军穿过移速<#7ee08aff>+30%<>，敌人穿过被挂铃并<#ef5350ff>减速30%<>。",
+        "ult": "在目标脚下两侧拉起纱幕往中间合拢：圈里的敌人受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>、<#ef5350ff>减速45%<>再<#ef5350ff>定身1.25秒<>，每人只触发一次。"
+      }
+    },
+    "skill_name": {
+      "border_cenlei": {
+        "skill1": "横楔",
+        "skill2": "接肩",
+        "ult": "卸城"
+      },
+      "border_xiaolun": {
+        "skill1": "切角",
+        "skill2": "放扣",
+        "ult": "满弧"
+      },
+      "border_dengmi": {
+        "skill1": "递灯",
+        "skill2": "引路",
+        "ult": "收灯"
+      },
+      "border_zhumo": {
+        "skill1": "压坯",
+        "skill2": "回火",
+        "ult": "开炉"
+      },
+      "border_fusuo": {
+        "skill1": "掠阶",
+        "skill2": "留扣",
+        "ult": "错拍"
+      },
+      "border_yanxi": {
+        "skill1": "撒线",
+        "skill2": "凝结",
+        "ult": "退潮"
+      },
+      "border_yindu": {
+        "skill1": "扣舷",
+        "skill2": "立标",
+        "ult": "合汛"
+      },
+      "border_lanti": {
+        "skill1": "双棱",
+        "skill2": "候击",
+        "ult": "还响"
+      },
+      "border_luxin": {
+        "skill1": "贴风",
+        "skill2": "折鸢",
+        "ult": "收线"
+      },
+      "border_jiyan": {
+        "skill1": "长刻",
+        "skill2": "照盘",
+        "ult": "星历"
+      },
+      "border_zhongli": {
+        "skill1": "压簧",
+        "skill2": "落架",
+        "ult": "齐鸣"
+      },
+      "border_wuling": {
+        "skill1": "系铃",
+        "skill2": "挪幕",
+        "ult": "合幕"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "border_cenlei": {
+        "name": "岑壘",
+        "attack": "盾擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1%<><#ff9028ff>物理傷害<>。<#ff9028ff>背壓<>：接肩替隊友挨的傷害攢成背壓（最多最大生命的<#ffb900ff>25%<>），每攢十分之一護甲和魔抗<#ffb900ff>+2<>，卸城時全部放出。",
+        "skill": "朝前方扇形掃擊，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速35%<>，扇形裡的人<#ef5350ff>暈眩0.67秒<>；優先掃向正在施法的敵方英雄，<#ef5350ff>打斷<>施法（<#ef5350ff>暈眩1秒<>）。",
+        "skill2": "給身邊最受威脅的隊友貼上盾板（<#ffb900ff>4秒<>）：他接下來<#ffb900ff>2<>次受到的傷害降低<#ffb900ff>40%<>，少挨的部分由岑壘承受（不會因此倒下）並攢成背壓。沒人受威脅時自己減傷<#ffb900ff>20%<>。",
+        "ult": "起手不受控制、減傷<#ffb900ff>30%<>，隨後放出背壓：前方扇形的敵人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 背壓<#ffb900ff>60%<>的<#ff9028ff>物理傷害<>，被<#ef5350ff>推開<>並<#ef5350ff>緩速30%<>；放出背壓的<#ffb900ff>50%<>化為<#e8d44dff>護盾<>。"
+      },
+      "border_xiaolun": {
+        "name": "綃輪",
+        "attack": "弩箭造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>走弦<>：按實際走過的路上弦，走滿十層後弦繃緊，下一箭額外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速20%<>。",
+        "skill": "朝目標側面短移（只走得通的路，撞牆即停），隨後射出一箭，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>。側移的路也會上弦。",
+        "skill2": "放掉全部張力：<#ffb900ff>3秒<>內攻速<#ffb900ff>+35%<>，每層張力再<#ffb900ff>+5%<>（滿弦<#ffb900ff>+85%<>）。",
+        "ult": "分三次射出星弧箭，每支在射出時重新選擇目標（原目標優先，其次生命比例最低的敵方英雄），各造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>。被控制時停射。"
+      },
+      "border_dengmi": {
+        "name": "燈彌",
+        "attack": "燈火造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。<#ff9028ff>存光<>：身邊的友軍（含自己）受到技能傷害時攢燈火，每損失<#ffb900ff>1%<>生命攢<#ffb900ff>1<>點，最多<#ffb900ff>100<>點，強化收燈。",
+        "skill": "把燈遞給身邊最承壓的友軍，給予<#e8d44dff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + 對方<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>6%<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>；燈一亮，他身邊的敵人被晃眼<#ef5350ff>減速50%<><#ffb900ff>1.5秒<>。",
+        "skill2": "為生命比例最低的友軍引路：移速<#7ee08aff>+35%<>，持續<#ffb900ff>2.5秒<>；對方生命低於<#ffb900ff>50%<>時再<#7ee08aff>+20%<>。燈彌自己移速<#7ee08aff>+15%<>。",
+        "ult": "收回燈火化作兩道脈衝：第一道<#7ee08aff>治療<>選中的友軍<#7ee08aff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>，第二道<#7ee08aff>治療<>他身邊生命比例最低的友軍同樣多；每點燈火使治療<#ffb900ff>+1%<>（滿燈火翻倍）。每道脈衝在受治療的人身邊炸開光：周圍敵人受到<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並<#ef5350ff>減速30%<>。"
+      },
+      "border_zhumo": {
+        "name": "鑄沫",
+        "attack": "錘擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>餘溫<>：每次普攻命中積攢熱量（最多<#ffb900ff>10<>層），每層攻速<#ffb900ff>+3%<>；<#ffb900ff>3秒<>沒打中東西後逐漸散熱。",
+        "skill": "落錘重擊，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>，每層熱量再加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>10%<>，並<#ef5350ff>緩速30%<>；熱量<#ffb900ff>5<>層以上時<#ef5350ff>暈眩0.4秒<>。周圍敵人受到<#ffb900ff>50%<>傷害。",
+        "skill2": "用掉全部熱量回火：<#ffb900ff>2.5秒<>內受到的傷害降低<#ffb900ff>25%<>，每層熱量再降低<#ffb900ff>4%<>（滿熱<#ffb900ff>65%<>）。",
+        "ult": "開爐：腳下的敵人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>；<#ffb900ff>5秒<>內攻速<#ffb900ff>+60%<>，每秒熱量<#ffb900ff>+2<>層；危險時加快回火冷卻，熱量夠且有敵人在旁時加快壓坯冷卻。"
+      },
+      "border_fusuo": {
+        "name": "伏梭",
+        "attack": "一刀造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>數步<>：離開隊友、越走越遠的敵方英雄會被盯上（<#ffb900ff>3秒<>），伏梭對其傷害<#ffb900ff>+15%<>。",
+        "skill": "衝向目標（附近有被盯上的敵方英雄時改衝向他），隨後斬擊，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>，對被盯上的目標再<#ffb900ff>+30%<>。",
+        "skill2": "在原地留下回撤點，移速<#7ee08aff>+35%<>；<#ffb900ff>4秒<>內陷入危險時自動閃回回撤點，短暫減傷<#ffb900ff>30%<>。",
+        "ult": "在自己和目標之間拉出一道延伸到目標身後的預告斬線，隨即穿過目標；片刻後斬線結算：仍在線上的敵人受到<#ff9028ff>380<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>210%<><#ff9028ff>物理傷害<>。及時離開斬線就能躲開。"
+      },
+      "border_yanxi": {
+        "name": "鹽汐",
+        "attack": "鹽晶造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>析晶<>：留在鹽帶裡的敵人<#ef5350ff>緩速25%<>，每<#ffb900ff>0.75秒<>疊一層結晶（最多<#ffb900ff>5<>層）。",
+        "skill": "以目標為中心鋪下一條鹽帶（<#ffb900ff>4秒<>），帶上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並疊一層結晶。",
+        "skill2": "引爆附近敵人的結晶：造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，每層再加<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>；結晶最多的敵方英雄被<#ef5350ff>定身1秒<>。",
+        "ult": "讓鹽帶朝自己退潮：晶浪掃過的敵人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，疊<#ffb900ff>2<>層結晶並被<#ef5350ff>捲向鹽汐<>。沒有鹽帶時先在目標處鋪一條。"
+      },
+      "border_yindu": {
+        "name": "殷渡",
+        "attack": "一拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>迎汐<>：朝敵方英雄推進時攢潮勢（最多<#ffb900ff>8<>層），下一次扣舷每層多<#ef5350ff>緩速5%<>。",
+        "skill": "朝目標短衝，被路上第一個敵人擋住就停下撞他：<#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理傷害<>，<#ef5350ff>暈眩0.43秒<>並<#ef5350ff>緩速25%<>。",
+        "skill2": "在目標那一群敵人中間插下航標（<#ffb900ff>6秒<>），落下時身邊的敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速20%<>。",
+        "ult": "從航標（沒有就在目標腳下）兩側掀起潮牆往中間合攏：圈裡的敵人被捲到匯合點，受到<#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>7%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.95秒<>，每人只捲一次。"
+      },
+      "border_lanti": {
+        "name": "瀾緹",
+        "attack": "一拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>折紋<>：只標記最近一個用技能傷到她的敵方英雄（<#ffb900ff>5秒<>）。",
+        "skill": "連出兩拳：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>，再<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>；第二拳打到帶折紋的人時用掉折紋，這一拳<#ffb900ff>+60%<>並<#ef5350ff>緩速20%<>。",
+        "skill2": "起架<#ffb900ff>2.5秒<>：受到的技能傷害降低<#ffb900ff>50%<>；架著挨了一下技能就算成功，雙稜冷卻刷新，擋下的傷害記進還響。",
+        "ult": "推出一道玻璃波：路上的敵人受到<#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>，加上最近擋下傷害的<#ffb900ff>60%<>（最多<#ffb900ff>+300<>），並<#ef5350ff>緩速30%<>。"
+      },
+      "border_luxin": {
+        "name": "鷺芯",
+        "attack": "一刀造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>追羽<>：被她打過的敵方英雄繼續逃遠時，腳下留下羽跡（最多兩段，<#ffb900ff>4秒<>）。",
+        "skill": "順著目標逃的方向追過去，貼近後切擊，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>。",
+        "skill2": "在目標腳下拉一道風線（<#ffb900ff>4秒<>），之後穿過風線的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速40%<>。",
+        "ult": "順著目標的兩段羽跡各穿過他切一刀，每刀<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，每段羽跡再<#ffb900ff>+20%<>；第二刀按他已損失的生命最多<#ffb900ff>+60%<>。"
+      },
+      "border_jiyan": {
+        "name": "霽硯",
+        "attack": "星針造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>定標<>：長刻打中的地方、照盤放的地方留下座標（<#ffb900ff>4秒<>，最多<#ffb900ff>3<>個）。",
+        "skill": "射出細長星束，線上的敵人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>；星束經過她的座標時座標炸開，周圍受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。",
+        "skill2": "在遠處目標腳下放座標，片刻後照亮：周圍敵人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速25%<>。",
+        "ult": "沿目標方向挑三處錯開的落點（有座標就落在座標上），各自先亮預警圈，再落下星刻：受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。"
+      },
+      "border_zhongli": {
+        "name": "鐘礫",
+        "attack": "彈丸造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>定腳<>：站穩<#ffb900ff>0.75秒<>後攻速逐漸提高（最多<#ffb900ff>+48%<>），明顯走開就解除。",
+        "skill": "壓上彈簧：下一發普攻額外造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，定腳時還無視<#ffb900ff>35%<>護甲。",
+        "skill2": "架起支架：獲得<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>8%<>的<#e8d44dff>護盾<>（<#ffb900ff>2.5秒<>），定腳直接滿檔；走開時支架收起。",
+        "ult": "朝出手方向連放四發，每發<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理傷害<>，最後一發<#ffb900ff>200%<>；被控制或離開原地就停。"
+      },
+      "border_wuling": {
+        "name": "霧綾",
+        "attack": "鈴音造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>。<#ff9028ff>聞鈴<>：碰到她技能區域的敵人被掛鈴（<#ffb900ff>5秒<>），他掉血時身邊的友軍移速<#7ee08aff>+15%<>。",
+        "skill": "在目標腳下放地鈴（<#ffb900ff>5秒<>），敵人靠近就響：周圍敵人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速50%<>。",
+        "skill2": "在她與目標之間豎起短幕（<#ffb900ff>4秒<>）：友軍穿過移速<#7ee08aff>+30%<>，敵人穿過被掛鈴並<#ef5350ff>緩速30%<>。",
+        "ult": "在目標腳下兩側拉起紗幕往中間合攏：圈裡的敵人受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>、<#ef5350ff>緩速45%<>再<#ef5350ff>定身1.25秒<>，每人只觸發一次。"
+      }
+    },
+    "skill_name": {
+      "border_cenlei": {
+        "skill1": "橫楔",
+        "skill2": "接肩",
+        "ult": "卸城"
+      },
+      "border_xiaolun": {
+        "skill1": "切角",
+        "skill2": "放扣",
+        "ult": "滿弧"
+      },
+      "border_dengmi": {
+        "skill1": "遞燈",
+        "skill2": "引路",
+        "ult": "收燈"
+      },
+      "border_zhumo": {
+        "skill1": "壓坯",
+        "skill2": "回火",
+        "ult": "開爐"
+      },
+      "border_fusuo": {
+        "skill1": "掠階",
+        "skill2": "留扣",
+        "ult": "錯拍"
+      },
+      "border_yanxi": {
+        "skill1": "撒線",
+        "skill2": "凝結",
+        "ult": "退潮"
+      },
+      "border_yindu": {
+        "skill1": "扣舷",
+        "skill2": "立標",
+        "ult": "合汛"
+      },
+      "border_lanti": {
+        "skill1": "雙稜",
+        "skill2": "候擊",
+        "ult": "還響"
+      },
+      "border_luxin": {
+        "skill1": "貼風",
+        "skill2": "折鳶",
+        "ult": "收線"
+      },
+      "border_jiyan": {
+        "skill1": "長刻",
+        "skill2": "照盤",
+        "ult": "星曆"
+      },
+      "border_zhongli": {
+        "skill1": "壓簧",
+        "skill2": "落架",
+        "ult": "齊鳴"
+      },
+      "border_wuling": {
+        "skill1": "繫鈴",
+        "skill2": "挪幕",
+        "ult": "合幕"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "border_cenlei": {
+        "name": "Cen Lei",
+        "attack": "Shield bash: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1%<> <#ff9028ff>physical damage<>. <#ff9028ff>Back Pressure<>: what he takes for an ally through Shoulder the Load is stored (up to <#ffb900ff>25%<> of his max health); every tenth gives <#ffb900ff>+2<> armor and magic resist. Unload the Walls lets it all out.",
+        "skill": "Sweeps a cone ahead: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>physical damage<> and <#ef5350ff>35% slow<>, <#ef5350ff>stunning<> everyone in it <#ef5350ff>0.67s<>. Turns toward an enemy champion who is casting and <#ef5350ff>interrupts<> it (<#ef5350ff>stun 1s<>).",
+        "skill2": "Plates the most threatened nearby ally (<#ffb900ff>4s<>): the next <#ffb900ff>2<> hits deal <#ffb900ff>40%<> less, and Cen Lei takes that part himself (it cannot down him), storing it as Back Pressure. With nobody threatened he braces: <#ffb900ff>20%<> less damage.",
+        "ult": "Unstoppable and <#ffb900ff>30%<> damage reduction while winding up, then releases Back Pressure: enemies in a cone take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ffb900ff>60%<> of the pressure as <#ff9028ff>physical damage<>, are <#ef5350ff>pushed away<> and <#ef5350ff>slowed 30%<>; <#ffb900ff>50%<> of the pressure becomes a <#e8d44dff>shield<>."
+      },
+      "border_xiaolun": {
+        "name": "Xiao Lun",
+        "attack": "Crossbow bolt: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Walking String<>: the distance she actually moves winds her string; at ten notches it is taut and her next bolt deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> extra <#ff9028ff>physical damage<> and <#ef5350ff>slows 20%<>.",
+        "skill": "Slides sideways from the target (only where she can walk; walls stop her), then shoots: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>. The slide winds the string too.",
+        "skill2": "Releases all tension: <#ffb900ff>+35%<> attack speed for <#ffb900ff>3s<>, <#ffb900ff>+5%<> more per notch (<#ffb900ff>+85%<> when taut).",
+        "ult": "Looses three comet arrows, choosing a new target for each as it flies (her target first, else the weakest enemy champion): <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> each. Crowd control stops the volley."
+      },
+      "border_dengmi": {
+        "name": "Deng Mi",
+        "attack": "Lantern mote: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>. <#ff9028ff>Stored Light<>: when nearby allies (herself included) take spell damage she gathers light, <#ffb900ff>1<> per <#ffb900ff>1%<> health lost, up to <#ffb900ff>100<>; it strengthens Gather the Lamps.",
+        "skill": "Hands a lamp to the ally under the most pressure: a <#e8d44dff>shield<> of <#e8d44dff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>6%<> of their max health for <#ffb900ff>2.5s<>; the flash <#ef5350ff>slows<> enemies around them by <#ef5350ff>50%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Lights the way for the ally lowest on health: <#7ee08aff>+35%<> move speed for <#ffb900ff>2.5s<>, <#7ee08aff>+20%<> more below <#ffb900ff>50%<> health. Deng Mi gains <#7ee08aff>+15%<>.",
+        "ult": "Gathers her lamps into two pulses: the first <#7ee08aff>heals<> the chosen ally <#7ee08aff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>, the second heals the ally lowest on health near them as much. Each point of light adds <#ffb900ff>1%<> (full light doubles it). Each pulse bursts around the healed ally: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and a <#ef5350ff>30% slow<>."
+      },
+      "border_zhumo": {
+        "name": "Zhu Mo",
+        "attack": "Hammer blow: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Afterheat<>: every basic attack that lands builds heat (up to <#ffb900ff>10<> levels), <#ffb900ff>+3%<> attack speed each; after <#ffb900ff>3s<> without a hit the heat fades.",
+        "skill": "Brings the hammer down: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<>, <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>+10%<> per heat level, <#ef5350ff>30% slow<>; at <#ffb900ff>5<>+ heat it also <#ef5350ff>stuns 0.4s<>. Nearby enemies take <#ffb900ff>50%<>.",
+        "skill2": "Spends all heat to temper: <#ffb900ff>25%<> less damage taken for <#ffb900ff>2.5s<>, <#ffb900ff>4%<> more per heat level (<#ffb900ff>65%<> at full heat).",
+        "ult": "Opens the furnace: enemies round his feet take <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>; for <#ffb900ff>5s<> <#ffb900ff>+60%<> attack speed and <#ffb900ff>+2<> heat each second; in danger Temper comes back sooner, and when hot with an enemy close Press the Blank does."
+      },
+      "border_fusuo": {
+        "name": "Fu Suo",
+        "attack": "Blade: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Counting Steps<>: an enemy champion who keeps walking away from their allies is tracked (<#ffb900ff>3s<>); Fu Suo deals <#ffb900ff>+15%<> to them.",
+        "skill": "Dashes at the target (or at a tracked enemy champion close by instead) and cuts: <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<>, <#ffb900ff>+30%<> against a tracked target.",
+        "skill2": "Leaves a recall clasp where he stands and gains <#7ee08aff>+35%<> move speed; if he gets in danger within <#ffb900ff>4s<> he snaps back to it with <#ffb900ff>30%<> damage reduction for a moment.",
+        "ult": "Marks a slash line from himself through the target and beyond, then dashes through; a beat later the line strikes: enemies still on it take <#ff9028ff>380<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>210%<> <#ff9028ff>physical damage<>. Step off the line in time to dodge it."
+      },
+      "border_yanxi": {
+        "name": "Yan Xi",
+        "attack": "Salt shard: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Crystallize<>: enemies who stay on her salt band are <#ef5350ff>slowed 25%<> and gain a crystal every <#ffb900ff>0.75s<> (up to <#ffb900ff>5<>).",
+        "skill": "Lays a salt band centred on the target for <#ffb900ff>4s<>; enemies on it take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and gain a crystal.",
+        "skill2": "Shatters the crystals on nearby enemies: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> more per crystal; the enemy champion with the most is <#ef5350ff>rooted 1s<>.",
+        "ult": "Her band ebbs back toward her: the crystal wave deals <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, adds <#ffb900ff>2<> crystals and <#ef5350ff>drags enemies toward her<>. Without a band she first lays one at the target."
+      },
+      "border_yindu": {
+        "name": "Yin Du",
+        "attack": "Punch: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Meeting Tide<>: pushing toward enemy champions builds tide (up to <#ffb900ff>8<>); each stack adds <#ef5350ff>5% slow<> to his next Bump the Gunwale.",
+        "skill": "Rams toward the target and stops at the first enemy in the way: <#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>physical damage<>, <#ef5350ff>stun 0.43s<> and <#ef5350ff>25% slow<>.",
+        "skill2": "Plants a beacon amid the target's group (<#ffb900ff>6s<>); as it lands, nearby enemies take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 20%<>.",
+        "ult": "Two tide walls close in from either side of his beacon (or the target): enemies inside are swept to the meeting point, take <#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>7%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned 0.95s<> - each swept once."
+      },
+      "border_lanti": {
+        "name": "Lan Ti",
+        "attack": "Punch: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Fracture Mark<>: marks only the latest enemy champion who hurt her with a spell (<#ffb900ff>5s<>).",
+        "skill": "Two punches: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>, then <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>; the second breaks a Fracture Mark for <#ffb900ff>+60%<> and <#ef5350ff>20% slow<>.",
+        "skill2": "Guards for <#ffb900ff>2.5s<>: <#ffb900ff>50%<> less spell damage. A spell caught in the guard resets Double Prism and the blocked damage feeds Returning Echo.",
+        "ult": "Sends a glass wave forward: <#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<> plus <#ffb900ff>60%<> of the damage she recently blocked (up to <#ffb900ff>+300<>), and <#ef5350ff>30% slow<>."
+      },
+      "border_luxin": {
+        "name": "Lu Xin",
+        "attack": "Slash: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Chasing Feather<>: an enemy champion she hit who keeps running leaves feather trails behind (<#ffb900ff>4s<>, two at most).",
+        "skill": "Chases along the way the target flees and cuts when close: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>.",
+        "skill2": "Draws a wind line at the target's feet (<#ffb900ff>4s<>); enemies who cross it take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 40%<>.",
+        "ult": "Cuts through the target along each of his two feather trails: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> per cut, <#ffb900ff>+20%<> per trail; the second cut deals up to <#ffb900ff>+60%<> by his missing health."
+      },
+      "border_jiyan": {
+        "name": "Ji Yan",
+        "attack": "Star needle: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Set the Mark<>: where Long Engraving hits and where Light the Chart lands she leaves a coordinate (<#ffb900ff>4s<>, up to <#ffb900ff>3<>).",
+        "skill": "Fires a long thin star beam: <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> along it; a coordinate it crosses bursts for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> around it.",
+        "skill2": "Places a coordinate at a distant target's feet; a moment later it lights up: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and <#ef5350ff>25% slow<> nearby.",
+        "ult": "Picks three staggered landings along the aim (on her coordinates when close), each with its own warning ring, then drops a star on each: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<> and <#ef5350ff>30% slow<>."
+      },
+      "border_zhongli": {
+        "name": "Zhong Li",
+        "attack": "Pellet: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Planted Feet<>: after standing still for <#ffb900ff>0.75s<> his attack speed climbs (up to <#ffb900ff>+48%<>); walking off ends it.",
+        "skill": "Compresses the spring: his next attack deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> extra <#ff9028ff>physical damage<>, ignoring <#ffb900ff>35%<> armor while planted.",
+        "skill2": "Deploys a stand: a <#e8d44dff>shield<> of <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>8%<> for <#ffb900ff>2.5s<> and Planted Feet at full; stepping away packs it up.",
+        "ult": "Fires four shots in the direction he aimed, <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>physical damage<> each, the last <#ffb900ff>200%<>; crowd control or leaving his spot stops the rest."
+      },
+      "border_wuling": {
+        "name": "Wu Ling",
+        "attack": "Bell chime: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<>. <#ff9028ff>Hear the Bell<>: enemies who touch her areas are belled (<#ffb900ff>5s<>); when a belled enemy is hurt, nearby allies gain <#7ee08aff>+15%<> move speed.",
+        "skill": "Places a ground bell at the target (<#ffb900ff>5s<>) that rings when an enemy comes close: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ef5350ff>50% slow<> around it.",
+        "skill2": "Raises a short curtain between her and the target (<#ffb900ff>4s<>): allies passing through gain <#7ee08aff>+30%<> move speed, enemies passing through are belled and <#ef5350ff>slowed 30%<>.",
+        "ult": "Two curtains close in round the target: enemies inside take <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, are <#ef5350ff>slowed 45%<> and <#ef5350ff>rooted 1.25s<> - once each."
+      }
+    },
+    "skill_name": {
+      "border_cenlei": {
+        "skill1": "Cross Wedge",
+        "skill2": "Shoulder the Load",
+        "ult": "Unload the Walls"
+      },
+      "border_xiaolun": {
+        "skill1": "Cut the Corner",
+        "skill2": "Loose the Latch",
+        "ult": "Full Arc"
+      },
+      "border_dengmi": {
+        "skill1": "Pass the Lamp",
+        "skill2": "Light the Way",
+        "ult": "Gather the Lamps"
+      },
+      "border_zhumo": {
+        "skill1": "Press the Blank",
+        "skill2": "Temper",
+        "ult": "Open the Furnace"
+      },
+      "border_fusuo": {
+        "skill1": "Skim the Steps",
+        "skill2": "Leave a Clasp",
+        "ult": "Off-Beat"
+      },
+      "border_yanxi": {
+        "skill1": "Salt Line",
+        "skill2": "Congeal",
+        "ult": "Ebb Tide"
+      },
+      "border_yindu": {
+        "skill1": "Bump the Gunwale",
+        "skill2": "Raise the Beacon",
+        "ult": "Converging Tide"
+      },
+      "border_lanti": {
+        "skill1": "Double Prism",
+        "skill2": "Await the Strike",
+        "ult": "Returning Echo"
+      },
+      "border_luxin": {
+        "skill1": "Cling to the Wind",
+        "skill2": "Folded Kite",
+        "ult": "Reel In"
+      },
+      "border_jiyan": {
+        "skill1": "Long Engraving",
+        "skill2": "Light the Chart",
+        "ult": "Star Almanac"
+      },
+      "border_zhongli": {
+        "skill1": "Compress the Spring",
+        "skill2": "Deploy the Stand",
+        "ult": "Chorus"
+      },
+      "border_wuling": {
+        "skill1": "Tie the Bell",
+        "skill2": "Shift the Curtain",
+        "ult": "Draw the Curtains"
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "border_cenlei": {
+        "name": "岑塁",
+        "attack": "盾打ち：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>背圧<>：肩代わりで受けたダメージを背圧として溜める（最大HPの<#ffb900ff>25%<>まで）。1割ごとに物防・魔防<#ffb900ff>+2<>。城崩しで全て放つ。",
+        "skill": "前方扇形を薙ぎ払い<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>35%鈍足<>、範囲内の敵を<#ef5350ff>スタン0.67秒<>。詠唱中の敵チャンピオンを優先して狙い、<#ef5350ff>詠唱を中断<>させる（<#ef5350ff>スタン1秒<>）。",
+        "skill2": "最も危険な味方に盾板を貼る（<#ffb900ff>4秒<>）：次の<#ffb900ff>2<>回の被ダメージを<#ffb900ff>40%<>軽減し、その分を岑塁が受けて背圧にする（これでは倒れない）。誰もいなければ自身が<#ffb900ff>20%<>軽減。",
+        "ult": "構え中はCC無効・被ダメージ<#ffb900ff>30%<>軽減。背圧を解放し前方扇形に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 背圧の<#ffb900ff>60%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>ノックバック<>と<#ef5350ff>30%鈍足<>。背圧の<#ffb900ff>50%<>が<#e8d44dff>シールド<>に。"
+      },
+      "border_xiaolun": {
+        "name": "綃輪",
+        "attack": "弩の矢：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>走弦<>：実際に動いた距離で弦を巻き、10段で張り詰める。次の矢が<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加<#ff9028ff>物理ダメージ<>と<#ef5350ff>20%鈍足<>。",
+        "skill": "対象の横へ滑る（歩ける所だけ、壁で止まる）。その後に射撃し<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>。横移動でも弦が巻かれる。",
+        "skill2": "張力をすべて放つ：<#ffb900ff>3秒<>間攻撃速度<#ffb900ff>+35%<>、1段ごとに<#ffb900ff>+5%<>（最大<#ffb900ff>+85%<>）。",
+        "ult": "星弧の矢を3回放つ。1本ごとに放つ瞬間に対象を選び直す（元の対象優先、次にHP割合が最も低い敵）。各<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>。CC中は撃たない。"
+      },
+      "border_dengmi": {
+        "name": "灯弥",
+        "attack": "灯火：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>灯溜め<>：周囲の味方（自身含む）がスキルダメージを受けると、HP<#ffb900ff>1%<>ごとに灯火を<#ffb900ff>1<>溜める（最大<#ffb900ff>100<>）。灯収めを強化する。",
+        "skill": "最も追い詰められた味方に灯を渡し、<#e8d44dff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + 相手の<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>6%<>の<#e8d44dff>シールド<>（<#ffb900ff>2.5秒<>）。灯の光で周囲の敵を<#ef5350ff>50%鈍足<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "HP割合が最も低い味方を導く：移動速度<#7ee08aff>+35%<>（<#ffb900ff>2.5秒<>）、HP<#ffb900ff>50%<>未満ならさらに<#7ee08aff>+20%<>。灯弥自身も<#7ee08aff>+15%<>。",
+        "ult": "灯を二つの脈動に変える：一つ目は選んだ味方を<#7ee08aff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#7ee08aff>回復<>、二つ目はその近くでHP割合が最も低い味方を同量回復。灯火1点ごとに回復<#ffb900ff>+1%<>（満タンで2倍）。脈動は回復した味方の周りで弾け、敵に<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%鈍足<>。"
+      },
+      "border_zhumo": {
+        "name": "鋳沫",
+        "attack": "槌打ち：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>余熱<>：通常攻撃が当たるたびに熱を溜める（最大<#ffb900ff>10<>段）。1段ごとに攻撃速度<#ffb900ff>+3%<>。<#ffb900ff>3秒<>当てないと冷めていく。",
+        "skill": "槌を振り下ろし<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>、熱1段ごとに<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>+10%<>、<#ef5350ff>30%鈍足<>。熱<#ffb900ff>5<>段以上で<#ef5350ff>スタン0.4秒<>。周囲の敵は<#ffb900ff>50%<>。",
+        "skill2": "熱をすべて使い焼き戻す：<#ffb900ff>2.5秒<>間被ダメージ<#ffb900ff>25%<>軽減、熱1段ごとにさらに<#ffb900ff>4%<>（最大<#ffb900ff>65%<>）。",
+        "ult": "炉を開き足元の敵に<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>。<#ffb900ff>5秒<>間攻撃速度<#ffb900ff>+60%<>、毎秒熱<#ffb900ff>+2<>段。危険なら焼き戻し、熱が十分で敵が近ければ鍛圧のCTを短縮。"
+      },
+      "border_fusuo": {
+        "name": "伏梭",
+        "attack": "一太刀：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>歩数読み<>：味方から離れ続ける敵チャンピオンを追跡する（<#ffb900ff>3秒<>）。追跡中の敵へのダメージ<#ffb900ff>+15%<>。",
+        "skill": "対象へ突進（近くに追跡中の敵がいればそちらへ）して斬り、<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>。追跡中の対象には<#ffb900ff>+30%<>。",
+        "skill2": "その場に戻り点を残し移動速度<#7ee08aff>+35%<>。<#ffb900ff>4秒<>以内に危険になると自動で戻り点へ跳び、少しの間被ダメージ<#ffb900ff>30%<>軽減。",
+        "ult": "自分から対象の背後まで斬線を予告し、対象を突き抜ける。一拍遅れて同じ線で斬撃：線上に残った敵に<#ff9028ff>380<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>210%<>の<#ff9028ff>物理ダメージ<>。線から離れれば避けられる。"
+      },
+      "border_yanxi": {
+        "name": "塩汐",
+        "attack": "塩晶：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>析晶<>：塩の帯に留まる敵を<#ef5350ff>25%鈍足<>にし、<#ffb900ff>0.75秒<>ごとに結晶を1つ重ねる（最大<#ffb900ff>5<>）。",
+        "skill": "対象を中心に塩の帯を敷く（<#ffb900ff>4秒<>）。帯の上の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と結晶1つ。",
+        "skill2": "周囲の敵の結晶を砕き<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、1つごとに<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>追加。最も多い敵チャンピオンを<#ef5350ff>1秒スネア<>。",
+        "ult": "塩の帯を自分の方へ引かせる：結晶の波が当たった敵に<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、結晶<#ffb900ff>2<>つ、<#ef5350ff>塩汐の方へ押し流す<>。帯がなければ先に対象へ敷く。"
+      },
+      "border_yindu": {
+        "name": "殷渡",
+        "attack": "拳：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>迎え潮<>：敵チャンピオンへ押し進むと潮勢が溜まり（最大<#ffb900ff>8<>）、次の舷打ちの鈍足が1つごとに<#ef5350ff>+5%<>。",
+        "skill": "対象へ突進し、途中の最初の敵で止まってぶつかる：<#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>スタン0.43秒<>、<#ef5350ff>25%鈍足<>。",
+        "skill2": "対象の群れの中心に航標を立てる（<#ffb900ff>6秒<>）。着地時に周囲の敵へ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>20%鈍足<>。",
+        "ult": "航標（なければ対象）の両側から潮の壁が合わさる：中の敵を合流点へ巻き込み<#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>7%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>スタン0.95秒<>。1人1回だけ。"
+      },
+      "border_lanti": {
+        "name": "瀾緹",
+        "attack": "拳：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>折れ紋<>：最後にスキルで彼女を傷つけた敵チャンピオン1人だけに紋を刻む（<#ffb900ff>5秒<>）。",
+        "skill": "2連打：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、続けて<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>。2発目が紋を割ると<#ffb900ff>+60%<>と<#ef5350ff>20%鈍足<>。",
+        "skill2": "<#ffb900ff>2.5秒<>構える：受けるスキルダメージ<#ffb900ff>50%<>軽減。構え中にスキルを受けると成功、双稜のCTが戻り、防いだ分が返し響きに溜まる。",
+        "ult": "ガラスの波を放ち<#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>、さらに最近防いだダメージの<#ffb900ff>60%<>（最大<#ffb900ff>+300<>）と<#ef5350ff>30%鈍足<>。"
+      },
+      "border_luxin": {
+        "name": "鷺芯",
+        "attack": "斬撃：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>追い羽<>：彼女が斬った敵チャンピオンが逃げ続けると羽の跡が残る（<#ffb900ff>4秒<>、最大2つ）。",
+        "skill": "対象の逃げる方向へ追いすがり、近づいて斬る：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "対象の足元に風の線を張る（<#ffb900ff>4秒<>）。線を越えた敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>40%鈍足<>。",
+        "ult": "対象の2つの羽の跡に沿って貫き1太刀ずつ：各<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、跡1つごとに<#ffb900ff>+20%<>。2太刀目は失ったHPに応じ最大<#ffb900ff>+60%<>。"
+      },
+      "border_jiyan": {
+        "name": "霽硯",
+        "attack": "星針：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>定標<>：長刻の命中点と照盤の設置点に座標を残す（<#ffb900ff>4秒<>、最大<#ffb900ff>3<>）。",
+        "skill": "細長い星の光線：線上の敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。通った座標は弾け、周囲に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>。",
+        "skill2": "遠くの対象の足元に座標を置き、少し後に照らす：周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>25%鈍足<>。",
+        "ult": "狙う方向にずらした3か所（近くに座標があればそこ）へ、それぞれ予告円を出してから星刻を落とす：<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%鈍足<>。"
+      },
+      "border_zhongli": {
+        "name": "鐘礫",
+        "attack": "弾丸：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>足固め<>：<#ffb900ff>0.75秒<>立ち止まると攻撃速度が上がっていく（最大<#ffb900ff>+48%<>）。大きく動くと解除。",
+        "skill": "発条を込める：次の通常攻撃が<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の追加<#ff9028ff>物理ダメージ<>、足固め中は物防<#ffb900ff>35%<>貫通。",
+        "skill2": "架台を展開：<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>8%<>の<#e8d44dff>シールド<>（<#ffb900ff>2.5秒<>）、足固めが即最大。離れると架台をたたむ。",
+        "ult": "狙った方向へ4連射、各<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の<#ff9028ff>物理ダメージ<>、最後の1発は<#ffb900ff>200%<>。CCを受けるかその場を離れると止まる。"
+      },
+      "border_wuling": {
+        "name": "霧綾",
+        "attack": "鈴の音：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>鈴聞き<>：技の範囲に触れた敵に鈴を付け（<#ffb900ff>5秒<>）、その敵が傷つくと近くの味方の移動速度<#7ee08aff>+15%<>。",
+        "skill": "対象の足元に地鈴を置く（<#ffb900ff>5秒<>）。敵が近づくと鳴り、周囲に<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>50%鈍足<>。",
+        "skill2": "自分と対象の間に短い幕を立てる（<#ffb900ff>4秒<>）：くぐった味方は移動速度<#7ee08aff>+30%<>、くぐった敵は鈴付きで<#ef5350ff>30%鈍足<>。",
+        "ult": "対象の両側から幕を閉じる：中の敵に<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>45%鈍足<>のあと<#ef5350ff>1.25秒スネア<>。1人1回だけ。"
+      }
+    },
+    "skill_name": {
+      "border_cenlei": {
+        "skill1": "横楔",
+        "skill2": "肩代わり",
+        "ult": "城崩し"
+      },
+      "border_xiaolun": {
+        "skill1": "角切り",
+        "skill2": "留め金外し",
+        "ult": "満弧"
+      },
+      "border_dengmi": {
+        "skill1": "灯渡し",
+        "skill2": "道標",
+        "ult": "灯収め"
+      },
+      "border_zhumo": {
+        "skill1": "鍛圧",
+        "skill2": "焼き戻し",
+        "ult": "炉開き"
+      },
+      "border_fusuo": {
+        "skill1": "掠め足",
+        "skill2": "留め金",
+        "ult": "拍外し"
+      },
+      "border_yanxi": {
+        "skill1": "塩の線",
+        "skill2": "凝結",
+        "ult": "引き潮"
+      },
+      "border_yindu": {
+        "skill1": "舷打ち",
+        "skill2": "立標",
+        "ult": "合わせ潮"
+      },
+      "border_lanti": {
+        "skill1": "双稜",
+        "skill2": "待ち撃ち",
+        "ult": "返し響き"
+      },
+      "border_luxin": {
+        "skill1": "風寄せ",
+        "skill2": "折り鳶",
+        "ult": "糸手繰り"
+      },
+      "border_jiyan": {
+        "skill1": "長刻",
+        "skill2": "照盤",
+        "ult": "星暦"
+      },
+      "border_zhongli": {
+        "skill1": "発条込め",
+        "skill2": "架台展開",
+        "ult": "斉鳴"
+      },
+      "border_wuling": {
+        "skill1": "鈴結び",
+        "skill2": "幕移し",
+        "ult": "幕引き"
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "border_cenlei": {
+        "name": "천레이",
+        "attack": "방패 가격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1%<> <#ff9028ff>물리 피해<>. <#ff9028ff>배압<>: 어깨받이로 대신 받은 피해를 배압으로 모은다(최대 체력의 <#ffb900ff>25%<>까지). 10%마다 방어력·마법 저항력 <#ffb900ff>+2<>. 성벽풀이로 모두 방출.",
+        "skill": "전방 부채꼴을 휩쓸어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>35% 둔화<>, 범위 안의 적은 <#ef5350ff>기절 0.67초<>. 시전 중인 적 챔피언을 우선 노려 <#ef5350ff>시전을 끊는다<>(<#ef5350ff>기절 1초<>).",
+        "skill2": "가장 위협받는 아군에게 방패판을 붙인다(<#ffb900ff>4초<>): 다음 <#ffb900ff>2<>번 받는 피해가 <#ffb900ff>40%<> 줄고, 줄어든 만큼 천레이가 대신 받아 배압으로 모은다(이것으로 쓰러지지 않음). 위협받는 아군이 없으면 자신이 피해 <#ffb900ff>20%<> 감소.",
+        "ult": "준비 중 군중 제어 면역, 받는 피해 <#ffb900ff>30%<> 감소. 배압을 방출해 전방 부채꼴에 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 배압의 <#ffb900ff>60%<> <#ff9028ff>물리 피해<>, <#ef5350ff>밀쳐내기<>와 <#ef5350ff>30% 둔화<>. 방출한 배압의 <#ffb900ff>50%<>가 <#e8d44dff>보호막<>이 된다."
+      },
+      "border_xiaolun": {
+        "name": "샤오룬",
+        "attack": "석궁 화살: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>걷는 시위<>: 실제로 움직인 거리만큼 시위를 감아 10단계가 되면 팽팽해지고, 다음 화살이 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 <#ff9028ff>물리 피해<>와 <#ef5350ff>20% 둔화<>.",
+        "skill": "대상의 옆으로 짧게 이동한 뒤(걸을 수 있는 곳만, 벽에 막힘) 화살을 쏴 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>. 옆걸음도 시위를 감는다.",
+        "skill2": "긴장을 모두 풀어 <#ffb900ff>3초<> 동안 공격 속도 <#ffb900ff>+35%<>, 단계마다 <#ffb900ff>+5%<>(최대 <#ffb900ff>+85%<>).",
+        "ult": "별호 화살을 세 번 쏜다. 화살마다 쏘는 순간 대상을 다시 고른다(원래 대상 우선, 다음은 체력 비율이 가장 낮은 적 챔피언). 각각 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>. 군중 제어 중에는 쏘지 않는다."
+      },
+      "border_dengmi": {
+        "name": "덩미",
+        "attack": "등불: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>. <#ff9028ff>빛 모으기<>: 주변 아군(자신 포함)이 스킬 피해를 받으면 잃은 체력 <#ffb900ff>1%<>마다 등불 <#ffb900ff>1<>을 모은다(최대 <#ffb900ff>100<>). 등불 거두기를 강화한다.",
+        "skill": "가장 압박받는 아군에게 등불을 건네 <#e8d44dff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + 대상 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>6%<>의 <#e8d44dff>보호막<>(<#ffb900ff>2.5초<>). 불빛에 주변 적이 <#ef5350ff>50% 둔화<>(<#ffb900ff>1.5초<>).",
+        "skill2": "체력 비율이 가장 낮은 아군의 길을 밝혀 이동 속도 <#7ee08aff>+35%<>(<#ffb900ff>2.5초<>), 체력 <#ffb900ff>50%<> 미만이면 <#7ee08aff>+20%<> 더. 덩미 자신도 <#7ee08aff>+15%<>.",
+        "ult": "등불을 두 번의 파동으로 거둔다: 첫 파동은 선택한 아군을 <#7ee08aff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#7ee08aff>회복<>, 두 번째는 그 근처에서 체력 비율이 가장 낮은 아군을 같은 양 회복. 등불 1점마다 회복 <#ffb900ff>+1%<>(가득 차면 두 배). 파동은 회복한 아군 주변에서 터져 적에게 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ef5350ff>30% 둔화<>."
+      },
+      "border_zhumo": {
+        "name": "주모",
+        "attack": "망치질: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>여열<>: 기본 공격이 맞을 때마다 열을 모은다(최대 <#ffb900ff>10<>단계). 단계마다 공격 속도 <#ffb900ff>+3%<>. <#ffb900ff>3초<> 동안 맞히지 못하면 식는다.",
+        "skill": "망치를 내리쳐 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>, 열 단계마다 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>+10%<>, <#ef5350ff>30% 둔화<>. 열 <#ffb900ff>5<>단계 이상이면 <#ef5350ff>기절 0.4초<>. 주변 적은 <#ffb900ff>50%<> 피해.",
+        "skill2": "열을 모두 써서 담금질: <#ffb900ff>2.5초<> 동안 받는 피해 <#ffb900ff>25%<> 감소, 열 단계마다 <#ffb900ff>4%<> 더(최대 <#ffb900ff>65%<>).",
+        "ult": "화로를 열어 발밑의 적에게 <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>. <#ffb900ff>5초<> 동안 공격 속도 <#ffb900ff>+60%<>, 매초 열 <#ffb900ff>+2<>단계. 위험하면 담금질, 열이 충분하고 적이 가까우면 단조의 재사용 대기시간이 줄어든다."
+      },
+      "border_fusuo": {
+        "name": "푸쒀",
+        "attack": "베기: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>걸음 세기<>: 아군에게서 계속 멀어지는 적 챔피언을 추적한다(<#ffb900ff>3초<>). 추적 중인 적에게 피해 <#ffb900ff>+15%<>.",
+        "skill": "대상에게 돌진(근처에 추적 중인 적 챔피언이 있으면 그쪽으로)해 베어 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>. 추적 중인 대상에게는 <#ffb900ff>+30%<>.",
+        "skill2": "제자리에 회귀점을 남기고 이동 속도 <#7ee08aff>+35%<>. <#ffb900ff>4초<> 안에 위험해지면 회귀점으로 돌아가며 잠시 받는 피해 <#ffb900ff>30%<> 감소.",
+        "ult": "자신에서 대상 뒤까지 이어지는 참격선을 예고하고 대상을 꿰뚫고 지나간다. 한 박자 뒤 같은 선에서 참격: 선 위에 남은 적에게 <#ff9028ff>380<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>210%<> <#ff9028ff>물리 피해<>. 제때 선을 벗어나면 피할 수 있다."
+      },
+      "border_yanxi": {
+        "name": "옌시",
+        "attack": "소금 결정: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>결정 석출<>: 소금띠 위에 머무는 적은 <#ef5350ff>25% 둔화<>되고 <#ffb900ff>0.75초<>마다 결정이 1개 쌓인다(최대 <#ffb900ff>5<>개).",
+        "skill": "대상을 중심으로 소금띠를 깐다(<#ffb900ff>4초<>). 띠 위의 적은 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 입고 결정이 1개 쌓인다.",
+        "skill2": "주변 적의 결정을 터뜨려 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<>, 결정마다 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 추가. 결정이 가장 많은 적 챔피언은 <#ef5350ff>1초 속박<>.",
+        "ult": "소금띠를 자신 쪽으로 썰물처럼 거둔다: 결정 파도에 휩쓸린 적은 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 결정 <#ffb900ff>2<>개, <#ef5350ff>옌시 쪽으로 끌려온다<>. 띠가 없으면 먼저 대상에 깐다."
+      },
+      "border_yindu": {
+        "name": "인두",
+        "attack": "주먹: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>마중 물결<>: 적 챔피언 쪽으로 밀고 나가면 조류가 쌓이고(최대 <#ffb900ff>8<>), 다음 뱃전 치기의 둔화가 중첩마다 <#ef5350ff>+5%<>.",
+        "skill": "대상에게 돌진하다 처음 막아서는 적에서 멈춰 부딪친다: <#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>물리 피해<>, <#ef5350ff>기절 0.43초<>, <#ef5350ff>25% 둔화<>.",
+        "skill2": "대상 무리 한가운데 부표를 세운다(<#ffb900ff>6초<>). 떨어질 때 주변 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>20% 둔화<>.",
+        "ult": "부표(없으면 대상) 양쪽에서 조류 벽이 모인다: 안의 적은 합류점으로 휩쓸려 <#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>7%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>기절 0.95초<>. 한 명당 한 번."
+      },
+      "border_lanti": {
+        "name": "란티",
+        "attack": "주먹: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>꺾인 무늬<>: 마지막으로 스킬로 그녀를 다치게 한 적 챔피언 한 명만 표식한다(<#ffb900ff>5초<>).",
+        "skill": "두 번 친다: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>, 이어서 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>. 두 번째 주먹이 표식을 깨면 <#ffb900ff>+60%<>와 <#ef5350ff>20% 둔화<>.",
+        "skill2": "<#ffb900ff>2.5초<> 동안 자세를 잡아 받는 스킬 피해 <#ffb900ff>50%<> 감소. 그동안 스킬을 맞으면 성공: 쌍능 재사용 대기시간 초기화, 막은 피해는 되울림에 쌓인다.",
+        "ult": "유리 파도를 내보내 <#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>에 최근 막은 피해의 <#ffb900ff>60%<>(최대 <#ffb900ff>+300<>)를 더하고 <#ef5350ff>30% 둔화<>."
+      },
+      "border_luxin": {
+        "name": "루신",
+        "attack": "베기: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>쫓는 깃<>: 그녀에게 맞은 적 챔피언이 계속 달아나면 깃 자국이 남는다(<#ffb900ff>4초<>, 최대 두 개).",
+        "skill": "대상이 달아나는 방향을 따라 쫓아가 가까이서 벤다: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "대상의 발밑에 바람 줄을 긋는다(<#ffb900ff>4초<>). 줄을 넘는 적은 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>40% 둔화<>.",
+        "ult": "대상의 두 깃 자국을 따라 꿰뚫으며 한 번씩 벤다: 각 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 자국마다 <#ffb900ff>+20%<>. 두 번째 베기는 잃은 체력에 따라 최대 <#ffb900ff>+60%<>."
+      },
+      "border_jiyan": {
+        "name": "지옌",
+        "attack": "별바늘: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>좌표 찍기<>: 긴 새김이 맞은 곳과 반 비추기를 둔 곳에 좌표를 남긴다(<#ffb900ff>4초<>, 최대 <#ffb900ff>3<>개).",
+        "skill": "가늘고 긴 별빛을 쏴 선 위의 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>. 지나간 좌표는 터지며 주변에 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>.",
+        "skill2": "먼 대상의 발밑에 좌표를 두고 잠시 뒤 비춘다: 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ef5350ff>25% 둔화<>.",
+        "ult": "조준 방향에 엇갈린 세 곳(근처에 좌표가 있으면 좌표)에 각각 경고 원을 띄운 뒤 별을 떨어뜨린다: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>마법 피해<>와 <#ef5350ff>30% 둔화<>."
+      },
+      "border_zhongli": {
+        "name": "중리",
+        "attack": "탄환: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>발 고정<>: <#ffb900ff>0.75초<> 동안 멈춰 서면 공격 속도가 점점 오른다(최대 <#ffb900ff>+48%<>). 크게 움직이면 해제.",
+        "skill": "용수철을 눌러 다음 기본 공격이 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 추가 <#ff9028ff>물리 피해<>, 발 고정 중에는 방어력 <#ffb900ff>35%<> 관통.",
+        "skill2": "거치대를 펼쳐 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#e8d44dff>8%<> <#e8d44dff>보호막<>(<#ffb900ff>2.5초<>)을 얻고 발 고정이 즉시 최대. 자리를 떠나면 거치대를 접는다.",
+        "ult": "조준한 방향으로 네 발을 쏜다. 각 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>물리 피해<>, 마지막 발은 <#ffb900ff>200%<>. 군중 제어를 받거나 자리를 떠나면 멈춘다."
+      },
+      "border_wuling": {
+        "name": "우링",
+        "attack": "방울 소리: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<>. <#ff9028ff>방울 소리<>: 그녀의 스킬 범위에 닿은 적에게 방울을 단다(<#ffb900ff>5초<>). 그 적이 피해를 입으면 주변 아군 이동 속도 <#7ee08aff>+15%<>.",
+        "skill": "대상 발밑에 땅방울을 둔다(<#ffb900ff>5초<>). 적이 다가오면 울려 주변에 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 <#ef5350ff>50% 둔화<>.",
+        "skill2": "자신과 대상 사이에 짧은 장막을 세운다(<#ffb900ff>4초<>): 통과한 아군은 이동 속도 <#7ee08aff>+30%<>, 통과한 적은 방울이 달리고 <#ef5350ff>30% 둔화<>.",
+        "ult": "대상 양쪽에서 장막을 닫는다: 안의 적은 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, <#ef5350ff>45% 둔화<> 후 <#ef5350ff>1.25초 속박<>. 한 명당 한 번."
+      }
+    },
+    "skill_name": {
+      "border_cenlei": {
+        "skill1": "가로쐐기",
+        "skill2": "어깨받이",
+        "ult": "성벽풀이"
+      },
+      "border_xiaolun": {
+        "skill1": "모서리 베기",
+        "skill2": "걸쇠 풀기",
+        "ult": "만궁"
+      },
+      "border_dengmi": {
+        "skill1": "등불 건네기",
+        "skill2": "길잡이",
+        "ult": "등불 거두기"
+      },
+      "border_zhumo": {
+        "skill1": "단조",
+        "skill2": "담금질",
+        "ult": "화로 열기"
+      },
+      "border_fusuo": {
+        "skill1": "계단 스치기",
+        "skill2": "매듭 남기기",
+        "ult": "엇박"
+      },
+      "border_yanxi": {
+        "skill1": "소금 줄",
+        "skill2": "응결",
+        "ult": "썰물"
+      },
+      "border_yindu": {
+        "skill1": "뱃전 치기",
+        "skill2": "부표 세우기",
+        "ult": "합류 조류"
+      },
+      "border_lanti": {
+        "skill1": "쌍능",
+        "skill2": "기다린 일격",
+        "ult": "되울림"
+      },
+      "border_luxin": {
+        "skill1": "바람 붙기",
+        "skill2": "접은 연",
+        "ult": "실 감기"
+      },
+      "border_jiyan": {
+        "skill1": "긴 새김",
+        "skill2": "반 비추기",
+        "ult": "성력"
+      },
+      "border_zhongli": {
+        "skill1": "용수철 압축",
+        "skill2": "거치대",
+        "ult": "일제 울림"
+      },
+      "border_wuling": {
+        "skill1": "방울 매기",
+        "skill2": "장막 옮기기",
+        "ult": "장막 닫기"
+      }
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "cell": [
+    128,
+    128
+  ],
+  "pivot": [
+    64,
+    68
+  ],
+  "heroes": {
+    "cenlei": {
+      "passive": {
+        "anchor_type": "body",
+        "label": "背压",
+        "note": "coral shell fragments converge into a teal pearl",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "contact",
+        "label": "普攻",
+        "note": "small coral shell impact",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "forward",
+        "label": "横楔",
+        "note": "one broad right-facing layered shield sweep",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "ally_body",
+        "label": "接肩",
+        "note": "pearl-shell flanks form a ward on the selected ally",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "forward",
+        "label": "卸城",
+        "note": "three wave crests in one fan, trigger once on shield release",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "small shell chips",
+        "frames": 8
+      }
+    },
+    "xiaolun": {
+      "passive": {
+        "anchor_type": "weapon",
+        "label": "走弦",
+        "note": "transparent glass ring winds at the crossbow",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "projectile",
+        "label": "普攻",
+        "note": "single small right-facing silver bolt",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "cast_origin",
+        "label": "切角",
+        "note": "two cobalt sidestep streaks at the starting point",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "weapon",
+        "label": "放扣",
+        "note": "two violet arc pieces split from the latch",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "projectile",
+        "label": "满弧",
+        "note": "one comet arrow; create it on each of the three shots",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "命中",
+        "note": "small teal and silver impact chips",
+        "frames": 8
+      }
+    },
+    "dengmi": {
+      "passive": {
+        "anchor_type": "lantern",
+        "label": "存光",
+        "note": "warm motes and a small jellyfish lamp flash",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "projectile",
+        "label": "普攻",
+        "note": "small amber lantern mote",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "ally_body",
+        "label": "递灯",
+        "note": "thin amber hexagon shield with clear center",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "ally_ground",
+        "label": "引路",
+        "note": "three amber footprints leading along a violet trail",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "ally_ground",
+        "label": "收灯",
+        "note": "one nested-ring ground pulse; repeat on each actual heal target",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "small amber-violet sparks",
+        "frames": 8
+      }
+    },
+    "zhumo": {
+      "passive": {
+        "anchor_type": "weapon",
+        "label": "余温",
+        "note": "forge embers collect at the hammerhead as heat rises",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "contact",
+        "label": "普攻",
+        "note": "compact hot-metal spark at hammer impact",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "forward_ground",
+        "label": "压坯",
+        "note": "molten descending sweep and floor sparks",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "body",
+        "label": "回火",
+        "note": "curved teal heat-tempering bands surround the caster",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "body_ground",
+        "label": "开炉",
+        "note": "copper furnace ignition curls around the caster and the ground ring",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "small copper-hot spark fragments",
+        "frames": 8
+      }
+    },
+    "fusuo": {
+      "passive": {
+        "anchor_type": "target_ground",
+        "label": "数步",
+        "note": "silver-violet footsteps converge toward the tracked target",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "contact",
+        "label": "普攻",
+        "note": "short silver-violet cutting sparks",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "directional_travel",
+        "label": "掠阶",
+        "note": "slim right-facing silver motion cut toward the enemy",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "cast_origin",
+        "label": "留扣",
+        "note": "crescent recall spool; sustain a middle frame at the origin",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "delayed_ground_line",
+        "label": "错拍",
+        "note": "thin trajectory tell gives way to bright diagonal slash on the same line",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "small silver-violet flecks",
+        "frames": 8
+      }
+    },
+    "yanxi": {
+      "passive": {
+        "anchor_type": "target_body",
+        "label": "析晶",
+        "note": "white-violet salt cluster collects on the marked enemy",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "projectile",
+        "label": "普攻",
+        "note": "small arctic salt shard traveling right",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "ground_line",
+        "label": "撒线",
+        "note": "faceted salt ribbon following the zone direction",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "target_body",
+        "label": "凝结",
+        "note": "salt wedges build and shatter where the detonation occurs",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "ground_toward_caster",
+        "label": "退潮",
+        "note": "returning salt crest authored facing left; rotate to follow the pull",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "small shimmering salt chips",
+        "frames": 8
+      }
+    },
+    "yindu": {
+      "passive": {
+        "anchor_type": "body",
+        "label": "迎汐",
+        "note": "tightening tidal crest",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "contact",
+        "label": "普攻",
+        "note": "small strike contact",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "directional_travel",
+        "label": "扣舷",
+        "note": "brief right-facing bronze-edged ram",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "target_ground",
+        "label": "立标",
+        "note": "anchored buoy, hold frame 2 until used",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "target_ground",
+        "label": "合汛",
+        "note": "inward tide walls sharing one convergence center",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "short contact sparks",
+        "frames": 8
+      }
+    },
+    "lanti": {
+      "passive": {
+        "anchor_type": "target_body",
+        "label": "折纹",
+        "note": "mirror fracture mark on latest attacker",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "contact",
+        "label": "普攻",
+        "note": "small strike contact",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "contact",
+        "label": "双棱",
+        "note": "faceted punch swipe, play on each actual strike",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "caster_body",
+        "label": "候击",
+        "note": "center-open emerald guard",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "directional_travel",
+        "label": "还响",
+        "note": "glass wave travels forward on release",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "short contact sparks",
+        "frames": 8
+      }
+    },
+    "luxin": {
+      "passive": {
+        "anchor_type": "target_ground",
+        "label": "追羽",
+        "note": "jade feather trail behind moving target",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "contact",
+        "label": "普攻",
+        "note": "small strike contact",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "directional_travel",
+        "label": "贴风",
+        "note": "forward motion streak",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "ground_line",
+        "label": "折鸢",
+        "note": "narrow visible kite line at the route",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "directional_travel",
+        "label": "收线",
+        "note": "one cutting feather pulse per actual dash",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "short contact sparks",
+        "frames": 8
+      }
+    },
+    "jiyan": {
+      "passive": {
+        "anchor_type": "target_ground",
+        "label": "定标",
+        "note": "chart coordinate mark",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "projectile",
+        "label": "普攻",
+        "note": "short right-facing ranged projectile",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "directional_line",
+        "label": "长刻",
+        "note": "right-facing beam along aim line",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "target_ground",
+        "label": "照盘",
+        "note": "placed sextant beacon",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "target_ground",
+        "label": "星历",
+        "note": "one warning-ring and star impact per actual landing",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "short contact sparks",
+        "frames": 8
+      }
+    },
+    "zhongli": {
+      "passive": {
+        "anchor_type": "caster_ground",
+        "label": "定脚",
+        "note": "machine bracket feet settle",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "projectile",
+        "label": "普攻",
+        "note": "short right-facing ranged projectile",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "weapon",
+        "label": "压簧",
+        "note": "spring and amber charge at forearm",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "caster_body",
+        "label": "落架",
+        "note": "small amber shield at deployment",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "projectile",
+        "label": "齐鸣",
+        "note": "one right-facing bolt; repeat on each of four fires",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "short contact sparks",
+        "frames": 8
+      }
+    },
+    "wuling": {
+      "passive": {
+        "anchor_type": "target_body",
+        "label": "闻铃",
+        "note": "bell sound mark on enemy",
+        "frames": 4
+      },
+      "attack": {
+        "anchor_type": "projectile",
+        "label": "普攻",
+        "note": "short right-facing ranged projectile",
+        "frames": 8
+      },
+      "skill": {
+        "anchor_type": "target_ground",
+        "label": "系铃",
+        "note": "ground bell, then small slow ripple",
+        "frames": 4
+      },
+      "skill2": {
+        "anchor_type": "ground_line",
+        "label": "挪幕",
+        "note": "one semitransparent standing curtain",
+        "frames": 4
+      },
+      "ult": {
+        "anchor_type": "target_ground",
+        "label": "合幕",
+        "note": "paired screens close inward toward anchor",
+        "frames": 4
+      },
+      "hit": {
+        "anchor_type": "contact",
+        "label": "受击",
+        "note": "short contact sparks",
+        "frames": 8
+      }
+    }
+  }
+}

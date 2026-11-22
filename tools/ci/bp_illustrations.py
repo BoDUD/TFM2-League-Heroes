@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CI：选人立绘（league/ 和 tft/ 下的 banpick_illustrations/）。
+"""CI：选人立绘（league/、tft/、ragnarok/、border/ 下的 banpick_illustrations/）。
 
 游戏 0.7.3 自己读每个 mod 的 `banpick_illustrations/<英雄id>.png`，在选人和英雄交换界面显示（原版的在
 asset/base/ui/banpick/illustrations）。照公主连结的立绘：304×405 RGBA，最上面 48 行全透明，下面 304×357 满版不透明
@@ -53,7 +53,7 @@ def main():
     # CI 的 Windows 机器上 python -I 按系统编码输出，中文会报错
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     bad, have, total = [], 0, 0
-    for pack in ("league", "tft", "ragnarok"):
+    for pack in ("league", "tft", "ragnarok", "border"):
         src = os.path.join(pm.REPO, pack)
         heroes = set(pm.hero_ids(src))
         total += len(heroes)
