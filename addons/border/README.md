@@ -8,7 +8,7 @@ border 包（mod_id `border`，源文件在 [`border/`](../../border/)）是原�
 
 **数据版要注意的一点**：`RangeProjectile` 直接写在招式里，是生成在施法的人脚下的（引擎的范围只有 `AroundCaster` 和 `Forward`）。`--plain` 和塞拉斯版里「目标脚下的圈」（霁砚的照盘、星历，雾绫的系铃、挪幕、合幕，殷渡的合汛）都装在 `kit.lob` 里：一个看不见的抛物弹，下一拍落在目标站的地方，圈在落点上生成（league_zyra、league_brand 的做法）。2026-11-22 之前这几个圈全落在施法的人脚下，模拟里雾绫整局一次都没打中人。原生版自己算位置，不受影响。
 
-**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的表，`init` 先把它交给几个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)，只开本包也有高清帧。十二个人都是 Codex 按两倍密度画的（一格 256，脚底点 (128, 184)），PPU 3.3；`tools/art/border_fix.py` 把原画收成游戏那种像素风（每人一套调色板、清掉杂点、同色系的 1 像素描边，形状一点不动）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\border.log`。
+**高清帧**：[`src/hd.rs`](src/hd.rs) 是本包的表，`init` 先把它交给几个包共用的 [`hd_engine`](../hd_engine/src/lib.rs)，只开本包也有高清帧。十二个人都是 Codex 按两倍密度画的（一格 256，脚底点 (128, 184)），PPU 3.3；`tools/art/border_fix.py` 把原画收成游戏那种像素风（每人一套调色板、清掉杂点、同色系的 1 像素描边，形状一点不动）。调色板存在 `assets/source/border/palettes/`，以后重跑、返修都套这一套：v0.6.0 Codex 重画了九人跑步的第 5–8 帧（第 1–4 帧和前半圈一样大，后半圈原来头小了一圈）和鹭芯三帧的残影头，套 v0.5.0 的调色板，没改的帧一格不变。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\border.log`。
 
 | 英雄 | 模块 | 做什么 |
 |---|---|---|

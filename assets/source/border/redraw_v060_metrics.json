@@ -1,0 +1,1296 @@
+{
+  "changed_cels": 39,
+  "unchanged_cels": 285,
+  "actor_cell": [
+    256,
+    256
+  ],
+  "ground_anchor": [
+    128,
+    184
+  ],
+  "heroes": [
+    {
+      "hero": "zhongli",
+      "name": "钟砾",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        1
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 1.0,
+          "waist": 1.0314465408805031,
+          "head_floor": 1.0,
+          "lower_opaque_area": 1133,
+          "lower_radius_p95_px": 6.082762530298219,
+          "duration_ms": 79,
+          "bbox": [
+            86,
+            78,
+            176,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 0.9728571428571429,
+          "waist": 0.9811320754716981,
+          "head_floor": 0.9728571428571429,
+          "lower_opaque_area": 1069,
+          "lower_radius_p95_px": 6.082762530298219,
+          "duration_ms": 67,
+          "bbox": [
+            97,
+            79,
+            171,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.0157142857142858,
+          "waist": 1.0062893081761006,
+          "head_floor": 1.0157142857142858,
+          "lower_opaque_area": 952,
+          "lower_radius_p95_px": 8.756201256373043,
+          "duration_ms": 76,
+          "bbox": [
+            101,
+            79,
+            164,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 1.0114285714285713,
+          "waist": 0.9811320754716981,
+          "head_floor": 1.0114285714285713,
+          "lower_opaque_area": 946,
+          "lower_radius_p95_px": 5.830951894845301,
+          "duration_ms": 63,
+          "bbox": [
+            86,
+            76,
+            174,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0,
+          "waist": 1.0062893081761006,
+          "head_floor": 1.0,
+          "lower_opaque_area": 890,
+          "lower_radius_p95_px": 5.0,
+          "duration_ms": 79,
+          "bbox": [
+            81,
+            78,
+            176,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.0157142857142858,
+          "waist": 1.0062893081761006,
+          "head_floor": 1.0157142857142858,
+          "lower_opaque_area": 744,
+          "lower_radius_p95_px": 5.0,
+          "duration_ms": 67,
+          "bbox": [
+            101,
+            79,
+            164,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.0,
+          "waist": 1.0062893081761006,
+          "head_floor": 1.0,
+          "lower_opaque_area": 645,
+          "lower_radius_p95_px": 4.242640687119285,
+          "duration_ms": 76,
+          "bbox": [
+            89,
+            80,
+            164,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0,
+          "waist": 1.0062893081761006,
+          "head_floor": 1.0,
+          "lower_opaque_area": 924,
+          "lower_radius_p95_px": 5.0,
+          "duration_ms": 63,
+          "bbox": [
+            81,
+            77,
+            177,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 1195.3149999999998,
+      "lower_radius_p95_cap_px": 9.656201256373043,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "cenlei",
+      "name": "岑垒",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        1,
+        2,
+        3
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 0.9930939226519337,
+          "waist": 1.1455399061032865,
+          "head_floor": 1.0297171500179019,
+          "lower_opaque_area": 1112,
+          "lower_radius_p95_px": 7.0710678118654755,
+          "duration_ms": 79,
+          "bbox": [
+            96,
+            74,
+            165,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.0013812154696133,
+          "waist": 0.7887323943661971,
+          "head_floor": 0.9953455066237021,
+          "lower_opaque_area": 999,
+          "lower_radius_p95_px": 8.246211251235321,
+          "duration_ms": 67,
+          "bbox": [
+            105,
+            74,
+            171,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.0151933701657458,
+          "waist": 1.051643192488263,
+          "head_floor": 0.9982098102398854,
+          "lower_opaque_area": 821,
+          "lower_radius_p95_px": 5.656854249492381,
+          "duration_ms": 76,
+          "bbox": [
+            108,
+            74,
+            168,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.9903314917127072,
+          "waist": 1.0140845070422535,
+          "head_floor": 0.9767275331185106,
+          "lower_opaque_area": 1079,
+          "lower_radius_p95_px": 6.4031242374328485,
+          "duration_ms": 63,
+          "bbox": [
+            91,
+            74,
+            170,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 0.9903314917127072,
+          "waist": 0.9953051643192489,
+          "head_floor": 0.9767275331185106,
+          "lower_opaque_area": 1166,
+          "lower_radius_p95_px": 6.4031242374328485,
+          "duration_ms": 79,
+          "bbox": [
+            86,
+            75,
+            169,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 0.9903314917127072,
+          "waist": 0.9953051643192489,
+          "head_floor": 0.9767275331185106,
+          "lower_opaque_area": 1008,
+          "lower_radius_p95_px": 7.280109889280518,
+          "duration_ms": 67,
+          "bbox": [
+            94,
+            77,
+            163,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 0.9930939226519337,
+          "waist": 0.9953051643192489,
+          "head_floor": 1.0297171500179019,
+          "lower_opaque_area": 883,
+          "lower_radius_p95_px": 6.074486277268395,
+          "duration_ms": 76,
+          "bbox": [
+            93,
+            76,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 0.9903314917127072,
+          "waist": 0.9953051643192489,
+          "head_floor": 0.9767275331185106,
+          "lower_opaque_area": 1079,
+          "lower_radius_p95_px": 6.4031242374328485,
+          "duration_ms": 63,
+          "bbox": [
+            91,
+            74,
+            170,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 1173.1599999999999,
+      "lower_radius_p95_cap_px": 9.146211251235322,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "luxin",
+      "name": "鹭芯",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8",
+        "attack 3",
+        "skill 2",
+        "skill 3"
+      ],
+      "original_outside": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 0.9900358708648864,
+          "waist": 1.1390728476821192,
+          "head_floor": 1.0159509202453987,
+          "lower_opaque_area": 613,
+          "lower_radius_p95_px": 3.605551275463989,
+          "duration_ms": 79,
+          "bbox": [
+            92,
+            85,
+            171,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.0187325627740136,
+          "waist": 0.9536423841059603,
+          "head_floor": 1.0094069529652352,
+          "lower_opaque_area": 509,
+          "lower_radius_p95_px": 4.0,
+          "duration_ms": 67,
+          "bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.005978477481068,
+          "waist": 1.033112582781457,
+          "head_floor": 0.996319018404908,
+          "lower_opaque_area": 432,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 76,
+          "bbox": [
+            111,
+            85,
+            165,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.9852530888800319,
+          "waist": 0.8741721854304636,
+          "head_floor": 0.9783231083844581,
+          "lower_opaque_area": 584,
+          "lower_radius_p95_px": 3.605551275463989,
+          "duration_ms": 63,
+          "bbox": [
+            89,
+            85,
+            168,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 0.9900358708648864,
+          "waist": 1.0066225165562914,
+          "head_floor": 1.0159509202453987,
+          "lower_opaque_area": 613,
+          "lower_radius_p95_px": 3.605551275463989,
+          "duration_ms": 79,
+          "bbox": [
+            92,
+            85,
+            171,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.0187325627740136,
+          "waist": 1.0066225165562914,
+          "head_floor": 1.0094069529652352,
+          "lower_opaque_area": 509,
+          "lower_radius_p95_px": 4.0,
+          "duration_ms": 67,
+          "bbox": [
+            106,
+            85,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.005978477481068,
+          "waist": 1.0066225165562914,
+          "head_floor": 0.996319018404908,
+          "lower_opaque_area": 432,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 76,
+          "bbox": [
+            111,
+            85,
+            165,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 0.9852530888800319,
+          "waist": 1.0066225165562914,
+          "head_floor": 0.9783231083844581,
+          "lower_opaque_area": 584,
+          "lower_radius_p95_px": 3.605551275463989,
+          "duration_ms": 63,
+          "bbox": [
+            89,
+            85,
+            168,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 646.7149999999999,
+      "lower_radius_p95_cap_px": 5.023105625617661,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "fusuo",
+      "name": "伏梭",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        1,
+        2,
+        3
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 1.0037402244134648,
+          "waist": 1.0482758620689656,
+          "head_floor": 0.9982668977469671,
+          "lower_opaque_area": 872,
+          "lower_radius_p95_px": 5.656854249492381,
+          "duration_ms": 79,
+          "bbox": [
+            100,
+            76,
+            162,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.0051003060183612,
+          "waist": 1.1586206896551725,
+          "head_floor": 0.9982668977469671,
+          "lower_opaque_area": 731,
+          "lower_radius_p95_px": 5.656854249492381,
+          "duration_ms": 67,
+          "bbox": [
+            104,
+            78,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 0.9969398163889833,
+          "waist": 0.7724137931034483,
+          "head_floor": 1.0162911611785095,
+          "lower_opaque_area": 608,
+          "lower_radius_p95_px": 8.0,
+          "duration_ms": 76,
+          "bbox": [
+            104,
+            80,
+            162,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.9942196531791907,
+          "waist": 1.0206896551724138,
+          "head_floor": 0.9871750433275563,
+          "lower_opaque_area": 863,
+          "lower_radius_p95_px": 5.385164807134504,
+          "duration_ms": 63,
+          "bbox": [
+            97,
+            78,
+            161,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0037402244134648,
+          "waist": 0.993103448275862,
+          "head_floor": 0.9982668977469671,
+          "lower_opaque_area": 872,
+          "lower_radius_p95_px": 5.656854249492381,
+          "duration_ms": 79,
+          "bbox": [
+            100,
+            76,
+            162,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 0.9942196531791907,
+          "waist": 0.993103448275862,
+          "head_floor": 0.9871750433275563,
+          "lower_opaque_area": 703,
+          "lower_radius_p95_px": 5.385164807134504,
+          "duration_ms": 67,
+          "bbox": [
+            97,
+            81,
+            152,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.0037402244134648,
+          "waist": 0.993103448275862,
+          "head_floor": 0.9982668977469671,
+          "lower_opaque_area": 641,
+          "lower_radius_p95_px": 8.0,
+          "duration_ms": 76,
+          "bbox": [
+            101,
+            78,
+            157,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0051003060183612,
+          "waist": 0.993103448275862,
+          "head_floor": 0.9982668977469671,
+          "lower_opaque_area": 792,
+          "lower_radius_p95_px": 4.47213595499958,
+          "duration_ms": 63,
+          "bbox": [
+            96,
+            75,
+            164,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 919.9599999999999,
+      "lower_radius_p95_cap_px": 8.9,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "yindu",
+      "name": "殷渡",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        2,
+        3,
+        4
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 1.0051785227582448,
+          "waist": 1.014354066985646,
+          "head_floor": 1.0042649985783338,
+          "lower_opaque_area": 1343,
+          "lower_radius_p95_px": 7.0710678118654755,
+          "duration_ms": 79,
+          "bbox": [
+            88,
+            72,
+            169,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.0476969201417279,
+          "waist": 0.9952153110047847,
+          "head_floor": 1.0486209837930054,
+          "lower_opaque_area": 1002,
+          "lower_radius_p95_px": 6.4031242374328485,
+          "duration_ms": 67,
+          "bbox": [
+            104,
+            71,
+            168,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.0128100299809213,
+          "waist": 0.937799043062201,
+          "head_floor": 1.0133636622121125,
+          "lower_opaque_area": 838,
+          "lower_radius_p95_px": 10.46878240448416,
+          "duration_ms": 76,
+          "bbox": [
+            110,
+            74,
+            174,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.934314527119106,
+          "waist": 1.0526315789473684,
+          "head_floor": 0.9337503554165482,
+          "lower_opaque_area": 1274,
+          "lower_radius_p95_px": 7.0710678118654755,
+          "duration_ms": 63,
+          "bbox": [
+            94,
+            74,
+            168,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0051785227582448,
+          "waist": 0.9952153110047847,
+          "head_floor": 1.0042649985783338,
+          "lower_opaque_area": 1127,
+          "lower_radius_p95_px": 7.259407687774759,
+          "duration_ms": 79,
+          "bbox": [
+            88,
+            72,
+            162,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.0128100299809213,
+          "waist": 0.9952153110047847,
+          "head_floor": 1.0133636622121125,
+          "lower_opaque_area": 1032,
+          "lower_radius_p95_px": 7.615773105863909,
+          "duration_ms": 67,
+          "bbox": [
+            112,
+            74,
+            177,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.0128100299809213,
+          "waist": 0.9952153110047847,
+          "head_floor": 1.0133636622121125,
+          "lower_opaque_area": 863,
+          "lower_radius_p95_px": 10.416079760738047,
+          "duration_ms": 76,
+          "bbox": [
+            108,
+            74,
+            174,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0051785227582448,
+          "waist": 0.9952153110047847,
+          "head_floor": 1.0042649985783338,
+          "lower_opaque_area": 1261,
+          "lower_radius_p95_px": 7.810249675906654,
+          "duration_ms": 63,
+          "bbox": [
+            88,
+            71,
+            165,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 1416.865,
+      "lower_radius_p95_cap_px": 11.368782404484161,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "zhumo",
+      "name": "铸沫",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        1,
+        3,
+        4
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 0.9862455425369333,
+          "waist": 1.1047619047619048,
+          "head_floor": 0.9681264576315107,
+          "lower_opaque_area": 1256,
+          "lower_radius_p95_px": 9.848857801796104,
+          "duration_ms": 79,
+          "bbox": [
+            91,
+            73,
+            166,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.011716760061131,
+          "waist": 1.0285714285714285,
+          "head_floor": 1.029282197460482,
+          "lower_opaque_area": 1034,
+          "lower_radius_p95_px": 12.0,
+          "duration_ms": 67,
+          "bbox": [
+            102,
+            73,
+            168,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 0.9964340295466123,
+          "waist": 0.780952380952381,
+          "head_floor": 1.0137341280124386,
+          "lower_opaque_area": 907,
+          "lower_radius_p95_px": 12.320488498517186,
+          "duration_ms": 76,
+          "bbox": [
+            105,
+            73,
+            168,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 1.0056036678553235,
+          "waist": 1.0857142857142856,
+          "head_floor": 0.9888572168955688,
+          "lower_opaque_area": 1213,
+          "lower_radius_p95_px": 10.198039027185569,
+          "duration_ms": 63,
+          "bbox": [
+            94,
+            72,
+            166,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0056036678553235,
+          "waist": 0.9904761904761905,
+          "head_floor": 0.9888572168955688,
+          "lower_opaque_area": 1256,
+          "lower_radius_p95_px": 9.486832980505138,
+          "duration_ms": 79,
+          "bbox": [
+            94,
+            73,
+            168,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.011716760061131,
+          "waist": 0.9904761904761905,
+          "head_floor": 1.029282197460482,
+          "lower_opaque_area": 1034,
+          "lower_radius_p95_px": 12.0,
+          "duration_ms": 67,
+          "bbox": [
+            102,
+            73,
+            168,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 0.9964340295466123,
+          "waist": 0.9904761904761905,
+          "head_floor": 1.0137341280124386,
+          "lower_opaque_area": 907,
+          "lower_radius_p95_px": 12.320488498517186,
+          "duration_ms": 76,
+          "bbox": [
+            103,
+            73,
+            168,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0056036678553235,
+          "waist": 0.9904761904761905,
+          "head_floor": 0.9888572168955688,
+          "lower_opaque_area": 1213,
+          "lower_radius_p95_px": 10.198039027185569,
+          "duration_ms": 63,
+          "bbox": [
+            94,
+            72,
+            166,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 1325.08,
+      "lower_radius_p95_cap_px": 13.220488498517186,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "yanxi",
+      "name": "盐汐",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        2,
+        4
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 1.0194707938092862,
+          "waist": 0.9914529914529915,
+          "head_floor": 1.0194707938092862,
+          "lower_opaque_area": 607,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 79,
+          "bbox": [
+            102,
+            81,
+            159,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.0064902646030953,
+          "waist": 0.9572649572649573,
+          "head_floor": 1.0064902646030953,
+          "lower_opaque_area": 484,
+          "lower_radius_p95_px": 4.0,
+          "duration_ms": 67,
+          "bbox": [
+            103,
+            83,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.0064902646030953,
+          "waist": 0.9914529914529915,
+          "head_floor": 1.0064902646030953,
+          "lower_opaque_area": 474,
+          "lower_radius_p95_px": 4.47213595499958,
+          "duration_ms": 76,
+          "bbox": [
+            102,
+            83,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.9675486769845232,
+          "waist": 1.0598290598290598,
+          "head_floor": 0.9675486769845232,
+          "lower_opaque_area": 587,
+          "lower_radius_p95_px": 4.47213595499958,
+          "duration_ms": 63,
+          "bbox": [
+            100,
+            83,
+            157,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0194707938092862,
+          "waist": 0.9914529914529915,
+          "head_floor": 1.0194707938092862,
+          "lower_opaque_area": 607,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 79,
+          "bbox": [
+            102,
+            81,
+            159,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.0064902646030953,
+          "waist": 0.9914529914529915,
+          "head_floor": 1.0064902646030953,
+          "lower_opaque_area": 484,
+          "lower_radius_p95_px": 4.0,
+          "duration_ms": 67,
+          "bbox": [
+            103,
+            83,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.0194707938092862,
+          "waist": 0.9914529914529915,
+          "head_floor": 1.0194707938092862,
+          "lower_opaque_area": 482,
+          "lower_radius_p95_px": 3.605551275463989,
+          "duration_ms": 76,
+          "bbox": [
+            102,
+            83,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0064902646030953,
+          "waist": 0.9914529914529915,
+          "head_floor": 1.0064902646030953,
+          "lower_opaque_area": 595,
+          "lower_radius_p95_px": 3.605551275463989,
+          "duration_ms": 63,
+          "bbox": [
+            103,
+            80,
+            165,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 640.385,
+      "lower_radius_p95_cap_px": 5.37213595499958,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "wuling",
+      "name": "雾绫",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        1,
+        3,
+        4
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 1.0219922380336353,
+          "waist": 1.1653543307086613,
+          "head_floor": 1.009283819628647,
+          "lower_opaque_area": 704,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 79,
+          "bbox": [
+            95,
+            83,
+            163,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.0064683053040104,
+          "waist": 1.0078740157480315,
+          "head_floor": 0.9986737400530504,
+          "lower_opaque_area": 611,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 67,
+          "bbox": [
+            102,
+            82,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.0025873221216042,
+          "waist": 0.9133858267716536,
+          "head_floor": 0.9986737400530504,
+          "lower_opaque_area": 495,
+          "lower_radius_p95_px": 5.0,
+          "duration_ms": 76,
+          "bbox": [
+            104,
+            82,
+            158,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.9689521345407504,
+          "waist": 0.9133858267716536,
+          "head_floor": 0.993368700265252,
+          "lower_opaque_area": 596,
+          "lower_radius_p95_px": 3.7041634565979917,
+          "duration_ms": 63,
+          "bbox": [
+            96,
+            81,
+            163,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0219922380336353,
+          "waist": 1.0078740157480315,
+          "head_floor": 1.009283819628647,
+          "lower_opaque_area": 704,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 79,
+          "bbox": [
+            95,
+            83,
+            163,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.0064683053040104,
+          "waist": 1.0078740157480315,
+          "head_floor": 0.9986737400530504,
+          "lower_opaque_area": 611,
+          "lower_radius_p95_px": 4.123105625617661,
+          "duration_ms": 67,
+          "bbox": [
+            102,
+            82,
+            159,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.0025873221216042,
+          "waist": 1.0078740157480315,
+          "head_floor": 0.9986737400530504,
+          "lower_opaque_area": 495,
+          "lower_radius_p95_px": 5.0,
+          "duration_ms": 76,
+          "bbox": [
+            104,
+            82,
+            158,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0064683053040104,
+          "waist": 1.0078740157480315,
+          "head_floor": 0.9986737400530504,
+          "lower_opaque_area": 599,
+          "lower_radius_p95_px": 4.0,
+          "duration_ms": 63,
+          "bbox": [
+            102,
+            79,
+            162,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 742.7199999999999,
+      "lower_radius_p95_cap_px": 5.9,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    },
+    {
+      "hero": "lanti",
+      "name": "澜缇",
+      "changed": [
+        "run 5",
+        "run 6",
+        "run 7",
+        "run 8"
+      ],
+      "original_outside": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "run": [
+        {
+          "frame": 1,
+          "head": 1.0134458212496704,
+          "waist": 0.9681528662420382,
+          "head_floor": 1.0016402405686167,
+          "lower_opaque_area": 862,
+          "lower_radius_p95_px": 6.708203932499369,
+          "duration_ms": 79,
+          "bbox": [
+            98,
+            80,
+            166,
+            182
+          ]
+        },
+        {
+          "frame": 2,
+          "head": 1.032428157131558,
+          "waist": 0.9171974522292994,
+          "head_floor": 1.0213231273920176,
+          "lower_opaque_area": 669,
+          "lower_radius_p95_px": 6.0,
+          "duration_ms": 67,
+          "bbox": [
+            107,
+            78,
+            161,
+            184
+          ]
+        },
+        {
+          "frame": 3,
+          "head": 1.0239915634062746,
+          "waist": 1.0445859872611465,
+          "head_floor": 1.0125751776927283,
+          "lower_opaque_area": 677,
+          "lower_radius_p95_px": 5.0990195135927845,
+          "duration_ms": 76,
+          "bbox": [
+            106,
+            78,
+            158,
+            184
+          ]
+        },
+        {
+          "frame": 4,
+          "head": 0.9301344582124967,
+          "waist": 1.070063694267516,
+          "head_floor": 0.9644614543466375,
+          "lower_opaque_area": 798,
+          "lower_radius_p95_px": 6.708203932499369,
+          "duration_ms": 63,
+          "bbox": [
+            100,
+            80,
+            162,
+            181
+          ]
+        },
+        {
+          "frame": 5,
+          "head": 1.0134458212496704,
+          "waist": 0.9936305732484076,
+          "head_floor": 1.0016402405686167,
+          "lower_opaque_area": 896,
+          "lower_radius_p95_px": 7.211102550927978,
+          "duration_ms": 79,
+          "bbox": [
+            96,
+            80,
+            155,
+            182
+          ]
+        },
+        {
+          "frame": 6,
+          "head": 1.0239915634062746,
+          "waist": 0.9936305732484076,
+          "head_floor": 1.0125751776927283,
+          "lower_opaque_area": 669,
+          "lower_radius_p95_px": 6.0,
+          "duration_ms": 67,
+          "bbox": [
+            106,
+            78,
+            158,
+            184
+          ]
+        },
+        {
+          "frame": 7,
+          "head": 1.0134458212496704,
+          "waist": 0.9936305732484076,
+          "head_floor": 1.0016402405686167,
+          "lower_opaque_area": 770,
+          "lower_radius_p95_px": 5.830951894845301,
+          "duration_ms": 76,
+          "bbox": [
+            100,
+            82,
+            155,
+            184
+          ]
+        },
+        {
+          "frame": 8,
+          "head": 1.0134458212496704,
+          "waist": 0.9936305732484076,
+          "head_floor": 1.0016402405686167,
+          "lower_opaque_area": 835,
+          "lower_radius_p95_px": 7.0710678118654755,
+          "duration_ms": 63,
+          "bbox": [
+            101,
+            79,
+            164,
+            181
+          ]
+        }
+      ],
+      "lower_opaque_area_cap": 909.41,
+      "lower_radius_p95_cap_px": 7.60820393249937,
+      "fanim_sha256": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+    }
+  ],
+  "sha256": {
+    "mods/border_patrol/champions/border_zhongli#sheet.png": "665a7723ede6cb4834cbf8fabc499b5f630fddd5a6e2d9dc6fa7d57041434487",
+    "mods/border_patrol/champions/border_zhongli#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_cenlei#sheet.png": "be2a6e280dd717291782e981cf0c22badb41cd0be007fbb96381220258f5e326",
+    "mods/border_patrol/champions/border_cenlei#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_luxin#sheet.png": "010ba88e0b466bd92e3690595e77ed8c86eb51751e81bf4c6c30b8b5be7aedfc",
+    "mods/border_patrol/champions/border_luxin#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_fusuo#sheet.png": "1873183322eb823897716524986aa3f32c8bf129046e694f407c2f9494e04445",
+    "mods/border_patrol/champions/border_fusuo#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_yindu#sheet.png": "9ae4e1737eef52fcbf9ef7291c385948987c22a6c8d8f8ec4d0de80a0dc4b048",
+    "mods/border_patrol/champions/border_yindu#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_zhumo#sheet.png": "85f1478ff30fb880f4161a317aa654c511e30dd0b86fccb5633d7534fb7b8010",
+    "mods/border_patrol/champions/border_zhumo#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_yanxi#sheet.png": "7e41405527263e3aa81c62733daf20f46fe57a768c925b1bce281a71e4e5be87",
+    "mods/border_patrol/champions/border_yanxi#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_wuling#sheet.png": "04f092691e3f347fd6b9baba807d9b1ae9ba76df72e53a5adecd388aeebe698b",
+    "mods/border_patrol/champions/border_wuling#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2",
+    "mods/border_patrol/champions/border_lanti#sheet.png": "8bfa3747316d27466bb111538ff8ffaa1804cd8cd951729ce70b955ca55a033f",
+    "mods/border_patrol/champions/border_lanti#anim.fanim": "28f83b121cfa13b134f5dc08c890edc3895ef8c74c6ce013a6d37581b2bbbad2"
+  }
+}
