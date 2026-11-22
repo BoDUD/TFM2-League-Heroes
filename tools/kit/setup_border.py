@@ -20,23 +20,25 @@ HEROES = ["cenlei", "xiaolun", "dengmi", "zhumo", "fusuo", "yanxi", "yindu", "la
           "wuling"]
 VOICE = ["pick", "attack", "move", "hit", "skill", "skill2", "ult", "dead", "win"]
 
-# champion_view（离脚底的游戏像素，往上是负），2026-11-22 照待机第 1 帧量的：
+# champion_view（离脚底的游戏像素，往上是负）。2026-11-22 照待机第 1 帧量的，放大到联盟大小（PPU 3.3 -> 2.54，1.3 倍）以后重算：
 #   face：眼睛在身高的 79% 处（League 173 个英雄的中位数 0.81、亚当 0.76），x 是眼睛那一行头的中点往前 2.5，夹在 1..4；
-#   center：tools/art/bp_card_audit.py 百科卡的规矩（实心顶 - League 中位差）都落在下限 -6（十二人都矮，30–34 个游戏像素）；
-#   banpick_center：最高一行都在帧中心上 19–24 像素，不到要裁的 -28，用默认的 -12。
+#         放大后照原来量的乘 1.3；
+#   center：tools/art/bp_card_audit.py 百科卡的规矩（实心顶 - League 中位差，-20..-6），放大后 -10..-15；
+#   banpick_center：选人卡画布 40 个游戏像素高；从头顶到脚底超过 40 的进 addons/border/src/hd.rs 的 UI_SIZES（39 / 身高，
+#         和终末包一样），缩完最高一行还高过 -28 的照联盟的规矩 round(-39 - 最高一行)（头顶在画布顶下 1 格），其余用 -12。
 VIEW = {
-    "cenlei": {"face": (4, -27), "center": (0, -6), "banpick_center": (0, -12)},
-    "xiaolun": {"face": (2, -25), "center": (0, -6), "banpick_center": (0, -12)},
-    "dengmi": {"face": (1, -25), "center": (0, -6), "banpick_center": (0, -12)},
-    "zhumo": {"face": (3, -26), "center": (0, -6), "banpick_center": (0, -12)},
-    "fusuo": {"face": (3, -26), "center": (0, -6), "banpick_center": (0, -12)},
-    "yanxi": {"face": (1, -25), "center": (0, -6), "banpick_center": (0, -12)},
-    "yindu": {"face": (2, -27), "center": (0, -6), "banpick_center": (0, -12)},
-    "lanti": {"face": (2, -26), "center": (0, -6), "banpick_center": (0, -12)},
-    "luxin": {"face": (2, -24), "center": (0, -6), "banpick_center": (0, -12)},
-    "jiyan": {"face": (4, -26), "center": (0, -6), "banpick_center": (0, -12)},
-    "zhongli": {"face": (3, -26), "center": (0, -6), "banpick_center": (0, -12)},
-    "wuling": {"face": (1, -26), "center": (0, -6), "banpick_center": (0, -12)},
+    "cenlei": {"face": (4, -35), "center": (0, -14), "banpick_center": (0, -11)},
+    "xiaolun": {"face": (3, -32), "center": (0, -13), "banpick_center": (0, -12)},
+    "dengmi": {"face": (1, -32), "center": (0, -10), "banpick_center": (0, -11)},
+    "zhumo": {"face": (4, -34), "center": (0, -15), "banpick_center": (0, -11)},
+    "fusuo": {"face": (4, -34), "center": (0, -13), "banpick_center": (0, -12)},
+    "yanxi": {"face": (1, -32), "center": (0, -11), "banpick_center": (0, -12)},
+    "yindu": {"face": (3, -35), "center": (0, -15), "banpick_center": (0, -11)},
+    "lanti": {"face": (3, -34), "center": (0, -12), "banpick_center": (0, -12)},
+    "luxin": {"face": (3, -31), "center": (0, -11), "banpick_center": (0, -12)},
+    "jiyan": {"face": (4, -34), "center": (0, -14), "banpick_center": (0, -11)},
+    "zhongli": {"face": (4, -34), "center": (0, -13), "banpick_center": (0, -12)},
+    "wuling": {"face": (1, -34), "center": (0, -13), "banpick_center": (0, -12)},
 }
 
 

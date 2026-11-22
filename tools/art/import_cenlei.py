@@ -6,7 +6,7 @@
     python tools/art/ppu_hd.py --hero cenlei        # 然后出 hd_ / lo_
     python tools/art/hero_reels.py --hero cenlei    # 最后出待机和选人动图（顺序不能换）
 
-一格 256，脚底 (128, 184)，站高 110 格（PPU 3.3 是 33 个游戏像素）。共用的设定、特效的放法在 tools/art/border_art.py。
+一格 256，脚底 (128, 184)，站高 110 格（PPU 2.54 是 43 个游戏像素）。共用的设定、特效的放法在 tools/art/border_art.py。
 
 画进他自己帧里的（跟着他左右翻）：
 - 横楔 skill：朝右的盾扫，0.20 秒起每帧 0.03 秒（特效八帧；Codex 的 0.039 一帧要放到他收盾以后才最亮，看着和盾脱节）：

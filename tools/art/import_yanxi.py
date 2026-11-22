@@ -16,7 +16,7 @@
   3.6 秒，第 6-8 帧各 0.033 秒（盐带 4 秒；v0.7.0 起每个特效 8 帧，v0.5.0 的第 k 帧是现在的第 2k-1 帧，后面跟一帧过渡）。q_band_l 是它上下翻过来的：盐带往左铺时引擎把图转 180 度，翻过来的再转回来晶体还是朝上；
 - 退潮的晶浪 r_wave_r：Codex 画的浪头朝左，弹道的图要朝右，左右翻过来；r_wave_l 是它上下翻过来的（往左收时用）。
 放在单位身上的：命中 a_hit（hit，接触点）、凝结 e_burst（skill2，盐楔在目标身上炸开）、析晶 p_crystal（passive，
-被标记的敌人身上的盐晶）：身上的 (64, 84)。
+被标记的敌人身上的盐晶）：身上的 B.BODY。
 """
 import os
 import sys
@@ -28,7 +28,7 @@ import ragnarok_art as A  # noqa: E402
 TARGET_FX = {"a_hit": B.CONTACT, "e_burst": B.BODY, "p_crystal": B.BODY}
 # 盐带的中心转平、加长以后才知道（fx_make 填进来）
 PROJ_FX = {"a_shard": (60, 68), "q_band_r": None, "q_band_l": None, "r_wave_r": (64, 68), "r_wave_l": (64, 68)}
-BAND = round(50 * B.PPU)    # 50 个游戏像素
+BAND = round(50 * B.FX_PPU)    # 50 个游戏像素
 
 
 def fx_make(fx):

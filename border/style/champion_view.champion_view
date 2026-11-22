@@ -3,25 +3,25 @@
     "border_cenlei": {
       "face": {
         "x": 4,
-        "y": -27
+        "y": -35
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -14
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "border_xiaolun": {
       "face": {
-        "x": 2,
-        "y": -25
+        "x": 3,
+        "y": -32
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
@@ -31,39 +31,39 @@
     "border_dengmi": {
       "face": {
         "x": 1,
-        "y": -25
+        "y": -32
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -10
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "border_zhumo": {
       "face": {
-        "x": 3,
-        "y": -26
+        "x": 4,
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -15
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "border_fusuo": {
       "face": {
-        "x": 3,
-        "y": -26
+        "x": 4,
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
@@ -73,11 +73,11 @@
     "border_yanxi": {
       "face": {
         "x": 1,
-        "y": -25
+        "y": -32
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -11
       },
       "banpick_center": {
         "x": 0,
@@ -86,26 +86,26 @@
     },
     "border_yindu": {
       "face": {
-        "x": 2,
-        "y": -27
+        "x": 3,
+        "y": -35
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -15
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "border_lanti": {
       "face": {
-        "x": 2,
-        "y": -26
+        "x": 3,
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -12
       },
       "banpick_center": {
         "x": 0,
@@ -114,12 +114,12 @@
     },
     "border_luxin": {
       "face": {
-        "x": 2,
-        "y": -24
+        "x": 3,
+        "y": -31
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -11
       },
       "banpick_center": {
         "x": 0,
@@ -129,25 +129,25 @@
     "border_jiyan": {
       "face": {
         "x": 4,
-        "y": -26
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -14
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "border_zhongli": {
       "face": {
-        "x": 3,
-        "y": -26
+        "x": 4,
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
@@ -157,11 +157,11 @@
     "border_wuling": {
       "face": {
         "x": 1,
-        "y": -26
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -13
       },
       "banpick_center": {
         "x": 0,

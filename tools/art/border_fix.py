@@ -6,12 +6,12 @@
     python tools/art/border_fix.py --check                       # 重算一遍和 snapped/ 比，不一样退出 1
     python tools/art/border_fix.py --review <文件夹>              # 另出每人一张前后对比图（1 倍、2 倍）
     （顺带把技能图标拷进 border/icons；选人立绘：python -I tools/art/bp_illustrations.py assets/source/border/runtime/banpick_illustrations --write）
-    然后 tools/art/import_<英雄>.py、ppu_hd.py --hero <英雄>、hero_reels.py --hero <英雄>
+    然后 tools/art/border_heads.py（整套换成待机第 1 帧的头）、import_<英雄>.py、ppu_hd.py --hero <英雄>、hero_reels.py --hero <英雄>
 
 Codex 2026-11-22 交的（v0.4.0 六个人，v0.5.0 又加六个、前六个的图一个字节没变：Border_Patrol_Mirror_Sea_Anime_Assets_v0.5.0.zip，
 交接说明 assets/source/border/CLAUDE_HANDOFF.md）：十二个人，一格 256，脚底 (128, 184)，
 站高 100-110 格，8 个动作（跑步 8 帧，其余 4 帧），朝右；特效一格 128，中心 (64, 68)。原画是缩小的厚涂，一帧三四千种颜色，
-满是杂色点，没有成形的描边。用户要的是「利用PPU能把模型变成游戏那种自带的像素风格但是还能保持高清」：密度不变（PPU 3.3），
+满是杂色点，没有成形的描边。用户要的是「利用PPU能把模型变成游戏那种自带的像素风格但是还能保持高清」：密度不变（PPU 3.3；2026-11-22 放大到联盟大小以后 2.54），
 看着要像原版的像素画——平涂、三四档硬明暗、一格的描边、没有杂点。
 
 身体（每人 8 个动作共用一套调色板，不超过 64 色）：

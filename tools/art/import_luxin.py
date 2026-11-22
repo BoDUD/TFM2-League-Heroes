@@ -36,7 +36,7 @@ TARGET_FX = {"a_hit": B.CONTACT, "hit": B.CONTACT, "p_feather": B.ground(68)}
 # 风线的中心对齐、加长以后才知道（fx_make 填进来）
 PROJ_FX = {"e_kite_r": None, "e_kite_l": None, "r_cut_r": B.FX_CENTRE, "r_cut_l": B.FX_CENTRE}
 KITE_ROWS = [83, 90, 96, 100, 103, 101, 98, 98]
-KITE = round(40 * B.PPU)    # 40 个游戏像素
+KITE = round(40 * B.FX_PPU)    # 40 个游戏像素
 
 
 def fx_make(fx):

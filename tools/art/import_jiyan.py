@@ -31,7 +31,7 @@ import border_art as B  # noqa: E402
 import ragnarok_art as A  # noqa: E402
 
 PROJ_FX = {"a_bolt": (60, 68), "q_beam_r": None, "q_beam_l": None}
-BEAM = round(80 * B.PPU)    # 80 个游戏像素
+BEAM = round(80 * B.FX_PPU)    # 80 个游戏像素
 # 星历：r_warn / r_star 对齐以后贴地的那行（上下各补 32 行：第 93 行 -> 125）
 WARN_ROW = 93 + 32
 TARGET_FX = {"a_hit": B.CONTACT, "p_mark": B.ground(72), "e_chart": B.ground(100), "r_warn": B.ground(WARN_ROW),

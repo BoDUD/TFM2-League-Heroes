@@ -9,7 +9,7 @@
 一格 256，脚底 (128, 184)。共用的设定、特效的放法在 tools/art/border_art.py。没有画进她自己帧里的特效。
 弹道图（1 倍，border/effects/border_wuling_proj）：普攻 a_bolt（attack 八帧，中心 (58, 68)）。
 放在单位身上的：
-- 命中 a_hit（hit）：接触点；闻铃 p_bell（passive，敌人身上的铃印）：身上的 (64, 84)；
+- 命中 a_hit（hit）：接触点；闻铃 p_bell（passive，敌人身上的铃印）：身上的 B.BODY；
 - 系铃 q_bell（skill 第 1-3 帧，第 3 帧停 5 秒，地上的铃）、q_ripple（skill 第 4-8 帧，减速的水纹）：铃坐在水纹圈里，
   圈心各帧都在第 73-75 行，取第 74 行贴地 -> (64, 36)；
 - 挪幕 e_curtain（skill2，立着的半透明幕）：Codex 这组绕格子中间放大，幕底那条青线一帧一帧往下走（v0.5.0 的四帧在

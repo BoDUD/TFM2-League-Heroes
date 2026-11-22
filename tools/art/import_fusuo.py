@@ -40,7 +40,7 @@ TARGET_FX = {"a_hit": B.CONTACT, "hit": B.CONTACT, "p_track": B.ground(68), "e_a
              "e_recall": B.ground(68)}
 # r_line 的中心转平、加长以后才知道（fx_make 填进来）
 PROJ_FX = {"r_line": None}
-LINE = round(75 * B.PPU)    # 75 个游戏像素
+LINE = round(75 * B.FX_PPU)    # 75 个游戏像素
 
 
 def fx_make(fx):

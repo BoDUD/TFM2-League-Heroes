@@ -2,35 +2,36 @@
 //! ragnarok/src/hd.rs 的一样（hd_engine src/hd.rs 的 Table）。
 //!
 //! 十二个人都是 Codex 按两倍密度画的（一格 256，脚底点 (128, 184)），tools/art/border_fix.py 收成游戏那种像素风（每人一套
-//! 调色板、清掉杂点、同色系的 1 像素描边，形状一点不动），PPU 3.3：人站直 100–110 格，游戏里 30–33 个游戏像素。
+//! 调色板、清掉杂点、同色系的 1 像素描边，形状一点不动），PPU 2.54：人站直 100–110 格，游戏里 38–43 个游戏像素，和联盟
+//! 英雄一样高（2026-11-22 用户要放大到联盟大小：原来 PPU 3.3 只有 29–33 个游戏像素，统一放大 1.3 倍）。特效图不放大（EFFECTS 还是 3.3）：地上的圈、命中按游戏里的距离画。
 
 use hd_engine::Table;
 
 /// 英雄 id、一个游戏像素几格、图的 .fanim（border/ 里的原样）。
 pub const HEROES: &[(&str, f32, &str)] = &[
-    // 岑垒：珊瑚盾卫，站直 110 格（头发到脚底），33 个游戏像素；横楔的扫击、卸城的三道楔浪画在他自己的帧里
-    ("border_cenlei", 3.3, include_str!("../../../border/champions/border_cenlei#anim.fanim")),
+    // 岑垒：珊瑚盾卫，站直 110 格（头发到脚底），43 个游戏像素；横楔的扫击、卸城的三道楔浪画在他自己的帧里
+    ("border_cenlei", 2.54, include_str!("../../../border/champions/border_cenlei#anim.fanim")),
     // 绡轮：潮弩信使，站直 102 格；切角的拖影、放扣的扣环光画在她自己的帧里
-    ("border_xiaolun", 3.3, include_str!("../../../border/champions/border_xiaolun#anim.fanim")),
+    ("border_xiaolun", 2.54, include_str!("../../../border/champions/border_xiaolun#anim.fanim")),
     // 灯弥：提灯师，站直 100 格（呆毛到脚底），鳍翼跑图时收在背后
-    ("border_dengmi", 3.3, include_str!("../../../border/champions/border_dengmi#anim.fanim")),
+    ("border_dengmi", 2.54, include_str!("../../../border/champions/border_dengmi#anim.fanim")),
     // 铸沫：铜火锻匠，站直 111 格；压坯落锤的熔流和地面火星画在他自己的帧里
-    ("border_zhumo", 3.3, include_str!("../../../border/champions/border_zhumo#anim.fanim")),
+    ("border_zhumo", 2.54, include_str!("../../../border/champions/border_zhumo#anim.fanim")),
     // 伏梭：银梭斥候，站直 105 格；掠阶的银线画在他自己的帧里
-    ("border_fusuo", 3.3, include_str!("../../../border/champions/border_fusuo#anim.fanim")),
+    ("border_fusuo", 2.54, include_str!("../../../border/champions/border_fusuo#anim.fanim")),
     // 盐汐：盐晶法师，站直 102 格（马尾到脚底）
-    ("border_yanxi", 3.3, include_str!("../../../border/champions/border_yanxi#anim.fanim")),    // 殷渡：开团坦克，站直 110 格；扣舷的撞角画在他自己的帧里
-    ("border_yindu", 3.3, include_str!("../../../border/champions/border_yindu#anim.fanim")),
+    ("border_yanxi", 2.54, include_str!("../../../border/champions/border_yanxi#anim.fanim")),    // 殷渡：开团坦克，站直 110 格；扣舷的撞角画在他自己的帧里
+    ("border_yindu", 2.54, include_str!("../../../border/champions/border_yindu#anim.fanim")),
     // 澜缇：反击战士，站直 104 格
-    ("border_lanti", 3.3, include_str!("../../../border/champions/border_lanti#anim.fanim")),
+    ("border_lanti", 2.54, include_str!("../../../border/champions/border_lanti#anim.fanim")),
     // 鹭芯：追击刺客，站直 98 格；贴风的风痕画在她自己的帧里
-    ("border_luxin", 3.3, include_str!("../../../border/champions/border_luxin#anim.fanim")),
+    ("border_luxin", 2.54, include_str!("../../../border/champions/border_luxin#anim.fanim")),
     // 霁砚：远程炮台，站直 106 格
-    ("border_jiyan", 3.3, include_str!("../../../border/champions/border_jiyan#anim.fanim")),
+    ("border_jiyan", 2.54, include_str!("../../../border/champions/border_jiyan#anim.fanim")),
     // 钟砾：站桩射手，站直 105 格；压簧前臂的弹簧画在他自己的帧里
-    ("border_zhongli", 3.3, include_str!("../../../border/champions/border_zhongli#anim.fanim")),
+    ("border_zhongli", 2.54, include_str!("../../../border/champions/border_zhongli#anim.fanim")),
     // 雾绫：控场辅助，站直 101 格
-    ("border_wuling", 3.3, include_str!("../../../border/champions/border_wuling#anim.fanim")),
+    ("border_wuling", 2.54, include_str!("../../../border/champions/border_wuling#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -62,8 +63,20 @@ pub const DRAWN_EFFECTS: &[&str] = &["border_cenlei_fx", "border_xiaolun_fx", "b
                                          "border_fusuo_fx", "border_yanxi_fx", "border_yindu_fx", "border_lanti_fx",
                                          "border_luxin_fx", "border_jiyan_fx", "border_zhongli_fx", "border_wuling_fx"];
 
-/// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄：本包没有。
-pub const UI_SIZES: &[(&str, f32)] = &[];
+/// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄：放大到联盟大小以后，从头顶到脚底超过 40 个游戏像素（选人卡的画布
+/// 40 高）的按 39 / 身高缩（和终末包一样），腿不会被名字栏挡住（tools/art/bp_card_audit.py 的 --legs 量法）。
+pub const UI_SIZES: &[(&str, f32)] = &[
+    ("border_cenlei", 0.89),    // 44.0 个游戏像素
+    ("border_xiaolun", 0.94),    // 41.3 个游戏像素
+    ("border_zhumo", 0.87),    // 44.7 个游戏像素
+    ("border_fusuo", 0.91),    // 42.7 个游戏像素
+    ("border_yanxi", 0.96),    // 40.7 个游戏像素
+    ("border_yindu", 0.89),    // 44.0 个游戏像素
+    ("border_lanti", 0.94),    // 41.3 个游戏像素
+    ("border_jiyan", 0.90),    // 43.3 个游戏像素
+    ("border_zhongli", 0.93),    // 42.0 个游戏像素
+    ("border_wuling", 0.94),    // 41.3 个游戏像素
+];
 
 /// 本包的表，border.dll 在 init 时交给 hd_engine（src/lib.rs）。
 pub fn table() -> Table<'static> {
