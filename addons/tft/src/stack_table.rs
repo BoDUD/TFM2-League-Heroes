@@ -7,14 +7,14 @@ use super::stacks::{Rule, Stack, Stat};
 pub const PREFIX: &str = "tft_";
 
 pub const STACKS: [Stack; 10] = [
-    Stack { hero: "tft_alune", rule: Rule::Ladder { prefix: "tft_alune_ph", rungs: 3, step: 1, full: None }, cap: 3, foes: false },
-    Stack { hero: "tft_cinderling", rule: Rule::Ladder { prefix: "tft_cinderling_p_", rungs: 3, step: 1, full: Some(("tft_cinderling_p_full", 4)) }, cap: 4, foes: false },
-    Stack { hero: "tft_gromp", rule: Rule::Count("tft_gromp_p_ap"), cap: 8, foes: false },
-    Stack { hero: "tft_maddie", rule: Rule::Per("tft_maddie_p_bounty", Stat::AttackSpeedMult, 15), cap: 4, foes: false },
-    Stack { hero: "tft_raptor", rule: Rule::Count("tft_raptor_p_shred"), cap: 5, foes: true },
-    Stack { hero: "tft_riftherald", rule: Rule::Sum("tft_riftherald_p_shell", Stat::DamagedReduce), cap: 90, foes: false },
-    Stack { hero: "tft_silco", rule: Rule::Ladder { prefix: "tft_silco_d", rungs: 5, step: 1, full: None }, cap: 5, foes: false },
-    Stack { hero: "tft_sohm", rule: Rule::Count("tft_sohm_p_tide"), cap: 5, foes: false },
-    Stack { hero: "tft_syfen", rule: Rule::Per("tft_syfen_p_rage", Stat::Attack, 5), cap: 5, foes: false },
-    Stack { hero: "tft_zippy", rule: Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), cap: 4, foes: false },
+    Stack { hero: "tft_alune", rule: Rule::Ladder { prefix: "tft_alune_ph", rungs: 3, step: 1, full: None }, cap: 3, foes: false, skill: 2 },
+    Stack { hero: "tft_cinderling", rule: Rule::Ladder { prefix: "tft_cinderling_p_", rungs: 3, step: 1, full: Some(("tft_cinderling_p_full", 4)) }, cap: 4, foes: false, skill: 0 },
+    Stack { hero: "tft_gromp", rule: Rule::Count("tft_gromp_p_ap"), cap: 8, foes: false, skill: 0 },
+    Stack { hero: "tft_maddie", rule: Rule::Per("tft_maddie_p_bounty", Stat::AttackSpeedMult, 15), cap: 4, foes: false, skill: 1 },
+    Stack { hero: "tft_raptor", rule: Rule::Count("tft_raptor_p_shred"), cap: 5, foes: true, skill: 0 },
+    Stack { hero: "tft_riftherald", rule: Rule::Sum("tft_riftherald_p_shell", Stat::DamagedReduce), cap: 90, foes: false, skill: 0 },
+    Stack { hero: "tft_silco", rule: Rule::Ladder { prefix: "tft_silco_d", rungs: 5, step: 1, full: None }, cap: 5, foes: false, skill: 0 },
+    Stack { hero: "tft_sohm", rule: Rule::Count("tft_sohm_p_tide"), cap: 5, foes: false, skill: 0 },
+    Stack { hero: "tft_syfen", rule: Rule::Per("tft_syfen_p_rage", Stat::Attack, 5), cap: 5, foes: false, skill: 0 },
+    Stack { hero: "tft_zippy", rule: Rule::Per("tft_zippy_p_guild", Stat::Defence, 10), cap: 4, foes: false, skill: 0 },
 ];

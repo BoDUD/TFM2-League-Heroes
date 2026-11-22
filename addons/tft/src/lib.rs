@@ -245,7 +245,8 @@ mod stack_rows {
     }
 }
 
-/// 每帧：高清帧引擎当主时的显示钩子第一帧挂上、被跳过就接回来（hd_engine::frame）。本包原来没有客户端扩展。
+/// 每帧：高清帧引擎当主时的显示钩子第一帧挂上、被跳过就接回来（hd_engine::frame）；比赛里点开英雄的大面板，云顶的英雄也把
+/// 层数叠在技能图标上（stacks.rs 的 tip，数字牌叫 tft_stack_tip）。本包原来没有客户端扩展。
 #[cfg(windows)]
 struct Frame;
 
@@ -253,6 +254,7 @@ struct Frame;
 impl StableExtension for Frame {
     fn post_update(&self, ctx: &mut StableClient<'_>, _dt: u64) {
         hd_engine::frame(ctx.is_in_game(), |p| ctx.ui_visible(p), |p| ctx.ui_text(p));
+        stacks::tip(ctx);
     }
 }
 
