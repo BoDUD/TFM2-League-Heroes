@@ -775,7 +775,7 @@
     {
       "type": "Animated",
       "name": "league_thresh_w_lantern",
-      "anim": "asset/league/effects/league_thresh_fx",
+      "anim": "asset/league/effects/league_thresh_lantern",
       "tag": "w_lantern",
       "repeat": true,
       "z": 1
@@ -836,6 +836,14 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_thresh_w_ground",
+      "anim": "asset/league/effects/league_thresh_lantern",
+      "tag": "w_ground",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
