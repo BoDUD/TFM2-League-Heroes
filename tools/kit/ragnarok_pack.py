@@ -16,9 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.9.0"
+VERSION = "0.10.0"
 NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku"]
+HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
         "fights: Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
         "own code, ragnarok.dll); Thor's Mjolnir flies out and back to his hand and awakens on every third skill; Zeus swells into his muscle "
@@ -37,7 +37,11 @@ DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits 
         "turned his back on the gods, sees every blow coming with Future Sight, turns his Six Realms Staff into a spear "
         "and the Kannon Shield and cuts with the Great Nirvana Sword Zero; Zerofuku, the god of misfortune, marks his foes "
         "with misfortune and swings a Misery Cleaver that grows on it, until Hajun devours him from within and breaks out "
-        "of a dark cocoon for the rest of his life, with arm blades and a demon drill. "
+        "of a dark cocoon for the rest of his life, with arm blades and a demon drill; Hades, king of the underworld and "
+        "eldest of the three brothers, sweeps the wind of Persephone Rhoai with his bident, smashes the ground and "
+        "forges the Ichor Desmos with his own blood for one thrust; Qin Shi Huang, the first emperor, sees the stars "
+        "in his foes, catches their force with the Chiyou Armor Sleeves and turns it back, shielding his allies, "
+        "until he draws the Goujian sword. "
         "Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes and Teamfight Tactics "
         "Heroes packs. Pixel art, effects, icons and sound effects made for this pack; Japanese voice lines from the "
         "official promotional recordings. Non-commercial fan project; Record of Ragnarok (c) its creators and "

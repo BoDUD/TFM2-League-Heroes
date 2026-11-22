@@ -48,6 +48,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("ragnarok_buddha", 2.75, include_str!("../../../ragnarok/champions/ragnarok_buddha#anim.fanim")),
     // 零福／波旬（ragnarok_zerofuku）：Codex 直接按两倍密度画的，零福站直 116 格、波旬连角 125 格，PPU 3.3，35 / 38 个游戏像素
     ("ragnarok_zerofuku", 2.75, include_str!("../../../ragnarok/champions/ragnarok_zerofuku#anim.fanim")),
+    // 哈迪斯（ragnarok_hades）：Codex 直接按两倍密度画的，站直 115 格（立着的双叉枪尖到 159 格），一开始就按现在的 PPU 2.75 接，
+    // 42 个游戏像素（枪尖 58）
+    ("ragnarok_hades", 2.75, include_str!("../../../ragnarok/champions/ragnarok_hades#anim.fanim")),
+    // 秦始皇（ragnarok_qin）：Codex 直接按两倍密度画的，站直 116 格，PPU 2.75，42 个游戏像素
+    ("ragnarok_qin", 2.75, include_str!("../../../ragnarok/champions/ragnarok_qin#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -86,6 +91,11 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // 释迦打在人身上的棍击、观音盾的挡击，他身上的未来视和莲光（棍风、枪刃、撤步的气流、大圆寂刀的气和刀光画在他自己的帧里）
     ("ragnarok_buddha_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_buddha_fx#anim.fanim")),
     ("ragnarok_zerofuku_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_zerofuku_fx#anim.fanim")),
+    // 哈迪斯打在人身上的枪击、德斯莫斯的命中（枪风、风压斩、砸地、尘土、伊科尔觉醒、德斯莫斯的突刺画在他自己的帧里）
+    ("ragnarok_hades_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_hades_fx#anim.fanim")),
+    // 秦始皇的指爪命中、气弹炸开的星（爪痕、神罗铠袖的护势、天凤回推、勾践剑的剑光和剑痕画在他自己的帧里；飞出去的气弹是
+    // 弹道画面，1 倍，不在这里）
+    ("ragnarok_qin_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_qin_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
@@ -93,7 +103,7 @@ pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ra
                                          "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx",
                                          "ragnarok_heracles_fx", "ragnarok_jack_fx",
                                          "ragnarok_raiden_fx", "ragnarok_shiva_fx", "ragnarok_buddha_fx",
-                                         "ragnarok_zerofuku_fx"];
+                                         "ragnarok_zerofuku_fx", "ragnarok_hades_fx", "ragnarok_qin_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[
