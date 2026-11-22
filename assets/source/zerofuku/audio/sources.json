@@ -1,0 +1,259 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/2nd/character/",
+  "method": "The Zerofuku excerpts are from the official trailer. The Hajun excerpts are from a publicly posted scene, matched to the episode and cast credit. Both preserve the original mix.",
+  "clips": [
+    {
+      "id": "voice_zero_arrival",
+      "title": "零福 · 终于等到这一刻",
+      "range_seconds": [
+        47.18,
+        53.87
+      ],
+      "form": "zerofuku",
+      "speaker": "村瀬 歩",
+      "source": "https://www.youtube.com/watch?v=OtHiAWIV4WY",
+      "cast_credit": "https://ragnarok-official.com/2nd/character/",
+      "source_kind": "official_trailer",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 6.69,
+      "wav_sha256": "e459c20878b84dad8333c44f426cca06dc3f12fb82ec9943d263e6960be06d06",
+      "mp3_sha256": "6444e3384f297bb33090af0821242cfa421483f52d6e67fda8850bf8902900ac"
+    },
+    {
+      "id": "voice_zero_threat",
+      "title": "零福 · 挑衅",
+      "range_seconds": [
+        53.96,
+        59.3
+      ],
+      "form": "zerofuku",
+      "speaker": "村瀬 歩",
+      "source": "https://www.youtube.com/watch?v=OtHiAWIV4WY",
+      "cast_credit": "https://ragnarok-official.com/2nd/character/",
+      "source_kind": "official_trailer",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 5.34,
+      "wav_sha256": "bf6c4e62908c92f45be69e404c6313bf9385735c31d1f5903747e7cbd13ce444",
+      "mp3_sha256": "5aefa6740f8d4aabbe6444361dcc83cde6ba1ef1e666ff7bbcd8be9b443b4f7f"
+    },
+    {
+      "id": "voice_zero_why",
+      "title": "零福 · 不解",
+      "range_seconds": [
+        69.82,
+        73.2
+      ],
+      "form": "zerofuku",
+      "speaker": "村瀬 歩",
+      "source": "https://www.youtube.com/watch?v=OtHiAWIV4WY",
+      "cast_credit": "https://ragnarok-official.com/2nd/character/",
+      "source_kind": "official_trailer",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.38,
+      "wav_sha256": "ed362753e24523e82d3b3066f0dd685cd93ac831900c7578021b4f4b8060f42b",
+      "mp3_sha256": "d878751f1b8e79433781999c30a77e3a20a808a04ccf371b972b196ea9806819"
+    },
+    {
+      "id": "voice_zero_outburst",
+      "title": "零福 · 情绪爆发",
+      "range_seconds": [
+        73.26,
+        76.35
+      ],
+      "form": "zerofuku",
+      "speaker": "村瀬 歩",
+      "source": "https://www.youtube.com/watch?v=OtHiAWIV4WY",
+      "cast_credit": "https://ragnarok-official.com/2nd/character/",
+      "source_kind": "official_trailer",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.09,
+      "wav_sha256": "f9eea047dcdc42f96df9a22a6ca65df2f3c3fa4b30ba7203f83dc72f139828ec",
+      "mp3_sha256": "34f7e79da3464bf8e362ef280acfe824c5938d88b057f3dfee0be32c76c336a0"
+    },
+    {
+      "id": "voice_hajun_why",
+      "title": "波旬 · 失手时的质问",
+      "range_seconds": [
+        45.52,
+        47.35
+      ],
+      "form": "hajun",
+      "speaker": "稲田 徹",
+      "source": "https://www.youtube.com/watch?v=zqUPBxCZcL8",
+      "cast_credit": "https://ragnarok-official.com/2nd/character/",
+      "source_kind": "public_anime_excerpt",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 1.83,
+      "wav_sha256": "85b9f20da31a6613a8307359a4701bf9a18039f07c86826ad52c4ce1fc598b93",
+      "mp3_sha256": "1b44d0d1bd2cba78aa7580c198247b9f91dfd2ac8d510826c6a30c4bf3abe5ef"
+    },
+    {
+      "id": "voice_hajun_challenge",
+      "title": "波旬 · 连斩未中",
+      "range_seconds": [
+        47.35,
+        50.58
+      ],
+      "form": "hajun",
+      "speaker": "稲田 徹",
+      "source": "https://www.youtube.com/watch?v=zqUPBxCZcL8",
+      "cast_credit": "https://ragnarok-official.com/2nd/character/",
+      "source_kind": "public_anime_excerpt",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.23,
+      "wav_sha256": "3789c06c2a7b4094033b4a2ecb99dfd2ecb9ce85bdf3573412438ffae8ff565d",
+      "mp3_sha256": "e37cfa612079a50c7d2b05ff92cef2c7b3ccd076ca8df00244fe83d7f38c8f94"
+    },
+    {
+      "id": "sfx_chop",
+      "kind": "original_foley",
+      "title": "斧爻 · 横斩",
+      "duration_seconds": 0.27,
+      "wav_sha256": "9eddd447da87438c2fe9e8112326795551af381102c605eb7b37961c9c6d408e",
+      "mp3_sha256": "6db6c5af4212dd69674fa16b8bd9971fcfbbb3ca50df4b02c4f711ddeac3feca"
+    },
+    {
+      "id": "sfx_chop_hit",
+      "kind": "original_foley",
+      "title": "斧爻 · 命中",
+      "duration_seconds": 0.24,
+      "wav_sha256": "ea6ad17cc5e8b99203a697319c041dc1d5ff919dfa88752e5145e8a9bfe17335",
+      "mp3_sha256": "18c903c454488131d11947d6dc360049dba02756ecce880d17b9e6d0d0ff7275"
+    },
+    {
+      "id": "sfx_misfortune",
+      "kind": "original_foley",
+      "title": "斧刃 · 吸聚",
+      "duration_seconds": 0.41,
+      "wav_sha256": "ad648918cca5b76eaf7f03e4aee9b90b6c65bb697232f7e20ae02af8dec848bc",
+      "mp3_sha256": "54473693711150bc229d5ed95282dfcf2950749095e270279d568122a356904c"
+    },
+    {
+      "id": "sfx_cleaver_heavy",
+      "kind": "original_foley",
+      "title": "重斧 · 落斩",
+      "duration_seconds": 0.33,
+      "wav_sha256": "8c2df98ecaf8ef189b0ef861c08a438d3eb238b2a9f1ca67ca99d0c03e53e951",
+      "mp3_sha256": "dd9992d3b739163478a393ecd2e272c2c2a231d0c13dc127a12933f72b2098ba"
+    },
+    {
+      "id": "sfx_cleaver_land",
+      "kind": "original_foley",
+      "title": "重斧 · 触地",
+      "duration_seconds": 0.29,
+      "wav_sha256": "9e207e12c937ebd0211e8b50880a5a73a8315a13fc3db066af2d27a5999e2a8a",
+      "mp3_sha256": "1a78c591e75c2da6704c186b925a92b7a559c726d663ca24df3865622152b0e1"
+    },
+    {
+      "id": "sfx_ground",
+      "kind": "original_foley",
+      "title": "怨气 · 涌出",
+      "duration_seconds": 0.3,
+      "wav_sha256": "61b19e18be90b324fcb06c321d639c72fc7617952b4b435fa7eddc8fab814223",
+      "mp3_sha256": "240643eacbd4f71403d9d47745e08bc07dbeb00a6e13774686bf2cd52512d4dd"
+    },
+    {
+      "id": "sfx_ground_hit",
+      "kind": "original_foley",
+      "title": "怨气 · 命中",
+      "duration_seconds": 0.26,
+      "wav_sha256": "1ad745cd7f515b0cfdbff79c89849878e5016652900cdf035f20fad6ad787209",
+      "mp3_sha256": "0f1d28e0e8193cc4430ebccd05ea19d21f02ce9106febe0ed54c585f3749d860"
+    },
+    {
+      "id": "sfx_shell_rise",
+      "kind": "original_foley",
+      "title": "暗茧 · 合拢",
+      "duration_seconds": 0.48,
+      "wav_sha256": "fe92ac30fae60603cdee7f49fb87c58a3ef8cb359256e77dcff94b062dece631",
+      "mp3_sha256": "8e4a414ac69c634911a27601514c2a7015784e2eb11b96c34b0c3920db386b80"
+    },
+    {
+      "id": "sfx_shell_open",
+      "kind": "original_foley",
+      "title": "暗茧 · 破裂",
+      "duration_seconds": 0.39,
+      "wav_sha256": "8e50019e1d43f7e971e83c55ef4bc98e5c0db2dcaeb628757efcd7b39266436a",
+      "mp3_sha256": "53efacab87765a1dc7788ea2d132c4b79c349a33c191581a202946bb14450b40"
+    },
+    {
+      "id": "sfx_armblade",
+      "kind": "original_foley",
+      "title": "臂刃 · 挥出",
+      "duration_seconds": 0.24,
+      "wav_sha256": "db91f3a6d2b7e69c91925d864aff17d4a3362551f3d5f86de1a2741454e8e183",
+      "mp3_sha256": "3bd28df358a7dcecd527c1055193c74ed411501c39a1d1813cdfa56424fb00a0"
+    },
+    {
+      "id": "sfx_armblade_hit",
+      "kind": "original_foley",
+      "title": "臂刃 · 命中",
+      "duration_seconds": 0.22,
+      "wav_sha256": "1b8acd36b428e907f47507e8706bbcae2a360936409b1d57d783db11655014b7",
+      "mp3_sha256": "ce0d837431990595f03f2a5084ca1e1e8762dd4d317e9e62474cca788c9f1fb2"
+    },
+    {
+      "id": "sfx_drill_spool",
+      "kind": "original_foley",
+      "title": "魔钻 · 旋起",
+      "duration_seconds": 0.43,
+      "wav_sha256": "0544bf117bdfb0b9ff56419608747cb681ae49f81c71348837fdc452357defe6",
+      "mp3_sha256": "0d4f0da7f5c0f3fea26957f157d5a4fac457bfd4c2c676d326376da317c060a1"
+    },
+    {
+      "id": "sfx_drill",
+      "kind": "original_foley",
+      "title": "魔钻 · 推进",
+      "duration_seconds": 0.35,
+      "wav_sha256": "ac0a76b085bcb749ec736ec15d2290f23fac59924bf7c1b318dd49bd5d5af564",
+      "mp3_sha256": "d277a239de958a5beb6ed124402fc980e61dc884b1afe4e248664f11167ea726"
+    },
+    {
+      "id": "sfx_drill_hit",
+      "kind": "original_foley",
+      "title": "魔钻 · 命中",
+      "duration_seconds": 0.35,
+      "wav_sha256": "272725ae7ccfba57317aff6bc20cd6a4daf09560b728e892bd068b54b0c853af",
+      "mp3_sha256": "5b7f3db1db371545375ee6bd6a3505c368583f802290cc4acaa1040e1081f5a0"
+    },
+    {
+      "id": "sfx_demon_crush",
+      "kind": "original_foley",
+      "title": "臂刃 · 下砸",
+      "duration_seconds": 0.27,
+      "wav_sha256": "0531f9576aeb3d861fb1bfabab0cec676eee0456e0e5e4f7025b5fbf62f1ee00",
+      "mp3_sha256": "c8bd3d8f1cb3f1b84b3773c5a9e7edfb81c47451bd11fbf7d5273a7aa450b598"
+    },
+    {
+      "id": "sfx_demon_finish",
+      "kind": "original_foley",
+      "title": "重臂刃 · 横断",
+      "duration_seconds": 0.32,
+      "wav_sha256": "0c4efffda968571f67b3d9969c55de5e6801c844464485b62084e1f5c6a79161",
+      "mp3_sha256": "b506162501cd920c99d4120a42abb2ab441b9aae458054ae2b74121358290d0c"
+    },
+    {
+      "id": "sfx_demon_hit",
+      "kind": "original_foley",
+      "title": "重臂刃 · 命中",
+      "duration_seconds": 0.32,
+      "wav_sha256": "514ae28cfdd4a082269dfa52b77b40bef1e4cce1b7b198dc0fddbe66ea4f427b",
+      "mp3_sha256": "b7bccdf5c178f7b75da9c66818638f3752e39e94e76991473309fa56106783f5"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.25,
+      "wav_sha256": "6bee85b68039bb24380afc157ba679ae2468b8acfab899faf32a877c84b8c7d9",
+      "mp3_sha256": "fcbe4ee6f186b8926a1f3ba4fa55c53cd16f3e80b1da1b7e018377236bd03006"
+    }
+  ]
+}

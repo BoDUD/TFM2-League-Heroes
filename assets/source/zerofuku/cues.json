@@ -1,0 +1,210 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 236,
+    "event": "release",
+    "sound": "sfx_chop",
+    "fx": "cleaver_arc",
+    "anchor": [
+      171,
+      155
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 287,
+    "event": "confirmed_hit",
+    "sound": "sfx_chop_hit",
+    "fx": "cleaver_impact",
+    "anchor": [
+      191,
+      155
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 3,
+    "ms": 176,
+    "event": "charge",
+    "sound": "sfx_misfortune",
+    "fx": "misfortune",
+    "anchor": [
+      150,
+      140
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 5,
+    "ms": 285,
+    "event": "release",
+    "sound": "sfx_cleaver_heavy",
+    "fx": "cleaver_arc",
+    "anchor": [
+      175,
+      153
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 5,
+    "ms": 285,
+    "event": "confirmed_hit",
+    "sound": "sfx_cleaver_land",
+    "fx": "cleaver_impact",
+    "anchor": [
+      205,
+      176
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 4,
+    "ms": 292,
+    "event": "release",
+    "sound": "sfx_ground",
+    "fx": "ground_surge",
+    "anchor": [
+      173,
+      214
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "confirmed_hit",
+    "sound": "sfx_ground_hit",
+    "fx": "cleaver_impact",
+    "anchor": [
+      205,
+      198
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 305,
+    "event": "cocoon",
+    "sound": "sfx_shell_rise"
+  },
+  {
+    "action": "ult",
+    "frame": 6,
+    "ms": 580,
+    "event": "form_reveal",
+    "sound": "sfx_shell_open",
+    "fx": "shell_break",
+    "anchor": [
+      129,
+      178
+    ]
+  },
+  {
+    "action": "h_attack",
+    "frame": 4,
+    "ms": 210,
+    "event": "release",
+    "sound": "sfx_armblade",
+    "fx": "demon_arc",
+    "anchor": [
+      167,
+      151
+    ]
+  },
+  {
+    "action": "h_attack",
+    "frame": 5,
+    "ms": 257,
+    "event": "confirmed_hit",
+    "sound": "sfx_armblade_hit",
+    "fx": "demon_impact",
+    "anchor": [
+      188,
+      154
+    ]
+  },
+  {
+    "action": "h_skill",
+    "frame": 3,
+    "ms": 162,
+    "event": "windup",
+    "sound": "sfx_drill_spool"
+  },
+  {
+    "action": "h_skill",
+    "frame": 5,
+    "ms": 259,
+    "event": "release",
+    "sound": "sfx_drill",
+    "fx": "drill_spiral",
+    "anchor": [
+      187,
+      153
+    ]
+  },
+  {
+    "action": "h_skill",
+    "frame": 5,
+    "ms": 259,
+    "event": "confirmed_hit",
+    "sound": "sfx_drill_hit",
+    "fx": "demon_impact",
+    "anchor": [
+      211,
+      151
+    ]
+  },
+  {
+    "action": "h_skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "release",
+    "sound": "sfx_demon_crush",
+    "fx": "demon_arc",
+    "anchor": [
+      171,
+      174
+    ]
+  },
+  {
+    "action": "h_ult",
+    "frame": 5,
+    "ms": 423,
+    "event": "release",
+    "sound": "sfx_demon_finish",
+    "fx": "demon_arc",
+    "anchor": [
+      186,
+      156
+    ]
+  },
+  {
+    "action": "h_ult",
+    "frame": 5,
+    "ms": 423,
+    "event": "confirmed_hit",
+    "sound": "sfx_demon_hit",
+    "fx": "demon_impact",
+    "anchor": [
+      208,
+      153
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 846,
+    "event": "land",
+    "sound": "sfx_fall"
+  },
+  {
+    "action": "h_dead",
+    "frame": 7,
+    "ms": 846,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]

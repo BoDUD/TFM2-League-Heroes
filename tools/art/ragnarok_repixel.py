@@ -339,8 +339,11 @@ def snap_to(sheet, pal, mask=None):
 def snap_delivery(src, out, bodies, fx, body_colours=64, fx_colours=32):
     """Codex 直接按两倍密度交的一个英雄（小次郎以后都这样：一格 256、脚底 (128, 232)）收色，tools/art/kojiro_fix.py 的做法：
     几张身体图合起来一套 body_colours 色的调色板（换形态时颜色不跳），特效图每组 fx_colours 色。
-    src 是 Codex 的 runtime/sprites（只读），返回 [(out 里的路径前缀, sheet, fanim)] 给 run()。"""
+    src 是 Codex 的 runtime/sprites（只读），返回 [(out 里的路径前缀, sheet, fanim)] 给 run()。
+    bodies 里也可以直接给 (名字, sheet, fanim)：先改过再收色的图（零福重贴过斧子的常态，tools/art/zerofuku_fix.py）。"""
     def read(stem):
+        if isinstance(stem, tuple):
+            return stem[1], stem[2]
         sheet = np.asarray(Image.open(os.path.join(src, stem + "#sheet.png")).convert("RGBA"))
         return sheet, json.load(open(os.path.join(src, stem + "#anim.fanim"), encoding="utf-8-sig"))
 
@@ -349,7 +352,8 @@ def snap_delivery(src, out, bodies, fx, body_colours=64, fx_colours=32):
     pool = np.concatenate([s[s[..., 3] > 0][:, :3] for s, _ in sheets])
     pal = median_cut(pool, body_colours)
     for stem, (sheet, fanim) in zip(bodies, sheets):
-        outs.append((os.path.join(out, stem), snap_to(sheet, pal), fanim))
+        name = stem[0] if isinstance(stem, tuple) else stem
+        outs.append((os.path.join(out, name), snap_to(sheet, pal), fanim))
     sheet, fanim = read(fx)
     done = sheet.copy()
     for a in fanim["anims"].values():

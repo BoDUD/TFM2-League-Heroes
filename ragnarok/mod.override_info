@@ -1607,6 +1607,202 @@
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_thor_vo_worthy",
     "type": "override"
   },
+  "asset/base/sound/sfx/ragnarok_zerofuku_a": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_a_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_dead": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_e": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_e_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_ha": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_ha",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_ha_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_ha_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_he": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_he",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_he_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_he_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_hq": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_hq",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_hq_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_hq_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_hq_load": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_hq_load",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_q": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_q_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_q_load": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_q_load",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_r2": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_r2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_r2_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_r2_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_r_open": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_r_open",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_r_shell": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_r_shell",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_armblade": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_armblade",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_armblade_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_armblade_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_chop": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_chop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_chop_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_chop_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_cleaver_heavy": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_cleaver_heavy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_cleaver_land": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_cleaver_land",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_demon_crush": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_demon_crush",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_demon_finish": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_demon_finish",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_demon_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_demon_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_drill": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_drill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_drill_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_drill_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_drill_spool": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_drill_spool",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_fall": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_fall",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_ground": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_ground",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_ground_hit": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_ground_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_misfortune": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_misfortune",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_shell_open": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_shell_open",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_sfx_shell_rise": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_sfx_shell_rise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_v_arrival": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_v_arrival",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_v_h_challenge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_v_h_challenge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_v_h_why": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_v_h_why",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_v_outburst": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_v_outburst",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_v_threat": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_v_threat",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_v_why": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_v_why",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_vo_hajun_challenge": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_vo_hajun_challenge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_vo_hajun_why": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_vo_hajun_why",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_vo_zero_arrival": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_vo_zero_arrival",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_vo_zero_outburst": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_vo_zero_outburst",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_vo_zero_threat": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_vo_zero_threat",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/ragnarok_zerofuku_vo_zero_why": {
+    "remapping": "asset/ragnarok/sound/sfx/ragnarok_zerofuku_vo_zero_why",
+    "type": "override"
+  },
   "asset/base/sound/sfx/ragnarok_zeus_a": {
     "remapping": "asset/ragnarok/sound/sfx/ragnarok_zeus_a",
     "type": "override"
