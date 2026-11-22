@@ -260,6 +260,11 @@ def frames(rig):
         for k, ref in TAIL_FROM.get(tag, {}).items():
             cans[k] = CT.despeck(same_tail(rig, cans[k], cans[ref]), CT.SPECK)   # (the old tail's last specks)
         fr = [cans[k].copy() for k in order]
+        # 2026-11-22 用户「老鼠的跑步姿势有点怪 让codex帮忙重做一下」：Codex 照英雄联盟跑步重画的 8 帧
+        # （tools/art/read_twitch_run.py 读回、理过黑边的画布）在就用它们；TWITCH_RIG_RUN=1 还是原来那版
+        codex = [os.path.join(CT.HD, "..", "codex_run", "frames", f"run_{k}.png") for k in range(1, 9)]
+        if tag == "run" and all(os.path.isfile(f) for f in codex) and not os.environ.get("TWITCH_RIG_RUN"):
+            fr = [np.array(Image.open(f).convert("RGBA")) for f in codex]
         if len(fr) != n:
             sys.exit(f"{tag}: {len(fr)} frames for the sheet's {n}")
         if tag == "hit":
