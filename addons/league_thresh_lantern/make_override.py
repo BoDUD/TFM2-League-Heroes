@@ -7,7 +7,8 @@ addons/league_thresh_lantern/override/league_thresh.data_champion and .../text/c
   * the lantern's RandomTarget (AllyNotSelf, 50000, a TargetProjectile league_thresh_w_lantern with the shield) in Q
     swapped for the native effect league_thresh_lantern:throw (it picks the ally, flies the same lantern, gives the same
     shield and pulls him in danger; src/lib.rs's numbers are checked against the kit's);
-  * Q's tooltip pointing to description.league_thresh_lantern.skill: the main pack's text with the lantern's ally swapped.
+  * Q's tooltip pointing to description.league_thresh_lantern.skill: the main pack's text with the lantern's ally swapped;
+  * 0.2.0: the view effect league_thresh_w_ground (the lantern on the ground, the main pack's w_ground) added.
 Every other champion stays untouched. Run it again whenever the main pack's Thresh changes (--check: compare only).
 """
 import argparse
@@ -25,13 +26,18 @@ TEXT_KEY = "description." + MOD_ID + "." + SLOT
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[확장] ", "ja": "【拡張】"}
 SWAPS = {
-    "zh-hans": [("为自己和身边一名友方英雄提供", "为自己和最危险的队友提供"), ("持续<#ffb900ff>2.5秒<>。", "持续<#ffb900ff>2.5秒<>，有危险时把他拉到身边。")],
-    "zh-hant": [("為自己和身邊一名友方英雄提供", "為自己和最危險的隊友提供"), ("持續<#ffb900ff>2.5秒<>。", "持續<#ffb900ff>2.5秒<>，有危險時把他拉到身邊。")],
+    "zh-hans": [("为自己和身边一名友方英雄提供", "为自己和最危险的队友提供"),
+                ("持续<#ffb900ff>2.5秒<>。", "持续<#ffb900ff>2.5秒<>；灯留<#ffb900ff>6秒<>，危险时碰灯拉回。")],
+    "zh-hant": [("為自己和身邊一名友方英雄提供", "為自己和最危險的隊友提供"),
+                ("持續<#ffb900ff>2.5秒<>。", "持續<#ffb900ff>2.5秒<>；燈留<#ffb900ff>6秒<>，危險時碰燈拉回。")],
     "en": [("he also throws his lantern, giving himself and a nearby allied champion a",
-            "his lantern goes to the ally in most danger, pulled to him if threatened; both get a")],
-    "ko": [("자신과 주변 아군 챔피언 하나에게", "자신과 가장 위험한 아군(위험하면 끌어옴)에게")],
-    "ja": [("自身と近くの味方チャンピオン1体に", "自身と最も危険な味方（危なければ引き寄せる）に")],
+            "his lantern lands by the neediest ally for 6s, pulling in whoever takes it; both get a")],
+    "ko": [("자신과 주변 아군 챔피언 하나에게", "자신과 가장 위험한 아군(등불이 6초간 남아 위험한 아군을 끌어옴)에게")],
+    "ja": [("自身と近くの味方チャンピオン1体に", "自身と最も危険な味方（灯は6秒残り危険なら引き寄せる）に")],
 }
+# 0.2.0：落在地上的灯（主包的锤石灯笼特效图 league_thresh_lantern 的 w_ground，PPU 5）。主包自己不放它，副本里加上
+GROUND = {"type": "Animation", "name": "league_thresh_w_ground", "anim": "asset/league/effects/league_thresh_lantern",
+          "tag": "w_ground", "z": -1, "is_follow": False}
 
 
 def lp(path):
@@ -83,6 +89,9 @@ def build():
     if (lantern["range"], shot["speed"]) != (c["REACH"], c["SPEED"]) or             [(x["amount"], x["ap_ratio"], x["tick"]) for x in shield] != [(c["SHIELD"], c["SHIELD_AP"], c["SHIELD_TICKS"])]:
         sys.exit("the lantern's reach / speed / shield differ from src/lib.rs: update one of them")
     champion[SLOT]["description"] = "#asset/base/text/champion?" + TEXT_KEY
+    if any(v.get("name") == GROUND["name"] for v in champion["view_effects"]):
+        sys.exit(f"the main pack's Thresh already has {GROUND['name']}: update this script")
+    champion["view_effects"].append(GROUND)
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     texts = {}
