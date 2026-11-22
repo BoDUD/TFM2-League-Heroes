@@ -42,7 +42,8 @@ PIVOT = (64, 60)           # 模板十字所在的格
 GROUND = PIVOT[1] + 25     # 模板地面线所在的格（这一行往上是脚）
 OUTLINE = (14, 10, 16)     # 设计图的描边色（casts_twitch_hd.OUTLINE）
 DARK = [(35, 24, 22), (27, 33, 36), (53, 35, 24)]   # Codex 在最外一圈冒充描边的颜色
-SPECK = 12                 # 和身子不连着、这么多格以下的一块是碎点（casts_twitch_hd.SPECK）
+SPECK = 3                  # 和身子不连着、这么多格以下的一块是碎点（嘴边那几个 1-2 格的）；设计图自己就有一截 9 格的
+                           # 弩弦浮在弩上方，不和身子连着，留着
 FOUR = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])
 EIGHT = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
 
@@ -79,12 +80,19 @@ def clean(f):
         body = op & ~isout
         edge = op & (count(~op, FOUR) > 0)
         fringe = edge & body & (count(body, FOUR) == 0) & (count(isout, FOUR) > 0)
-        spur = isout & (count(op, EIGHT) < 2)
-        if not (fringe.any() or spur.any()):
+        if not fringe.any():
             break
-        a[fringe | spur] = 0
+        a[fringe] = 0
         n["fringe"] += int(fringe.sum())
-        n["spur"] += int(spur.sum())
+    # 毛刺只删从一大块边上单独支出去的那一格（它唯一的邻格周围还有 4 格以上），删一遍、不反复啃：
+    # 一格粗的细线（弩弦、弩尖）两头也只有一个邻格，但那个邻格也是细线，留着
+    op = a[..., 3] > 0
+    isout = op & (a[..., :3].astype(int) == np.array(OUTLINE)).all(-1)
+    nb = count(op, EIGHT)
+    solid = ndimage.binary_dilation(op & (nb >= 4), structure=np.ones((3, 3)))
+    spur = isout & (nb == 1) & solid
+    a[spur] = 0
+    n["spur"] = int(spur.sum())
     return a, n
 
 
