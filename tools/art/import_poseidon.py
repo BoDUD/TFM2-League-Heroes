@@ -38,7 +38,10 @@ SRC = os.path.join(ROOT, "assets", "source", "poseidon", "rebuild")
 ID = "ragnarok_poseidon"
 HERO = "poseidon"
 UP = 2.0                    # 两倍密度：一格 256
-PPU = round(1.65 * UP, 3)   # 3.3：和 tools/art/ppu_hd.py 的 PPU、addons/ragnarok/src/hd.rs 的 HEROES 一致
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = round(1.65 * UP / 1.2, 3)   # 2.75（放大前 3.3）
+FX_PPU = round(1.65 * UP, 3)     # 3.3：特效图不放大
 
 
 def up(p):
@@ -65,7 +68,7 @@ SHIFT = {
     "attack": -10, "skill": -8, "skill2": -8, "ult": -10, "dead": -6,
 }
 
-POSEIDON = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
+POSEIDON = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
             "TARGET_FX": TARGET_FX, "CANVAS": CANVAS, "SHIFT": SHIFT}
 
 if __name__ == "__main__":

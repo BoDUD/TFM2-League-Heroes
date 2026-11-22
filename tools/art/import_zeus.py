@@ -38,7 +38,10 @@ SRC = os.path.join(ROOT, "assets", "source", "zeus", "repixel")
 ID = "ragnarok_zeus"
 HERO = "zeus"
 UP = 2.0                    # 和 tools/art/zeus_repixel.py 一样
-PPU = round(1.65 * UP, 3)   # 3.3: tools/art/ppu_hd.py PPU and addons/ragnarok/src/hd.rs HEROES say the same
+# 2026-11-22 整包放大到联盟英雄的个子（用户：「我发现女武神在格子里普遍偏小 不像英雄联盟那样」「放大到联盟大小」）：
+# 英雄 PPU 除以 1.2，同样的像素画成 1.2 倍大；打在别人身上的特效图（FX_PPU）还是原来的大小，命中和范围按游戏里的距离走
+PPU = round(1.65 * UP / 1.2, 3)   # 2.75（放大前 3.3）
+FX_PPU = round(1.65 * UP, 3)     # 3.3：特效图不放大
 
 
 def up(p):
@@ -87,10 +90,10 @@ TARGET_FX = {
     "jab_hit": FX_ORIGIN,
     "barrage_hit": FX_ORIGIN,
     # the burst's ground line (its cell's row 64 + 22) under the pivot like the soles
-    "form_burst": (FX_ORIGIN[0], round(86 * UP - A.FEET * PPU)),
+    "form_burst": (FX_ORIGIN[0], round(86 * UP - A.FEET * FX_PPU)),
 }
 
-ZEUS = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
+ZEUS = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
         "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS}
 
 if __name__ == "__main__":
