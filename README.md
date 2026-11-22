@@ -40,7 +40,7 @@
 
 2026-11-22（图奇的跑步）：
 
-- **图奇的跑步交给 Codex 重画**（「老鼠的跑步姿势有点怪 让codex帮忙重做一下」）：现在的 `run` 头、背包、弩八帧钉在一个地方，弩一直平端，两条腿在斗篷下只挪小碎步、脚尖吊着点地，第 7 帧整个人往上窜一截；英雄联盟的跑步是压低身子往前蹿，两步一圈。`tools/art/pack_twitch_run.py` 出模板和参考图，提示词 `assets/source/twitch/RUN_PROMPT.md`：参考图是联盟跑步同 8 帧在我们镜头下的渲染（`tools/lol/native_pose.py assets/source/twitch/poses.json --tag run`）；设计图和联盟模型比例差得多（设计姿势贴合度 0.60），影子只放设计图的头和弩，按联盟每帧头的前后和起伏挪，身子、腿、手、斗篷、尾巴照联盟同一帧画。交回后读回、拼进去，给用户看过再装。
+- **图奇的跑步由 Codex 重画**（「老鼠的跑步姿势有点怪 让codex帮忙重做一下」「你需要把不干净的黑边都处理了」「让 Codex 重画弩」）：以前的 `run` 头、背包、弩八帧钉在一个地方，两条腿在斗篷下只挪小碎步；英雄联盟的跑步是压低身子往前蹿，两步一圈。`tools/art/pack_twitch_run.py` 出模板和参考图（联盟跑步同 8 帧按我们的镜头渲；影子只放设计图的头和弩），提示词 `assets/source/twitch/RUN_PROMPT.md`。Codex 正好画在 8 像素网格上、只用设计图的颜色，`tools/art/read_twitch_run.py` 逐格读回；它的外缘只有三成是设计图的近黑描边，其余拿深棕、深灰冒充，还有毛边、碎点、毛刺：最外一圈那几种颜色换成描边色、毛边碎点毛刺删掉（设计图自己那截浮着的弩弦和弩尖留着），描边厚度交给 `thin_outline.py`。弩第一版短了约 10 格，用 `tools/art/pack_twitch_bow.py` （`RUN_BOW_PROMPT.md`）让 Codex 只重画弩，和设计图对上（第一版留作 `codex_run/run_*_v1.png`）。`rig_twitch_hd.py` 有这 8 帧就拿它们当 `run`（`TWITCH_RIG_RUN=1` 还是原来那版），只换 `run` / `hd_run` / `lo_run`；图奇的帧表编在 league.dll 里，所以 league.dll 0.9.133、主包 0.460.0。
 
 2026-11-22（阿克尚的复活字幕、巨型纳尔的跑步、锤石的灯笼、龙女龙形态的跑步，一个 PR）：
 
