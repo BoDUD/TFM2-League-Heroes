@@ -1,0 +1,238 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/chara/",
+  "method": "Dialogue performed by Ryotaro Okiayu from two Netflix Japan clips. Original background music and effects remain in several cuts.",
+  "clips": [
+    {
+      "id": "voice_open",
+      "title": "入场 · 开战前的致意",
+      "range_seconds": [
+        0.05,
+        3.66
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=YuEA2X8f_Pg",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.61,
+      "wav_sha256": "56c1eba7eb477bb2bf6aa6a1250b6f1d587e803d1466b211714751f43b958aa1",
+      "mp3_sha256": "1b1bf3c6af775c6d271081ed3582ed7736e776c6142e9346b1eb16d49229c52f"
+    },
+    {
+      "id": "voice_brother",
+      "title": "宣言 · 为弟弟而战",
+      "range_seconds": [
+        3.69,
+        13.32
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=YuEA2X8f_Pg",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 9.63,
+      "wav_sha256": "e896dbe245a563914446d5540512985213849d723f28a008d5fbb460bacee4b0",
+      "mp3_sha256": "2cbd295714fce134961b1d9b9479e3f2f1d244d257fe1a12d816c06be2aaeda1"
+    },
+    {
+      "id": "voice_eye",
+      "title": "互动 · 眼睛看得见",
+      "range_seconds": [
+        43.05,
+        47.76
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=YuEA2X8f_Pg",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.71,
+      "wav_sha256": "be5956a9d446c44272764ebbedc0d1a512c471c13a871c9ca7b84074f8b54ab4",
+      "mp3_sha256": "4c1bcd755ca833d05dfa5d87b27a166a36ff270be627a0380ff4a56f9491e240"
+    },
+    {
+      "id": "voice_earth",
+      "title": "重砸 · 冥府的铁槌",
+      "range_seconds": [
+        72.64,
+        75.76
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=YuEA2X8f_Pg",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.12,
+      "wav_sha256": "c4901179c3fb005ccf41fdf66d0900569f23c9ee0d517b14f03fa4a90ee35bcd",
+      "mp3_sha256": "835d4c14eb919bf65c5759225841ffd6cb061a011693e37c5a208995cb9c769f"
+    },
+    {
+      "id": "voice_thrust",
+      "title": "攻击 · 出手短喝",
+      "range_seconds": [
+        0.02,
+        1.17
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 1.15,
+      "wav_sha256": "6655e744fe0f9a93c1ef7b8e9f4c245deb6d5d6bb2a0c23f98131bce447e52b9",
+      "mp3_sha256": "3b712187be4a5324aab973a53df5dbd251e8f0ad976d9cb03189732f450eb70e"
+    },
+    {
+      "id": "voice_wind",
+      "title": "风压斩 · 珀耳塞福涅",
+      "range_seconds": [
+        1.87,
+        4.29
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.42,
+      "wav_sha256": "ea9ebd4119a72db8a260f63665d61fbf24e6fa6430aef518c9bf1e31719aeed3",
+      "mp3_sha256": "3f7b857a862668164806cf846d052e8f7c0919d874ac0797d2027ff67931ae39"
+    },
+    {
+      "id": "voice_parry",
+      "title": "互动 · 质问卸力",
+      "range_seconds": [
+        21.69,
+        24.73
+      ],
+      "speaker": "置鮎龍太郎",
+      "cast_credit": "https://ragnarok-official.com/chara/",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.04,
+      "wav_sha256": "a3635a3e053e70655db1a53bd3b4a15afc37b7aead98d82f3d51c41a95d41ef8",
+      "mp3_sha256": "1697faffe94d6bb1dc9772ae97ba474b13df74679275dcd47db2e2d8fa671c89"
+    },
+    {
+      "id": "sfx_thrust",
+      "kind": "original_foley",
+      "title": "双叉枪 · 出刺",
+      "duration_seconds": 0.22,
+      "wav_sha256": "6179879883b870ba617930970e44bc0b7abc38aa1e3fa4ffd478c03226522759",
+      "mp3_sha256": "1bb54278b684da7eb80d2d3bad38aee5fb4ae8f1ee8a9831e039c332ff0b6aef"
+    },
+    {
+      "id": "sfx_thrust_hit",
+      "kind": "original_foley",
+      "title": "双叉枪 · 命中",
+      "duration_seconds": 0.22,
+      "wav_sha256": "4b0efd70d3dd31a166abfe1a62836d4a2a26b466ce56f939b03b51b930513eee",
+      "mp3_sha256": "9fde22c3740578b3e8a03e227e258dcf59803260bc2f4223da738b221afbe945"
+    },
+    {
+      "id": "sfx_wind_prep",
+      "kind": "original_foley",
+      "title": "风压斩 · 运枪",
+      "duration_seconds": 0.3,
+      "wav_sha256": "63256adfbdefcb8acefc093ed589a154a0099b7beac7d15c60d3f7fd5ebbd5ea",
+      "mp3_sha256": "242da12526997eabb0c0269b69d5bebe6af2b535488192139d68e7bc08be20c5"
+    },
+    {
+      "id": "sfx_wind",
+      "kind": "original_foley",
+      "title": "风压斩 · 释放",
+      "duration_seconds": 0.3,
+      "wav_sha256": "17db13a1bb59b143dad49d8cc18f2ccefa87fcbf618559a6672fcc442a5219b1",
+      "mp3_sha256": "94012129bfc6105b1ab75db4f537e6fa8f907e0fa998c311316a4f80f4df8a98"
+    },
+    {
+      "id": "sfx_wind_hit",
+      "kind": "original_foley",
+      "title": "风压斩 · 命中",
+      "duration_seconds": 0.25,
+      "wav_sha256": "a74fa69ad44549f2c350913ec91638e20f6ec5dde6055e3eb35868fed370ed45",
+      "mp3_sha256": "e8f0fc7d3dfd01f40730592ea4a4159724f47274343544fa6f20df3b8c465a3b"
+    },
+    {
+      "id": "sfx_slam_prep",
+      "kind": "original_foley",
+      "title": "重砸 · 抬枪",
+      "duration_seconds": 0.31,
+      "wav_sha256": "f85daedca4696c52a8b76d342b5b5030e9207eb24ac2f7d8f21ad8b9fe2d4521",
+      "mp3_sha256": "7d85a3a1b32a53b1f5e1e93d295db6aa82b1da4ff3a0e23bf3d85516de511f58"
+    },
+    {
+      "id": "sfx_slam",
+      "kind": "original_foley",
+      "title": "重砸 · 砸地",
+      "duration_seconds": 0.3,
+      "wav_sha256": "26ba69a69e46a81680688945764ede6021e31f312225f433350fb61eccac140c",
+      "mp3_sha256": "f7f9f6eae366e32d0ab0c90b239020ef653e27e2936506f3cbde532749af12cf"
+    },
+    {
+      "id": "sfx_slam_hit",
+      "kind": "original_foley",
+      "title": "重砸 · 命中",
+      "duration_seconds": 0.25,
+      "wav_sha256": "5656c2816fb41c0131f33fd9e27e4999e99e42175e6d2de8b8fd5102466e434e",
+      "mp3_sha256": "324682472b77924500f7f7fa2d454d5df0332557de4b504ab9bff75cc1b13f74"
+    },
+    {
+      "id": "sfx_dust",
+      "kind": "original_foley",
+      "title": "碎石 · 散落",
+      "duration_seconds": 0.27,
+      "wav_sha256": "ade59987fa519470e76b6314fdc9607c7ea41738d0bf00bd8dcfe303df0bd4aa",
+      "mp3_sha256": "56f806f52170b10f44d71d169b204241964d9ed19bce39e36724a08d4ba29d71"
+    },
+    {
+      "id": "sfx_ichor",
+      "kind": "original_foley",
+      "title": "德斯莫斯 · 枪头强化",
+      "duration_seconds": 0.47,
+      "wav_sha256": "4f21b035862abe7461996ce9a71a189c943eb9166bbab451555b75cd38ae2818",
+      "mp3_sha256": "48a1eff5ea5a7b2bbc2a87174eba3d4a1d6efe3493169ab3110f261829578af8"
+    },
+    {
+      "id": "sfx_desmos",
+      "kind": "original_foley",
+      "title": "德斯莫斯 · 出刺",
+      "duration_seconds": 0.35,
+      "wav_sha256": "b6e03cbbffec8609868a295b7d6a8a3ada7973cc561ca793c5c8439287623881",
+      "mp3_sha256": "9a5985401db4c4fd4bf324a4c93cd2fdc2210dd65d7a7110f5ca347f5f5d6a90"
+    },
+    {
+      "id": "sfx_desmos_hit",
+      "kind": "original_foley",
+      "title": "德斯莫斯 · 命中",
+      "duration_seconds": 0.31,
+      "wav_sha256": "443485163f234be4b703b185e94c53f617a5cf6eb5b41fa58fce475b6b7f81a2",
+      "mp3_sha256": "63e91caefb90508dd7ef190b32ef2aa4c04317a7f2fdeae49ac74c5daafb7ca1"
+    },
+    {
+      "id": "sfx_spear_fall",
+      "kind": "original_foley",
+      "title": "双叉枪 · 落地",
+      "duration_seconds": 0.24,
+      "wav_sha256": "636ac86b9462bf5565942bd4e022ce29432424b0ef2c6c04d69ae0f2f00334cd",
+      "mp3_sha256": "396e1587c7bbfcbe6ba2064e9e472bb8d4f78348864fa89dd5be6f024d06cebc"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.25,
+      "wav_sha256": "eecf12838c4ba321b19dedc087287bea70810fb563ad70d3c49c231d27e65133",
+      "mp3_sha256": "37ecef66b57348ef970f0f605df7e9cf78de617e99471337178341c619143642"
+    }
+  ]
+}

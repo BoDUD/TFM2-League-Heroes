@@ -7,12 +7,14 @@
 //! 上一次的留作 ragnarok.prev.log；每个英雄另有自己的日志。
 
 pub mod adam;
+pub mod hades;
 pub mod hd;
 pub mod heracles;
 pub mod jack;
 pub mod kojiro;
 pub mod lubu;
 pub mod poseidon;
+pub mod qin;
 pub mod raiden;
 pub mod shiva;
 pub mod buddha;
@@ -104,6 +106,8 @@ fn init(host: &StableHost) -> StableMod {
     shiva::register(host, &mut module);
     buddha::register(host, &mut module);
     zerofuku::register(host, &mut module);
+    hades::register(host, &mut module);
+    qin::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

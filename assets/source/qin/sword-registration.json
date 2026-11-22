@@ -1,0 +1,55 @@
+{
+  "source": "runtime/props/goujian.png",
+  "axis_y": 169.5,
+  "pose_cell": 256,
+  "ult": [
+    null,
+    null,
+    {
+      "grip": [
+        158,
+        152
+      ],
+      "angle": -33,
+      "width": 87,
+      "radius": 6
+    },
+    {
+      "grip": [
+        114,
+        138
+      ],
+      "angle": -125,
+      "width": 87,
+      "radius": 6
+    },
+    {
+      "grip": [
+        178,
+        160
+      ],
+      "angle": 0,
+      "width": 87,
+      "radius": 6
+    },
+    {
+      "grip": [
+        178,
+        185
+      ],
+      "angle": 16,
+      "width": 87,
+      "radius": 6
+    },
+    {
+      "grip": [
+        157,
+        159
+      ],
+      "angle": -47,
+      "width": 87,
+      "radius": 6
+    },
+    null
+  ]
+}

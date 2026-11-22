@@ -182,6 +182,7 @@
   "ragnarok_heracles": {"idle": [["attack", [0, 1]], ["ult", [0, 1]]], "c_idle": [["c_attack", [0, 1, 2]], ["c_skill2", [0, 1]]]},
   "ragnarok_raiden": {"idle": [["ult", [0, 1]], ["skill2", [0, 1, 2]]]},
   "ragnarok_shiva": {"idle": [["ult", [0, 1]], ["skill", [0, 1, 2]]], "h_idle": [["h_ult", [0, 1, 2]], ["h_attack", [0, 1, 2]]]},
+  "ragnarok_hades": {"idle": [["ult", [0]], ["skill", [0, 1]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_norra": {"idle": [["skill2", [1]], ["attack", [0]]]},
   "tft_powder": {"idle": [["skill", [2, 3, 4]], ["attack", [0, 1]]]},
   "tft_alune": {"idle": [["skill2", [0]]], "bp": ["skill2", "attack", "skill", "ult"]},

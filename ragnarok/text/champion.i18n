@@ -84,6 +84,20 @@
         "skill": "零福：斧爻吸了不幸变大后落下，前方的敌人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>，挂上不幸。波旬：前臂化成魔钻直线冲过去，路上的敌人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。",
         "skill2": "零福：怨气从脚下往前涌，一条线上的敌人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。波旬：单臂化刃从上砸下，前方的敌人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。",
         "ult": "零福被暗茧吞没（不受控制、减伤<#ffb900ff>40%<>），波旬破茧而出：回复<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>生命，这条命攻击力<#ffb900ff>+15%<>、攻速<#ffb900ff>+15%<>、移速<#ffb900ff>+5%<>、双抗<#ffb900ff>+10<>。再放是魔臂横断：前方的敌人受到<#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>加最大生命<#ff9028ff>6%<>的<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。"
+      },
+      "ragnarok_hades": {
+        "name": "哈迪斯",
+        "attack": "双叉枪直刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>伊科尔<>：放完技能后<#ffb900ff>3秒<>内，下一次普攻额外造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。",
+        "skill": "挥枪掀起珀耳塞福涅的风压，前方扇形内的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速25%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "双叉枪砸向身前的地面，那一圈的敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.5秒<>。",
+        "ult": "用神血把枪头锻成德斯莫斯（不受控制、减伤<#ffb900ff>30%<>），朝目标直线突刺，穿过的敌人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>加最大生命<#ff9028ff>8%<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。"
+      },
+      "ragnarok_qin": {
+        "name": "秦始皇",
+        "attack": "金指爪抓击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>星<>：被他的技能打中的敌人露出破绽，<#ffb900ff>3秒<>内受到的伤害<#ffb900ff>+10%<>。",
+        "skill": "吸一口气吐出气弹，追着目标飞去，炸开时造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。",
+        "skill2": "举起神罗铠袖（<#ffb900ff>1秒<>内减伤<#ffb900ff>40%<>、不受控制），身边的友方英雄获得<#e8d44dff>护盾80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>；接着把力推回去，前方的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.67秒<>。",
+        "ult": "拔出始皇勾践剑（不受控制、减伤<#ffb900ff>40%<>）横斩，前方大扇形内的敌人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.83秒<>。"
       }
     },
     "skill_name": {
@@ -146,6 +160,16 @@
         "skill1": "斧爻／魔钻",
         "skill2": "怨气冲击／魔刃碎击",
         "ult": "破茧／魔臂横断"
+      },
+      "ragnarok_hades": {
+        "skill1": "珀耳塞福涅·风压斩",
+        "skill2": "冥府重砸",
+        "ult": "伊科尔·德斯莫斯"
+      },
+      "ragnarok_qin": {
+        "skill1": "波流龟气弹",
+        "skill2": "神罗铠袖·承力天凤",
+        "ult": "始皇勾践剑"
       }
     }
   },
@@ -234,6 +258,20 @@
         "skill": "零福：斧爻吸了不幸變大後落下，前方的敵人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>，掛上不幸。波旬：前臂化成魔鑽直線衝過去，路上的敵人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。",
         "skill2": "零福：怨氣從腳下往前湧，一條線上的敵人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。波旬：單臂化刃從上砸下，前方的敵人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。",
         "ult": "零福被暗繭吞沒（不受控制、減傷<#ffb900ff>40%<>），波旬破繭而出：回復<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>生命，這條命攻擊力<#ffb900ff>+15%<>、攻速<#ffb900ff>+15%<>、移速<#ffb900ff>+5%<>、雙抗<#ffb900ff>+10<>。再放是魔臂橫斷：前方的敵人受到<#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>加最大生命<#ff9028ff>6%<>的<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。"
+      },
+      "ragnarok_hades": {
+        "name": "黑帝斯",
+        "attack": "雙叉槍直刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>伊柯爾<>：放完技能後<#ffb900ff>3秒<>內，下一次普攻額外造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。",
+        "skill": "揮槍掀起波瑟芬妮的風壓，前方扇形內的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速25%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "雙叉槍砸向身前的地面，那一圈的敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.5秒<>。",
+        "ult": "用神血把槍頭鍛成德斯莫斯（不受控制、減傷<#ffb900ff>30%<>），朝目標直線突刺，穿過的敵人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>加最大生命<#ff9028ff>8%<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。"
+      },
+      "ragnarok_qin": {
+        "name": "秦始皇",
+        "attack": "金指爪抓擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>星<>：被他的技能打中的敵人露出破綻，<#ffb900ff>3秒<>內受到的傷害<#ffb900ff>+10%<>。",
+        "skill": "吸一口氣吐出氣彈，追著目標飛去，炸開時造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。",
+        "skill2": "舉起神羅鎧袖（<#ffb900ff>1秒<>內減傷<#ffb900ff>40%<>、不受控制），身邊的友方英雄獲得<#e8d44dff>護盾80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>；接著把力推回去，前方的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.67秒<>。",
+        "ult": "拔出始皇勾踐劍（不受控制、減傷<#ffb900ff>40%<>）橫斬，前方大扇形內的敵人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.83秒<>。"
       }
     },
     "skill_name": {
@@ -296,6 +334,16 @@
         "skill1": "斧爻／魔鑽",
         "skill2": "怨氣衝擊／魔刃碎擊",
         "ult": "破繭／魔臂橫斷"
+      },
+      "ragnarok_hades": {
+        "skill1": "波瑟芬妮·風壓斬",
+        "skill2": "冥府重砸",
+        "ult": "伊柯爾·德斯莫斯"
+      },
+      "ragnarok_qin": {
+        "skill1": "波流龜氣彈",
+        "skill2": "神羅鎧袖·承力天鳳",
+        "ult": "始皇勾踐劍"
       }
     }
   },
@@ -384,6 +432,20 @@
         "skill": "Zerofuku: the cleaver drinks misfortune, grows and falls: enemies in front take <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>, are <#ef5350ff>slowed 30%<> and gain Misfortune. Hajun: his forearm turns into a drill and he charges through: enemies on the way take <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>.",
         "skill2": "Zerofuku: grudge surges from his feet: enemies on a line take <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>. Hajun: an arm becomes a heavy blade and crushes down: enemies in front take <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.75s<>.",
         "ult": "Zerofuku is swallowed by a dark cocoon (unstoppable, <#ffb900ff>40%<> less damage) and Hajun breaks out: heals <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, and for this life <#ffb900ff>+15%<> attack, <#ffb900ff>+15%<> attack speed, <#ffb900ff>+5%<> speed, <#ffb900ff>+10<> armour and magic resist. Again as Hajun, Demon Sever: enemies in a cone take <#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>."
+      },
+      "ragnarok_hades": {
+        "name": "Hades",
+        "attack": "A thrust of the bident: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Ichor<>: for <#ffb900ff>3s<> after a skill, his next attack deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> more <#ff9028ff>physical damage<>.",
+        "skill": "He sweeps the wind of Persephone with his bident: enemies in a cone take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 25%<> for <#ffb900ff>1s<>.",
+        "skill2": "He smashes the bident into the ground before him: enemies in the circle take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.5s<>.",
+        "ult": "He forges the Desmos spearhead with his own divine blood (unstoppable, <#ffb900ff>30%<> less damage) and thrusts straight through his target: enemies on the way take <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + <#ff9028ff>8%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.75s<>."
+      },
+      "ragnarok_qin": {
+        "name": "Qin Shi Huang",
+        "attack": "A strike of his golden claws: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Stars<>: enemies his skills hit show their weak points and take <#ffb900ff>10%<> more damage for <#ffb900ff>3s<>.",
+        "skill": "He breathes in and blows a qi bubble that chases the target and bursts: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and a <#ef5350ff>0.75s stun<>.",
+        "skill2": "He raises the Shinra Armor Sleeves (<#ffb900ff>40%<> less damage and unstoppable for <#ffb900ff>1s<>); allied champions around him gain a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#e8d44dff>shield<>. Then he turns the force back: enemies in front take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.67s<>.",
+        "ult": "He draws the Goujian sword (unstoppable, <#ffb900ff>40%<> less damage) and cuts across: enemies in a wide cone take <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.83s<>."
       }
     },
     "skill_name": {
@@ -446,6 +508,16 @@
         "skill1": "Misery Cleaver / Demon Drill",
         "skill2": "Grudge Surge / Demon Crush",
         "ult": "Cocoon / Demon Sever"
+      },
+      "ragnarok_hades": {
+        "skill1": "Persephone Rhoai",
+        "skill2": "Hammer of the Underworld",
+        "ult": "Ichor Desmos"
+      },
+      "ragnarok_qin": {
+        "skill1": "Turtle Qi Bubble",
+        "skill2": "Shinra Sleeves: Phoenix Reversal",
+        "ult": "Goujian Sword of the First Emperor"
       }
     }
   },
@@ -534,6 +606,20 @@
         "skill": "제로후쿠: 불행을 빨아 커진 부효를 내려쳐 앞쪽 적에게 <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>, <#ef5350ff>30% 둔화<>, 불행. 파순: 팔이 마찬이 되어 돌진, 지나간 적에게 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>.",
         "skill2": "제로후쿠: 발밑에서 원한이 솟아 일직선의 적에게 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>. 파순: 팔날로 내리찍어 앞쪽 적에게 <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>.",
         "ult": "검은 고치에 삼켜진 뒤(저지 불가, 피해 <#ffb900ff>40%<> 감소) 파순이 깨어남: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 회복, 이번 목숨 동안 공격력 <#ffb900ff>+15%<>, 공속 <#ffb900ff>+15%<>, 이속 <#ffb900ff>+5%<>, 방어·마저 <#ffb900ff>+10<>. 파순이 다시 쓰면 마비 횡단: 부채꼴 적에게 <#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> + 최대 체력 <#ff9028ff>6%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>."
+      },
+      "ragnarok_hades": {
+        "name": "하데스",
+        "attack": "쌍지창으로 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>이코르<>: 스킬을 쓴 뒤 <#ffb900ff>3초<> 안에 다음 기본 공격이 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>를 더 줌.",
+        "skill": "창을 휘둘러 페르세포네의 풍압을 일으켜 부채꼴 안의 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>25% 둔화<>(<#ffb900ff>1초<>).",
+        "skill2": "쌍지창으로 앞쪽 땅을 내리찍어 그 원 안의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 띄워 올림<>.",
+        "ult": "신의 피로 창끝을 데스모스로 벼려(저지 불가, 피해 <#ffb900ff>30%<> 감소) 대상을 향해 일직선으로 찔러 지나간 적에게 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 최대 체력 <#ff9028ff>8%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>."
+      },
+      "ragnarok_qin": {
+        "name": "진시황",
+        "attack": "금빛 손톱으로 할퀴어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>별<>: 그의 스킬에 맞은 적은 약점이 드러나 <#ffb900ff>3초<> 동안 받는 피해 <#ffb900ff>+10%<>.",
+        "skill": "숨을 들이쉬고 기탄을 뱉어 대상을 쫓아가 터지며 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>.",
+        "skill2": "신라개수를 들어(<#ffb900ff>1초<> 동안 피해 <#ffb900ff>40%<> 감소, 저지 불가) 주변 아군 챔피언에게 <#e8d44dff>보호막 80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>. 이어 힘을 되돌려 앞쪽 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.67초 기절<>.",
+        "ult": "시황 구천검을 뽑아(저지 불가, 피해 <#ffb900ff>40%<> 감소) 가로 베어 넓은 부채꼴의 적에게 <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 띄워 올림<>."
       }
     },
     "skill_name": {
@@ -596,6 +682,16 @@
         "skill1": "부효 / 마찬",
         "skill2": "원한 충격 / 마인 쇄격",
         "ult": "파견 / 마비 횡단"
+      },
+      "ragnarok_hades": {
+        "skill1": "페르세포네 로아이",
+        "skill2": "명부의 철퇴",
+        "ult": "이코르 데스모스"
+      },
+      "ragnarok_qin": {
+        "skill1": "파류귀기탄",
+        "skill2": "신라개수·승력천봉",
+        "ult": "시황 구천검"
       }
     }
   },
@@ -684,6 +780,20 @@
         "skill": "零福：不幸を吸って大きくなった斧爻を振り下ろし、前方の敵に<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>、不幸を付与。波旬：前腕を魔鑽に変えて突進し、通った敵に<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。",
         "skill2": "零福：足元から怨念が湧き、一直線の敵に<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>72%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。波旬：腕刃で叩き斬り、前方の敵に<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。",
         "ult": "闇の繭に呑まれ（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）波旬が羽化：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>回復、この命の間攻撃<#ffb900ff>+15%<>・攻速<#ffb900ff>+15%<>・移速<#ffb900ff>+5%<>・両防御<#ffb900ff>+10<>。再使用で魔臂横断：扇形の敵に<#ff9028ff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>＋最大体力<#ff9028ff>6%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。"
+      },
+      "ragnarok_hades": {
+        "name": "ハデス",
+        "attack": "二叉槍で突き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>イコル<>：スキル使用後<#ffb900ff>3秒<>以内の次の通常攻撃が<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>を追加。",
+        "skill": "槍を振ってペルセポネの風圧を起こし、扇形の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>25%スロウ<>（<#ffb900ff>1秒<>）。",
+        "skill2": "二叉槍で前方の地面を叩き割り、円内の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒打ち上げ<>。",
+        "ult": "神の血で槍頭をデスモスに鍛え（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）対象へ一直線に突き抜け、通った敵に<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>＋最大体力<#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。"
+      },
+      "ragnarok_qin": {
+        "name": "始皇帝",
+        "attack": "金の指爪で裂き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>星<>：スキルが当たった敵は急所が露わになり<#ffb900ff>3秒<>被ダメージ<#ffb900ff>+10%<>。",
+        "skill": "息を吸って気弾を吐き、追いかけて弾けた対象に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。",
+        "skill2": "神羅鎧袖を構え（<#ffb900ff>1秒<>被ダメージ<#ffb900ff>40%<>軽減・行動妨害無効）周りの味方に<#e8d44dff>シールド80<>＋<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>。続けて力を押し返し、前方の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.67秒スタン<>。",
+        "ult": "始皇勾践剣を抜き（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）横に斬り、広い扇形の敵に<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒打ち上げ<>。"
       }
     },
     "skill_name": {
@@ -746,6 +856,16 @@
         "skill1": "斧爻／魔鑽",
         "skill2": "怨念衝撃／魔刃砕撃",
         "ult": "破繭／魔臂横断"
+      },
+      "ragnarok_hades": {
+        "skill1": "ペルセポネ・ロアイ",
+        "skill2": "冥府の鉄槌",
+        "ult": "イコル・デスモス"
+      },
+      "ragnarok_qin": {
+        "skill1": "波流亀気弾",
+        "skill2": "神羅鎧袖・承力天鳳",
+        "ult": "始皇勾践剣"
       }
     }
   }

@@ -1,0 +1,155 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 236,
+    "event": "release",
+    "sound": "sfx_claw",
+    "fx": "claw_arc",
+    "anchor": [
+      170,
+      158
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 287,
+    "event": "confirmed_hit",
+    "sound": "sfx_claw_hit",
+    "fx": "claw_impact",
+    "anchor": [
+      193,
+      150
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 3,
+    "ms": 176,
+    "event": "inhale",
+    "sound": "sfx_breath"
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 237,
+    "event": "projectile",
+    "sound": "sfx_bubble",
+    "fx": "air_bubble",
+    "anchor": [
+      146,
+      143
+    ],
+    "preview_motion": {
+      "to": [
+        209,
+        143
+      ],
+      "duration_ms": 99
+    }
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 336,
+    "event": "confirmed_hit",
+    "sound": "sfx_pop",
+    "fx": "star_pop",
+    "anchor": [
+      209,
+      143
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 3,
+    "ms": 217,
+    "event": "guard",
+    "sound": "sfx_guard",
+    "fx": "armor_guard",
+    "anchor": [
+      147,
+      155
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 4,
+    "ms": 292,
+    "event": "confirmed_block",
+    "sound": "sfx_receive",
+    "fx": "claw_impact",
+    "anchor": [
+      160,
+      152
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "counter",
+    "sound": "sfx_counter",
+    "fx": "phoenix_reversal",
+    "anchor": [
+      172,
+      158
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 6,
+    "ms": 425,
+    "event": "confirmed_hit",
+    "sound": "sfx_counter_hit",
+    "fx": "claw_impact",
+    "anchor": [
+      197,
+      154
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 305,
+    "event": "sword_reveal",
+    "sound": "sfx_jian_reveal",
+    "fx": "sword_glint",
+    "anchor": [
+      151,
+      154
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 510,
+    "event": "release",
+    "sound": "sfx_jian_cut",
+    "fx": "jian_slash",
+    "anchor": [
+      183,
+      148
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 6,
+    "ms": 580,
+    "event": "confirmed_hit",
+    "sound": "sfx_jian_hit",
+    "fx": "claw_impact",
+    "anchor": [
+      207,
+      149
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 846,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]
