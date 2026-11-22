@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.258,
+      "clip": "ragnarok_shiva_sfx_kick_load",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.423,
+      "clip": "ragnarok_shiva_sfx_kick",
+      "volume": 0.55
+    }
+  ]
+}

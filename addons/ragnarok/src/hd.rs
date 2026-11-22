@@ -34,6 +34,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("ragnarok_heracles", 3.3, include_str!("../../../ragnarok/champions/ragnarok_heracles#anim.fanim")),
     // 开膛手杰克（ragnarok_jack）：Codex 直接按两倍密度画的，站直 115 格（连帽上的羽毛），PPU 3.3，35 个游戏像素
     ("ragnarok_jack", 3.3, include_str!("../../../ragnarok/champions/ragnarok_jack#anim.fanim")),
+    // 雷电为右卫门（ragnarok_raiden）：Codex 直接按两倍密度画的，站直 123 格，PPU 3.3，37 个游戏像素（和赫拉克勒斯一样高）；
+    // 肌肉解放的过渡 muscle_release 在同一张图里，数据在每条命第一次放八咫乌时播
+    ("ragnarok_raiden", 3.3, include_str!("../../../ragnarok/champions/ragnarok_raiden#anim.fanim")),
+    // 湿婆（ragnarok_shiva）：Codex 直接按两倍密度画的，站直 116 格，PPU 3.3，35 个游戏像素；轮回舞踊的燃烧形态（h_*）在同一张图里，
+    // 变身以后 src/shiva.rs 的显示钩子换上
+    ("ragnarok_shiva", 3.3, include_str!("../../../ragnarok/champions/ragnarok_shiva#anim.fanim")),
+    // 释迦（ragnarok_buddha）：Codex 直接按两倍密度画的，站直 112 格（发髻），PPU 3.3，34 个游戏像素
+    ("ragnarok_buddha", 3.3, include_str!("../../../ragnarok/champions/ragnarok_buddha#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -65,12 +73,19 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // 杰克的飞刀命中、收招、看穿人心时那道异色的光（扇形飞刀、护弧、雾、手套触物画在他自己的帧里；飞出去的刀是
     // 弹道画面，1 倍，不在这里）
     ("ragnarok_jack_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_jack_fx#anim.fanim")),
+    // 雷电的掌、八咫乌打在人身上的命中（掌风、四股的尘土和震环、八咫乌的气和冲击波、肌肉解放的红纹画在他自己的帧里）
+    ("ragnarok_raiden_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_raiden_fx#anim.fanim")),
+    // 湿婆打在人身上的银光、火焰命中（拳风、交叉、舞步、点燃、火鞭、火步画在他自己的帧里）
+    ("ragnarok_shiva_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_shiva_fx#anim.fanim")),
+    // 释迦打在人身上的棍击、观音盾的挡击，他身上的未来视和莲光（棍风、枪刃、撤步的气流、大圆寂刀的气和刀光画在他自己的帧里）
+    ("ragnarok_buddha_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_buddha_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
 pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ragnarok_zeus_fx",
                                          "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx",
-                                         "ragnarok_heracles_fx", "ragnarok_jack_fx"];
+                                         "ragnarok_heracles_fx", "ragnarok_jack_fx",
+                                         "ragnarok_raiden_fx", "ragnarok_shiva_fx", "ragnarok_buddha_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[];

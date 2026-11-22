@@ -1,0 +1,211 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/2nd/special/countdown1/",
+  "method": "Short cuts from the credited single-character announcement. Original ambience retained. Two shorter alternatives reuse part of their corresponding full line. The source sign-off is preview-only.",
+  "clips": [
+    {
+      "id": "voice_question",
+      "kind": "official_ja",
+      "title": "互动 · 这也得我来吗",
+      "speaker": "中村悠一",
+      "range_seconds": [
+        3.88,
+        6.96
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646660788990476289",
+      "duration_seconds": 3.08,
+      "wav_sha256": "3352e3d267cacea1cbcf1d69b80327be94751f0fff59a435c4d99d395bf1433e",
+      "mp3_sha256": "b54c52d2842d95f0bcd79344d1e162bdb70a782362a9c4f5338c5b4466da8852"
+    },
+    {
+      "id": "voice_indifferent",
+      "kind": "official_ja",
+      "title": "展示 · 神意和诸神黄昏都无所谓",
+      "speaker": "中村悠一",
+      "range_seconds": [
+        8.02,
+        13.17
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646660788990476289",
+      "duration_seconds": 5.15,
+      "wav_sha256": "d5589459fa2fdfe9206b628ad326990c36a13b575706b404f665a48444ca865b",
+      "mp3_sha256": "b398b5223b799c3643771f9ba17f7c1adffb3dc0a75b899d13b661f73475ca14"
+    },
+    {
+      "id": "voice_brief",
+      "kind": "official_ja",
+      "title": "互动短版 · 都无所谓",
+      "speaker": "中村悠一",
+      "range_seconds": [
+        11.73,
+        13.17
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646660788990476289",
+      "duration_seconds": 1.44,
+      "wav_sha256": "3ba1f57a98a87b6b44fb8614c04a9b10271347f49e77d89246cf2b29081bf846",
+      "mp3_sha256": "93561af5f6bc25aaccffa5b95ffc9b55899bb55e02835ad15894385d915fb9f7"
+    },
+    {
+      "id": "voice_resolve",
+      "kind": "official_ja",
+      "title": "展示 · 能让我行动的只有我自己",
+      "speaker": "中村悠一",
+      "range_seconds": [
+        14.32,
+        22.14
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646660788990476289",
+      "duration_seconds": 7.82,
+      "wav_sha256": "0c86fb0f4ab2dbe415c5dde7f9142a593419745943b3acda6e35cfb0e6f2e8b2",
+      "mp3_sha256": "fc9dcbcef2fe30a990dd4b4d0e19a0539394419cb29a7f1b7506bbba516199fe"
+    },
+    {
+      "id": "voice_resolve_short",
+      "kind": "official_ja",
+      "title": "宣言短版 · 天上天下只有我自己",
+      "speaker": "中村悠一",
+      "range_seconds": [
+        17.91,
+        22.14
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646660788990476289",
+      "duration_seconds": 4.23,
+      "wav_sha256": "8fb0d9922945cdffc705920f48c0a136b519de98983f6ea52470b64443ecbc4a",
+      "mp3_sha256": "86d83f7d61bd4f4c86caf08d2daeb4b4a42e20e80a190389c80ff26fbc1972ed"
+    },
+    {
+      "id": "voice_preview_signoff",
+      "kind": "official_ja",
+      "title": "展示 · 官方宣传结尾",
+      "speaker": "中村悠一",
+      "range_seconds": [
+        31.1,
+        32.31
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646660788990476289",
+      "duration_seconds": 1.21,
+      "wav_sha256": "49c9ce083bd80fc1aa6d1a2552a281cb28dcf9c92c3ad719c33bf6732d2074e4",
+      "mp3_sha256": "41b3e25766504656d1c61529cfee9865e329388cf63f51eca6558c257ef79184"
+    },
+    {
+      "id": "sfx_staff",
+      "kind": "original_foley",
+      "title": "六道棍 · 挥出",
+      "duration_seconds": 0.22,
+      "wav_sha256": "0444bbce5b40897ca327ecd7574189be53953e7dda1676fa6cf7d6e156cf3ca6",
+      "mp3_sha256": "23847e60c8744f8f66ad0293cebeb4102ec24fc177d0fe03d12268e4b47af31d"
+    },
+    {
+      "id": "sfx_staff_hit",
+      "kind": "original_foley",
+      "title": "六道棍 · 命中",
+      "duration_seconds": 0.19,
+      "wav_sha256": "f4c42f26dc4e99e6aff2399b491121e0571aadfbffc342da72708ee58707a114",
+      "mp3_sha256": "a7b8dcb9a9d8a2bc91383c042c86f5218b8555fa96b03ea2a4c596099a3c581f"
+    },
+    {
+      "id": "sfx_vajra_load",
+      "kind": "original_foley",
+      "title": "枪刃 · 起手",
+      "duration_seconds": 0.29,
+      "wav_sha256": "381ee80fbcc1c6307bef74c60d1b389b956df7e0e2a55a6ad2b0dc6a2c4ecf5f",
+      "mp3_sha256": "9adefcecfb274955ac7350d47e434e985a8ff47c36fe7b3d8b4ed9b9d6b9765d"
+    },
+    {
+      "id": "sfx_vajra",
+      "kind": "original_foley",
+      "title": "枪刃 · 前刺",
+      "duration_seconds": 0.24,
+      "wav_sha256": "f8e9653f8352b2f5d841a83a659d1b89c77a9614af8d7cc4155f37f1060ef057",
+      "mp3_sha256": "a5907e47be83126636f82ae51082c15715ffbfe1f1ef2b7e8ea84e28983fdde1"
+    },
+    {
+      "id": "sfx_vajra_hit",
+      "kind": "original_foley",
+      "title": "枪刃 · 命中",
+      "duration_seconds": 0.24,
+      "wav_sha256": "c40183035f38c5e0de20764e45813b8e1b122149d9f79c93ffe72e0ae31da9fb",
+      "mp3_sha256": "c59b75bb32aebca5c398178b1956ecf5b6b390227ac6836670270f507c27c328"
+    },
+    {
+      "id": "sfx_focus",
+      "kind": "original_foley",
+      "title": "未来视 · 聚焦",
+      "duration_seconds": 0.37,
+      "wav_sha256": "808edff27002b03aa83086248cda7c12037ffdfd9e9a8f68396a8a1d441a2f9e",
+      "mp3_sha256": "f85120e7a0ee24c0ec0cf0372699c87b8b222b23c29e45b5ffd782faf7e99bd0"
+    },
+    {
+      "id": "sfx_shield_open",
+      "kind": "original_foley",
+      "title": "观音盾 · 展开",
+      "duration_seconds": 0.38,
+      "wav_sha256": "689335220b9d551c4b0a463ffab6399433f853cf987602cb30d9bdcca7fa7c9c",
+      "mp3_sha256": "9fd5792525c31ba456f48ce8620ecdc8163b9b4da4cb114373d45ab85b302093"
+    },
+    {
+      "id": "sfx_shield_block",
+      "kind": "original_foley",
+      "title": "观音盾 · 格挡",
+      "duration_seconds": 0.31,
+      "wav_sha256": "b4142c018af7b6961bf5d5f7a0e96564e17d3d0a26c37f0c1c83b1db7d190f29",
+      "mp3_sha256": "47e600bd2fc670729324c65384f9cc0dec076ef96fadf1bf345756630bdc5f5e"
+    },
+    {
+      "id": "sfx_shield_end",
+      "kind": "original_foley",
+      "title": "观音盾 · 收回",
+      "duration_seconds": 0.22,
+      "wav_sha256": "31fa25f01455be6ad3955a607fde50ba0f035cad76d43720a24a92beadec4d73",
+      "mp3_sha256": "64270d45104ab90b62cdefb3c20dc50949aac54b7f6173a4abe6f57d5ebe3376"
+    },
+    {
+      "id": "sfx_recoil",
+      "kind": "original_foley",
+      "title": "撤步 · 落脚",
+      "duration_seconds": 0.18,
+      "wav_sha256": "f85149aec489034e53fef6accab02bb48ef5c4eda6d8248fb8e8d619a5f3658a",
+      "mp3_sha256": "7a3ce56cdf71e2ea102e00220e22684e78ea9c84c5f8cc19c05b78e437920d1d"
+    },
+    {
+      "id": "sfx_nirvana_load",
+      "kind": "original_foley",
+      "title": "涅槃剑 · 蓄势",
+      "duration_seconds": 0.54,
+      "wav_sha256": "a60fa4fb3202112b6af011e66f02ecc69d1515b5632f82d8445f4398a1bf9ef0",
+      "mp3_sha256": "43127b42373b7854fd817833ce76c5d1cdbba69bb22ef30a0e99242b63ce4c69"
+    },
+    {
+      "id": "sfx_nirvana_ready",
+      "kind": "original_foley",
+      "title": "涅槃剑 · 出鞘",
+      "duration_seconds": 0.36,
+      "wav_sha256": "ec90061452dc421734bfc74e08beff6f4c58a9f1486e3a943ba3f8d1296cab91",
+      "mp3_sha256": "e1b3dc61fc5f1c89d6c7793544342543c9e2444e0641aa988d6779139f89bcf6"
+    },
+    {
+      "id": "sfx_nirvana",
+      "kind": "original_foley",
+      "title": "涅槃剑 · 斩出",
+      "duration_seconds": 0.34,
+      "wav_sha256": "ec971d109a4b7205d73d4138cc8cf854297a88b33062533e83d15cfba675d132",
+      "mp3_sha256": "36495c13422e874132136f5f8fe4c05b68b2a7d49020342e203a0337ee65a74f"
+    },
+    {
+      "id": "sfx_nirvana_hit",
+      "kind": "original_foley",
+      "title": "涅槃剑 · 命中",
+      "duration_seconds": 0.33,
+      "wav_sha256": "fbada958f197c8ea2ad9c61637eb52a5719b9ac2c75d95faacfbb005271cc941",
+      "mp3_sha256": "c1f3b077862c9ec8f17e6fbe116df6526fcf5ef3284f510fcf63b64441378f2b"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.29,
+      "wav_sha256": "6430c407cc4091f88926275158471333b18cf10b752fcaaf2b4d34ba72308d6a",
+      "mp3_sha256": "3a5a5768cd41796685fcbd1d3425da5476c1d6172f0c6c764495a48b877af305"
+    }
+  ]
+}

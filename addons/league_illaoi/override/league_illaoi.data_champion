@@ -4076,6 +4076,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_buddha",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_buddha",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_buddha_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_buddha_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_ragnarok_heracles",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_heracles",
@@ -4151,6 +4167,38 @@
       "name": "league_illaoi_soul_ragnarok_poseidon_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_poseidon_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_raiden",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_raiden",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_raiden_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_raiden_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_shiva",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_shiva",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_shiva_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_shiva_l",
       "z": 3,
       "is_follow": false
     },

@@ -111,6 +111,48 @@
         "x": 0,
         "y": -12
       }
+    },
+    "ragnarok_raiden": {
+      "face": {
+        "x": 4,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "ragnarok_shiva": {
+      "face": {
+        "x": 1,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -10
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "ragnarok_buddha": {
+      "face": {
+        "x": 3,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
     }
   }
 }
