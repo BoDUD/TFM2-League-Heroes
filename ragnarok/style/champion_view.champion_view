@@ -2,36 +2,36 @@
   "entries": {
     "ragnarok_lubu": {
       "face": {
-        "x": 3,
-        "y": -26
+        "x": 4,
+        "y": -31
       },
       "center": {
         "x": 0,
-        "y": -9
+        "y": -17
       },
       "banpick_center": {
         "x": 0,
-        "y": -13
+        "y": -10
       }
     },
     "ragnarok_thor": {
       "face": {
-        "x": 6,
-        "y": -29
+        "x": 7,
+        "y": -35
       },
       "center": {
         "x": 0,
-        "y": -16
+        "y": -20
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -14
       }
     },
     "ragnarok_zeus": {
       "face": {
-        "x": 5,
-        "y": -24
+        "x": 6,
+        "y": -29
       },
       "center": {
         "x": 0,
@@ -45,127 +45,127 @@
     "ragnarok_adam": {
       "face": {
         "x": 2,
-        "y": -25
+        "y": -30
       },
       "center": {
         "x": 0,
-        "y": -6
+        "y": -9
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "ragnarok_poseidon": {
       "face": {
         "x": 2,
-        "y": -28
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -8
+        "y": -19
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -10
       }
     },
     "ragnarok_kojiro": {
       "face": {
         "x": 2,
-        "y": -26
+        "y": -31
       },
       "center": {
         "x": 0,
-        "y": -8
+        "y": -11
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -10
       }
     },
     "ragnarok_heracles": {
       "face": {
         "x": 1,
-        "y": -32
+        "y": -38
       },
       "center": {
         "x": 0,
-        "y": -7
+        "y": -15
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "ragnarok_jack": {
       "face": {
         "x": 2,
-        "y": -30
+        "y": -36
       },
       "center": {
         "x": 0,
-        "y": -11
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -10
       }
     },
     "ragnarok_raiden": {
       "face": {
-        "x": 4,
-        "y": -31
+        "x": 5,
+        "y": -37
       },
       "center": {
         "x": 0,
-        "y": -12
+        "y": -15
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -10
       }
     },
     "ragnarok_shiva": {
       "face": {
         "x": 1,
-        "y": -31
+        "y": -37
       },
       "center": {
         "x": 0,
-        "y": -10
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -8
       }
     },
     "ragnarok_buddha": {
       "face": {
-        "x": 3,
-        "y": -30
+        "x": 4,
+        "y": -36
       },
       "center": {
         "x": 0,
-        "y": -11
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -10
       }
     },
     "ragnarok_zerofuku": {
       "face": {
-        "x": 5,
-        "y": -31
+        "x": 6,
+        "y": -37
       },
       "center": {
         "x": 0,
-        "y": -12
+        "y": -15
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -8
       }
     }
   }

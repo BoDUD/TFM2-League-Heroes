@@ -26,7 +26,9 @@ from ragnarok_pack import (MOD, lp, ADi, AD, O, A, R, S, E, phys, ratio, secs, c
 SFX, VO = f"{ID}_sfx_", f"{ID}_vo_"
 # champion_view（离脚底点的游戏像素，往上是负）：待机第 1 帧的眼睛在脚底上约 99 格 = 30 个游戏像素、往前 9 格 = 3；
 # 百科中心照雷电（1 倍待机的实心顶上方 23 格）：实心顶 -34 -> -11；选人卡用默认的 -12
-VIEW = {"face": {"x": 3, "y": -30}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -12}}
+# 2026-11-22 整包放大 1.2 倍（「放大到联盟大小」，import 的 PPU 除以 1.2）以后重定：头像点乘 1.2；百科中心照
+# bp_card_audit.py --centers 的规则（和联盟一样）；选人卡照它的规则 y = -39 - 头顶（量头，不量头顶上的刀、叉、锤、翎子）
+VIEW = {"face": {"x": 4, "y": -36}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
 
 TEXT = {
     "zh-hans": {
