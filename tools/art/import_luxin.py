@@ -13,11 +13,11 @@
 放在单位身上的：普攻打中 a_hit（attack）、受击 hit：接触点；追羽 p_feather（passive，逃跑的敌人身后的羽迹）：贴地，
 羽毛的中间 (64, 68) 落在脚下 -> (64, 30)。
 弹道图（1 倍，border/effects/border_luxin_proj，朝右，引擎按方向转）：
-- 折鸢 e_kite_r：一道细风线上飞着一只纸鸢。Codex 这组绕格子中间放大，风线一帧一帧往下走（第 83、96、103、98 行），
-  先对齐到第 103 行（第 3 帧，停 3.6 秒的那张），再从风线的两头往外接（只往外添，纸鸢、星光和光雾一个像素都不挪），
+- 折鸢 e_kite_r：一道细风线上飞着一只纸鸢。Codex 这组绕格子中间放大，风线一帧一帧往下走（v0.5.0 的四帧在第 83、96、103、
+  98 行；v0.7.0 起每个特效 8 帧：v0.5.0 的第 k 帧是现在的第 2k-1 帧，后面跟一帧过渡，时长减半，过渡帧取前后两帧的中间），先对齐到第 103 行（第 5 帧，停 3.6 秒的那张），再从风线的两头往外接（只往外添，纸鸢、星光和光雾一个像素都不挪），
   接的是这帧风线中间那段的典型横截面，粗细、颜色一样，加长到 40 个游戏像素；
-  第 1、2 帧各 0.09 秒，第 3 帧 3.6 秒，第 4 帧 0.09 秒。图的中心在风线的中点。e_kite_l 是它上下翻过来的（往左时用）；
-- 收线 r_cut_r：每次冲刺一道交叉的羽刃（ult 四帧原样，中心 (64, 68)），r_cut_l 是它上下翻过来的。
+  第 1-4 帧各 0.045 秒，第 5 帧 3.6 秒，第 6-8 帧各 0.03 秒。图的中心在风线的中点。e_kite_l 是它上下翻过来的（往左时用）；
+- 收线 r_cut_r：每次冲刺一道交叉的羽刃（ult 八帧原样，中心 (64, 68)），r_cut_l 是它上下翻过来的。
 """
 import os
 import sys
@@ -35,12 +35,12 @@ BAKE = [
 TARGET_FX = {"a_hit": B.CONTACT, "hit": B.CONTACT, "p_feather": B.ground(68)}
 # 风线的中心对齐、加长以后才知道（fx_make 填进来）
 PROJ_FX = {"e_kite_r": None, "e_kite_l": None, "r_cut_r": B.FX_CENTRE, "r_cut_l": B.FX_CENTRE}
-KITE_ROWS = [83, 96, 103, 98]
+KITE_ROWS = [83, 90, 96, 100, 103, 101, 98, 98]
 KITE = round(40 * B.PPU)    # 40 个游戏像素
 
 
 def fx_make(fx):
-    kite, row = B.settle(B.frames(fx, "skill2", None, [0.09, 0.09, 3.6, 0.09]), KITE_ROWS, 103)
+    kite, row = B.settle(B.frames(fx, "skill2", None, [0.045] * 4 + [3.6] + [0.03] * 3), KITE_ROWS, 103)
     line = np.nonzero((np.logical_or.reduce([a[..., 3] > 0 for a, _ in kite]))[row - 2:row + 3].any(0))[0]
     kite, c = B.extend_ends(kite, ((line.min() + line.max()) / 2, row), KITE)
     H = kite[0][0].shape[0]

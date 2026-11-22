@@ -8,11 +8,13 @@
 
 一格 256，脚底 (128, 184)，站高 104 格（32 个游戏像素）。共用的设定、特效的放法在 tools/art/border_art.py。
 没有画进她自己帧里的特效。
+v0.7.1 撒线 skill 的第 5 帧（0.20-0.26 秒的过渡帧）整个人是 2x2 的粗马赛克（像低分辨率的稿子放大上来的），不用它：
+RETIME 把它的时长给下一帧（0.26 秒撒线那张提前到 0.20 秒出来，到 0.30 秒）。
 弹道图（1 倍，border/effects/border_yanxi_proj，朝右，引擎按飞的方向转）：
 - 普攻的盐晶碎片 a_shard（attack 八帧，中心 (60, 68)）；
-- 撒线的盐带 q_band_r：Codex 画的盐带往右上斜着（约 13 度），按第 3 帧的主方向转平（最近邻），从两头 22% 处切开加长到
-  50 个游戏像素（盐带 50000 长、14000 宽），只补贴着中线的那段晶体，不拉糊；第 1、2 帧各 0.078 秒，第 3 帧停 3.6 秒，
-  第 4 帧 0.1 秒（盐带 4 秒）。q_band_l 是它上下翻过来的：盐带往左铺时引擎把图转 180 度，翻过来的再转回来晶体还是朝上；
+- 撒线的盐带 q_band_r：Codex 画的盐带往右上斜着（约 13 度），按铺满那帧（第 5 帧）的主方向转平（最近邻），从两头 22% 处
+  切开加长到 50 个游戏像素（盐带 50000 长、14000 宽），只补贴着中线的那段晶体，不拉糊；第 1-4 帧各 0.039 秒，第 5 帧停
+  3.6 秒，第 6-8 帧各 0.033 秒（盐带 4 秒；v0.7.0 起每个特效 8 帧，v0.5.0 的第 k 帧是现在的第 2k-1 帧，后面跟一帧过渡）。q_band_l 是它上下翻过来的：盐带往左铺时引擎把图转 180 度，翻过来的再转回来晶体还是朝上；
 - 退潮的晶浪 r_wave_r：Codex 画的浪头朝左，弹道的图要朝右，左右翻过来；r_wave_l 是它上下翻过来的（往左收时用）。
 放在单位身上的：命中 a_hit（hit，接触点）、凝结 e_burst（skill2，盐楔在目标身上炸开）、析晶 p_crystal（passive，
 被标记的敌人身上的盐晶）：身上的 (64, 84)。
@@ -31,8 +33,8 @@ BAND = round(50 * B.PPU)    # 50 个游戏像素
 
 
 def fx_make(fx):
-    mx, my, d = B.axis_of(fx["skill"][2][0])
-    flat, c = B.turn_flat(B.frames(fx, "skill", None, [0.078, 0.078, 3.6, 0.1]), (mx, my), d, 184)
+    mx, my, d = B.axis_of(fx["skill"][4][0])
+    flat, c = B.turn_flat(B.frames(fx, "skill", None, [0.039] * 4 + [3.6] + [0.033] * 3), (mx, my), d, 184)
     band, c = B.lengthen(flat, c, BAND, period=24)
     H = band[0][0].shape[0]
     PROJ_FX["q_band_r"], PROJ_FX["q_band_l"] = c, (c[0], H - 1 - c[1])
@@ -41,7 +43,10 @@ def fx_make(fx):
             "q_band_r": band, "q_band_l": B.flip_tb(band), "r_wave_r": wave, "r_wave_l": B.flip_tb(wave)}
 
 
-YANXI = B.config("yanxi", TARGET_FX=TARGET_FX, PROJ_FX=PROJ_FX, FX_MAKE=fx_make)
+# 撒线第 5 帧是马赛克（见上），时长并给第 6 帧
+RETIME = {"skill": [0.053, 0.049, 0.038, 0.06, 0.0, 0.10, 0.066, 0.074, 0.065, 0.055]}
+
+YANXI = B.config("yanxi", TARGET_FX=TARGET_FX, PROJ_FX=PROJ_FX, FX_MAKE=fx_make, RETIME=RETIME)
 
 if __name__ == "__main__":
     A.main(YANXI, __doc__)

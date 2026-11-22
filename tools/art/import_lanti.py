@@ -11,7 +11,7 @@
 折纹 p_mark（passive，被标记的敌人身上的镜纹）、候击 e_guard（skill2，围着她的翡翠护环）：身上的 (64, 84)。
 q_punch 画的拳头朝右（特效图不会跟着左右翻）：另出一张左右翻过来的 q_punch_l，border.dll 按她出拳的方向挑
 （她在目标右边、往左打时放 _l）。
-弹道图（1 倍，border/effects/border_lanti_proj，朝右）：还响往前推的玻璃浪 r_wave（ult 四帧，中心 (63, 68)），
+弹道图（1 倍，border/effects/border_lanti_proj，朝右）：还响往前推的玻璃浪 r_wave（ult 八帧，中心 (63, 68)），
 r_wave_l 是它上下翻过来的（往左推时引擎把图转 180 度，翻过来的转回来还是正的）。
 """
 import os

@@ -40,7 +40,9 @@ action frames held on the card besides the spilling ones. `"hold": "idle_loop"` 
 league_xinzhao's ribbons, 「待机也是」 for league_galio's wings): every hold of frame 0 longer than LOOP_MIN_S plays that tag's
 frames round and round instead (their own durations, the turn carried on from hold to hold, the idle's and the card's), so
 a part that hangs or stands - a ribbon, wings - moves while the hero stands; the tag (and its hd_ / lo_ copies) is drawn
-by tools/fix/xinzhao_galio_1119/ (ribbon.py, wings.py), its frame 0 the idle's frame 0 or the same picture moved. A form idle can name another idle instead (`"r_idle": "idle"`):
+by tools/fix/xinzhao_galio_1119/ (ribbon.py, wings.py), its frame 0 the idle's frame 0 or the same picture moved.
+`"hold": "idle_base"` (the border heroes, 2026-11-22: Codex's v0.7.0 drew each a 16-frame idle - hair, cloth and props
+sway, a blink, a breath - for 「少了挺多动画效果的」): the holds play the drawn idle itself. A form idle can name another idle instead (`"r_idle": "idle"`):
 a form that is that idle's frames in other colours (league_volibear's storm twins, tools/art/volibear_storm.py) gets
 that idle's reel frame for frame from its own tags, so an add-on can swap the two in mid-play.
 """
@@ -330,6 +332,9 @@ def plan(h, picks):
     out = {}
     turn = None
     h.loop = picks.get("hold")
+    if h.loop == "idle_base" and h.loop not in h.anims:
+        # 循环用画好的待机（边境巡团）：图表刚重出、还没跑过这里时它还叫 idle，这一趟才存成 idle_base
+        h.loop = h.base("idle")
     if h.loop and h.loop not in h.anims:
         raise SystemExit(f"{h.id}: hold loop {h.loop} is not in the sheet")
     h.loop_turn = 0

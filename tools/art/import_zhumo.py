@@ -9,9 +9,10 @@
 一格 256，脚底 (128, 184)，站高 108 格（33 个游戏像素）。共用的设定、特效的放法在 tools/art/border_art.py。
 
 画进他自己帧里的（跟着他左右翻）：
-- 压坯 skill：熔铁往下砸的弧和地上的火星。第 3 帧（0.26 秒）锤子落地，锤头在 (153, 182)；特效第 3 张是砸地那下，
-  所以从 0.104 秒起放（前两张往下劈的弧在他举锤、落锤的时候），第 3 张正好 0.26 秒。特效贴地的那条线量出来在第 102 行
-  （第 3 张亮团的底 104-106、第 4 张火星的底 97），这一点 (64, 102) 对上锤子落地处的地面 (153, 184)。
+- 压坯 skill：熔铁往下砸的弧和地上的火星（特效八帧：第 1-4 张往下劈的弧，第 5 张砸地那下，第 6-8 张火星）。v0.7.0 起他
+  先把锤举过头顶（到 0.20 秒），0.20 秒落锤、0.26 秒砸地，所以拆成两段放：弧 q_arc 0.18-0.26 秒每张 0.02 秒，跟着落锤，
+  画在身后（他蹲得低，画在前面会糊在脸上）；砸地和火星 q_smash 0.26 秒起照特效自己的时长，画在前面。特效贴地的那条线
+  量出来在第 102 行（砸地那张亮团的底 104-106、火星的底 97），这一点 (64, 102) 对上锤子落地处的地面 (153, 184)。
 放在单位身上的：
 - 普攻打中 a_hit（attack）、受击 hit：接触点；
 - 回火 e_temper（skill2，围着他的几道金属环）、余温 p_heat（passive，余烬）：身上的 (64, 84)；
@@ -27,13 +28,15 @@ import ragnarok_art as A  # noqa: E402
 
 # (动作, 特效, 开始秒, 离脚底的锚点, 每帧秒数（None 用特效自己的）, 特效格里对上锚点的那点)
 BAKE = [
-    ("skill", "skill", 0.104, B.at(153, 184), None, (64, 102)),
+    ("skill", "q_arc", 0.18, B.at(153, 184), 0.02, (64, 102), "behind"),
+    ("skill", "q_smash", 0.26, B.at(153, 184), None, (64, 102)),
 ]
 TARGET_FX = {"a_hit": B.CONTACT, "hit": B.CONTACT, "e_temper": B.BODY, "r_furnace": B.ground(92), "p_heat": B.BODY}
 
 
 def fx_make(fx):
-    return {"a_hit": fx["attack"], "e_temper": fx["skill2"], "r_furnace": fx["ult"], "p_heat": fx["passive"]}
+    return {"a_hit": fx["attack"], "e_temper": fx["skill2"], "r_furnace": fx["ult"], "p_heat": fx["passive"],
+            "q_arc": fx["skill"][:4], "q_smash": fx["skill"][4:]}
 
 
 ZHUMO = B.config("zhumo", BAKE=BAKE, TARGET_FX=TARGET_FX, FX_MAKE=fx_make)
