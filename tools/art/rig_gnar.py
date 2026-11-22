@@ -738,6 +738,11 @@ def frames_all(C):
         mrun.append(mega(C, theta=B_THETA[i], dx=B_SURGE[i], lift=bob, tail_dy=B_TAIL[i],
                          legs={"near_hind": near_h, "far_fore": far_f, "far_hind": far_h, "near_fore": near_f}))
     out["m_run"] = mrun
+    # Codex 重画的跑步（用户 11-22：「不然你让codex帮忙 这个大纳尔」）：tools/art/read_gnar_mega_run.py 读回、放好在这张画布上的
+    # 8 帧，在就用它们（上面绑出来的那版留着，读回时拿它对齐）
+    codex = [os.path.join(SRC, "codex_mega_run", "frames", f"m_run_{k}.png") for k in range(1, 9)]
+    if all(os.path.isfile(f) for f in codex) and not os.environ.get("GNAR_RIG_RUN"):
+        out["m_run"] = [np.array(Image.open(f).convert("RGBA")) for f in codex]
     out["m_hit"] = [m34(C, dx=-2, flash=True), m34(C, dx=-1)]
     out["m_dead"] = [mega(C, theta=-6), mega(C, theta=-8, flash=True), mini(C, flash=True)] + out["dead"][2:]
     # theta turns the whole upper body - torso, crests and both front arms as Codex drew them - counter-clockwise about
