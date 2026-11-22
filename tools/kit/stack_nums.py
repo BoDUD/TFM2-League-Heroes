@@ -461,7 +461,8 @@ def table_rs(pack="league"):
              f"pub const STACKS: [Stack; {len(table)}] = ["]
     for r in sorted(table, key=lambda r: r["hero"]):       # stable: a hero's rows keep the table's order
         foes = "true" if r.get("on") == "foes" else "false"
-        lines.append(f'    Stack {{ hero: "{r["hero"]}", rule: {rule_rs(r)}, cap: {param(r, "cap")}, foes: {foes} }},')
+        lines.append(f'    Stack {{ hero: "{r["hero"]}", rule: {rule_rs(r)}, cap: {param(r, "cap")}, foes: {foes}, '
+                     f'skill: {r["skill"]} }},')
     lines += ["];", ""]
     return "\n".join(lines)
 
