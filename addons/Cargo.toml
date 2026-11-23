@@ -5,7 +5,7 @@
 # time) and hd_engine (the dense frames league.dll and tft.dll share) are libraries the DLLs link, no mods themselves; so is push_rules
 # (what the add-ons that push or pull an enemy ask about a unit: held, still moving).
 [workspace]
-members = ["league_*", "tft", "ragnarok", "baixi", "game_places", "hd_engine", "lol_audio", "push_rules"]
+members = ["league_*", "tft", "ragnarok", "game_places", "hd_engine", "lol_audio", "push_rules"]
 resolver = "2"
 
 [profile.release]
