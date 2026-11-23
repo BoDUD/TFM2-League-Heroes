@@ -1,0 +1,1336 @@
+{
+  "id": "baixi_fumian",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC",
+    "Shield",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "baixi_fumian:voice",
+    "params": {}
+  },
+  "sprite": "asset/baixi/champions/baixi_fumian",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/baixi/icons/baixi_fumian_skill",
+    "asset/baixi/icons/baixi_fumian_skill2",
+    "asset/baixi/icons/baixi_fumian_ult"
+  ],
+  "stat": {
+    "attack": 62,
+    "magic_power": 42,
+    "hp": 1140,
+    "defence": 40,
+    "magic_resistance": 33,
+    "move_speed": 1012,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 8,
+    "magic_power": 14,
+    "hp": 108,
+    "defence": 7,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.baixi_fumian.attack",
+    "duration": 35,
+    "cooltime": 82,
+    "start_timing": 16,
+    "cancelable": true,
+    "range": 51200,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_fumian_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "baixi_fumian_a_gust",
+          "speed": 5400,
+          "y_offset": -8500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.baixi_fumian.skill",
+    "duration": 35,
+    "cooltime": 396,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 47200,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_fumian_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_fumian_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_fumian_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "baixi_fumian_face_blk",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 47200,
+                              "range": 500
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 84,
+                              "attack_ratio": 61,
+                              "hp_ratio": 0,
+                              "can_crit": false,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "baixi_fumian_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 90
+                                  }
+                                },
+                                "move_speed_mult": -31
+                              }
+                            },
+                            {
+                              "type": "Stun",
+                              "duration": 31
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "baixi_fumian_q_fan"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 47200,
+                              "range": 500
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 84,
+                              "attack_ratio": 61,
+                              "hp_ratio": 0,
+                              "can_crit": false,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "baixi_fumian_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 90
+                                  }
+                                },
+                                "move_speed_mult": -31
+                              }
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "baixi_fumian_q_fan"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "baixi_fumian_p_smoke"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "baixi_fumian_shift"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "baixi_fumian_face_gld",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 32200
+                                    }
+                                  },
+                                  "target": "AllyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Heal",
+                                      "amount": 53,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 41,
+                                      "heal_type": "Ally"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "baixi_fumian_p_heal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "baixi_fumian_face_gld"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "baixi_fumian_face_blk",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "baixi_fumian_face_blk"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_gld",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 32200
+                                      }
+                                    },
+                                    "target": "AllyChampion",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "Shield",
+                                        "amount": 66,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 51,
+                                        "tick": 135
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "baixi_fumian_p_shield"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_blk",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "baixi_fumian_face_blk",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 47200,
+                              "range": 500
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 84,
+                              "attack_ratio": 61,
+                              "hp_ratio": 0,
+                              "can_crit": false,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "baixi_fumian_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 90
+                                  }
+                                },
+                                "move_speed_mult": -31
+                              }
+                            },
+                            {
+                              "type": "Stun",
+                              "duration": 31
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "baixi_fumian_q_fan"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 47200,
+                              "range": 500
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 84,
+                              "attack_ratio": 61,
+                              "hp_ratio": 0,
+                              "can_crit": false,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "baixi_fumian_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 90
+                                  }
+                                },
+                                "move_speed_mult": -31
+                              }
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "baixi_fumian_q_fan"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "baixi_fumian_p_smoke"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "baixi_fumian_shift"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "baixi_fumian_face_gld",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 32200
+                                    }
+                                  },
+                                  "target": "AllyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Heal",
+                                      "amount": 53,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 41,
+                                      "heal_type": "Ally"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "baixi_fumian_p_heal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "baixi_fumian_face_gld"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "baixi_fumian_face_blk",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "baixi_fumian_face_blk"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_gld",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 32200
+                                      }
+                                    },
+                                    "target": "AllyChampion",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "Shield",
+                                        "amount": 66,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 51,
+                                        "tick": 135
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "baixi_fumian_p_shield"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_blk",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_fumian_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.baixi_fumian.skill2",
+    "duration": 40,
+    "cooltime": 758,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 57200,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_fumian_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_fumian_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_fumian_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "baixi_fumian_face_blk",
+                        "effect_buff": {
+                          "type": "LinearProjectile",
+                          "name": "baixi_fumian_e_silk",
+                          "speed": 5500,
+                          "range": 57200,
+                          "shape": {
+                            "Circle": {
+                              "radius": 9000
+                            }
+                          },
+                          "penetrate": false,
+                          "y_offset": -9000,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 72,
+                                    "attack_ratio": 51,
+                                    "hp_ratio": 0,
+                                    "can_crit": false,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "Grab",
+                                    "speed": 2800,
+                                    "tick": 8
+                                  },
+                                  {
+                                    "type": "Stun",
+                                    "duration": 80
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "baixi_fumian_e_bind"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "baixi_fumian_e_hit"
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "end_effects": []
+                        },
+                        "effect_none": {
+                          "type": "LinearProjectile",
+                          "name": "baixi_fumian_e_silk",
+                          "speed": 5500,
+                          "range": 57200,
+                          "shape": {
+                            "Circle": {
+                              "radius": 9000
+                            }
+                          },
+                          "penetrate": false,
+                          "y_offset": -9000,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 72,
+                                    "attack_ratio": 51,
+                                    "hp_ratio": 0,
+                                    "can_crit": false,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "Grab",
+                                    "speed": 2800,
+                                    "tick": 8
+                                  },
+                                  {
+                                    "type": "Stun",
+                                    "duration": 49
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "baixi_fumian_e_bind"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "baixi_fumian_e_hit"
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "end_effects": []
+                        }
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "baixi_fumian_p_smoke"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "baixi_fumian_shift"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "baixi_fumian_face_gld",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 32200
+                                    }
+                                  },
+                                  "target": "AllyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Heal",
+                                      "amount": 53,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 41,
+                                      "heal_type": "Ally"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "baixi_fumian_p_heal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "baixi_fumian_face_gld"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "baixi_fumian_face_blk",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "baixi_fumian_face_blk"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_gld",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 32200
+                                      }
+                                    },
+                                    "target": "AllyChampion",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "Shield",
+                                        "amount": 66,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 51,
+                                        "tick": 135
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "baixi_fumian_p_shield"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_blk",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "baixi_fumian_face_blk",
+                        "effect_buff": {
+                          "type": "LinearProjectile",
+                          "name": "baixi_fumian_e_silk",
+                          "speed": 5500,
+                          "range": 57200,
+                          "shape": {
+                            "Circle": {
+                              "radius": 9000
+                            }
+                          },
+                          "penetrate": false,
+                          "y_offset": -9000,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 72,
+                                    "attack_ratio": 51,
+                                    "hp_ratio": 0,
+                                    "can_crit": false,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "Grab",
+                                    "speed": 2800,
+                                    "tick": 8
+                                  },
+                                  {
+                                    "type": "Stun",
+                                    "duration": 80
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "baixi_fumian_e_bind"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "baixi_fumian_e_hit"
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "end_effects": []
+                        },
+                        "effect_none": {
+                          "type": "LinearProjectile",
+                          "name": "baixi_fumian_e_silk",
+                          "speed": 5500,
+                          "range": 57200,
+                          "shape": {
+                            "Circle": {
+                              "radius": 9000
+                            }
+                          },
+                          "penetrate": false,
+                          "y_offset": -9000,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 72,
+                                    "attack_ratio": 51,
+                                    "hp_ratio": 0,
+                                    "can_crit": false,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "Grab",
+                                    "speed": 2800,
+                                    "tick": 8
+                                  },
+                                  {
+                                    "type": "Stun",
+                                    "duration": 49
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "baixi_fumian_e_bind"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "baixi_fumian_e_hit"
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "end_effects": []
+                        }
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "baixi_fumian_p_smoke"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "baixi_fumian_shift"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "baixi_fumian_face_gld",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 32200
+                                    }
+                                  },
+                                  "target": "AllyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Heal",
+                                      "amount": 53,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 41,
+                                      "heal_type": "Ally"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "baixi_fumian_p_heal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "baixi_fumian_face_gld"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "baixi_fumian_face_blk",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "baixi_fumian_face_blk"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_gld",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 32200
+                                      }
+                                    },
+                                    "target": "AllyChampion",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "Shield",
+                                        "amount": 66,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 51,
+                                        "tick": 135
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "baixi_fumian_p_shield"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "baixi_fumian_face_blk",
+                                      "duration": "Permanent"
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_fumian_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.baixi_fumian.ult",
+    "duration": 52,
+    "cooltime": 3270,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 36200,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_fumian_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "baixi_fumian_p_smoke"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_fumian_r_cast",
+            "duration": {
+              "Time": {
+                "tick": 22
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 25
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_fumian_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_fumian_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "baixi_fumian_r_finale"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36200
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 98,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "can_crit": false,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_fumian_r_finale"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36200
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 129,
+                            "attack_ratio": 0,
+                            "ap_ratio": 94,
+                            "tick": 180
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 67,
+                            "attack_ratio": 0,
+                            "ap_ratio": 51,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_fumian_p_shield"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_fumian_p_heal"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "baixi_fumian_r_finale"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36200
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 98,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "can_crit": false,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_fumian_r_finale"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 36200
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 129,
+                            "attack_ratio": 0,
+                            "ap_ratio": 94,
+                            "tick": 180
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 67,
+                            "attack_ratio": 0,
+                            "ap_ratio": 51,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_fumian_p_shield"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_fumian_p_heal"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_fumian_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "baixi_fumian_a_gust",
+      "anim": "asset/baixi/effects/baixi_fumian_proj",
+      "tag": "gust",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "baixi_fumian_e_silk",
+      "anim": "asset/baixi/effects/baixi_fumian_proj",
+      "tag": "silk",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "baixi_fumian_q_fan",
+      "anim": "asset/baixi/effects/baixi_fumian_fx",
+      "tag": "fan",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_fumian_e_bind",
+      "anim": "asset/baixi/effects/baixi_fumian_fx",
+      "tag": "bind",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_fumian_p_smoke",
+      "anim": "asset/baixi/effects/baixi_fumian_fx",
+      "tag": "smoke",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_fumian_p_shield",
+      "anim": "asset/baixi/effects/baixi_fumian_fx",
+      "tag": "shield",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_fumian_p_heal",
+      "anim": "asset/baixi/effects/baixi_fumian_fx",
+      "tag": "healing",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_fumian_r_finale",
+      "anim": "asset/baixi/effects/baixi_fumian_fx",
+      "tag": "finale",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

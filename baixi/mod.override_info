@@ -1,0 +1,514 @@
+{
+  "asset/base/text/champion": {
+    "remapping": "asset/baixi/text/champion",
+    "type": "merge"
+  },
+  "asset/base/style/champion_view": {
+    "remapping": "asset/baixi/style/champion_view",
+    "type": "merge"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_bite": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_q_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_bite": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_q_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_sfx_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_v_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_v_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_v_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_v_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_v_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_vo_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_vo_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_vo_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_vo_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_dianjing_vo_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_dianjing_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_e_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_e_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_sfx_shift": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_sfx_shift",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_shift": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_shift",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_v_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_v_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_v_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_v_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_v_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_vo_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_vo_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_vo_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_vo_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_fumian_vo_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_fumian_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_r_boom": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_r_boom",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_r_finale": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_r_finale",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_r_boom": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_r_boom",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_r_finale": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_r_finale",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_sfx_twopop": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_sfx_twopop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_twopop": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_twopop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_v_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_v_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_v_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_v_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_v_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_vo_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_vo_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_vo_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_vo_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_huoshu_vo_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_huoshu_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_e_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_q_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_r_dragon": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_r_dragon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_r_fish": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_r_fish",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_r_phoenix": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_r_phoenix",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_e_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_q_hit": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_r_dragon": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_r_dragon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_r_fish": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_r_fish",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_sfx_r_phoenix": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_sfx_r_phoenix",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_v_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_v_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_v_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_v_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_v_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_vo_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_vo_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_vo_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_vo_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_maiya_vo_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_maiya_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_r_slash": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_r_slash",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_a": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_e": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_q": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_r": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_r_slash": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_r_slash",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_sfx_shadow": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_sfx_shadow",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_shadow": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_shadow",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_v_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_v_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_v_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_v_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_v_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_vo_dead": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_vo_kill": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_vo_respawn": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_vo_start": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/baixi_sangeng_vo_ult": {
+    "remapping": "asset/baixi/sound/sfx/baixi_sangeng_vo_ult",
+    "type": "override"
+  }
+}

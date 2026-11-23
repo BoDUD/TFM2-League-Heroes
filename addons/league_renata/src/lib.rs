@@ -1071,7 +1071,7 @@ mod tests {
     fn only_renatas_ult_and_sylass_copy_carry_berserk() {
         // could_berserk 的前提：狂暴 buff 只在雷娜塔的大招里（主包、本包的副本）和塞拉斯偷大招的副本里。别的英雄也挂了就要改它
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-        let mut dirs = vec![root.join("league/champion"), root.join("tft/champion"), root.join("ragnarok/champion")];
+        let mut dirs = vec![root.join("league/champion"), root.join("tft/champion"), root.join("ragnarok/champion"), root.join("baixi/champion")];
         for a in std::fs::read_dir(root.join("addons")).unwrap().flatten() {
             dirs.push(a.path().join("override"));
         }

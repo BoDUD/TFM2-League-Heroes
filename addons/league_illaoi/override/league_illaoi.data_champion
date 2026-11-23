@@ -1292,6 +1292,86 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_baixi_dianjing",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_dianjing",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_dianjing_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_dianjing_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_fumian",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_fumian",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_fumian_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_fumian_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_huoshu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_huoshu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_huoshu_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_huoshu_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_maiya",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_maiya",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_maiya_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_maiya_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_sangeng",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_sangeng",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_baixi_sangeng_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "baixi_sangeng_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_aatrox",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_aatrox",

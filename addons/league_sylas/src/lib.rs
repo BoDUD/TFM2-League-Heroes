@@ -525,7 +525,7 @@ mod tests {
         // works in his hands, Shyvana's needs her Fury - both were missing until then)
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let mut heroes: Vec<String> = Vec::new();
-        for (dir, least) in [("league/champion", 100), ("tft/champion", 3), ("ragnarok/champion", 3)] {
+        for (dir, least) in [("league/champion", 100), ("tft/champion", 3), ("ragnarok/champion", 3), ("baixi/champion", 3)] {
             let found: Vec<String> = std::fs::read_dir(root.join(dir))
                 .expect(dir)
                 .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
