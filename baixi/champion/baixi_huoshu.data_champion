@@ -1,0 +1,865 @@
+{
+  "id": "baixi_huoshu",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "baixi_huoshu:voice",
+    "params": {}
+  },
+  "sprite": "asset/baixi/champions/baixi_huoshu",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/baixi/icons/baixi_huoshu_skill",
+    "asset/baixi/icons/baixi_huoshu_skill2",
+    "asset/baixi/icons/baixi_huoshu_ult"
+  ],
+  "stat": {
+    "attack": 95,
+    "magic_power": 0,
+    "hp": 905,
+    "defence": 23,
+    "magic_resistance": 20,
+    "move_speed": 941,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 19,
+    "magic_power": 0,
+    "hp": 87,
+    "defence": 5,
+    "magic_resistance": 3,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.baixi_huoshu.attack",
+    "duration": 27,
+    "cooltime": 57,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 59600,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_huoshu_a"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "baixi_huoshu_c3",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "baixi_huoshu_c3"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "baixi_huoshu_a_fire",
+                "speed": 6500,
+                "y_offset": -9500,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TargetSplashProjectile",
+                "name": "baixi_huoshu_p_splash",
+                "speed": 6500,
+                "range": 16800,
+                "y_offset": -9500,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 44,
+                          "attack_ratio": 62,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "baixi_huoshu_p_twopop"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "baixi_huoshu_twopop"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "baixi_huoshu_c2",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_huoshu_c2"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "baixi_huoshu_c3",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "TargetProjectile",
+                  "name": "baixi_huoshu_a_fire",
+                  "speed": 6500,
+                  "y_offset": -9500,
+                  "applied_target": "Enemy",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "baixi_huoshu_c1",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "baixi_huoshu_c1"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "baixi_huoshu_c2",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "baixi_huoshu_a_fire",
+                    "speed": 6500,
+                    "y_offset": -9500,
+                    "applied_target": "Enemy",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 100,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "baixi_huoshu_c1",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "baixi_huoshu_a_fire",
+                    "speed": 6500,
+                    "y_offset": -9500,
+                    "applied_target": "Enemy",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 100,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.baixi_huoshu.skill",
+    "duration": 32,
+    "cooltime": 384,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 63500,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_huoshu_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_huoshu_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_huoshu_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "baixi_huoshu_q_rocket",
+                        "speed": 6500,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "baixi_huoshu_p_twopop"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "baixi_huoshu_q_rocket",
+                        "speed": 6500,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "baixi_huoshu_p_twopop"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_huoshu_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_huoshu_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_huoshu_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "baixi_huoshu_q_rocket",
+                        "speed": 6500,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "baixi_huoshu_p_twopop"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "baixi_huoshu_q_rocket",
+                        "speed": 6500,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "baixi_huoshu_p_twopop"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_huoshu_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 25,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_huoshu_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_huoshu_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "baixi_huoshu_q_rocket",
+                        "speed": 6500,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "baixi_huoshu_p_twopop"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "baixi_huoshu_q_rocket",
+                        "speed": 6500,
+                        "y_offset": -9500,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "baixi_huoshu_p_twopop"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_huoshu_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.baixi_huoshu.skill2",
+    "duration": 36,
+    "cooltime": 715,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50200,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_huoshu_e"
+        },
+        {
+          "type": "RandomTarget",
+          "range": 1,
+          "casting_target": "AllyOnlySelf",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "baixi_huoshu_e_drop",
+              "travel_time": 1,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "RangePeriodProjectile",
+                  "name": "baixi_huoshu_e_ground",
+                  "shape": {
+                    "Circle": {
+                      "radius": 19200
+                    }
+                  },
+                  "tick": 120,
+                  "period": 30,
+                  "first_delay": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 27,
+                            "attack_ratio": 31,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "baixi_huoshu_e_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 36
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "MoveBack",
+          "speed": 2250,
+          "tick": 8
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.baixi_huoshu.ult",
+    "duration": 54,
+    "cooltime": 3570,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 67500,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "baixi_huoshu_r"
+        },
+        {
+          "type": "ParabolicProjectile",
+          "name": "baixi_huoshu_r_lob",
+          "travel_time": 1,
+          "range": 400000,
+          "range_effect_name": "",
+          "shape": {
+            "Circle": {
+              "radius": 1
+            }
+          },
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "baixi_huoshu_r_barrage",
+              "shape": {
+                "Circle": {
+                  "radius": 34500
+                }
+              },
+              "tick": 120,
+              "period": 15,
+              "first_delay": 25,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 31,
+                        "attack_ratio": 37,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "baixi_huoshu_p_twopop"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "baixi_huoshu_r_boom"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "baixi_huoshu_r_finale_p",
+              "shape": {
+                "Circle": {
+                  "radius": 34500
+                }
+              },
+              "delay": 145,
+              "apply": 1,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 115,
+                        "attack_ratio": 108,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "baixi_huoshu_r_finale"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "baixi_huoshu_r_finale"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "baixi_huoshu_a_fire",
+      "anim": "asset/baixi/effects/baixi_huoshu_proj",
+      "tag": "firecracker",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "baixi_huoshu_q_rocket",
+      "anim": "asset/baixi/effects/baixi_huoshu_proj",
+      "tag": "rocket",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "baixi_huoshu_e_ground",
+      "anim": "asset/baixi/effects/baixi_huoshu_fx",
+      "tag": "ground",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "baixi_huoshu_r_barrage",
+      "anim": "asset/baixi/effects/baixi_huoshu_fx",
+      "tag": "barrage",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "baixi_huoshu_r_finale_p",
+      "anim": "asset/baixi/effects/baixi_huoshu_fx",
+      "tag": "finale",
+      "repeat": true,
+      "z": 3
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "baixi_huoshu_p_twopop",
+      "anim": "asset/baixi/effects/baixi_huoshu_fx",
+      "tag": "twopop",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_huoshu_r_finale",
+      "anim": "asset/baixi/effects/baixi_huoshu_fx",
+      "tag": "finale",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

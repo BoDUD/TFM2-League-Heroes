@@ -116,7 +116,7 @@ UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
 # league.dll (addons/league_main), the tft pack's tft.dll (addons/tft: its heroes' rules the data cannot play and,
 # since 0.42.0, their dense frames), the ragnarok pack's ragnarok.dll (addons/ragnarok: Record of Ragnarok's
 # fighters, 2026-11-20); all carry the dense-frame engine (addons/hd_engine)
-DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft"), "ragnarok": ("ragnarok.dll", "ragnarok")}
+DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft"), "ragnarok": ("ragnarok.dll", "ragnarok"), "baixi": ("baixi.dll", "baixi")}
 
 
 def build_dll(explicit, mod_id="league"):

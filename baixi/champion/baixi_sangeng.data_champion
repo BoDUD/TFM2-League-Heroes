@@ -1,0 +1,945 @@
+{
+  "id": "baixi_sangeng",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "baixi_sangeng:voice",
+    "params": {}
+  },
+  "sprite": "asset/baixi/champions/baixi_sangeng",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/baixi/icons/baixi_sangeng_skill",
+    "asset/baixi/icons/baixi_sangeng_skill2",
+    "asset/baixi/icons/baixi_sangeng_ult"
+  ],
+  "stat": {
+    "attack": 99,
+    "magic_power": 0,
+    "hp": 1055,
+    "defence": 35,
+    "magic_resistance": 30,
+    "move_speed": 1090,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 6,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.baixi_sangeng.attack",
+    "duration": 36,
+    "cooltime": 55,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "baixi_sangeng_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "baixi_sangeng_a_hit"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "baixi_sangeng_e_ambush",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "baixi_sangeng_e_ambush"
+              },
+              {
+                "type": "Attack",
+                "damage": 64,
+                "attack_ratio": 82,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "baixi_sangeng_e_rivets"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "baixi_sangeng_p_shadow",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "baixi_sangeng_p_shadow"
+              },
+              {
+                "type": "Delayed",
+                "tick": 7,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "baixi_sangeng_live",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "baixi_sangeng_live",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 43,
+                              "attack_ratio": 53,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "baixi_sangeng_p_slash"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "baixi_sangeng_shadow"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 43,
+                              "attack_ratio": 53,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "baixi_sangeng_p_slash"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "baixi_sangeng_shadow"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "baixi_sangeng_live"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.baixi_sangeng.skill",
+    "duration": 36,
+    "cooltime": 410,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 41000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_sangeng_p_shadow",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "baixi_sangeng_q"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "baixi_sangeng_q_shadow"
+        },
+        {
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_sangeng_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_sangeng_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 5100,
+                        "tick": 9,
+                        "range": 16000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": true,
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 84,
+                              "attack_ratio": 103,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "baixi_sangeng_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": -25
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "baixi_sangeng_a_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 5100,
+                        "tick": 9,
+                        "range": 16000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": true,
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 84,
+                              "attack_ratio": 103,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "baixi_sangeng_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": -25
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "baixi_sangeng_a_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_sangeng_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.baixi_sangeng.skill2",
+    "duration": 42,
+    "cooltime": 820,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 42000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_sangeng_p_shadow",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "baixi_sangeng_e"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "baixi_sangeng_e_screen"
+        },
+        {
+          "type": "MoveBack",
+          "speed": 1800,
+          "tick": 6
+        },
+        {
+          "type": "RandomTarget",
+          "range": 1,
+          "casting_target": "AllyOnlySelf",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "CasterInvisible",
+              "tick": 120
+            }
+          ]
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_sangeng_e_ms",
+            "duration": {
+              "Time": {
+                "tick": 120
+              }
+            },
+            "move_speed_mult": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_sangeng_e_ambush",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            }
+          },
+          "only_to_enemy": false
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.baixi_sangeng.ult",
+    "duration": 54,
+    "cooltime": 2940,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_sangeng_p_shadow",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "baixi_sangeng_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "baixi_sangeng_r_lamp"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "baixi_sangeng_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 36
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 60
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RandomTarget",
+          "range": 1,
+          "casting_target": "AllyOnlySelf",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "CasterInvisible",
+              "tick": 36
+            }
+          ]
+        },
+        {
+          "type": "RushMoveToBack",
+          "speed": 12000,
+          "applied_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_sangeng_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_sangeng_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "baixi_sangeng_r_dark"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "baixi_sangeng_r_dark"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_sangeng_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_sangeng_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_sangeng_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 63,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_sangeng_r_slashes"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "baixi_sangeng_r_slash"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 63,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_sangeng_r_slashes"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "baixi_sangeng_r_slash"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_sangeng_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_sangeng_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_sangeng_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 63,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_sangeng_r_slashes"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "baixi_sangeng_r_slash"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 63,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_sangeng_r_slashes"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "baixi_sangeng_r_slash"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_sangeng_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 34,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "baixi_sangeng_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "baixi_sangeng_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 63,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "BlockSkill",
+                            "tick": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_sangeng_r_slashes"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "baixi_sangeng_r_slash"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 63,
+                            "attack_ratio": 73,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "BlockSkill",
+                            "tick": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "baixi_sangeng_r_slashes"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "baixi_sangeng_r_slash"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "baixi_sangeng_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_a_hit",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_p_slash",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "slash",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_q_shadow",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "shadow",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_e_screen",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "screen",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_e_rivets",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "rivets",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_r_lamp",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "lamp",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_r_dark",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "darkness",
+      "z": 0,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "baixi_sangeng_r_slashes",
+      "anim": "asset/baixi/effects/baixi_sangeng_fx",
+      "tag": "three_slashes",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}
