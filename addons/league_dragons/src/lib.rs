@@ -64,6 +64,7 @@ pub mod screen;
 pub mod words;
 // 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子），本包自己登记的高清帧
 pub mod skin;
+pub mod portrait;
 pub mod hd;
 // 玩家可调的持续时间（settings.ini）
 pub mod settings;

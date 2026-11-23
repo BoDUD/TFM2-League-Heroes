@@ -98,7 +98,7 @@ pub fn drake_at(events: &[feed::Event], t: usize) -> Option<String> {
 /// Sim ticks the drake's display entity can show up before this add-on records its spawn (2026-11-10's log: the entity
 /// drawn at screen tick 16953, its spawn event at 16981, so it was the previous drake's element for half a second). The
 /// next drake spawns two minutes after a kill, so looking a second ahead never picks it early.
-const SPAWN_LEAD: usize = 60;
+pub(crate) const SPAWN_LEAD: usize = 60;
 
 /// Our sheet for an element (the Elder's too).
 pub fn sheet_of(element: super::rules::Element) -> String {
