@@ -9,7 +9,8 @@
 每个跑步动作（run，形态的 c_run / h_run / mu_run / ad_run，连同 hd_ / lo_）一圈拉到 RUN_CYCLE 秒：每帧照原来的比例，取到毫秒，
 最后一帧补齐。只改时长，不动像素、不动别的动作；人在地上走的速度不变，腿摆得慢一些。
 
-导入（tools/art/import_<英雄>.py）写的是 Codex 的时长：重新导入一个英雄以后按顺序跑 ppu_hd.py、hero_reels.py，最后跑这个。
+导入（tools/art/import_<英雄>.py）写的是 Codex 的时长：重新导入一个英雄以后按顺序跑 ppu_hd.py、hero_reels.py、这个，最后
+tools/art/ragnarok_q_pixel.py（2026-11-23 起全包是 Q 版像素画，它按帧表对上 Q 版的格子，时长得先是这里的）。
 """
 import argparse
 import glob
