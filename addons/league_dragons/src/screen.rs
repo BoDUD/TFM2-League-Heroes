@@ -138,6 +138,13 @@ pub fn match_screen(in_game: bool, scene: Option<ClientSceneKindV1>, clock_shown
     in_game && clock_shown && !off_match(scene)
 }
 
+/// 这一帧屏幕上是不是比赛画面（[`match_screen`]），不记日志（[`on_match_screen`] 记）。
+pub fn match_screen_now(ctx: &StableClient<'_>) -> bool {
+    let in_game = ctx.is_in_game();
+    let scene = in_game.then(|| ctx.client_scene_kind()).flatten();
+    match_screen(in_game, scene, in_game && shown(ctx, game_places::clock::CLOCK_PATH))
+}
+
 /// 上一帧是不是比赛画面、游戏说的界面、时钟标签在不在：变了记一行日志（`SCREEN`）。
 static SCREEN: Mutex<Option<(bool, Option<u32>, bool)>> = Mutex::new(None);
 
@@ -347,6 +354,8 @@ impl StableExtension for Overlay {
     }
 
     fn post_render(&self, ctx: &mut StableClient<'_>) {
+        // 界面上原版小龙的头像换成这一条的元素（百科里六种轮流）：游戏这一帧的界面命令已经排好、还没画
+        super::portrait::fix(ctx, match_screen_now(ctx));
         draw(ctx, eggs_showing());
     }
 }
