@@ -28,7 +28,7 @@ def main():
     t0 = time.time()
     total = {k: 0.0 for k in pm.UI_KINDS}
     sizes, bad, heroes_n = [], [], 0
-    for pack in ("league", "tft", "ragnarok", "baixi"):
+    for pack in ("league", "tft", "ragnarok"):
         src = os.path.join(pm.REPO, pack)
         heroes = pm.hero_ids(src)
         heroes_n += len(heroes)

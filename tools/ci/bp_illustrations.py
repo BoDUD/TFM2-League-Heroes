@@ -53,7 +53,7 @@ def main():
     # CI 的 Windows 机器上 python -I 按系统编码输出，中文会报错
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     bad, have, total = [], 0, 0
-    for pack in ("league", "tft", "ragnarok", "baixi"):
+    for pack in ("league", "tft", "ragnarok"):
         src = os.path.join(pm.REPO, pack)
         heroes = set(pm.hero_ids(src))
         total += len(heroes)

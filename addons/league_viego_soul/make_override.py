@@ -100,7 +100,7 @@ def souls(game):
         tags = b.anim_tags(sprite)
         if tags and v.get("category") in CATS:
             out[cid] = (CATS[v["category"]], sorted(tags))
-    for pack in ("league", "tft", "ragnarok", "baixi"):
+    for pack in ("league", "tft", "ragnarok"):
         for path in sorted(glob.glob(os.path.join(ROOT, pack, "champion", "*.data_champion"))):
             c = load(path)
             anim = os.path.join(ROOT, pack, "champions", os.path.basename(c["sprite"]) + "#anim.fanim")

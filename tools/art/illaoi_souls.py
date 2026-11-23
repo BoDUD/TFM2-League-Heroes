@@ -69,9 +69,7 @@ def champions():
     # 终末的女武神包的英雄按文件夹全收，以后加的英雄跑一遍就有（2026-11-21：「俄洛伊的幽灵图也要画这个动漫系列的」）
     rag = [os.path.basename(f).split(".")[0]
            for f in glob.glob(os.path.join(ROOT, "ragnarok", "champion", "ragnarok_*.data_champion"))]
-    baixi = [os.path.basename(f).split(".")[0]
-             for f in glob.glob(os.path.join(ROOT, "baixi", "champion", "baixi_*.data_champion"))]
-    return sorted(main + list(OTHER) + rag + baixi)
+    return sorted(main + list(OTHER) + rag)
 
 
 def idle_of(hero):
@@ -88,9 +86,9 @@ def idle_of(hero):
 def ppus():
     """{champion: the PPU of its dense frames}: the HEROES rows of league_main's, tft's and ragnarok's hd.rs"""
     out = {}
-    for crate in ("league_main", "tft", "ragnarok", "baixi"):
+    for crate in ("league_main", "tft", "ragnarok"):
         src = open(lp(os.path.join(ROOT, "addons", crate, "src", "hd.rs")), encoding="utf-8").read()
-        for n, p in re.findall(r'\("((?:league|tft|ragnarok|baixi)_[a-z0-9_]+)",\s*([0-9.]+),\s*include_str!\("[^"]*champions/', src):
+        for n, p in re.findall(r'\("((?:league|tft|ragnarok)_[a-z0-9_]+)",\s*([0-9.]+),\s*include_str!\("[^"]*champions/', src):
             out[n] = float(p)
     return out
 
