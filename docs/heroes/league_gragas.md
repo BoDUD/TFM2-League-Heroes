@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC / Heal |
-| 高清帧 | PPU 1.45（画成 90%） |
+| 高清帧 | PPU 1.45（画成 100%） |
 | 附加包 | [古拉加斯大招智能落点附加包](#附加包)（`league_gragas`） |
 
 ![古拉加斯演示](../preview/league_gragas_showcase.gif)

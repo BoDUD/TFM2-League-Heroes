@@ -31,7 +31,10 @@ from preview_leesin import Foe  # noqa: E402
 from preview_pyke import Me  # noqa: E402
 import preview_zoe as Z  # noqa: E402
 from preview_silco import Clip as SilcoClip, px_tick  # noqa: E402
-from build_thex import P  # noqa: E402
+from build_thex import BEAM_TICKS, P  # noqa: E402
+from fx_thex_bold import BEAM_GAP  # noqa: E402
+
+frames_of = Z.frames_of
 
 ROOT = Z.ROOT
 TFT = os.path.join(ROOT, "tft")
@@ -148,14 +151,14 @@ def scene(out, steps, gap, W=360, H=170, z=4, tail=900, x0=80):
         for k in range(P["r_n"]):
             at = t + tick(P["r_st"] - 1 + k * P["r_every"])
             x, y = me.pos(at)
-            x1 = x + MOUTH[0] + P["r_len"] // 1000
-            fly = tick((x1 - x - MOUTH[0]) * 1000 / 9000)
-            c.fly("r_beam", at, at + fly, x + MOUTH[0], x1, y + MOUTH[1], sheet=c.big)
+            # 光束（build_thex.py BEAM_*）：投射物停在它身上、离地 9，活 BEAM_TICKS 拍，画面只播一次；伤害是这一拍
+            # tft.dll 算的，线上的人这一拍就挨
+            c.over.append(Anim(frames_of(c.big, "r_beam"), at, int(x), int(y - 9), loop=False,
+                               until=at + tick(BEAM_TICKS)))
             for f in foes:
-                fx_ = f.pos(at)[0]
-                hit = at + tick((fx_ - x - MOUTH[0]) * 1000 / 9000)
-                c.on_foe(f, "r_hit", hit)
-                f.flinches.append(hit)
+                if f.pos(at)[0] - x <= P["r_len"] // 1000 + BEAM_GAP:
+                    c.on_foe(f, "r_hit", at)
+                    f.flinches.append(at)
             for m in range(P["r_m"]):
                 f = rnd.choice(foes)
                 mt = at + tick(m * P["r_every"] // P["r_m"])
