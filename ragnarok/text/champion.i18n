@@ -116,8 +116,8 @@
       "ragnarok_leonidas": {
         "name": "列奥尼达斯",
         "attack": "盾击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>方阵<>：每放一个技能，身边的友方英雄（含自己）<#ffb900ff>3秒<>内护甲和魔抗<#e8d44dff>+15<>。",
-        "skill": "甩出连着钢链的圆盾砸向目标，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.5秒<>、<#ef5350ff>减速30%<>，收链时把目标<#ef5350ff>拽近<>。",
-        "skill2": "举盾<#ffb900ff>2.5秒<>：身边的友方英雄受到的伤害降低<#e8d44dff>20%<>，他自己再降低<#e8d44dff>15%<>，攻击他的敌人受到<#ffb900ff>25%<>反伤，身边的敌人被<#ef5350ff>嘲讽0.75秒<>。",
+        "skill": "甩出连着钢链的圆盾砸向目标，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>、<#ef5350ff>减速30%<>，收链时把目标<#ef5350ff>拽近<>。",
+        "skill2": "举盾<#ffb900ff>2.5秒<>：身边的友方英雄受到的伤害降低<#e8d44dff>20%<>，他自己再降低<#e8d44dff>15%<>，攻击他的敌人受到<#ffb900ff>25%<>反伤，身边的敌人被<#ef5350ff>嘲讽1秒<>。",
         "ult": "换上真理之盾冲向目标（不受控制、减伤<#ffb900ff>40%<>），撞上时身边的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.83秒<>。"
       },
       "ragnarok_apollo": {
@@ -338,8 +338,8 @@
       "ragnarok_leonidas": {
         "name": "列奧尼達斯",
         "attack": "盾擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>方陣<>：每放一個技能，身邊的友方英雄（含自己）<#ffb900ff>3秒<>內護甲和魔抗<#e8d44dff>+15<>。",
-        "skill": "甩出連著鋼鏈的圓盾砸向目標，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.5秒<>、<#ef5350ff>減速30%<>，收鏈時把目標<#ef5350ff>拽近<>。",
-        "skill2": "舉盾<#ffb900ff>2.5秒<>：身邊的友方英雄受到的傷害降低<#e8d44dff>20%<>，他自己再降低<#e8d44dff>15%<>，攻擊他的敵人受到<#ffb900ff>25%<>反傷，身邊的敵人被<#ef5350ff>嘲諷0.75秒<>。",
+        "skill": "甩出連著鋼鏈的圓盾砸向目標，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>、<#ef5350ff>減速30%<>，收鏈時把目標<#ef5350ff>拽近<>。",
+        "skill2": "舉盾<#ffb900ff>2.5秒<>：身邊的友方英雄受到的傷害降低<#e8d44dff>20%<>，他自己再降低<#e8d44dff>15%<>，攻擊他的敵人受到<#ffb900ff>25%<>反傷，身邊的敵人被<#ef5350ff>嘲諷1秒<>。",
         "ult": "換上真理之盾衝向目標（不受控制、減傷<#ffb900ff>40%<>），撞上時身邊的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.83秒<>。"
       },
       "ragnarok_apollo": {
@@ -560,8 +560,8 @@
       "ragnarok_leonidas": {
         "name": "Leonidas",
         "attack": "A shield bash: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Phalanx<>: each skill he casts gives allied champions near him (himself too) <#e8d44dff>+15<> armor and magic resist for <#ffb900ff>3s<>.",
-        "skill": "He hurls his chained shield at the target: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, a <#ef5350ff>0.5s stun<> and a <#ef5350ff>30% slow<>, then <#ef5350ff>drags it closer<> as he reels the chain in.",
-        "skill2": "He raises his shield for <#ffb900ff>2.5s<>: allied champions near him take <#e8d44dff>20%<> less damage, he himself <#e8d44dff>15%<> less again, enemies hitting him take <#ffb900ff>25%<> back and enemies near him are <#ef5350ff>taunted for 0.75s<>.",
+        "skill": "He hurls his chained shield at the target: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, a <#ef5350ff>0.75s stun<> and a <#ef5350ff>30% slow<>, then <#ef5350ff>drags it closer<> as he reels the chain in.",
+        "skill2": "He raises his shield for <#ffb900ff>2.5s<>: allied champions near him take <#e8d44dff>20%<> less damage, he himself <#e8d44dff>15%<> less again, enemies hitting him take <#ffb900ff>25%<> back and enemies near him are <#ef5350ff>taunted for 1s<>.",
         "ult": "With the Shield of Truth he charges the target (unstoppable, <#ffb900ff>40%<> less damage): on impact enemies around him take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.83s<>."
       },
       "ragnarok_apollo": {
@@ -782,8 +782,8 @@
       "ragnarok_leonidas": {
         "name": "레오니다스",
         "attack": "방패 강타로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>팔랑크스<>: 스킬을 쓸 때마다 주변 아군 챔피언(자신 포함)의 방어력과 마법 저항력 <#e8d44dff>+15<>(<#ffb900ff>3초<>).",
-        "skill": "사슬 달린 방패를 던져 대상에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.5초 기절<>, <#ef5350ff>30% 둔화<>, 사슬을 거둘 때 대상을 <#ef5350ff>끌어당김<>.",
-        "skill2": "방패를 <#ffb900ff>2.5초<> 들어 주변 아군 챔피언이 받는 피해 <#e8d44dff>20%<> 감소, 자신은 <#e8d44dff>15%<> 더 감소, 자신을 공격한 적은 <#ffb900ff>25%<> 반사 피해, 주변 적은 <#ef5350ff>0.75초 도발<>.",
+        "skill": "사슬 달린 방패를 던져 대상에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 기절<>, <#ef5350ff>30% 둔화<>, 사슬을 거둘 때 대상을 <#ef5350ff>끌어당김<>.",
+        "skill2": "방패를 <#ffb900ff>2.5초<> 들어 주변 아군 챔피언이 받는 피해 <#e8d44dff>20%<> 감소, 자신은 <#e8d44dff>15%<> 더 감소, 자신을 공격한 적은 <#ffb900ff>25%<> 반사 피해, 주변 적은 <#ef5350ff>1초 도발<>.",
         "ult": "진리의 방패로 대상에게 돌진(저지 불가, 피해 <#ffb900ff>40%<> 감소)해 부딪힐 때 주변 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 띄워 올림<>."
       },
       "ragnarok_apollo": {
@@ -1004,8 +1004,8 @@
       "ragnarok_leonidas": {
         "name": "レオニダス",
         "attack": "盾打ちで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ファランクス<>：スキルを使うたび、周りの味方チャンピオン（自分も）の物理防御と魔法防御<#e8d44dff>+15<>（<#ffb900ff>3秒<>）。",
-        "skill": "鎖付きの盾を投げつけ、対象に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>0.5秒スタン<>、<#ef5350ff>30%スロウ<>。鎖を引き戻すとき対象を<#ef5350ff>引き寄せる<>。",
-        "skill2": "盾を<#ffb900ff>2.5秒<>構え、周りの味方チャンピオンの被ダメージを<#e8d44dff>20%<>軽減、自分はさらに<#e8d44dff>15%<>軽減し、自分を攻撃した敵に<#ffb900ff>25%<>反射、周りの敵を<#ef5350ff>0.75秒挑発<>。",
+        "skill": "鎖付きの盾を投げつけ、対象に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>0.75秒スタン<>、<#ef5350ff>30%スロウ<>。鎖を引き戻すとき対象を<#ef5350ff>引き寄せる<>。",
+        "skill2": "盾を<#ffb900ff>2.5秒<>構え、周りの味方チャンピオンの被ダメージを<#e8d44dff>20%<>軽減、自分はさらに<#e8d44dff>15%<>軽減し、自分を攻撃した敵に<#ffb900ff>25%<>反射、周りの敵を<#ef5350ff>1秒挑発<>。",
         "ult": "真理の盾で対象へ突撃（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）。ぶつかると周りの敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒打ち上げ<>。"
       },
       "ragnarok_apollo": {

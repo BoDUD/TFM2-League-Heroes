@@ -232,7 +232,7 @@
                           },
                           {
                             "type": "Stun",
-                            "duration": 30
+                            "duration": 45
                           },
                           {
                             "type": "AddBuff",
@@ -277,7 +277,7 @@
                           },
                           {
                             "type": "Stun",
-                            "duration": 30
+                            "duration": 45
                           },
                           {
                             "type": "AddBuff",
@@ -574,7 +574,7 @@
                             "effects": [
                               {
                                 "type": "Taunt",
-                                "duration": 45
+                                "duration": 60
                               }
                             ]
                           }
@@ -645,7 +645,7 @@
                             "effects": [
                               {
                                 "type": "Taunt",
-                                "duration": 45
+                                "duration": 60
                               }
                             ]
                           }
