@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>终末的女武神 · Q 版动作预览</title>
+<style>
+:root{color-scheme:dark;background:#141b25;color:#f4ede4;font:16px/1.5 system-ui,"Microsoft YaHei",sans-serif}*{box-sizing:border-box}
+main{width:min(1110px,calc(100% - 32px));margin:32px auto}
+h1{font-size:25px;font-weight:650;margin:0 0 14px}
+fieldset{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:0 0 14px;padding:0;border:0}
+label,input{cursor:pointer}select,button{font:inherit;border:1px solid #627082;border-radius:5px;color:inherit;background:#2a394d;padding:5px 9px}
+button{cursor:pointer}output{margin-left:5px;font-variant-numeric:tabular-nums;color:#f9d398}
+canvas{width:100%;height:clamp(280px,52vh,530px);display:block;border-radius:10px;border:1px solid #506278;image-rendering:pixelated}
+#board{display:block;width:100%;border-radius:8px;margin-top:25px}
+summary{cursor:pointer;margin-top:18px;color:#e0d3c1}
+</style>
+<main>
+<h1>终末的女武神 · Q 版动作预览</h1>
+<fieldset>
+<select id="hero" aria-label="角色"></select><select id="action" aria-label="动作"></select>
+<button id="play">暂停</button><button id="prev">上一帧</button><button id="next">下一帧</button>
+<label><input type="checkbox" id="light">浅底</label><label><input type="checkbox" id="mirror">向左</label>
+<output id="status" aria-live="off"></output>
+</fieldset>
+<canvas id="stage" aria-label="帧预览"></canvas>
+<details><summary>全员待机一览</summary><img id="board" src="roster.png" alt="Q 版角色与形态"></details>
+</main>
+<script src="roster.js"></script>
+<script>
+const data=window.RAGNAROK_Q;
+const q=id=>document.getElementById(id);
+const hero=q("hero"),action=q("action"),status=q("status"),stage=q("stage"),ctx=stage.getContext("2d");
+const qs=new URLSearchParams(location.search);
+const keys=Object.keys(data);
+Object.entries(data).forEach(([id,entry])=>hero.add(new Option(entry.name,id)));
+hero.value=keys.includes(qs.get("hero"))?qs.get("hero"):keys[0];
+let loaded=false,clicked=false,frame=0,play=!qs.has("frame"),started=performance.now(),image;
+const aliases={idle:"待机",run:"奔跑",attack:"普攻",skill:"技能一",skill2:"技能二",ult:"大招",hit:"受击",dead:"倒地",bp:"选人",expand:"变身",revert:"恢复",skill2_wait:"等待回锤",skill2_catch:"接锤",muscle_release:"肌肉解放"};
+const forms={c:"地狱犬",mu:"肌肉",ad:"阿陀磨须",niten:"二天一流"};
+function actionLabel(key){
+ if(aliases[key])return aliases[key];
+ if(key==="idle_base")return "标准待机";
+ const split=key.indexOf("_");
+ const prefix=key.slice(0,split),rest=key.slice(split+1);
+ const form=prefix==="h"?(hero.value==="zerofuku"?"波旬":"燃烧形态"):forms[prefix];
+ return form ? form+" · "+(aliases[rest]||"标准待机") : key;
+}
+const read=()=>data[hero.value].actions[action.value];
+function setHero(){
+ const current=action.value;
+ action.replaceChildren();
+ const entry=data[hero.value];
+ Object.keys(entry.actions).forEach(key=>action.add(new Option(actionLabel(key),key)));
+ if(Object.hasOwn(entry.actions,current)) action.value=current;
+ else if(!clicked&&Object.hasOwn(entry.actions,qs.get("action"))) action.value=qs.get("action");
+ else action.value="idle";
+ const wanted=clicked?0:(Number(qs.get("frame"))||1)-1;
+ frame=Math.min(read().length-1,Math.max(0,wanted));
+ clicked=true;
+ started=performance.now();loaded=false;
+ image=new Image();
+ const requested=image;
+ document.body.dataset.ready="false";
+ image.onload=()=>{if(image===requested) loaded=true};
+ image.onerror=()=>{if(image===requested) status.value="图集读取失败"};
+ image.src="../champions/ragnarok_"+hero.value+"%23sheet.png";
+}
+setHero();
+hero.onchange=setHero;
+action.onchange=()=>{frame=0;started=performance.now()};
+q("play").textContent=play?"暂停":"播放";
+q("play").onclick=()=>{play=!play;started=performance.now();q("play").textContent=play?"暂停":"播放"};
+function move(dir){frame=(frame+read().length+dir)%read().length;play=false;q("play").textContent="播放"}
+q("prev").onclick=()=>move(-1);q("next").onclick=()=>move(1);
+function render(now){
+ requestAnimationFrame(render);
+ if(!loaded) return;
+ const seq=read();
+ if(play && now-started>=1000*seq[frame].duration){
+   started=now;frame=(frame+1)%seq.length;
+ }
+ const info=seq[frame],f=info.data;
+ const r=stage.getBoundingClientRect(), w=Math.round(r.width*devicePixelRatio), h=Math.round(r.height*devicePixelRatio);
+ if(stage.width!==w||stage.height!==h){stage.width=w;stage.height=h}
+ const lt=q("light").checked;
+ ctx.fillStyle=lt?"#a4afb5":"#28394e";ctx.fillRect(0,0,w,h);
+ const floor=Math.round(h*.80);
+ ctx.fillStyle=lt?"#657480":"#48627b";ctx.fillRect(0,floor,w,1);
+ const z=Math.max(1,Math.floor(Math.min(w/500,h/265)));
+ const x=Math.round((w-f.w*z)/2),y=floor-info.foot*z;
+ ctx.save();ctx.imageSmoothingEnabled=false;
+ if(q("mirror").checked){ctx.translate(w,0);ctx.scale(-1,1)}
+ ctx.drawImage(image,f.x,f.y,f.w,f.h,x,y,f.w*z,f.h*z);ctx.restore();
+ status.value=(frame+1)+" / "+seq.length+" · "+Math.round(info.duration*1000)+" ms";
+ document.body.dataset.ready="true";
+}
+requestAnimationFrame(render);
+</script>
+</html>
