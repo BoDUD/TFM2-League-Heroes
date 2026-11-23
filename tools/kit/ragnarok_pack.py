@@ -16,9 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.10.0"
+VERSION = "0.11.0"
 NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang"]
+HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang", "Beelzebub", "Nikola Tesla", "Leonidas", "Apollo"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
         "fights: Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
         "own code, ragnarok.dll); Thor's Mjolnir flies out and back to his hand and awakens on every third skill; Zeus swells into his muscle "
@@ -41,7 +41,14 @@ DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits 
         "eldest of the three brothers, sweeps the wind of Persephone Rhoai with his bident, smashes the ground and "
         "forges the Ichor Desmos with his own blood for one thrust; Qin Shi Huang, the first emperor, sees the stars "
         "in his foes, catches their force with the Chiyou Armor Sleeves and turns it back, shielding his allies, "
-        "until he draws the Goujian sword. "
+        "until he draws the Goujian sword; Beelzebub, lord of the flies, makes everything his skills touch vibrate and "
+        "lose its magic resist, sends waves from his bone staff, raises the Gate of Hell and crushes his foes into the "
+        "black core of the False God Chaos; Nikola Tesla fights in his Super Automaton Beta, his plasma fists hitting "
+        "twice, drops God's Prison on his foes and, while it stands, warps onto them with Tesla Step; Leonidas, king "
+        "of Sparta, guards the allies around him like a phalanx, hurls his chained shield to drag a foe in, raises "
+        "it to send back what hits him and charges with the Shield of Truth; Apollo, god of the sun, binds his foes "
+        "with Artemis's Thread, looses arrows from a bow of light and has her statue shoot him at them as a silver "
+        "arrow. "
         "Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes and Teamfight Tactics "
         "Heroes packs. Pixel art, effects, icons and sound effects made for this pack; Japanese voice lines from the "
         "official promotional recordings. Non-commercial fan project; Record of Ragnarok (c) its creators and "

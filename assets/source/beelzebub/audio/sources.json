@@ -1,0 +1,220 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/chara/beelzebub.html",
+  "method": "Dialogue performed by Daisuke Namikawa from official Japanese clips. Original background music and effects remain in several cuts.",
+  "clips": [
+    {
+      "id": "voice_interest",
+      "title": "选人 · 这倒有意思",
+      "range_seconds": [
+        12.47,
+        15.86
+      ],
+      "speaker": "浪川 大輔",
+      "cast_credit": "https://ragnarok-official.com/chara/beelzebub.html",
+      "source": "https://www.youtube.com/watch?v=o5GRIchY2M4",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.39,
+      "wav_sha256": "89036dd73debe3a82ca97b2777a2c5680d67cd24aba22b98a7d5cc0554063d19",
+      "mp3_sha256": "62c361a5a66edfffd413430e20397214ae962820277afedb7257f1da5be0629c"
+    },
+    {
+      "id": "voice_taunt",
+      "title": "战斗 · 催促对手",
+      "range_seconds": [
+        2.19,
+        5.59
+      ],
+      "speaker": "浪川 大輔",
+      "cast_credit": "https://ragnarok-official.com/chara/beelzebub.html",
+      "source": "https://www.youtube.com/watch?v=Yv7wxDqS6vI",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.4,
+      "wav_sha256": "fc4a99d647fe2120829ca1c066c215bb4ef582a6c3a1be3a3ec7a4fc52fdd33a",
+      "mp3_sha256": "871818a4080c840fba0e9f7670d3074346ddead31275e29cd376d588d1525f80"
+    },
+    {
+      "id": "voice_guard",
+      "title": "格挡 · 地狱之门",
+      "range_seconds": [
+        33.97,
+        35.57
+      ],
+      "speaker": "浪川 大輔",
+      "cast_credit": "https://ragnarok-official.com/chara/beelzebub.html",
+      "source": "https://www.youtube.com/watch?v=SvqP_BkADe4",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 1.6,
+      "wav_sha256": "028ba9e4a1f7a38ccec55b5132225b31c3635b27dd76e40d97bfba2a6bad7d40",
+      "mp3_sha256": "ca24c62af5dcc6438b94e71d5f1c3f11579f781449772052d4e5af5ac98d2459"
+    },
+    {
+      "id": "voice_oath",
+      "title": "入场 · 迎战宣言",
+      "range_seconds": [
+        38.9,
+        43.72
+      ],
+      "speaker": "浪川 大輔",
+      "cast_credit": "https://ragnarok-official.com/chara/beelzebub.html",
+      "source": "https://www.youtube.com/watch?v=Cl5afD9sHXw",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.82,
+      "wav_sha256": "a2878d778360c756a3eae631b0667b2bfbcbef55abce1a0c915f0770c4aa9a22",
+      "mp3_sha256": "4555edabdf8bce3ef95429595787c5378b8566be6da2494b13b146159c2d3139"
+    },
+    {
+      "id": "voice_win",
+      "title": "胜利 · 结局独白",
+      "range_seconds": [
+        61.86,
+        66.29
+      ],
+      "speaker": "浪川 大輔",
+      "cast_credit": "https://ragnarok-official.com/chara/beelzebub.html",
+      "source": "https://www.youtube.com/watch?v=Yv7wxDqS6vI",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.43,
+      "wav_sha256": "5d11af2c44035e56885358537bb05499a2295eb2585c8bdba2b3976db20c0961",
+      "mp3_sha256": "1cecfd8e2dfe429c98050e280cd1b7387a9eb6e110941f658656fff67a025547"
+    },
+    {
+      "id": "sfx_palm_charge",
+      "kind": "original_foley",
+      "title": "振动斩 · 起手",
+      "duration_seconds": 0.25,
+      "wav_sha256": "a036bea5e7be2c536e60d317a3e240ceb09096f72014317de189a5eebe013f0a",
+      "mp3_sha256": "5d1ce308d5737295e96774fefe4b8a88e942a99eef38f5ec594577f2caef42c8"
+    },
+    {
+      "id": "sfx_palm_cut",
+      "kind": "original_foley",
+      "title": "振动斩 · 出手",
+      "duration_seconds": 0.24,
+      "wav_sha256": "fb5f3e520e9ef6a4c2a8e419ca0c365ea1c0a614de98a02a1ac5cd55b5135905",
+      "mp3_sha256": "03a152116e59efc7154ac9bc66b73191e2d33f3bca4aea07530e9bedeaef3beb"
+    },
+    {
+      "id": "sfx_palm_hit",
+      "kind": "original_foley",
+      "title": "振动斩 · 命中",
+      "duration_seconds": 0.23,
+      "wav_sha256": "f5872cd3e61ec4d63ca6f13b81c092e2278c9910052047495de7ee6f0cea7d17",
+      "mp3_sha256": "50d66a0af0950e84a6a49a1bdb480495af7ab4d589db3cd17681c2bb97d9f431"
+    },
+    {
+      "id": "sfx_wave_charge",
+      "kind": "original_foley",
+      "title": "暗黑波 · 杖端蓄能",
+      "duration_seconds": 0.32,
+      "wav_sha256": "0c53a42ee4c5fc93231978a2947c7e73000dec05003904b98ae18e90c8e27f97",
+      "mp3_sha256": "40597d733b8688ee30765968b4702e5bc27b8c133edf049b95fe57a0589670c3"
+    },
+    {
+      "id": "sfx_wave",
+      "kind": "original_foley",
+      "title": "暗黑波 · 主波释放",
+      "duration_seconds": 0.34,
+      "wav_sha256": "e58f12a2d4f20822c1057be13edec5c0462053917f7391908d952734c8430f8c",
+      "mp3_sha256": "bc98679eb528c0853aa4ac5deb5645924785a61b0e32e18b36fc596fbb96045a"
+    },
+    {
+      "id": "sfx_ripples",
+      "kind": "original_foley",
+      "title": "暗黑波 · 波纹增殖",
+      "duration_seconds": 0.47,
+      "wav_sha256": "faf30cb440442e2b8cdfe1a9f20709592e94f4cf97a14f6af5644608f38a5604",
+      "mp3_sha256": "2926099bf27d59b4789cbac11f5153fc1f7401deba8de89224a25018004ace6f"
+    },
+    {
+      "id": "sfx_wave_hit",
+      "kind": "original_foley",
+      "title": "暗黑波 · 命中",
+      "duration_seconds": 0.29,
+      "wav_sha256": "2f8e9c975dae22d4e44c7d450f1fabd61317098e8d602dbaca17bd331eba1dc8",
+      "mp3_sha256": "8b99d630d18e6ee37b9dba8f2789d2486c492dd43e66b4b35d50f37a07fe58cd"
+    },
+    {
+      "id": "sfx_guard_raise",
+      "kind": "original_foley",
+      "title": "振动屏障 · 展开",
+      "duration_seconds": 0.38,
+      "wav_sha256": "9f1fc5e98c8c24dcc92bf993a2247a5c35dca7d94c3d86ab52f4366f665ecdc6",
+      "mp3_sha256": "7bdebee0ac3b50207553ef34b1fe06247b98509042f631dd45fcb8e15afbc5b9"
+    },
+    {
+      "id": "sfx_guard_block",
+      "kind": "original_foley",
+      "title": "振动屏障 · 格挡",
+      "duration_seconds": 0.34,
+      "wav_sha256": "2a020931305ca6a65bfb9f5806d5926973e94e62599d5d4202833ef275bf4a1c",
+      "mp3_sha256": "2bef77ac63e1443d0d9f54cf2f6a1a8983b333a7bac4c9115699aa139e27413c"
+    },
+    {
+      "id": "sfx_guard_fade",
+      "kind": "original_foley",
+      "title": "振动屏障 · 散去",
+      "duration_seconds": 0.31,
+      "wav_sha256": "68f4832da744f053216e4e7385939e3fa097a0bd262f07ab9d6093921418eb4f",
+      "mp3_sha256": "22e0747f93803bb206e2124756aeea6bb39761bf468eaffb44d046bc4c72f4a7"
+    },
+    {
+      "id": "sfx_chaos_charge",
+      "kind": "original_foley",
+      "title": "虚神 · 黑核压缩",
+      "duration_seconds": 0.66,
+      "wav_sha256": "ba40bff916113c0c0daa74609b702f394e646d06bd4b6774b6df57d3c41cb70e",
+      "mp3_sha256": "aec68042efdba297a3bd836e7d54b4081e03d2d8ddc8e7b1f0baf49be4f22858"
+    },
+    {
+      "id": "sfx_chaos_burst",
+      "kind": "original_foley",
+      "title": "虚神 · 冲击波释放",
+      "duration_seconds": 0.6,
+      "wav_sha256": "e7f03a200bc9b15da896fb1c7d06e84fed085c5491faf9dae8a955143e50bd15",
+      "mp3_sha256": "c08760eada352fb947b05329b42423f1adb1814d10dc376841f0bc17f408648f"
+    },
+    {
+      "id": "sfx_chaos_hit",
+      "kind": "original_foley",
+      "title": "虚神 · 命中",
+      "duration_seconds": 0.39,
+      "wav_sha256": "3b9a4338e4555eeef054404db7d932a5268f7df90fd9fb4ce54e4f055f495fe2",
+      "mp3_sha256": "4bc5c8ba4cc5f27b6d8044cadd8c6494e4795a1f10d060e5f29575e881b54a9a"
+    },
+    {
+      "id": "sfx_recoil",
+      "kind": "original_foley",
+      "title": "受击 · 袍袖后撤",
+      "duration_seconds": 0.19,
+      "wav_sha256": "3d01a1b0f6922ef22f2be0aeb4b1a59f57c0943f353b115af00dd815a69c3ee8",
+      "mp3_sha256": "593ece88d132571f070f117f368dc2ee402c011c7874771feff41b1ccf9f77af"
+    },
+    {
+      "id": "sfx_staff_land",
+      "kind": "original_foley",
+      "title": "骸骨杖 · 接地",
+      "duration_seconds": 0.3,
+      "wav_sha256": "bb331a7b6b4ee07aca15d89f645b3a17ea2ae632bd2dfdbcb51eebf026c5583d",
+      "mp3_sha256": "b0f5192af8f5ce49c59158f65f456e4dc540440448166704fca14cf9ef1c3178"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.28,
+      "wav_sha256": "76a36f274cf36114e007dbb2c6c2320b60fe0401f919b1fd0dc5d4b28d8d7db8",
+      "mp3_sha256": "a167b2289d4ca181789eefd26d408515d1652ec1fdd4efd14ae3bcbbdeab7937"
+    }
+  ]
+}

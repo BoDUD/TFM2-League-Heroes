@@ -53,6 +53,16 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("ragnarok_hades", 2.75, include_str!("../../../ragnarok/champions/ragnarok_hades#anim.fanim")),
     // 秦始皇（ragnarok_qin）：Codex 直接按两倍密度画的，站直 116 格，PPU 2.75，42 个游戏像素
     ("ragnarok_qin", 2.75, include_str!("../../../ragnarok/champions/ragnarok_qin#anim.fanim")),
+    // 别西卜（ragnarok_beelzebub）：Codex 直接按两倍密度画的，站直 115 格，PPU 2.75，42 个游戏像素
+    ("ragnarok_beelzebub", 2.75, include_str!("../../../ragnarok/champions/ragnarok_beelzebub#anim.fanim")),
+    // 尼古拉·特斯拉（ragnarok_tesla）：Codex 直接按两倍密度画的机甲，站直 116 格，PPU 2.75，42 个游戏像素
+    ("ragnarok_tesla", 2.75, include_str!("../../../ragnarok/champions/ragnarok_tesla#anim.fanim")),
+    // 列奥尼达斯（ragnarok_leonidas）：Codex 直接按两倍密度画的，站直 115 格，PPU 2.75，42 个游戏像素；盾在 tools/art/leonidas_fix.py
+    // 一律按同一个大小重贴过
+    ("ragnarok_leonidas", 2.75, include_str!("../../../ragnarok/champions/ragnarok_leonidas#anim.fanim")),
+    // 阿波罗（ragnarok_apollo）：Codex 直接按两倍密度画的，站直 116 格，PPU 2.75，42 个游戏像素；光弓和女神像在
+    // tools/art/apollo_fix.py 一律按满的大小重贴过
+    ("ragnarok_apollo", 2.75, include_str!("../../../ragnarok/champions/ragnarok_apollo#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -96,6 +106,16 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // 秦始皇的指爪命中、气弹炸开的星（爪痕、神罗铠袖的护势、天凤回推、勾践剑的剑光和剑痕画在他自己的帧里；飞出去的气弹是
     // 弹道画面，1 倍，不在这里）
     ("ragnarok_qin_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_qin_fx#anim.fanim")),
+    // 别西卜振动掌的命中（掌风、振动波、波纹、屏障、格挡涟漪、混沌的黑核和爆发画在他自己的帧里）
+    ("ragnarok_beelzebub_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_beelzebub_fx#anim.fanim")),
+    // 特斯拉的拳击命中、双拳的冲击、离场的闪光、神之监狱的牢笼（展开一次、再一圈一圈接着放，都是 view_effects，走高清；
+    // 拳风、拖痕、到达的闪光画在他自己的帧里）
+    ("ragnarok_tesla_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_tesla_fx#anim.fanim")),
+    // 列奥尼达斯盾击和链盾的命中、方阵冲锋的冲击（钢弧、飞盘的尾迹、钢链回卷、盾沿的光、反弹的光箭、冲锋的尘土画在他自己的帧里）
+    ("ragnarok_leonidas_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_leonidas_fx#anim.fanim")),
+    // 阿波罗日轮拳和光箭的命中、光丝的收束（拳光、光丝投出、光弓成形和离弦的光、女神像显现的光、银箭的箭影画在他自己的帧里；
+    // 飞出去的光箭是弹道画面，1 倍，不在这里）
+    ("ragnarok_apollo_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_apollo_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
@@ -103,7 +123,9 @@ pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ra
                                          "ragnarok_adam_fx", "ragnarok_poseidon_fx", "ragnarok_kojiro_fx",
                                          "ragnarok_heracles_fx", "ragnarok_jack_fx",
                                          "ragnarok_raiden_fx", "ragnarok_shiva_fx", "ragnarok_buddha_fx",
-                                         "ragnarok_zerofuku_fx", "ragnarok_hades_fx", "ragnarok_qin_fx"];
+                                         "ragnarok_zerofuku_fx", "ragnarok_hades_fx", "ragnarok_qin_fx",
+                                         "ragnarok_beelzebub_fx", "ragnarok_tesla_fx", "ragnarok_leonidas_fx",
+                                         "ragnarok_apollo_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[

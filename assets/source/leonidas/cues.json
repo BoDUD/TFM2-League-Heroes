@@ -1,0 +1,161 @@
+[
+  {
+    "action": "attack",
+    "frame": 3,
+    "ms": 170,
+    "event": "bash_windup",
+    "sound": "sfx_bash_windup"
+  },
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 236,
+    "event": "release",
+    "sound": "sfx_bash",
+    "fx": "steel_sweep",
+    "anchor": [
+      190,
+      151
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 287,
+    "event": "confirmed_hit",
+    "sound": "sfx_bash_hit",
+    "fx": "shield_hit",
+    "anchor": [
+      213,
+      157
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 3,
+    "ms": 176,
+    "event": "chain_windup",
+    "sound": "sfx_chain_windup"
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 237,
+    "event": "chain_release",
+    "sound": "sfx_chain_throw",
+    "fx": "discus_wake",
+    "anchor": [
+      210,
+      146
+    ],
+    "voice": "voice_chain"
+  },
+  {
+    "action": "skill",
+    "frame": 5,
+    "ms": 285,
+    "event": "confirmed_hit",
+    "sound": "sfx_disc_hit",
+    "fx": "shield_hit",
+    "anchor": [
+      223,
+      150
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 336,
+    "event": "chain_retract",
+    "sound": "sfx_chain_retract",
+    "fx": "chain_recoil",
+    "anchor": [
+      180,
+      170
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 7,
+    "ms": 391,
+    "event": "shield_catch",
+    "sound": "sfx_disc_catch"
+  },
+  {
+    "action": "skill2",
+    "frame": 3,
+    "ms": 217,
+    "event": "guard_raise",
+    "sound": "sfx_guard_raise",
+    "fx": "brace_rim",
+    "anchor": [
+      178,
+      162
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "confirmed_reflect",
+    "sound": "sfx_arrow_reflect",
+    "fx": "arrow_reflect",
+    "anchor": [
+      184,
+      156
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 7,
+    "ms": 502,
+    "event": "guard_fade",
+    "sound": "sfx_guard_fade"
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 305,
+    "event": "shield_transform",
+    "sound": "sfx_truth_shield"
+  },
+  {
+    "action": "ult",
+    "frame": 4,
+    "ms": 423,
+    "event": "phalanx_release",
+    "sound": "sfx_phalanx_dash",
+    "fx": "phalanx_dust",
+    "anchor": [
+      156,
+      206
+    ],
+    "voice": "voice_charge"
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 510,
+    "event": "confirmed_hit",
+    "sound": "sfx_phalanx_hit",
+    "fx": "phalanx_hit",
+    "anchor": [
+      197,
+      190
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 5,
+    "ms": 501,
+    "event": "shield_land",
+    "sound": "sfx_shield_land"
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 846,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.501,
+      "clip": "ragnarok_leonidas_sfx_shield_land",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.846,
+      "clip": "ragnarok_leonidas_sfx_fall",
+      "volume": 0.5
+    }
+  ]
+}
