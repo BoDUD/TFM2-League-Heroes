@@ -59,6 +59,8 @@ jobs:
         run: python -I tools/ci/ui_sheets.py
       - name: BP illustrations - named after a champion, 304x405, top 48 rows clear
         run: python -I tools/ci/bp_illustrations.py
+      - name: The ragnarok pack's runs at League's pace - every run (and its forms' runs) 0.92 s a cycle
+        run: python -I tools/art/ragnarok_run_pace.py --check
       - name: The add-ons' hero copies up to date (Sylas's stolen ults, Viego, Neeko, Kayn)
         run: |
           python -I addons/league_sylas/make_override.py --check
