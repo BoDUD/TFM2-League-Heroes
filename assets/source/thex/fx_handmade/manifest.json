@@ -40,31 +40,6 @@
    "by": "fx_vector 4",
    "sha256": "e70825190f69795422d945351db3a77d0492fa86ad500a39fcee25c74dd16acb",
    "note": "batch 09 TFT pack 2026-11-14"
-  },
-  {
-   "sheet": "tft_thex_big",
-   "tag": "r_shield",
-   "file": "tft_thex_big/r_shield.png",
-   "ppu": 2,
-   "frames": 2,
-   "distinct": [
-    0,
-    1
-   ],
-   "sizes": [
-    [
-     61,
-     69
-    ],
-    [
-     61,
-     69
-    ]
-   ],
-   "of_1x": "ed1961c90a92dcb6e2c8bc1a501341eaabafde1e7b93125b4c934b884fdfb3a9",
-   "by": "fx_vector 4",
-   "sha256": "5565b58be707f4e0e5a5b7a945671c86a5c63a9702c04967bd004bde43d7ef4a",
-   "note": "batch 09 TFT pack 2026-11-14"
   }
  ]
 }

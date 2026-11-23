@@ -760,6 +760,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 2026-10-13 after the restyle 「酒桶可以稍微放大点吧 现在也太小了」 -> 90% from a size sheet, then 「还是太小啊」 -> 100% - judged on a preview GIF that
 /// drew him at 80% - then 「感觉又太大了？」 from a true-scale sheet -> 90% (40 game px, Darius 42); his frames
 /// lifted by the restyle (RESTYLE gragas lift_sq).
+/// 2026-11-23：11-19 GPT 重画的新模型比旧的矮、瘦（90% 时高 38 游戏像素、实心 885 格，旧模型 40 / 957），用户：「酒桶模型有点小
+/// 新模型」-> 100%（高 43，瑟提 43、德莱厄斯 44）。新帧的脚底本来就画在 100% 踩地的位置（中心下 17 格 = 11.7 游戏像素，
+/// 90% 时反而浮起 1 格），帧不用挪。
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py); kept
 /// through the batch 8 redo (2026-11-09, PPU 2.081), her frames a square higher by the restyle (RESTYLE zeri lift_sq).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); after the restyle
@@ -830,7 +833,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// （旧模型 914，盖伦 1022，赵信 864，亚索 702）；115% = 44 高、845。高清帧往上挪 3 格（脚底在中心下 20.5 格：
 /// 20.5 × (1 - 1 / 1.15) = 2.7），他的原帧早不是 restyle 出的了，由 tools/art/lift_hd_strips.py 直接挪原帧，再
 /// ppu_hd.py、hero_reels.py。
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 1.00), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
