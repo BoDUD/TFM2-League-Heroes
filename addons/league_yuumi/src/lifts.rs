@@ -47,7 +47,7 @@ pub const CROWNS: &[(&str, i32)] = &[
     ("league_gangplank", 30),
     ("league_garen", 29),
     ("league_gnar", 20),
-    ("league_gragas", 26),
+    ("league_gragas", 29),
     ("league_graves", 26),
     ("league_gwen", 29),
     ("league_hecarim", 34),
