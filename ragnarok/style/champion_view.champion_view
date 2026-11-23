@@ -195,6 +195,62 @@
         "x": 0,
         "y": -9
       }
+    },
+    "ragnarok_beelzebub": {
+      "face": {
+        "x": 2,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_tesla": {
+      "face": {
+        "x": 4,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "ragnarok_leonidas": {
+      "face": {
+        "x": 3,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "ragnarok_apollo": {
+      "face": {
+        "x": 3,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
     }
   }
 }

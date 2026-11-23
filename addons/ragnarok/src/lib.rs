@@ -7,16 +7,20 @@
 //! 上一次的留作 ragnarok.prev.log；每个英雄另有自己的日志。
 
 pub mod adam;
+pub mod apollo;
+pub mod beelzebub;
 pub mod hades;
 pub mod hd;
 pub mod heracles;
 pub mod jack;
 pub mod kojiro;
+pub mod leonidas;
 pub mod lubu;
 pub mod poseidon;
 pub mod qin;
 pub mod raiden;
 pub mod shiva;
+pub mod tesla;
 pub mod buddha;
 pub mod thor;
 pub mod zeus;
@@ -108,6 +112,10 @@ fn init(host: &StableHost) -> StableMod {
     zerofuku::register(host, &mut module);
     hades::register(host, &mut module);
     qin::register(host, &mut module);
+    beelzebub::register(host, &mut module);
+    tesla::register(host, &mut module);
+    leonidas::register(host, &mut module);
+    apollo::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module
