@@ -329,7 +329,7 @@ def foreign_natives(o, out=None):
 
 # a TFT hero's effect sheets: tft/effects/<sheet> -> the add-on's own copy (asset/league_sylas/effects/<sheet>)
 # 终末的女武神包的特效图也一样拷一份：没开那个包时选塞拉斯，画面要在附加包里找得到，不然选人就崩
-PACK_FX = {"asset/tft/effects/": "tft", "asset/ragnarok/effects/": "ragnarok"}
+PACK_FX = {"asset/tft/effects/": "tft", "asset/ragnarok/effects/": "ragnarok", "asset/abysspact/effects/": "abysspact"}
 OWN_FX = "asset/league_sylas/effects/"
 
 # Views a champion's own file no longer has, because the champion now draws that look another way, while Sylas, who has
@@ -349,7 +349,7 @@ def key(cid):
 
 
 def full(sid):
-    return sid if sid.startswith(("tft_", "ragnarok_")) else "league_" + sid
+    return sid if sid.startswith(("tft_", "ragnarok_", "abysspact_")) else "league_" + sid
 
 
 def own_ults():
@@ -360,8 +360,9 @@ def own_ults():
     seen, sheets = set(), set()
     paths = sorted(glob.glob(os.path.join(ROOT, "league", "champion", "league_*.data_champion")))
     paths += sorted(glob.glob(os.path.join(ROOT, "tft", "champion", "tft_*.data_champion")))
-    # 终末的女武神包的英雄也一样（2026-11-21：「塞拉斯的大招也要能真正的能偷」）
+    # 终末的女武神包和渊契包的英雄也一样（塞拉斯的大招要能真正偷到）
     paths += sorted(glob.glob(os.path.join(ROOT, "ragnarok", "champion", "ragnarok_*.data_champion")))
+    paths += sorted(glob.glob(os.path.join(ROOT, "abysspact", "champion", "abysspact_*.data_champion")))
     for path in paths:
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
         if c["id"] == HERO or key(c["id"]) in BY_CLASS:
@@ -386,8 +387,8 @@ def own_ults():
                     if pre:
                         sheets.add((PACK_FX[pre], anim[len(pre):]))
                         v = {**v, "anim": OWN_FX + anim[len(pre):]}
-                    elif anim.startswith(("asset/tft/", "asset/ragnarok/")):
-                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/ and ragnarok/ effects are copied")
+                    elif anim.startswith(("asset/tft/", "asset/ragnarok/", "asset/abysspact/")):
+                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/, ragnarok/ and abysspact/ effects are copied")
                     views[kind].append(v)
         for name, (kind, v) in KEPT_VIEWS.items():
             if name in used and name not in seen:

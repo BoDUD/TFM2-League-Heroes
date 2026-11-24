@@ -3,6 +3,11 @@
 //! table) - do not edit by hand.
 
 pub const CLASSES_OF: &[(&str, &str)] = &[
+    ("abysspact_bonebow", "range"),
+    ("abysspact_corvus", "util"),
+    ("abysspact_faceless", "assassin"),
+    ("abysspact_oathbreaker", "melee"),
+    ("abysspact_whisperer", "mage"),
     ("alchemist", "mage"),
     ("android", "melee"),
     ("archer", "range"),
