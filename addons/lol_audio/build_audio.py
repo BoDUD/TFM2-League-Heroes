@@ -45,6 +45,8 @@ import soundfile as sf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "lol"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "kit"))
+from audio_level import limiter  # noqa: E402
 from riot import SoundBanks, Wad, parse_wpk  # noqa: E402
 
 SR = 44100
@@ -139,24 +141,6 @@ def level(x, rms_db, peak_db, limit=False):
         return limiter(x * 10 ** (rms_db / 20) / rms, 10 ** (peak_db / 20))
     g = min(10 ** (rms_db / 20) / rms, 10 ** (peak_db / 20) / np.abs(x).max())
     return x * g
-
-
-def limiter(x, ceiling, block=256, width=9):
-    """Block gains (ceiling / block peak) -> min over `width` blocks -> mean over `width - 2` blocks -> per sample.
-    Every smoothed gain is a mean of minima whose windows all hold its own block and both neighbours, and a sample is
-    interpolated between its block's gain and a neighbour's, so no sample passes the ceiling."""
-    n = -(-len(x) // block)
-    pad = np.zeros((n * block, x.shape[1]))
-    pad[: len(x)] = x
-    peak = np.abs(pad).reshape(n, block, -1).max((1, 2))
-    g = np.minimum(1.0, ceiling / np.maximum(peak, 1e-9))
-    gp = np.pad(g, width // 2, mode="edge")
-    g = np.lib.stride_tricks.sliding_window_view(gp, width).min(1)
-    gp = np.pad(g, width // 2 - 1, mode="edge")
-    g = np.lib.stride_tricks.sliding_window_view(gp, width - 2).mean(1)
-    centres = np.arange(n) * block + block / 2
-    gs = np.interp(np.arange(n * block), centres, g)
-    return (pad * gs[:, None])[: len(x)]
 
 
 def wem(data, vgmstream):

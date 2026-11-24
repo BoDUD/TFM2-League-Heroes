@@ -16,7 +16,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.12.0"
+VERSION = "0.12.1"
 NAME = "Record of Ragnarok Heroes"
 HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang", "Beelzebub", "Nikola Tesla", "Leonidas", "Apollo"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
@@ -197,5 +197,5 @@ def write_mod_info():
         mi["version"] = VERSION
     mi.update({"author": "BoDUD", "dependencies": [{"mod_id": "base", "version": ">=0.4.11"}], "mod_id": MOD_ID,
                "name": NAME, "description": DESC.format(heroes=", ".join(HEROES)), "contains_code": True,
-               "mod_type": "native", "last_updated": "2026-11-22"})
+               "mod_type": "native", "last_updated": "2026-11-24"})
     save(os.path.join(MOD, "mod.mod_info"), dict(sorted(mi.items())))
