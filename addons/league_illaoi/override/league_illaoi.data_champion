@@ -1372,6 +1372,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_debtor",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_debtor",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_debtor_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_debtor_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_abysspact_effigy",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_effigy",
@@ -1415,6 +1431,22 @@
       "name": "league_illaoi_soul_abysspact_hourglass_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_hourglass_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_knell",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_knell",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_knell_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_knell_l",
       "z": 3,
       "is_follow": false
     },
@@ -1468,6 +1500,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_reprieve",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_reprieve",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_reprieve_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_reprieve_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_abysspact_sevenfold",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_sevenfold",
@@ -1479,6 +1527,38 @@
       "name": "league_illaoi_soul_abysspact_sevenfold_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_sevenfold_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_starfall",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_starfall",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_starfall_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_starfall_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_traceless",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_traceless",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_traceless_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_traceless_l",
       "z": 3,
       "is_follow": false
     },
