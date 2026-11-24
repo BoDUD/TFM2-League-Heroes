@@ -7,7 +7,7 @@ The game reads every mod file except background music into memory when it starts
 
 - WAV clips -> MP3 (VBR, LAME quality V0; mono 44.1 kHz stays), the format of the base game's own sound
   effects. The clip name does not change, so no .sound_info needs an edit. Clips that no .sound_info plays
-  are left out. MP3 clips are copied as they are.
+  are left out. MP3 clips are copied as they are, apart from Ragnarok voices that need a level adjustment.
 - Clips go to sound/bgm/ instead of sound/sfx/, and each clip's mod.override_info entry
   (asset/base/sound/sfx/<clip>) points there. The game reads every mod file into memory at start except the
   .mp3/.wav under /sound/bgm/, which it opens when they play; a clip there plays as a sound effect like before
@@ -85,6 +85,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites
 import attack_self  # noqa: E402  what an attack does to its caster goes under a hidden projectile's hit
+from audio_level import limiter  # noqa: E402
 GAME_DIRS = [
     r"C:\Program Files (x86)\Steam\steamapps\common\Teamfight Manager2",
     r"C:\Program Files\Steam\steamapps\common\Teamfight Manager2",
@@ -102,6 +103,8 @@ AUDIO_EXT = (".wav", ".mp3")
 SFX_DIR = "sound/sfx"      # where the sources keep the clips, next to their .sound_info
 STREAM_DIR = "sound/bgm"   # where the package puts them: opened when played, not read at start
 MP3_QUALITY = 0.0          # libsndfile compression level for VBR MP3: 0.0 = LAME V0 (best), 1.0 = V9
+RAGNAROK_VOICE_RMS = -19.0  # dBFS with the event volume applied, from the League pack's in-match voices
+RAGNAROK_VOICE_PEAK = -1.5  # dBFS before event volume, with room for MP3 overshoot
 MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the sheets the mod ships today
 GAP = 1                    # transparent pixels between packed frames
 IDLE_PAD = 8               # clear pixels round every idle frame (the cards draw past its rect)
@@ -191,16 +194,53 @@ def dump_min(obj):
 
 # ---------------------------------------------------------------- audio
 
-def wav_to_mp3(raw, where):
+def active_voice_rms(x, sr):
+    """Measure 50 ms blocks above the noise floor, without counting long pauses as quiet dialogue."""
+    if not len(x):
+        return 0.0
+    starts = np.arange(0, len(x), max(1, round(sr * 0.05)))
+    power = np.add.reduceat(np.square(x).mean(axis=1), starts) / np.diff(np.r_[starts, len(x)])
+    audible = power >= max(10 ** (-50 / 10), power.max() * 10 ** (-24 / 10))
+    return math.sqrt(power[audible].mean()) if audible.any() else 0.0
+
+
+def level_ragnarok_voice(x, sr, volume):
+    """Bring quiet lines up to League's level while keeping their timing and the existing in-game mix."""
+    rms = active_voice_rms(x, sr)
+    if not rms or volume <= 0:
+        return x
+    target = 10 ** (RAGNAROK_VOICE_RMS / 20) / volume
+    minimum = target * 10 ** (-0.25 / 20)
+    if rms >= minimum:
+        return x
+    ceiling = 10 ** (RAGNAROK_VOICE_PEAK / 20)
+    max_gain = 10 ** (18 / 20)
+    gain = min(target / rms, max_gain)
+    for _ in range(8):
+        boosted = limiter(x * gain, ceiling, block=max(1, round(sr * 0.006)))
+        measured = active_voice_rms(boosted, sr)
+        if measured >= target * 10 ** (-0.05 / 20) or gain >= max_gain:
+            break
+        # A few sharp peaks can use up the headroom. Apply any extra gain to the original samples.
+        gain = min(gain * target / measured, max_gain)
+    return boosted
+
+
+def audio_to_mp3(raw, where, voice_volume):
     import soundfile as sf
-    x, sr = sf.read(io.BytesIO(raw), dtype="float32")
+    x, sr = sf.read(io.BytesIO(raw), dtype="float32", always_2d=True)
+    if voice_volume is not None:
+        boosted = level_ragnarok_voice(x, sr, voice_volume)
+        if boosted is x and where.endswith(".mp3"):
+            return raw, 0.0
+        x = boosted
     buf = io.BytesIO()
     sf.write(buf, x, sr, format="MP3", subtype="MPEG_LAYER_III", bitrate_mode="VARIABLE",
              compression_level=MP3_QUALITY)
     mp3 = buf.getvalue()
     y, sr2 = sf.read(io.BytesIO(mp3), dtype="float32")
     if sr2 != sr or len(y) != len(x):
-        raise ValueError(f"{where}: MP3 decodes to {len(y)} samples at {sr2} Hz, the WAV has {len(x)} at {sr} Hz")
+        raise ValueError(f"{where}: MP3 decodes to {len(y)} samples at {sr2} Hz, the source has {len(x)} at {sr} Hz")
     return mp3, len(x) / sr
 
 
@@ -561,20 +601,23 @@ def select_files(src, heroes, everything):
 
 
 def played_clips(src, files):
-    clips = set()
+    """Return the loudest event volume for each used clip."""
+    clips = {}
     for rel in files:
         if rel.endswith(".sound_info"):
             name = os.path.basename(rel)[:-len(".sound_info")]
             for p in parse_json(read(os.path.join(src, rel)), rel).get("plays", []):
-                if p.get("clip") == name:        # the game then finds no sound by that name (2026-10-07 log)
+                clip = p.get("clip")
+                if clip == name:        # the game then finds no sound by that name (2026-10-07 log)
                     sys.exit(f"{rel}: plays a clip of its own name; give the clip another name (league_<id>_sfx_...)")
-                clips.add(p.get("clip"))
+                clips[clip] = max(clips.get(clip, 0.0), p.get("volume", 1.0))
     return clips
 
 
 def build(src, heroes, everything, workers):
     """-> dict rel -> bytes, plus a report."""
     files = select_files(src, heroes, everything)
+    mod_id = parse_json(read(os.path.join(src, "mod.mod_info")), "mod.mod_info")["mod_id"]
     clips = played_clips(src, files)
     champs = set(hero_ids(src))                  # the UI sheets are for these (not Kayn's forms, Yuumi's ride, ...)
     out, report = {}, {"before": {}, "after": {}, "dropped": [], "sheets": [], "audio_s": 0.0}
@@ -635,9 +678,13 @@ def build(src, heroes, everything, workers):
         if kind == "audio":
             raw = read(path)
             dst = streamed(rel)
-            if rel.endswith(".mp3"):
+            clip = os.path.splitext(os.path.basename(rel))[0]
+            voice_volume = None
+            if mod_id == "ragnarok" and clip.startswith("ragnarok_") and "_vo_" in clip:
+                voice_volume = clips[clip]
+            if rel.endswith(".mp3") and voice_volume is None:
                 return [(dst, raw)], None
-            mp3, secs = wav_to_mp3(raw, rel)
+            mp3, secs = audio_to_mp3(raw, rel, voice_volume)
             return [(dst[:-4] + ".mp3", mp3)], ("audio", secs)
         base = rel[:-len("#sheet.png")]
         png, fanim_raw = read(path), read(os.path.join(src, base + "#anim.fanim"))
@@ -674,7 +721,6 @@ def build(src, heroes, everything, workers):
     report["heroes_px"] = sum(png_size(data)[0] * png_size(data)[1] for rel, data in out.items()
                               if rel.startswith("champions/") and rel.endswith("#sheet.png"))
     if "mod.override_info" in out:
-        mod_id = parse_json(read(os.path.join(src, "mod.mod_info")), "mod.mod_info")["mod_id"]
         out["mod.override_info"], report["streamed"] = stream_overrides(out, mod_id)
     return out, report
 
@@ -729,7 +775,7 @@ def print_report(report, seconds):
         print(f"UI sheets: {len(report['ui'])}, once decoded " + ", ".join(f"{k} {4 * v / 2 ** 20:.0f} MiB"
               for k, v in kinds.items()) + f" (the heroes' whole sheets: {4 * report['heroes_px'] / 2 ** 20:.0f} MiB)")
     if report["audio_s"]:
-        print(f"audio encoded: {report['audio_s']:.0f} s of WAV -> MP3")
+        print(f"audio encoded: {report['audio_s']:.0f} s -> MP3")
     if report.get("nodes"):
         print(f"skill + skill2 effect nodes (copied every tick in game): {report['nodes'][0]} -> {report['nodes'][1]}")
     if report.get("streamed"):
