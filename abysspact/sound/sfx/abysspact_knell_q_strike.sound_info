@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_knell_sfx_strike",
+      "volume": 0.62
+    },
+    {
+      "delay": 0.05,
+      "clip": "abysspact_knell_sfx_cone",
+      "volume": 0.52
+    }
+  ]
+}

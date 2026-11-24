@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_reprieve_vo_dead",
+      "volume": 0.85
+    },
+    {
+      "delay": 0.1,
+      "clip": "abysspact_reprieve_sfx_fall",
+      "volume": 0.54
+    }
+  ]
+}

@@ -209,6 +209,76 @@
         "x": 0,
         "y": -11
       }
+    },
+    "abysspact_reprieve": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_debtor": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_traceless": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_starfall": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_knell": {
+      "face": {
+        "x": 2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
     }
   }
 }

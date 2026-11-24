@@ -23,6 +23,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("abysspact_noctua",      2.75, include_str!("../../../abysspact/champions/abysspact_noctua#anim.fanim")),
     ("abysspact_anchor",      2.75, include_str!("../../../abysspact/champions/abysspact_anchor#anim.fanim")),
     ("abysspact_hourglass",   2.75, include_str!("../../../abysspact/champions/abysspact_hourglass#anim.fanim")),
+    // Batch 4
+    ("abysspact_reprieve",    2.75, include_str!("../../../abysspact/champions/abysspact_reprieve#anim.fanim")),
+    ("abysspact_debtor",      2.75, include_str!("../../../abysspact/champions/abysspact_debtor#anim.fanim")),
+    ("abysspact_traceless",   2.75, include_str!("../../../abysspact/champions/abysspact_traceless#anim.fanim")),
+    ("abysspact_starfall",    2.75, include_str!("../../../abysspact/champions/abysspact_starfall#anim.fanim")),
+    ("abysspact_knell",       2.75, include_str!("../../../abysspact/champions/abysspact_knell#anim.fanim")),
 ];
 
 pub const SIZES: &[(&str, f32)] = &[];
@@ -51,6 +57,12 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("abysspact_noctua_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_noctua_fx#anim.fanim")),
     ("abysspact_anchor_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_anchor_fx#anim.fanim")),
     ("abysspact_hourglass_fx",   3.3, include_str!("../../../abysspact/effects/abysspact_hourglass_fx#anim.fanim")),
+    // Batch 4
+    ("abysspact_reprieve_fx",    3.3, include_str!("../../../abysspact/effects/abysspact_reprieve_fx#anim.fanim")),
+    ("abysspact_debtor_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_debtor_fx#anim.fanim")),
+    ("abysspact_traceless_fx",   3.3, include_str!("../../../abysspact/effects/abysspact_traceless_fx#anim.fanim")),
+    ("abysspact_starfall_fx",    3.3, include_str!("../../../abysspact/effects/abysspact_starfall_fx#anim.fanim")),
+    ("abysspact_knell_fx",       3.3, include_str!("../../../abysspact/effects/abysspact_knell_fx#anim.fanim")),
 ];
 
 pub const DRAWN_EFFECTS: &[&str] = &[
@@ -69,14 +81,22 @@ pub const DRAWN_EFFECTS: &[&str] = &[
     "abysspact_noctua_fx",
     "abysspact_anchor_fx",
     "abysspact_hourglass_fx",
+    "abysspact_reprieve_fx",
+    "abysspact_debtor_fx",
+    "abysspact_traceless_fx",
+    "abysspact_starfall_fx",
+    "abysspact_knell_fx",
 ];
 
-// Tall silhouettes (47-48px) scaled gently on compact BP cards.
+// Tall/wide silhouettes scaled gently on compact BP cards.
 pub const UI_SIZES: &[(&str, f32)] = &[
     ("abysspact_whisperer", 0.86),
     ("abysspact_undertaker", 0.88),
     ("abysspact_vesper", 0.86),
     ("abysspact_anchor", 0.88),
+    ("abysspact_reprieve", 0.88),
+    ("abysspact_starfall", 0.88),
+    ("abysspact_knell", 0.86),
 ];
 
 pub fn table() -> Table<'static> {

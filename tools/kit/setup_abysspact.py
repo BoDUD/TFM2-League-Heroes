@@ -15,7 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "abysspact"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.3.0"
+VERSION = "0.4.0"
 NAME = "Abyss Pact · 渊契"
 
 sys.path.insert(0, HERE)
@@ -339,6 +339,94 @@ SOUNDS = {
         "v_respawn":   [("abysspact_hourglass_vo_respawn", 0.85, 0.0)],
         "v_dead":      [("abysspact_hourglass_vo_dead", 0.85, 0.0),
                         ("abysspact_hourglass_sfx_death", 0.54, 0.1)],
+    },
+    # --- Batch 4 ---
+    "abysspact_reprieve": {
+        "a":         [("abysspact_reprieve_sfx_swing", 0.46, 0.0)],
+        "a_hit":     [("abysspact_reprieve_sfx_ball_hit", 0.54, 0.0)],
+        "q_throw":   [("abysspact_reprieve_sfx_ball_throw", 0.58, 0.0)],
+        "q_pull":    [("abysspact_reprieve_sfx_chain_taut", 0.60, 0.0)],
+        "w_roar":    [("abysspact_reprieve_sfx_guilt_roar", 0.64, 0.0)],
+        "r_drop":    [("abysspact_reprieve_sfx_cangue_drop", 0.68, 0.0)],
+        "r_hold":    [("abysspact_reprieve_sfx_cangue_hold", 0.58, 0.0)],
+        "r_break":   [("abysspact_reprieve_sfx_cangue_break", 0.62, 0.0)],
+        "tally":     [("abysspact_reprieve_sfx_tally", 0.46, 0.0)],
+        "absolve":   [("abysspact_reprieve_sfx_absolve", 0.68, 0.0)],
+        "v_start":   [("abysspact_reprieve_vo_start", 0.85, 0.0)],
+        "v_ult":     [("abysspact_reprieve_vo_ult", 0.90, 0.0)],
+        "v_kill":    [("abysspact_reprieve_vo_kill", 0.85, 0.0)],
+        "v_respawn": [("abysspact_reprieve_vo_respawn", 0.85, 0.0)],
+        "v_dead":    [("abysspact_reprieve_vo_dead", 0.85, 0.0),
+                      ("abysspact_reprieve_sfx_fall", 0.54, 0.1)],
+    },
+    "abysspact_debtor": {
+        "a":           [("abysspact_debtor_sfx_saber_draw", 0.46, 0.0)],
+        "a_hit":       [("abysspact_debtor_sfx_saber_hit", 0.52, 0.0)],
+        "q_thrust":    [("abysspact_debtor_sfx_thrust", 0.58, 0.0)],
+        "q_note":      [("abysspact_debtor_sfx_note_mark", 0.52, 0.0)],
+        "w_sweep":     [("abysspact_debtor_sfx_sweep", 0.58, 0.0)],
+        "swap":        [("abysspact_debtor_sfx_swap", 0.68, 0.0)],
+        "swap_return": [("abysspact_debtor_sfx_swap_return", 0.66, 0.0)],
+        "absorb":      [("abysspact_debtor_sfx_absorb", 0.68, 0.0)],
+        "v_start":     [("abysspact_debtor_vo_start", 0.85, 0.0)],
+        "v_ult":       [("abysspact_debtor_vo_ult", 0.90, 0.0)],
+        "v_kill":      [("abysspact_debtor_vo_kill", 0.85, 0.0)],
+        "v_respawn":   [("abysspact_debtor_vo_respawn", 0.85, 0.0)],
+        "v_dead":      [("abysspact_debtor_vo_dead", 0.85, 0.0),
+                        ("abysspact_debtor_sfx_fall", 0.54, 0.1)],
+    },
+    "abysspact_traceless": {
+        "a":         [("abysspact_traceless_sfx_stab", 0.46, 0.0)],
+        "a_hit":     [("abysspact_traceless_sfx_blade_hit", 0.52, 0.0)],
+        "q_line":    [("abysspact_traceless_sfx_line", 0.58, 0.0)],
+        "w_dodge":   [("abysspact_traceless_sfx_dodge", 0.58, 0.0),
+                      ("abysspact_traceless_sfx_afterimage", 0.48, 0.05)],
+        "r_vanish":  [("abysspact_traceless_sfx_vanish", 0.64, 0.0)],
+        "r_cut":     [("abysspact_traceless_sfx_sword_mark", 0.60, 0.0)],
+        "r_final":   [("abysspact_traceless_sfx_final_cuts", 0.68, 0.0)],
+        "stack":     [("abysspact_traceless_sfx_stack", 0.48, 0.0)],
+        "ink":       [("abysspact_traceless_sfx_ink", 0.58, 0.0)],
+        "quench":    [("abysspact_traceless_sfx_quench", 0.56, 0.0)],
+        "v_start":   [("abysspact_traceless_vo_start", 0.85, 0.0)],
+        "v_ult":     [("abysspact_traceless_vo_ult", 0.90, 0.0)],
+        "v_kill":    [("abysspact_traceless_vo_kill", 0.85, 0.0)],
+        "v_respawn": [("abysspact_traceless_vo_respawn", 0.85, 0.0)],
+        "v_dead":    [("abysspact_traceless_vo_dead", 0.85, 0.0),
+                      ("abysspact_traceless_sfx_fall", 0.52, 0.1)],
+    },
+    "abysspact_starfall": {
+        "a":         [("abysspact_starfall_sfx_basic_cast", 0.44, 0.0)],
+        "a_fall":    [("abysspact_starfall_sfx_star_fall", 0.46, 0.0)],
+        "a_hit":     [("abysspact_starfall_sfx_star_hit", 0.52, 0.0)],
+        "q_track":   [("abysspact_starfall_sfx_track", 0.58, 0.0)],
+        "w_dash":    [("abysspact_starfall_sfx_dash", 0.58, 0.0)],
+        "w_push":    [("abysspact_starfall_sfx_push", 0.56, 0.0)],
+        "r_rift":    [("abysspact_starfall_sfx_rift", 0.68, 0.0)],
+        "r_rain":    [("abysspact_starfall_sfx_rain_impact", 0.54, 0.0)],
+        "v_start":   [("abysspact_starfall_vo_start", 0.85, 0.0)],
+        "v_ult":     [("abysspact_starfall_vo_ult", 0.90, 0.0)],
+        "v_kill":    [("abysspact_starfall_vo_kill", 0.85, 0.0)],
+        "v_respawn": [("abysspact_starfall_vo_respawn", 0.85, 0.0)],
+        "v_dead":    [("abysspact_starfall_vo_dead", 0.85, 0.0),
+                      ("abysspact_starfall_sfx_fall", 0.52, 0.1)],
+    },
+    "abysspact_knell": {
+        "a":           [("abysspact_knell_sfx_hammer_swing", 0.46, 0.0)],
+        "a_hit":       [("abysspact_knell_sfx_hammer_hit", 0.54, 0.0)],
+        "q_strike":    [("abysspact_knell_sfx_strike", 0.62, 0.0),
+                        ("abysspact_knell_sfx_cone", 0.52, 0.05)],
+        "w_shield":    [("abysspact_knell_sfx_shield", 0.60, 0.0)],
+        "r_shadow":    [("abysspact_knell_sfx_shadow", 0.60, 0.0)],
+        "giant_drop":  [("abysspact_knell_sfx_giant_drop", 0.70, 0.0)],
+        "giant_chime": [("abysspact_knell_sfx_giant_chime", 0.66, 0.0)],
+        "lift":        [("abysspact_knell_sfx_lift", 0.62, 0.0)],
+        "open_wave":   [("abysspact_knell_sfx_open_wave", 0.68, 0.0)],
+        "v_start":     [("abysspact_knell_vo_start", 0.85, 0.0)],
+        "v_ult":       [("abysspact_knell_vo_ult", 0.90, 0.0)],
+        "v_kill":      [("abysspact_knell_vo_kill", 0.85, 0.0)],
+        "v_respawn":   [("abysspact_knell_vo_respawn", 0.85, 0.0)],
+        "v_dead":      [("abysspact_knell_vo_dead", 0.85, 0.0),
+                        ("abysspact_knell_sfx_fall", 0.56, 0.1)],
     },
 }
 
@@ -848,6 +936,171 @@ def build_i18n():
         f"모래시계 등을 뒤집어 광범위 생존 아군 전원을 {A}3초 전{E} 위치와 체력으로 되돌림(감소 없음, 노화+3).",
         "회광", "시간 정지", "시간 역류")
 
+    # 16. 缓刑 (Reprieve)
+    pr = B.PARAMS["reprieve"]
+    put("abysspact_reprieve", "zh-hans", "缓刑",
+        f"抡铁球砸击造成{ADi}{O}100%{E}物理伤害。{O}缓刑{E}：受击一半记入刑期（上限60%最大生命）4秒缓扣；身边拿到人头立刻全额勾销。",
+        f"甩出铁球命中敌方造成{O}{pr['q_dmg']}+{pr['q_thp']}%目标最大生命{E}物理伤害、{R}{secs(pr['q_stun'])}秒眩晕{E}并用铁链拽回。",
+        f"仰头怒吼嘲讽周围敌人{R}{secs(pr['w_taunt'])}秒{E}，期间缓刑记账比例提升至{A}70%{E}。",
+        f"扇形甩出三副巨枷扣住敌方英雄，造成{O}{pr['r_dmg']}+{pr['r_thp']}%目标最大生命{E}物理伤害并{R}眩晕{secs(pr['r_stun'])}秒{E}。",
+        "掷球", "认罪", "枷")
+    put("abysspact_reprieve", "zh-hant", "緩刑",
+        f"掄鐵球砸擊造成{ADi}{O}100%{E}物理傷害。{O}緩刑{E}：受擊一半記入刑期（上限60%最大生命）4秒緩扣；身邊拿到人頭立刻全額勾銷。",
+        f"甩出鐵球命中敵方造成{O}{pr['q_dmg']}+{pr['q_thp']}%目標最大生命{E}物理傷害、{R}{secs(pr['q_stun'])}秒暈眩{E}並以鐵鏈拽回。",
+        f"仰頭怒吼嘲諷周圍敵人{R}{secs(pr['w_taunt'])}秒{E}，期間緩刑記帳比例提升至{A}70%{E}。",
+        f"扇形甩出三副巨枷扣住敵方英雄，造成{O}{pr['r_dmg']}+{pr['r_thp']}%目標最大生命{E}物理傷害並{R}暈眩{secs(pr['r_stun'])}秒{E}。",
+        "擲球", "認罪", "枷")
+    put("abysspact_reprieve", "en", "Reprieve",
+        f"Swing an iron ball for {ADi}{O}100%{E} AD. {O}Reprieve{E}: 50% of damage taken is deferred over 4s (cap 60% max HP); any nearby takedown absolves all deferred debt.",
+        f"Hurl the iron ball for {O}{pr['q_dmg']}+{pr['q_thp']}% target max HP{E} physical damage, {R}{secs(pr['q_stun'])}s stun{E}, and chain pull.",
+        f"Roar to {R}taunt{E} nearby foes for {secs(pr['w_taunt'])}s, raising deferred damage to {A}70%{E}.",
+        f"Hurl three giant cangues in a cone for {O}{pr['r_dmg']}+{pr['r_thp']}% target max HP{E} physical damage and {R}{secs(pr['r_stun'])}s stun{E}.",
+        "Iron Toss", "Confession", "Cangue")
+    put("abysspact_reprieve", "ja", "緩刑",
+        f"鉄球で{ADi}{O}100%{E}物理。{O}緩刑{E}：被ダメの半分を刑期（最大HP60%上限）として4秒で返済；周囲のキル・アシストで全額帳消し。",
+        f"鉄球を投げ{O}{pr['q_dmg']}+対象最大HP{pr['q_thp']}%{E}物理と{R}{secs(pr['q_stun'])}秒スタン{E}、鎖で引き寄せる。",
+        f"咆哮して周囲を{R}{secs(pr['w_taunt'])}秒タウント{E}、その間は刑期への先送り率が{A}70%{E}に上昇。",
+        f"前方扇状に巨大な枷を投げ、{O}{pr['r_dmg']}+対象最大HP{pr['r_thp']}%{E}物理と{R}{secs(pr['r_stun'])}秒スタン{E}。",
+        "投球", "認罪", "巨枷")
+    put("abysspact_reprieve", "ko", "유예",
+        f"철구 강타 {ADi}{O}100%{E} 물리 피해. {O}유예{E}: 피해 절반을 형기(최대체력 60% 한도)로 4초 분할 상환, 주변 처치 관여 시 전액 탕감.",
+        f"철구를 던져 {O}{pr['q_dmg']}+대상 최대체력 {pr['q_thp']}%{E} 물리 피해와 {R}{secs(pr['q_stun'])}초 기절{E}, 사슬로 끌어당김.",
+        f"포효해 주변 적을 {R}{secs(pr['w_taunt'])}초 도발{E}하며 그동안 유예 비율이 {A}70%{E}로 증가.",
+        f"전방 부채꼴에 거대한 칼을 던져 {O}{pr['r_dmg']}+대상 최대체력 {pr['r_thp']}%{E} 물리 피해와 {R}{secs(pr['r_stun'])}초 기절{E}.",
+        "철구 투척", "자백", "거대 칼")
+
+    # 17. 赊命 (Debtor)
+    pd = B.PARAMS["debtor"]
+    put("abysspact_debtor", "zh-hans", "赊命",
+        f"弯剑斩击造成{ADi}{O}100%{E}物理伤害。{O}欠条{E}：技能命中敌方英雄留下6秒欠条，大招可对欠条目标强行换命。",
+        f"突刺斩向敌方造成{ad(pd['q_dmg'], pd['q_ad'])}物理伤害并留欠条；目标生命低于{R}30%{E}时伤害{O}+50%{E}。",
+        f"原地横扫周围造成{ad(pd['w_dmg'], pd['w_ad'])}物理伤害，每命中目标回复生命并留下欠条。",
+        f"与带欠条的敌方英雄{R}当场对调血量比例{E}；{A}6秒内{E}击杀对方永久保留此命，否则按届时比例换回！",
+        "讨债", "利息", "换命")
+    put("abysspact_debtor", "zh-hant", "賒命",
+        f"彎劍斬擊造成{ADi}{O}100%{E}物理傷害。{O}欠條{E}：技能命中敵方英雄留下6秒欠條，大招可對欠條目標強行換命。",
+        f"突刺斬向敵方造成{ad(pd['q_dmg'], pd['q_ad'])}物理傷害並留欠條；目標生命低於{R}30%{E}時傷害{O}+50%{E}。",
+        f"原地橫掃周圍造成{ad(pd['w_dmg'], pd['w_ad'])}物理傷害，每命中目標回復生命並留下欠條。",
+        f"與帶欠條的敵方英雄{R}當場對調血量比例{E}；{A}6秒內{E}擊殺對方永久保留此命，否則按屆時比例換回！",
+        "討債", "利息", "換命")
+    put("abysspact_debtor", "en", "Debtor",
+        f"Slash for {ADi}{O}100%{E} AD. {O}IOU{E}: ability hits stamp a 6s IOU on enemy champions, marking them for Life Swap.",
+        f"Lunge to slash for {ad(pd['q_dmg'], pd['q_ad'])} physical damage and stamp an IOU; deals {O}+50%{E} damage below {R}30% HP{E}.",
+        f"Spin-sweep nearby foes for {ad(pd['w_dmg'], pd['w_ad'])} physical damage, healing per hit and stamping IOUs.",
+        f"{R}Swap HP percentages{E} with an IOU-marked foe for {A}6s{E}: kill them to keep the life, or swap current ratios back!",
+        "Collect", "Interest", "Life Swap")
+    put("abysspact_debtor", "ja", "赊命",
+        f"曲剣で{ADi}{O}100%{E}物理。{O}借用書{E}：スキル命中で6秒の借用書を刻み、ウルトの命交換対象にする。",
+        f"突進斬りで{ad(pd['q_dmg'], pd['q_ad'])}物理＋借用書。対象HP{R}30%{E}以下ならダメージ{O}+50%{E}。",
+        f"周囲を薙ぎ払い{ad(pd['w_dmg'], pd['w_ad'])}物理、命中ごとに回復し借用書を付与。",
+        f"借用書付きの敵と{R}HP割合を即座に交換{E}！{A}6秒以内{E}に倒せば自分の命に、倒せねばその時点の割合で再交換。",
+        "取立", "利息", "換命")
+    put("abysspact_debtor", "ko", "사명",
+        f"곡검 베기 {ADi}{O}100%{E} 물리 피해. {O}차용증{E}: 스킬 적중 시 6초 차용증을 남겨 궁극기 생명 교환 대상으로 지정.",
+        f"돌진 베기로 {ad(pd['q_dmg'], pd['q_ad'])} 물리 피해와 차용증 부여. 대상 체력 {R}30%{E} 이하 시 피해 {O}+50%{E}.",
+        f"주위를 휩쓸어 {ad(pd['w_dmg'], pd['w_ad'])} 물리 피해, 적중마다 체력 회복 및 차용증 부여.",
+        f"차용증 적과 {R}체력 비율 즉시 맞교환{E}! {A}6초 내{E} 처치 시 생명 유지, 실패 시 그 시점 비율로 재교환.",
+        "추심", "이자", "생명 교환")
+
+    # 18. 无痕 (Traceless)
+    pt = B.PARAMS["traceless"]
+    put("abysspact_traceless", "zh-hans", "无痕",
+        f"快剑刺击造成{ADi}{O}100%{E}物理伤害。{O}无痕{E}：无伤命中叠锋（最高8层各+7%攻），脱战1.5秒隐身首击+50%，掉一滴血锋全散。",
+        f"直线冲刺穿透敌方造成{ad(pt['q_dmg'], pt['q_ad'])}物理伤害；{A}击杀敌方英雄立刻刷新冷却{E}。",
+        f"原地留残影，自身{A}{secs(pt['w_banish'])}秒不可选中{E}后隐身{secs(pt['w_inv'])}秒，保住全部锋层并强化下击。",
+        f"消失{A}{secs(pt['r_vanish'])}秒不可选中{E}，对大范围内每个敌方英雄各划一剑（{ad(pt['r_dmg'], pt['r_ad'])}）并叠锋，落于残血身后。",
+        "一线", "残影", "无影")
+    put("abysspact_traceless", "zh-hant", "無痕",
+        f"快劍刺擊造成{ADi}{O}100%{E}物理傷害。{O}無痕{E}：無傷命中疊鋒（最高8層各+7%攻），脫戰1.5秒隱身首擊+50%，掉一滴血鋒全散。",
+        f"直線衝刺穿透敵方造成{ad(pt['q_dmg'], pt['q_ad'])}物理傷害；{A}擊殺敵方英雄立刻刷新冷卻{E}。",
+        f"原地留殘影，自身{A}{secs(pt['w_banish'])}秒不可選中{E}後隱身{secs(pt['w_inv'])}秒，保住全部鋒層並強化下擊。",
+        f"消失{A}{secs(pt['r_vanish'])}秒不可選中{E}，對大範圍內每個敵方英雄各劃一劍（{ad(pt['r_dmg'], pt['r_ad'])}）並疊鋒，落於殘血身後。",
+        "一線", "殘影", "無影")
+    put("abysspact_traceless", "en", "Traceless",
+        f"Swift thrust for {ADi}{O}100%{E} AD. {O}Unstained{E}: unhit strikes stack Edge (up to 8x +7% AD); 1.5s out-of-combat stealth adds +50% on opener. Losing any HP clears all Edge.",
+        f"Dash through a foe for {ad(pt['q_dmg'], pt['q_ad'])} physical damage; {A}resets immediately on kill{E}.",
+        f"Leave a pale afterimage, turning {A}untargetable {secs(pt['w_banish'])}s{E} then invisible {secs(pt['w_inv'])}s to preserve Edge.",
+        f"Vanish {A}untargetable for {secs(pt['r_vanish'])}s{E}, slashing every nearby enemy champion ({ad(pt['r_dmg'], pt['r_ad'])}) and stacking Edge.",
+        "One Line", "Afterimage", "No Shadow")
+    put("abysspact_traceless", "ja", "無痕",
+        f"速刺し{ADi}{O}100%{E}物理。{O}無痕{E}：無傷命中で鋒を重ね（最大8層・各攻撃+7%）、1.5秒非戦闘で隠密し初撃+50%。1でもHPが減ると全消滅。",
+        f"一直線に貫き{ad(pt['q_dmg'], pt['q_ad'])}物理。{A}キルで即クールダウン解消{E}。",
+        f"残像を残し{A}{secs(pt['w_banish'])}秒対象指定不可{E}の後に{secs(pt['w_inv'])}秒隠密、鋒を維持する。",
+        f"{A}{secs(pt['r_vanish'])}秒消失{E}し、範囲内の敵英雄全員を斬り裂き（{ad(pt['r_dmg'], pt['r_ad'])}）鋒を重ねる。",
+        "一線", "残影", "無影")
+    put("abysspact_traceless", "ko", "무흔",
+        f"쾌검 찌르기 {ADi}{O}100%{E} 물리 피해. {O}무흔{E}: 무피해 적중마다 검기(최대 8중첩, 각 공격+7%), 1.5초 비전투 은신 첫타 +50%, 체력 손실 시 전량 소멸.",
+        f"일직선 돌진으로 {ad(pt['q_dmg'], pt['q_ad'])} 물리 피해. {A}처치 시 즉시 쿨타임 초기화{E}.",
+        f"잔상을 남기고 {A}{secs(pt['w_banish'])}초 대상 지정 불가{E} 후 {secs(pt['w_inv'])}초 은신, 검기를 보존.",
+        f"{A}{secs(pt['r_vanish'])}초 사라져{E} 범위 내 모든 적 챔피언을 베고({ad(pt['r_dmg'], pt['r_ad'])}) 검기를 쌓음.",
+        "일선", "잔영", "무영")
+
+    # 19. 陨夜 (Starfall)
+    ps = B.PARAMS["starfall"]
+    put("abysspact_starfall", "zh-hans", "陨夜",
+        f"唤落延迟0.5秒黑星，砸中范围造成{ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E}伤害（溅射60%）。{R}代价{E}：3万内贴脸普攻落空。",
+        f"沿直线依次落下5颗黑星，每颗造成{ap(ps['q_dmg'], ps['q_ap'])}魔法伤害并{R}减速{ps['q_slow']}%{E}。",
+        f"化作星光向后闪退拉开身位，原地落下黑星造成{ap(ps['w_dmg'], ps['w_ap'])}魔法伤害并{R}击退{E}近身敌人。",
+        f"撕裂夜空在目标大范围倾泻{A}4秒黑星雨{E}，持续造成{ap(ps['r_dmg'], ps['r_ap'])}魔法伤害，期间可自由移动。",
+        "星轨", "遁星", "陨夜")
+    put("abysspact_starfall", "zh-hant", "隕夜",
+        f"喚落延遲0.5秒黑星，砸中範圍造成{ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E}傷害（濺射60%）。{R}代價{E}：3萬內貼臉普攻落空。",
+        f"沿直線依序落下5顆黑星，每顆造成{ap(ps['q_dmg'], ps['q_ap'])}魔法傷害並{R}減速{ps['q_slow']}%{E}。",
+        f"化作星光向後閃退拉開身位，原地落下黑星造成{ap(ps['w_dmg'], ps['w_ap'])}魔法傷害並{R}擊退{E}近身敵人。",
+        f"撕裂夜空在目標大範圍傾瀉{A}4秒黑星雨{E}，持續造成{ap(ps['r_dmg'], ps['r_ap'])}魔法傷害，期間可自由移動。",
+        "星軌", "遁星", "隕夜")
+    put("abysspact_starfall", "en", "Starfall",
+        f"Call down a 0.5s-delayed Black Star dealing {ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E} AoE damage (60% splash). {R}Cost{E}: attacks miss foes inside 30k range.",
+        f"Drop 5 sequential Black Stars for {ap(ps['q_dmg'], ps['q_ap'])} magic damage each and {R}{ps['q_slow']}% slow{E}.",
+        f"Flash backward as starlight, dropping a Black Star for {ap(ps['w_dmg'], ps['w_ap'])} magic damage and {R}knockback{E}.",
+        f"Tear open the night sky to rain Black Stars for {A}4s{E}, repeatedly dealing {ap(ps['r_dmg'], ps['r_ap'])} magic damage while moving.",
+        "Star Track", "Starlight Step", "Meteor Night")
+    put("abysspact_starfall", "ja", "隕夜",
+        f"0.5秒遅れて黒い星を落とし{ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E}範囲ダメ（周囲60%）。{R}代償{E}：近距離3万以内の通常攻撃は空振り。",
+        f"直線上に5発の黒星を落とし、各{ap(ps['q_dmg'], ps['q_ap'])}魔法と{R}{ps['q_slow']}%スロウ{E}。",
+        f"星光となって後方へ跳び、元の位置に黒星を落として{ap(ps['w_dmg'], ps['w_ap'])}魔法と{R}ノックバック{E}。",
+        f"夜空を裂き{A}4秒間の黒星雨{E}を降らせ、継続して{ap(ps['r_dmg'], ps['r_ap'])}魔法ダメージ。",
+        "星軌", "遁星", "隕夜")
+    put("abysspact_starfall", "ko", "운야",
+        f"0.5초 후 낙하하는 검은 별로 {ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E} 범위 피해(주변 60%). {R}대가{E}: 3만 이내 초근접 평타는 빗나감.",
+        f"일직선으로 검은 별 5개를 떨어뜨려 각 {ap(ps['q_dmg'], ps['q_ap'])} 마법 피해와 {R}{ps['q_slow']}% 둔화{E}.",
+        f"별빛이 되어 뒤로 도약하며 제자리에 검은 별을 떨어뜨려 {ap(ps['w_dmg'], ps['w_ap'])} 마법 피해와 {R}밀쳐내기{E}.",
+        f"밤하늘을 갈라 {A}4초간 검은 별비{E}를 쏟아부어 지속적으로 {ap(ps['r_dmg'], ps['r_ap'])} 마법 피해.",
+        "성궤", "둔성", "운야")
+
+    # 20. 丧钟 (Knell)
+    pk = B.PARAMS["knell"]
+    put("abysspact_knell", "zh-hans", "丧钟",
+        f"抡钟锤砸击造成{ADi}{O}100%{E}物理伤害。{O}钟壳{E}：巨钟背在背上时受到的所有伤害{A}-15%{E}；开大扣钟期间无减伤。",
+        f"抡锤撞响背上巨钟，前方扇形造成{M}{pk['q_dmg']}+{pk['q_hp']}%自身最大生命{E}魔法伤害并{R}眩晕{secs(pk['q_stun'])}秒{E}。",
+        f"轻敲钟沿为大范围友军提供{S}{pk['w_sh']}护盾{E}（{secs(pk['w_sh_t'])}秒）与{A}+{pk['w_ms']}%移速{E}。",
+        f"跳进敌阵扣下巨钟，将自己与周围敌人关在钟内{A}2.5秒{E}（钟内外隔绝、每0.5秒震响造成{M}{pk['r_tick_dmg']}+{pk['r_tick_hp']}%生命{E}法伤），掀钟时全员{R}击飞{E}！",
+        "撞钟", "回响", "丧钟")
+    put("abysspact_knell", "zh-hant", "喪鐘",
+        f"掄鐘錘砸擊造成{ADi}{O}100%{E}物理傷害。{O}鐘殼{E}：巨鐘背在背上時受到的所有傷害{A}-15%{E}；開大扣鐘期間無減傷。",
+        f"掄錘撞響背上巨鐘，前方扇形造成{M}{pk['q_dmg']}+{pk['q_hp']}%自身最大生命{E}魔法傷害並{R}暈眩{secs(pk['q_stun'])}秒{E}。",
+        f"輕敲鐘沿為大範圍友軍提供{S}{pk['w_sh']}護盾{E}（{secs(pk['w_sh_t'])}秒）與{A}+{pk['w_ms']}%移速{E}。",
+        f"跳進敵陣扣下巨鐘，將自己與周圍敵人關在鐘內{A}2.5秒{E}（鐘內外隔絕、每0.5秒震響造成{M}{pk['r_tick_dmg']}+{pk['r_tick_hp']}%生命{E}法傷），掀鐘時全員{R}擊飛{E}！",
+        "撞鐘", "迴響", "喪鐘")
+    put("abysspact_knell", "en", "Knell",
+        f"Smash with a bell hammer for {ADi}{O}100%{E} AD. {O}Bell Shell{E}: takes {A}15% less damage{E} while carrying the bell (disabled while Bell Toll is dropped).",
+        f"Strike the bell for a forward wave dealing {M}{pk['q_dmg']}+{pk['q_hp']}% max HP{E} magic damage and {R}{secs(pk['q_stun'])}s stun{E}.",
+        f"Ring a soothing chime granting nearby allies a {S}{pk['w_sh']} shield{E} and {A}+{pk['w_ms']}% MS{E}.",
+        f"Leap and drop the giant bell, isolating himself and nearby foes inside for {A}2.5s{E} (chimes deal {M}{pk['r_tick_dmg']}+{pk['r_tick_hp']}% HP{E} magic damage every 0.5s, {R}knocking up{E} on lift).",
+        "Bell Strike", "Resonance", "Death Knell")
+    put("abysspact_knell", "ja", "喪鐘",
+        f"鐘槌で{ADi}{O}100%{E}物理。{O}鐘殻{E}：鐘を背負う間は全被ダメ{A}-15%{E}（ウルト中は無効）。",
+        f"背中の鐘を打ち鳴らし前方扇状に{M}{pk['q_dmg']}+自身最大HP{pk['q_hp']}%{E}魔法と{R}{secs(pk['q_stun'])}秒スタン{E}。",
+        f"鐘縁を鳴らし周囲味方全員に{S}{pk['w_sh']}シールド{E}と{A}移動+{pk['w_ms']}%{E}。",
+        f"巨鐘を被せ自身と周囲の敵を{A}2.5秒間隔離{E}（0.5秒毎に{M}{pk['r_tick_dmg']}+HP{pk['r_tick_hp']}%{E}魔法）、開鐘時に全員を{R}ノックアップ{E}！",
+        "撞鐘", "残響", "喪鐘")
+    put("abysspact_knell", "ko", "조종",
+        f"종망치 강타 {ADi}{O}100%{E} 물리 피해. {O}종껍질{E}: 종을 멘 동안 받는 피해 {A}-15%{E}(궁극기 시전 중 비활성).",
+        f"등의 종을 울려 전방 부채꼴에 {M}{pk['q_dmg']}+자신 최대체력 {pk['q_hp']}%{E} 마법 피해와 {R}{secs(pk['q_stun'])}초 기절{E}.",
+        f"종소리로 주변 아군에게 {S}{pk['w_sh']} 보호막{E}과 {A}이속 +{pk['w_ms']}%{E} 부여.",
+        f"거대 종을 덮어 자신과 주변 적을 {A}2.5초간 격리{E}(0.5초마다 {M}{pk['r_tick_dmg']}+체력 {pk['r_tick_hp']}%{E} 마법 피해), 열릴 때 전원 {R}에어본{E}!",
+        "타종", "울림", "조종")
+
     # Verify tooltip length limits strictly!
     bad = []
     for lang in TOOLTIP_MAX:
@@ -861,7 +1114,7 @@ def build_i18n():
 
     i18n = {lang: {"description": desc[lang], "skill_name": skn[lang]} for lang in desc}
     save(os.path.join(MOD, "text", "champion.i18n"), i18n)
-    print(f"wrote text/champion.i18n (5 langs x 15 heroes, all under TOOLTIP_MAX!)")
+    print(f"wrote text/champion.i18n (5 langs x 20 heroes, all under TOOLTIP_MAX!)")
 
 
 def kit_sounds(cid):
@@ -908,6 +1161,11 @@ def write_sounds_and_overrides():
         "abysspact_noctua": "noctua",
         "abysspact_anchor": "anchor",
         "abysspact_hourglass": "hourglass",
+        "abysspact_reprieve": "reprieve",
+        "abysspact_debtor": "debtor",
+        "abysspact_traceless": "traceless",
+        "abysspact_starfall": "starfall",
+        "abysspact_knell": "knell",
     }
     ov = {
         "asset/base/text/champion": {"remapping": f"asset/{MOD_ID}/text/champion", "type": "merge"},
@@ -970,6 +1228,11 @@ def write_champion_view():
         "abysspact_noctua":      {"face": {"x": 2, "y": -32}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -11}},
         "abysspact_anchor":      {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -12}},
         "abysspact_hourglass":   {"face": {"x": 2, "y": -32}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -11}},
+        "abysspact_reprieve":    {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -12}},
+        "abysspact_debtor":      {"face": {"x": 2, "y": -32}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -11}},
+        "abysspact_traceless":   {"face": {"x": 2, "y": -32}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -11}},
+        "abysspact_starfall":    {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -12}},
+        "abysspact_knell":       {"face": {"x": 2, "y": -34}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -12}},
     }
     save(os.path.join(MOD, "style", "champion_view.champion_view"), {"entries": entries})
     print("wrote style/champion_view.champion_view")
@@ -977,12 +1240,13 @@ def write_champion_view():
 
 def write_mod_info():
     desc = (
-        "Abyss Pact (渊契) 15-champion dark-fantasy original pack for Teamfight Manager 2 — "
+        "Abyss Pact (渊契) 20-champion dark-fantasy original pack for Teamfight Manager 2 — "
         "Batch 1: Oathbreaker (断誓), Faceless (无面), Whisperer (呓语), Bonebow (骸弦), Corvus (鸦医); "
         "Batch 2: Bloodmoon (血月), Undertaker (入殓), Effigy (替身), Sevenfold (七弹), Vesper (烛灵); "
-        "Batch 3: Carapace (蜕甲), Leech (附骨), Noctua (千蛾), Anchor (沉锚), Hourglass (返照). "
+        "Batch 3: Carapace (蜕甲), Leech (附骨), Noctua (千蛾), Anchor (沉锚), Hourglass (返照); "
+        "Batch 4: Reprieve (缓刑), Debtor (赊命), Traceless (无痕), Starfall (陨夜), Knell (丧钟). "
         "Powered by abysspact.dll for dense HD PPU frames, multi-form/giant/aging visual swaps, "
-        "real summon units, Face-Steal, Spirit Form revival, team 3s rewind, and natural Mandarin voices."
+        "real summon units, Face-Steal, Spirit Form revival, team 3s rewind, Life Swap, Bell Realm, and natural Mandarin voices."
     )
     mi = {
         "author": "BoDUD",

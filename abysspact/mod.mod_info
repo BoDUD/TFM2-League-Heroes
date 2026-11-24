@@ -7,10 +7,10 @@
       "version": ">=0.4.11"
     }
   ],
-  "description": "Abyss Pact (渊契) 15-champion dark-fantasy original pack for Teamfight Manager 2 — Batch 1: Oathbreaker (断誓), Faceless (无面), Whisperer (呓语), Bonebow (骸弦), Corvus (鸦医); Batch 2: Bloodmoon (血月), Undertaker (入殓), Effigy (替身), Sevenfold (七弹), Vesper (烛灵); Batch 3: Carapace (蜕甲), Leech (附骨), Noctua (千蛾), Anchor (沉锚), Hourglass (返照). Powered by abysspact.dll for dense HD PPU frames, multi-form/giant/aging visual swaps, real summon units, Face-Steal, Spirit Form revival, team 3s rewind, and natural Mandarin voices.",
+  "description": "Abyss Pact (渊契) 20-champion dark-fantasy original pack for Teamfight Manager 2 — Batch 1: Oathbreaker (断誓), Faceless (无面), Whisperer (呓语), Bonebow (骸弦), Corvus (鸦医); Batch 2: Bloodmoon (血月), Undertaker (入殓), Effigy (替身), Sevenfold (七弹), Vesper (烛灵); Batch 3: Carapace (蜕甲), Leech (附骨), Noctua (千蛾), Anchor (沉锚), Hourglass (返照); Batch 4: Reprieve (缓刑), Debtor (赊命), Traceless (无痕), Starfall (陨夜), Knell (丧钟). Powered by abysspact.dll for dense HD PPU frames, multi-form/giant/aging visual swaps, real summon units, Face-Steal, Spirit Form revival, team 3s rewind, Life Swap, Bell Realm, and natural Mandarin voices.",
   "last_updated": "2026-11-24",
   "mod_id": "abysspact",
   "mod_type": "native",
   "name": "Abyss Pact · 渊契",
-  "version": "0.3.0"
+  "version": "0.4.0"
 }
