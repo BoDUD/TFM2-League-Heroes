@@ -354,6 +354,12 @@ def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
             raise RuntimeError(f"{slug}: missing choose-vo/{cid}.ogg")
         sources["start"] = "choose-vo"
 
+        def ban_or_opening():
+            x_ban = read_gd_ogg("ban", cid)
+            if x_ban is not None:
+                return x_ban, "ban-vo"
+            return x_start, "choose-vo"
+
         # 2. dead: official Death VO -> fallback ban-vo
         hit_dead = _pick_vo_media(
             banks, media, vgmstream,
@@ -365,8 +371,7 @@ def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
             x_dead = hit_dead[1]
             sources["dead"] = hit_dead[2]
         else:
-            x_dead = read_gd_ogg("ban", cid)
-            sources["dead"] = "ban-vo"
+            x_dead, sources["dead"] = ban_or_opening()
 
         # 3. kill: explicit general KillChampion / KillGeneral / Kill -> fallback general Taunt / Laugh / ban-vo
         hit_kill = _pick_vo_media(
@@ -381,8 +386,7 @@ def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
             x_kill = hit_kill[1]
             sources["kill"] = hit_kill[2]
         else:
-            x_kill = read_gd_ogg("ban", cid) or x_start
-            sources["kill"] = "ban-vo"
+            x_kill, sources["kill"] = ban_or_opening()
 
         # 4. respawn: explicit general Respawn -> fallback general FirstMove / MoveStandard / Move / Attack
         hit_resp = _pick_vo_media(
@@ -398,8 +402,7 @@ def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
             x_resp = hit_resp[1]
             sources["respawn"] = hit_resp[2]
         else:
-            x_resp = read_gd_ogg("ban", cid) or x_start
-            sources["respawn"] = "ban-vo"
+            x_resp, sources["respawn"] = ban_or_opening()
 
         for cue, arr in (("start", x_start), ("kill", x_kill), ("dead", x_dead), ("respawn", x_resp)):
             mono = arr.mean(1, keepdims=True)
@@ -408,12 +411,12 @@ def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
         return slug, sources
 
     done = 0
-    fallback_counts = {"dead_ban": 0, "kill_explicit": 0, "respawn_explicit": 0}
+    fallback_counts = {"dead_fallback": 0, "kill_explicit": 0, "respawn_explicit": 0}
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
         for slug, src in ex.map(one, slugs):
             done += 1
-            if src["dead"] == "ban-vo":
-                fallback_counts["dead_ban"] += 1
+            if src["dead"] in ("ban-vo", "choose-vo"):
+                fallback_counts["dead_fallback"] += 1
             if "kill" in src["kill"].lower() or "takedown" in src["kill"].lower():
                 fallback_counts["kill_explicit"] += 1
             if "respawn" in src["respawn"].lower() or "revive" in src["respawn"].lower():
@@ -422,7 +425,7 @@ def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
                 print(f"  champions: {done}/{len(slugs)} done (last: {slug} -> dead={src['dead']}, kill={src['kill']}, respawn={src['respawn']})")
     print(f"Champion lifecycle voices built: {done} champions x 4 cues = {done * 4} MP3s "
           f"(kill_explicit={fallback_counts['kill_explicit']}, respawn_explicit={fallback_counts['respawn_explicit']}, "
-          f"dead_explicit={done - fallback_counts['dead_ban']})")
+          f"dead_explicit={done - fallback_counts['dead_fallback']})")
 
 
 def write(path, x):

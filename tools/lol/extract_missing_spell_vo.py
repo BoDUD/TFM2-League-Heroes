@@ -76,8 +76,9 @@ SPELLS = [
      ["Play_vo_Morgana_MorganaW_cast3D", "Play_vo_Morgana_Spell3DWCast"], 0.9, 2.2, -3),
     ("morgana", "Morgana", "e", "league_morgana_e_cast", "league_morgana_sfx_vo_e",
      ["Play_vo_Morgana_MorganaE_cast3D"], 0.9, 2.2, -3),
+    # The shield event has one 10-second line. Use a short combat voice that fits the cast.
     ("nautilus", "Nautilus", "w", "league_nautilus_w", "league_nautilus_sfx_vo_w",
-     ["Play_vo_Nautilus_NautilusPiercingGaze_cast3D"], 0.85, 2.2, -5),
+     ["Play_vo_Nautilus_NautilusBasicAttack_cast3D"], 0.85, 2.8, -5),
     ("pyke", "Pyke", "w", "league_pyke_w_cast", "league_pyke_sfx_vo_w",
      ["Play_vo_Pyke_PykeW_cast2D"], 0.85, 3.0, -4),
     ("qiyana", "Qiyana", "w", "league_qiyana_w_on", "league_qiyana_sfx_vo_w",
