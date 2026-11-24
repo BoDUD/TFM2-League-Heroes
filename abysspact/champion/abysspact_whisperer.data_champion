@@ -103,6 +103,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_whisperer_foley_q"
+        },
+        {
           "type": "Delayed",
           "tick": 13,
           "effects": [
@@ -289,6 +293,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_whisperer_foley_w"
+        },
         {
           "type": "Delayed",
           "tick": 14,
@@ -531,6 +539,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_whisperer_r_open"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_whisperer_r_voice",
@@ -541,10 +553,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_whisperer_r_open"
         },
         {
           "type": "Delayed",

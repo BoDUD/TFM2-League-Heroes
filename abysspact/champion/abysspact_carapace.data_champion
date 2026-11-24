@@ -55,16 +55,16 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_carapace_a"
+        },
+        {
           "type": "Attack",
           "damage": 0,
           "attack_ratio": 100,
           "hp_ratio": 0,
           "target_hp_ratio": 0,
           "attack_effect_type": "Target"
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_carapace_a"
         },
         {
           "type": "TargetSfx",
@@ -87,6 +87,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_carapace_foley_q"
+        },
         {
           "type": "Native",
           "effect_ref": "abysspact_carapace:q_range"
@@ -374,154 +378,163 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 12,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_carapace_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_carapace_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_carapace_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_carapace_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_carapace_w_resonate"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_carapace_resonate"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 21000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 83,
+                            "attack_ratio": 93,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_carapace_a_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 21000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 56,
+                            "attack_ratio": 39,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_carapace_w_resonate"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_carapace_resonate"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 21000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 83,
+                            "attack_ratio": 93,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_carapace_a_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 21000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 56,
+                            "attack_ratio": 39,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_carapace_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_carapace_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_carapace_w_resonate"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_carapace_resonate"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 21000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 83,
-                        "attack_ratio": 93,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_carapace_a_hit"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 21000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 56,
-                        "attack_ratio": 39,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_carapace_w_resonate"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_carapace_resonate"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 21000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 83,
-                        "attack_ratio": 93,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_carapace_a_hit"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 21000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 56,
-                        "attack_ratio": 39,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_carapace_live"
             }
           ]
         }
@@ -542,6 +555,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_carapace_foley_r"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {

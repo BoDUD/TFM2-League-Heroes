@@ -55,6 +55,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_oathbreaker_a"
+        },
+        {
           "type": "Attack",
           "damage": 0,
           "attack_ratio": 100,
@@ -95,10 +99,6 @@
           }
         },
         {
-          "type": "Sfx",
-          "name": "abysspact_oathbreaker_a"
-        },
-        {
           "type": "ViewEffect",
           "name": "abysspact_oathbreaker_impact"
         },
@@ -123,6 +123,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_oathbreaker_foley_q"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {
@@ -469,6 +473,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_oathbreaker_foley_w"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_oathbreaker_burn_ask",
@@ -702,6 +710,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_oathbreaker_r_plant"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_oathbreaker_burn_ask",
@@ -712,10 +724,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_oathbreaker_r_plant"
         },
         {
           "type": "Delayed",

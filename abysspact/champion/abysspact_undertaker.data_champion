@@ -54,16 +54,16 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_undertaker_a"
+        },
+        {
           "type": "Attack",
           "damage": 0,
           "attack_ratio": 100,
           "hp_ratio": 0,
           "target_hp_ratio": 0,
           "attack_effect_type": "Target"
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_undertaker_a"
         },
         {
           "type": "TargetSfx",
@@ -86,6 +86,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_undertaker_foley_q"
+        },
         {
           "type": "Delayed",
           "tick": 14,
@@ -295,254 +299,263 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 11,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_undertaker_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_undertaker_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_undertaker_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_undertaker_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_undertaker_w_chain"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "abysspact_undertaker_w_chain",
+                        "speed": 7500,
+                        "range": 54000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 11000
+                          }
+                        },
+                        "penetrate": false,
+                        "y_offset": -8000,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 50,
+                              "attack_ratio": 46,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_undertaker_w_anchor"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 5400,
+                        "range": 50000,
+                        "end_effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_undertaker_w_lob",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_undertaker_coffin"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_undertaker_w_anchor"
+                              },
+                              {
+                                "type": "RangePeriodProjectile",
+                                "name": "abysspact_undertaker_w_field",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 20000
+                                  }
+                                },
+                                "tick": 180,
+                                "period": 30,
+                                "first_delay": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_undertaker_w_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 45
+                                          }
+                                        },
+                                        "move_speed_mult": -40
+                                      }
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_undertaker_w_chain"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "abysspact_undertaker_w_chain",
+                        "speed": 7500,
+                        "range": 54000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 11000
+                          }
+                        },
+                        "penetrate": false,
+                        "y_offset": -8000,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 50,
+                              "attack_ratio": 46,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_undertaker_w_anchor"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 5400,
+                        "range": 50000,
+                        "end_effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_undertaker_w_lob",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_undertaker_coffin"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_undertaker_w_anchor"
+                              },
+                              {
+                                "type": "RangePeriodProjectile",
+                                "name": "abysspact_undertaker_w_field",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 20000
+                                  }
+                                },
+                                "tick": 180,
+                                "period": 30,
+                                "first_delay": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_undertaker_w_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 45
+                                          }
+                                        },
+                                        "move_speed_mult": -40
+                                      }
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_undertaker_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_undertaker_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_undertaker_w_chain"
-                  },
-                  {
-                    "type": "LinearProjectile",
-                    "name": "abysspact_undertaker_w_chain",
-                    "speed": 7500,
-                    "range": 54000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 11000
-                      }
-                    },
-                    "penetrate": false,
-                    "y_offset": -8000,
-                    "applied_target": "EnemyWithoutTower",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Attack",
-                          "damage": 50,
-                          "attack_ratio": 46,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 0,
-                          "attack_effect_type": "Target"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "abysspact_undertaker_w_anchor"
-                        }
-                      }
-                    ],
-                    "end_effects": []
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 5400,
-                    "range": 50000,
-                    "end_effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_undertaker_w_lob",
-                        "travel_time": 1,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_undertaker_coffin"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_undertaker_w_anchor"
-                          },
-                          {
-                            "type": "RangePeriodProjectile",
-                            "name": "abysspact_undertaker_w_field",
-                            "shape": {
-                              "Circle": {
-                                "radius": 20000
-                              }
-                            },
-                            "tick": 180,
-                            "period": 30,
-                            "first_delay": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_undertaker_w_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 45
-                                      }
-                                    },
-                                    "move_speed_mult": -40
-                                  }
-                                }
-                              }
-                            ],
-                            "end_effects": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_undertaker_w_chain"
-                  },
-                  {
-                    "type": "LinearProjectile",
-                    "name": "abysspact_undertaker_w_chain",
-                    "speed": 7500,
-                    "range": 54000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 11000
-                      }
-                    },
-                    "penetrate": false,
-                    "y_offset": -8000,
-                    "applied_target": "EnemyWithoutTower",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Attack",
-                          "damage": 50,
-                          "attack_ratio": 46,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 0,
-                          "attack_effect_type": "Target"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "abysspact_undertaker_w_anchor"
-                        }
-                      }
-                    ],
-                    "end_effects": []
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 5400,
-                    "range": 50000,
-                    "end_effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_undertaker_w_lob",
-                        "travel_time": 1,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_undertaker_coffin"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_undertaker_w_anchor"
-                          },
-                          {
-                            "type": "RangePeriodProjectile",
-                            "name": "abysspact_undertaker_w_field",
-                            "shape": {
-                              "Circle": {
-                                "radius": 20000
-                              }
-                            },
-                            "tick": 180,
-                            "period": 30,
-                            "first_delay": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_undertaker_w_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 45
-                                      }
-                                    },
-                                    "move_speed_mult": -40
-                                  }
-                                }
-                              }
-                            ],
-                            "end_effects": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_undertaker_live"
             }
           ]
         }
@@ -564,6 +577,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_undertaker_r_open"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_undertaker_r_voice",
@@ -574,10 +591,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_undertaker_r_open"
         },
         {
           "type": "Delayed",
