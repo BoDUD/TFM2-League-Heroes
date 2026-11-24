@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_darius_sfx_w_hit",
       "volume": 0.9
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_darius_sfx_vo_w",
+      "volume": 0.95
     }
   ]
 }

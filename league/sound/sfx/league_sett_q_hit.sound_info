@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_sett_sfx_q_hit",
       "volume": 0.55
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_sett_sfx_vo_q",
+      "volume": 0.9
     }
   ]
 }

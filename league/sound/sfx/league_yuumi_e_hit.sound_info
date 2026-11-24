@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_yuumi_sfx_e_hit",
       "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_yuumi_sfx_vo_e",
+      "volume": 0.85
     }
   ]
 }
