@@ -1,0 +1,947 @@
+{
+  "id": "abysspact_oathbreaker",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_oathbreaker:blood",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_oathbreaker",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_oathbreaker_skill",
+    "asset/abysspact/icons/abysspact_oathbreaker_skill2",
+    "asset/abysspact/icons/abysspact_oathbreaker_ult"
+  ],
+  "stat": {
+    "attack": 92,
+    "magic_power": 0,
+    "hp": 1220,
+    "defence": 37,
+    "magic_resistance": 30,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 112,
+    "defence": 7,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_oathbreaker.attack",
+    "duration": 36,
+    "cooltime": 60,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "abysspact_oathbreaker_r_undying",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "ApAttack",
+                "damage": 40,
+                "attack_ratio": 0,
+                "hp_ratio": 0,
+                "can_crit": false
+              },
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 30,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "abysspact_oathbreaker_impact"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_oathbreaker_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "abysspact_oathbreaker_impact"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "abysspact_oathbreaker_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_oathbreaker.skill",
+    "duration": 38,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_oathbreaker_burn_ask",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_oathbreaker_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_oathbreaker_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_oathbreaker_q_cast"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_oathbreaker_cleave"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_oathbreaker_q_cast"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_oathbreaker_cleave"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_oathbreaker_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 18,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_oathbreaker_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_oathbreaker_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 350
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 72,
+                            "attack_ratio": 112,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_oathbreaker_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_oathbreaker_impact"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_oathbreaker_q_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 350
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 44,
+                            "attack_ratio": 30,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_oathbreaker_w_chained",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 20,
+                              "attack_ratio": 20,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "abysspact_oathbreaker_w_chained"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_oathbreaker_impact"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 350
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 72,
+                            "attack_ratio": 112,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_oathbreaker_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_oathbreaker_impact"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_oathbreaker_q_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 38000,
+                            "range": 350
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 44,
+                            "attack_ratio": 30,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_oathbreaker_w_chained",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 20,
+                              "attack_ratio": 20,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "abysspact_oathbreaker_w_chained"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_oathbreaker_impact"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_oathbreaker_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_oathbreaker.skill2",
+    "duration": 40,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_oathbreaker_burn_ask",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_oathbreaker_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_oathbreaker_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_oathbreaker_w_cast"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "abysspact_oathbreaker_w_chain",
+                        "speed": 7500,
+                        "range": 56000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 11000
+                          }
+                        },
+                        "penetrate": false,
+                        "y_offset": -8000,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 80,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Grab",
+                              "speed": 3200,
+                              "tick": 12
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Bind",
+                              "duration": 30
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "abysspact_oathbreaker_w_chained",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 150
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_oathbreaker_impact"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_oathbreaker_w_pull"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_oathbreaker_w_cast"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "abysspact_oathbreaker_w_chain",
+                        "speed": 7500,
+                        "range": 56000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 11000
+                          }
+                        },
+                        "penetrate": false,
+                        "y_offset": -8000,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 80,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Grab",
+                              "speed": 3200,
+                              "tick": 12
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Bind",
+                              "duration": 30
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "abysspact_oathbreaker_w_chained",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 150
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_oathbreaker_impact"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_oathbreaker_w_pull"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_oathbreaker_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_oathbreaker.ult",
+    "duration": 42,
+    "cooltime": 4200,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_oathbreaker_burn_ask",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_oathbreaker_r_plant"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_oathbreaker_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_oathbreaker_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_oathbreaker_r_undying",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "undying": true,
+                          "vamp": 40,
+                          "attack_speed_mult": 15
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_oathbreaker_r_erupt"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_oathbreaker_footfire"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 28000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 48,
+                            "attack_ratio": 42,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_oathbreaker_impact"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_oathbreaker_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_oathbreaker_r_undying",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "undying": true,
+                          "vamp": 40,
+                          "attack_speed_mult": 15
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_oathbreaker_r_erupt"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_oathbreaker_footfire"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 28000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 48,
+                            "attack_ratio": 42,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_oathbreaker_impact"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_oathbreaker_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_oathbreaker_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_oathbreaker_w_chain",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_proj",
+      "tag": "chain",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_oathbreaker_impact",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_oathbreaker_cleave",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "cleave",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_oathbreaker_footfire",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "footfire",
+      "z": -1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_oathbreaker_r_undying",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "eruption",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_oathbreaker_oath_low",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "oath_low",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_oathbreaker_oath_mid",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "oath_mid",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_oathbreaker_oath_high",
+      "anim": "asset/abysspact/effects/abysspact_oathbreaker_fx",
+      "tag": "oath_high",
+      "repeat": true,
+      "z": 2
+    }
+  ]
+}

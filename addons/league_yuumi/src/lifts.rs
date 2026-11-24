@@ -255,4 +255,10 @@ pub const CROWNS: &[(&str, i32)] = &[
     ("ragnarok_thor", 41),
     ("ragnarok_zerofuku", 30),
     ("ragnarok_zeus", 37),
+    ("abysspact_bonebow", 31),
+    ("abysspact_corvus", 32),
+    ("abysspact_faceless", 32),
+    ("abysspact_oathbreaker", 32),
+    ("abysspact_skeleton", 17),
+    ("abysspact_whisperer", 36),
 ];

@@ -1292,6 +1292,86 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_bonebow",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_bonebow",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_bonebow_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_bonebow_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_corvus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_corvus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_corvus_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_corvus_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_faceless",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_faceless",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_faceless_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_faceless_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_oathbreaker",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_oathbreaker",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_oathbreaker_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_oathbreaker_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_whisperer",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_whisperer",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_whisperer_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_whisperer_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_aatrox",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_aatrox",

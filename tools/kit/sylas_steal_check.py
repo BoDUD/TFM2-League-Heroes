@@ -69,7 +69,7 @@ def check(sim, base, hero, seed=3):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(test_copy(base, hero), f)
     # a League champion by its name without league_ (jinx), a TFT hero by its id (tft_powder, 2026-10-26)
-    if hero.startswith(("tft_", "ragnarok_")):     # 云顶、终末的女武神的英雄按 id 放在各自的包里
+    if hero.startswith(("tft_", "ragnarok_", "abysspact_")):     # 云顶、终末的女武神、渊契的英雄按 id 放在各自的包里
         src = os.path.join(ROOT, hero.split("_", 1)[0], "champion", f"{hero}.data_champion")
     else:
         src = os.path.join(ROOT, "league", "champion", f"league_{hero}.data_champion")

@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_faceless_vo_dead",
+      "volume": 0.85
+    },
+    {
+      "delay": 0.1,
+      "clip": "abysspact_faceless_sfx_death_shards",
+      "volume": 0.55
+    }
+  ]
+}

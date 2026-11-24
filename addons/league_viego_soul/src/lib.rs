@@ -636,7 +636,7 @@ mod tests {
     /// (ragnarok/champion，2026-11-21：「佛耶戈妮蔻之类的也要真正的能变身成这些角色」).
     fn pack_heroes() -> Vec<String> {
         let mut v = Vec::new();
-        for pack in ["league", "tft", "ragnarok"] {
+        for pack in ["league", "tft", "ragnarok", "abysspact"] {
             let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(format!("../../{pack}/champion"));
             v.extend(std::fs::read_dir(&dir).expect("the pack's champion folder").filter_map(|e| {
                 e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string)
@@ -696,6 +696,8 @@ mod tests {
                 "tft"
             } else if id.starts_with("ragnarok_") {
                 "ragnarok"
+            } else if id.starts_with("abysspact_") {
+                "abysspact"
             } else {
                 "league"
             };

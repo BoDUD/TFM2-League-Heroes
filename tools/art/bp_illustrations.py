@@ -33,7 +33,7 @@ def originals(src):
     def want(name):
         parts = name.replace("\\", "/").split("/")
         f = parts[-1]
-        return "raw" not in parts[:-1] and f.endswith(".png") and f.startswith(("league_", "tft_", "ragnarok_"))
+        return "raw" not in parts[:-1] and f.endswith(".png") and f.startswith(("league_", "tft_", "ragnarok_", "abysspact_"))
 
     if zipfile.is_zipfile(src):
         with zipfile.ZipFile(src) as z:
@@ -67,7 +67,7 @@ def card(im):
 
 
 def pack_of(cid):
-    return cid.split("_", 1)[0] if cid.startswith(("tft_", "ragnarok_")) else "league"
+    return cid.split("_", 1)[0] if cid.startswith(("tft_", "ragnarok_", "abysspact_")) else "league"
 
 
 def sheet(cards, path):
