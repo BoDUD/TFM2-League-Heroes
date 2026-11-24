@@ -1,20 +1,25 @@
 //! Abyss Pact (渊契) native DLL (`abysspact.dll`):
-//! signature mechanics for all 15 dark-fantasy original champions plus shared HD PPU registration.
+//! signature mechanics for all 20 dark-fantasy original champions plus shared HD PPU registration.
 
 pub mod anchor;
 pub mod bloodmoon;
 pub mod bonebow;
 pub mod carapace;
 pub mod corvus;
+pub mod debtor;
 pub mod effigy;
 pub mod faceless;
 pub mod faceless_view;
 pub mod hd;
 pub mod hourglass;
+pub mod knell;
 pub mod leech;
 pub mod noctua;
 pub mod oathbreaker;
+pub mod reprieve;
 pub mod sevenfold;
+pub mod starfall;
+pub mod traceless;
 pub mod undertaker;
 pub mod vesper;
 pub mod view_forms;
@@ -131,6 +136,12 @@ fn init(host: &StableHost) -> StableMod {
     noctua::register(host, &mut module);
     anchor::register(host, &mut module);
     hourglass::register(host, &mut module);
+    // Batch 4
+    reprieve::register(host, &mut module);
+    debtor::register(host, &mut module);
+    traceless::register(host, &mut module);
+    starfall::register(host, &mut module);
+    knell::register(host, &mut module);
     view_forms::install();
 
     #[cfg(windows)]

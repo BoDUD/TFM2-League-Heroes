@@ -105,6 +105,41 @@
         "skill": "为友方英雄打上<#ffb900ff>3秒<>回光印记：到期将血量倒回打印记瞬间（只增不减），期间受致命伤则立刻倒血免死！",
         "skill2": "停摆目标区域时间，对范围内敌人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>56%<>魔法伤害并<#ef5350ff>眩晕1.1秒<>。",
         "ult": "翻转沙漏灯，令大范围内所有存活友方英雄瞬间倒回<#ffb900ff>3秒前<>的位置与血量（只增不减，老去+3层）。"
+      },
+      "abysspact_reprieve": {
+        "name": "缓刑",
+        "attack": "抡铁球砸击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>缓刑<>：受击一半记入刑期（上限60%最大生命）4秒缓扣；身边拿到人头立刻全额勾销。",
+        "skill": "甩出铁球命中敌方造成<#ff9028ff>94+7%目标最大生命<>物理伤害、<#ef5350ff>0.8秒眩晕<>并用铁链拽回。",
+        "skill2": "仰头怒吼嘲讽周围敌人<#ef5350ff>1.3秒<>，期间缓刑记账比例提升至<#ffb900ff>70%<>。",
+        "ult": "扇形甩出三副巨枷扣住敌方英雄，造成<#ff9028ff>180+9%目标最大生命<>物理伤害并<#ef5350ff>眩晕1.5秒<>。"
+      },
+      "abysspact_debtor": {
+        "name": "赊命",
+        "attack": "弯剑斩击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>欠条<>：技能命中敌方英雄留下6秒欠条，大招可对欠条目标强行换命。",
+        "skill": "突刺斩向敌方造成<#ff9028ff>102<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>122%<>物理伤害并留欠条；目标生命低于<#ef5350ff>30%<>时伤害<#ff9028ff>+50%<>。",
+        "skill2": "原地横扫周围造成<#ff9028ff>84<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>物理伤害，每命中目标回复生命并留下欠条。",
+        "ult": "与带欠条的敌方英雄<#ef5350ff>当场对调血量比例<>；<#ffb900ff>6秒内<>击杀对方永久保留此命，否则按届时比例换回！"
+      },
+      "abysspact_traceless": {
+        "name": "无痕",
+        "attack": "快剑刺击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>无痕<>：无伤命中叠锋（最高8层各+7%攻），脱战1.5秒隐身首击+50%，掉一滴血锋全散。",
+        "skill": "直线冲刺穿透敌方造成<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>117%<>物理伤害；<#ffb900ff>击杀敌方英雄立刻刷新冷却<>。",
+        "skill2": "原地留残影，自身<#ffb900ff>0.75秒不可选中<>后隐身1秒，保住全部锋层并强化下击。",
+        "ult": "消失<#ffb900ff>1.5秒不可选中<>，对大范围内每个敌方英雄各划一剑（<#ff9028ff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>104%<>）并叠锋，落于残血身后。"
+      },
+      "abysspact_starfall": {
+        "name": "陨夜",
+        "attack": "唤落延迟0.5秒黑星，砸中范围造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>伤害（溅射60%）。<#ef5350ff>代价<>：3万内贴脸普攻落空。",
+        "skill": "沿直线依次落下5颗黑星，每颗造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害并<#ef5350ff>减速30%<>。",
+        "skill2": "化作星光向后闪退拉开身位，原地落下黑星造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害并<#ef5350ff>击退<>近身敌人。",
+        "ult": "撕裂夜空在目标大范围倾泻<#ffb900ff>4秒黑星雨<>，持续造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，期间可自由移动。"
+      },
+      "abysspact_knell": {
+        "name": "丧钟",
+        "attack": "抡钟锤砸击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>钟壳<>：巨钟背在背上时受到的所有伤害<#ffb900ff>-15%<>；开大扣钟期间无减伤。",
+        "skill": "抡锤撞响背上巨钟，前方扇形造成<#a974ffff>86+7%自身最大生命<>魔法伤害并<#ef5350ff>眩晕0.87秒<>。",
+        "skill2": "轻敲钟沿为大范围友军提供<#e8d44dff>180护盾<>（3.33秒）与<#ffb900ff>+24%移速<>。",
+        "ult": "跳进敌阵扣下巨钟，将自己与周围敌人关在钟内<#ffb900ff>2.5秒<>（钟内外隔绝、每0.5秒震响造成<#a974ffff>53+4%生命<>法伤），掀钟时全员<#ef5350ff>击飞<>！"
       }
     },
     "skill_name": {
@@ -182,6 +217,31 @@
         "skill1": "回光",
         "skill2": "停摆",
         "ult": "倒流"
+      },
+      "abysspact_reprieve": {
+        "skill1": "掷球",
+        "skill2": "认罪",
+        "ult": "枷"
+      },
+      "abysspact_debtor": {
+        "skill1": "讨债",
+        "skill2": "利息",
+        "ult": "换命"
+      },
+      "abysspact_traceless": {
+        "skill1": "一线",
+        "skill2": "残影",
+        "ult": "无影"
+      },
+      "abysspact_starfall": {
+        "skill1": "星轨",
+        "skill2": "遁星",
+        "ult": "陨夜"
+      },
+      "abysspact_knell": {
+        "skill1": "撞钟",
+        "skill2": "回响",
+        "ult": "丧钟"
       }
     }
   },
@@ -291,6 +351,41 @@
         "skill": "為友方英雄打上<#ffb900ff>3秒<>回光印記：到期將血量倒回打印記瞬間（只增不減），期間受致命傷則立刻倒血免死！",
         "skill2": "停擺目標區域時間，對範圍內敵人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>56%<>魔法傷害並<#ef5350ff>眩暈1.1秒<>。",
         "ult": "翻轉沙漏燈，令大範圍內所有存活友方英雄瞬間倒回<#ffb900ff>3秒前<>的位置與血量（只增不減，老去+3層）。"
+      },
+      "abysspact_reprieve": {
+        "name": "緩刑",
+        "attack": "掄鐵球砸擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>緩刑<>：受擊一半記入刑期（上限60%最大生命）4秒緩扣；身邊拿到人頭立刻全額勾銷。",
+        "skill": "甩出鐵球命中敵方造成<#ff9028ff>94+7%目標最大生命<>物理傷害、<#ef5350ff>0.8秒暈眩<>並以鐵鏈拽回。",
+        "skill2": "仰頭怒吼嘲諷周圍敵人<#ef5350ff>1.3秒<>，期間緩刑記帳比例提升至<#ffb900ff>70%<>。",
+        "ult": "扇形甩出三副巨枷扣住敵方英雄，造成<#ff9028ff>180+9%目標最大生命<>物理傷害並<#ef5350ff>暈眩1.5秒<>。"
+      },
+      "abysspact_debtor": {
+        "name": "賒命",
+        "attack": "彎劍斬擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>欠條<>：技能命中敵方英雄留下6秒欠條，大招可對欠條目標強行換命。",
+        "skill": "突刺斬向敵方造成<#ff9028ff>102<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>122%<>物理傷害並留欠條；目標生命低於<#ef5350ff>30%<>時傷害<#ff9028ff>+50%<>。",
+        "skill2": "原地橫掃周圍造成<#ff9028ff>84<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>物理傷害，每命中目標回復生命並留下欠條。",
+        "ult": "與帶欠條的敵方英雄<#ef5350ff>當場對調血量比例<>；<#ffb900ff>6秒內<>擊殺對方永久保留此命，否則按屆時比例換回！"
+      },
+      "abysspact_traceless": {
+        "name": "無痕",
+        "attack": "快劍刺擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>無痕<>：無傷命中疊鋒（最高8層各+7%攻），脫戰1.5秒隱身首擊+50%，掉一滴血鋒全散。",
+        "skill": "直線衝刺穿透敵方造成<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>117%<>物理傷害；<#ffb900ff>擊殺敵方英雄立刻刷新冷卻<>。",
+        "skill2": "原地留殘影，自身<#ffb900ff>0.75秒不可選中<>後隱身1秒，保住全部鋒層並強化下擊。",
+        "ult": "消失<#ffb900ff>1.5秒不可選中<>，對大範圍內每個敵方英雄各劃一劍（<#ff9028ff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>104%<>）並疊鋒，落於殘血身後。"
+      },
+      "abysspact_starfall": {
+        "name": "隕夜",
+        "attack": "喚落延遲0.5秒黑星，砸中範圍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>傷害（濺射60%）。<#ef5350ff>代價<>：3萬內貼臉普攻落空。",
+        "skill": "沿直線依序落下5顆黑星，每顆造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害並<#ef5350ff>減速30%<>。",
+        "skill2": "化作星光向後閃退拉開身位，原地落下黑星造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害並<#ef5350ff>擊退<>近身敵人。",
+        "ult": "撕裂夜空在目標大範圍傾瀉<#ffb900ff>4秒黑星雨<>，持續造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，期間可自由移動。"
+      },
+      "abysspact_knell": {
+        "name": "喪鐘",
+        "attack": "掄鐘錘砸擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>鐘殼<>：巨鐘背在背上時受到的所有傷害<#ffb900ff>-15%<>；開大扣鐘期間無減傷。",
+        "skill": "掄錘撞響背上巨鐘，前方扇形造成<#a974ffff>86+7%自身最大生命<>魔法傷害並<#ef5350ff>暈眩0.87秒<>。",
+        "skill2": "輕敲鐘沿為大範圍友軍提供<#e8d44dff>180護盾<>（3.33秒）與<#ffb900ff>+24%移速<>。",
+        "ult": "跳進敵陣扣下巨鐘，將自己與周圍敵人關在鐘內<#ffb900ff>2.5秒<>（鐘內外隔絕、每0.5秒震響造成<#a974ffff>53+4%生命<>法傷），掀鐘時全員<#ef5350ff>擊飛<>！"
       }
     },
     "skill_name": {
@@ -368,6 +463,31 @@
         "skill1": "回光",
         "skill2": "停擺",
         "ult": "倒流"
+      },
+      "abysspact_reprieve": {
+        "skill1": "擲球",
+        "skill2": "認罪",
+        "ult": "枷"
+      },
+      "abysspact_debtor": {
+        "skill1": "討債",
+        "skill2": "利息",
+        "ult": "換命"
+      },
+      "abysspact_traceless": {
+        "skill1": "一線",
+        "skill2": "殘影",
+        "ult": "無影"
+      },
+      "abysspact_starfall": {
+        "skill1": "星軌",
+        "skill2": "遁星",
+        "ult": "隕夜"
+      },
+      "abysspact_knell": {
+        "skill1": "撞鐘",
+        "skill2": "迴響",
+        "ult": "喪鐘"
       }
     }
   },
@@ -477,6 +597,41 @@
         "skill": "Mark an ally for <#ffb900ff>3s<>: rewinds their HP upward to when marked, triggering immediately to save them from lethal damage.",
         "skill2": "Halt time in an area for <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>56%<> magic damage and <#ef5350ff>1.1s stun<>.",
         "ult": "Invert her hourglass lantern to rewind every living ally in wide range back to their position and HP from <#ffb900ff>3s ago<> (never reducing HP; +3 Age)."
+      },
+      "abysspact_reprieve": {
+        "name": "Reprieve",
+        "attack": "Swing an iron ball for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> AD. <#ff9028ff>Reprieve<>: 50% of damage taken is deferred over 4s (cap 60% max HP); any nearby takedown absolves all deferred debt.",
+        "skill": "Hurl the iron ball for <#ff9028ff>94+7% target max HP<> physical damage, <#ef5350ff>0.8s stun<>, and chain pull.",
+        "skill2": "Roar to <#ef5350ff>taunt<> nearby foes for 1.3s, raising deferred damage to <#ffb900ff>70%<>.",
+        "ult": "Hurl three giant cangues in a cone for <#ff9028ff>180+9% target max HP<> physical damage and <#ef5350ff>1.5s stun<>."
+      },
+      "abysspact_debtor": {
+        "name": "Debtor",
+        "attack": "Slash for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> AD. <#ff9028ff>IOU<>: ability hits stamp a 6s IOU on enemy champions, marking them for Life Swap.",
+        "skill": "Lunge to slash for <#ff9028ff>102<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>122%<> physical damage and stamp an IOU; deals <#ff9028ff>+50%<> damage below <#ef5350ff>30% HP<>.",
+        "skill2": "Spin-sweep nearby foes for <#ff9028ff>84<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> physical damage, healing per hit and stamping IOUs.",
+        "ult": "<#ef5350ff>Swap HP percentages<> with an IOU-marked foe for <#ffb900ff>6s<>: kill them to keep the life, or swap current ratios back!"
+      },
+      "abysspact_traceless": {
+        "name": "Traceless",
+        "attack": "Swift thrust for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> AD. <#ff9028ff>Unstained<>: unhit strikes stack Edge (up to 8x +7% AD); 1.5s out-of-combat stealth adds +50% on opener. Losing any HP clears all Edge.",
+        "skill": "Dash through a foe for <#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>117%<> physical damage; <#ffb900ff>resets immediately on kill<>.",
+        "skill2": "Leave a pale afterimage, turning <#ffb900ff>untargetable 0.75s<> then invisible 1s to preserve Edge.",
+        "ult": "Vanish <#ffb900ff>untargetable for 1.5s<>, slashing every nearby enemy champion (<#ff9028ff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>104%<>) and stacking Edge."
+      },
+      "abysspact_starfall": {
+        "name": "Starfall",
+        "attack": "Call down a 0.5s-delayed Black Star dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> AoE damage (60% splash). <#ef5350ff>Cost<>: attacks miss foes inside 30k range.",
+        "skill": "Drop 5 sequential Black Stars for <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage each and <#ef5350ff>30% slow<>.",
+        "skill2": "Flash backward as starlight, dropping a Black Star for <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> magic damage and <#ef5350ff>knockback<>.",
+        "ult": "Tear open the night sky to rain Black Stars for <#ffb900ff>4s<>, repeatedly dealing <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage while moving."
+      },
+      "abysspact_knell": {
+        "name": "Knell",
+        "attack": "Smash with a bell hammer for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> AD. <#ff9028ff>Bell Shell<>: takes <#ffb900ff>15% less damage<> while carrying the bell (disabled while Bell Toll is dropped).",
+        "skill": "Strike the bell for a forward wave dealing <#a974ffff>86+7% max HP<> magic damage and <#ef5350ff>0.87s stun<>.",
+        "skill2": "Ring a soothing chime granting nearby allies a <#e8d44dff>180 shield<> and <#ffb900ff>+24% MS<>.",
+        "ult": "Leap and drop the giant bell, isolating himself and nearby foes inside for <#ffb900ff>2.5s<> (chimes deal <#a974ffff>53+4% HP<> magic damage every 0.5s, <#ef5350ff>knocking up<> on lift)."
       }
     },
     "skill_name": {
@@ -554,6 +709,31 @@
         "skill1": "Afterglow",
         "skill2": "Stasis Gear",
         "ult": "Turn Back"
+      },
+      "abysspact_reprieve": {
+        "skill1": "Iron Toss",
+        "skill2": "Confession",
+        "ult": "Cangue"
+      },
+      "abysspact_debtor": {
+        "skill1": "Collect",
+        "skill2": "Interest",
+        "ult": "Life Swap"
+      },
+      "abysspact_traceless": {
+        "skill1": "One Line",
+        "skill2": "Afterimage",
+        "ult": "No Shadow"
+      },
+      "abysspact_starfall": {
+        "skill1": "Star Track",
+        "skill2": "Starlight Step",
+        "ult": "Meteor Night"
+      },
+      "abysspact_knell": {
+        "skill1": "Bell Strike",
+        "skill2": "Resonance",
+        "ult": "Death Knell"
       }
     }
   },
@@ -663,6 +843,41 @@
         "skill": "味方英雄に<#ffb900ff>3秒<>の回光印を付与：終了時に印付与時のHPへ巻き戻し（減少なし）、致死時は即座に巻き戻し救命！",
         "skill2": "指定範囲の時を止め<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>56%<>魔法と<#ef5350ff>1.1秒スタン<>。",
         "ult": "砂時計灯を反転し、広範囲の生存味方全員を<#ffb900ff>3秒前<>の位置とHPへ巻き戻す（減少なし、老い+3層）。"
+      },
+      "abysspact_reprieve": {
+        "name": "緩刑",
+        "attack": "鉄球で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>緩刑<>：被ダメの半分を刑期（最大HP60%上限）として4秒で返済；周囲のキル・アシストで全額帳消し。",
+        "skill": "鉄球を投げ<#ff9028ff>94+対象最大HP7%<>物理と<#ef5350ff>0.8秒スタン<>、鎖で引き寄せる。",
+        "skill2": "咆哮して周囲を<#ef5350ff>1.3秒タウント<>、その間は刑期への先送り率が<#ffb900ff>70%<>に上昇。",
+        "ult": "前方扇状に巨大な枷を投げ、<#ff9028ff>180+対象最大HP9%<>物理と<#ef5350ff>1.5秒スタン<>。"
+      },
+      "abysspact_debtor": {
+        "name": "赊命",
+        "attack": "曲剣で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>借用書<>：スキル命中で6秒の借用書を刻み、ウルトの命交換対象にする。",
+        "skill": "突進斬りで<#ff9028ff>102<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>122%<>物理＋借用書。対象HP<#ef5350ff>30%<>以下ならダメージ<#ff9028ff>+50%<>。",
+        "skill2": "周囲を薙ぎ払い<#ff9028ff>84<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>物理、命中ごとに回復し借用書を付与。",
+        "ult": "借用書付きの敵と<#ef5350ff>HP割合を即座に交換<>！<#ffb900ff>6秒以内<>に倒せば自分の命に、倒せねばその時点の割合で再交換。"
+      },
+      "abysspact_traceless": {
+        "name": "無痕",
+        "attack": "速刺し<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>無痕<>：無傷命中で鋒を重ね（最大8層・各攻撃+7%）、1.5秒非戦闘で隠密し初撃+50%。1でもHPが減ると全消滅。",
+        "skill": "一直線に貫き<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>117%<>物理。<#ffb900ff>キルで即クールダウン解消<>。",
+        "skill2": "残像を残し<#ffb900ff>0.75秒対象指定不可<>の後に1秒隠密、鋒を維持する。",
+        "ult": "<#ffb900ff>1.5秒消失<>し、範囲内の敵英雄全員を斬り裂き（<#ff9028ff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>104%<>）鋒を重ねる。"
+      },
+      "abysspact_starfall": {
+        "name": "隕夜",
+        "attack": "0.5秒遅れて黒い星を落とし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>範囲ダメ（周囲60%）。<#ef5350ff>代償<>：近距離3万以内の通常攻撃は空振り。",
+        "skill": "直線上に5発の黒星を落とし、各<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法と<#ef5350ff>30%スロウ<>。",
+        "skill2": "星光となって後方へ跳び、元の位置に黒星を落として<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法と<#ef5350ff>ノックバック<>。",
+        "ult": "夜空を裂き<#ffb900ff>4秒間の黒星雨<>を降らせ、継続して<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法ダメージ。"
+      },
+      "abysspact_knell": {
+        "name": "喪鐘",
+        "attack": "鐘槌で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>鐘殻<>：鐘を背負う間は全被ダメ<#ffb900ff>-15%<>（ウルト中は無効）。",
+        "skill": "背中の鐘を打ち鳴らし前方扇状に<#a974ffff>86+自身最大HP7%<>魔法と<#ef5350ff>0.87秒スタン<>。",
+        "skill2": "鐘縁を鳴らし周囲味方全員に<#e8d44dff>180シールド<>と<#ffb900ff>移動+24%<>。",
+        "ult": "巨鐘を被せ自身と周囲の敵を<#ffb900ff>2.5秒間隔離<>（0.5秒毎に<#a974ffff>53+HP4%<>魔法）、開鐘時に全員を<#ef5350ff>ノックアップ<>！"
       }
     },
     "skill_name": {
@@ -740,6 +955,31 @@
         "skill1": "回光",
         "skill2": "停擺",
         "ult": "倒流"
+      },
+      "abysspact_reprieve": {
+        "skill1": "投球",
+        "skill2": "認罪",
+        "ult": "巨枷"
+      },
+      "abysspact_debtor": {
+        "skill1": "取立",
+        "skill2": "利息",
+        "ult": "換命"
+      },
+      "abysspact_traceless": {
+        "skill1": "一線",
+        "skill2": "残影",
+        "ult": "無影"
+      },
+      "abysspact_starfall": {
+        "skill1": "星軌",
+        "skill2": "遁星",
+        "ult": "隕夜"
+      },
+      "abysspact_knell": {
+        "skill1": "撞鐘",
+        "skill2": "残響",
+        "ult": "喪鐘"
       }
     }
   },
@@ -849,6 +1089,41 @@
         "skill": "아군 챔피언에게 <#ffb900ff>3초<> 회광 표식: 종료 시 표식 시점 체력으로 되돌리며(감소 없음), 치명 피해 시 즉시 되돌려 구출!",
         "skill2": "지정 구역 시간을 멈춰 <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>56%<> 마법 피해와 <#ef5350ff>1.1초 기절<>.",
         "ult": "모래시계 등을 뒤집어 광범위 생존 아군 전원을 <#ffb900ff>3초 전<> 위치와 체력으로 되돌림(감소 없음, 노화+3)."
+      },
+      "abysspact_reprieve": {
+        "name": "유예",
+        "attack": "철구 강타 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>유예<>: 피해 절반을 형기(최대체력 60% 한도)로 4초 분할 상환, 주변 처치 관여 시 전액 탕감.",
+        "skill": "철구를 던져 <#ff9028ff>94+대상 최대체력 7%<> 물리 피해와 <#ef5350ff>0.8초 기절<>, 사슬로 끌어당김.",
+        "skill2": "포효해 주변 적을 <#ef5350ff>1.3초 도발<>하며 그동안 유예 비율이 <#ffb900ff>70%<>로 증가.",
+        "ult": "전방 부채꼴에 거대한 칼을 던져 <#ff9028ff>180+대상 최대체력 9%<> 물리 피해와 <#ef5350ff>1.5초 기절<>."
+      },
+      "abysspact_debtor": {
+        "name": "사명",
+        "attack": "곡검 베기 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>차용증<>: 스킬 적중 시 6초 차용증을 남겨 궁극기 생명 교환 대상으로 지정.",
+        "skill": "돌진 베기로 <#ff9028ff>102<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>122%<> 물리 피해와 차용증 부여. 대상 체력 <#ef5350ff>30%<> 이하 시 피해 <#ff9028ff>+50%<>.",
+        "skill2": "주위를 휩쓸어 <#ff9028ff>84<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> 물리 피해, 적중마다 체력 회복 및 차용증 부여.",
+        "ult": "차용증 적과 <#ef5350ff>체력 비율 즉시 맞교환<>! <#ffb900ff>6초 내<> 처치 시 생명 유지, 실패 시 그 시점 비율로 재교환."
+      },
+      "abysspact_traceless": {
+        "name": "무흔",
+        "attack": "쾌검 찌르기 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>무흔<>: 무피해 적중마다 검기(최대 8중첩, 각 공격+7%), 1.5초 비전투 은신 첫타 +50%, 체력 손실 시 전량 소멸.",
+        "skill": "일직선 돌진으로 <#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>117%<> 물리 피해. <#ffb900ff>처치 시 즉시 쿨타임 초기화<>.",
+        "skill2": "잔상을 남기고 <#ffb900ff>0.75초 대상 지정 불가<> 후 1초 은신, 검기를 보존.",
+        "ult": "<#ffb900ff>1.5초 사라져<> 범위 내 모든 적 챔피언을 베고(<#ff9028ff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>104%<>) 검기를 쌓음."
+      },
+      "abysspact_starfall": {
+        "name": "운야",
+        "attack": "0.5초 후 낙하하는 검은 별로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 범위 피해(주변 60%). <#ef5350ff>대가<>: 3만 이내 초근접 평타는 빗나감.",
+        "skill": "일직선으로 검은 별 5개를 떨어뜨려 각 <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해와 <#ef5350ff>30% 둔화<>.",
+        "skill2": "별빛이 되어 뒤로 도약하며 제자리에 검은 별을 떨어뜨려 <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해와 <#ef5350ff>밀쳐내기<>.",
+        "ult": "밤하늘을 갈라 <#ffb900ff>4초간 검은 별비<>를 쏟아부어 지속적으로 <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해."
+      },
+      "abysspact_knell": {
+        "name": "조종",
+        "attack": "종망치 강타 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>종껍질<>: 종을 멘 동안 받는 피해 <#ffb900ff>-15%<>(궁극기 시전 중 비활성).",
+        "skill": "등의 종을 울려 전방 부채꼴에 <#a974ffff>86+자신 최대체력 7%<> 마법 피해와 <#ef5350ff>0.87초 기절<>.",
+        "skill2": "종소리로 주변 아군에게 <#e8d44dff>180 보호막<>과 <#ffb900ff>이속 +24%<> 부여.",
+        "ult": "거대 종을 덮어 자신과 주변 적을 <#ffb900ff>2.5초간 격리<>(0.5초마다 <#a974ffff>53+체력 4%<> 마법 피해), 열릴 때 전원 <#ef5350ff>에어본<>!"
       }
     },
     "skill_name": {
@@ -926,6 +1201,31 @@
         "skill1": "회광",
         "skill2": "시간 정지",
         "ult": "시간 역류"
+      },
+      "abysspact_reprieve": {
+        "skill1": "철구 투척",
+        "skill2": "자백",
+        "ult": "거대 칼"
+      },
+      "abysspact_debtor": {
+        "skill1": "추심",
+        "skill2": "이자",
+        "ult": "생명 교환"
+      },
+      "abysspact_traceless": {
+        "skill1": "일선",
+        "skill2": "잔영",
+        "ult": "무영"
+      },
+      "abysspact_starfall": {
+        "skill1": "성궤",
+        "skill2": "둔성",
+        "ult": "운야"
+      },
+      "abysspact_knell": {
+        "skill1": "타종",
+        "skill2": "울림",
+        "ult": "조종"
       }
     }
   }

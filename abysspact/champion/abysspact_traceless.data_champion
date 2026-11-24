@@ -1,0 +1,1129 @@
+{
+  "id": "abysspact_traceless",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_traceless:spotless",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_traceless",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_traceless_skill",
+    "asset/abysspact/icons/abysspact_traceless_skill2",
+    "asset/abysspact/icons/abysspact_traceless_ult"
+  ],
+  "stat": {
+    "attack": 93,
+    "magic_power": 0,
+    "hp": 968,
+    "defence": 29,
+    "magic_resistance": 32,
+    "move_speed": 1048,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 0,
+    "hp": 95,
+    "defence": 6,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_traceless.attack",
+    "duration": 28,
+    "cooltime": 44,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "abysspact_traceless_w_ambush",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 65,
+                "attack_ratio": 67,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "abysspact_traceless_w_ambush"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "abysspact_traceless_stab"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_traceless_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "abysspact_traceless_stab"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "abysspact_traceless_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_traceless.skill",
+    "duration": 32,
+    "cooltime": 340,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 46000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 9,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_traceless_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_traceless_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "abysspact_traceless_q_cast",
+                      "duration": {
+                        "Time": {
+                          "tick": 4
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_traceless_q_line"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_traceless_line"
+                  },
+                  {
+                    "type": "RushTime",
+                    "speed": 7000,
+                    "tick": 8,
+                    "range": 13000,
+                    "casting_target": "EnemyWithoutTower",
+                    "penetrate": true,
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 110,
+                          "attack_ratio": 117,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "abysspact_traceless_w_ambush",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 65,
+                                "attack_ratio": 67,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "abysspact_traceless_w_ambush"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_traceless_stab"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "abysspact_traceless_hit_ask",
+                            "duration": {
+                              "Time": {
+                                "tick": 3
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "abysspact_traceless_line"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "abysspact_traceless_a_hit"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "abysspact_traceless_q_cast",
+                      "duration": {
+                        "Time": {
+                          "tick": 4
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_traceless_q_line"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_traceless_line"
+                  },
+                  {
+                    "type": "RushTime",
+                    "speed": 7000,
+                    "tick": 8,
+                    "range": 13000,
+                    "casting_target": "EnemyWithoutTower",
+                    "penetrate": true,
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 110,
+                          "attack_ratio": 117,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "abysspact_traceless_w_ambush",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 65,
+                                "attack_ratio": 67,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "abysspact_traceless_w_ambush"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_traceless_stab"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "abysspact_traceless_hit_ask",
+                            "duration": {
+                              "Time": {
+                                "tick": 3
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "abysspact_traceless_line"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "abysspact_traceless_a_hit"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_traceless_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_traceless.skill2",
+    "duration": 26,
+    "cooltime": 680,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 44000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 7,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_traceless_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_traceless_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_traceless_w_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_traceless_w_dodge"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_traceless_afterimage"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Banish",
+                            "duration": 45
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 45,
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 60
+                              }
+                            ]
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "abysspact_traceless_w_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              },
+                              "move_speed_mult": 26
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "abysspact_traceless_w_ambush",
+                              "duration": {
+                                "Time": {
+                                  "tick": 150
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_traceless_w_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_traceless_w_dodge"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_traceless_afterimage"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Banish",
+                            "duration": 45
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 45,
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 60
+                              }
+                            ]
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "abysspact_traceless_w_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              },
+                              "move_speed_mult": 26
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "abysspact_traceless_w_ambush",
+                              "duration": {
+                                "Time": {
+                                  "tick": 150
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_traceless_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_traceless.ult",
+    "duration": 40,
+    "cooltime": 3560,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_traceless_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_traceless_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_traceless_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_traceless_r_vanish"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_traceless_vanish"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Banish",
+                            "duration": 90
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 18,
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 55000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 138,
+                                "attack_ratio": 104,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_traceless_hit_ask",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_traceless_cut"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_traceless_r_cut"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 50,
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 55000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 138,
+                                "attack_ratio": 104,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_traceless_hit_ask",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_traceless_cut"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_traceless_r_cut"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 90,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Teleport"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 55000
+                                  }
+                                },
+                                "target": "EnemyChampion",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 69,
+                                    "attack_ratio": 52,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_traceless_cut_final"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_traceless_r_final"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_traceless_r_vanish"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_traceless_vanish"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Banish",
+                            "duration": 90
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 18,
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 55000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 138,
+                                "attack_ratio": 104,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_traceless_hit_ask",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_traceless_cut"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_traceless_r_cut"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 50,
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 55000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 138,
+                                "attack_ratio": 104,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_traceless_hit_ask",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_traceless_cut"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_traceless_r_cut"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 90,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Teleport"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 55000
+                                  }
+                                },
+                                "target": "EnemyChampion",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 69,
+                                    "attack_ratio": 52,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_traceless_cut_final"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_traceless_r_final"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_traceless_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_stab",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "stab",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_line",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "line",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_afterimage",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "afterimage",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_vanish",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "vanish",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_cut",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "cut",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_cut_final",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "cut_final",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_ink",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "ink",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_traceless_quench",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "quench",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_blade_glow",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "blade_glow",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_1",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_2",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_2",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_3",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_3",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_4",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_4",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_5",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_5",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_6",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_6",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_7",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_7",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_traceless_edge_8",
+      "anim": "asset/abysspact/effects/abysspact_traceless_fx",
+      "tag": "edge_8",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

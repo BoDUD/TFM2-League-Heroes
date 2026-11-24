@@ -3,12 +3,12 @@
     {
       "delay": 0.0,
       "clip": "abysspact_bonebow_vo_dead",
-      "volume": 0.85
+      "volume": 0.96
     },
     {
       "delay": 0.1,
       "clip": "abysspact_bonebow_sfx_death_bones",
-      "volume": 0.55
+      "volume": 0.701
     }
   ]
 }
