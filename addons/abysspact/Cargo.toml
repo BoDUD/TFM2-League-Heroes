@@ -1,0 +1,20 @@
+[package]
+name = "abysspact"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Abyss Pact (渊契) standalone native DLL (abysspact.dll):
+# - HD PPU frames (src/hd.rs) shared via hd_engine
+# - Oathbreaker blood-oath scaling, HP burn & ult judgment (src/oathbreaker.rs)
+# - Faceless <25% HP execute & full-body Face-Steal transformation (src/faceless.rs, src/faceless_view.rs)
+# - Whisperer 3-stack Madness fear & chain-reaction explosions (src/whisperer.rs)
+# - Bonebow real spawn_unit Skeleton Army & W Funeral rush-detonate (src/bonebow.rs)
+# - Corvus Plague contagion, sick-enemy ally healing & shoulder Raven pecks (src/corvus.rs)
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }
+hd_engine = { path = "../hd_engine" }
+game_places = { path = "../game_places" }

@@ -1,0 +1,1023 @@
+{
+  "id": "abysspact_corvus",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Heal",
+    "Shield",
+    "Dot",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_corvus:plague",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_corvus",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_corvus_skill",
+    "asset/abysspact/icons/abysspact_corvus_skill2",
+    "asset/abysspact/icons/abysspact_corvus_ult"
+  ],
+  "stat": {
+    "attack": 62,
+    "magic_power": 42,
+    "hp": 1000,
+    "defence": 30,
+    "magic_resistance": 32,
+    "move_speed": 990,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 8,
+    "magic_power": 15,
+    "hp": 95,
+    "defence": 6,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_corvus.attack",
+    "duration": 36,
+    "cooltime": 84,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_corvus_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "abysspact_corvus_a_vial",
+          "speed": 7000,
+          "y_offset": -10000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "abysspact_corvus_break"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "abysspact_corvus_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_corvus.skill",
+    "duration": 38,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_corvus_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_corvus_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_corvus_q_cast"
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_corvus_q_vial",
+                        "travel_time": 14,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_corvus_miasma"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_corvus_q_ring"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_corvus_q_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 20000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 52,
+                                  "attack_ratio": 42,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -30
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_plague_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_corvus_break"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_corvus_q_cast"
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_corvus_q_vial",
+                        "travel_time": 14,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_corvus_miasma"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_corvus_q_ring"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_corvus_q_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 20000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 52,
+                                  "attack_ratio": 42,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -30
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_plague_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_corvus_break"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_corvus_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_corvus.skill2",
+    "duration": 36,
+    "cooltime": 700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "AllyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_corvus_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_corvus_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_corvus_w_cast"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "abysspact_corvus_w_raven",
+                        "speed": 6500,
+                        "y_offset": -12000,
+                        "applied_target": "AllyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Shield",
+                              "amount": 85,
+                              "attack_ratio": 0,
+                              "ap_ratio": 60,
+                              "tick": 240
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_corvus_raven_perch",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 240
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_corvus_shield"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_corvus_w_wing"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_corvus_w_cast"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "abysspact_corvus_w_raven",
+                        "speed": 6500,
+                        "y_offset": -12000,
+                        "applied_target": "AllyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Shield",
+                              "amount": 85,
+                              "attack_ratio": 0,
+                              "ap_ratio": 60,
+                              "tick": 240
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_corvus_raven_perch",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 240
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_corvus_shield"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_corvus_w_wing"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_corvus_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_corvus.ult",
+    "duration": 44,
+    "cooltime": 4200,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_corvus_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_corvus_r_cane"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_corvus_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_corvus_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_corvus_r_lob",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_corvus_quarantine"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_corvus_r_cast"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_corvus_r_stun_z",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 92,
+                                  "attack_ratio": 65,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Stun",
+                                  "duration": 40
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_plague_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_corvus_break"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangePeriodProjectile",
+                            "name": "abysspact_corvus_r_foe_f",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "tick": 300,
+                            "period": 60,
+                            "first_delay": 60,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 35,
+                                  "attack_ratio": 25,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 70
+                                      }
+                                    },
+                                    "move_speed_mult": -40
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_plague_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "RangePeriodProjectile",
+                            "name": "abysspact_corvus_r_ally_f",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "tick": 300,
+                            "period": 60,
+                            "first_delay": 1,
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Heal",
+                                  "amount": 55,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 25,
+                                  "heal_type": "Ally"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_corvus_heal"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_corvus_r_lob",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_corvus_quarantine"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_corvus_r_cast"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_corvus_r_stun_z",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 92,
+                                  "attack_ratio": 65,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Stun",
+                                  "duration": 40
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_plague_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_corvus_break"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangePeriodProjectile",
+                            "name": "abysspact_corvus_r_foe_f",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "tick": 300,
+                            "period": 60,
+                            "first_delay": 60,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 35,
+                                  "attack_ratio": 25,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 70
+                                      }
+                                    },
+                                    "move_speed_mult": -40
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_corvus_plague_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "RangePeriodProjectile",
+                            "name": "abysspact_corvus_r_ally_f",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "tick": 300,
+                            "period": 60,
+                            "first_delay": 1,
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Heal",
+                                  "amount": 55,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 25,
+                                  "heal_type": "Ally"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_corvus_heal"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_corvus_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_corvus_a_vial",
+      "anim": "asset/abysspact/effects/abysspact_corvus_proj",
+      "tag": "vial",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_corvus_q_vial",
+      "anim": "asset/abysspact/effects/abysspact_corvus_proj",
+      "tag": "vial",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_corvus_w_raven",
+      "anim": "asset/abysspact/effects/abysspact_corvus_proj",
+      "tag": "raven_fly",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_corvus_break",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "break",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_corvus_miasma",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "miasma",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_corvus_transmit",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "transmit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_corvus_heal",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "heal",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_corvus_shield",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "shield",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_corvus_quarantine",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "quarantine",
+      "z": -1,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_corvus_plague",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "bubbles",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_corvus_raven_perch",
+      "anim": "asset/abysspact/effects/abysspact_corvus_fx",
+      "tag": "raven_perch",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

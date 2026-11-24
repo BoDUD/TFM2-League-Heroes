@@ -1,0 +1,949 @@
+{
+  "id": "abysspact_bonebow",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_bonebow:skeletons",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_bonebow",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_bonebow_skill",
+    "asset/abysspact/icons/abysspact_bonebow_skill2",
+    "asset/abysspact/icons/abysspact_bonebow_ult"
+  ],
+  "stat": {
+    "attack": 98,
+    "magic_power": 0,
+    "hp": 900,
+    "defence": 22,
+    "magic_resistance": 18,
+    "move_speed": 930,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 88,
+    "defence": 6,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_bonebow.attack",
+    "duration": 24,
+    "cooltime": 58,
+    "start_timing": 10,
+    "cancelable": true,
+    "range": 62500,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_bonebow_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "abysspact_bonebow_a_arrow",
+          "speed": 9500,
+          "y_offset": -9500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "abysspact_bonebow_soul"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "abysspact_bonebow_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_bonebow.skill",
+    "duration": 36,
+    "cooltime": 470,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_bonebow_q_draw"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_bonebow_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_bonebow_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_bonebow_q_release"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "LinearProjectile",
+                            "name": "abysspact_bonebow_q_piercer",
+                            "speed": 9000,
+                            "range": 76000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 10000
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": -9500,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 75,
+                                  "attack_ratio": 105,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bonebow_pierce_flash"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_bonebow_q_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "abysspact_bonebow_q_raise",
+                            "speed": 9000,
+                            "range": 76000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 10000
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": -9500,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_q_hit_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_bonebow_q_release"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "LinearProjectile",
+                            "name": "abysspact_bonebow_q_piercer",
+                            "speed": 9000,
+                            "range": 76000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 10000
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": -9500,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 75,
+                                  "attack_ratio": 105,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bonebow_pierce_flash"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_bonebow_q_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "abysspact_bonebow_q_raise",
+                            "speed": 9000,
+                            "range": 76000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 10000
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": -9500,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_q_hit_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_bonebow_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_bonebow.skill2",
+    "duration": 32,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "abysspact_bonebow_w_mark",
+            "duration": {
+              "Time": {
+                "tick": 18
+              }
+            }
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_bonebow_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_bonebow_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bonebow_w_cmd",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_bonebow_w_lob",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bonebow_bone_burst"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bonebow_funeral_burst"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_bonebow_w_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 16000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 40,
+                                  "attack_ratio": 38,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_w_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -30
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bonebow_soul"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bonebow_w_cmd",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_bonebow_w_lob",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bonebow_bone_burst"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bonebow_funeral_burst"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_bonebow_w_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 16000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 40,
+                                  "attack_ratio": 38,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_w_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -30
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bonebow_soul"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_bonebow_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_bonebow.ult",
+    "duration": 44,
+    "cooltime": 3900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_bonebow_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_bonebow_r_launch"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_bonebow_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_bonebow_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bonebow_r_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 6
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_bonebow_r_lob",
+                        "travel_time": 12,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bonebow_rain"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bonebow_army_ring"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bonebow_r_rain"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_bonebow_r_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 35000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 132,
+                                  "attack_ratio": 88,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_r_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 6
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bonebow_soul"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_bonebow_a_hit"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bonebow_r_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 6
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "abysspact_bonebow_r_lob",
+                        "travel_time": 12,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bonebow_rain"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bonebow_army_ring"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bonebow_r_rain"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "abysspact_bonebow_r_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 35000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 132,
+                                  "attack_ratio": 88,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bonebow_r_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 6
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bonebow_soul"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_bonebow_a_hit"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_bonebow_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_bonebow_a_arrow",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_proj",
+      "tag": "arrow",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_bonebow_q_piercer",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_proj",
+      "tag": "piercer",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_bonebow_soul",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_fx",
+      "tag": "soul",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bonebow_pierce_flash",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_fx",
+      "tag": "pierce_flash",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bonebow_crypt",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_fx",
+      "tag": "crypt",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bonebow_bone_burst",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_fx",
+      "tag": "bone_burst",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bonebow_rain",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_fx",
+      "tag": "rain",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bonebow_army_ring",
+      "anim": "asset/abysspact/effects/abysspact_bonebow_fx",
+      "tag": "army_ring",
+      "z": -1,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

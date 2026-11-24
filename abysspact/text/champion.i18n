@@ -1,0 +1,332 @@
+{
+  "zh-hans": {
+    "description": {
+      "abysspact_oathbreaker": {
+        "name": "断誓",
+        "attack": "断剑劈砍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>血誓<>：放技能烧<#ffb900ff>6%<>当前生命，每损<#ffb900ff>10%<>生命攻击+<#ffb900ff>4%<>、攻速+<#ffb900ff>5%<>。",
+        "skill": "横扫黑火月牙造成<#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<>物理伤害并<#ef5350ff>减速30%<>；命中英雄回血，斩中被链目标追加伤害。",
+        "skill2": "甩出誓链勾中首个敌方英雄拽至身前，造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>定身0.5秒<>。",
+        "ult": "盔甲裂开<#ffb900ff>6秒<>内不会阵亡，吸血<#ffb900ff>40%<>、普攻附带黑火；期间参与击杀回<#ffb900ff>25%<>血，否则烧<#ffb900ff>15%<>当前血。"
+      },
+      "abysspact_faceless": {
+        "name": "无面",
+        "attack": "指刃划击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>夺面<>：参与击杀英雄后戴上其面孔<#ffb900ff>10秒<>，化身为目标并借用其攻击方式与强化爆发。",
+        "skill": "化作黑影穿过目标冲至其身后，对路径敌人造成<#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理伤害并<#ef5350ff>减速30%<>。",
+        "skill2": "遁入黑雾<#ffb900ff>隐身1.5秒<>并提速；现身后的首击令目标直面空脸，追加伤害并<#ef5350ff>恐惧0.9秒<>。",
+        "ult": "按住敌方英雄撕下面孔造成<#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<>物理伤害；目标生命低于<#ffb900ff>25%<>时直接真实斩杀并立刻夺面。"
+      },
+      "abysspact_whisperer": {
+        "name": "呓语",
+        "attack": "弹射念珠造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>疯狂<>：技能叠加疯狂，满<#ffb900ff>3层<>时<#ef5350ff>恐惧1.5秒<>并爆开魔法伤害波及附近友军且继续传染。",
+        "skill": "推出直线穿透的紫色低语，对路径敌人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害并叠加<#ffb900ff>1层<>疯狂。",
+        "skill2": "在目标处睁开巨眼持续<#ffb900ff>3秒<>，每秒造成<#a974ffff>28<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>22%<>魔法伤害、<#ef5350ff>减速22%<>并叠<#ffb900ff>1层<>疯狂。",
+        "ult": "令目标地面裂开众口齐诵，造成<#a974ffff>215<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>108%<>魔法伤害，范围内敌人直接叠满<#ffb900ff>3层<>疯狂当场连锁发狂。"
+      },
+      "abysspact_bonebow": {
+        "name": "骸弦",
+        "attack": "骨箭射击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>亡兵<>：每第<#ffb900ff>4箭<>在目标旁拉起1名骷髅兵作战<#ffb900ff>6秒<>（继承<#ffb900ff>30%<>攻击，常规上限<#ffb900ff>3名<>）。",
+        "skill": "射出穿透骨箭造成<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>物理伤害；每命中一名敌方英雄，就在其脚下拉起1名骷髅兵。",
+        "skill2": "令场上所有骷髅兵冲向目标并自爆，每名造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>范围物理伤害并<#ef5350ff>减速30%<>。",
+        "ult": "朝天射箭降下骨箭雨造成<#ff9028ff>132<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>88%<>物理伤害并减速，同时爬出<#ffb900ff>5名<>骷髅兵作战<#ffb900ff>8秒<>（不占上限）。"
+      },
+      "abysspact_corvus": {
+        "name": "鸦医",
+        "attack": "投掷药瓶造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>传染<>：技能种下<#ffb900ff>4秒<>疫病（每秒<#ffb900ff>2%<>最大血伤）并在敌间传染；队友靠近病人每秒回<#ffb900ff>1%–3%<>血。",
+        "skill": "砸出大瘴气瓶，对范围内敌人造成<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法伤害、<#ef5350ff>减速30%<>并全部染上疫病。",
+        "skill2": "派出肩头渡鸦守护队友<#ffb900ff>4秒<>：赋予<#e8d44dff>85<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>护盾，渡鸦每秒啄击附近敌人并传染疫病。",
+        "ult": "划出持续<#ffb900ff>5秒<>的隔离区：落地造成<#a974ffff>92<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>法伤并<#ef5350ff>眩晕0.67秒<>，圈内敌人持续染病减速，队友持续回血。"
+      }
+    },
+    "skill_name": {
+      "abysspact_oathbreaker": {
+        "skill1": "黑焰斩",
+        "skill2": "誓链",
+        "ult": "断誓"
+      },
+      "abysspact_faceless": {
+        "skill1": "割影",
+        "skill2": "无相",
+        "ult": "撕面"
+      },
+      "abysspact_whisperer": {
+        "skill1": "低语",
+        "skill2": "睁眼",
+        "ult": "众口"
+      },
+      "abysspact_bonebow": {
+        "skill1": "穿骨",
+        "skill2": "葬礼",
+        "ult": "亡军"
+      },
+      "abysspact_corvus": {
+        "skill1": "瘴瓶",
+        "skill2": "渡鸦",
+        "ult": "隔离区"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "abysspact_oathbreaker": {
+        "name": "斷誓",
+        "attack": "斷劍劈砍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>血誓<>：放技能燒<#ffb900ff>6%<>當前生命，每損<#ffb900ff>10%<>生命攻擊+<#ffb900ff>4%<>、攻速+<#ffb900ff>5%<>。",
+        "skill": "橫掃黑火月牙造成<#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<>物理傷害並<#ef5350ff>減速30%<>；命中英雄回血，斬中被鏈目標追加傷害。",
+        "skill2": "甩出誓鏈勾中首個敵方英雄拽至身前，造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>定身0.5秒<>。",
+        "ult": "盔甲裂開<#ffb900ff>6秒<>內不會陣亡，吸血<#ffb900ff>40%<>、普攻附帶黑火；期間參與擊殺回<#ffb900ff>25%<>血，否則燒<#ffb900ff>15%<>當前血。"
+      },
+      "abysspact_faceless": {
+        "name": "無面",
+        "attack": "指刃劃擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>奪面<>：參與擊殺英雄後戴上其面孔<#ffb900ff>10秒<>，化身為目標並借用其攻擊方式與強化爆發。",
+        "skill": "化作黑影穿過目標衝至其身後，對路徑敵人造成<#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理傷害並<#ef5350ff>減速30%<>。",
+        "skill2": "遁入黑霧<#ffb900ff>隱身1.5秒<>並提速；現身後的首擊令目標直面空臉，追加傷害並<#ef5350ff>恐懼0.9秒<>。",
+        "ult": "按住敵方英雄撕下面孔造成<#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<>物理傷害；目標生命低於<#ffb900ff>25%<>時直接真實斬殺並立刻奪面。"
+      },
+      "abysspact_whisperer": {
+        "name": "囈語",
+        "attack": "彈射念珠造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>瘋狂<>：技能疊加瘋狂，滿<#ffb900ff>3層<>時<#ef5350ff>恐懼1.5秒<>並爆開魔法傷害波及附近友軍且繼續傳染。",
+        "skill": "推出直線穿透的紫色低語，對路徑敵人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害並疊加<#ffb900ff>1層<>瘋狂。",
+        "skill2": "在目標處睜開巨眼持續<#ffb900ff>3秒<>，每秒造成<#a974ffff>28<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>22%<>魔法傷害、<#ef5350ff>減速22%<>並疊<#ffb900ff>1層<>瘋狂。",
+        "ult": "令目標地面裂開眾口齊誦，造成<#a974ffff>215<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>108%<>魔法傷害，範圍內敵人直接疊滿<#ffb900ff>3層<>瘋狂當場連鎖發狂。"
+      },
+      "abysspact_bonebow": {
+        "name": "骸弦",
+        "attack": "骨箭射擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>亡兵<>：每第<#ffb900ff>4箭<>在目標旁拉起1名骷髏兵作戰<#ffb900ff>6秒<>（繼承<#ffb900ff>30%<>攻擊，常規上限<#ffb900ff>3名<>）。",
+        "skill": "射出穿透骨箭造成<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>物理傷害；每命中一名敵方英雄，就在其腳下拉起1名骷髏兵。",
+        "skill2": "令場上所有骷髏兵衝向目標並自爆，每名造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>範圍物理傷害並<#ef5350ff>減速30%<>。",
+        "ult": "朝天射箭降下骨箭雨造成<#ff9028ff>132<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>88%<>物理傷害並減速，同時爬出<#ffb900ff>5名<>骷髏兵作戰<#ffb900ff>8秒<>（不佔上限）。"
+      },
+      "abysspact_corvus": {
+        "name": "鴉醫",
+        "attack": "投擲藥瓶造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>傳染<>：技能種下<#ffb900ff>4秒<>疫病（每秒<#ffb900ff>2%<>最大血傷）並在敵間傳染；隊友靠近病人每秒回<#ffb900ff>1%–3%<>血。",
+        "skill": "砸出大瘴氣瓶，對範圍內敵人造成<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法傷害、<#ef5350ff>減速30%<>並全部染上疫病。",
+        "skill2": "派出肩頭渡鴉守護隊友<#ffb900ff>4秒<>：賦予<#e8d44dff>85<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>護盾，渡鴉每秒啄擊附近敵人並傳染疫病。",
+        "ult": "劃出持續<#ffb900ff>5秒<>的隔離區：落地造成<#a974ffff>92<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>法傷並<#ef5350ff>眩暈0.67秒<>，圈內敵人持續染病減速，隊友持續回血。"
+      }
+    },
+    "skill_name": {
+      "abysspact_oathbreaker": {
+        "skill1": "黑焰斬",
+        "skill2": "誓鏈",
+        "ult": "斷誓"
+      },
+      "abysspact_faceless": {
+        "skill1": "割影",
+        "skill2": "無相",
+        "ult": "撕面"
+      },
+      "abysspact_whisperer": {
+        "skill1": "低語",
+        "skill2": "睜眼",
+        "ult": "眾口"
+      },
+      "abysspact_bonebow": {
+        "skill1": "穿骨",
+        "skill2": "葬禮",
+        "ult": "亡軍"
+      },
+      "abysspact_corvus": {
+        "skill1": "瘴瓶",
+        "skill2": "渡鴉",
+        "ult": "隔離區"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "abysspact_oathbreaker": {
+        "name": "Oathbreaker",
+        "attack": "Broken greatsword strike for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Blood Oath<>: skills burn <#ffb900ff>6%<> current HP; gain <#ffb900ff>+4%<> AD and <#ffb900ff>+5%<> AS per <#ffb900ff>10%<> missing HP.",
+        "skill": "Sweep a black-flame crescent for <#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<> physical damage and <#ef5350ff>30% slow<>; heals on champion hits and deals bonus damage to chained foes.",
+        "skill2": "Hurl a broken oath chain that hooks the first enemy champion, pulling them in for <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and <#ef5350ff>0.5s bind<>.",
+        "ult": "Refuse death for <#ffb900ff>6s<> with <#ffb900ff>40%<> vamp and bonus black-flame hits. Takedown heals <#ffb900ff>25%<> max HP at end; otherwise burn <#ffb900ff>15%<> current HP."
+      },
+      "abysspact_faceless": {
+        "name": "Faceless",
+        "attack": "Claw slash for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Face Steal<>: takedowns let him wear the victim's face for <#ffb900ff>10s<>, assuming their form with boosted combat power.",
+        "skill": "Turn to shadow and dash through enemies for <#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> physical damage and a <#ef5350ff>30% slow<>.",
+        "skill2": "Fade into dark mist, gaining <#ffb900ff>1.5s stealth<> and speed. His first strike out of stealth deals bonus damage and <#ef5350ff>fears for 0.9s<>.",
+        "ult": "Grasp an enemy champion and rip off their face for <#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<> physical damage; targets at or below <#ffb900ff>25%<> HP are executed immediately and stolen."
+      },
+      "abysspact_whisperer": {
+        "name": "Whisperer",
+        "attack": "Flick a prayer bead for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Madness<>: skills stack Madness; at <#ffb900ff>3 stacks<> foes suffer <#ef5350ff>1.5s fear<>, blast nearby allies for magic damage, and spread +1 stack.",
+        "skill": "Send a piercing purple whisper dealing <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage and adding <#ffb900ff>1 Madness<> stack.",
+        "skill2": "Open a giant eye on the ground for <#ffb900ff>3s<>, dealing <#a974ffff>28<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>22%<> magic damage/s, <#ef5350ff>22% slow<>, and <#ffb900ff>+1 Madness/s<>.",
+        "ult": "Split the earth with chanting mouths for <#a974ffff>215<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>108%<> magic damage, instantly filling <#ffb900ff>3 Madness<> on all foes inside to trigger chain eruptions."
+      },
+      "abysspact_bonebow": {
+        "name": "Bonebow",
+        "attack": "Bone arrow for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Risen Dead<>: every <#ffb900ff>4th arrow<> raises a skeleton (<#ffb900ff>30%<> AD, <#ffb900ff>6s<>, cap <#ffb900ff>3<>) beside the target.",
+        "skill": "Fire a piercing bone arrow for <#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> physical damage, raising a skeleton beside every enemy champion hit.",
+        "skill2": "Command all living skeletons to rush her target and detonate for <#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> AoE physical damage each plus <#ef5350ff>30% slow<>.",
+        "ult": "Rain bone arrows for <#ff9028ff>132<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>88%<> AoE physical damage and raise <#ffb900ff>5 uncapped skeletons<> for <#ffb900ff>8s<>."
+      },
+      "abysspact_corvus": {
+        "name": "Corvus",
+        "attack": "Toss a vial for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Contagion<>: skills inflict <#ffb900ff>4s Plague<> (<#ffb900ff>2%<> max HP/s) that jumps between foes; allies near sick foes heal <#ffb900ff>1–3%<> max HP/s.",
+        "skill": "Lob a miasma flask for <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> AoE magic damage, <#ef5350ff>30% slow<>, and Plague on all foes hit.",
+        "skill2": "Send his raven to perch on an ally for <#ffb900ff>4s<>, granting a <#e8d44dff>85<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<> shield while pecking nearby enemies to spread Plague.",
+        "ult": "Draw a <#ffb900ff>5s<> Quarantine zone: bursts for <#a974ffff>92<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage with <#ef5350ff>0.67s stun<>, plaguing & slowing foes while healing allies inside."
+      }
+    },
+    "skill_name": {
+      "abysspact_oathbreaker": {
+        "skill1": "Blackflame Cleave",
+        "skill2": "Oath Chain",
+        "ult": "Broken Oath"
+      },
+      "abysspact_faceless": {
+        "skill1": "Shadow Slice",
+        "skill2": "Formless",
+        "ult": "Face Rip"
+      },
+      "abysspact_whisperer": {
+        "skill1": "Whisper",
+        "skill2": "Open Eye",
+        "ult": "Chorus of Mouths"
+      },
+      "abysspact_bonebow": {
+        "skill1": "Bone Piercer",
+        "skill2": "Funeral",
+        "ult": "Risen Army"
+      },
+      "abysspact_corvus": {
+        "skill1": "Miasma Flask",
+        "skill2": "Plague Raven",
+        "ult": "Quarantine"
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "abysspact_oathbreaker": {
+        "name": "断誓",
+        "attack": "断剣で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>血誓<>：スキルで現在HP<#ffb900ff>6%<>消費、減少HP<#ffb900ff>10%<>毎に攻撃+<#ffb900ff>4%<>・攻撃速度+<#ffb900ff>5%<>。",
+        "skill": "黒炎の斬撃で<#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<>物理ダメージと<#ef5350ff>30%スロウ<>。英雄命中で回復、鎖対象に追加ダメージ。",
+        "skill2": "誓いの鎖で最初の敵英雄を引き寄せ、<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理ダメージと<#ef5350ff>0.5秒束縛<>。",
+        "ult": "<#ffb900ff>6秒<>不死と吸血<#ffb900ff>40%<>、通常攻撃に黒炎付与。関与で終了時<#ffb900ff>25%<>回復、未達成で現在HP<#ffb900ff>15%<>消費。"
+      },
+      "abysspact_faceless": {
+        "name": "無面",
+        "attack": "指刃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>奪面<>：英雄撃破関与で<#ffb900ff>10秒<>相手の姿に変身し、攻撃特性と強化を得る。",
+        "skill": "影となり敵を突き抜けて<#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理ダメージと<#ef5350ff>30%スロウ<>。",
+        "skill2": "黒霧に<#ffb900ff>1.5秒隠密<>し加速。初撃に追加ダメージと<#ef5350ff>0.9秒恐怖<>。",
+        "ult": "敵英雄の顔を剥ぎ<#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<>物理ダメージ。HP<#ffb900ff>25%<>以下なら即座に確定処刑し奪面する。"
+      },
+      "abysspact_whisperer": {
+        "name": "囈語",
+        "attack": "数珠を飛ばし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>狂気<>：スキルで蓄積、<#ffb900ff>3層<>で<#ef5350ff>1.5秒恐怖<>し周囲の味方に魔法爆発＆狂気連鎖。",
+        "skill": "貫通する紫の囁きを放ち<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法ダメージと狂気<#ffb900ff>+1層<>。",
+        "skill2": "地面に巨眼を開き<#ffb900ff>3秒<>間、毎秒<#a974ffff>28<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>22%<>魔法ダメージ、<#ef5350ff>22%スロウ<>、狂気<#ffb900ff>+1層<>。",
+        "ult": "無数の口が裂け<#a974ffff>215<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>108%<>魔法ダメージを与え、範囲内の敵を即座に狂気<#ffb900ff>3層<>にして連鎖発狂させる。"
+      },
+      "abysspact_bonebow": {
+        "name": "骸弦",
+        "attack": "骨矢で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>亡兵<>：<#ffb900ff>4射目<>毎に骸骨兵を召喚（攻撃<#ffb900ff>30%<>、<#ffb900ff>6秒<>、上限<#ffb900ff>3体<>）。",
+        "skill": "貫通する骨矢で<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>物理ダメージ。命中した敵英雄ごとに足元へ骸骨兵を召喚。",
+        "skill2": "全骸骨兵を目標へ突撃自爆させ、各<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>範囲物理ダメージと<#ef5350ff>30%スロウ<>。",
+        "ult": "骨矢の雨で<#ff9028ff>132<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>88%<>物理ダメージを与え、上限外の骸骨兵<#ffb900ff>5体<>を<#ffb900ff>8秒<>召喚する。"
+      },
+      "abysspact_corvus": {
+        "name": "鴉医",
+        "attack": "薬瓶を投げ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>伝染<>：スキルで<#ffb900ff>4秒<>疫病（毎秒最大HP<#ffb900ff>2%<>）を拡散し、病敵近くの味方を毎秒<#ffb900ff>1–3%<>回復。",
+        "skill": "瘴気瓶を投げ範囲に<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法ダメージ、<#ef5350ff>30%スロウ<>と疫病を付与。",
+        "skill2": "渡鴉を味方の肩に<#ffb900ff>4秒<>送り<#e8d44dff>85<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>シールド付与。毎秒周囲の敵を啄み疫病拡散。",
+        "ult": "<#ffb900ff>5秒<>の隔離区を展開：着弾で<#a974ffff>92<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法ダメージと<#ef5350ff>0.67秒スタン<>。圏内の敵を疫病減速、味方を回復。"
+      }
+    },
+    "skill_name": {
+      "abysspact_oathbreaker": {
+        "skill1": "黒炎斬",
+        "skill2": "誓鎖",
+        "ult": "断誓"
+      },
+      "abysspact_faceless": {
+        "skill1": "影割",
+        "skill2": "無相",
+        "ult": "面剥ぎ"
+      },
+      "abysspact_whisperer": {
+        "skill1": "低語",
+        "skill2": "開眼",
+        "ult": "衆口"
+      },
+      "abysspact_bonebow": {
+        "skill1": "穿骨",
+        "skill2": "葬礼",
+        "ult": "亡軍"
+      },
+      "abysspact_corvus": {
+        "skill1": "瘴瓶",
+        "skill2": "渡鴉",
+        "ult": "隔離区"
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "abysspact_oathbreaker": {
+        "name": "단서",
+        "attack": "부러진 대검으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>혈서<>: 스킬 사용 시 현재 체력 <#ffb900ff>6%<> 소모, 잃은 체력 <#ffb900ff>10%<>당 공격력+<#ffb900ff>4%<>, 공속+<#ffb900ff>5%<>.",
+        "skill": "검은 불꽃을 휘둘러 <#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<> 물리 피해와 <#ef5350ff>30% 둔화<>. 챔피언 적중 시 회복, 사슬 표적 추가 피해.",
+        "skill2": "서약의 사슬로 첫 적 챔피언을 끌어당겨 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ef5350ff>0.5초 속박<>.",
+        "ult": "<#ffb900ff>6초<> 불사 및 흡혈 <#ffb900ff>40%<>, 기본 공격 흑염 추가. 처치 관여 시 최대 체력 <#ffb900ff>25%<> 회복, 실패 시 현재 체력 <#ffb900ff>15%<> 소모."
+      },
+      "abysspact_faceless": {
+        "name": "무면",
+        "attack": "손톱 칼날로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>탈면<>: 적 챔피언 처치 관여 시 <#ffb900ff>10초<>간 대상의 얼굴과 모습을 빼앗아 변신.",
+        "skill": "그림자가 되어 적을 관통하며 <#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> 물리 피해와 <#ef5350ff>30% 둔화<>.",
+        "skill2": "검은 안개에 <#ffb900ff>1.5초 은신<> 및 가속. 은신 해제 첫 타격은 추가 피해와 <#ef5350ff>0.9초 공포<>.",
+        "ult": "적 챔피언의 얼굴을 찢어 <#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<> 물리 피해. 체력 <#ffb900ff>25%<> 이하는 즉시 고정 피해 처형 후 탈면."
+      },
+      "abysspact_whisperer": {
+        "name": "잠꼬대",
+        "attack": "염주를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>광기<>: 스킬 적중 시 중첩, <#ffb900ff>3중첩<> 시 <#ef5350ff>1.5초 공포<>와 함께 주변 아군에게 마법 폭발 및 연쇄 전파.",
+        "skill": "관통하는 보라색 속삭임으로 <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해와 광기 <#ffb900ff>1중첩<>.",
+        "skill2": "대상에 거대한 눈을 <#ffb900ff>3초<>간 열어 매초 <#a974ffff>28<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>22%<> 마법 피해, <#ef5350ff>22% 둔화<>, 광기 <#ffb900ff>1중첩<>.",
+        "ult": "지면에 수많은 입을 열어 <#a974ffff>215<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>108%<> 마법 피해와 동시에 모든 적에게 광기 <#ffb900ff>3중첩<>을 채워 연쇄 폭주."
+      },
+      "abysspact_bonebow": {
+        "name": "해현",
+        "attack": "뼈화살로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>망병<>: <#ffb900ff>4발<>마다 대상 옆에 해골병 소환(공격력 <#ffb900ff>30%<>, <#ffb900ff>6초<>, 최대 <#ffb900ff>3기<>).",
+        "skill": "관통 뼈화살로 <#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> 물리 피해. 적중한 적 챔피언마다 해골병 1기 소환.",
+        "skill2": "모든 해골병을 표적으로 돌진 자폭시켜 기당 <#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 범위 물리 피해와 <#ef5350ff>30% 둔화<>.",
+        "ult": "뼈화살 비로 <#ff9028ff>132<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>88%<> 범위 물리 피해와 함께 상한 외 해골병 <#ffb900ff>5기<>를 <#ffb900ff>8초<> 소환."
+      },
+      "abysspact_corvus": {
+        "name": "까마귀 의사",
+        "attack": "약병을 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>전염<>: 스킬로 <#ffb900ff>4초<> 역병(초당 최대체력 <#ffb900ff>2%<>)을 퍼뜨리며 감염된 적 근처 아군 초당 <#ffb900ff>1~3%<> 회복.",
+        "skill": "독기 병을 던져 범위에 <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> 마법 피해, <#ef5350ff>30% 둔화<> 및 역병 감염.",
+        "skill2": "어깨의 까마귀를 아군에게 <#ffb900ff>4초<> 보내 <#e8d44dff>85<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<> 보호막 부여. 매초 주변 적을 쪼아 역병 감염.",
+        "ult": "<#ffb900ff>5초<> 격리 구역 선포: <#a974ffff>92<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 <#ef5350ff>0.67초 기절<>. 구역 내 적은 역병·둔화, 아군은 지속 회복."
+      }
+    },
+    "skill_name": {
+      "abysspact_oathbreaker": {
+        "skill1": "흑염참",
+        "skill2": "서약 사슬",
+        "ult": "단서"
+      },
+      "abysspact_faceless": {
+        "skill1": "그림자 베기",
+        "skill2": "무상",
+        "ult": "면박"
+      },
+      "abysspact_whisperer": {
+        "skill1": "속삭임",
+        "skill2": "개안",
+        "ult": "중구"
+      },
+      "abysspact_bonebow": {
+        "skill1": "천골",
+        "skill2": "장례",
+        "ult": "망군"
+      },
+      "abysspact_corvus": {
+        "skill1": "독기 병",
+        "skill2": "까마귀",
+        "ult": "격리 구역"
+      }
+    }
+  }
+}

@@ -147,6 +147,8 @@ jobs:
         run: cargo test --manifest-path addons/Cargo.toml -p tft
       - name: The ragnarok pack's ragnarok.dll (Lu Bu's Shield Breaker, Thor's voice, Zeus's three bodies, Adam's voice, Poseidon's A God Needs No One, Kojiro's Prediction and two swords, Heracles's brand and Cerberus form, Jack's colours of the heart, Raiden's voice, Shiva's rhythm and Tandava form, Buddha's voice, Zerofuku's voice and Hajun form, Hades's, Qin Shi Huang's, Beelzebub's, Nikola Tesla's, Leonidas's and Apollo's voices, its dense-frame table)
         run: cargo test --manifest-path addons/Cargo.toml -p ragnarok
+      - name: The Abyss Pact (渊契) pack's abysspact.dll (Oathbreaker, Faceless, Whisperer, Bonebow, Corvus, its dense-frame table)
+        run: cargo test --manifest-path addons/Cargo.toml -p abysspact
 
   package:
     name: Packages to install
@@ -178,13 +180,16 @@ jobs:
           python -I tools/package_mod.py --out build/league --dll addons/target/release/league.dll
           python -I tools/package_mod.py --src tft --out build/tft
           python -I tools/package_mod.py --src ragnarok --out build/ragnarok
-          mkdir -p dist/league dist/tft dist/ragnarok
+          python -I tools/package_mod.py --src abysspact --out build/abysspact
+          mkdir -p dist/league dist/tft dist/ragnarok dist/abysspact
           cp build/league/league.dll dist/league/
           cp -r build/league/ui_sheets dist/league/
           cp -r build/tft/ui_sheets dist/tft/
           cp build/tft/tft.dll dist/tft/
           cp -r build/ragnarok/ui_sheets dist/ragnarok/
           cp build/ragnarok/ragnarok.dll dist/ragnarok/
+          cp -r build/abysspact/ui_sheets dist/abysspact/
+          cp build/abysspact/abysspact.dll dist/abysspact/
           python -I addons/league_addons/assemble.py dist/league_addons --dll addons/target/release/league_addons.dll
           python -I addons/league_addons/assemble.py dist/league_dragons --standalone league_dragons
           v=$(python -I -c "import json; print(json.load(open('league/mod.mod_info', encoding='utf-8'))['version'])")
