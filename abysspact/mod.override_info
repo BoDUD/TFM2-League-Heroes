@@ -15,6 +15,254 @@
     "remapping": "asset/abysspact/champions/abysspact_skeleton#anim",
     "type": "override"
   },
+  "asset/base/sound/sfx/abysspact_anchor_a_chain": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_a_chain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_a_siege": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_a_siege",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_a_water": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_a_water",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_plant": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_plant",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_q_sweep": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_q_sweep",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_r_fire": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_r_fire",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_r_impact": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_r_impact",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_raise": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_raise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_anchor_plant": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_anchor_plant",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_anchor_raise": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_anchor_raise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_chain_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_chain_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_chain_sweep": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_chain_sweep",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_death_sink": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_death_sink",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_salvo_fire": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_salvo_fire",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_salvo_impact": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_salvo_impact",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_siege_shot": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_siege_shot",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_sfx_water_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_sfx_water_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_anchor_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_anchor_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_a_silver": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_a_silver",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_a_silver_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_a_silver_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_a_wolf": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_a_wolf",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_giant_sweep": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_giant_sweep",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_pounce_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_pounce_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_q_pounce": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_q_pounce",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_q_silver_volley": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_q_silver_volley",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_r_howl": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_r_howl",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_r_moon": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_r_moon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_death": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_giant_howl": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_giant_howl",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_giant_sweep": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_giant_sweep",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_moon_rise": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_moon_rise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_pounce": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_pounce",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_pounce_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_pounce_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_return_roll": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_return_roll",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_silver_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_silver_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_silver_release": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_silver_release",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_silver_volley": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_silver_volley",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_transform": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_transform",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_wolf_claw": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_wolf_claw",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_sfx_wolf_growl": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_sfx_wolf_growl",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_w_rollback": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_w_rollback",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_w_transform": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_w_transform",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_bloodmoon_wolf_growl": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_bloodmoon_wolf_growl",
+    "type": "override"
+  },
   "asset/base/sound/sfx/abysspact_bonebow_a": {
     "remapping": "asset/abysspact/sound/sfx/abysspact_bonebow_a",
     "type": "override"
@@ -129,6 +377,122 @@
   },
   "asset/base/sound/sfx/abysspact_bonebow_vo_ult": {
     "remapping": "asset/abysspact/sound/sfx/abysspact_bonebow_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_molt_crack": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_molt_crack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_molt_rise": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_molt_rise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_q_dive": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_q_dive",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_q_thrust": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_q_thrust",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_cross_cut": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_cross_cut",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_death": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_dive": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_dive",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_impact": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_impact",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_molt_crack": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_molt_crack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_molt_rise": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_molt_rise",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_resonate": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_resonate",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_shell_burst": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_shell_burst",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_shell_rattle": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_shell_rattle",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_sfx_thrust": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_sfx_thrust",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_shell_burst": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_shell_burst",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_shell_rattle": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_shell_rattle",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_carapace_w_resonate": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_carapace_w_resonate",
     "type": "override"
   },
   "asset/base/sound/sfx/abysspact_corvus_a": {
@@ -263,6 +627,138 @@
     "remapping": "asset/abysspact/sound/sfx/abysspact_corvus_w_wing",
     "type": "override"
   },
+  "asset/base/sound/sfx/abysspact_effigy_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_needle_mark": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_needle_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_q_fan": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_q_fan",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_q_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_r_unpick": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_r_unpick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_doll_after": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_doll_after",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_needle_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_needle_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_needle_mark": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_needle_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_sew_fan": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_sew_fan",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_sew_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_sew_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_thread_knot": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_thread_knot",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_thread_snap": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_thread_snap",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_thread_taut": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_thread_taut",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_thread_throw": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_thread_throw",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_unpick": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_unpick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_sfx_unpick_return": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_sfx_unpick_return",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_thread_knot": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_thread_knot",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_thread_snap": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_thread_snap",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_unpick_return": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_unpick_return",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_w_taut": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_w_taut",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_effigy_w_throw": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_effigy_w_throw",
+    "type": "override"
+  },
   "asset/base/sound/sfx/abysspact_faceless_a": {
     "remapping": "asset/abysspact/sound/sfx/abysspact_faceless_a",
     "type": "override"
@@ -387,6 +883,378 @@
     "remapping": "asset/abysspact/sound/sfx/abysspact_faceless_w_hide",
     "type": "override"
   },
+  "asset/base/sound/sfx/abysspact_hourglass_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_age_tick": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_age_tick",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_flip": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_flip",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_q_mark": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_q_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_rewind_snap": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_rewind_snap",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_age_change": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_age_change",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_death": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_glass_flip": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_glass_flip",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_mark": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_rewind": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_rewind",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_spark_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_spark_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_spark_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_spark_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_sfx_stop_gear": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_sfx_stop_gear",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_hourglass_w_stop": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_hourglass_w_stop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_drain": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_drain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_jump": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_jump",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_q_attach": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_q_attach",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_q_lunge": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_q_lunge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_r_cling": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_r_cling",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_r_lunge": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_r_lunge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_rejoin": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_rejoin",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_attach": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_attach",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_claw": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_claw",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_claw_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_claw_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_death": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_detach": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_detach",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_drain": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_drain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_hood_mouth": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_hood_mouth",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_leech_cling": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_leech_cling",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_leech_lunge": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_leech_lunge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_lunge": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_lunge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_merge": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_merge",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_share_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_share_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_split": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_split",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_sfx_venom": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_sfx_venom",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_shared_pain": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_shared_pain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_split": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_split",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_w_bite": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_w_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_leech_w_venom": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_leech_w_venom",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_disperse": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_disperse",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_dust_shock": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_dust_shock",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_q_swarm": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_q_swarm",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_reform": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_reform",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_scale_mark": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_scale_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_cocoon_break": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_cocoon_break",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_cocoon_close": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_cocoon_close",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_death": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_disperse": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_disperse",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_dust_ring": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_dust_ring",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_moth_flap": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_moth_flap",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_moth_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_moth_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_reform": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_reform",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_scale_mark": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_scale_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_storm_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_storm_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_sfx_swarm_cast": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_sfx_swarm_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_storm_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_storm_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_w_break": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_w_break",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_noctua_w_close": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_noctua_w_close",
+    "type": "override"
+  },
   "asset/base/sound/sfx/abysspact_oathbreaker_a": {
     "remapping": "asset/abysspact/sound/sfx/abysspact_oathbreaker_a",
     "type": "override"
@@ -501,6 +1369,390 @@
   },
   "asset/base/sound/sfx/abysspact_oathbreaker_w_pull": {
     "remapping": "asset/abysspact/sound/sfx/abysspact_oathbreaker_w_pull",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_abyss_eye": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_abyss_eye",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_charge_ping": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_charge_ping",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_curse_burst": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_curse_burst",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_q_triple": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_q_triple",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_r_curse_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_r_curse_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_r_salvo": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_r_salvo",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_abyss_eye": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_abyss_eye",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_charge_ping": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_charge_ping",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_curse_burst": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_curse_burst",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_curse_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_curse_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_death_pip": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_death_pip",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_reload_roll": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_reload_roll",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_round_flash": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_round_flash",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_round_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_round_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_salvo": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_salvo",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_sfx_triple_volley": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_sfx_triple_volley",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_sevenfold_w_roll": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_sevenfold_w_roll",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_coffin_close": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_coffin_close",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_coffin_drop": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_coffin_drop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_coffin_leak": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_coffin_leak",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_guard": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_guard",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_q_cast": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_q_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_q_crack": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_q_crack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_r_open": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_r_open",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_burial_cast": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_burial_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_burial_crack": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_burial_crack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_coffin_close": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_coffin_close",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_coffin_drop": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_coffin_drop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_coffin_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_coffin_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_coffin_leak": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_coffin_leak",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_coffin_open": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_coffin_open",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_coffin_swing": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_coffin_swing",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_death": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_guard": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_guard",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_send_anchor": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_send_anchor",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_sfx_send_chain": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_sfx_send_chain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_w_anchor": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_w_anchor",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_undertaker_w_chain": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_undertaker_w_chain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_a": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_a_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_candle_out": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_candle_out",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_q_heal": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_q_heal",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_q_link": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_q_link",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_r_pointer": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_r_pointer",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_rebirth_ring": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_rebirth_ring",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_return_pillar": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_return_pillar",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_candle_out": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_candle_out",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_guide_heal": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_guide_heal",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_guide_link": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_guide_link",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_rebirth_ring": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_rebirth_ring",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_return_pillar": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_return_pillar",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_soul_form": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_soul_form",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_startle_fade": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_startle_fade",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_startle_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_startle_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_tablet_pointer": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_tablet_pointer",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_warm_shield": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_warm_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_wisp_hit": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_wisp_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_sfx_wisp_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_sfx_wisp_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_soul_form": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_soul_form",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_v_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_v_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_v_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_v_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_v_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_v_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_v_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_v_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_v_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_v_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_vo_dead": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_vo_dead",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_vo_kill": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_vo_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_vo_respawn": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_vo_respawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_vo_start": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_vo_start",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_vo_ult": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_vo_ult",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_w_fade": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_w_fade",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_w_launch": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_w_launch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/abysspact_vesper_warm_shield": {
+    "remapping": "asset/abysspact/sound/sfx/abysspact_vesper_warm_shield",
     "type": "override"
   },
   "asset/base/sound/sfx/abysspact_whisperer_a": {

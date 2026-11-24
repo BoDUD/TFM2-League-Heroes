@@ -7,10 +7,10 @@
       "version": ">=0.4.11"
     }
   ],
-  "description": "Abyss Pact (渊契) dark-fantasy original champion pack for Teamfight Manager 2: Oathbreaker (断誓 · Top melee cursed knight who burns blood for power and refuses death), Faceless (无面 · Jungle assassin who executes low-HP foes and steals their face & body), Whisperer (呓语 · Mid mage whose Madness stacks trigger chain-reaction fear explosions), Bonebow (骸弦 · Bot marksman who raises real skeleton soldiers and commands them to rush-detonate), and Corvus (鸦医 · Support plague doctor whose contagion jumps between foes while healing allies and sending his shoulder raven to guard teammates). Powered by abysspact.dll for dense HD PPU frames, real summon units, full-body Face-Steal, and Mandarin AI voice lines.",
+  "description": "Abyss Pact (渊契) 15-champion dark-fantasy original pack for Teamfight Manager 2 — Batch 1: Oathbreaker (断誓), Faceless (无面), Whisperer (呓语), Bonebow (骸弦), Corvus (鸦医); Batch 2: Bloodmoon (血月), Undertaker (入殓), Effigy (替身), Sevenfold (七弹), Vesper (烛灵); Batch 3: Carapace (蜕甲), Leech (附骨), Noctua (千蛾), Anchor (沉锚), Hourglass (返照). Powered by abysspact.dll for dense HD PPU frames, multi-form/giant/aging visual swaps, real summon units, Face-Steal, Spirit Form revival, team 3s rewind, and natural Mandarin voices.",
   "last_updated": "2026-11-24",
   "mod_id": "abysspact",
   "mod_type": "native",
   "name": "Abyss Pact · 渊契",
-  "version": "0.1.0"
+  "version": "0.3.0"
 }

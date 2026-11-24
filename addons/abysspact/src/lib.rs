@@ -1,12 +1,23 @@
 //! Abyss Pact (渊契) native DLL (`abysspact.dll`):
-//! signature mechanics for all 5 dark-fantasy original champions plus shared HD PPU registration.
+//! signature mechanics for all 15 dark-fantasy original champions plus shared HD PPU registration.
 
+pub mod anchor;
+pub mod bloodmoon;
 pub mod bonebow;
+pub mod carapace;
 pub mod corvus;
+pub mod effigy;
 pub mod faceless;
 pub mod faceless_view;
 pub mod hd;
+pub mod hourglass;
+pub mod leech;
+pub mod noctua;
 pub mod oathbreaker;
+pub mod sevenfold;
+pub mod undertaker;
+pub mod vesper;
+pub mod view_forms;
 pub mod voice;
 pub mod whisperer;
 
@@ -101,12 +112,26 @@ fn init(host: &StableHost) -> StableMod {
     }
 
     let mut module = StableMod::new("abysspact");
+    // Batch 1
     oathbreaker::register(host, &mut module);
     faceless::register(host, &mut module);
     whisperer::register(host, &mut module);
     bonebow::register(host, &mut module);
     corvus::register(host, &mut module);
     faceless_view::install();
+    // Batch 2
+    bloodmoon::register(host, &mut module);
+    undertaker::register(host, &mut module);
+    effigy::register(host, &mut module);
+    sevenfold::register(host, &mut module);
+    vesper::register(host, &mut module);
+    // Batch 3
+    carapace::register(host, &mut module);
+    leech::register(host, &mut module);
+    noctua::register(host, &mut module);
+    anchor::register(host, &mut module);
+    hourglass::register(host, &mut module);
+    view_forms::install();
 
     #[cfg(windows)]
     module.set_extension(Frame);

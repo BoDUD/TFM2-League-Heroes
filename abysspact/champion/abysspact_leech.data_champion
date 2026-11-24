@@ -1,0 +1,1413 @@
+{
+  "id": "abysspact_leech",
+  "category": "Assassin",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Heal",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_leech:parasite",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_leech",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_leech_skill",
+    "asset/abysspact/icons/abysspact_leech_skill2",
+    "asset/abysspact/icons/abysspact_leech_ult"
+  ],
+  "stat": {
+    "attack": 79,
+    "magic_power": 69,
+    "hp": 1000,
+    "defence": 29,
+    "magic_resistance": 30,
+    "move_speed": 1038,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 13,
+    "magic_power": 23,
+    "hp": 94,
+    "defence": 6,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_leech.attack",
+    "duration": 34,
+    "cooltime": 50,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_leech_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "abysspact_leech_claw"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "abysspact_leech_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_leech.skill",
+    "duration": 36,
+    "cooltime": 520,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 10,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_leech_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_leech_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_leech_q_lunge"
+                  },
+                  {
+                    "type": "MoveToTarget",
+                    "speed": 6500,
+                    "range": 50000,
+                    "end_effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 98,
+                        "attack_ratio": 75,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_leech_q_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "move_speed_mult": -30
+                        }
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_leech_attach_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_leech_jump"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "abysspact_leech_q_attach"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_leech_q_lunge"
+                  },
+                  {
+                    "type": "MoveToTarget",
+                    "speed": 6500,
+                    "range": 50000,
+                    "end_effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 98,
+                        "attack_ratio": 75,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_leech_q_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "move_speed_mult": -30
+                        }
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_leech_attach_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_leech_jump"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "abysspact_leech_q_attach"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_leech_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_leech.skill2",
+    "duration": 34,
+    "cooltime": 448,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_leech:w_range"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_leech_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_leech_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_leech_w_bite"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 117,
+                            "attack_ratio": 85,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "abysspact_leech_attached",
+                            "effect_buff": {
+                              "type": "BlockSkill",
+                              "tick": 105
+                            },
+                            "effect_none": {
+                              "type": "BlockSkill",
+                              "tick": 60
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_leech_venom"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_leech_w_venom"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_leech_w_bite"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 117,
+                            "attack_ratio": 85,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "abysspact_leech_attached",
+                            "effect_buff": {
+                              "type": "BlockSkill",
+                              "tick": 105
+                            },
+                            "effect_none": {
+                              "type": "BlockSkill",
+                              "tick": 60
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_leech_venom"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_leech_w_venom"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_leech_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_leech.ult",
+    "duration": 42,
+    "cooltime": 4020,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 85000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_leech_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_leech_r_lunge"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_leech_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_leech_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_leech_r_split",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 85000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_leech_r_mini",
+                            "speed": 8200,
+                            "y_offset": -9000,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_leech_drain"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_leech_r_cling"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 3,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RandomTarget",
+                                "range": 1,
+                                "casting_target": "AllyOnlySelf",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_leech_live",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_leech_live",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "abysspact_leech_live"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 6,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RandomTarget",
+                                "range": 1,
+                                "casting_target": "AllyOnlySelf",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_leech_live",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_leech_live",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "abysspact_leech_live"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_leech_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_leech_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_leech_split"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_leech_split"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "abysspact_leech_r_zone",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 42000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 198,
+                                    "attack_ratio": 108,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Heal",
+                                    "amount": 245,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 85,
+                                    "heal_type": "Caster"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_leech_drain"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_leech_drain"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 60,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_leech_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_leech_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_leech_rejoin"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_leech_rejoin"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_leech_rejoin"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_leech_rejoin"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_leech_live"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_leech_r_split",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 85000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_leech_r_mini",
+                            "speed": 8200,
+                            "y_offset": -9000,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_leech_drain"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_leech_r_cling"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 3,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RandomTarget",
+                                "range": 1,
+                                "casting_target": "AllyOnlySelf",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_leech_live",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_leech_live",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "abysspact_leech_live"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 6,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RandomTarget",
+                                "range": 1,
+                                "casting_target": "AllyOnlySelf",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_leech_live",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_leech_live",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 85000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "abysspact_leech_r_mini",
+                                          "speed": 8200,
+                                          "y_offset": -9000,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_leech_drain"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_leech_r_cling"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "abysspact_leech_live"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_leech_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_leech_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_leech_split"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_leech_split"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "abysspact_leech_r_zone",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 42000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 198,
+                                    "attack_ratio": 108,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Heal",
+                                    "amount": 245,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 85,
+                                    "heal_type": "Caster"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_leech_drain"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_leech_drain"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 60,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_leech_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_leech_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_leech_rejoin"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_leech_rejoin"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_leech_rejoin"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_leech_rejoin"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_leech_live"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_leech_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_leech_r_mini",
+      "anim": "asset/abysspact/effects/abysspact_leech_proj",
+      "tag": "mini_lunge",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_leech_p_venom",
+      "anim": "asset/abysspact/effects/abysspact_leech_proj",
+      "tag": "venom",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_leech_p_jump",
+      "anim": "asset/abysspact/effects/abysspact_leech_proj",
+      "tag": "jump",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_drain",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "drain",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_shared_hit",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "shared_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_venom",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "venom",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_split",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "split",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_rejoin",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "rejoin",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_claw",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "claw",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_leech_jump",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "jump",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_leech_host_mark",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "host_mark",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_leech_mini_cling",
+      "anim": "asset/abysspact/effects/abysspact_leech_fx",
+      "tag": "mini_cling",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

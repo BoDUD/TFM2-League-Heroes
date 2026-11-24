@@ -3,6 +3,7 @@
 use hd_engine::Table;
 
 pub const HEROES: &[(&str, f32, &str)] = &[
+    // Batch 1
     ("abysspact_oathbreaker", 2.75, include_str!("../../../abysspact/champions/abysspact_oathbreaker#anim.fanim")),
     ("abysspact_faceless",    2.75, include_str!("../../../abysspact/champions/abysspact_faceless#anim.fanim")),
     ("abysspact_whisperer",   2.75, include_str!("../../../abysspact/champions/abysspact_whisperer#anim.fanim")),
@@ -10,18 +11,46 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("abysspact_corvus",      2.75, include_str!("../../../abysspact/champions/abysspact_corvus#anim.fanim")),
     // Real summoned skeleton unit (spawn_unit) drawn at full Q-pixel HD density
     ("abysspact_skeleton",    2.75, include_str!("../../../abysspact/champions/abysspact_skeleton#anim.fanim")),
+    // Batch 2
+    ("abysspact_bloodmoon",   2.75, include_str!("../../../abysspact/champions/abysspact_bloodmoon#anim.fanim")),
+    ("abysspact_undertaker",  2.75, include_str!("../../../abysspact/champions/abysspact_undertaker#anim.fanim")),
+    ("abysspact_effigy",      2.75, include_str!("../../../abysspact/champions/abysspact_effigy#anim.fanim")),
+    ("abysspact_sevenfold",   2.75, include_str!("../../../abysspact/champions/abysspact_sevenfold#anim.fanim")),
+    ("abysspact_vesper",      2.75, include_str!("../../../abysspact/champions/abysspact_vesper#anim.fanim")),
+    // Batch 3
+    ("abysspact_carapace",    2.75, include_str!("../../../abysspact/champions/abysspact_carapace#anim.fanim")),
+    ("abysspact_leech",       2.75, include_str!("../../../abysspact/champions/abysspact_leech#anim.fanim")),
+    ("abysspact_noctua",      2.75, include_str!("../../../abysspact/champions/abysspact_noctua#anim.fanim")),
+    ("abysspact_anchor",      2.75, include_str!("../../../abysspact/champions/abysspact_anchor#anim.fanim")),
+    ("abysspact_hourglass",   2.75, include_str!("../../../abysspact/champions/abysspact_hourglass#anim.fanim")),
 ];
 
 pub const SIZES: &[(&str, f32)] = &[];
 pub const GROWTH: &[(&str, &str, f32)] = &[];
-pub const FORMS: &[(&str, &[&str], f32, f32)] = &[];
+pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
+    // Bloodmoon R「血月降临」: smooth scale-up to 1.3x Giant Wolf for 8 seconds
+    ("abysspact_bloodmoon", &["abysspact_bloodmoon_giant"], 1.3, 0.35),
+];
 
 pub const EFFECTS: &[(&str, f32, &str)] = &[
+    // Batch 1
     ("abysspact_oathbreaker_fx", 3.3, include_str!("../../../abysspact/effects/abysspact_oathbreaker_fx#anim.fanim")),
     ("abysspact_faceless_fx",    3.3, include_str!("../../../abysspact/effects/abysspact_faceless_fx#anim.fanim")),
     ("abysspact_whisperer_fx",   3.3, include_str!("../../../abysspact/effects/abysspact_whisperer_fx#anim.fanim")),
     ("abysspact_bonebow_fx",     3.3, include_str!("../../../abysspact/effects/abysspact_bonebow_fx#anim.fanim")),
     ("abysspact_corvus_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_corvus_fx#anim.fanim")),
+    // Batch 2
+    ("abysspact_bloodmoon_fx",   3.3, include_str!("../../../abysspact/effects/abysspact_bloodmoon_fx#anim.fanim")),
+    ("abysspact_undertaker_fx",  3.3, include_str!("../../../abysspact/effects/abysspact_undertaker_fx#anim.fanim")),
+    ("abysspact_effigy_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_effigy_fx#anim.fanim")),
+    ("abysspact_sevenfold_fx",   3.3, include_str!("../../../abysspact/effects/abysspact_sevenfold_fx#anim.fanim")),
+    ("abysspact_vesper_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_vesper_fx#anim.fanim")),
+    // Batch 3
+    ("abysspact_carapace_fx",    3.3, include_str!("../../../abysspact/effects/abysspact_carapace_fx#anim.fanim")),
+    ("abysspact_leech_fx",       3.3, include_str!("../../../abysspact/effects/abysspact_leech_fx#anim.fanim")),
+    ("abysspact_noctua_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_noctua_fx#anim.fanim")),
+    ("abysspact_anchor_fx",      3.3, include_str!("../../../abysspact/effects/abysspact_anchor_fx#anim.fanim")),
+    ("abysspact_hourglass_fx",   3.3, include_str!("../../../abysspact/effects/abysspact_hourglass_fx#anim.fanim")),
 ];
 
 pub const DRAWN_EFFECTS: &[&str] = &[
@@ -30,11 +59,24 @@ pub const DRAWN_EFFECTS: &[&str] = &[
     "abysspact_whisperer_fx",
     "abysspact_bonebow_fx",
     "abysspact_corvus_fx",
+    "abysspact_bloodmoon_fx",
+    "abysspact_undertaker_fx",
+    "abysspact_effigy_fx",
+    "abysspact_sevenfold_fx",
+    "abysspact_vesper_fx",
+    "abysspact_carapace_fx",
+    "abysspact_leech_fx",
+    "abysspact_noctua_fx",
+    "abysspact_anchor_fx",
+    "abysspact_hourglass_fx",
 ];
 
-// Whisperer has floating prayer beads reaching 48 game px tall: scale slightly on compact BP cards.
+// Tall silhouettes (47-48px) scaled gently on compact BP cards.
 pub const UI_SIZES: &[(&str, f32)] = &[
     ("abysspact_whisperer", 0.86),
+    ("abysspact_undertaker", 0.88),
+    ("abysspact_vesper", 0.86),
+    ("abysspact_anchor", 0.88),
 ];
 
 pub fn table() -> Table<'static> {

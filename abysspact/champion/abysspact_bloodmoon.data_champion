@@ -1,0 +1,1728 @@
+{
+  "id": "abysspact_bloodmoon",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_bloodmoon:phases",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_bloodmoon",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_bloodmoon_skill",
+    "asset/abysspact/icons/abysspact_bloodmoon_skill2",
+    "asset/abysspact/icons/abysspact_bloodmoon_ult"
+  ],
+  "stat": {
+    "attack": 95,
+    "magic_power": 0,
+    "hp": 1188,
+    "defence": 37,
+    "magic_resistance": 30,
+    "move_speed": 1062,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 0,
+    "hp": 111,
+    "defence": 6,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_bloodmoon.attack",
+    "duration": 36,
+    "cooltime": 60,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "abysspact_bloodmoon_wolf",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100,
+            "hp_ratio": 0,
+            "target_hp_ratio": 0,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "Sfx",
+            "name": "abysspact_bloodmoon_a_wolf"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "abysspact_bloodmoon_pounce"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "abysspact_bloodmoon_pounce_hit"
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "SwitchByBuff",
+        "buff_name": "abysspact_bloodmoon_giant",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "Sfx",
+              "name": "abysspact_bloodmoon_a_wolf"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "abysspact_bloodmoon_pounce"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "abysspact_bloodmoon_pounce_hit"
+            }
+          ]
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "abysspact_bloodmoon_a_silver"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "abysspact_bloodmoon_a_silver",
+              "speed": 9000,
+              "y_offset": -9500,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "abysspact_bloodmoon_a_silver_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_bloodmoon.skill",
+    "duration": 38,
+    "cooltime": 412,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 11,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_bloodmoon_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_bloodmoon_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "abysspact_bloodmoon_wolf",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_bloodmoon_q_pounce"
+                        },
+                        {
+                          "type": "MoveToTarget",
+                          "speed": 5800,
+                          "range": 60000,
+                          "end_effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 90,
+                              "attack_ratio": 116,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "Heal",
+                              "amount": 20,
+                              "attack_ratio": 24,
+                              "ap_ratio": 0,
+                              "heal_type": "Caster"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_bloodmoon_fang_flash"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_bloodmoon_pounce"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "abysspact_bloodmoon_pounce_hit"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "abysspact_bloodmoon_giant",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bloodmoon_q_pounce"
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 5800,
+                            "range": 60000,
+                            "end_effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 90,
+                                "attack_ratio": 116,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "Heal",
+                                "amount": 20,
+                                "attack_ratio": 24,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_bloodmoon_fang_flash"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_bloodmoon_pounce"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_bloodmoon_pounce_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bloodmoon_q_silver_volley"
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "abysspact_bloodmoon_q_silver",
+                            "speed": 9200,
+                            "range": 64000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 9500
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": -9500,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 54,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bloodmoon_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -20
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bloodmoon_silver"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_bloodmoon_a_silver_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 5,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "abysspact_bloodmoon_live",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "abysspact_bloodmoon_live",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "abysspact_bloodmoon_live"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 10,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "abysspact_bloodmoon_live",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "abysspact_bloodmoon_live",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "abysspact_bloodmoon_live"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "abysspact_bloodmoon_wolf",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_bloodmoon_q_pounce"
+                        },
+                        {
+                          "type": "MoveToTarget",
+                          "speed": 5800,
+                          "range": 60000,
+                          "end_effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 90,
+                              "attack_ratio": 116,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "Heal",
+                              "amount": 20,
+                              "attack_ratio": 24,
+                              "ap_ratio": 0,
+                              "heal_type": "Caster"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_bloodmoon_fang_flash"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_bloodmoon_pounce"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "abysspact_bloodmoon_pounce_hit"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "abysspact_bloodmoon_giant",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bloodmoon_q_pounce"
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 5800,
+                            "range": 60000,
+                            "end_effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 90,
+                                "attack_ratio": 116,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "Heal",
+                                "amount": 20,
+                                "attack_ratio": 24,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_bloodmoon_fang_flash"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_bloodmoon_pounce"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_bloodmoon_pounce_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_bloodmoon_q_silver_volley"
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "abysspact_bloodmoon_q_silver",
+                            "speed": 9200,
+                            "range": 64000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 9500
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": -9500,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 54,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_bloodmoon_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -20
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_bloodmoon_silver"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_bloodmoon_a_silver_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 5,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "abysspact_bloodmoon_live",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "abysspact_bloodmoon_live",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "abysspact_bloodmoon_live"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 10,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "abysspact_bloodmoon_live",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "abysspact_bloodmoon_live",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "abysspact_bloodmoon_q_silver",
+                                          "speed": 9200,
+                                          "range": 64000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9500
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "y_offset": -9500,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 34,
+                                                "attack_ratio": 54,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "abysspact_bloodmoon_q_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -20
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "abysspact_bloodmoon_silver"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "abysspact_bloodmoon_a_silver_hit"
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "abysspact_bloodmoon_live"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_bloodmoon_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_bloodmoon.skill2",
+    "duration": 26,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 9,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_bloodmoon_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_bloodmoon_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "abysspact_bloodmoon_wolf",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "abysspact_bloodmoon_wolf"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_transform"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_rollback"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_bloodmoon_w_rollback"
+                        },
+                        {
+                          "type": "MoveBack",
+                          "speed": 2500,
+                          "tick": 6
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "abysspact_bloodmoon_wolf",
+                            "duration": "Permanent",
+                            "attack_speed_mult": 30,
+                            "vamp": 10
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_transform"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_howl"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_bloodmoon_w_transform"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 30000
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_bloodmoon_w_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": -30
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "abysspact_bloodmoon_wolf",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "abysspact_bloodmoon_wolf"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_transform"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_rollback"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_bloodmoon_w_rollback"
+                        },
+                        {
+                          "type": "MoveBack",
+                          "speed": 2500,
+                          "tick": 6
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "abysspact_bloodmoon_wolf",
+                            "duration": "Permanent",
+                            "attack_speed_mult": 30,
+                            "vamp": 10
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_transform"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_bloodmoon_howl"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_bloodmoon_w_transform"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 30000
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_bloodmoon_w_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": -30
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_bloodmoon_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_bloodmoon.ult",
+    "duration": 40,
+    "cooltime": 4120,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_bloodmoon_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_bloodmoon_r_moon"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_bloodmoon_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_bloodmoon_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bloodmoon_wolf",
+                          "duration": "Permanent",
+                          "attack_speed_mult": 30,
+                          "vamp": 10
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bloodmoon_giant",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "damaged_reduce": 25
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_bloodmoon_transform"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_bloodmoon_howl"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_bloodmoon_r_howl"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 84,
+                            "attack_ratio": 72,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Fear",
+                            "tick": 62
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bloodmoon_giant_claw"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_bloodmoon_pounce_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bloodmoon_wolf",
+                          "duration": "Permanent",
+                          "attack_speed_mult": 30,
+                          "vamp": 10
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_bloodmoon_giant",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "damaged_reduce": 25
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_bloodmoon_transform"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_bloodmoon_howl"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_bloodmoon_r_howl"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 84,
+                            "attack_ratio": 72,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Fear",
+                            "tick": 62
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_bloodmoon_giant_claw"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_bloodmoon_pounce_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_bloodmoon_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_bloodmoon_a_silver",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_proj",
+      "tag": "silver",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_bloodmoon_q_silver",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_proj",
+      "tag": "silver",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_silver",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "silver",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_pounce",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "pounce",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_transform",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "transform",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_howl",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "howl",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_giant_claw",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "giant_claw",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_rollback",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "rollback",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_bloodmoon_fang_flash",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "fang_flash",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_bloodmoon_giant",
+      "anim": "asset/abysspact/effects/abysspact_bloodmoon_fx",
+      "tag": "moon",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
