@@ -1292,6 +1292,38 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_anchor",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_anchor",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_anchor_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_anchor_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_bloodmoon",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_bloodmoon",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_bloodmoon_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_bloodmoon_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_abysspact_bonebow",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_bonebow",
@@ -1303,6 +1335,22 @@
       "name": "league_illaoi_soul_abysspact_bonebow_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_bonebow_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_carapace",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_carapace",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_carapace_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_carapace_l",
       "z": 3,
       "is_follow": false
     },
@@ -1324,6 +1372,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_effigy",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_effigy",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_effigy_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_effigy_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_abysspact_faceless",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_faceless",
@@ -1340,6 +1404,54 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_hourglass",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_hourglass",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_hourglass_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_hourglass_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_leech",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_leech",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_leech_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_leech_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_noctua",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_noctua",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_noctua_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_noctua_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_abysspact_oathbreaker",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_oathbreaker",
@@ -1351,6 +1463,54 @@
       "name": "league_illaoi_soul_abysspact_oathbreaker_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "abysspact_oathbreaker_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_sevenfold",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_sevenfold",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_sevenfold_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_sevenfold_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_undertaker",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_undertaker",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_undertaker_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_undertaker_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_vesper",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_vesper",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_abysspact_vesper_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "abysspact_vesper_l",
       "z": 3,
       "is_follow": false
     },
