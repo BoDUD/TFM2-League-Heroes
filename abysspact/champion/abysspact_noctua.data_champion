@@ -1,0 +1,1877 @@
+{
+  "id": "abysspact_noctua",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_noctua:scatter",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_noctua",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_noctua_skill",
+    "asset/abysspact/icons/abysspact_noctua_skill2",
+    "asset/abysspact/icons/abysspact_noctua_ult"
+  ],
+  "stat": {
+    "attack": 57,
+    "magic_power": 60,
+    "hp": 848,
+    "defence": 22,
+    "magic_resistance": 29,
+    "move_speed": 940,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 7,
+    "magic_power": 20,
+    "hp": 83,
+    "defence": 5,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_noctua.attack",
+    "duration": 34,
+    "cooltime": 61,
+    "start_timing": 18,
+    "cancelable": true,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_noctua_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "abysspact_noctua_a_moth",
+          "speed": 8000,
+          "y_offset": -10000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "abysspact_noctua_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_noctua.skill",
+    "duration": 36,
+    "cooltime": 396,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_noctua_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_noctua_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_noctua_q_swarm"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_noctua_q_swarm"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_noctua_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_noctua_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_noctua_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_noctua_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_noctua_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_noctua_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 60000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "abysspact_noctua_q_moth",
+                            "speed": 8400,
+                            "y_offset": -10000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 30,
+                                  "attack_ratio": 26,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_noctua_scale_ask",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_noctua_scales"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_noctua_scale_mark"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_noctua_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_noctua.skill2",
+    "duration": 36,
+    "cooltime": 756,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 12,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_noctua_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_noctua_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_noctua_a"
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "abysspact_noctua_w_cocoon",
+                    "speed": 8000,
+                    "y_offset": -10000,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 40,
+                          "attack_ratio": 31,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Stun",
+                          "duration": 67
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "abysspact_noctua_cocoon"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "abysspact_noctua_w_close"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Delayed",
+                          "tick": 67,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_noctua_live",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "abysspact_noctua_live",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_noctua_cocoon_break"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "abysspact_noctua_w_break"
+                                      },
+                                      {
+                                        "type": "Heal",
+                                        "amount": 59,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 20,
+                                        "heal_type": "Caster"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_noctua_cocoon_break"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "abysspact_noctua_w_break"
+                                      },
+                                      {
+                                        "type": "Heal",
+                                        "amount": 59,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 20,
+                                        "heal_type": "Caster"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "abysspact_noctua_live"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_noctua_a"
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "abysspact_noctua_w_cocoon",
+                    "speed": 8000,
+                    "y_offset": -10000,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 40,
+                          "attack_ratio": 31,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Stun",
+                          "duration": 67
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "abysspact_noctua_cocoon"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "abysspact_noctua_w_close"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Delayed",
+                          "tick": 67,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_noctua_live",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "abysspact_noctua_live",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_noctua_cocoon_break"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "abysspact_noctua_w_break"
+                                      },
+                                      {
+                                        "type": "Heal",
+                                        "amount": 59,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 20,
+                                        "heal_type": "Caster"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_noctua_cocoon_break"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "abysspact_noctua_w_break"
+                                      },
+                                      {
+                                        "type": "Heal",
+                                        "amount": 59,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 20,
+                                        "heal_type": "Caster"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "abysspact_noctua_live"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_noctua_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_noctua.ult",
+    "duration": 44,
+    "cooltime": 4680,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_noctua_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_noctua_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_noctua_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_noctua_r_storm",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_noctua_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_noctua_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_noctua_disperse"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_noctua_storm_start"
+                            },
+                            {
+                              "type": "RangePeriodProjectile",
+                              "name": "abysspact_noctua_r_storm_f",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 28000
+                                }
+                              },
+                              "tick": 210,
+                              "period": 30,
+                              "first_delay": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 39,
+                                    "attack_ratio": 16,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_noctua_r_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 60
+                                        }
+                                      },
+                                      "move_speed_mult": -20
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_noctua_scales"
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 210,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_noctua_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_noctua_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "RangeProjectile",
+                                            "name": "abysspact_noctua_r_sil_z",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 32000
+                                              }
+                                            },
+                                            "delay": 1,
+                                            "apply": 1,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "BlockSkill",
+                                                  "tick": 75
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "abysspact_noctua_reform"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "RangeProjectile",
+                                            "name": "abysspact_noctua_r_sil_z",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 32000
+                                              }
+                                            },
+                                            "delay": 1,
+                                            "apply": 1,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "BlockSkill",
+                                                  "tick": 75
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "abysspact_noctua_reform"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_noctua_live"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_noctua_r_storm",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_noctua_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_noctua_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_noctua_disperse"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_noctua_storm_start"
+                            },
+                            {
+                              "type": "RangePeriodProjectile",
+                              "name": "abysspact_noctua_r_storm_f",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 28000
+                                }
+                              },
+                              "tick": 210,
+                              "period": 30,
+                              "first_delay": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 39,
+                                    "attack_ratio": 16,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_noctua_r_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 60
+                                        }
+                                      },
+                                      "move_speed_mult": -20
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_noctua_scales"
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 210,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_noctua_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_noctua_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "RangeProjectile",
+                                            "name": "abysspact_noctua_r_sil_z",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 32000
+                                              }
+                                            },
+                                            "delay": 1,
+                                            "apply": 1,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "BlockSkill",
+                                                  "tick": 75
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "abysspact_noctua_reform"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "abysspact_noctua_dust_shock"
+                                          },
+                                          {
+                                            "type": "RangeProjectile",
+                                            "name": "abysspact_noctua_r_sil_z",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 32000
+                                              }
+                                            },
+                                            "delay": 1,
+                                            "apply": 1,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "BlockSkill",
+                                                  "tick": 75
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "abysspact_noctua_reform"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_noctua_live"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_noctua_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_a_moth",
+      "anim": "asset/abysspact/effects/abysspact_noctua_proj",
+      "tag": "moth",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_q_moth",
+      "anim": "asset/abysspact/effects/abysspact_noctua_proj",
+      "tag": "moth",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_w_cocoon",
+      "anim": "asset/abysspact/effects/abysspact_noctua_proj",
+      "tag": "cocoon",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_scales",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "scales",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_disperse",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "disperse",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_reform",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "reform",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_cocoon",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "cocoon",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_cocoon_break",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "cocoon_break",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_dust_shock",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "dust_shock",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_storm",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "storm",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_scales_1",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "scales_1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_scales_2",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "scales_2",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_noctua_scales_3",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "scales_3",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

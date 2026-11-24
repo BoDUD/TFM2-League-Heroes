@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_anchor_vo_dead",
+      "volume": 0.85
+    },
+    {
+      "delay": 0.1,
+      "clip": "abysspact_anchor_sfx_death_sink",
+      "volume": 0.56
+    }
+  ]
+}

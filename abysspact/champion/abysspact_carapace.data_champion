@@ -1,0 +1,982 @@
+{
+  "id": "abysspact_carapace",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_carapace:molt",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_carapace",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_carapace_skill",
+    "asset/abysspact/icons/abysspact_carapace_skill2",
+    "asset/abysspact/icons/abysspact_carapace_ult"
+  ],
+  "stat": {
+    "attack": 93,
+    "magic_power": 0,
+    "hp": 1112,
+    "defence": 34,
+    "magic_resistance": 30,
+    "move_speed": 1015,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 0,
+    "hp": 103,
+    "defence": 6,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_carapace.attack",
+    "duration": 36,
+    "cooltime": 52,
+    "start_timing": 18,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_carapace_a"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "abysspact_carapace_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_carapace.skill",
+    "duration": 36,
+    "cooltime": 398,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_carapace:q_range"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_carapace_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_carapace_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_carapace_form3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_carapace_q_dive"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_carapace_dive"
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 6200,
+                              "range": 42000,
+                              "end_effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 94,
+                                  "attack_ratio": 123,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_carapace_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -30
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_carapace_wing_flecks"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_carapace_a_hit"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_carapace_q_thrust"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_carapace_thrust"
+                            },
+                            {
+                              "type": "RushTime",
+                              "speed": 4800,
+                              "tick": 8,
+                              "range": 14000,
+                              "casting_target": "EnemyWithoutTower",
+                              "penetrate": true,
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 94,
+                                    "attack_ratio": 123,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_carapace_q_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 60
+                                        }
+                                      },
+                                      "move_speed_mult": -30
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_carapace_a_hit"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_carapace_form3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_carapace_q_dive"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_carapace_dive"
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 6200,
+                              "range": 42000,
+                              "end_effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 94,
+                                  "attack_ratio": 123,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "abysspact_carapace_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -30
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_carapace_wing_flecks"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "abysspact_carapace_a_hit"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_carapace_q_thrust"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_carapace_thrust"
+                            },
+                            {
+                              "type": "RushTime",
+                              "speed": 4800,
+                              "tick": 8,
+                              "range": 14000,
+                              "casting_target": "EnemyWithoutTower",
+                              "penetrate": true,
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 94,
+                                    "attack_ratio": 123,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_carapace_q_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 60
+                                        }
+                                      },
+                                      "move_speed_mult": -30
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_carapace_a_hit"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_carapace_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_carapace.skill2",
+    "duration": 34,
+    "cooltime": 430,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 22000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 12,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_carapace_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_carapace_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_carapace_w_resonate"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_carapace_resonate"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 21000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 83,
+                        "attack_ratio": 93,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "abysspact_carapace_a_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 21000
+                      }
+                    },
+                    "target": "EnemyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 56,
+                        "attack_ratio": 39,
+                        "ap_ratio": 0,
+                        "heal_type": "Caster"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_carapace_w_resonate"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_carapace_resonate"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 21000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 83,
+                        "attack_ratio": 93,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "abysspact_carapace_a_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 21000
+                      }
+                    },
+                    "target": "EnemyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 56,
+                        "attack_ratio": 39,
+                        "ap_ratio": 0,
+                        "heal_type": "Caster"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_carapace_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_carapace.ult",
+    "duration": 40,
+    "cooltime": 3950,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_carapace_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_carapace_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_carapace_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_carapace_form3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_carapace_q_dive"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_carapace_wing_flecks"
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 6800,
+                              "range": 62000,
+                              "end_effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_carapace_molt_burst"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "abysspact_carapace_shell_burst"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 30000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 195,
+                                      "attack_ratio": 127,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "Airborne",
+                                      "duration": 45
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "abysspact_carapace_native",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "abysspact_carapace_r_molt",
+                              "duration": {
+                                "Time": {
+                                  "tick": 4
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_carapace_r_haste",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 240
+                                    }
+                                  },
+                                  "attack_speed_mult": 40
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_carapace_molt_burst"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_carapace_shell_burst"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 30000
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 195,
+                                    "attack_ratio": 127,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "Airborne",
+                                    "duration": 45
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_carapace_form3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_carapace_q_dive"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_carapace_wing_flecks"
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 6800,
+                              "range": 62000,
+                              "end_effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_carapace_molt_burst"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "abysspact_carapace_shell_burst"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 30000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 195,
+                                      "attack_ratio": 127,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "Airborne",
+                                      "duration": 45
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "abysspact_carapace_native",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "abysspact_carapace_r_molt",
+                              "duration": {
+                                "Time": {
+                                  "tick": 4
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_carapace_r_haste",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 240
+                                    }
+                                  },
+                                  "attack_speed_mult": 40
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_carapace_molt_burst"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_carapace_shell_burst"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 30000
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 195,
+                                    "attack_ratio": 127,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "Airborne",
+                                    "duration": 45
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_carapace_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_carapace_p_thrust",
+      "anim": "asset/abysspact/effects/abysspact_carapace_proj",
+      "tag": "thrust",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_carapace_p_dive",
+      "anim": "asset/abysspact/effects/abysspact_carapace_proj",
+      "tag": "dive",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_molt_steel",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "molt_steel",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_molt_light",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "molt_light",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_thrust",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "thrust",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_dive",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "dive",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_resonate",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "resonate",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_molt_burst",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "molt_burst",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_taunt_glint",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "taunt_glint",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_wing_flecks",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "wing_flecks",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_shell_rattle",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "shell_rattle",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_carapace_shell_explode",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "shell_explode",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_carapace_shells_0",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "shells_0",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_carapace_shells_1",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "shells_1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_carapace_shells_2",
+      "anim": "asset/abysspact/effects/abysspact_carapace_fx",
+      "tag": "shells_2",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

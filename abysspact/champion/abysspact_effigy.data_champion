@@ -1,0 +1,972 @@
+{
+  "id": "abysspact_effigy",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_effigy:needles",
+    "params": {}
+  },
+  "sprite": "asset/abysspact/champions/abysspact_effigy",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_effigy_skill",
+    "asset/abysspact/icons/abysspact_effigy_skill2",
+    "asset/abysspact/icons/abysspact_effigy_ult"
+  ],
+  "stat": {
+    "attack": 63,
+    "magic_power": 60,
+    "hp": 877,
+    "defence": 24,
+    "magic_resistance": 30,
+    "move_speed": 950,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 8,
+    "magic_power": 20,
+    "hp": 87,
+    "defence": 5,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_effigy.attack",
+    "duration": 36,
+    "cooltime": 84,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 52000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_effigy_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "abysspact_effigy_a_needle",
+          "speed": 8200,
+          "y_offset": -9500,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "abysspact_effigy_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_effigy.skill",
+    "duration": 36,
+    "cooltime": 374,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 12,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_effigy_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_effigy_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_effigy_q_fan"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_effigy_fan"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 55000,
+                        "range": 450
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 52,
+                        "attack_ratio": 52,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_effigy_q_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "move_speed_mult": -25
+                        }
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_effigy_needle_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_effigy_embedded"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "abysspact_effigy_q_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "abysspact_effigy_q_needle",
+                    "speed": 8500,
+                    "range": 59000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 10000
+                      }
+                    },
+                    "penetrate": true,
+                    "y_offset": -9500,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 33,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "abysspact_effigy_needle_ask",
+                            "duration": {
+                              "Time": {
+                                "tick": 4
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "abysspact_effigy_q_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_effigy_q_fan"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_effigy_fan"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 55000,
+                        "range": 450
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 52,
+                        "attack_ratio": 52,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_effigy_q_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "move_speed_mult": -25
+                        }
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "abysspact_effigy_needle_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_effigy_embedded"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "abysspact_effigy_q_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "abysspact_effigy_q_needle",
+                    "speed": 8500,
+                    "range": 59000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 10000
+                      }
+                    },
+                    "penetrate": true,
+                    "y_offset": -9500,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 33,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "abysspact_effigy_needle_ask",
+                            "duration": {
+                              "Time": {
+                                "tick": 4
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "abysspact_effigy_q_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_effigy_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_effigy.skill2",
+    "duration": 36,
+    "cooltime": 734,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 13,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "abysspact_effigy_live",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_effigy_live",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_effigy_w_throw"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_effigy_line"
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 39,
+                    "attack_ratio": 31,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_effigy_knot",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_effigy_needle_ask",
+                      "duration": {
+                        "Time": {
+                          "tick": 4
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_effigy_link_ask",
+                      "duration": {
+                        "Time": {
+                          "tick": 4
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "abysspact_effigy_w_taut"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "abysspact_effigy_w_throw"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_effigy_line"
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 39,
+                    "attack_ratio": 31,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_effigy_knot",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_effigy_needle_ask",
+                      "duration": {
+                        "Time": {
+                          "tick": 4
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_effigy_link_ask",
+                      "duration": {
+                        "Time": {
+                          "tick": 4
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "abysspact_effigy_w_taut"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "abysspact_effigy_live"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_effigy.ult",
+    "duration": 42,
+    "cooltime": 3400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_effigy_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "abysspact_effigy_r_unpick"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_effigy_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_effigy_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_effigy_unpick_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "abysspact_effigy_r_return",
+                        "speed": 7800,
+                        "y_offset": -9500,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_effigy_return"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_effigy_unpick_return"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_effigy_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_effigy_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_effigy_withdraw"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "abysspact_effigy_r_zone",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 37000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 168,
+                                    "attack_ratio": 85,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_effigy_r_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 90
+                                        }
+                                      },
+                                      "move_speed_mult": -50
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_effigy_withdraw"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_effigy_unpick_return"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_effigy_unpick_ask",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "abysspact_effigy_r_return",
+                        "speed": 7800,
+                        "y_offset": -9500,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_effigy_return"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_effigy_unpick_return"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_effigy_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_effigy_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_effigy_withdraw"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "abysspact_effigy_r_zone",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 37000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 168,
+                                    "attack_ratio": 85,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "abysspact_effigy_r_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 90
+                                        }
+                                      },
+                                      "move_speed_mult": -50
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_effigy_withdraw"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_effigy_unpick_return"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_effigy_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_a_needle",
+      "anim": "asset/abysspact/effects/abysspact_effigy_proj",
+      "tag": "needle",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_q_needle",
+      "anim": "asset/abysspact/effects/abysspact_effigy_proj",
+      "tag": "needle",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_r_return",
+      "anim": "asset/abysspact/effects/abysspact_effigy_proj",
+      "tag": "return",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_effigy_fan",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "fan",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_effigy_line",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "line",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_effigy_snap",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "snap",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_effigy_embedded",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "embedded",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_effigy_withdraw",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "withdraw",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_effigy_return",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "return",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_needles_1",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "needles_1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_needles_2",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "needles_2",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_needles_3",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "needles_3",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_knot",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "knot",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
