@@ -56,16 +56,16 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_leech_a"
+        },
+        {
           "type": "Attack",
           "damage": 0,
           "attack_ratio": 100,
           "hp_ratio": 0,
           "target_hp_ratio": 0,
           "attack_effect_type": "Target"
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_leech_a"
         },
         {
           "type": "ViewEffect",
@@ -90,150 +90,159 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 10,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_leech_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_leech_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_leech_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_leech_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_leech_q_lunge"
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 6500,
+                        "range": 50000,
+                        "end_effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 98,
+                            "attack_ratio": 75,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_leech_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_leech_attach_ask",
+                              "duration": {
+                                "Time": {
+                                  "tick": 4
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_leech_jump"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_leech_q_attach"
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_leech_q_lunge"
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 6500,
+                        "range": 50000,
+                        "end_effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 98,
+                            "attack_ratio": 75,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_leech_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_leech_attach_ask",
+                              "duration": {
+                                "Time": {
+                                  "tick": 4
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_leech_jump"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_leech_q_attach"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_leech_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_leech_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_leech_q_lunge"
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 6500,
-                    "range": 50000,
-                    "end_effects": [
-                      {
-                        "type": "ApAttack",
-                        "damage": 98,
-                        "attack_ratio": 75,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_leech_q_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 180
-                            }
-                          },
-                          "move_speed_mult": -30
-                        }
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_leech_attach_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_leech_jump"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_leech_q_attach"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_leech_q_lunge"
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 6500,
-                    "range": 50000,
-                    "end_effects": [
-                      {
-                        "type": "ApAttack",
-                        "damage": 98,
-                        "attack_ratio": 75,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_leech_q_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 180
-                            }
-                          },
-                          "move_speed_mult": -30
-                        }
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_leech_attach_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_leech_jump"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_leech_q_attach"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_leech_live"
             }
           ]
         }
@@ -254,6 +263,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_leech_foley_w"
+        },
         {
           "type": "Native",
           "effect_ref": "abysspact_leech:w_range"
@@ -400,6 +413,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_leech_r_lunge"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_leech_r_voice",
@@ -410,10 +427,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_leech_r_lunge"
         },
         {
           "type": "Delayed",

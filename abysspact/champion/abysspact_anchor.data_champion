@@ -148,126 +148,135 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 12,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_anchor_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_anchor_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_anchor_q_sweep"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_anchor_chain_sweep"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 64,
+                            "attack_ratio": 81,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 8
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_anchor_a_water"
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_anchor_q_sweep"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_anchor_chain_sweep"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 64,
+                            "attack_ratio": 81,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 8
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_anchor_a_water"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_anchor_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_anchor_q_sweep"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_anchor_chain_sweep"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 25000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 64,
-                        "attack_ratio": 81,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "Knockback",
-                        "speed": 2500,
-                        "tick": 8
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_anchor_a_water"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_anchor_q_sweep"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_anchor_chain_sweep"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 25000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 64,
-                        "attack_ratio": 81,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "Knockback",
-                        "speed": 2500,
-                        "tick": 8
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_anchor_a_water"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_anchor_live"
             }
           ]
         }
@@ -286,84 +295,93 @@
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 11,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_anchor_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_anchor_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_anchor_taut"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_anchor_toggle",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_anchor_taut"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_anchor_toggle",
+                          "duration": {
+                            "Time": {
+                              "tick": 4
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_anchor_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_anchor_taut"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "abysspact_anchor_toggle",
-                      "duration": {
-                        "Time": {
-                          "tick": 4
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_anchor_taut"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "abysspact_anchor_toggle",
-                      "duration": {
-                        "Time": {
-                          "tick": 4
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_anchor_live"
             }
           ]
         }
@@ -384,6 +402,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_anchor_foley_r"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {

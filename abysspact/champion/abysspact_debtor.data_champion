@@ -54,16 +54,16 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_debtor_a"
+        },
+        {
           "type": "Attack",
           "damage": 0,
           "attack_ratio": 100,
           "hp_ratio": 0,
           "target_hp_ratio": 0,
           "attack_effect_type": "Target"
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_debtor_a"
         },
         {
           "type": "TargetSfx",
@@ -84,150 +84,159 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 9,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_debtor_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_debtor_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_debtor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_debtor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_debtor_q_thrust"
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 6800,
+                        "range": 60000,
+                        "end_effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 102,
+                            "attack_ratio": 122,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_debtor_debt_note",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_debtor_q_hit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 3
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_debtor_thrust"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_debtor_q_note"
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_debtor_q_thrust"
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 6800,
+                        "range": 60000,
+                        "end_effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 102,
+                            "attack_ratio": 122,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_debtor_debt_note",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_debtor_q_hit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 3
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_debtor_thrust"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_debtor_q_note"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_debtor_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_debtor_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_debtor_q_thrust"
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 6800,
-                    "range": 60000,
-                    "end_effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 102,
-                        "attack_ratio": 122,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_debtor_debt_note",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_debtor_q_hit",
-                          "duration": {
-                            "Time": {
-                              "tick": 3
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_debtor_thrust"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_debtor_q_note"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_debtor_q_thrust"
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 6800,
-                    "range": 60000,
-                    "end_effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 102,
-                        "attack_ratio": 122,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_debtor_debt_note",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_debtor_q_hit",
-                          "duration": {
-                            "Time": {
-                              "tick": 3
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_debtor_thrust"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_debtor_q_note"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_debtor_live"
             }
           ]
         }
@@ -246,152 +255,161 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 11,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_debtor_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_debtor_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_debtor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_debtor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_debtor_w_sweep"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_debtor_sweep"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 84,
+                            "attack_ratio": 95,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_debtor_debt_note",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 75,
+                            "attack_ratio": 36,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_debtor_q_note"
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_debtor_w_sweep"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_debtor_sweep"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 84,
+                            "attack_ratio": 95,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_debtor_debt_note",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 75,
+                            "attack_ratio": 36,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_debtor_q_note"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_debtor_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_debtor_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_debtor_w_sweep"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_debtor_sweep"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 25000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 84,
-                        "attack_ratio": 95,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_debtor_debt_note",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "Heal",
-                        "amount": 75,
-                        "attack_ratio": 36,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_debtor_q_note"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_debtor_w_sweep"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_debtor_sweep"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 25000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 84,
-                        "attack_ratio": 95,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_debtor_debt_note",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "Heal",
-                        "amount": 75,
-                        "attack_ratio": 36,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "abysspact_debtor_q_note"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_debtor_live"
             }
           ]
         }
@@ -412,6 +430,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_debtor_foley_r"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {

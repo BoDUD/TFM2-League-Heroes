@@ -103,6 +103,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_noctua_foley_q"
+        },
+        {
           "type": "Delayed",
           "tick": 11,
           "effects": [
@@ -941,310 +945,319 @@
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 12,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_noctua_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_noctua_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_noctua_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_noctua_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_noctua_a"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "abysspact_noctua_w_cocoon",
+                        "speed": 8000,
+                        "y_offset": -10000,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 40,
+                              "attack_ratio": 31,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 67
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_noctua_cocoon"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_noctua_w_close"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Delayed",
+                              "tick": 67,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_noctua_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_noctua_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_cocoon_break"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_noctua_w_break"
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 59,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 20,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_cocoon_break"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_noctua_w_break"
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 59,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 20,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_noctua_live"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_noctua_a"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "abysspact_noctua_w_cocoon",
+                        "speed": 8000,
+                        "y_offset": -10000,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 40,
+                              "attack_ratio": 31,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 67
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "abysspact_noctua_cocoon"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_noctua_w_close"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Delayed",
+                              "tick": 67,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_noctua_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_noctua_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_cocoon_break"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_noctua_w_break"
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 59,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 20,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_noctua_cocoon_break"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_noctua_w_break"
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 59,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 20,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_noctua_live"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_noctua_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_noctua_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_noctua_a"
-                  },
-                  {
-                    "type": "TargetProjectile",
-                    "name": "abysspact_noctua_w_cocoon",
-                    "speed": 8000,
-                    "y_offset": -10000,
-                    "applied_target": "EnemyChampion",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "ApAttack",
-                          "damage": 40,
-                          "attack_ratio": 31,
-                          "hp_ratio": 0,
-                          "can_crit": false
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Stun",
-                          "duration": 67
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "ViewEffect",
-                          "name": "abysspact_noctua_cocoon"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "abysspact_noctua_w_close"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Delayed",
-                          "tick": 67,
-                          "effects": [
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RandomTarget",
-                                  "range": 1,
-                                  "casting_target": "AllyOnlySelf",
-                                  "from_projectile": false,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "abysspact_noctua_live",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 1
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "abysspact_noctua_live",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_noctua_cocoon_break"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_noctua_w_break"
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 59,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 20,
-                                        "heal_type": "Caster"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_noctua_cocoon_break"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_noctua_w_break"
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 59,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 20,
-                                        "heal_type": "Caster"
-                                      }
-                                    ]
-                                  }
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "abysspact_noctua_live"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_noctua_a"
-                  },
-                  {
-                    "type": "TargetProjectile",
-                    "name": "abysspact_noctua_w_cocoon",
-                    "speed": 8000,
-                    "y_offset": -10000,
-                    "applied_target": "EnemyChampion",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "ApAttack",
-                          "damage": 40,
-                          "attack_ratio": 31,
-                          "hp_ratio": 0,
-                          "can_crit": false
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Stun",
-                          "duration": 67
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "ViewEffect",
-                          "name": "abysspact_noctua_cocoon"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "abysspact_noctua_w_close"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Delayed",
-                          "tick": 67,
-                          "effects": [
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RandomTarget",
-                                  "range": 1,
-                                  "casting_target": "AllyOnlySelf",
-                                  "from_projectile": false,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "abysspact_noctua_live",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 1
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "abysspact_noctua_live",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_noctua_cocoon_break"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_noctua_w_break"
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 59,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 20,
-                                        "heal_type": "Caster"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_noctua_cocoon_break"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_noctua_w_break"
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 59,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 20,
-                                        "heal_type": "Caster"
-                                      }
-                                    ]
-                                  }
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "abysspact_noctua_live"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_noctua_live"
             }
           ]
         }
@@ -1265,6 +1278,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_noctua_foley_r"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {

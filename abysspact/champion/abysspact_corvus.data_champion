@@ -112,6 +112,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_corvus_foley_q"
+        },
+        {
           "type": "Delayed",
           "tick": 13,
           "effects": [
@@ -357,6 +361,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_corvus_foley_w"
+        },
+        {
           "type": "Delayed",
           "tick": 13,
           "effects": [
@@ -528,6 +536,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_corvus_r_cane"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_corvus_r_voice",
@@ -538,10 +550,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_corvus_r_cane"
         },
         {
           "type": "Delayed",

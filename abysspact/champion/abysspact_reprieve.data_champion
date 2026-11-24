@@ -55,16 +55,16 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_reprieve_a"
+        },
+        {
           "type": "Attack",
           "damage": 0,
           "attack_ratio": 100,
           "hp_ratio": 0,
           "target_hp_ratio": 0,
           "attack_effect_type": "Target"
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_reprieve_a"
         },
         {
           "type": "TargetSfx",
@@ -85,160 +85,169 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 13,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_reprieve_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_reprieve_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_reprieve_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_reprieve_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_reprieve_q_throw"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "abysspact_reprieve_q_chain",
+                        "speed": 7800,
+                        "range": 68000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 11000
+                          }
+                        },
+                        "penetrate": false,
+                        "y_offset": -8000,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 94,
+                              "attack_ratio": 0,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 7,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 48
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Grab",
+                              "speed": 3200,
+                              "tick": 12
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_reprieve_q_pull"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_reprieve_q_throw"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "abysspact_reprieve_q_chain",
+                        "speed": 7800,
+                        "range": 68000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 11000
+                          }
+                        },
+                        "penetrate": false,
+                        "y_offset": -8000,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 94,
+                              "attack_ratio": 0,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 7,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 48
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Grab",
+                              "speed": 3200,
+                              "tick": 12
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "abysspact_reprieve_q_pull"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_reprieve_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_reprieve_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_reprieve_q_throw"
-                  },
-                  {
-                    "type": "LinearProjectile",
-                    "name": "abysspact_reprieve_q_chain",
-                    "speed": 7800,
-                    "range": 68000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 11000
-                      }
-                    },
-                    "penetrate": false,
-                    "y_offset": -8000,
-                    "applied_target": "EnemyWithoutTower",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Attack",
-                          "damage": 94,
-                          "attack_ratio": 0,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 7,
-                          "attack_effect_type": "Target"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Stun",
-                          "duration": 48
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Grab",
-                          "speed": 3200,
-                          "tick": 12
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "abysspact_reprieve_q_pull"
-                        }
-                      }
-                    ],
-                    "end_effects": []
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_reprieve_q_throw"
-                  },
-                  {
-                    "type": "LinearProjectile",
-                    "name": "abysspact_reprieve_q_chain",
-                    "speed": 7800,
-                    "range": 68000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 11000
-                      }
-                    },
-                    "penetrate": false,
-                    "y_offset": -8000,
-                    "applied_target": "EnemyWithoutTower",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Attack",
-                          "damage": 94,
-                          "attack_ratio": 0,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 7,
-                          "attack_effect_type": "Target"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Stun",
-                          "duration": 48
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Grab",
-                          "speed": 3200,
-                          "tick": 12
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "abysspact_reprieve_q_pull"
-                        }
-                      }
-                    ],
-                    "end_effects": []
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_reprieve_live"
             }
           ]
         }
@@ -257,124 +266,133 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 11,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_reprieve_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_reprieve_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_reprieve_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_reprieve_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_reprieve_w_roar"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_reprieve_roar"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_reprieve_guilt",
+                          "duration": {
+                            "Time": {
+                              "tick": 78
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Taunt",
+                            "duration": 78
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_reprieve_w_roar"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_reprieve_roar"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_reprieve_guilt",
+                          "duration": {
+                            "Time": {
+                              "tick": 78
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Taunt",
+                            "duration": 78
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_reprieve_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_reprieve_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_reprieve_w_roar"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_reprieve_roar"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "abysspact_reprieve_guilt",
-                      "duration": {
-                        "Time": {
-                          "tick": 78
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 30000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Taunt",
-                        "duration": 78
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_reprieve_w_roar"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_reprieve_roar"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "abysspact_reprieve_guilt",
-                      "duration": {
-                        "Time": {
-                          "tick": 78
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 30000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Taunt",
-                        "duration": 78
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_reprieve_live"
             }
           ]
         }
@@ -395,6 +413,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_reprieve_foley_r"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {

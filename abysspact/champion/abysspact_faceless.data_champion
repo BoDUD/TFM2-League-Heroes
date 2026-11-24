@@ -54,6 +54,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_faceless_a"
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "abysspact_faceless_cls_range",
           "effect_buff": {
@@ -161,10 +165,6 @@
           }
         },
         {
-          "type": "Sfx",
-          "name": "abysspact_faceless_a"
-        },
-        {
           "type": "TargetSfx",
           "name": "abysspact_faceless_a_hit"
         }
@@ -185,6 +185,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_faceless_foley_q"
+        },
         {
           "type": "Delayed",
           "tick": 9,
@@ -437,6 +441,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_faceless_foley_w"
+        },
+        {
           "type": "Delayed",
           "tick": 9,
           "effects": [
@@ -606,6 +614,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_faceless_r_grasp"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_faceless_r_voice",
@@ -616,10 +628,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_faceless_r_grasp"
         },
         {
           "type": "Delayed",

@@ -345,6 +345,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_bonebow_foley_w"
+        },
+        {
           "type": "AddBuff",
           "buff_state": {
             "name": "abysspact_bonebow_w_mark",
@@ -591,6 +595,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Sfx",
+          "name": "abysspact_bonebow_r_launch"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "abysspact_bonebow_r_voice",
@@ -601,10 +609,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "Sfx",
-          "name": "abysspact_bonebow_r_launch"
         },
         {
           "type": "Delayed",

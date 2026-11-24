@@ -161,758 +161,767 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 11,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_starfall_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_starfall_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_starfall_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_starfall_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_q_track"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_warning"
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 0,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 8,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 16,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 24,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 32,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_q_track"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_warning"
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 0,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 8,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 16,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 24,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 32,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "abysspact_starfall_q_star",
+                            "travel_time": 18,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "abysspact_starfall_star_impact"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "abysspact_starfall_a_hit"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "abysspact_starfall_q_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 15000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 38,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_starfall_q_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_starfall_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_starfall_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_starfall_q_track"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_starfall_warning"
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 0,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 8,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 16,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 24,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 32,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_starfall_q_track"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_starfall_warning"
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 0,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 8,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 16,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 24,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 32,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "abysspact_starfall_q_star",
-                        "travel_time": 18,
-                        "range": 400000,
-                        "range_effect_name": "",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1
-                          }
-                        },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_starfall_star_impact"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "abysspact_starfall_a_hit"
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "abysspact_starfall_q_z",
-                            "shape": {
-                              "Circle": {
-                                "radius": 15000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 38,
-                                  "attack_ratio": 28,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "abysspact_starfall_q_slow",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": -30
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_starfall_live"
             }
           ]
         }
@@ -931,150 +940,159 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 9,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
+          "type": "Sfx",
+          "name": "abysspact_starfall_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "abysspact_starfall_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_starfall_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_starfall_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_dash"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_push"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_dash"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_star_impact"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 22000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 45,
+                            "attack_ratio": 32,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 6
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_starfall_push"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "MoveBack",
+                        "speed": 4000,
+                        "tick": 10
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_dash"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_push"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_dash"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_star_impact"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 22000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 45,
+                            "attack_ratio": 32,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 6
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_starfall_push"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "MoveBack",
+                        "speed": 4000,
+                        "tick": 10
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_starfall_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "abysspact_starfall_live",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_starfall_w_dash"
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_starfall_w_push"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_starfall_dash"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_starfall_star_impact"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 22000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "ApAttack",
-                        "damage": 45,
-                        "attack_ratio": 32,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      },
-                      {
-                        "type": "Knockback",
-                        "speed": 2500,
-                        "tick": 6
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_starfall_push"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "MoveBack",
-                    "speed": 4000,
-                    "tick": 10
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_starfall_w_dash"
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "abysspact_starfall_w_push"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_starfall_dash"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "abysspact_starfall_star_impact"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 22000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "ApAttack",
-                        "damage": 45,
-                        "attack_ratio": 32,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      },
-                      {
-                        "type": "Knockback",
-                        "speed": 2500,
-                        "tick": 6
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_starfall_push"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "MoveBack",
-                    "speed": 4000,
-                    "tick": 10
-                  }
-                ]
-              }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "abysspact_starfall_live"
             }
           ]
         }
@@ -1095,6 +1113,10 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_starfall_foley_r"
+        },
         {
           "type": "AddCasterBuff",
           "buff_state": {
