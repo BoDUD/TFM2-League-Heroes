@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_hwei_sfx_w_ww",
       "volume": 0.55
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_hwei_sfx_vo_w",
+      "volume": 0.85
     }
   ]
 }

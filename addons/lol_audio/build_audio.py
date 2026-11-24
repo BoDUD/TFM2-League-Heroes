@@ -94,8 +94,19 @@ VOICE = {
 }
 # loudness: the game's own multi-kill sounds sit at about -15 dB RMS (peak -4), its BGM at about -14 dB RMS
 VOICE_RMS, VOICE_PEAK = -15.0, -2.0
+CHAMP_VOICE_RMS, CHAMP_VOICE_PEAK = -16.5, -2.5  # champion lifecycle VO: clear over battle SFX, under announcer
 MUSIC_RMS, MUSIC_PEAK = -15.0, -1.5
 RIFT_RMS = -17.0  # the game's match music sits at -14..-17 dB; the Rift's is mixed at about -30 under the game
+GAME_DATA_ZH = "LeagueClient/Plugins/rcp-be-lol-game-data/zh_CN-assets.wad"
+CHAMP_CUES = ("start", "kill", "dead", "respawn")
+SLUG_TO_ALIAS = {"wukong": "monkeyking"}
+SLUG_TO_WAD = {
+    "aurelionsol": "AurelionSol", "belveth": "Belveth", "chogath": "Chogath", "drmundo": "DrMundo",
+    "jarvaniv": "JarvanIV", "kaisa": "Kaisa", "khazix": "Khazix", "kogmaw": "KogMaw",
+    "ksante": "KSante", "leblanc": "Leblanc", "leesin": "LeeSin", "masteryi": "MasterYi",
+    "missfortune": "MissFortune", "reksai": "RekSai", "tahmkench": "TahmKench",
+    "twistedfate": "TwistedFate", "velkoz": "Velkoz", "wukong": "MonkeyKing", "xinzhao": "XinZhao",
+}
 
 
 def read_ogg(wad, name):
@@ -190,23 +201,231 @@ OWN = {"lol_double_kill": "dual_takedown", "lol_triple_kill": "triple_takedown",
        "lol_penta_kill": "annihilation"}
 
 
+def league_slugs():
+    """All League champion slugs in league/champion/league_*.data_champion, sorted."""
+    champ_dir = os.path.join(HERE, "..", "..", "league", "champion")
+    if not os.path.isdir(champ_dir):
+        return []
+    return sorted(
+        f[len("league_"):-len(".data_champion")]
+        for f in os.listdir(champ_dir)
+        if f.startswith("league_") and f.endswith(".data_champion")
+    )
+
+
+def trim_both(x, floor_db=-55.0, max_s=4.2, fade=0.06):
+    """Trim leading and trailing silence, cap duration, and apply a gentle fade-out."""
+    m = np.abs(x).max(1)
+    above = np.nonzero(m > 10 ** (floor_db / 20))[0]
+    if len(above):
+        lo = max(0, int(above[0]) - int(0.01 * SR))
+        hi = min(len(x), int(above[-1]) + int(0.03 * SR))
+        x = x[lo:hi].copy()
+    x = x[: int(max_s * SR)].copy()
+    n = min(len(x), int(fade * SR))
+    if n > 0:
+        x[-n:] *= np.linspace(1, 0, n)[:, None]
+    return x
+
+
 def write_events(root=HERE):
     """sound/sfx/lol_audio_<name>.sound_info for each clip lol_audio.dll plays, and the two remappings of each in
-    mod.override_info (the event and its clip, both looked up under asset/base/sound/sfx/). Other entries stay."""
+    mod.override_info (the event and its clip, both looked up under asset/base/sound/sfx/). Champion lifecycle clips
+    point at sound/bgm/ so the game streams them lazily when played instead of preloading all 692 clips at startup."""
     import json
     path = os.path.join(root, "mod.override_info")
     with open(path, encoding="utf-8") as f:
         info = json.load(f)
+    sfx_dir = os.path.join(root, "sound", "sfx")
+    os.makedirs(sfx_dir, exist_ok=True)
     for clip in list(VOICE) + list(CHAMP):
         if clip in OWN:
             continue
         event = "lol_audio_" + clip[len("lol_"):]
-        with open(os.path.join(root, "sound", "sfx", event + ".sound_info"), "w", encoding="utf-8", newline="\n") as f:
+        with open(os.path.join(sfx_dir, event + ".sound_info"), "w", encoding="utf-8", newline="\n") as f:
             f.write(json.dumps({"plays": [{"delay": 0.0, "clip": clip, "volume": 1.0}]}, separators=(",", ":")) + "\n")
         for name in (event, clip):
             info[f"asset/base/sound/sfx/{name}"] = {"remapping": f"asset/lol_audio/sound/sfx/{name}", "type": "override"}
+    for slug in league_slugs():
+        for cue in CHAMP_CUES:
+            clip = f"lol_ch_{slug}_{cue}"
+            event = f"lol_audio_ch_{slug}_{cue}"
+            with open(os.path.join(sfx_dir, event + ".sound_info"), "w", encoding="utf-8", newline="\n") as f:
+                f.write(json.dumps({"plays": [{"delay": 0.0, "clip": clip, "volume": 0.95}]}, separators=(",", ":")) + "\n")
+            info[f"asset/base/sound/sfx/{event}"] = {"remapping": f"asset/lol_audio/sound/sfx/{event}", "type": "override"}
+            info[f"asset/base/sound/sfx/{clip}"] = {"remapping": f"asset/lol_audio/sound/bgm/{clip}", "type": "override"}
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(info, indent=2, ensure_ascii=False) + "\n")
+
+
+def _pick_vo_media(banks, media, vgmstream, patterns, ev_low, used_ids, min_s=0.45, max_s=5.2):
+    """Find the first matching event in priority order and pick a clear, complete spoken variant."""
+    for pat in patterns:
+        for ev, el in ev_low:
+            if not re.search(pat, el) or any(b in el for b in ("chat", "emote", "ping", "shop", "buyitem", "ward", "ally", "enemy")):
+                continue
+            ids = [m for m in banks.event_media(ev) if m in media and m not in used_ids]
+            if not ids:
+                continue
+            best = None
+            best_score = -1e9
+            for mid in ids[:6]:
+                x = trim_both(wem(media[mid], vgmstream), max_s=max_s)
+                dur = len(x) / SR
+                if dur < min_s:
+                    score = dur * 5.0
+                elif dur <= 3.8:
+                    score = 10.0 + min(dur, 2.4)
+                else:
+                    score = 9.5 - (dur - 3.8) * 1.2
+                if score > best_score:
+                    best_score = score
+                    best = (mid, x, ev)
+            if best:
+                return best
+    return None
+
+
+def build_champion_voices(lol, vgmstream, out_dir, slugs=None):
+    """Extract all 173 LoL champions' start / kill / dead / respawn Chinese voice lines into <out_dir>/bgm/."""
+    import concurrent.futures
+    import json
+
+    slugs = slugs or league_slugs()
+    gd_wad = Wad(os.path.join(lol, GAME_DATA_ZH))
+    summary = json.loads(gd_wad.read_path("plugins/rcp-be-lol-game-data/global/zh_cn/v1/champion-summary.json").decode("utf-8"))
+    alias_to_id = {c["alias"].lower(): c["id"] for c in summary if c.get("id", -1) > 0}
+
+    champs_dir = os.path.join(lol, CHAMPS)
+    zh_wads = {f.lower(): os.path.join(champs_dir, f) for f in os.listdir(champs_dir) if f.lower().endswith(".zh_cn.wad.client")}
+    mn_wads = {f.lower(): os.path.join(champs_dir, f) for f in os.listdir(champs_dir)
+               if f.lower().endswith(".wad.client") and ".zh_cn." not in f.lower() and f.count(".") == 2}
+
+    bgm_dir = os.path.join(out_dir, "bgm")
+    os.makedirs(bgm_dir, exist_ok=True)
+
+    def read_gd_ogg(kind, cid):
+        p = f"plugins/rcp-be-lol-game-data/global/zh_cn/v1/champion-{kind}-vo/{cid}.ogg"
+        if not gd_wad.has(p):
+            return None
+        x, sr = sf.read(io.BytesIO(gd_wad.read_path(p)), always_2d=True)
+        return trim_both(resample(x, sr), max_s=8.0)
+
+    def one(slug):
+        alias = SLUG_TO_ALIAS.get(slug, slug)
+        cid = alias_to_id.get(alias)
+        if cid is None:
+            raise RuntimeError(f"{slug}: not in champion-summary.json (alias {alias})")
+        wad_hint = SLUG_TO_WAD.get(slug, alias).lower()
+        zh_p = zh_wads.get(f"{wad_hint}.zh_cn.wad.client") or zh_wads.get(f"{slug}.zh_cn.wad.client")
+        mn_p = mn_wads.get(f"{wad_hint}.wad.client") or mn_wads.get(f"{slug}.wad.client")
+        if not zh_p or not mn_p:
+            raise RuntimeError(f"{slug}: missing WAD in {champs_dir}")
+
+        mw = Wad(mn_p)
+        vw = Wad(zh_p)
+        base = os.path.basename(mn_p)[:-len(".wad.client")].lower()
+        vo_bank = f"assets/sounds/wwise2016/vo/en_us/characters/{base}/skins/base/{base}_base_vo_"
+        media = parse_wpk(vw.read_path(vo_bank + "audio.wpk"))
+        banks = SoundBanks([vw.read_path(vo_bank + "events.bnk")], media)
+
+        raw = b""
+        for bp in (f"data/characters/{base}/skins/skin0.bin", f"data/characters/{base}/skins/root.bin",
+                   f"data/characters/{base}/{base}.bin"):
+            if mw.has(bp):
+                raw += mw.read_path(bp)
+        wn = os.path.basename(mn_p)[:-len(".wad.client")]
+        evs = set(m.decode("ascii", "ignore") for m in re.findall(rb'Play_vo_[A-Za-z0-9_]{3,80}', raw))
+        for tail in ("Death", "Death3D", "Death2D", "Die", "Kill", "Kill3D", "Kill2D", "KillChampion",
+                     "KillChampion3D", "KillChampion2D", "Kill2DGeneral", "Kill3DGeneral", "Respawn",
+                     "Respawn3D", "Respawn2D", "Respawn2DGeneral", "Respawn3DGeneral",
+                     "Move2DFirst", "Move3DFirst", "Move2DStandard", "Move3D", "Move2D",
+                     "Taunt3DGeneral", "Taunt3D", "Taunt2D", "Laugh3DGeneral", "Attack2DGeneral", "Attack3DGeneral"):
+            evs.add(f"Play_vo_{wn}_{tail}")
+            evs.add(f"Play_vo_{wn}_{wn}{tail}")
+        ev_low = sorted((e, e.lower()) for e in evs if banks.event_media(e))
+
+        used_ids = set()
+        sources = {}
+
+        # 1. start: official Chinese Champion Select pick voice (173/173 iconic quotes!)
+        x_start = read_gd_ogg("choose", cid)
+        if x_start is None:
+            raise RuntimeError(f"{slug}: missing choose-vo/{cid}.ogg")
+        sources["start"] = "choose-vo"
+
+        def ban_or_opening():
+            x_ban = read_gd_ogg("ban", cid)
+            if x_ban is not None:
+                return x_ban, "ban-vo"
+            return x_start, "choose-vo"
+
+        # 2. dead: official Death VO -> fallback ban-vo
+        hit_dead = _pick_vo_media(
+            banks, media, vgmstream,
+            [r'_death(?:3d|2d)?(?:general)?$', r'_death(?:3d|2d)?\d*$', r'death(?:3d|2d)general', r'_death', r'_die'],
+            ev_low, used_ids, min_s=0.35, max_s=5.5,
+        )
+        if hit_dead:
+            used_ids.add(hit_dead[0])
+            x_dead = hit_dead[1]
+            sources["dead"] = hit_dead[2]
+        else:
+            x_dead, sources["dead"] = ban_or_opening()
+
+        # 3. kill: explicit general KillChampion / KillGeneral / Kill -> fallback general Taunt / Laugh / ban-vo
+        hit_kill = _pick_vo_media(
+            banks, media, vgmstream,
+            [r'kill(?:3d|2d)?champion(?:general)?$', r'kill(?:3d|2d)?general$', r'_kill(?:3d|2d)?$',
+             r'takedown(?:3d|2d)?(?:general)?$', r'taunt(?:3d|2d)?general$', r'_taunt(?:3d|2d)?$',
+             r'laugh(?:3d|2d)?general$', r'_laugh(?:3d|2d)?$'],
+            ev_low, used_ids, min_s=0.5, max_s=5.5,
+        )
+        if hit_kill:
+            used_ids.add(hit_kill[0])
+            x_kill = hit_kill[1]
+            sources["kill"] = hit_kill[2]
+        else:
+            x_kill, sources["kill"] = ban_or_opening()
+
+        # 4. respawn: explicit general Respawn -> fallback general FirstMove / MoveStandard / Move / Attack
+        hit_resp = _pick_vo_media(
+            banks, media, vgmstream,
+            [r'respawn(?:3d|2d)?(?:general)?$', r'_respawn(?:3d|2d)?$', r'revive(?:3d|2d)?(?:general)?$',
+             r'move(?:3d|2d)?first$', r'firstmove(?:3d|2d)?(?:general)?$',
+             r'move(?:3d|2d)?standard$', r'move(?:3d|2d)?order$', r'move(?:3d|2d)?general$',
+             r'_move(?:3d|2d)?$', r'attack(?:2d|3d)general$', r'_attack(?:2d|3d)?$'],
+            ev_low, used_ids, min_s=0.5, max_s=5.5,
+        )
+        if hit_resp:
+            used_ids.add(hit_resp[0])
+            x_resp = hit_resp[1]
+            sources["respawn"] = hit_resp[2]
+        else:
+            x_resp, sources["respawn"] = ban_or_opening()
+
+        for cue, arr in (("start", x_start), ("kill", x_kill), ("dead", x_dead), ("respawn", x_resp)):
+            mono = arr.mean(1, keepdims=True)
+            out_p = os.path.join(bgm_dir, f"lol_ch_{slug}_{cue}.mp3")
+            sf.write(out_p, np.clip(level(mono, CHAMP_VOICE_RMS, CHAMP_VOICE_PEAK, limit=True), -1, 1), SR, format="MP3")
+        return slug, sources
+
+    done = 0
+    fallback_counts = {"dead_fallback": 0, "kill_explicit": 0, "respawn_explicit": 0}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
+        for slug, src in ex.map(one, slugs):
+            done += 1
+            if src["dead"] in ("ban-vo", "choose-vo"):
+                fallback_counts["dead_fallback"] += 1
+            if "kill" in src["kill"].lower() or "takedown" in src["kill"].lower():
+                fallback_counts["kill_explicit"] += 1
+            if "respawn" in src["respawn"].lower() or "revive" in src["respawn"].lower():
+                fallback_counts["respawn_explicit"] += 1
+            if done % 25 == 0 or done == len(slugs):
+                print(f"  champions: {done}/{len(slugs)} done (last: {slug} -> dead={src['dead']}, kill={src['kill']}, respawn={src['respawn']})")
+    print(f"Champion lifecycle voices built: {done} champions x 4 cues = {done * 4} MP3s "
+          f"(kill_explicit={fallback_counts['kill_explicit']}, respawn_explicit={fallback_counts['respawn_explicit']}, "
+          f"dead_explicit={done - fallback_counts['dead_fallback']})")
 
 
 def write(path, x):
@@ -226,6 +445,8 @@ def main():
     ap.add_argument("--out", default=os.path.join(HERE, "sound"))
     ap.add_argument("--events", action="store_true",
                     help="only write the sound events and mod.override_info entries (no League install read)")
+    ap.add_argument("--champions", action="store_true",
+                    help="only build the 173 LoL champions' start/kill/dead/respawn voice clips (+ events)")
     ap.add_argument("--only", nargs="+", metavar="CLIP",
                     help="build only these clips (e.g. lol_executed); every other file stays as it is")
     a = ap.parse_args()
@@ -234,6 +455,10 @@ def main():
         return
     if not a.lol or not a.vgmstream:
         ap.error("--lol and --vgmstream are needed to build audio")
+    if a.champions:
+        build_champion_voices(a.lol, a.vgmstream, a.out)
+        write_events()
+        return
     only = set(a.only or ())
     unknown = sorted(c for c in only if c not in DRAFT and c not in VOICE and c not in CHAMP and not RIFT.fullmatch(c))
     if unknown:
@@ -292,6 +517,9 @@ def main():
             sys.exit(f"{event}: {len(ids)} media, no variant {k}")
         x = trim_tail(wem(media[ids[k]], a.vgmstream)).mean(1, keepdims=True)
         write(os.path.join(a.out, "sfx", clip + ".mp3"), level(x, VOICE_RMS, VOICE_PEAK, limit=True))
+        write_events()
+    if not only:
+        build_champion_voices(a.lol, a.vgmstream, a.out)
         write_events()
 
 

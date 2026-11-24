@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_ashe_sfx_r_cast",
       "volume": 1.0
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_ashe_sfx_vo_r",
+      "volume": 1.0
     }
   ]
 }
