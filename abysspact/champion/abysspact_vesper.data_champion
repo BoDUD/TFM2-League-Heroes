@@ -623,7 +623,7 @@
   },
   "ult": {
     "action_name": "idle",
-    "description": "#asset/base/text/champion?description.abysspact_vesper.idle",
+    "description": "#asset/base/text/champion?description.abysspact_vesper.ult",
     "duration": 3,
     "cooltime": 5100,
     "start_timing": 1,

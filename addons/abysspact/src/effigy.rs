@@ -10,6 +10,8 @@
 //!   * 身边找不到第二个敌方英雄：这一下只有伤害和一根针，W 的冷却退回一半。
 //! - R「拆线」：7 万内插着针的敌人，每根针 90 + 45% 法强，拔针时减速 50% 1.5 秒（3 根就是 270 + 135%）。
 //!   数据只对最近被己方打过的敌方英雄按（`EnemyChampionRecentlyAttacked`）；一根针都没拔到时冷却退到只剩 8 秒。
+//! - 退冷却要等冷却真的走起来：冷却在出招动作结束时才开始走，`link_ask` / `unpick_ask` 落在动作中间，那时这一格剩下的
+//!   冷却还是 0，减了也白减。先记下要退多少，等哪一 tick 这一格的冷却大于 0 了再退。
 
 use std::collections::HashMap;
 use mod_api_stable::*;
@@ -68,6 +70,23 @@ pub fn mitigated(amount: usize, mr: usize) -> usize {
     amount.saturating_mul(100) / (100 + mr)
 }
 
+/// 同命线的一轮（每 3 tick）：两人各比上次记下的少了多少血，补给对方 40%；补的伤害下一 tick 才扣，
+/// 先从这次记下的血量里扣掉预计会掉的那一截（按对方魔抗），下一轮就不会把它当成新伤害再弹回去。
+/// 返回 ((补给 A, 补给 B), (下次记下的 A, 下次记下的 B))；补得太少（不到 4 点）就不补。
+pub fn share_round(last: (usize, usize), now: (usize, usize), mr: (usize, usize)) -> ((usize, usize), (usize, usize)) {
+    let to_b = shared_damage(last.0.saturating_sub(now.0));
+    let to_a = shared_damage(last.1.saturating_sub(now.1));
+    let to_a = if to_a >= 4 { to_a } else { 0 };
+    let to_b = if to_b >= 4 { to_b } else { 0 };
+    ((to_a, to_b), (now.0.saturating_sub(mitigated(to_a, mr.0)), now.1.saturating_sub(mitigated(to_b, mr.1))))
+}
+
+/// 要退的冷却：这一 tick 冷却剩 `remaining`，要退到只剩 `keep`。还是 0（出招动作还没完、冷却没开始走）就再等；
+/// 走起来了返回要减掉多少（剩的本来就不多时是 0）。
+pub fn refund_now(remaining: usize, keep: usize) -> Option<usize> {
+    (remaining > 0).then(|| remaining.saturating_sub(keep))
+}
+
 /// 一段红线：从两人中间往回一步放出，朝另一个人飞两步。返回 (起点, 终点)；两人重在一起时不画。
 pub fn thread_flight(a: (u64, u64), b: (u64, u64)) -> Option<((f64, f64), (f64, f64))> {
     let (ax, ay) = (a.0 as f64, a.1 as f64 - THREAD_LIFT);
@@ -94,12 +113,24 @@ struct FateLink {
     last_hp_b: usize,
 }
 
+/// 等着退的冷却：哪一格、退到只剩多少、哪一 tick 记下的。
+#[derive(Clone, Copy)]
+struct Refund {
+    slot: SkillSlotV1,
+    keep: usize,
+    since: usize,
+}
+
+/// 记下的退冷却最多等这么久（出招动作再长也结束了）。
+const REFUND_WAIT: usize = 180;
+
 #[derive(Clone, Default)]
 struct EffigyPassive {
     voice: Voice,
     /// 敌人的实体编号 -> (身上几根针 1..=3, 针到哪一 tick 掉)。
     needles: HashMap<usize, (u8, usize)>,
     link: Option<FateLink>,
+    refunds: Vec<Refund>,
 }
 
 impl EffigyPassive {
@@ -160,11 +191,22 @@ impl EffigyPassive {
         sim.spawn_projectile(THREAD, NOOP, &spec);
     }
 
-    /// 退冷却：`slot` 剩下的冷却减掉 `ticks`。
-    fn refund(sim: &mut StableSim<'_>, entity: usize, slot: SkillSlotV1, ticks: usize) {
-        if ticks > 0 {
-            sim.entity_reduce_cooldown(entity, slot, ticks);
+    /// 记下的退冷却：这一格的冷却走起来了就退，等太久就算了。
+    fn settle_refunds(&mut self, sim: &mut StableSim<'_>, entity: usize, tick: usize) {
+        let mut keep_waiting = Vec::new();
+        for r in std::mem::take(&mut self.refunds) {
+            let remaining = sim.get_entity(entity).and_then(|e| e.cooldown(r.slot)).map_or(0, |c| c.remaining);
+            match refund_now(remaining, r.keep) {
+                Some(cut) => {
+                    if cut > 0 {
+                        sim.entity_reduce_cooldown(entity, r.slot, cut);
+                    }
+                }
+                None if tick <= r.since + REFUND_WAIT => keep_waiting.push(r),
+                None => {}
+            }
         }
+        self.refunds = keep_waiting;
     }
 }
 
@@ -176,6 +218,7 @@ impl StablePassive for EffigyPassive {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
         self.needles.clear();
         self.link = None;
+        self.refunds.clear();
         self.voice.on_spawn(sim, HERO, entity);
     }
 
@@ -227,6 +270,11 @@ impl StablePassive for EffigyPassive {
             self.voice.play(sim, HERO, entity, Cue::Ult);
         }
 
+        // 0. 记下的退冷却：冷却走起来了就退
+        if !self.refunds.is_empty() {
+            self.settle_refunds(sim, entity, tick);
+        }
+
         // 1. 技能打中挂的扎针请求、W 的同命线请求
         let mut needle_hits = Vec::new();
         let mut link_primary = None;
@@ -273,12 +321,10 @@ impl StablePassive for EffigyPassive {
                 sim.play_sfx("abysspact_effigy_thread_knot", entity, &InputTargetV1::target(a));
                 self.link = Some(FateLink { a, b, end_tick: tick + LINK_TICKS, last_hp_a: ahp, last_hp_b: bhp });
             } else {
-                // 身边没有第二个人：这次只是一下伤害，冷却退回一半
-                let half = sim
-                    .get_entity(entity)
-                    .and_then(|e| e.cooldown(SkillSlotV1::Skill2))
-                    .map_or(0, |c| c.cooltime.saturating_mul(W_REFUND_PCT) / 100);
-                Self::refund(sim, entity, SkillSlotV1::Skill2, half);
+                // 身边没有第二个人：这次只是一下伤害，冷却退回一半（等动作结束、冷却走起来再退）
+                let cooltime = sim.get_entity(entity).and_then(|e| e.cooldown(SkillSlotV1::Skill2)).map_or(0, |c| c.cooltime);
+                let keep = cooltime - cooltime.saturating_mul(W_REFUND_PCT) / 100;
+                self.refunds.push(Refund { slot: SkillSlotV1::Skill2, keep, since: tick });
             }
         }
 
@@ -301,21 +347,16 @@ impl StablePassive for EffigyPassive {
                     } else {
                         Self::draw_thread(sim, entity, my_team, pa, pb);
                         if tick % 3 == 0 {
-                            let share_to_b = shared_damage(lk.last_hp_a.saturating_sub(ha));
-                            let share_to_a = shared_damage(lk.last_hp_b.saturating_sub(hb));
-                            let mut expect_a = 0;
-                            let mut expect_b = 0;
-                            if share_to_b >= 4 {
-                                sim.deal_damage_typed(entity, lk.b, share_to_b, DamageTypeV1::Ap, AttackTypeV1::Skill);
-                                expect_b = mitigated(share_to_b, mrb);
+                            let ((to_a, to_b), (next_a, next_b)) =
+                                share_round((lk.last_hp_a, lk.last_hp_b), (ha, hb), (mra, mrb));
+                            if to_b > 0 {
+                                sim.deal_damage_typed(entity, lk.b, to_b, DamageTypeV1::Ap, AttackTypeV1::Skill);
                             }
-                            if share_to_a >= 4 {
-                                sim.deal_damage_typed(entity, lk.a, share_to_a, DamageTypeV1::Ap, AttackTypeV1::Skill);
-                                expect_a = mitigated(share_to_a, mra);
+                            if to_a > 0 {
+                                sim.deal_damage_typed(entity, lk.a, to_a, DamageTypeV1::Ap, AttackTypeV1::Skill);
                             }
-                            // 补的伤害下一 tick 才扣：先从记下的血量里扣掉，下一次就不会再弹回去
-                            lk.last_hp_a = ha.saturating_sub(expect_a);
-                            lk.last_hp_b = hb.saturating_sub(expect_b);
+                            lk.last_hp_a = next_a;
+                            lk.last_hp_b = next_b;
                             self.link = Some(lk);
                         }
                     }
@@ -339,12 +380,8 @@ impl StablePassive for EffigyPassive {
                 })
                 .collect();
             if targets.is_empty() {
-                // 一根针都没有：冷却退到只剩 R_RETRY
-                let left = sim
-                    .get_entity(entity)
-                    .and_then(|e| e.cooldown(SkillSlotV1::Ult))
-                    .map_or(0, |c| c.remaining.saturating_sub(R_RETRY));
-                Self::refund(sim, entity, SkillSlotV1::Ult, left);
+                // 一根针都没有：冷却退到只剩 R_RETRY（等动作结束、冷却走起来再退）
+                self.refunds.push(Refund { slot: SkillSlotV1::Ult, keep: R_RETRY, since: tick });
             }
             for (eid, cnt, at) in targets {
                 self.needles.remove(&eid);
@@ -406,13 +443,31 @@ mod tests {
 
     #[test]
     fn a_share_does_not_bounce_back() {
-        // A 掉 250：B 补 100；B 魔抗 25，预计掉 80。下一次 B 真掉了 80：算出来没有新伤害，不再弹回 A
-        let share = shared_damage(250);
-        let expect = mitigated(share, 25);
-        assert_eq!(expect, 80);
-        let (hb, last_b) = (1_000usize, 1_000usize - expect);
-        let actual_after = hb - 80;
-        assert_eq!(shared_damage(last_b.saturating_sub(actual_after)), 0);
+        // 第一轮：A 掉了 250，B 没事。补给 B 100（B 魔抗 25，下一 tick 真掉 80），补给 A 0
+        let ((to_a, to_b), (last_a, last_b)) = share_round((1_000, 1_000), (750, 1_000), (25, 25));
+        assert_eq!((to_a, to_b), (0, 100));
+        assert_eq!((last_a, last_b), (750, 920));
+        // 第二轮：B 真掉了那 80，别的什么都没发生 —— 不能再补回 A（以前补完重读血量，读到的是没扣的，会补 32 回去）
+        let ((to_a, to_b), _) = share_round((last_a, last_b), (750, 920), (25, 25));
+        assert_eq!((to_a, to_b), (0, 0));
+        // 第二轮里 B 自己又挨了 50：只有这 50 的 40% 补给 A
+        let ((to_a, to_b), _) = share_round((last_a, last_b), (750, 870), (25, 25));
+        assert_eq!((to_a, to_b), (20, 0));
+        // 太少的不补
+        let ((to_a, to_b), (la, lb)) = share_round((100, 100), (95, 100), (0, 0));
+        assert_eq!((to_a, to_b, la, lb), (0, 0, 95, 100));
+    }
+
+    #[test]
+    fn a_refund_waits_until_the_cooldown_runs() {
+        // 出招动作还没完：这一格的冷却还是 0，先不退
+        assert_eq!(refund_now(0, 367), None);
+        // 动作结束、冷却从满的开始走：退到只剩 367
+        assert_eq!(refund_now(734, 367), Some(367));
+        // R 没拔到针：3400 退到只剩 480
+        assert_eq!(refund_now(3_400, R_RETRY), Some(3_400 - R_RETRY));
+        // 剩的本来就比要留的少：不退
+        assert_eq!(refund_now(100, R_RETRY), Some(0));
     }
 
     #[test]

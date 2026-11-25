@@ -271,7 +271,22 @@ mod tests {
         // 中心相距 2.7 万：1.5 万 + 他 6000 + 对方 6000 正好够到
         assert!(within((0, 0), 6_000, (27_000, 0), 6_000, CLEAVE_RADIUS));
         assert!(!within((0, 0), 6_000, (27_001, 0), 6_000, CLEAVE_RADIUS));
-        // 狼形近战 2.6 万 + 人形 1.9 万 = 4.5 万
-        assert_eq!(26_000 + HUMAN_BONUS_RANGE, 45_000);
+    }
+
+    #[test]
+    fn the_kit_attack_is_wolf_reach_plus_the_human_bonus() {
+        // 生成好的技能文件：普攻射程是狼形近战 2.6 万，普攻最外层带着 human_range；人形加上本包的 1.9 万正好是设计的 4.5 万
+        let kit = include_str!("../../../abysspact/champion/abysspact_bloodmoon.data_champion");
+        let attack = &kit[kit.find("\"attack\": {").expect("attack action")..];
+        let attack = &attack[..attack.find("\"skill\": {").expect("skill action after attack")];
+        let range: u64 = attack
+            .split("\"range\": ")
+            .nth(1)
+            .and_then(|r| r.split(|c: char| !c.is_ascii_digit()).next())
+            .and_then(|n| n.parse().ok())
+            .expect("attack range");
+        assert_eq!(range, 26_000, "狼形的近战射程");
+        assert!(attack.contains(&format!("\"effect_ref\": \"{HUMAN_RANGE}\"")), "普攻带着人形加射程的原生效果");
+        assert_eq!(range + HUMAN_BONUS_RANGE, 45_000, "人形银弩 4.5 万");
     }
 }

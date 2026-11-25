@@ -3,8 +3,10 @@
 //! - Q「扑附」扑中敌方英雄后附在他背上 3 秒（180 tick）：
 //!   * 附着时受到的伤害减为 0（`attached`），显示钩子把动作换成 `attach`。没做成真正的选不中：引擎里选不中只有放逐，
 //!     放逐会把他整个藏起来、也放不了蚀髓，和设计的「画在宿主身后、附着时对宿主放 W」对不上；
-//!   * 宿主一动，就用一 tick 的强制位移把他挪到宿主背后（宿主走的方向的反面，再往屏幕上方挪一点，画在宿主身后）。
-//!     强制位移画面跟着走；以前每 3 tick 直接改坐标，画面不跟，下次出手才一下跳过去；
+//!   * 每 tick 把他摆到宿主背后（宿主走的方向的反面，再往屏幕上方挪一点，画在宿主身后），模拟里的位置跟着宿主走，
+//!     普攻、蚀髓都从背上出。画面只跟走路和强制位移走（直接改坐标画面不跟）：他没在出招、没被控、宿主走开了一截时，
+//!     隔几 tick 推他一下（一 tick、几乎不动的强制位移），画面就跳到他现在的位置。不能每 tick 都强制位移：强制位移期间
+//!     出不了招，骑在跑动的宿主背上就放不了蚀髓（附着时 1.75 秒沉默）、也打不了人；
 //!   * 每 0.5 秒吸宿主 2.5% 最大生命（魔法伤害），等量治疗自己；宿主 -30% 移速（`host_mark`，附多久慢多久）；
 //!   * 附骨之疽：宿主每 tick 掉的血他跟着挨 25%，扣掉他自己吸的那一口（吸血下一 tick 才结算，吸完先从记下的血量里扣掉
 //!     预计掉的血）。以前只看每 3 tick 里的那一 tick，只挨到三分之一，有时还把自己吸的那口算进去；
@@ -47,10 +49,15 @@ pub const SWARM_LEECHES: usize = 5;
 /// 一个人身上最多几只小水蛭。
 pub const MAX_PER_HOST: usize = 2;
 pub const MINI_SPEED: u64 = 8_200;
-/// 贴在宿主背后：横着离多远、往屏幕上方挪多少（画在宿主身后）；差得不多就不挪。
+/// 贴在宿主背后：横着离多远、往屏幕上方挪多少（画在宿主身后）。
 pub const FOLLOW_BACK: f64 = 3_500.0;
 pub const FOLLOW_LIFT: f64 = 1_500.0;
-pub const FOLLOW_SLACK: f64 = 600.0;
+/// 推一下让画面跟上：最少隔几 tick、宿主比上次推的时候走开了多远才推、普攻出手后多少 tick 内不推（普攻还没打完）。
+pub const NUDGE_EVERY: usize = 6;
+pub const NUDGE_MOVED: f64 = 1_500.0;
+pub const ACT_GUARD: usize = 36;
+/// 蚀髓出手时数据挂的标记（整个动作那么长）：挂着时不推他。
+pub const W_CAST: &str = "abysspact_leech_w_cast";
 /// 放逐到点后最多再等几 tick 让他出来。
 pub const OUT_GRACE: usize = 5;
 
@@ -65,6 +72,18 @@ pub fn shared_pain(host_lost: usize, pct: usize) -> usize {
 /// 魔法伤害打到身上大约掉多少血（按 100 / (100 + 魔抗)）。
 pub fn mitigated(amount: usize, mr: usize) -> usize {
     amount.saturating_mul(100) / (100 + mr)
+}
+
+/// 宿主这一 tick 比上次记下的少了多少血，和这次该记下的血：`drain` 是他这一 tick 刚吸的那一口预计会掉的血
+/// （吸血下一 tick 才扣），先从记下的血里扣掉，下一 tick 那一口落地时就不算成外人打的。
+pub fn pain_step(last_hp: usize, cur_hp: usize, drain: usize) -> (usize, usize) {
+    (last_hp.saturating_sub(cur_hp), cur_hp.saturating_sub(drain))
+}
+
+/// 这一 tick 推不推他一下（只为了让画面跟上）：离上次推过了 NUDGE_EVERY tick、宿主走开了一截、他没在忙（被控、
+/// 放蚀髓、普攻没打完）。
+pub fn nudge_now(since_nudge: usize, host_moved: f64, busy: bool) -> bool {
+    !busy && since_nudge >= NUDGE_EVERY && host_moved >= NUDGE_MOVED
 }
 
 /// 附骨之疽按 tick 攒着算（单位：百分之一点生命），攒够 4 点才扣一次，返回这次扣几点。
@@ -132,6 +151,9 @@ struct HostAttach {
     /// 宿主背后在哪一边：-1 左边、+1 右边（宿主往右走，背后就在左边）。
     back: f64,
     last_host_pos: (u64, u64),
+    /// 上次推他（画面跟上）的 tick 和那时宿主在哪。
+    nudged: usize,
+    drawn_at: (u64, u64),
 }
 
 #[derive(Clone)]
@@ -152,6 +174,8 @@ struct LeechPassive {
     swarm: Option<SwarmState>,
     /// 攒着还没扣的附骨之疽（百分之一点生命）。
     owed: usize,
+    /// 他上一次普攻出手的 tick。
+    last_auto: Option<usize>,
 }
 
 impl LeechPassive {
@@ -188,8 +212,10 @@ impl LeechPassive {
             // 从哪边扑上来就先挂在哪边
             back: if my_x > host_pos.0 { 1.0 } else { -1.0 },
             last_host_pos: host_pos,
+            nudged: 0,
+            drawn_at: (u64::MAX, u64::MAX),
         });
-        // 伤害减为 0；不免控：强制位移要能挪得动他
+        // 伤害减为 0；不免控：推他一下（画面跟上）的强制位移要推得动
         let mut att = BuffV1::timed(ATTACHED_BUFF, dur);
         att.damaged_reduce = 100;
         sim.entity_remove_buff(entity, ATTACHED_BUFF);
@@ -219,18 +245,29 @@ impl LeechPassive {
         false
     }
 
-    /// 宿主一动就把他挪到宿主背后（一 tick 的强制位移，画面跟着走）。
-    fn follow(sim: &mut StableSim<'_>, entity: usize, att: &mut HostAttach, host_pos: (u64, u64)) {
+    /// 每 tick 把他摆到宿主背后；没在忙、宿主走开了一截时推他一下让画面跟上。
+    fn follow(&self, sim: &mut StableSim<'_>, entity: usize, att: &mut HostAttach, host_pos: (u64, u64), tick: usize) {
         let dx = host_pos.0 as f64 - att.last_host_pos.0 as f64;
         if dx.abs() > 200.0 {
             att.back = if dx > 0.0 { -1.0 } else { 1.0 };
         }
         att.last_host_pos = host_pos;
-        let Some(me) = sim.get_entity(entity).map(|e| e.pos()) else { return };
-        let want = (host_pos.0 as f64 + att.back * FOLLOW_BACK, (host_pos.1 as f64 - FOLLOW_LIFT).max(0.0));
-        let d = (want.0 - me.0 as f64, want.1 - me.1 as f64);
-        if (d.0 * d.0 + d.1 * d.1).sqrt() > FOLLOW_SLACK {
-            force_move(sim, entity, d, 1);
+        let want_x = (host_pos.0 as f64 + att.back * FOLLOW_BACK).clamp(12_000.0, 948_000.0);
+        let want_y = (host_pos.1 as f64 - FOLLOW_LIFT).clamp(12_000.0, 948_000.0);
+        sim.entity_set_pos(entity, want_x.round() as u64, want_y.round() as u64);
+        let moved = if att.drawn_at.0 == u64::MAX {
+            f64::INFINITY
+        } else {
+            (host_pos.0 as f64 - att.drawn_at.0 as f64).hypot(host_pos.1 as f64 - att.drawn_at.1 as f64)
+        };
+        let busy = !crate::can_cast(sim, entity)
+            || has_buff(sim, entity, W_CAST)
+            || self.last_auto.is_some_and(|t| tick < t + ACT_GUARD);
+        if nudge_now(tick.saturating_sub(att.nudged), moved, busy) {
+            // 几乎不动的一 tick 强制位移：画面跳到他现在的位置
+            force_move(sim, entity, (att.back * 50.0, 0.0), 1);
+            att.nudged = tick;
+            att.drawn_at = host_pos;
         }
     }
 
@@ -303,7 +340,12 @@ impl StablePassive for LeechPassive {
         self.attach = None;
         self.swarm = None;
         self.owed = 0;
+        self.last_auto = None;
         self.voice.on_spawn(sim, HERO, entity);
+    }
+
+    fn on_base_attack(&mut self, sim: &mut StableSim<'_>, _rng: u64, _player: usize, _entity: usize) {
+        self.last_auto = Some(sim.tick());
     }
 
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize, target: usize, _damage: &mut usize) {
@@ -379,11 +421,6 @@ impl StablePassive for LeechPassive {
                 if !h_alive {
                     continue;
                 }
-                let lost = (*last_hp).saturating_sub(cur_hp);
-                if lost > 0 {
-                    total_pain = total_pain.saturating_add(lost);
-                    source = Some(*hid);
-                }
                 let mut expect = 0;
                 if do_drain {
                     let amt = max_hp.saturating_mul(SWARM_DRAIN_PCT * (*cnt)) / 100;
@@ -394,8 +431,12 @@ impl StablePassive for LeechPassive {
                         sim.play_view_effect("abysspact_leech_drain", entity, &InputTargetV1::target(*hid), 0, 0, 0);
                     }
                 }
-                // 自己吸的那一口下一 tick 才扣：先从记下的血量里扣掉，不算进附骨之疽
-                *last_hp = cur_hp.saturating_sub(expect);
+                let (lost, next) = pain_step(*last_hp, cur_hp, expect);
+                if lost > 0 {
+                    total_pain = total_pain.saturating_add(lost);
+                    source = Some(*hid);
+                }
+                *last_hp = next;
             }
             let pain = pay_pain(&mut self.owed, total_pain, SWARM_SHARED_PCT);
             let still = pain == 0 || self.suffer(sim, entity, source.unwrap_or(entity), pain);
@@ -433,8 +474,8 @@ impl StablePassive for LeechPassive {
                 .map(|e| (e.is_alive(), e.pos(), e.hp().0, e.hp().1, e.stat().magic_resistance));
             match host {
                 Some((true, hpos, cur_hp, max_hp, mr)) if tick < att.end_tick => {
-                    Self::follow(sim, entity, &mut att, hpos);
-                    let lost = att.last_host_hp.saturating_sub(cur_hp);
+                    self.follow(sim, entity, &mut att, hpos, tick);
+                    let (lost, _) = pain_step(att.last_host_hp, cur_hp, 0);
                     let pain = pay_pain(&mut self.owed, lost, SHARED_PAIN_PCT);
                     if pain > 0 && !self.suffer(sim, entity, att.host_id, pain) {
                         return;
@@ -451,8 +492,7 @@ impl StablePassive for LeechPassive {
                             sim.play_sfx("abysspact_leech_drain", entity, &InputTargetV1::target(att.host_id));
                         }
                     }
-                    // 自己吸的那一口下一 tick 才扣：先从记下的血量里扣掉，不算进附骨之疽
-                    att.last_host_hp = cur_hp.saturating_sub(expect);
+                    att.last_host_hp = pain_step(att.last_host_hp, cur_hp, expect).1;
                     self.attach = Some(att);
                 }
                 Some((false, dead_pos, _, _, _)) if !att.jumped => {
@@ -543,10 +583,26 @@ mod tests {
 
     #[test]
     fn own_drain_is_not_counted_as_pain() {
-        // 吸了 50（魔抗 25 -> 掉 40）：记下的血先扣 40，下一 tick 宿主真掉了 40，算出来 0
-        let expect = mitigated(50, 25);
-        assert_eq!(expect, 40);
-        let last = 1_000 - expect;
-        assert_eq!(shared_pain(last - (1_000 - 40), SHARED_PAIN_PCT), 0);
+        // 第 0 tick：宿主 1000 血，他吸了 50（宿主魔抗 25，下一 tick 真掉 40）
+        let (lost, last) = pain_step(1_000, 1_000, mitigated(50, 25));
+        assert_eq!((lost, last), (0, 960));
+        // 第 1 tick：那一口落地，宿主 960：不算外人打的（以前吸完重读血量，读到 1000，这 40 会算成外伤）
+        let (lost, last) = pain_step(last, 960, 0);
+        assert_eq!((lost, last), (0, 960));
+        // 第 2 tick：队友打了宿主 100：这 100 算
+        let (lost, _) = pain_step(last, 860, 0);
+        assert_eq!(lost, 100);
+        assert_eq!(shared_pain(lost, SHARED_PAIN_PCT), 25);
+    }
+
+    #[test]
+    fn he_is_only_nudged_when_idle_and_left_behind() {
+        // 宿主走开一截、隔了够久、他闲着：推
+        assert!(nudge_now(NUDGE_EVERY, NUDGE_MOVED, false));
+        // 正在出招 / 被控（推了就会打断）：不推
+        assert!(!nudge_now(NUDGE_EVERY * 10, NUDGE_MOVED * 10.0, true));
+        // 刚推过、宿主没怎么动：不推
+        assert!(!nudge_now(NUDGE_EVERY - 1, NUDGE_MOVED * 10.0, false));
+        assert!(!nudge_now(NUDGE_EVERY * 10, NUDGE_MOVED - 1.0, false));
     }
 }
