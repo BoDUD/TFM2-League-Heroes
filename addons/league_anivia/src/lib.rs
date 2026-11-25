@@ -719,8 +719,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     {
         let known = view::set_game(v.major, v.minor, v.patch);
         wlog(format!("FORM the egg's stun / airborne display timers and the animation clock: {}",
-                     if known { "cleared / restarted by the hook (fields read from game 0.7.2's and 0.7.3's code)" }
-                     else { "left alone on this game version (checked on 0.7.2 and 0.7.3 only): a stunned egg shows the bird's hit pose" }));
+                     if known { "cleared / restarted by the hook (fields read from game 0.7.2's, 0.7.3's and 0.7.4's code)" }
+                     else { "left alone on this game version (checked on 0.7.2, 0.7.3 and 0.7.4 only): a stunned egg shows the bird's hit pose" }));
         view::install_once();
     }
     host.log(LogLevel::Info, "league_anivia loaded (Rebirth's egg, a real wall, Frostbite on Iced).");

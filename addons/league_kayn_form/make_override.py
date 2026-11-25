@@ -10,6 +10,8 @@ and the base game's champion sheet (bundle.game_data: asset/base/setting/champio
         (30 ticks) on the champion hit, and the attack's champion twin tags too;
       - the attack starts by playing the main pack's transformation when the add-on's ready flag is on
         (league_kayn_ready_d / _s: the main pack's own transform block, plus removing the flag);
+      - R's re-dashes onto the host and its exit wait on league_kayn_r_free (0.3.12, `leash_r`: the add-on lets go of
+        a host moved away or gone - he comes out where he is instead of following Karthus's body home);
       - passive = the add-on's passive league_kayn_form:orbs {darkin_need, shadow_need}, which counts the tags by the
         champion's attack range (melee -> Darkin, ranged -> Shadow Assassin), sets the ready flag for the first full
         side and keeps the form for the rest of the match (death included);
@@ -35,6 +37,7 @@ import generated  # noqa: E402  --check
 MOD_ID = "league_kayn_form"
 TEXT_KEY = "description.league_kayn_form.attack"
 MARK = "league_kayn_mk_charge"
+R_FREE = "league_kayn_r_free"
 TAG = "league_kayn_tag"
 TAG_T = 30
 NEED = {"darkin_need": 14, "shadow_need": 14}     # tried 25, 40, 30; back to 14 (the user, 2026-10-06: 「还是全部调成14次吧 不然打野太慢了」)
@@ -145,6 +148,42 @@ def ranges(game):
     return dict(sorted(out.items()))
 
 
+def leash_r(champion):
+    """0.3.12: R's re-dashes onto the host and its exit wait on the add-on's league_kayn_r_free (src/lib.rs update_r: the
+    host was moved away in one tick - Karthus's body goes home as he turns spirit - or is gone): every re-dash but the
+    last does nothing then, and the last one's exit becomes a plain exit where he is (its picture and sound, no hit)."""
+    eff = champion["ult"]["effect"]["effects"]
+    dash = [n for n in eff if isinstance(n, dict) and n.get("type") == "MoveToTarget"]
+    if len(dash) != 1:
+        sys.exit("expected one dash in the ult's top Combine: update this script")
+    end = dash[0]["end_effects"]
+    delays = [n for n in end if isinstance(n, dict) and n.get("type") == "Delayed" and len(n.get("effects", [])) == 1
+              and n["effects"][0].get("type") == "MoveToTarget"]
+    if len(delays) != 12:
+        sys.exit("expected 12 re-dashes in the ult, found %d: update this script" % len(delays))
+    none = {"type": "Combine", "effects": []}
+    for d in delays[:-1]:
+        m = d["effects"][0]
+        if m.get("end_effects"):
+            sys.exit("a re-dash with end effects before the last one: update this script")
+        d["effects"] = [{"type": "SwitchByBuff", "buff_name": R_FREE, "effect_buff": copy.deepcopy(none), "effect_none": m}]
+    m = delays[-1]["effects"][0]
+    if len(m.get("end_effects", [])) != 1 or m["end_effects"][0].get("type") != "Combine":
+        sys.exit("the last re-dash's exit is not one Combine: update this script")
+    plain = []
+    for n in m["end_effects"][0]["effects"]:
+        plain.append(copy.deepcopy(n))
+        if n.get("type") == "Sfx" and n.get("name") == "league_kayn_r_exit":
+            break
+    else:
+        sys.exit("no league_kayn_r_exit sound in the exit: update this script")
+    plain.append({"type": "RemoveCasterBuff", "name": R_FREE})
+    delays[-1]["effects"] = [{"type": "SwitchByBuff", "buff_name": R_FREE,
+                              "effect_buff": {"type": "Combine", "effects": plain}, "effect_none": m}]
+    # a flag left from an earlier R must not cut this one short
+    end.insert(0, {"type": "RemoveCasterBuff", "name": R_FREE})
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--game", help="Teamfight Manager 2 folder (default: the usual Steam places)")
@@ -164,6 +203,7 @@ def main():
     left = re.findall(r'"name": "league_kayn_(?:dc|sc)\d+", "duration": "Permanent"', kit)
     if left:
         sys.exit("charge steps still added after the swap: %s" % left)
+    leash_r(champion)
     twin = find(champion["attack"], lambda n: isinstance(n, dict) and n.get("name") == "league_kayn_atk_twin")
     if twin is None:
         sys.exit("no champion twin on the attack: update this script")
