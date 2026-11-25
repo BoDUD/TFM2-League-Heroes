@@ -130,7 +130,7 @@
       "abysspact_starfall": {
         "name": "陨夜",
         "attack": "唤落延迟0.5秒黑星，砸中范围造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>伤害（溅射60%）。<#ef5350ff>代价<>：3万内贴脸普攻落空。",
-        "skill": "沿直线依次落下5颗黑星，每颗造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害并<#ef5350ff>减速30%<>。",
+        "skill": "沿直线由近到远落下5颗黑星，每颗造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害；被砸中两颗以上的人<#ef5350ff>减速30%<>。",
         "skill2": "化作星光向后闪退拉开身位，原地落下黑星造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害并<#ef5350ff>击退<>近身敌人。",
         "ult": "撕裂夜空在目标大范围倾泻<#ffb900ff>4秒黑星雨<>，持续造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，期间可自由移动。"
       },
@@ -376,7 +376,7 @@
       "abysspact_starfall": {
         "name": "隕夜",
         "attack": "喚落延遲0.5秒黑星，砸中範圍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>傷害（濺射60%）。<#ef5350ff>代價<>：3萬內貼臉普攻落空。",
-        "skill": "沿直線依序落下5顆黑星，每顆造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害並<#ef5350ff>減速30%<>。",
+        "skill": "沿直線由近到遠落下5顆黑星，每顆造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害；被砸中兩顆以上者<#ef5350ff>減速30%<>。",
         "skill2": "化作星光向後閃退拉開身位，原地落下黑星造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害並<#ef5350ff>擊退<>近身敵人。",
         "ult": "撕裂夜空在目標大範圍傾瀉<#ffb900ff>4秒黑星雨<>，持續造成<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，期間可自由移動。"
       },
@@ -622,7 +622,7 @@
       "abysspact_starfall": {
         "name": "Starfall",
         "attack": "Call down a 0.5s-delayed Black Star dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> AoE damage (60% splash). <#ef5350ff>Cost<>: attacks miss foes inside 30k range.",
-        "skill": "Drop 5 sequential Black Stars for <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage each and <#ef5350ff>30% slow<>.",
+        "skill": "Drop 5 Black Stars one by one along a line for <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage each; foes hit by two or more are <#ef5350ff>30% slowed<>.",
         "skill2": "Flash backward as starlight, dropping a Black Star for <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> magic damage and <#ef5350ff>knockback<>.",
         "ult": "Tear open the night sky to rain Black Stars for <#ffb900ff>4s<>, repeatedly dealing <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage while moving."
       },
@@ -868,7 +868,7 @@
       "abysspact_starfall": {
         "name": "隕夜",
         "attack": "0.5秒遅れて黒い星を落とし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>範囲ダメ（周囲60%）。<#ef5350ff>代償<>：近距離3万以内の通常攻撃は空振り。",
-        "skill": "直線上に5発の黒星を落とし、各<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法と<#ef5350ff>30%スロウ<>。",
+        "skill": "直線上に5発の黒星を順に落とし各<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法、2発以上当たると<#ef5350ff>30%スロウ<>。",
         "skill2": "星光となって後方へ跳び、元の位置に黒星を落として<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法と<#ef5350ff>ノックバック<>。",
         "ult": "夜空を裂き<#ffb900ff>4秒間の黒星雨<>を降らせ、継続して<#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法ダメージ。"
       },
@@ -1114,7 +1114,7 @@
       "abysspact_starfall": {
         "name": "운야",
         "attack": "0.5초 후 낙하하는 검은 별로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 범위 피해(주변 60%). <#ef5350ff>대가<>: 3만 이내 초근접 평타는 빗나감.",
-        "skill": "일직선으로 검은 별 5개를 떨어뜨려 각 <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해와 <#ef5350ff>30% 둔화<>.",
+        "skill": "일직선으로 검은 별 5개를 차례로 떨어뜨려 각 <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, 2개 이상 맞으면 <#ef5350ff>30% 둔화<>.",
         "skill2": "별빛이 되어 뒤로 도약하며 제자리에 검은 별을 떨어뜨려 <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해와 <#ef5350ff>밀쳐내기<>.",
         "ult": "밤하늘을 갈라 <#ffb900ff>4초간 검은 별비<>를 쏟아부어 지속적으로 <#a974ffff>38<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해."
       },

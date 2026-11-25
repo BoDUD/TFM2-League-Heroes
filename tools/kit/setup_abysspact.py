@@ -1039,31 +1039,31 @@ def build_i18n():
     ps = B.PARAMS["starfall"]
     put("abysspact_starfall", "zh-hans", "陨夜",
         f"唤落延迟0.5秒黑星，砸中范围造成{ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E}伤害（溅射60%）。{R}代价{E}：3万内贴脸普攻落空。",
-        f"沿直线依次落下5颗黑星，每颗造成{ap(ps['q_dmg'], ps['q_ap'])}魔法伤害并{R}减速{ps['q_slow']}%{E}。",
+        f"沿直线由近到远落下5颗黑星，每颗造成{ap(ps['q_dmg'], ps['q_ap'])}魔法伤害；被砸中两颗以上的人{R}减速{ps['q_slow']}%{E}。",
         f"化作星光向后闪退拉开身位，原地落下黑星造成{ap(ps['w_dmg'], ps['w_ap'])}魔法伤害并{R}击退{E}近身敌人。",
         f"撕裂夜空在目标大范围倾泻{A}4秒黑星雨{E}，持续造成{ap(ps['r_dmg'], ps['r_ap'])}魔法伤害，期间可自由移动。",
         "星轨", "遁星", "陨夜")
     put("abysspact_starfall", "zh-hant", "隕夜",
         f"喚落延遲0.5秒黑星，砸中範圍造成{ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E}傷害（濺射60%）。{R}代價{E}：3萬內貼臉普攻落空。",
-        f"沿直線依序落下5顆黑星，每顆造成{ap(ps['q_dmg'], ps['q_ap'])}魔法傷害並{R}減速{ps['q_slow']}%{E}。",
+        f"沿直線由近到遠落下5顆黑星，每顆造成{ap(ps['q_dmg'], ps['q_ap'])}魔法傷害；被砸中兩顆以上者{R}減速{ps['q_slow']}%{E}。",
         f"化作星光向後閃退拉開身位，原地落下黑星造成{ap(ps['w_dmg'], ps['w_ap'])}魔法傷害並{R}擊退{E}近身敵人。",
         f"撕裂夜空在目標大範圍傾瀉{A}4秒黑星雨{E}，持續造成{ap(ps['r_dmg'], ps['r_ap'])}魔法傷害，期間可自由移動。",
         "星軌", "遁星", "隕夜")
     put("abysspact_starfall", "en", "Starfall",
         f"Call down a 0.5s-delayed Black Star dealing {ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E} AoE damage (60% splash). {R}Cost{E}: attacks miss foes inside 30k range.",
-        f"Drop 5 sequential Black Stars for {ap(ps['q_dmg'], ps['q_ap'])} magic damage each and {R}{ps['q_slow']}% slow{E}.",
+        f"Drop 5 Black Stars one by one along a line for {ap(ps['q_dmg'], ps['q_ap'])} magic damage each; foes hit by two or more are {R}{ps['q_slow']}% slowed{E}.",
         f"Flash backward as starlight, dropping a Black Star for {ap(ps['w_dmg'], ps['w_ap'])} magic damage and {R}knockback{E}.",
         f"Tear open the night sky to rain Black Stars for {A}4s{E}, repeatedly dealing {ap(ps['r_dmg'], ps['r_ap'])} magic damage while moving.",
         "Star Track", "Starlight Step", "Meteor Night")
     put("abysspact_starfall", "ja", "隕夜",
         f"0.5秒遅れて黒い星を落とし{ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E}範囲ダメ（周囲60%）。{R}代償{E}：近距離3万以内の通常攻撃は空振り。",
-        f"直線上に5発の黒星を落とし、各{ap(ps['q_dmg'], ps['q_ap'])}魔法と{R}{ps['q_slow']}%スロウ{E}。",
+        f"直線上に5発の黒星を順に落とし各{ap(ps['q_dmg'], ps['q_ap'])}魔法、2発以上当たると{R}{ps['q_slow']}%スロウ{E}。",
         f"星光となって後方へ跳び、元の位置に黒星を落として{ap(ps['w_dmg'], ps['w_ap'])}魔法と{R}ノックバック{E}。",
         f"夜空を裂き{A}4秒間の黒星雨{E}を降らせ、継続して{ap(ps['r_dmg'], ps['r_ap'])}魔法ダメージ。",
         "星軌", "遁星", "隕夜")
     put("abysspact_starfall", "ko", "운야",
         f"0.5초 후 낙하하는 검은 별로 {ADi}{O}100%{E}+{APi}{M}{ps['a_ap']}%{E} 범위 피해(주변 60%). {R}대가{E}: 3만 이내 초근접 평타는 빗나감.",
-        f"일직선으로 검은 별 5개를 떨어뜨려 각 {ap(ps['q_dmg'], ps['q_ap'])} 마법 피해와 {R}{ps['q_slow']}% 둔화{E}.",
+        f"일직선으로 검은 별 5개를 차례로 떨어뜨려 각 {ap(ps['q_dmg'], ps['q_ap'])} 마법 피해, 2개 이상 맞으면 {R}{ps['q_slow']}% 둔화{E}.",
         f"별빛이 되어 뒤로 도약하며 제자리에 검은 별을 떨어뜨려 {ap(ps['w_dmg'], ps['w_ap'])} 마법 피해와 {R}밀쳐내기{E}.",
         f"밤하늘을 갈라 {A}4초간 검은 별비{E}를 쏟아부어 지속적으로 {ap(ps['r_dmg'], ps['r_ap'])} 마법 피해.",
         "성궤", "둔성", "운야")
