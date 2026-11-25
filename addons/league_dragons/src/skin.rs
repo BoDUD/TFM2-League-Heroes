@@ -31,7 +31,7 @@ const SERPEN: &str = "serpen";
 const EPIC: &str = "epic";
 const SERPEN_MONSTER: &str = "serpen_monster";
 const EPIC_MONSTER: &str = "epic_monster";
-const DRAKE_PREFIX: &str = "league_drake_";
+pub(crate) const DRAKE_PREFIX: &str = "league_drake_";
 pub const BARON: &str = "league_baron";
 
 /// What a resource name is the body of.
