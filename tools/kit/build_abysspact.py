@@ -46,10 +46,10 @@ PARAMS = {
         "q_r": 38000, "q_cone": 350, "q_dmg": 72, "q_ad": 112,
         "q_slow": 30, "q_slow_t": 90, "q_heal": 44, "q_heal_r": 30,
         "q_combo_dmg": 20, "q_combo_ad": 20,
-        "w_cd": 720, "w_range": 50000, "w_dur": 40, "w_go": 15,
+        "w_cd": 720, "w_range": 50000, "w_dur": 40, "w_go": 16,
         "w_speed": 7500, "w_w": 11000, "w_dmg": 60, "w_ad": 80,
-        "w_grab_speed": 3200, "w_grab_t": 12, "w_bind": 30,
-        "r_cd": 4200, "r_range": 35000, "r_dur": 42, "r_go": 16,
+        "w_grab_speed": 3200, "w_grab_t": 13, "w_bind": 30,
+        "r_cd": 4200, "r_range": 35000, "r_dur": 42, "r_go": 16, "r_arm": 600,
         "r_t": 360, "r_vamp": 40, "r_as": 15, "r_burst_r": 28000,
         "r_burst_dmg": 48, "r_burst_ad": 42,
         "r_onhit_ap": 40, "r_onhit_ad": 30,
@@ -60,13 +60,16 @@ PARAMS = {
         "def": 32, "def_g": 6, "mr": 30, "mr_g": 4, "ms": 1090, "ms_g": 11,
         "atk_range": 26000, "atk_dur": 34, "atk_cd": 56, "atk_st": 17,
         "q_cd": 390, "q_range": 40000, "q_dur": 34, "q_go": 10,
-        "q_speed": 5600, "q_t": 10, "q_rad": 13000,
+        "q_speed": 5600, "q_rad": 18000,
         "q_dmg": 90, "q_ad": 115, "q_slow": 30, "q_slow_t": 60,
-        "w_cd": 660, "w_range": 45000, "w_dur": 28, "w_go": 10,
-        "w_inv": 90, "w_ms": 20, "w_ambush_t": 180,
+        "w_cd": 660, "w_range": 45000, "w_dur": 28, "w_go": 12,
+        "w_inv": 90, "w_ms": 20,
         "w_fear": 54, "w_bonus_dmg": 55, "w_bonus_ad": 50,
-        "r_cd": 3300, "r_range": 45000, "r_dur": 42, "r_go": 15,
+        "r_cd": 3300, "r_range": 45000, "r_dur": 42, "r_go": 17,
         "r_dmg": 290, "r_ad": 165, "r_plain_thp": 14,
+        "s_melee_dmg": 160, "s_melee_ad": 70, "s_range_dmg": 180, "s_range_ad": 80,
+        "s_mage_dmg": 200, "s_mage_ad": 80, "s_util_heal": 120, "s_util_dmg": 100, "s_util_ad": 40,
+        "s_sin_dmg": 250, "s_sin_ad": 100,
         "plain_shroud_ad": 14, "plain_shroud_as": 18, "plain_shroud_t": 240,
     },
     "whisperer": {
@@ -74,11 +77,11 @@ PARAMS = {
         "def": 24, "def_g": 5, "mr": 30, "mr_g": 4, "ms": 950, "ms_g": 9,
         "atk_range": 52000, "atk_dur": 34, "atk_cd": 84, "atk_st": 16,
         "a_speed": 7500, "a_y": -10000,
-        "q_cd": 360, "q_range": 60000, "q_dur": 36, "q_go": 14,
+        "q_cd": 360, "q_range": 60000, "q_dur": 36, "q_go": 15,
         "q_speed": 6800, "q_w": 11000, "q_dmg": 80, "q_ap": 70,
         "w_cd": 660, "w_range": 55000, "w_dur": 38, "w_go": 15,
         "w_r": 22000, "w_t": 180, "w_p": 60, "w_dmg": 28, "w_ap": 22,
-        "w_slow": 22, "w_slow_t": 70,
+        "w_slow": 22, "w_slow_t": 60,
         "r_cd": 3600, "r_range": 60000, "r_dur": 44, "r_go": 18,
         "r_r": 40000, "r_dmg": 215, "r_ap": 108, "r_fear": 66,
         "plain_burst_dmg": 85, "plain_burst_ap": 62, "plain_burst_r": 16000,
@@ -86,15 +89,15 @@ PARAMS = {
     "bonebow": {
         "hp": 900, "hp_g": 88, "atk": 98, "atk_g": 18, "apw": 0, "apw_g": 0,
         "def": 22, "def_g": 6, "mr": 18, "mr_g": 3, "ms": 930, "ms_g": 9,
-        "atk_range": 62500, "atk_dur": 24, "atk_cd": 58, "atk_st": 10,
+        "atk_range": 62500, "atk_dur": 36, "atk_cd": 58, "atk_st": 17,
         "a_speed": 9500, "a_y": -9500,
-        "q_cd": 470, "q_range": 70000, "q_dur": 36, "q_go": 15,
+        "q_cd": 470, "q_range": 70000, "q_dur": 36, "q_go": 19,
         "q_speed": 9000, "q_w": 10000, "q_dmg": 75, "q_ad": 105,
-        "w_cd": 600, "w_range": 65000, "w_dur": 32, "w_go": 12,
+        "w_cd": 600, "w_range": 65000, "w_dur": 32, "w_go": 13,
         "w_r": 16000, "w_base_dmg": 40, "w_base_ad": 38,
         "w_plain_dmg": 102, "w_plain_ad": 120,
         "w_slow": 30, "w_slow_t": 60,
-        "r_cd": 3900, "r_range": 70000, "r_dur": 44, "r_go": 16,
+        "r_cd": 3900, "r_range": 70000, "r_dur": 44, "r_go": 23,
         "r_travel": 12, "r_r": 35000, "r_dmg": 132, "r_ad": 88,
         "r_slow": 25, "r_slow_t": 90,
         "r_plain_tick_dmg": 47, "r_plain_tick_ad": 47, "r_plain_t": 240, "r_plain_p": 60,
@@ -105,17 +108,17 @@ PARAMS = {
         "def": 30, "def_g": 6, "mr": 32, "mr_g": 5, "ms": 990, "ms_g": 10,
         "atk_range": 50000, "atk_dur": 36, "atk_cd": 84, "atk_st": 17,
         "a_speed": 7000, "a_y": -10000,
-        "q_cd": 480, "q_range": 55000, "q_dur": 38, "q_go": 14,
+        "q_cd": 480, "q_range": 55000, "q_dur": 38, "q_go": 15,
         "q_travel": 14, "q_r": 20000, "q_dmg": 52, "q_ap": 42,
         "q_slow": 30, "q_slow_t": 90,
         "q_plain_dot": 28, "q_plain_dot_ap": 15, "q_plain_heal": 24,
-        "w_cd": 700, "w_range": 55000, "w_dur": 36, "w_go": 14,
+        "w_cd": 700, "w_range": 55000, "w_dur": 36, "w_go": 15, "w_ally_r": 45000,
         "w_speed": 6500, "w_sh": 85, "w_sh_ap": 60, "w_t": 240,
         "w_plain_dmg": 48, "w_plain_ap": 30, "w_plain_r": 28000,
-        "r_cd": 4200, "r_range": 50000, "r_dur": 44, "r_go": 16,
+        "r_cd": 4200, "r_range": 50000, "r_dur": 44, "r_go": 18,
         "r_r": 40000, "r_t": 300, "r_p": 60,
         "r_init_dmg": 92, "r_init_ap": 65, "r_stun": 40,
-        "r_tick_dmg": 35, "r_tick_ap": 25, "r_slow": 40, "r_slow_t": 70,
+        "r_tick_dmg": 35, "r_tick_ap": 25, "r_slow": 40, "r_slow_t": 60,
         "r_heal": 55, "r_heal_ap": 25,
     },
     # --- Batch 2 ---
@@ -553,9 +556,11 @@ def build_oathbreaker(p, is_native=True):
     )
 
     # W: 誓链 — 锁链直飞勾中首个敌方英雄拽回身前 + 定身 0.5s + 挂连招标记
+    # 拽不给 tick：拉到他身前为止（给了 tick 近处的人会被拽过头）；定身从勾中算起，盖住拉过来的 w_grab_t（5 万拉到身前
+    # 约 13 tick），到了身前还剩 w_bind（以前定身和拽同时开始，拽完只剩 0.3 秒）
     w_hit = [H["attack"](p["w_dmg"], p["w_ad"]),
-             H["grab"](p["w_grab_speed"], p["w_grab_t"]),
-             H["bind"](p["w_bind"]),
+             {"type": "Grab", "speed": p["w_grab_speed"]},
+             H["bind"](p["w_grab_t"] + p["w_bind"]),
              H["flag"]("w_chained", 150),
              H["view"]("impact"), H["tsfx"]("w_pull")]
     w_chain = H["linear"]("w_chain", p["w_speed"], p["w_range"] + 6000, p["w_w"],
@@ -572,15 +577,29 @@ def build_oathbreaker(p, is_native=True):
     r_buff = H["flag"]("r_undying", p["r_t"], undying=True, vamp=p["r_vamp"], attack_speed_mult=p["r_as"])
     r_burst = H["around"](p["r_burst_r"], [H["attack"](p["r_burst_dmg"], p["r_burst_ad"]),
                                            H["view"]("impact"), H["tsfx"]("q_hit")])
-    ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-        H["combine"](
-            burn_ask,
-            H["sfx"]("r_plant"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](
-                r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
-        ),
-    )
+    if is_native:
+        # 蛮王的做法：AI 一见敌方英雄就按 R，满血开掉 6 秒不死太浪费。他身上有本包被动挂的 p_self 时，R 只待命 r_arm tick
+        # （3 tick 的 idle 动作，看不出放了），oathbreaker.rs 看到生命掉下去才断誓（插剑仰头的大招动作、不死、黑火）；
+        # 没有 p_self 的（塞拉斯偷去的 R）当场断誓。
+        ult = H["action"](
+            "ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+            H["combine"](
+                burn_ask,
+                H["when"]("p_self", H["flag"]("r_armed", p["r_arm"]),
+                          H["combine"](r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
+            ),
+        )
+        ult["action_name"] = "idle"
+    else:
+        ult = H["action"](
+            "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+            H["combine"](
+                burn_ask,
+                H["sfx"]("r_plant"),
+                H["delayed"](p["r_go"] - 1, H["alive_only"](
+                    r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
+            ),
+        )
 
     views_p = [H["V_proj"]("w_chain", "chain")]
     views_e = [
@@ -615,11 +634,13 @@ def build_faceless(p, is_native=True):
         H["tsfx"]("w_fear"),
     )
 
-    # Borrowed face auto-attack adaptation (when Face-Steal copied a ranged/mage hero, fire phantom bolt!)
+    # 夺面后的普攻：射手、法师、辅助类的脸变成飞出去的面具弹，射程由 faceless.rs 的原生效果 `reach`（range_adjust，
+    # AI 的射程判断也读它）按类别加长，挂在普攻最后（CombineEffect 取各效果里最大的那个）；攻速由 faceless.rs 调成受害者的快慢
     ranged_bolt = H["homing"]("p_bolt", 8500, [H["attack"](0, 100), H["tsfx"]("a_hit")], target="Enemy", y=-9000)
     cls_auto = H["when"](
         "cls_range", ranged_bolt,
-        H["when"]("cls_mage", ranged_bolt, H["attack"](0, 100)))
+        H["when"]("cls_mage", ranged_bolt,
+                  H["when"]("cls_util", ranged_bolt, H["attack"](0, 100))))
     base_hit = cls_auto if is_native else H["attack"](0, 100)
 
     attack_a = H["action"](
@@ -628,22 +649,20 @@ def build_faceless(p, is_native=True):
             base_hit,
             H["when"]("w_ambush", ambush_proc),
             H["sfx"]("a"), H["tsfx"]("a_hit"),
+            H["native_fx"](f"{cid}:reach") if is_native else None,
         ),
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 割影 — 穿透目标冲到身后 + 减速 + 隐身突袭连招可触发恐惧
+    # Q: 割影 — 化成黑影穿过目标冲到他身后（RushMoveToBack：冲到目标身后 1.5 万），碰到目标那一下身边 q_rad 内的
+    # 敌人都挨刀、减速（以前是固定冲 10 tick × 5600 = 5.6 万，贴脸放会冲出去 4 万多）；隐身突袭连招可触发恐惧
     q_hit = [
         H["attack"](p["q_dmg"], p["q_ad"]),
         H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
         H["when"]("w_ambush", ambush_proc),
         H["tsfx"]("q_pass"),
     ]
-    q_rush = {
-        "type": "RushTime", "speed": p["q_speed"], "tick": p["q_t"], "range": p["q_rad"],
-        "casting_target": "EnemyWithoutTower", "penetrate": True,
-        "applied_effects": [H["T"](e) for e in q_hit if e is not None],
-    }
+    q_rush = {"type": "RushMoveToBack", "speed": p["q_speed"], "applied_effects": [H["around"](p["q_rad"], q_hit)]}
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
@@ -652,12 +671,13 @@ def build_faceless(p, is_native=True):
     )
 
     # W: 无相 — 隐身 1.5s + 移速提升 + 武装下一次出手恐惧 0.75s
+    # 武装只到隐身结束（加一次普攻出手的 atk_st：隐身里起手的那一下也算），不再拖到现身 1.5 秒以后
     w_cast = H["combine"](
         H["sfx"]("w_hide"),
         H["view"]("mist"),
         H["search_self"]({"type": "CasterInvisible", "tick": p["w_inv"]}),
         H["flag"]("w_haste", p["w_inv"], move_speed_mult=p["w_ms"]),
-        H["flag"]("w_ambush", p["w_ambush_t"]),
+        H["flag"]("w_ambush", p["w_inv"] + p["atk_st"]),
     )
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
@@ -667,6 +687,7 @@ def build_faceless(p, is_native=True):
     )
 
     # R: 撕面 — 大黑手按住撕面：高额爆发 + <=25%直接真伤撕死并立刻夺面!
+    # 只对己方最近打过的敌方英雄放（EnemyChampionRecentlyAttacked：斩杀不该开在满血的人身上）
     r_exec_ask = H["buff"]("r_exec_ask", 4) if is_native else None
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     plain_shroud = None if is_native else H["flag"](
@@ -680,27 +701,56 @@ def build_faceless(p, is_native=True):
         H["tsfx"]("r_grasp"),
         r_return,
     )
-    # If wearing a stolen face (r_stolen), casting R unleashes a bonus borrowed-ult surge & consumes charge
-    stolen_bonus = H["combine"](
-        H["attack"](100, 75),
-        H["unflag"]("r_stolen"),
-        H["view"]("shards"),
-        H["sfx"]("mask_crack"),
-    )
+    r_main = r_strike
+    if is_native:
+        # 借来的大招（照塞拉斯附加包按类别偷大招的五套，伤害换成攻击力）：夺面时 faceless.rs 刷新 R 的冷却、挂上受害者的
+        # 类别和 r_stolen，这 10 秒里放 R 就是那一类的大招，放过一次 r_stolen 拿掉，下一次回到撕面
+        s_slow = H["buff"]("s_slow", 90, move_speed_mult=-40)
+        melee_ult = H["combine"](   # 近战：跃到目标身上重砸，一圈眩晕
+            H["view"]("dash"),
+            H["move_to_target"](6000, 100000, [
+                H["view"]("shards"), H["sfx"]("r_grasp"),
+                H["around"](24000, [H["attack"](p["s_melee_dmg"], p["s_melee_ad"]), H["stun"](60), H["view"]("grasp")]),
+            ]))
+        range_ult = H["linear"]("r_lance", 7000, 90000, 9000,   # 射手：一道贯穿的长射，减速
+                                [H["attack"](p["s_range_dmg"], p["s_range_ad"]), s_slow, H["view"]("grasp")],
+                                target="EnemyWithoutTower", penetrate=True, y=-9000)
+        mage_ult = H["lob"]("r_burst", 1, [   # 法师：目标处炸开，击飞
+            H["view"]("shards"),
+            H["zone"]("r_burst_z", 25000, [H["attack"](p["s_mage_dmg"], p["s_mage_ad"]), H["airborne"](45),
+                                           H["view"]("grasp")]),
+        ], target="EnemyChampion")
+        util_ult = H["combine"](   # 辅助：身边友方英雄回血加盾，敌人挨打减速
+            H["view"]("mist"),
+            H["around"](45000, [H["heal"](p["s_util_heal"], ad_ratio=30, kind="Ally"),
+                                H["shield"](100, ad_ratio=30, tick=180)], target="AllyChampion"),
+            H["around"](45000, [H["attack"](p["s_util_dmg"], p["s_util_ad"]), s_slow, H["view"]("grasp")]),
+        )
+        assassin_ult = H["combine"](   # 刺客：闪到目标身上重击，隐身
+            {"type": "Teleport"}, H["view"]("dash"),
+            H["attack"](p["s_sin_dmg"], p["s_sin_ad"]), H["view"]("grasp"), H["sfx"]("r_grasp"),
+            H["around"](1000, [{"type": "CasterInvisible", "tick": 60}], target="AllyOnlySelf"),
+        )
+        borrowed = H["when"]("cls_melee", melee_ult,
+                             H["when"]("cls_range", range_ult,
+                                       H["when"]("cls_mage", mage_ult,
+                                                 H["when"]("cls_util", util_ult, assassin_ult))))
+        r_main = H["when"]("r_stolen",
+                           H["combine"](H["unflag"]("r_stolen"), H["view"]("shards"), H["sfx"]("mask_crack"), borrowed),
+                           r_strike)
     ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
         H["combine"](
             r_voice,
             H["sfx"]("r_grasp"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](
-                r_strike,
-                H["when"]("r_stolen", stolen_bonus) if is_native else None)),
+            H["delayed"](p["r_go"] - 1, H["alive_only"](r_main)),
         ),
     )
 
     views_p = [
         H["V_proj"]("r_mask", "mask_return"),
         H["V_proj"]("p_bolt", "mask_return"),
+        H["V_proj"]("r_lance", "mask_return"),
     ]
     views_e = [
         H["V_eff"]("dash", "dash", 2),
@@ -850,9 +900,10 @@ def build_bonebow(p, is_native=True):
                   H["when"]("s1", H["flag"]("s2", 600), H["flag"]("s1", 600))),
     )
 
-    # Auto: 骨箭
+    # Auto: 骨箭（打中时给她挂 a_arrow：bonebow.rs 按箭数，第 4 支拉起骷髅兵）
     a_proj = H["homing"]("a_arrow", p["a_speed"],
-                         [H["attack"](0, 100), plain_4th, H["view"]("soul"), H["tsfx"]("a_hit")],
+                         [H["attack"](0, 100), plain_4th, H["view"]("soul"), H["tsfx"]("a_hit"),
+                          H["flag"]("a_arrow", 2) if is_native else None],
                          target="Enemy", y=p["a_y"])
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
@@ -873,7 +924,8 @@ def build_bonebow(p, is_native=True):
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
             H["sfx"]("q_draw"),
-            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_release"), q_line)),
+            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_release"), q_line,
+                                                        H["flag"]("q_arrow", 3) if is_native else None)),
         ),
     )
 
@@ -889,8 +941,9 @@ def build_bonebow(p, is_native=True):
             H["view"]("soul"),
         ], target="EnemyWithoutTower"),
     ], target="EnemyWithoutTower")
+    # 只对敌方英雄放：骷髅兵是攒来炸人的，不该冲去炸一线小兵
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
         H["combine"](
             H["buff"]("w_mark", 18) if is_native else None,
             H["delayed"](p["w_go"] - 1, H["alive_only"](
@@ -901,13 +954,14 @@ def build_bonebow(p, is_native=True):
 
     # R: 亡军 — 朝天射箭，落下一片3.5万半径骨箭雨 + 地里爬出5个骷髅兵活8秒!
     # Also spawns a 4-tick follow-up arrow barrage in data when --plain or stolen by Sylas
-    r_ask_enemy = H["buff"]("r_ask", 6) if is_native else None
+    # 一次大招一批：放的时候给目标挂 r_aim（记下落点），箭射出去时给她挂 r_ask，bonebow.rs 在箭雨落地那一 tick
+    # 在目标处拉起 5 个（以前箭雨打中的每个敌人身上也挂 r_ask，每个都拉一批）
+    r_aim = H["buff"]("r_aim", 40) if is_native else None
     r_ask_self = H["flag"]("r_ask", 6) if is_native else None
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     r_rain_hit = [
         H["attack"](p["r_dmg"], p["r_ad"]),
         H["buff"]("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]),
-        r_ask_enemy,
         H["view"]("soul"),
         H["tsfx"]("a_hit"),
     ]
@@ -926,6 +980,7 @@ def build_bonebow(p, is_native=True):
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
         H["combine"](
             r_voice,
+            r_aim,
             H["sfx"]("r_launch"),
             H["delayed"](p["r_go"] - 1, H["alive_only"](r_ask_self, r_lob)),
         ),
@@ -1010,10 +1065,24 @@ def build_corvus(p, is_native=True):
         w_plain_peel,
     ]
     w_raven = H["homing"]("w_raven", p["w_speed"], w_land, target="AllyChampion", y=-12000)
+    # 珍娜 E 的做法：护盾放在友方身上，AI 冷却一好就放（多半放给自己、满血、身边没人）。现在等敌方英雄进到 w_range 才放
+    # （None + EnemyChampion），乌鸦飞向他身边 w_ally_r 内随便一名友方英雄；身边没有队友才停在自己肩上
+    w_self = H["around"](1000, [
+        H["shield"](p["w_sh"], ap_ratio=p["w_sh_ap"], tick=p["w_t"]),
+        H["buff"]("raven_perch", p["w_t"]),
+        H["view"]("shield"),
+        H["tsfx"]("w_wing"),
+        w_plain_peel,
+    ], target="AllyOnlySelf")
+    w_cast = H["combine"](
+        H["sfx"]("w_cast"),
+        H["rand_target"](p["w_ally_r"], "AllyNotSelf", H["flag"]("w_lock", 3), w_raven),
+        H["delayed"](1, H["when"]("w_lock", H["unflag"]("w_lock"), w_self)),
+    )
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "AllyChampion",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "None", "EnemyChampion",
         H["combine"](
-            H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_cast"), w_raven)),
+            H["delayed"](p["w_go"] - 1, H["alive_only"](w_cast)),
         ),
     )
 

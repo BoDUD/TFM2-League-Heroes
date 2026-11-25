@@ -6,11 +6,11 @@
         "attack": "断剑劈砍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>血誓<>：放技能烧<#ffb900ff>6%<>当前生命，每损<#ffb900ff>10%<>生命攻击+<#ffb900ff>4%<>、攻速+<#ffb900ff>5%<>。",
         "skill": "横扫黑火月牙造成<#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<>物理伤害并<#ef5350ff>减速30%<>；命中英雄回血，斩中被链目标追加伤害。",
         "skill2": "甩出誓链勾中首个敌方英雄拽至身前，造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>定身0.5秒<>。",
-        "ult": "盔甲裂开<#ffb900ff>6秒<>内不会阵亡，吸血<#ffb900ff>40%<>、普攻附带黑火；期间参与击杀回<#ffb900ff>25%<>血，否则烧<#ffb900ff>15%<>当前血。"
+        "ult": "待命<#ffb900ff>10秒<>，生命低于<#ffb900ff>40%<>时盔甲裂开：<#ffb900ff>6秒<>内不会阵亡，吸血<#ffb900ff>40%<>、普攻附带黑火；参与击杀回<#ffb900ff>25%<>血，否则烧<#ffb900ff>15%<>当前血。"
       },
       "abysspact_faceless": {
         "name": "无面",
-        "attack": "指刃划击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>夺面<>：参与击杀英雄后戴上其面孔<#ffb900ff>10秒<>，化身为目标并借用其攻击方式与强化爆发。",
+        "attack": "指刃划击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>夺面<>：参与击杀英雄后戴上其面孔<#ffb900ff>10秒<>化身为目标，普攻的射程和攻速随之改变，大招刷新并可放一次同类大招。",
         "skill": "化作黑影穿过目标冲至其身后，对路径敌人造成<#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理伤害并<#ef5350ff>减速30%<>。",
         "skill2": "遁入黑雾<#ffb900ff>隐身1.5秒<>并提速；现身后的首击令目标直面空脸，追加伤害并<#ef5350ff>恐惧0.9秒<>。",
         "ult": "按住敌方英雄撕下面孔造成<#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<>物理伤害；目标生命低于<#ffb900ff>25%<>时直接真实斩杀并立刻夺面。"
@@ -252,11 +252,11 @@
         "attack": "斷劍劈砍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>血誓<>：放技能燒<#ffb900ff>6%<>當前生命，每損<#ffb900ff>10%<>生命攻擊+<#ffb900ff>4%<>、攻速+<#ffb900ff>5%<>。",
         "skill": "橫掃黑火月牙造成<#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<>物理傷害並<#ef5350ff>減速30%<>；命中英雄回血，斬中被鏈目標追加傷害。",
         "skill2": "甩出誓鏈勾中首個敵方英雄拽至身前，造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>定身0.5秒<>。",
-        "ult": "盔甲裂開<#ffb900ff>6秒<>內不會陣亡，吸血<#ffb900ff>40%<>、普攻附帶黑火；期間參與擊殺回<#ffb900ff>25%<>血，否則燒<#ffb900ff>15%<>當前血。"
+        "ult": "待命<#ffb900ff>10秒<>，生命低於<#ffb900ff>40%<>時盔甲裂開：<#ffb900ff>6秒<>內不會陣亡，吸血<#ffb900ff>40%<>、普攻附帶黑火；參與擊殺回<#ffb900ff>25%<>血，否則燒<#ffb900ff>15%<>當前血。"
       },
       "abysspact_faceless": {
         "name": "無面",
-        "attack": "指刃劃擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>奪面<>：參與擊殺英雄後戴上其面孔<#ffb900ff>10秒<>，化身為目標並借用其攻擊方式與強化爆發。",
+        "attack": "指刃劃擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>奪面<>：參與擊殺英雄後戴上其面孔<#ffb900ff>10秒<>化身為目標，普攻的射程和攻速隨之改變，大招刷新並可放一次同類大招。",
         "skill": "化作黑影穿過目標衝至其身後，對路徑敵人造成<#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理傷害並<#ef5350ff>減速30%<>。",
         "skill2": "遁入黑霧<#ffb900ff>隱身1.5秒<>並提速；現身後的首擊令目標直面空臉，追加傷害並<#ef5350ff>恐懼0.9秒<>。",
         "ult": "按住敵方英雄撕下面孔造成<#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<>物理傷害；目標生命低於<#ffb900ff>25%<>時直接真實斬殺並立刻奪面。"
@@ -498,11 +498,11 @@
         "attack": "Broken greatsword strike for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Blood Oath<>: skills burn <#ffb900ff>6%<> current HP; gain <#ffb900ff>+4%<> AD and <#ffb900ff>+5%<> AS per <#ffb900ff>10%<> missing HP.",
         "skill": "Sweep a black-flame crescent for <#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<> physical damage and <#ef5350ff>30% slow<>; heals on champion hits and deals bonus damage to chained foes.",
         "skill2": "Hurl a broken oath chain that hooks the first enemy champion, pulling them in for <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and <#ef5350ff>0.5s bind<>.",
-        "ult": "Refuse death for <#ffb900ff>6s<> with <#ffb900ff>40%<> vamp and bonus black-flame hits. Takedown heals <#ffb900ff>25%<> max HP at end; otherwise burn <#ffb900ff>15%<> current HP."
+        "ult": "Stand ready for <#ffb900ff>10s<>; at <#ffb900ff>40%<> HP or below the armor cracks: refuse death for <#ffb900ff>6s<> with <#ffb900ff>40%<> vamp and bonus black-flame hits. Takedown heals <#ffb900ff>25%<> max HP at end; otherwise burn <#ffb900ff>15%<> current HP."
       },
       "abysspact_faceless": {
         "name": "Faceless",
-        "attack": "Claw slash for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Face Steal<>: takedowns let him wear the victim's face for <#ffb900ff>10s<>, assuming their form with boosted combat power.",
+        "attack": "Claw slash for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Face Steal<>: takedowns let him wear the victim's face for <#ffb900ff>10s<>, taking their form: his attacks get their range and speed, and his ult resets to cast one ult of their class.",
         "skill": "Turn to shadow and dash through enemies for <#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> physical damage and a <#ef5350ff>30% slow<>.",
         "skill2": "Fade into dark mist, gaining <#ffb900ff>1.5s stealth<> and speed. His first strike out of stealth deals bonus damage and <#ef5350ff>fears for 0.9s<>.",
         "ult": "Grasp an enemy champion and rip off their face for <#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<> physical damage; targets at or below <#ffb900ff>25%<> HP are executed immediately and stolen."
@@ -744,11 +744,11 @@
         "attack": "断剣で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>血誓<>：スキルで現在HP<#ffb900ff>6%<>消費、減少HP<#ffb900ff>10%<>毎に攻撃+<#ffb900ff>4%<>・攻撃速度+<#ffb900ff>5%<>。",
         "skill": "黒炎の斬撃で<#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<>物理ダメージと<#ef5350ff>30%スロウ<>。英雄命中で回復、鎖対象に追加ダメージ。",
         "skill2": "誓いの鎖で最初の敵英雄を引き寄せ、<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理ダメージと<#ef5350ff>0.5秒束縛<>。",
-        "ult": "<#ffb900ff>6秒<>不死と吸血<#ffb900ff>40%<>、通常攻撃に黒炎付与。関与で終了時<#ffb900ff>25%<>回復、未達成で現在HP<#ffb900ff>15%<>消費。"
+        "ult": "<#ffb900ff>10秒<>待機、HP<#ffb900ff>40%<>以下で鎧が裂け<#ffb900ff>6秒<>不死と吸血<#ffb900ff>40%<>、通常攻撃に黒炎付与。関与で終了時<#ffb900ff>25%<>回復、未達成で現在HP<#ffb900ff>15%<>消費。"
       },
       "abysspact_faceless": {
         "name": "無面",
-        "attack": "指刃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>奪面<>：英雄撃破関与で<#ffb900ff>10秒<>相手の姿に変身し、攻撃特性と強化を得る。",
+        "attack": "指刃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>奪面<>：英雄撃破関与で<#ffb900ff>10秒<>相手の姿に変身し、通常攻撃の射程と速度が変わり、大招が回復して同系統の大招を1回使える。",
         "skill": "影となり敵を突き抜けて<#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理ダメージと<#ef5350ff>30%スロウ<>。",
         "skill2": "黒霧に<#ffb900ff>1.5秒隠密<>し加速。初撃に追加ダメージと<#ef5350ff>0.9秒恐怖<>。",
         "ult": "敵英雄の顔を剥ぎ<#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<>物理ダメージ。HP<#ffb900ff>25%<>以下なら即座に確定処刑し奪面する。"
@@ -990,11 +990,11 @@
         "attack": "부러진 대검으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>혈서<>: 스킬 사용 시 현재 체력 <#ffb900ff>6%<> 소모, 잃은 체력 <#ffb900ff>10%<>당 공격력+<#ffb900ff>4%<>, 공속+<#ffb900ff>5%<>.",
         "skill": "검은 불꽃을 휘둘러 <#ff9028ff>72<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>112%<> 물리 피해와 <#ef5350ff>30% 둔화<>. 챔피언 적중 시 회복, 사슬 표적 추가 피해.",
         "skill2": "서약의 사슬로 첫 적 챔피언을 끌어당겨 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ef5350ff>0.5초 속박<>.",
-        "ult": "<#ffb900ff>6초<> 불사 및 흡혈 <#ffb900ff>40%<>, 기본 공격 흑염 추가. 처치 관여 시 최대 체력 <#ffb900ff>25%<> 회복, 실패 시 현재 체력 <#ffb900ff>15%<> 소모."
+        "ult": "<#ffb900ff>10초<> 대기, 체력 <#ffb900ff>40%<> 이하가 되면 <#ffb900ff>6초<> 불사 및 흡혈 <#ffb900ff>40%<>, 기본 공격 흑염 추가. 처치 관여 시 최대 체력 <#ffb900ff>25%<> 회복, 실패 시 현재 체력 <#ffb900ff>15%<> 소모."
       },
       "abysspact_faceless": {
         "name": "무면",
-        "attack": "손톱 칼날로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>탈면<>: 적 챔피언 처치 관여 시 <#ffb900ff>10초<>간 대상의 얼굴과 모습을 빼앗아 변신.",
+        "attack": "손톱 칼날로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>탈면<>: 적 챔피언 처치 관여 시 <#ffb900ff>10초<>간 대상의 모습으로 변신, 기본 공격 사거리·속도가 바뀌고 궁극기가 초기화되어 같은 계열 궁극기를 1회 사용.",
         "skill": "그림자가 되어 적을 관통하며 <#ff9028ff>90<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> 물리 피해와 <#ef5350ff>30% 둔화<>.",
         "skill2": "검은 안개에 <#ffb900ff>1.5초 은신<> 및 가속. 은신 해제 첫 타격은 추가 피해와 <#ef5350ff>0.9초 공포<>.",
         "ult": "적 챔피언의 얼굴을 찢어 <#ff9028ff>290<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>165%<> 물리 피해. 체력 <#ffb900ff>25%<> 이하는 즉시 고정 피해 처형 후 탈면."
