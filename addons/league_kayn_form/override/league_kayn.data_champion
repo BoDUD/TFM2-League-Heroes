@@ -1528,6 +1528,10 @@
           "range": 110000,
           "end_effects": [
             {
+              "type": "RemoveCasterBuff",
+              "name": "league_kayn_r_free"
+            },
+            {
               "type": "RemoveCasterAnimation",
               "name": "ult"
             },
@@ -1612,10 +1616,18 @@
               "tick": 10,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1624,10 +1636,18 @@
               "tick": 20,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1636,10 +1656,18 @@
               "tick": 30,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1648,10 +1676,18 @@
               "tick": 40,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1660,10 +1696,18 @@
               "tick": 50,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1672,10 +1716,18 @@
               "tick": 60,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1684,10 +1736,18 @@
               "tick": 70,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1696,10 +1756,18 @@
               "tick": 80,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1708,10 +1776,18 @@
               "tick": 90,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1720,10 +1796,18 @@
               "tick": 100,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1732,10 +1816,18 @@
               "tick": 110,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": []
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": []
+                  }
                 }
               ]
             },
@@ -1744,274 +1836,322 @@
               "tick": 120,
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 30000,
-                  "range": 200000,
-                  "end_effects": [
-                    {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterAnimation",
-                          "name": "r_hidden"
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kayn_r_free",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "r_hidden"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_kayn_r_in"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayn_form_d",
+                        "effect_buff": {
+                          "type": "CasterAnimation",
+                          "name": "rh_ult_exit",
+                          "tick": 24
                         },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kayn_r_in"
-                        },
-                        {
+                        "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_kayn_form_d",
+                          "buff_name": "league_kayn_form_s",
                           "effect_buff": {
                             "type": "CasterAnimation",
-                            "name": "rh_ult_exit",
+                            "name": "sh_ult_exit",
                             "tick": 24
                           },
                           "effect_none": {
+                            "type": "CasterAnimation",
+                            "name": "ult_exit",
+                            "tick": 24
+                          }
+                        }
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_kayn_r_exit"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_kayn_r_free"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "MoveToTarget",
+                    "speed": 30000,
+                    "range": 200000,
+                    "end_effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterAnimation",
+                            "name": "r_hidden"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kayn_r_in"
+                          },
+                          {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_kayn_form_s",
+                            "buff_name": "league_kayn_form_d",
                             "effect_buff": {
                               "type": "CasterAnimation",
-                              "name": "sh_ult_exit",
+                              "name": "rh_ult_exit",
                               "tick": 24
                             },
                             "effect_none": {
-                              "type": "CasterAnimation",
-                              "name": "ult_exit",
-                              "tick": 24
-                            }
-                          }
-                        },
-                        {
-                          "type": "Sfx",
-                          "name": "league_kayn_r_exit"
-                        },
-                        {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_kayn_r_exit_vo",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": []
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_kayn_r_exit_vo",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 600
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kayn_form_s",
+                              "effect_buff": {
+                                "type": "CasterAnimation",
+                                "name": "sh_ult_exit",
+                                "tick": 24
                               },
-                              {
-                                "type": "Sfx",
-                                "name": "league_kayn_r_exit_vo"
+                              "effect_none": {
+                                "type": "CasterAnimation",
+                                "name": "ult_exit",
+                                "tick": 24
                               }
-                            ]
-                          }
-                        },
-                        {
-                          "type": "Attack",
-                          "damage": 110,
-                          "attack_ratio": 150,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 0,
-                          "attack_effect_type": "Target"
-                        },
-                        {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_kayn_form_d",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_kayn_r_vamp",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 1
+                            }
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_kayn_r_exit"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kayn_r_exit_vo",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayn_r_exit_vo",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 600
+                                      }
                                     }
                                   },
-                                  "vamp": 70
+                                  "only_to_enemy": false
                                 },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "Attack",
-                                "damage": 0,
-                                "attack_ratio": 0,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 10,
-                                "attack_effect_type": "Target"
-                              },
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_kayn_r_exit_d"
-                              }
-                            ]
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kayn_r_exit_vo"
+                                }
+                              ]
+                            }
                           },
-                          "effect_none": {
+                          {
+                            "type": "Attack",
+                            "damage": 110,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_kayn_form_s",
+                            "buff_name": "league_kayn_form_d",
                             "effect_buff": {
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kayn_sa_cd"
-                                },
-                                {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_kayn_sa_cd",
+                                    "name": "league_kayn_r_vamp",
                                     "duration": {
                                       "Time": {
-                                        "tick": 480
+                                        "tick": 1
                                       }
-                                    }
+                                    },
+                                    "vamp": 70
                                   },
                                   "only_to_enemy": false
                                 },
                                 {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_kayn_sa_on",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 180
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
+                                  "type": "Attack",
+                                  "damage": 0,
+                                  "attack_ratio": 0,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 10,
+                                  "attack_effect_type": "Target"
                                 },
                                 {
                                   "type": "ViewEffect",
-                                  "name": "league_kayn_r_exit_s"
+                                  "name": "league_kayn_r_exit_d"
                                 }
                               ]
                             },
                             "effect_none": {
-                              "type": "ViewEffect",
-                              "name": "league_kayn_r_exit"
-                            }
-                          }
-                        },
-                        {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_kayn_form_d",
-                          "effect_buff": {
-                            "type": "Heal",
-                            "amount": 22,
-                            "attack_ratio": 30,
-                            "ap_ratio": 0,
-                            "heal_type": "Caster"
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kayn_form_s",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_kayn_sa_cd",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kayn_form_s",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_kayn_sa_cd"
                                   },
-                                  "effect_none": {
-                                    "type": "Combine",
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_kayn_sa_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 480
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_kayn_sa_on",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 180
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_kayn_r_exit_s"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "ViewEffect",
+                                "name": "league_kayn_r_exit"
+                              }
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kayn_form_d",
+                            "effect_buff": {
+                              "type": "Heal",
+                              "amount": 22,
+                              "attack_ratio": 30,
+                              "ap_ratio": 0,
+                              "heal_type": "Caster"
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kayn_form_s",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_kayn_sa_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kayn_sa_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 480
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kayn_sa_on",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 180
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 1,
                                     "effects": [
                                       {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kayn_sa_cd",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 480
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_kayn_sa_on",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "FixedAttack",
+                                              "damage": 8,
+                                              "attack_ratio": 15,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_kayn_sa_hit"
                                             }
-                                          }
+                                          ]
                                         },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kayn_sa_on",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 180
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
                                       }
                                     ]
                                   }
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 1,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_kayn_sa_on",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "FixedAttack",
-                                            "damage": 8,
-                                            "attack_ratio": 15,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
-                                          },
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_kayn_sa_hit"
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      }
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
-                          }
-                        },
-                        {
-                          "type": "AddBuff",
-                          "buff_state": {
-                            "name": "league_kayn_tag",
-                            "duration": {
-                              "Time": {
-                                "tick": 30
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
                               }
                             }
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_kayn_tag",
+                              "duration": {
+                                "Time": {
+                                  "tick": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_kayn_r_exit_hit"
                           }
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_kayn_r_exit_hit"
-                        }
-                      ]
-                    }
-                  ]
+                        ]
+                      }
+                    ]
+                  }
                 }
               ]
             }
