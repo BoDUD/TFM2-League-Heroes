@@ -5,8 +5,9 @@
 //!
 //! - 下锚 / 起锚只有一个决定（`want`）：9 万（`engage`）内有敌方英雄、最近的敌方英雄在 `safe` 外就下锚；
 //!   敌方英雄摸到 `danger` 内，或者 9 万内 `no_target` tick 没有任何能打的东西就起锚。小兵野怪不算「贴脸」。
-//!   被动每 10 tick 判断一次（两次切换至少隔 `toggle_cd`）；AI 按 W 只是让它马上判断一次，不该切就把 W 的冷却
-//!   退到只剩 `w_keep`。数据里的 W 在原生模式下是一个 3 tick 的 idle 动作，只挂一个标记。
+//!   被动每 10 tick 判断一次（两次切换至少隔 `toggle_cd`）；AI 按 W（或 `press.rs` 替它按）只是让它马上判断一次，
+//!   不该切就把 W 的冷却退到只剩 `w_keep`——冷却要等那 3 tick 的 idle 动作放完才开始走，所以记下来，等它开始走了
+//!   再退（`LateRefund`，league_hecarim 的轮询）。数据里的 W 在原生模式下是一个 3 tick 的 idle 动作，只挂一个标记。
 //! - 下锚要 `w_plant` tick（播 `skill2`：锚砸进地里），起锚要 `w_raise` tick（播 `anchor_raise`），这段时间
 //!   不能打也不能走——被人贴脸时要么硬扛，要么先花 0.6 秒拔锚。大招会先下锚（不另播动作，大招动作盖着）。
 //! - 被动「压舱」：锚在地上时（含下锚、起锚的那几下），击飞和强制位移（击退、拉、拽）直接去掉，眩晕、沉默这些
@@ -21,7 +22,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use mod_api_stable::*;
 
 use crate::voice::{Cue, Voice};
-use crate::{animate, consume_buff, dist_sq, has_buff, kit_param, refund_cooldown};
+use crate::{animate, consume_buff, dist_sq, has_buff, kit_param, LateRefund};
 
 pub const HERO: &str = "abysspact_anchor";
 pub const NATIVE_MARK: &str = "abysspact_anchor_native";
@@ -99,6 +100,8 @@ struct AnchorPassive {
     pinned: Option<(u64, u64)>,
     /// 正在起锚：到这一 tick 才拔出来。
     raise_done: Option<usize>,
+    /// W 按了没切：等 W 的冷却开始走了再退。
+    w_refund: Option<LateRefund>,
     next_toggle_at: usize,
     last_seen_target: usize,
 }
@@ -224,6 +227,7 @@ impl StablePassive for AnchorPassive {
         self.siege = false;
         self.pinned = None;
         self.raise_done = None;
+        self.w_refund = None;
         self.next_toggle_at = 0;
         self.last_seen_target = 0;
         self.voice.on_spawn(sim, HERO, entity);
@@ -245,6 +249,7 @@ impl StablePassive for AnchorPassive {
         self.siege = false;
         self.pinned = None;
         self.raise_done = None;
+        self.w_refund = None;
         self.voice.on_dead(sim, HERO, player);
     }
 
@@ -278,7 +283,12 @@ impl StablePassive for AnchorPassive {
         }
         // AI 按了 W：马上判断一次，不该切就退冷却
         if consume_buff(sim, entity, TOGGLE_ASK) && !self.decide(sim, entity, my_team, pos, tick, true) {
-            refund_cooldown(sim, entity, SkillSlotV1::Skill2, self.p.w_keep);
+            self.w_refund = Some(LateRefund { slot: SkillSlotV1::Skill2, keep: self.p.w_keep, until: tick + 30 });
+        }
+        if let Some(r) = self.w_refund {
+            if r.poll(sim, entity, tick) {
+                self.w_refund = None;
+            }
         }
         // 平时每 10 tick 判断一次
         if tick % CHECK_EVERY == 0 {

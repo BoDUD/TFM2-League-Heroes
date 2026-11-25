@@ -9,6 +9,9 @@
 //!   2 tick 不死。账本按要缓的全额记。
 //! - 还债：每 0.2 秒扣一次。不致死的用 `entity_set_hp` 直接扣，不借任何人的名义（借了会触发对方的命中效果，
 //!   对方死了、复活成新单位时还会扣不出去）；只有会把他扣死的那一下记给还在的最后一个攻击者（没有就记他自己）。
+//!   这一下排进效果队列、下一 tick 才落地（league_milio 的发现），所以记下 (tick, 攻击者, 金额)，它落地时
+//!   （`on_damaged`）不再记账。
+//! - 缓刑后本该活着的那一下：挂 1 tick 不死，下一 tick 补血时摘掉，不挡同一 tick 里别的致死伤害太久。
 
 use std::collections::HashSet;
 use mod_api_stable::*;
@@ -50,6 +53,8 @@ struct ReprievePassive {
     native_marked: bool,
     buckets: Vec<DebtBucket>,
     in_payback: bool,
+    /// 记给攻击者的那一笔还债：(打出去的 tick, 攻击者, 金额)，它下一 tick 落地时别再记账。
+    payback_echo: Option<(usize, usize, usize)>,
     last_pay_tick: usize,
     last_tally_vfx: usize,
     tally_shown: bool,
@@ -90,6 +95,8 @@ impl ReprievePassive {
             return;
         }
         let owed = std::mem::take(&mut self.owed);
+        // 缓刑后本该活着的那一下已经落地：不死只为它挂，摘掉
+        sim.entity_remove_buff(me, HOLD);
         let Some((now, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
         let hp = now.saturating_add(owed).min(max);
         if hp > now {
@@ -122,6 +129,7 @@ impl StablePassive for ReprievePassive {
         self.tally_shown = false;
         self.alive_enemies.clear();
         self.owed = 0;
+        self.payback_echo = None;
         sim.entity_remove_buff(entity, TALLY_LIGHT);
         self.voice.on_spawn(sim, HERO, entity);
     }
@@ -137,6 +145,16 @@ impl StablePassive for ReprievePassive {
         self.pay_owed(sim, entity);
         if self.in_payback || damage == 0 {
             return;
+        }
+        // 自己那一笔还债落地了：不再记账
+        if let Some((t, a, amt)) = self.payback_echo {
+            let tick = sim.tick();
+            if tick > t + 2 {
+                self.payback_echo = None;
+            } else if attacker == a && damage <= amt + amt / 5 + 1 {
+                self.payback_echo = None;
+                return;
+            }
         }
         let Some((alive, cur_hp, max_hp)) = sim.get_entity(entity).map(|e| (e.is_alive(), e.hp().0, e.hp().1)) else {
             return;
@@ -154,7 +172,7 @@ impl StablePassive for ReprievePassive {
             sim.entity_set_hp(entity, set);
         }
         if lethal {
-            let mut hold = BuffV1::timed(HOLD, 2);
+            let mut hold = BuffV1::timed(HOLD, 1);
             hold.undying = true;
             sim.add_buff(entity, &hold);
         }
@@ -188,6 +206,7 @@ impl StablePassive for ReprievePassive {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
         self.buckets.clear();
         self.owed = 0;
+        self.payback_echo = None;
         self.tally_shown = false;
         self.voice.on_dead(sim, HERO, player);
     }
@@ -248,10 +267,14 @@ impl StablePassive for ReprievePassive {
                     // 这一下要扣死他：记给最后一个攻击者
                     self.in_payback = true;
                     let ok = sim.deal_damage_typed(credit, entity, due, DamageTypeV1::Fixed, AttackTypeV1::DotIgnoreShield);
-                    if !ok && credit != entity {
+                    let by = if ok {
+                        credit
+                    } else {
                         sim.deal_damage_typed(entity, entity, due, DamageTypeV1::Fixed, AttackTypeV1::DotIgnoreShield);
-                    }
+                        entity
+                    };
                     self.in_payback = false;
+                    self.payback_echo = Some((tick, by, due));
                 }
             }
             self.sync_tally_visual(sim, entity);
