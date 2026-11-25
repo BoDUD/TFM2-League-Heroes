@@ -10,7 +10,13 @@
   ],
   "passive": {
     "passive_ref": "abysspact_vesper:vigil",
-    "params": {}
+    "params": {
+      "q_heal": 35,
+      "q_heal_ap": 23,
+      "q_sh": 62,
+      "q_sh_ap": 46,
+      "q_sh_t": 180
+    }
   },
   "sprite": "asset/abysspact/champions/abysspact_vesper",
   "anim_prefix": "",
@@ -98,7 +104,7 @@
     "cancelable": false,
     "range": 55000,
     "casting_type": "Targeting",
-    "casting_target": "AllyChampion",
+    "casting_target": "AllyNotSelf",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -149,7 +155,7 @@
                         "name": "abysspact_vesper_q_wisp",
                         "speed": 8000,
                         "y_offset": -10000,
-                        "applied_target": "AllyChampion",
+                        "applied_target": "AllyNotSelf",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
@@ -295,7 +301,7 @@
                         "name": "abysspact_vesper_q_wisp",
                         "speed": 8000,
                         "y_offset": -10000,
-                        "applied_target": "AllyChampion",
+                        "applied_target": "AllyNotSelf",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
@@ -616,27 +622,23 @@
     }
   },
   "ult": {
-    "action_name": "ult",
-    "description": "#asset/base/text/champion?description.abysspact_vesper.ult",
-    "duration": 44,
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.abysspact_vesper.idle",
+    "duration": 3,
     "cooltime": 5100,
     "start_timing": 1,
     "cancelable": false,
     "range": 60000,
-    "casting_type": "Targeting",
-    "casting_target": "AllyChampion",
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "abysspact_vesper_r_pointer"
-        },
-        {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "abysspact_vesper_r_voice",
+            "name": "abysspact_vesper_r_ask",
             "duration": {
               "Time": {
                 "tick": 4
@@ -646,272 +648,72 @@
           "only_to_enemy": false
         },
         {
-          "type": "Delayed",
-          "tick": 15,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RandomTarget",
-                  "range": 1,
-                  "casting_target": "AllyOnlySelf",
-                  "from_projectile": false,
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "abysspact_vesper_live",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "abysspact_vesper_live",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "abysspact_vesper_r_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "abysspact_vesper_native",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "ParabolicProjectile",
-                          "name": "abysspact_vesper_r_lob",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "range_effect_name": "",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1
-                            }
-                          },
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "abysspact_vesper_pillar"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "abysspact_vesper_return_pillar"
-                            },
-                            {
-                              "type": "RangeProjectile",
-                              "name": "abysspact_vesper_r_zone",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 50000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "AllyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Shield",
-                                    "amount": 142,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 72,
-                                    "tick": 300
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Heal",
-                                    "amount": 102,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 48,
-                                    "heal_type": "Ally"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "abysspact_vesper_spirit",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 260
-                                        }
-                                      },
-                                      "damaged_reduce": 28,
-                                      "move_speed_mult": 15
-                                    }
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_vesper_rebirth"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "abysspact_vesper_warm_shield"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "abysspact_vesper_r_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "abysspact_vesper_native",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "ParabolicProjectile",
-                          "name": "abysspact_vesper_r_lob",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "range_effect_name": "",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1
-                            }
-                          },
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "abysspact_vesper_pillar"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "abysspact_vesper_return_pillar"
-                            },
-                            {
-                              "type": "RangeProjectile",
-                              "name": "abysspact_vesper_r_zone",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 50000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "AllyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Shield",
-                                    "amount": 142,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 72,
-                                    "tick": 300
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Heal",
-                                    "amount": 102,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 48,
-                                    "heal_type": "Ally"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "abysspact_vesper_spirit",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 260
-                                        }
-                                      },
-                                      "damaged_reduce": 28,
-                                      "move_speed_mult": 15
-                                    }
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_vesper_rebirth"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "abysspact_vesper_warm_shield"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
+          "type": "SwitchByBuff",
+          "buff_name": "abysspact_vesper_native",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterViewEffect",
+                "name": "abysspact_vesper_pillar"
+              },
+              {
+                "type": "Sfx",
+                "name": "abysspact_vesper_return_pillar"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 50000
                   }
                 },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "abysspact_vesper_live"
-                }
-              ]
-            }
-          ]
+                "target": "AllyChampion",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Shield",
+                    "amount": 142,
+                    "attack_ratio": 0,
+                    "ap_ratio": 72,
+                    "tick": 300
+                  },
+                  {
+                    "type": "Heal",
+                    "amount": 102,
+                    "attack_ratio": 0,
+                    "ap_ratio": 48,
+                    "heal_type": "Ally"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "abysspact_vesper_spirit",
+                      "duration": {
+                        "Time": {
+                          "tick": 260
+                        }
+                      },
+                      "damaged_reduce": 28,
+                      "move_speed_mult": 15
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "abysspact_vesper_rebirth"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "abysspact_vesper_warm_shield"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

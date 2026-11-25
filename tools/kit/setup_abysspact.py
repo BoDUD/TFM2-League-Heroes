@@ -653,31 +653,31 @@ def build_i18n():
         f"挥棺撞击造成{ADi}{O}100%{E}物理伤害。{O}棺盾{E}：常驻普攻减伤{A}15%{E}；每{A}8秒{E}获得一层令下次技能伤害-{A}30%{E}的护盾。",
         f"抡棺前砸造成{O}{pu['q_dmg']}{E}+{A}{pu['q_hp']}%最大生命{E}物理伤害并{R}击飞{secs(pu['q_air'])}秒{E}。",
         f"铁链甩出棺材钉地并将自己拽至目标身旁；棺材矗立{A}{secs(pu['w_t'])}秒{E}，周围敌人{R}减速{pu['w_slow']}%{E}。",
-        f"将敌方英雄装进棺材扛走{A}{secs(pu['r_carry_t'])}秒{E}（自身移速+{A}{pu['r_ms']}%{E}），随后猛摔造成{O}{pu['r_slam_dmg']}{E}+{A}{pu['r_slam_thp']}%目标最大生命{E}伤害并{R}眩晕{secs(pu['r_stun'])}秒{E}。",
+        f"将敌方英雄装进棺材（不可选中）扛向己方{A}{secs(pu['r_carry_t'])}秒{E}（移速+{A}{pu['r_ms']}%{E}），随后猛摔造成{O}{pu['r_slam_dmg']}{E}+{A}{pu['r_slam_thp']}%目标最大生命{E}伤害并{R}眩晕{secs(pu['r_stun'])}秒{E}。",
         "落葬", "送行", "入殓")
     put("abysspact_undertaker", "zh-hant", "入殮",
         f"揮棺撞擊造成{ADi}{O}100%{E}物理傷害。{O}棺盾{E}：常駐普攻減傷{A}15%{E}；每{A}8秒{E}獲得一層令下次技能傷害-{A}30%{E}的護盾。",
         f"掄棺前砸造成{O}{pu['q_dmg']}{E}+{A}{pu['q_hp']}%最大生命{E}物理傷害並{R}擊飛{secs(pu['q_air'])}秒{E}。",
         f"鐵鏈甩出棺材釘地並將自己拽至目標身旁；棺材矗立{A}{secs(pu['w_t'])}秒{E}，周圍敵人{R}減速{pu['w_slow']}%{E}。",
-        f"將敵方英雄裝進棺材扛走{A}{secs(pu['r_carry_t'])}秒{E}（自身移速+{A}{pu['r_ms']}%{E}），隨後猛摔造成{O}{pu['r_slam_dmg']}{E}+{A}{pu['r_slam_thp']}%目標最大生命{E}傷害並{R}眩暈{secs(pu['r_stun'])}秒{E}。",
+        f"將敵方英雄裝進棺材（不可選中）扛向己方{A}{secs(pu['r_carry_t'])}秒{E}（移速+{A}{pu['r_ms']}%{E}），隨後猛摔造成{O}{pu['r_slam_dmg']}{E}+{A}{pu['r_slam_thp']}%目標最大生命{E}傷害並{R}眩暈{secs(pu['r_stun'])}秒{E}。",
         "落葬", "送行", "入殮")
     put("abysspact_undertaker", "en", "Undertaker",
         f"Coffin slam for {ADi}{O}100%{E} physical damage. {O}Coffin Shield{E}: {A}-15%{E} basic attack damage; every {A}8s{E}, reduce the next skill hit by {A}30%{E}.",
         f"Smash his coffin forward for {O}{pu['q_dmg']}{E}+{A}{pu['q_hp']}% max HP{E} physical damage and {R}{secs(pu['q_air'])}s knockup{E}.",
         f"Hurl his chained coffin and pull himself to the target; the planted coffin stands {A}{secs(pu['w_t'])}s{E}, {R}slowing by {pu['w_slow']}%{E}.",
-        f"Stuff an enemy champion into his coffin and haul them {A}{secs(pu['r_carry_t'])}s{E} ({A}+{pu['r_ms']}%{E} MS), then slam for {O}{pu['r_slam_dmg']}{E}+{A}{pu['r_slam_thp']}% target max HP{E} and {R}{secs(pu['r_stun'])}s stun{E}.",
+        f"Stuff an enemy champion into his coffin (untargetable) and haul them toward his team for {A}{secs(pu['r_carry_t'])}s{E} ({A}+{pu['r_ms']}%{E} MS), then slam for {O}{pu['r_slam_dmg']}{E}+{A}{pu['r_slam_thp']}% target max HP{E} and {R}{secs(pu['r_stun'])}s stun{E}.",
         "Burial Slam", "Pallbearer", "Enshroud")
     put("abysspact_undertaker", "ja", "入棺",
         f"棺で殴り{ADi}{O}100%{E}物理。{O}棺盾{E}：通常攻撃被ダメ-{A}15%{E}、{A}8秒{E}毎に次スキル被ダメ-{A}30%{E}。",
         f"棺を叩きつけ{O}{pu['q_dmg']}{E}+{A}最大HP{pu['q_hp']}%{E}物理と{R}{secs(pu['q_air'])}秒ノックアップ{E}。",
         f"鎖付き棺を投げ自身を引き寄せ、{A}{secs(pu['w_t'])}秒{E}立つ棺の周囲を{R}{pu['w_slow']}%スロウ{E}。",
-        f"敵英雄を棺に詰め{A}{secs(pu['r_carry_t'])}秒{E}担いで運び（移動+{A}{pu['r_ms']}%{E}）、叩きつけ{O}{pu['r_slam_dmg']}{E}+{A}対象最大HP{pu['r_slam_thp']}%{E}と{R}{secs(pu['r_stun'])}秒スタン{E}。",
+        f"敵英雄を棺に詰め（対象指定不可）{A}{secs(pu['r_carry_t'])}秒{E}味方側へ運び（移動+{A}{pu['r_ms']}%{E}）、叩きつけ{O}{pu['r_slam_dmg']}{E}+{A}対象最大HP{pu['r_slam_thp']}%{E}と{R}{secs(pu['r_stun'])}秒スタン{E}。",
         "落葬", "送行", "入棺")
     put("abysspact_undertaker", "ko", "입관",
         f"관으로 들이받아 {ADi}{O}100%{E} 물리 피해. {O}관 방패{E}: 기본 공격 피해 -{A}15%{E}, {A}8초{E}마다 다음 스킬 피해 -{A}30%{E}.",
         f"관을 내려찍어 {O}{pu['q_dmg']}{E}+{A}최대체력 {pu['q_hp']}%{E} 물리 피해와 {R}{secs(pu['q_air'])}초 에어본{E}.",
         f"쇠사슬 관을 던져 자신을 끌어당기며, {A}{secs(pu['w_t'])}초{E}간 꽂힌 관 주변 적 {R}{pu['w_slow']}% 둔화{E}.",
-        f"적 챔피언을 관에 가둬 {A}{secs(pu['r_carry_t'])}초{E}간 메고 이동(이속+{A}{pu['r_ms']}%{E}) 후 내려찍어 {O}{pu['r_slam_dmg']}{E}+{A}대상 최대체력 {pu['r_slam_thp']}%{E} 피해 및 {R}{secs(pu['r_stun'])}초 기절{E}.",
+        f"적 챔피언을 관에 가둬(지정 불가) {A}{secs(pu['r_carry_t'])}초{E}간 아군 쪽으로 메고 이동(이속+{A}{pu['r_ms']}%{E}) 후 내려찍어 {O}{pu['r_slam_dmg']}{E}+{A}대상 최대체력 {pu['r_slam_thp']}%{E} 피해 및 {R}{secs(pu['r_stun'])}초 기절{E}.",
         "낙장", "송행", "입관")
 
     # --- 8. 替身 Effigy ---
@@ -716,13 +716,13 @@ def build_i18n():
     put("abysspact_sevenfold", "zh-hans", "七弹",
         f"魔弹枪射击造成{ADi}{O}100%{E}物理伤害。{O}第七颗{E}：7发一轮，第7发拐弯必中随机敌方英雄造成{ad(ps['p_true_dmg'], ps['p_true_ad'])}真实伤害，自损{A}8%{E}当前血并装弹1.2秒。",
         f"连开三枪每发{ad(ps['q_dmg'], ps['q_ad'])}物理伤害，消耗3发弹仓更快逼出第七颗魔弹。",
-        f"向后翻滚拉开距离，立刻装满弹仓并将下一发直接置为第七颗深渊魔弹。",
+        f"向后翻滚拉开距离，并将下一发直接置为第七颗深渊魔弹。",
         f"前方扇形连开七枪：前6发各自寻敌造成{ad(ps['r_dmg'], ps['r_ad'])}物理伤害，第7发必为深渊拐弯真伤魔弹。",
         "连发", "装弹", "七发齐射")
     put("abysspact_sevenfold", "zh-hant", "七彈",
         f"魔彈槍射擊造成{ADi}{O}100%{E}物理傷害。{O}第七顆{E}：7發一輪，第7發拐彎必中隨機敵方英雄造成{ad(ps['p_true_dmg'], ps['p_true_ad'])}真實傷害，自損{A}8%{E}當前血並裝彈1.2秒。",
         f"連開三槍每發{ad(ps['q_dmg'], ps['q_ad'])}物理傷害，消耗3發彈倉更快逼出第七顆魔彈。",
-        f"向後翻滾拉開距離，立刻裝滿彈倉並將下一發直接置為第七顆深淵魔彈。",
+        f"向後翻滾拉開距離，並將下一發直接置為第七顆深淵魔彈。",
         f"前方扇形連開七槍：前6發各自尋敵造成{ad(ps['r_dmg'], ps['r_ad'])}物理傷害，第7發必為深淵拐彎真傷魔彈。",
         "連發", "裝彈", "七發齊射")
     put("abysspact_sevenfold", "en", "Sevenfold",
@@ -749,95 +749,95 @@ def build_i18n():
         f"放出鬼火造成{ADi}{O}100%{E}物理伤害。{O}烛冠{E}：周围每阵亡1名英雄点亮1支蜡烛（上限{A}5支{E}），每支使治疗与护盾+{A}10%{E}。",
         f"鬼火连结友军{A}{secs(pv['q_t'])}秒{E}：移速+{A}{pv['q_ms']}%{E}、每秒回复{ap(pv['q_heal'], pv['q_heal_ap'])}，结束赋予{S}{pv['q_sh']}{E}+{APi}{S}{pv['q_sh_ap']}%{E}护盾。",
         f"放出尖叫亡魂直线穿透，造成{ap(pv['w_dmg'], pv['w_ap'])}魔法伤害并{R}恐惧{secs(pv['w_fear'])}秒{E}。",
-        f"唤回10秒内阵亡队友化身魂体再战{A}8秒{E}（减伤50%禁疗），期间己方拿到击杀即{A}真复活{E}；无阵亡队友则全体加盾。",
+        f"备好{A}6秒{E}：期间唤回10秒内阵亡的队友化身魂体再战{A}8秒{E}（减伤50%禁疗），己方拿到击杀即{A}真复活{E}；无人可唤而队友残血则全体加盾，没用上返还冷却。",
         "引路", "惊魂", "回魂")
     put("abysspact_vesper", "zh-hant", "燭靈",
         f"放出鬼火造成{ADi}{O}100%{E}物理傷害。{O}燭冠{E}：周圍每陣亡1名英雄點亮1支蠟燭（上限{A}5支{E}），每支使治療與護盾+{A}10%{E}。",
         f"鬼火連結友軍{A}{secs(pv['q_t'])}秒{E}：移速+{A}{pv['q_ms']}%{E}、每秒回復{ap(pv['q_heal'], pv['q_heal_ap'])}，結束賦予{S}{pv['q_sh']}{E}+{APi}{S}{pv['q_sh_ap']}%{E}護盾。",
         f"放出尖叫亡魂直線穿透，造成{ap(pv['w_dmg'], pv['w_ap'])}魔法傷害並{R}恐懼{secs(pv['w_fear'])}秒{E}。",
-        f"喚回10秒內陣亡隊友化身魂體再戰{A}8秒{E}（減傷50%禁療），期間己方拿到擊殺即{A}真復活{E}；無陣亡隊友則全體加盾。",
+        f"備好{A}6秒{E}：期間喚回10秒內陣亡的隊友化身魂體再戰{A}8秒{E}（減傷50%禁療），己方拿到擊殺即{A}真復活{E}；無人可喚而隊友殘血則全體加盾，沒用上返還冷卻。",
         "引路", "驚魂", "回魂")
     put("abysspact_vesper", "en", "Vesper",
         f"Launch a spirit wisp for {ADi}{O}100%{E} physical damage. {O}Candle Crown{E}: each nearby champion death lights a candle (max {A}5{E}), boosting heals & shields by {A}+10%{E} each.",
         f"Link a wisp to an ally for {A}{secs(pv['q_t'])}s{E}: {A}+{pv['q_ms']}%{E} MS, {ap(pv['q_heal'], pv['q_heal_ap'])} heal/s, ending with a {S}{pv['q_sh']}{E}+{APi}{S}{pv['q_sh_ap']}%{E} shield.",
         f"Send a screaming wraith forward in a line for {ap(pv['w_dmg'], pv['w_ap'])} magic damage and {R}{secs(pv['w_fear'])}s fear{E}.",
-        f"Recall a recently fallen ally in Spirit Form for {A}8s{E} (50% DR, no healing); any team kill grants {A}true revival{E}. Otherwise shields all nearby allies.",
+        f"Ready for {A}6s{E}: recall an ally who fell in the last 10s in Spirit Form for {A}8s{E} (50% DR, no healing); any team kill grants {A}true revival{E}. Otherwise shields nearby allies when one is low; if unused, the cooldown is refunded.",
         "Soul Guide", "Wraith Shriek", "Soul Recall")
     put("abysspact_vesper", "ja", "燭霊",
         f"鬼火を飛ばし{ADi}{O}100%{E}物理。{O}燭冠{E}：周囲の英雄死亡毎に蝋燭を点灯（最大{A}5本{E}）、1本につき回復・シールド+{A}10%{E}。",
         f"鬼火で味方を{A}{secs(pv['q_t'])}秒{E}結び移動+{A}{pv['q_ms']}%{E}、毎秒{ap(pv['q_heal'], pv['q_heal_ap'])}回復、終了時{S}{pv['q_sh']}{E}+{APi}{S}{pv['q_sh_ap']}%{E}シールド。",
         f"叫ぶ亡霊が直線貫通し{ap(pv['w_dmg'], pv['w_ap'])}魔法ダメージと{R}{secs(pv['w_fear'])}秒恐怖{E}。",
-        f"10秒内に倒れた味方を魂体で{A}8秒{E}蘇生（被ダメ半減・回復不可）、味方の撃破で{A}真復活{E}。該当なし時は周囲の味方へシールド。",
+        f"{A}6秒{E}待機：10秒内に倒れた味方を魂体で{A}8秒{E}蘇生（被ダメ半減・回復不可）、撃破で{A}真復活{E}。いなければ瀕死の味方がいる時に周囲へシールド、未使用ならCD返還。",
         "引導", "驚魂", "回魂")
     put("abysspact_vesper", "ko", "촉령",
         f"도깨비불로 {ADi}{O}100%{E} 물리 피해. {O}촛불 왕관{E}: 주변 챔피언 사망 시 촛불 점등(최대 {A}5개{E}), 개당 치유·보호막 +{A}10%{E}.",
         f"아군에게 {A}{secs(pv['q_t'])}초{E} 연결해 이속+{A}{pv['q_ms']}%{E}, 매초 {ap(pv['q_heal'], pv['q_heal_ap'])} 회복, 종료 시 {S}{pv['q_sh']}{E}+{APi}{S}{pv['q_sh_ap']}%{E} 보호막.",
         f"비명 지르는 망령이 직선 관통하며 {ap(pv['w_dmg'], pv['w_ap'])} 마법 피해와 {R}{secs(pv['w_fear'])}초 공포{E}.",
-        f"10초 내 전사한 아군을 영혼체로 {A}8초{E} 소환(피해 반감·치유 불가), 팀 킬 시 {A}완전 부활{E}. 대상 없으면 주변 아군 보호막.",
+        f"{A}6초{E} 대기: 10초 내 전사한 아군을 영혼체로 {A}8초{E} 소환(피해 반감·치유 불가), 팀 킬 시 {A}완전 부활{E}. 없으면 빈사 아군이 있을 때 보호막, 미사용 시 쿨다운 반환.",
         "인도", "경혼", "회혼")
 
     # --- 11. 蜕甲 Carapace ---
     put("abysspact_carapace", "zh-hans", "蜕甲",
         f"虫刃交叉斩击造成{ADi}{O}100%{E}物理伤害。{O}蜕壳{E}：每条命可蜕两次（甲→虫→羽），濒死回{A}40%{E}血并留空壳嘲讽自爆，最大血渐减而攻速移速大涨。",
         f"前冲刺螯造成{ad(pca['q_dmg'], pca['q_ad'])}物理伤害并{R}减速{pca['q_slow']}%{E}；第三形态「羽」变为远距离飞扑。",
-        f"敲响甲壳震伤周围敌人{ad(pca['w_dmg'], pca['w_ad'])}，命中敌方英雄时回复自身生命。",
+        f"敲响甲壳震伤周围敌人{ad(pca['w_dmg'], pca['w_ad'])}，按造成伤害的{A}{pca['w_vamp']}%{E}回复自身生命。",
         f"立即主动蜕壳炸开旧甲，对周围造成{ad(pca['r_dmg'], pca['r_ad'])}伤害并{R}击飞{secs(pca['r_air'])}秒{E}、获得{A}4秒+{pca['r_as']}%{E}攻速；第三形态改为长距飞扑击飞。",
         "刺螯", "甲鸣", "羽化")
     put("abysspact_carapace", "zh-hant", "蛻甲",
         f"蟲刃交叉斬擊造成{ADi}{O}100%{E}物理傷害。{O}蛻殼{E}：每條命可蛻兩次（甲→蟲→羽），瀕死回{A}40%{E}血並留空殼嘲諷自爆，最大血漸減而攻速移速大漲。",
         f"前衝刺螯造成{ad(pca['q_dmg'], pca['q_ad'])}物理傷害並{R}減速{pca['q_slow']}%{E}；第三形態「羽」變為遠距離飛撲。",
-        f"敲響甲殼震傷周圍敵人{ad(pca['w_dmg'], pca['w_ad'])}，命中敵方英雄時回復自身生命。",
+        f"敲響甲殼震傷周圍敵人{ad(pca['w_dmg'], pca['w_ad'])}，按造成傷害的{A}{pca['w_vamp']}%{E}回復自身生命。",
         f"立即主動蛻殼炸開舊甲，對周圍造成{ad(pca['r_dmg'], pca['r_ad'])}傷害並{R}擊飛{secs(pca['r_air'])}秒{E}、獲得{A}4秒+{pca['r_as']}%{E}攻速；第三形態改為長距飛撲擊飛。",
         "刺螯", "甲鳴", "羽化")
     put("abysspact_carapace", "en", "Carapace",
         f"Scythe slash for {ADi}{O}100%{E} physical damage. {O}Molt{E}: cheats death twice per life (Armor -> Bug -> Winged), healing to {A}40%{E} HP while leaving a taunting bomb shell; loses max HP for AS & MS.",
         f"Lunge forward for {ad(pca['q_dmg'], pca['q_ad'])} physical damage and {R}{pca['q_slow']}% slow{E}; becomes a long winged dive in Form 3.",
-        f"Strike his shell to shock nearby foes for {ad(pca['w_dmg'], pca['w_ad'])} physical damage, healing on champion hits.",
+        f"Strike his shell to shock nearby foes for {ad(pca['w_dmg'], pca['w_ad'])} physical damage, healing for {A}{pca['w_vamp']}%{E} of the damage dealt.",
         f"Actively molt to shatter his shell for {ad(pca['r_dmg'], pca['r_ad'])} AoE damage, {R}{secs(pca['r_air'])}s knockup{E}, and {A}+{pca['r_as']}% AS{E} for 4s; Form 3 dives from afar.",
         "Chelicera", "Carapace Ring", "Ecdysis")
     put("abysspact_carapace", "ja", "蛻甲",
         f"虫刃で{ADi}{O}100%{E}物理。{O}脱皮{E}：1命で2回脱皮（甲→虫→羽）、致死時にHP{A}40%{E}回復し挑発自爆する空殻を残す。最大HP低下の代償に速度激増。",
         f"突進し{ad(pca['q_dmg'], pca['q_ad'])}物理と{R}{pca['q_slow']}%スロウ{E}。第3形態では長距離飛び掛かりへ変化。",
-        f"甲殻を鳴らし周囲へ{ad(pca['w_dmg'], pca['w_ad'])}物理、英雄命中で自己回復。",
+        f"甲殻を鳴らし周囲へ{ad(pca['w_dmg'], pca['w_ad'])}物理、与ダメの{A}{pca['w_vamp']}%{E}を回復。",
         f"即座に脱皮爆発し周囲に{ad(pca['r_dmg'], pca['r_ad'])}物理と{R}{secs(pca['r_air'])}秒ノックアップ{E}、4秒間攻撃速度+{A}{pca['r_as']}%{E}。第3形態は遠距離急襲。",
         "刺螯", "甲鳴", "羽化")
     put("abysspact_carapace", "ko", "탈갑",
         f"벌레 칼날로 {ADi}{O}100%{E} 물리 피해. {O}탈피{E}: 목숨당 2회 탈피(갑→충→우), 치명타 시 체력 {A}40%{E} 회복하며 도발 자폭 빈 껍질 생성. 최대 체력 감소 대신 공속·이속 급증.",
         f"돌진해 {ad(pca['q_dmg'], pca['q_ad'])} 물리 피해와 {R}{pca['q_slow']}% 둔화{E}. 3형태에서는 장거리 도약.",
-        f"갑각을 울려 주변에 {ad(pca['w_dmg'], pca['w_ad'])} 물리 피해 및 챔피언 적중 시 자가 치유.",
+        f"갑각을 울려 주변에 {ad(pca['w_dmg'], pca['w_ad'])} 물리 피해, 준 피해의 {A}{pca['w_vamp']}%{E} 회복.",
         f"즉시 탈피 폭발로 {ad(pca['r_dmg'], pca['r_ad'])} 광역 피해, {R}{secs(pca['r_air'])}초 에어본{E}, 4초간 공속+{A}{pca['r_as']}%{E}. 3형태는 원거리 강습.",
         "집게 찌르기", "갑각 울림", "우화")
 
     # --- 12. 附骨 Leech ---
     put("abysspact_leech", "zh-hans", "附骨",
-        f"钩爪撕挠造成{ADi}{O}100%{E}物理伤害。{O}附骨之疽{E}：寄生宿主期间不可选中并持续吸取最大生命治己，但宿主挨打时自身同步承受{A}25%{E}伤害。",
+        f"钩爪撕挠造成{ADi}{O}100%{E}物理伤害。{O}附骨之疽{E}：寄生宿主期间不受伤害并持续吸取最大生命治己，但宿主挨打时自身同步承受{A}25%{E}伤害。",
         f"扑向目标造成{ap(pl['q_dmg'], pl['q_ap'])}法伤并附着敌方英雄背上{A}3秒{E}减速吸血；宿主阵亡自动跳向下一名敌方英雄。",
         f"向目标注入深渊毒液造成{ap(pl['w_dmg'], pl['w_ap'])}法伤并{R}沉默{secs(pl['w_sil'])}秒{E}；附着期间对宿主沉默延长至{R}{secs(pl['w_sil_att'])}秒{E}。",
-        f"裂成{A}5只{E}小水蛭扑向周围敌方英雄群吸{A}3秒{E}（不可选中、每宿主分担10%伤害），结束后聚回本体并回复全部所吸血量。",
+        f"裂成{A}5只{E}小水蛭扑向周围敌方英雄（每人最多2只）群吸{A}3秒{E}（本体离场、每宿主分担10%伤害），结束后聚回本体并回复全部所吸血量。",
         "扑附", "蚀髓", "万蛭")
     put("abysspact_leech", "zh-hant", "附骨",
-        f"鉤爪撕撓造成{ADi}{O}100%{E}物理傷害。{O}附骨之疽{E}：寄生宿主期間不可選中並持續吸取最大生命治己，但宿主挨打時自身同步承受{A}25%{E}傷害。",
+        f"鉤爪撕撓造成{ADi}{O}100%{E}物理傷害。{O}附骨之疽{E}：寄生宿主期間不受傷害並持續吸取最大生命治己，但宿主挨打時自身同步承受{A}25%{E}傷害。",
         f"撲向目標造成{ap(pl['q_dmg'], pl['q_ap'])}法傷並附著敵方英雄背上{A}3秒{E}減速吸血；宿主陣亡自動跳向下一名敵方英雄。",
         f"向目標注入深淵毒液造成{ap(pl['w_dmg'], pl['w_ap'])}法傷並{R}沉默{secs(pl['w_sil'])}秒{E}；附著期間對宿主沉默延長至{R}{secs(pl['w_sil_att'])}秒{E}。",
-        f"裂成{A}5隻{E}小水蛭撲向周圍敵方英雄群吸{A}3秒{E}（不可選中、每宿主分擔10%傷害），結束後聚回本體並回復全部所吸血量。",
+        f"裂成{A}5隻{E}小水蛭撲向周圍敵方英雄（每人最多2隻）群吸{A}3秒{E}（本體離場、每宿主分擔10%傷害），結束後聚回本體並回復全部所吸血量。",
         "撲附", "蝕髓", "萬蛭")
     put("abysspact_leech", "en", "Leech",
-        f"Hook claw for {ADi}{O}100%{E} physical damage. {O}Bone Parasite{E}: while clinging to an enemy he is untargetable and drains max HP to heal, but suffers {A}25%{E} of damage dealt to his host.",
+        f"Hook claw for {ADi}{O}100%{E} physical damage. {O}Bone Parasite{E}: while clinging to an enemy he takes no damage and drains max HP to heal, but suffers {A}25%{E} of damage dealt to his host.",
         f"Pounce for {ap(pl['q_dmg'], pl['q_ap'])} magic damage and cling to an enemy champion for {A}3s{E}, slowing & draining; jumps to a nearby foe if host dies.",
         f"Inject marrow venom for {ap(pl['w_dmg'], pl['w_ap'])} magic damage and {R}{secs(pl['w_sil'])}s silence{E} ({R}{secs(pl['w_sil_att'])}s{E} while attached).",
-        f"Split into {A}5 mini-leeches{E} draining enemy champions for {A}3s{E} while untargetable (10% shared pain each), then reform and heal for all drained HP.",
+        f"Split into {A}5 mini-leeches{E} (at most 2 per foe) draining enemy champions for {A}3s{E} while he leaves the field (10% shared pain each), then reform and heal for all drained HP.",
         "Latch", "Marrow Bite", "Swarm of Five")
     put("abysspact_leech", "ja", "附骨",
-        f"鉤爪で{ADi}{O}100%{E}物理。{O}附骨の疽{E}：宿主に寄生中は対象指定不可で最大HPを吸収回復するが、宿主の被ダメ{A}25%{E}を自身も受ける。",
+        f"鉤爪で{ADi}{O}100%{E}物理。{O}附骨の疽{E}：宿主に寄生中はダメージを受けず最大HPを吸収回復するが、宿主の被ダメ{A}25%{E}を自身も受ける。",
         f"飛び付き{ap(pl['q_dmg'], pl['q_ap'])}魔法＋敵英雄の背中へ{A}3秒{E}寄生し減速吸収。宿主撃破で次の敵へ跳躍。",
         f"毒を注入し{ap(pl['w_dmg'], pl['w_ap'])}魔法と{R}{secs(pl['w_sil'])}秒沈黙{E}（寄生中は{R}{secs(pl['w_sil_att'])}秒{E}）。",
-        f"{A}5匹{E}の小蛭に分裂し敵英雄へ{A}3秒{E}群がり吸収（各被ダメ10%共有）、合体時に吸収量を全回復。",
+        f"{A}5匹{E}の小蛭に分裂し敵英雄へ（1人最大2匹）{A}3秒{E}群がり吸収（各被ダメ10%共有）、合体時に吸収量を全回復。",
         "撲附", "蝕髄", "万蛭")
     put("abysspact_leech", "ko", "부골",
-        f"갈고리 발톱으로 {ADi}{O}100%{E} 물리 피해. {O}부골지저{E}: 숙주 기생 중 대상 지정 불가 및 최대 체력 흡혈, 단 숙주 피해의 {A}25%{E}를 함께 받음.",
+        f"갈고리 발톱으로 {ADi}{O}100%{E} 물리 피해. {O}부골지저{E}: 숙주 기생 중 피해 면역 및 최대 체력 흡혈, 단 숙주 피해의 {A}25%{E}를 함께 받음.",
         f"덮쳐 {ap(pl['q_dmg'], pl['q_ap'])} 마법 피해 후 적 챔피언 등에 {A}3초{E} 기생(둔화·흡혈). 숙주 사망 시 인접 적에게 도약.",
         f"독을 주입해 {ap(pl['w_dmg'], pl['w_ap'])} 마법 피해와 {R}{secs(pl['w_sil'])}초 침묵{E}(기생 중 {R}{secs(pl['w_sil_att'])}초{E}).",
-        f"{A}5마리{E} 작은 거머리로 분열해 {A}3초{E}간 적 챔피언들을 흡혈(숙주당 10% 피해 공유) 후 합체하며 총 흡혈량 회복.",
+        f"{A}5마리{E} 작은 거머리로 분열해(1인당 최대 2마리) {A}3초{E}간 적 챔피언들을 흡혈(숙주당 10% 피해 공유) 후 합체하며 총 흡혈량 회복.",
         "기생 도약", "골수 침식", "만질")
 
     # --- 13. 千蛾 Noctua ---

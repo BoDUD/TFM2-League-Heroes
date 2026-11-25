@@ -48,7 +48,7 @@
         "attack": "挥棺撞击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>棺盾<>：常驻普攻减伤<#ffb900ff>15%<>；每<#ffb900ff>8秒<>获得一层令下次技能伤害-<#ffb900ff>30%<>的护盾。",
         "skill": "抡棺前砸造成<#ff9028ff>56<>+<#ffb900ff>6%最大生命<>物理伤害并<#ef5350ff>击飞0.48秒<>。",
         "skill2": "铁链甩出棺材钉地并将自己拽至目标身旁；棺材矗立<#ffb900ff>3秒<>，周围敌人<#ef5350ff>减速40%<>。",
-        "ult": "将敌方英雄装进棺材扛走<#ffb900ff>2秒<>（自身移速+<#ffb900ff>20%<>），随后猛摔造成<#ff9028ff>150<>+<#ffb900ff>8%目标最大生命<>伤害并<#ef5350ff>眩晕1秒<>。"
+        "ult": "将敌方英雄装进棺材（不可选中）扛向己方<#ffb900ff>2秒<>（移速+<#ffb900ff>20%<>），随后猛摔造成<#ff9028ff>150<>+<#ffb900ff>8%目标最大生命<>伤害并<#ef5350ff>眩晕1秒<>。"
       },
       "abysspact_effigy": {
         "name": "替身",
@@ -61,7 +61,7 @@
         "name": "七弹",
         "attack": "魔弹枪射击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>第七颗<>：7发一轮，第7发拐弯必中随机敌方英雄造成<#ff9028ff>135<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>真实伤害，自损<#ffb900ff>8%<>当前血并装弹1.2秒。",
         "skill": "连开三枪每发<#ff9028ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>42%<>物理伤害，消耗3发弹仓更快逼出第七颗魔弹。",
-        "skill2": "向后翻滚拉开距离，立刻装满弹仓并将下一发直接置为第七颗深渊魔弹。",
+        "skill2": "向后翻滚拉开距离，并将下一发直接置为第七颗深渊魔弹。",
         "ult": "前方扇形连开七枪：前6发各自寻敌造成<#ff9028ff>33<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>51%<>物理伤害，第7发必为深渊拐弯真伤魔弹。"
       },
       "abysspact_vesper": {
@@ -69,21 +69,21 @@
         "attack": "放出鬼火造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>烛冠<>：周围每阵亡1名英雄点亮1支蜡烛（上限<#ffb900ff>5支<>），每支使治疗与护盾+<#ffb900ff>10%<>。",
         "skill": "鬼火连结友军<#ffb900ff>3秒<>：移速+<#ffb900ff>26%<>、每秒回复<#a974ffff>35<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>23%<>，结束赋予<#e8d44dff>62<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>46%<>护盾。",
         "skill2": "放出尖叫亡魂直线穿透，造成<#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>46%<>魔法伤害并<#ef5350ff>恐惧0.82秒<>。",
-        "ult": "唤回10秒内阵亡队友化身魂体再战<#ffb900ff>8秒<>（减伤50%禁疗），期间己方拿到击杀即<#ffb900ff>真复活<>；无阵亡队友则全体加盾。"
+        "ult": "备好<#ffb900ff>6秒<>：期间唤回10秒内阵亡的队友化身魂体再战<#ffb900ff>8秒<>（减伤50%禁疗），己方拿到击杀即<#ffb900ff>真复活<>；无人可唤而队友残血则全体加盾，没用上返还冷却。"
       },
       "abysspact_carapace": {
         "name": "蜕甲",
         "attack": "虫刃交叉斩击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>蜕壳<>：每条命可蜕两次（甲→虫→羽），濒死回<#ffb900ff>40%<>血并留空壳嘲讽自爆，最大血渐减而攻速移速大涨。",
         "skill": "前冲刺螯造成<#ff9028ff>94<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>123%<>物理伤害并<#ef5350ff>减速30%<>；第三形态「羽」变为远距离飞扑。",
-        "skill2": "敲响甲壳震伤周围敌人<#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<>，命中敌方英雄时回复自身生命。",
+        "skill2": "敲响甲壳震伤周围敌人<#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<>，按造成伤害的<#ffb900ff>30%<>回复自身生命。",
         "ult": "立即主动蜕壳炸开旧甲，对周围造成<#ff9028ff>195<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>127%<>伤害并<#ef5350ff>击飞0.75秒<>、获得<#ffb900ff>4秒+40%<>攻速；第三形态改为长距飞扑击飞。"
       },
       "abysspact_leech": {
         "name": "附骨",
-        "attack": "钩爪撕挠造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>附骨之疽<>：寄生宿主期间不可选中并持续吸取最大生命治己，但宿主挨打时自身同步承受<#ffb900ff>25%<>伤害。",
+        "attack": "钩爪撕挠造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>附骨之疽<>：寄生宿主期间不受伤害并持续吸取最大生命治己，但宿主挨打时自身同步承受<#ffb900ff>25%<>伤害。",
         "skill": "扑向目标造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>法伤并附着敌方英雄背上<#ffb900ff>3秒<>减速吸血；宿主阵亡自动跳向下一名敌方英雄。",
         "skill2": "向目标注入深渊毒液造成<#a974ffff>117<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>法伤并<#ef5350ff>沉默1秒<>；附着期间对宿主沉默延长至<#ef5350ff>1.75秒<>。",
-        "ult": "裂成<#ffb900ff>5只<>小水蛭扑向周围敌方英雄群吸<#ffb900ff>3秒<>（不可选中、每宿主分担10%伤害），结束后聚回本体并回复全部所吸血量。"
+        "ult": "裂成<#ffb900ff>5只<>小水蛭扑向周围敌方英雄（每人最多2只）群吸<#ffb900ff>3秒<>（本体离场、每宿主分担10%伤害），结束后聚回本体并回复全部所吸血量。"
       },
       "abysspact_noctua": {
         "name": "千蛾",
@@ -294,7 +294,7 @@
         "attack": "揮棺撞擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>棺盾<>：常駐普攻減傷<#ffb900ff>15%<>；每<#ffb900ff>8秒<>獲得一層令下次技能傷害-<#ffb900ff>30%<>的護盾。",
         "skill": "掄棺前砸造成<#ff9028ff>56<>+<#ffb900ff>6%最大生命<>物理傷害並<#ef5350ff>擊飛0.48秒<>。",
         "skill2": "鐵鏈甩出棺材釘地並將自己拽至目標身旁；棺材矗立<#ffb900ff>3秒<>，周圍敵人<#ef5350ff>減速40%<>。",
-        "ult": "將敵方英雄裝進棺材扛走<#ffb900ff>2秒<>（自身移速+<#ffb900ff>20%<>），隨後猛摔造成<#ff9028ff>150<>+<#ffb900ff>8%目標最大生命<>傷害並<#ef5350ff>眩暈1秒<>。"
+        "ult": "將敵方英雄裝進棺材（不可選中）扛向己方<#ffb900ff>2秒<>（移速+<#ffb900ff>20%<>），隨後猛摔造成<#ff9028ff>150<>+<#ffb900ff>8%目標最大生命<>傷害並<#ef5350ff>眩暈1秒<>。"
       },
       "abysspact_effigy": {
         "name": "替身",
@@ -307,7 +307,7 @@
         "name": "七彈",
         "attack": "魔彈槍射擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>第七顆<>：7發一輪，第7發拐彎必中隨機敵方英雄造成<#ff9028ff>135<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>真實傷害，自損<#ffb900ff>8%<>當前血並裝彈1.2秒。",
         "skill": "連開三槍每發<#ff9028ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>42%<>物理傷害，消耗3發彈倉更快逼出第七顆魔彈。",
-        "skill2": "向後翻滾拉開距離，立刻裝滿彈倉並將下一發直接置為第七顆深淵魔彈。",
+        "skill2": "向後翻滾拉開距離，並將下一發直接置為第七顆深淵魔彈。",
         "ult": "前方扇形連開七槍：前6發各自尋敵造成<#ff9028ff>33<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>51%<>物理傷害，第7發必為深淵拐彎真傷魔彈。"
       },
       "abysspact_vesper": {
@@ -315,21 +315,21 @@
         "attack": "放出鬼火造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>燭冠<>：周圍每陣亡1名英雄點亮1支蠟燭（上限<#ffb900ff>5支<>），每支使治療與護盾+<#ffb900ff>10%<>。",
         "skill": "鬼火連結友軍<#ffb900ff>3秒<>：移速+<#ffb900ff>26%<>、每秒回復<#a974ffff>35<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>23%<>，結束賦予<#e8d44dff>62<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>46%<>護盾。",
         "skill2": "放出尖叫亡魂直線穿透，造成<#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>46%<>魔法傷害並<#ef5350ff>恐懼0.82秒<>。",
-        "ult": "喚回10秒內陣亡隊友化身魂體再戰<#ffb900ff>8秒<>（減傷50%禁療），期間己方拿到擊殺即<#ffb900ff>真復活<>；無陣亡隊友則全體加盾。"
+        "ult": "備好<#ffb900ff>6秒<>：期間喚回10秒內陣亡的隊友化身魂體再戰<#ffb900ff>8秒<>（減傷50%禁療），己方拿到擊殺即<#ffb900ff>真復活<>；無人可喚而隊友殘血則全體加盾，沒用上返還冷卻。"
       },
       "abysspact_carapace": {
         "name": "蛻甲",
         "attack": "蟲刃交叉斬擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>蛻殼<>：每條命可蛻兩次（甲→蟲→羽），瀕死回<#ffb900ff>40%<>血並留空殼嘲諷自爆，最大血漸減而攻速移速大漲。",
         "skill": "前衝刺螯造成<#ff9028ff>94<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>123%<>物理傷害並<#ef5350ff>減速30%<>；第三形態「羽」變為遠距離飛撲。",
-        "skill2": "敲響甲殼震傷周圍敵人<#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<>，命中敵方英雄時回復自身生命。",
+        "skill2": "敲響甲殼震傷周圍敵人<#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<>，按造成傷害的<#ffb900ff>30%<>回復自身生命。",
         "ult": "立即主動蛻殼炸開舊甲，對周圍造成<#ff9028ff>195<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>127%<>傷害並<#ef5350ff>擊飛0.75秒<>、獲得<#ffb900ff>4秒+40%<>攻速；第三形態改為長距飛撲擊飛。"
       },
       "abysspact_leech": {
         "name": "附骨",
-        "attack": "鉤爪撕撓造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>附骨之疽<>：寄生宿主期間不可選中並持續吸取最大生命治己，但宿主挨打時自身同步承受<#ffb900ff>25%<>傷害。",
+        "attack": "鉤爪撕撓造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>附骨之疽<>：寄生宿主期間不受傷害並持續吸取最大生命治己，但宿主挨打時自身同步承受<#ffb900ff>25%<>傷害。",
         "skill": "撲向目標造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>法傷並附著敵方英雄背上<#ffb900ff>3秒<>減速吸血；宿主陣亡自動跳向下一名敵方英雄。",
         "skill2": "向目標注入深淵毒液造成<#a974ffff>117<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>法傷並<#ef5350ff>沉默1秒<>；附著期間對宿主沉默延長至<#ef5350ff>1.75秒<>。",
-        "ult": "裂成<#ffb900ff>5隻<>小水蛭撲向周圍敵方英雄群吸<#ffb900ff>3秒<>（不可選中、每宿主分擔10%傷害），結束後聚回本體並回復全部所吸血量。"
+        "ult": "裂成<#ffb900ff>5隻<>小水蛭撲向周圍敵方英雄（每人最多2隻）群吸<#ffb900ff>3秒<>（本體離場、每宿主分擔10%傷害），結束後聚回本體並回復全部所吸血量。"
       },
       "abysspact_noctua": {
         "name": "千蛾",
@@ -540,7 +540,7 @@
         "attack": "Coffin slam for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Coffin Shield<>: <#ffb900ff>-15%<> basic attack damage; every <#ffb900ff>8s<>, reduce the next skill hit by <#ffb900ff>30%<>.",
         "skill": "Smash his coffin forward for <#ff9028ff>56<>+<#ffb900ff>6% max HP<> physical damage and <#ef5350ff>0.48s knockup<>.",
         "skill2": "Hurl his chained coffin and pull himself to the target; the planted coffin stands <#ffb900ff>3s<>, <#ef5350ff>slowing by 40%<>.",
-        "ult": "Stuff an enemy champion into his coffin and haul them <#ffb900ff>2s<> (<#ffb900ff>+20%<> MS), then slam for <#ff9028ff>150<>+<#ffb900ff>8% target max HP<> and <#ef5350ff>1s stun<>."
+        "ult": "Stuff an enemy champion into his coffin (untargetable) and haul them toward his team for <#ffb900ff>2s<> (<#ffb900ff>+20%<> MS), then slam for <#ff9028ff>150<>+<#ffb900ff>8% target max HP<> and <#ef5350ff>1s stun<>."
       },
       "abysspact_effigy": {
         "name": "Effigy",
@@ -561,21 +561,21 @@
         "attack": "Launch a spirit wisp for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Candle Crown<>: each nearby champion death lights a candle (max <#ffb900ff>5<>), boosting heals & shields by <#ffb900ff>+10%<> each.",
         "skill": "Link a wisp to an ally for <#ffb900ff>3s<>: <#ffb900ff>+26%<> MS, <#a974ffff>35<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>23%<> heal/s, ending with a <#e8d44dff>62<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>46%<> shield.",
         "skill2": "Send a screaming wraith forward in a line for <#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>46%<> magic damage and <#ef5350ff>0.82s fear<>.",
-        "ult": "Recall a recently fallen ally in Spirit Form for <#ffb900ff>8s<> (50% DR, no healing); any team kill grants <#ffb900ff>true revival<>. Otherwise shields all nearby allies."
+        "ult": "Ready for <#ffb900ff>6s<>: recall an ally who fell in the last 10s in Spirit Form for <#ffb900ff>8s<> (50% DR, no healing); any team kill grants <#ffb900ff>true revival<>. Otherwise shields nearby allies when one is low; if unused, the cooldown is refunded."
       },
       "abysspact_carapace": {
         "name": "Carapace",
         "attack": "Scythe slash for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Molt<>: cheats death twice per life (Armor -> Bug -> Winged), healing to <#ffb900ff>40%<> HP while leaving a taunting bomb shell; loses max HP for AS & MS.",
         "skill": "Lunge forward for <#ff9028ff>94<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>123%<> physical damage and <#ef5350ff>30% slow<>; becomes a long winged dive in Form 3.",
-        "skill2": "Strike his shell to shock nearby foes for <#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<> physical damage, healing on champion hits.",
+        "skill2": "Strike his shell to shock nearby foes for <#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<> physical damage, healing for <#ffb900ff>30%<> of the damage dealt.",
         "ult": "Actively molt to shatter his shell for <#ff9028ff>195<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>127%<> AoE damage, <#ef5350ff>0.75s knockup<>, and <#ffb900ff>+40% AS<> for 4s; Form 3 dives from afar."
       },
       "abysspact_leech": {
         "name": "Leech",
-        "attack": "Hook claw for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Bone Parasite<>: while clinging to an enemy he is untargetable and drains max HP to heal, but suffers <#ffb900ff>25%<> of damage dealt to his host.",
+        "attack": "Hook claw for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage. <#ff9028ff>Bone Parasite<>: while clinging to an enemy he takes no damage and drains max HP to heal, but suffers <#ffb900ff>25%<> of damage dealt to his host.",
         "skill": "Pounce for <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> magic damage and cling to an enemy champion for <#ffb900ff>3s<>, slowing & draining; jumps to a nearby foe if host dies.",
         "skill2": "Inject marrow venom for <#a974ffff>117<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> magic damage and <#ef5350ff>1s silence<> (<#ef5350ff>1.75s<> while attached).",
-        "ult": "Split into <#ffb900ff>5 mini-leeches<> draining enemy champions for <#ffb900ff>3s<> while untargetable (10% shared pain each), then reform and heal for all drained HP."
+        "ult": "Split into <#ffb900ff>5 mini-leeches<> (at most 2 per foe) draining enemy champions for <#ffb900ff>3s<> while he leaves the field (10% shared pain each), then reform and heal for all drained HP."
       },
       "abysspact_noctua": {
         "name": "Noctua",
@@ -786,7 +786,7 @@
         "attack": "棺で殴り<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>棺盾<>：通常攻撃被ダメ-<#ffb900ff>15%<>、<#ffb900ff>8秒<>毎に次スキル被ダメ-<#ffb900ff>30%<>。",
         "skill": "棺を叩きつけ<#ff9028ff>56<>+<#ffb900ff>最大HP6%<>物理と<#ef5350ff>0.48秒ノックアップ<>。",
         "skill2": "鎖付き棺を投げ自身を引き寄せ、<#ffb900ff>3秒<>立つ棺の周囲を<#ef5350ff>40%スロウ<>。",
-        "ult": "敵英雄を棺に詰め<#ffb900ff>2秒<>担いで運び（移動+<#ffb900ff>20%<>）、叩きつけ<#ff9028ff>150<>+<#ffb900ff>対象最大HP8%<>と<#ef5350ff>1秒スタン<>。"
+        "ult": "敵英雄を棺に詰め（対象指定不可）<#ffb900ff>2秒<>味方側へ運び（移動+<#ffb900ff>20%<>）、叩きつけ<#ff9028ff>150<>+<#ffb900ff>対象最大HP8%<>と<#ef5350ff>1秒スタン<>。"
       },
       "abysspact_effigy": {
         "name": "身代わり",
@@ -807,21 +807,21 @@
         "attack": "鬼火を飛ばし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>燭冠<>：周囲の英雄死亡毎に蝋燭を点灯（最大<#ffb900ff>5本<>）、1本につき回復・シールド+<#ffb900ff>10%<>。",
         "skill": "鬼火で味方を<#ffb900ff>3秒<>結び移動+<#ffb900ff>26%<>、毎秒<#a974ffff>35<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>23%<>回復、終了時<#e8d44dff>62<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>46%<>シールド。",
         "skill2": "叫ぶ亡霊が直線貫通し<#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>46%<>魔法ダメージと<#ef5350ff>0.82秒恐怖<>。",
-        "ult": "10秒内に倒れた味方を魂体で<#ffb900ff>8秒<>蘇生（被ダメ半減・回復不可）、味方の撃破で<#ffb900ff>真復活<>。該当なし時は周囲の味方へシールド。"
+        "ult": "<#ffb900ff>6秒<>待機：10秒内に倒れた味方を魂体で<#ffb900ff>8秒<>蘇生（被ダメ半減・回復不可）、撃破で<#ffb900ff>真復活<>。いなければ瀕死の味方がいる時に周囲へシールド、未使用ならCD返還。"
       },
       "abysspact_carapace": {
         "name": "蛻甲",
         "attack": "虫刃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>脱皮<>：1命で2回脱皮（甲→虫→羽）、致死時にHP<#ffb900ff>40%<>回復し挑発自爆する空殻を残す。最大HP低下の代償に速度激増。",
         "skill": "突進し<#ff9028ff>94<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>123%<>物理と<#ef5350ff>30%スロウ<>。第3形態では長距離飛び掛かりへ変化。",
-        "skill2": "甲殻を鳴らし周囲へ<#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<>物理、英雄命中で自己回復。",
+        "skill2": "甲殻を鳴らし周囲へ<#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<>物理、与ダメの<#ffb900ff>30%<>を回復。",
         "ult": "即座に脱皮爆発し周囲に<#ff9028ff>195<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>127%<>物理と<#ef5350ff>0.75秒ノックアップ<>、4秒間攻撃速度+<#ffb900ff>40%<>。第3形態は遠距離急襲。"
       },
       "abysspact_leech": {
         "name": "附骨",
-        "attack": "鉤爪で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>附骨の疽<>：宿主に寄生中は対象指定不可で最大HPを吸収回復するが、宿主の被ダメ<#ffb900ff>25%<>を自身も受ける。",
+        "attack": "鉤爪で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理。<#ff9028ff>附骨の疽<>：宿主に寄生中はダメージを受けず最大HPを吸収回復するが、宿主の被ダメ<#ffb900ff>25%<>を自身も受ける。",
         "skill": "飛び付き<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法＋敵英雄の背中へ<#ffb900ff>3秒<>寄生し減速吸収。宿主撃破で次の敵へ跳躍。",
         "skill2": "毒を注入し<#a974ffff>117<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法と<#ef5350ff>1秒沈黙<>（寄生中は<#ef5350ff>1.75秒<>）。",
-        "ult": "<#ffb900ff>5匹<>の小蛭に分裂し敵英雄へ<#ffb900ff>3秒<>群がり吸収（各被ダメ10%共有）、合体時に吸収量を全回復。"
+        "ult": "<#ffb900ff>5匹<>の小蛭に分裂し敵英雄へ（1人最大2匹）<#ffb900ff>3秒<>群がり吸収（各被ダメ10%共有）、合体時に吸収量を全回復。"
       },
       "abysspact_noctua": {
         "name": "千蛾",
@@ -1032,7 +1032,7 @@
         "attack": "관으로 들이받아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>관 방패<>: 기본 공격 피해 -<#ffb900ff>15%<>, <#ffb900ff>8초<>마다 다음 스킬 피해 -<#ffb900ff>30%<>.",
         "skill": "관을 내려찍어 <#ff9028ff>56<>+<#ffb900ff>최대체력 6%<> 물리 피해와 <#ef5350ff>0.48초 에어본<>.",
         "skill2": "쇠사슬 관을 던져 자신을 끌어당기며, <#ffb900ff>3초<>간 꽂힌 관 주변 적 <#ef5350ff>40% 둔화<>.",
-        "ult": "적 챔피언을 관에 가둬 <#ffb900ff>2초<>간 메고 이동(이속+<#ffb900ff>20%<>) 후 내려찍어 <#ff9028ff>150<>+<#ffb900ff>대상 최대체력 8%<> 피해 및 <#ef5350ff>1초 기절<>."
+        "ult": "적 챔피언을 관에 가둬(지정 불가) <#ffb900ff>2초<>간 아군 쪽으로 메고 이동(이속+<#ffb900ff>20%<>) 후 내려찍어 <#ff9028ff>150<>+<#ffb900ff>대상 최대체력 8%<> 피해 및 <#ef5350ff>1초 기절<>."
       },
       "abysspact_effigy": {
         "name": "대신",
@@ -1053,21 +1053,21 @@
         "attack": "도깨비불로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>촛불 왕관<>: 주변 챔피언 사망 시 촛불 점등(최대 <#ffb900ff>5개<>), 개당 치유·보호막 +<#ffb900ff>10%<>.",
         "skill": "아군에게 <#ffb900ff>3초<> 연결해 이속+<#ffb900ff>26%<>, 매초 <#a974ffff>35<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>23%<> 회복, 종료 시 <#e8d44dff>62<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>46%<> 보호막.",
         "skill2": "비명 지르는 망령이 직선 관통하며 <#a974ffff>50<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>46%<> 마법 피해와 <#ef5350ff>0.82초 공포<>.",
-        "ult": "10초 내 전사한 아군을 영혼체로 <#ffb900ff>8초<> 소환(피해 반감·치유 불가), 팀 킬 시 <#ffb900ff>완전 부활<>. 대상 없으면 주변 아군 보호막."
+        "ult": "<#ffb900ff>6초<> 대기: 10초 내 전사한 아군을 영혼체로 <#ffb900ff>8초<> 소환(피해 반감·치유 불가), 팀 킬 시 <#ffb900ff>완전 부활<>. 없으면 빈사 아군이 있을 때 보호막, 미사용 시 쿨다운 반환."
       },
       "abysspact_carapace": {
         "name": "탈갑",
         "attack": "벌레 칼날로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>탈피<>: 목숨당 2회 탈피(갑→충→우), 치명타 시 체력 <#ffb900ff>40%<> 회복하며 도발 자폭 빈 껍질 생성. 최대 체력 감소 대신 공속·이속 급증.",
         "skill": "돌진해 <#ff9028ff>94<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>123%<> 물리 피해와 <#ef5350ff>30% 둔화<>. 3형태에서는 장거리 도약.",
-        "skill2": "갑각을 울려 주변에 <#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<> 물리 피해 및 챔피언 적중 시 자가 치유.",
+        "skill2": "갑각을 울려 주변에 <#ff9028ff>83<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>93%<> 물리 피해, 준 피해의 <#ffb900ff>30%<> 회복.",
         "ult": "즉시 탈피 폭발로 <#ff9028ff>195<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>127%<> 광역 피해, <#ef5350ff>0.75초 에어본<>, 4초간 공속+<#ffb900ff>40%<>. 3형태는 원거리 강습."
       },
       "abysspact_leech": {
         "name": "부골",
-        "attack": "갈고리 발톱으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>부골지저<>: 숙주 기생 중 대상 지정 불가 및 최대 체력 흡혈, 단 숙주 피해의 <#ffb900ff>25%<>를 함께 받음.",
+        "attack": "갈고리 발톱으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>부골지저<>: 숙주 기생 중 피해 면역 및 최대 체력 흡혈, 단 숙주 피해의 <#ffb900ff>25%<>를 함께 받음.",
         "skill": "덮쳐 <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> 마법 피해 후 적 챔피언 등에 <#ffb900ff>3초<> 기생(둔화·흡혈). 숙주 사망 시 인접 적에게 도약.",
         "skill2": "독을 주입해 <#a974ffff>117<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> 마법 피해와 <#ef5350ff>1초 침묵<>(기생 중 <#ef5350ff>1.75초<>).",
-        "ult": "<#ffb900ff>5마리<> 작은 거머리로 분열해 <#ffb900ff>3초<>간 적 챔피언들을 흡혈(숙주당 10% 피해 공유) 후 합체하며 총 흡혈량 회복."
+        "ult": "<#ffb900ff>5마리<> 작은 거머리로 분열해(1인당 최대 2마리) <#ffb900ff>3초<>간 적 챔피언들을 흡혈(숙주당 10% 피해 공유) 후 합체하며 총 흡혈량 회복."
       },
       "abysspact_noctua": {
         "name": "천아",
