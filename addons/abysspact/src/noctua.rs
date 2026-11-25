@@ -4,11 +4,11 @@
 //!   （谁也选不中，这段时间她自己也放不了技能、打不了人），放逐结束那一刻才在背离最近敌方英雄 `p_dist`
 //!   远的地方聚回来，代价「聚身」：再禁技能 `p_reform` tick（普攻可以）。落点夹在地图里（`map_box`）。
 //! - 鳞粉：Q 的飞蛾和 R 的风暴每打中一次加一层，最多 3 层，每层减速 `scale_slow`%，持续 `scale_t`。
-//! - R「万蛾」：施法动作碎完（数据里 `r_go`）以后整个人化成风暴 `r_t` tick：放逐自己（选不中、不能普攻放技能），
-//!   每 tick 往 `r_seek` 内敌方英雄的中心挪（没有就去最近的敌方英雄），速度是她的移速（风暴另加 30%），
-//!   每 `r_p` tick 对 `r_r` 内的敌人造成 `r_tick_dmg + r_tick_ap% 法强` 魔法伤害并加一层鳞粉；
-//!   结束时原地聚身，`r_shock` 内的敌人沉默 `r_sil`，她自己也禁技能 `r_sil`。
-//!   人被放逐时身上的东西看不见，所以风暴的画面每 20 tick 在她的位置补一朵。
+//! - R「万蛾」：施法动作碎完（数据里 `r_go`）以后整个人化成风暴 `r_t` tick：放逐自己（选不中、不能普攻放技能）。
+//!   被放逐的单位挪不动，所以风暴是被动记着的一个点：每 tick 往 `r_seek` 内敌方英雄的中心挪（没有就去最近的
+//!   敌方英雄），速度是她的移速（风暴另加 30%），每 `r_p` tick 对这个点 `r_r` 内的敌人造成 `r_tick_dmg + r_tick_ap% 法强`
+//!   魔法伤害并加一层鳞粉；风暴的画面每 20 tick 在这个点补一朵。结束时等她选得中了（放逐结束，最多等 `LAND_GRACE`）
+//!   再把她放到这个点上聚身，`r_shock` 内的敌人沉默 `r_sil`，她自己也禁技能 `r_sil`。散身聚回来也是等她选得中再挪。
 //!
 //! 数字都从技能数据的 `passive.params` 来（生成脚本照参数表 PARAMS["noctua"] 写进去），这里的默认值和参数表一样。
 
@@ -16,7 +16,7 @@ use std::collections::{HashMap, VecDeque};
 use mod_api_stable::*;
 
 use crate::voice::{Cue, Voice};
-use crate::{consume_buff, dist_sq, has_buff, kit_param, map_box, onto_map};
+use crate::{consume_buff, dist_sq, has_buff, kit_param, map_box, onto_map, LAND_GRACE};
 
 pub const HERO: &str = "abysspact_noctua";
 pub const NATIVE_MARK: &str = "abysspact_noctua_native";
@@ -118,6 +118,22 @@ struct Storm {
     end: usize,
     next_pulse: usize,
     next_cloud: usize,
+    /// 风暴现在在哪（她被放逐着挪不动，挪的是这个点）。
+    at: (f64, f64),
+}
+
+/// 放逐结束后要把她放到哪儿：散身聚回来，或者风暴收尾。
+#[derive(Clone, Copy, PartialEq, Debug)]
+enum LandKind {
+    Scatter,
+    Storm,
+}
+
+#[derive(Clone, Copy)]
+struct Landing {
+    at: (u64, u64),
+    since: usize,
+    kind: LandKind,
 }
 
 #[derive(Clone, Default)]
@@ -130,6 +146,8 @@ struct NoctuaPassive {
     /// 散开中：到这一 tick 聚身。
     reform_at: Option<usize>,
     storm: Option<Storm>,
+    /// 等她选得中了再放下来。
+    landing: Option<Landing>,
     scales: HashMap<usize, (u8, usize)>,
 }
 
@@ -206,7 +224,12 @@ impl NoctuaPassive {
         sb.move_speed_mult = 30;
         sb.ignore_wall = true;
         sim.add_buff(me, &sb);
-        self.storm = Some(Storm { end: tick + p.r_t, next_pulse: tick + p.r_p.max(1), next_cloud: tick });
+        self.storm = Some(Storm {
+            end: tick + p.r_t,
+            next_pulse: tick + p.r_p.max(1),
+            next_cloud: tick,
+            at: (at.0 as f64, at.1 as f64),
+        });
         // 散身的事和风暴不叠
         self.reform_at = None;
         sim.entity_remove_buff(me, DISPERSE_BUFF);
@@ -215,30 +238,24 @@ impl NoctuaPassive {
         sim.play_sfx("abysspact_noctua_storm_start", me, &here);
     }
 
-    fn run_storm(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, at: (u64, u64), ap: usize, speed: usize, tick: usize) {
+    fn run_storm(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, ap: usize, speed: usize, tick: usize) {
         let Some(mut st) = self.storm else { return };
         let p = self.p;
+        let bx = map_box(sim);
+        let here = onto_map(bx, st.at.0, st.at.1);
         if tick >= st.end {
+            // 收尾：等她选得中了再放到风暴这里聚身
             self.storm = None;
             sim.entity_remove_buff(me, STORM_BUFF);
-            let here = InputTargetV1::pos(at.0, at.1);
-            sim.play_view_effect("abysspact_noctua_reform", me, &InputTargetV1::target(me), 0, 0, 0);
-            sim.play_view_effect("abysspact_noctua_dust_shock", me, &here, 0, 0, 0);
-            sim.play_sfx("abysspact_noctua_dust_shock", me, &here);
-            for fid in Self::foes_within(sim, team, at, p.r_shock) {
-                sim.apply_cc(fid, &CcV1::of_kind(CcKindV1::BlockSkill, p.r_sil as u64));
-            }
-            sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockSkill, p.r_sil as u64));
+            self.landing = Some(Landing { at: here, since: tick, kind: LandKind::Storm });
             return;
         }
-        // 往敌人堆里扫
-        let mut now = at;
-        if let Some(goal) = self.storm_goal(sim, team, at) {
-            let next = step_toward(at, goal, speed.max(1) as f64);
-            now = onto_map(map_box(sim), next.0, next.1);
-            if now != at {
-                sim.entity_set_pos(me, now.0, now.1);
-            }
+        // 往敌人堆里扫：挪的是风暴这个点
+        let mut now = here;
+        if let Some(goal) = self.storm_goal(sim, team, here) {
+            let next = step_toward(here, goal, speed.max(1) as f64);
+            now = onto_map(bx, next.0, next.1);
+            st.at = (now.0 as f64, now.1 as f64);
         }
         if tick >= st.next_cloud {
             st.next_cloud = tick + CLOUD_EVERY;
@@ -253,6 +270,29 @@ impl NoctuaPassive {
             }
         }
         self.storm = Some(st);
+    }
+
+    /// 放下来：挪到落点，聚身。风暴收尾还要炸开鳞粉、沉默周围的敌人。
+    fn land(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, l: Landing) {
+        let p = self.p;
+        sim.entity_set_pos(me, l.at.0, l.at.1);
+        let there = InputTargetV1::pos(l.at.0, l.at.1);
+        match l.kind {
+            LandKind::Scatter => {
+                sim.play_view_effect("abysspact_noctua_reform", me, &there, 0, 0, 0);
+                sim.play_sfx("abysspact_noctua_reform", me, &there);
+                sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockSkill, p.p_reform as u64));
+            }
+            LandKind::Storm => {
+                sim.play_view_effect("abysspact_noctua_reform", me, &InputTargetV1::target(me), 0, 0, 0);
+                sim.play_view_effect("abysspact_noctua_dust_shock", me, &there, 0, 0, 0);
+                sim.play_sfx("abysspact_noctua_dust_shock", me, &there);
+                for fid in Self::foes_within(sim, team, l.at, p.r_shock) {
+                    sim.apply_cc(fid, &CcV1::of_kind(CcKindV1::BlockSkill, p.r_sil as u64));
+                }
+                sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockSkill, p.r_sil as u64));
+            }
+        }
     }
 }
 
@@ -271,6 +311,7 @@ impl StablePassive for NoctuaPassive {
         self.scatter_ready_at = 0;
         self.reform_at = None;
         self.storm = None;
+        self.landing = None;
         self.scales.clear();
         self.voice.on_spawn(sim, HERO, entity);
     }
@@ -291,6 +332,7 @@ impl StablePassive for NoctuaPassive {
         self.dmg_win.clear();
         self.reform_at = None;
         self.storm = None;
+        self.landing = None;
         self.voice.on_dead(sim, HERO, player);
     }
 
@@ -327,7 +369,7 @@ impl StablePassive for NoctuaPassive {
             }
         }
 
-        // 2. 散开到点：聚身，背离最近的敌方英雄，落点夹在地图里
+        // 2. 散开到点：落点背离最近的敌方英雄、夹在地图里，等她选得中了再挪过去
         if let Some(at) = self.reform_at {
             if tick >= at {
                 self.reform_at = None;
@@ -335,11 +377,7 @@ impl StablePassive for NoctuaPassive {
                 let foe = Self::nearest_foe(sim, my_team, my_pos);
                 let goal = away_from(my_pos, foe, self.p.p_dist as f64);
                 let dest = onto_map(map_box(sim), goal.0, goal.1);
-                sim.entity_set_pos(entity, dest.0, dest.1);
-                let there = InputTargetV1::pos(dest.0, dest.1);
-                sim.play_view_effect("abysspact_noctua_reform", entity, &there, 0, 0, 0);
-                sim.play_sfx("abysspact_noctua_reform", entity, &there);
-                sim.apply_cc(entity, &CcV1::of_kind(CcKindV1::BlockSkill, self.p.p_reform as u64));
+                self.landing = Some(Landing { at: dest, since: tick, kind: LandKind::Scatter });
             }
         }
 
@@ -348,7 +386,16 @@ impl StablePassive for NoctuaPassive {
             self.start_storm(sim, entity, my_pos, tick);
         }
         if self.storm.is_some() {
-            self.run_storm(sim, entity, my_team, my_pos, stat.magic_power, stat.move_speed, tick);
+            self.run_storm(sim, entity, my_team, stat.magic_power, stat.move_speed, tick);
+        }
+
+        // 放下来：放逐结束（选得中了）或等够了
+        if let Some(l) = self.landing {
+            let free = sim.get_entity(entity).is_some_and(|e| e.is_targetable());
+            if free || tick >= l.since + LAND_GRACE {
+                self.landing = None;
+                self.land(sim, entity, my_team, l);
+            }
         }
 
         // 4. 被动散身：1 秒内掉血超过门槛
@@ -364,6 +411,7 @@ impl StablePassive for NoctuaPassive {
         let threshold = max_hp.saturating_mul(self.p.p_pct) / 100;
         if self.reform_at.is_none()
             && self.storm.is_none()
+            && self.landing.is_none()
             && tick >= self.scatter_ready_at
             && threshold > 0
             && sum_lost >= threshold

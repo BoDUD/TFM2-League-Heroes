@@ -16,6 +16,7 @@ pub mod knell;
 pub mod leech;
 pub mod noctua;
 pub mod oathbreaker;
+pub mod press;
 pub mod reprieve;
 pub mod sevenfold;
 pub mod starfall;
@@ -165,15 +166,44 @@ pub(crate) fn animate(sim: &mut StableSim<'_>, id: usize, tag: &str, ticks: usiz
     sim.apply_cc(id, &cc);
 }
 
-/// 这会儿能不能出招：被控（眩晕、击飞、恐惧、魅惑、嘲讽、沉默、被强制位移）或者正在放别的动作，就不能。
+/// 这会儿能不能出招：被控（眩晕、击飞、恐惧、魅惑、嘲讽、沉默、被强制位移）、正在放别的动作，或者被放逐着
+/// （关在别人的钟里、莫德凯撒的死亡之国里：选不中的人也不能替他出招），就不能。
 pub(crate) fn can_cast(sim: &StableSim<'_>, id: usize) -> bool {
     const NO: [CcKindV1; 8] = [
         CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Taunt, CcKindV1::Fear,
         CcKindV1::Charm, CcKindV1::BlockSkill, CcKindV1::ForceMove, CcKindV1::Animation,
     ];
     sim.get_entity(id).is_some_and(|e| {
-        e.is_alive() && (0..e.cc_count()).filter_map(|i| e.cc_at(i)).all(|c| NO.iter().all(|k| k.code() != c.kind))
+        e.is_alive()
+            && e.is_targetable()
+            && (0..e.cc_count()).filter_map(|i| e.cc_at(i)).all(|c| NO.iter().all(|k| k.code() != c.kind))
     })
+}
+
+/// 放逐刚结束的那一 tick 挪人可能被吞（被放逐的单位挪不动）：等他选得中了再挪，最多等这么多 tick。
+pub(crate) const LAND_GRACE: usize = 6;
+
+/// 冷却要等动作放完才开始走：在动作里面退冷却等于没退。记下要退的，每 tick 看一次，冷却开始走了再退
+/// （league_hecarim 的轮询）。`keep` 是退完剩多少；`until` 过了还没开始走就算了。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) struct LateRefund {
+    pub slot: SkillSlotV1,
+    pub keep: usize,
+    pub until: usize,
+}
+
+impl LateRefund {
+    /// 这一 tick 办完了（退了，或者过期）就返回 true。
+    pub fn poll(&self, sim: &mut StableSim<'_>, id: usize, tick: usize) -> bool {
+        let left = sim.get_entity(id).and_then(|e| e.cooldown(self.slot)).map_or(0, |c| c.remaining);
+        if left > 0 {
+            if left > self.keep {
+                sim.entity_reduce_cooldown(id, self.slot, left - self.keep);
+            }
+            return true;
+        }
+        tick > self.until
+    }
 }
 
 /// 待命没用上：把这个技能格子剩下的冷却退到只剩 `keep` tick，AI 过一会儿会再按一次待命。
@@ -256,6 +286,8 @@ fn init(host: &StableHost) -> StableMod {
     traceless::register(host, &mut module);
     starfall::register(host, &mut module);
     knell::register(host, &mut module);
+    // 替 AI 按几位英雄的待命格子（游戏的 AI 几乎不按 3 tick 的待命动作）
+    press::register(host, &mut module);
     view_forms::install();
 
     #[cfg(windows)]

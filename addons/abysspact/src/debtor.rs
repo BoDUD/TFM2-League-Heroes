@@ -6,7 +6,7 @@
 //! - R「换命」：数据里 R 在原生模式下是 3 tick 的 idle 动作，只挂待命标记 `r_arm`（`r_arm` tick）。待命期间
 //!   被动每 tick 看：自己血量比例 ≤ `r_hp_max`%，`r_range` 内有欠条、血量比例 ≥ `r_foe_min`% 而且比他高的
 //!   敌方英雄，才换（挑比例最高的那个）：播 `ult` 动作，`r_go` tick 后两人血量比例对调，两人头顶挂 6 秒倒计时。
-//!   对方比例不比他高绝不换。待命到点没用上就把 R 的冷却退到只剩 `keep`。
+//!   对方比例不比他高绝不换。待命到点没用上、或者前摇里对方死了 / 比例反过来了，就把 R 的冷却退到只剩 `keep`。
 //!   * 6 秒内对方死了，这条命就归他；没死就按 6 秒后两人当时的比例再对调一次（打残没打死，自己反而更残）。
 //! - 胸口坠子里的命火随血量换档（`flame_100` / `flame_50` / `flame_25`）。
 
@@ -253,6 +253,9 @@ impl StablePassive for DebtorPassive {
                 let my = ratio(cur_hp, max_hp);
                 if foe.is_some_and(|f| f > my) && self.execute_swap(sim, entity, target, false) {
                     self.active_swap = Some(ActiveSwap { target, end_tick: tick + self.p.swap_t });
+                } else {
+                    // 前摇里对方死了或者比例反过来了：这一下没换成，冷却退回去（待命时冷却早就开始走了）
+                    refund_cooldown(sim, entity, SkillSlotV1::Ult, self.p.keep);
                 }
             }
         }

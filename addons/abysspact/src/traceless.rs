@@ -9,14 +9,16 @@
 //!   一下的血原样加回去）、留残影、放逐自己 `w_banish` tick（选不中），接着隐身 `w_inv` tick、加速——隐身到点就停。
 //!   待命没用上就把 W 的冷却退到只剩 `keep`。
 //! - R「无影」：数据只挂 `r_go`，其余都在这里：放逐自己 `r_vanish` tick；`r_range` 内每个敌方英雄由近到远各挨一剑
-//!   （`r_dmg + r_ad% 攻击力`，第一剑在 `r_first` tick，余下的匀开），每剑叠锋；结束时所有剑痕一起亮，停在血最少的
-//!   那个人身后 `r_behind`。放逐中的人自己的范围搜索找不到任何单位，所以伤害不交给数据的 RangeEffect。
-//! - Q「一线」击杀敌方英雄立刻刷新冷却。
+//!   （`r_dmg + r_ad% 攻击力`，第一剑在 `r_first` tick，余下的匀开）。伤害排进队列、下一 tick 落地，那时 `on_attack`
+//!   照普通的一剑叠锋、算伏击加成（只在那一处算，不叠两次）。结束时所有剑痕一起亮，等她选得中了（放逐结束，最多等
+//!   `LAND_GRACE`）再停到血最少的那个人身后 `r_behind`。放逐中的人自己的范围搜索找不到任何单位，所以伤害不交给数据的
+//!   RangeEffect。
+//! - Q「一线」击杀敌方英雄立刻刷新冷却：Q 的冷却要等动作放完才开始走，所以记下来，等它开始走了再清掉（`LateRefund`）。
 
 use mod_api_stable::*;
 
 use crate::voice::{Cue, Voice};
-use crate::{consume_buff, dist_sq, kit_param, map_box, onto_map, refund_cooldown, refund_hit};
+use crate::{consume_buff, dist_sq, kit_param, map_box, onto_map, refund_cooldown, refund_hit, LateRefund, LAND_GRACE};
 
 pub const HERO: &str = "abysspact_traceless";
 pub const NATIVE_MARK: &str = "abysspact_traceless_native";
@@ -123,9 +125,11 @@ struct TracelessPassive {
     q_cast_tick: usize,
     w_armed: Option<usize>,
     owed: usize,
-    /// R 的剑正在结算：`on_attack` 别再叠一次锋、别吃伏击加成。
-    cutting: bool,
     r: Option<RPlan>,
+    /// R 收剑后要停到谁身后：(那个人, 起手的位置, 收剑的 tick)。她还被放逐着挪不动，等她选得中了再挪。
+    r_land: Option<(usize, (u64, u64), usize)>,
+    /// Q 打死人要刷新：Q 的冷却要等动作放完才开始走，在动作里面减等于没减，等它开始走了再清掉。
+    q_reset: Option<LateRefund>,
 }
 
 impl TracelessPassive {
@@ -182,6 +186,8 @@ impl TracelessPassive {
             return;
         }
         let owed = std::mem::take(&mut self.owed);
+        // 躲开的那一下已经落地：不死只为它挂，摘掉
+        sim.entity_remove_buff(me, HOLD);
         let Some((now, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
         let hp = now.saturating_add(owed).min(max);
         if hp > now {
@@ -237,17 +243,10 @@ impl TracelessPassive {
             if !sim.get_entity(t).is_some_and(|e| e.is_alive() && e.is_targetable()) {
                 continue;
             }
-            let mut dmg = self.p.r_dmg + ad.saturating_mul(self.p.r_ad) / 100;
-            if self.ambush_ready || self.stealthed {
-                self.break_stealth(sim, me);
-                self.ambush_ready = false;
-                dmg += dmg * self.p.ambush / 100;
-            }
-            self.cutting = true;
+            // 伤害排进队列、下一 tick 才落地，那时 on_attack 照普通的一剑叠锋、算伏击加成：这里只出剑
+            let dmg = self.p.r_dmg + ad.saturating_mul(self.p.r_ad) / 100;
             sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
-            self.cutting = false;
             self.last_combat_tick = tick;
-            self.gain_edge(sim, me);
             sim.play_view_effect("abysspact_traceless_cut", me, &InputTargetV1::target(t), 0, 0, 0);
             sim.play_sfx("abysspact_traceless_r_cut", me, &InputTargetV1::target(t));
             plan.hit.push(t);
@@ -265,13 +264,26 @@ impl TracelessPassive {
         for &(t, _, _) in &alive {
             sim.play_view_effect("abysspact_traceless_cut_final", me, &InputTargetV1::target(t), 0, 0, 0);
         }
-        if let Some(&(_, _, at)) = alive.iter().min_by_key(|&&(_, hp, _)| hp) {
-            let goal = behind(plan.origin, at, self.p.r_behind as f64);
-            let dest = onto_map(map_box(sim), goal.0, goal.1);
-            sim.entity_set_pos(me, dest.0, dest.1);
+        // 血最少的那个：等她选得中了再停到他身后（放逐刚结束那一 tick 挪人可能被吞）
+        if let Some(&(t, _, _)) = alive.iter().min_by_key(|&&(_, hp, _)| hp) {
+            self.r_land = Some((t, plan.origin, tick));
         }
         sim.play_sfx("abysspact_traceless_r_final", me, &InputTargetV1::target(me));
         self.last_combat_tick = tick;
+    }
+
+    fn land_r(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize) {
+        let Some((t, origin, since)) = self.r_land else { return };
+        let free = sim.get_entity(me).is_some_and(|e| e.is_targetable());
+        if !free && tick < since + LAND_GRACE {
+            return;
+        }
+        self.r_land = None;
+        if let Some(at) = sim.get_entity(t).filter(|e| e.is_alive()).map(|e| e.pos()) {
+            let goal = behind(origin, at, self.p.r_behind as f64);
+            let dest = onto_map(map_box(sim), goal.0, goal.1);
+            sim.entity_set_pos(me, dest.0, dest.1);
+        }
     }
 }
 
@@ -296,15 +308,13 @@ impl StablePassive for TracelessPassive {
         self.q_cast_tick = 0;
         self.w_armed = None;
         self.owed = 0;
-        self.cutting = false;
         self.r = None;
+        self.r_land = None;
+        self.q_reset = None;
         self.voice.on_spawn(sim, HERO, entity);
     }
 
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize, target: usize, damage: &mut usize) {
-        if self.cutting {
-            return;
-        }
         self.last_combat_tick = sim.tick();
         if !sim.get_entity(target).is_some_and(|e| e.is_champion()) {
             self.break_stealth(sim, entity);
@@ -346,7 +356,8 @@ impl StablePassive for TracelessPassive {
                 sim.entity_set_hp(entity, set);
             }
             if lethal {
-                let mut hold = BuffV1::timed(HOLD, 2);
+                // 只挡这一下：挂 1 tick，下一 tick 补血时摘掉
+                let mut hold = BuffV1::timed(HOLD, 1);
                 hold.undying = true;
                 sim.add_buff(entity, &hold);
             }
@@ -368,8 +379,9 @@ impl StablePassive for TracelessPassive {
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize, victim: usize) {
         if sim.get_entity(victim).is_some_and(|e| e.is_champion()) {
             self.voice.play(sim, HERO, entity, Cue::Kill);
-            if sim.tick() <= self.q_cast_tick + Q_RESET_WINDOW {
-                sim.entity_reduce_cooldown(entity, SkillSlotV1::Skill, 10_000);
+            let tick = sim.tick();
+            if tick <= self.q_cast_tick + Q_RESET_WINDOW {
+                self.q_reset = Some(LateRefund { slot: SkillSlotV1::Skill, keep: 0, until: tick + 90 });
             }
         }
     }
@@ -383,6 +395,8 @@ impl StablePassive for TracelessPassive {
         self.w_armed = None;
         self.owed = 0;
         self.r = None;
+        self.r_land = None;
+        self.q_reset = None;
         self.voice.on_dead(sim, HERO, player);
     }
 
@@ -422,6 +436,14 @@ impl StablePassive for TracelessPassive {
         }
         if self.r.is_some() {
             self.run_r(sim, entity, ad, tick);
+        }
+        if self.r_land.is_some() {
+            self.land_r(sim, entity, tick);
+        }
+        if let Some(r) = self.q_reset {
+            if r.poll(sim, entity, tick) {
+                self.q_reset = None;
+            }
         }
 
         // 真的掉了血（护盾挡下的不算）：锋清零
