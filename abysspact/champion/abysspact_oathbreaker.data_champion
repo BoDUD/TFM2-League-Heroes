@@ -708,18 +708,6 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "abysspact_oathbreaker_burn_ask",
-            "duration": {
-              "Time": {
-                "tick": 3
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
-        {
           "type": "SwitchByBuff",
           "buff_name": "abysspact_oathbreaker_p_self",
           "effect_buff": {

@@ -235,6 +235,18 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 34
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   },
@@ -331,6 +343,18 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 34
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   }
@@ -901,6 +925,18 @@
                             "end_effects": []
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 320
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   },
@@ -1073,6 +1109,18 @@
                             "end_effects": []
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 320
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   }

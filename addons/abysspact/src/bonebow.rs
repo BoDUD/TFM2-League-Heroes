@@ -2,7 +2,7 @@
 //!
 //! 招牌机制「亡兵」真实骷髅兵召唤 + W「葬礼」全军冲锋自爆 + R「亡军」5 骷髅列阵:
 //! - 每第 4 支箭在目标身边拉起一名真实骷髅兵（`sim.spawn_unit("abysspact_skeleton", ...)`）：继承骸弦 30% 攻击力，
-//!   持续 6 秒（360 ticks），常规上限 3 个。数的是箭：普攻的箭打中时数据给她挂 `a_arrow`，Q 放出去时挂 `q_arrow`
+//!   持续 6 秒（360 ticks），常规上限 3 个。数的是箭：普攻的箭打中时数据给她挂 `a_shot`，Q 放出去时挂 `q_arrow`
 //!   （以前数的是 on_attack——技能的每一下伤害都算，Q 穿过一线兵、W 和 R 的范围、骷髅兵自爆都在加数）。
 //! - Q 穿骨每命中一个敌方英雄，在他身边再拉起一名（数据给他挂 `q_hit_ask`）。
 //! - R「亡军」：箭射出去时数据给她挂 `r_ask`、给大招的目标挂 `r_aim`；本被动记下目标的位置，箭雨落地那一 tick
@@ -22,7 +22,7 @@ use crate::{buffs_present, consume_buff, dist_sq, foe_champions};
 
 pub const HERO: &str = "abysspact_bonebow";
 pub const UNIT_NAME: &str = "abysspact_skeleton";
-pub const A_ARROW: &str = "abysspact_bonebow_a_arrow";
+pub const A_SHOT: &str = "abysspact_bonebow_a_shot";
 pub const Q_ARROW: &str = "abysspact_bonebow_q_arrow";
 pub const Q_HIT_ASK: &str = "abysspact_bonebow_q_hit_ask";
 pub const W_CMD: &str = "abysspact_bonebow_w_cmd";
@@ -142,7 +142,10 @@ struct Charge {
 struct BonebowPassive {
     voice: Voice,
     arrows: usize,
+    /// 她最近打的目标（不含塔）：葬礼、亡军找落点用。
     last_target: Option<usize>,
+    /// 她最近一箭射的目标（塔也算）：第 4 支箭在它身边拉起骷髅兵。
+    arrow_target: Option<usize>,
     /// Live normal skeletons (capped at 3, oldest despawned when overflowing).
     normal_skels: Vec<Skel>,
     /// Live ult skeletons (uncapped, live 8s).
@@ -155,11 +158,32 @@ struct BonebowPassive {
     charges: Vec<Charge>,
     /// 这一次葬礼已经减过速的人。
     slowed: HashSet<usize>,
+    /// 上一次看到的 tick：变小了就是新的一局（被动实例可能被下一局接着用）。
+    last_tick: usize,
+}
+
+/// 这个骷髅兵还记着吗：生成不久（读不到也先留着）或者还活着。生在「以后」的（上一局记下的，这一局 tick 从头算）不要：
+/// 那个单位号这一局可能是别的单位，留着会被当成骷髅兵杀掉。
+pub fn keep_skel(born: usize, tick: usize, alive: bool) -> bool {
+    born <= tick && (tick < born + LOOK_GRACE || alive)
 }
 
 impl BonebowPassive {
+    /// 新的一局：上一局的骷髅兵、要播的动画、冲锋、箭数都不要了。
+    fn forget(&mut self) {
+        self.normal_skels.clear();
+        self.ult_skels.clear();
+        self.rises.clear();
+        self.charges.clear();
+        self.army_at = None;
+        self.slowed.clear();
+        self.arrows = 0;
+        self.last_target = None;
+        self.arrow_target = None;
+    }
+
     fn prune_dead(&mut self, sim: &StableSim<'_>, tick: usize) {
-        let keep = |s: &Skel| tick < s.born + LOOK_GRACE || sim.get_entity(s.id).is_some_and(|e| e.is_alive());
+        let keep = |s: &Skel| keep_skel(s.born, tick, sim.get_entity(s.id).is_some_and(|e| e.is_alive()));
         self.normal_skels.retain(keep);
         self.ult_skels.retain(keep);
     }
@@ -210,7 +234,7 @@ impl BonebowPassive {
         if self.arrows % ARROWS_PER_SKELETON != 0 {
             return;
         }
-        let Some(tpos) = self.last_target.and_then(|t| sim.get_entity(t)).filter(|e| e.is_alive()).map(|e| e.pos())
+        let Some(tpos) = self.arrow_target.and_then(|t| sim.get_entity(t)).filter(|e| e.is_alive()).map(|e| e.pos())
         else {
             return;
         };
@@ -323,6 +347,11 @@ impl StablePassive for BonebowPassive {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
+        let tick = sim.tick();
+        if tick < self.last_tick {
+            self.forget();
+        }
+        self.last_tick = tick;
         self.army_at = None;
         self.charges.clear();
         self.voice.on_spawn(sim, HERO, entity);
@@ -342,6 +371,7 @@ impl StablePassive for BonebowPassive {
         if is_champ {
             self.voice.play(sim, HERO, entity, Cue::Start);
         }
+        self.arrow_target = Some(target);
         if !is_tower {
             self.last_target = Some(target);
         }
@@ -372,6 +402,11 @@ impl StablePassive for BonebowPassive {
             return;
         }
         let tick = sim.tick();
+        if tick < self.last_tick {
+            // tick 变小：新的一局用着上一局的被动实例
+            self.forget();
+        }
+        self.last_tick = tick;
 
         if consume_buff(sim, entity, R_CAST_VOICE) {
             self.voice.play(sim, HERO, entity, Cue::Ult);
@@ -391,9 +426,9 @@ impl StablePassive for BonebowPassive {
         }
 
         // 1. 数箭：普攻的箭打中、Q 的箭射出
-        let [a_arrow, q_arrow, r_ask, w_cmd] = buffs_present(sim, entity, [A_ARROW, Q_ARROW, R_ASK, W_CMD]);
-        if a_arrow {
-            sim.entity_remove_buff(entity, A_ARROW);
+        let [a_shot, q_arrow, r_ask, w_cmd] = buffs_present(sim, entity, [A_SHOT, Q_ARROW, R_ASK, W_CMD]);
+        if a_shot {
+            sim.entity_remove_buff(entity, A_SHOT);
             self.count_arrow(sim, entity, my_team, ad, max_hp);
         }
         if q_arrow {
@@ -512,6 +547,27 @@ mod tests {
         let kit = include_str!("../../../abysspact/champion/abysspact_bonebow.data_champion");
         // 箭雨打中的人身上不再挂 r_ask（以前每人一批 5 个）
         assert_eq!(kit.matches("\"abysspact_bonebow_r_ask\"").count(), 2, "only the caster flag, in both live branches");
-        assert!(kit.contains(R_AIM) && kit.contains(A_ARROW) && kit.contains(Q_ARROW));
+        assert!(kit.contains(R_AIM));
+        // 两个旗子都得是挂在她身上的（AddCasterBuff），名字和弹道不重
+        for flag in [A_SHOT, Q_ARROW] {
+            assert_eq!(effect_naming(kit, flag), Some("AddCasterBuff"), "{flag} is a caster flag in the kit");
+        }
+    }
+
+    /// 生成好的技能文件里，第一个写着 `name` 的效果是什么类型（往前找最近的 `"type"`）。
+    fn effect_naming<'a>(kit: &'a str, name: &str) -> Option<&'a str> {
+        let at = kit.find(&format!("\"name\": \"{name}\""))?;
+        let ty = kit[..at].rfind("\"type\": \"")? + "\"type\": \"".len();
+        let end = ty + kit[ty..].find('"')?;
+        Some(&kit[ty..end])
+    }
+
+    #[test]
+    fn a_skeleton_from_the_last_match_is_never_kept() {
+        assert!(keep_skel(100, 101, false), "just spawned: may not read as a unit yet");
+        assert!(!keep_skel(100, 110, false), "gone");
+        assert!(keep_skel(100, 400, true));
+        // 上一局 5000 tick 生的，这一局才 30 tick：那个单位号是别的单位了
+        assert!(!keep_skel(5000, 30, true));
     }
 }

@@ -9,8 +9,9 @@
 //!     (`abysspact_faceless_cls_{melee,range,mage,util,assassin}`) 和一次借来的大招 `r_stolen`；
 //!   * 普攻跟着变：射手、法师、辅助类的脸普攻变成飞出去的面具弹，射程由 [`Reach`]（`range_adjust`）按类别加长；
 //!     攻速按受害者的普攻间隔调成和他一样快慢（`shroud` 的攻速）；
-//!   * 大招跟着变：R 的冷却当场刷新，这 10 秒里放 R 是那一类的大招（数据里五套，照塞拉斯附加包按类别偷大招的做法），
-//!     放过一次就回到撕面；
+//!   * 大招跟着变：R 的冷却刷新，这 10 秒里放 R 是那一类的大招（数据里五套，照塞拉斯附加包按类别偷大招的做法），
+//!     放过一次就回到撕面。冷却要等动作放完才开始走：夺面时 R / Q 还在放（冷却是 0）就先记下，冷却跳起来的那一拍再减
+//!     （脸还戴着、借来的大招还没放才减）；
 //!   * 10 秒到期时播放 `shards` 面具碎裂特效并恢复无面本体。
 
 use mod_api_stable::*;
@@ -34,6 +35,8 @@ pub const EXEC_PCT: usize = 25;
 pub const STEAL_DEDUP: usize = 30;
 /// 敌方英雄的分路表多久看一次。
 pub const LANES_EVERY: usize = 30;
+/// 夺面时 Q 减多少冷却（连杀顺手）。
+pub const Q_CUT: usize = 180;
 
 pub fn should_execute(cur: usize, max: usize) -> bool {
     max > 0 && cur > 0 && cur.saturating_mul(100) <= max.saturating_mul(EXEC_PCT)
@@ -67,6 +70,22 @@ pub fn feel_attack_speed(mine: usize, theirs: usize) -> i32 {
     pct.clamp(-40, 100) as i32
 }
 
+/// 记下的减冷却这一拍怎么办：`pending` 记着、`valid` 还作数（脸还戴着 / 借来的大招还没放）、`left` 是这一格剩下的冷却。
+/// → (现在减, 继续记着)。冷却跳起来（> 0）的第一拍减；作废了就不记了。
+pub fn settle_cut(pending: bool, valid: bool, left: usize) -> (bool, bool) {
+    match (pending, valid, left > 0) {
+        (false, ..) => (false, false),
+        (true, false, _) => (false, false),
+        (true, true, true) => (true, false),
+        (true, true, false) => (false, true),
+    }
+}
+
+/// 同一张脸刚夺过（`STEAL_DEDUP` tick 内）就不再夺。`at` 比现在还晚（新的一局，tick 从头算）不算刚夺过。
+pub fn stolen_just_now(last: Option<&(String, usize)>, name: &str, tick: usize) -> bool {
+    last.is_some_and(|(n, t)| n == name && tick >= *t && tick - *t <= STEAL_DEDUP)
+}
+
 /// 击杀记录的一条里，这一队、这个分路的人算不算参与了击杀（击杀者或助攻）。
 pub fn took_part(k: &KillLogV1, team: usize, lane: u32) -> bool {
     k.killer_team == team
@@ -88,9 +107,23 @@ struct FacelessPassive {
     mask_cat: Option<&'static str>,
     noted_view: bool,
     last_steal: Option<(String, usize)>,
+    /// 夺面时还没减成的冷却（R 刷新、Q 减一点）：冷却跳起来再减。
+    pending_ult: bool,
+    pending_q: bool,
+    /// 上一次看到的 tick：变小了就是新的一局（被动实例可能被下一局接着用）。
+    last_tick: usize,
 }
 
 impl FacelessPassive {
+    /// 新的一局（或新的一条命）：上一局的分路表、刚夺过的脸、没减成的冷却都不要了。
+    fn forget(&mut self) {
+        self.lanes.clear();
+        self.lanes_at = 0;
+        self.last_steal = None;
+        self.pending_ult = false;
+        self.pending_q = false;
+    }
+
     fn clear_mask(&mut self, sim: &mut StableSim<'_>, entity: usize, play_shards: bool, note_end: bool) {
         if self.mask_until == 0 {
             return;
@@ -122,7 +155,7 @@ impl FacelessPassive {
             return;
         }
         let tick = sim.tick();
-        if self.last_steal.as_ref().is_some_and(|(n, t)| n == victim_name && tick.saturating_sub(*t) <= STEAL_DEDUP) {
+        if stolen_just_now(self.last_steal.as_ref(), victim_name, tick) {
             return;
         }
         self.last_steal = Some((victim_name.to_string(), tick));
@@ -143,9 +176,22 @@ impl FacelessPassive {
         sim.add_buff(entity, &BuffV1::timed(&class_buff(cat), MASK_TICKS));
         sim.add_buff(entity, &BuffV1::timed(R_STOLEN, MASK_TICKS));
 
-        // 大招当场刷新：借来的那一招这 10 秒里能放一次；Q 也减一点冷却，连杀顺手
-        sim.entity_reduce_cooldown(entity, SkillSlotV1::Ult, 100_000);
-        sim.entity_reduce_cooldown(entity, SkillSlotV1::Skill, 180);
+        // 大招刷新：借来的那一招这 10 秒里能放一次；Q 也减一点冷却，连杀顺手。冷却在走的当场减；
+        // 还是 0 的（多半正在放 R / Q，冷却要等动作放完才开始走）先记下，跳起来那一拍再减
+        let (ult_left, q_left) = sim.get_entity(entity).map_or((0, 0), |e| {
+            (
+                e.cooldown(SkillSlotV1::Ult).map_or(0, |c| c.remaining),
+                e.cooldown(SkillSlotV1::Skill).map_or(0, |c| c.remaining),
+            )
+        });
+        self.pending_ult = ult_left == 0;
+        if ult_left > 0 {
+            sim.entity_reduce_cooldown(entity, SkillSlotV1::Ult, ult_left);
+        }
+        self.pending_q = q_left == 0;
+        if q_left > 0 {
+            sim.entity_reduce_cooldown(entity, SkillSlotV1::Skill, Q_CUT);
+        }
         sim.play_sfx("abysspact_faceless_shroud_rise", entity, &InputTargetV1::target(entity));
 
         if let Some((m, s)) = view_origin(sim) {
@@ -218,6 +264,8 @@ impl StablePassive for FacelessPassive {
         self.me = Some(entity);
         self.mask_until = 0;
         self.mask_cat = None;
+        self.forget();
+        self.last_tick = sim.tick();
         // 死着的时候记下的击杀不算（复活那一刻突然换脸很怪）
         self.kills_seen = sim.kill_log_count();
         self.voice.on_spawn(sim, HERO, entity);
@@ -262,6 +310,8 @@ impl StablePassive for FacelessPassive {
         }
         self.mask_until = 0;
         self.mask_cat = None;
+        self.pending_ult = false;
+        self.pending_q = false;
         self.voice.on_dead(sim, HERO, player);
     }
 
@@ -274,6 +324,15 @@ impl StablePassive for FacelessPassive {
                 self.noted_view = true;
             }
         }
+        let tick = sim.tick();
+        if tick < self.last_tick {
+            // tick 变小：新的一局用着上一局的被动实例
+            self.forget();
+            self.kills_seen = 0;
+            self.mask_until = 0;
+            self.mask_cat = None;
+        }
+        self.last_tick = tick;
         let Some((alive, my_team)) = sim.get_entity(entity).map(|e| (e.is_alive(), e.team())) else {
             return;
         };
@@ -283,7 +342,6 @@ impl StablePassive for FacelessPassive {
             }
             return;
         }
-        let tick = sim.tick();
 
         if crate::consume_buff(sim, entity, R_CAST_VOICE) {
             self.voice.play(sim, HERO, entity, Cue::Ult);
@@ -317,7 +375,28 @@ impl StablePassive for FacelessPassive {
         // 2. 助攻：击杀记录里有他的分路
         self.read_kills(sim, player, my_team, entity);
 
-        // 3. Expire 10s Face-Steal with shattering mask shards
+        // 3. 夺面时记下的减冷却：冷却跳起来的第一拍减（R：借来的大招还没放；Q：脸还戴着）
+        if self.pending_ult || self.pending_q {
+            let [stolen] = buffs_present(sim, entity, [R_STOLEN]);
+            let (ult_left, q_left) = sim.get_entity(entity).map_or((0, 0), |e| {
+                (
+                    e.cooldown(SkillSlotV1::Ult).map_or(0, |c| c.remaining),
+                    e.cooldown(SkillSlotV1::Skill).map_or(0, |c| c.remaining),
+                )
+            });
+            let (cut, keep) = settle_cut(self.pending_ult, stolen, ult_left);
+            self.pending_ult = keep;
+            if cut {
+                sim.entity_reduce_cooldown(entity, SkillSlotV1::Ult, ult_left);
+            }
+            let (cut, keep) = settle_cut(self.pending_q, self.mask_until > 0, q_left);
+            self.pending_q = keep;
+            if cut {
+                sim.entity_reduce_cooldown(entity, SkillSlotV1::Skill, Q_CUT);
+            }
+        }
+
+        // 4. Expire 10s Face-Steal with shattering mask shards
         if self.mask_until > 0 && tick >= self.mask_until {
             self.clear_mask(sim, entity, true, true);
         }
@@ -382,6 +461,27 @@ mod tests {
         assert_eq!(feel_attack_speed(56, 200), -40);
         // 读不到间隔照旧 +20%
         assert_eq!(feel_attack_speed(0, 30), 20);
+    }
+
+    #[test]
+    fn a_cut_waits_for_the_cooldown_to_start() {
+        // 夺面时 R 正在放：冷却还是 0，记着
+        assert_eq!(settle_cut(true, true, 0), (false, true));
+        // 动作放完冷却跳起来：这一拍减掉
+        assert_eq!(settle_cut(true, true, 3300), (true, false));
+        // 借来的大招已经放了 / 脸碎了：作废，那一下的冷却照走
+        assert_eq!(settle_cut(true, false, 3300), (false, false));
+        assert_eq!(settle_cut(false, true, 3300), (false, false));
+    }
+
+    #[test]
+    fn the_same_face_is_taken_once_and_a_new_match_forgets_it() {
+        let last = ("league_jinx".to_string(), 5000);
+        assert!(stolen_just_now(Some(&last), "league_jinx", 5020));
+        assert!(!stolen_just_now(Some(&last), "league_jinx", 5031));
+        assert!(!stolen_just_now(Some(&last), "league_lux", 5001));
+        // 新的一局 tick 从头算：上一局 5000 tick 夺的不挡这一局
+        assert!(!stolen_just_now(Some(&last), "league_jinx", 100));
     }
 
     #[test]

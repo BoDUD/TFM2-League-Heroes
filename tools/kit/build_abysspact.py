@@ -606,11 +606,11 @@ def build_oathbreaker(p, is_native=True):
     if is_native:
         # 蛮王的做法：AI 一见敌方英雄就按 R，满血开掉 6 秒不死太浪费。他身上有本包被动挂的 p_self 时，R 只待命 r_arm tick
         # （3 tick 的 idle 动作，看不出放了），oathbreaker.rs 看到生命掉下去才断誓（插剑仰头的大招动作、不死、黑火）；
-        # 没有 p_self 的（塞拉斯偷去的 R）当场断誓。
+        # 没有 p_self 的（塞拉斯偷去的 R）当场断誓。待命不烧血：烧 6% 挪到真正断誓那一刻（oathbreaker.rs），
+        # 不然每次待命过期、过一会儿再待命都要白烧一次。
         ult = H["action"](
             "ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
             H["combine"](
-                burn_ask,
                 H["when"]("p_self", H["flag"]("r_armed", p["r_arm"]),
                           H["combine"](r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
             ),
@@ -926,10 +926,10 @@ def build_bonebow(p, is_native=True):
                   H["when"]("s1", H["flag"]("s2", 600), H["flag"]("s1", 600))),
     )
 
-    # Auto: 骨箭（打中时给她挂 a_arrow：bonebow.rs 按箭数，第 4 支拉起骷髅兵）
+    # Auto: 骨箭（打中时给她挂 a_shot：bonebow.rs 按箭数，第 4 支拉起骷髅兵）
     a_proj = H["homing"]("a_arrow", p["a_speed"],
                          [H["attack"](0, 100), plain_4th, H["view"]("soul"), H["tsfx"]("a_hit"),
-                          H["flag"]("a_arrow", 2) if is_native else None],
+                          H["flag"]("a_shot", 2) if is_native else None],
                          target="Enemy", y=p["a_y"])
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
@@ -1072,7 +1072,9 @@ def build_corvus(p, is_native=True):
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
-            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_cast"), q_lob)),
+            # scan：瓶子飞的这段再加 20 tick，corvus.rs 只在它挂着时找疫病请求（冷却要等动作结束才走，看冷却认不出）
+            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_cast"), q_lob,
+                                                        H["flag"]("scan", p["q_travel"] + 20) if is_native else None)),
         ),
     )
 
@@ -1140,7 +1142,7 @@ def build_corvus(p, is_native=True):
         H["combine"](
             r_voice,
             H["sfx"]("r_cane"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](r_lob)),
+            H["delayed"](p["r_go"] - 1, H["alive_only"](r_lob, H["flag"]("scan", p["r_t"] + 20) if is_native else None)),
         ),
     )
 

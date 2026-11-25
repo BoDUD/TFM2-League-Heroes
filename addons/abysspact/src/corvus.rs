@@ -9,19 +9,22 @@
 //!   （以前算，兵线一染上，下路两人一直 3%/秒回血）。
 //! - W「渡鸦」飞到身边一名友方英雄（没有就是自己）肩头停留 4 秒（带 `abysspact_corvus_raven_perch` buff 显示乌鸦贴图）：
 //!   每秒啄一下该队友身边 3.2 万内最近的敌人，造成 `20 + 15% AP` 魔法伤害并令其染病。
-//! - 只在 Q、R 放出去之后的一小段时间里走一遍全部单位找疫病请求（看冷却认出放了技能），平时不走。
+//! - 只在 Q、R 的瓶子 / 圈子还在的时候走一遍全部单位找疫病请求：数据在出手时给他挂 `scan`（瓶子飞行 + 20 tick、
+//!   圈子 5 秒 + 20 tick），平时不走。（以前看冷却跳起来认出放了技能，可冷却要等动作结束才开始走，Q 的请求那时早没了。）
 
 use std::collections::{HashMap, HashSet};
 use mod_api_stable::*;
 
 use crate::voice::{Cue, Voice};
-use crate::{buffs_present, consume_buff, dist_sq, CastWatch};
+use crate::{buffs_present, consume_buff, dist_sq};
 
 pub const HERO: &str = "abysspact_corvus";
 pub const PLAGUE_ASK: &str = "abysspact_corvus_plague_ask";
 pub const PLAGUE_VIS: &str = "abysspact_corvus_plague";
 pub const RAVEN_PERCH: &str = "abysspact_corvus_raven_perch";
 pub const R_CAST_VOICE: &str = "abysspact_corvus_r_voice";
+/// Q、R 出手时数据挂在他身上：挂着的时候才找疫病请求。
+pub const SCAN: &str = "abysspact_corvus_scan";
 
 pub const PLAGUE_TICKS: usize = 240; // 4.0s
 pub const TICK_PERIOD: usize = 60;   // 1.0s pulse
@@ -32,9 +35,6 @@ pub const PLAGUE_PCT: usize = 2;       // 2% max HP / s
 pub const MAX_HEAL_SICK: usize = 3;    // up to 3% max HP / s
 /// 病好了以后这么多 tick 内不会再被传染。
 pub const IMMUNE_TICKS: usize = 240;
-/// 放了 Q / R 之后找疫病请求的 tick 数（Q：出手 + 瓶子飞 14 tick；R：圈子 5 秒）。
-pub const Q_SCAN: usize = 60;
-pub const R_SCAN: usize = 340;
 
 pub fn plague_dot(max_hp: usize) -> usize {
     (max_hp.saturating_mul(PLAGUE_PCT) / 100).max(12)
@@ -72,9 +72,6 @@ struct CorvusPassive {
     /// 病好了的人 -> 到哪一 tick 之前不会再被传染。
     immune: HashMap<usize, usize>,
     last_pulse_tick: usize,
-    casts: CastWatch,
-    /// 到这一 tick 为止要找疫病请求（Q、R 刚放过）。
-    scan_until: usize,
 }
 
 impl CorvusPassive {
@@ -201,7 +198,6 @@ impl StablePassive for CorvusPassive {
         self.plagued.clear();
         self.immune.clear();
         self.last_pulse_tick = 0;
-        self.scan_until = 0;
         self.voice.on_spawn(sim, HERO, entity);
     }
 
@@ -229,7 +225,7 @@ impl StablePassive for CorvusPassive {
         self.voice.on_dead(sim, HERO, player);
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _rng: u64, player: usize, entity: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _rng: u64, _player: usize, entity: usize) {
         self.voice.observe(entity);
         let Some((alive, my_team, ap)) = sim
             .get_entity(entity)
@@ -246,15 +242,9 @@ impl StablePassive for CorvusPassive {
             self.voice.play(sim, HERO, entity, Cue::Ult);
         }
 
-        // Q、R 刚放过才找疫病请求（W 的啄击是本被动自己种的）
-        let cast = self.casts.watch(sim, player);
-        if cast[1] {
-            self.scan_until = self.scan_until.max(tick + Q_SCAN);
-        }
-        if cast[3] {
-            self.scan_until = self.scan_until.max(tick + R_SCAN);
-        }
-        if tick <= self.scan_until {
+        // Q 的瓶子、R 的圈子还在（他身上挂着数据给的 scan）才找疫病请求（W 的啄击是本被动自己种的）
+        let [scan] = buffs_present(sim, entity, [SCAN]);
+        if scan {
             let mut to_infect = Vec::new();
             for i in 0..sim.entity_count() {
                 let Some(e) = sim.entity_at(i) else { continue };
@@ -325,6 +315,16 @@ mod tests {
         let sick = [((10_000, 0), true), ((5_000, 0), false), ((9_000, 9_000), false), ((50_000, 0), true)];
         // 身边一个病的英雄（另一个太远）、两个病的小兵不算
         assert_eq!(sick_champions_near((0, 0), &sick), 1);
+    }
+
+    #[test]
+    fn the_bottle_and_the_ring_open_the_scan_on_him() {
+        // 冷却要等动作放完才走，认不出刚放了 Q / R：两招出手时数据给他挂 scan（两个活着的分支各一份）
+        let kit = include_str!("../../../abysspact/champion/abysspact_corvus.data_champion");
+        let q = &kit[kit.find("\"skill\"").expect("Q")..kit.find("\"skill2\"").expect("W")];
+        let r = &kit[kit.find("\"ult\"").expect("R")..];
+        assert_eq!(q.matches(&format!("\"name\": \"{SCAN}\"")).count(), 2);
+        assert_eq!(r.matches(&format!("\"name\": \"{SCAN}\"")).count(), 2);
     }
 
     #[test]

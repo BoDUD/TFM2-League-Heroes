@@ -7,14 +7,15 @@
 //! - 大招「断誓」6 秒不死期间：若拿到击杀或助攻，结束时回复 25% 最大生命；若未拿到，再烧掉 15% 当前生命。
 //!
 //! 大招什么时候开（蛮王附加包的做法）：数据读不到生命，AI 一看到敌方英雄就按 R，满血开掉的 6 秒不死白白浪费。
-//! 现在 R 只是「待命」：数据给他挂 `r_armed`，本被动每 tick 看生命，掉到 `ERUPT_HP_PCT`% 以下才真正断誓——
-//! 6 秒不死、40% 吸血、播大招动作（插剑仰头，用动画控制播）、脚下黑火和一圈黑火伤害；待命时间过了还没用上，
-//! 退还冷却，只剩 `REARM_LEFT` tick，下一架再待命。塞拉斯偷到的 R 身上没有 `p_self`，数据照旧当场断誓。
+//! 现在 R 只是「待命」：数据给他挂 `r_armed`，本被动每 tick 看：生命掉到 `ERUPT_HP_PCT`% 以下、`ERUPT_NEAR` 内有
+//! 敌方英雄、自己没被控住（塔、小兵打残的不算，被眩晕时也放不出），才真正断誓——烧 6% 当前生命（放技能的血誓，
+//! 待命那一下不烧）、6 秒不死、40% 吸血、播大招动作（插剑仰头，用动画控制播）、脚下黑火和一圈黑火伤害；待命时间过了
+//! 还没用上，退还冷却，只剩 `REARM_LEFT` tick，下一架再待命。塞拉斯偷到的 R 身上没有 `p_self`，数据照旧当场断誓。
 
 use mod_api_stable::*;
 
 use crate::voice::{Cue, Voice};
-use crate::{buffs_present, consume_buff, has_buff};
+use crate::{buffs_present, can_cast, consume_buff, dist_sq, foe_champions, has_buff};
 
 pub const HERO: &str = "abysspact_oathbreaker";
 pub const BURN_ASK: &str = "abysspact_oathbreaker_burn_ask";
@@ -34,6 +35,8 @@ const ULT_REWARD_PCT: usize = 25;
 
 /// 待命里生命掉到这个百分比以下就断誓。
 pub const ERUPT_HP_PCT: usize = 40;
+/// 断誓还要这么近有敌方英雄（蛮王附加包的 `near`）。
+pub const ERUPT_NEAR: u64 = 50_000;
 /// 断誓：不死的 tick、吸血 %、攻速 %（同数据版）。
 pub const R_TICKS: usize = 360;
 pub const R_VAMP: i32 = 40;
@@ -85,6 +88,11 @@ pub fn hp_after_burn(cur: usize, pct: usize) -> usize {
 /// 待命里该不该断誓：生命不高于 `ERUPT_HP_PCT`%。
 pub fn should_erupt(cur: usize, max: usize) -> bool {
     max > 0 && cur.saturating_mul(100) <= max.saturating_mul(ERUPT_HP_PCT)
+}
+
+/// 待命里这一刻断不断誓：生命够低、身边有敌方英雄、没被控住。
+pub fn erupt_due(cur: usize, max: usize, foe_near: bool, free: bool) -> bool {
+    should_erupt(cur, max) && foe_near && free
 }
 
 /// 待命过期没用上：要从剩余冷却里退掉多少 tick（剩 `REARM_LEFT`）。
@@ -139,10 +147,16 @@ impl OathbreakerPassive {
         }
     }
 
-    /// 断誓：去掉待命，6 秒不死 + 吸血 + 攻速，插剑仰头的大招动作，脚下黑火和一圈黑火伤害。
+    /// 断誓：去掉待命，烧 6% 当前生命，6 秒不死 + 吸血 + 攻速，插剑仰头的大招动作，脚下黑火和一圈黑火伤害。
     fn erupt(&mut self, sim: &mut StableSim<'_>, entity: usize) {
         sim.entity_remove_buff(entity, R_ARMED);
         self.armed = false;
+        if let Some(cur) = sim.get_entity(entity).map(|e| e.hp().0) {
+            let next = hp_after_burn(cur, SKILL_BURN_PCT);
+            if next < cur {
+                sim.entity_set_hp(entity, next);
+            }
+        }
         let mut r = BuffV1::timed(R_BUFF, R_TICKS);
         r.undying = true;
         r.vamp = R_VAMP;
@@ -162,9 +176,17 @@ impl OathbreakerPassive {
         };
         let dmg = R_BURST_DMG + ad * R_BURST_AD / 100;
         let r2 = R_BURST_R * R_BURST_R;
+        // 选不中的（放逐、隐身、无敌）、塔和水晶不挨这一圈
         let foes: Vec<usize> = (0..sim.entity_count())
             .filter_map(|i| sim.entity_at(i))
-            .filter(|u| u.is_alive() && u.team() != team && !u.is_tower() && crate::dist_sq(u.pos(), pos) <= r2)
+            .filter(|u| {
+                u.is_alive()
+                    && u.team() != team
+                    && u.is_targetable()
+                    && !u.is_tower()
+                    && u.kind() != Some(EntityKindV1::Nexus)
+                    && dist_sq(u.pos(), pos) <= r2
+            })
             .map(|u| u.id())
             .collect();
         for id in foes {
@@ -173,15 +195,22 @@ impl OathbreakerPassive {
         }
     }
 
-    /// 待命里看生命：够低就断誓。
+    /// 待命里看一眼：生命够低、身边有敌方英雄、没被控住就断誓。
     fn check_erupt(&mut self, sim: &mut StableSim<'_>, entity: usize) {
         if !self.armed {
             return;
         }
-        let Some((alive, cur, max)) = sim.get_entity(entity).map(|e| (e.is_alive(), e.hp().0, e.hp().1)) else {
+        let Some((alive, cur, max, team, pos)) =
+            sim.get_entity(entity).map(|e| (e.is_alive(), e.hp().0, e.hp().1, e.team(), e.pos()))
+        else {
             return;
         };
-        if alive && should_erupt(cur, max) {
+        if !alive || !should_erupt(cur, max) {
+            return;
+        }
+        let near2 = ERUPT_NEAR * ERUPT_NEAR;
+        let foe_near = foe_champions(sim, team).iter().any(|(_, p)| dist_sq(*p, pos) <= near2);
+        if erupt_due(cur, max, foe_near, can_cast(sim, entity)) {
             self.erupt(sim, entity);
         }
     }
@@ -269,12 +298,10 @@ impl StablePassive for OathbreakerPassive {
             }
         }
 
-        // 2. 待命：生命够低就断誓；待命时间过了没用上，退还冷却
+        // 2. 待命：生命够低、身边有敌方英雄、没被控住就断誓；待命时间过了没用上，退还冷却
         if armed {
             self.armed = true;
-            if should_erupt(cur, max) {
-                self.erupt(sim, entity);
-            }
+            self.check_erupt(sim, entity);
         } else if self.armed {
             self.armed = false;
             if !has_buff(sim, entity, R_BUFF) {
@@ -356,6 +383,16 @@ mod tests {
     }
 
     #[test]
+    fn the_eruption_needs_a_champion_near_and_free_hands() {
+        assert!(erupt_due(300, 1000, true, true));
+        // 塔、小兵打残的：身边没有敌方英雄
+        assert!(!erupt_due(300, 1000, false, true));
+        // 被眩晕着放不出
+        assert!(!erupt_due(300, 1000, true, false));
+        assert!(!erupt_due(500, 1000, true, true));
+    }
+
+    #[test]
     fn an_unused_window_gives_most_of_the_cooldown_back() {
         // 70 秒的冷却待命了 10 秒没用上：剩 3600，退到 300
         assert_eq!(rearm_refund(3600), 3300);
@@ -372,6 +409,9 @@ mod tests {
     fn the_kit_arms_the_ult_and_keeps_the_stolen_copy_whole() {
         let kit = include_str!("../../../abysspact/champion/abysspact_oathbreaker.data_champion");
         assert!(kit.contains(R_ARMED) && kit.contains(P_SELF), "the R arms only behind p_self");
+        // 待命不烧血：R 里没有 burn_ask（烧血在断誓那一刻）
+        let r = &kit[kit.find("\"ult\"").expect("R")..];
+        assert!(!r.contains(BURN_ASK), "arming the R must not burn health");
         assert!(kit.contains("\"undying\": true"), "Sylas's copy (no p_self) still gets the undying");
     }
 }

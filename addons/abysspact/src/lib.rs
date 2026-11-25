@@ -119,34 +119,6 @@ pub(crate) fn buffs_present<const N: usize>(sim: &StableSim<'_>, id: usize, name
     out
 }
 
-/// 看冷却认出刚放的技能：某个槽的剩余冷却比上一 tick 一下子高出 `CAST_JUMP` 以上，就是刚放了（终末包巨灵们的做法）。
-#[derive(Clone, Default)]
-pub(crate) struct CastWatch {
-    last: [usize; 4],
-}
-
-pub(crate) const CAST_JUMP: usize = 30;
-
-impl CastWatch {
-    /// 这一 tick 的剩余冷却（普攻、技能一、技能二、大招）→ 哪几个槽刚放了。
-    pub fn step(&mut self, now: [usize; 4]) -> [bool; 4] {
-        let mut cast = [false; 4];
-        for k in 0..4 {
-            cast[k] = now[k] > self.last[k].saturating_add(CAST_JUMP);
-        }
-        self.last = now;
-        cast
-    }
-
-    /// 读这名玩家这一 tick 的冷却再 [`CastWatch::step`]；读不到算谁都没放。
-    pub fn watch(&mut self, sim: &StableSim<'_>, player: usize) -> [bool; 4] {
-        match sim.get_player(player).and_then(|p| p.cooldowns()) {
-            Some((a, q, w, r)) => self.step([a, q, w, r]),
-            None => [false; 4],
-        }
-    }
-}
-
 // ---- 下面几个小工具给第三、四批的千蛾、沉锚、返照、缓刑、赊命、无痕、陨夜、丧钟共用 ----
 
 /// 技能数据 `passive.params` 里的一个整数（生成脚本把参数表 PARAMS 的数写进去，引擎按键名排好序传进来，
@@ -333,19 +305,5 @@ mod tests {
         assert_eq!(fanim_ticks(json, "ult"), Some(18));
         assert_eq!(fanim_ticks(json, "hd_ult"), Some(30));
         assert_eq!(fanim_ticks(json, "run"), None);
-    }
-
-    #[test]
-    fn a_cast_is_a_cooldown_that_jumps_up() {
-        let mut w = CastWatch::default();
-        assert_eq!(w.step([0, 0, 0, 0]), [false; 4]);
-        // 技能一刚放：冷却从 0 跳到 420
-        assert_eq!(w.step([0, 420, 0, 0]), [false, true, false, false]);
-        // 之后一 tick 一 tick 往下走，不算
-        assert_eq!(w.step([0, 419, 0, 0]), [false; 4]);
-        // 减冷却也不算
-        assert_eq!(w.step([0, 200, 0, 0]), [false; 4]);
-        // 大招刚放
-        assert_eq!(w.step([0, 199, 0, 4200]), [false, false, false, true]);
     }
 }

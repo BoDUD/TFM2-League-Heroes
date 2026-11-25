@@ -93,7 +93,7 @@
               "effect": {
                 "type": "AddCasterBuff",
                 "buff_state": {
-                  "name": "abysspact_bonebow_a_arrow",
+                  "name": "abysspact_bonebow_a_shot",
                   "duration": {
                     "Time": {
                       "tick": 2
