@@ -2721,6 +2721,57 @@ def nodes(o):
     return 0
 
 
+SFX_DIR = os.path.join(REPO, MOD_ID, "sound", "sfx")
+
+
+def _front_sfx(effect):
+    """动作最外层一开头就会响的 Sfx。"""
+    if effect.get("type") == "Sfx":
+        return [effect]
+    if effect.get("type") == "Combine":
+        return [e for e in effect["effects"] if e.get("type") == "Sfx"]
+    return []
+
+
+def _sure_sfx(effect):
+    """不管走哪个分支都一定会响的 Sfx。"""
+    kind = effect.get("type")
+    if kind == "Sfx":
+        return [effect["name"]]
+    if kind == "Combine":
+        return [n for e in effect["effects"] for n in _sure_sfx(e)]
+    if kind == "SwitchByBuff":
+        a, b = _sure_sfx(effect["effect_buff"]), _sure_sfx(effect["effect_none"])
+        return sorted(set(a + b)) if a and b else []
+    return []
+
+
+def add_foley(kit):
+    """出招音效：2026-11-24 那一轮直接改了生成好的技能文件（每个动作开头一定有一声，没有的补
+    <id>_foley_q/w/r，已有的挪到最前面），这里照原样做一遍，免得重新生成时丢掉。
+    只补 abysspact/sound/sfx 里已经有 .sound_info 的那几个。"""
+    cid = kit["id"]
+    for action, key in (("attack", "a"), ("skill", "q"), ("skill2", "w"), ("ult", "r")):
+        a = kit[action]
+        eff = a["effect"]
+        front = _front_sfx(eff)
+        if front:
+            if eff["type"] == "Combine":
+                eff["effects"] = [*front, *(e for e in eff["effects"] if e.get("type") != "Sfx")]
+            continue
+        if action == "attack" and _sure_sfx(eff):
+            continue
+        event = f"{cid}_foley_{key}"
+        if not os.path.exists(os.path.join(SFX_DIR, event + ".sound_info")):
+            continue
+        sfx = {"type": "Sfx", "name": event}
+        if eff["type"] == "Combine":
+            eff["effects"].insert(0, sfx)
+        else:
+            a["effect"] = {"type": "Combine", "effects": [sfx, eff]}
+    return kit
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--hero", choices=list(BUILDERS.keys()), help="Build one hero (default: all 5)")
@@ -2740,7 +2791,7 @@ def main():
                 if k not in p:
                     sys.exit(f"unknown parameter {k} for {key}")
                 p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-        kit = fn(p, is_native=not args.plain)
+        kit = add_foley(fn(p, is_native=not args.plain))
         if args.nodes:
             print(cid, " ".join(f"{s}:{nodes(kit[s]['effect'])}" for s in ("attack", "skill", "skill2", "ult")))
         out_path = args.out if (args.hero and args.out) else os.path.join(OUT_DIR, f"{cid}.data_champion")
