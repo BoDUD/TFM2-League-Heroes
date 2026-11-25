@@ -1753,6 +1753,8 @@ def build_vesper(p, is_native=True):
             "idle", p["r_arm_dur"], p["r_cd"], 1, p["r_range"], "None", "EnemyChampion",
             H["combine"](r_ask, sylas_shield),
         )
+        # 动作名是 idle，说明文字还是指向大招这一格（文字表里只有 .ult）
+        ult["description"] = f"#asset/base/text/champion?description.{cid}.ult"
     else:
         ult = H["action"](
             "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "AllyChampion",
@@ -1971,9 +1973,11 @@ def build_leech(p, is_native=True):
         H["view"]("venom"),
         H["tsfx"]("w_venom"),
     )
+    # 原生版出手时先挂 w_cast（整个动作那么长）：附着时 leech.rs 在他出招期间不推他（强制位移会打断出招）
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
+            H["flag"]("w_cast", p["w_dur"]) if is_native else None,
             H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_bite"), w_hit)),
             H["native_fx"](f"{cid}:w_range") if is_native else None,
         ),

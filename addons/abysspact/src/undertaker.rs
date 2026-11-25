@@ -1,7 +1,10 @@
 //! 入殓 (`abysspact_undertaker`) · 抬棺人 · 打野坦克
 //!
-//! 被动「棺盾」：普攻伤害常驻 -15%（`coffin_shield`）；每 8 秒备好一层技能护挡（`skill_guard`，技能伤害 -30%）。
-//! 只有敌方英雄刚放出去的技能打中他才用掉：`on_damaged` 里看出手的人哪一栏技能的冷却刚开始走（2 秒内）。用掉时棺材一闪。
+//! 被动「棺盾」：普攻伤害常驻 -15%（`coffin_shield`）；每 8 秒备好一层技能护挡（`skill_guard`，技能伤害 -30%，挂着时
+//! 引擎自己只减技能伤害）。护挡只在敌方英雄的技能打中他时用掉，用掉时棺材一闪。打中的那一刻认不出是不是技能：
+//! 冷却在出招动作结束时才开始走，大多数技能打中他时对方的这一格冷却还是 0。所以挨了敌方英雄一下先记着（那一刻对方
+//! 四格的冷却），之后 1 秒内对方哪一格的冷却从 0 跳起来：技能格就用掉护挡，普攻格就是普攻、丢掉这条。动作结束以后才落地的
+//! 一下（弹道、延时）打中时对方技能格的冷却已经刚走起来（1 秒内），当场用掉。
 //! 以前是「一 tick 掉血超过 25」就用掉，野怪、小兵、普攻都会把它打掉，打野时每 8 秒白闪一次。
 //!
 //! 大招「入殓」：数据关棺、定住目标、给他挂 `coffin_ask`；本包看到后
@@ -26,8 +29,12 @@ pub const CARRYING: &str = "abysspact_undertaker_carrying";
 pub const R_CAST_VOICE: &str = "abysspact_undertaker_r_voice";
 
 pub const GUARD_CD: usize = 480; // 8.0s
-/// 对方某一栏技能的冷却开始走了这么多 tick 以内，打中他的这一下算那个技能的（出手加弹道飞行）。
-pub const GUARD_RECENT: usize = 120;
+/// 对方某一格技能的冷却开始走了这么多 tick 以内，打中他的这一下算那个技能的（动作结束后还在飞的弹道）。
+pub const GUARD_RECENT: usize = 60;
+/// 挨了一下以后等多久看对方哪一格的冷却跳起来（出招动作剩下的时间）。
+pub const DECIDE_WINDOW: usize = 60;
+/// 最多记几下。
+const MAX_HITS: usize = 16;
 pub const CARRY_TICKS: usize = 120; // 2.0s
 pub const CARRY_MS_PCT: i32 = 20;
 pub const SLAM_STUN: u64 = 60; // 1.0s
@@ -47,9 +54,29 @@ pub fn slam_damage(target_max_hp: usize) -> usize {
     SLAM_BASE + target_max_hp.saturating_mul(SLAM_HP_PCT) / 100
 }
 
-/// 出手的人这一栏技能刚放出去（冷却刚开始走）。
+/// 出手的人这一格技能的冷却刚走起来（动作刚结束）：动作结束以后才落地的弹道打中他时用。
 pub fn just_cast(remaining: usize, cooltime: usize) -> bool {
     remaining > 0 && cooltime > 0 && remaining + GUARD_RECENT >= cooltime
+}
+
+/// 记下的那一下后来认出是什么。`before` / `now` 是对方（普攻、技能一、技能二、大招）四格剩下的冷却：
+/// 某个技能格从 0 跳起来 → 是技能（Some(true)）；普攻格从 0 跳起来 → 是普攻（Some(false)）；都没跳 → 还不知道（None）。
+pub fn hit_verdict(before: [usize; 4], now: [usize; 4]) -> Option<bool> {
+    if (1..4).any(|k| before[k] == 0 && now[k] > 0) {
+        return Some(true);
+    }
+    (before[0] == 0 && now[0] > 0).then_some(false)
+}
+
+/// 一名英雄四格的（剩下的冷却, 一轮多长）。
+fn slots(sim: &StableSim<'_>, id: usize) -> Option<[(usize, usize); 4]> {
+    let e = sim.get_entity(id)?;
+    let mut out = [(0, 0); 4];
+    for (k, s) in [SkillSlotV1::Attack, SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult].into_iter().enumerate() {
+        let c = e.cooldown(s)?;
+        out[k] = (c.remaining, c.cooltime);
+    }
+    Some(out)
 }
 
 /// 扛着走的位移：从 `from` 朝 `home`，停在离 `home` HOME_STOP 处，最多走 `max_len`；太短就不走。
@@ -92,12 +119,21 @@ struct Carry {
     dir: (f64, f64),
 }
 
+/// 挨的敌方英雄的一下：谁打的、哪一 tick、那时对方四格剩下的冷却。
+#[derive(Clone, Copy)]
+struct Hit {
+    attacker: usize,
+    tick: usize,
+    before: [usize; 4],
+}
+
 #[derive(Clone, Default)]
 struct UndertakerPassive {
     voice: Voice,
     shield_applied: bool,
     guard_ready_at: usize,
     guard_armed: bool,
+    hits: Vec<Hit>,
     carry: Option<Carry>,
 }
 
@@ -188,6 +224,38 @@ impl UndertakerPassive {
         self.carry = None;
         sim.entity_remove_buff(entity, CARRYING);
     }
+
+    /// 技能护挡用掉：8 秒后再备，棺材一闪。
+    fn spend_guard(&mut self, sim: &mut StableSim<'_>, entity: usize, tick: usize) {
+        sim.entity_remove_buff(entity, SKILL_GUARD);
+        self.guard_armed = false;
+        self.guard_ready_at = tick + GUARD_CD;
+        self.hits.clear();
+        sim.play_view_effect("abysspact_undertaker_guard", entity, &InputTargetV1::target(entity), 0, 0, 0);
+        sim.play_sfx("abysspact_undertaker_guard", entity, &InputTargetV1::target(entity));
+    }
+
+    /// 记着的那几下：对方的冷却跳起来了就认出是技能还是普攻。
+    fn judge_hits(&mut self, sim: &mut StableSim<'_>, entity: usize, tick: usize) {
+        let mut waiting = Vec::new();
+        let mut skill = false;
+        for h in std::mem::take(&mut self.hits) {
+            if tick > h.tick + DECIDE_WINDOW {
+                continue;
+            }
+            let Some(cd) = slots(sim, h.attacker) else { continue };
+            match hit_verdict(h.before, [cd[0].0, cd[1].0, cd[2].0, cd[3].0]) {
+                Some(true) => skill = true,
+                Some(false) => {}
+                None => waiting.push(h),
+            }
+        }
+        if skill {
+            self.spend_guard(sim, entity, tick);
+        } else {
+            self.hits = waiting;
+        }
+    }
 }
 
 impl StablePassive for UndertakerPassive {
@@ -199,6 +267,7 @@ impl StablePassive for UndertakerPassive {
         self.shield_applied = false;
         self.guard_ready_at = 0;
         self.guard_armed = false;
+        self.hits.clear();
         self.carry = None;
         self.voice.on_spawn(sim, HERO, entity);
     }
@@ -221,22 +290,21 @@ impl StablePassive for UndertakerPassive {
             return;
         }
         let Some(team) = sim.get_entity(entity).map(|e| e.team()) else { return };
-        let skill_hit = sim.get_entity(attacker).is_some_and(|a| {
-            a.is_champion()
-                && a.team() != team
-                && [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult]
-                    .into_iter()
-                    .any(|s| a.cooldown(s).is_some_and(|c| just_cast(c.remaining, c.cooltime)))
-        });
-        if !skill_hit {
+        if !sim.get_entity(attacker).is_some_and(|a| a.is_champion() && a.team() != team) {
             return;
         }
-        // 这一下技能伤害已经按 -30% 算过了：护挡用掉，8 秒后再备
-        sim.entity_remove_buff(entity, SKILL_GUARD);
-        self.guard_armed = false;
-        self.guard_ready_at = sim.tick() + GUARD_CD;
-        sim.play_view_effect("abysspact_undertaker_guard", entity, &InputTargetV1::target(entity), 0, 0, 0);
-        sim.play_sfx("abysspact_undertaker_guard", entity, &InputTargetV1::target(entity));
+        let Some(cd) = slots(sim, attacker) else { return };
+        let tick = sim.tick();
+        // 动作结束以后才落地的技能（技能格的冷却刚走起来）：当场用掉
+        if (1..4).any(|k| just_cast(cd[k].0, cd[k].1)) {
+            self.spend_guard(sim, entity, tick);
+            return;
+        }
+        // 还在对方的出招动作里：先记着，等对方哪一格的冷却跳起来再认
+        if self.hits.len() >= MAX_HITS {
+            self.hits.remove(0);
+        }
+        self.hits.push(Hit { attacker, tick, before: [cd[0].0, cd[1].0, cd[2].0, cd[3].0] });
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize, victim: usize) {
@@ -249,6 +317,7 @@ impl StablePassive for UndertakerPassive {
         self.carry = None;
         self.shield_applied = false;
         self.guard_armed = false;
+        self.hits.clear();
         self.voice.on_dead(sim, HERO, player);
     }
 
@@ -278,6 +347,9 @@ impl StablePassive for UndertakerPassive {
             sim.entity_remove_buff(entity, SKILL_GUARD);
             sim.add_buff(entity, &g);
             self.guard_armed = true;
+        }
+        if self.guard_armed && !self.hits.is_empty() {
+            self.judge_hits(sim, entity, tick);
         }
 
         // 2. 大招：数据在敌方英雄身上挂了 coffin_ask
@@ -329,11 +401,27 @@ mod tests {
     }
 
     #[test]
-    fn the_guard_is_spent_only_on_a_fresh_skill() {
-        // 冷却 600 的技能刚放出去 1 秒：算
-        assert!(just_cast(540, 600));
+    fn a_hit_inside_the_casters_action_is_judged_when_his_cooldown_starts() {
+        // 技能在对方的出招动作里打中：那一刻这一格还是 0（冷却动作结束才走），当场认不出；大招还在冷却一半
+        let before = [0, 0, 0, 1_800];
+        let cooltime = [60, 400, 600, 3_600];
+        assert!(!(1..4).any(|k| just_cast(before[k], cooltime[k])));
+        // 还在动作里：谁都没跳，接着等
+        assert_eq!(hit_verdict(before, [0, 0, 0, 1_790]), None);
+        // 动作结束，技能二从 0 跳到 600：是技能，用掉护挡
+        assert_eq!(hit_verdict(before, [0, 0, 600, 1_780]), Some(true));
+        // 普攻：动作结束时普攻格从 0 跳起来，技能格没动：不用
+        assert_eq!(hit_verdict(before, [60, 0, 0, 1_780]), Some(false));
+        // 本来就在冷却里的格子往下走不算跳
+        assert_eq!(hit_verdict([0, 300, 0, 0], [0, 290, 0, 0]), None);
+    }
+
+    #[test]
+    fn a_projectile_landing_after_the_action_spends_the_guard_at_once() {
+        // 冷却 600 的技能动作刚结束、弹道还在飞：打中时这一格的冷却刚走起来
+        assert!(just_cast(570, 600));
         assert!(just_cast(600 - GUARD_RECENT, 600));
-        // 放出去 3 秒了、冷却好了、没有这一栏：不算
+        // 放出去好几秒了、冷却好了、没有这一格：不算
         assert!(!just_cast(420, 600));
         assert!(!just_cast(0, 600));
         assert!(!just_cast(0, 0));

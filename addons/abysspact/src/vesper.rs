@@ -5,14 +5,15 @@
 //!   直接乘上去。她倒下时蜡烛全灭（设计的倒地动作：蜡烛一支支熄灭）。蜡烛不加法强。
 //! - R「回魂」：数据的 R 只是 3 tick 的「备好」（敌方英雄 6 万内就按），挂 `r_ask`；本包在备好的 6 秒里等：
 //!   * 有 10 秒内倒在她 6 万内、还没复活的队友 → 回魂：复活时间改成 1 tick（阿克尚附加包核对过的写法），复活后放回
-//!     倒下的地方，挂魂体 `spirit`（受到的伤害减半、不能被治疗，8 秒）和记号
-//!     `soul:<开始时己方击杀数>:<结束 tick>:<本来复活的 tick>:<玩家>`；她放大招动作、说大招台词，倒下的地方升起光柱；
+//!     倒下的地方，挂魂体 `spirit`（受到的伤害减半、不能被治疗，8 秒）和记号 `soul:<开始时己方击杀数>:<结束 tick>`；
+//!     她放大招动作、说大招台词，倒下的地方升起光柱；
 //!   * 否则身边 5 万内有队友（她自己也算）生命低于 35%、附近有敌方英雄 → 身边所有队友 100 + 60% 法强的盾（乘烛冠）；
 //!   * 6 秒都没用上 → 冷却退到只剩 3 秒，下次打起来再备。
 //!   以前 R 一好就被 AI 放掉（对友方放、没有数值的大招 AI 一好就按），几乎等不到阵亡的队友，回回都是一层盾。
 //! - 魂体由排进效果队列的 `abysspact_vesper:soul` 每 6 tick 看一次（排下的效果她死了也照跑，不靠她的被动）：
-//!   8 秒里己方拿到击杀就真复活（生命设成 30%，暖金光圈）；没拿到就散掉（生命设成 0），倒下以后
-//!   `abysspact_vesper:afterlife` 把他的复活时间改回本来该复活的那一刻；魂体被打倒也一样。一次没成的回魂不会让他多等一轮。
+//!   8 秒里己方拿到击杀就真复活（生命设成 30%，暖金光圈）；没拿到就散掉（生命设成 0）。魂体散掉倒下、或者被打倒，
+//!   都把他的复活时间改回本来该复活的那一刻，一次没成的回魂不会让他多等一轮。人一倒下身上的 buff 就被游戏清掉了，
+//!   所以玩家和本来复活的 tick 不记在他身上，跟着排下的效果走（借位置输入的两个坐标带，[`carry_input`]）。
 
 use std::collections::HashMap;
 use std::sync::Mutex;
@@ -30,7 +31,6 @@ pub const GUIDE_BUFF: &str = "abysspact_vesper_guide";
 /// 魂体身上的记号前缀。
 pub const SOUL_MARK: &str = "abysspact_vesper_soul";
 pub const SOUL_FX: &str = "abysspact_vesper:soul";
-pub const AFTERLIFE_FX: &str = "abysspact_vesper:afterlife";
 
 pub const CANDLE_CAP: usize = 5;
 pub const CANDLE_RADIUS: u64 = 50_000; // 5.0万
@@ -52,6 +52,11 @@ pub const SOUL_POLL: usize = 6;
 pub const ULT_POSE: u64 = 44;
 /// 回魂后等队友复活、放回原地，最多等这么久。
 pub const PLACE_WAIT: usize = 30;
+/// 魂体散掉时生命设成 0，最多再等这么久让他倒下。
+pub const FADE_GRACE: usize = 60;
+/// 借位置输入带两个数：都加上一个身位（落在地图里面），玩家号每个隔一万。
+pub const CARRY_BASE: u64 = 30_000;
+pub const CARRY_STEP: u64 = 10_000;
 
 pub fn candle_buff_name(k: usize) -> Option<&'static str> {
     match k {
@@ -113,18 +118,29 @@ pub fn parse_params(json: &str) -> GuideNums {
     n
 }
 
-/// 魂体的记号：开始时己方击杀数、结束 tick、本来复活的 tick、玩家。
-pub fn soul_name(kills: usize, end: usize, back: usize, player: usize) -> String {
-    format!("{SOUL_MARK}:{kills}:{end}:{back}:{player}")
+/// 魂体活着时身上的记号：开始时己方击杀数、结束 tick。
+pub fn soul_name(kills: usize, end: usize) -> String {
+    format!("{SOUL_MARK}:{kills}:{end}")
 }
 
-pub fn parse_soul(name: &str) -> Option<(usize, usize, usize, usize)> {
-    let mut it = name.strip_prefix(SOUL_MARK)?.strip_prefix(':')?.split(':');
-    let k = it.next()?.parse().ok()?;
-    let end = it.next()?.parse().ok()?;
-    let back = it.next()?.parse().ok()?;
-    let player = it.next()?.parse().ok()?;
-    it.next().is_none().then_some((k, end, back, player))
+pub fn parse_soul(name: &str) -> Option<(usize, usize)> {
+    let (k, end) = name.strip_prefix(SOUL_MARK)?.strip_prefix(':')?.split_once(':')?;
+    Some((k.parse().ok()?, end.parse().ok()?))
+}
+
+/// 排给魂体检查的输入：(玩家, 本来复活的 tick) 放在位置输入的两个坐标里。
+pub fn carry_input(player: usize, back: usize) -> InputTargetV1 {
+    InputTargetV1::pos(CARRY_BASE + player as u64 * CARRY_STEP, CARRY_BASE + back as u64)
+}
+
+/// 从输入里读回 (玩家, 本来复活的 tick)；不是位置输入就是 None。
+pub fn carried(input: &InputTargetV1) -> Option<(usize, usize)> {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Pos) {
+        return None;
+    }
+    let p = input.x.checked_sub(CARRY_BASE)?;
+    let back = input.y.checked_sub(CARRY_BASE)?;
+    Some((((p + CARRY_STEP / 2) / CARRY_STEP) as usize, back as usize))
 }
 
 // ---------------------------------------------------------------------------
@@ -330,7 +346,7 @@ fn count_team_kills(sim: &StableSim<'_>, team: usize) -> usize {
     (0..sim.kill_log_count()).filter_map(|i| sim.kill_log_at(i)).filter(|k| k.killer_team == team).count()
 }
 
-fn soul_of(sim: &StableSim<'_>, id: usize) -> Option<(String, (usize, usize, usize, usize))> {
+fn soul_of(sim: &StableSim<'_>, id: usize) -> Option<(String, (usize, usize))> {
     let e = sim.get_entity(id)?;
     (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| {
         let name = b.name().to_string();
@@ -338,29 +354,25 @@ fn soul_of(sim: &StableSim<'_>, id: usize) -> Option<(String, (usize, usize, usi
     })
 }
 
-/// 魂体每 6 tick 看一次：己方拿到击杀就真复活，8 秒到了就散掉。
+/// 魂体每 6 tick 看一次：己方拿到击杀就真复活，8 秒到了就散掉；他倒下了（被打倒、散掉）就把复活时间改回本来那一刻。
 #[derive(Debug)]
 struct Soul;
 
 impl StableEffectType for Soul {
     fn apply(&self, sim: &mut StableSim<'_>, _seed: u64, caster: usize, input: InputTargetV1) {
-        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        let Some((player, back)) = carried(&input) else { return };
+        let tick = sim.tick();
+        let Some((alive, team)) = sim.get_player(player).map(|p| (p.is_alive(), p.team())) else { return };
+        if !alive {
+            // 倒下了（魂体被打倒，或者散掉了）：复活时间不比本来的长，回魂不该害他多等
+            let _ = shorten_respawn(sim, player, back.saturating_sub(tick).max(1) as u64);
             return;
         }
-        let ally = input.target_id;
-        let Some((alive, team, max_hp)) = sim.get_entity(ally).map(|e| (e.is_alive(), e.team(), e.hp().1)) else {
+        let Some((ally, max_hp)) = sim.get_player(player).and_then(|p| p.champion()).map(|e| (e.id(), e.hp().1)) else {
             return;
         };
-        // 记号没了：已经结算过
-        let Some((mark, (kills, end, back, player))) = soul_of(sim, ally) else { return };
-        let tick = sim.tick();
-        // 魂体被打倒了：复活时间也不比本来的长（回魂不该害他多等）
-        if !alive {
-            if sim.get_player(player).is_some_and(|p| !p.is_alive()) {
-                let _ = shorten_respawn(sim, player, back.saturating_sub(tick).max(1) as u64);
-            }
-            return;
-        }
+        // 记号没了：已经真复活过
+        let Some((mark, (kills, end))) = soul_of(sim, ally) else { return };
         if count_team_kills(sim, team) > kills {
             sim.entity_remove_buff(ally, SPIRIT_BUFF);
             sim.entity_remove_buff(ally, &mark);
@@ -370,38 +382,17 @@ impl StableEffectType for Soul {
             return;
         }
         if tick >= end {
-            // 散掉。记号留在他身上（倒下后 buff 冻住），afterlife 从记号里读本来该复活的 tick
+            // 8 秒到了还没拿到击杀：散掉。下一次检查时他已经倒下，把复活时间改回来
+            if tick > end + FADE_GRACE {
+                return;
+            }
             sim.entity_remove_buff(ally, SPIRIT_BUFF);
             sim.entity_set_hp(ally, 0);
             sim.play_sfx("abysspact_vesper_candle_out", caster, &InputTargetV1::target(ally));
-            sim.queue_effect(AFTERLIFE_FX, AttackTypeV1::Skill, caster, &input, 2);
+            sim.queue_effect(SOUL_FX, AttackTypeV1::Skill, caster, &input, 2);
             return;
         }
         sim.queue_effect(SOUL_FX, AttackTypeV1::Skill, caster, &input, SOUL_POLL);
-    }
-}
-
-/// 魂体散掉倒下以后：复活时间改回本来该复活的那一刻。
-#[derive(Debug)]
-struct Afterlife;
-
-impl StableEffectType for Afterlife {
-    fn apply(&self, sim: &mut StableSim<'_>, _seed: u64, caster: usize, input: InputTargetV1) {
-        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
-            return;
-        }
-        let ally = input.target_id;
-        let Some((_, (_, end, back, player))) = soul_of(sim, ally) else { return };
-        let tick = sim.tick();
-        let dead = sim.get_player(player).is_some_and(|p| !p.is_alive());
-        if !dead {
-            // 生命设成 0 还没倒下：再等一会儿
-            if tick <= end + 30 {
-                sim.queue_effect(AFTERLIFE_FX, AttackTypeV1::Skill, caster, &input, 2);
-            }
-            return;
-        }
-        let _ = shorten_respawn(sim, player, back.saturating_sub(tick).max(1) as u64);
     }
 }
 
@@ -554,16 +545,15 @@ impl VesperPassive {
         true
     }
 
-    /// 回魂的人复活了：放回倒下的地方，挂魂体和记号，排上魂体的检查。
+    /// 回魂的人复活了：放回倒下的地方，挂魂体和记号，排上魂体的检查。等太久（不是这次回魂让他复活的）就不放了。
     fn place(&mut self, sim: &mut StableSim<'_>, entity: usize, tick: usize) {
         let Some(pd) = self.pending else { return };
-        let ally = sim.get_player(pd.player).filter(|p| p.is_alive()).and_then(|p| p.champion()).map(|e| e.id());
-        let Some(ally) = ally else {
-            if tick > pd.since + PLACE_WAIT {
-                self.pending = None;
-            }
+        if tick > pd.since + PLACE_WAIT {
+            self.pending = None;
             return;
-        };
+        }
+        let ally = sim.get_player(pd.player).filter(|p| p.is_alive()).and_then(|p| p.champion()).map(|e| e.id());
+        let Some(ally) = ally else { return };
         self.pending = None;
         sim.entity_set_pos(ally, pd.death_pos.0, pd.death_pos.1);
         // 挪一小步：画面只跟着走路和强制位移走，不挪的话他在泉水那儿站着，下次走路才跳过来
@@ -576,8 +566,8 @@ impl VesperPassive {
         sb.heal_reduce = 100;
         sim.add_buff(ally, &sb);
         let end = tick + SPIRIT_TICKS;
-        sim.add_buff(ally, &BuffV1::timed(&soul_name(pd.kills_at_start, end, pd.back, pd.player), SPIRIT_TICKS + 60));
-        sim.queue_effect(SOUL_FX, AttackTypeV1::Skill, entity, &InputTargetV1::target(ally), SOUL_POLL);
+        sim.add_buff(ally, &BuffV1::timed(&soul_name(pd.kills_at_start, end), SPIRIT_TICKS + FADE_GRACE));
+        sim.queue_effect(SOUL_FX, AttackTypeV1::Skill, entity, &carry_input(pd.player, pd.back), SOUL_POLL);
         sim.play_view_effect("abysspact_vesper_pillar", entity, &InputTargetV1::target(ally), 0, 0, 0);
         sim.play_sfx("abysspact_vesper_soul_form", entity, &InputTargetV1::target(ally));
     }
@@ -629,6 +619,7 @@ impl StablePassive for VesperPassive {
         self.fallen_allies.clear();
         self.guided.clear();
         self.armed_until = None;
+        self.pending = None;
         self.sync_candles(sim, entity);
     }
 
@@ -652,9 +643,10 @@ impl StablePassive for VesperPassive {
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
-        // 她倒下：蜡烛全灭，没用上的 R 作废
+        // 她倒下：蜡烛全灭，没用上的 R 作废，还没放回原地的回魂也不放了
         self.candles = 0;
         self.armed_until = None;
+        self.pending = None;
         self.voice.on_dead(sim, HERO, player);
     }
 
@@ -692,14 +684,9 @@ impl StablePassive for VesperPassive {
             if self.try_revive(sim, entity, my_team, my_pos, tick) || self.try_shield(sim, entity, my_team, my_pos, ap) {
                 self.armed_until = None;
             } else if tick >= until {
+                // 备好的 3 tick 动作早就结束了，冷却已经在走：退到只剩 3 秒
                 self.armed_until = None;
-                let left = sim
-                    .get_entity(entity)
-                    .and_then(|e| e.cooldown(SkillSlotV1::Ult))
-                    .map_or(0, |c| c.remaining.saturating_sub(REARM_TICKS));
-                if left > 0 {
-                    sim.entity_reduce_cooldown(entity, SkillSlotV1::Ult, left);
-                }
+                crate::refund_cooldown(sim, entity, SkillSlotV1::Ult, REARM_TICKS);
             }
         }
 
@@ -711,7 +698,6 @@ impl StablePassive for VesperPassive {
 pub fn register(_host: &StableHost, module: &mut StableMod) {
     module.add_native_passive("abysspact_vesper:vigil", VesperPassive::default());
     module.add_native_effect(SOUL_FX, Soul);
-    module.add_native_effect(AFTERLIFE_FX, Afterlife);
 }
 
 #[cfg(test)]
@@ -743,10 +729,34 @@ mod tests {
 
     #[test]
     fn the_soul_mark_reads_back_and_fits_a_buff_name() {
-        let name = soul_name(12, 123_456, 130_000, 7);
+        let name = soul_name(12, 123_456);
         assert!(name.len() <= BUFF_NAME_CAP, "{name}");
-        assert_eq!(parse_soul(&name), Some((12, 123_456, 130_000, 7)));
+        assert_eq!(parse_soul(&name), Some((12, 123_456)));
         assert_eq!(parse_soul("abysspact_vesper_spirit"), None);
-        assert_eq!(parse_soul("abysspact_vesper_soul:1:2:3"), None);
+        assert_eq!(parse_soul("abysspact_vesper_soul:1"), None);
+    }
+
+    #[test]
+    fn the_player_and_his_respawn_tick_ride_with_the_check() {
+        // 倒下的人身上读不到记号，这两个数跟着排下的效果走
+        for (player, back) in [(0, 0), (3, 7_260), (9, 216_000)] {
+            let input = carry_input(player, back);
+            assert_eq!(carried(&input), Some((player, back)));
+            // 落在地图里面（引擎就算把位置夹进地图也不会变）
+            assert!(input.x >= 22_500 && input.x <= 937_500 && input.y >= 22_500 && input.y <= 937_500, "{input:?}");
+        }
+        // 别的输入不认
+        assert_eq!(carried(&InputTargetV1::target(5)), None);
+    }
+
+    #[test]
+    fn the_armed_ult_keeps_the_ult_tooltip() {
+        // R 的动作名是 idle（3 tick 的备好），说明文字还得指向 .ult，不然各语言都缺这一条
+        let kit = include_str!("../../../abysspact/champion/abysspact_vesper.data_champion");
+        assert!(kit.contains("\"description\": \"#asset/base/text/champion?description.abysspact_vesper.ult\""));
+        assert!(!kit.contains("description.abysspact_vesper.idle"));
+        let text = include_str!("../../../abysspact/text/champion.i18n");
+        let at = text.find("\"abysspact_vesper\"").expect("vesper in the text");
+        assert!(text[at..].contains("\"ult\""));
     }
 }

@@ -244,6 +244,18 @@
           "name": "abysspact_leech_foley_w"
         },
         {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_leech_w_cast",
+            "duration": {
+              "Time": {
+                "tick": 34
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "Delayed",
           "tick": 11,
           "effects": [
