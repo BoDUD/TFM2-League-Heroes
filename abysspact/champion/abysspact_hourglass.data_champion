@@ -10,7 +10,20 @@
   ],
   "passive": {
     "passive_ref": "abysspact_hourglass:sands",
-    "params": {}
+    "params": {
+      "rewind_t": 180,
+      "q_trig": 15,
+      "q_arm": 300,
+      "q_range": 70000,
+      "q_go": 13,
+      "q_dur": 36,
+      "r_trig": 60,
+      "r_arm": 900,
+      "r_go": 16,
+      "r_dur": 44,
+      "keep": 60,
+      "r_range": 100000
+    }
   },
   "sprite": "asset/abysspact/champions/abysspact_hourglass",
   "anim_prefix": "",
@@ -90,9 +103,9 @@
     }
   },
   "skill": {
-    "action_name": "skill",
+    "action_name": "idle",
     "description": "#asset/base/text/champion?description.abysspact_hourglass.skill",
-    "duration": 36,
+    "duration": 3,
     "cooltime": 710,
     "start_timing": 1,
     "cancelable": false,
@@ -101,103 +114,16 @@
     "casting_target": "AllyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "Sfx",
-          "name": "abysspact_hourglass_foley_q"
-        },
-        {
-          "type": "Delayed",
-          "tick": 12,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RandomTarget",
-                  "range": 1,
-                  "casting_target": "AllyOnlySelf",
-                  "from_projectile": false,
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "abysspact_hourglass_live",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "abysspact_hourglass_live",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "Sfx",
-                        "name": "abysspact_hourglass_q_mark"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_hourglass_sand_rise"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_hourglass_q_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "Sfx",
-                        "name": "abysspact_hourglass_q_mark"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "abysspact_hourglass_sand_rise"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_hourglass_q_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "abysspact_hourglass_live"
-                }
-              ]
-            }
-          ]
+      "type": "AddCasterBuff",
+      "buff_state": {
+        "name": "abysspact_hourglass_q_arm",
+        "duration": {
+          "Time": {
+            "tick": 4
+          }
         }
-      ]
+      },
+      "only_to_enemy": false
     }
   },
   "skill2": {
@@ -398,9 +324,9 @@
     }
   },
   "ult": {
-    "action_name": "ult",
+    "action_name": "idle",
     "description": "#asset/base/text/champion?description.abysspact_hourglass.ult",
-    "duration": 44,
+    "duration": 3,
     "cooltime": 4820,
     "start_timing": 1,
     "cancelable": false,
@@ -409,275 +335,230 @@
     "casting_target": "AllyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "Sfx",
-          "name": "abysspact_hourglass_foley_r"
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "abysspact_hourglass_r_voice",
-            "duration": {
-              "Time": {
-                "tick": 4
-              }
+      "type": "SwitchByBuff",
+      "buff_name": "abysspact_hourglass_native",
+      "effect_buff": {
+        "type": "AddCasterBuff",
+        "buff_state": {
+          "name": "abysspact_hourglass_r_arm",
+          "duration": {
+            "Time": {
+              "tick": 4
             }
-          },
-          "only_to_enemy": false
+          }
         },
-        {
-          "type": "Delayed",
-          "tick": 15,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
+        "only_to_enemy": false
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 15,
+        "effects": [
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "abysspact_hourglass_live",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "abysspact_hourglass_live",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "abysspact_hourglass_r_lob",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "range_effect_name": "",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1
+                        }
+                      },
+                      "applied_target": "AllyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_hourglass_hourglass"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_hourglass_flip"
+                        },
+                        {
+                          "type": "RangeProjectile",
+                          "name": "abysspact_hourglass_r_zone",
+                          "shape": {
+                            "Circle": {
+                              "radius": 75000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "AllyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Heal",
+                                "amount": 264,
+                                "attack_ratio": 0,
+                                "ap_ratio": 95,
+                                "heal_type": "Ally"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Shield",
+                                "amount": 160,
+                                "attack_ratio": 0,
+                                "ap_ratio": 65,
+                                "tick": 180
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "abysspact_hourglass_echo"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "abysspact_hourglass_rewind"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "abysspact_hourglass_rewind_snap"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
                   "type": "RandomTarget",
                   "range": 1,
                   "casting_target": "AllyOnlySelf",
                   "from_projectile": false,
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "abysspact_hourglass_live",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
+                      "type": "ParabolicProjectile",
+                      "name": "abysspact_hourglass_r_lob",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "range_effect_name": "",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1
                         }
                       },
-                      "only_to_enemy": false
+                      "applied_target": "AllyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "abysspact_hourglass_hourglass"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "abysspact_hourglass_flip"
+                        },
+                        {
+                          "type": "RangeProjectile",
+                          "name": "abysspact_hourglass_r_zone",
+                          "shape": {
+                            "Circle": {
+                              "radius": 75000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "AllyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Heal",
+                                "amount": 264,
+                                "attack_ratio": 0,
+                                "ap_ratio": 95,
+                                "heal_type": "Ally"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Shield",
+                                "amount": 160,
+                                "attack_ratio": 0,
+                                "ap_ratio": 65,
+                                "tick": 180
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "abysspact_hourglass_echo"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "abysspact_hourglass_rewind"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "abysspact_hourglass_rewind_snap"
+                              }
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "abysspact_hourglass_live",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "abysspact_hourglass_r_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "abysspact_hourglass_native",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "ParabolicProjectile",
-                          "name": "abysspact_hourglass_r_lob",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "range_effect_name": "",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1
-                            }
-                          },
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "abysspact_hourglass_hourglass"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "abysspact_hourglass_flip"
-                            },
-                            {
-                              "type": "RangeProjectile",
-                              "name": "abysspact_hourglass_r_zone",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 75000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "AllyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Heal",
-                                    "amount": 264,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 95,
-                                    "heal_type": "Ally"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Shield",
-                                    "amount": 160,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 65,
-                                    "tick": 180
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_hourglass_echo"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_hourglass_rewind"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "abysspact_hourglass_rewind_snap"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "abysspact_hourglass_r_ask",
-                          "duration": {
-                            "Time": {
-                              "tick": 4
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "abysspact_hourglass_native",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "ParabolicProjectile",
-                          "name": "abysspact_hourglass_r_lob",
-                          "travel_time": 1,
-                          "range": 400000,
-                          "range_effect_name": "",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1
-                            }
-                          },
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "abysspact_hourglass_hourglass"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "abysspact_hourglass_flip"
-                            },
-                            {
-                              "type": "RangeProjectile",
-                              "name": "abysspact_hourglass_r_zone",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 75000
-                                }
-                              },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "AllyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Heal",
-                                    "amount": 264,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 95,
-                                    "heal_type": "Ally"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Shield",
-                                    "amount": 160,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 65,
-                                    "tick": 180
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_hourglass_echo"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_hourglass_rewind"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "abysspact_hourglass_rewind_snap"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "abysspact_hourglass_live"
                 }
-              ]
-            }
-          ]
-        }
-      ]
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "abysspact_hourglass_live"
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   "view_projectiles": [

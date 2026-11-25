@@ -9,7 +9,23 @@
   ],
   "passive": {
     "passive_ref": "abysspact_noctua:scatter",
-    "params": {}
+    "params": {
+      "p_pct": 12,
+      "p_cd": 720,
+      "p_t": 36,
+      "p_dist": 25000,
+      "p_reform": 75,
+      "scale_slow": 10,
+      "scale_t": 240,
+      "r_t": 210,
+      "r_p": 30,
+      "r_r": 28000,
+      "r_tick_dmg": 39,
+      "r_tick_ap": 16,
+      "r_sil": 75,
+      "r_seek": 70000,
+      "r_shock": 32000
+    }
   },
   "sprite": "asset/abysspact/champions/abysspact_noctua",
   "anim_prefix": "",
@@ -97,7 +113,7 @@
     "cancelable": false,
     "range": 60000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyWithoutTower",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -144,9 +160,21 @@
                         "name": "abysspact_noctua_q_swarm"
                       },
                       {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_noctua_q_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 90
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -154,7 +182,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -201,7 +229,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -209,7 +237,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -266,9 +294,21 @@
                         "name": "abysspact_noctua_q_swarm"
                       },
                       {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_noctua_q_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 90
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -276,7 +316,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -323,7 +363,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -331,7 +371,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -422,7 +462,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -430,7 +470,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -477,7 +517,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -485,7 +525,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -540,7 +580,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -548,7 +588,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -595,7 +635,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -603,7 +643,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -694,7 +734,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -702,7 +742,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -749,7 +789,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -757,7 +797,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -812,7 +852,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -820,7 +860,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -867,7 +907,7 @@
                       {
                         "type": "RandomTarget",
                         "range": 60000,
-                        "casting_target": "EnemyWithoutTower",
+                        "casting_target": "EnemyChampion",
                         "from_projectile": false,
                         "effects": [
                           {
@@ -875,7 +915,7 @@
                             "name": "abysspact_noctua_q_moth",
                             "speed": 8400,
                             "y_offset": -10000,
-                            "applied_target": "EnemyWithoutTower",
+                            "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
                                 "casting_type": "Targeting",
@@ -1296,7 +1336,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 35,
           "effects": [
             {
               "type": "Combine",
@@ -1853,6 +1893,14 @@
       "name": "abysspact_noctua_dust_shock",
       "anim": "asset/abysspact/effects/abysspact_noctua_fx",
       "tag": "dust_shock",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_noctua_storm_cloud",
+      "anim": "asset/abysspact/effects/abysspact_noctua_fx",
+      "tag": "storm",
       "z": 3,
       "is_follow": false
     }
