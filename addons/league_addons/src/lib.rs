@@ -152,16 +152,9 @@ mod macro_log;
 mod fight_log;
 // league_ai_watch（只读的 AI 观察）2026-11-22 起不进合集：每个玩家每 tick 都在算，过日采样里占合集的 5%；要查 AI 时
 // 单独装它自己的 DLL。
-#[path = "../../league_macro/src/lib.rs"]
-mod macro_hook;
-#[path = "../../league_peel/src/lib.rs"]
-mod peel;
-#[path = "../../league_lane/src/lib.rs"]
-mod lane;
-#[path = "../../league_focus/src/lib.rs"]
-mod focus;
-#[path = "../../league_kite/src/lib.rs"]
-mod kite;
+// 比赛 AI 的运营钩子（league_macro / league_lane / league_kite / league_peel / league_focus）2026-11-10 用户说「就是运营钩子
+// 都不要了」时删过，那次删除没进主分支，11-24 起从主分支打的合集又把它们带了回来（龙坑前耗着转圈）；2026-11-25 用户「再删掉」，
+// 这次连主分支一起删。只读的记录器（macro_log / fight_log / recall_log）照旧。
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_jayce/src/lib.rs"]
 mod jayce;
@@ -577,11 +570,6 @@ fn init(host: &StableHost) -> StableMod {
     recall_log::register(host, &mut module);
     macro_log::register(host, &mut module);
     fight_log::register(host, &mut module);
-    macro_hook::register(host, &mut module);
-    peel::register(host, &mut module);
-    lane::register(host, &mut module);
-    focus::register(host, &mut module);
-    kite::register(host, &mut module);
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
