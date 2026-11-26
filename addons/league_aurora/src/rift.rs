@@ -586,13 +586,13 @@ mod tests {
     /// 世界坐标的一个矩形：(左上, 右下)。
     type Rect = ((f64, f64), (f64, f64));
 
-    /// 召唤师峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// 召唤师峡谷那样的墙格子（355 x 356 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
     /// （世界坐标的 (左上, 右下)）里的格子是墙。
     fn rift_walls(rects: &[Rect]) -> terrain::Walls {
         let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|cy| {
-                (0..295)
+                (0..355)
                     .map(|cx| {
                         let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
                         let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
@@ -619,7 +619,7 @@ mod tests {
         // with no walls file only the map's edges are walls: straight across
         let open = Grid::summoners_rift(None);
         assert_eq!(landing(&open, c, far), Some(far));
-        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(1_614_546.0, 800_000.0) && open.is_wall(-1.0, 5.0));
+        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(terrain::RIFT_EXTENT + 1.0, 800_000.0) && open.is_wall(-1.0, 5.0));
         // a wall of the game's own 5v5 map is none on the Rift
         let native = (15.5 * CELL, 3.5 * CELL);
         assert!(Grid::builtin()[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));

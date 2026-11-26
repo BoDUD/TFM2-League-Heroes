@@ -4,18 +4,23 @@
 //! **The game's own 5v5 map** is 30 x 30 wall cells of 32000 (960000 square). The add-ons keep their built-in grids
 //! for it (league_camille_wall/src/maps.rs) and behave on it exactly as before.
 //!
-//! **Rin's 召唤师峡谷 · 玩家 α 测试** (third-party mod `tfm2_lol_map_test`, 0.1.28-alpha.game071, game 0.7.1) builds the
-//! 5v5 map in its own DLL: terrain, pathing and sight, three lanes with high-ground towers and inhibitors, the camps,
-//! 1614545 square. None of it goes through the map document our map customizers read (its DLL holds no document key),
-//! so the game never tells an add-on where the Rift's walls are. The map's author publishes them with the mod as
-//! `地图资料/墙体坐标.json` (wall rectangles in world units; 295 x 296 cells of 60000/11 from x = 30000/11): [`rift_walls`]
-//! reads that file once, from the mod's folder (`mods/tfm2_lol_map_test/地图资料/墙体坐标.json`: the zip's `地图资料`
-//! folder copied in) or from the path in `LEAGUE_RIFT_WALLS`. It is never shipped with our mods (it is the author's
-//! data). Without it an add-on knows no wall on the Rift and its wall mechanics stay off there - better than hitting
-//! the game's own walls where the Rift has none (an add-on that took the old grid treated everything past 960000 as
-//! wall). The Rift has no brush data at all: brush features are off there.
+//! **Rin 的召唤师峡谷**（第三方 mod `tfm2_lol_map_test`）在它自己的 DLL 里建 5v5 地图：地形、寻路、视野、三路的高地塔和
+//! 兵营、野区。这些都不走我们的地图钩子读的地图文档，游戏不会告诉附加包峡谷的墙在哪；作者把地图资料跟 mod 一起发在
+//! `地图资料/` 里，本模块从 mod 文件夹（`mods/tfm2_lol_map_test/地图资料/`）或 `LEAGUE_RIFT_WALLS` 指的地方读一次，
+//! 从不随我们的包发（那是作者的数据）。
 //!
-//! **Which map** ([`map_of`], [`map_of_sim`]): a tower or a nexus past 1000000 on either axis (and within 1700000:
+//! 2026-11-26 起按 0.1.65（`0.1.65-game073+scale120.1.integrated.1`，游戏 0.7.3，用户：「大地图已经更新了」）：
+//! 整张图比 0.1.28 放大 1.2 倍，边长 1937454，原版地图上的坐标 × 2.018。读三样：
+//! - 墙：`墙体坐标.json`，每格一个矩形 [左, 上, 右, 下]，按 `坐标分母`（11）的分子写，295 x 296 格、每格 72000/11，
+//!   从 x = 36000/11 起（[`rift_walls`]）。
+//! - 英雄中心站得住的地方：墙往外长一格（[`rift_ground`]），拿作者的寻路网格 `walk.bin`（1180 x 1184 细格、每格 18000/11，
+//!   离墙不到 5000 的都不能走）核对：0.1.65 上长一格以后剩下的格子全在寻路网格能走的地方里，一格不差。
+//! - 草丛：`brush-fine.bin`，同一套细格，每格一个连通的草丛编号，0 不是草丛（[`rift_brush`]）。以前峡谷没有草丛资料，
+//!   附加包的草丛机制在峡谷上一律关着。
+//! 旧的 0.1.28（墙体坐标.json 是按行合并的矩形、边长 1614545，要游戏 0.7.1）不再读：现在的游戏装不上它。
+//! 没有资料文件时附加包不知道峡谷哪里有墙、哪里是草丛，那些机制在峡谷上关着，比拿原版地图的墙去撞峡谷强。
+//!
+//! **Which map** ([`map_of`], [`map_of_sim`]): a tower or a nexus past 1000000 on either axis (and within 2000000:
 //! farther is no place on any map) stands on the Rift; none past it is the game's own map. [`map_of_sim`] reads only
 //! the towers and nexuses (they never move, never get banished); [`map_of`] takes any points, so a caller without a sim
 //! should pass structures first (a champion alone may be parked somewhere odd while banished). Single lane and death
@@ -32,23 +37,29 @@ pub const NATIVE_CELL: f64 = 32_000.0;
 pub const NATIVE_EXTENT: f64 = 960_000.0;
 /// Rin's map mod.
 pub const RIFT_MOD: &str = "tfm2_lol_map_test";
-/// The Rift's side (the mod's 墙体坐标.json `世界尺寸`).
-pub const RIFT_EXTENT: f64 = 1_614_545.0;
+/// 峡谷的边长：0.1.65 的 数据说明.json「地图边长」、墙体坐标.json「世界边长」（0.1.28 是 1614545）。
+pub const RIFT_EXTENT: f64 = 1_937_454.0;
 /// A point past this on either axis is on the Rift: the game's own map ends at 960000.
 pub const RIFT_FROM: f64 = 1_000_000.0;
-/// Farther than this is no place on any map (banished, hidden units): never a hint.
-pub const MAP_LIMIT: f64 = 1_700_000.0;
-/// A path to the Rift's walls file that wins over the mod's folder (tests, other installs).
+/// 比这还远就不在任何一张图上（被放逐、藏起来的单位），从不拿来认图。峡谷放大以后塔和水晶到了 1818439，旧的 1700000 不够。
+pub const MAP_LIMIT: f64 = 2_000_000.0;
+/// 测试和别的安装位置用：指向墙体坐标.json，或者放着它的 地图资料 文件夹。比 mod 文件夹优先。
 pub const RIFT_WALLS_ENV: &str = "LEAGUE_RIFT_WALLS";
-/// Where the map's author keeps the walls, under the mod's folder.
-pub const RIFT_WALLS_FILES: [&str; 2] = ["地图资料/墙体坐标.json", "墙体坐标.json"];
+/// mod 文件夹里放地图资料的文件夹和文件名。
+pub const RIFT_DATA_DIR: &str = "地图资料";
+pub const RIFT_WALLS_FILE: &str = "墙体坐标.json";
+pub const RIFT_INFO_FILE: &str = "数据说明.json";
+pub const RIFT_WALK_FILE: &str = "walk.bin";
+pub const RIFT_BRUSH_FILE: &str = "brush-fine.bin";
+/// 作者的寻路半径：寻路网格让英雄中心离墙这么远。
+pub const RIFT_PATH_RADIUS: f64 = 5_000.0;
 
 /// A 5v5 map.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum Map {
     /// The game's own (960000 square).
     Native,
-    /// Rin's Summoner's Rift (1614545 square).
+    /// Rin's Summoner's Rift (1937454 square).
     Rift,
 }
 
@@ -189,10 +200,7 @@ impl Walls {
     }
 
     /// The walls grown by one cell all round (the 8 neighbours of every wall cell): where a hero's centre cannot stand.
-    /// The map's author paths heroes with a 5000 radius (its 寻路半径: the pathing grid keeps a hero's centre that far
-    /// from terrain); one cell is 5454.5. A spot or a landing taken off these is one the Rift's pathing can walk from:
-    /// a hero set down closer to a wall than that is off its pathing grid and stands stuck (2026-11-10, the user:
-    /// 「有的地方会走路卡住」).
+    /// 只在没有 walk.bin 时顶替作者的寻路网格（0.1.65 一格 6545，比寻路半径 5000 宽，宁可少站一点也不站进墙边）。
     pub fn padded(&self) -> Walls {
         let (rows, cols) = (self.rows(), self.cols());
         let mut cells = vec![vec![false; cols]; rows];
@@ -279,7 +287,116 @@ impl Walls {
     }
 }
 
-// ===================== 墙体坐标.json =====================
+/// 峡谷的草丛：作者的细格，每格一个草丛编号（同一片连着的草丛同一个号），0 不是草丛，格子外也不是。
+#[derive(Clone, Debug, PartialEq)]
+pub struct Brush {
+    /// 行优先，`cols` x `rows`。
+    pub zones: Vec<u16>,
+    pub cols: usize,
+    pub rows: usize,
+    pub cell: f64,
+    pub origin: (f64, f64),
+    /// 从哪读的（空：不是文件）。
+    pub source: String,
+}
+
+impl Brush {
+    /// (x, y) 所在那一格。
+    pub fn cell_of(&self, x: f64, y: f64) -> Option<(usize, usize)> {
+        if !(x.is_finite() && y.is_finite()) {
+            return None;
+        }
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 || fx >= self.cols as f64 || fy >= self.rows as f64 {
+            return None;
+        }
+        Some((fx as usize, fy as usize))
+    }
+
+    /// (x, y) 在哪一片草丛里（0：不在草丛里）。
+    pub fn zone(&self, x: f64, y: f64) -> u16 {
+        self.cell_of(x, y).map_or(0, |(cx, cy)| self.zones[cy * self.cols + cx])
+    }
+
+    pub fn in_brush(&self, x: f64, y: f64) -> bool {
+        self.zone(x, y) != 0
+    }
+
+    /// 草丛格数。
+    pub fn count(&self) -> usize {
+        self.zones.iter().filter(|z| **z != 0).count()
+    }
+
+    /// 几片草丛。
+    pub fn zone_count(&self) -> usize {
+        let mut seen: Vec<u16> = self.zones.iter().copied().filter(|z| *z != 0).collect();
+        seen.sort_unstable();
+        seen.dedup();
+        seen.len()
+    }
+
+    /// 第 (cx, cy) 格的中心。
+    pub fn center(&self, cx: usize, cy: usize) -> (f64, f64) {
+        (self.origin.0 + (cx as f64 + 0.5) * self.cell, self.origin.1 + (cy as f64 + 0.5) * self.cell)
+    }
+
+    /// `p` 周围 `max` 以内最近的草丛格的中心（`p` 自己在草丛里就是 `p`）。
+    pub fn nearest(&self, p: (f64, f64), max: f64) -> Option<(f64, f64)> {
+        if self.in_brush(p.0, p.1) {
+            return Some(p);
+        }
+        if !(p.0.is_finite() && p.1.is_finite()) || self.cols == 0 || self.rows == 0 {
+            return None;
+        }
+        let r = (max / self.cell).ceil() as i64 + 1;
+        let c = |v: f64, o: f64| ((v - o) / self.cell).floor() as i64;
+        let (px, py) = (c(p.0, self.origin.0), c(p.1, self.origin.1));
+        let mut best: Option<(f64, (f64, f64))> = None;
+        for cy in (py - r).max(0)..=(py + r).min(self.rows as i64 - 1) {
+            for cx in (px - r).max(0)..=(px + r).min(self.cols as i64 - 1) {
+                if self.zones[cy as usize * self.cols + cx as usize] == 0 {
+                    continue;
+                }
+                let q = self.center(cx as usize, cy as usize);
+                let d = ((q.0 - p.0).powi(2) + (q.1 - p.1).powi(2)).sqrt();
+                if d <= max && best.is_none_or(|b| d < b.0) {
+                    best = Some((d, q));
+                }
+            }
+        }
+        best.map(|b| b.1)
+    }
+
+    /// 换到 `like` 那套格子上（大小、原点、行列数照它）：一格里至少 `share` 的地方是草丛就算草丛。
+    pub fn coarse(&self, like: &Walls, share: f64) -> Walls {
+        let (cols, rows) = (like.cols(), like.rows());
+        let mut hits = vec![vec![0u32; cols]; rows];
+        let mut all = vec![vec![0u32; cols]; rows];
+        for y in 0..self.rows {
+            for x in 0..self.cols {
+                let c = self.center(x, y);
+                let Some((cx, cy)) = like.cell_of(c.0, c.1) else { continue };
+                all[cy][cx] += 1;
+                if self.zones[y * self.cols + x] != 0 {
+                    hits[cy][cx] += 1;
+                }
+            }
+        }
+        let cells = (0..rows)
+            .map(|y| (0..cols).map(|x| hits[y][x] > 0 && hits[y][x] as f64 >= share * all[y][x].max(1) as f64).collect())
+            .collect();
+        Walls { cells, cell: like.cell, origin: like.origin, extent: like.extent, version: String::new(), source: self.source.clone() }
+    }
+
+    /// 当成一张 [`Walls`]（true = 草丛），给拿自己墙格代码处理草丛的附加包用。
+    pub fn as_walls(&self, extent: (f64, f64)) -> Walls {
+        let cells = (0..self.rows).map(|y| self.zones[y * self.cols..(y + 1) * self.cols].iter().map(|z| *z != 0).collect())
+            .collect();
+        Walls { cells, cell: self.cell, origin: self.origin, extent, version: String::new(), source: self.source.clone() }
+    }
+}
+
+// ===================== 作者的地图资料 =====================
 
 /// The text right after `"key":` (a key spelled exactly so: `"矩形"` is not `"矩形列"`).
 fn value_after<'a>(s: &'a str, key: &str) -> Option<&'a str> {
@@ -299,6 +416,12 @@ fn value_after<'a>(s: &'a str, key: &str) -> Option<&'a str> {
 fn string_value(s: &str) -> Option<String> {
     let s = s.strip_prefix('"')?;
     Some(s[..s.find('"')?].to_string())
+}
+
+/// 开头的一个 JSON 数。
+fn number_value(s: &str) -> Option<f64> {
+    let end = s.find(|c: char| !matches!(c, '-' | '+' | '.' | 'e' | 'E' | '0'..='9')).unwrap_or(s.len());
+    s[..end].parse().ok()
 }
 
 /// A JSON array of numbers and arrays at the start of `s`: the flat numbers of each innermost array, in order.
@@ -341,70 +464,150 @@ fn number_rows(s: &str) -> Option<Vec<Vec<f64>>> {
     None
 }
 
-/// Reads the map author's 墙体坐标.json: `世界尺寸` [w, h], `墙格尺寸_宽高` [cols, rows] and `矩形` rows of
-/// [wall row y, first column x, end column x (excluded), world left, top, right (excluded), bottom (excluded)]. The grid
-/// sits in the middle of the map (cell = h / rows): every rectangle's world left edge is checked against it (within 3
-/// units), so a file laid out otherwise is refused rather than read wrong.
+/// 读墙体坐标.json：`世界边长`、`坐标分母`，`矩形` 每项 [左, 上, 右, 下]（分子，除以分母是世界坐标，右下不含）。
+/// 格子边长取矩形里最短的那条边，原点取第一个矩形对它的余数；有矩形不在这套格子上就整个不读，免得读歪。
 pub fn parse_rift_walls(json: &str) -> Result<Walls, String> {
     let s = json.trim_start_matches('\u{feff}');
-    let pair = |key: &str| -> Result<(f64, f64), String> {
-        let v = value_after(s, key).and_then(number_rows).ok_or_else(|| format!("no `{key}`"))?;
-        match v.as_slice() {
-            [r] if r.len() == 2 => Ok((r[0], r[1])),
-            _ => Err(format!("`{key}` is not [a, b]")),
-        }
-    };
-    let (w, h) = pair("世界尺寸")?;
-    let (cols, rows) = pair("墙格尺寸_宽高")?;
-    if !(w > 0.0 && h > 0.0 && cols >= 1.0 && rows >= 1.0 && cols <= 4096.0 && rows <= 4096.0) {
-        return Err(format!("odd sizes: map {w} x {h}, grid {cols} x {rows}"));
+    let number = |key: &str| value_after(s, key).and_then(number_value).ok_or_else(|| format!("no `{key}`"));
+    let side = number("世界边长")?;
+    let den = number("坐标分母")?;
+    if !(side > 0.0 && side <= MAP_LIMIT && den >= 1.0 && den.fract() == 0.0) {
+        return Err(format!("odd sizes: side {side}, denominator {den}"));
     }
-    let (cols, rows) = (cols as usize, rows as usize);
     let rects = value_after(s, "矩形").and_then(number_rows).ok_or("no `矩形`")?;
-    let cell = h / rows as f64;
-    let origin = ((w - cols as f64 * cell) / 2.0, (h - rows as f64 * cell) / 2.0);
+    if rects.is_empty() {
+        return Err("no rectangle".to_string());
+    }
+    for r in &rects {
+        let [l, t, rr, b] = r.as_slice() else { return Err(format!("a rectangle of {} numbers", r.len())) };
+        if [l, t, rr, b].iter().any(|v| v.fract() != 0.0 || **v < 0.0) || rr <= l || b <= t {
+            return Err(format!("odd rectangle {r:?}"));
+        }
+    }
+    let cell = rects.iter().map(|r| (r[2] - r[0]).min(r[3] - r[1])).fold(f64::INFINITY, f64::min);
+    let origin = (rects[0][0].rem_euclid(cell), rects[0][1].rem_euclid(cell));
+    let on = |v: f64, o: f64| (v - o).rem_euclid(cell) == 0.0;
+    let mut cols = 0usize;
+    let mut rows = 0usize;
+    for r in &rects {
+        if !(on(r[0], origin.0) && on(r[2], origin.0) && on(r[1], origin.1) && on(r[3], origin.1)) || r[0] < origin.0 {
+            return Err(format!("rectangle {r:?} is off the grid of {cell} from ({}, {})", origin.0, origin.1));
+        }
+        cols = cols.max(((r[2] - origin.0) / cell) as usize);
+        rows = rows.max(((r[3] - origin.1) / cell) as usize);
+    }
+    if cols > 4096 || rows > 4096 {
+        return Err(format!("a grid of {cols} x {rows}"));
+    }
     let mut cells = vec![vec![false; cols]; rows];
     for r in &rects {
-        let [y, x0, x1, left, ..] = r.as_slice() else { return Err(format!("a rectangle of {} numbers", r.len())) };
-        let (y, x0, x1) = (*y as usize, *x0 as usize, *x1 as usize);
-        if y >= rows || x0 >= x1 || x1 > cols {
-            return Err(format!("rectangle row {y} columns {x0}..{x1} off the {cols} x {rows} grid"));
+        let (x0, x1) = (((r[0] - origin.0) / cell) as usize, ((r[2] - origin.0) / cell) as usize);
+        let (y0, y1) = (((r[1] - origin.1) / cell) as usize, ((r[3] - origin.1) / cell) as usize);
+        for row in &mut cells[y0..y1] {
+            row[x0..x1].iter_mut().for_each(|c| *c = true);
         }
-        if (left - (origin.0 + x0 as f64 * cell)).abs() > 3.0 {
-            return Err(format!("rectangle row {y} starts at {left}, the grid says {:.0}", origin.0 + x0 as f64 * cell));
-        }
-        cells[y][x0..x1].iter_mut().for_each(|c| *c = true);
     }
     let version = value_after(s, "版本").and_then(string_value).unwrap_or_default();
-    Ok(Walls { cells, cell, origin, extent: (w, h), version, source: String::new() })
+    Ok(Walls { cells, cell: cell / den, origin: (origin.0 / den, origin.1 / den), extent: (side, side), version, source: String::new() })
 }
 
-/// Where the Rift's walls may be: `LEAGUE_RIFT_WALLS`, then the mod's folder next to the game's EXE.
+/// 数据说明.json 写的细格：walk.bin 和 brush-fine.bin 都按它排。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Fine {
+    pub cols: usize,
+    pub rows: usize,
+    pub origin: (f64, f64),
+    pub cell: f64,
+}
+
+/// 读数据说明.json 的 `细网格宽高`、`原点分子`、`网格步长分子`、`分母`。
+pub fn parse_fine(json: &str) -> Result<Fine, String> {
+    let s = json.trim_start_matches('\u{feff}');
+    let pair = |key: &str| -> Result<(f64, f64), String> {
+        match value_after(s, key).and_then(number_rows).as_deref() {
+            Some([r]) if r.len() == 2 => Ok((r[0], r[1])),
+            _ => Err(format!("no `{key}` [a, b]")),
+        }
+    };
+    let number = |key: &str| value_after(s, key).and_then(number_value).ok_or_else(|| format!("no `{key}`"));
+    let (w, h) = pair("细网格宽高")?;
+    let (ox, oy) = pair("原点分子")?;
+    let (step, den) = (number("网格步长分子")?, number("分母")?);
+    if !(w >= 1.0 && h >= 1.0 && w <= 8192.0 && h <= 8192.0 && step > 0.0 && den >= 1.0) {
+        return Err(format!("odd fine grid: {w} x {h}, step {step} / {den}"));
+    }
+    Ok(Fine { cols: w as usize, rows: h as usize, origin: (ox / den, oy / den), cell: step / den })
+}
+
+/// walk.bin（行优先，一格一个字节，1 能走、0 不能走）读成「英雄中心站不住」的格子（true = 站不住）。
+pub fn parse_walk(bytes: &[u8], fine: &Fine, side: f64) -> Result<Walls, String> {
+    if bytes.len() != fine.cols * fine.rows {
+        return Err(format!("{} bytes, the fine grid needs {} x {}", bytes.len(), fine.cols, fine.rows));
+    }
+    if bytes.iter().any(|b| *b > 1) {
+        return Err("a byte other than 0 / 1".to_string());
+    }
+    let cells = bytes.chunks(fine.cols).map(|r| r.iter().map(|b| *b == 0).collect()).collect();
+    Ok(Walls { cells, cell: fine.cell, origin: fine.origin, extent: (side, side), version: String::new(), source: String::new() })
+}
+
+/// brush-fine.bin（行优先，一格两个字节 little-endian，0 不是草丛，别的是草丛编号）。
+pub fn parse_brush(bytes: &[u8], fine: &Fine) -> Result<Brush, String> {
+    if bytes.len() != fine.cols * fine.rows * 2 {
+        return Err(format!("{} bytes, the fine grid needs {} x {} x 2", bytes.len(), fine.cols, fine.rows));
+    }
+    let zones = bytes.chunks_exact(2).map(|b| u16::from_le_bytes([b[0], b[1]])).collect();
+    Ok(Brush { zones, cols: fine.cols, rows: fine.rows, cell: fine.cell, origin: fine.origin, source: String::new() })
+}
+
+/// 一条候选路径对应的资料文件夹：文件就取它所在的文件夹。
+fn data_dir_of(p: &Path) -> PathBuf {
+    if p.is_file() {
+        p.parent().map(Path::to_path_buf).unwrap_or_default()
+    } else {
+        p.to_path_buf()
+    }
+}
+
+/// 资料可能在的地方：`LEAGUE_RIFT_WALLS`，再是游戏 EXE 旁边 mods/tfm2_lol_map_test/地图资料/（或者直接放在 mod 文件夹里）。
 fn candidates() -> Vec<PathBuf> {
     let mut out = Vec::new();
     if let Some(p) = std::env::var_os(RIFT_WALLS_ENV) {
         out.push(PathBuf::from(p));
     }
     if let Some(game) = std::env::current_exe().ok().and_then(|e| e.parent().map(Path::to_path_buf)) {
-        for f in RIFT_WALLS_FILES {
-            out.push(game.join("mods").join(RIFT_MOD).join(f));
-        }
+        let m = game.join("mods").join(RIFT_MOD);
+        out.push(m.join(RIFT_DATA_DIR));
+        out.push(m);
     }
     out
 }
 
-/// Reads the first walls file found.
+/// 第一处读得到墙体坐标.json 的地方的墙（路径可以是文件，也可以是放着它的文件夹）。
 pub fn load_rift_walls(paths: &[PathBuf]) -> Result<Walls, String> {
     for p in paths {
-        if let Ok(text) = std::fs::read_to_string(p) {
+        let file = if p.is_file() { p.clone() } else { p.join(RIFT_WALLS_FILE) };
+        if let Ok(text) = std::fs::read_to_string(&file) {
             return parse_rift_walls(&text)
-                .map(|w| Walls { source: p.display().to_string(), ..w })
-                .map_err(|e| format!("Rift walls NOT read from {}: {e}", p.display()));
+                .map(|w| Walls { source: file.display().to_string(), ..w })
+                .map_err(|e| format!("Rift walls NOT read from {}: {e} (a map older than 0.1.65?)", file.display()));
         }
     }
     let tried: Vec<String> = paths.iter().map(|p| p.display().to_string()).collect();
-    Err(format!("Rift walls not found (looked in {}): copy the map zip's 地图资料 folder into mods/{RIFT_MOD}/ - \
-                 until then no wall is known on the Rift", tried.join(", ")))
+    Err(format!("Rift walls not found (looked in {}): copy the map zip's whole tfm2_lol_map_test folder (with its {RIFT_DATA_DIR}) \
+                 into mods/ - until then no wall is known on the Rift", tried.join(", ")))
+}
+
+/// 墙所在的文件夹里的寻路网格和草丛（同一套细格）。
+fn load_fine_in(dir: &Path, side: f64) -> (Result<Walls, String>, Result<Brush, String>) {
+    let fine = std::fs::read_to_string(dir.join(RIFT_INFO_FILE))
+        .map_err(|_| format!("no {RIFT_INFO_FILE}"))
+        .and_then(|t| parse_fine(&t));
+    let read = |name: &str| std::fs::read(dir.join(name)).map_err(|_| format!("no {name}"));
+    let walk = fine.clone().and_then(|f| read(RIFT_WALK_FILE).and_then(|b| parse_walk(&b, &f, side)));
+    let brush = fine.and_then(|f| read(RIFT_BRUSH_FILE).and_then(|b| parse_brush(&b, &f)));
+    let at = |name: &str| dir.join(name).display().to_string();
+    (walk.map(|w| Walls { source: at(RIFT_WALK_FILE), ..w }), brush.map(|b| Brush { source: at(RIFT_BRUSH_FILE), ..b }))
 }
 
 static RIFT: OnceLock<Result<Walls, String>> = OnceLock::new();
@@ -414,6 +617,16 @@ pub fn rift_walls() -> Option<&'static Walls> {
     RIFT.get_or_init(|| load_rift_walls(&candidates())).as_ref().ok()
 }
 
+/// 寻路网格和草丛：跟着墙的那个文件夹读一次。
+static FINE: OnceLock<(Result<Walls, String>, Result<Brush, String>)> = OnceLock::new();
+
+fn fine_data() -> &'static (Result<Walls, String>, Result<Brush, String>) {
+    FINE.get_or_init(|| match rift_walls() {
+        Some(w) => load_fine_in(&data_dir_of(Path::new(&w.source)), w.extent.0),
+        None => (Err("no walls file".to_string()), Err("no walls file".to_string())),
+    })
+}
+
 /// The installed map mod's version (its mod.mod_info next to the game's EXE), if any.
 fn installed_rift_version() -> Option<String> {
     let game = std::env::current_exe().ok()?.parent()?.to_path_buf();
@@ -421,25 +634,78 @@ fn installed_rift_version() -> Option<String> {
     value_after(info.trim_start_matches('\u{feff}'), "version").and_then(string_value)
 }
 
-/// How the walls file's version stands to the installed map's (the walls of another version may be off).
-pub fn version_note(file: &str, installed: Option<&str>) -> String {
-    match installed {
-        None => "the map mod's mod.mod_info not found".to_string(),
-        Some(v) if v == file => format!("the installed map is the same version {v}"),
-        Some(v) => format!("the installed map is {v} but the walls are {file}: STALE? copy the new zip's 地图资料 in"),
+/// 墙体文件的边长和本模块按的边长不一样：作者又放大缩小过地图，我们的地图边界会不对。
+pub fn side_note(side: f64) -> String {
+    if (side - RIFT_EXTENT).abs() <= 1.0 {
+        format!("map side {side:.0} as expected")
+    } else {
+        format!("map side {side:.0} but this build expects {RIFT_EXTENT:.0}: ANOTHER MAP VERSION? the map's edges will be off")
     }
 }
 
-static GROUND: OnceLock<Option<Walls>> = OnceLock::new();
+/// `ground`（墙格那么大的格子）里凡是碰到 `walk` 里站不住的细格的，都关上；返回多关了几格。
+pub fn close_unwalkable(ground: &mut Walls, walk: &Walls) -> usize {
+    let mut more = 0;
+    let e = walk.cell * 0.5 - 1e-6;
+    for (y, row) in walk.cells.iter().enumerate() {
+        for (x, closed) in row.iter().enumerate() {
+            if !closed {
+                continue;
+            }
+            let c = walk.center(x, y);
+            for (dx, dy) in [(-e, -e), (e, -e), (-e, e), (e, e)] {
+                if let Some((cx, cy)) = ground.cell_of(c.0 + dx, c.1 + dy) {
+                    if !ground.cells[cy][cx] {
+                        ground.cells[cy][cx] = true;
+                        more += 1;
+                    }
+                }
+            }
+        }
+    }
+    more
+}
 
-/// The Rift's walls grown by one cell ([`Walls::padded`]): what an add-on keeps a hero's spot, push or landing off on
-/// the Rift, so the Rift's pathing can walk him on from there. None without the walls file.
+/// 峡谷的地面和它多关的格子数（[`rift_ground`]）。
+static GROUND: OnceLock<Option<(Walls, Option<usize>)>> = OnceLock::new();
+
+fn ground_data() -> Option<&'static (Walls, Option<usize>)> {
+    GROUND.get_or_init(|| {
+        let mut g = rift_walls()?.padded();
+        let more = fine_data().0.as_ref().ok().map(|walk| close_unwalkable(&mut g, walk));
+        Some((g, more))
+    })
+    .as_ref()
+}
+
+/// 峡谷上英雄中心站不住的地方：墙往外长一格（[`Walls::padded`]，格子和墙一样大，附加包各拷一份也不占地方）。0.1.65 拿作者的
+/// 寻路网格 walk.bin 核对过：长一格以后剩下的格子全在寻路网格能走的地方里，一格不差；以后作者的寻路网格要是更严，碰到它站不住
+/// 的细格的格子也一起关上（[`close_unwalkable`]）。附加包把英雄的落点、推开、站位放在这外面，峡谷的寻路才接得上。没有墙体文件
+/// 时 None。
 pub fn rift_ground() -> Option<&'static Walls> {
-    GROUND.get_or_init(|| rift_walls().map(Walls::padded)).as_ref()
+    ground_data().map(|g| &g.0)
+}
+
+/// 峡谷的草丛（作者的 brush-fine.bin）。None：没有资料，附加包的草丛机制在峡谷上照旧关着。
+pub fn rift_brush() -> Option<&'static Brush> {
+    fine_data().1.as_ref().ok()
+}
+
+/// 峡谷的草丛换到墙格那么大的格子上（true = 草丛：那一格里至少四分之一的细格是草丛），读一次。给拿自己格子代码处理草丛的
+/// 附加包（奇亚娜的草元素），一格 6545，比细格省得多；要准的（站没站在草丛里）问 [`rift_brush`]。
+pub fn rift_bushes() -> Option<&'static Walls> {
+    static BUSHES: OnceLock<Option<Walls>> = OnceLock::new();
+    BUSHES.get_or_init(|| Some(rift_brush()?.coarse(rift_walls()?, 0.25))).as_ref()
+}
+
+/// 这张图上 `p` 在不在草丛里：原版地图不归这里管（各附加包照旧读地图文档的草丛），总是 false。
+pub fn in_rift_brush(map: Map, p: (f64, f64)) -> bool {
+    map == Map::Rift && rift_brush().is_some_and(|b| b.in_brush(p.0, p.1))
 }
 
 /// Can a hero stand at `p` on `map`: anywhere on the game's own map (its add-ons' own checks stand as they were); on
-/// the Rift off its grown walls ([`rift_ground`]), or anywhere inside its square without the walls file.
+/// the Rift off its ground ([`rift_ground`]: the author's pathing grid), or anywhere inside its square without the
+/// walls file.
 pub fn stand_ok(map: Map, p: (f64, f64)) -> bool {
     match map {
         Map::Native => true,
@@ -451,7 +717,7 @@ pub fn stand_ok(map: Map, p: (f64, f64)) -> bool {
 }
 
 /// The spot to send a hero to instead of `p` on `map`: `p` on the game's own map; on the Rift the nearest spot within
-/// `max` off its grown walls (`p` when it is open, there is none that near, or no walls file).
+/// `max` that the Rift's pathing walks (`p` when it is open, there is none that near, or no walls file).
 pub fn stand_spot(map: Map, p: (f64, f64), max: f64) -> (f64, f64) {
     match (map, rift_ground()) {
         (Map::Rift, Some(g)) => g.nearest_open(p, max).unwrap_or(p),
@@ -461,12 +727,26 @@ pub fn stand_spot(map: Map, p: (f64, f64), max: f64) -> (f64, f64) {
 
 /// One line for an add-on's log the first time it meets the Rift.
 pub fn rift_status() -> String {
+    let installed = installed_rift_version().unwrap_or_else(|| "? (no mod.mod_info)".to_string());
     match RIFT.get_or_init(|| load_rift_walls(&candidates())) {
-        Ok(w) => format!("Rift walls: {} wall cells in {} x {} cells of {:.1} from ({:.0}, {:.0}), map {:.0} x {:.0}, file \
-                          version {} ({}); {}", w.count(), w.cols(), w.rows(), w.cell, w.origin.0, w.origin.1, w.extent.0,
-                         w.extent.1, if w.version.is_empty() { "?" } else { &w.version }, w.source,
-                         version_note(&w.version, installed_rift_version().as_deref())),
-        Err(e) => e.clone(),
+        Ok(w) => {
+            let ground = match (&fine_data().0, ground_data()) {
+                (Ok(walk), Some((_, Some(more)))) => format!(
+                    "ground: the walls grown by one cell, checked with the author's pathing grid ({} x {} cells of {:.1}, {} \
+                     open): {more} more cells closed", walk.cols(), walk.rows(), walk.cell,
+                    walk.cells.iter().flatten().filter(|c| !**c).count()),
+                (Err(e), _) => format!("ground: the walls grown by one cell (no pathing grid to check: {e})"),
+                _ => "ground: ?".to_string(),
+            };
+            let brush = match &fine_data().1 {
+                Ok(b) => format!("brush: {} patches, {} cells", b.zone_count(), b.count()),
+                Err(e) => format!("brush: none ({e}) - brush features off on the Rift"),
+            };
+            format!("Rift data of map {installed}: {} wall cells in {} x {} cells of {:.1} from ({:.0}, {:.0}), {}, file \
+                     version {} ({}); {ground}; {brush}", w.count(), w.cols(), w.rows(), w.cell, w.origin.0, w.origin.1,
+                    side_note(w.extent.0), if w.version.is_empty() { "?" } else { &w.version }, w.source)
+        }
+        Err(e) => format!("{e} (map {installed})"),
     }
 }
 
@@ -474,54 +754,117 @@ pub fn rift_status() -> String {
 mod tests {
     use super::*;
 
-    /// A 4 x 3 grid on a 40 x 30 map: cells of 10, wall (1..3, 0), (0, 1), (3, 2).
-    const SMALL: &str = "\u{feff}{\"版本\": \"t1\", \"世界尺寸\": [40, 30], \"墙格尺寸_宽高\": [4, 3],
-        \"矩形列\": [\"墙格行_y\", \"起始格_x\"], \"矩形\": [[0, 1, 3, 10, 0, 30, 10], [1, 0, 1, 0, 10, 10, 20],
-        [2, 3, 4, 30, 20, 40, 30]]}";
+    /// A 4 x 3 grid of cells of 10 (numerators of 110 over 11) from x = 5, on a 50 x 50 map: walls (1..3, 0), (0, 1),
+    /// (3, 2) - one rectangle a cell as the author writes them.
+    const SMALL: &str = "\u{feff}{\"版本\": \"t1\", \"对象\": \"静态地形墙\", \"世界边长\": 50, \"坐标分母\": 11,
+        \"列\": [\"左x分子\", \"上y分子\", \"右x分子\", \"下y分子\"], \"说明\": \"每项除以11\", \"矩形\": [[165, 0, 275, 110],
+        [275, 0, 385, 110], [55, 110, 165, 220], [385, 220, 495, 330]]}";
 
     #[test]
     fn reads_the_authors_file() {
         let w = parse_rift_walls(SMALL).unwrap();
-        assert_eq!((w.cols(), w.rows(), w.count(), w.cell, w.origin), (4, 3, 4, 10.0, (0.0, 0.0)));
+        assert_eq!((w.cols(), w.rows(), w.count(), w.cell, w.origin), (4, 3, 4, 10.0, (5.0, 0.0)));
         assert_eq!(w.rows_text(), vec![".##.", "#...", "...#"]);
-        assert_eq!(w.version, "t1");
-        assert!(w.is_wall(15.0, 5.0) && !w.is_wall(5.0, 5.0) && w.is_wall(35.0, 25.0));
+        assert_eq!((w.version.as_str(), w.extent), ("t1", (50.0, 50.0)));
+        assert!(w.is_wall(20.0, 5.0) && !w.is_wall(10.0, 5.0) && w.is_wall(40.0, 25.0));
         // off the grid is wall
-        assert!(w.is_wall(-1.0, 5.0) && w.is_wall(5.0, 31.0) && w.is_wall(f64::NAN, 1.0));
-        assert_eq!(w.center(1, 0), (15.0, 5.0));
+        assert!(w.is_wall(4.0, 5.0) && w.is_wall(10.0, 31.0) && w.is_wall(f64::NAN, 1.0));
+        assert_eq!(w.center(1, 0), (20.0, 5.0));
     }
 
     #[test]
-    fn a_grid_off_the_middle_or_off_its_size_is_refused() {
-        // the first rectangle claims to start at 12 where the grid's column 1 starts at 10
-        let moved = SMALL.replace("[0, 1, 3, 10, 0, 30, 10]", "[0, 1, 3, 14, 0, 30, 10]");
-        assert!(parse_rift_walls(&moved).unwrap_err().contains("starts at 14"));
-        let off = SMALL.replace("[2, 3, 4, 30", "[2, 3, 5, 30");
-        assert!(parse_rift_walls(&off).unwrap_err().contains("off the"));
+    fn a_rectangle_off_the_grid_or_odd_sizes_are_refused() {
+        // one rectangle 3 numerators off the others' grid
+        let moved = SMALL.replace("[275, 0, 385, 110]", "[278, 0, 388, 110]");
+        assert!(parse_rift_walls(&moved).unwrap_err().contains("off the grid"), "{:?}", parse_rift_walls(&moved));
+        let short = SMALL.replace("[385, 220, 495, 330]", "[385, 220, 495]");
+        assert!(parse_rift_walls(&short).unwrap_err().contains("3 numbers"));
+        assert!(parse_rift_walls(&SMALL.replace("\"坐标分母\": 11", "\"坐标分母\": 0")).is_err());
         assert!(parse_rift_walls("{}").is_err());
+        // the old 0.1.28 file (rows merged, `世界尺寸` / `墙格尺寸_宽高`): not read
+        let old = "{\"版本\": \"0.1.28-alpha.game071\", \"世界尺寸\": [1614545, 1614545], \"墙格尺寸_宽高\": [295, 296], \
+                   \"矩形\": [[0, 0, 295, 2728, 0, 1611819, 5455]]}";
+        assert!(parse_rift_walls(old).is_err());
     }
 
-    /// The Rift's own layout: 295 x 296 cells, the grid's left edge 30000/11 in (the author's world_to_fine).
+    /// 0.1.65 的格子：295 x 296 格，每格 72000/11，左边从 36000/11 起（作者的 world_to_fine 是同一个原点）。
     #[test]
     fn the_rifts_grid_sits_where_the_author_says() {
-        let json = format!("{{\"世界尺寸\": [{RIFT_EXTENT}, {RIFT_EXTENT}], \"墙格尺寸_宽高\": [295, 296], \"矩形\": \
-                            [[0, 0, 295, 2728, 0, 1611819, 5455], [1, 288, 295, 1573637, 5455, 1611819, 10910]]}}");
-        let w = parse_rift_walls(&json).unwrap();
-        assert!((w.cell - 60_000.0 / 11.0).abs() < 0.01, "{}", w.cell);
-        assert!((w.origin.0 - 30_000.0 / 11.0).abs() < 0.5 && w.origin.1.abs() < 0.5, "{:?}", w.origin);
-        // the author's formula: wall column = floor((x * 11 - 30000) / 60000)
-        let x = 1_573_700.0;
-        assert_eq!(w.cell_of(x, 6_000.0), Some((((x * 11.0 - 30_000.0) / 60_000.0) as usize, 1)));
-        assert!(w.is_wall(x, 6_000.0) && !w.is_wall(800_000.0, 6_000.0));
+        let json = "{\"世界边长\": 1937454, \"坐标分母\": 11, \"矩形\": [[36000, 0, 108000, 72000], \
+                    [21204000, 21240000, 21276000, 21312000]]}";
+        let w = parse_rift_walls(json).unwrap();
+        assert_eq!((w.cols(), w.rows(), w.count()), (295, 296, 2));
+        assert!((w.cell - 72_000.0 / 11.0).abs() < 1e-9, "{}", w.cell);
+        assert!((w.origin.0 - 36_000.0 / 11.0).abs() < 1e-9 && w.origin.1 == 0.0, "{:?}", w.origin);
+        // the author's formula: wall column = floor((x * 11 - 36000) / 72000)
+        let x = 1_930_000.0;
+        assert_eq!(w.cell_of(x, 1_936_000.0), Some((((x * 11.0 - 36_000.0) / 72_000.0) as usize, 295)));
+        assert!(w.is_wall(x, 1_936_000.0) && !w.is_wall(900_000.0, 900_000.0) && w.is_wall(4_000.0, 1_000.0));
+        assert_eq!(side_note(w.extent.0), "map side 1937454 as expected");
+        assert!(side_note(1_614_545.0).contains("ANOTHER MAP VERSION"));
     }
 
-    /// The real file when the developer points at it (`LEAGUE_RIFT_WALLS`); skipped elsewhere (CI has none).
     #[test]
-    fn the_real_file_reads_when_given() {
+    fn the_fine_grid_and_its_two_files() {
+        let info = "{\"版本\": \"t\", \"地图边长\": 50, \"细网格宽高\": [4, 2], \"寻路半径\": 5000, \"原点分子\": [55, 0], \
+                    \"网格步长分子\": 55, \"分母\": 11}";
+        let f = parse_fine(info).unwrap();
+        assert_eq!(f, Fine { cols: 4, rows: 2, origin: (5.0, 0.0), cell: 5.0 });
+        // walk.bin: row 0 all open but the last, row 1 closed but the first
+        let walk = parse_walk(&[1, 1, 1, 0, 1, 0, 0, 0], &f, 50.0).unwrap();
+        assert_eq!(walk.rows_text(), vec!["...#", ".###"]);
+        assert!(!walk.is_wall(6.0, 1.0) && walk.is_wall(21.0, 1.0) && walk.is_wall(4.0, 1.0));
+        assert!(parse_walk(&[1, 1], &f, 50.0).is_err() && parse_walk(&[2; 8], &f, 50.0).is_err());
+        // brush-fine.bin: patch 7 at (1, 0) and (2, 0), patch 9 at (3, 1)
+        let mut bytes = vec![0u8; 16];
+        bytes[2] = 7;
+        bytes[4] = 7;
+        bytes[14] = 9;
+        let b = parse_brush(&bytes, &f).unwrap();
+        assert_eq!((b.zone(11.0, 2.0), b.zone(16.0, 2.0), b.zone(21.0, 7.0), b.zone(6.0, 2.0)), (7, 7, 9, 0));
+        assert_eq!((b.count(), b.zone_count()), (3, 2));
+        assert!(!b.in_brush(-1.0, 2.0) && !b.in_brush(30.0, 2.0) && !b.in_brush(f64::NAN, 0.0));
+        // nearest patch cell: from (6, 7) the centre of (1, 0) is (12.5, 2.5)
+        assert_eq!(b.nearest((6.0, 7.0), 20.0), Some((12.5, 2.5)));
+        assert_eq!(b.nearest((6.0, 7.0), 3.0), None);
+        assert_eq!(b.nearest((11.0, 2.0), 3.0), Some((11.0, 2.0)));
+        assert_eq!(b.as_walls((50.0, 50.0)).rows_text(), vec![".##.", "...#"]);
+        // on cells of 10 from (5, 0): the left cell holds 1 brush cell of 4, the right 2 of 4
+        let like = Walls::from_rows(&["..", ".."], 10.0, (5.0, 0.0), (50.0, 50.0));
+        assert_eq!(b.coarse(&like, 0.25).rows_text(), vec!["##", ".."]);
+        assert_eq!(b.coarse(&like, 0.5).rows_text(), vec![".#", ".."]);
+        assert!(parse_brush(&bytes[..15], &f).is_err());
+    }
+
+    /// 真的资料（开发机设了 `LEAGUE_RIFT_WALLS` 才跑，CI 上没有）：墙、寻路网格、草丛都读得到，寻路网格是墙外 5000。
+    #[test]
+    fn the_real_files_read_when_given() {
         let Some(p) = std::env::var_os(RIFT_WALLS_ENV) else { return };
         let w = load_rift_walls(&[PathBuf::from(p)]).unwrap();
-        assert_eq!((w.cols(), w.rows()), (295, 296));
-        assert!(w.count() > 20_000, "{}", w.count());
+        assert_eq!((w.cols(), w.rows(), w.count()), (295, 296, 32_393));
+        assert!((w.extent.0 - RIFT_EXTENT).abs() < 1.0);
+        let (walk, brush) = load_fine_in(&data_dir_of(Path::new(&w.source)), w.extent.0);
+        let (walk, brush) = (walk.unwrap(), brush.unwrap());
+        assert_eq!((walk.cols(), walk.rows()), (1180, 1184));
+        assert_eq!(walk.cells.iter().flatten().filter(|c| !**c).count(), 761_604);
+        assert_eq!((brush.zone_count(), brush.count()), (24, 23_016));
+        // 墙长一格以后剩下的地方全在作者的寻路网格里：一格都不用多关
+        let mut ground = w.padded();
+        assert_eq!(ground.cells.iter().flatten().filter(|c| !**c).count(), 46_969);
+        assert_eq!(close_unwalkable(&mut ground, &walk), 0);
+        // every open fine cell is at least the path radius off every wall cell; no brush cell is in a wall
+        for (y, row) in walk.cells.iter().enumerate() {
+            for (x, closed) in row.iter().enumerate() {
+                let c = walk.center(x, y);
+                if !closed {
+                    let near = [(-1.0, 0.0), (1.0, 0.0), (0.0, -1.0), (0.0, 1.0)];
+                    assert!(near.iter().all(|d| !w.is_wall(c.0 + d.0 * RIFT_PATH_RADIUS, c.1 + d.1 * RIFT_PATH_RADIUS)), "{c:?}");
+                }
+                if brush.zones[y * brush.cols + x] != 0 {
+                    assert!(!closed && !w.is_wall(c.0, c.1), "{c:?}");
+                }
+            }
+        }
     }
 
     #[test]
@@ -529,13 +872,17 @@ mod tests {
         assert_eq!(map_of(&[(96_000.0, 864_000.0), (864_000.0, 96_000.0), (480_000.0, 480_000.0)]), Map::Native);
         assert_eq!(map_of(&[(120_000.0, 1_480_000.0)]), Map::Rift);
         assert_eq!(map_of(&[(1_500_000.0, 90_000.0), (10.0, 10.0)]), Map::Rift);
+        // 0.1.65 的塔和水晶：红方下路外塔 (1818439, 1352066)、蓝方水晶 (206201, 1724334)
+        assert_eq!(map_of(&[(1_818_439.0, 1_352_066.0)]), Map::Rift);
+        assert_eq!(map_of(&[(206_201.0, 1_724_334.0)]), Map::Rift);
         // parked out of every map: no hint
-        assert_eq!(map_of(&[(3_000_000.0, 10.0), (10.0, 2_000_000.0)]), Map::Native);
+        assert_eq!(map_of(&[(3_000_000.0, 10.0), (10.0, 2_100_000.0)]), Map::Native);
         assert_eq!(map_of(&[]), Map::Native);
         assert_eq!(Map::Native.limit(), 1_200_000.0);
-        assert_eq!(Map::Rift.center(), (807_272.5, 807_272.5));
-        assert!((Map::Rift.scale() - 1.6818).abs() < 0.001);
+        assert_eq!(Map::Rift.center(), (968_727.0, 968_727.0));
+        assert!((Map::Rift.scale() - 2.0182).abs() < 0.001);
         assert_eq!(Map::Native.clamp((-5.0, 2_000_000.0)), (0.0, 960_000.0));
+        assert_eq!(Map::Native.extent(), NATIVE_EXTENT);
     }
 
     /// A 5 x 5 grid of cells of 10 with one wall cell in the middle (2, 2).
@@ -551,6 +898,16 @@ mod tests {
         let edge = Walls::from_rows(&["#..", "...", "..."], 10.0, (0.0, 0.0), (30.0, 30.0)).padded();
         assert_eq!(edge.rows_text(), vec!["##.", "##.", "..."]);
         assert_eq!(p.cell, 10.0);
+    }
+
+    #[test]
+    fn a_ground_cell_touching_a_closed_pathing_cell_closes() {
+        // ground cells of 10; pathing cells of 5 from the same corner: (2, 0) closed lies in ground cell (1, 0)
+        let mut ground = Walls::from_rows(&["...", "..."], 10.0, (0.0, 0.0), (30.0, 20.0));
+        let walk = Walls::from_rows(&["..#...", "......", "......", "......"], 5.0, (0.0, 0.0), (30.0, 20.0));
+        assert_eq!(close_unwalkable(&mut ground, &walk), 1);
+        assert_eq!(ground.rows_text(), vec![".#.", "..."]);
+        assert_eq!(close_unwalkable(&mut ground, &walk), 0, "already closed");
     }
 
     #[test]
@@ -579,18 +936,13 @@ mod tests {
     fn standing_on_the_game_s_own_map_is_never_refused() {
         assert!(stand_ok(Map::Native, (-5.0, 9_999_999.0)));
         assert_eq!(stand_spot(Map::Native, (1.0, 2.0), 50_000.0), (1.0, 2.0));
-    }
-
-    #[test]
-    fn the_walls_version_against_the_installed_map() {
-        assert!(version_note("0.1.28", Some("0.1.28")).contains("same version"));
-        assert!(version_note("0.1.28", Some("0.1.29")).contains("STALE"));
-        assert!(version_note("0.1.28", None).contains("not found"));
+        // 原版地图的草丛不归这里管
+        assert!(!in_rift_brush(Map::Native, (480_000.0, 480_000.0)));
     }
 
     #[test]
     fn no_file_no_walls_and_a_line_that_says_where_to_put_it() {
         let e = load_rift_walls(&[PathBuf::from("Z:/no/such/墙体坐标.json")]).unwrap_err();
-        assert!(e.contains("地图资料") && e.contains(RIFT_MOD), "{e}");
+        assert!(e.contains(RIFT_DATA_DIR) && e.contains(RIFT_MOD), "{e}");
     }
 }

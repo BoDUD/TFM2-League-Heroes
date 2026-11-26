@@ -620,8 +620,8 @@ fn ground(sim: &StableSim<'_>) -> summon::Ground<'static> {
         return summon::Ground::Native;
     }
     if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: Zoe's Flash lands on the Rift's 1614545 square clear of its walls (none known without the walls \
-                      file: only its edge); {} ==", rift_status()));
+        wlog(format!("== Rift: Zoe's Flash lands on the Rift's {:.0} square clear of its walls (none known without the walls \
+                      file: only its edge); {} ==", Map::Rift.extent(), rift_status()));
     }
     summon::Ground::Rift(rift_ground())
 }

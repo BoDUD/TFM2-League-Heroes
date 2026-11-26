@@ -987,7 +987,7 @@ mod tests {
             Structure { id: 12, name: "inhib".into(), kind: "other", team: 1, x: 1_300_000.0, y: 300_000.0, alive: true },
         ];
         let line = map_line(Map::Rift, "[m=1 s=0]", 60, "Rift walls not found", &towers);
-        assert!(line.starts_with("MAP rift [m=1 s=0] t=0:01: champions on the map up to 2018181, at the enemy nexus within 336364; \
+        assert!(line.starts_with("MAP rift [m=1 s=0] t=0:01: champions on the map up to 2421818, at the enemy nexus within 403636; \
                                   walls: Rift walls not found | 3 towers and nexuses"), "{line}");
         assert!(line.ends_with("#3 tower tower_a T0 (100000, 1500000) alive; #9 nexus nexus_b T1 (1450000, 165000) down; \
                                 #12 other inhib T1 (1300000, 300000) alive"), "{line}");

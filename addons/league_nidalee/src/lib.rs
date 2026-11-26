@@ -291,8 +291,8 @@ impl StablePassive for Prowl {
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, team, (x, y)) = (e.is_alive(), e.team(), e.pos());
         if self.grid.is_none() {
-            // the Rift (game_places: its towers and nexuses) has no bush data: no brush speed there
-            let map = bush::match_map(sim, "no bush data there - no brush speed (Prowl)");
+            // 峡谷（game_places 从塔和水晶认）：草丛是作者的 brush-fine.bin，没有这个文件就没有草丛加速
+            let map = bush::match_map(sim, "Prowl's brush speed in the Rift's brush (the author's brush-fine.bin; none without it)");
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.is_alive())
@@ -301,7 +301,7 @@ impl StablePassive for Prowl {
             let g = bush::bushes_on(map, &points, &bush::maps());
             wlog(match &g {
                 Some(g) => format!("{} BUSHES: {} bush cells", head(sim, me), g.count()),
-                None if map == Map::Rift => format!("{} BUSHES: the Rift - no bush data, no brush speed", head(sim, me)),
+                None if map == Map::Rift => format!("{} BUSHES: the Rift - no brush data file, no brush speed", head(sim, me)),
                 None => format!("{} BUSHES: no bush grid - no brush speed", head(sim, me)),
             });
             self.grid = Some(g);

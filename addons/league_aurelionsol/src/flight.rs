@@ -425,13 +425,13 @@ mod tests {
         assert_eq!(current(&grids, &[(480_000.0, 480_000.0)]), 2);
     }
 
-    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// 峡谷那样的墙格子（355 x 356 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
     /// （世界坐标的 (左上, 右下)）里的格子是墙。
     fn rift_walls(rects: &[(Pt, Pt)]) -> terrain::Walls {
         let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|cy| {
-                (0..295)
+                (0..355)
                     .map(|cx| {
                         let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
                         let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
@@ -497,14 +497,14 @@ mod tests {
     #[test]
     fn on_the_rift_without_its_walls_file_only_its_edges_stop_him() {
         let g = Grid::rift(None);
-        assert!(g.on_map((1_600_000.0, 1_600_000.0)) && !g.on_map((1_614_546.0, 800_000.0)) && !g.on_map((-1.0, 5.0)));
+        assert!(g.on_map((1_920_000.0, 1_920_000.0)) && !g.on_map((terrain::RIFT_EXTENT + 1.0, 800_000.0)) && !g.on_map((-1.0, 5.0)));
         // a flight toward the map's edge is cut to it
-        let len = landing(&g, (1_550_000.0, 800_000.0), (1.0, 0.0), 150_000.0);
+        let len = landing(&g, (terrain::RIFT_EXTENT - 64_545.0, 800_000.0), (1.0, 0.0), 150_000.0);
         assert!(len > 60_000.0 && len < 64_545.0, "{len}");
         // nothing else is wall
         assert_eq!(landing(&g, (1_250_000.0, 1_200_000.0), (1.0, 0.0), 65_000.0), 65_000.0);
         // the landing's buff name holds the Rift's coordinates
-        assert!(to_name("league_aurelionsol_w_to:", (1_614_545.0, 1_614_545.0)).len() <= 64);
+        assert!(to_name("league_aurelionsol_w_to:", (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT)).len() <= 64);
     }
 
     #[test]

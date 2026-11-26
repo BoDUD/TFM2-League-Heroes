@@ -729,13 +729,13 @@ mod tests {
     /// 世界坐标的一个矩形：(左上, 右下)。
     type Rect = ((f64, f64), (f64, f64));
 
-    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// 峡谷那样的墙格子（355 x 356 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
     /// （世界坐标的 (左上, 右下)）里的格子是墙。
     fn rift_walls(rects: &[Rect]) -> terrain::Walls {
         let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|cy| {
-                (0..295)
+                (0..355)
                     .map(|cx| {
                         let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
                         let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
@@ -766,7 +766,7 @@ mod tests {
         assert_eq!(blow_plan(me, at, &ally, &[], Some(&walled), 35_000.0).why, Why::Away("walls on his side"));
         // the open Rift (no walls file): straight toward the ally - the game's own grid called it all wall out there
         let open = Grid::rift(None);
-        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(1_614_546.0, 800_000.0), "only off the map");
+        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(terrain::RIFT_EXTENT + 1.0, 800_000.0), "only off the map");
         let p = blow_plan(me, at, &ally, &[], Some(&open), 35_000.0);
         assert_eq!((p.why, p.turn), (Why::Allies(1), 0.0), "{p:?}");
         let natives = Grid::builtin();
@@ -775,7 +775,7 @@ mod tests {
         let native = (15.5 * CELL, 3.5 * CELL);
         assert!(natives[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));
         // the Rift's edge still stops a push off the map
-        let edge = (1_600_000.0, 800_000.0);
+        let edge = (terrain::RIFT_EXTENT - 14_545.0, 800_000.0);
         assert!(!open.clear(edge, (1.0, 0.0), 35_000.0) && open.clear(edge, (-1.0, 0.0), 35_000.0));
     }
 

@@ -33,6 +33,8 @@
 //! 峡谷（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：Rin 的召唤师峡谷 α 在自己的 DLL 里建 5v5 地图，不经过地图
 //! 文档，也没有草丛数据（地图文档里读到的草丛是游戏自己的 5v5 地图的）。game_places 从塔和水晶看出这一局在峡谷上时
 //! （[`bushes_for`]）没有地图的草丛给的扑击，也不退回「看不见」；艾翁的草丛、数据自己的就绪（复活、脱战 3 秒、R）照旧。
+//! 2026-11-26 Rin 峡谷 0.1.65 起作者发了草丛资料（brush-fine.bin）：峡谷上站在它的草丛里就能扑（[`Bushes::RiftBrush`]），
+//! 没有这个文件时照旧只有艾翁的草丛。
 //!
 //! 0.2.3（2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：**骨齿项链**。英雄联盟：他打过（3 秒内）的敌方
 //! 英雄阵亡——击杀或助攻——得一枚战利品，每个英雄只算一次，最多 5 枚，战利品给额外攻击力。主包只认他自己打出最后一击的
@@ -336,12 +338,15 @@ pub enum Bushes {
     /// 峡谷：没有草丛数据，没有地图的草丛给的扑击（艾翁的草丛照样给）；不用地图文档里游戏自己的 5v5 地图的格子，也不退回
     /// 「看不见」。
     Rift,
+    /// 峡谷，作者的草丛资料（细格）。
+    RiftBrush(&'static places::Brush),
 }
 
-/// 这一场的草丛：峡谷上没有（[`Bushes::Rift`]），游戏自己的地图照旧挑（[`pick_bushes`]）。
+/// 这一场的草丛：峡谷上是作者的草丛资料（[`Bushes::RiftBrush`]，没有就是 [`Bushes::Rift`]），游戏自己的地图照旧挑
+/// （[`pick_bushes`]）。
 pub fn bushes_for(map: Map, points: &[(f64, f64)], maps: &[MapGrids]) -> Bushes {
     match map {
-        Map::Rift => Bushes::Rift,
+        Map::Rift => places::rift_brush().map_or(Bushes::Rift, Bushes::RiftBrush),
         Map::Native => pick_bushes(points, maps),
     }
 }
@@ -351,6 +356,7 @@ pub fn bushes_for(map: Map, points: &[(f64, f64)], maps: &[MapGrids]) -> Bushes 
 pub fn map_bush(b: Option<&Bushes>, x: f64, y: f64, unseen: impl FnOnce() -> bool) -> bool {
     match b {
         Some(Bushes::Grid(g)) => g.at(x, y),
+        Some(Bushes::RiftBrush(b)) => b.in_brush(x, y),
         Some(Bushes::Vision) => unseen(),
         _ => false,
     }
@@ -849,7 +855,9 @@ impl StablePassive for Bush {
                     Bushes::Grid(g) => format!("{} bush cells", g.count()),
                     Bushes::Absent => "this map has none (another mode's map has): no pounce from bushes".to_string(),
                     Bushes::Vision => "no bush grid - ready while the enemy team cannot see him".to_string(),
-                    Bushes::Rift => "the Rift: no bush data - only Ivern's brush readies the pounce".to_string(),
+                    Bushes::Rift => "the Rift: no brush data file - only Ivern's brush readies the pounce".to_string(),
+                    Bushes::RiftBrush(b) => format!("the Rift's brush: {} patches, {} cells of {:.0} (the author's brush-fine.bin)",
+                                                    b.zone_count(), b.count(), b.cell),
                 };
                 wlog(format!("{} BUSHES: {what} #{k}", head(sim, me)));
             }
@@ -1109,8 +1117,9 @@ mod tests {
         // units past 960000 (the Rift's far half) and one in the game's own map's bush cell
         let here = [(1_200_000.0, 300_000.0), (CELL * 0.5, CELL * 0.5)];
         assert_eq!(bushes_for(Map::Native, &here, std::slice::from_ref(&moba)), Bushes::Grid(moba.bushes.clone().unwrap()));
-        assert_eq!(bushes_for(Map::Rift, &here, std::slice::from_ref(&moba)), Bushes::Rift);
-        assert_eq!(bushes_for(Map::Rift, &here, &[]), Bushes::Rift, "no vision fallback on the Rift");
+        let rift = places::rift_brush().map_or(Bushes::Rift, Bushes::RiftBrush);
+        assert_eq!(bushes_for(Map::Rift, &here, std::slice::from_ref(&moba)), rift);
+        assert_eq!(bushes_for(Map::Rift, &here, &[]), rift, "no vision fallback on the Rift");
         // standing where the game's own map has a bush, unseen: no bush on the Rift; the grid and the fallback elsewhere
         let (x, y) = (CELL * 0.5, CELL * 0.5);
         assert!(!map_bush(Some(&Bushes::Rift), x, y, || true));
@@ -1122,6 +1131,19 @@ mod tests {
             let in_bush = map_bush(Some(&Bushes::Rift), x, y, || true) || ivern;
             assert_eq!(step(&p, true, in_bush, false, false, 0, true), want);
         }
+    }
+
+    /// 0.1.65：峡谷上站在作者的草丛里就能扑；不在草丛里、看不见也不算。
+    #[test]
+    fn on_the_rift_its_own_brush_readies_the_pounce() {
+        let zones = vec![0, 4, 4, 0];
+        let b: &'static places::Brush =
+            Box::leak(Box::new(places::Brush { zones, cols: 4, rows: 1, cell: 1_000.0, origin: (0.0, 0.0), source: String::new() }));
+        let rb = Bushes::RiftBrush(b);
+        assert!(map_bush(Some(&rb), 1_500.0, 500.0, || false) && map_bush(Some(&rb), 2_500.0, 900.0, || false));
+        assert!(!map_bush(Some(&rb), 500.0, 500.0, || true), "no vision fallback");
+        let p = Params::default();
+        assert_eq!(step(&p, true, map_bush(Some(&rb), 1_500.0, 500.0, || false), false, false, 0, true), Step::Ready);
     }
 
     #[test]

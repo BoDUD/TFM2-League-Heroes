@@ -681,14 +681,17 @@ pub fn shockwave(m: &MapGrids, b: &Blast, span: f64) -> Shock {
 }
 
 /// 峡谷的地图（第一次用到时从 game_places 的墙格子换算一次：约 8.7 万格，不每 tick 重建）。
-static RIFT_MAP: LazyLock<Arc<MapGrids>> = LazyLock::new(|| Arc::new(rift_grids(places::rift_ground())));
+static RIFT_MAP: LazyLock<Arc<MapGrids>> =
+    LazyLock::new(|| Arc::new(rift_grids(places::rift_ground(), places::rift_bushes())));
 /// 日志里写过峡谷那一行（每次启动一次）。
 static RIFT_SAID: AtomicBool = AtomicBool::new(false);
 
-/// 峡谷的地形：墙是 `walls`（game_places 读的作者的墙格子；None：没有墙体文件，一面墙都不知道，只有地图四边外算墙），没有
-/// 草丛（峡谷没有草丛数据），没有河流格子（河道按放大的斜带，[`MapGrids::river_band`]）。
-pub fn rift_grids(walls: Option<&Walls>) -> MapGrids {
-    MapGrids { mode: GameModeKindV1::Moba.code(), walls: walls.map(Grid::from_walls), bushes: None, river: None, map: Map::Rift }
+/// 峡谷的地形：墙是 `walls`（game_places 读的作者的墙格子；None：没有墙体文件，一面墙都不知道，只有地图四边外算墙），草丛是
+/// `bushes`（0.1.65 起作者的草丛资料，换到墙格那么大的格子上；None：没有资料，只有艾翁的草丛给草元素），没有河流格子
+/// （河道按放大的斜带，[`MapGrids::river_band`]）。
+pub fn rift_grids(walls: Option<&Walls>, bushes: Option<&Walls>) -> MapGrids {
+    MapGrids { mode: GameModeKindV1::Moba.code(), walls: walls.map(Grid::from_walls), bushes: bushes.map(Grid::from_walls), river: None,
+               map: Map::Rift }
 }
 
 /// 峡谷的地图（[`rift_grids`] 换算一次）；第一次碰到峡谷时在日志里记一行。
@@ -697,7 +700,9 @@ pub fn rift_map() -> Arc<MapGrids> {
     if !RIFT_SAID.swap(true, Ordering::Relaxed) {
         let walls = m.walls.as_ref().map_or("none known - only the map's edges are wall".to_string(),
                                             |g| format!("{} wall cells of {:.1}", g.count(), g.cell));
-        wlog(format!("== Rift: W and R read the Rift's walls ({walls}), no brush there (only Ivern's brush gives grass), the river \
+        let brush = m.bushes.as_ref().map_or("no brush data file - only Ivern's brush gives grass".to_string(),
+                                             |g| format!("{} brush cells of {:.1}", g.count(), g.cell));
+        wlog(format!("== Rift: W and R read the Rift's walls ({walls}) and brush ({brush}), the river \
                       = the diagonal band |x - y| <= {:.0}; {} ==", m.river_band(), places::rift_status()));
     }
     m
@@ -918,13 +923,13 @@ mod tests {
     const RCELL: f64 = 60_000.0 / 11.0;
     const R0: f64 = 30_000.0 / 11.0;
 
-    /// The Rift with wall cells `#` at `walls` (295 x 296 cells).
+    /// The Rift with wall cells `#` at `walls` (355 x 356 cells).
     fn rift(walls: &[(usize, usize)]) -> MapGrids {
         let rows: Vec<String> =
-            (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+            (0..356).map(|y| (0..355).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
         let rows: Vec<&str> = rows.iter().map(|s| s.as_str()).collect();
         let e = places::RIFT_EXTENT;
-        rift_grids(Some(&Walls::from_rows(&rows, RCELL, (R0, 0.0), (e, e))))
+        rift_grids(Some(&Walls::from_rows(&rows, RCELL, (R0, 0.0), (e, e))), None)
     }
 
     /// The Rift's cell (cx, cy) as a world point (fractions within the cell).
@@ -971,7 +976,7 @@ mod tests {
 
     #[test]
     fn without_the_walls_file_only_the_rifts_edges_are_wall() {
-        let m = rift_grids(None);
+        let m = rift_grids(None, None);
         let e = places::RIFT_EXTENT;
         // no wall anywhere inside: never "everything is wall"
         for p in [(1_500_000.0, 1_500_000.0), (336_000.0, 336_000.0), (1_200_000.0, 300_000.0), (800_000.0, 100_000.0)] {

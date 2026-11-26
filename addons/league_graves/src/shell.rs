@@ -396,13 +396,13 @@ mod tests {
     /// 世界坐标的一个矩形：(左上, 右下)。
     type Rect = ((f64, f64), (f64, f64));
 
-    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// 峡谷那样的墙格子（355 x 356 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
     /// （世界坐标的 (左上, 右下)）里的格子是墙。
     fn rift_walls(rects: &[Rect]) -> terrain::Walls {
         let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|cy| {
-                (0..295)
+                (0..355)
                     .map(|cx| {
                         let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
                         let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);

@@ -78,17 +78,24 @@ pub fn pick_grid(points: &[Pt], maps: &[bush::MapGrids]) -> Option<bush::Grid> {
         .and_then(|m| m.bushes.clone())
 }
 
-/// The bushes he sows in on `map`: none on the Rift (no bush data there: the document's bushes are the game's own 5v5
-/// map's), [`pick_grid`] on the game's own maps.
+/// The bushes he sows in on `map`: 峡谷上是作者的草丛资料（没有资料就不撒：地图文档里的是游戏自己的 5v5 地图的草丛），
+/// [`pick_grid`] on the game's own maps.
 pub fn grid_on(map: Map, points: &[Pt], maps: &[bush::MapGrids]) -> Option<bush::Grid> {
     match map {
-        Map::Rift => None,
+        Map::Rift => game_places::terrain::rift_brush().map(bush::Grid::rift),
         Map::Native => pick_grid(points, maps),
     }
 }
 
-/// The centre of every bush cell, world units.
+/// 峡谷上撒蘑菇的点（[`bush::rift_spots`]，算一次）。
+static RIFT_SPOTS: std::sync::LazyLock<Vec<Pt>> =
+    std::sync::LazyLock::new(|| game_places::terrain::rift_brush().map(bush::rift_spots).unwrap_or_default());
+
+/// The centre of every bush cell, world units; 峡谷的草丛：每块每片一个点。
 pub fn bush_spots(g: &bush::Grid) -> Vec<Pt> {
+    if g.rift.is_some() {
+        return RIFT_SPOTS.clone();
+    }
     g.cells
         .iter()
         .enumerate()
@@ -232,8 +239,8 @@ impl StablePlayerAi for Sow {
             }
             if self.grid.is_none() {
                 // the Rift (game_places: its towers and nexuses) has no bush data: he sows nowhere there
-                let map = bush::match_map(&sim, "no bush data there - Teemo sows no shrooms out of fights (the AI still throws \
-                                                 R at champions, and every shroom thrown stays in the ground)");
+                let map = bush::match_map(&sim, "the Rift's brush from the author's brush-fine.bin, one spot a patch a 32000 block \r
+                                                 (none without it: no shrooms sown out of fights, only the AI's throws)");
                 let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
                     .map(|u| pt(&u)).collect();
                 let g = grid_on(map, &points, &bush::maps());
@@ -242,7 +249,7 @@ impl StablePlayerAi for Sow {
                     wlog(match &g {
                         Some(g) => format!("{} BUSHES: {} bush cells to sow in", head(&sim, id), g.count()),
                         None if map == Map::Rift => {
-                            format!("{} BUSHES: the Rift - no bush data, no shrooms sown, only the AI's throws", head(&sim, id))
+                            format!("{} BUSHES: the Rift - no brush data file, no shrooms sown, only the AI's throws", head(&sim, id))
                         }
                         None => format!("{} BUSHES: no bush grid - no shrooms sown, only the AI's throws", head(&sim, id)),
                     });
@@ -317,7 +324,7 @@ mod tests {
     /// The match's map by its walls, bushes or none: never another map's bushes.
     #[test]
     fn the_bushes_of_the_map_played() {
-        let grid = |rows: &[&str]| bush::Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect() };
+        let grid = |rows: &[&str]| bush::Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect(), rift: None };
         let moba = bush::MapGrids { walls: Some(grid(&["#.", ".."])), bushes: Some(grid(&["..", ".#"])) };
         let lane = bush::MapGrids { walls: Some(grid(&[".#", "##"])), bushes: None };
         let in_cell = |x: f64, y: f64| ((x + 0.5) * bush::CELL, (y + 0.5) * bush::CELL);
@@ -328,20 +335,28 @@ mod tests {
         assert_eq!(pick_grid(&[], &[]), None);
     }
 
-    /// 2026-11-10: on the Rift (no bush data) he sows nowhere - never at the game's own 5v5 map's bushes.
+    /// 2026-11-10: on the Rift he never sows at the game's own 5v5 map's bushes; 0.1.65 起峡谷上撒在作者的草丛资料里
+    /// （没有资料就不撒：CI 上没有）。
     #[test]
-    fn no_sowing_on_the_rift() {
-        let grid = |rows: &[&str]| bush::Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect() };
+    fn on_the_rift_only_its_own_brush() {
+        let grid = |rows: &[&str]| bush::Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect(), rift: None };
         let moba = bush::MapGrids { walls: Some(grid(&["..", ".."])), bushes: Some(grid(&["..", ".#"])) };
         let here = [(1_200_000.0, 300_000.0), (0.5 * bush::CELL, 0.5 * bush::CELL)];
         assert_eq!(grid_on(Map::Native, &here, std::slice::from_ref(&moba)), moba.bushes);
-        assert_eq!(grid_on(Map::Rift, &here, std::slice::from_ref(&moba)), None);
-        assert_eq!(grid_on(Map::Rift, &[], &[]), None);
+        let rift = grid_on(Map::Rift, &here, std::slice::from_ref(&moba));
+        assert_eq!(rift, game_places::terrain::rift_brush().map(bush::Grid::rift));
+        assert_ne!(rift, moba.bushes);
+        assert_eq!(grid_on(Map::Rift, &[], &[]), rift);
+        // the Rift's spots are all in its brush
+        if let Some(g) = &rift {
+            let spots = bush_spots(g);
+            assert!(!spots.is_empty() && spots.iter().all(|s| g.at(s.0, s.1)), "{} spots", spots.len());
+        }
     }
 
     #[test]
     fn bush_cells_give_their_centres() {
-        let g = bush::Grid { cells: vec![vec![0, 1], vec![1, 0]] };
+        let g = bush::Grid { cells: vec![vec![0, 1], vec![1, 0]], rift: None };
         assert_eq!(bush_spots(&g), vec![(1.5 * bush::CELL, 0.5 * bush::CELL), (0.5 * bush::CELL, 1.5 * bush::CELL)]);
     }
 

@@ -1285,13 +1285,13 @@ mod tests {
     /// 世界坐标的一个矩形：(左上, 右下)。
     type Rect = ((f64, f64), (f64, f64));
 
-    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// 峡谷那样的墙格子（355 x 356 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
     /// （世界坐标的 (左上, 右下)）里的格子是墙。
     fn rift_walls(rects: &[Rect]) -> terrain::Walls {
         let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|cy| {
-                (0..295)
+                (0..355)
                     .map(|cx| {
                         let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
                         let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
@@ -1318,7 +1318,7 @@ mod tests {
         assert_eq!(plan_exit(&p, &Grid::builtin()[0], me, &[(1_280_000.0, 1_200_000.0)], None), None);
         // past 960000 it is open, roomy ground on the Rift; its edge is not
         assert!(g.roomy((1_000_000.0, 1_500_000.0)) && !g.is_wall(1_000_000.0, 1_500_000.0));
-        assert!(!g.roomy((1_607_000.0, 800_000.0)));
+        assert!(!g.roomy((g.size().0 - 4_000.0, 800_000.0)));
         // a wall of the game's own 5v5 map is none on the Rift
         let native = (15.5 * CELL, 3.5 * CELL);
         assert!(Grid::builtin()[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));
@@ -1372,7 +1372,7 @@ mod tests {
         let me = (1_300_000.0, 1_200_000.0);
         assert_eq!(plan_exit(&p, &g, me, &[(1_280_000.0, 1_200_000.0)], Some((1_500_000.0, 1_500_000.0))), None);
         assert!(plan_chase(&p, &g, me, 80, &[foe((1_385_000.0, 1_200_000.0), 30, 7)]).is_none());
-        assert!(g.roomy((1_600_000.0, 800_000.0)) && !g.roomy((1_610_000.0, 800_000.0)));
+        assert!(g.roomy((terrain::RIFT_EXTENT - 14_545.0, 800_000.0)) && !g.roomy((terrain::RIFT_EXTENT - 4_545.0, 800_000.0)));
     }
 
     #[test]

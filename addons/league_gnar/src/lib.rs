@@ -510,9 +510,9 @@ mod tests {
         assert!(d.0 < -0.5, "{d:?}");
     }
 
-    /// 峡谷大小的假墙格：295 x 296 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
+    /// 峡谷大小的假墙格：355 x 356 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
     fn rift_walls(walls: &[(usize, usize)]) -> Walls {
-        let rows: Vec<String> = (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<String> = (0..356).map(|y| (0..355).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
         let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
         Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
     }

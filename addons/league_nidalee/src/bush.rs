@@ -7,9 +7,10 @@
 //! 取、一样合适时谁先谁后看哈希表的顺序——服务器的预模拟和屏幕上的比赛在不同的时候挑，表里多了一种模式就可能换一个顺序，
 //! 两边用上不同的草丛。
 //!
-//! 峡谷（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：Rin 的召唤师峡谷 α 在自己的 DLL 里建 5v5 地图，不经过地图
-//! 文档，也没有草丛数据；地图文档里读到的草丛是游戏自己的 5v5 地图的，峡谷上不能用。[`match_map`] 问 game_places 这一局在
-//! 哪张地图上（第一次碰到峡谷时在本包日志里记一行），[`bushes_on`] 在峡谷上不给草丛。
+//! 峡谷（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：Rin 的召唤师峡谷在自己的 DLL 里建 5v5 地图，不经过地图
+//! 文档；地图文档里读到的草丛是游戏自己的 5v5 地图的，峡谷上不能用。[`match_map`] 问 game_places 这一局在哪张地图上
+//! （第一次碰到峡谷时在本包日志里记一行）。0.1.65 起作者发了草丛资料（brush-fine.bin），[`bushes_on`] 在峡谷上给峡谷的草丛
+//! （[`Grid::rift`]，作者的细格，一格 18000/11）；没有资料时照旧不给。
 
 use std::cmp::Reverse;
 use std::collections::BTreeMap;
@@ -26,20 +27,29 @@ pub const CELL: f64 = 32_000.0;
 /// 地图文档里可能装草丛格子的键。
 const BUSH_KEYS: [&str; 4] = ["bushes", "bush", "bush_grid", "bushs"];
 
-/// 一张格子：`cells[y][x]`，非 0 为有（墙或草丛）。
+/// 一张格子：`cells[y][x]`，非 0 为有（墙或草丛）。峡谷的草丛是 `rift`（作者的细格），这时 `cells` 空着。
 #[derive(Clone, Debug, PartialEq, Default)]
 pub struct Grid {
     pub cells: Vec<Vec<i64>>,
+    pub rift: Option<&'static places::Brush>,
 }
 
 impl Grid {
     #[cfg(test)]
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect() }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect(), rift: None }
+    }
+
+    /// 峡谷的草丛。
+    pub fn rift(b: &'static places::Brush) -> Grid {
+        Grid { cells: Vec::new(), rift: Some(b) }
     }
 
     /// 世界坐标落在有的格子里吗（地图外算没有）。
     pub fn at(&self, x: f64, y: f64) -> bool {
+        if let Some(b) = self.rift {
+            return b.in_brush(x, y);
+        }
         if x < 0.0 || y < 0.0 {
             return false;
         }
@@ -48,7 +58,10 @@ impl Grid {
     }
 
     pub fn count(&self) -> usize {
-        self.cells.iter().flatten().filter(|v| **v != 0).count()
+        match self.rift {
+            Some(b) => b.count(),
+            None => self.cells.iter().flatten().filter(|v| **v != 0).count(),
+        }
     }
 }
 
@@ -113,7 +126,7 @@ pub fn parse_grid(json: &str) -> Option<Grid> {
         }
         rows.push(row);
     }
-    (!rows.is_empty()).then_some(Grid { cells: rows })
+    (!rows.is_empty()).then_some(Grid { cells: rows, rift: None })
 }
 
 /// 一种模式的地图：墙（挑当前对局用）和草丛。
@@ -144,12 +157,39 @@ pub fn maps() -> Vec<MapGrids> {
     MAPS.lock().unwrap_or_else(|e| e.into_inner()).values().cloned().collect()
 }
 
-/// 这一局的草丛：峡谷上没有（峡谷没有草丛数据），游戏自己的地图照旧 [`pick_bushes`]。
+/// 这一局的草丛：峡谷上是作者的草丛资料（没有资料就没有），游戏自己的地图照旧 [`pick_bushes`]。
 pub fn bushes_on(map: Map, points: &[(f64, f64)], maps: &[MapGrids]) -> Option<Grid> {
     match map {
-        Map::Rift => None,
+        Map::Rift => places::rift_brush().map(Grid::rift),
         Map::Native => pick_bushes(points, maps),
     }
+}
+
+/// 峡谷上撒东西的点（提莫的蘑菇）：每 [`CELL`] 见方一块、每片草丛取一个点，是那块那片里离它们中心最近的一个草丛细格的中心，
+/// 和原版地图一格草丛一个点差不多密，点都在草丛里。
+pub fn rift_spots(b: &places::Brush) -> Vec<(f64, f64)> {
+    let mut groups: BTreeMap<(i64, i64, u16), (f64, f64, f64, Vec<(f64, f64)>)> = BTreeMap::new();
+    for y in 0..b.rows {
+        for x in 0..b.cols {
+            let z = b.zones[y * b.cols + x];
+            if z == 0 {
+                continue;
+            }
+            let c = b.center(x, y);
+            let g = groups.entry(((c.0 / CELL).floor() as i64, (c.1 / CELL).floor() as i64, z)).or_insert((0.0, 0.0, 0.0, Vec::new()));
+            g.0 += c.0;
+            g.1 += c.1;
+            g.2 += 1.0;
+            g.3.push(c);
+        }
+    }
+    groups.into_values()
+        .map(|(sx, sy, n, cells)| {
+            let m = (sx / n, sy / n);
+            let d = |p: &(f64, f64)| (p.0 - m.0).powi(2) + (p.1 - m.1).powi(2);
+            cells.into_iter().min_by(|a, b| d(a).total_cmp(&d(b))).unwrap_or(m)
+        })
+        .collect()
 }
 
 /// 日志里写过峡谷那一行（编进这个文件的每个附加包各自一份：每个附加包每次启动一次）。
@@ -230,13 +270,42 @@ mod tests {
         assert_eq!(maps().iter().map(|m| m.bushes.clone()).collect::<Vec<_>>(), vec![open.bushes, twin.bushes]);
     }
 
-    /// 2026-11-10: the Rift has no bush data - the game's own 5v5 map's bushes are never used there, wherever the units stand.
+    /// 2026-11-10: the game's own 5v5 map's bushes are never used on the Rift, wherever the units stand; 0.1.65 起峡谷上是作者的
+    /// 草丛资料（没有资料就没有：CI 上没有）。
     #[test]
-    fn no_bushes_on_the_rift() {
+    fn the_rift_has_its_own_brush_or_none() {
         let moba = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: Some(Grid::from_rows(&["#.", ".."])) };
         let here = [(1_200_000.0, 300_000.0), (CELL * 0.5, CELL * 0.5)];
         assert_eq!(bushes_on(Map::Native, &here, std::slice::from_ref(&moba)), moba.bushes);
-        assert_eq!(bushes_on(Map::Rift, &here, std::slice::from_ref(&moba)), None);
-        assert_eq!(bushes_on(Map::Rift, &[], &[]), None);
+        let rift = bushes_on(Map::Rift, &here, std::slice::from_ref(&moba));
+        assert_eq!(rift, places::rift_brush().map(Grid::rift));
+        assert_ne!(rift, moba.bushes);
+        assert_eq!(bushes_on(Map::Rift, &[], &[]), rift);
+    }
+
+    /// 峡谷的草丛：作者的细格（这里一格 1000，从 (500, 0) 起），两片草丛。
+    fn rift_brush() -> &'static places::Brush {
+        // 6 x 2 cells: patch 3 at x 0..1, patch 5 at x 4..5 of row 0; row 1 patch 3 at x 0
+        let zones = vec![3, 3, 0, 0, 5, 5, 3, 0, 0, 0, 0, 0];
+        Box::leak(Box::new(places::Brush { zones, cols: 6, rows: 2, cell: 1_000.0, origin: (500.0, 0.0), source: String::new() }))
+    }
+
+    #[test]
+    fn the_rifts_brush_through_the_grid() {
+        let g = Grid::rift(rift_brush());
+        assert!(g.at(600.0, 10.0) && g.at(1_600.0, 900.0) && !g.at(2_600.0, 10.0) && g.at(4_600.0, 10.0));
+        assert!(!g.at(100.0, 10.0) && !g.at(600.0, 2_100.0), "off its cells");
+        assert_eq!(g.count(), 5);
+        assert!(g.cells.is_empty());
+    }
+
+    #[test]
+    fn one_spot_for_each_patch_in_each_block() {
+        // both patches in block (0, 0) of 32000: one spot each, on a brush cell near the patch's middle
+        let spots = rift_spots(rift_brush());
+        assert_eq!(spots.len(), 2, "{spots:?}");
+        let b = rift_brush();
+        assert!(spots.iter().all(|s| b.in_brush(s.0, s.1)), "{spots:?}");
+        assert!(spots.contains(&(1_000.0, 500.0)) && spots.contains(&(5_000.0, 500.0)), "{spots:?}");
     }
 }

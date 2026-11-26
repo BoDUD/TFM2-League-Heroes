@@ -252,8 +252,8 @@ impl StablePassive for SapMagic {
         self.was_on = on;
         // the saplings: his own zones standing still; in a bush -> e_brush on him
         if self.grid.is_none() {
-            // the Rift (game_places: its towers and nexuses) has no bush data: no sapling in brush there
-            let map = bush::match_map(sim, "no bush data there - his saplings are never in brush (the plain explosion)");
+            // 峡谷（game_places 从塔和水晶认）：草丛是作者的 brush-fine.bin，没有这个文件树苗就从不算在草丛里
+            let map = bush::match_map(sim, "saplings in the Rift's brush burst bigger (the author's brush-fine.bin; without it never in brush)");
             let points: Vec<(f64, f64)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.is_alive())
@@ -262,7 +262,7 @@ impl StablePassive for SapMagic {
             let g = bush::bushes_on(map, &points, &bush::maps());
             wlog(match &g {
                 Some(g) => format!("{} BUSHES: {} bush cells", head(sim, me), g.count()),
-                None if map == Map::Rift => format!("{} BUSHES: the Rift - no bush data, saplings never in brush", head(sim, me)),
+                None if map == Map::Rift => format!("{} BUSHES: the Rift - no brush data file, saplings never in brush", head(sim, me)),
                 None => format!("{} BUSHES: no bush grid - saplings never in brush", head(sim, me)),
             });
             self.grid = Some(g);

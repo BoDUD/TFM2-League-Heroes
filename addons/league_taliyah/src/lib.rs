@@ -1320,9 +1320,9 @@ mod tests {
         assert_eq!(step_off(&line, (1_288_000, 410_000), true, 400, 0), (MAP - 1, 410_400));
         assert_eq!(step_off_in(&line, (1_288_000, 410_000), true, 400, 0, side), (1_288_000, 410_400));
         // the Rift's own edge holds
-        let f = Wall::flat(&p(), (1_604_545, 500_000), 300);
+        let f = Wall::flat(&p(), (side - 10_000, 500_000), 300);
         let fl = line_of(&[f], &f);
-        assert_eq!(step_off_in(&fl, (1_614_000, 488_000), true, 2000, 0, side), (side - 1, 488_000));
+        assert_eq!(step_off_in(&fl, (side - 545, 488_000), true, 2000, 0, side), (side - 1, 488_000));
         // a blocker her passive has not set yet: the game's own map's; a revive keeps the side the pulse had
         assert_eq!(Blocker::default().side(), MAP);
         let mut b = Blocker::default();

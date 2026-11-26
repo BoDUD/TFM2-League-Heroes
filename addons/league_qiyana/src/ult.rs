@@ -401,12 +401,12 @@ mod tests {
         }
     }
 
-    /// The Rift (game_places' layout of the author's walls: 295 x 296 cells of 60000/11 from x = 30000/11), `#` at `walls`.
+    /// The Rift (game_places' layout of the author's walls: 355 x 356 cells of 60000/11 from x = 30000/11), `#` at `walls`.
     fn rift(walls: &[(usize, usize)]) -> MapGrids {
         let rows: Vec<String> =
-            (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+            (0..356).map(|y| (0..355).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
         let rows: Vec<&str> = rows.iter().map(|s| s.as_str()).collect();
-        rift_grids(Some(&Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (RIFT_EXTENT, RIFT_EXTENT))))
+        rift_grids(Some(&Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (RIFT_EXTENT, RIFT_EXTENT))), None)
     }
 
     fn champ(id: usize, at: Pt) -> Foe {
@@ -512,7 +512,7 @@ mod tests {
         assert_eq!(caught_by(&wall15, me_n, him_n.at, &[him_n], &p), vec![2]);
         assert_eq!(caught_by(&m, me_n, him_n.at, &[him_n], &p), Vec::<usize>::new());
         // past 960000 with no wall known (no walls file): open ground on the Rift; the game's own map took it all as wall
-        let bare = rift_grids(None);
+        let bare = rift_grids(None, None);
         let (me_f, him_f) = ((1_150_000.0, 300_000.0), champ(3, (1_175_000.0, 300_000.0)));
         assert_eq!(caught_by(&map(&[]), me_f, him_f.at, &[him_f], &p), vec![3]);
         assert_eq!(caught_by(&bare, me_f, him_f.at, &[him_f], &p), Vec::<usize>::new());

@@ -1832,7 +1832,7 @@ mod tests {
         // a tie between the two hooks goes to the one nearer the middle of the map he swings on
         let (me, up) = ((700_000.0, 900_000.0), (700_000.0, 840_000.0));
         assert!(swing_plan(me, up).0 .0 < me.0, "the game's own middle (480000) is to the west");
-        assert!(swing_plan_on(Map::Rift, me, up).0 .0 > me.0, "the Rift's middle (807272) is to the east");
+        assert!(swing_plan_on(Map::Rift, me, up).0 .0 > me.0, "the Rift's middle (968727) is to the east");
         assert_eq!(swing_plan_on(Map::Native, me, up), swing_plan(me, up));
         // the buffs' names with the Rift's seven-digit places still fit the game's 64 bytes and read back
         let name = sw_name((1_614_544.0, 1_614_544.0), -2.618, -1.0, 123_456);
@@ -1845,7 +1845,7 @@ mod tests {
         let (x, y) = bullet_end_on(Map::Rift, (900_000.0, 500_000.0), (930_000.0, 540_000.0));
         assert!((x as f64 - 900_000.0 - 0.6 * R_REACH as f64).abs() < 2.0 && (y as f64 - 500_000.0 - 0.8 * R_REACH as f64).abs() < 2.0);
         assert_eq!(bullet_end((900_000.0, 500_000.0), (930_000.0, 540_000.0)).0, 960_000, "the game's own edge");
-        let (x, y) = bullet_end_on(Map::Rift, (1_554_545.0, 500_000.0), (1_584_545.0, 540_000.0));
+        let (x, y) = bullet_end_on(Map::Rift, (rift - 60_000.0, 500_000.0), (rift - 30_000.0, 540_000.0));
         assert_eq!(x, rift as u64);
         assert!((y as f64 - 580_000.0).abs() < 2.0, "{y}");
     }

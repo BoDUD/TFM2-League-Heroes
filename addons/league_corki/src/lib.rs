@@ -415,8 +415,8 @@ fn field(sim: &StableSim<'_>, me: usize, team: usize) -> Field {
     }
     out.ground = if map == Map::Rift {
         if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
-            wlog(format!("== Rift: Valkyrie and the Package land on the Rift's 1614545 square clear of its walls (none known \
-                          without the walls file: only its edge), the missiles fly there; {} ==", rift_status()));
+            wlog(format!("== Rift: Valkyrie and the Package land on the Rift's {:.0} square clear of its walls (none known \
+                          without the walls file: only its edge), the missiles fly there; {} ==", Map::Rift.extent(), rift_status()));
         }
         Ground::Rift(rift_ground())
     } else {
@@ -867,14 +867,14 @@ mod tests {
         }
     }
 
-    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// A Rift-sized walls file as the author lays it out (355 x 356 cells of 60000/11 from x = 30000/11), its own border
     /// cells walls, plus every cell in columns `xs`, rows `ys`.
     fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|y| {
-                (0..295)
+                (0..355)
                     .map(|x| {
-                        let border = x == 0 || y == 0 || x == 294 || y == 295;
+                        let border = x == 0 || y == 0 || x == 354 || y == 355;
                         if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
                     })
                     .collect()
@@ -921,9 +921,9 @@ mod tests {
             assert!(w.0 >= 0.0 && w.1 >= 0.0 && w.0 < side && w.1 < side && !g.blocked(w), "{g:?}: {w:?}");
             assert!(g.blocked((side + 1.0, 5_000.0)) && g.blocked((-1.0, 5_000.0)));
         }
-        assert!(Ground::Rift(Some(&walls)).blocked((side - 5_000.0, 800_000.0)), "the grid's border cells are walls");
+        assert!(Ground::Rift(Some(&walls)).blocked((side - 3_000.0, 800_000.0)), "the grid's border cells are walls");
         // the missiles' spots stay on the map they fly on (959999 was the end of every map)
-        assert_eq!(upos((1_500_000.4, 1_700_000.0), Map::Rift), (1_500_000, 1_614_544));
+        assert_eq!(upos((1_500_000.4, 2_000_000.0), Map::Rift), (1_500_000, side as u64 - 1));
         assert_eq!(upos((1_500_000.0, 5.0), Map::Native), (959_999, 5));
         assert_eq!(Ground::from(true).label(), "true");
     }

@@ -244,14 +244,14 @@ mod tests {
         assert_eq!(pick(0.9, false, false, &[], &[], 0).0, Spell::Ghost);
     }
 
-    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// A Rift-sized walls file as the author lays it out (355 x 356 cells of 60000/11 from x = 30000/11), its own border
     /// cells walls, plus every cell in columns `xs`, rows `ys`.
     fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|y| {
-                (0..295)
+                (0..355)
                     .map(|x| {
-                        let border = x == 0 || y == 0 || x == 294 || y == 295;
+                        let border = x == 0 || y == 0 || x == 354 || y == 355;
                         if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
                     })
                     .collect()

@@ -1001,14 +1001,14 @@ mod tests {
         assert_eq!(laser_end((50_000.0, 50_000.0), (1.0, 0.0), 100_000.0), (150_000.0, 50_000.0));
     }
 
-    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// A Rift-sized walls file as the author lays it out (355 x 356 cells of 60000/11 from x = 30000/11), its own border
     /// cells walls, plus every cell in columns `xs`, rows `ys`.
     fn rift_file(xs: std::ops::Range<usize>, ys: std::ops::Range<usize>) -> Walls {
-        let rows: Vec<String> = (0..296)
+        let rows: Vec<String> = (0..356)
             .map(|y| {
-                (0..295)
+                (0..355)
                     .map(|x| {
-                        let border = x == 0 || y == 0 || x == 294 || y == 295;
+                        let border = x == 0 || y == 0 || x == 354 || y == 355;
                         if border || (xs.contains(&x) && ys.contains(&y)) { '#' } else { '.' }
                     })
                     .collect()
@@ -1038,7 +1038,7 @@ mod tests {
         assert!(first_wall(&moba, (200_000.0, 400_000.0), (340_000.0, 400_000.0)).is_some());
         assert_eq!(first_wall(&g, (200_000.0, 400_000.0), (340_000.0, 400_000.0)), None);
         // the grid's own border cells are walls (x below 30000/11 + 60000/11), off the grid too
-        assert!(g.solid(5_000.0, 800_000.0) && g.solid(1_000.0, 800_000.0) && g.solid(1_613_000.0, 800_000.0));
+        assert!(g.solid(5_000.0, 800_000.0) && g.solid(1_000.0, 800_000.0) && g.solid(Map::Rift.extent() - 1_000.0, 800_000.0));
     }
 
     #[test]

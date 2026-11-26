@@ -1855,13 +1855,13 @@ mod tests {
         assert!((DIVE_MIN..=DIVE_PLAN).contains(&d) && d < dist(me, target.at()), "{hook:?}");
     }
 
-    /// A Rift-sized walls file as the author lays it out (295 x 296 cells of 60000/11 from x = 30000/11), its own border
+    /// A Rift-sized walls file as the author lays it out (355 x 356 cells of 60000/11 from x = 30000/11), its own border
     /// cells walls, plus the cells (column, row) in `walls`.
     fn rift_file(walls: &[(usize, usize)]) -> Walls {
         let mut rows = vec![vec!['.'; 295]; 296];
         for (y, row) in rows.iter_mut().enumerate() {
             for (x, c) in row.iter_mut().enumerate() {
-                if x == 0 || y == 0 || x == 294 || y == 295 {
+                if x == 0 || y == 0 || x == 354 || y == 355 {
                     *c = '#';
                 }
             }
@@ -1921,8 +1921,8 @@ mod tests {
         assert!(wall_hits(&g, 272_000.0, 350_000.0, E_RANGE).is_empty());
         // nor its edges: 10000 from the left of the game's own map is a drawn rock pile there, open ground here
         assert!(moba.solid(10_000.0, 300_000.0) && !g.solid(10_000.0, 300_000.0));
-        // the Rift grid's own border cells are walls, and off the grid (x below 30000/11, past 1611818) too
-        assert!(g.is_wall(4_000.0, 800_000.0) && g.is_wall(1_000.0, 800_000.0) && g.is_wall(1_613_000.0, 800_000.0));
+        // the Rift grid's own border cells are walls, and off the grid (x below 30000/11, past 1933636) too
+        assert!(g.is_wall(4_000.0, 800_000.0) && g.is_wall(1_000.0, 800_000.0) && g.is_wall(Map::Rift.extent() - 1_000.0, 800_000.0));
         assert!(!g.is_wall(1_000_000.0, 500_000.0) && moba.is_wall(1_000_000.0, 500_000.0));
     }
 
@@ -1934,7 +1934,7 @@ mod tests {
         for p in [(5_000.0, 5_000.0), (272_000.0, 400_000.0), (1_300_000.0, 1_300_000.0), (side - 1.0, side - 1.0)] {
             assert!(!g.is_wall(p.0, p.1) && !g.solid(p.0, p.1), "{p:?}");
         }
-        assert!(g.is_wall(-1.0, 5.0) && g.is_wall(side + 1.0, 5.0) && g.is_wall(5.0, 1_700_000.0));
+        assert!(g.is_wall(-1.0, 5.0) && g.is_wall(side + 1.0, 5.0) && g.is_wall(5.0, side + 1_000.0));
         // no wall is known: no wall to hook, by the map's edge either (whatever stands there is not known)
         for me in [(30_000.0, 800_000.0), (side - 30_000.0, 800_000.0), (1_200_000.0, 1_200_000.0)] {
             assert!(wall_hits(&g, me.0, me.1, E_RANGE).is_empty(), "{me:?}");
