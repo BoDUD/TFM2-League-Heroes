@@ -149,6 +149,10 @@ pub struct World {
     /// (tick, projectile name, effect name, spec)
     pub shots: Vec<(usize, String, String, ProjectileSpawnV1)>,
     pub levels_on: bool,
+    /// 薇古丝附加包 0.2.0 加的：`entity_cooldown` / `entity_reduce_cooldown`（每个单位四个栏位剩下的冷却，下标是
+    /// `SkillSlotV1` 的编号；只有英雄有），默认不开。
+    pub cd_on: bool,
+    pub cds: Vec<(usize, [usize; 4])>,
 }
 
 impl Default for World {
@@ -157,7 +161,7 @@ impl Default for World {
                 fears: vec![], spawns: vec![], kill_log: 0, has_spawn: true, spawn_ok: true, spawn_late: false, spawn_never: false, queue_ok: true,
                 body_ticks: 0, spawn_kind: EntityKindV1::Summon, origin: SimOriginKindV1::ClientMatchView, spawn_left: None,
                 moves: vec![], banishes: vec![], invisibles: vec![], settle: 0, heal_on: false, heals: vec![], shots_on: false,
-                shots: vec![], levels_on: false }
+                shots: vec![], levels_on: false, cd_on: false, cds: vec![] }
     }
 }
 
@@ -340,6 +344,20 @@ unsafe extern "C" fn spawn_projectile(s: *mut c_void, n: *const u8, len: usize, 
 unsafe extern "C" fn level(s: *const c_void, h: EntityHandleV1) -> usize {
     u(s, h).map_or(1, |e| e.level)
 }
+unsafe extern "C" fn cooldown(s: *const c_void, h: EntityHandleV1, slot: u32, out: *mut CooldownV1) -> bool {
+    let Some(id) = h.id() else { return false };
+    let Some(c) = w(s).cds.iter().find(|c| c.0 == id) else { return false };
+    let Some(&left) = c.1.get(slot as usize) else { return false };
+    *out = CooldownV1 { remaining: left, unlocked: true, ..Default::default() };
+    true
+}
+unsafe extern "C" fn reduce_cooldown(s: *mut c_void, h: EntityHandleV1, slot: u32, ticks: usize) -> bool {
+    let Some(id) = h.id() else { return false };
+    let Some(c) = w(s).cds.iter_mut().find(|c| c.0 == id) else { return false };
+    let Some(left) = c.1.get_mut(slot as usize) else { return false };
+    *left = left.saturating_sub(ticks);
+    true
+}
 unsafe extern "C" fn set_hp(s: *mut c_void, h: EntityHandleV1, hp: usize) -> bool {
     let Some(e) = u(s, h) else { return false };
     e.hp = hp.min(e.max);
@@ -513,6 +531,10 @@ fn vtable(world: &World) -> SimVtableV1 {
     }
     if world.levels_on {
         vt.entity_level = Some(level);
+    }
+    if world.cd_on {
+        vt.entity_cooldown = Some(cooldown);
+        vt.entity_reduce_cooldown = Some(reduce_cooldown);
     }
     vt
 }

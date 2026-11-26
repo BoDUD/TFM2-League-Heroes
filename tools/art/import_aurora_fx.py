@@ -14,6 +14,8 @@ middle), "bottom" (the lowest drawn row of all its frames), "mid" (the middle of
 (the curse, the spirit mark, the haste, the slow) and the projectiles loop; the rest play once, timed to the kit
 (tools/kit/build_aurora.py): the realm opens on its first two frames and its last six loop over r_t (195 ticks = 3.25 s,
 League's Between Worlds at its top rank; 210 = 3.5 s until 2026-11-04).
+附加包的副本按领域实际开多久放光圈（2026-11-26）：同一张表里另有开场 r_zone_in 和一圈 r_zone_loop，取 r_zone 原来的
+格子，由 tools/art/aurora_realm_tags.py 补上（本工具最后调它；densify_fx.py 重新生成 hd_ 帧以后再单独跑一次）。
 """
 import argparse
 import json
@@ -167,6 +169,9 @@ def main():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tags.items()))
+    # 领域光圈的开场和一圈（附加包放的，2026-11-26）：这时只有 1 倍的，densify_fx.py 之后再跑一次 aurora_realm_tags.py
+    import aurora_realm_tags
+    aurora_realm_tags.realm_file(False)
     if a.review:
         from PIL import ImageDraw
         Z = 6

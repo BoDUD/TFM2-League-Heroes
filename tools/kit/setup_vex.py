@@ -50,51 +50,53 @@ def sh(a, r):
 TEXT = {
     "zh-hans": {
         "name": "薇古丝",
-        "attack": "射出暗影弹。" + O + "终焉暮气" + E + "：每" + A + "{p_cd}秒" + E + "下一个技能" + R + "恐惧" + E + "命中的敌人" + A + "{p_fear}秒" +
-                  E + "。" + O + "生人勿近" + E + "：敌方英雄靠近时改为获得" + sh("w_sh", "w_sh_ratio") + "护盾并震伤周围" +
-                  mag("w_dmg", "w_ratio") + "（每" + A + "{w_cd}秒" + E + "）。",
-        "skill": "射出一道暗风，穿过路径上的所有敌人，造成" + mag("q_dmg", "q_ratio") + "魔法伤害。",
+        "attack": "射出暗影弹。" + O + "终焉暮气" + E + "：每" + A + "{p_cd}秒" + E + "下一个技能" + R + "击倒并恐惧" + E + "命中的敌人" + A +
+                  "{p_fear}秒" + E + "（减速{p_fslow}%）。" + O + "生人勿近" + E + "：敌方英雄靠近时改为获得" + sh("w_sh", "w_sh_ratio") +
+                  "护盾并震伤周围" + mag("w_dmg", "w_ratio") + "（每" + A + "{w_cd}秒" + E + "）。",
+        "skill": "射出一道暗风，先慢而宽、再快而窄，穿过路径上的所有敌人，造成" + mag("q_dmg", "q_ratio") + "魔法伤害。",
         "skill2": "影子飞到目标处扩散，造成" + mag("e_dmg", "e_ratio") + "魔法伤害、减速{e_slow}%" + A + "{e_slow_t}秒" + E + "，并施加" + O +
-                  "暮气" + E + "：她下一次技能打中带暮气的英雄额外造成" + mag("g_dmg", "g_ratio") + "魔法伤害。",
-        "ult": "射出飞弹标记一名敌方英雄，造成" + mag("r_dmg", "r_ratio") + "魔法伤害，随后冲到他身边再造成" + mag("r2_dmg", "r2_ratio") +
+                  "暮气" + E + "：她下一次普攻、寒心波云或生人勿近打中带暮气的英雄额外造成" + mag("g_dmg", "g_ratio") + "魔法伤害。",
+        "ult": "射出飞弹标记一名敌方英雄，造成" + mag("r_dmg", "r_ratio") + "魔法伤害，随后冲向他再造成" + mag("r2_dmg", "r2_ratio") +
                "魔法伤害。",
         "names": ("寒心波云", "溟濛渐染", "愁煞"),
     },
     "zh-hant": {
         "name": "薇可絲",
-        "attack": "射出暗影彈。" + O + "無望厄障" + E + "：每" + A + "{p_cd}秒" + E + "下一個技能" + R + "恐懼" + E + "命中的敵人" + A + "{p_fear}秒" +
-                  E + "。" + O + "個人舒適圈" + E + "：敵方英雄靠近時改為獲得" + sh("w_sh", "w_sh_ratio") + "護盾並震傷周圍" +
-                  mag("w_dmg", "w_ratio") + "（每" + A + "{w_cd}秒" + E + "）。",
-        "skill": "射出一道暗風，穿過路徑上的所有敵人，造成" + mag("q_dmg", "q_ratio") + "魔法傷害。",
+        "attack": "射出暗影彈。" + O + "無望厄障" + E + "：每" + A + "{p_cd}秒" + E + "下一個技能" + R + "擊倒並恐懼" + E + "命中的敵人" + A +
+                  "{p_fear}秒" + E + "（緩速{p_fslow}%）。" + O + "個人舒適圈" + E + "：敵方英雄靠近時改為獲得" + sh("w_sh", "w_sh_ratio") +
+                  "護盾並震傷周圍" + mag("w_dmg", "w_ratio") + "（每" + A + "{w_cd}秒" + E + "）。",
+        "skill": "射出一道暗風，先慢而寬、再快而窄，穿過路徑上的所有敵人，造成" + mag("q_dmg", "q_ratio") + "魔法傷害。",
         "skill2": "影子飛到目標處擴散，造成" + mag("e_dmg", "e_ratio") + "魔法傷害、緩速{e_slow}%" + A + "{e_slow_t}秒" + E + "，並施加" + O +
-                  "陰霾" + E + "：她下一次技能打中帶陰霾的英雄額外造成" + mag("g_dmg", "g_ratio") + "魔法傷害。",
-        "ult": "射出飛彈標記一名敵方英雄，造成" + mag("r_dmg", "r_ratio") + "魔法傷害，隨後衝到他身邊再造成" + mag("r2_dmg", "r2_ratio") +
+                  "陰霾" + E + "：她下一次普攻、冷酷暗箭或個人舒適圈打中帶陰霾的英雄額外造成" + mag("g_dmg", "g_ratio") + "魔法傷害。",
+        "ult": "射出飛彈標記一名敵方英雄，造成" + mag("r_dmg", "r_ratio") + "魔法傷害，隨後衝向他再造成" + mag("r2_dmg", "r2_ratio") +
                "魔法傷害。",
         "names": ("冷酷暗箭", "闇黑迫近", "飛影急襲"),
     },
     "en": {
         "name": "Vex",
-        "attack": "Fires a shadow bolt. " + O + "Doom" + E + ": every " + A + "{p_cd}s" + E + " her next spell " + R + "fears" + E +
-                  " the enemies hit for " + A + "{p_fear}s" + E + ". " + O + "Personal Space" + E + ": with an enemy champion close, "
+        "attack": "Fires a shadow bolt. " + O + "Doom" + E + ": every " + A + "{p_cd}s" + E + " her next spell " + R + "knocks down and fears" +
+                  E + " the enemies hit for " + A + "{p_fear}s" + E + ", slowed {p_fslow}%. " + O + "Personal Space" + E +
+                  ": with an enemy champion close, "
                   "she instead gains a " + sh("w_sh", "w_sh_ratio") + " shield and blasts the enemies around her for " +
                   mag("w_dmg", "w_ratio") + " " + M + "magic damage" + E + " (every " + A + "{w_cd}s" + E + ").",
-        "skill": "Sends a gust of shadow through every enemy in a line for " + mag("q_dmg", "q_ratio") + " " + M + "magic damage" +
-                 E + ".",
+        "skill": "Sends a gust of shadow, slow and wide, then fast and narrow, through every enemy in a line for " +
+                 mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + ".",
         "skill2": "Her Shadow flies to the target and spreads: " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E +
-                  ", slowed {e_slow}% for " + A + "{e_slow_t}s" + E + ", and " + O + "Gloom" + E + ": her next spell hit on a "
-                  "Gloomed champion deals " + mag("g_dmg", "g_ratio") + " more.",
+                  ", slowed {e_slow}% for " + A + "{e_slow_t}s" + E + ", and " + O + "Gloom" + E + ": her next attack, Mistral Bolt or "
+                  "Personal Space hit on a Gloomed champion deals " + mag("g_dmg", "g_ratio") + " more.",
         "ult": "Fires a missile that marks an enemy champion for " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E +
-               ", then surges to it for " + mag("r2_dmg", "r2_ratio") + " more.",
+               ", then surges toward it for " + mag("r2_dmg", "r2_ratio") + " more.",
         "names": ("Mistral Bolt", "Looming Darkness", "Shadow Surge"),
     },
     "ko": {
         "name": "벡스",
-        "attack": "그림자 탄을 쏜다. " + O + "파멸" + E + ": " + A + "{p_cd}초" + E + "마다 다음 스킬이 맞힌 적을 " + A + "{p_fear}초" + E +
-                  " " + R + "공포" + E + ". " + O + "거리 두기" + E + ": 적 챔피언이 가까우면 대신 " + sh("w_sh", "w_sh_ratio") +
+        "attack": "그림자 탄을 쏜다. " + O + "파멸" + E + ": " + A + "{p_cd}초" + E + "마다 다음 스킬이 맞힌 적을 " + R + "넘어뜨리고" + E + " " +
+                  A + "{p_fear}초" + E + " " + R + "공포" + E + "({p_fslow}% 둔화). " + O + "거리 두기" + E + ": 적 챔피언이 가까우면 대신 " +
+                  sh("w_sh", "w_sh_ratio") +
                   " 보호막을 얻고 주변에 " + mag("w_dmg", "w_ratio") + " 마법 피해(" + A + "{w_cd}초" + E + "마다).",
-        "skill": "직선상의 모든 적을 꿰뚫는 그림자 바람으로 " + mag("q_dmg", "q_ratio") + " 마법 피해.",
+        "skill": "처음엔 느리고 넓게, 이어서 빠르고 좁게 직선상의 모든 적을 꿰뚫는 그림자 바람으로 " + mag("q_dmg", "q_ratio") + " 마법 피해.",
         "skill2": "그림자가 대상 위치로 날아가 퍼지며 " + mag("e_dmg", "e_ratio") + " 마법 피해, " + A + "{e_slow_t}초" + E +
-                  " {e_slow}% 둔화, " + O + "우울" + E + " 부여: 우울한 챔피언에게 다음 스킬이 적중하면 " + mag("g_dmg", "g_ratio") +
+                  " {e_slow}% 둔화, " + O + "우울" + E + " 부여: 우울한 챔피언에게 다음 기본 공격, 안개 화살, 거리 두기가 적중하면 " + mag("g_dmg", "g_ratio") +
                   " 추가 피해.",
         "ult": "투사체로 적 챔피언을 표식해 " + mag("r_dmg", "r_ratio") + " 마법 피해, 이어서 돌진해 " + mag("r2_dmg", "r2_ratio") +
                " 마법 피해.",
@@ -102,12 +104,13 @@ TEXT = {
     },
     "ja": {
         "name": "ヴェックス",
-        "attack": "影の弾を撃つ。" + O + "フコウ" + E + "：" + A + "{p_cd}秒" + E + "ごとに次のスキルが当たった敵を" + A + "{p_fear}秒" + E + R +
-                  "恐怖" + E + "。" + O + "パーソナルスペース" + E + "：敵チャンピオンが近いと代わりに" + sh("w_sh", "w_sh_ratio") +
+        "attack": "影の弾を撃つ。" + O + "フコウ" + E + "：" + A + "{p_cd}秒" + E + "ごとに次のスキルが当たった敵を" + R + "ノックダウン" + E +
+                  "し" + A + "{p_fear}秒" + E + R + "恐怖" + E + "（{p_fslow}%スロウ）。" + O + "パーソナルスペース" + E + "：敵チャンピオンが近いと代わりに" +
+                  sh("w_sh", "w_sh_ratio") +
                   "のシールドを得て周囲に" + mag("w_dmg", "w_ratio") + "の魔法ダメージ（" + A + "{w_cd}秒" + E + "ごと）。",
-        "skill": "直線上の全ての敵を貫く影の風で" + mag("q_dmg", "q_ratio") + "の魔法ダメージ。",
+        "skill": "最初は遅く広く、次に速く細く、直線上の全ての敵を貫く影の風で" + mag("q_dmg", "q_ratio") + "の魔法ダメージ。",
         "skill2": "影が目標地点へ飛んで広がり、" + mag("e_dmg", "e_ratio") + "の魔法ダメージ、" + A + "{e_slow_t}秒" + E +
-                  "{e_slow}%スロウ、" + O + "ユーウツ" + E + "付与：ユーウツのチャンピオンに次のスキルが当たると" +
+                  "{e_slow}%スロウ、" + O + "ユーウツ" + E + "付与：ユーウツのチャンピオンに次の通常攻撃、無気力ショットかパーソナルスペースが当たると" +
                   mag("g_dmg", "g_ratio") + "追加。",
         "ult": "弾で敵チャンピオンにマークをつけ" + mag("r_dmg", "r_ratio") + "の魔法ダメージ、続いて突進して" +
                mag("r2_dmg", "r2_ratio") + "の魔法ダメージ。",
@@ -132,6 +135,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("w_sh", "w_sh_ratio", "w_dmg", "w_ratio", "q_dmg", "q_ratio", "e_dmg", "e_ratio", "e_slow",
                            "g_dmg", "g_ratio", "r_dmg", "r_ratio", "r2_dmg", "r2_ratio")}
+    v["p_fslow"] = p["p_fslow"]
     for k in ("p_cd", "p_fear", "w_cd", "e_slow_t"):
         v[k] = secs(p[k])
     return v
@@ -200,23 +204,28 @@ def main():
              {"plays": [{"delay": d, "clip": c, "volume": v} for c, v, d in plays]})
 
     ov = load(os.path.join(MOD, "mod.override_info"))
-    for k in [k for k in ov if ID + "_" in k]:      # her keys rebuilt (a renamed sound leaves none behind)
-        del ov[k]
-    for name in list(SOUNDS) + CLIPS:
-        ov[f"asset/base/sound/sfx/{name}"] = {"remapping": f"asset/league/sound/sfx/{name}", "type": "override"}
-    save(os.path.join(MOD, "mod.override_info"), ov)
+    want = {f"asset/base/sound/sfx/{name}": {"remapping": f"asset/league/sound/sfx/{name}", "type": "override"}
+            for name in list(SOUNDS) + CLIPS}
+    # 她的键没变就不动这个文件（重写会把她的键挪到最后）
+    if {k: v for k, v in ov.items() if ID + "_" in k} != want:
+        for k in [k for k in ov if ID + "_" in k]:      # her keys rebuilt (a renamed sound leaves none behind)
+            del ov[k]
+        ov.update(want)
+        save(os.path.join(MOD, "mod.override_info"), ov)
 
-    view = json.loads(json.dumps(VIEW))
-    if a.face:
-        x, y = (int(v) for v in a.face.split(","))
-        view["face"] = {"x": x, "y": y}
-    if a.banpick is not None:
-        if a.banpick > 0:
-            sys.exit("never a positive banpick_center y (card-banpick rule)")
-        view["banpick_center"] = {"x": 0, "y": a.banpick}
+    # 只在给了 --face / --banpick 时改她的 champion_view（VIEW 是画好精灵图之前的临时值，后来量过的别盖掉）
     cv = load(os.path.join(MOD, "style", "champion_view.champion_view"))
-    cv["entries"][ID] = view
-    save(os.path.join(MOD, "style", "champion_view.champion_view"), cv)
+    if a.face or a.banpick is not None or ID not in cv["entries"]:
+        view = cv["entries"].get(ID) or json.loads(json.dumps(VIEW))
+        if a.face:
+            x, y = (int(v) for v in a.face.split(","))
+            view["face"] = {"x": x, "y": y}
+        if a.banpick is not None:
+            if a.banpick > 0:
+                sys.exit("never a positive banpick_center y (card-banpick rule)")
+            view["banpick_center"] = {"x": 0, "y": a.banpick}
+        cv["entries"][ID] = view
+        save(os.path.join(MOD, "style", "champion_view.champion_view"), cv)
 
     mi = load(os.path.join(MOD, "mod.mod_info"))
     if tuple(int(x) for x in mi["version"].split(".")) < tuple(int(x) for x in VERSION.split(".")):
