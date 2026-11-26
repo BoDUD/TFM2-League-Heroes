@@ -53,7 +53,12 @@ pub mod lpl;
 use formats::{Format, UNSET};
 
 const ID: &str = "league_esports";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 本包的版本（mod.mod_info 的）：和大小龙、海克斯大乱斗一样，league_addons 的 build.rs 给每个 league_* 文件夹
+/// ADDON_VERSION_<id>；单独编的时候（没有那个变量）用 Cargo 的，两边一样（0.2.1）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_esports") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 // ===================== 文件、日志 =====================
 
