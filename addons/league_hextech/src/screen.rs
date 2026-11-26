@@ -309,7 +309,8 @@ pub fn draw(ctx: &mut StableClient<'_>) {
     let set = settings::get();
     badges(ctx, &ev, t, lang, ui, m, s, &set);
     if set.show {
-        if let Some((picks, age)) = opening_at(&ev, t) {
+        // 开局对阵面板 0.3.3 起默认不画（用户：「游戏内开局海克斯那个显示提示不需要 太占屏幕了」），settings.ini 的 show_opening
+        if let Some((picks, age)) = opening_at(&ev, t).filter(|_| set.opening) {
             opening(ctx, &ev, &picks, age, lang, ui, m, s);
         }
         for (k, (i, age)) in toasts_at(&ev, t).into_iter().enumerate() {

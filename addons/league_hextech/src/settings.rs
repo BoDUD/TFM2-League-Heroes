@@ -27,6 +27,8 @@ pub struct Settings {
     pub weights: [u32; 3],
     /// 画不画开局面板和提示
     pub show: bool,
+    /// 画不画开局的对阵面板（0.3.3 起默认不画：用户「游戏内开局海克斯那个显示提示不需要 太占屏幕了」）
+    pub opening: bool,
     /// 战场特效：[`EFFECTS_OFF`] / [`EFFECTS_SQUARES`] / [`EFFECTS_AUTO`]
     pub effects: usize,
 }
@@ -38,7 +40,8 @@ pub const EFFECTS_AUTO: usize = 2;
 
 impl Default for Settings {
     fn default() -> Self {
-        Settings { levels: [6, 9, 12], catch_up_min: 10, weights: [35, 45, 20], show: true, effects: EFFECTS_AUTO }
+        Settings { levels: [6, 9, 12], catch_up_min: 10, weights: [35, 45, 20], show: true, opening: false,
+                   effects: EFFECTS_AUTO }
     }
 }
 
@@ -49,7 +52,7 @@ struct Key {
     set: fn(&mut Settings, usize),
 }
 
-const KEYS: [Key; 9] = [
+const KEYS: [Key; 10] = [
     Key { name: "level_2", lo: 2, hi: MAX_LEVEL, set: |s, v| s.levels[0] = v },
     Key { name: "level_3", lo: 2, hi: MAX_LEVEL, set: |s, v| s.levels[1] = v },
     Key { name: "level_4", lo: 2, hi: MAX_LEVEL, set: |s, v| s.levels[2] = v },
@@ -58,6 +61,7 @@ const KEYS: [Key; 9] = [
     Key { name: "gold_weight", lo: 0, hi: 100, set: |s, v| s.weights[1] = v as u32 },
     Key { name: "prismatic_weight", lo: 0, hi: 100, set: |s, v| s.weights[2] = v as u32 },
     Key { name: "show_picks", lo: 0, hi: 1, set: |s, v| s.show = v != 0 },
+    Key { name: "show_opening", lo: 0, hi: 1, set: |s, v| s.opening = v != 0 },
     Key { name: "battlefield_effects", lo: EFFECTS_OFF, hi: EFFECTS_AUTO, set: |s, v| s.effects = v },
 ];
 
@@ -131,9 +135,9 @@ pub fn init(dir: Option<PathBuf>) -> String {
     let d = Settings::default();
     format!("SETTINGS {}: picks at the start and at levels {:?} (default {:?}), all four by minute {} (default {}; 0 off), \
              tier weights silver / gold / prismatic {:?} (default {:?}), show_picks {} (default 1), \
-             battlefield_effects {} (default 2){}",
+             show_opening {} (default 0), battlefield_effects {} (default 2){}",
             path.as_deref().map_or_else(|| "-".into(), |p: &Path| p.display().to_string()), s.levels, d.levels,
-            s.catch_up_min, d.catch_up_min, s.weights, d.weights, s.show as u8, s.effects,
+            s.catch_up_min, d.catch_up_min, s.weights, d.weights, s.show as u8, s.opening as u8, s.effects,
             if notes.is_empty() { String::new() } else { format!("; {}", notes.join("; ")) })
 }
 
@@ -203,6 +207,13 @@ mod tests {
         assert!(!due(&s, 4, 12, 100_000), "only four");
         let off = Settings { catch_up_min: 0, ..s };
         assert!(!due(&off, 3, 11, 50 * 3600));
+    }
+
+    #[test]
+    fn the_opening_panel_is_off_unless_asked_for() {
+        assert!(!Settings::default().opening);
+        assert!(parse("show_opening = 1").0.opening);
+        assert!(!parse("show_opening = 0").0.opening);
     }
 
     #[test]
