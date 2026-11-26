@@ -11,8 +11,10 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_aurora
   * passive = league_aurora:veil (params: w_low and the rift's r_t, r_edge, r_edge_t, r_wrap_t), which raises the flag
     every tick she is under w_low% health and keeps Between Worlds' rift by League's rules (src/rift.rs): the data's
     zone that slows everyone in it is gone, the line on the shockwave's centre calls league_aurora:rift instead;
-  * the attack's and the ult's tooltips (keys of the add-on's own id) say the low-health rule and the rift's border, so
-    the tooltips in game show whether the override took.
+  * Spirit Abjuration counts on each enemy (league_aurora:mark_<source>) and Twofold Hex's return hits by missing
+    health (league_aurora:hex_back), src/spirit.rs;
+  * the attack's, Q's and the ult's tooltips (keys of the add-on's own id) say what the add-on does, so the tooltips in
+    game show whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Aurora changes.
 """
 import json
@@ -29,48 +31,62 @@ import setup_aurora as setup  # noqa: E402
 MOD_ID = "league_aurora"
 HERO = "league_aurora"
 mag, t, n, hl, cc = setup.mag, setup.t, setup.n, setup.hl, setup.cc
-# lang -> the add-on's attack text (the main pack's with the low-health rule)
+# 语言 -> 附加包的普攻、Q、大招说明（主包的说明加上附加包做的事：被动按敌人分别叠层、残血后跳和击杀刷新、
+# Q 回程按已损失生命加伤、领域的边界和提前关）
 NATIVE = {
     "zh-hans": {
-        "attack": "【附加包】魔杖点出灵光。" + n("驱灵奇术") + "：命中英雄叠层，第三层抽出灵物，造成" + mag("p_dmg", "p_ratio") + " + 目标{p_hp}%最大生命值"
-                  "的伤害，" + hl("回复") + mag("p_heal", "p_heal_r") + "生命并加速。" + n("灵纱洞开") + "：生命低于{w_low}%被贴身时后跳，隐身" +
-                  t("{w_inv}秒") + "、加速{w_ms}%（" + t("{w_cd}秒") + "一次）。",
+        "attack": "【附加包】" + n("驱灵奇术") + "：每个敌人分别叠层，第三层造成{p_hp_pct}% + 每100" + setup.APi + "{p_hp_ap_pct}%最大生命" +
+                  "魔法伤害，抽出灵物，" + t("{sp_t}秒") + "内每秒" + hl("回复") + "{sp0}–{sp1} + {sp_ap}%法强。" + n("灵纱洞开") + "：生命低于{w_low}%被贴身时后跳，" +
+                  "隐身" + t("{w_inv}秒") + "、加速{w_ms}%（" + t("{w_cd}秒") + "，参与击杀刷新）。",
+        "skill": "【附加包】放出咒弹穿过敌人，造成" + mag("q_dmg", "q_ratio") + "魔法伤害并留下诅咒；" + t("{q_hold}秒") + "后抽回，回程造成" +
+                 mag("q2_dmg", "q2_ratio") + "魔法伤害，按目标已损失生命最多+{q2_miss}%，对小兵{q2_minion}%、野怪{q2_monster}%。",
         "ult": "【附加包】朝敌方英雄跃出一小段，加速{r_ms}%；前方的冲击波造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + cc("减速") +
-               "{r_slow1}%，留下领域" + t("{r_t}秒") + "：敌人碰到边界被" + cc("减速") + "{r_edge}%，她碰到边界就穿到对面；她离开或阵亡就关闭。",
+               "{r_slow1}%，" + t("{r_grow}秒") + "后成为领域（" + t("{r_t1}/{r_t2}/{r_t3}秒") + "）：敌人碰到边界被" + cc("减速") + "{r_edge}%，她碰到边界穿到对面；" +
+               "里面没有敌人就提前关闭。",
     },
     "zh-hant": {
-        "attack": "【附加包】魔杖點出靈光。" + n("精靈附體") + "：命中英雄疊層，第三層抽出精靈，造成" + mag("p_dmg", "p_ratio") + " + 目標{p_hp}%最大生命值"
-                  "的傷害，" + hl("回復") + mag("p_heal", "p_heal_r") + "生命並加速。" + n("跨越兩界") + "：生命低於{w_low}%被貼身時後跳，隱形" +
-                  t("{w_inv}秒") + "、加速{w_ms}%（" + t("{w_cd}秒") + "一次）。",
+        "attack": "【附加包】" + n("精靈附體") + "：每個敵人分別疊層，第三層造成{p_hp_pct}% + 每100" + setup.APi + "{p_hp_ap_pct}%最大生命" +
+                  "魔法傷害，抽出精靈，" + t("{sp_t}秒") + "內每秒" + hl("回復") + "{sp0}–{sp1} + {sp_ap}%法強。" + n("跨越兩界") + "：生命低於{w_low}%被貼身時後跳，" +
+                  "隱形" + t("{w_inv}秒") + "、加速{w_ms}%（" + t("{w_cd}秒") + "，參與擊殺刷新）。",
+        "skill": "【附加包】放出咒彈穿過敵人，造成" + mag("q_dmg", "q_ratio") + "魔法傷害並留下詛咒；" + t("{q_hold}秒") + "後抽回，回程造成" +
+                 mag("q2_dmg", "q2_ratio") + "魔法傷害，按目標已損失生命最多+{q2_miss}%，對小兵{q2_minion}%、野怪{q2_monster}%。",
         "ult": "【附加包】朝敵方英雄躍出一小段，加速{r_ms}%；前方的衝擊波造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + cc("緩速") +
-               "{r_slow1}%，留下領域" + t("{r_t}秒") + "：敵人碰到邊界被" + cc("緩速") + "{r_edge}%，她碰到邊界就穿到對面；她離開或陣亡就關閉。",
+               "{r_slow1}%，" + t("{r_grow}秒") + "後成為領域（" + t("{r_t1}/{r_t2}/{r_t3}秒") + "）：敵人碰到邊界被" + cc("緩速") + "{r_edge}%，她碰到邊界穿到對面；" +
+               "裡面沒有敵人就提前關閉。",
     },
     "en": {
-        "attack": "[Add-on] A spirit bolt. " + n("Spirit Abjuration") + ": her hits on champions add up; the third "
-                  "exorcises a spirit for " + mag("p_dmg", "p_ratio") + " + {p_hp}% of the target's max health, and it " +
-                  hl("heals") + " her " + mag("p_heal", "p_heal_r") + " and speeds her up. " + n("Across the Veil") + ": under "
-                  "{w_low}% health with an enemy on her, she hops back, invisible " + t("{w_inv}s") + ", {w_ms}% faster "
-                  "(every " + t("{w_cd}s") + ").",
+        "attack": "[Add-on] " + n("Spirit Abjuration") + ": stacks on each enemy; the third deals {p_hp_pct}% (+" +
+                  "{p_hp_ap_pct}% per 100 " + setup.APi + ") of his max health as magic damage and draws a spirit that " + hl("heals") +
+                  " her {sp0}-{sp1} + {sp_ap}% AP a second for " + t("{sp_t}s") + ". " + n("Across the Veil") + ": under {w_low}% health "
+                  "with an enemy on her, she hops back, invisible " + t("{w_inv}s") + ", {w_ms}% faster (every " + t("{w_cd}s") +
+                  ", reset by a takedown).",
+        "skill": "[Add-on] A hex flies through her enemies for " + mag("q_dmg", "q_ratio") + " magic damage, cursing them; " +
+                 t("{q_hold}s") + " later it is drawn back for " + mag("q2_dmg", "q2_ratio") + " magic damage, up to {q2_miss}% more by "
+                 "the target's missing health ({q2_minion}% to minions, {q2_monster}% to monsters).",
         "ult": "[Add-on] Leaps a short way toward an enemy champion, {r_ms}% faster; a shockwave in front of her deals " +
-               mag("r_dmg", "r_ratio") + " magic damage and " + cc("slows") + " {r_slow1}%, leaving a rift for " + t("{r_t}s") +
-               ": enemies touching its border are " + cc("slowed") + " {r_edge}%, and when she touches it she crosses to the far "
-               "side. It closes if she leaves it or dies.",
+               mag("r_dmg", "r_ratio") + " magic damage and " + cc("slows") + " {r_slow1}%, and " + t("{r_grow}s") + " later becomes a rift (" +
+               t("{r_t1}/{r_t2}/{r_t3}s") + "): enemies touching its border are " + cc("slowed") + " {r_edge}%, and when she touches it she "
+               "crosses to the far side. It closes early once no enemy is left in it.",
     },
     "ko": {
-        "attack": "[확장] 지팡이로 영혼 빛을 쏜다. " + n("영혼 방호술") + ": 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 " + mag("p_dmg", "p_ratio") +
-                  " + 최대 체력의 {p_hp}% 피해, " + mag("p_heal", "p_heal_r") + " " + hl("회복") + "과 이동 속도 증가. " + n("장막 너머로") +
-                  ": 체력 {w_low}% 미만에 적이 붙으면 뒤로 뛰어 " + t("{w_inv}초") + " 투명, 이동 속도 +{w_ms}% (" + t("{w_cd}초") + "마다).",
+        "attack": "[확장] 영혼 빛. " + n("영혼 방호술") + ": 적마다 따로 쌓여 세 번째에 최대 체력의 {p_hp_pct}% + " + setup.APi + "100당 {p_hp_ap_pct}% 마법 피해, " +
+                  "영혼이 " + t("{sp_t}초") + " 동안 매초 {sp0}–{sp1} + 주문력 {sp_ap}% " + hl("회복") + ". " + n("장막 너머로") +
+                  ": 체력 {w_low}% 미만에 적이 붙으면 뒤로 뛰어 " + t("{w_inv}초") + " 투명, 이동 속도 +{w_ms}% (" + t("{w_cd}초") + "마다, 처치 관여 시 초기화).",
+        "skill": "[확장] 주문 탄이 적을 꿰뚫어 " + mag("q_dmg", "q_ratio") + " 마법 피해와 저주; " + t("{q_hold}초") + " 뒤 끌어당겨 " +
+                 mag("q2_dmg", "q2_ratio") + " 마법 피해, 대상의 잃은 체력에 따라 최대 +{q2_miss}% (미니언 {q2_minion}%, 몬스터 {q2_monster}%).",
         "ult": "[확장] 적 챔피언 쪽으로 짧게 도약하며 이동 속도 +{r_ms}%; 앞쪽 충격파가 " + mag("r_dmg", "r_ratio") + " 마법 피해와 {r_slow1}% " +
-               cc("둔화") + ", " + t("{r_t}초") + " 동안 영역: 경계에 닿은 적은 {r_edge}% " + cc("둔화") + ", 그녀는 경계에 닿으면 반대편으로 "
-               "건너간다. 그녀가 나가거나 죽으면 닫힌다.",
+               cc("둔화") + ", " + t("{r_grow}초") + " 뒤 영역(" + t("{r_t1}/{r_t2}/{r_t3}초") + "): 경계에 닿은 적은 {r_edge}% " + cc("둔화") +
+               ", 그녀는 경계에 닿으면 반대편으로 건너간다. 안에 적이 없으면 일찍 닫힌다.",
     },
     "ja": {
-        "attack": "【拡張】杖から霊光を放つ。" + n("精霊の解放") + "：英雄への命中が重なり、3回目で精霊を引き出し" + mag("p_dmg", "p_ratio") +
-                  "＋最大体力の{p_hp}%のダメージ、" + mag("p_heal", "p_heal_r") + hl("回復") + "し加速。" + n("ベールを越えて") +
-                  "：体力{w_low}%未満で敵に詰められると後ろへ跳び" + t("{w_inv}秒") + "透明、移動速度+{w_ms}%（" + t("{w_cd}秒") + "ごと）。",
+        "attack": "【拡張】霊光。" + n("精霊の解放") + "：敵ごとに重なり、3回目で最大体力の{p_hp_pct}%＋" + setup.APi + "100ごと{p_hp_ap_pct}%の魔法ダメージ、" +
+                  "精霊が" + t("{sp_t}秒") + "間毎秒{sp0}–{sp1}＋{sp_ap}%魔力" + hl("回復") + "。" + n("ベールを越えて") +
+                  "：体力{w_low}%未満で詰められると後ろへ跳び" + t("{w_inv}秒") + "透明、移動速度+{w_ms}%（" + t("{w_cd}秒") + "ごと、キルかアシストで再使用）。",
+        "skill": "【拡張】呪弾が敵を貫き" + mag("q_dmg", "q_ratio") + "の魔法ダメージと呪い、" + t("{q_hold}秒") + "後に引き戻し" +
+                 mag("q2_dmg", "q2_ratio") + "の魔法ダメージ、失った体力に応じ最大+{q2_miss}%（ミニオン{q2_minion}%、モンスター{q2_monster}%）。",
         "ult": "【拡張】敵英雄の方へ短く跳び移動速度+{r_ms}%。前方の衝撃波で" + mag("r_dmg", "r_ratio") + "の魔法ダメージと{r_slow1}%" +
-               cc("スロウ") + "、" + t("{r_t}秒") + "間の領域：境界に触れた敵は{r_edge}%" + cc("スロウ") + "、彼女は境界に触れると反対側へ渡る。"
-               "彼女が出るか倒れると閉じる。",
+               cc("スロウ") + "、" + t("{r_grow}秒") + "後に領域（" + t("{r_t1}/{r_t2}/{r_t3}秒") + "）：境界に触れた敵は{r_edge}%" + cc("スロウ") +
+               "、彼女は境界に触れると反対側へ渡る。中に敵がいなければ早く閉じる。",
     },
 }
 
@@ -109,10 +125,15 @@ def main():
         sys.exit("the copy's veil does not read league_aurora_low: update this script")
     if '"' + MOD_ID + ':rift"' not in json.dumps(champion["ult"]) or '"league_aurora_r_field"' in json.dumps(champion["ult"]):
         sys.exit("the copy's ult does not leave its rift to league_aurora:rift: update this script")
-    for slot in ("attack", "ult"):
+    for native in [f"{MOD_ID}:mark_{src}" for src in ("a", "q", "q2", "e", "r")] + [f"{MOD_ID}:hex_back"]:
+        if '"' + native + '"' not in json.dumps(champion):
+            sys.exit(f"the copy has no {native}: update this script")
+    if '"league_aurora_s_1"' in json.dumps(champion):
+        sys.exit("the copy still counts Spirit Abjuration on her (the add-on counts on each enemy): update this script")
+    for slot in ("attack", "skill", "ult"):
         champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
 
-    values = dict(setup.values(p), w_low=p["w_low"])
+    values = setup.values(p)
     texts = {lang: {k: tx.format(**values) for k, tx in d.items()} for lang, d in NATIVE.items()}
     long = {f"{lang}.{k}": setup.shown_length(tx) for lang, d in NATIVE.items() for k, tx in d.items()
             if setup.shown_length(tx) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
