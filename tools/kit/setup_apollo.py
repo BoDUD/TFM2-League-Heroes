@@ -34,31 +34,31 @@ VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -13}, "banpick_cente
 TEXT = {
     "zh-hans": {
         "name": "阿波罗",
-        "attack": "日轮拳，造成" + AD + O + "物理伤害" + E + "。" + O + "日轮" + E + "：每放一个技能，" + A + "{p_t}秒" + E +
-                  "内下一拳额外造成" + phys("p_dmg", "p_ad") + O + "物理伤害" + E + "。",
-        "skill": "投出阿尔忒弥斯之丝缠住目标，造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R + "定身{q_bind}秒" + E +
+        "attack": "光丝化作拳套出拳（光辉竖琴），造成" + AD + O + "物理伤害" + E + "。" + O + "白夜的拥抱" + E + "：「我这颗太阳不会落下」，身边"
+                  "每有一个英雄（敌我都算，最多" + A + "{p_max}个" + E + "），他的伤害提高" + A + "{p_per}%" + E + "。",
+        "skill": "阿尔忒弥斯之丝绑住目标的手臂，造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R + "定身{q_bind}秒" + E +
                  "。",
-        "skill2": "光弓成形，射出一支追着目标飞的光箭，造成" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "。",
-        "ult": "女神像拉开光索，把自己当作银箭射向目标（不受控制、减伤" + A + "{r_dr}%" + E + "），撞上的敌人受到" +
+        "skill2": "影子里升起阿尔忒弥斯，光丝变成金弓，光速的箭追着目标飞去，造成" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "。",
+        "ult": "女神像把弓变成两手间的绳，他像弹弓一样把自己当作银矢射向目标（不受控制、减伤" + A + "{r_dr}%" + E + "），撞上的敌人受到" +
                phys("r_dmg", "r_ad") + O + "物理伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "。",
-        "names": ("阿尔忒弥斯之丝", "光之矢", "银箭突进"),
+        "names": ("光辉的支配", "阿尔忒弥斯的月影", "射穿灵魂的银矢"),
     },
     "zh-hant": {
         "name": "阿波羅",
-        "attack": "日輪拳，造成" + AD + O + "物理傷害" + E + "。" + O + "日輪" + E + "：每放一個技能，" + A + "{p_t}秒" + E +
-                  "內下一拳額外造成" + phys("p_dmg", "p_ad") + O + "物理傷害" + E + "。",
-        "skill": "投出阿耳忒彌斯之絲纏住目標，造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R + "定身{q_bind}秒" + E +
+        "attack": "光絲化作拳套出拳（光輝豎琴），造成" + AD + O + "物理傷害" + E + "。" + O + "白夜的擁抱" + E + "：「我這顆太陽不會落下」，身邊"
+                  "每有一個英雄（敵我都算，最多" + A + "{p_max}個" + E + "），他的傷害提高" + A + "{p_per}%" + E + "。",
+        "skill": "阿耳忒彌斯之絲綁住目標的手臂，造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R + "定身{q_bind}秒" + E +
                  "。",
-        "skill2": "光弓成形，射出一支追著目標飛的光箭，造成" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "。",
-        "ult": "女神像拉開光索，把自己當作銀箭射向目標（不受控制、減傷" + A + "{r_dr}%" + E + "），撞上的敵人受到" +
+        "skill2": "影子裡升起阿耳忒彌斯，光絲變成金弓，光速的箭追著目標飛去，造成" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "。",
+        "ult": "女神像把弓變成兩手間的繩，他像彈弓一樣把自己當作銀矢射向目標（不受控制、減傷" + A + "{r_dr}%" + E + "），撞上的敵人受到" +
                phys("r_dmg", "r_ad") + O + "物理傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "。",
-        "names": ("阿耳忒彌斯之絲", "光之矢", "銀箭突進"),
+        "names": ("光輝的支配", "阿耳忒彌斯的月影", "射穿靈魂的銀矢"),
     },
     "en": {
         "name": "Apollo",
-        "attack": "A sun-wheel punch: " + AD + " " + O + "physical damage" + E + ". " + O + "Sun Wheel" + E + ": after each skill "
-                  "his next punch within " + A + "{p_t}s" + E + " deals " + phys("p_dmg", "p_ad") + " more " + O +
-                  "physical damage" + E + ".",
+        "attack": "Phoebus Lyre, threads of light as boxing bracers: " + AD + " " + O + "physical damage" + E + ". " + O +
+                  "The Sun That Is Me Never Sets" + E + ": every champion near him, friend or foe (up to " + A + "{p_max}" + E +
+                  "), adds " + A + "{p_per}%" + E + " to his damage.",
         "skill": "He casts Artemis's Thread round the target: " + phys("q_dmg", "q_ad") + " " + O + "physical damage" + E +
                  " and a " + R + "{q_bind}s root" + E + ".",
         "skill2": "A bow of light forms and looses a homing arrow: " + phys("e_dmg", "e_ad") + " " + O + "physical damage" +
@@ -66,29 +66,29 @@ TEXT = {
         "ult": "Artemis's statue draws the cords of light and shoots him at the target as a silver arrow (unstoppable, " + A +
                "{r_dr}%" + E + " less damage): the enemy he strikes takes " + phys("r_dmg", "r_ad") + " " + O +
                "physical damage" + E + " and a " + R + "{r_stun}s stun" + E + ".",
-        "names": ("Artemis's Thread", "Arrow of Light", "Silver Arrow"),
+        "names": ("Artemis Elenchos", "Moonlight of Artemis", "Argyrotoxos"),
     },
     "ko": {
         "name": "아폴론",
-        "attack": "일륜권으로 " + AD + " " + O + "물리 피해" + E + ". " + O + "일륜" + E + ": 스킬을 쓰면 " + A + "{p_t}초" + E +
-                  " 안의 다음 주먹이 " + phys("p_dmg", "p_ad") + " " + O + "물리 피해" + E + "를 추가로 줌.",
+        "attack": "빛의 실로 만든 권갑(포이보스 라이어)으로 " + AD + " " + O + "물리 피해" + E + ". " + O + "백야의 포옹" + E +
+                  ": 주변 챔피언(아군·적군, 최대 " + A + "{p_max}명" + E + ")마다 피해 " + A + "{p_per}%" + E + " 증가.",
         "skill": "아르테미스의 실로 대상을 묶어 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + "와 " + R + "{q_bind}초 속박" +
                  E + ".",
         "skill2": "빛의 활을 만들어 대상을 쫓는 빛의 화살을 쏴 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + ".",
         "ult": "여신상이 빛의 줄을 당겨 자신을 은빛 화살로 쏘아 보냄(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소). 부딪힌 적에게 " +
                phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + "와 " + R + "{r_stun}초 기절" + E + ".",
-        "names": ("아르테미스의 실", "빛의 화살", "은빛 화살 돌진"),
+        "names": ("아르테미스 엘렌코스", "아르테미스의 월영", "아르기로톡소스"),
     },
     "ja": {
         "name": "アポロン",
-        "attack": "日輪の拳で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "日輪" + E + "：スキルを使うと" + A + "{p_t}秒" + E +
-                  "以内の次の拳が" + phys("p_dmg", "p_ad") + "の" + O + "物理ダメージ" + E + "を追加。",
+        "attack": "光の糸の拳（ポイボス・ライアー）で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "白夜の抱擁" + E +
+                  "：周りのチャンピオン（敵味方、最大" + A + "{p_max}人" + E + "）一人ごとにダメージ" + A + "{p_per}%" + E + "上昇。",
         "skill": "アルテミスの糸で対象を縛り、" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{q_bind}秒スネア" +
                  E + "。",
         "skill2": "光の弓を作り、対象を追う光の矢を放って" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "。",
         "ult": "女神像が光の綱を引き、自分を銀の矢として対象へ放つ（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）。"
                "当たった敵に" + phys("r_dmg", "r_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{r_stun}秒スタン" + E + "。",
-        "names": ("アルテミスの糸", "光の矢", "銀の矢"),
+        "names": ("光り輝く支配", "アルテミスの月影", "魂を射抜し銀矢"),
     },
 }
 
@@ -115,8 +115,8 @@ SOUNDS = {
 
 
 def values(p):
-    v = {k: p[k] for k in ("p_dmg", "p_ad", "q_dmg", "q_ad", "e_dmg", "e_ad", "r_dr", "r_dmg", "r_ad")}
-    for k in ("p_t", "q_bind", "r_stun"):
+    v = {k: p[k] for k in ("p_per", "p_max", "q_dmg", "q_ad", "e_dmg", "e_ad", "r_dr", "r_dmg", "r_ad")}
+    for k in ("q_bind", "r_stun"):
         v[k] = secs(p[k])
     return v
 

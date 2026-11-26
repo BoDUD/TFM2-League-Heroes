@@ -5,14 +5,14 @@
 终末的女武神第五回合的神方选手，和雷电为右卫门打的那个：破坏神，四只手臂，跳舞一样打架；燃尽心脏的轮回舞踊（Tandava Karma）
 让他浑身燃烧。美术、图标、音频是 Codex 的（assets/source/shiva/，交接说明 assets/source/shiva/HANDOFF.md），技能照 Codex 的两套
 动作做：常态和第 5 帧起燃烧的轮回舞踊形态（ragnarok_shiva_tandava 这个 buff，ragnarok.dll 的显示钩子换上 h_* 的帧）。
-  被动    节奏：舞有节拍，他每放一个技能（Q、E、R）记一拍（最多 p_max 拍），每拍攻击力 +p_atk%、攻速 +p_as%；p_t 拍里没再放
+  被动    轮回舞踊（节拍）：舞有节拍，他每放一个技能（Q、E、R）记一拍（最多 p_max 拍），每拍攻击力 +p_atk%、攻速 +p_as%；p_t 拍里没再放
           技能就散掉（ragnarok.dll 认他放了技能、挂 buff）。写在普攻说明里（游戏只有三个技能图标位）。--plain 给平衡模拟用：
           模拟跑不了 DLL，从第一次放技能起一直按 p_max / 2 拍算。
   attack  四臂一扫打 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 5 帧，0.287 秒）打到；轮回舞踊里是火鞭，多 h_atk% 攻击力。
   skill   四臂连击：`Targeting` EnemyWithoutTower（q_range）：q_hit1 拍（第 4 帧）交叉一击、q_hit2 拍（第 6 帧）横扫一击，各打前方
           扇形（半径 q_r，左右各 acos(q_cone/1000)）里的敌人 q1_dmg + q1_ad% / q2_dmg + q2_ad% 物理伤害，第二下减速 q_slow%
           q_slow_t 拍；轮回舞踊里伤害乘 h_mul%。
-  skill2  舞步：`Targeting` 敌方英雄（e_range）：踏着舞步冲到他身上（e_speed），落脚那一下身边 e_r 里的敌人 e_dmg + e_ad%
+  skill2  虎爪炎舞：`Targeting` 敌方英雄（e_range）：踏着舞步冲到他身上（e_speed），落脚那一下身边 e_r 里的敌人 e_dmg + e_ad%
           物理伤害、减速 e_slow% e_slow_t 拍；轮回舞踊里是火步，伤害乘 h_mul%。
   ult     轮回舞踊：`Targeting` 敌方英雄（r_range）：变身 r_dur 拍（到第 5 帧变过去之前不受控制、受到的伤害降低 r_dr%），
           r_switch 拍（0.51 秒）点燃，r_t 拍的燃烧形态：攻击力 +r_atk%、攻速 +r_as%、移速 +r_ms%。形态结束时最后一记高踢
@@ -43,6 +43,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # 一局才放 11 次；加技能伤害、舞步冷却缩到 8 秒 +0.43，燃烧形态更久更强 +0.96，再加属性（攻击 100、移速 1080、生命 1050）
 # +2.40 / +1.58（两批种子）；定这一份（攻击 105、连击 65 / 75）：16 个种子 +2.25（K/D/A 4.3 / 2.0 / 3.5，一局普攻 99、连击 39、
 # 舞步 13、轮回舞踊 6 次）。
+# 2026-11-26 照原作改（E 虎爪炎舞：跳起来带火往下踢）以后：初版 +0.73；E 跳起来一路追到目标身上再踢、
+# 伤害 90 + 102%（这份 P）+2.39，改之前 +2.25。
 P = {
     # 属性（中路刺客）：四只手，身子不算硬
     "hp": 1050, "hp_g": 100, "atk": 105, "atk_g": 18, "apw": 0, "apw_g": 0, "def": 32, "def_g": 6, "mr": 28,
@@ -54,8 +56,10 @@ P = {
     "q_cd": 360, "q_range": 28000, "q_dur": 35, "q_hit1": 14, "q_hit2": 20, "q_r": 34000, "q_cone": 700,
     "q1_dmg": 65, "q1_ad": 80, "q2_dmg": 75, "q2_ad": 95, "q_slow": 25, "q_slow_t": 60, "h_mul": 130,
     # 舞步
-    "e_cd": 480, "e_range": 45000, "e_dur": 43, "e_speed": 3000, "e_r": 30000,
-    "e_dmg": 80, "e_ad": 90, "e_slow": 30, "e_slow_t": 60,
+    # 虎爪炎舞（2026-11-26 Codex 补画：0.21 秒跳起、0.355 秒踢中、0.422 秒落地，46 拍）：跳起来往目标扑过去（RushTime，碰到就停）
+    "e_cd": 480, "e_range": 45000, "e_dur": 46, "e_jump": 13, "e_speed": 5000, "e_t": 8, "e_kick": 21, "e_r": 30000,
+    "e_chase": 1,
+    "e_dmg": 90, "e_ad": 102, "e_slow": 30, "e_slow_t": 60,
     # 轮回舞踊
     "r_cd": 3000, "r_range": 30000, "r_dur": 56, "r_go": 18, "r_switch": 31, "r_dr": 40,
     "r_t": 480, "r_atk": 35, "r_as": 40, "r_ms": 15,
@@ -183,9 +187,16 @@ def build(p, is_native=False):
         return combine(sfx(snd), around(p["e_r"], [attack(p["e_dmg"] * mul // 100, p["e_ad"] * mul // 100),
                                                    slow("e_slow", p["e_slow"], p["e_slow_t"]), view(tag)]))
     land = when("tandava", step(p["h_mul"], "he", "h_hit"), step(100, "e", "a_hit"))
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
-                    combine(first, {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"],
-                                    "end_effects": [land]}))
+    # 原作第五回合（クリッティヴァーサス）：跳起来带着火往下踢，从雷电的脸一直踢到肚脐
+    leap = {"type": "RushTime", "speed": p["e_speed"], "tick": p["e_t"], "range": 15000,
+            "casting_target": "EnemyWithoutTower", "penetrate": False, "applied_effects": []}
+    # e_chase：跳起来以后一路追到目标身上（MoveToTarget，原来舞步的做法），落到身上就踢；不然往前冲一段、第 e_kick 拍踢
+    if p["e_chase"]:
+        kick = delayed(p["e_jump"] - 1, alive_only({"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"],
+                                                    "end_effects": [land, view("e_flame")]}))
+    else:
+        kick = combine(delayed(p["e_jump"] - 1, alive_only(leap)), delayed(p["e_kick"] - 1, alive_only(land, view("e_flame"))))
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion", combine(first, kick))
 
     # ------------------------------------------------------------------ R：轮回舞踊
     guard = flag("r_guard", p["r_switch"] + 1, cc_immune=True, damaged_reduce=p["r_dr"])
@@ -203,7 +214,7 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ 画面
     # 拳风、交叉、舞步、点燃、火鞭、火步画在他自己的帧里（tools/art/import_shiva.py）；打在人身上的是银光和火焰命中
     E = lambda name, tag, z=2: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z, "is_follow": True}
-    views_e = [E("a_hit", "silver_hit"), E("h_hit", "final_hit")]
+    views_e = [E("a_hit", "silver_hit"), E("h_hit", "final_hit"), E("e_flame", "flame_hit", 3)]
     kit = {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

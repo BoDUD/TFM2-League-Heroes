@@ -8,7 +8,11 @@
   ],
   "passive": {
     "passive_ref": "ragnarok_apollo:voice",
-    "params": {}
+    "params": {
+      "p_r": 50000,
+      "p_per": 8,
+      "p_max": 5
+    }
   },
   "sprite": "asset/ragnarok/champions/ragnarok_apollo",
   "anim_prefix": "",
@@ -62,31 +66,6 @@
           "attack_effect_type": "Target"
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "ragnarok_apollo_sun",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "Attack",
-                "damage": 40,
-                "attack_ratio": 50,
-                "hp_ratio": 0,
-                "target_hp_ratio": 0,
-                "attack_effect_type": "Target"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "ragnarok_apollo_sun"
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": []
-          }
-        },
-        {
           "type": "Sfx",
           "name": "ragnarok_apollo_a"
         },
@@ -115,18 +94,6 @@
     "effect": {
       "type": "Combine",
       "effects": [
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "ragnarok_apollo_sun",
-            "duration": {
-              "Time": {
-                "tick": 240
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
         {
           "type": "Delayed",
           "tick": 10,
@@ -377,18 +344,6 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "ragnarok_apollo_sun",
-            "duration": {
-              "Time": {
-                "tick": 240
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
-        {
           "type": "Delayed",
           "tick": 12,
           "effects": [
@@ -601,18 +556,6 @@
     "effect": {
       "type": "Combine",
       "effects": [
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "ragnarok_apollo_sun",
-            "duration": {
-              "Time": {
-                "tick": 240
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
         {
           "type": "AddCasterBuff",
           "buff_state": {

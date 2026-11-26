@@ -1,0 +1,15 @@
+{
+  "character_reference": "https://www.coamix.co.jp/topics/comiczenon_2506",
+  "round_reference": "https://www.coamix.co.jp/topics/ragnarok_251120",
+  "source_sha256": {
+    "attack.png": "62364b5faa598fbca202003e177a7cca8328ec2d975dd611beadcb222f9f5625",
+    "card.png": "cf4fe2e7e4c89849205c935aa1372782618728975c7a3c257b37f519fe43c7c4",
+    "icons.png": "5c36fb866a9eaf65019e693d666fdad4184fd53197d057a1a7c611fe443984ce",
+    "impact.png": "2d9e693bfb07585ba28942bb2600e43a66c62c9b04ee98c75ac222056e0d23a7",
+    "locomotion.png": "34f6fdd22848bd7b1fd0e8f20d3ea22a5ee99f14eeac69a6a58706f7abcad81f",
+    "run.png": "fb9fcea2b69a9ceffe7b367ceaae832204b9ccbee89a242c25f8f8eb0e17139a",
+    "skills.png": "2d4d810288628c3852fbad7ed92e15163567312dcd5dd0a5a35bcbb1207a8dd3"
+  },
+  "generation_tool": "OpenAI ImageGen",
+  "prompt_summary": "Four original 16-cel chibi pixel-art sprite banks; standalone winter duelist illustration and four dark navy skill icons. Maintain the same outfit, one straight prop and stable head proportions."
+}

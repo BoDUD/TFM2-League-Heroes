@@ -8,11 +8,11 @@
   被动    伊科尔：放完技能（Q、E、R），枪上带着他的血：p_t 拍里下一次普攻额外 p_dmg + p_ad% 攻击力物理伤害（命中是德斯莫斯的
           血光）。写在普攻说明里（游戏只有三个技能图标位），全在数据里。
   attack  双叉枪直刺 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 5 帧，0.287 秒）刺到。枪长，射程比一般近战远。
-  skill   珀耳塞福涅·风压斩：`Targeting` EnemyWithoutTower（q_range）：q_load 拍运枪、q_go 拍挥出，q_hit 拍（第 6 帧，0.285 秒）
+  skill   冥府的铁锤（珀耳塞福涅·卡利科伦）：`Targeting` EnemyWithoutTower（q_range）：q_load 拍运枪、q_go 拍挥出，q_hit 拍（第 6 帧，0.285 秒）
           风压扫过前方扇形（半径 q_r，左右各 acos(q_cone/1000)）：敌人 q_dmg + q_ad% 攻击力物理伤害、减速 q_slow% q_slow_t 拍。
-  skill2  冥府重砸：`Targeting` EnemyWithoutTower（e_range，有人在身边）：e_lift 拍抬枪，e_hit 拍（第 6 帧，0.354 秒）双叉枪砸在
+  skill2  大地崩碎者（珀耳塞福涅·提坦）：`Targeting` EnemyWithoutTower（e_range，有人在身边）：e_lift 拍抬枪，e_hit 拍（第 6 帧，0.354 秒）双叉枪砸在
           身前 e_off 处，那一圈（半径 e_r）里的敌人 e_dmg + e_ad% 攻击力物理伤害、被震飞 e_air 拍（原地，不推远）；e_dust 拍碎石落地。
-  ult     伊科尔·德斯莫斯：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到突刺完为止），r_go 拍（0.305 秒）
+  ult     血之引导曙光（伊科尔·厄俄斯，枪是宿命之四血枪）：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到突刺完为止），r_go 拍（0.305 秒）
           用血锻出强化枪头，r_hit 拍（0.510 秒）朝目标直线突刺（RushTime，速度 r_speed、r_t 拍，穿过去）：路上的敌人 r_dmg +
           r_ad% 攻击力、加目标最大生命 r_thp% 的物理伤害，眩晕 r_stun 拍。突刺前被打死就什么都不发生。
 
@@ -47,8 +47,9 @@ P = {
     # 被动：伊科尔
     "p_t": 180, "p_dmg": 20, "p_ad": 30,
     # 珀耳塞福涅·风压斩
-    "q_cd": 480, "q_range": 42000, "q_dur": 35, "q_load": 11, "q_go": 14, "q_hit": 17, "q_r": 52000, "q_cone": 800,
-    "q_dmg": 60, "q_ad": 90, "q_slow": 25, "q_slow_t": 60,
+    # 冥府の鉄槌（2026-11-26 Codex 补画：0.21 秒跳起、0.38 秒往下刺进地、地面炸开甩出风刃，47 拍）：落点一圈 + 往前一条风刃
+    "q_cd": 480, "q_range": 42000, "q_dur": 47, "q_load": 13, "q_go": 19, "q_hit": 23, "q_off": 14000, "q_r": 30000,
+    "q_len": 62000, "q_w": 8000, "q_dmg": 60, "q_ad": 90, "q2_dmg": 30, "q2_ad": 45, "q_slow": 25, "q_slow_t": 60,
     # 冥府重砸
     "e_cd": 720, "e_range": 34000, "e_dur": 43, "e_lift": 18, "e_hit": 21, "e_dust": 26, "e_off": 22000, "e_r": 30000,
     "e_dmg": 70, "e_ad": 80, "e_air": 30,
@@ -151,9 +152,16 @@ def build(p, is_native=False):
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ Q：珀耳塞福涅·风压斩
-    wind = cone(p["q_r"], p["q_cone"], [attack(p["q_dmg"], p["q_ad"]),
-                                       debuff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
-                                       view("q_hit"), tsfx("q_hit")])
+    # 原作第七回合（ペルセポネ・カリコロン）：跳起来往下刺，地面炸开、甩出风刃：落枪处一圈（身前 q_off、半径 q_r）减速，
+    # 风刃再打往前一条（长 q_len、半宽 q_w）
+    burst = ahead(p["q_off"], p["q_r"], [attack(p["q_dmg"], p["q_ad"]),
+                                         debuff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
+                                         view("q_hit"), tsfx("q_hit")])
+    edge = {"type": "LineRangeProjectile", "name": n("q_edge"), "width": p["q_w"], "length": p["q_len"], "delay": 2,
+            "apply": 1, "applied_target": "EnemyWithoutTower",
+            "applied_effects": [{"casting_type": "Targeting", "effect": e}
+                                for e in (attack(p["q2_dmg"], p["q2_ad"]), view("q_hit"))]}
+    wind = combine(burst, edge)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(delayed(p["q_load"] - 1, sfx("q_load")), delayed(p["q_go"] - 1, alive_only(sfx("q"))),
                            delayed(p["q_hit"] - 1, alive_only(wind, ichor))))

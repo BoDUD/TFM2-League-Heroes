@@ -1,0 +1,286 @@
+{
+  "hero": "lubu",
+  "name": "吕布",
+  "actor_id": "ragnarok_lubu",
+  "cell": [
+    304,
+    192
+  ],
+  "ground": [
+    128,
+    172
+  ],
+  "hd_multiplier": 2,
+  "right_facing": true,
+  "fx_cell": [
+    304,
+    192
+  ],
+  "actor": {
+    "ult": {
+      "name": "赤兔天喰",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.105
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.085
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.1
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.1
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.061
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.075
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.11
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.15
+        }
+      ],
+      "source_animation": "hd_ult",
+      "placement_changes": [
+        {
+          "dx": -10,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 2
+        },
+        {
+          "dx": 8,
+          "lift": 0
+        },
+        {
+          "dx": 8,
+          "lift": 0
+        },
+        {
+          "dx": 18,
+          "lift": 0
+        },
+        {
+          "dx": 12,
+          "lift": 0
+        },
+        {
+          "dx": 6,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "sky_eater": {
+      "name": "天喰开天光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        }
+      ],
+      "anchor": [
+        144,
+        94
+      ],
+      "placement": "projectile",
+      "offset": [
+        78,
+        -48
+      ]
+    }
+  },
+  "cues": {
+    "ult": [
+      {
+        "frame": 1,
+        "event": "mounted_entry",
+        "time_s": 0
+      },
+      {
+        "frame": 2,
+        "event": "rush_start",
+        "time_s": 0.105
+      },
+      {
+        "frame": 5,
+        "event": "sky_eater",
+        "time_s": 0.39
+      },
+      {
+        "frame": 5,
+        "event": "contact",
+        "time_s": 0.39
+      },
+      {
+        "frame": 7,
+        "event": "rush_end",
+        "time_s": 0.526
+      }
+    ]
+  },
+  "fx_events": {
+    "sky_eater": {
+      "track": "sky_eater",
+      "anchor": [
+        144,
+        94
+      ],
+      "placement": "projectile",
+      "offset": [
+        78,
+        -48
+      ]
+    }
+  },
+  "baseline": {
+    "ult": {
+      "source": "lubu",
+      "action": "ult",
+      "identity": "idle",
+      "idle_ink_heights": [
+        144,
+        144,
+        140,
+        138,
+        140,
+        144,
+        144
+      ],
+      "target_hd_ink_height": 144,
+      "source_track_frames": 21,
+      "source_track_canvas_max": [
+        294,
+        339
+      ],
+      "source_track_durations": [
+        0.1475,
+        0.0325,
+        0.115,
+        0.065,
+        0.0825,
+        0.1475,
+        0.02,
+        0.1275,
+        0.1475,
+        0.1475,
+        0.0275,
+        0.12,
+        0.06,
+        0.02,
+        0.04,
+        0.06,
+        0.05,
+        0.01,
+        0.06,
+        0.06,
+        0.05
+      ]
+    }
+  },
+  "art_sources": {
+    "ult": {
+      "source_atlas_entry": "lubu",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "1213c9d797fcdb8ad18db294ff84d7ef7587c97d4ea0c54d53110813b91db4a0",
+      "native_head_sha256": "16bbd1a3ad2cf3fbdf84440f528bc7bd31e182a05503ee397eabc305548f904c"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

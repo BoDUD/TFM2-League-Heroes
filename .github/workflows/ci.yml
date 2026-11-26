@@ -102,6 +102,8 @@ jobs:
           python -I addons/league_kogmaw/make_override.py --check
       - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
         run: python -I tools/kit/attack_self.py --check
+      - name: Spell voice lines - at most once in 10 s per hero and spell where the spell's sound plays (each has its own sound, the rewrite settles)
+        run: python -I tools/kit/vo_gate.py --check
       - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)
         run: python -I tools/kit/check_arm_refund.py
       - name: Range buffs are league.dll's league:range markers (no `range` on a buff, the attack reads them, table up to date)
@@ -122,6 +124,7 @@ jobs:
           python -I tools/art/unit_elise_spiderling.py --check
           python -I tools/art/unit_kogmaw_void.py --check
           python -I tools/art/fx_kogmaw_burst.py --check
+          python -I tools/art/fx_vex_q.py --check
       - name: Dense frames' outlines thinned - every hero in tools/art/thin_outline.json as that tool leaves it (a pipeline run that drew a hero's frames thick again fails here)
         run: python -I tools/art/thin_outline.py --check
       - name: league_warwick's black strays (a chain and ball under his claws, blots and tufts round his outline) stay out of every frame, as tools/art/warwick_strays.py leaves them

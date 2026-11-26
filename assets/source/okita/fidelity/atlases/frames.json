@@ -1,0 +1,436 @@
+{
+  "hero": "okita",
+  "name": "冲田总司",
+  "actor_id": "ragnarok_okita",
+  "cell": [
+    116,
+    92
+  ],
+  "ground": [
+    52,
+    84
+  ],
+  "hd_multiplier": 4,
+  "right_facing": true,
+  "fx_cell": [
+    152,
+    96
+  ],
+  "actor": {
+    "ult": {
+      "name": "天翔散段突",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.115
+        },
+        {
+          "x": 116,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.105
+        },
+        {
+          "x": 232,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.071
+        },
+        {
+          "x": 348,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.052
+        },
+        {
+          "x": 464,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.047
+        },
+        {
+          "x": 580,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.045
+        },
+        {
+          "x": 696,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.093
+        },
+        {
+          "x": 812,
+          "y": 0,
+          "w": 116,
+          "h": 92,
+          "duration": 0.133
+        }
+      ],
+      "source_animation": "ult",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -1,
+          "lift": 0
+        },
+        {
+          "dx": 3,
+          "lift": 0
+        },
+        {
+          "dx": 7,
+          "lift": 0
+        },
+        {
+          "dx": 11,
+          "lift": 0
+        },
+        {
+          "dx": 15,
+          "lift": 0
+        },
+        {
+          "dx": 10,
+          "lift": 0
+        },
+        {
+          "dx": 3,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "vacuum_upper": {
+      "name": "第一刺真空刃",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 152,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 456,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 760,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 1064,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        }
+      ],
+      "anchor": [
+        24,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        26,
+        -28
+      ]
+    },
+    "vacuum_mid": {
+      "name": "第二刺真空刃",
+      "frames": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 152,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 304,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 456,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 608,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 760,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 912,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 1064,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        }
+      ],
+      "anchor": [
+        24,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        29,
+        -22
+      ]
+    },
+    "vacuum_lower": {
+      "name": "第三刺真空刃",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 152,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 456,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 760,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        },
+        {
+          "x": 1064,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.049
+        }
+      ],
+      "anchor": [
+        24,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        28,
+        -16
+      ]
+    }
+  },
+  "cues": {
+    "ult": [
+      {
+        "frame": 3,
+        "event": "dash_start",
+        "time_s": 0.22
+      },
+      {
+        "frame": 4,
+        "event": "vacuum_upper",
+        "time_s": 0.291
+      },
+      {
+        "frame": 5,
+        "event": "vacuum_mid",
+        "time_s": 0.343
+      },
+      {
+        "frame": 6,
+        "event": "vacuum_lower",
+        "time_s": 0.39
+      },
+      {
+        "frame": 7,
+        "event": "dash_end",
+        "time_s": 0.435
+      }
+    ]
+  },
+  "fx_events": {
+    "vacuum_upper": {
+      "track": "vacuum_upper",
+      "anchor": [
+        24,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        26,
+        -28
+      ]
+    },
+    "vacuum_mid": {
+      "track": "vacuum_mid",
+      "anchor": [
+        24,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        29,
+        -22
+      ]
+    },
+    "vacuum_lower": {
+      "track": "vacuum_lower",
+      "anchor": [
+        24,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        28,
+        -16
+      ]
+    }
+  },
+  "baseline": {
+    "ult": {
+      "source": "okita",
+      "action": "ult",
+      "identity": "idle",
+      "idle_ink_heights": [
+        56,
+        56,
+        57,
+        55,
+        57,
+        56,
+        56
+      ],
+      "target_hd_ink_height": 224,
+      "source_track_frames": 8,
+      "source_track_canvas_max": [
+        116,
+        92
+      ],
+      "source_track_durations": [
+        0.12,
+        0.105,
+        0.075,
+        0.055,
+        0.065,
+        0.095,
+        0.125,
+        0.15
+      ]
+    }
+  },
+  "art_sources": {
+    "ult": {
+      "source_atlas_entry": "okita",
+      "source_kind": "imagegen",
+      "redraw_source_sha256": "95d69ccf63aa54ae4fc4807e19e9e236242a3a31c83b412dab499e1258442dc9",
+      "scale_factor": 0.16792
+    }
+  }
+}

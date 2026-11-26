@@ -55,7 +55,7 @@
 
 ### 辛吉德附加包
 
-[辛吉德附加包](../../addons/league_singed/README.md)：`league_singed` v0.1.5
+[辛吉德附加包](../../addons/league_singed/README.md)：`league_singed` v0.1.6
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

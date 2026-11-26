@@ -34,69 +34,72 @@ TEXT = {
         "name": "秦始皇",
         "attack": "金指爪抓击，造成" + AD + O + "物理伤害" + E + "。" + O + "星" + E + "：被他的技能打中的敌人露出破绽，" + A +
                   "{p_t}秒" + E + "内受到的伤害" + A + "+{p_amp}%" + E + "。",
-        "skill": "吸一口气吐出气弹，追着目标飞去，炸开时造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R +
-                 "眩晕{q_stun}秒" + E + "。",
+        "skill": "对着目标的「星」吹一口看不见的气：造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "，" + R + "打断{q_stun}秒" + E +
+                 "，" + A + "{q_weak_t}秒" + E + "内攻击力和法强降低" + A + "{q_weak}%" + E + "。",
         "skill2": "举起神罗铠袖（" + A + "{e_t}秒" + E + "内减伤" + A + "{e_dr}%" + E + "、不受控制），身边的友方英雄获得" + S +
                   "护盾{e_sh}" + E + " + " + ratio("e_sh_ad") + "；接着把力推回去，前方的敌人受到" + phys("e_dmg", "e_ad") + O +
                   "物理伤害" + E + "并" + R + "眩晕{e_stun}秒" + E + "。",
-        "ult": "拔出始皇勾践剑（不受控制、减伤" + A + "{r_dr}%" + E + "）横斩，前方大扇形内的敌人受到" + phys("r_dmg", "r_ad") + O +
-               "物理伤害" + E + "并被" + R + "击飞{r_up}秒" + E + "。",
-        "names": ("波流龟气弹", "神罗铠袖·承力天凤", "始皇勾践剑"),
+        "ult": "拔出始皇勾践剑（不受控制、减伤" + A + "{r_dr}%" + E + "），把这时挨的打存进剑里，斩中时还回去（最多" + A + "{r_cap}%" + E +
+               "最大生命）：前方大扇形的敌人受到" + phys("r_dmg", "r_ad") + O + "物理伤害" + E + "并被" + R + "击飞{r_up}秒" + E + "。",
+        "names": ("蚩尤弩式·波流龟", "神罗铠袖·承力天凤", "始皇承力燕斩"),
     },
     "zh-hant": {
         "name": "秦始皇",
         "attack": "金指爪抓擊，造成" + AD + O + "物理傷害" + E + "。" + O + "星" + E + "：被他的技能打中的敵人露出破綻，" + A +
                   "{p_t}秒" + E + "內受到的傷害" + A + "+{p_amp}%" + E + "。",
-        "skill": "吸一口氣吐出氣彈，追著目標飛去，炸開時造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R +
-                 "暈眩{q_stun}秒" + E + "。",
+        "skill": "對著目標的「星」吹一口看不見的氣：造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "，" + R + "打斷{q_stun}秒" + E +
+                 "，" + A + "{q_weak_t}秒" + E + "內攻擊力和法強降低" + A + "{q_weak}%" + E + "。",
         "skill2": "舉起神羅鎧袖（" + A + "{e_t}秒" + E + "內減傷" + A + "{e_dr}%" + E + "、不受控制），身邊的友方英雄獲得" + S +
                   "護盾{e_sh}" + E + " + " + ratio("e_sh_ad") + "；接著把力推回去，前方的敵人受到" + phys("e_dmg", "e_ad") + O +
                   "物理傷害" + E + "並" + R + "暈眩{e_stun}秒" + E + "。",
-        "ult": "拔出始皇勾踐劍（不受控制、減傷" + A + "{r_dr}%" + E + "）橫斬，前方大扇形內的敵人受到" + phys("r_dmg", "r_ad") + O +
-               "物理傷害" + E + "並被" + R + "擊飛{r_up}秒" + E + "。",
-        "names": ("波流龜氣彈", "神羅鎧袖·承力天鳳", "始皇勾踐劍"),
+        "ult": "拔出始皇勾踐劍（不受控制、減傷" + A + "{r_dr}%" + E + "），把這時挨的打存進劍裡，斬中時還回去（最多" + A + "{r_cap}%" + E +
+               "最大生命）：前方大扇形的敵人受到" + phys("r_dmg", "r_ad") + O + "物理傷害" + E + "並被" + R + "擊飛{r_up}秒" + E + "。",
+        "names": ("蚩尤弩式·波流龜", "神羅鎧袖·承力天鳳", "始皇承力燕斬"),
     },
     "en": {
         "name": "Qin Shi Huang",
         "attack": "A strike of his golden claws: " + AD + " " + O + "physical damage" + E + ". " + O + "Stars" + E + ": enemies "
                   "his skills hit show their weak points and take " + A + "{p_amp}%" + E + " more damage for " + A + "{p_t}s" +
                   E + ".",
-        "skill": "He breathes in and blows a qi bubble that chases the target and bursts: " + phys("q_dmg", "q_ad") + " " + O +
-                 "physical damage" + E + " and a " + R + "{q_stun}s stun" + E + ".",
+        "skill": "An unseen puff of breath at the target's star: " + phys("q_dmg", "q_ad") + " " + O + "physical damage" + E +
+                 ", a " + R + "{q_stun}s stun" + E + " and " + A + "{q_weak}%" + E + " less attack and ability power for " + A +
+                 "{q_weak_t}s" + E + ".",
         "skill2": "He raises the Shinra Armor Sleeves (" + A + "{e_dr}%" + E + " less damage and unstoppable for " + A + "{e_t}s" +
                   E + "); allied champions around him gain a " + S + "{e_sh}" + E + " + " + ratio("e_sh_ad") + " " + S + "shield" +
                   E + ". Then he turns the force back: enemies in front take " + phys("e_dmg", "e_ad") + " " + O +
                   "physical damage" + E + " and are " + R + "stunned for {e_stun}s" + E + ".",
-        "ult": "He draws the Goujian sword (unstoppable, " + A + "{r_dr}%" + E + " less damage) and cuts across: enemies in a "
-               "wide cone take " + phys("r_dmg", "r_ad") + " " + O + "physical damage" + E + " and are " + R +
+        "ult": "He draws the Goujian sword (unstoppable, " + A + "{r_dr}%" + E + " less damage), stores the blows he takes in it "
+               "(up to " + A + "{r_cap}%" + E + " max health) and returns them in the cut: enemies in a wide cone take " + phys("r_dmg", "r_ad") + " " + O + "physical damage" + E + " and are " + R +
                "knocked up for {r_up}s" + E + ".",
-        "names": ("Turtle Qi Bubble", "Shinra Sleeves: Phoenix Reversal", "Goujian Sword of the First Emperor"),
+        "names": ("Chiyou Crossbow: Drifting Tortoise", "Shinra Sleeves: Phoenix Reversal", "First Emperor's Swallow Cut"),
     },
     "ko": {
         "name": "진시황",
         "attack": "금빛 손톱으로 할퀴어 " + AD + " " + O + "물리 피해" + E + ". " + O + "별" + E + ": 그의 스킬에 맞은 적은 약점이 드러나 " +
                   A + "{p_t}초" + E + " 동안 받는 피해 " + A + "+{p_amp}%" + E + ".",
-        "skill": "숨을 들이쉬고 기탄을 뱉어 대상을 쫓아가 터지며 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + "와 " + R +
-                 "{q_stun}초 기절" + E + ".",
+        "skill": "대상의 「별」에 보이지 않는 숨을 불어 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + ", " + R +
+                 "{q_stun}초 기절" + E + ", " + A + "{q_weak_t}초" + E + " 동안 공격력·주문력 " + A + "{q_weak}%" + E + " 감소.",
         "skill2": "신라개수를 들어(" + A + "{e_t}초" + E + " 동안 피해 " + A + "{e_dr}%" + E + " 감소, 저지 불가) 주변 아군 챔피언에게 " +
                   S + "보호막 {e_sh}" + E + " + " + ratio("e_sh_ad") + ". 이어 힘을 되돌려 앞쪽 적에게 " + phys("e_dmg", "e_ad") + " " +
                   O + "물리 피해" + E + "와 " + R + "{e_stun}초 기절" + E + ".",
-        "ult": "시황 구천검을 뽑아(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소) 가로 베어 넓은 부채꼴의 적에게 " +
+        "ult": "시황 구천검을 뽑아(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소) 받은 공격을 검에 담아(최대 체력 " + A + "{r_cap}%" + E +
+               "까지) 벨 때 돌려줌: 넓은 부채꼴의 적에게 " +
                phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + "와 " + R + "{r_up}초 띄워 올림" + E + ".",
-        "names": ("파류귀기탄", "신라개수·승력천봉", "시황 구천검"),
+        "names": ("치우노식·파류귀", "신라개수·승력천봉", "시황 승력연참"),
     },
     "ja": {
         "name": "始皇帝",
         "attack": "金の指爪で裂き" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "星" + E + "：スキルが当たった敵は急所が露わになり" +
                   A + "{p_t}秒" + E + "被ダメージ" + A + "+{p_amp}%" + E + "。",
-        "skill": "息を吸って気弾を吐き、追いかけて弾けた対象に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
-                 "{q_stun}秒スタン" + E + "。",
+        "skill": "対象の「星」へ見えない息を吹き、" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
+                 "{q_stun}秒スタン" + E + "、" + A + "{q_weak_t}秒" + E + "攻撃力と魔力" + A + "{q_weak}%" + E + "低下。",
         "skill2": "神羅鎧袖を構え（" + A + "{e_t}秒" + E + "被ダメージ" + A + "{e_dr}%" + E + "軽減・行動妨害無効）周りの味方に" + S +
                   "シールド{e_sh}" + E + "＋" + ratio("e_sh_ad") + "。続けて力を押し返し、前方の敵に" + phys("e_dmg", "e_ad") + "の" +
                   O + "物理ダメージ" + E + "と" + R + "{e_stun}秒スタン" + E + "。",
-        "ult": "始皇勾践剣を抜き（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）横に斬り、広い扇形の敵に" + phys("r_dmg", "r_ad") +
+        "ult": "始皇勾践剣を抜き（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）受けた力を剣に溜め（最大体力" + A + "{r_cap}%" + E +
+               "まで）斬って返す：広い扇形の敵に" + phys("r_dmg", "r_ad") +
                "の" + O + "物理ダメージ" + E + "と" + R + "{r_up}秒打ち上げ" + E + "。",
-        "names": ("波流亀気弾", "神羅鎧袖・承力天鳳", "始皇勾践剣"),
+        "names": ("蚩尤弩式・波流亀", "神羅鎧袖・承力天鳳", "始皇承力燕斬"),
     },
 }
 
@@ -122,8 +125,9 @@ SOUNDS = {
 
 
 def values(p):
-    v = {k: p[k] for k in ("p_amp", "q_dmg", "q_ad", "e_dr", "e_sh", "e_sh_ad", "e_dmg", "e_ad", "r_dr", "r_dmg", "r_ad")}
-    for k in ("p_t", "q_stun", "e_t", "e_stun", "r_up"):
+    v = {k: p[k] for k in ("p_amp", "q_dmg", "q_ad", "q_weak", "e_dr", "e_sh", "e_sh_ad", "e_dmg", "e_ad", "r_dr", "r_dmg",
+                           "r_ad", "r_cap")}
+    for k in ("p_t", "q_stun", "q_weak_t", "e_t", "e_stun", "r_up"):
         v[k] = secs(p[k])
     return v
 

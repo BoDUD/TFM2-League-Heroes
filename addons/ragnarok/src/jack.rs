@@ -1,6 +1,9 @@
-//! 开膛手杰克（`ragnarok_jack`）数据做不到的部分：被动「心之色」、配音、倒地声。数据（tools/kit/build_jack.py）的
-//! `passive` 是这里的 `ragnarok_jack:colour`，参数 p_hp / p_dmg 从数据的 params 读；飞刀、扇形飞刀、伦敦之雾（伞、后撤、
-//! 隐身）、亲爱的神全在数据里。
+//! 开膛手杰克（`ragnarok_jack`）数据做不到的部分：被动「心之色」、Dear GOD 按伤口的扣血、配音、倒地声。数据
+//! （tools/kit/build_jack.py）的 `passive` 是这里的 `ragnarok_jack:colour`，参数 p_hp / p_dmg / r_cost 从数据的 params 读；
+//! 飞刀、扇形飞刀、神器之伞（伞、后跳）、Dear GOD 的扑击全在数据里。
+//!
+//! Dear GOD（原作第四回合）：他按住被铁栅栏刺穿的伤口，让血浸透手套——手套碰过的东西都成神器，连血也是。放大招的那一拍
+//! （大招冷却从 0 跳上去）扣他 r_cost% 最大生命，最多扣到 1 点（不会自己打死自己）。
 //!
 //! 心之色（终末的女武神里他看得见人心的颜色）：他打中的是敌方英雄、对方生命低于 p_hp% 时（恐惧藏不住），这一下的伤害
 //! +p_dmg%（普攻、技能都算，`on_attack`）。
@@ -43,6 +46,8 @@ pub struct Params {
     pub p_hp: usize,
     /// 打低血的敌方英雄伤害加多少，百分比
     pub p_dmg: usize,
+    /// Dear GOD 按伤口扣最大生命的百分之几
+    pub r_cost: usize,
 }
 
 impl Default for Params {
@@ -50,6 +55,7 @@ impl Default for Params {
         Self {
             p_hp: 50,
             p_dmg: 30,
+            r_cost: 5,
         }
     }
 }
@@ -65,6 +71,7 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "p_hp" => p.p_hp = u.min(100),
             "p_dmg" => p.p_dmg = u.min(100),
+            "r_cost" => p.r_cost = u.min(50),
             _ => {}
         }
     }
@@ -80,6 +87,14 @@ pub fn coloured(damage: usize, hp: (usize, usize), p: &Params) -> usize {
         return damage;
     }
     damage + damage * p.p_dmg / 100
+}
+
+/// 扣完以后的生命：现在 hp、最多 max，扣 cost% 最大生命，最多扣到 1 点（已经只剩 1 点就不扣）。
+pub fn after_cost(hp: usize, max: usize, cost: usize) -> usize {
+    if hp <= 1 {
+        return hp;
+    }
+    hp.saturating_sub(max * cost / 100).max(1)
 }
 
 /// 配音：事件。
@@ -225,8 +240,17 @@ impl StablePassive for Colour {
         let r_cd = sim.get_player(player).and_then(|p| p.cooldowns()).map_or(0, |c| c.3);
         let ult = r_cd > self.r_cd + 30;
         self.r_cd = r_cd;
-        if ult && (rng % 100) < ULT_CHANCE {
-            self.say(sim, Cue::Ult);
+        if ult {
+            // 按住伤口，血浸透手套
+            if let Some((hp, max)) = sim.get_entity(me).map(|e| e.hp()) {
+                let after = after_cost(hp, max, self.p.r_cost);
+                if after < hp && sim.entity_set_hp(me, after) {
+                    log(format!("[t={}] DEAR GOD #{me}: {hp} -> {after} of {max}", sim.tick()));
+                }
+            }
+            if (rng % 100) < ULT_CHANCE {
+                self.say(sim, Cue::Ult);
+            }
         }
     }
 
@@ -263,9 +287,9 @@ impl StablePassive for Colour {
 
 /// 杰克的被动，注册进本包的模块（lib.rs 的 init）。
 pub fn register(host: &StableHost, module: &mut StableMod) {
-    crate::wlog(format!("jack: {ID} v{VERSION} (Jack: colours of the heart, voice lines) registered"));
+    crate::wlog(format!("jack: {ID} v{VERSION} (Jack: colours of the heart, Dear GOD's blood, voice lines) registered"));
     module.add_native_passive(format!("{ID}:colour"), Colour::default());
-    host.log(LogLevel::Info, "ragnarok.dll: Jack the Ripper (colours of the heart, voice lines).");
+    host.log(LogLevel::Info, "ragnarok.dll: Jack the Ripper (colours of the heart, Dear GOD's blood, voice lines).");
 }
 
 #[cfg(test)]
@@ -274,9 +298,17 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let p = parse_params(r#"{"p_hp": 50, "p_dmg": 30}"#);
+        let p = parse_params(r#"{"p_hp": 50, "p_dmg": 30, "r_cost": 5}"#);
         assert_eq!(p, Params::default());
         assert_eq!(parse_params(r#"{"p_hp": 999}"#).p_hp, 100);
+        assert_eq!(parse_params(r#"{"r_cost": 99}"#).r_cost, 50);
+    }
+
+    #[test]
+    fn dear_god_bleeds_but_never_kills_him() {
+        assert_eq!(after_cost(1000, 1000, 5), 950);
+        assert_eq!(after_cost(30, 1000, 5), 1);
+        assert_eq!(after_cost(1, 1000, 5), 1);
     }
 
     #[test]

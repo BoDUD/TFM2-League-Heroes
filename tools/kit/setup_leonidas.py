@@ -36,69 +36,68 @@ TEXT = {
         "name": "列奥尼达斯",
         "attack": "盾击，造成" + AD + O + "物理伤害" + E + "。" + O + "方阵" + E + "：每放一个技能，身边的友方英雄（含自己）" + A +
                   "{p_t}秒" + E + "内护甲和魔抗" + S + "+{p_res}" + E + "。",
-        "skill": "甩出连着钢链的圆盾砸向目标，造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R + "眩晕{q_stun}秒" + E + "、" + R +
-                 "减速{q_slow}%" + E + "，收链时把目标" + R + "拽近" + E + "。",
+        "skill": "方阵·恩科斯：连着钢链把盾远远甩出去砸向目标，造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R + "眩晕{q_stun}秒" + E + "、" + R +
+                 "减速{q_slow}%" + E + "。",
         "skill2": "举盾" + A + "{e_t}秒" + E + "：身边的友方英雄受到的伤害降低" + S + "{e_adr}%" + E + "，他自己再降低" + S +
                   "{e_self}%" + E + "，攻击他的敌人受到" + A + "{e_ref}%" + E + "反伤，身边的敌人被" + R +
                   "嘲讽{e_taunt}秒" + E + "。",
-        "ult": "换上真理之盾冲向目标（不受控制、减伤" + A + "{r_dr}%" + E + "），撞上时身边的敌人受到" + phys("r_dmg", "r_ad") + O +
+        "ult": "外壳剥落成刻着Λ的真实之盾，盾在前直线冲锋（不受控制、减伤" + A + "{r_dr}%" + E + "），撞上时身边的敌人受到" + phys("r_dmg", "r_ad") + O +
                "物理伤害" + E + "并被" + R + "击飞{r_up}秒" + E + "。",
-        "names": ("链盾", "举盾", "方阵冲锋"),
+        "names": ("方阵·恩科斯", "举盾", "方阵·兰布达"),
     },
     "zh-hant": {
         "name": "列奧尼達斯",
         "attack": "盾擊，造成" + AD + O + "物理傷害" + E + "。" + O + "方陣" + E + "：每放一個技能，身邊的友方英雄（含自己）" + A +
                   "{p_t}秒" + E + "內護甲和魔抗" + S + "+{p_res}" + E + "。",
-        "skill": "甩出連著鋼鏈的圓盾砸向目標，造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R + "暈眩{q_stun}秒" + E + "、" + R +
-                 "減速{q_slow}%" + E + "，收鏈時把目標" + R + "拽近" + E + "。",
+        "skill": "方陣·恩科斯：連著鋼鏈把盾遠遠甩出去砸向目標，造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R + "暈眩{q_stun}秒" + E + "、" + R +
+                 "減速{q_slow}%" + E + "。",
         "skill2": "舉盾" + A + "{e_t}秒" + E + "：身邊的友方英雄受到的傷害降低" + S + "{e_adr}%" + E + "，他自己再降低" + S +
                   "{e_self}%" + E + "，攻擊他的敵人受到" + A + "{e_ref}%" + E + "反傷，身邊的敵人被" + R +
                   "嘲諷{e_taunt}秒" + E + "。",
-        "ult": "換上真理之盾衝向目標（不受控制、減傷" + A + "{r_dr}%" + E + "），撞上時身邊的敵人受到" + phys("r_dmg", "r_ad") + O +
+        "ult": "外殼剝落成刻著Λ的真實之盾，盾在前直線衝鋒（不受控制、減傷" + A + "{r_dr}%" + E + "），撞上時身邊的敵人受到" + phys("r_dmg", "r_ad") + O +
                "物理傷害" + E + "並被" + R + "擊飛{r_up}秒" + E + "。",
-        "names": ("鏈盾", "舉盾", "方陣衝鋒"),
+        "names": ("方陣·恩科斯", "舉盾", "方陣·蘭布達"),
     },
     "en": {
         "name": "Leonidas",
         "attack": "A shield bash: " + AD + " " + O + "physical damage" + E + ". " + O + "Phalanx" + E + ": each skill he casts "
                   "gives allied champions near him (himself too) " + S + "+{p_res}" + E + " armor and magic resist for " + A +
                   "{p_t}s" + E + ".",
-        "skill": "He hurls his chained shield at the target: " + phys("q_dmg", "q_ad") + " " + O + "physical damage" + E + ", a " +
-                 R + "{q_stun}s stun" + E + " and a " + R + "{q_slow}% slow" + E + ", then " + R + "drags it closer" + E +
-                 " as he reels the chain in.",
+        "skill": "Phalanx Enchos: he hurls his shield far on its chain at the target: " + phys("q_dmg", "q_ad") + " " + O + "physical damage" + E + ", a " +
+                 R + "{q_stun}s stun" + E + " and a " + R + "{q_slow}% slow" + E + ".",
         "skill2": "He raises his shield for " + A + "{e_t}s" + E + ": allied champions near him take " + S + "{e_adr}%" + E +
                   " less damage, he himself " + S + "{e_self}%" + E + " less again, enemies hitting him take " + A +
                   "{e_ref}%" + E + " back and enemies near him are " + R + "taunted for {e_taunt}s" + E + ".",
-        "ult": "With the Shield of Truth he charges the target (unstoppable, " + A + "{r_dr}%" + E + " less damage): on impact "
+        "ult": "Its casing falls away to Aletheia Sparta, the lambda-marked Shield of Truth, and he charges shield first (unstoppable, " + A + "{r_dr}%" + E + " less damage): on impact "
                "enemies around him take " + phys("r_dmg", "r_ad") + " " + O + "physical damage" + E + " and are " + R +
                "knocked up for {r_up}s" + E + ".",
-        "names": ("Chain Shield", "Raise Shield", "Phalanx Charge"),
+        "names": ("Phalanx Enchos", "Raise Shield", "Phalanx Lambda"),
     },
     "ko": {
         "name": "레오니다스",
         "attack": "방패 강타로 " + AD + " " + O + "물리 피해" + E + ". " + O + "팔랑크스" + E + ": 스킬을 쓸 때마다 주변 아군 챔피언(자신 포함)의 "
                   "방어력과 마법 저항력 " + S + "+{p_res}" + E + "(" + A + "{p_t}초" + E + ").",
         "skill": "사슬 달린 방패를 던져 대상에게 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + ", " + R + "{q_stun}초 기절" + E + ", " + R +
-                 "{q_slow}% 둔화" + E + ", 사슬을 거둘 때 대상을 " + R + "끌어당김" + E + ".",
+                 "{q_slow}% 둔화" + E + ".",
         "skill2": "방패를 " + A + "{e_t}초" + E + " 들어 주변 아군 챔피언이 받는 피해 " + S + "{e_adr}%" + E + " 감소, 자신은 " + S +
                   "{e_self}%" + E + " 더 감소, 자신을 공격한 적은 " + A + "{e_ref}%" + E + " 반사 피해, 주변 적은 " + R +
                   "{e_taunt}초 도발" + E + ".",
-        "ult": "진리의 방패로 대상에게 돌진(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소)해 부딪힐 때 주변 적에게 " +
+        "ult": "껍데기가 벗겨진 Λ의 진실의 방패를 앞세워 일직선으로 돌진(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소)해 부딪힐 때 주변 적에게 " +
                phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + "와 " + R + "{r_up}초 띄워 올림" + E + ".",
-        "names": ("사슬 방패", "방패 들기", "팔랑크스 돌격"),
+        "names": ("팔랑크스 엔코스", "방패 들기", "팔랑크스 람다"),
     },
     "ja": {
         "name": "レオニダス",
         "attack": "盾打ちで" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "ファランクス" + E + "：スキルを使うたび、周りの味方チャンピオン"
                   "（自分も）の物理防御と魔法防御" + S + "+{p_res}" + E + "（" + A + "{p_t}秒" + E + "）。",
         "skill": "鎖付きの盾を投げつけ、対象に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "、" + R + "{q_stun}秒スタン" + E + "、" + R +
-                 "{q_slow}%スロウ" + E + "。鎖を引き戻すとき対象を" + R + "引き寄せる" + E + "。",
+                 "{q_slow}%スロウ" + E + "。",
         "skill2": "盾を" + A + "{e_t}秒" + E + "構え、周りの味方チャンピオンの被ダメージを" + S + "{e_adr}%" + E + "軽減、自分はさらに" +
                   S + "{e_self}%" + E + "軽減し、自分を攻撃した敵に" + A + "{e_ref}%" + E + "反射、周りの敵を" + R +
                   "{e_taunt}秒挑発" + E + "。",
-        "ult": "真理の盾で対象へ突撃（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）。ぶつかると周りの敵に" + phys("r_dmg", "r_ad") +
+        "ult": "外殻が剥がれたΛの真実の盾を前に一直線に突撃（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）。ぶつかると周りの敵に" + phys("r_dmg", "r_ad") +
                "の" + O + "物理ダメージ" + E + "と" + R + "{r_up}秒打ち上げ" + E + "。",
-        "names": ("鎖盾", "盾構え", "ファランクス突撃"),
+        "names": ("ファランクス・エンコス", "盾構え", "ファランクス・ラムダ"),
     },
 }
 

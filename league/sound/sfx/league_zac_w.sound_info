@@ -4,11 +4,6 @@
       "delay": 0.0,
       "clip": "league_zac_sfx_w",
       "volume": 0.7
-    },
-    {
-      "delay": 0.0,
-      "clip": "league_zac_sfx_vo_w",
-      "volume": 0.85
     }
   ]
 }

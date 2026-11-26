@@ -11,7 +11,7 @@
   skill   神虚视：`Targeting` 敌方英雄（q_range 内才放，交手时用）：睁眼闪身（动作 q_dur 拍），q_t 拍里普攻打不疼他
           （base_attack_damaged_reduce 100，贾克斯 E 的做法），技能伤害降低 q_sdr%，并记下一招（rec，q_rec 拍）。
           闪避结束时眼睛吃力（只是声音）。
-  skill2  模仿反击：`Targeting` EnemyWithoutTower（e_range）：e_hit 拍（0.235 秒）一拳 e_dmg + e_ad% 攻击力物理伤害；
+  skill2  复刻·黄昏流星群（模仿反击）：`Targeting` EnemyWithoutTower（e_range）：e_hit 拍（0.235 秒）一拳 e_dmg + e_ad% 攻击力物理伤害；
           有记录时复刻那一招：再加 e_cdmg 和目标最大生命 e_hp% 的伤害、眩晕 e_stun 拍，用掉记录。
   ult     超越时间之拳：`Targeting` 敌方英雄（r_range）：r_go 拍蓄势（不受控制、减伤 r_dr%），然后朝目标打出一条
           长 r_len、宽 r_w 的拳劲：r_dmg + r_ad% 攻击力物理伤害，击飞 r_up 拍。蓄势时被打死就不出拳。

@@ -128,6 +128,8 @@ STACKS = [
      "cap": 31, "skill": 0, "label": "厄斐琉斯主手武器剩下的子弹（每把 20 发）"},
     {"hero": "league_aurora", "ladder": "league_aurora_s_", "rungs": 2, "cap": 2, "skill": 0,
      "label": "阿萝拉「驱灵奇术」层数（第 3 层抽出灵物）"},
+    {"hero": "league_aurora", "ladder": "league_aurora_p", "rungs": 2, "on": "foes", "cap": 2, "skill": 0,
+     "native": ["league_aurora"], "label": "阿萝拉敌人身上最多的「驱灵奇术」（附加包 0.4.0 起按敌人分别叠）"},
     {"hero": "league_diana", "ladder": "league_diana_ms_", "rungs": 2, "cap": 2, "skill": 0,
      "label": "黛安娜「月银之刃」普攻计数（第 3 下顺劈）"},
     {"hero": "league_draven", "ladder": "league_draven_p_", "rungs": 6, "cap": 6, "skill": 0,

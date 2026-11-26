@@ -39,6 +39,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ragnarok_art as A  # noqa: E402
+import ragnarok_atlas as RA  # noqa: E402
 
 # 2026-11-21 Codex 照动画第一季重画的两倍帧（assets/source/lubu/rebuild，一格 256，脚底点 (128, 232)，个子和原来一样）：
 # PPU 和 FX_PPU 都乘 2。下面的数还是 Codex 128 格里量的，用 up() 乘两倍
@@ -62,7 +63,7 @@ def up(p):
 
 SOLE = up((64, 116))        # Codex's cells: the soles' point (the bottom edge of the feet's last row)
 FX_ORIGIN = up((64, 64))    # 特效格的中心
-CANVAS = (round(288 * UP), round(224 * UP), up((144, 176)))
+CANVAS = (800, 440, (250, 370))   # 骑马的天喰：马身往后 89、开天光往前 233 个逻辑像素（两倍）；原来 (576, 448, (288, 352))
 # (action, effect, from seconds, anchor from the soles, seconds a frame or None for the effect's own, the effect cell's
 # point that goes on the anchor)
 # 锚点是两倍格子里的像素（往右为正、往上为负），特效格的中心放在脚底点加上它；给一串就是每个身体帧一个（特效跟着戟走）。
@@ -75,17 +76,18 @@ CANVAS = (round(288 * UP), round(224 * UP), up((144, 176)))
 # - 破阵：突刺的亮头在戟尖上（第 5、6 帧戟尖 (238, 187) (243, 178)），拖尾顺着戟杆；第 7、8 帧戟往回收，突刺留在前面
 #   慢慢散掉，只跟着戟杆那一行往下一点（这时人站直了，再高拖尾会盖到胡子；跟着戟缩回来，碎光全落在胸口上）；前 4 帧
 #   没有特效
-# - 天喰蓄力：光团在戟头上跟着走（第 1 帧端在腰间、第 2、3 帧斜着举起、第 4 帧举过头顶）；第 5 帧戟往下劈，光团留在
-#   头顶举戟的地方，接着斩击从那里往下劈到戟尖（跟着戟到右下角的话，斩击又从头顶开始，光一下子跳下去又跳回来）
-# - 天喰斩击：一道从头顶前上方斜劈到身前地面的弧，下端在第 6 帧戟尖 (253, 216) 前面一点；再往左放，弧会从脸前擦过
+# - 天喰：2026-11-26 起大招换成 Codex 补画的赤兔天喰（站着蓄力、斩击那两条特效不用了，见下面 BAKE）
+FID = os.path.join(ROOT, "assets", "source", "lubu", "fidelity")
+REDRAW = [(FID, "lubu", {"ult": "ult"}, None)]
+REDRAW_FX = [(FID, "lubu", {"sky_eater": "sky_eater"}, None)]
 THRUST_AT = [(47, -51)] * 5 + [(52, -60), (48, -53), (40, -55)]
-CHARGE_AT = [(57, -60), (54, -102), (53, -136)] + [(55, -146)] * 5
 BAKE = [
     ("attack", "attack_swipe", 0.26, (92, -70), None, FX_ORIGIN),
     ("skill", "sweep", 0.42, (50, -80), None, FX_ORIGIN),
     ("skill2", "thrust", 0.34, THRUST_AT, None, FX_ORIGIN),
-    ("ult", "ult_charge", 0.0, CHARGE_AT, 1.18 / 8, FX_ORIGIN),
-    ("ult", "ult_release", 1.18, (76, -80), None, FX_ORIGIN),
+    # 赤兔天喰（2026-11-26 Codex 照原作补画：双腿被打断以后骑上赤兔马，在马上握戟尾全力一挥劈开天空）：第 5 帧 0.39 秒挥出的
+    # 开天光画在他身前（Codex 的 frames.json 偏移）
+    ("ult", "sky_eater", 0.39, RA.redraw_offset(FID, "sky_eater"), None, RA.redraw_point(FID, "fx", "sky_eater")),
 ]
 # the attack is a 30-tick action (build_lubu atk_dur): the recovery frames shortened so the swing still ends inside it,
 # the blow on frame 4 at 0.32 s as drawn
@@ -112,10 +114,11 @@ PROJ_FX = {"ult_wave": up((66, 20))}
 # 的位置（头和脚两种量法的平均）；跑步还逐帧挪：头离落点 22、21、19、22、25、25、16、31 格，最后一帧上身往前一冲，
 # 128 格那版八帧头一动不动，挪成头都在待机前 2 格（和那版一样）
 SHIFT = {"idle": -14, "run": [-13, -12, -10, -13, -16, -16, -7, -22], "attack": -7, "skill": -6, "skill2": -3,
-         "ult": 2, "hit": -9, "dead": -8}
+         "ult": RA.redraw_shift(FID, "ult"), "hit": -9, "dead": -8}
 
 LUBU = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME, "TARGET_FX": TARGET_FX,
-        "EXTRA_FX": EXTRA_FX, "PROJ_FX": PROJ_FX, "CANVAS": CANVAS, "SHIFT": SHIFT}
+        "EXTRA_FX": EXTRA_FX, "PROJ_FX": PROJ_FX, "CANVAS": CANVAS, "SHIFT": SHIFT, "REDRAW": REDRAW,
+        "REDRAW_FX": REDRAW_FX}
 
 if __name__ == "__main__":
     A.main(LUBU, __doc__)

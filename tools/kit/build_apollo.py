@@ -7,14 +7,15 @@
 （assets/source/apollo/，交接说明 assets/source/apollo/HANDOFF.md），技能照 Codex 的四个动作做。位置是中路（用户
 2026-11-23：「位置你看着定就行 选最合适的位置」）：普攻是拳（近战），下路要的是远程普攻；光丝定身、光箭远程消耗、
 银箭突进进场爆发，是中路刺客的打法（中路只有波塞冬、湿婆、别西卜三个）。伤害是物理（拳和箭）。
-  被动    日轮：每放一个技能，p_t 拍里下一次日轮拳多打 p_dmg + p_ad% 攻击力物理伤害。写在普攻说明里（游戏只有三个技能
+  被动    白夜的拥抱（「我这颗太阳不会落下」）：身边 p_r 以内活着的英雄（敌我都算）每有一个，他的伤害 +p_per%，最多数 p_max 个
+          （ragnarok.dll）。原来的「日轮」（放技能后下一拳多打一下）原作没有，2026-11-26 照原作换掉。写在普攻说明里（游戏只有三个技能
           图标位），全在数据里。
   attack  日轮拳 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 5 帧，0.287 秒）打到；身上有日轮时多打一下（被动）。
-  skill   阿尔忒弥斯之丝：`Targeting` EnemyWithoutTower（q_range）：q_charge 拍光丝汇聚，q_go 拍（第 4 帧，0.237 秒）投出，
+  skill   光辉的支配（阿尔忒弥斯·埃伦科斯）：`Targeting` EnemyWithoutTower（q_range）：q_charge 拍光丝汇聚，q_go 拍（第 4 帧，0.237 秒）投出，
           q_hit 拍（0.285 秒）缠住：q_dmg + q_ad% 攻击力物理伤害、定身 q_bind 拍；q_fade 拍光丝松开。
-  skill2  光之矢：`Targeting` EnemyWithoutTower（e_range）：e_form 拍（第 3 帧，0.217 秒）光弓成形，e_draw 拍拉弦，e_go 拍
+  skill2  阿尔忒弥斯的月影：`Targeting` EnemyWithoutTower（e_range）：e_form 拍（第 3 帧，0.217 秒）光弓成形，e_draw 拍拉弦，e_go 拍
           （第 5 帧，0.354 秒）放箭（TargetProjectile，速度 e_speed，追着目标飞）：打到 e_dmg + e_ad% 攻击力物理伤害。
-  ult     银箭突进：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到撞上为止），r_show 拍（第 3 帧，
+  ult     射穿灵魂的银矢（阿吉罗托克索斯）：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到撞上为止），r_show 拍（第 3 帧，
           0.305 秒）女神像显现，r_load 拍光索蓄力，r_go 拍（第 5 帧，0.510 秒）把自己射出去（RushTime，每拍 r_speed、r_t 拍，
           碰到人就停）：撞上的敌人 r_dmg + r_ad% 攻击力物理伤害、眩晕 r_stun 拍。射出去之前被打死就什么都不发生。
 
@@ -45,13 +46,14 @@ PROJ = f"asset/{MOD_ID}/effects/{ID}_proj"
 # 银箭 200 + 160% -> 260 + 200%、日轮 30 + 40% -> 40 + 50%）：+2.59 / +2.43（这份，平均 +2.51，K/D/A 3.5 / 1.8 / 4.6）；再缩光丝、光箭的冷却 +2.95，太强。
 # 光箭的高度：Codex 的离弦点在脚底上 82 格 = 29.8 个游戏像素（PPU 2.75），弹道画面在落点（脚底上 11.5）往北 5000 - y_offset 处：
 # y_offset = 5000 - (29.8 - 11.5) x 1000 = -13300
+# 2026-11-26 被动改成白夜的拥抱以后：初版 +2.04；身边每个英雄加 8%（这份 P）+2.48，改之前 +2.51。
 P = {
     # 属性（中路刺客）
     "hp": 1000, "hp_g": 95, "atk": 100, "atk_g": 17, "apw": 0, "apw_g": 0, "def": 30, "def_g": 5, "mr": 30,
     "mr_g": 4, "ms": 1090, "ms_g": 11,
     "atk_range": 26000, "atk_dur": 36, "atk_cd": 60, "atk_st": 17,
     # 被动：日轮
-    "p_dmg": 40, "p_ad": 50, "p_t": 240,
+    "p_r": 50000, "p_per": 8, "p_max": 5,
     # 阿尔忒弥斯之丝
     "q_cd": 480, "q_range": 45000, "q_dur": 35, "q_charge": 11, "q_go": 14, "q_hit": 17, "q_fade": 23,
     "q_dmg": 80, "q_ad": 90, "q_bind": 60,
@@ -130,16 +132,17 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def build(p, is_native=False):
-    # ------------------------------------------------------------------ 被动：日轮（放技能以后下一拳多打一下）
-    sun = flag("sun", p["p_t"])
+    # ------------------------------------------------------------------ 被动：白夜的拥抱（ragnarok.dll 的 apollo.rs：身边的英雄越多
+    # 伤害越高）。--plain 给平衡模拟用：模拟跑不了 DLL，攻击力一直按身边两个英雄算（+p_per x 2 %）
+    sun = None if is_native else when(
+        "p_on", combine(), combine(flag("p_on", None), flag("p_embrace", None, attack_mult=p["p_per"] * 2)))
 
-    # ------------------------------------------------------------------ 普攻：日轮拳
-    extra = combine(attack(p["p_dmg"], p["p_ad"]), unflag("sun"))
+    # ------------------------------------------------------------------ 普攻：光辉竖琴（光丝变成拳套打拳击）
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
-                      combine(attack(0, 100), when("sun", extra, combine()), sfx("a"), view("a_hit"), tsfx("a_hit")),
+                      combine(sun, attack(0, 100), sfx("a"), view("a_hit"), tsfx("a_hit")),
                       atype="BaseAttack", cancel=True)
 
-    # ------------------------------------------------------------------ Q：阿尔忒弥斯之丝（缠住、定身）
+    # ------------------------------------------------------------------ Q：光辉的支配（阿尔忒弥斯·埃伦科斯：光丝绑住一只手臂、定身）
     bound = combine(attack(p["q_dmg"], p["q_ad"]), {"type": "Bind", "duration": p["q_bind"]}, view("q_bind"),
                     tsfx("q_hit"))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
@@ -148,7 +151,7 @@ def build(p, is_native=False):
                            delayed(p["q_hit"] - 1, alive_only(bound)),
                            delayed(p["q_fade"] - 1, alive_only(sfx("q_fade")))))
 
-    # ------------------------------------------------------------------ E：光之矢（光弓放箭，追着目标飞）
+    # ------------------------------------------------------------------ E：阿尔忒弥斯的月影（光丝变成金弓，光速的箭追着目标飞）
     arrow = {"type": "TargetProjectile", "name": n("e_arrow"), "speed": p["e_speed"], "y_offset": p["e_y"],
              "applied_target": "Enemy",
              "applied_effects": [{"casting_type": "Targeting", "effect": combine(
@@ -158,7 +161,8 @@ def build(p, is_native=False):
                             delayed(p["e_draw"] - 1, alive_only(sfx("e_draw"))),
                             delayed(p["e_go"] - 1, alive_only(sfx("e"), arrow))))
 
-    # ------------------------------------------------------------------ R：银箭突进（女神像拉开光索，把自己射出去）
+    # ------------------------------------------------------------------ R：射穿灵魂的银矢（阿吉罗托克索斯：女神像把弓变成两手间的
+    # 绳，他像弹弓一样往后靠，拳头在前把自己射出去）
     struck = [{"casting_type": "Targeting", "effect": e} for e in
               (attack(p["r_dmg"], p["r_ad"]), {"type": "Stun", "duration": p["r_stun"]}, view("a_hit"), tsfx("r_hit"))]
     dash = {"type": "RushTime", "speed": p["r_speed"], "tick": p["r_t"], "range": 15000,
@@ -190,7 +194,7 @@ def build(p, is_native=False):
     }
     if is_native:   # ragnarok.dll（addons/ragnarok/src/apollo.rs）：配音、倒地声
         kit = {"id": ID, "category": kit["category"], "tags": kit["tags"],
-               "passive": {"passive_ref": f"{ID}:voice", "params": {}},
+               "passive": {"passive_ref": f"{ID}:voice", "params": {k: p[k] for k in ("p_r", "p_per", "p_max")}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
 

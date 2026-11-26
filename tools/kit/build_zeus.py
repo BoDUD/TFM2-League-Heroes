@@ -15,7 +15,7 @@ ad_*), the data plays the changes (CasterAnimation `expand`, the ult's own `ult`
           for x_slow_t) and the muscle buff `mu` for the rest of the life: m_atk% attack, m_def% armour and magic
           resistance.
   attack  a jab on `Enemy` (towers too): 100% AD on atk_st (frame 4, 0.245 s), the jab's wind drawn into his frames.
-  skill   Barrage (连拳), `Targeting` on `EnemyWithoutTower` (q_range): two punches (frames 3 and 5, 0.18 s and
+  skill   Meteor Jab (黄昏流星群), `Targeting` on `EnemyWithoutTower` (q_range): two punches (frames 3 and 5, 0.18 s and
           0.315 s), each q_dmg + q_ad% AD; muscle: the second slows q_slow% for q_slow_t, Adamas: it stuns q_stun.
   skill2  The Fist That Transcends Time (超越时间之拳), `Targeting` on `EnemyWithoutTower` (e_range): the blow lands
           at once (e_dmg + e_ad% AD, stunned e_stun; Adamas e_stun_ad) - the punch itself shows only at 0.4 s, it
@@ -60,6 +60,8 @@ P = {
     "p_n": 3, "x_dur": 61, "x_dr": 50, "x_r": 24000, "x_dmg": 90, "x_ad": 60, "x_slow": 30, "x_slow_t": 90,
     "m_atk": 25, "m_def": 35,
     # Barrage
+    # 黄昏流星群（2026-11-26 Codex 补画的老人形态：8 帧 7 拳，越打越快）：每拳 q7_dmg + q7_ad%，加起来比原来两拳多一点
+    "q7_dmg": 9, "q7_ad": 19,
     "q_cd": 360, "q_range": 28000, "q_dur": 38, "q_hit1": 11, "q_hit2": 19, "q_dmg": 30, "q_ad": 65,
     "q_slow": 40, "q_slow_t": 60, "q_stun": 36,
     # The Fist That Transcends Time
@@ -184,9 +186,15 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ skill: Barrage
     def punch(extra):
         return combine(attack(p["q_dmg"], p["q_ad"]), sfx("q"), view("q_hit"), tsfx("q_hit"), extra)
-    second = by_form({"type": "Stun", "duration": p["q_stun"]}, slow("q_slow", p["q_slow"], p["q_slow_t"]), combine())
+    # 膨胀、阿陀磨须形态还是原来的两记重拳（第二拳减速 / 眩晕）；老人形态是补画的黄昏流星群：七拳，按 frames.json 的出拳时刻
+    # （0.12、0.218、0.304、0.376、0.435、0.484、0.526 秒），越打越快
+    two = lambda second: combine(delayed(p["q_hit1"] - 1, punch(None)), delayed(p["q_hit2"] - 1, punch(second)))
+    jab = lambda loud: combine(attack(p["q7_dmg"], p["q7_ad"]), view("q_hit"), sfx("q") if loud else None,
+                               tsfx("q_hit") if loud else None)
+    meteor = combine(*[delayed(t - 1, alive_only(jab(i % 2 == 0))) for i, t in enumerate((7, 13, 18, 23, 26, 29, 32))])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(delayed(p["q_hit1"] - 1, punch(None)), delayed(p["q_hit2"] - 1, punch(second))))
+                   by_form(two({"type": "Stun", "duration": p["q_stun"]}), two(slow("q_slow", p["q_slow"], p["q_slow_t"])),
+                           meteor))
 
     # ------------------------------------------------------------------ skill2: The Fist That Transcends Time
     stun_e = by_form({"type": "Stun", "duration": p["e_stun_ad"]}, {"type": "Stun", "duration": p["e_stun"]},

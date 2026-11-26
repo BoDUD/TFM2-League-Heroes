@@ -196,7 +196,7 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "Airborne",
+                    "type": "Bind",
                     "duration": 36
                   }
                 },
@@ -224,7 +224,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.ragnarok_lubu.ult",
-    "duration": 96,
+    "duration": 47,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -241,7 +241,7 @@
             "name": "ragnarok_lubu_r_guard",
             "duration": {
               "Time": {
-                "tick": 74
+                "tick": 25
               }
             },
             "cc_immune": true,
@@ -259,7 +259,77 @@
         },
         {
           "type": "Delayed",
-          "tick": 71,
+          "tick": 5,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_lubu_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_lubu_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 2500,
+                        "tick": 26,
+                        "range": 15000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 2500,
+                        "tick": 26,
+                        "range": 15000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_lubu_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 22,
           "effects": [
             {
               "type": "Combine",
@@ -307,8 +377,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 200,
-                              "attack_ratio": 280,
+                              "damage": 150,
+                              "attack_ratio": 200,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -372,8 +442,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 200,
-                              "attack_ratio": 280,
+                              "damage": 150,
+                              "attack_ratio": 200,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"

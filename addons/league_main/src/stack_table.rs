@@ -6,7 +6,7 @@ use super::stacks::{Rule, Stack, Stat};
 /// 表里的英雄都以它开头（stacks.rs 翻表前先比它，the_table_is_sound 也按它查）。
 pub const PREFIX: &str = "league_";
 
-pub const STACKS: [Stack; 102] = [
+pub const STACKS: [Stack; 103] = [
     Stack { hero: "league_ahri", rule: Rule::Most(&[("league_ahri_et1", 1), ("league_ahri_et2", 2), ("league_ahri_et3", 3), ("league_ahri_et4", 4), ("league_ahri_et5", 5), ("league_ahri_et_ready", 6), ("league_ahri_et7", 7), ("league_ahri_et8", 8)]), cap: 8, foes: false, skill: 0 },
     Stack { hero: "league_ahri", rule: Rule::Ladder { prefix: "league_ahri_es_", rungs: 99, step: 1, full: None }, cap: 99, foes: false, skill: 0 },
     Stack { hero: "league_akshan", rule: Rule::Ladder { prefix: "league_akshan_p_", rungs: 2, step: 1, full: None }, cap: 2, foes: false, skill: 0 },
@@ -16,6 +16,7 @@ pub const STACKS: [Stack; 102] = [
     Stack { hero: "league_aphelios", rule: Rule::Total(&[("league_aphelios_b0", 1), ("league_aphelios_b1", 2), ("league_aphelios_b2", 4), ("league_aphelios_b3", 8), ("league_aphelios_b4", 16)]), cap: 31, foes: false, skill: 0 },
     Stack { hero: "league_aurelionsol", rule: Rule::Ladder { prefix: "league_aurelionsol_d", rungs: 30, step: 1, full: None }, cap: 30, foes: false, skill: 2 },
     Stack { hero: "league_aurora", rule: Rule::Ladder { prefix: "league_aurora_s_", rungs: 2, step: 1, full: None }, cap: 2, foes: false, skill: 0 },
+    Stack { hero: "league_aurora", rule: Rule::Ladder { prefix: "league_aurora_p", rungs: 2, step: 1, full: None }, cap: 2, foes: true, skill: 0 },
     Stack { hero: "league_belveth", rule: Rule::Ladder { prefix: "league_belveth_l", rungs: 8, step: 1, full: None }, cap: 8, foes: false, skill: 0 },
     Stack { hero: "league_brand", rule: Rule::Prefix("league_brand_bz_"), cap: 3, foes: true, skill: 0 },
     Stack { hero: "league_braum", rule: Rule::Count("league_braum_p_mark"), cap: 3, foes: true, skill: 0 },

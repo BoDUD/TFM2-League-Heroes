@@ -1,0 +1,473 @@
+{
+  "hero": "thor",
+  "name": "索尔",
+  "actor_id": "ragnarok_thor",
+  "cell": [
+    216,
+    168
+  ],
+  "ground": [
+    98,
+    148
+  ],
+  "hd_multiplier": 2,
+  "right_facing": true,
+  "fx_cell": [
+    304,
+    192
+  ],
+  "actor": {
+    "skill2": {
+      "name": "铁手套格挡",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.11
+        },
+        {
+          "x": 216,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.1
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.08
+        },
+        {
+          "x": 648,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.11
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.1
+        },
+        {
+          "x": 1080,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.09
+        },
+        {
+          "x": 1296,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.1
+        },
+        {
+          "x": 1512,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.13
+        }
+      ],
+      "source_animation": "hd_skill2",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": -4,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "gauntlet_sheen": {
+      "name": "手套金属光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.05
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_front",
+      "offset": [
+        8,
+        -21
+      ],
+      "frame_offsets": {
+        "1": [
+          -8,
+          -12
+        ],
+        "2": [
+          -7,
+          -18
+        ],
+        "3": [
+          -1,
+          -20
+        ],
+        "4": [
+          8,
+          -21
+        ],
+        "5": [
+          4,
+          -20
+        ],
+        "6": [
+          1,
+          -21
+        ],
+        "7": [
+          -10,
+          -15
+        ],
+        "8": [
+          -8,
+          -14
+        ]
+      }
+    },
+    "block_impact": {
+      "name": "格挡火花",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1216,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1520,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1824,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 2128,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        12,
+        -25
+      ],
+      "frame_offsets": {
+        "1": [
+          -4,
+          -13
+        ],
+        "2": [
+          1,
+          -18
+        ],
+        "3": [
+          5,
+          -22
+        ],
+        "4": [
+          12,
+          -25
+        ],
+        "5": [
+          11,
+          -25
+        ],
+        "6": [
+          8,
+          -24
+        ],
+        "7": [
+          -2,
+          -18
+        ],
+        "8": [
+          -3,
+          -14
+        ]
+      }
+    }
+  },
+  "cues": {
+    "skill2": [
+      {
+        "frame": 2,
+        "event": "gauntlet_sheen",
+        "time_s": 0.11
+      },
+      {
+        "frame": 4,
+        "event": "guard_window",
+        "time_s": 0.29
+      },
+      {
+        "frame": 7,
+        "event": "guard_end",
+        "time_s": 0.59
+      }
+    ]
+  },
+  "fx_events": {
+    "gauntlet_sheen": {
+      "track": "gauntlet_sheen",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_front",
+      "offset": [
+        3,
+        -20
+      ],
+      "frame_offsets": {
+        "1": [
+          -7,
+          -16
+        ],
+        "2": [
+          -5,
+          -25
+        ],
+        "3": [
+          3,
+          -28
+        ],
+        "4": [
+          3,
+          -20
+        ],
+        "5": [
+          2,
+          -20
+        ],
+        "6": [
+          1,
+          -28
+        ],
+        "7": [
+          -6,
+          -25
+        ],
+        "8": [
+          -7,
+          -16
+        ]
+      }
+    },
+    "block_impact": {
+      "track": "block_impact",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        8,
+        -24
+      ],
+      "frame_offsets": {
+        "1": [
+          -2,
+          -20
+        ],
+        "2": [
+          0,
+          -29
+        ],
+        "3": [
+          8,
+          -32
+        ],
+        "4": [
+          8,
+          -24
+        ],
+        "5": [
+          7,
+          -24
+        ],
+        "6": [
+          6,
+          -32
+        ],
+        "7": [
+          -1,
+          -29
+        ],
+        "8": [
+          -2,
+          -20
+        ]
+      }
+    }
+  },
+  "baseline": {
+    "skill2": {
+      "source": "thor",
+      "action": "skill2",
+      "identity": "idle",
+      "idle_ink_heights": [
+        132,
+        136,
+        128,
+        140,
+        128,
+        136,
+        132
+      ],
+      "target_hd_ink_height": 132,
+      "source_track_frames": 4,
+      "source_track_canvas_max": [
+        136,
+        229
+      ],
+      "source_track_durations": [
+        0.1,
+        0.12,
+        0.14,
+        0.1
+      ],
+      "reference_standing_body_height_hd": 90
+    }
+  },
+  "art_sources": [
+    "New registered Thor actor artwork"
+  ],
+  "actor_hd_sampling": "nearest"
+}

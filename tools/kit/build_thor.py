@@ -11,23 +11,27 @@ lightning through the ground, a hammer that flies out and comes back, and Mjolni
           p_t ticks (the red cracks and their sound; a counter of caster flags, t1 / t2). Awake, his attacks add p_dmg +
           p_hp% of his max health as magic damage (lightning) and the slam stuns q_stun ticks instead of q_stun0.
   attack  a hammer blow on `Enemy` (towers too): 100% AD on atk_st, the thunder spark on the target.
-  skill   Thunder God's Hammer (雷神之锤), `Targeting` on `EnemyWithoutTower` (q_range): the hammer comes down on q_hit;
+  skill   Thor's Hammer (斗神之雷槌), `Targeting` on `EnemyWithoutTower` (q_range): the hammer comes down on q_hit;
           the ground lightning hits every enemy within q_r of a point q_off in front of him: q_dmg + q_ad% AD + q_hp% of
           his max health, stunned q_stun0 ticks (awake: q_stun; a q_stun0 of 0 slows q_slow% for q_slow_t instead).
-  skill2  Returning Hammer (回旋雷槌), `Direction` on `EnemyWithoutTower` (e_range): on e_go he throws Mjolnir
-          e_len straight ahead and it flies back to him (league_sivir's Q: a LinearProjectile whose end starts a
-          BackToCasterLinearProjectile), through every enemy both ways: e_dmg + e_ad% AD + e_hp% max health, slowed
-          e_slow% for e_slow_t. His hands stay empty while it flies (`skill2_wait`, a CasterAnimation held up to e_wait
-          ticks); the catch (`skill2_catch`) and its shield (e_sh + e_sh_ad% AD for e_sh_t ticks) come only when it
-          really reaches him - the return's end_effects, never a timer (Codex's handoff).
-  ult     Awakened Thunder Hammer (觉醒雷槌), `Targeting` on `EnemyChampion` (r_range): Mjolnir awakens at once for
-          r_awake ticks; he gathers himself r_go ticks - unstoppable, taking r_dr% less damage - and brings it down:
-          every enemy within r_r of a point r_off ahead takes r_dmg + r_ad% AD + r_hp% of his max health and is thrown
-          up r_up ticks. A Thor killed while gathering does not strike (the alive search).
+  skill2  Járngreipr (铁手套): 2026-11-26 照原作改（用户：「我需要的是完美的还原度」）。原作第一回合：雷神的铁手套
+          Járngreipr 是「天界最强的防御」（真正的用处是压住他的握力，免得捏碎没觉醒的雷槌），吕布的方天戟正面打碎了右手套，雷槌
+          这时才觉醒。Codex 补画的格挡（assets/source/thor/fidelity，0.82 秒）：`Targeting` on `EnemyWithoutTower`
+          (e_range)，第 4 帧 e_on 到第 7 帧 e_off 双臂的铁手套顶在身前——普攻全挡（base_attack_damaged_reduce 100）、
+          受到的技能伤害降低 e_dr%；举起来的时候拿到 e_sh + e_sh_ad% AD 的护盾 e_sh_t ticks。算雷槌觉醒的一次。
+  ult     Awakened Thunder Hammer (覚醒雷槌 / ゲイルロズトールハンマー), `Targeting` on `EnemyChampion` (r_range): 原作是把觉醒的
+          雷槌扔出去、飞出场外像回旋镖一样回来、接住，把速度和离心力变成一击（第一次打断了吕布的双腿）。原来 E 的扔锤搬过来：
+          雷槌立即觉醒 r_awake ticks；r_go 扔出（league_sivir 的 Q：LinearProjectile 的终点放 BackToCasterLinearProjectile），
+          来回穿过的敌人受到 r_pdmg + r_pad% AD + r_php% 最大生命、减速 r_slow% r_slow_t ticks；锤子飞着的时候空着手
+          （`ult_wait`，CasterAnimation 一直放到锤子回来），真飞回来才接住（`ult_catch`，回程的 end_effects，不按时间放），
+          接住 r_catch ticks 后举锤过头（`ult_slam`，原来大招举过头顶起的后半段），再过 r_hit ticks 砸下：前方 r_off 处 r_r
+          以内的敌人受到 r_dmg + r_ad% AD + r_hp% 最大生命并被击飞 r_up ticks。整个大招 r_dur ticks 不受控制、受到的伤害降低
+          r_dr%。砸下前死了就不砸（alive_only）。
 
 Timings are the frames' (Codex's asset_manifest_v01.json presentation_events, 60 ticks a second): the attack's blow on
-frame 4 (0.42 s), the throw on frame 3 (0.36 s), the ult's blow on frame 5 (1.24 s); the slam's frame 4 is drawn at
-0.62 s and played at 0.43 s (q_hit 26, tools/art/import_thor.py RETIME).
+frame 4 (0.42 s), the throw on frame 3 (0.36 s: r_go 22); the slam's frame 4 is drawn at 0.62 s and played at 0.43 s
+(q_hit 26, tools/art/import_thor.py RETIME); the guard's frames 4-7 at 0.29-0.59 s (e_on 17, e_off 35; Codex's
+frames.json guard_window / guard_end); ult_slam's blow 0.18 s after it starts (r_hit 11), the catch 0.12 s (r_catch 7).
 
 ragnarok.dll (addons/ragnarok/src/thor.rs): the passive ragnarok_thor:voice - only his voice lines (the rules are all
 data: --plain is the same kit with category Melee for the classic engine, which has no Tank).
@@ -54,23 +58,26 @@ PROJ = f"asset/{MOD_ID}/effects/{ID}_proj"
 # attack no better; the ult (r_dr 45, r_cd 2400, r_dmg 180) +0.65, with the stun and a little health +0.68, its throw
 # 1.5 s over r_r 44000 +1.22; this P +1.41 / +0.77 (K/D/A 1.67 / 1.00 / 3.86, 97 attacks, 41 slams, 34 throws, 6.7 ults
 # a game).
+# 2026-11-26 照原作改（E 铁手套格挡、R 扔锤飞回接住砸下）以后重新调：初版 -0.39；E 的护盾和减伤、
+# Q 和 R 的伤害、血量都加一档 +0.28，再把 Q 冷却缩到 5 秒（这份 P）+1.07，和改之前（+1.09）一样。
 P = {
     # stats (Tank, top): the base tanks' (atk 80 +6, hp 1100 +120, def 40 +10, mr 30 +5), a god a little more
-    "hp": 1220, "hp_g": 120, "atk": 84, "atk_g": 12, "apw": 0, "apw_g": 0, "def": 40, "def_g": 9, "mr": 30,
+    "hp": 1300, "hp_g": 120, "atk": 84, "atk_g": 12, "apw": 0, "apw_g": 0, "def": 40, "def_g": 9, "mr": 30,
     "mr_g": 5, "ms": 990, "ms_g": 10,
     "atk_range": 27000, "atk_dur": 36, "atk_cd": 76, "atk_st": 24,
     # passive Mjolnir Awakening
     "p_t": 360, "p_dmg": 25, "p_hp": 3, "p_n": 3,
     # Thunder God's Hammer
-    "q_cd": 360, "q_range": 30000, "q_dur": 46, "q_hit": 26, "q_off": 14000, "q_r": 26000, "q_dmg": 60, "q_ad": 70,
+    "q_cd": 300, "q_range": 30000, "q_dur": 46, "q_hit": 26, "q_off": 14000, "q_r": 26000, "q_dmg": 75, "q_ad": 85,
     "q_hp": 4, "q_slow": 40, "q_slow_t": 60, "q_stun": 66, "q_stun0": 42,
-    # Returning Hammer
-    "e_cd": 480, "e_range": 55000, "e_dur": 26, "e_go": 22, "e_speed": 5000, "e_len": 44000, "e_r": 12000,
-    "e_dmg": 40, "e_ad": 60, "e_hp": 2, "e_slow": 40, "e_slow_t": 60, "e_wait": 40, "e_catch": 10, "e_sh": 60,
-    "e_sh_ad": 50, "e_sh_t": 150,
-    # Awakened Thunder Hammer
-    "r_cd": 2400, "r_range": 55000, "r_dur": 108, "r_go": 75, "r_off": 24000, "r_r": 44000, "r_dmg": 180, "r_ad": 100,
-    "r_hp": 8, "r_up": 90, "r_dr": 45, "r_awake": 480,
+    # Járngreipr（铁手套格挡）
+    "e_cd": 420, "e_range": 32000, "e_dur": 49, "e_on": 17, "e_off": 35, "e_dr": 70, "e_sh": 140, "e_sh_ad": 90,
+    "e_sh_t": 150,
+    # Awakened Thunder Hammer（扔出、飞回、接住、砸下）
+    "r_cd": 2400, "r_range": 55000, "r_dur": 94, "r_go": 22, "r_speed": 5000, "r_len": 44000, "r_rr": 12000,
+    "r_pdmg": 60, "r_pad": 80, "r_php": 2, "r_slow": 40, "r_slow_t": 60, "r_wait": 60, "r_catch": 7, "r_slam": 46,
+    "r_hit": 11, "r_off": 24000, "r_r": 44000, "r_dmg": 220, "r_ad": 100, "r_hp": 8, "r_up": 90, "r_dr": 45,
+    "r_awake": 480,
 }
 
 
@@ -190,40 +197,47 @@ def build(p, is_native=False):
                       combine(attack(0, 100), zap, sfx("a"), view("a_hit"), tsfx("a_hit")),
                       atype="BaseAttack", cancel=True)
 
-    # ------------------------------------------------------------------ skill: Thunder God's Hammer
+    # ------------------------------------------------------------------ skill: Thor's Hammer (闘神の雷槌): the shockwave throws
+    # them up (the first round: it blew the sand away and knocked the watchers flying), q_stun0 / q_stun ticks in the air
     struck = [attack(p["q_dmg"], p["q_ad"], p["q_hp"]),
-              when("awake", {"type": "Stun", "duration": p["q_stun"]},
-                   {"type": "Stun", "duration": p["q_stun0"]} if p["q_stun0"] else slow("q_slow", p["q_slow"],
+              when("awake", {"type": "Airborne", "duration": p["q_stun"]},
+                   {"type": "Airborne", "duration": p["q_stun0"]} if p["q_stun0"] else slow("q_slow", p["q_slow"],
                                                                                          p["q_slow_t"])),
               view("q_hit")]
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(count, sfx("q"), delayed(p["q_hit"] - 1, sfx("q_slam"), ahead(p["q_r"], p["q_off"], struck),
                                                    tsfx("q_hit"))))
 
-    # ------------------------------------------------------------------ skill2: Returning Hammer
-    passed = lambda: [{"casting_type": "Targeting", "effect": e} for e in
-                      (attack(p["e_dmg"], p["e_ad"], p["e_hp"]), slow("e_slow", p["e_slow"], p["e_slow_t"]),
-                       view("e_hit"), tsfx("e_hit"))]
-    catch = [{"type": "RemoveCasterAnimation", "name": "skill2_wait"}, anim("skill2_catch", p["e_catch"]), sfx("e_catch"),
-             on_self({"type": "Shield", "amount": p["e_sh"], "attack_ratio": p["e_sh_ad"], "ap_ratio": 0,
-                      "tick": p["e_sh_t"]})]
-    back = {"type": "BackToCasterLinearProjectile", "name": n("e_back"), "penetrate": True,
-            "applied_target": "EnemyWithoutTower", "applied_effects": passed(), "end_effects": catch,
-            "speed": p["e_speed"], "range": 400000, "shape": circle(p["e_r"])}
-    out = {"type": "LinearProjectile", "name": n("e_out"), "penetrate": True, "applied_target": "EnemyWithoutTower",
-           "applied_effects": passed(), "end_effects": [sfx("e_turn"), back], "speed": p["e_speed"],
-           "range": p["e_len"], "shape": circle(p["e_r"]), "y_offset": -2000}
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Direction", "EnemyWithoutTower",
-                    combine(count, delayed(p["e_go"] - 1, sfx("e"), anim("skill2_wait", p["e_wait"]), out)))
+    # ------------------------------------------------------------------ skill2: Járngreipr（铁手套格挡）
+    # 第 4 帧到第 7 帧双臂的铁手套顶在身前：普攻全挡、技能伤害减 e_dr%；举起来就拿到护盾
+    guard_e = flag("e_guard", p["e_off"] - p["e_on"], base_attack_damaged_reduce=100, damaged_reduce=p["e_dr"])
+    shield_e = on_self({"type": "Shield", "amount": p["e_sh"], "attack_ratio": p["e_sh_ad"], "ap_ratio": 0,
+                        "tick": p["e_sh_t"]})
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
+                    combine(count, sfx("e"), delayed(p["e_on"] - 1, guard_e, shield_e, sfx("e_block"))))
 
-    # ------------------------------------------------------------------ ult: Awakened Thunder Hammer
+    # ------------------------------------------------------------------ ult: Awakened Thunder Hammer（覚醒雷槌）
     wake = combine(unflag("t1"), unflag("t2"),
                    when("awake", combine(unflag("awake"), flag("awake", p["r_awake"])), awaken(p["r_awake"])))
-    guard = flag("r_guard", p["r_go"] + 2, cc_immune=True, damaged_reduce=p["r_dr"])
+    guard = flag("r_guard", p["r_dur"] + 2, cc_immune=True, damaged_reduce=p["r_dr"])
+    passed = lambda: [{"casting_type": "Targeting", "effect": e} for e in
+                      (attack(p["r_pdmg"], p["r_pad"], p["r_php"]), slow("r_slow", p["r_slow"], p["r_slow_t"]),
+                       view("r_pass"), tsfx("r_pass"))]
     blow = ahead(p["r_r"], p["r_off"], [attack(p["r_dmg"], p["r_ad"], p["r_hp"]), {"type": "Airborne", "duration": p["r_up"]},
                                         view("r_hit"), tsfx("r_hit")])
+    # 接住：空手的动作停掉，接锤 r_catch ticks，再举锤过头 r_hit ticks 后砸下
+    catch = [{"type": "RemoveCasterAnimation", "name": "ult_wait"}, anim("ult_catch", p["r_catch"]), sfx("r_catch"),
+             delayed(p["r_catch"], anim("ult_slam", p["r_slam"]),
+                     delayed(p["r_hit"] - 1, alive_only(sfx("r_slam"), blow)))]
+    back = {"type": "BackToCasterLinearProjectile", "name": n("r_back"), "penetrate": True,
+            "applied_target": "EnemyWithoutTower", "applied_effects": passed(), "end_effects": catch,
+            "speed": p["r_speed"], "range": 400000, "shape": circle(p["r_rr"])}
+    out = {"type": "LinearProjectile", "name": n("r_out"), "penetrate": True, "applied_target": "EnemyWithoutTower",
+           "applied_effects": passed(), "end_effects": [sfx("r_turn"), back], "speed": p["r_speed"],
+           "range": p["r_len"], "shape": circle(p["r_rr"]), "y_offset": -2000}
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(guard, wake, sfx("r"), sfx("r_vo"), delayed(p["r_go"] - 1, alive_only(sfx("r_slam"), blow))))
+                 combine(guard, wake, sfx("r"), sfx("r_vo"),
+                         delayed(p["r_go"] - 1, sfx("r_throw"), anim("ult_wait", p["r_wait"]), out)))
 
     # ------------------------------------------------------------------ views
     E = lambda name, tag, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z,
@@ -231,9 +245,9 @@ def build(p, is_native=False):
     # the swing, the slam's lightning, the charge and the ult's bolt are drawn into his own frames
     # (tools/art/import_thor.py); the flying hammer is the boomerang's picture, turned with its flight (it spins)
     views_e = [E("a_hit", "thunder_hit"), E("a_zap", "thunder_hit", 3), E("q_hit", "thunder_hit"),
-               E("e_hit", "thunder_hit"), E("r_hit", "ult_impact"), E("p_awake", "hammer_awakening", 3)]
+               E("r_pass", "thunder_hit"), E("r_hit", "ult_impact"), E("p_awake", "hammer_awakening", 3)]
     views_p = [{"type": "Animated", "name": n(x), "anim": PROJ, "tag": "hammer_flight", "repeat": True, "z": 2}
-               for x in ("e_out", "e_back")]
+               for x in ("r_out", "r_back")]
     kit = {
         "id": ID, "category": "Tank" if is_native else "Melee", "tags": ["AD", "Tank", "CC"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

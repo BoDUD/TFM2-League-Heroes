@@ -16,18 +16,20 @@ skills Codex's icons and the handoff name:
   attack  a heavy halberd blow on `Enemy` (towers too): 100% AD on atk_st, the swing and the spark on the target.
   skill   Sweep (横扫), `Targeting` on `EnemyWithoutTower` (q_range): on q_hit the halberd sweeps a cone in front of him
           (radius q_r, half-angle acos(q_cone / 1000)): q_dmg + q_ad% AD and a q_slow% slow for q_slow_t ticks.
-  skill2  Formation Breaker (破阵), `Targeting` on `EnemyWithoutTower` (e_range): on e_go he lunges e_speed x e_t toward
+  skill2  Pinning Thrust (压戟突刺), `Targeting` on `EnemyWithoutTower` (e_range): on e_go he lunges e_speed x e_t toward
           the target and through it (`RushTime`, penetrate; the engine's own dash, so walls stop it as they stop every
-          dash), every enemy he passes within e_r takes e_dmg + e_ad% AD and is thrown up e_air ticks.
-  ult     Sky Eater (天喰), `Targeting` on `EnemyChampion` (r_range): he raises the halberd and gathers himself for
-          r_go ticks - unstoppable (cc_immune) and taking r_dr% less damage meanwhile - then cuts once along a line
-          r_len long toward the target (`LineRangeProjectile`, half-width r_w): r_dmg + r_ad% AD and a r_stun-tick
-          stun to every enemy on it. One cut, no beam (the handoff: 「不要做持续激光」). A Lu Bu killed during the
-          charge cuts nothing (the slash runs inside the alive search, champion-data "A dead caster").
+          dash), every enemy he passes within e_r takes e_dmg + e_ad% AD and is pinned (rooted) e_root ticks - Pinning
+          Thrust: in the first round he pinned Mjolnir down with the halberd and thrust into Thor's shoulder.
+  ult     Sky Eater (天喰) on Red Hare: 2026-11-26 照原作改（第一回合：双腿被觉醒雷槌打断以后赤兔马冲进场，宙斯判它是「吕布身体
+          的一部分」，吕布骑上去，在马上握着戟尾全力一挥，劈开天空；原来是站着蓄力 1.2 秒再砍）。Codex 补画的动作
+          （assets/source/lubu/fidelity，0.786 秒）：`Targeting` on `EnemyChampion` (r_range): r_ride 拍（第 2 帧）赤兔冲出去
+          （RushTime，r_speed x r_t 拍，碰到就停），到挥戟为止不受控制（cc_immune）、受到的伤害降低 r_dr%；r_go 拍（第 5 帧，
+          0.39 秒）挥出天喰，朝目标一条（`LineRangeProjectile`，长 r_len、半宽 r_w）：r_dmg + r_ad% AD、眩晕 r_stun 拍。
+          挥戟前死了就不挥（alive search, champion-data "A dead caster").
 
 Timings are the frames' (Codex's asset_manifest_v02.json presentation_events, 60 ticks a second): the attack's blow on
 frame 4 (0.32 s), the sweep's release on frame 4 (0.42 s), the lunge on frame 4 (0.34 s, frames 4-5 = the lunge
-pose), the cut on frame 5 (1.18 s).
+pose); the ult (Codex's redraw frames.json): the charge from frame 2 (0.105 s), the swing on frame 5 (0.39 s).
 
 ragnarok.dll (addons/ragnarok/src/lubu.rs): the passive ragnarok_lubu:breaker (armour each life, the shield rules,
 his voice lines). A build of P checks lubu.rs's Params::default() against it.
@@ -54,6 +56,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # lane and the least crowd control (the base fighter stuns 1 s from 80000 every 5 s). Tankier (hp 1150, def 36) did not
 # help (-0.28 with the next change); Formation Breaker every 7 s for 0.6 s and a 40% slow +0.02 / +0.02; + atk 100,
 # Sweep 130% +0.70; + Sky Eater 200 + 280% = P: +1.48 / +1.38, the pack's middle (a 1 s stun +1.88, too much).
+# 2026-11-26 R 改成骑赤兔冲过去挥天喰以后：初版 +3.10 太强；R 降到 150 + 200%（这份 P）
+# +1.71，改之前 +1.43。
 P = {
     # stats (Melee, top): the base fighters' middle (atk 95 +19, hp 1000 +100, def 30, mr 25, move 1000)
     "hp": 1060, "hp_g": 105, "atk": 100, "atk_g": 19, "apw": 0, "apw_g": 0, "def": 32, "def_g": 8, "mr": 25,
@@ -66,9 +70,10 @@ P = {
     "q_slow": 40, "q_slow_t": 90,
     # Formation Breaker
     "e_cd": 420, "e_range": 45000, "e_dur": 40, "e_go": 21, "e_speed": 3200, "e_t": 11, "e_r": 15000, "e_dmg": 40,
-    "e_ad": 100, "e_air": 36,
+    "e_ad": 100, "e_root": 36,
     # Sky Eater
-    "r_cd": 3000, "r_range": 45000, "r_dur": 96, "r_go": 72, "r_len": 75000, "r_w": 10000, "r_dmg": 200, "r_ad": 280,
+    "r_cd": 3000, "r_range": 45000, "r_dur": 47, "r_ride": 6, "r_speed": 2500, "r_t": 26, "r_go": 23, "r_len": 75000,
+    "r_w": 10000, "r_dmg": 150, "r_ad": 200,
     "r_stun": 48, "r_dr": 30,
 }
 # what ragnarok.dll reads from passive.params (addons/ragnarok/src/lubu.rs)
@@ -172,7 +177,7 @@ def build(p, is_native=False):
 
     # ------------------------------------------------------------------ skill2: Formation Breaker
     passed = [{"casting_type": "Targeting", "effect": e} for e in
-              (attack(p["e_dmg"], p["e_ad"]), {"type": "Airborne", "duration": p["e_air"]}, view("e_hit"),
+              (attack(p["e_dmg"], p["e_ad"]), {"type": "Bind", "duration": p["e_root"]}, view("e_hit"),
                tsfx("e_hit"))]
     rush = {"type": "RushTime", "speed": p["e_speed"], "tick": p["e_t"], "range": p["e_r"],
             "casting_target": "EnemyWithoutTower", "penetrate": True, "applied_effects": passed}
@@ -191,8 +196,11 @@ def build(p, is_native=False):
     wave = {"type": "LineRangeProjectile", "name": n("r_wave"), "width": p["r_w"], "length": p["r_len"], "delay": 24,
             "apply": 24, "applied_target": "EnemyWithoutTower", "applied_effects": []}
     guard = flag("r_guard", p["r_go"] + 2, cc_immune=True, damaged_reduce=p["r_dr"])
+    # 赤兔冲锋：碰到人就停，冲着的时候挥戟
+    ride = {"type": "RushTime", "speed": p["r_speed"], "tick": p["r_t"], "range": 15000,
+            "casting_target": "EnemyWithoutTower", "penetrate": False, "applied_effects": []}
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(first, guard, sfx("r"), sfx("r_vo"),
+                 combine(first, guard, sfx("r"), sfx("r_vo"), delayed(p["r_ride"] - 1, alive_only(ride)),
                          delayed(p["r_go"] - 1, alive_only(sfx("r_slash"), cut, wave))))
 
     # ------------------------------------------------------------------ views

@@ -1,0 +1,355 @@
+{
+  "hero": "simo",
+  "name": "西蒙·海耶",
+  "actor_id": "ragnarok_simo",
+  "cell": [
+    152,
+    80
+  ],
+  "ground": [
+    50,
+    70
+  ],
+  "hd_multiplier": 4,
+  "right_facing": true,
+  "fx_cell": [
+    152,
+    96
+  ],
+  "actor": {},
+  "fx": {
+    "lily_burst": {
+      "name": "万花缭乱 · 铃兰扇形裂散",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 152,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 456,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 760,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        },
+        {
+          "x": 1064,
+          "y": 0,
+          "w": 152,
+          "h": 96,
+          "duration": 0.057
+        }
+      ],
+      "anchor": [
+        19,
+        47
+      ],
+      "placement": "target_front",
+      "offset": [
+        -2,
+        0
+      ]
+    },
+    "lily_hit": {
+      "name": "万花缭乱 · 碎片触光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 152,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 304,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 456,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 608,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 760,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 912,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 1064,
+          "y": 96,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        70,
+        47
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "swan_spiral": {
+      "name": "天穿白鸟 · 长螺旋光迹",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 152,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 456,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 760,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        },
+        {
+          "x": 1064,
+          "y": 192,
+          "w": 152,
+          "h": 96,
+          "duration": 0.052
+        }
+      ],
+      "anchor": [
+        11,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "swan_recoil": {
+      "name": "天穿白鸟 · 脚后后坐光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 152,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 304,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 456,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 608,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 760,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 912,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        },
+        {
+          "x": 1064,
+          "y": 288,
+          "w": 152,
+          "h": 96,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        80,
+        50
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        -10,
+        -2
+      ]
+    }
+  },
+  "cues": {},
+  "fx_events": {
+    "lily_burst": {
+      "track": "lily_burst",
+      "anchor": [
+        19,
+        47
+      ],
+      "placement": "target_front",
+      "offset": [
+        -2,
+        0
+      ]
+    },
+    "lily_hit": {
+      "track": "lily_hit",
+      "anchor": [
+        70,
+        47
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "swan_spiral": {
+      "track": "swan_spiral",
+      "anchor": [
+        11,
+        47
+      ],
+      "placement": "projectile",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "swan_recoil": {
+      "track": "swan_recoil",
+      "anchor": [
+        80,
+        50
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        -10,
+        -2
+      ]
+    }
+  },
+  "baseline": {},
+  "art_sources": {}
+}
