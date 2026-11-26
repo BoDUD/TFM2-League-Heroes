@@ -44,11 +44,11 @@
 
 - 灵纱洞开的判断多读一个标记 `league_aurora_low`；
 - 驱灵奇术的每处叠层（普攻、Q 去、Q 回、E、R）换成原生效果 `league_aurora:mark_<来源>`，飞去来咒回程的伤害换成 `league_aurora:hex_back`（`src/spirit.rs`）；
-- 领域：冲击波中心那根隐形的线停下时不开主包的减速区，改调原生效果 `league_aurora:rift`：它把中心写进她身上的 `league_aurora_rift_new:<x>,<y>`，被动下一 tick 读走（`src/rift.rs`）；领域成形时由本包放领域的画面（副本的数据只放冲击波）；
+- 领域：冲击波中心那根隐形的线停下时不开主包的减速区，改调原生效果 `league_aurora:rift`：它把中心写进她身上的 `league_aurora_rift_new:<x>,<y>`，被动下一 tick 读走（`src/rift.rs`）；领域成形时由本包放光圈的开场 `league_aurora_r_zone_in`，之后每 0.6 秒接一圈 `league_aurora_r_zone_loop`，关了就不再接，地上的光圈最多再留一圈（副本的数据只放冲击波；两个标签是 `league_aurora_big` 里 r_zone 原来的格子，`tools/art/aurora_realm_tags.py` 拆的，接缝那一 tick 新旧两个画面是同一张图）；
 - `passive` 是本包的 `league_aurora:veil`，参数（`w_low`、领域的 `r_grow` / `r_t1`–`r_t3` / `r_edge_t1`–`r_edge_t3` / `r_ms_t1`–`r_ms_t3` / `r_recast`、驱灵奇术的 `p_hp_pm` / `p_hp_ap_pm` / `sp0` / `sp1` / `sp_ap`、回程的 `q2_*` 等）来自主包参数表 P：每 tick 读她的生命（低于 `w_low`% 就挂 3 tick 的 `league_aurora_low`）、管灵物回血（每 15 tick 一次）、读击杀记录（她的击杀或助攻：摘掉 `league_aurora_w_cd`）、管领域：
   - 敌人碰到边界（离中心 38000 ± 8000，画出来那一圈）：挂 `league_aurora_r_edge`（减速 50%，时长按大招等级，脚下的霜雾），离开边界再碰才再挂；先摘掉冲击波的 `league_aurora_r_slow1`（英雄联盟的减速取最强的，TFM2 的相加）；
   - 她离中心 36000 以上：沿直径冲到对面离中心 30000 处（落点在墙里就往中心退），24 tick 的强制位移、`veil` 的姿势，`league_aurora_r_wrap`（免伤、免控、穿墙）；她自己的后跳（怪奇喷涌、灵纱洞开：副本的数据给她挂 `league_aurora_own_hop`）撞上边界一样冲过去，被敌人击退、拉扯时不冲；被控住时等控制过去；两头各开一扇门（`league_aurora_r_blink`）；
-  - 关闭：她死了；到了 44000 以外；成形时她不在里面；时间到（正在冲就冲完再关）；提前关。画面停不下来，提前关时照样放完；
+  - 关闭：她死了；到了 44000 以外；成形时她不在里面；时间到（正在冲就冲完再关）；提前关。关了以后光圈最多再留一圈（0.6 秒）；
 - 普攻、飞去来咒、大招的说明换成附加包自己的文字（`description.league_aurora.attack` / `.skill` / `.ult`），游戏里看说明就知道副本有没有生效。
 
 计时都在被动自己身上（跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。原生效果读不到被动的参数，按 `Params` 的默认值算（`make_override.py` 核对默认值和参数表 P 一样）。

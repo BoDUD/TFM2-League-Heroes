@@ -2048,6 +2048,22 @@
       "tag": "r_blink",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_aurora_r_zone_in",
+      "anim": "asset/league/effects/league_aurora_big",
+      "tag": "r_zone_in",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_aurora_r_zone_loop",
+      "anim": "asset/league/effects/league_aurora_big",
+      "tag": "r_zone_loop",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [

@@ -130,6 +130,18 @@ def main():
             sys.exit(f"the copy has no {native}: update this script")
     if '"league_aurora_s_1"' in json.dumps(champion):
         sys.exit("the copy still counts Spirit Abjuration on her (the add-on counts on each enemy): update this script")
+    # 领域的光圈：rift.rs 放的开场和一圈要在副本的 views 里登记（play_view_effect 只认登记过的名字），表里要有这两个
+    # 标签和 hd_ 版（tools/art/aurora_realm_tags.py）
+    views = {v["name"]: v for v in champion["view_effects"]}
+    rift_rs = open(lp(os.path.join(ADDON, "src", "rift.rs")), encoding="utf-8").read()
+    with open(lp(os.path.join(ROOT, "league", "effects", "league_aurora_big#anim.fanim")), encoding="utf-8") as f:
+        big = json.load(f)["anims"]
+    for tag in ("r_zone_in", "r_zone_loop"):
+        v = views.get(f"{HERO}_{tag}")
+        if not v or v["tag"] != tag or not v["anim"].endswith("/league_aurora_big") or f'"{HERO}_{tag}"' not in rift_rs:
+            sys.exit(f"the copy's view {HERO}_{tag} and src/rift.rs do not match: update this script")
+        if tag not in big or "hd_" + tag not in big:
+            sys.exit(f"league_aurora_big has no {tag} / hd_{tag}: python -I tools/art/aurora_realm_tags.py")
     for slot in ("attack", "skill", "ult"):
         champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
 

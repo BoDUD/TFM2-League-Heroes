@@ -447,6 +447,8 @@ def build(p):
         # the add-on draws them itself: the doors at both ends of her crossing, the border's slow (src/rift.rs)
         views_e.append(E("r_blink"))
         views_b.append(B_("r_edge", FX, -1, "slow"))
+        # 领域的光圈：成形时放开场，之后一圈一圈放，关了就停（rift.rs 的 zone_view；tools/art/aurora_realm_tags.py）
+        views_e += [E("r_zone_in", BIG, -1, False), E("r_zone_loop", BIG, -1, False)]
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": f"{ID}:veil",

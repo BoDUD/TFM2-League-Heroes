@@ -4,7 +4,7 @@
 //! 冲击波的中心，那里放冲击波的画面，并调本包的原生效果 `league_aurora:rift`（[`Open`]）：它把中心写进她身上的 buff
 //! `league_aurora_rift_new:<x>,<y>`，被动（`league_aurora:veil`）下一 tick 读走（[`Rift`]）：
 //!
-//! - **扩散**：冲击波 `r_grow` tick（英雄联盟 0.75 秒）扩散完，领域才成形（这时放领域的画面）；成形时她不在里面就关。
+//! - **扩散**：冲击波 `r_grow` tick（英雄联盟 0.75 秒）扩散完，领域才成形（这时放光圈的开场，之后一圈一圈接着放：[`zone_view`]）；成形时她不在里面就关。
 //!   成形后开 `r_t1` / `r_t2` / `r_t3` tick（大招 1–3 级，英雄联盟 2.25 / 2.75 / 3.25 秒，V26.19 起扩散不算在里面）。
 //!   开的时候按大招的等级把 Realm Hopper（数据跃出时挂的 `league_aurora_r_hop`）改成 `r_ms_t1`–`r_ms_t3` tick。
 //! - **敌人碰到边界**（[`touches`]：离圈心 `RING` ± `BAND`，身体压在画出来的那一圈上）：减速 `r_edge`%，按大招等级
@@ -21,7 +21,7 @@
 //!   `RING + BAND / 2` 以内）没有敌方英雄了——目标跑出去了、死了——就替她关掉（`RIFT CLOSE EARLY`），她带着 Realm Hopper
 //!   的加速去追或者走开，不再被 AI 钩子的 `RIFT STAY` 关在圈里。
 //! - **关闭**：她死了；到了外面（离圈心 `EDGE + OUT` 以外：闪现、被敌人带出去）；成形时她不在里面；时间到（正在冲就冲完再关）。
-//!   画面是数据和本包放的，提前关时照样放完（停不下来）。
+//!   关了就不再接下一圈，地上的光圈最多再留一圈（0.6 秒）。
 //! - 开着时她身上挂 `league_aurora_rift:<x>,<y>`（每 tick 续 2 tick），AI 钩子（`realm.rs`）据此在领域里放风筝、不往外走。
 //!
 //! 状态都在她的被动里（每局、每个她一份），不用全局变量。日志：`RIFT OPEN` / `RIFT FORMED` / `RIFT CROSS` / `RIFT EDGE` /
@@ -74,8 +74,16 @@ pub const EDGE_SLOW: &str = "league_aurora_r_edge";
 pub const SHOCK_SLOW: &str = "league_aurora_r_slow1";
 /// 两头的门（主包的画面和声音）。
 pub const DOOR: &str = "league_aurora_r_blink";
-/// 领域成形时放的画面和声音（副本的数据不在冲击波那里放它们，主包的数据放）。
+/// 领域成形时放的声音（副本的数据不在冲击波那里放，主包的数据连同整段 3.25 秒的画面一起放）。
 pub const ZONE: &str = "league_aurora_r_zone";
+/// 领域的光圈（2026-11-26）：成形时放开场 `ZONE_IN`，`ZONE_IN_T` tick 后起每 `ZONE_LOOP_T` tick 放一圈 `ZONE_LOOP`，
+/// 关了就不再放下一圈，地上的光圈最多再留一圈（0.6 秒）。以前放整段的 r_zone，固定 3.25 秒，领域提前关、按等级只开
+/// 2.25 秒时光圈还在地上留一两秒。两个标签用 r_zone 原来的格子，帧长对齐到 tick，每个标签末尾多挂一小段下一圈的
+/// 第一帧，接缝那一 tick 新旧两个画面是同一张图（tools/art/aurora_realm_tags.py；单元测试读那张表核对）。
+pub const ZONE_IN: &str = "league_aurora_r_zone_in";
+pub const ZONE_LOOP: &str = "league_aurora_r_zone_loop";
+pub const ZONE_IN_T: usize = 12;
+pub const ZONE_LOOP_T: usize = 36;
 /// 数据跃出时挂的 Realm Hopper（加速）：开领域时按大招的等级改时长。
 pub const HOP: &str = "league_aurora_r_hop";
 /// 冲的时候摆的姿势（她的 veil 动作）。
@@ -86,6 +94,15 @@ pub const OWN_HOP: &str = "league_aurora_own_hop";
 /// `<名字>:<x>,<y>`。
 pub fn at_name(prefix: &str, c: Pt) -> String {
     format!("{prefix}:{},{}", c.0.round().max(0.0) as u64, c.1.round().max(0.0) as u64)
+}
+
+/// 这一 tick 该放哪个光圈：`shown` 是成形、放开场的那一 tick。领域关了就不再调它（不再放下一圈）。
+pub fn zone_view(shown: usize, now: usize) -> Option<&'static str> {
+    if now == shown {
+        return Some(ZONE_IN);
+    }
+    let t = now.checked_sub(shown + ZONE_IN_T)?;
+    (t % ZONE_LOOP_T == 0).then_some(ZONE_LOOP)
 }
 
 /// [`at_name`] 反过来；别的名字（`league_aurora_rift_new` 对 `league_aurora_rift`）不认。
@@ -274,6 +291,8 @@ pub struct Rift {
     pub edge_t: usize,
     /// 成形了没有（画面放了、成形时查过她在不在里面）。
     pub drawn: bool,
+    /// 光圈开场的那一 tick（成形时），之后的一圈一圈按它排（[`zone_view`]）。
+    pub shown: usize,
     /// 上一 tick 碰着边界的敌人。
     pub touching: Vec<usize>,
     pub cross: Option<Cross>,
@@ -290,7 +309,7 @@ impl Rift {
     pub fn new(c: Pt, now: usize, p: &Params, level: usize) -> Rift {
         let formed = now + p.r_grow;
         Rift { c, opened: now, formed, until: formed + p.r_t(level), edge_t: p.r_edge_t(level), drawn: false,
-               touching: Vec::new(), cross: None, calm: formed, crossings: 0, slowed: 0, blocked: false }
+               shown: formed, touching: Vec::new(), cross: None, calm: formed, crossings: 0, slowed: 0, blocked: false }
     }
 }
 
@@ -411,7 +430,8 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
             close(sim, me, &r, &format!("she is {:.0} from it when it forms, not in it (League: it closes at once)", dist(r.c, here)));
             return;
         }
-        sim.play_view_effect(ZONE, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64), 0, 0, 0);
+        r.shown = now;
+        sim.play_view_effect(ZONE_IN, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64), 0, 0, 0);
         sim.play_sfx(ZONE, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64));
         if let Some(n) = counted("rift formed", on_screen(sim)) {
             wlog(format!("{} RIFT FORMED at {} until tick {}, she is {:.0} from its centre #{n}", head(sim, me), spot(r.c),
@@ -506,6 +526,10 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
         close(sim, me, &r, "early: no enemy champion left in it - the recast");
         return;
     }
+    // ---- 光圈：这一 tick 还开着，到点就接上下一圈（关了的那一 tick 上面就返回了，不再放）
+    if zone_view(r.shown, now) == Some(ZONE_LOOP) {
+        sim.play_view_effect(ZONE_LOOP, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64), 0, 0, 0);
+    }
     mark(sim, me, &r);
     *slot = Some(r);
 }
@@ -585,9 +609,89 @@ mod tests {
         assert_eq!(parse_at("league_aurora_rift:5,6", NEW), None);
         assert_eq!(parse_at("league_aurora_rift:x,6", AT), None);
         assert!(at_name(NEW, (959_999.0, 959_999.0)).len() <= BUFF_NAME_CAP);
-        for name in [NEW, AT, WRAP, EDGE_SLOW, SHOCK_SLOW, DOOR, OWN_HOP, ZONE, HOP] {
+        for name in [NEW, AT, WRAP, EDGE_SLOW, SHOCK_SLOW, DOOR, OWN_HOP, ZONE, ZONE_IN, ZONE_LOOP, HOP] {
             assert!(name.starts_with(ID), "{name}");
         }
+    }
+
+    /// league_aurora_big 里一个标签的帧：(帧长秒, 格子的左上角)。
+    fn frames(tag: &str) -> Vec<(f64, (u32, u32))> {
+        let src = include_str!("../../../league/effects/league_aurora_big#anim.fanim");
+        let key = format!("\"{tag}\":{{\"frames\":[");
+        let i = src.find(&key).unwrap_or_else(|| panic!("no {tag}")) + key.len();
+        let end = i + src[i..].find("]}").unwrap();
+        src[i..end].split("},{").map(|f| {
+            let num = |k: &str| -> f64 {
+                let j = f.find(&format!("\"{k}\":")).unwrap() + k.len() + 3;
+                f[j..].split(|c| c == ',' || c == '}').next().unwrap().parse().unwrap()
+            };
+            (num("duration"), (num("x") as u32, num("y") as u32))
+        }).collect()
+    }
+
+    /// 客户端放一个画面：开始后第 `ticks` tick 画哪一格（帧长按秒累加，放完就没了）；`single` 用 f32 算。
+    fn cell_at(fr: &[(f64, (u32, u32))], ticks: usize, single: bool) -> Option<(u32, u32)> {
+        let (mut acc, mut acc32) = (0.0f64, 0.0f32);
+        for &(d, cell) in fr {
+            acc += d;
+            acc32 += d as f32;
+            if (single && (ticks as f32 / 60.0) < acc32) || (!single && (ticks as f64 / 60.0) < acc) {
+                return Some(cell);
+            }
+        }
+        None
+    }
+
+    #[test]
+    fn the_rings_picture_loops_while_the_rift_is_open_and_goes_within_a_loop() {
+        for pre in ["", "hd_"] {
+            let zone = frames(&format!("{pre}r_zone"));
+            let fin = frames(&format!("{pre}r_zone_in"));
+            let floop = frames(&format!("{pre}r_zone_loop"));
+            // r_zone 原来的格子：开场是它的第 1、2 帧，一圈是第 3–8 帧；末尾那一小段是下一圈的第一帧
+            let cells = |f: &[(f64, (u32, u32))]| f.iter().map(|x| x.1).collect::<Vec<_>>();
+            assert_eq!(cells(&fin), [zone[0].1, zone[1].1, zone[2].1]);
+            assert_eq!(cells(&floop), [&cells(&zone[2..8])[..], &[zone[2].1]].concat());
+            assert_eq!(zone[8].1, zone[2].1, "r_zone loops its frames 3-8");
+            // 排期和帧长对得上：开场 ZONE_IN_T、一圈 ZONE_LOOP_T tick 时正好在末尾那一小段里
+            for (f, t) in [(&fin, ZONE_IN_T), (&floop, ZONE_LOOP_T)] {
+                let last = f.len() - 1;
+                assert_eq!(cell_at(f, t, false), Some(f[last].1));
+                assert_eq!(cell_at(f, t - 1, false), Some(f[last - 1].1));
+            }
+            for single in [false, true] {
+                let shown = 1_000;
+                for close in shown + 1..shown + 400 {
+                    // 关的那一 tick 不再放：放过的是它之前的
+                    let plays: Vec<(usize, &[(f64, (u32, u32))])> = (shown..close)
+                        .filter_map(|t| zone_view(shown, t).map(|v| (t, if v == ZONE_IN { &fin[..] } else { &floop[..] })))
+                        .collect();
+                    let mut last = shown;
+                    for t in shown..close + 100 {
+                        let on: Vec<(u32, u32)> = plays.iter().filter(|(s, _)| *s <= t)
+                            .filter_map(|(s, f)| cell_at(f, t - s, single)).collect();
+                        if on.is_empty() {
+                            assert!(t >= close, "{pre} close {close}: no ring at tick {t} while the rift is open");
+                            continue;
+                        }
+                        // 叠着的两个画面是同一张图（接缝），不会叠出两张不一样的
+                        assert!(on.iter().all(|c| *c == on[0]), "{pre} close {close}: two pictures at tick {t}: {on:?}");
+                        // 光圈从开场到消失中间不断
+                        assert!(t == shown || last + 1 == t, "{pre} close {close}: the ring blinks off before tick {t}");
+                        last = t;
+                    }
+                    // 关了以后最多再留一圈
+                    assert!(last <= close + ZONE_LOOP_T, "{pre} close {close}: the ring stays until {last}");
+                }
+            }
+        }
+        // 排期本身
+        assert_eq!(zone_view(50, 50), Some(ZONE_IN));
+        assert_eq!(zone_view(50, 51), None);
+        assert_eq!(zone_view(50, 50 + ZONE_IN_T), Some(ZONE_LOOP));
+        assert_eq!(zone_view(50, 50 + ZONE_IN_T + ZONE_LOOP_T), Some(ZONE_LOOP));
+        assert_eq!(zone_view(50, 50 + ZONE_IN_T + ZONE_LOOP_T - 1), None);
+        assert_eq!(zone_view(50, 49), None);
     }
 
     #[test]
