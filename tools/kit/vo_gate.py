@@ -1,15 +1,17 @@
 """The spells' cast voice lines at most once every GAP ticks per hero and spell, at packing (2026-11-26).
 
-    python tools/kit/vo_gate.py --check   # (CI) every gated spell sound is played somewhere, has its own voice sound and
-                                          # the rewrite settles - with slim.py and attack_self.py - on every champion file
+    python tools/kit/vo_gate.py --check   # (CI) every gated spell sound is played somewhere, has its own voice sound
+                                          # (both registered in league/mod.override_info) and the rewrite settles -
+                                          # with slim.py and attack_self.py - on every champion file
 
 Why. The 41 cast voice lines tools/lol/extract_missing_spell_vo.py found (league 0.469.0, PR 829) were wired as one more
 clip in the spell's own .sound_info, so they played at every cast: Ezreal's Q (every 5 s) said its line all match long
 (the user 2026-11-26: 「EZ的语音一直在重复」 - his Q's line - and 「放得勤的都一起改」). The kits' own voice lines are
 played through a flag (`sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))` in 106 builders; league_ahri's
 R: league_ahri_r_vo_cd, 600 ticks). Each of the 41 lines now has a .sound_info of its own, `league_<hero>_<slot>_vo` (the
-line alone; the spell's .sound_info keeps its effect sounds), and this rewrite plays it the kits' way wherever the spell's
-sound plays:
+line alone; the spell's .sound_info keeps its effect sounds; registered in league/mod.override_info as every sound - the
+game finds a sound only through its `asset/base/sound/sfx/<name>` entry), and this rewrite plays it the kits' way wherever
+the spell's sound plays:
 
     {"type": "Sfx", "name": S}   ->   {"type": "Sfx", "name": S},
                                       {"type": "SwitchByBuff", "buff_name": F, "effect_buff": {"type": "Combine", "effects": []},
@@ -132,12 +134,16 @@ def check():
     import attack_self
     import slim
     sfx = os.path.join(REPO, "league", "sound", "sfx")
+    # the game finds a sound only through the pack's override entry (a .sound_info without one never plays)
+    ov = json.load(open(os.path.join(REPO, "league", "mod.override_info"), encoding="utf-8-sig"))
     bad = []
     voices = {}
     for spell, (voice, _flag) in TABLE.items():
         for name in (spell, voice):
             if not os.path.exists(os.path.join(sfx, name + ".sound_info")):
                 bad.append(f"no league/sound/sfx/{name}.sound_info")
+            if ov.get(f"asset/base/sound/sfx/{name}") != {"remapping": f"asset/league/sound/sfx/{name}", "type": "override"}:
+                bad.append(f"no league/mod.override_info entry asset/base/sound/sfx/{name} -> asset/league/sound/sfx/{name}")
         if os.path.exists(os.path.join(sfx, voice + ".sound_info")):
             plays = json.load(open(os.path.join(sfx, voice + ".sound_info"), encoding="utf-8-sig"))["plays"]
             voices[voice] = [p["clip"] for p in plays]
