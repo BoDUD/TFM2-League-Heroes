@@ -184,7 +184,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// centre), written by the restyle itself (it reproduces its committed strips bit for bit); the UI frames (lo_) carry
 /// no tft SIZES (tools/art/pixel_down.py sizes_of), so only the 3 squares reach the cards: banpick_center and the face
 /// point moved with them.
-pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90), ("tft_gromp", 0.85), ("tft_raptor", 0.85)];
+/// 红 BUFF（tft_brambleback，深红荆棘背）：85%（用户 2026-11-26：「云顶的红BUFF模型偏大 可以缩小一点」——100% 时高 41、宽 62
+/// 游戏像素，实心 1474 格，比沃利贝尔 1397 还重，魔沼蛙 85% 后 1022；85% = 35 x 53，和石甲虫、暗影狼一个量级，同魔沼蛙、
+/// 锋喙鸟的做法）。战场高清帧往下挪 3.5 格（tools/art/lower_hd_frames.py --rows 7：脚底在帧中心下 21 格，
+/// 2 x 21 x (1 / 0.85 - 1) = 7.4），像素不变；选人格子和百科的帧不动（云顶的 SIZES 不进界面）。
+pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90), ("tft_gromp", 0.85), ("tft_raptor", 0.85), ("tft_brambleback", 0.85)];
 
 /// Heroes whose body grows with a stack (league_main/src/hd.rs GROWTH: Cho'Gath's Feast): none in this pack yet.
 pub const GROWTH: &[(&str, &str, f32)] = &[];

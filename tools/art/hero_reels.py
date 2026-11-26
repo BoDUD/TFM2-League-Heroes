@@ -60,6 +60,10 @@ REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 PACKS = ("league", "tft", "ragnarok")
 PICKS = os.path.join(HERE, "hero_reels.json")
 PREFIXES = ("", "hd_", "lo_")
+# 用 tools/art/lower_hd_frames.py 往下挪过战场帧的英雄（hd.rs SIZES 缩小）：战场的 hd_ 帧框底下少了这么多行，选人格子的
+# （hd_bp / hd_idle_base）没少。拼 reel 时写战场的标签一律用少了的框、写格子的一律用没少的框——不然待机停住的第 0 帧（取自
+# idle_base）和动作帧差这么多行（2026-11-26：魔沼蛙待机第 0 帧没挪、动作挪了，站着比动起来高 3.5 格；红 BUFF 缩到 85% 时查出）。
+LOWERED = {"tft_gromp": 7, "tft_brambleback": 7}
 CORE = ("attack", "skill", "skill2", "ult")
 # a summoned unit's whole sheet (unit_sheet: skipped - the engine's own summons, base `ghoul`, play these five)
 UNIT_TAGS = ("idle", "run", "attack", "hit", "dead")
@@ -378,10 +382,20 @@ def twin(h, idle, of, seq):
     return out
 
 
-def frames_for(h, seq, prefix):
+def card_tag(tag):
+    """A tag the BP card draws (lower_hd_frames.py UI_TAGS): bp, idle_base (and a form's c_idle_base ...)."""
+    return tag == "bp" or tag.endswith("idle_base")
+
+
+def frames_for(h, seq, prefix, target=None):
+    """The frames of reel `seq` as `prefix + target` takes them: a lowered hero's (LOWERED) battlefield tag gets every frame
+    `rows` shorter at its bottom, its card tag every frame as tall as drawn, whichever tag a frame is taken from."""
+    rows = LOWERED.get(h.id, 0) if prefix == "hd_" and target is not None else 0
     out = []
     for tag, i, d in seq:
         data = dict(h.frames(prefix + tag)[i]["data"])
+        if rows and card_tag(tag) != card_tag(target):
+            data["h"] = float(data["h"] - rows if card_tag(tag) else data["h"] + rows)
         out.append({"duration": round(d, 6), "data": data})
     return out
 
@@ -393,7 +407,7 @@ def rewrite(h, p):
         for pre in PREFIXES:
             if pre and pre + "idle" not in h.anims:
                 continue
-            anims[pre + tag] = {"frames": frames_for(h, seq, pre)}
+            anims[pre + tag] = {"frames": frames_for(h, seq, pre, tag)}
     return json.dumps({"anims": anims}, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
 

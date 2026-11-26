@@ -10,7 +10,7 @@
 | 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / Dot / Heal |
-| 高清帧 | PPU 1.7 |
+| 高清帧 | PPU 1.7（画成 85%） |
 | 附加包 | 无 |
 
 其他预览：[skills](../preview/tft_brambleback_skills.gif)、[逐帧预览](../preview/tft_brambleback_frames.png)、[特效表](../preview/tft_brambleback_effects.png)
