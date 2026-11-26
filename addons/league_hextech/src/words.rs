@@ -290,7 +290,28 @@ pub fn by_note(lang: Lang, by: u8) -> &'static str {
     match by {
         2 => pick(lang, "（你选的）", "（你選的）", " (yours)", " (직접 선택)", "（自分で選択）"),
         1 => pick(lang, "（AI 推荐）", "（AI 推薦）", " (AI's pick)", " (AI 추천)", "（AI のおすすめ）"),
+        3 => pick(lang, "（随机得到）", "（隨機得到）", " (random)", " (무작위)", "（ランダム）"),
         _ => "",
+    }
+}
+
+/// 技能海克斯作用在哪个技能上（0.5.0）：1 技能、2 技能 2、3 大招。
+pub fn slot_name(lang: Lang, slot: u8) -> &'static str {
+    match slot {
+        1 => pick(lang, "技能", "技能", "Skill", "스킬", "スキル"),
+        2 => pick(lang, "技能 2", "技能 2", "Skill 2", "스킬 2", "スキル 2"),
+        _ => pick(lang, "大招", "大招", "Ult", "궁극기", "アルティメット"),
+    }
+}
+
+/// 名字后面标上技能海克斯作用在哪个技能上：「（技能 2）」；不是技能海克斯（0）：空。
+pub fn slot_note(lang: Lang, slot: u8) -> String {
+    if slot == 0 {
+        return String::new();
+    }
+    match lang {
+        Lang::En | Lang::Ko => format!(" ({})", slot_name(lang, slot)),
+        _ => format!("（{}）", slot_name(lang, slot)),
     }
 }
 
@@ -428,10 +449,10 @@ mod tests {
         }
         // a short one stays as it is; a long one up to its first colon
         assert_eq!(brief(Lang::Hans, 0), "攻击力 +20%");
-        assert_eq!(brief(Lang::Hans, fb), "命中英雄时点燃 3 秒…");
-        assert_eq!(brief(Lang::En, fb), "Hits burn champions for 3 s…");
-        assert_eq!(brief(Lang::Ko, fb), "챔피언 적중 시 3초간 불태움…");
-        assert_eq!(brief(Lang::Ja, fb), "チャンピオンに命中すると 3 秒間炎上…");
+        assert_eq!(brief(Lang::Hans, fb), "普攻命中英雄时点燃 5 秒…");
+        assert_eq!(brief(Lang::En, fb), "Basic attacks burn champions for 5 s…");
+        assert_eq!(brief(Lang::Ko, fb), "기본 공격이 챔피언에게 적중하면 5초간 불태움…");
+        assert_eq!(brief(Lang::Ja, fb), "通常攻撃がチャンピオンに命中すると 5 秒間炎上…");
         for a in 0..crate::augments::AUGS.len() {
             for lang in Lang::ALL {
                 assert!(line_em(&brief(lang, a)) <= 40.0, "{} {lang:?}: {}", crate::augments::AUGS[a].key, brief(lang, a));
@@ -478,13 +499,13 @@ mod tests {
         let deft = super::super::augments::by_key("deft").unwrap() as u16;
         let bf = super::super::augments::by_key("blunt_force").unwrap() as u16;
         let ic = super::super::augments::by_key("ironclad").unwrap() as u16;
-        assert_eq!(toast_title(Lang::Hans, 0, "金克丝", 6, gc as usize), "蓝色方 金克丝 6 级 · 【金】玻璃大炮");
+        assert_eq!(toast_title(Lang::Hans, 0, "金克丝", 6, gc as usize), "蓝色方 金克丝 6 级 · 【棱彩】玻璃大炮");
         assert_eq!(candidates(Lang::Hans, [bf, gc, deft], [bf, gc, deft]), "三选一：钝器 / 玻璃大炮 / 灵巧");
         assert_eq!(candidates(Lang::Hans, [bf, gc, deft], [bf, gc, ic]), "三选一：钝器 / 玻璃大炮 / 灵巧（刷新掉：铁甲）");
-        assert_eq!(tagged(Lang::En, gc as usize), "[Gold] Glass Cannon");
-        assert_eq!(tagged(Lang::Ko, gc as usize), "[골드] 유리 대포");
-        assert_eq!(tagged(Lang::Ja, gc as usize), "【ゴールド】グラスキャノン");
-        assert_eq!(toast_title(Lang::Ko, 1, "징크스", 6, gc as usize), "레드 징크스 6레벨 · [골드] 유리 대포");
+        assert_eq!(tagged(Lang::En, gc as usize), "[Prismatic] Glass Cannon");
+        assert_eq!(tagged(Lang::Ko, gc as usize), "[프리즘] 유리 대포");
+        assert_eq!(tagged(Lang::Ja, gc as usize), "【プリズム】グラスキャノン");
+        assert_eq!(toast_title(Lang::Ko, 1, "징크스", 6, gc as usize), "레드 징크스 6레벨 · [프리즘] 유리 대포");
         assert_eq!(candidates(Lang::Ja, [bf, gc, deft], [bf, gc, ic]), "3 つから 1 つ：鈍器 / グラスキャノン / 器用（リロール：鉄甲）");
         assert_eq!(opening_title(Lang::Hant, Tier::Prismatic), "海克斯大亂鬥 · 開局海克斯（稜彩）");
         assert_eq!(opening_next(Lang::Hans, [6, 9, 12]), "之后 6 级、9 级、12 级各再选一次（三选一）");

@@ -190,8 +190,9 @@ fn the_screens_match_feeds_the_picks() {
     feed::clear();
 }
 
-/// With the game's classes and tags known, the AI takes what fits: Jinx damage, Leona tankiness, Syndra magic - nearly
-/// every pick of 50 matches (four picks each; a pick with nothing fitting on the table takes the best there is).
+/// 知道游戏的分类和标签以后，AI 拿合适的：金克丝拿输出，蕾欧娜拿坦度，辛德拉拿法术，50 局、每局 4 次里至少八成。0.4.0 一共
+/// 109 个，每一档里适合一类英雄的只有三四成，桌上和刷新出来的都不合适时拿最好的那张（辛德拉漏的是十几种各一两次）；闭着眼拿
+/// 只有三成多。
 #[test]
 fn the_kit_steers_the_ai() {
     let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
@@ -204,7 +205,7 @@ fn the_kit_steers_the_ai() {
         ("league_syndra".into(), Kit { category: Some(C::Magician), tags: vec![G::Ap, G::Magic, G::Range, G::Cc] }),
     ]);
     let mut hits = [0usize; 3];
-    let mut picks = 0;
+    let mut picks = [0usize; 3];
     for seed in 0..50u64 {
         let mut w = world(10_000 + seed, SimOriginKindV1::ServerPresim, 20_000 + seed);
         start(&mut w);
@@ -215,14 +216,16 @@ fn the_kit_steers_the_ai() {
         let keys = |p: usize| -> Vec<String> {
             w.augs(p).iter().map(|n| n.trim_start_matches(augments::BUFF_PREFIX).to_string()).collect()
         };
-        assert!([3, 4, 7].iter().all(|&p| keys(p).len() == 4));
-        picks += 4;
-        hits[0] += keys(3).iter().filter(|k| DAMAGE.contains(&k.as_str())).count();
-        hits[1] += keys(4).iter().filter(|k| TANKY.contains(&k.as_str())).count();
-        hits[2] += keys(7).iter().filter(|k| MAGIC.contains(&k.as_str())).count();
+        // 0.5.0：质变、潘朵拉会多给（拿到的海克斯可能多于 4 个），都算进去
+        assert!([3, 4, 7].iter().all(|&p| keys(p).len() >= 4));
+        for (n, (p, list)) in [(3usize, &DAMAGE[..]), (4, &TANKY[..]), (7, &MAGIC[..])].into_iter().enumerate() {
+            let k = keys(p);
+            picks[n] += k.len();
+            hits[n] += k.iter().filter(|k| list.contains(&k.as_str())).count();
+        }
     }
-    for (who, h) in ["Jinx", "Leona", "Syndra"].iter().zip(hits) {
-        assert!(h as f64 >= 0.85 * picks as f64, "{who}: {h} fitting of {picks}");
+    for ((who, h), n) in ["Jinx", "Leona", "Syndra"].iter().zip(hits).zip(picks) {
+        assert!(h as f64 >= 0.8 * n as f64, "{who}: {h} fitting of {n}");
     }
     kit::reset_for_test(Vec::new());
 }
@@ -291,19 +294,27 @@ fn the_players_pick_screen_record_drives_his_side() {
     let mine = |p: usize| -> Vec<String> {
         rec.mine_of(HEROES[p]).unwrap().picks.iter().map(|c| augments::buff_name(c.chosen as usize)).collect()
     };
+    // 记录里的几张按顺序都在他身上（0.5.0：质变多给的夹在中间；潘朵拉的盒子把它前面的换掉了，从它起算）
+    let in_order = |got: &[String], want: &[String]| -> bool {
+        let mut it = got.iter();
+        want.iter().all(|x| it.any(|g| g == x))
+    };
     for w in [&a, &b, &view] {
         for p in 0..5 {
-            assert_eq!(w.augs(p), mine(p), "blue {p} as the record says");
+            let want = mine(p);
+            let from = want.iter().rposition(|x| *x == augments::buff_name(augments::by_key("pandoras_box").unwrap())).unwrap_or(0);
+            assert!(in_order(&w.augs(p), &want[from..]), "blue {p} as the record says: {:?} vs {want:?}", w.augs(p));
         }
     }
     for p in 5..10 {
         assert_eq!(a.augs(p), b.augs(p));
         assert_eq!(a.augs(p), view.augs(p));
-        assert_eq!(a.augs(p).len(), 4);
+        assert!(a.augs(p).len() >= 4);
     }
     // the record's tiers for everyone, and who chose on screen
     assert_eq!(feed::tiers_of(9100, 2), Some(rec.tiers));
-    let ev = feed::events(9100, 2);
+    // 0.5.0：质变、潘朵拉随机给的、换掉的另记（by 3 / 4），选的还是 40 次
+    let ev: Vec<feed::Event> = feed::events(9100, 2).into_iter().filter(|e| e.pick.by < 3).collect();
     assert_eq!(ev.len(), 40);
     for e in &ev {
         assert_eq!(e.pick.tier, rec.tiers[e.pick.screen as usize]);

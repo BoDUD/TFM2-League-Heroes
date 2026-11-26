@@ -22,6 +22,8 @@ pub struct Choice {
     pub chosen: u16,
     /// 是玩家自己点的（不是就是 AI 推荐的）
     pub by_user: bool,
+    /// 技能海克斯放在哪个技能上（0.5.0：1 技能、2 技能 2、3 大招；0 = 没选，用 AI 默认的 [`crate::augments::ai_slot`]）
+    pub slot: u8,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -87,7 +89,7 @@ impl Record {
                 let cards = rules::deal(&mut rng, self.tiers[k], &used).unwrap_or([0, 1, 2]);
                 used.extend(cards);
                 let c = [cards[0] as u16, cards[1] as u16, cards[2] as u16];
-                picks.push(Choice { cards: c, first: c, chosen: c[0], by_user: false });
+                picks.push(Choice { cards: c, first: c, chosen: c[0], by_user: false, slot: 0 });
             }
             let mut m = Mine { hero, picks, confirmed: false };
             recommend(&mut m, &t, &mut rng, true);
@@ -102,7 +104,25 @@ impl Record {
         }
         let Some(m) = self.mine.iter_mut().find(|m| m.hero == hero) else { return false };
         let Some(c) = m.picks.get_mut(k) else { return false };
+        if c.chosen != c.cards[card] {
+            c.slot = 0;
+        }
         c.chosen = c.cards[card];
+        c.by_user = true;
+        true
+    }
+
+    /// 玩家给第 `k` 次拿的技能海克斯选技能（1 技能、2 技能 2、3 大招；拿的不是技能海克斯、锁了：不改）。-> 改了没有
+    pub fn set_slot(&mut self, hero: &str, k: usize, slot: u8) -> bool {
+        if self.used || !(1..=3).contains(&slot) {
+            return false;
+        }
+        let Some(m) = self.mine.iter_mut().find(|m| m.hero == hero) else { return false };
+        let Some(c) = m.picks.get_mut(k) else { return false };
+        if !crate::augments::skill_aug(AUGS[c.chosen as usize].ev) {
+            return false;
+        }
+        c.slot = slot;
         c.by_user = true;
         true
     }
@@ -215,7 +235,8 @@ impl Record {
 
 /// 没点过的那几次按 AI 推荐，和比赛里的 AI 一样拿三张里分最高的；前面拿了的算进搭配。
 ///
-/// `replace`（发牌的时候）：先把分数低于刷新线（[`rules::reroll_bar`]）的换掉（这一档还有这个英雄四次里没出现过的卡时），
+/// `replace`（发牌的时候）：先把比赛里的 AI 会刷新的（[`rules::reroll_bar`]、[`rules::worth_reroll`]）换掉（这一档还有这个英雄
+/// 四次里没出现过的卡时），
 /// 玩家 2026-11-26 的截图：塔莉垭（法师）6 级三张都不合适，不换就默认拿了「钝器 +20% 攻击力」。换掉的算在发牌里（`first` 也改成
 /// 新的那张）：0.2.1 / 0.3.x 只改了 `cards`，面板上这张卡写着「已刷新」、玩家这张卡的那次刷新也被用掉了（用户：「有点bug吧 AI默认
 /// 选择的直接显示已刷新」）。换下来的那张玩家从来没看见过，以后刷新再抽到它也没关系。「全部按 AI 推荐」不换卡，只在现在的三张里挑。
@@ -226,14 +247,22 @@ fn recommend(m: &mut Mine, t: &Traits, rng: &mut Rng, replace: bool) {
             if replace {
                 let tier = AUGS[m.picks[k].first[0] as usize].tier;
                 let bar = rules::reroll_bar(t, &taken, 0.0, tier);
-                for j in 0..3 {
+                let s = |x: u16| rules::score(x as usize, t, &taken, 0.0);
+                let mut order = [0usize, 1, 2];
+                order.sort_by(|&a, &b| s(m.picks[k].cards[a]).total_cmp(&s(m.picks[k].cards[b])));
+                for j in order {
                     let c = &m.picks[k];
-                    if c.cards[j] != c.first[j] || rules::score(c.cards[j] as usize, t, &taken, 0.0) >= bar {
+                    if c.cards[j] != c.first[j] {
                         continue;
                     }
+                    let other = (0..3).filter(|&i| i != j).map(|i| s(c.cards[i])).fold(f32::MIN, f32::max);
                     let seen: Vec<usize> =
                         m.picks.iter().flat_map(|p| p.cards.iter().chain(p.first.iter()).map(|&x| x as usize)).collect();
-                    if let Some(new) = rules::draw_card(rng, AUGS[c.cards[j] as usize].tier, &seen, &[], false) {
+                    let ctier = AUGS[c.cards[j] as usize].tier;
+                    if !rules::worth_reroll(s(c.cards[j]), other, bar, &rules::left_scores(t, &taken, 0.0, ctier, &seen)) {
+                        continue;
+                    }
+                    if let Some(new) = rules::draw_card(rng, ctier, &seen, &[], false) {
                         m.picks[k].cards[j] = new as u16;
                         m.picks[k].first[j] = new as u16;
                     }
@@ -362,7 +391,8 @@ pub fn encode(r: &Record) -> String {
                 .picks
                 .iter()
                 .map(|c| {
-                    format!("{},{},{}/{},{},{}/{}/{}", k(c.cards[0]), k(c.cards[1]), k(c.cards[2]), k(c.first[0]),
+                    let slot = if c.slot > 0 { format!("/{}", c.slot) } else { String::new() };
+                    format!("{},{},{}/{},{},{}/{}/{}{slot}", k(c.cards[0]), k(c.cards[1]), k(c.cards[2]), k(c.first[0]),
                             k(c.first[1]), k(c.first[2]), k(c.chosen), if c.by_user { "u" } else { "a" })
                 })
                 .collect();
@@ -401,10 +431,15 @@ pub fn decode(text: &str, m: u64, s: u64, id: u64) -> Option<Record> {
         let mut picks = Vec::new();
         for p in rest.split(';') {
             let f: Vec<&str> = p.split('/').collect();
-            if f.len() != 4 {
+            // 0.5.0 起技能海克斯多一段：选的技能
+            if f.len() != 4 && f.len() != 5 {
                 return None;
             }
-            picks.push(Choice { cards: three(f[0])?, first: three(f[1])?, chosen: aug(f[2])?, by_user: f[3] == "u" });
+            let slot = match f.get(4) {
+                Some(x) => x.parse::<u8>().ok().filter(|s| (1..=3).contains(s))?,
+                None => 0,
+            };
+            picks.push(Choice { cards: three(f[0])?, first: three(f[1])?, chosen: aug(f[2])?, by_user: f[3] == "u", slot });
         }
         if picks.len() != SCREENS {
             return None;
@@ -438,6 +473,29 @@ mod tests {
         let mut r = Record::new(seed, 0, seed, [35, 45, 20]);
         r.set_lineup(v(&BLUE), v(&RED), |_| marksman());
         r
+    }
+
+    /// 0.5.0：技能海克斯选的技能存进记录、存档读回来一样；换了卡回到 AI 默认；不是技能海克斯不让选。
+    #[test]
+    fn a_skill_augments_ability_is_kept() {
+        let mut r = full(5);
+        let hero = r.mine[0].hero.clone();
+        let (siphon, deft, hearty) = (by_key("siphon").unwrap() as u16, by_key("deft").unwrap() as u16, by_key("hearty").unwrap() as u16);
+        r.mine[0].picks[1].cards = [siphon, deft, hearty];
+        r.mine[0].picks[1].first = [siphon, deft, hearty];
+        assert!(r.choose(&hero, 1, 0));
+        assert!(r.set_slot(&hero, 1, 3));
+        assert!(!r.set_slot(&hero, 1, 4), "only 1-3");
+        assert_eq!(r.mine[0].picks[1].slot, 3);
+        r.bound = Some((3, 1));
+        let back = decode(&encode(&r), 3, 1, r.id).unwrap();
+        assert_eq!(back.mine, r.mine);
+        // a record without the ability (0.4.0's) still reads
+        let old = encode(&r).replace("/u/3", "/u");
+        assert_eq!(decode(&old, 3, 1, r.id).unwrap().mine[0].picks[1].slot, 0);
+        assert!(r.choose(&hero, 1, 1), "another card");
+        assert_eq!(r.mine[0].picks[1].slot, 0, "back to the AI's");
+        assert!(!r.set_slot(&hero, 1, 2), "deft takes no ability");
     }
 
     #[test]

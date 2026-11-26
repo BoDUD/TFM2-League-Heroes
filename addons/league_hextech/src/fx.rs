@@ -85,9 +85,29 @@ pub fn anim_name(s: Show) -> &'static str {
         Show::Immolate => "immolate",
         Show::Typhoon => "gust",
         Show::Ward => "ward",
-        // 护盾的光是画的线，图上没有
+        // 下面这些是画的线，图上没有
         Show::ShieldGlow => "shield_glow",
+        Show::HolyGlow => "holy_glow",
+        Show::RingRed => "ring_red",
+        Show::RingGold => "ring_gold",
+        Show::RingBlue => "ring_blue",
+        Show::RingPurple => "ring_purple",
+        Show::RingCyan => "ring_cyan",
+        Show::Boomerang => "boomerang",
+        Show::Tether => "tether",
+        Show::Trail => "trail",
+        Show::Hive => "hive",
+        Show::Bees => "bees",
+        Show::RingGreen => "ring_green",
+        Show::Blob => "blob",
     }
+}
+
+/// 画的线（不是图上的动画），放 `dur` tick（0.4.0）。
+pub fn drawn_by_lines(s: Show) -> bool {
+    matches!(s, Show::ShieldGlow | Show::HolyGlow | Show::RingRed | Show::RingGold | Show::RingBlue | Show::RingPurple
+        | Show::RingCyan | Show::Boomerang | Show::Tether | Show::Trail | Show::Hive | Show::Bees | Show::RingGreen
+        | Show::Blob)
 }
 
 pub fn anim(s: Show) -> Option<&'static Anim> {
@@ -106,7 +126,7 @@ fn flies(s: Show) -> bool {
 
 /// 这一次一共放多少 tick。
 pub fn ticks(f: &feed::Fx) -> usize {
-    if flies(f.show) || f.show == Show::ShieldGlow {
+    if flies(f.show) || drawn_by_lines(f.show) {
         return (f.dur as usize).max(1);
     }
     let a = anim(f.show).map_or(0, length);
@@ -304,16 +324,149 @@ pub fn glow_ring(at: (u64, u64), t: usize) -> Vec<(f32, f32)> {
         .collect()
 }
 
-/// 一圈按几层画（[`lines`] 的小数坐标版）。
-fn ring(ctx: &mut StableClient<'_>, v: &world::View, pts: &[(f32, f32)]) -> bool {
+/// 一条折线按几层画（[`lines`] 的小数坐标版）。
+fn ring(ctx: &mut StableClient<'_>, v: &world::View, pts: &[(f32, f32)], layers: &[(f32, u32)]) -> bool {
     let mut drawn = false;
-    for (width, colour) in GLOW_WIDTHS.into_iter().zip(GLOW_COLOURS) {
+    for &(width, colour) in layers {
         for w in pts.windows(2) {
             let (a, b) = (v.px(w[0]), v.px(w[1]));
             drawn |= ctx.draw_line(world::GAME, a.0, a.1, b.0, b.1, width * v.scale.0, v.z, colour);
         }
     }
     drawn
+}
+
+fn glow_layers() -> Vec<(f32, u32)> {
+    GLOW_WIDTHS.into_iter().zip(GLOW_COLOURS).collect()
+}
+
+// ===================== 0.4.0：光圈、回旋刃、牵引、裂痕、无敌 =====================
+
+/// 无敌的金光（和护盾的光一样的圈，金色）。
+const HOLY_COLOURS: [u32; 3] = [0xff_d2_5a_48, 0xff_e6_8c_96, 0xff_fa_dc_e6];
+/// 外扩的光圈：(外层淡、中层、亮芯) 每种颜色。
+fn ring_colours(s: Show) -> [u32; 3] {
+    match s {
+        Show::RingRed => [0xff_50_2a_50, 0xff_86_46_a0, 0xff_d8_a0_f0],
+        Show::RingGold => [0xff_c4_3c_50, 0xff_dc_78_a0, 0xff_f6_c8_f0],
+        Show::RingBlue => [0x3c_8c_ff_50, 0x78_b8_ff_a0, 0xd2_ea_ff_f0],
+        Show::RingPurple => [0xa0_4c_ff_50, 0xc0_82_ff_a0, 0xec_d2_ff_f0],
+        Show::RingGreen => [0x3c_c8_3c_50, 0x78_e6_64_a0, 0xd2_ff_c8_f0],
+        _ => [0x3c_e6_ff_50, 0x8c_f0_ff_a0, 0xdc_fc_ff_f0],
+    }
+}
+const RING_WIDTHS: [f32; 3] = [5.0, 2.6, 1.1];
+/// 光圈默认的最大半径（模拟单位）、地上的圈扁成这么多（竖着 / 横着）。
+pub const RING_R: u64 = 30_000;
+pub const RING_FLAT: f32 = 0.5;
+
+/// 颜色乘上不透明度（0..1）。
+fn fade(c: u32, k: f32) -> u32 {
+    let a = ((c & 0xff) as f32 * k.clamp(0.0, 1.0)) as u32;
+    (c & 0xffff_ff00) | a
+}
+
+/// 外扩的光圈在 `age` 时：地上一圈（世界像素，首尾相接）和这时的不透明度。从三成大扩到最大，越扩越淡。
+pub fn ring_at(f: &feed::Fx, age: usize) -> (Vec<(f32, f32)>, f32) {
+    let dur = (f.dur as usize).max(1);
+    let s = (age as f32 / dur as f32).clamp(0.0, 1.0);
+    let r_max = f.to.first().map_or(RING_R, |x| x.0) as f32 / world::UNITS_PER_PX;
+    let r = r_max * (0.3 + 0.7 * s);
+    let (cx, cy) = (world::whole_px(f.at.0) as f32 + 0.5, world::whole_px(f.at.1) as f32);
+    let pts = (0..=GLOW_SEGS)
+        .map(|i| {
+            let a = i as f32 / GLOW_SEGS as f32 * std::f32::consts::TAU;
+            (cx + r * a.cos(), cy + r * RING_FLAT * a.sin())
+        })
+        .collect();
+    (pts, 1.0 - s * 0.85)
+}
+
+/// 回旋刃在 `age` 时在哪（世界像素，胸口高）：前一半从 `at` 飞到 `to[0]`，后一半飞回来。
+pub fn boomerang_at(f: &feed::Fx, age: usize) -> Option<(f32, f32)> {
+    let to = *f.to.first()?;
+    let dur = (f.dur as usize).max(2);
+    if age > dur {
+        return None;
+    }
+    let s = age as f32 / dur as f32;
+    let k = if s < 0.5 { s * 2.0 } else { 2.0 - s * 2.0 };
+    let (a, b) = (chest(f.at), chest(to));
+    Some((a.0 as f32 + (b.0 - a.0) as f32 * k + 0.5, a.1 as f32 + (b.1 - a.1) as f32 * k + 0.5))
+}
+
+/// 回旋刃本身：一个转着的十字（两道，世界像素的四个端点）。
+pub fn boomerang_blades(p: (f32, f32), age: usize) -> [[(f32, f32); 2]; 2] {
+    let a = age as f32 * 0.7;
+    let r = 6.0;
+    let arm = |t: f32| [(p.0 + r * t.cos(), p.1 + r * t.sin()), (p.0 - r * t.cos(), p.1 - r * t.sin())];
+    [arm(a), arm(a + std::f32::consts::FRAC_PI_2)]
+}
+
+// ===================== 0.4.0 第二批：蜂巢、蜂群、黏液 =====================
+
+/// 一个小圈（世界像素，首尾相接）。
+fn small_loop(p: (f32, f32), rx: f32, ry: f32, n: usize) -> Vec<(f32, f32)> {
+    (0..=n)
+        .map(|i| {
+            let a = i as f32 / n as f32 * std::f32::consts::TAU;
+            (p.0 + rx * a.cos(), p.1 + ry * a.sin())
+        })
+        .collect()
+}
+
+const HIVE_COLOURS: [u32; 2] = [0x5a_32_0a_d0, 0xff_c8_32_f0];
+const HIVE_WIDTHS: [f32; 2] = [4.0, 2.2];
+
+/// 蜂巢在 `age` 时在哪（世界像素，胸口高，和雪球一样带弧线）。
+pub fn hive_at(f: &feed::Fx, age: usize) -> Option<(f32, f32)> {
+    let to = *f.to.first()?;
+    let dur = (f.dur as usize).max(1);
+    if age > dur {
+        return None;
+    }
+    let s = age as f32 / dur as f32;
+    let (a, b) = (chest(f.at), chest(to));
+    let lift = 30.0 * 4.0 * s * (1.0 - s);
+    Some((a.0 as f32 + (b.0 - a.0) as f32 * s + 0.5, a.1 as f32 + (b.1 - a.1) as f32 * s + 0.5 - lift))
+}
+
+const BEE_COLOURS: [u32; 2] = [0x1e_14_00_c8, 0xff_dc_28_ff];
+const BEE_WIDTHS: [f32; 2] = [2.6, 1.4];
+
+/// 蜂群在 `age` 时的四只蜜蜂（每只一小段，世界像素）：绕着 `at` 那个人的胸口转。
+pub fn bees_at(f: &feed::Fx, age: usize) -> Vec<[(f32, f32); 2]> {
+    let c = chest(f.at);
+    let (cx, cy) = (c.0 as f32 + 0.5, c.1 as f32 + 0.5);
+    (0..4)
+        .map(|i| {
+            let a = age as f32 * 0.45 + i as f32 * std::f32::consts::FRAC_PI_2;
+            let r = 7.0 + 2.0 * (age as f32 * 0.3 + i as f32).sin();
+            let (x, y) = (cx + r * a.cos(), cy + r * 0.6 * a.sin());
+            [(x - 1.0, y), (x + 1.0, y)]
+        })
+        .collect()
+}
+
+const BLOB_COLOURS: [u32; 3] = [0x1e_6e_1e_a0, 0x50_d2_3c_d0, 0xb4_ff_8c_f0];
+const BLOB_WIDTHS: [f32; 3] = [4.0, 2.4, 1.0];
+
+/// 地上的一团黏液：扁扁的一小圈，一鼓一鼓的。
+pub fn blob_ring(at: (u64, u64), t: usize) -> Vec<(f32, f32)> {
+    let k = 1.0 + 0.12 * ((t % 40) as f32 / 40.0 * std::f32::consts::TAU).sin();
+    let (cx, cy) = (world::whole_px(at.0) as f32 + 0.5, world::whole_px(at.1) as f32);
+    small_loop((cx, cy), 5.0 * k, 2.6 * k, 12)
+}
+
+const TETHER_COLOURS: [u32; 2] = [0x3a_0b_2a_c8, 0xff_9c_e6_f0];
+const TETHER_WIDTHS: [f32; 2] = [3.2, 1.4];
+const TRAIL_COLOURS: [u32; 3] = [0x3a_1a_0b_d0, 0xc8_6e_28_e6, 0xff_d2_8c_f0];
+const TRAIL_WIDTHS: [f32; 3] = [5.0, 3.0, 1.2];
+
+/// 裂痕在 `age` 时的几层：越到爆开越亮、越宽。
+pub fn trail_layers(f: &feed::Fx, age: usize) -> Vec<(f32, u32)> {
+    let s = (age as f32 / (f.dur as usize).max(1) as f32).clamp(0.0, 1.0);
+    TRAIL_WIDTHS.iter().zip(TRAIL_COLOURS).map(|(&w, c)| (w * (0.6 + 0.6 * s), fade(c, 0.5 + 0.5 * s))).collect()
 }
 
 /// 一次连锁闪电在 `age` 时的每一道：放的人 -> 第一个，第一个 -> 第二个……（世界像素的折线）。
@@ -432,7 +585,55 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
                     drawn |= frame(ctx, &v, a, fr, f.at);
                 }
             }
-            Show::ShieldGlow => drawn |= ring(ctx, &v, &glow_ring(f.at, t)),
+            Show::ShieldGlow => drawn |= ring(ctx, &v, &glow_ring(f.at, t), &glow_layers()),
+            Show::HolyGlow => {
+                let layers: Vec<(f32, u32)> = GLOW_WIDTHS.into_iter().zip(HOLY_COLOURS).collect();
+                drawn |= ring(ctx, &v, &glow_ring(f.at, t), &layers);
+            }
+            Show::Hive => {
+                if let Some(p) = hive_at(f, age) {
+                    let layers: Vec<(f32, u32)> = HIVE_WIDTHS.into_iter().zip(HIVE_COLOURS).collect();
+                    drawn |= ring(ctx, &v, &small_loop(p, 3.5, 3.0, 6), &layers);
+                }
+            }
+            Show::Bees => {
+                let layers: Vec<(f32, u32)> = BEE_WIDTHS.into_iter().zip(BEE_COLOURS).collect();
+                for bee in bees_at(f, age) {
+                    drawn |= ring(ctx, &v, &bee, &layers);
+                }
+            }
+            Show::Blob => {
+                let layers: Vec<(f32, u32)> = BLOB_WIDTHS.into_iter().zip(BLOB_COLOURS).collect();
+                drawn |= ring(ctx, &v, &blob_ring(f.at, t), &layers);
+            }
+            Show::RingRed | Show::RingGold | Show::RingBlue | Show::RingPurple | Show::RingCyan | Show::RingGreen => {
+                let (pts, k) = ring_at(f, age);
+                let layers: Vec<(f32, u32)> =
+                    RING_WIDTHS.into_iter().zip(ring_colours(f.show)).map(|(w, c)| (w, fade(c, k))).collect();
+                drawn |= ring(ctx, &v, &pts, &layers);
+            }
+            Show::Boomerang => {
+                if let Some(p) = boomerang_at(f, age) {
+                    let layers: Vec<(f32, u32)> = BLADE_WIDTHS.iter().copied().zip(BLADE_COLOURS).collect();
+                    for arm in boomerang_blades(p, age) {
+                        drawn |= ring(ctx, &v, &arm, &layers);
+                    }
+                }
+            }
+            Show::Tether => {
+                if let Some(to) = f.to.first() {
+                    let (a, b) = (chest(f.at), chest(*to));
+                    let pts = [(a.0 as f32 + 0.5, a.1 as f32 + 0.5), (b.0 as f32 + 0.5, b.1 as f32 + 0.5)];
+                    let layers: Vec<(f32, u32)> = TETHER_WIDTHS.into_iter().zip(TETHER_COLOURS).collect();
+                    drawn |= ring(ctx, &v, &pts, &layers);
+                }
+            }
+            Show::Trail => {
+                if let Some(to) = f.to.first() {
+                    let px = |p: (u64, u64)| (world::whole_px(p.0) as f32 + 0.5, world::whole_px(p.1) as f32);
+                    drawn |= ring(ctx, &v, &[px(f.at), px(*to)], &trail_layers(f, age));
+                }
+            }
             show => {
                 if let Some((a, fr)) = anim(show).and_then(|a| frame_at(a, age).map(|fr| (a, fr))) {
                     drawn |= frame(ctx, &v, a, fr, f.at);

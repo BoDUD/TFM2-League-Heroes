@@ -27,8 +27,11 @@ pub struct Pick {
     pub cards: [u16; 3],
     pub first: [u16; 3],
     pub chosen: u16,
-    /// 谁选的：0 AI（比赛里那一刻）、1 BP 面板上 AI 推荐的（玩家没动）、2 玩家自己点的
+    /// 谁选的：0 AI（比赛里那一刻）、1 BP 面板上 AI 推荐的（玩家没动）、2 玩家自己点的；0.5.0：3 质变 / 潘朵拉随机给的，4 被潘朵拉
+    /// 换掉了（`chosen` 是没了的那个）
     pub by: u8,
+    /// 技能海克斯作用在哪个技能上（1 技能、2 技能 2、3 大招；别的 0）
+    pub slot: u8,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -177,7 +180,7 @@ mod tests {
 
     fn pick(screen: u8) -> Pick {
         Pick { team: 0, lane: 3, hero: "league_jinx".into(), screen, level: 1, tier: Tier::Gold, cards: [1, 2, 3],
-               first: [1, 2, 3], chosen: 2, by: 0 }
+               first: [1, 2, 3], chosen: 2, by: 0, slot: 0 }
     }
 
     #[test]
