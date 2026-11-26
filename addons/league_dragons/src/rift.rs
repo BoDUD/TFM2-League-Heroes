@@ -22,7 +22,13 @@
 //! 上面变慢；画面还是那几块升起来的岩石（画在单位下面，英雄从上面走过）。
 //!
 //! 这里是规则和位置（纯函数、表）；[`Terrain`] 是一份模拟里的地形状态，`lib.rs` 每 tick 调 [`Terrain::step`]。
+//!
+//! 0.5.12（用户 2026-11-26：「小龙的地形特效是不是也要兼容大地图啊」）：Rin 的召唤师峡谷（第三方地图，`Map::Rift`）也有地形了，
+//! 位置是另一套（[`RIN`]）：英雄联盟那样的布局、地图边长约两倍。规则、半径、画面都和原版一样，只是放的地方不同——见
+//! [`Layout`]。那一套是 tools/art 外面离线挑的（Rin 0.1.68 的 walk.bin：离墙够远、不压兵线和野怪营地，红方那一半是蓝方的
+//! 绕地图中心转 180 度），峡谷变形时还会拿这一局读到的墙再对一遍（`lib.rs` 的 RIFT 日志）。
 
+use game_places::terrain::Map;
 use mod_api_stable::*;
 
 use super::rules::Element;
@@ -234,12 +240,150 @@ pub const EMBERS: [(u64, u64); 16] = [
     (432_000, 368_000), (368_000, 432_000),
 ];
 
-/// 这种峡谷的草丛（没有：空的）。
-pub fn brush_of(e: Element) -> &'static [(u64, u64)] {
-    match e {
-        Element::Ocean => &OCEAN_BRUSH,
-        Element::Chemtech => &CHEM_BRUSH,
-        _ => &[],
+// ===================== Rin 的召唤师峡谷 =====================
+
+/// Rin 的召唤师峡谷（0.1.68，边长 1937454；蓝方在左下、红方在右上，河道从左上的男爵坑斜着穿过中路到右下的小龙坑）：
+/// 河道一条 45 度的（男爵坑口到小龙坑口，过地图中心），蓝方上野区一条竖的（男爵坑下面往蓝 buff 那边）、下野区一条横的（三狼
+/// 和红 buff 之间往小龙坑），红方的是蓝方的绕地图中心转 180 度。
+pub const RIN_CURRENTS: [((u64, u64), (u64, u64)); 5] = [
+    ((746_000, 736_000), (1_204_000, 1_194_000)),
+    ((659_000, 700_000), (659_000, 940_000)),
+    ((917_000, 1_292_000), (1_122_000, 1_292_000)),
+    ((1_291_000, 991_000), (1_291_000, 1_231_000)),
+    ((828_000, 639_000), (1_033_000, 639_000)),
+];
+/// 门, 另一头：蓝方上野区 <-> 小龙坑口的河道左下岸，蓝方下野区 <-> 男爵坑口的左下岸；红方转 180 度（坑口那一头在右上岸），
+/// 同一个坑口两扇门隔着河道。
+pub const RIN_GATES: [((u64, u64), (u64, u64)); 4] = [
+    ((474_000, 814_000), (1_110_000, 1_264_000)),
+    ((1_476_000, 1_117_000), (840_000, 667_000)),
+    ((698_000, 1_478_000), (690_000, 760_000)),
+    ((1_252_000, 453_000), (1_260_000, 1_171_000)),
+];
+/// 海洋的草丛：河道上男爵坑口、小龙坑口各一片，蓝方上野区（蓝 buff 和狼之间）、下野区（靠河道）各一片，红方转 180 度。
+pub const RIN_OCEAN_BRUSH: [(u64, u64); 6] = [
+    (793_000, 773_000), (1_157_000, 1_158_000), (380_000, 971_000), (1_570_000, 960_000), (1_050_000, 1_215_000),
+    (900_000, 716_000),
+];
+/// 化学科技的毒雾：蓝方上野区、下野区各一片，小龙坑口一片，红方转 180 度（坑口那一片在男爵坑口）。
+pub const RIN_CHEM_BRUSH: [(u64, u64); 6] = [
+    (642_000, 938_000), (1_308_000, 993_000), (693_000, 1_483_000), (1_257_000, 448_000), (1_107_000, 1_279_000),
+    (843_000, 652_000),
+];
+/// 蜂蜜果实：男爵坑口河道两岸各一个，小龙坑口转 180 度。
+pub const RIN_FRUITS: [(u64, u64); 4] = [(740_000, 809_000), (855_000, 713_000), (1_210_000, 1_122_000), (1_095_000, 1_218_000)];
+/// 碎石：河道上小龙坑口、男爵坑口各一块，蓝方上野区、下野区的过道各一块，红方转 180 度（离墙 32000 以上）。
+pub const RIN_ROCKS: [(u64, u64); 6] = [
+    (1_169_000, 1_150_000), (781_000, 781_000), (502_000, 636_000), (1_448_000, 1_295_000), (960_000, 1_557_000),
+    (990_000, 374_000),
+];
+/// 着火的墙：小龙坑、男爵坑周围的墙各 8 处（挨着空地的墙格子，按角度摊开）。
+pub const RIN_EMBERS: [(u64, u64); 16] = [
+    // the dragon pit's walls
+    (1_233_000, 1_338_000), (1_271_000, 1_305_000), (1_316_000, 1_300_000), (1_382_000, 1_328_000), (1_357_000, 1_390_000),
+    (1_321_000, 1_426_000), (1_272_000, 1_420_000), (1_235_000, 1_388_000),
+    // Baron's pit's walls
+    (603_000, 547_000), (600_000, 426_000), (685_000, 516_000), (716_000, 547_000), (768_000, 616_000), (683_000, 629_000),
+    (634_000, 637_000), (567_000, 610_000),
+];
+/// Rin 的地图绕这一点的一半转 180 度和自己重合得最多（walk.bin 92%）：红方的位置 = 这个 - 蓝方的（取整千）。
+pub const RIN_TURN: (u64, u64) = (1_950_000, 1_931_000);
+
+// ===================== 一张地图的一套位置 =====================
+
+/// 一张地图上地形放在哪。规则（宽度、半径、时间）两张地图一样。
+#[derive(Debug, PartialEq, Eq)]
+pub struct Layout {
+    /// 日志里叫什么。
+    pub name: &'static str,
+    pub currents: &'static [((u64, u64), (u64, u64))],
+    pub gates: &'static [((u64, u64), (u64, u64))],
+    pub ocean_brush: &'static [(u64, u64)],
+    pub chem_brush: &'static [(u64, u64)],
+    /// 两张地图都是 4 个（[`Terrain`] 按 [`FRUITS`] 的个数记）。
+    pub fruits: &'static [(u64, u64)],
+    pub rocks: &'static [(u64, u64)],
+    pub embers: &'static [(u64, u64)],
+}
+
+/// 游戏自带的 5v5 地图。
+pub const NATIVE: Layout = Layout {
+    name: "the game's own 5v5 map",
+    currents: &CURRENTS,
+    gates: &GATES,
+    ocean_brush: &OCEAN_BRUSH,
+    chem_brush: &CHEM_BRUSH,
+    fruits: &FRUITS,
+    rocks: &ROCKS,
+    embers: &EMBERS,
+};
+
+/// Rin 的召唤师峡谷。
+pub const RIN: Layout = Layout {
+    name: "Rin's Summoner's Rift",
+    currents: &RIN_CURRENTS,
+    gates: &RIN_GATES,
+    ocean_brush: &RIN_OCEAN_BRUSH,
+    chem_brush: &RIN_CHEM_BRUSH,
+    fruits: &RIN_FRUITS,
+    rocks: &RIN_ROCKS,
+    embers: &RIN_EMBERS,
+};
+
+/// 这一局的地形放哪：Rin 的召唤师峡谷（`map`）、游戏自带的 5v5 地图（两个水晶和小龙坑在原来的地方）；别的地图没有。
+pub fn layout_for(map: Map, nexus: &[(u64, u64)], pit: Option<(u64, u64)>) -> Option<&'static Layout> {
+    if map == Map::Rift {
+        Some(&RIN)
+    } else if is_base_map(nexus, pit) {
+        Some(&NATIVE)
+    } else {
+        None
+    }
+}
+
+impl Layout {
+    /// 这种峡谷的草丛（没有：空的）。
+    pub fn brush_of(&self, e: Element) -> &'static [(u64, u64)] {
+        match e {
+            Element::Ocean => self.ocean_brush,
+            Element::Chemtech => self.chem_brush,
+            _ => &[],
+        }
+    }
+
+    /// 这一点在风道里。
+    pub fn in_wind(&self, p: (u64, u64)) -> bool {
+        self.currents.iter().any(|&(a, b)| seg_d2(p, a, b) <= WIND_HALF * WIND_HALF)
+    }
+
+    /// 这一点踩着哪个门：(它的另一头)。
+    pub fn gate_at(&self, p: (u64, u64)) -> Option<((u64, u64), (u64, u64))> {
+        self.gates
+            .iter()
+            .flat_map(|&(a, b)| [(a, b), (b, a)])
+            .find(|&(gate, _)| d2(p, gate) <= GATE_R * GATE_R)
+    }
+
+    /// 这一点在哪片草丛里（第几片）。
+    pub fn brush_at(&self, e: Element, p: (u64, u64)) -> Option<usize> {
+        self.brush_of(e).iter().position(|c| d2(p, *c) <= BRUSH_R * BRUSH_R)
+    }
+
+    /// 这一点（身体半径 `body`）踩在哪堆碎石上（第几块）。
+    pub fn rock_at(&self, p: (u64, u64), body: u64) -> Option<usize> {
+        let reach = ROCK_R + body;
+        self.rocks.iter().position(|c| d2(p, *c) < reach * reach)
+    }
+
+    /// 地上的每一处（门、草丛、果实、碎石的中心和风道上每隔 24000 一点），拿来和这一局读到的墙对一遍。
+    pub fn ground_points(&self) -> Vec<(u64, u64)> {
+        let mut out: Vec<(u64, u64)> = self.gates.iter().flat_map(|g| [g.0, g.1]).collect();
+        out.extend(self.ocean_brush.iter().chain(self.chem_brush).chain(self.fruits).chain(self.rocks));
+        for &(a, b) in self.currents {
+            let n = (seg_d2(a, b, b) as f64).sqrt() as u64 / 24_000 + 1;
+            out.extend((0..=n).map(|k| ((a.0 * (n - k) + b.0 * k) / n, (a.1 * (n - k) + b.1 * k) / n)));
+        }
+        out
     }
 }
 
@@ -259,19 +403,6 @@ pub fn seg_d2(p: (u64, u64), a: (u64, u64), b: (u64, u64)) -> u64 {
     ((cx * cx + cy * cy) / (len2 * len2)) as u64
 }
 
-/// 这一点在风道里。
-pub fn in_wind(p: (u64, u64)) -> bool {
-    CURRENTS.iter().any(|&(a, b)| seg_d2(p, a, b) <= WIND_HALF * WIND_HALF)
-}
-
-/// 这一点踩着哪个门：(它的另一头)。
-pub fn gate_at(p: (u64, u64)) -> Option<((u64, u64), (u64, u64))> {
-    GATES
-        .iter()
-        .flat_map(|&(a, b)| [(a, b), (b, a)])
-        .find(|&(gate, _)| d2(p, gate) <= GATE_R * GATE_R)
-}
-
 /// 从 `from` 走到 `to` 是不是朝着门的另一头走：走了 [`GATE_MOVE`] 以上，方向和「门 -> 另一头」的夹角在 60 度以内。
 pub fn heading(from: (u64, u64), to: (u64, u64), gate: (u64, u64), twin: (u64, u64)) -> bool {
     let (mx, my) = (to.0 as i128 - from.0 as i128, to.1 as i128 - from.1 as i128);
@@ -280,17 +411,6 @@ pub fn heading(from: (u64, u64), to: (u64, u64), gate: (u64, u64), twin: (u64, u
     let dot = mx * gx + my * gy;
     // cos >= 0.5  <=>  dot > 0 and 4 dot^2 >= |m|^2 |g|^2
     m2 >= (GATE_MOVE * GATE_MOVE) as i128 && dot > 0 && 4 * dot * dot >= m2 * g2
-}
-
-/// 这一点在哪片草丛里（第几片）。
-pub fn brush_at(e: Element, p: (u64, u64)) -> Option<usize> {
-    brush_of(e).iter().position(|c| d2(p, *c) <= BRUSH_R * BRUSH_R)
-}
-
-/// 这一点（身体半径 `body`）踩在哪堆碎石上（第几块）。
-pub fn rock_at(p: (u64, u64), body: u64) -> Option<usize> {
-    let reach = ROCK_R + body;
-    ROCKS.iter().position(|c| d2(p, *c) < reach * reach)
 }
 
 // ===================== 一份模拟里的地形 =====================
@@ -328,10 +448,13 @@ struct Walker {
     on_rock: Option<usize>,
 }
 
-/// 一份模拟里的地形：哪种峡谷、从哪个 tick 起，每个座位的状态，每个果实什么时候长好；`END` 用的计数。
+/// 一份模拟里的地形：哪种峡谷、从哪个 tick 起、放在哪（哪张地图的那一套），每个座位的状态，每个果实什么时候长好；`END`
+/// 用的计数。
 #[derive(Clone, Debug, Default)]
 pub struct Terrain {
     pub rift: Option<(Element, usize)>,
+    /// 这一局的那一套位置（没变形：原版的）。
+    layout: Option<&'static Layout>,
     walkers: Vec<Walker>,
     fruits: [usize; FRUITS.len()],
     pub jumps: usize,
@@ -345,10 +468,16 @@ pub struct Terrain {
 }
 
 impl Terrain {
-    /// 峡谷变成 `element`（在 tick `now`）。
-    pub fn start(&mut self, element: Element, now: usize) {
+    /// 峡谷变成 `element`（在 tick `now`），地形放在 `layout` 那一套位置上。
+    pub fn start(&mut self, element: Element, now: usize, layout: &'static Layout) {
         self.rift = Some((element, now));
+        self.layout = Some(layout);
         self.fruits = [now + FRUIT_FIRST; FRUITS.len()];
+    }
+
+    /// 这一局的那一套位置。
+    pub fn layout(&self) -> &'static Layout {
+        self.layout.unwrap_or(&NATIVE)
     }
 
     /// 地形生效了没有（变形后 [`RISE_T`] tick）。
@@ -422,8 +551,9 @@ impl Terrain {
     }
 
     fn wind(&mut self, sim: &mut StableSim<'_>, here: &[Option<(usize, (u64, u64), usize, usize)>]) {
+        let layout = self.layout();
         for h in here.iter().flatten() {
-            if in_wind(h.1) {
+            if layout.in_wind(h.1) {
                 if sim.entity_stack_buff(h.0, &wind_buff(), 1, true) == 0 {
                     sim.entity_remove_buff(h.0, WIND);
                     sim.add_buff(h.0, &wind_buff());
@@ -435,11 +565,12 @@ impl Terrain {
 
     fn gates(&mut self, sim: &mut StableSim<'_>, now: usize, here: &[Option<(usize, (u64, u64), usize, usize)>],
              out: &mut Vec<Happening>) {
+        let layout = self.layout();
         for (i, h) in here.iter().enumerate() {
             let Some((ent, at, _, _)) = *h else { continue };
             let w = self.walkers[i];
             let calm = |t: usize| t == 0 || now >= t + GATE_CALM;
-            let (Some(prev), Some((gate, twin))) = (w.at, gate_at(at)) else { continue };
+            let (Some(prev), Some((gate, twin))) = (w.at, layout.gate_at(at)) else { continue };
             if now < w.gate_until || !calm(w.hurt_at) || !calm(w.acted_at) || !heading(prev, at, gate, twin) {
                 continue;
             }
@@ -453,7 +584,8 @@ impl Terrain {
 
     fn brush(&mut self, sim: &mut StableSim<'_>, now: usize, element: Element, seats: &[(usize, usize)],
              here: &[Option<(usize, (u64, u64), usize, usize)>], out: &mut Vec<Happening>) {
-        let patch: Vec<Option<usize>> = here.iter().map(|h| h.and_then(|h| brush_at(element, h.1))).collect();
+        let layout = self.layout();
+        let patch: Vec<Option<usize>> = here.iter().map(|h| h.and_then(|h| layout.brush_at(element, h.1))).collect();
         for (i, h) in here.iter().enumerate() {
             let Some((ent, _, _, _)) = *h else { continue };
             let w = self.walkers[i];
@@ -483,7 +615,7 @@ impl Terrain {
 
     fn fruit(&mut self, sim: &mut StableSim<'_>, now: usize, here: &[Option<(usize, (u64, u64), usize, usize)>],
              out: &mut Vec<Happening>) {
-        for (f, at) in FRUITS.iter().enumerate() {
+        for (f, at) in self.layout().fruits.iter().enumerate().take(FRUITS.len()) {
             if now < self.fruits[f] {
                 continue;
             }
@@ -508,7 +640,7 @@ impl Terrain {
             let Some((ent, at, _, _)) = *h else { continue };
             let body = sim.get_entity(ent).map_or(0, |e| e.radius() as u64);
             let body = if body == 0 { BODY } else { body.min(2 * BODY) };
-            let Some(rock) = rock_at(at, body) else {
+            let Some(rock) = self.layout().rock_at(at, body) else {
                 self.walkers[i].on_rock = None;
                 continue;
             };
@@ -590,16 +722,16 @@ mod tests {
             for k in 0..=64u64 {
                 let p = ((a.0 * (64 - k) + b.0 * k) / 64, (a.1 * (64 - k) + b.1 * k) / 64);
                 assert!(open(p, 12_000), "the current {a:?}-{b:?} crosses a wall at {p:?}");
-                assert!(in_wind(p));
+                assert!(NATIVE.in_wind(p));
             }
         }
-        assert!(!in_wind((48_000, 500_000)) && !in_wind((480_000, 912_000)), "the lanes have no wind");
+        assert!(!NATIVE.in_wind((48_000, 500_000)) && !NATIVE.in_wind((480_000, 912_000)), "the lanes have no wind");
         // gates: mirrored pairs, each gate clear of the walls, a good way from its twin; one of each pair by a pit
         for (a, b) in GATES {
             assert!(GATES.contains(&(mirror(a), mirror(b))), "{a:?}");
             for g in [a, b] {
                 assert!(open(g, GATE_R + 6_000), "the gate at {g:?} is against a wall");
-                assert_eq!(gate_at(g).map(|t| t.1), Some(if g == a { b } else { a }));
+                assert_eq!(NATIVE.gate_at(g).map(|t| t.1), Some(if g == a { b } else { a }));
             }
             assert!(d2(a, b) >= 250_000 * 250_000);
             assert!([SERPEN, EPIC].iter().any(|pit| d2(b, *pit) <= 120_000 * 120_000), "{b:?} is by no pit");
@@ -651,7 +783,7 @@ mod tests {
         assert_eq!(seg_d2((7, 9), a, a), d2((7, 9), a));
         // the river's diagonal: 36000 off it is in, a little more is out
         let mid = (488_000u64, 488_000u64);
-        assert!(in_wind((mid.0 + 25_000, mid.1 - 25_000)) && !in_wind((mid.0 + 27_000, mid.1 - 27_000)));
+        assert!(NATIVE.in_wind((mid.0 + 25_000, mid.1 - 25_000)) && !NATIVE.in_wind((mid.0 + 27_000, mid.1 - 27_000)));
     }
 
     #[test]
@@ -669,19 +801,19 @@ mod tests {
         assert!(!heading((gate.0, gate.1 - 3_000), gate, gate, twin));
         // the same back from the twin
         assert!(heading((twin.0 + 3_000, twin.1), twin, twin, gate));
-        assert_eq!(gate_at((twin.0 + 10_000, twin.1 - 10_000)), Some((twin, gate)));
-        assert_eq!(gate_at((twin.0 + 20_000, twin.1)), None);
+        assert_eq!(NATIVE.gate_at((twin.0 + 10_000, twin.1 - 10_000)), Some((twin, gate)));
+        assert_eq!(NATIVE.gate_at((twin.0 + 20_000, twin.1)), None);
     }
 
     #[test]
     fn the_rubble_is_where_the_rocks_are() {
         let reach = ROCK_R + BODY;
         for (k, r) in ROCKS.iter().enumerate() {
-            assert_eq!(rock_at(*r, BODY), Some(k));
-            assert_eq!(rock_at((r.0 + reach - 100, r.1), BODY), Some(k), "rock {k}: its edge, a body's width out");
-            assert_eq!(rock_at((r.0, r.1 - reach - 100), BODY), None, "rock {k}: beyond it");
+            assert_eq!(NATIVE.rock_at(*r, BODY), Some(k));
+            assert_eq!(NATIVE.rock_at((r.0 + reach - 100, r.1), BODY), Some(k), "rock {k}: its edge, a body's width out");
+            assert_eq!(NATIVE.rock_at((r.0, r.1 - reach - 100), BODY), None, "rock {k}: beyond it");
             // a bigger body reaches it from farther
-            assert_eq!(rock_at((r.0 + reach + 2_000, r.1), BODY + 4_000), Some(k));
+            assert_eq!(NATIVE.rock_at((r.0 + reach + 2_000, r.1), BODY + 4_000), Some(k));
         }
         // slower on it, for a moment longer than two looks
         let b = rubble_buff();
@@ -695,11 +827,86 @@ mod tests {
         assert_eq!(fruit_heal(1000, 1000), 80);
         let mut t = Terrain::default();
         assert_eq!(t.live(999_999), None);
-        t.start(Element::Ocean, 1_000);
+        t.start(Element::Ocean, 1_000, &NATIVE);
         assert_eq!(t.live(1_000 + RISE_T - 1), None);
         assert_eq!(t.live(1_000 + RISE_T), Some(Element::Ocean));
         assert!(!t.ripe(0, 1_000 + FRUIT_FIRST - 1) && t.ripe(3, 1_000 + FRUIT_FIRST));
-        t.start(Element::Cloud, 1_000);
+        t.start(Element::Cloud, 1_000, &NATIVE);
         assert!(!t.ripe(0, 99_999), "only the Ocean rift grows them");
+    }
+
+    #[test]
+    fn each_map_gets_its_own_places() {
+        let rin_nexus = [(206_201, 1_724_334), (1_736_789, 210_352)];
+        assert_eq!(layout_for(Map::Rift, &rin_nexus, Some((1_294_986, 1_363_908))), Some(&RIN));
+        assert_eq!(layout_for(Map::Rift, &[], None), Some(&RIN), "Rin's map is known by its towers, the nexuses aside");
+        assert_eq!(layout_for(Map::Native, &NEXUS, Some(SERPEN)), Some(&NATIVE));
+        assert_eq!(layout_for(Map::Native, &[(0, 0), (0, 0)], Some((700_000, 300_000))), None, "another map: nothing");
+        let mut t = Terrain::default();
+        assert_eq!(t.layout(), &NATIVE);
+        t.start(Element::Hextech, 5, &RIN);
+        assert_eq!(t.layout(), &RIN);
+        assert_eq!(RIN.gate_at(RIN_GATES[0].0).map(|g| g.1), Some(RIN_GATES[0].1));
+        assert_eq!(RIN.brush_at(Element::Ocean, RIN_OCEAN_BRUSH[3]), Some(3));
+        assert_eq!(RIN.brush_at(Element::Chemtech, RIN_OCEAN_BRUSH[3]), None);
+        assert_eq!(RIN.rock_at(RIN_ROCKS[5], BODY), Some(5));
+        assert!(RIN.in_wind(RIN_CURRENTS[0].0) && !NATIVE.in_wind(RIN_CURRENTS[0].0));
+    }
+
+    /// Rin 的召唤师峡谷那一套：和原版一样多，红方的是蓝方的绕地图中心转 180 度（挑的时候两边一起挑），都在地图里、不压兵线，
+    /// 同一样东西互相隔开。墙在离线挑的时候对过（Rin 0.1.68 的 walk.bin），游戏里峡谷变形时还会对一遍。
+    #[test]
+    fn rins_rift_has_places_alike_for_both_teams() {
+        let sizes = |l: &Layout| (l.currents.len(), l.gates.len(), l.ocean_brush.len(), l.chem_brush.len(), l.fruits.len(),
+                                  l.rocks.len(), l.embers.len());
+        assert_eq!(sizes(&RIN), sizes(&NATIVE));
+        let turn = |p: (u64, u64)| (RIN_TURN.0 - p.0, RIN_TURN.1 - p.1);
+        let near = |a: (u64, u64), b: (u64, u64)| d2(a, b) <= 2_000 * 2_000;
+        for list in [RIN.ocean_brush, RIN.chem_brush, RIN.fruits, RIN.rocks] {
+            for p in list {
+                assert!(list.iter().any(|q| near(*q, turn(*p))), "{p:?} has no twin on the other side");
+            }
+        }
+        for &(a, b) in RIN.gates {
+            assert!(RIN.gates.iter().any(|&(c, d)| near(c, turn(a)) && near(d, turn(b))), "the gate {a:?}");
+            assert!(d2(a, b) >= 250_000 * 250_000, "the gate {a:?} goes somewhere");
+        }
+        for &(a, b) in RIN.currents {
+            // across, down or the river's 45 degrees: the three wind pictures (fx.rs wind_tiles)
+            assert!(a.0 == b.0 || a.1 == b.1 || a.0.abs_diff(b.0) == a.1.abs_diff(b.1), "{a:?}-{b:?}");
+            assert!(RIN.currents.iter().any(|&(c, d)| (near(c, turn(a)) && near(d, turn(b))) || (near(c, turn(b)) && near(d, turn(a)))));
+        }
+        // the flames: eight round each pit
+        let (dragon, baron) = ((1_294_986u64, 1_363_908u64), (658_895u64, 570_935u64));
+        assert!(RIN.embers[..8].iter().all(|e| d2(*e, dragon) <= 170_000 * 170_000));
+        assert!(RIN.embers[8..].iter().all(|e| d2(*e, baron) <= 170_000 * 170_000));
+        // in the map, off its lanes (Rin's lane waypoints, 地图资料/anchors.json)
+        let lanes: [&[(u64, u64)]; 3] = [
+            &[(187_363, 1_660_091), (154_637, 1_179_000), (151_363, 688_091), (315_000, 279_000), (789_546, 151_363),
+              (1_280_454, 153_000), (1_673_182, 193_909)],
+            &[(272_454, 1_665_000), (527_728, 1_424_454), (740_454, 1_195_363), (969_546, 966_272), (1_206_818, 720_818),
+              (1_429_363, 475_363), (1_669_909, 269_182)],
+            &[(313_363, 1_751_728), (773_182, 1_768_091), (1_247_728, 1_768_091), (1_673_182, 1_679_728), (1_771_363, 1_211_728),
+              (1_771_363, 737_182), (1_746_818, 316_637)],
+        ];
+        let things: Vec<(u64, u64)> = RIN.gates.iter().flat_map(|g| [g.0, g.1])
+            .chain(RIN.ocean_brush.iter().chain(RIN.chem_brush).chain(RIN.fruits).chain(RIN.rocks).copied()).collect();
+        for p in &things {
+            assert!(p.0 > 100_000 && p.1 > 100_000 && p.0 < 1_850_000 && p.1 < 1_850_000, "{p:?} out of the map");
+            for lane in lanes {
+                for w in lane.windows(2) {
+                    assert!(seg_d2(*p, w[0], w[1]) >= 25_000 * 25_000, "{p:?} is on a lane");
+                }
+            }
+        }
+        // the same kind of thing apart from each other
+        let apart = |list: &[(u64, u64)], least: u64| {
+            list.iter().enumerate().all(|(i, a)| list[i + 1..].iter().all(|b| d2(*a, *b) >= least * least))
+        };
+        let gates: Vec<(u64, u64)> = RIN.gates.iter().flat_map(|g| [g.0, g.1]).collect();
+        assert!(apart(&gates, 60_000) && apart(RIN.ocean_brush, 2 * BRUSH_R) && apart(RIN.chem_brush, 2 * BRUSH_R));
+        assert!(apart(RIN.fruits, 40_000) && apart(RIN.rocks, 60_000));
+        // what the walls are checked against in a match: the gates, brush, fruits, rocks and every 24000 of the currents
+        assert!(RIN.ground_points().len() > things.len() + 40);
     }
 }

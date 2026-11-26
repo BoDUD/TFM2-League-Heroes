@@ -226,6 +226,24 @@ fn show(screen: Option<(u64, u64)>, tick: usize, kind: fx::Kind, at: (u64, u64),
     }
 }
 
+/// Rin 的地图上，地形的每一处（[`rift::Layout::ground_points`]）拿这一局读到的墙再对一遍：位置是按 Rin 0.1.68 离线挑的，
+/// 他以后改了墙，日志的 RIFT 行会写出哪几处进了墙。原版地图：空的。
+fn walls_check(map: Map, layout: &rift::Layout) -> String {
+    if map != Map::Rift {
+        return String::new();
+    }
+    let Some(walls) = game_places::terrain::rift_walls() else {
+        return " (the map's walls file did not read: the places are not checked)".to_string();
+    };
+    let pts = layout.ground_points();
+    let bad: Vec<(u64, u64)> = pts.iter().copied().filter(|p| walls.is_wall(p.0 as f64, p.1 as f64)).collect();
+    if bad.is_empty() {
+        format!(" (all {} places off this map's walls)", pts.len())
+    } else {
+        format!(" - WARN {} of {} places in a wall of this map version, the first {:?}", bad.len(), pts.len(), &bad[..bad.len().min(4)])
+    }
+}
+
 fn d2(a: (u64, u64), b: (u64, u64)) -> u64 {
     let (dx, dy) = (a.0.abs_diff(b.0), a.1.abs_diff(b.1));
     dx.saturating_mul(dx).saturating_add(dy.saturating_mul(dy))
@@ -760,8 +778,12 @@ impl Sim {
         self.seats = seats;
         self.map = map_of_sim(sim);
         if self.map == Map::Rift {
-            say(screen.is_some(), "rift", format!("{} MAP sim #{} Rin's Summoner's Rift: the map's own void grubs (8:00-14:45) and Rift Herald (15:00-19:45) hold the top pit before Baron Nashor (20:00); our drakes are the game's serpent in the bottom pit, on the database's timer - the grubs and the Herald are left alone",
+            say(screen.is_some(), "rift", format!("{} MAP sim #{} Rin's Summoner's Rift: the map's own void grubs (8:00-14:45) and Rift Herald (15:00-19:45) hold the top pit before Baron Nashor (20:00); our drakes are the game's serpent in the bottom pit, on the database's timer - the grubs and the Herald are left alone; the drakes there are drawn turned to the pit's opening (league_drake_<element>_rift)",
                                                  head(sim), self.no));
+            // 小龙坑只朝右上方开口：画面换转身朝坑口的那一套（skin.rs）
+            if let Some((m, s)) = screen {
+                feed::on_rift(m, s);
+            }
         }
         let order: Vec<&str> = self.order.iter().map(|e| e.key()).collect();
         say(screen.is_some(), "match", format!("{} MATCH sim #{} drakes in this order: {}, {}, then the rift's {} until the soul{}",
@@ -806,8 +828,10 @@ impl Sim {
         }
         self.ver = [self.ver[0] + 1, self.ver[1] + 1];
         // the rift had turned already (two drakes taken): its terrain again, rising from now
-        if self.drakes >= 2 && !self.conflict && settings::terrain_on() && rift::is_base_map(&self.nexus_at(sim), None) {
-            self.terrain.start(self.order[2], now);
+        if self.drakes >= 2 && !self.conflict && settings::terrain_on() {
+            if let Some(layout) = rift::layout_for(self.map, &self.nexus_at(sim), None) {
+                self.terrain.start(self.order[2], now, layout);
+            }
         }
         say(screen.is_some(), "rebuilt", format!("{} REBUILT sim #{} from the nexus record: blue {:?} red {:?} soul {:?}{}",
                                                  head(sim), self.no, r.stacks[0], r.stacks[1], self.soul,
@@ -1161,7 +1185,9 @@ impl Sim {
         self.nexus.iter().filter_map(|&n| sim.get_entity(n).map(|e| e.pos())).collect()
     }
 
-    /// 第二条元素亚龙被拿下：峡谷变成第三种元素。游戏自带的 5v5 地图上地形跟着变（[`rift`]），别的地图没有。
+    /// 第二条元素亚龙被拿下：峡谷变成第三种元素。游戏自带的 5v5 地图、Rin 的召唤师峡谷（0.5.12，用户：「小龙的地形特效是不是也要
+    /// 兼容大地图啊」）上地形跟着变（[`rift`]，
+    /// 两张地图各一套位置），别的地图没有。
     fn rift_turns(&mut self, sim: &mut StableSim<'_>, now: usize, screen: Option<(u64, u64)>) {
         let element = self.order[2];
         if !settings::terrain_on() {
@@ -1170,23 +1196,23 @@ impl Sim {
             return;
         }
         let nexus = self.nexus_at(sim);
-        if !rift::is_base_map(&nexus, self.pit) {
+        let Some(layout) = rift::layout_for(self.map, &nexus, self.pit) else {
             say(screen.is_some(), "rift", format!(
-                "{} RIFT sim #{} the rift turns {} - no terrain here: not the game's own 5v5 map (nexuses at {nexus:?}, the dragon pit at {:?})",
+                "{} RIFT sim #{} the rift turns {} - no terrain here: neither the game's own 5v5 map nor Rin's Summoner's Rift (nexuses at {nexus:?}, the dragon pit at {:?})",
                 head(sim), self.no, element.key(), self.pit));
             return;
-        }
-        self.terrain.start(element, now);
+        };
+        self.terrain.start(element, now, layout);
         let what = match element {
-            Element::Cloud => format!("{} wind currents, +{}% move speed in them", rift::CURRENTS.len(), rift::WIND_MS),
-            Element::Hextech => format!("{} pairs of hex-gates", rift::GATES.len()),
-            Element::Ocean => format!("{} patches of brush, {} honeyfruit", rift::OCEAN_BRUSH.len(), rift::FRUITS.len()),
-            Element::Chemtech => format!("{} patches of chem-fog", rift::CHEM_BRUSH.len()),
-            Element::Mountain => format!("{} rubble piles, {}% move speed on them", rift::ROCKS.len(), rift::RUBBLE_MS),
+            Element::Cloud => format!("{} wind currents, +{}% move speed in them", layout.currents.len(), rift::WIND_MS),
+            Element::Hextech => format!("{} pairs of hex-gates", layout.gates.len()),
+            Element::Ocean => format!("{} patches of brush, {} honeyfruit", layout.ocean_brush.len(), layout.fruits.len()),
+            Element::Chemtech => format!("{} patches of chem-fog", layout.chem_brush.len()),
+            Element::Mountain => format!("{} rubble piles, {}% move speed on them", layout.rocks.len(), rift::RUBBLE_MS),
             _ => "burning walls on screen only".to_string(),
         };
-        say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {}: {what}, live from t={}", head(sim), self.no,
-                                              element.key(), now + rift::RISE_T));
+        say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {} on {}: {what}, live from t={}{}", head(sim), self.no,
+                                              element.key(), layout.name, now + rift::RISE_T, walls_check(self.map, layout)));
         self.emit(sim, now, Ev::Rift { element }, feed::What::Rift { element }, screen);
     }
 
@@ -1208,7 +1234,7 @@ impl Sim {
                 rift::Happening::Fruit { seat, fruit, heal } => {
                     say(screen.is_some(), "fruit", format!("{} FRUIT sim #{} {} eats honeyfruit {fruit}: {heal} health (the next there at t={})",
                                                            head(sim), self.no, self.who(seat), now + rift::FRUIT_RESPAWN));
-                    show(screen, now, fx::Kind::Fruit(fruit as u8), rift::FRUITS[fruit], Vec::new());
+                    show(screen, now, fx::Kind::Fruit(fruit as u8), self.terrain.layout().fruits[fruit], Vec::new());
                 }
                 rift::Happening::Hidden { seat, brush } => {
                     say(screen.is_some(), "brush", format!("{} BRUSH sim #{} {} is hidden in patch {brush} (hide {})", head(sim),

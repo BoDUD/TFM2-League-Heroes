@@ -327,6 +327,8 @@ fn loop_frame(a: &Anim, t: usize) -> usize {
 /// 躺在地上的（风纹、门、草丛、果实、岩石）画在地上那一层（[`world::View::on_ground`]：墙和草丛上面、单位下面——英雄走在
 /// 上面看得见）；墙上的火画在特效那一层（单位上面、血条下面）。-> 画了几样。
 pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: usize, element: Element, since: usize) -> usize {
+    // 这一局的那一套位置：Rin 的召唤师峡谷上是另一套（0.5.12），和模拟里一样按读阵容时认出来的地图
+    let layout = if feed::is_rift(m, s) { &rift::RIN } else { &rift::NATIVE };
     let age = t.saturating_sub(since);
     let live = age >= rift::RISE_T;
     let mut n = 0;
@@ -339,7 +341,7 @@ pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: u
     let mut put = |ctx: &mut StableClient<'_>, name: &str, fr: Option<usize>, at: (u64, u64)| put_on(ctx, &ground, name, fr, at);
     match element {
         Element::Cloud if live => {
-            for (a, b) in rift::CURRENTS {
+            for &(a, b) in layout.currents {
                 let (name, tiles) = wind_tiles(a, b);
                 for at in tiles {
                     put(ctx, name, None, at);
@@ -347,17 +349,17 @@ pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: u
             }
         }
         Element::Hextech if live => {
-            for (a, b) in rift::GATES {
+            for &(a, b) in layout.gates {
                 put(ctx, "gate", None, a);
                 put(ctx, "gate", None, b);
             }
         }
         Element::Ocean if live => {
-            for at in rift::OCEAN_BRUSH {
+            for &at in layout.ocean_brush {
                 put(ctx, "brush_ocean", None, at);
             }
             let eaten = feed::fx_where(m, s, t, |f| matches!(f.kind, Kind::Fruit(_)));
-            for (i, at) in rift::FRUITS.iter().enumerate() {
+            for (i, at) in layout.fruits.iter().enumerate() {
                 let mine: Vec<usize> = eaten.iter().filter(|f| f.kind == Kind::Fruit(i as u8)).map(|f| f.tick).collect();
                 if fruit_ripe(since, &mine, t) {
                     put(ctx, "fruit", None, *at);
@@ -365,19 +367,19 @@ pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: u
             }
         }
         Element::Chemtech if live => {
-            for at in rift::CHEM_BRUSH {
+            for &at in layout.chem_brush {
                 put(ctx, "brush_chem", None, at);
             }
         }
         Element::Mountain => {
             // rising from the moment the rift turns: its frames spread over the time until it stands
             let fr = anim("rock").map(|a| (age * a.frames as usize / rift::RISE_T.max(1)).min(a.frames as usize - 1));
-            for at in rift::ROCKS {
+            for &at in layout.rocks {
                 put(ctx, "rock", fr, at);
             }
         }
         Element::Infernal if live => {
-            for (i, at) in rift::EMBERS.iter().enumerate() {
+            for (i, at) in layout.embers.iter().enumerate() {
                 // not all in step
                 let fr = anim("ember").map(|a| loop_frame(a, t + i * 7));
                 put_on(ctx, v, "ember", fr, *at);
@@ -535,11 +537,13 @@ mod tests {
     #[test]
     fn the_wind_is_tiled_along_each_current() {
         let mut seen = Vec::new();
-        for (a, b) in rift::CURRENTS {
+        // both maps' currents (Rin's Summoner's Rift has its own, 0.5.12)
+        for (a, b) in rift::CURRENTS.iter().chain(&rift::RIN_CURRENTS).copied() {
             let (name, tiles) = wind_tiles(a, b);
             let tile = anim(name).expect(name);
             seen.push(name);
-            assert!(tiles.len() >= 5, "{name}: {} tiles", tiles.len());
+            // Rin 的峡谷上野区的横风道短一些（205000：那里的路窄），4 格
+            assert!(tiles.len() >= 4, "{name}: {} tiles", tiles.len());
             // every tile's picture lies on the current: its middle within the current's half width
             for at in &tiles {
                 let mid = if name == "wind_d" { (at.0 + 24_000, at.1 + 24_000) } else { *at };
@@ -570,7 +574,7 @@ mod tests {
         assert!(fruit_ripe(since, &eaten, since + 2_000 + rift::FRUIT_RESPAWN));
         // the simulation's own clock says the same (rift.rs)
         let mut t = rift::Terrain::default();
-        t.start(Element::Ocean, since);
+        t.start(Element::Ocean, since, &rift::NATIVE);
         assert_eq!(t.ripe(0, since + rift::FRUIT_FIRST - 1), fruit_ripe(since, &[], since + rift::FRUIT_FIRST - 1));
         assert_eq!(t.ripe(0, since + rift::FRUIT_FIRST), fruit_ripe(since, &[], since + rift::FRUIT_FIRST));
     }
