@@ -43,10 +43,11 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 AD = ADi + O + "100%" + E
 # champion_view (game px from her feet's point, up negative): the face point on her eye (the design's eye square
 # (107, 23) of 127 x 98 at PPU 2.45: 31 over the ground, 18 ahead of her standing column 63 - ppu_restyle's face_to);
-# the centre in her chest; the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -40: her crest 1 game
-# px under the card's top)
+# the centre in her chest; the ban/pick card by bp_card_audit.py's rule: -39 less the idle's top (-40 when she was
+# wired in gave +1; her idle now tops at -33.3 -> -6, her crest 1 game px under the card's top). 2026-11-26: a positive
+# value is never right (league_masteryi's +5 drew his card at 1x) and {0, 0} is "not set" to the game - bp_card_audit.py --check
 # center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
-VIEW = {"face": {"x": 18, "y": -31}, "center": {"x": 3, "y": -14}, "banpick_center": {"x": 3, "y": 1}}
+VIEW = {"face": {"x": 18, "y": -31}, "center": {"x": 3, "y": -14}, "banpick_center": {"x": 3, "y": -6}}
 
 
 def mag(d, r):
