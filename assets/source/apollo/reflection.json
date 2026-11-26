@@ -1,0 +1,73 @@
+{
+  "projectile_id": "apollo.light_arrow",
+  "attack": {
+    "action": "skill2",
+    "release_frame": 5,
+    "release_ms": 354,
+    "fire_origin": [
+      182.0,
+      150.0
+    ],
+    "effect_id": "light_arrow",
+    "contact_tip_by_frame": [
+      [
+        128,
+        127.5
+      ],
+      [
+        136,
+        127.5
+      ],
+      [
+        141,
+        128.0
+      ],
+      [
+        147,
+        127.5
+      ],
+      [
+        148,
+        127.0
+      ],
+      [
+        146,
+        127.5
+      ],
+      [
+        139,
+        127.5
+      ],
+      [
+        132,
+        127.5
+      ]
+    ],
+    "coordinate_space": "256x256 logical"
+  },
+  "shield": {
+    "reference_commit": "35546c8f5",
+    "hero_id": "ragnarok_leonidas",
+    "event": "confirmed_reflect",
+    "effect_id": "arrow_reflect",
+    "local_preview_pivot": [
+      184,
+      156
+    ],
+    "reference_frame_index": 5
+  },
+  "dispatch": {
+    "collision_anchor": "shared_world_contact",
+    "emit_normal_impact_for_reflected_projectile": false,
+    "direction": "Use actual incoming and reflected vectors. The two-ray atlas is a preset for preview.",
+    "arrow_transition": "Stop the incoming arrow at the contact. The ricochet owns subsequent visuals."
+  },
+  "qa": {
+    "mirror_contact": [
+      226,
+      156
+    ],
+    "source_frame_sha256": "b9dab3db725a64f32ab1f7fe79a2f3f29fdb6c4cb365c0ca60d0678e7c68e545",
+    "ricochet_sha256": "c0796e6e748ddc39fd526914147e849b3289ca5e42f6898481cad0daa0b33e4f"
+  }
+}

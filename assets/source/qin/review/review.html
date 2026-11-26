@@ -1,0 +1,173 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>秦始皇 · 动作与语音</title>
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark;background:#151c22;color:#eee9de;font:15px/1.55 system-ui,"Microsoft YaHei UI",sans-serif}
+main{width:min(1210px,calc(100% - 36px));margin:28px auto 44px}
+h1{font-size:29px;margin:0 0 12px}
+h2{font-size:17px;margin:0 0 10px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}
+button,select{font:inherit;color:inherit;background:#263742;border:1px solid #657581;border-radius:6px;padding:4px 10px}
+button{cursor:pointer}
+output{color:#f4cb86;font-variant-numeric:tabular-nums}
+.layout{display:grid;grid-template-columns:1fr minmax(164px,22%);gap:14px}
+article,details{background:#202d35;border:1px solid #455661;border-radius:9px;padding:12px}
+canvas{display:block;width:100%;height:clamp(256px,49vh,462px);image-rendering:pixelated;border-radius:6px}
+#note{margin:9px 0 0}
+.card{width:100%;display:block;border-radius:5px;margin-bottom:8px}
+.icons{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.icons img{width:100%;display:block;border-radius:4px}
+details{margin-top:13px}
+summary{cursor:pointer}
+.strip{overflow-x:auto;margin-top:10px}
+.strip img{display:block;width:100%;min-width:760px;image-rendering:pixelated}
+.audio{display:grid;grid-template-columns:repeat(auto-fit,minmax(229px,1fr));gap:12px;margin:12px 0 0}
+.audio label{display:grid;gap:8px}.audio audio{width:100%;max-width:280px}
+@media(max-width:660px){.layout{grid-template-columns:1fr}.art{display:none}}
+</style>
+<main>
+<h1>秦始皇</h1>
+<div class="layout">
+  <article>
+    <div class="bar">
+      <select id="action" aria-label="选择动作"></select>
+      <button id="play">暂停</button><button id="prev">上一帧</button><button id="next">下一帧</button>
+      <label><input type="checkbox" id="light">浅底</label>
+      <label><input type="checkbox" id="mirror">向左</label>
+      <label><input type="checkbox" id="effects">叠加特效</label>
+      <output id="status"></output>
+    </div>
+    <canvas id="stage" aria-label="角色与特效预览"></canvas>
+    <p id="note"></p>
+  </article>
+  <article class="art">
+    <h2>选人插画</h2>
+    <a href="../runtime/qin_card.png" target="_blank"><img class="card" src="../runtime/qin_card.png" alt="秦始皇立绘"></a>
+    <div class="icons">
+      <img alt="金指爪" src="../runtime/icons/ragnarok_qin_claw.png">
+      <img alt="波流龟" src="../runtime/icons/ragnarok_qin_tortoise.png">
+      <img alt="承力天凤" src="../runtime/icons/ragnarok_qin_phoenix.png">
+      <img alt="勾践剑" src="../runtime/icons/ragnarok_qin_jian.png">
+    </div>
+  </article>
+</div>
+<details open><summary>逐帧动作</summary><div class="strip"><img id="contact" alt="本组全部八帧"></div></details>
+<details><summary>日语原声与战斗音效试听</summary><div class="audio" id="audio"></div></details>
+</main>
+<script src="review-data.js"></script>
+<script src="audio-data.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const data=window.artData;
+const url=new URLSearchParams(location.search);
+const names={"idle": "待机", "run": "奔跑", "attack": "金指爪", "skill": "波流龟", "skill2": "承力天凤", "hit": "受击", "dead": "倒地", "ult": "始皇勾践剑", "claw_arc": "特效 · 指爪弧", "claw_impact": "特效 · 指爪命中", "air_bubble": "特效 · 波流龟气弹", "star_pop": "特效 · 气弹命中", "armor_guard": "特效 · 神罗铠袖", "phoenix_reversal": "特效 · 承力天凤", "sword_glint": "特效 · 勾践剑显形", "jian_slash": "特效 · 勾践剑斩"};
+const list={...data.actor,...data.fx};
+const selector=$("action");
+for(const [label,group] of [["角色动作",data.actor],["独立特效",data.fx]]){
+    const groupMenu=document.createElement("optgroup");
+    groupMenu.label=label;
+    groupMenu.append(...Object.keys(group).map(n=>new Option(names[n],n)));
+    selector.append(groupMenu);
+}
+selector.value=Object.hasOwn(list,url.get("action"))?url.get("action"):"run";
+$("effects").checked=url.has("fx");
+const sprite={};
+for(const [k,stem] of Object.entries({actor:"",fx:"_fx"})){
+    const im=new Image();
+    im.src="../runtime/sprites/ragnarok_qin"+stem+"_native%23sheet.png";
+    sprite[k]=im;
+}
+for(const item of window.qinAudio||[]){
+    const element=document.createElement("label");
+    element.append(item.title);
+    const audio=document.createElement("audio");
+    audio.controls=true;audio.preload="none";audio.src="../audio/mp3/"+item.id+".mp3";
+    element.append(audio);$("audio").append(element);
+}
+
+let index=Math.min(7,Math.max(0,(Number(url.get("frame"))||1)-1));
+let play=!url.has("frame"),tick=performance.now();
+function state(){
+    $("play").textContent=play?"暂停":"播放";
+    tick=performance.now();
+}
+function contact(){
+    $("contact").src="contact_"+selector.value+".png";
+    $("note").textContent=data.notes[selector.value]||names[selector.value];
+}
+selector.onchange=()=>{index=0;contact();state()};
+
+$("play").onclick=()=>{play=!play;state()};
+function step(n){index=(index+n+8)%8;play=false;state()}
+$("prev").onclick=()=>step(-1);$("next").onclick=()=>step(1);
+contact();state();
+
+const canvas=$("stage"),ctx=canvas.getContext("2d");
+function drawEffects(name, at){
+    if(!$("effects").checked||!sprite.fx.naturalWidth) return;
+    for(const cue of data.cues){
+        if(cue.action!==name||!cue.fx||at<cue.ms) continue;
+        let elapsed=at-cue.ms;
+        let [cx,cy]=cue.anchor;
+        const effect=data.fx[cue.fx].frames;
+        if(cue.preview_motion){
+            const {to,duration_ms}=cue.preview_motion;
+            const progress=elapsed/duration_ms;
+            if(progress>=1) continue;
+            cx=Math.round(cx+(to[0]-cx)*progress);
+            cy=Math.round(cy+(to[1]-cy)*progress);
+            elapsed=progress*effect.reduce((total,f)=>total+f.duration*1000,0);
+        }
+        const pose=effect.find(f=>{
+            elapsed-=f.duration*1000;
+            return elapsed<0;
+        });
+        if(!pose) continue;
+        const {x,y,w,h}=pose.data;
+        ctx.drawImage(sprite.fx,x,y,w,h,cx-128,cy-128,256,256);
+    }
+}
+function draw(now){
+    const name=selector.value,frames=list[name].frames;
+    if(play){
+        while(now-tick>=frames[index].duration*1000){
+            tick+=frames[index].duration*1000;index=(index+1)%frames.length;
+        }
+    }
+    const box=canvas.getBoundingClientRect();
+    const w=Math.round(box.width*devicePixelRatio),h=Math.round(box.height*devicePixelRatio);
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}
+    ctx.fillStyle=$("light").checked?"#a4b0ac":"#30414e";
+    ctx.fillRect(0,0,w,h);
+    const isFx=Object.hasOwn(data.fx,name);
+    const scale=Math.max(1,Math.floor(Math.min(w/258,h/(isFx?240:190))));
+    const floor=Math.round(h*.855);
+    if(!isFx){
+        ctx.fillStyle=$("light").checked?"#657971":"#557082";
+        ctx.fillRect(0,floor,w,1);
+    }
+    const img=sprite[isFx?"fx":"actor"];
+    if(img.complete&&img.naturalWidth){
+        const f=frames[index].data;
+        ctx.save();
+        ctx.imageSmoothingEnabled=false;
+        ctx.translate(Math.round((w-256*scale)/2),isFx?Math.round((h-256*scale)/2):floor-232*scale);
+        ctx.scale(scale,scale);
+        if($("mirror").checked){ctx.translate(256,0);ctx.scale(-1,1)}
+        const at=frames.slice(0,index).reduce((sum,f)=>sum+f.duration*1000,0)+(play?now-tick:0);
+        if(!isFx) drawEffects(name,at);
+        ctx.drawImage(img,f.x,f.y,f.w,f.h,0,0,256,256);
+        ctx.restore();
+        document.body.dataset.ready="true";
+    }
+    $("status").textContent=(index+1)+" / 8 · "+Math.round(frames[index].duration*1000)+" ms";
+    requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</html>
+

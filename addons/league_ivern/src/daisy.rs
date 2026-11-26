@@ -6,11 +6,16 @@
 //! 60 + 40% 法强），之后 8 秒是挂在他身上的画面和伤害（`AddCasted`：每 60 tick 一拳 25 + 20% 法强，每第三拳砸地再加
 //! 40 + 30% 法强并击飞），打不到、不会走，他死了她就走。
 //!
-//! - 落下那一下还是数据（伤害、击飞、R → Q 的连招都不变）；副本在落下时给他挂 `D_MARK`，被动看到就等落下的画面放完（`D_FIRST`
-//!   tick），在画面里她站的地方（他身后 `D_BEHIND`）排原生效果 `league_ivern:daisy`，它调 `spawn_unit`：单位叫
+//! - 落下那一下还是数据（伤害、击飞、R → Q 的连招都不变）；副本在落下时给他挂 `D_MARK`，被动看到当即（`D_FIRST`）在他身后
+//!   `D_BEHIND` 排原生效果 `league_ivern:daisy`，它调 `spawn_unit`：单位叫
 //!   `league_ivern_daisy`（图是主包的 league/champions/league_ivern_daisy，由 `mod.override_info` 接到这个名字上），活
 //!   `D_LIFE` tick，属性按艾翁此刻的算（[`daisy_spec`]），每拳 `D_HIT` + `D_HIT_AP`% 法强（单位的普攻是物理伤害）。成功了给
 //!   艾翁挂 `D_UNIT`：副本里挂在目标身上的那串拳（`AddCasted`）和最后挥手的画面每一次都先看它，有就不放。
+//! - 落地（0.3.0，用户 2026-11-21：「艾翁有bug 现在大招会召唤出来两个」——落地那一刻：0.2.x 的副本在目标身上放落下的画面，
+//!   画面放完单位才在他身后出来，游戏里两个叠在一起）：副本不再放落下的画面，单位一生成就用动画定身播她自己图里的 `drop`
+//!   （`D_DROP` tick，主包 league_ivern_daisy_drop 那 5 帧，tools/art/unit_ivern_daisy.py），落完了才走、才打；她身上挂
+//!   `D_DROPPING`，引擎要是不给召唤物播定身里的动作，显示钩子（view.rs）照它换成 `drop`。定身在她初始化那几拍被清掉就补上。
+//!   没有单位（测试开关、宿主不给）时被动自己在目标身上放落下的画面（`DROP_VIEW`），挂在他身上的那串拳照旧。
 //! - 第三拳：被动的 `on_attack` 要是听得到她的出拳（引擎是不是把召唤物的攻击告诉召唤者的被动，要在游戏里看），就数她连着打
 //!   同一个英雄的次数；听不到就按她的出拳节奏数（她身边 `D_RANGE` + 两人身体内有敌方英雄的时候每 `D_COOL` tick 算一拳）。第三拳
 //!   在那个英雄身上补 `D_SLAM` + `D_SLAM_AP`% 法强的魔法伤害、击飞 `D_UP` tick，放主包砸地的冲击波和声音。
@@ -40,9 +45,22 @@ pub const D_UID: &str = "league_ivern_d_uid";
 /// The unit's name: the game draws it from asset/base/aseprite_resources/champions/<name>, which mod.override_info sends to
 /// the main pack's league/champions/league_ivern_daisy (tools/art/unit_ivern_daisy.py).
 pub const D_NAME: &str = "league_ivern_daisy";
-/// The drop's picture (her climbing out of the ground: league_ivern_daisy_drop, 0.9 s) - the unit is asked for as it ends.
-pub const D_FIRST: usize = 54;
-/// Ticks she lives as a unit: the riding Daisy's 8 s (the kit's r_t; League's 45 s cut for this game's pace, Tibbers' too).
+/// The unit is asked for this many ticks after the mark: at once - she plays her drop herself ([`D_DROP`]). Until 0.2.x
+/// the copy played the drop's picture on the champion and the unit came as it ended (54 ticks): in the game both showed
+/// at the landing (the user 2026-11-21: 「现在大招会召唤出来两个」).
+pub const D_FIRST: usize = 1;
+/// Her drop on the unit: an Animation CC of her sheet's `drop` tag (the 5 frames of league_ivern_daisy_drop, 0.9 s) for
+/// this many ticks, before she walks and punches.
+pub const D_DROP: usize = 54;
+/// The tag of her sheet the drop plays.
+pub const D_DROP_TAG: &str = "drop";
+/// On the unit while she drops: the display hook (view.rs) shows `drop` while it is on, should the engine not play a
+/// summon's Animation CC.
+pub const D_DROPPING: &str = "league_ivern_daisy_dropping";
+/// The drop's picture (the copy's view): played on the champion by the passive only when no unit comes.
+pub const DROP_VIEW: &str = "league_ivern_r_drop";
+/// Ticks she fights as a unit after her drop: the riding Daisy's 8 s (the kit's r_t; League's 45 s cut for this game's
+/// pace, Tibbers' too). The unit lives `D_DROP + D_LIFE`.
 pub const D_LIFE: usize = 480;
 /// She appears this far behind (up the screen from) the champion she dropped on: where the drop's picture stands her
 /// (rig_ivern.py DAISY_BACK: her feet 9 game px behind his).
@@ -103,7 +121,7 @@ fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
 pub fn daisy_spec(stat: &StatV1, max_hp: usize) -> summon::Spec {
     summon::Spec {
         name: D_NAME.to_string(),
-        life: D_LIFE,
+        life: D_DROP + D_LIFE,
         stat: StatV1 {
             attack: D_HIT + stat.magic_power * D_HIT_AP / 100,
             magic_power: stat.magic_power,
@@ -147,7 +165,8 @@ fn make_daisy(sim: &mut StableSim<'_>, me: usize, at: Pt, by: &str) -> Option<us
     let spec = daisy_spec(&stat, max).with(&KNOBS);
     match summon::spawn(sim, me, team, at, &spec) {
         Some(id) => {
-            sim.add_buff(me, &BuffV1::timed(D_UNIT, D_LIFE + FLAG_MORE));
+            start_drop(sim, id, D_DROP);
+            sim.add_buff(me, &BuffV1::timed(D_UNIT, D_DROP + D_LIFE + FLAG_MORE));
             sim.add_buff(me, &BuffV1::timed(&summon::handoff(D_UID, id), UID_TICKS));
             if let Some(k) = tally(sim, "daisy spawn") {
                 wlog(format!("{} DAISY SPAWN #{k} ({by}): unit #{id} for team {team} at {}: {}", head(sim, me), summon::pt(at),
@@ -165,7 +184,36 @@ fn make_daisy(sim: &mut StableSim<'_>, me: usize, at: Pt, by: &str) -> Option<us
     }
 }
 
-/// `:daisy` - the passive queues it as the drop's picture ends; the input is where she stands.
+/// Her drop on the unit `id`: the Animation CC of her `drop` tag for `ticks`, and the flag the display hook reads.
+fn start_drop(sim: &mut StableSim<'_>, id: usize, ticks: usize) {
+    hold_drop(sim, id, ticks);
+    sim.add_buff(id, &BuffV1::timed(D_DROPPING, ticks));
+}
+
+/// The Animation CC of her `drop` tag on the unit `id` for `ticks`.
+fn hold_drop(sim: &mut StableSim<'_>, id: usize, ticks: usize) {
+    let mut cc = CcV1::of_kind(CcKindV1::Animation, ticks as u64);
+    cc.set_name(D_DROP_TAG);
+    sim.apply_cc(id, &cc);
+}
+
+/// How often a cleared drop is put back before it is left to the display hook.
+const DROP_AGAIN: usize = 3;
+
+/// Whether the unit still holds her drop (an Animation CC of `drop`).
+fn holds_drop(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+        .any(|c| CcKindV1::from_code(c.kind) == Some(CcKindV1::Animation) && c.name() == D_DROP_TAG)
+}
+
+/// The drop's picture on `target` when no unit comes (the copy no longer plays it).
+fn drop_picture(sim: &mut StableSim<'_>, me: usize, target: usize) {
+    if sim.get_entity(target).is_some_and(|e| e.is_alive()) {
+        sim.play_view_effect(DROP_VIEW, me, &InputTargetV1::target(target), 0, 0, 0);
+    }
+}
+
+/// `:daisy` - the passive queues it when the mark is seen; the input is where she stands.
 pub struct DaisyFx;
 
 impl StableEffectType for DaisyFx {
@@ -212,8 +260,8 @@ fn slam(sim: &mut StableSim<'_>, me: usize, target: usize, ap: usize) -> bool {
 enum Stage {
     /// The drop's picture plays: the champion she dropped on, where he stands, the tick of the drop.
     Drop(usize, Pt, usize),
-    /// The unit asked for at this tick, at this spot: its handoff is awaited.
-    Asked(usize, Pt),
+    /// The unit asked for at this tick, at this spot, for this champion: its handoff is awaited.
+    Asked(usize, Pt, usize),
     /// The handed-over unit: id, the tick it was asked for, looks so far.
     Fresh(usize, usize, usize),
 }
@@ -232,6 +280,15 @@ struct Live {
     slams: (usize, usize, usize),
 }
 
+/// Her drop being watched: the unit, the champion she dropped on, the tick it ends, how often the CC was put back.
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct DropWatch {
+    unit: usize,
+    target: usize,
+    until: usize,
+    again: usize,
+}
+
 /// Ivern's Daisy part of league_ivern's passive.
 #[derive(Clone, Default)]
 pub struct Daisy {
@@ -239,6 +296,7 @@ pub struct Daisy {
     stage: Option<Stage>,
     live: Option<Live>,
     wake: Option<summon::Wake>,
+    drop: Option<DropWatch>,
     n: usize,
 }
 
@@ -319,6 +377,7 @@ impl Daisy {
         if let Some((target, at)) = marked {
             sim.entity_remove_buff(target, D_MARK);
             if KNOBS.off {
+                drop_picture(sim, me, target);
                 if let Some(k) = tally(sim, "daisy off") {
                     wlog(format!("{} DAISY OFF #{k}: R dropped her on #{target}, unit=off in the test knobs - she rides on him as \
                                   before", head(sim, me)));
@@ -339,20 +398,22 @@ impl Daisy {
                     }
                     self.n += 1;
                     if let Some(k) = tally(sim, "daisy ask") {
-                        wlog(format!("{} DAISY #{} ASK #{k}: the unit asked for at {} ({D_BEHIND:.0} behind #{target}, where the \
-                                      drop's picture stands her){}", head(sim, me), self.n, summon::pt(spot),
+                        wlog(format!("{} DAISY #{} ASK #{k}: the unit asked for at {} ({D_BEHIND:.0} behind #{target}: she plays \
+                                      her drop there herself){}", head(sim, me), self.n, summon::pt(spot),
                                      if queued { "" } else { " - queue_effect REFUSED" }));
                     }
-                    self.stage = Some(Stage::Asked(tick, spot));
+                    self.stage = Some(Stage::Asked(tick, spot, target));
                 } else {
                     self.stage = Some(Stage::Drop(target, at, from));
                 }
             }
-            Some(Stage::Asked(since, _)) => {
+            Some(Stage::Asked(since, _, target)) => {
                 if let Some(id) = summon::take_handoff(sim, me, D_UID) {
                     self.stage = Some(Stage::Fresh(id, since, 0));
+                    self.drop = Some(DropWatch { unit: id, target, until: since + 1 + D_DROP, again: 0 });
                 } else if tick > since + ASK_WAIT {
                     self.stage = None;
+                    drop_picture(sim, me, target);
                     if let Some(k) = tally(sim, "daisy none") {
                         wlog(format!("{} DAISY #{} NONE #{k}: no unit came within {ASK_WAIT} ticks of the ask - she rides on the \
                                       champion as before", head(sim, me), self.n));
@@ -361,8 +422,9 @@ impl Daisy {
             }
             _ => {}
         }
+        self.keep_drop(sim, me, tick);
         if let Some(Stage::Fresh(id, born, tries)) = self.stage {
-            match summon::Unit::look(sim, id, self.n, born, D_LIFE, team, player) {
+            match summon::Unit::look(sim, id, self.n, born, D_DROP + D_LIFE, team, player) {
                 // taken on once she has settled (summon.rs's Unit::settled: a new unit reads max health 1 and every stat
                 // 1 on its spawn tick and the next - game 0.7.2's presims), so her LOOK line shows the numbers she really
                 // has; when her looks run out, all the same
@@ -380,6 +442,9 @@ impl Daisy {
                 Err(why) if tries + 1 >= LOOK_TRIES => {
                     self.stage = None;
                     sim.entity_remove_buff(me, D_UNIT);
+                    if let Some(d) = self.drop.take() {
+                        drop_picture(sim, me, d.target);
+                    }
                     if let Some(k) = tally(sim, "daisy lost") {
                         wlog(format!("{} DAISY #{} LOST #{k}: the unit spawn_unit named never read as one in {LOOK_TRIES} ticks \
                                       ({why}) - the flag is off, she rides on the champion as before", head(sim, me), self.n));
@@ -404,8 +469,11 @@ impl Daisy {
                     }
                 }
                 // her punches by the clock while his passive hears none: a champion in her reach is punched every D_COOL
+                // (not while she drops: the Animation CC holds her)
                 let mut presumed = None;
-                if !live.heard {
+                if self.drop.is_some() {
+                    live.next = None;
+                } else if !live.heard {
                     let near = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
                         .filter(|u| u.team() != team && u.is_champion() && u.is_alive() && u.is_targetable())
                         .map(|u| (u.id(), summon::dist(summon::at_of(&u), live.unit.at)))
@@ -434,9 +502,16 @@ impl Daisy {
                                  head(sim, me), end.text, s.0, s.1, s.2,
                                  if live.heard { "; her punches reached his passive" } else { "; none of her punches reached his passive" }));
                 }
+                let drop = self.drop.take();
+                if let (Some(d), true) = (drop, end.age > LOST_AGE) {
+                    wlog(format!("{} DAISY #{n} DROP: the unit #{} was gone before her drop ended", head(sim, me), d.unit));
+                }
                 if end.age <= LOST_AGE {
-                    // never really there: the riding punches go on
+                    // never really there: the riding punches go on, with the drop's picture on him
                     sim.entity_remove_buff(me, D_UNIT);
+                    if let Some(d) = drop {
+                        drop_picture(sim, me, d.target);
+                    }
                     wlog(format!("{} DAISY #{n}: gone {} ticks after it was asked for - the flag is off, she rides on the champion \
                                   as before", head(sim, me), end.age));
                 } else if !end.body {
@@ -447,6 +522,32 @@ impl Daisy {
             }
         }
         self.wake_step(sim, me);
+    }
+
+    /// Her drop held on the unit until it ends: an Animation CC cleared in her first ticks is put back with the ticks left
+    /// (up to `DROP_AGAIN` times; then the display hook alone shows it); one line when it ends.
+    fn keep_drop(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize) {
+        let Some(mut d) = self.drop else { return };
+        // gone: the unit's end (OVER, LOST) takes the watch
+        let Some(holds) = sim.get_entity(d.unit).filter(|e| e.is_alive()).map(|e| holds_drop(&e)) else { return };
+        if tick >= d.until {
+            self.drop = None;
+            if let Some(k) = tally(sim, "daisy drop") {
+                wlog(format!("{} DAISY #{} DROP #{k}: her drop played on the unit #{} - {D_DROP} ticks of '{D_DROP_TAG}' (the \
+                              Animation CC {})", head(sim, me), self.n, d.unit,
+                             match d.again {
+                                 0 => "held".to_string(),
+                                 n if n >= DROP_AGAIN => format!("not kept: put back {n} times, then left to the display hook"),
+                                 n => format!("put back {n} times"),
+                             }));
+            }
+            return;
+        }
+        if !holds && d.again < DROP_AGAIN {
+            hold_drop(sim, d.unit, d.until - tick);
+            d.again += 1;
+            self.drop = Some(d);
+        }
     }
 
     fn wake_step(&mut self, sim: &mut StableSim<'_>, me: usize) {
@@ -492,7 +593,7 @@ mod tests {
         let his = StatV1 { attack: 50, magic_power: 100, hp: 900, defence: 30, magic_resistance: 25, move_speed: 1000, hp_regen: 2,
                            stack: 1, crit_chance: 5 };
         let spec = daisy_spec(&his, 1500);
-        assert_eq!((spec.name.as_str(), spec.life), ("league_ivern_daisy", 480));
+        assert_eq!((spec.name.as_str(), spec.life), ("league_ivern_daisy", 480 + 54)); // her drop, then 8 s
         // a punch 25 + 20 % of 100 = 45; health 120 % of 1500; his defences + 20; 130 % of his speed
         assert_eq!(spec.stat, StatV1 { attack: 45, magic_power: 100, hp: 1800, defence: 50, magic_resistance: 45, move_speed: 1300,
                                        hp_regen: 0, stack: 0, crit_chance: 0 });
@@ -532,6 +633,14 @@ mod tests {
         // the riding punches and her wave each behind the flag; the drop marks the champion
         assert_eq!(copy.matches(&format!("\"buff_name\": \"{D_UNIT}\"")).count(), 2);
         assert_eq!(copy.matches(&format!("\"name\": \"{D_MARK}\"")).count(), 1);
+        // 0.3.0: the drop's picture plays in the main pack's R only (the copy keeps its view for the passive's fallback)
+        let drops = |s: &str| s.matches(&format!("\"name\": \"{DROP_VIEW}\"")).count();
+        // the main pack: the view's definition, the drop's ViewEffect and its sound (TargetSfx of the same name); the copy
+        // drops the ViewEffect only
+        assert_eq!((drops(&main), drops(&copy)), (3, 2));
+        // her sheet has the drop the unit plays
+        let fanim = include_str!("../../../league/champions/league_ivern_daisy#anim.fanim");
+        assert!(fanim.contains(&format!("\"{D_DROP_TAG}\"")) && fanim.contains(&format!("\"hd_{D_DROP_TAG}\"")));
         // the sheet the unit is drawn from is mapped to its name
         let info = include_str!("../mod.override_info");
         for k in ["sheet", "anim"] {
@@ -628,18 +737,21 @@ mod tests {
     fn daisy_is_a_unit_that_walks_punches_and_slams() {
         let (mut w, mut me) = world();
         let t0 = drop_on(&mut w, GAREN);
-        run(&mut w, &mut me, D_FIRST - 3);
-        assert!(w.spawns.is_empty(), "the unit came before the drop's picture ended");
-        run(&mut w, &mut me, 6);
+        run(&mut w, &mut me, D_FIRST + 2);
         assert_eq!(w.spawns.len(), 1);
         let s = w.spawns[0].clone();
-        assert_eq!((s.name.as_str(), s.summoner, s.team, s.life), ("league_ivern_daisy", 0, 0, 480));
+        assert_eq!((s.name.as_str(), s.summoner, s.team, s.life), ("league_ivern_daisy", 0, 0, (D_DROP + D_LIFE) as u64));
         assert_eq!(s.at, (360_000, 291_000));
-        assert!(s.tick + 1 >= t0 + D_FIRST && s.tick <= t0 + D_FIRST + 1, "spawned {} ticks after the drop", s.tick - t0);
+        assert!(s.tick <= t0 + D_FIRST + 1, "spawned {} ticks after the drop", s.tick - t0);
         assert_eq!((s.stat.attack, s.stat.hp, s.stat.defence, s.stat.magic_resistance, s.stat.move_speed), (45, 1800, 50, 45, 1300));
         let daisy = s.gave.unwrap();
         assert!(w.has(0, D_UNIT) && !w.has(GAREN, D_MARK));
         assert!(me.live.is_some());
+        // her drop on herself (0.3.0): held, no punch, no picture on Garen beside her
+        run(&mut w, &mut me, D_DROP - 4);
+        assert!(w.dealt(daisy, DamageTypeV1::Ad).is_empty(), "she punched in her drop");
+        assert_eq!(w.viewed(DROP_VIEW), 0, "the drop's picture played beside the unit");
+        assert_eq!(slams(&w, GAREN), 0, "a slam in her drop");
         // her time: she punches Garen (45 a punch, physical), every third punch in a row is the slam - his passive hears
         // none of her punches in this world, so they are counted by the clock: punches 21, 81, 141 (slam), .. 321 (slam)
         run(&mut w, &mut me, D_LIFE + 10);
@@ -701,6 +813,8 @@ mod tests {
             }
             // the riding punches' second run reads the flag now: off, so they play on
             assert!(!w.has(0, D_UNIT), "case {case}: the flag is on with no unit");
+            // no unit to play her drop: the picture on Garen, once
+            assert_eq!(w.viewed(DROP_VIEW), 1, "case {case}: the drop's picture");
             run(&mut w, &mut me, 400);
             assert_eq!(slams(&w, GAREN), 0, "case {case}: slams without a unit");
             assert!(me.live.is_none() && me.stage.is_none() && w.queue.is_empty(), "case {case}");
@@ -737,11 +851,12 @@ mod tests {
         let mine: Vec<&str> = text.lines().filter(|l| l.contains(" DAISY ")).collect();
         let has = |what: &str| mine.iter().any(|l| l.contains(what));
         for what in [
-            "ASK #", "the unit asked for at (360000,291000) (9000 behind #1, where the drop's picture stands her)",
-            "DAISY SPAWN #", "'league_ivern_daisy' for 480 ticks, attack 45 ap 100 hp 1800 def 50 mr 45 speed 1300; hits 0 + 100% of \
+            "ASK #", "the unit asked for at (360000,291000) (9000 behind #1: she plays her drop there herself)",
+            "DAISY SPAWN #", "'league_ivern_daisy' for 534 ticks, attack 45 ap 100 hp 1800 def 50 mr 45 speed 1300; hits 0 + 100% of \
              its attack, range 15000, every 60 ticks (42 long, lands at 21)",
             "LOOK #", "reads back as name 'league_ivern_daisy' kind summon team 0 champion=false",
-            " of 480 ticks, at (", "near it: champion #1 league_garen",
+            "DROP #", "her drop played on the unit #3 - 54 ticks of 'drop' (the Animation CC held)",
+            " of 534 ticks, at (", "near it: champion #1 league_garen",
             "SLAM #", "(by the clock): the third punch in a row on #1 league_garen - 70 magic, knocked up 50 ticks",
             "HOOK #", "on_attack: entity #3 (the unit itself) -> champion #1 league_garen", "damage 45",
             "OVER #", "KILLED after ", "p1 gold +40", "her slams: ", "her punches reached his passive",

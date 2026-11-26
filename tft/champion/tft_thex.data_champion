@@ -719,8 +719,8 @@
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [],
               "end_effects": [],
-              "speed": 9000,
-              "range": 90000,
+              "speed": 60,
+              "range": 1020,
               "shape": {
                 "Circle": {
                   "radius": 1000
@@ -863,8 +863,8 @@
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [],
               "end_effects": [],
-              "speed": 9000,
-              "range": 90000,
+              "speed": 60,
+              "range": 1020,
               "shape": {
                 "Circle": {
                   "radius": 1000
@@ -1007,8 +1007,8 @@
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [],
               "end_effects": [],
-              "speed": 9000,
-              "range": 90000,
+              "speed": 60,
+              "range": 1020,
               "shape": {
                 "Circle": {
                   "radius": 1000
@@ -1153,7 +1153,7 @@
       "name": "tft_thex_r_beam",
       "anim": "asset/tft/effects/tft_thex_big",
       "tag": "r_beam",
-      "repeat": true,
+      "repeat": false,
       "z": 2
     }
   ],

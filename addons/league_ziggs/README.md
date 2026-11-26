@@ -42,3 +42,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_ziggs`：单元测试（参数、炸塔的血量线、距离、打塔倍率、从炸点往外推、贴身 / 炸塔 / 炸回来什么时候扔、不往塔下和人堆里飞、一触即发的冷却、往前弹的落点、空中炸弹的高度表）。
 - 在 `addons/` 下 `cargo build --release -p league_ziggs`（Windows）得到 `target/release/league_ziggs.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 0.1.4：过日更快（2026-11-22）
+
+玩法不变。看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查（过日时别的比赛里每 tick 都在比）。

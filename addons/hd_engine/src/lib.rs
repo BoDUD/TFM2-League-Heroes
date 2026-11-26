@@ -51,6 +51,19 @@ pub fn start(table: &Table<'_>, who: &str, log: fn(&str)) -> Role {
                       install)
 }
 
+/// 包 DLL 的 init 里、[`start`] 之前调：这个 DLL 的显示钩子晚挂（`game_places::hook::defer`）——当主时战场缩放和英雄变身
+/// 一样，等所有 mod 都加载完、第一帧再换槽。之后客户端扩展每帧调 [`frame`]。
+pub fn defer_display() {
+    game_places::hook::defer();
+}
+
+/// 包 DLL 的客户端扩展每帧调（post_update）：喂屏幕时钟，显示钩子第一帧挂上、之后被跳过就接回来（`game_places::hook::tick`）。
+/// `in_game` 是不是在游戏里，`visible(路径)`、`text(路径)` 界面节点显示没有、上面的字（`game_places::clock::feed`）。
+pub fn frame(in_game: bool, visible: impl Fn(&str) -> Option<bool>, text: impl Fn(&str) -> Option<String>) {
+    game_places::clock::feed(in_game, visible, text);
+    game_places::hook::tick();
+}
+
 /// The game EXE's base in this process.
 #[cfg(windows)]
 pub fn module_base() -> usize {

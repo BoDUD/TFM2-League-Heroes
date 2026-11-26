@@ -152,11 +152,10 @@ mod hook {
         if LOOKS.is_empty() {
             return;
         }
-        HOOK.call_once(|| match game_places::hook::add("league_main_looks", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "LOOK whole-body looks on for {} heroes: display slot {slot:#x} now calls league.dll, then {} ({prev:#x})",
+        HOOK.call_once(|| match game_places::hook::add("league_main_looks", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!(
+                "LOOK whole-body looks on for {} heroes: {p}",
                 LOOKS.len(),
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("LOOK whole-body looks off ({e}): between casts these heroes keep their plain frames")),
         });

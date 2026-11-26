@@ -6,9 +6,13 @@
 //! 和英雄联盟主包、云顶包一起开着时谁先加载都行。主包 0.9.25 起自己也登记这 8 张，同一个名字登记两次时先登记的那一行留着
 //! （两边的数一样）。表的 `pack` 是 `league`：引擎只认以 `<pack>_` 开头的名字（这 8 张是 `league_drake_*`、`league_baron`），
 //! 没有英雄，也就不碰 `asset/league/ui_sheets`。
+//!
+//! 0.5.12 加了 7 张 Rin 的召唤师峡谷上用的 `league_drake_<元素>_rift`（tools/art/dragons_rift_hd.py，同样 1.8）：只有本包登记，
+//! 主包没有这几行——本包是客的时候它们跟着表交给主，是主的时候自己登记，哪边先加载都画得出来。
 use hd_engine::Table;
 
-/// (name, PPU, .fanim): the sheets in this mod's `effects/` (tools/art/dragons_hd.py), each tag with its hd_ twin.
+/// (name, PPU, .fanim): the sheets in this mod's `effects/` (tools/art/dragons_hd.py, dragons_rift_hd.py for the `_rift`
+/// ones), each tag with its hd_ twin.
 pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_drake_infernal", 1.8, include_str!("../effects/league_drake_infernal#anim.fanim")),
     ("league_drake_mountain", 1.8, include_str!("../effects/league_drake_mountain#anim.fanim")),
@@ -18,6 +22,14 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_drake_chemtech", 1.8, include_str!("../effects/league_drake_chemtech#anim.fanim")),
     ("league_drake_elder", 1.8, include_str!("../effects/league_drake_elder#anim.fanim")),
     ("league_baron", 1.5, include_str!("../effects/league_baron#anim.fanim")),
+    // Rin 的召唤师峡谷上转身朝坑口的那一套（skin.rs on_map）
+    ("league_drake_infernal_rift", 1.8, include_str!("../effects/league_drake_infernal_rift#anim.fanim")),
+    ("league_drake_mountain_rift", 1.8, include_str!("../effects/league_drake_mountain_rift#anim.fanim")),
+    ("league_drake_ocean_rift", 1.8, include_str!("../effects/league_drake_ocean_rift#anim.fanim")),
+    ("league_drake_cloud_rift", 1.8, include_str!("../effects/league_drake_cloud_rift#anim.fanim")),
+    ("league_drake_hextech_rift", 1.8, include_str!("../effects/league_drake_hextech_rift#anim.fanim")),
+    ("league_drake_chemtech_rift", 1.8, include_str!("../effects/league_drake_chemtech_rift#anim.fanim")),
+    ("league_drake_elder_rift", 1.8, include_str!("../effects/league_drake_elder_rift#anim.fanim")),
 ];
 
 /// Baron's attack_target_effect, a picture at a point from his sheet (league_main/src/hd.rs DRAWN_EFFECTS' first row).
@@ -57,12 +69,17 @@ mod tests {
         checks::effect_sheets_have_a_dense_idle(&t);
     }
 
-    /// The same rows as league.dll's (league_main/src/hd.rs EFFECTS): either DLL may register them first.
+    /// The same rows as league.dll's (league_main/src/hd.rs EFFECTS): either DLL may register them first. The `_rift`
+    /// sheets (0.5.12) are this mod's alone: league.dll has no row of them to disagree with.
     #[test]
     fn the_rows_match_league_dlls() {
         let main = include_str!("../../league_main/src/hd.rs");
         for &(id, ppu, _) in EFFECTS {
             let row = format!("(\"{id}\", {ppu:?}, include_str!(\"../../league_dragons/effects/{id}#anim.fanim\"))");
+            if id.ends_with(super::super::skin::RIFT_SUFFIX) {
+                assert!(!main.contains(&format!("\"{id}\"")), "league_main/src/hd.rs registers {id} too: keep the rows equal");
+                continue;
+            }
             assert!(main.contains(&row), "league_main/src/hd.rs has no row {row}");
         }
     }

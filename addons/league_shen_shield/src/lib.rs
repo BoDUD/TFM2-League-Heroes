@@ -120,8 +120,9 @@ pub fn amount(p: &Params, shen_max_hp: usize) -> usize {
 
 // ===================== 被动 =====================
 
-fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+/// 身上有没有护盾画面（[`MARK`]）：按字节比，不用每个 buff 都做一遍 UTF-8 检查（2026-11-22 过日采样）。
+fn has_mark(u: &StableEntity<'_, '_>) -> bool {
+    (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == MARK.as_bytes())
 }
 
 /// The allies marked now and not on the last tick, by entity id from the smallest (0.1.2: the difference of two HashSets
@@ -155,14 +156,14 @@ impl StablePassive for Shield {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let (team, max_hp) = (e.team(), e.hp().1);
+        // 扫的时候就看护盾画面：没有人带着它（多数 tick）集合就是空的，不用每 tick 先建一个再筛掉（挑出来的和原来一样）
         let mut now = BTreeSet::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
-            if u.is_champion() && u.team() == team && u.is_alive() {
+            if u.is_champion() && u.team() == team && u.is_alive() && has_mark(&u) {
                 now.insert(u.id());
             }
         }
-        now.retain(|&id| has_buff(sim, id, MARK));
         for &id in new_marks(&now, &self.marked).iter() {
             let n = amount(&self.p, max_hp);
             let ok = sim.entity_add_shield(id, n, self.p.r_sh_t);

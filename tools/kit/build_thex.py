@@ -171,11 +171,18 @@ def line(name, length, width, target, effects, apply=1):
 
 
 def bolt(name, speed, rng, y):
-    """The laser's picture: a fast view-only bolt from its mouth along the line (tft_aoshin's breath; a
-    LineRangeProjectile's own picture is drawn at its feet' height and stands still)."""
+    """The laser's picture: a view-only projectile from its mouth along the line (a LineRangeProjectile's own picture
+    is drawn at its feet' height and stands still)."""
     return {"type": "LinearProjectile", "name": n(name), "penetrate": True, "applied_target": "EnemyWithoutTower",
             "applied_effects": [], "end_effects": [], "speed": speed, "range": rng, "shape": circle(1000),
             "y_offset": y}
+
+
+# 激光的画面（2026-11-23，用户「海克斯霸龙的激光特效看不到」）：以前是一颗 37 x 9 的小光弹每拍飞 9000、10 拍就没了，
+# 屏幕上看不见。现在 r_beam 是一整条光束（tools/art/fx_thex_bold.py：图的中心是投射物，光束在右半边，和 r_len 一样长），
+# 投射物几乎不动（每拍 60），活 BEAM_TICKS 拍，和光束的动画（270 毫秒）一样长，画面只播一次。
+BEAM_SPEED = 60
+BEAM_TICKS = 17
 
 
 def rain(rng, effects):
@@ -227,7 +234,7 @@ def build(p, is_native=False):
         laser = line("r_line", p["r_len"], p["r_w"], "EnemyWithoutTower",
                      [attack(p["r_dmg"] * p["r_plain"] // 100, p["r_ratio"] * p["r_plain"] // 100), view("r_hit")])
     rocket = [view("r_fall"), attack(p["r_mdmg"], p["r_mratio"]), tsfx("r_hit")]
-    beat = [sfx("r_laser"), bolt("r_beam", 9000, p["r_len"], 9000), laser,
+    beat = [sfx("r_laser"), bolt("r_beam", BEAM_SPEED, BEAM_SPEED * BEAM_TICKS, 9000), laser,
             *[delayed(k * p["r_every"] // p["r_m"], rain(p["r_mr"], rocket)) for k in range(p["r_m"])]]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(sfx("r"), sfx("r_shield"), on_me(shield(p["r_sh"], p["r_sh_ad"], p["r_sh_t"])),
@@ -237,14 +244,14 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True, tag=None: {"type": "Animation", "name": n(name), "anim": anim_,
                                                              "tag": tag or name, "z": z, "is_follow": follow}
-    B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
-                                                "repeat": True, "z": z}
+    B_ = lambda name, anim_=FX, z=3, tag=None, repeat=True: {"type": "Animated", "name": n(name), "anim": anim_,
+                                                             "tag": tag or name, "repeat": repeat, "z": z}
     # the missiles fall where they were aimed (not following; the ult's are Q's picture); the charge's dust stays where
     # it left; the death burst where it fell (thex.rs plays it)
     views_e = [E("a_hit"), E("a_crit"), E("q_launch"), E("q_fall", BIG, 2, False), E("e_dash", FX, -1, False),
                E("e_hit"), E("r_hit"), E("r_fall", BIG, 2, False, "q_fall"), E("p_blast", BIG, 2, False)]
     views_b = [B_("e_slow"), B_("r_shield", BIG)]
-    views_p = [B_("a_bullet", FX, 2), B_("r_beam", BIG, 2)]
+    views_p = [B_("a_bullet", FX, 2), B_("r_beam", BIG, 2, repeat=False)]
     if not is_native:
         views_p += [B_("r_line", FX, 2, "r_hit")]   # a LineRangeProjectile's picture stands at its feet: a burn
     kit = {

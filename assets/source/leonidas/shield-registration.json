@@ -1,0 +1,1221 @@
+{
+  "coordinate_space": "256x256 logical",
+  "frames": {
+    "idle": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          173.4,
+          150.8
+        ],
+        "center": [
+          182.4,
+          157.8
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "fdb6eedc0b593340a5bb460e516b4b716bc49798266cf836b55006f0042bab89"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.1,
+          157.6
+        ],
+        "center": [
+          181.1,
+          164.6
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "57951a7aec0a187e3c868f98e2d005e40bf1254d9f7b3b1a6e778185428b5735"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.6,
+          150.4
+        ],
+        "center": [
+          181.6,
+          157.4
+        ],
+        "angle": -10,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "210d5534682a4c6d7c32c03d1801135748ba6eb0f45659bbe27635e73c08ca77"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.3,
+          147.3
+        ],
+        "center": [
+          181.3,
+          154.3
+        ],
+        "angle": -9,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "2b2b7d3e5a82ec6afead5828dfec5abe24ed71c82ec2c288ea74fe380794759d"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          168.6,
+          153.5
+        ],
+        "center": [
+          177.6,
+          160.5
+        ],
+        "angle": -9,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "87c9de431eb7a240ae9a756387a3eef0bdfe8d5b4ffea0aea881fcedff373c16"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          165.5,
+          155.2
+        ],
+        "center": [
+          174.5,
+          162.2
+        ],
+        "angle": -10,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "1c2085a032a9dc3e5b5543ce29e1bf0c843af426294bbc642a12ad9afe06f4ae"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          170.3,
+          153.3
+        ],
+        "center": [
+          179.3,
+          160.3
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "5f833388962ac409d2079bf1f97c56c3be16151d4cc332c4f8d9a43f8cbc8d20"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.7,
+          151.8
+        ],
+        "center": [
+          181.7,
+          158.8
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "8ea9e33dee4377082704f4be6c33607c1f1a125218976e1864ff44e6ba041b18"
+      }
+    ],
+    "run": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          164.5,
+          159.4
+        ],
+        "center": [
+          173.5,
+          166.4
+        ],
+        "angle": -15,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "c3fe4e1fe37c08ab617f0b910518818755d37dae9836f8ce950ea12df7ac5fa0"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          162.0,
+          158.5
+        ],
+        "center": [
+          171.0,
+          165.5
+        ],
+        "angle": -17,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "ce70e3f5116609676437c77992b31dd4243fcbcc952c3d7af5a466d723f89384"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          156.6,
+          157.4
+        ],
+        "center": [
+          165.6,
+          164.4
+        ],
+        "angle": -16,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "a8b0fdede094df613af893bc49d767f63a5104f7575f2d480723b703099d1d5d"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          152.0,
+          158.7
+        ],
+        "center": [
+          161.0,
+          165.7
+        ],
+        "angle": -13,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "1952d25d11ede2ebfc8c6f4ac7e704b7d267907f1d6ec40fbd5a79b6928adc3b"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          159.7,
+          159.1
+        ],
+        "center": [
+          168.7,
+          166.1
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "72d73518b8b77dd9a024338cd829780bac5a715f91e71346eb278579aaa9ca08"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          156.8,
+          159.0
+        ],
+        "center": [
+          165.8,
+          166.0
+        ],
+        "angle": -14,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "79f2f6f81dfb01d84ae1c32d8f1bed76ee80ae89b76245a3707a1286c52d766a"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          156.9,
+          156.1
+        ],
+        "center": [
+          165.9,
+          163.1
+        ],
+        "angle": -16,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "e5d0150ec0025aacc183b34d699056c945661f093c75914b1035e7b826b3874a"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          156.6,
+          159.1
+        ],
+        "center": [
+          165.6,
+          166.1
+        ],
+        "angle": -15,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "e6d94da849c18b3eab78e0f312ea6b475b458e37c73e6dcfbcb217a3692895be"
+      }
+    ],
+    "attack": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          173.8,
+          151.2
+        ],
+        "center": [
+          182.8,
+          158.2
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "50de79ff56a16ef6490296e291b69e7e812f6816b1d8b8406ba34ca082366bbd"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          156.5,
+          154.8
+        ],
+        "center": [
+          165.5,
+          161.8
+        ],
+        "angle": -17,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "8971078bce4c6f9d843a639d9148f608df6c7c9d10a13d942dd4b28a2f292af8"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          150.5,
+          155.7
+        ],
+        "center": [
+          159.5,
+          162.7
+        ],
+        "angle": -18,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "906733811642c94db086371c48833407f4a7396247457493a6f4af0c8a85dcc8"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          183.7,
+          148.1
+        ],
+        "center": [
+          192.7,
+          155.1
+        ],
+        "angle": -4,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "68a2f7abe32d94aa1b91887db2b6d62999c67928b24f7cc957d892a5be173d4c"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          183.8,
+          149.3
+        ],
+        "center": [
+          192.8,
+          156.3
+        ],
+        "angle": 5,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "f8eb2355635c6f6248bd9b011d7b758f3bd81e800e2145b82bc9d8103f70d291"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          170.2,
+          152.8
+        ],
+        "center": [
+          179.2,
+          159.8
+        ],
+        "angle": 1,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "f513a77d643f7c497c3e36b172526890437f0c2b64de8f738d1cb100738b9301"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          162.9,
+          153.5
+        ],
+        "center": [
+          171.9,
+          160.5
+        ],
+        "angle": -7,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "414b4b9f007a9afa1f8de0b139a47ce6d0f6afe145b6a06f4df005297d1ffc6f"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          169.4,
+          151.7
+        ],
+        "center": [
+          178.4,
+          158.7
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "c95c79f9fe23a7c145be39e447f1c453858da1c72cedac63fff228c8700ad6d9"
+      }
+    ],
+    "skill": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.8,
+          155.1
+        ],
+        "center": [
+          181.8,
+          162.1
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "033f2e63b7296e7afeb27005114d0d7f020f735d9ee5337934d9036620427fa1"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          155.8,
+          144.2
+        ],
+        "center": [
+          164.8,
+          151.2
+        ],
+        "angle": -20,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "4214082b5cd233efa40f05155d0a42084a2524cbd93b8c2321d22fb768d4161b"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          147.7,
+          132.5
+        ],
+        "center": [
+          156.7,
+          139.5
+        ],
+        "angle": -27,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "9d634f0f7f796b870c4fef520d1757090a56ab759a8f0a24e828a8bcf076a413"
+      },
+      {
+        "form": "round_shield",
+        "flight": true,
+        "fixed": false,
+        "grip": [
+          187.0,
+          154.8
+        ],
+        "center": [
+          213.0,
+          143.8
+        ],
+        "angle": -4,
+        "size": [
+          44,
+          24
+        ],
+        "attachment_sha256": "1dcd79a27b4e83d22895c7b220bb9acd3f6c3e4139cbd4a413d5add6f8f3a273"
+      },
+      {
+        "form": "round_shield",
+        "flight": true,
+        "fixed": false,
+        "grip": [
+          183.9,
+          161.4
+        ],
+        "center": [
+          223.9,
+          156.4
+        ],
+        "angle": 10,
+        "size": [
+          51,
+          31
+        ],
+        "attachment_sha256": "bb36c404e931f29e6bb3e9a072898b253d66f5857ff433557bc829a43197d512"
+      },
+      {
+        "form": "round_shield",
+        "flight": true,
+        "fixed": false,
+        "grip": [
+          156.0,
+          163.5
+        ],
+        "center": [
+          185.0,
+          165.5
+        ],
+        "angle": -8,
+        "size": [
+          43,
+          29
+        ],
+        "attachment_sha256": "18bbcfb787b188e667f619e3d4e01d69a17e2e26ef2cb0726844f7e3f30a81f7"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          147.9,
+          168.2
+        ],
+        "center": [
+          156.9,
+          175.2
+        ],
+        "angle": -14,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "62fc6a15807d2c1d5274010d948eae4c0cae1952f3066aac706d04936486cb8e"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          173.2,
+          155.3
+        ],
+        "center": [
+          182.2,
+          162.3
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "8f938ac3357d073fd4022c819b4a650719e63f83117f53bf59c3b09c9128ca1c"
+      }
+    ],
+    "skill2": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          167.9,
+          167.0
+        ],
+        "center": [
+          176.9,
+          174.0
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "510d71c4ca4825f844011259a03a88672d7ca725f5f2cf968aa6d7a25c66d938"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          155.9,
+          159.9
+        ],
+        "center": [
+          164.9,
+          166.9
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "44c80e843d1146b4923d5c853a475d51ecba3d3a66d5a84286c5aac60aead3cb"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          150.3,
+          160.4
+        ],
+        "center": [
+          159.3,
+          165.4
+        ],
+        "angle": -8,
+        "size": [
+          42,
+          55
+        ],
+        "attachment_sha256": "295762aea3915dda962a7c2c24513bc522ab8d90fa1521102dac0207cbd67639"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          153.1,
+          161.6
+        ],
+        "center": [
+          162.1,
+          166.6
+        ],
+        "angle": -5,
+        "size": [
+          42,
+          55
+        ],
+        "attachment_sha256": "2195afca7ad9121d81cc16744d90abfa81511c1a13ca895a9fa905309e4c76ce"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          153.2,
+          158.2
+        ],
+        "center": [
+          162.2,
+          163.2
+        ],
+        "angle": -10,
+        "size": [
+          42,
+          55
+        ],
+        "attachment_sha256": "fb60648cfa688efb5d53308c4146da9904cd2dcc6e7de3fd8d124ec99e5056ae"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          152.3,
+          158.0
+        ],
+        "center": [
+          161.3,
+          163.0
+        ],
+        "angle": -9,
+        "size": [
+          42,
+          55
+        ],
+        "attachment_sha256": "90e871377fe8ab50114b1850c9e16002dd212e43154fa6271e8c8ca4e73e2be3"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          157.6,
+          157.9
+        ],
+        "center": [
+          166.6,
+          164.9
+        ],
+        "angle": -10,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "7318595ec91ae3e2abb29ec96f186e829da1eeac54f200e726dfb47601a1e39b"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          167.9,
+          165.6
+        ],
+        "center": [
+          176.9,
+          172.6
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "4899877dd1a3ccdebbcac5790b5648e4ccf5dc6ea17772ea045f54cab261e58b"
+      }
+    ],
+    "hit": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          174.3,
+          156.6
+        ],
+        "center": [
+          183.3,
+          163.6
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "5f4ad124e7e3d2b118ed44b82506b07aa339350a549fc797454908911a43ffe8"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.0,
+          156.8
+        ],
+        "center": [
+          181.0,
+          163.8
+        ],
+        "angle": -18,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "ebce5b98b6d40056896d97ad1be4e6bdfb8bceb810eef4bf131536208b091191"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          160.0,
+          155.0
+        ],
+        "center": [
+          169.0,
+          162.0
+        ],
+        "angle": -23,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "aecb880f5e8e5c6666db7febdde61ef72f9aecbfd1038723ab7f03b3eb70c474"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          151.7,
+          160.8
+        ],
+        "center": [
+          160.7,
+          167.8
+        ],
+        "angle": -18,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "26c3503993e12554311704c6746517533353c00febe9adb18c61d5da287b8099"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          153.7,
+          160.2
+        ],
+        "center": [
+          162.7,
+          167.2
+        ],
+        "angle": -14,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "31b9eb890811953af707b5727e1d1d43b52a161d284f7389c244221bf5a9f525"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          154.1,
+          156.7
+        ],
+        "center": [
+          163.1,
+          163.7
+        ],
+        "angle": -10,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "c2d30eb3e556b34fb2b0fd072f06b47b9e351f46c7b7531f0eb70b29350c2985"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          164.5,
+          156.7
+        ],
+        "center": [
+          173.5,
+          163.7
+        ],
+        "angle": -9,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "9c992fbd3e07dc6dac9be0fd59e735b1c65780fbcd53b21082b184b73a915b66"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          173.8,
+          158.2
+        ],
+        "center": [
+          182.8,
+          165.2
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "f951a5c72f7a4af464bf570d2d72617814abf8426b7d5bd16ee1b8847765b3f9"
+      }
+    ],
+    "dead": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          177.5,
+          149.4
+        ],
+        "center": [
+          186.5,
+          156.4
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "cde07b901551ffae82e71b484d958a8dea6343fd78c0e91ab32600e55badee84"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          174.7,
+          160.7
+        ],
+        "center": [
+          183.7,
+          167.7
+        ],
+        "angle": -18,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "f98ca3ea8afae70f231f6d30ec0b33b0052b3f468930b40bfd4908c179d9a2e0"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          165.7,
+          176.3
+        ],
+        "center": [
+          174.7,
+          183.3
+        ],
+        "angle": -21,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "ba61a0e4a1b318c16f5fef609d45db13ecb1f704a74922dd25b08528871b6d16"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          154.1,
+          182.3
+        ],
+        "center": [
+          168.1,
+          191.3
+        ],
+        "angle": -42,
+        "size": [
+          37,
+          36
+        ],
+        "attachment_sha256": "299789aeb26b842f24fe16c8f697bf2e44221e658ef3912f8a8223ff2af6f01b"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": true,
+        "center": [
+          197,
+          220
+        ],
+        "angle": -6,
+        "size": [
+          55,
+          17
+        ],
+        "attachment_sha256": "6b7940f9e0999afe955b4026e7c821e5c5e2384982de22db1ac1e4ddd48e1ca1"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": true,
+        "center": [
+          197,
+          220
+        ],
+        "angle": -6,
+        "size": [
+          55,
+          17
+        ],
+        "attachment_sha256": "6b7940f9e0999afe955b4026e7c821e5c5e2384982de22db1ac1e4ddd48e1ca1"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": true,
+        "center": [
+          197,
+          220
+        ],
+        "angle": -6,
+        "size": [
+          55,
+          17
+        ],
+        "attachment_sha256": "6b7940f9e0999afe955b4026e7c821e5c5e2384982de22db1ac1e4ddd48e1ca1"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": true,
+        "center": [
+          197,
+          220
+        ],
+        "angle": -6,
+        "size": [
+          55,
+          17
+        ],
+        "attachment_sha256": "6b7940f9e0999afe955b4026e7c821e5c5e2384982de22db1ac1e4ddd48e1ca1"
+      }
+    ],
+    "ult": [
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          175.1,
+          151.2
+        ],
+        "center": [
+          184.1,
+          158.2
+        ],
+        "angle": -12,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "c75b7190f75722cf5469374bc06691ccf5ad6ce22f082763cbd14bba509f649e"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          152.2,
+          171.2
+        ],
+        "center": [
+          161.2,
+          178.2
+        ],
+        "angle": -14,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "d1ab2548ca3958341f3c5aa758523096b0c4893f65a23d3a57e19ff07e22d765"
+      },
+      {
+        "form": "truth_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          145.6,
+          173.4
+        ],
+        "center": [
+          154.6,
+          180.4
+        ],
+        "angle": -15,
+        "size": [
+          53,
+          67
+        ],
+        "attachment_sha256": "1a46df69a72e388e881e8b07e5cc8e3506f2092a01350bcca617d0f2ce5e5b3f"
+      },
+      {
+        "form": "truth_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          177.4,
+          159.7
+        ],
+        "center": [
+          186.4,
+          161.7
+        ],
+        "angle": -16,
+        "size": [
+          53,
+          67
+        ],
+        "attachment_sha256": "cc2f4ff0fe948f4f2d6c6fe8c18090733eab13f1ee279628bcf381217e5e40e5"
+      },
+      {
+        "form": "truth_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          184.6,
+          160.2
+        ],
+        "center": [
+          193.6,
+          162.2
+        ],
+        "angle": -21,
+        "size": [
+          53,
+          67
+        ],
+        "attachment_sha256": "d39c53850a6236dfbf37e4e44bd0ada530fd313630df7b5314b7f82e0b722c2e"
+      },
+      {
+        "form": "truth_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          182.0,
+          159.4
+        ],
+        "center": [
+          191.0,
+          161.4
+        ],
+        "angle": -16,
+        "size": [
+          53,
+          67
+        ],
+        "attachment_sha256": "3a25a57dcdd648e79f40b9043762f162c5f68f0c4502b1480bd2e46624057718"
+      },
+      {
+        "form": "truth_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          172.8,
+          156.2
+        ],
+        "center": [
+          181.8,
+          163.2
+        ],
+        "angle": -11,
+        "size": [
+          53,
+          67
+        ],
+        "attachment_sha256": "63c8b53281361771537ba4b158cc9d02911784093bfb8f1962e1ab37da78ac3d"
+      },
+      {
+        "form": "round_shield",
+        "flight": false,
+        "fixed": false,
+        "grip": [
+          174.7,
+          151.0
+        ],
+        "center": [
+          183.7,
+          158.0
+        ],
+        "angle": -11,
+        "size": [
+          37,
+          51
+        ],
+        "attachment_sha256": "808d7e08fbe27b3afab350cbd544df328c4fdfc595eef92e4b1f525b81b6efba"
+      }
+    ]
+  }
+}

@@ -1,0 +1,172 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 272,
+    "event": "release",
+    "fx": "club_swing",
+    "anchor": [
+      160,
+      154
+    ],
+    "sound": "sfx_club_swing"
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 330,
+    "event": "confirmed_hit",
+    "fx": "club_hit",
+    "anchor": [
+      189,
+      161
+    ],
+    "sound": "sfx_club_hit"
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 317,
+    "event": "release",
+    "fx": "lion_wave",
+    "anchor": [
+      165,
+      155
+    ],
+    "sound": "sfx_lion_wave"
+  },
+  {
+    "action": "skill",
+    "frame": 5,
+    "ms": 380,
+    "event": "confirmed_hit",
+    "fx": "club_hit",
+    "anchor": [
+      201,
+      159
+    ],
+    "sound": "sfx_club_hit"
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 371,
+    "event": "land",
+    "fx": "ground_impact",
+    "anchor": [
+      184,
+      218
+    ],
+    "sound": "sfx_club_slam"
+  },
+  {
+    "action": "dead",
+    "frame": 4,
+    "ms": 349,
+    "event": "drop",
+    "sound": "sfx_club_drop"
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 320,
+    "event": "windup",
+    "fx": "cerberus_ring",
+    "anchor": [
+      128,
+      161
+    ],
+    "sound": "sfx_awakening"
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 590,
+    "event": "form_switch",
+    "fx": "cerberus_awaken",
+    "anchor": [
+      128,
+      150
+    ],
+    "sound": "sfx_form_change"
+  },
+  {
+    "action": "c_attack",
+    "frame": 4,
+    "ms": 219,
+    "event": "release",
+    "fx": "fist_trail",
+    "anchor": [
+      166,
+      156
+    ],
+    "sound": "sfx_fist_whoosh"
+  },
+  {
+    "action": "c_attack",
+    "frame": 5,
+    "ms": 268,
+    "event": "confirmed_hit",
+    "fx": "cerberus_hit",
+    "anchor": [
+      189,
+      160
+    ],
+    "sound": "sfx_fist_hit"
+  },
+  {
+    "action": "c_skill",
+    "frame": 5,
+    "ms": 380,
+    "event": "confirmed_hit",
+    "fx": "cerberus_hit",
+    "anchor": [
+      183,
+      210
+    ],
+    "sound": "sfx_fist_slam"
+  },
+  {
+    "action": "c_skill2",
+    "frame": 3,
+    "ms": 218,
+    "event": "guard",
+    "fx": "cerberus_ring",
+    "anchor": [
+      128,
+      162
+    ],
+    "sound": "sfx_guard"
+  },
+  {
+    "action": "c_ult",
+    "frame": 4,
+    "ms": 329,
+    "event": "windup",
+    "fx": "fist_trail",
+    "anchor": [
+      164,
+      144
+    ],
+    "sound": "sfx_fist_whoosh"
+  },
+  {
+    "action": "c_ult",
+    "frame": 5,
+    "ms": 401,
+    "event": "confirmed_hit",
+    "fx": "ground_impact",
+    "anchor": [
+      181,
+      202
+    ],
+    "sound": "sfx_fist_slam"
+  },
+  {
+    "action": "c_dead",
+    "frame": 7,
+    "ms": 829,
+    "event": "land",
+    "sound": "sfx_body_drop"
+  }
+]

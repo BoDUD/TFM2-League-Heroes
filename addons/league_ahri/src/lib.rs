@@ -18,6 +18,8 @@
 //! 改成这次启动所有阿狸合计前 `LOG_FIRST` 行，之后每 `LOG_EVERY` 行记一行。
 //! 0.1.2（2026-11-08 夜里的日志）：`SPAWN` 每次复活都写一整行参数、不算在条数里（878 行里 429 行）；现在 `SPAWN` 也按合计的条数限，
 //! 参数只在这次启动的第一条里写（`params_new`）。
+//! 0.1.3（2026-11-22，用户：「还有很多叠层的技能在技能列表里看不到层数」）：精魄层数挂成 `league_ahri_es_<n>`（0 层不挂），
+//! league.dll 的技能栏层数格读它（tools/kit/stack_nums.py 的梯子规则）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ahri.log`，每次启动游戏重写。
 
 use std::fs::OpenOptions;
@@ -157,6 +159,11 @@ impl Count {
     }
 }
 
+/// 面板上的精魄数：league.dll 的技能栏层数格读 `league_ahri_es_<n>`（tools/kit/stack_nums.py 的梯子规则）。
+pub fn count_name(essence: usize) -> String {
+    ah(&format!("es_{essence}"))
+}
+
 // ===================== 被动 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -193,11 +200,14 @@ pub fn params_new(p: &Params) -> bool {
     true
 }
 
-/// 每个阿狸一份：参数、计数。
+/// 每个阿狸一份：参数、计数、面板上挂着的数。
 #[derive(Clone, Default)]
 struct Essence {
     p: Params,
     c: Count,
+    /// 挂着 `count_name(n)` 的那个身子（复活是新的实体，buff 都没了）和 n。
+    body: Option<usize>,
+    panel: Option<usize>,
 }
 
 impl Essence {
@@ -217,6 +227,25 @@ impl Essence {
         } else if !self.c.shown(&self.p) && on {
             sim.entity_remove_buff(me, &ah("et_ready"));
         }
+    }
+
+    /// 面板上的数跟着层数换：只在层数变了、或者换了身子（复活）时动 buff。
+    fn panel(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        if self.body != Some(me) {
+            self.body = Some(me);
+            self.panel = None;
+        }
+        let n = self.c.essence;
+        if self.panel == Some(n) {
+            return;
+        }
+        if let Some(old) = self.panel {
+            sim.entity_remove_buff(me, &count_name(old));
+        }
+        if n > 0 {
+            sim.add_buff(me, &BuffV1::named(&count_name(n)));
+        }
+        self.panel = Some(n);
     }
 }
 
@@ -272,6 +301,7 @@ impl StablePassive for Essence {
             self.c.heals -= 1;
         }
         self.picture(sim, me);
+        self.panel(sim, me);
     }
 }
 
@@ -338,6 +368,18 @@ mod tests {
         for x in ["tk_go", "k_go", "et_ready"] {
             assert!(ah(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    /// 0.1.3：league.dll 的技能栏层数格读 `league_ahri_es_` 后面的数（tools/kit/stack_nums.py 里阿狸附加包那一行的梯子）。
+    #[test]
+    fn essence_count_on_the_panel() {
+        assert_eq!(count_name(1), "league_ahri_es_1");
+        assert_eq!(count_name(8), "league_ahri_es_8");
+        assert!(count_name(99).len() <= BUFF_NAME_CAP);
+        // 第 9 层回血、从 0 重新数：面板上的数跟着计数走
+        let (p, mut c) = (Params::default(), Count::default());
+        let shown: Vec<usize> = (0..10).map(|_| { c.unit(&p); c.essence }).collect();
+        assert_eq!(shown, [1, 2, 3, 4, 5, 6, 7, 8, 0, 1]);
     }
 
     /// 0.1.2 (the 11-08 night logs: 429 of 878 lines were `SPAWN ... Params`, one at every respawn): the Params once a

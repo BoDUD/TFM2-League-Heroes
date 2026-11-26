@@ -19,9 +19,10 @@
 //!   `egg_in` / `egg` / `hatch` 时不动它。
 //!
 //! 还有一处：蛋被眩晕 / 击飞时游戏直接画普通的 `hit`（鸟挨打的样子），不看存的名字。显示实体上这两个倒计时（值 +0x198 /
-//! +0x184，秒；游戏 0.7.2 每帧更新 rva 0x2c4a9a0、0.7.3 是 0x2756ae0，里面递减）只管画面，所以蛋里把它们清零；缩进蛋、
-//! 破壳开始播时把动作时间（值 +0x170）归零，从第一帧播。这三个偏移在 0.7.2 和 0.7.3 的代码里核对过（0.7.3：挑动作的
-//! 0x2756d40 照旧是击飞 / 眩晕计时在走画普通 `hit`、定身计时在走且存的名字以 `run` 结尾画普通 `idle`），别的游戏版本
+//! +0x184，秒；游戏 0.7.2 每帧更新 rva 0x2c4a9a0、0.7.3 是 0x2756ae0、0.7.4 是 0x2394460，里面递减）只管画面，所以蛋里
+//! 把它们清零；缩进蛋、破壳开始播时把动作时间（值 +0x170）归零，从第一帧播。这三个偏移在 0.7.2、0.7.3 和 0.7.4 的代码里
+//! 核对过（0.7.3 的 0x2756d40、0.7.4 的 0x23946c0：挑动作照旧是击飞 / 眩晕计时在走画普通 `hit`、定身计时在走且存的名字
+//! 以 `run` 结尾画普通 `idle`），别的游戏版本
 //! 不动它们（[`set_game`]）：那时蛋被眩晕
 //! 会闪成鸟挨打的样子，缩进蛋 / 破壳可能从中间一帧开始。
 //!
@@ -56,7 +57,7 @@ pub const OUT_TICKS: usize = 45;
 const DUMP_CAP: usize = 30;
 
 /// 显示实体值里只管画面的三个数（f32，秒；游戏 0.7.2：每帧更新 rva 0x2c4a9a0 递减 / 累加，挑动作 rva 0x2c4ac00 读；
-/// 0.7.3：0x2756ae0 / 0x2756d40，同样的偏移）：
+/// 0.7.3：0x2756ae0 / 0x2756d40；0.7.4：0x2394460 / 0x23946c0，同样的偏移）：
 /// 动作播到哪、击飞还剩多久、眩晕还剩多久（后两个大于 0 时游戏画普通的 `hit`）。
 pub const ANIM_TIME: usize = 0x170;
 pub const AIRBORNE_LEFT: usize = 0x184;
@@ -64,7 +65,7 @@ pub const STUN_LEFT: usize = 0x198;
 /// 这三个偏移在这个游戏版本上核对过。
 static FIELDS_OK: AtomicBool = AtomicBool::new(false);
 
-/// 加载时告诉这里游戏版本：只有核对过那三个偏移的版本（0.7.2、0.7.3）才动它们。
+/// 加载时告诉这里游戏版本：只有核对过那三个偏移的版本（0.7.2、0.7.3、0.7.4）才动它们。
 pub fn set_game(major: u32, minor: u32, patch: u32) -> bool {
     let ok = fields_known(major, minor, patch);
     FIELDS_OK.store(ok, Ordering::Relaxed);
@@ -72,7 +73,7 @@ pub fn set_game(major: u32, minor: u32, patch: u32) -> bool {
 }
 
 pub fn fields_known(major: u32, minor: u32, patch: u32) -> bool {
-    matches!((major, minor, patch), (0, 7, 2) | (0, 7, 3))
+    matches!((major, minor, patch), (0, 7, 2) | (0, 7, 3) | (0, 7, 4))
 }
 
 /// 一个倒计时该不该清：是个正常的、还在走的秒数（别的东西不碰）。
@@ -431,11 +432,10 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match game_places::hook::add("league_anivia", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "FORM whole-body egg on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x}); the egg is drawn \
+        match game_places::hook::add("league_anivia", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!(
+                "FORM whole-body egg on: {p}; the egg is drawn \
                  by the screen clock from the eggs the passive notes (the egg buff when the clock cannot be read)",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("FORM whole-body egg off ({e}): the egg is drawn only while the data's watch plays it")),
         }
@@ -553,8 +553,8 @@ mod tests {
 
     #[test]
     fn the_display_fields_are_touched_on_the_game_they_were_read_from_only() {
-        assert!(fields_known(0, 7, 2) && fields_known(0, 7, 3));
-        for v in [(0, 7, 1), (0, 7, 0), (0, 7, 4), (0, 8, 2), (1, 7, 2)] {
+        assert!(fields_known(0, 7, 2) && fields_known(0, 7, 3) && fields_known(0, 7, 4));
+        for v in [(0, 7, 1), (0, 7, 0), (0, 7, 5), (0, 8, 2), (1, 7, 2)] {
             assert!(!fields_known(v.0, v.1, v.2), "{v:?}");
         }
         // a timer that is counting down is cleared; zero, a negative, a huge or a non-number is left alone

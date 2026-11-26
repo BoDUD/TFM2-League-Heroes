@@ -1,4 +1,4 @@
-# 凯隐「暗裔魔镰」附加包（v0.3.9，可选）
+# 凯隐「暗裔魔镰」附加包（v0.3.12，可选）
 
 ![凯隐的完整变身：本体、暗裔、影流三行，待机、跑步、受击、阵亡和墙里的暗影五列](../../docs/preview/league_kayn_forms.gif)
 
@@ -65,7 +65,8 @@
    - `display handler: … calls, … animation names swapped in 10 s`：每 10 秒一行，显示处理调用了多少次、换了多少次动画名；
    - `world … Kayn #24: Darkin plays "stun" with no form frames (drawn as plain Kayn)`（0.3.2）：有形态时游戏播了一个形态没有
      自己一套的动作，这一段身体画成原样（用户：「凯隐变身的时候中途有一段突然变回去」）；每个凯隐每个名字一行；
-   - `shadow step through the wall: (…) -> (…), 34 ticks`：掠影步穿墙。
+   - `shadow step through the wall: (…) -> (…), 34 ticks`：掠影步穿墙；
+   - `R FREE: … was moved away in one tick …` / `… is gone (dead) …`（0.3.12）：大招钻着的人被搬走或者没了，凯隐留在原地出来。
 
 ## 开发
 
@@ -103,3 +104,30 @@ python addons/league_kayn_form/make_override.py      # 主包的凯隐或别的�
 `each_set_follows_its_own_presim` / `a_full_list_drops_only_its_oldest_set`，`tests/wiring.rs` 第 6 段：第一局的 presim 定下暗裔，
 第一局的画面照着变，第二局的画面（另一个种子）不照着变、按自己的命中攒出影流。下一局看：画面的 `ready (as the server decided at t=…)`
 只出现在同一局，别的局的画面是自己的 `DARKIN ready` / `SHADOW ready`。
+
+## 0.3.12：大招钻进去的人被搬走时留在原地出来（2026-11-25）
+
+玩家在创意工坊留言：「我发现凯影开大钻死歌，死歌在凯影大招时间内死亡，凯影出来就会直接到对面泉水去，直接被泉水搞死」。
+
+原因：大招钻进去以后，副本每 10 tick 用一次「冲向目标」把凯隐拉在那个人身上，第 120 tick 冲过去出体。死歌附加包 0.5.7 起，
+死歌化成灵体时原地只留灵体的画面，**身体被挪回他家泉水里等着**；凯隐下一次「冲向目标」就跟着冲到了对面泉水，在那里出体。
+回城传送也会这样。
+
+现在本包每 tick 看着他钻着的那个人（身上挂着 `league_kayn_r_mark` / `_d` / `_s`、离他最近的敌方英雄）：没了（死了，游戏里
+死人没有实体），或者一 tick 里被挪出 80000 以上（`R_JUMP`；闪现一类的位移约 40000，照样跟），就给凯隐挂 `league_kayn_r_free`，
+把他钉在上一 tick 的位置。副本里后面的冲刺都先看这个标记：挂着就不冲；最后那一下改成原地出体（照样播出体的动作和音效，
+不打伤害），摘掉标记。大招开始时先摘掉上一次可能留下的标记。没装附加包时死歌不会被挪到泉水，主包不用改。
+
+日志：`R FREE: league_karthus#… was moved away in one tick (… from where he was) - he comes out where he was`。
+
+## 0.3.11：过日更快（2026-11-22）
+
+玩法不变（用户：「为什么游戏加载过日速度这么慢」→ 第二轮）。过日时别的比赛里的凯隐每 tick 都在白做几件事：
+
+- 掠影步穿墙（`wall.rs`）每 tick 先把三张地图的墙格从字符串重建一遍、把场上活着的单位收一遍，然后才看他在不在掠影步。
+  现在不在掠影步、也没有正在走的路时直接返回（原来算完也只是把两样本来就空的记录清掉、返回「不在墙里」）；墙格只建一次。
+- 穿墙的暗影雾、溅开的名字原来每 tick 拼两个字符串，换成常量；暗裔、影流两种形态 buff 一遍看完（原来扫两遍）。
+- 不在墙里、上一 tick 也不在墙里时，穿墙画面那一段什么都不做，现在也不再先看一遍形态；补形态 buff 前看「形态 buff 或准备标记」
+  一遍看完（原来各扫一遍）。
+- 看 buff 名按字节比，不再每个 buff 做一遍 UTF-8 检查，也不先把身上所有 buff 收进一个列表再找。
+- 测试：`wall_names_are_the_old_formats`（常量和原来拼出来的一样）、`buff_names_compare_as_before`。

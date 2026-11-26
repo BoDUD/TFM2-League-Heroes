@@ -9,7 +9,7 @@
 | id | `league_nautilus` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.8 |
 | 附加包 | [诺提勒斯钩墙附加包](#附加包)（`league_nautilus`） |
 
@@ -55,7 +55,7 @@
 
 ### 诺提勒斯钩墙附加包
 
-[诺提勒斯钩墙附加包](../../addons/league_nautilus/README.md)：`league_nautilus` v0.1.8
+[诺提勒斯钩墙附加包](../../addons/league_nautilus/README.md)：`league_nautilus` v0.1.10
 
 主包 `league` 保持纯数据、全平台可用；钩墙要读地图的墙，只能用原生代码，所以放在这个附加包里（合集 `league_addons` 也带着它）。
 装上后，诺提勒斯的 Q「疏通航道」：锚沿路线**先碰到野区的墙**（引擎的碰撞墙，5v5 地图 90 格）时，把他拉到墙边，并**返还一半冷却**——

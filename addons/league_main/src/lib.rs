@@ -54,6 +54,8 @@
 //! 比赛钩子每 6 tick 数一次 src/stack_table.rs 里英雄身上的层数（同名 buff 有几个、数值加起来，或梯子爬到第几级），写进他的
 //! 属性 `stack`：游戏自己的英雄信息面板在技能图标旁边显示它（数据里的 `stack_skill_index` 选图标，tools/kit/stack_nums.py
 //! 生成表和这个字段）。基础属性按宿主自己的机器码读出布局、原样读出来只换 `stack` 再写回，布局对不上就不写。
+//! 2026-11-22（「还有很多叠层的技能在技能列表里看不到层数」）：表补到 86 个英雄，多了几个名字取最大 / 加起来 / 按前缀数，
+//! 和「数敌方英雄身上的、取最多的那个」（附加包把层数记在敌人身上的）；一个英雄可以有几行，取最大的。
 //!
 //! src/looks.rs（0.9.38，用户 2026-11-14 看了「和英雄联盟不一样的地方」的清单后说「全改吧」）：身上有某个 buff 时，游戏自己按名字
 //! 播的待机 / 移动 / 受击换成图里的另一套（锐雯开大后站着、跑着也拿重铸剑）。以前这样的英雄各带一个附加包来换，现在主包里
@@ -85,8 +87,42 @@ mod stack_table;
 #[cfg(windows)]
 mod warm;
 
+/// 只和英雄联盟这张表有关的层数测试（stacks.rs 里的测试 tft.dll 也跑，那边是云顶的表）。
+#[cfg(test)]
+mod stack_rows {
+    use crate::stacks::{number, rows, Rule, STACKS};
+    use mod_api_stable::BuffV1;
+
+    fn buffs(names: &[&str]) -> Vec<BuffV1> {
+        names.iter().map(|n| BuffV1::named(n)).collect()
+    }
+
+    #[test]
+    fn a_hero_with_two_rows_shows_the_larger() {
+        // 韦鲁斯：主包把枯萎记在他自己身上（b_1..b_3），附加包记在每个敌人身上（league_varus_blight_1..3）
+        assert!(rows("league_varus").count() >= 2);
+        let none = [0; 3];
+        let main = buffs(&["league_varus_b_2"]);
+        assert_eq!(number("league_varus", &main, &none, &[]), 2);
+        let foe = buffs(&["league_varus_blight_3"]);
+        assert_eq!(number("league_varus", &[], &none, &[&foe, &main]), 3);
+        assert_eq!(number("league_nobody", &main, &none, &[&foe]), 0);
+    }
+
+    #[test]
+    fn the_charged_skills_are_listed() {
+        // 提莫的蘑菇、库奇的导弹（大招栏）、米利欧的融融情谊（技能 2 栏）读游戏的充能
+        for (hero, k) in [("league_teemo", 2), ("league_corki", 2), ("league_milio", 1)] {
+            assert!(rows(hero).any(|s| s.rule == Rule::Charges(k)), "{hero}");
+        }
+        assert!(STACKS.iter().all(|s| s.hero.starts_with("league_")));
+        assert_eq!(number("league_teemo", &[], &[0, 0, 3], &[]), 3);
+        assert_eq!(number("league_teemo", &[], &[0; 3], &[]), 0);
+    }
+}
+
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.101";
+const VERSION: &str = "0.9.145";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -142,6 +178,10 @@ fn init(host: &StableHost) -> StableMod {
     // the GPU image cache first, whatever the build: it only needs Skia's GrResourceCache (src/cache.rs)
     #[cfg(windows)]
     cache::install_once(hd_engine::module_base());
+    // 显示钩子晚挂（2026-11-21）：战场缩放和整身外观先登记，等所有 mod 加载完、第一帧（warm::Warm）再换槽——只认游戏
+    // 原函数才肯挂的别的 mod 排在后面也挂得上（game_places::hook）
+    #[cfg(windows)]
+    game_places::hook::defer();
     // the dense frames: this pack's table to the engine - it hooks the game from here (build, display pair, lookups,
     // scale, as before 0.9.0), or hands the table to the pack DLL that did (tft.dll loaded first: hd_engine src/share.rs)
     #[cfg(windows)]

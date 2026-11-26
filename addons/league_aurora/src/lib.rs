@@ -1,22 +1,26 @@
-//! 阿萝拉附加包：被动里的「灵纱洞开」按真实的生命触发（英雄联盟的用户要的「残血时跳开」），双界合一的领域按英雄联盟的规则。
+//! 阿萝拉附加包：被动里的「灵纱洞开」按真实的生命触发（用户要的「残血时跳开」），驱灵奇术按敌人分别叠层，双界合一的领域按
+//! 英雄联盟的规则，大招照会玩的阿萝拉来放（0.4.0，2026-11-26：「阿罗拉这个大招释放的没有英雄联盟高手的感觉」）。
 //!
-//! 主包保持纯数据：数据读不到生命，主包里阿萝拉的灵纱洞开是「有敌方英雄贴身」就后跳（隐身、加速，`w_cd` 一次）；数据也找不到
-//! 领域的边界、挪不了她，主包的领域只在她站在里面时减速其中的敌人。`mod.override_info` 把主包的阿萝拉换成 `override/` 里的副本
-//! （tools/kit/build_aurora.py --native）：后跳还要她身上有 `league_aurora_low`，领域交给本包（冲击波中心那根线的 end_effects
-//! 调 `league_aurora:rift`），`passive` 换成本包的 `league_aurora:veil`：
+//! 主包保持纯数据：数据读不到生命、等级，`SwitchByBuff` 只看施法者身上的 buff，主包里阿萝拉的灵纱洞开是「有敌方英雄贴身」就
+//! 后跳，驱灵奇术记在她身上；数据也找不到领域的边界、挪不了她，主包的领域只在她站在里面时减速其中的敌人。`mod.override_info`
+//! 把主包的阿萝拉换成 `override/` 里的副本（tools/kit/build_aurora.py --native）：后跳还要她身上有 `league_aurora_low`，
+//! 叠层和飞去来咒回程交给本包的原生效果（`spirit.rs`），领域交给本包（冲击波中心那根线的 end_effects 调 `league_aurora:rift`），
+//! `passive` 换成本包的 `league_aurora:veil`：
 //!
 //! - 每 tick 读她的生命：低于最大生命的 `w_low`% 就挂上 3 tick 的 `league_aurora_low`（先摘再挂，只留一个），
 //!   回到 `w_low`% 以上就不再挂，3 tick 后自己消失。数据在普攻和怪奇喷涌的开头读它（还要敌方英雄在 `w_near` 内、
-//!   `w_cd` 已过）。
-//! - 领域（`rift.rs`，用户 2026-11-04：「阿罗拉的大招机制逻辑也是不太一样」）：敌人碰到边界减速 `r_edge`%（一次穿越一次），
-//!   她碰到边界就冲到对面（`r_wrap_t` tick），没碰边界就到了外面、死了就关。
+//!   `w_cd` 已过）。她拿到击杀或助攻（读击杀记录）就摘掉灵纱洞开的冷却（英雄联盟 W 的规则）。
+//! - 灵物（`spirit.rs` 抽出来的）：跟着她 `sp_t` tick，每 15 tick 按个数回一次血。
+//! - 领域（`rift.rs`）：冲击波扩散 `r_grow` tick 后成形，按大招等级开 `r_t1`–`r_t3` tick；敌人碰到边界减速 `r_edge`%
+//!   （一次穿越一次），她碰到边界就冲到对面（`r_wrap_t` tick），死了、出去了、成形时不在里面、时间到就关，里面没有敌方英雄了
+//!   就提前关（英雄联盟再按 R）。
 //!
-//! 大招的时机和领域里怎么走由 AI 钩子 `league_aurora:realm` 挑（`realm.rs`：开团把一堆人关进领域、关住想跑的残血、被贴脸时
-//! 砸下去，其余时候按住；领域开着时贴身的人来了就往边界走、冲到对面，不追出领域）。
+//! 大招的时机和领域里怎么走由 AI 钩子 `league_aurora:realm` 挑（`realm.rs`：反开、一套带走、跟队友一起抓、开团、关住残血，
+//! 其余时候按住；瞄准冲击波；领域里 R → E → Q、走 A、有人贴身就往边界走、穿到对面）。
 //!
-//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量（只有日志的行数
-//! 是全局的），服务端预模拟和你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`，
-//! 每次启动游戏重写。
+//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份（原生效果读不到被动的参数，
+//! 按 `Params` 的默认值，`make_override.py` 核对和 P 一样）。不用全局变量（只有日志的行数是全局的），服务端预模拟和你看的
+//! 那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`，每次启动游戏重写。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -31,6 +35,7 @@ use mod_api_stable::*;
 mod maps;
 pub mod realm;
 pub mod rift;
+pub mod spirit;
 
 const ID: &str = "league_aurora";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -131,22 +136,96 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 pub struct Params {
     /// 生命低于最大生命的这个百分比算「残血」。
     pub w_low: usize,
-    /// 领域开多少 tick（英雄联盟 2.25–3.25 秒）。
-    pub r_t: usize,
-    /// 碰到边界的敌人减速多少 %、多少 tick（英雄联盟 50%、1.5–2 秒）。
+    /// 领域：冲击波扩散多少 tick 后成形，成形后开多少 tick（大招 1 / 2 / 3 级，英雄联盟 0.75 秒 + 2.25 / 2.75 / 3.25 秒）。
+    pub r_grow: usize,
+    pub r_t1: usize,
+    pub r_t2: usize,
+    pub r_t3: usize,
+    /// 大招 2 级、3 级从多少级起（团战经理 12 级，英雄联盟 18 级的 6 / 11 / 16 级换过来，5 级才有大招）。
+    pub r_lv2: usize,
+    pub r_lv3: usize,
+    /// 碰到边界的敌人减速多少 %、多少 tick（英雄联盟 50%、1.5 / 1.75 / 2 秒）。
     pub r_edge: usize,
-    pub r_edge_t: usize,
+    pub r_edge_t1: usize,
+    pub r_edge_t2: usize,
+    pub r_edge_t3: usize,
     /// 她冲到对面要多少 tick（英雄联盟 0.4 秒）。
     pub r_wrap_t: usize,
+    /// 大招的 Realm Hopper：加速多少 %、从跃出起多少 tick（英雄联盟 3.25 / 3.75 / 4.25 秒）。
+    pub r_ms: usize,
+    pub r_ms_t1: usize,
+    pub r_ms_t2: usize,
+    pub r_ms_t3: usize,
+    /// 跃出到落地（数据的 r_leap_t）：Realm Hopper 从跃出就开始了。
+    pub r_leap_t: usize,
+    /// 冲击波放出这么多 tick 后才能提前关（英雄联盟再按 R 要等 1 秒）。
+    pub r_recast: usize,
+    /// 驱灵奇术：层数留多久；第三层最大生命的千分之 p_hp_pm、每 100 法强再加千分之 p_hp_ap_pm。
+    pub p_t: usize,
+    pub p_hp_pm: usize,
+    pub p_hp_ap_pm: usize,
+    /// 灵物：每秒回 sp0（1 级）到 sp1（12 级）+ sp_ap% 法强，跟着她 sp_t tick，最多 sp_max 个。
+    pub sp0: usize,
+    pub sp1: usize,
+    pub sp_ap: usize,
+    pub sp_t: usize,
+    pub sp_max: usize,
+    /// 飞去来咒回程：q2_dmg + q2_ratio% 法强，按已损失生命最多加 q2_miss%，小兵 q2_minion%、野怪 q2_monster%，
+    /// q2_again_t tick 内第二颗起 q2_again%。
+    pub q2_dmg: usize,
+    pub q2_ratio: usize,
+    pub q2_miss: usize,
+    pub q2_minion: usize,
+    pub q2_monster: usize,
+    pub q2_again: usize,
+    pub q2_again_t: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { w_low: 35, r_t: 195, r_edge: 50, r_edge_t: 105, r_wrap_t: 24 }
+        Self {
+            w_low: 35,
+            r_grow: 45, r_t1: 135, r_t2: 165, r_t3: 195, r_lv2: 8, r_lv3: 11,
+            r_edge: 50, r_edge_t1: 90, r_edge_t2: 105, r_edge_t3: 120, r_wrap_t: 24,
+            r_ms: 30, r_ms_t1: 195, r_ms_t2: 225, r_ms_t3: 255, r_leap_t: 14, r_recast: 60,
+            p_t: 240, p_hp_pm: 10, p_hp_ap_pm: 27,
+            sp0: 3, sp1: 20, sp_ap: 2, sp_t: 240, sp_max: 4,
+            q2_dmg: 100, q2_ratio: 55, q2_miss: 50, q2_minion: 40, q2_monster: 50, q2_again: 20, q2_again_t: 60,
+        }
     }
 }
 
-/// `{"w_low":35,"r_t":195,...}` -> 参数；缺的键用默认值，认不得的键忽略。
+impl Params {
+    /// 大招几级（1–3），按她的等级。
+    pub fn rank(&self, level: usize) -> usize {
+        if level >= self.r_lv3 {
+            3
+        } else if level >= self.r_lv2 {
+            2
+        } else {
+            1
+        }
+    }
+
+    fn by_rank(&self, level: usize, v: [usize; 3]) -> usize {
+        v[self.rank(level) - 1]
+    }
+
+    /// 领域成形后开多少 tick、碰边界减速多少 tick、Realm Hopper 多少 tick（按大招的等级）。
+    pub fn r_t(&self, level: usize) -> usize {
+        self.by_rank(level, [self.r_t1, self.r_t2, self.r_t3])
+    }
+
+    pub fn r_edge_t(&self, level: usize) -> usize {
+        self.by_rank(level, [self.r_edge_t1, self.r_edge_t2, self.r_edge_t3])
+    }
+
+    pub fn r_ms_t(&self, level: usize) -> usize {
+        self.by_rank(level, [self.r_ms_t1, self.r_ms_t2, self.r_ms_t3])
+    }
+}
+
+/// `{"w_low":35,"r_t1":135,...}` -> 参数；缺的键用默认值，认不得的键忽略。
 pub fn parse_params(json: &str) -> Params {
     let mut p = Params::default();
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
@@ -156,10 +235,38 @@ pub fn parse_params(json: &str) -> Params {
         let Ok(v) = v.trim().parse::<usize>() else { continue };
         let slot = match k {
             "w_low" => &mut p.w_low,
-            "r_t" => &mut p.r_t,
+            "r_grow" => &mut p.r_grow,
+            "r_t1" => &mut p.r_t1,
+            "r_t2" => &mut p.r_t2,
+            "r_t3" => &mut p.r_t3,
+            "r_lv2" => &mut p.r_lv2,
+            "r_lv3" => &mut p.r_lv3,
             "r_edge" => &mut p.r_edge,
-            "r_edge_t" => &mut p.r_edge_t,
+            "r_edge_t1" => &mut p.r_edge_t1,
+            "r_edge_t2" => &mut p.r_edge_t2,
+            "r_edge_t3" => &mut p.r_edge_t3,
             "r_wrap_t" => &mut p.r_wrap_t,
+            "r_ms" => &mut p.r_ms,
+            "r_ms_t1" => &mut p.r_ms_t1,
+            "r_ms_t2" => &mut p.r_ms_t2,
+            "r_ms_t3" => &mut p.r_ms_t3,
+            "r_leap_t" => &mut p.r_leap_t,
+            "r_recast" => &mut p.r_recast,
+            "p_t" => &mut p.p_t,
+            "p_hp_pm" => &mut p.p_hp_pm,
+            "p_hp_ap_pm" => &mut p.p_hp_ap_pm,
+            "sp0" => &mut p.sp0,
+            "sp1" => &mut p.sp1,
+            "sp_ap" => &mut p.sp_ap,
+            "sp_t" => &mut p.sp_t,
+            "sp_max" => &mut p.sp_max,
+            "q2_dmg" => &mut p.q2_dmg,
+            "q2_ratio" => &mut p.q2_ratio,
+            "q2_miss" => &mut p.q2_miss,
+            "q2_minion" => &mut p.q2_minion,
+            "q2_monster" => &mut p.q2_monster,
+            "q2_again" => &mut p.q2_again,
+            "q2_again_t" => &mut p.q2_again_t,
             _ => continue,
         };
         *slot = v;
@@ -176,7 +283,7 @@ pub fn is_low(p: &Params, hp: usize, max: usize) -> bool {
 
 // ===================== 被动 =====================
 
-/// 每个阿萝拉一份：参数、上一 tick 是不是残血（只为日志）、开着的领域。
+/// 每个阿萝拉一份：参数、上一 tick 是不是残血（只为日志）、开着的领域、跟着她的灵物、读到第几条击杀记录。
 #[derive(Clone, Default)]
 struct Veil {
     p: Params,
@@ -185,6 +292,68 @@ struct Veil {
     rift: Option<rift::Rift>,
     /// 这条命的她（on_dead 只给玩家）。
     me: usize,
+    /// 跟着她的灵物到哪一 tick（一起刷新，最多 sp_max 个）。
+    spirits: Vec<usize>,
+    /// 击杀记录读到第几条。
+    kills_seen: usize,
+}
+
+/// 灵纱洞开的冷却（数据挂在她身上的 buff）：她拿到击杀或助攻就摘掉（英雄联盟 W 的规则）。
+pub const VEIL_CD: &str = "league_aurora_w_cd";
+/// 灵物多少 tick 回一次血。
+pub const HEAL_EVERY: usize = 15;
+
+/// 击杀记录里的「位置」是分路（LaneV1 的编号）：这一条算她的击杀或助攻吗。
+pub fn is_takedown(k: &KillLogV1, team: usize, lane: u32) -> bool {
+    k.killer_team == team
+        && (k.killer_position == lane || k.assist_positions.iter().take(k.assist_count as usize).any(|&a| a == lane))
+}
+
+impl Veil {
+    /// 新抽出的灵物（spirit.rs 挂的标记）、每 HEAL_EVERY tick 回一次血。
+    fn spirits(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, level: usize, ap: usize, fresh: bool) {
+        if fresh {
+            sim.entity_remove_buff(me, spirit::NEW_SPIRIT);
+            if self.spirits.len() < self.p.sp_max {
+                self.spirits.push(now);
+            }
+            for t in self.spirits.iter_mut() {
+                *t = now + self.p.sp_t;
+            }
+            sim.play_view_effect(spirit::HEAL_VIEW, me, &InputTargetV1::target(me), 0, 0, 0);
+        }
+        self.spirits.retain(|&t| now < t);
+        if !self.spirits.is_empty() && now % HEAL_EVERY == 0 {
+            let amount = self.spirits.len() * spirit::spirit_heal(&self.p, level, ap) * HEAL_EVERY / 60;
+            if amount > 0 {
+                sim.heal(me, me, amount);
+            }
+        }
+    }
+
+    /// 她拿到击杀或助攻：灵纱洞开的冷却清掉。
+    fn takedowns(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        let n = sim.kill_log_count();
+        if self.kills_seen > n {
+            self.kills_seen = 0; // 被动换了一局，从头读
+        }
+        let Some((team, lane)) = sim.get_player(player).and_then(|p| Some((p.team(), p.lane()?.code()))) else {
+            self.kills_seen = n;
+            return;
+        };
+        let mut reset = false;
+        while self.kills_seen < n {
+            if let Some(k) = sim.kill_log_at(self.kills_seen) {
+                reset |= is_takedown(&k, team, lane);
+            }
+            self.kills_seen += 1;
+        }
+        if reset && sim.entity_remove_buff(me, VEIL_CD) > 0 {
+            if let Some(c) = counted("veil reset", on_screen(sim)) {
+                wlog(format!("{} VEIL RESET: a takedown, Across the Veil is ready again #{c}", head(sim, me)));
+            }
+        }
+    }
 }
 
 impl StablePassive for Veil {
@@ -199,19 +368,23 @@ impl StablePassive for Veil {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.low = false;
         self.rift = None;
+        self.spirits.clear();
         self.me = me;
+        self.kills_seen = sim.kill_log_count();
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(n) = counted("spawn", on_screen(sim)) {
             wlog(format!("{} SPAWN: the add-on's Aurora (player {player}, team {team}), {:?} #{n}", head(sim, me), self.p));
         }
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         if !e.is_alive() {
             return;
         }
         let (hp, max) = e.hp();
+        let (level, ap) = (e.level(), e.stat().magic_power);
+        let fresh = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == spirit::NEW_SPIRIT);
         let low = is_low(&self.p, hp, max);
         if low {
             sim.entity_remove_buff(me, LOW);
@@ -226,12 +399,16 @@ impl StablePassive for Veil {
             self.low = low;
         }
         self.me = me;
+        let now = sim.tick();
+        self.spirits(sim, me, now, level, ap, fresh);
+        self.takedowns(sim, player, me);
         rift::update(&mut self.rift, sim, me, &self.p);
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
-        // death clears the buffs; the next life starts at full health; League's rift closes with her
+        // 死了 buff 全清，下一条命满血；领域跟着关（英雄联盟一样），灵物也散了
         self.low = false;
+        self.spirits.clear();
         if let Some(r) = self.rift.take() {
             rift::died(sim, self.me, &r);
         }
@@ -247,7 +424,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Across the Veil at low health, Between Worlds' rift as in League - its border slows, she crosses it - and its timing) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Across the Veil at low health, Spirit Abjuration on each enemy, Between Worlds' rift as in League - its border slows, she crosses it - and its timing like a good Aurora player's) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -256,8 +433,12 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:veil"), Veil::default());
     module.add_native_effect(format!("{ID}:rift"), rift::Open);
+    for src in spirit::SOURCES {
+        module.add_native_effect(format!("{ID}:mark_{src}"), spirit::Mark { src });
+    }
+    module.add_native_effect(format!("{ID}:hex_back"), spirit::HexBack);
     module.add_player_input_ai(realm::Realm::default());
-    host.log(LogLevel::Info, "league_aurora loaded (Aurora's Across the Veil reads her health, her rift has League's border, her R waits for its moment).");
+    host.log(LogLevel::Info, "league_aurora loaded (Aurora's Across the Veil reads her health, her passive stacks on each enemy, her rift has League's border, her R is cast as a good player casts it).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -279,9 +460,30 @@ mod tests {
     fn params_come_from_the_champion_data() {
         assert_eq!(parse_params(r#"{"w_low":30,"x":1}"#), Params { w_low: 30, ..Params::default() });
         assert_eq!(parse_params("{}"), Params::default());
-        assert_eq!(parse_params(r#"{"w_low":35,"r_t":195,"r_edge":50,"r_edge_t":105,"r_wrap_t":24}"#), Params::default());
-        let p = parse_params(r#"{"r_t": 150, "r_edge": 40, "r_edge_t": 90, "r_wrap_t": 20}"#);
-        assert_eq!((p.r_t, p.r_edge, p.r_edge_t, p.r_wrap_t), (150, 40, 90, 20));
+        assert_eq!(parse_params(r#"{"w_low":35,"r_t1":135,"r_edge":50,"r_edge_t2":105,"r_wrap_t":24}"#), Params::default());
+        let p = parse_params(r#"{"r_t3": 150, "r_edge": 40, "r_edge_t1": 80, "r_wrap_t": 20, "q2_miss": 30}"#);
+        assert_eq!((p.r_t3, p.r_edge, p.r_edge_t1, p.r_wrap_t, p.q2_miss), (150, 40, 80, 20, 30));
+    }
+
+    #[test]
+    fn the_ult_grows_with_her_level() {
+        let p = Params::default();
+        assert_eq!((p.rank(5), p.rank(7), p.rank(8), p.rank(10), p.rank(11), p.rank(12)), (1, 1, 2, 2, 3, 3));
+        // 英雄联盟：冲击波扩散 0.75 秒后领域 2.25 / 2.75 / 3.25 秒，边界减速 1.5 / 1.75 / 2 秒
+        assert_eq!((p.r_t(5), p.r_t(9), p.r_t(12), p.r_grow), (135, 165, 195, 45));
+        assert_eq!((p.r_edge_t(5), p.r_edge_t(9), p.r_edge_t(12)), (90, 105, 120));
+        assert_eq!((p.r_ms_t(5), p.r_ms_t(9), p.r_ms_t(12)), (195, 225, 255));
+    }
+
+    #[test]
+    fn a_takedown_is_hers_by_her_lane() {
+        let k = KillLogV1 { tick: 10, killer_team: 0, killer_position: 2, killed_position: 0, assist_count: 2,
+                            assist_positions: [1, 3, 0, 0] };
+        assert!(is_takedown(&k, 0, 2), "her kill");
+        assert!(is_takedown(&k, 0, 3), "an assist");
+        assert!(!is_takedown(&k, 0, 4), "not in it");
+        assert!(!is_takedown(&k, 1, 2), "the other team's");
+        assert!(!is_takedown(&KillLogV1 { assist_count: 1, ..k }, 0, 3), "only the first assist_count count");
     }
 
     #[test]

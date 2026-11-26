@@ -1,0 +1,13 @@
+[package]
+name = "league_hextech"
+version = "0.5.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }
+game_places = { path = "../game_places" }
+hd_engine = { path = "../hd_engine" }

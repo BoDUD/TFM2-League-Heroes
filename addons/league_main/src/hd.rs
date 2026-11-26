@@ -593,7 +593,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read onto it at the median of the zooms his height, chest and area give (tools/art/casts_tryndamere_hd.py,
     // rig_tryndamere_hd.py; his death's thrown sword moved to where the old frames have it; R drawn from its native body
     // cells, its fire and the skill_fx1 / skill_q_fx1 copies' spin and heal baked on again by tryndamere_bake.json); 37
-    // game px as his 1x sprite, so no SIZES row
+    // game px as his 1x sprite. 2026-11-21 起局内画成 115%（SIZES，见那里）
     ("league_tryndamere", 1.811, include_str!("../../../league/champions/league_tryndamere#anim.fanim")),
     // Pyke (the same release): Codex's pyke-A read on its own ~16-px squares (68 x 73, tools/art/design_pyke_hd.py: 73
     // rows / 41 = 1.780); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
@@ -760,6 +760,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 2026-10-13 after the restyle 「酒桶可以稍微放大点吧 现在也太小了」 -> 90% from a size sheet, then 「还是太小啊」 -> 100% - judged on a preview GIF that
 /// drew him at 80% - then 「感觉又太大了？」 from a true-scale sheet -> 90% (40 game px, Darius 42); his frames
 /// lifted by the restyle (RESTYLE gragas lift_sq).
+/// 2026-11-23：11-19 GPT 重画的新模型比旧的矮、瘦（90% 时高 38 游戏像素、实心 885 格，旧模型 40 / 957），用户：「酒桶模型有点小
+/// 新模型」-> 100%（高 43，瑟提 43、德莱厄斯 44）。新帧的脚底本来就画在 100% 踩地的位置（中心下 17 格 = 11.7 游戏像素，
+/// 90% 时反而浮起 1 格），帧不用挪。
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py); kept
 /// through the batch 8 redo (2026-11-09, PPU 2.081), her frames a square higher by the restyle (RESTYLE zeri lift_sq).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); after the restyle
@@ -825,7 +828,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// club, his body 1601 solid game px, the heaviest with Ornn's 1583, against Garen's 42 x 48 / 1051; 85 % = 37 x 45,
 /// 1157), his dense frames 4 squares lower (RESTYLE trundle lift_sq: 12 x 2.0 x (1 / 0.85 - 1) = 4.2, his feet 12 game
 /// px under his centre), written by the restyle itself (it reproduces his committed strips bit for bit).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
+/// 泰达米尔：115%（用户 2026-11-21：「蛮王新模型在局内感觉有点小了」，看了对比图「放大到 1.15」）。GPT 重画的腥红之月
+/// 造型站得直、身子瘦：待机第一帧脚到头顶 38 游戏像素（连发髻），比旧模型的 37 还高一点，可实打实只有 639 平方游戏像素
+/// （旧模型 914，盖伦 1022，赵信 864，亚索 702）；115% = 44 高、845。高清帧往上挪 3 格（脚底在中心下 20.5 格：
+/// 20.5 × (1 - 1 / 1.15) = 2.7），他的原帧早不是 restyle 出的了，由 tools/art/lift_hd_strips.py 直接挪原帧，再
+/// ppu_hd.py、hero_reels.py。
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 1.00), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
@@ -834,7 +842,8 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
                                     ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85),
-                                    ("league_belveth", 0.85), ("league_trundle", 0.85)];
+                                    ("league_belveth", 0.85), ("league_trundle", 0.85),
+                                    ("league_tryndamere", 1.15)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent

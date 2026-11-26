@@ -1,0 +1,38 @@
+{
+  "actor_unique_frames": {
+    "idle": 8,
+    "run": 8,
+    "attack": 8,
+    "skill": 8,
+    "skill2": 8,
+    "ult": 8,
+    "hit": 8,
+    "dead": 8
+  },
+  "fx_unique_frames": {
+    "flick": 8,
+    "hook_windup": 8,
+    "hook": 8,
+    "hook_hit": 8,
+    "decoy": 8,
+    "shadow_veil": 8,
+    "phantom_field": 8,
+    "phantom_hit": 8
+  },
+  "alpha": "binary",
+  "hd": "exact 4x nearest-neighbor",
+  "native_animation_frames_verified": 256,
+  "card_size": [
+    1216,
+    1428
+  ],
+  "icon_count": 4,
+  "icon_size": [
+    256,
+    256
+  ],
+  "sound_effect_count": 11,
+  "official_dialogue_count": 6,
+  "original_dialogue_count": 0,
+  "gameplay_integration": "pending"
+}

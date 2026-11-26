@@ -45,6 +45,7 @@ attack; the hop in the main pack only backward, the add-on choosing forward or b
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -93,6 +94,11 @@ P = {
     "vo_gap": 600,
     # the add-on's copy (addons/league_kalista/make_override.py): 1 = the hop and R's flight left to league_kalista:oath
     "native": 0, "r_fly_v": 4500, "r_poll": 44,
+    # the add-on's R (0.2.7, the user 11-20: 「可以救队友 也可以用来开团」): a rescue for an Oathsworn at r_save_hp% or less
+    # with an enemy champion within r_save_near of him (twice that while he is held) and fewer round her; the engage
+    # only with him at r_go_hp% or more and, within r_fight of the landing, no fewer of hers than of theirs (or the
+    # target at r_low% or less)
+    "r_save_hp": 30, "r_save_near": 30000, "r_go_hp": 50, "r_fight": 60000, "r_low": 40,
 }
 
 
@@ -382,9 +388,16 @@ def build(p):
         fire_n = combine(*take_n, anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
                          delayed(p["r_hold"], lives(refresh("r_launch", 6), anim("ult2", p["r_throw"]), sfx("r_fly"),
                                                     voice("vo_r_fly", p))), *polls)
-        ult = action("idle", 3, p["r_cd"], 1, p["r_bind"], "Targeting", "AllyNotSelf",
-                     combine(*rm("r_foe"), pick(p["r_range"], "EnemyChampion", flag("r_foe", 2)),
-                             sw("r_foe", fire_n, refund), *rm("r_foe")), key="ult")
+        # 0.2.7 the rescue: the add-on hangs r_rescue on her before it presses R for an Oathsworn low and threatened -
+        # the pull and the cover only (no stun, no r_launch: he stays beside her and nothing flies)
+        rescue = combine(*rm("r_rescue"), {"type": "Grab", "speed": p["r_grab_v"]}, *regrab,
+                         {"type": "Invisible", "tick": p["r_hold"]},
+                         buff("r_safe", p["r_hold"], damaged_reduce=p["r_safe"]), view("r_take"), tsfx("r_take"),
+                         anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p))
+        engage = combine(*rm("r_foe"), pick(p["r_range"], "EnemyChampion", flag("r_foe", 2)),
+                         sw("r_foe", fire_n, refund), *rm("r_foe"))
+        ult = action("idle", 3, p["r_cd"], 1, p["r_bind"], "Targeting", "AllyNotSelf", sw("r_rescue", rescue, engage),
+                     key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -403,7 +416,8 @@ def build(p):
     if p["native"]:
         extra["passive"] = {"passive_ref": f"{ID}:oath",
                             "params": {k: p[k] for k in ("hop_thr", "hop_v", "hop_t", "atk_range", "r_bind", "r_range",
-                                                         "r_fly_v", "r_catch", "sp_t", "e_dmg", "e_ratio")}}
+                                                         "r_fly_v", "r_catch", "sp_t", "e_dmg", "e_ratio", "r_save_hp",
+                                                         "r_save_near", "r_go_hp", "r_fight", "r_low")}}
     return {
         "id": ID, "category": "Range", "tags": ["AD", "Range"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
@@ -415,6 +429,10 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

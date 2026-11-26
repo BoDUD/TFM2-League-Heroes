@@ -27,7 +27,12 @@ from build_yuumi import RIDE_LIFTS  # noqa: E402
 
 OUT = os.path.join(ROOT, "addons", "league_yuumi", "src", "lifts.rs")
 BAND = 6
-SIZE_TABLES = [os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), os.path.join(ROOT, "addons", "tft", "src", "hd.rs")]
+SIZE_TABLES = [os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), os.path.join(ROOT, "addons", "tft", "src", "hd.rs"),
+               os.path.join(ROOT, "addons", "ragnarok", "src", "hd.rs"), os.path.join(ROOT, "addons", "abysspact", "src", "hd.rs")]
+# 量头顶用的待机：宙斯大部分时间是膨胀的身体（每条命打满几拳就膨胀），按它量，猫才不会挡住他的脸
+IDLE_TAG = {"ragnarok_zeus": "mu_idle"}
+# 量头顶的宽度（中线左右几格）：哈迪斯手里立着的双叉枪离中线 5 个游戏像素起，±6 会量到枪尖（41，头在 30）；他只量 ±3
+BAND_OF = {"ragnarok_hades": 3}
 
 
 def sizes():
@@ -40,16 +45,16 @@ def sizes():
     return out
 
 
-def crown(fanim):
+def crown(fanim, tag="idle", half=BAND):
     a = json.loads(open(fanim, "rb").read().decode("utf-8").lstrip("﻿"))["anims"]
-    if "idle" not in a:
+    if tag not in a:
         return None
     sh = Image.open(fanim.replace("#anim.fanim", "#sheet.png")).convert("RGBA")
-    d = a["idle"]["frames"][0]["data"]
+    d = a[tag]["frames"][0]["data"]
     x, y, w, h = (int(d[k]) for k in "xywh")
     op = np.asarray(sh.crop((x, y, x + w, y + h)))[..., 3] > 0
     mid = (w - 1) / 2
-    band = op[:, max(0, int(mid - BAND)):int(mid + BAND + 1)]
+    band = op[:, max(0, int(mid - half)):int(mid + half + 1)]
     rows = np.nonzero(band.any(1))[0]
     return None if not len(rows) else int(round((h - 1) / 2 - rows.min()))
 
@@ -57,11 +62,11 @@ def crown(fanim):
 def main():
     drawn = sizes()
     rows = []
-    for pack in ("league", "tft"):
+    for pack in ("league", "tft", "ragnarok", "abysspact"):
         for f in sorted(glob.glob(os.path.join(ROOT, pack, "champions", "*#anim.fanim"))):
-            c = crown(f)
+            name = os.path.basename(f).split("#")[0]
+            c = crown(f, IDLE_TAG.get(name, "idle"), BAND_OF.get(name, BAND))
             if c is not None:
-                name = os.path.basename(f).split("#")[0]
                 rows.append((name, int(round(c * drawn.get(name, 1.0)))))
     body = "\n".join(f'    ("{n}", {c}),' for n, c in rows)
     lifts = ", ".join(str(k) for k in RIDE_LIFTS)

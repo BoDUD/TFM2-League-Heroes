@@ -55,7 +55,7 @@
 
 ### 吉格斯附加包
 
-[吉格斯附加包](../../addons/league_ziggs/README.md)：`league_ziggs` v0.1.3
+[吉格斯附加包](../../addons/league_ziggs/README.md)：`league_ziggs` v0.1.4
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

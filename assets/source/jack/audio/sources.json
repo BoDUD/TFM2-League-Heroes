@@ -1,0 +1,187 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/2nd/special/countdown1/",
+  "method": "Short cuts from the credited single-character announcement. Original ambience retained.",
+  "clips": [
+    {
+      "id": "voice_reveal",
+      "kind": "official_ja",
+      "title": "展示 · 接下来请认识我",
+      "speaker": "杉田智和",
+      "range_seconds": [
+        1.58,
+        6.92
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645350912737828865",
+      "duration_seconds": 5.34,
+      "wav_sha256": "b90495509091212a95b3ac256f69b969a98d3ad7cc78d138b7a16f8d2e94af71",
+      "mp3_sha256": "f20afa52258e5f9022b3a5656a654350ecbf558b79391f2d73ae1f0e0b3ace36"
+    },
+    {
+      "id": "voice_etiquette",
+      "kind": "official_ja",
+      "title": "展示 · 决斗礼节",
+      "speaker": "杉田智和",
+      "range_seconds": [
+        8.52,
+        15.09
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645350912737828865",
+      "duration_seconds": 6.57,
+      "wav_sha256": "c544929da6ee49f1d20d594e3a2e9413c5dcff12eb8d23a50f639cfcd9c5c3ed",
+      "mp3_sha256": "76d4d1953ddd2a44f044be79572f171fddbffefdbadf1c711eb311e535bca5e0"
+    },
+    {
+      "id": "voice_rule",
+      "kind": "official_ja",
+      "title": "待机 · 这就是规矩",
+      "speaker": "杉田智和",
+      "range_seconds": [
+        16.27,
+        18.84
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645350912737828865",
+      "duration_seconds": 2.57,
+      "wav_sha256": "7f00f933e1ddbe3718e3b65b75a1b7b87317acf20e5f79a86b0432a9fd54fde7",
+      "mp3_sha256": "41cb40e96f62cc6295a4ea64fe85d04bc7dbc310dca5b4379f6ec9feb5a54f01"
+    },
+    {
+      "id": "voice_color",
+      "kind": "official_ja",
+      "title": "展示 · 神会染上什么颜色",
+      "speaker": "杉田智和",
+      "range_seconds": [
+        19.95,
+        29.78
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645350912737828865",
+      "duration_seconds": 9.83,
+      "wav_sha256": "914159c149e93c4db206a250edb72389fae65123a339f54bfc570f635266500d",
+      "mp3_sha256": "d8991f9fc438b20bec53698d74c7fe2b2119f9c1a58ca022d0308296b7663ab1"
+    },
+    {
+      "id": "voice_delight",
+      "kind": "official_ja",
+      "title": "挑衅 · 我很期待",
+      "speaker": "杉田智和",
+      "range_seconds": [
+        30.95,
+        34.56
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645350912737828865",
+      "duration_seconds": 3.61,
+      "wav_sha256": "bbe9b935a7d93e9a16b78f7bd5542819743402d75948464c24dc8dd1a7162688",
+      "mp3_sha256": "9a2d83ef26b675bc8cb56ad21d06f74bde8e38913681bb6a5b8eb13dde46dcfd"
+    },
+    {
+      "id": "voice_showtime",
+      "kind": "official_ja",
+      "title": "登场 · 表演时间",
+      "speaker": "杉田智和",
+      "range_seconds": [
+        48.53,
+        50.77
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1645350912737828865",
+      "duration_seconds": 2.24,
+      "wav_sha256": "eb0d2f23f96ff901016632fc572ae3a2f1f6ba32c6202268de0086fe0bfd8907",
+      "mp3_sha256": "0a72658d491f41968e11f96ef5fb808e201e815c96c38de5fa74c1ae28c574fe"
+    },
+    {
+      "id": "sfx_knife_release",
+      "kind": "original_foley",
+      "title": "单枚飞刀 · 离手",
+      "duration_seconds": 0.22,
+      "wav_sha256": "1d1f84e2a1a7488ef72f90bee72ed2278c126736e92c8303f65b54b866f13ae0",
+      "mp3_sha256": "f53aa80bcda0cb71b71d5f59e592e830fb8524afe18a90a227da07fa6bb779de"
+    },
+    {
+      "id": "sfx_knife_hit",
+      "kind": "original_foley",
+      "title": "飞刀 · 确认命中",
+      "duration_seconds": 0.19,
+      "wav_sha256": "d1c788d612da8d1fa7b8e2f5f44d05cad88a288f2331f3082d0544232eb764b0",
+      "mp3_sha256": "daf3526e3ba8b017da40dc858e269c04f75a952d07c0586b2761e8c6eaf68731"
+    },
+    {
+      "id": "sfx_fan_release",
+      "kind": "original_foley",
+      "title": "扇形飞刀 · 出手",
+      "duration_seconds": 0.32,
+      "wav_sha256": "81657f85e031dd092328b48fbc4f7439230b58910a2f514240dab4734dd340ab",
+      "mp3_sha256": "113805bf13446cf9662f36b1169fd8424101f8632e851747a8f5ca59e100e648"
+    },
+    {
+      "id": "sfx_fan_hit",
+      "kind": "original_foley",
+      "title": "扇形飞刀 · 确认命中",
+      "duration_seconds": 0.26,
+      "wav_sha256": "dde982391cb5955e5a3dba7582c80d81fe8a5f1cf4553a74fdfa4bed5f54379e",
+      "mp3_sha256": "ed74bde4f6fb84d64d73be5c1d385a784dc014f94f8b8a93da9793cfe23e3f01"
+    },
+    {
+      "id": "sfx_umbrella",
+      "kind": "original_foley",
+      "title": "雨伞 · 打开",
+      "duration_seconds": 0.27,
+      "wav_sha256": "ac0d5c104aabdc1b79f4a3ae03178afaef21f19321282faa28523d89d1efbc5e",
+      "mp3_sha256": "f37d2b8ec51111323c3ff9f09b68f7308013aa57244a68eca49e30d9966dc419"
+    },
+    {
+      "id": "sfx_cloak",
+      "kind": "original_foley",
+      "title": "披风 · 后撤",
+      "duration_seconds": 0.3,
+      "wav_sha256": "55c46f8b25d91e46a58a65e876ea0d6967ae55d72b4fbc01072294f61f2a305d",
+      "mp3_sha256": "e56fce0632703036e630a489b3dda4f41f04cf10c78dc330bd5a9cf9de577273"
+    },
+    {
+      "id": "sfx_close",
+      "kind": "original_foley",
+      "title": "雨伞 · 收拢",
+      "duration_seconds": 0.22,
+      "wav_sha256": "0be26b0543d608f7e66f714e50e71252635cdf61e1b7ab85bb9721f4ff4c7fe5",
+      "mp3_sha256": "86820d00dd5493f5986434d15ab5e1bd67deafa087b34d957067b5778fde02c8"
+    },
+    {
+      "id": "sfx_glint",
+      "kind": "original_foley",
+      "title": "单片镜 · 异色眼",
+      "duration_seconds": 0.31,
+      "wav_sha256": "bd2d49c7458e94498a83b81d149fcbf30ed47b4a93e67c4e4ce44d7b3416b460",
+      "mp3_sha256": "5227d034e3608e2373b4bc3fa460e0f74164be6acde8a6ed4dc99085ca725494"
+    },
+    {
+      "id": "sfx_artifact",
+      "kind": "original_foley",
+      "title": "手套 · 接触神器化",
+      "duration_seconds": 0.47,
+      "wav_sha256": "3cb0ef208dcdd4cde1995a44ee44dbba4b4fa5b013136027af73bfa70e97cfc6",
+      "mp3_sha256": "f511ebbf4b98be7b0e2c48f7d6b470bd0434e3481807b8890d91c48e9f1ce424"
+    },
+    {
+      "id": "sfx_ult_hit",
+      "kind": "original_foley",
+      "title": "收招 · 确认命中",
+      "duration_seconds": 0.39,
+      "wav_sha256": "9cc69e1a41a1633f1c3f6b98215b09401a9b5c44ebc297e0ff0851d933df4013",
+      "mp3_sha256": "e7b15d87b23c25b0fe66cfbe3ef6d9822d343b680a5811339e61c4f63abb3379"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "披风和身体 · 落地",
+      "duration_seconds": 0.27,
+      "wav_sha256": "d866ca847b700ebae1d1d2381c24fbb9633d9648185cbab87298f9e8826ae306",
+      "mp3_sha256": "0b16acb5507cb82d9739c1307b666ca685609b8f20c8d24f0fdc618f9c3e9aab"
+    },
+    {
+      "id": "sfx_metal_stow",
+      "kind": "original_foley",
+      "title": "短刀 · 收回",
+      "duration_seconds": 0.18,
+      "wav_sha256": "aa23566df105ced566b9f12cfbadeab203ede1268297fc5e64fc65668ba71cca",
+      "mp3_sha256": "5e3c72119e3e1a7d0255d08790a9279f0b880a96596c48d35621834aa37f6738"
+    }
+  ]
+}

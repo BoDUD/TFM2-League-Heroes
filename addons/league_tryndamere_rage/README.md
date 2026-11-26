@@ -68,3 +68,7 @@ SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生
 - 普攻的说明指到本包的 `description.league_tryndamere_rage.attack`：主包的说明后面加一句【附加包】嗜血杀戮。
 
 日志 `BLOODLUST: hp N% -> attack +M%`（每变 10 个百分点、和到顶时一行）。经典引擎的模拟跑不了原生代码，数字按「平均持平」定，没有量过；测试 `bloodlust_grows_with_missing_health`。
+
+## 0.3.3：过日更快（2026-11-22）
+
+玩法不变。怒气层数原来每一层、每个 buff 名都拼两次字符串来比，看 r_armed / r_rage / q_cd 时也是比一个拼一次，每 tick 几百次分配；现在直接看前缀、按十进制解析层数（测试 `fury_and_has_are_the_old_string_compares`，含写法不规范的名字）。

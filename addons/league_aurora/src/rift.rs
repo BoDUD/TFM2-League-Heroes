@@ -1,12 +1,15 @@
-//! 双界合一的领域按英雄联盟来（V26.21；用户 2026-11-04：「阿罗拉的大招机制逻辑也是不太一样」）。
+//! 双界合一的领域按英雄联盟来（V26.22；用户 2026-11-04：「阿罗拉的大招机制逻辑也是不太一样」，11-26 再核对一次）。
 //!
 //! 数据（tools/kit/build_aurora.py 的附加包副本）：她朝目标跃出一小段，落地时冲击波在她前方 `r_ahead` 炸开，一根隐形的线停在
-//! 冲击波的中心，那里放领域的画面，并调本包的原生效果 `league_aurora:rift`（[`Open`]）：它把中心写进她身上的 buff
-//! `league_aurora_rift_new:<x>,<y>`，被动（`league_aurora:veil`）下一 tick 读走，领域就开着 `r_t` tick（[`Rift`]）：
+//! 冲击波的中心，那里放冲击波的画面，并调本包的原生效果 `league_aurora:rift`（[`Open`]）：它把中心写进她身上的 buff
+//! `league_aurora_rift_new:<x>,<y>`，被动（`league_aurora:veil`）下一 tick 读走（[`Rift`]）：
 //!
-//! - **敌人碰到边界**（[`touches`]：离圈心 `RING` ± `BAND`，身体压在画出来的那一圈上）：减速 `r_edge`% `r_edge_t` tick，
-//!   一次穿越只一次——离开边界、再碰上才再减（英雄联盟 50%、1.5–2 秒）。这一下顶掉冲击波的 30%（英雄联盟的减速取最强的
-//!   那个，TFM2 的会相加，两个叠起来是 80%）。领域里面、外面都不减。
+//! - **扩散**：冲击波 `r_grow` tick（英雄联盟 0.75 秒）扩散完，领域才成形（这时放光圈的开场，之后一圈一圈接着放：[`zone_view`]）；成形时她不在里面就关。
+//!   成形后开 `r_t1` / `r_t2` / `r_t3` tick（大招 1–3 级，英雄联盟 2.25 / 2.75 / 3.25 秒，V26.19 起扩散不算在里面）。
+//!   开的时候按大招的等级把 Realm Hopper（数据跃出时挂的 `league_aurora_r_hop`）改成 `r_ms_t1`–`r_ms_t3` tick。
+//! - **敌人碰到边界**（[`touches`]：离圈心 `RING` ± `BAND`，身体压在画出来的那一圈上）：减速 `r_edge`%，按大招等级
+//!   `r_edge_t1`–`r_edge_t3` tick，一次穿越只一次——离开边界、再碰上才再减（英雄联盟 50%、1.5–2 秒）。这一下顶掉冲击波的 30%
+//!   （英雄联盟的减速取最强的那个，TFM2 的会相加，两个叠起来是 80%）。领域里面、外面都不减。
 //! - **她碰到边界**（[`place`]：离圈心 `EDGE` 以外）：沿直径冲到对面（[`across`]，离圈心 `LAND`，落点避开墙格），
 //!   `r_wrap_t` tick 的强制位移（英雄联盟 0.4 秒、选不中、不能行动）：这期间她免伤、免控、穿墙（`league_aurora_r_wrap`；
 //!   TFM2 里选不中只有放逐，放逐的单位挪不动、还瞎了全队的视野），摆 `veil` 的姿势，两头各开一扇门
@@ -14,13 +17,25 @@
 //!   （等控制过去）；她自己的后跳（怪奇喷涌、灵纱洞开：副本的数据给她挂 `league_aurora_own_hop`）撞上边界一样冲到对面
 //!   （那一下后跳在边界上打住）；被敌人击退、拉扯时不冲（不白白解控），被带出去就算离开，停在边界上就等位移完了再冲。
 //!   宿主没挪她（强制位移被拒：别处来的免控）就自己一步步挪（巴德附加包的做法），冲完离落点还远就直接放上去。
-//! - **关闭**：她死了；到了外面（离圈心 `EDGE + OUT` 以外：闪现、被敌人带出去）；开的时候她不在里面；`r_t` 到了
-//!   （正在冲就冲完再关）。画面是数据放的，提前关时照样放完（停不下来）。
+//! - **提前关**（[`close_early`]，英雄联盟冲击波放出 1 秒后可以再按 R）：`r_recast` tick 以后，领域里（离圈心
+//!   `RING + BAND / 2` 以内）没有敌方英雄了——目标跑出去了、死了——就替她关掉（`RIFT CLOSE EARLY`），她带着 Realm Hopper
+//!   的加速去追或者走开，不再被 AI 钩子的 `RIFT STAY` 关在圈里。
+//! - **关闭**：她死了；到了外面（离圈心 `EDGE + OUT` 以外：闪现、被敌人带出去）；成形时她不在里面；时间到（正在冲就冲完再关）。
+//!   关了就不再接下一圈，地上的光圈最多再留一圈（0.6 秒）。
 //! - 开着时她身上挂 `league_aurora_rift:<x>,<y>`（每 tick 续 2 tick），AI 钩子（`realm.rs`）据此在领域里放风筝、不往外走。
 //!
-//! 状态都在她的被动里（每局、每个她一份），不用全局变量。日志：`RIFT OPEN` / `RIFT CROSS` / `RIFT EDGE` / `RIFT CLOSED`
-//! （你看的那场每行都写，预模拟每种前 40 行、之后每 100 行一行）。
+//! 状态都在她的被动里（每局、每个她一份），不用全局变量。日志：`RIFT OPEN` / `RIFT FORMED` / `RIFT CROSS` / `RIFT EDGE` /
+//! `RIFT CLOSE EARLY` / `RIFT CLOSED`（你看的那场每行都写，预模拟每种前 40 行、之后每 100 行一行）。
+//!
+//! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：冲到对面的落点避的墙按这局的塔和水晶判断是哪张图
+//! （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷（1614545 见方；本文件别处的「领域」是她的
+//! 大招，不是这张图）用峡谷作者的墙体文件（`terrain::rift_walls`，295 x 296 格、每格 60000/11），没有文件时峡谷上只有地图外
+//! 算墙（以前 960000 以外全算墙：峡谷远半边每次都往圈心退到底、冲不过去）。
 
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::LazyLock;
+
+use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
 use super::maps;
@@ -59,6 +74,18 @@ pub const EDGE_SLOW: &str = "league_aurora_r_edge";
 pub const SHOCK_SLOW: &str = "league_aurora_r_slow1";
 /// 两头的门（主包的画面和声音）。
 pub const DOOR: &str = "league_aurora_r_blink";
+/// 领域成形时放的声音（副本的数据不在冲击波那里放，主包的数据连同整段 3.25 秒的画面一起放）。
+pub const ZONE: &str = "league_aurora_r_zone";
+/// 领域的光圈（2026-11-26）：成形时放开场 `ZONE_IN`，`ZONE_IN_T` tick 后起每 `ZONE_LOOP_T` tick 放一圈 `ZONE_LOOP`，
+/// 关了就不再放下一圈，地上的光圈最多再留一圈（0.6 秒）。以前放整段的 r_zone，固定 3.25 秒，领域提前关、按等级只开
+/// 2.25 秒时光圈还在地上留一两秒。两个标签用 r_zone 原来的格子，帧长对齐到 tick，每个标签末尾多挂一小段下一圈的
+/// 第一帧，接缝那一 tick 新旧两个画面是同一张图（tools/art/aurora_realm_tags.py；单元测试读那张表核对）。
+pub const ZONE_IN: &str = "league_aurora_r_zone_in";
+pub const ZONE_LOOP: &str = "league_aurora_r_zone_loop";
+pub const ZONE_IN_T: usize = 12;
+pub const ZONE_LOOP_T: usize = 36;
+/// 数据跃出时挂的 Realm Hopper（加速）：开领域时按大招的等级改时长。
+pub const HOP: &str = "league_aurora_r_hop";
 /// 冲的时候摆的姿势（她的 veil 动作）。
 pub const POSE: &str = "veil";
 /// 她自己的后跳（副本的数据在怪奇喷涌、灵纱洞开的 MoveBack 旁挂上，后跳的 tick + 2）：这样的强制位移撞上边界才冲到对面。
@@ -67,6 +94,15 @@ pub const OWN_HOP: &str = "league_aurora_own_hop";
 /// `<名字>:<x>,<y>`。
 pub fn at_name(prefix: &str, c: Pt) -> String {
     format!("{prefix}:{},{}", c.0.round().max(0.0) as u64, c.1.round().max(0.0) as u64)
+}
+
+/// 这一 tick 该放哪个光圈：`shown` 是成形、放开场的那一 tick。领域关了就不再调它（不再放下一圈）。
+pub fn zone_view(shown: usize, now: usize) -> Option<&'static str> {
+    if now == shown {
+        return Some(ZONE_IN);
+    }
+    let t = now.checked_sub(shown + ZONE_IN_T)?;
+    (t % ZONE_LOOP_T == 0).then_some(ZONE_LOOP)
 }
 
 /// [`at_name`] 反过来；别的名字（`league_aurora_rift_new` 对 `league_aurora_rift`）不认。
@@ -109,20 +145,24 @@ pub fn touches(c: Pt, u: Pt) -> bool {
     (dist(c, u) - RING).abs() <= BAND
 }
 
-/// 地图的墙格（league_camille_wall 的内置地图，Tahm Kench、Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。
+/// 地图的墙格（league_camille_wall 的内置地图，Tahm Kench、Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。每格 `cell`
+/// 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、(0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    pub cell: f64,
+    pub origin: (f64, f64),
 }
 
-/// 地图格子的边长。
+/// 游戏自己的地图格子的边长。
 pub const CELL: f64 = 32_000.0;
 /// 5v5 地图四边（上下的石墙、左右的石堆）以内的可走范围（league_camille_wall 的 `MOBA_BOUNDS`）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL,
+               origin: (0.0, 0.0) }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -134,9 +174,17 @@ impl Grid {
         ]
     }
 
+    /// 召唤师峡谷的墙：有墙体文件就是文件的墙格（四边在文件里就是墙）；没有就是一格地图大小的空地（只有地图外算墙）。
+    pub fn summoners_rift(walls: Option<&terrain::Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), bounds: None, cell: w.cell, origin: w.origin },
+            None => Grid { cells: vec![vec![false]], bounds: None, cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
+        }
+    }
+
     /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        if x < 0.0 || y < 0.0 {
+        if x < self.origin.0 || y < self.origin.1 {
             return true;
         }
         if let Some((x0, y0, x1, y1)) = self.bounds {
@@ -144,7 +192,7 @@ impl Grid {
                 return true;
             }
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        let (cx, cy) = (((x - self.origin.0) / self.cell) as usize, ((y - self.origin.1) / self.cell) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
@@ -160,6 +208,29 @@ pub fn current(grids: &[Grid], points: &[Pt]) -> Option<usize> {
         .enumerate()
         .min_by_key(|(_, g)| (points.iter().filter(|&&(x, y)| g.is_wall(x, y)).count(), std::cmp::Reverse(g.walls())))
         .map(|(i, _)| i)
+}
+
+/// 游戏的三张内置地图，和召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
+static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static SR_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::summoners_rift(terrain::rift_ground()));
+
+/// 这局的墙：召唤师峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
+fn walls_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            static MET: AtomicBool = AtomicBool::new(false);
+            if !MET.swap(true, Ordering::Relaxed) {
+                wlog(format!("== Rift (Summoner's Rift, the map): her crossing lands clear of its walls (from its walls \
+                              file; with no file only the map's edges count); {} ==", terrain::rift_status()));
+            }
+            Some(&*SR_GRID)
+        }
+        Map::Native => {
+            let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
+                .map(|u| pt(u.pos())).collect();
+            current(&*GRIDS, &points).map(|i| &GRIDS[i])
+        }
+    }
 }
 
 /// 落点：对面那一点；在墙里（或地图外）就沿直径一步步往圈心退，退到圈心还在墙里就不冲（None）。
@@ -212,8 +283,16 @@ pub struct Cross {
 #[derive(Clone, Debug)]
 pub struct Rift {
     pub c: Pt,
+    /// 冲击波炸开（数据落地）的 tick；`formed` 起有边界；`until` 关。
     pub opened: usize,
+    pub formed: usize,
     pub until: usize,
+    /// 碰到边界的减速多少 tick（按大招的等级）。
+    pub edge_t: usize,
+    /// 成形了没有（画面放了、成形时查过她在不在里面）。
+    pub drawn: bool,
+    /// 光圈开场的那一 tick（成形时），之后的一圈一圈按它排（[`zone_view`]）。
+    pub shown: usize,
     /// 上一 tick 碰着边界的敌人。
     pub touching: Vec<usize>,
     pub cross: Option<Cross>,
@@ -226,10 +305,22 @@ pub struct Rift {
 }
 
 impl Rift {
-    pub fn new(c: Pt, now: usize, r_t: usize) -> Rift {
-        Rift { c, opened: now, until: now + r_t, touching: Vec::new(), cross: None, calm: now, crossings: 0, slowed: 0,
-               blocked: false }
+    /// 冲击波这一 tick 炸开，她 `level` 级。
+    pub fn new(c: Pt, now: usize, p: &Params, level: usize) -> Rift {
+        let formed = now + p.r_grow;
+        Rift { c, opened: now, formed, until: formed + p.r_t(level), edge_t: p.r_edge_t(level), drawn: false,
+               shown: formed, touching: Vec::new(), cross: None, calm: formed, crossings: 0, slowed: 0, blocked: false }
     }
+}
+
+/// 英雄联盟里再按 R 关掉：冲击波放出 `r_recast` tick 以后、没在冲、领域里没有敌方英雄了。
+pub fn close_early(r: &Rift, now: usize, p: &Params, champions_in_it: usize) -> bool {
+    now >= r.opened + p.r_recast && now >= r.formed && r.cross.is_none() && champions_in_it == 0
+}
+
+/// 这个敌方英雄还在领域里吗（压在那一圈上的也算）。
+pub fn in_it(c: Pt, u: Pt) -> bool {
+    dist(c, u) < RING + BAND / 2.0
 }
 
 fn pt(p: (u64, u64)) -> Pt {
@@ -265,6 +356,13 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
 /// 关掉：摘掉给 AI 的标记，记一行。
 fn close(sim: &mut StableSim<'_>, me: usize, r: &Rift, why: &str) {
     sim.entity_remove_buff(me, &at_name(AT, r.c));
+    if why.starts_with("early") {
+        if let Some(n) = counted("rift close early", on_screen(sim)) {
+            wlog(format!("{} RIFT CLOSE EARLY ({why}) after {} ticks: {} crossings, {} border slows #{n}", head(sim, me),
+                         sim.tick().saturating_sub(r.opened), r.crossings, r.slowed));
+        }
+        return;
+    }
     if let Some(n) = counted("rift closed", on_screen(sim)) {
         wlog(format!("{} RIFT CLOSED ({why}) after {} of {} ticks: {} crossings, {} border slows #{n}", head(sim, me),
                      sim.tick().saturating_sub(r.opened), r.until - r.opened, r.crossings, r.slowed));
@@ -282,11 +380,11 @@ pub fn died(sim: &StableSim<'_>, me: usize, r: &Rift) {
 /// 每 tick（被动的 on_update）：读新领域，开着的照规则走。
 pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &Params) {
     let now = sim.tick();
-    let (alive, here, team, fresh) = {
+    let (alive, here, team, level, fresh) = {
         let Some(e) = sim.get_entity(me) else { return };
         let fresh = (0..e.buff_count()).filter_map(|i| e.buff_at(i))
             .find_map(|b| parse_at(b.name(), NEW).map(|c| (b.name().to_string(), c)));
-        (e.is_alive(), pt(e.pos()), e.team(), fresh)
+        (e.is_alive(), pt(e.pos()), e.team(), e.level(), fresh)
     };
     if let Some((name, c)) = fresh {
         sim.entity_remove_buff(me, &name);
@@ -300,17 +398,45 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
                              head(sim, me), spot(c)));
             }
         } else {
-            if let Some(n) = counted("rift open", on_screen(sim)) {
-                wlog(format!("{} RIFT OPEN at {} for {} ticks, she is {d:.0} from its centre (crosses at {EDGE:.0}) #{n}",
-                             head(sim, me), spot(c), p.r_t));
+            let r = Rift::new(c, now, p, level);
+            // Realm Hopper 按大招等级（数据跃出时已经挂了，那是 r_leap_t tick 前）
+            let hop = p.r_ms_t(level).saturating_sub(p.r_leap_t);
+            if hop > 0 && sim.entity_remove_buff(me, HOP) > 0 {
+                let mut b = BuffV1::timed(HOP, hop);
+                b.move_speed_mult = p.r_ms as i32;
+                sim.add_buff(me, &b);
             }
-            *slot = Some(Rift::new(c, now, p.r_t));
+            if let Some(n) = counted("rift open", on_screen(sim)) {
+                wlog(format!("{} RIFT OPEN at {}: the shockwave spreads {} ticks, then the rift {} ticks (rank {}), she is {d:.0} from its centre (crosses at {EDGE:.0}) #{n}",
+                             head(sim, me), spot(c), p.r_grow, r.until - r.formed, p.rank(level)));
+            }
+            *slot = Some(r);
         }
     }
     let Some(mut r) = slot.take() else { return };
     if !alive {
         died(sim, me, &r);
         return;
+    }
+    // ---- 冲击波还在扩散：还没有边界；成形时她要在里面
+    if now < r.formed {
+        mark(sim, me, &r);
+        *slot = Some(r);
+        return;
+    }
+    if !r.drawn {
+        r.drawn = true;
+        if place(r.c, here) == Place::Out {
+            close(sim, me, &r, &format!("she is {:.0} from it when it forms, not in it (League: it closes at once)", dist(r.c, here)));
+            return;
+        }
+        r.shown = now;
+        sim.play_view_effect(ZONE_IN, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64), 0, 0, 0);
+        sim.play_sfx(ZONE, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64));
+        if let Some(n) = counted("rift formed", on_screen(sim)) {
+            wlog(format!("{} RIFT FORMED at {} until tick {}, she is {:.0} from its centre #{n}", head(sim, me), spot(r.c),
+                         r.until, dist(r.c, here)));
+        }
     }
     // ---- her: the crossing under way, or the border
     if let Some(mut cr) = r.cross.take() {
@@ -357,9 +483,10 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
         close(sim, me, &r, "its time is up");
         return;
     }
-    // ---- the enemies on the border: slowed once a crossing
+    // ---- 碰到边界的敌人：一次穿越减速一次；顺便数还在里面的敌方英雄（提前关用）
     let mut on_it = Vec::new();
     let mut new = Vec::new();
+    let mut inside = 0;
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
         if u.team() == team || !u.is_alive() || u.is_tower() || !u.is_targetable()
@@ -367,6 +494,9 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
             continue;
         }
         let at = pt(u.pos());
+        if u.is_champion() && in_it(r.c, at) {
+            inside += 1;
+        }
         if touches(r.c, at) {
             on_it.push(u.id());
             if !r.touching.contains(&u.id()) {
@@ -378,35 +508,45 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
         // League takes the strongest slow, TFM2 adds them up: the border's 50% takes the shockwave's 30% off
         let shock = sim.entity_remove_buff(id, SHOCK_SLOW);
         sim.entity_remove_buff(id, EDGE_SLOW);
-        let mut b = BuffV1::timed(EDGE_SLOW, p.r_edge_t);
+        let mut b = BuffV1::timed(EDGE_SLOW, r.edge_t);
         b.move_speed_mult = -(p.r_edge as i32);
         sim.add_buff(id, &b);
         r.slowed += 1;
         if champion {
             if let Some(n) = counted("rift edge", on_screen(sim)) {
                 wlog(format!("{} RIFT EDGE {} touched the border ({d:.0} from the centre): slowed {}% for {} ticks{} #{n}",
-                             head(sim, me), who(sim, id), p.r_edge, p.r_edge_t,
+                             head(sim, me), who(sim, id), p.r_edge, r.edge_t,
                              if shock > 0 { ", the shockwave's slow taken off" } else { "" }));
             }
         }
     }
     r.touching = on_it;
-    // ---- the AI's mark: where the rift is, while it is open
+    // ---- 英雄联盟的再按 R：里面没人可关了
+    if close_early(&r, now, p, inside) {
+        close(sim, me, &r, "early: no enemy champion left in it - the recast");
+        return;
+    }
+    // ---- 光圈：这一 tick 还开着，到点就接上下一圈（关了的那一 tick 上面就返回了，不再放）
+    if zone_view(r.shown, now) == Some(ZONE_LOOP) {
+        sim.play_view_effect(ZONE_LOOP, me, &InputTargetV1::pos(r.c.0.round() as u64, r.c.1.round() as u64), 0, 0, 0);
+    }
+    mark(sim, me, &r);
+    *slot = Some(r);
+}
+
+/// 给 AI 钩子的标记：领域在哪（开着就每 tick 续）。
+fn mark(sim: &mut StableSim<'_>, me: usize, r: &Rift) {
     let mark = at_name(AT, r.c);
     sim.entity_remove_buff(me, &mark);
     sim.add_buff(me, &BuffV1::timed(&mark, 2));
-    *slot = Some(r);
 }
 
 /// 她碰到了边界：冲到对面。
 fn cross(sim: &mut StableSim<'_>, me: usize, r: &mut Rift, here: Pt, p: &Params) {
     let now = sim.tick();
-    let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
-        .map(|u| pt(u.pos())).collect();
-    let grids = Grid::builtin();
     let far = across(r.c, here);
-    let to = match current(&grids, &points) {
-        Some(g) => landing(&grids[g], r.c, far),
+    let to = match walls_now(sim) {
+        Some(g) => landing(g, r.c, far),
         None => Some(far),
     };
     let Some(to) = to else {
@@ -469,9 +609,89 @@ mod tests {
         assert_eq!(parse_at("league_aurora_rift:5,6", NEW), None);
         assert_eq!(parse_at("league_aurora_rift:x,6", AT), None);
         assert!(at_name(NEW, (959_999.0, 959_999.0)).len() <= BUFF_NAME_CAP);
-        for name in [NEW, AT, WRAP, EDGE_SLOW, SHOCK_SLOW, DOOR, OWN_HOP] {
+        for name in [NEW, AT, WRAP, EDGE_SLOW, SHOCK_SLOW, DOOR, OWN_HOP, ZONE, ZONE_IN, ZONE_LOOP, HOP] {
             assert!(name.starts_with(ID), "{name}");
         }
+    }
+
+    /// league_aurora_big 里一个标签的帧：(帧长秒, 格子的左上角)。
+    fn frames(tag: &str) -> Vec<(f64, (u32, u32))> {
+        let src = include_str!("../../../league/effects/league_aurora_big#anim.fanim");
+        let key = format!("\"{tag}\":{{\"frames\":[");
+        let i = src.find(&key).unwrap_or_else(|| panic!("no {tag}")) + key.len();
+        let end = i + src[i..].find("]}").unwrap();
+        src[i..end].split("},{").map(|f| {
+            let num = |k: &str| -> f64 {
+                let j = f.find(&format!("\"{k}\":")).unwrap() + k.len() + 3;
+                f[j..].split(|c| c == ',' || c == '}').next().unwrap().parse().unwrap()
+            };
+            (num("duration"), (num("x") as u32, num("y") as u32))
+        }).collect()
+    }
+
+    /// 客户端放一个画面：开始后第 `ticks` tick 画哪一格（帧长按秒累加，放完就没了）；`single` 用 f32 算。
+    fn cell_at(fr: &[(f64, (u32, u32))], ticks: usize, single: bool) -> Option<(u32, u32)> {
+        let (mut acc, mut acc32) = (0.0f64, 0.0f32);
+        for &(d, cell) in fr {
+            acc += d;
+            acc32 += d as f32;
+            if (single && (ticks as f32 / 60.0) < acc32) || (!single && (ticks as f64 / 60.0) < acc) {
+                return Some(cell);
+            }
+        }
+        None
+    }
+
+    #[test]
+    fn the_rings_picture_loops_while_the_rift_is_open_and_goes_within_a_loop() {
+        for pre in ["", "hd_"] {
+            let zone = frames(&format!("{pre}r_zone"));
+            let fin = frames(&format!("{pre}r_zone_in"));
+            let floop = frames(&format!("{pre}r_zone_loop"));
+            // r_zone 原来的格子：开场是它的第 1、2 帧，一圈是第 3–8 帧；末尾那一小段是下一圈的第一帧
+            let cells = |f: &[(f64, (u32, u32))]| f.iter().map(|x| x.1).collect::<Vec<_>>();
+            assert_eq!(cells(&fin), [zone[0].1, zone[1].1, zone[2].1]);
+            assert_eq!(cells(&floop), [&cells(&zone[2..8])[..], &[zone[2].1]].concat());
+            assert_eq!(zone[8].1, zone[2].1, "r_zone loops its frames 3-8");
+            // 排期和帧长对得上：开场 ZONE_IN_T、一圈 ZONE_LOOP_T tick 时正好在末尾那一小段里
+            for (f, t) in [(&fin, ZONE_IN_T), (&floop, ZONE_LOOP_T)] {
+                let last = f.len() - 1;
+                assert_eq!(cell_at(f, t, false), Some(f[last].1));
+                assert_eq!(cell_at(f, t - 1, false), Some(f[last - 1].1));
+            }
+            for single in [false, true] {
+                let shown = 1_000;
+                for close in shown + 1..shown + 400 {
+                    // 关的那一 tick 不再放：放过的是它之前的
+                    let plays: Vec<(usize, &[(f64, (u32, u32))])> = (shown..close)
+                        .filter_map(|t| zone_view(shown, t).map(|v| (t, if v == ZONE_IN { &fin[..] } else { &floop[..] })))
+                        .collect();
+                    let mut last = shown;
+                    for t in shown..close + 100 {
+                        let on: Vec<(u32, u32)> = plays.iter().filter(|(s, _)| *s <= t)
+                            .filter_map(|(s, f)| cell_at(f, t - s, single)).collect();
+                        if on.is_empty() {
+                            assert!(t >= close, "{pre} close {close}: no ring at tick {t} while the rift is open");
+                            continue;
+                        }
+                        // 叠着的两个画面是同一张图（接缝），不会叠出两张不一样的
+                        assert!(on.iter().all(|c| *c == on[0]), "{pre} close {close}: two pictures at tick {t}: {on:?}");
+                        // 光圈从开场到消失中间不断
+                        assert!(t == shown || last + 1 == t, "{pre} close {close}: the ring blinks off before tick {t}");
+                        last = t;
+                    }
+                    // 关了以后最多再留一圈
+                    assert!(last <= close + ZONE_LOOP_T, "{pre} close {close}: the ring stays until {last}");
+                }
+            }
+        }
+        // 排期本身
+        assert_eq!(zone_view(50, 50), Some(ZONE_IN));
+        assert_eq!(zone_view(50, 51), None);
+        assert_eq!(zone_view(50, 50 + ZONE_IN_T), Some(ZONE_LOOP));
+        assert_eq!(zone_view(50, 50 + ZONE_IN_T + ZONE_LOOP_T), Some(ZONE_LOOP));
+        assert_eq!(zone_view(50, 50 + ZONE_IN_T + ZONE_LOOP_T - 1), None);
+        assert_eq!(zone_view(50, 49), None);
     }
 
     #[test]
@@ -540,6 +760,65 @@ mod tests {
         assert_eq!(landing(&walled, c, (78_000.0, 48_000.0)), None);
         // off the map counts as a wall
         assert!(g.is_wall(-1.0, 10.0));
+    }
+
+    /// 世界坐标的一个矩形：(左上, 右下)。
+    type Rect = ((f64, f64), (f64, f64));
+
+    /// 召唤师峡谷那样的墙格子（355 x 356 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// （世界坐标的 (左上, 右下)）里的格子是墙。
+    fn rift_walls(rects: &[Rect]) -> terrain::Walls {
+        let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
+        let rows: Vec<String> = (0..356)
+            .map(|cy| {
+                (0..355)
+                    .map(|cx| {
+                        let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
+                        let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
+                        if wall { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        terrain::Walls::from_rows(&rows, cell, origin, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    #[test]
+    fn on_summoners_rift_the_crossing_lands_clear_of_its_walls() {
+        // her rift in the map's far half, the far end of the diameter in one of its walls
+        let g = Grid::summoners_rift(Some(&rift_walls(&[((1_325_000.0, 1_190_000.0), (1_345_000.0, 1_210_000.0))])));
+        let c = (1_300_000.0, 1_200_000.0);
+        let far = across(c, (c.0 - EDGE, c.1));
+        assert!(g.is_wall(far.0, far.1), "{far:?}");
+        let q = landing(&g, c, far).expect("stepped in from the wall");
+        assert!(!g.is_wall(q.0, q.1) && q.0 < far.0 && q.0 >= c.0, "{q:?}");
+        // the game's own grid called all of it wall out there: no crossing at all (the old code)
+        assert_eq!(landing(&Grid::builtin()[0], c, far), None);
+        // with no walls file only the map's edges are walls: straight across
+        let open = Grid::summoners_rift(None);
+        assert_eq!(landing(&open, c, far), Some(far));
+        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(terrain::RIFT_EXTENT + 1.0, 800_000.0) && open.is_wall(-1.0, 5.0));
+        // a wall of the game's own 5v5 map is none on the Rift
+        let native = (15.5 * CELL, 3.5 * CELL);
+        assert!(Grid::builtin()[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));
+    }
+
+    #[test]
+    fn the_rift_forms_after_the_shockwave_and_closes_early_when_empty() {
+        let p = Params::default();
+        let r = Rift::new((0.0, 0.0), 1_000, &p, 12);
+        assert_eq!((r.formed, r.until, r.edge_t), (1_045, 1_045 + 195, 120));
+        let r1 = Rift::new((0.0, 0.0), 1_000, &p, 6);
+        assert_eq!((r1.until - r1.formed, r1.edge_t), (135, 90));
+        // 冲击波放出 r_recast tick 后才能关，而且里面没人才关
+        assert!(!close_early(&r, 1_000 + p.r_recast - 1, &p, 0));
+        assert!(close_early(&r, 1_000 + p.r_recast, &p, 0));
+        assert!(!close_early(&r, 1_100, &p, 1));
+        let crossing = Rift { cross: Some(Cross { from: (0.0, 0.0), to: (1.0, 0.0), until: 2_000, door: false, last: (0.0, 0.0), step: 1.0 }), ..r.clone() };
+        assert!(!close_early(&crossing, 1_100, &p, 0), "a crossing ends first");
+        // 压在那一圈上算在里面，再往外一点就不算
+        assert!(in_it((0.0, 0.0), (RING + BAND / 2.0 - 1.0, 0.0)) && !in_it((0.0, 0.0), (RING + BAND / 2.0, 0.0)));
     }
 
     #[test]

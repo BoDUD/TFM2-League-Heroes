@@ -132,11 +132,8 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 /// 加载时挂上（一个进程只挂一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match game_places::hook::add("league_volibear", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "FORM storm colours on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
-            )),
+        match game_places::hook::add("league_volibear", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!("FORM storm colours on: {p}")),
             Err(e) => wlog(format!("FORM storm colours off ({e}): in R's form he stays his own colours on screen (the main pack's look)")),
         }
     });

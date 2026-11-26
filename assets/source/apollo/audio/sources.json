@@ -1,0 +1,186 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/chara/apollo.html",
+  "method": "Dialogue performed by Kenichi Suzumura from official Japanese clips. Original background music and effects remain in several cuts.",
+  "clips": [
+    {
+      "id": "voice_select",
+      "title": "选人 · 你喜欢我吧",
+      "range_seconds": [
+        50.55,
+        54.23
+      ],
+      "speaker": "鈴村 健一",
+      "cast_credit": "https://ragnarok-official.com/chara/apollo.html",
+      "source": "https://www.youtube.com/watch?v=Cl5afD9sHXw",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.68,
+      "wav_sha256": "6152f46637e4bae4e3748e85434af5684f8f171c1b61ceb2df9eb78b525fe1ee",
+      "mp3_sha256": "faea2878b4d782ada1deeac5dcac3de202dbe2fd675f12fc983fa3d481bc3605"
+    },
+    {
+      "id": "voice_challenge",
+      "title": "挑衅 · 觉得太耀眼吗",
+      "range_seconds": [
+        38.17,
+        41.94
+      ],
+      "speaker": "鈴村 健一",
+      "cast_credit": "https://ragnarok-official.com/chara/apollo.html",
+      "source": "https://www.youtube.com/watch?v=o5GRIchY2M4",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.77,
+      "wav_sha256": "da78165180e6c852770498960f162ccec052ee509a46c930e1dded7b5fb05375",
+      "mp3_sha256": "50072f94661aed3682485cb310c22a2dcb41c482ab78fb04cfcd6b906e37aa56"
+    },
+    {
+      "id": "voice_silver_arrow",
+      "title": "大招 · 银箭突进",
+      "range_seconds": [
+        37.69,
+        38.95
+      ],
+      "speaker": "鈴村 健一",
+      "cast_credit": "https://ragnarok-official.com/chara/apollo.html",
+      "source": "https://www.youtube.com/watch?v=SvqP_BkADe4",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 1.26,
+      "wav_sha256": "fc357e2aa3702086e5800940639db8aa906960e0246e0820942aa1e09cf3f4f8",
+      "mp3_sha256": "7275ded2ab4767ed8c50bfe1c666bb091d3ca92c19f996e086e2243138939938"
+    },
+    {
+      "id": "sfx_jab_windup",
+      "kind": "original_foley",
+      "title": "日轮拳 · 预备",
+      "duration_seconds": 0.18,
+      "wav_sha256": "19a012d9597ca4611dd22286b0f56e032f54129f2802c091973ad019e72a6742",
+      "mp3_sha256": "fe5f2ff288978de048e27ff051ab1afd2071c50c1bfd6a6e6a57dc75942facab"
+    },
+    {
+      "id": "sfx_jab",
+      "kind": "original_foley",
+      "title": "日轮拳 · 出手",
+      "duration_seconds": 0.22,
+      "wav_sha256": "7bdee02a81756a454a2c5986addcfca2393f6e64cdef4b59c0a83c4e84056533",
+      "mp3_sha256": "39210e56bf57deb3fee6b3c6f8b30547880412acd2bd78bd93831fad4286e7b2"
+    },
+    {
+      "id": "sfx_jab_hit",
+      "kind": "original_foley",
+      "title": "日轮拳 · 命中",
+      "duration_seconds": 0.25,
+      "wav_sha256": "28cc9ae2dda6fb98d091e68b6a4f344d145b1d15e9a887b044c1deb92ebbc248",
+      "mp3_sha256": "4787351f2810ef95fcfd261a700ea802cdb32219812a0efa06cb042255e35eb6"
+    },
+    {
+      "id": "sfx_thread_charge",
+      "kind": "original_foley",
+      "title": "光丝 · 汇聚",
+      "duration_seconds": 0.29,
+      "wav_sha256": "1ffd96a789a867cf361917f5e0fa6fbbe21c7bfeb9520b6b7c78781e17a5c921",
+      "mp3_sha256": "8ac7f9a4b453b1acda57f6e20e95dbbe0055d506bb961fa9313a0bb34439a533"
+    },
+    {
+      "id": "sfx_thread_cast",
+      "kind": "original_foley",
+      "title": "光丝 · 投出",
+      "duration_seconds": 0.32,
+      "wav_sha256": "6943324912a8ddf88276e5630cda29c7df01644745999ba1ac3cdec681c9876f",
+      "mp3_sha256": "560d421e9f001d640d0a2eb1b78d30cc5b99c6e7d6f4594a0254011c823089a6"
+    },
+    {
+      "id": "sfx_thread_bind",
+      "kind": "original_foley",
+      "title": "光丝 · 收束",
+      "duration_seconds": 0.38,
+      "wav_sha256": "76f0d14431daf43135d44812518f963e96d558fdea303945f4b44a15e298a5eb",
+      "mp3_sha256": "7fd1a0375e1130bd5dd4a1ae22b7ffa33607f4ed5fb235f975797355396303dd"
+    },
+    {
+      "id": "sfx_thread_fade",
+      "kind": "original_foley",
+      "title": "光丝 · 松解",
+      "duration_seconds": 0.27,
+      "wav_sha256": "a7a916750e92b1227d471037be0e8645c1c374aac3f0f257bfc14bc8655885cb",
+      "mp3_sha256": "7d15be6a63c8f21b20c60910df18ad391c8fd4426ef93b62b1e048f1b72db818"
+    },
+    {
+      "id": "sfx_bow_form",
+      "kind": "original_foley",
+      "title": "弓 · 光弓成形",
+      "duration_seconds": 0.38,
+      "wav_sha256": "3679c9875aaeb9e749f6e133d108c8fb687417ba45de580067203301f6a7eed9",
+      "mp3_sha256": "1c1f692512dd7149b9c45dad71b1867bb674590bf736efed494026247053fa9f"
+    },
+    {
+      "id": "sfx_bow_draw",
+      "kind": "original_foley",
+      "title": "弓 · 拉弦",
+      "duration_seconds": 0.33,
+      "wav_sha256": "5e35d31bc4c88f761ef3b254343e1ced712320248cae6c4293a93beb131e8462",
+      "mp3_sha256": "3d052031108c5414fb3db830308b72e2f246ded3978b3a6f187d2bad82138a12"
+    },
+    {
+      "id": "sfx_arrow_fire",
+      "kind": "original_foley",
+      "title": "光箭 · 释放",
+      "duration_seconds": 0.22,
+      "wav_sha256": "41334850592f4fd428cfb57dd3092f7c0053f56b1532b0e58a185bc36516ab4e",
+      "mp3_sha256": "b9eb28bbcb2c29a8d4560a598ad7ceaaa91f78ed244b71a0bc47cea0463f29ec"
+    },
+    {
+      "id": "sfx_arrow_hit",
+      "kind": "original_foley",
+      "title": "光箭 · 命中",
+      "duration_seconds": 0.27,
+      "wav_sha256": "8d3cbe29f59cdbc0f11c6f0adcd3561dbff22cd44e5f1cc4504ad4508a0bff38",
+      "mp3_sha256": "a7b323d72541e6d6c2a2847fc3f7d371bf967dd4b366c74dca2d52731a4997e3"
+    },
+    {
+      "id": "sfx_artemis_manifest",
+      "kind": "original_foley",
+      "title": "月影 · 女神像显现",
+      "duration_seconds": 0.53,
+      "wav_sha256": "cfad2b2e71fb6d3cce488ebd715de4b3bdffb564a208b3b612d0d2f11a9eb58e",
+      "mp3_sha256": "9eb7b55e0992fa769e2ea9547c266a52d2c75037c2115cede7028559c5eb76e5"
+    },
+    {
+      "id": "sfx_artemis_tension",
+      "kind": "original_foley",
+      "title": "月影 · 光索蓄力",
+      "duration_seconds": 0.46,
+      "wav_sha256": "3f040b17cd602e879f85222bb1a41cc56c3303f90e82b702962b12ef7234e923",
+      "mp3_sha256": "b3c21f20d5a286bb9da9086d7c72c52d24d6456b0322d280d175f133193fabfe"
+    },
+    {
+      "id": "sfx_sun_dash",
+      "kind": "original_foley",
+      "title": "银箭突进 · 离弦",
+      "duration_seconds": 0.37,
+      "wav_sha256": "fa003b2e1d42ce6a446623c86266d63d4d01435da1bf91682d0bd333c691329c",
+      "mp3_sha256": "3f5d919cd62ac3ea7ab75d51bfc35054c906e63d08c308569b2a3634c1ce1fce"
+    },
+    {
+      "id": "sfx_sun_hit",
+      "kind": "original_foley",
+      "title": "银箭突进 · 命中",
+      "duration_seconds": 0.37,
+      "wav_sha256": "8638d61506a1f15e776cddeeced9c4c9a6a398030831edd1c9ce83d802b2d1b4",
+      "mp3_sha256": "e5ae2984ab9c8f23eb5bd0ac36a26133b315344368bf033b29ea04a4cf978d41"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.26,
+      "wav_sha256": "569e6bfa9bdca9c564eac92ff3a9aa97ee513ae3800bff772775188c5321dd3b",
+      "mp3_sha256": "c2f30d1463d13d0468abde7e0e6f455b09b2284340f05a53e47874066f532b7b"
+    }
+  ]
+}

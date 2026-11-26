@@ -9,7 +9,7 @@
 | id | `league_alistar` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Heal |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Heal |
 | 高清帧 | PPU 1.73 |
 | 附加包 | [阿利斯塔附加包](#附加包)（`league_alistar`） |
 
@@ -55,7 +55,7 @@
 
 ### 阿利斯塔附加包
 
-[阿利斯塔附加包](../../addons/league_alistar/README.md)：`league_alistar` v0.1.0
+[阿利斯塔附加包](../../addons/league_alistar/README.md)：`league_alistar` v0.1.1
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

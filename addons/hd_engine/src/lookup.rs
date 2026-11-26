@@ -66,9 +66,9 @@ static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::ne
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// our vtable copies -> the texture data they were made for
 static FAKES: LazyLock<Mutex<HashMap<usize, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// texture data -> (its width entry, its height entry, the hero's shown divisor, when the UI draws its lo_ frames:
-/// (the whole-body UI's divisor, the BP grid's hd_ divisor))
-static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<(f32, f32)>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// texture data -> (its width entry, its height entry, the hero's shown divisor, when the UI draws its lo_ (or, a UI idle
+/// sheet marked `ui_hd`, hd_) frames: (the whole-body UI's divisor, the BP grid's hd_ divisor, the face crops' divisor))
+static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<(f32, f32, f32)>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// the UI's copies of anim tables: (table, sized, hd_ frames) -> (its ctrl when copied, the copy)
 static UI: LazyLock<Mutex<HashMap<(usize, bool, bool), (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// a 1x hero's table -> (its ctrl, the BP grid's copy playing its ban/pick reel; 0: the table has none)
@@ -305,6 +305,15 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
 /// [`tex_height`]. (0.4.0 handed out a copy of the entry instead: the encyclopedia then drew nothing - 「亚索消失」 -
 /// the renderer needs the game's own entry.) Every other entry, drop included, is the original's.
 pub(crate) unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
+    proxy_with(got, hero, false)
+}
+
+/// [`proxy_of`] for a UI drawer's sheet: `hd` when its UI idle sheet holds the hd_ idle (`ui_hd`, src/ui.rs).
+pub(crate) unsafe fn proxy_of_ui(got: usize, hero: &Hero, hd: bool) -> Option<usize> {
+    proxy_with(got, hero, hd)
+}
+
+unsafe fn proxy_with(got: usize, hero: &Hero, hd: bool) -> Option<usize> {
     let (data, vt) = (q(got), q(got + 8));
     if !plausible(data) || !plausible(vt) {
         return None;
@@ -317,7 +326,12 @@ pub(crate) unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
     }
     if let Ok(mut s) = SIZES.lock() {
-        s.insert(data, (table[5], table[6], hero.shown(), hero.lo.then_some((hero.ui, hero.bp_hd()))));
+        let ui = if hd {
+            (hero.ui_hd_for(true), hero.bp_hd(), hero.ui_hd_for(false))
+        } else {
+            (hero.ui, hero.bp_hd(), hd::UI_PPU)
+        };
+        s.insert(data, (table[5], table[6], hero.shown(), hero.lo.then_some(ui)));
     }
     let (sw, sh) = size_stubs()?;
     table[5] = sw;
@@ -348,8 +362,8 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
         1.0
     } else if build().battle_size_ret.contains(&rva) {
         real
-    } else if let (Some((ui, bp)), true) = (lo, build().ui_size_ret.contains(&rva)) {
-        real / if build().bp_grid().1.contains(&rva) { bp } else if build().ui_sized_size_ret.contains(&rva) { ui } else { hd::UI_PPU }
+    } else if let (Some((ui, bp, face)), true) = (lo, build().ui_size_ret.contains(&rva)) {
+        real / if build().bp_grid().1.contains(&rva) { bp } else if build().ui_sized_size_ret.contains(&rva) { ui } else { face }
     } else {
         real / ppu
     };

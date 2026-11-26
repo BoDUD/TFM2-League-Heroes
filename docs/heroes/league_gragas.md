@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC / Heal |
-| 高清帧 | PPU 1.45（画成 90%） |
+| 高清帧 | PPU 1.45（画成 100%） |
 | 附加包 | [古拉加斯大招智能落点附加包](#附加包)（`league_gragas`） |
 
 ![古拉加斯演示](../preview/league_gragas_showcase.gif)
@@ -55,7 +55,7 @@
 
 ### 古拉加斯大招智能落点附加包
 
-[古拉加斯大招智能落点附加包](../../addons/league_gragas/README.md)：`league_gragas` v0.1.3
+[古拉加斯大招智能落点附加包](../../addons/league_gragas/README.md)：`league_gragas` v0.1.4
 
 主包 `league` 保持纯数据、全平台可用；数据找不到「目标身后的一点」，主包的爆破酒桶落在目标脚下，爆炸把周围的敌人拽向古拉加斯。
 英雄联盟里高手把酒桶扔到敌人身后、把人炸进自己的队伍——要读每个敌人的位置，只能用原生代码，所以放在这个附加包里（合集

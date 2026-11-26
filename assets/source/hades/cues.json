@@ -1,0 +1,150 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 236,
+    "event": "release",
+    "sound": "sfx_thrust",
+    "fx": "thrust",
+    "anchor": [
+      210,
+      155
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 287,
+    "event": "confirmed_hit",
+    "sound": "sfx_thrust_hit",
+    "fx": "thrust_hit",
+    "anchor": [
+      236,
+      151
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 3,
+    "ms": 176,
+    "event": "windup",
+    "sound": "sfx_wind_prep"
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 237,
+    "event": "release",
+    "sound": "sfx_wind",
+    "fx": "wind_crescent",
+    "anchor": [
+      182,
+      151
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 5,
+    "ms": 285,
+    "event": "confirmed_hit",
+    "sound": "sfx_wind_hit",
+    "fx": "thrust_hit",
+    "anchor": [
+      223,
+      154
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 4,
+    "ms": 292,
+    "event": "windup",
+    "sound": "sfx_slam_prep"
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "release",
+    "sound": "sfx_slam",
+    "fx": "ground_break",
+    "anchor": [
+      207,
+      218
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "confirmed_hit",
+    "sound": "sfx_slam_hit",
+    "fx": "thrust_hit",
+    "anchor": [
+      208,
+      192
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 6,
+    "ms": 425,
+    "event": "dust",
+    "sound": "sfx_dust",
+    "fx": "sweep_dust",
+    "anchor": [
+      166,
+      219
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 305,
+    "event": "weapon_awakening",
+    "sound": "sfx_ichor",
+    "fx": "ichor_awakening",
+    "anchor": [
+      161,
+      150
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 510,
+    "event": "release",
+    "sound": "sfx_desmos",
+    "fx": "desmos_thrust",
+    "anchor": [
+      215,
+      161
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 510,
+    "event": "confirmed_hit",
+    "sound": "sfx_desmos_hit",
+    "fx": "desmos_hit",
+    "anchor": [
+      235,
+      162
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 4,
+    "ms": 353,
+    "event": "weapon_land",
+    "sound": "sfx_spear_fall"
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 846,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]

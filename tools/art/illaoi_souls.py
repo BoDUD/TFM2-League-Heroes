@@ -17,7 +17,8 @@ spirit reads see-through over the ground) - the dither's phase steps each frame,
 champion survives: every spirit is the same ghost-teal, as League's.
 League champions of this repo's other packs have theirs too (OTHER: Wild Rift's Norra in tft/, the user 2026-10-26:
 「俄洛伊的幽灵图别忘了」; Alune, Aphelios's sister of TFT set 18: 「俄洛伊的幽灵图做了吧」); every hero of the tft pack
-(2026-10-27, the user: 「tft里面 俄洛伊的幽灵图全的吧？」 - Powder, built before the spirits, had been left out).
+(2026-10-27, the user: 「tft里面 俄洛伊的幽灵图全的吧？」 - Powder, built before the spirits, had been left out);
+every hero of the ragnarok pack (2026-11-21: 「俄洛伊的幽灵图也要画这个动漫系列的」, found by its folder).
 Dense twins (2026-11-14, the user: 「还有哪些技能没高清化的也高清化一下」): every tag has an hd_ twin at PPU 2 (two
 squares a game px) - the same ghost made from the champion's own dense idle (the first frame of hd_idle_base, else
 hd_idle, at the PPU its hd.rs row gives - league_main's or tft's) area-resampled to PPU 2 round the frame's middle (the
@@ -62,9 +63,15 @@ def lp(path):
 
 
 def champions():
-    """The League champions of the main pack (league/champion/league_*.data_champion) and OTHER, sorted."""
+    """The League champions of the main pack (league/champion/league_*.data_champion), OTHER and every hero of the
+    ragnarok pack, sorted."""
     main = [os.path.basename(f).split(".")[0] for f in glob.glob(os.path.join(LEAGUE, "champion", "league_*.data_champion"))]
-    return sorted(main + list(OTHER))
+    # 终末的女武神包的英雄按文件夹全收，以后加的英雄跑一遍就有（2026-11-21：「俄洛伊的幽灵图也要画这个动漫系列的」）
+    rag = [os.path.basename(f).split(".")[0]
+           for f in glob.glob(os.path.join(ROOT, "ragnarok", "champion", "ragnarok_*.data_champion"))]
+    aby = [os.path.basename(f).split(".")[0]
+           for f in glob.glob(os.path.join(ROOT, "abysspact", "champion", "abysspact_*.data_champion"))]
+    return sorted(main + list(OTHER) + rag + aby)
 
 
 def idle_of(hero):
@@ -79,11 +86,11 @@ def idle_of(hero):
 
 
 def ppus():
-    """{champion: the PPU of its dense frames}: the HEROES rows of league_main's and tft's hd.rs"""
+    """{champion: the PPU of its dense frames}: the HEROES rows of league_main's, tft's and ragnarok's hd.rs"""
     out = {}
-    for crate in ("league_main", "tft"):
+    for crate in ("league_main", "tft", "ragnarok", "abysspact"):
         src = open(lp(os.path.join(ROOT, "addons", crate, "src", "hd.rs")), encoding="utf-8").read()
-        for n, p in re.findall(r'\("((?:league|tft)_[a-z0-9_]+)",\s*([0-9.]+),\s*include_str!\("[^"]*champions/', src):
+        for n, p in re.findall(r'\("((?:league|tft|ragnarok|abysspact)_[a-z0-9_]+)",\s*([0-9.]+),\s*include_str!\("[^"]*champions/', src):
             out[n] = float(p)
     return out
 

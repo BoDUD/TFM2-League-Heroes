@@ -3583,5 +3583,6 @@
       "w_cap": 30,
       "w_heal": 40
     }
-  }
+  },
+  "stack_skill_index": 0
 }

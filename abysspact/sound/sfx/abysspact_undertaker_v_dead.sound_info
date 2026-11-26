@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_undertaker_vo_dead",
+      "volume": 1.0
+    },
+    {
+      "delay": 0.1,
+      "clip": "abysspact_undertaker_sfx_death",
+      "volume": 0.603
+    }
+  ]
+}

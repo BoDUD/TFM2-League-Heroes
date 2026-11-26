@@ -199,7 +199,7 @@ fn sample(e: &StableEntity<'_, '_>, tick: usize) -> Sample {
 }
 
 fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes())
 }
 
 // ===================== 被动：回到 4 秒前 =====================

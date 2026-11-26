@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.353,
+      "clip": "ragnarok_hades_sfx_spear_fall",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.846,
+      "clip": "ragnarok_hades_sfx_fall",
+      "volume": 0.5
+    }
+  ]
+}

@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.199.0"
+      "version": ">=0.472.0"
     }
   ],
-  "description": "Test build of Aurora's Across the Veil and Between Worlds as in League (needs League of Legends Heroes): replaces the main pack's Aurora so her hop into the spirit realm (invisible, faster) comes when she is low on health with an enemy on top of her, instead of the data pack's stand-in (any enemy champion on top of her), which cannot read health; gives her ult's rift League's border - enemies touching it are slowed 50% once a crossing, she dashes to the opposite side when she touches it, it closes when she dies or gets out - where the data pack only slows the enemies inside while she is in it; and picks the moment and the direction for her Between Worlds as a good Aurora player does (a crowd trapped with friends near, a low one trapped, a diver caught - otherwise held), kiting inside the rift. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-04",
+  "description": "Test build of Aurora as in League's V26.22 (needs League of Legends Heroes): replaces the main pack's Aurora so that her Between Worlds is cast the way a good Aurora player casts it - when her combo kills the target (an estimate of the shockwave, The Weirding, both passes of Twofold Hex, the passive's third stack and a few attacks against his health and magic resist), when a friend is already on him, over a crowd with friends near, on a low one, or early on a diver who is on her - aimed so the shockwave goes off on the target, walking up first when he stands too far; then Twofold Hex after the blast, kiting across the rift's border away from whoever is on her, and the rift closed early once no enemy is left in it (League's recast). The rift is League's: the shockwave spreads 0.75 s, then the rift lasts 2.25/2.75/3.25 s by rank; enemies touching its border are slowed 50%; she dashes to the opposite side when she touches it; it closes when she dies or gets out. Spirit Abjuration stacks on each enemy (1% + 2.7% per 100 AP of his max health), its spirits heal her over 4 s; Twofold Hex's return hits harder on hurt champions; Across the Veil comes when she is low with an enemy on her and is reset by a takedown. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-26",
   "mod_id": "league_aurora",
   "mod_type": "native",
-  "name": "League Heroes: Aurora's Across the Veil at low health, Between Worlds as in League (test)",
-  "version": "0.3.1"
+  "name": "League Heroes: Aurora's Between Worlds as a good player casts it, Across the Veil at low health (test)",
+  "version": "0.4.0"
 }

@@ -55,7 +55,7 @@
 
 ### 芸阿娜附加包
 
-[芸阿娜附加包](../../addons/league_yunara/README.md)：`league_yunara` v0.1.4
+[芸阿娜附加包](../../addons/league_yunara/README.md)：`league_yunara` v0.1.5
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

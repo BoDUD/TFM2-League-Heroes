@@ -308,9 +308,26 @@ pub fn contaminate(foes: &[(usize, usize, usize)], per: usize) -> bool {
     foes.iter().any(|&(n, hp, def)| n >= TWITCH_VENOM.len() || (n > 0 && n * per * 100 / (100 + def) >= hp))
 }
 
+/// 毒的层数：身上叫 `TWITCH_VENOM` 第 k 个名字的 buff 算 k + 1 层，取最大，没有就是 0。
 fn venom_of(e: &StableEntity<'_, '_>) -> usize {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i))
-        .filter_map(|b| TWITCH_VENOM.iter().position(|n| b.name() == *n)).map(|k| k + 1).max().unwrap_or(0)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| venom_rank(name_bytes(&b))).max().unwrap_or(0)
+}
+
+/// 毒 buff 名字的共同前缀（`TWITCH_VENOM` 都是它再加一位数字）。
+const VENOM_PREFIX: &[u8] = b"league_takedowns_tw_v";
+
+/// 一个 buff 名字是第几层毒（1..=6），不是毒就是 0。先看长度和前缀，别的 buff 一下就跳过
+/// （2026-11-22 过日采样：原来每个 buff 都做一遍 UTF-8 检查再和 6 个名字比，图奇这一项占了附加包合集的两成）。
+pub fn venom_rank(name: &[u8]) -> usize {
+    if name.len() != VENOM_PREFIX.len() + 1 || !name.starts_with(VENOM_PREFIX) {
+        return 0;
+    }
+    TWITCH_VENOM.iter().position(|n| n.as_bytes() == name).map_or(0, |k| k + 1)
+}
+
+/// buff 的名字（字节；不做 UTF-8 检查，比较的都是 ASCII 常量）。
+fn name_bytes(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
 }
 
 /// Data calls this next to every venom layer it puts on a unit (`input` = that unit): one more stack on a champion.
@@ -352,8 +369,21 @@ impl StablePassive for Twitch {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(e) = sim.get_entity(me).filter(|e| e.is_alive()) else { return };
         let (team, attack) = (e.team(), e.stat().attack);
-        let has = |name: &str| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name);
-        let (popping, ready, going) = (has(TWITCH_E_POP), !has(TWITCH_E_CD), has(TWITCH_E_GO));
+        // 三个开关一遍扫完（原来扫三遍）
+        let (mut popping, mut on_cd, mut going) = (false, false, false);
+        for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
+            let n = name_bytes(&b);
+            popping |= n == TWITCH_E_POP.as_bytes();
+            on_cd |= n == TWITCH_E_CD.as_bytes();
+            going |= n == TWITCH_E_GO.as_bytes();
+        }
+        let ready = !on_cd;
+        // 不在引爆、也轮不到判断要不要放 E（E 在冷却或已经要放了）：附近敌人的毒层用不上，不读
+        // （原来每 tick 都把所有单位过一遍、再数每个敌人身上的毒）
+        if !popping && !(ready && !going) {
+            self.bursting = false;
+            return;
+        }
         let reach = TWITCH_E_REACH * TWITCH_E_REACH;
         let foes: Vec<(usize, usize, usize, usize)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|u| u.is_champion() && u.is_alive() && u.team() != team && sim.distance_sq(me, u.id()) <= reach)
@@ -664,6 +694,20 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn venom_rank_is_the_old_lookup() {
+        // 和原来的写法（6 个名字逐个比，第 k 个算 k + 1 层）结果一样
+        let old = |n: &str| TWITCH_VENOM.iter().position(|v| *v == n).map_or(0, |k| k + 1);
+        for (k, n) in TWITCH_VENOM.iter().enumerate() {
+            assert_eq!(venom_rank(n.as_bytes()), k + 1);
+        }
+        for n in ["league_takedowns_tw_e_go", "league_twitch_e_cd", "league_twitch_e_pop", "league_takedowns_tw_v",
+                  "league_takedowns_tw_v0", "league_takedowns_tw_v7", "league_takedowns_tw_v12", "league_takedowns_tw_x1",
+                  "", "v1"] {
+            assert_eq!(venom_rank(n.as_bytes()), old(n), "{n}");
+        }
+    }
 
     #[test]
     fn twitch_pops_at_six_or_for_a_kill() {

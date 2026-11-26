@@ -15,10 +15,18 @@
       "q_far": 250,
       "q_n0": 20000,
       "q_n1d": 85000,
+      "q_out": 30000,
+      "q_out_v": 2000,
+      "q_speed": 4000,
+      "q_len": 95000,
+      "q_w": 6000,
       "e_drowsy": 84,
       "e_sleep_n": 135,
       "e_cap": 100,
       "e_cap_ratio": 60,
+      "e_len": 85000,
+      "e_wall": 35000,
+      "e_rel": 13,
       "w_dmg": 45,
       "w_ratio": 15,
       "w_ms": 40,
@@ -333,6 +341,17 @@
           ]
         },
         {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_zoe_q_aim",
+            "duration": {
+              "Time": {
+                "tick": 15
+              }
+            }
+          }
+        },
+        {
           "type": "Combine",
           "effects": [
             {
@@ -431,76 +450,20 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_zoe_q_go"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_zoe_q_go",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
+                            "type": "RemoveCasterBuff",
+                            "name": "league_zoe_q_go"
                           },
                           {
-                            "type": "LinearProjectile",
-                            "name": "league_zoe_q_star",
-                            "speed": 4000,
-                            "range": 95000,
-                            "y_offset": 0,
-                            "penetrate": false,
-                            "shape": {
-                              "Circle": {
-                                "radius": 6000
-                              }
-                            },
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "ApAttack",
-                                      "damage": 105,
-                                      "attack_ratio": 60,
-                                      "hp_ratio": 0,
-                                      "can_crit": false
-                                    },
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_zoe_q_hit",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 2
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_zoe_q_hit"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_zoe_q_hit"
-                                    }
-                                  ]
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_zoe_q_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
                                 }
                               }
-                            ],
-                            "end_effects": []
+                            },
+                            "only_to_enemy": false
                           }
                         ]
                       },
@@ -530,7 +493,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_zoe.skill2",
     "duration": 27,
-    "cooltime": 900,
+    "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
     "range": 75000,
@@ -580,6 +543,17 @@
               "name": "league_zoe_x"
             }
           ]
+        },
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_zoe_e_aim",
+            "duration": {
+              "Time": {
+                "tick": 15
+              }
+            }
+          }
         },
         {
           "type": "Combine",
@@ -677,207 +651,199 @@
                         "name": "league_zoe_e_tdone"
                       },
                       {
-                        "type": "LinearProjectile",
-                        "name": "league_zoe_e_bubble",
-                        "speed": 3500,
-                        "range": 85000,
-                        "y_offset": 0,
-                        "penetrate": false,
-                        "shape": {
-                          "Circle": {
-                            "radius": 7000
-                          }
-                        },
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
+                        "type": "Combine",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Combine",
-                              "effects": [
+                            "type": "RemoveCasterBuff",
+                            "name": "league_zoe_e_go"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_zoe_e_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_zoe_e_far",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_zoe_e_far"
+                            },
+                            {
+                              "type": "LinearProjectile",
+                              "name": "league_zoe_e_bubble",
+                              "speed": 3500,
+                              "range": 120000,
+                              "y_offset": 0,
+                              "penetrate": false,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 5000
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_zoe_e_got"
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_zoe_e_got"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_zoe_e_got",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
                                 },
                                 {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_zoe_e_got",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 2
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 60,
+                                    "attack_ratio": 40,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_zoe_e_drowsy",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 84
+                                        }
+                                      },
+                                      "move_speed_mult": -30
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_zoe_e_mark",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 84
+                                        }
                                       }
                                     }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ApAttack",
-                              "damage": 60,
-                              "attack_ratio": 40,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_zoe_e_drowsy",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 84
                                   }
                                 },
-                                "move_speed_mult": -30
-                              }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_zoe_e_mark",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 84
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Delayed",
-                              "tick": 84,
-                              "effects": [
                                 {
-                                  "type": "Stun",
-                                  "duration": 135
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Delayed",
+                                    "tick": 84,
+                                    "effects": [
+                                      {
+                                        "type": "Stun",
+                                        "duration": 135
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_zoe_e_sleep"
+                                      }
+                                    ]
+                                  }
                                 },
                                 {
-                                  "type": "TargetSfx",
-                                  "name": "league_zoe_e_sleep"
-                                }
-                              ]
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_zoe_e_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_zoe_e_hit"
-                            }
-                          }
-                        ],
-                        "end_effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_zoe_e_got",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_zoe_e_hit"
+                                  }
+                                },
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_zoe_e_got"
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_zoe_e_hit"
+                                  }
                                 }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
+                              ],
+                              "end_effects": [
                                 {
-                                  "type": "RangePeriodProjectile",
-                                  "name": "league_zoe_e_field",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 12000
-                                    }
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zoe_e_got",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_zoe_e_got"
+                                      }
+                                    ]
                                   },
-                                  "tick": 300,
-                                  "period": 3,
-                                  "first_delay": 3,
-                                  "applied_target": "EnemyChampion",
-                                  "applied_effects": [
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_zoe_e_tdone",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangePeriodProjectile",
+                                        "name": "league_zoe_e_field",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 12000
+                                          }
                                         },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RandomTarget",
-                                              "range": 1,
-                                              "casting_target": "AllyOnlySelf",
-                                              "from_projectile": false,
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_zoe_lives",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 1
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            {
+                                        "tick": 300,
+                                        "period": 3,
+                                        "first_delay": 3,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_zoe_lives",
+                                              "buff_name": "league_zoe_e_tdone",
                                               "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zoe_e_tdone",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 300
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "Combine",
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyOnlySelf",
+                                                    "from_projectile": false,
                                                     "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_zoe_e_got"
-                                                      },
                                                       {
                                                         "type": "AddCasterBuff",
                                                         "buff_state": {
-                                                          "name": "league_zoe_e_got",
+                                                          "name": "league_zoe_lives",
                                                           "duration": {
                                                             "Time": {
-                                                              "tick": 2
+                                                              "tick": 1
                                                             }
                                                           }
                                                         },
@@ -886,443 +852,1133 @@
                                                     ]
                                                   },
                                                   {
-                                                    "type": "ApAttack",
-                                                    "damage": 60,
-                                                    "attack_ratio": 40,
-                                                    "hp_ratio": 0,
-                                                    "can_crit": false
-                                                  },
-                                                  {
-                                                    "type": "AddBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zoe_e_drowsy",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 84
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_zoe_lives",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_zoe_e_tdone",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 300
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_zoe_e_got"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_zoe_e_got",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 2
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "ApAttack",
+                                                          "damage": 60,
+                                                          "attack_ratio": 40,
+                                                          "hp_ratio": 0,
+                                                          "can_crit": false
+                                                        },
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_zoe_e_drowsy",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 84
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -30
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_zoe_e_mark",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 84
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "Delayed",
+                                                          "tick": 84,
+                                                          "effects": [
+                                                            {
+                                                              "type": "Stun",
+                                                              "duration": 135
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zoe_e_sleep"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_zoe_e_hit"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_zoe_e_hit"
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_zoe_e_pop"
                                                         }
-                                                      },
-                                                      "move_speed_mult": -30
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
                                                     }
                                                   },
                                                   {
-                                                    "type": "AddBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zoe_e_mark",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 84
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  {
-                                                    "type": "Delayed",
-                                                    "tick": 84,
-                                                    "effects": [
-                                                      {
-                                                        "type": "Stun",
-                                                        "duration": 135
-                                                      },
-                                                      {
-                                                        "type": "TargetSfx",
-                                                        "name": "league_zoe_e_sleep"
-                                                      }
-                                                    ]
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_zoe_e_hit"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_zoe_e_hit"
-                                                  },
-                                                  {
-                                                    "type": "Sfx",
-                                                    "name": "league_zoe_e_pop"
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_zoe_lives"
                                                   }
                                                 ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": []
                                               }
-                                            },
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_zoe_lives"
                                             }
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  ],
-                                  "end_effects": []
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 0,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                          }
+                                        ],
+                                        "end_effects": []
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 15,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 0,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 30,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 15,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 45,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 30,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 60,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 45,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 75,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 60,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 90,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 75,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 105,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 90,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 120,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 105,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 135,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 120,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 150,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 135,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 165,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 150,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 180,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 165,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 195,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 180,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 210,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 195,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 225,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 210,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 240,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 225,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 255,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 240,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 270,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 255,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
-                                      }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 285,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zoe_e_tdone",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 270,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       },
-                                      "effect_none": {
-                                        "type": "ViewEffect",
-                                        "name": "league_zoe_e_trap"
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 285,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_zoe_e_tdone",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "ViewEffect",
+                                              "name": "league_zoe_e_trap"
+                                            }
+                                          }
+                                        ]
                                       }
-                                    }
-                                  ]
+                                    ]
+                                  }
                                 }
                               ]
                             }
-                          }
-                        ]
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "LinearProjectile",
+                          "name": "league_zoe_e_bubble",
+                          "speed": 3500,
+                          "range": 85000,
+                          "y_offset": 0,
+                          "penetrate": false,
+                          "shape": {
+                            "Circle": {
+                              "radius": 5000
+                            }
+                          },
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_zoe_e_got"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_zoe_e_got",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 2
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ApAttack",
+                                "damage": 60,
+                                "attack_ratio": 40,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_zoe_e_drowsy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 84
+                                    }
+                                  },
+                                  "move_speed_mult": -30
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_zoe_e_mark",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 84
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Delayed",
+                                "tick": 84,
+                                "effects": [
+                                  {
+                                    "type": "Stun",
+                                    "duration": 135
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "league_zoe_e_sleep"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_zoe_e_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_zoe_e_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_zoe_e_got",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_zoe_e_got"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RangePeriodProjectile",
+                                    "name": "league_zoe_e_field",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 12000
+                                      }
+                                    },
+                                    "tick": 300,
+                                    "period": 3,
+                                    "first_delay": 3,
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_zoe_e_tdone",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RandomTarget",
+                                                "range": 1,
+                                                "casting_target": "AllyOnlySelf",
+                                                "from_projectile": false,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zoe_lives",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 1
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_zoe_lives",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_zoe_e_tdone",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 300
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_zoe_e_got"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_zoe_e_got",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 2
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "ApAttack",
+                                                      "damage": 60,
+                                                      "attack_ratio": 40,
+                                                      "hp_ratio": 0,
+                                                      "can_crit": false
+                                                    },
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_zoe_e_drowsy",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 84
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -30
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_zoe_e_mark",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 84
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 84,
+                                                      "effects": [
+                                                        {
+                                                          "type": "Stun",
+                                                          "duration": 135
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_zoe_e_sleep"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_zoe_e_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_zoe_e_hit"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_zoe_e_pop"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_zoe_lives"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": []
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 0,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 15,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 30,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 45,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 60,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 75,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 90,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 105,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 120,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 135,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 150,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 165,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 180,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 195,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 210,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 225,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 240,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 255,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 270,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 285,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_zoe_e_tdone",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "ViewEffect",
+                                          "name": "league_zoe_e_trap"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
                       },
                       {
                         "type": "Sfx",
@@ -1389,8 +2045,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 200,
-                "attack_ratio": 90,
+                "damage": 350,
+                "attack_ratio": 140,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -1811,8 +2467,8 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 200,
-                                                "attack_ratio": 90,
+                                                "damage": 350,
+                                                "attack_ratio": 140,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
                                               }
@@ -1837,81 +2493,6 @@
                                         {
                                           "type": "Sfx",
                                           "name": "league_zoe_q_fly"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_zoe_lives"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 22,
-                            "effects": [
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_zoe_lives",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_zoe_lives",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "CasterAnimation",
-                                          "name": "skill_w",
-                                          "tick": 19
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_zoe_w_haste"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_zoe_w_haste",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 150
-                                                  }
-                                                },
-                                                "move_speed_mult": 40
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
                                         }
                                       ]
                                     },

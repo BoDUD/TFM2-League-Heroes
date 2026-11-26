@@ -1,0 +1,1352 @@
+{
+  "zh-hans": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "吕布奉先",
+        "attack": "方天画戟重击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>盾牌破坏者<>：无视<#ffb900ff>15%<>护甲；对护盾的伤害提高<#ffb900ff>100%<>，打碎护盾时再造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害。",
+        "skill": "方天画戟横扫前方扇形，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，并减速<#ffb900ff>40%<>，持续<#ffb900ff>1.5秒<>。",
+        "skill2": "用戟压住对手的兵器顺势突刺，穿过路上的敌人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>定身0.6秒<>。",
+        "ult": "骑上赤兔马冲向目标（不受控制，受到的伤害降低<#ffb900ff>30%<>），在马上握戟尾挥出天喰：直线上的敌人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.8秒<>。"
+      },
+      "ragnarok_thor": {
+        "name": "索尔",
+        "attack": "雷槌重击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>雷槌觉醒<>：每放<#ffb900ff>3次<>技能，雷槌觉醒<#ffb900ff>6秒<>：普攻再造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法伤害<>，雷神之锤改为<#ef5350ff>眩晕1.1秒<>。",
+        "skill": "左臂蓄雷、双手举锤往后仰再砸下，<#ffb900ff>0.43秒<>后雷电在前方炸开：敌人受到<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理伤害<>并被冲击波<#ef5350ff>击飞0.7秒<>（觉醒时<#ef5350ff>1.1秒<>）。",
+        "skill2": "双臂的铁手套「雅恩格利佩尔」（天界最强的防御）顶在身前<#ffb900ff>0.3秒<>：普攻全部挡住，受到的技能伤害降低<#ffb900ff>70%<>；举起时获得<#e8d44dff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>90%<><#e8d44dff>护盾<><#ffb900ff>2.5秒<>。",
+        "ult": "雷槌觉醒<#ffb900ff>8秒<>并掷出，像回旋镖一样飞回：来回穿过的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<><#ff9028ff>物理伤害<>、减速<#ffb900ff>40%<>；接住后把速度和离心力化作一击砸向前方：<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞1.5秒<>。期间不受控制，伤害降低<#ffb900ff>45%<>。"
+      },
+      "ragnarok_zeus": {
+        "name": "宙斯",
+        "attack": "快拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>肌肉膨胀<>：老人状态打出<#ffb900ff>3拳<>后，下一拳改为膨胀（<#ffb900ff>1.02秒<>，不受控制），完成时震伤周围敌人<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>、减速<#ffb900ff>30%<>；膨胀后攻击力+<#ffb900ff>25%<>、护甲和魔抗+<#ffb900ff>35%<>。",
+        "skill": "越打越快的刺拳连打七拳，每拳<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>19%<><#ff9028ff>物理伤害<>；膨胀、阿陀磨须时是两记重拳各<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>，第二拳膨胀时减速<#ffb900ff>40%<>（<#ffb900ff>1秒<>），阿陀磨须时<#ef5350ff>眩晕0.6秒<>。",
+        "skill2": "拳头快过时间，出拳之前伤害就已打到：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.5秒<>（阿陀磨须时<#ef5350ff>0.9秒<>）。",
+        "ult": "把膨胀的肌肉压缩<#ffb900ff>1.03秒<>（老人状态先膨胀；不受控制，受到的伤害降低<#ffb900ff>50%<>），随后震飞周围敌人：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.7秒<>，以阿陀磨须作战<#ffb900ff>10秒<>：攻击力+<#ffb900ff>45%<>、双抗+<#ffb900ff>60%<>、攻速+<#ffb900ff>30%<>、吸血<#ffb900ff>25%<>。结束后变回老人。"
+      },
+      "ragnarok_adam": {
+        "name": "亚当",
+        "attack": "快拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>神虚视<>读过一招就记下来（<#ffb900ff>5秒<>），有记录时<#ff9028ff>模仿反击<>会复刻那一招。",
+        "skill": "睁开神虚视读出对手的动作，闪身躲开：<#ffb900ff>2.5秒<>内普攻全部落空，受到的技能伤害降低<#ffb900ff>50%<>，并记下一招。",
+        "skill2": "照着宙斯的黄昏流星群反击，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。有记录时复刻那一招：再加<#ff9028ff>60<>和目标<#ffb900ff>8%<>最大生命值的物理伤害，并<#ef5350ff>眩晕1秒<>，用掉记录。",
+        "ult": "从宙斯那里学来的拳：蓄势<#ffb900ff>0.43秒<>（不受控制，受到的伤害降低<#ffb900ff>50%<>），然后朝目标打出一道拳劲，路上的敌人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.8秒<>。"
+      },
+      "ragnarok_poseidon": {
+        "name": "波塞冬",
+        "attack": "三叉戟水平突刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>神无须依赖<>：身边没有友方英雄时，攻击力<#ffb900ff>+15%<>，受到的伤害降低<#ffb900ff>10%<>。",
+        "skill": "原地螺旋连刺、追着目标：朝前方连刺<#ffb900ff>4次<>，每次对前方扇形里的敌人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>。",
+        "skill2": "跳起来往前，从上方像雷雨一样往下连刺三阵，目标脚下的敌人每阵受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>78%<><#ff9028ff>物理伤害<>，第三阵<#ef5350ff>眩晕0.7秒<>。",
+        "ult": "蓄势<#ffb900ff>0.38秒<>（受到的伤害降低<#ffb900ff>30%<>），戟影如洪水般围住目标连刺<#ffb900ff>6轮<>，每轮对周围的敌人造成<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理伤害<>，第一轮<#ef5350ff>定身0.75秒<>。"
+      },
+      "ragnarok_kojiro": {
+        "name": "佐佐木小次郎",
+        "attack": "长刀一斩，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>千手无双<>：每打中一个敌方英雄一次就记下他一招（每人最多<#ffb900ff>8招<>），之后对他的伤害每招<#ffb900ff>+3%<>；死后重新记。",
+        "skill": "往前斩下，前方扇形里的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>；随即反刃上撩，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速35%<>。",
+        "skill2": "读出空气的流动和地面的震动，连神的出招也预判得到，侧身让开：<#ffb900ff>2.5秒<>内受到的伤害降低<#ffb900ff>30%<>，攻速<#ffb900ff>+50%<>。",
+        "ult": "断掉的物干竿重炼成一长一短两把刀，双刀斩下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，再交错一刀造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.6秒<>；之后<#ffb900ff>8秒<>二天岩流：攻速<#ffb900ff>+30%<>，普攻多一刀<#ffb900ff>40%<>。"
+      },
+      "ragnarok_heracles": {
+        "name": "赫拉克勒斯",
+        "attack": "巨棒一击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>十二御业的刻印<>：每放一个技能刻印爬一格（大招两格，最多<#ffb900ff>12格<>），每格攻击力<#ffb900ff>+1%<>、护甲和魔抗<#ffb900ff>+2<>；死后消退。",
+        "skill": "巨棒前顶，狮头冲出：前方扇形里的敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>。刻耳柏洛斯形态：一拳砸地，身前的敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。",
+        "skill2": "巨棒砸地，身前的敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。刻耳柏洛斯形态：一下贴到对手面前，留下三道巨大的爪痕：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>。",
+        "ult": "与冥府的看门犬订约，变成刻耳柏洛斯形态<#ffb900ff>8秒<>：攻击力<#ffb900ff>+40%<>、攻速<#ffb900ff>+50%<>、移速<#ffb900ff>+15%<>、受到的伤害降低<#ffb900ff>20%<>、吸血<#ffb900ff>15%<>；结束时右臂变大，一记大英雄之拳砸地，身边的敌人受到<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。"
+      },
+      "ragnarok_jack": {
+        "name": "开膛手杰克",
+        "attack": "掷出飞刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>心之色<>：他看得见人心的颜色，恐惧藏不住：对生命低于<#ffb900ff>50%<>的敌方英雄，伤害<#ffb900ff>+30%<>。",
+        "skill": "掷出一扇飞刀，前方扇形里的敌人受到<#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速25%<>。",
+        "skill2": "撑开被手套变成神器的伞转着挡：伞转着时普攻打不疼他、其余伤害降低<#ffb900ff>40%<>，随后往后跳开。",
+        "ult": "按住伤口让血浸透手套（失去<#ffb900ff>5%<>最大生命），血也成了神器；装作倒下，再扑向对方，双手插进胸口：造成<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>260%<><#ff9028ff>物理伤害<>。"
+      },
+      "ragnarok_raiden": {
+        "name": "雷电为右卫门",
+        "attack": "一掌推出，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>百闭解放<>：每条命第一次放八咫乌前先破开「百闭」，放开压了一辈子的肌肉（<#ffb900ff>0.92秒<>，不受控制、受到的伤害降低<#ffb900ff>50%<>），之后攻击力<#ffb900ff>+20%<>、护甲和魔抗<#ffb900ff>+20<>、攻速<#ffb900ff>+20%<>。",
+        "skill": "连出两掌：第一掌造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>，第二掌造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>，打得人<#ef5350ff>踉跄0.67秒<>并<#ef5350ff>减速30%<>。",
+        "skill2": "双手撑地倒立，往前倒下用两只脚掌跺地：身前的敌人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.67秒<>；余震让更大一圈的敌人<#ef5350ff>减速30%<>。",
+        "ult": "肌肉挪到腿上一下贴近（不受控制、受到的伤害降低<#ffb900ff>40%<>）后一掌推出：前方扇形的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>并被<#ef5350ff>冲击波震飞0.75秒<>。"
+      },
+      "ragnarok_shiva": {
+        "name": "湿婆",
+        "attack": "四臂一扫，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>；灰烬里是火鞭，<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>。<#ff9028ff>轮回舞踊<>：每放一个技能记一拍（最多<#ffb900ff>4拍<>），每拍攻击力<#ffb900ff>+4%<>、攻速<#ffb900ff>+6%<>；<#ffb900ff>4秒<>没再放技能就散。",
+        "skill": "四臂连击两下：前方扇形的敌人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<><#ff9028ff>物理伤害<>，第二下<#ef5350ff>减速25%<>；灰烬里伤害<#ffb900ff>130%<>。",
+        "skill2": "跳起来带着火往目标身上踢下去，落地时身边的敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>102%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>；灰烬里伤害<#ffb900ff>130%<>。",
+        "ult": "手指插进胸口压心脏、全身燃烧（不受控制、受到的伤害降低<#ffb900ff>40%<>），<#ffb900ff>8秒<>轮回舞踊·灰烬：攻击力<#ffb900ff>+35%<>、攻速<#ffb900ff>+40%<>、移速<#ffb900ff>+15%<>；结束时一记大切炎舞（旋身带火的脚跟踢），前方扇形的敌人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。"
+      },
+      "ragnarok_buddha": {
+        "name": "释迦",
+        "attack": "六道棍一击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>未来视<>：普攻和枪刃时看穿接下来的招（每<#ffb900ff>8秒<>一次），<#ffb900ff>1.5秒<>里普攻打不疼他。",
+        "skill": "六道棍化作十二天斧（长戟）横扫：前方扇形的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理伤害<>，<#ef5350ff>护甲降低25%<>，持续<#ffb900ff>4秒<>。",
+        "skill2": "看见要挨的打，六道棍化作七难即灭之盾：<#e8d44dff>护盾100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制。盾收起时莲光绽开，身边的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>。",
+        "ult": "与零福的灵魂炼出大圆寂刀·零，天眼妙觉大涅槃斩（斩中前不受控制、受到的伤害降低<#ffb900ff>40%<>）一刀斩下：前方扇形的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>加目标最大生命<#ff9028ff>8%<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.83秒<>。"
+      },
+      "ragnarok_zerofuku": {
+        "name": "零福",
+        "attack": "零福斧爻横砍、波旬臂刃横斩，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>不幸<>：零福打中的敌人<#ffb900ff>4秒<>里受到的伤害<#ffb900ff>+8%<>。<#ff9028ff>吞噬<>：波旬<#ffb900ff>吸血8%<>。",
+        "skill": "零福：斧爻吸了不幸变大后落下，前方的敌人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>，挂上不幸。波旬（魔廻天衝）：右臂拧成黑钻头射出去，一条线上的敌人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。",
+        "skill2": "零福（斧爻岚阵）：斧爻炸成<#ffb900ff>3把<>追人的黑刃，各追一个敌人：每把<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，挂上不幸。波旬：单臂化刃从上砸下，前方的敌人受到<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。",
+        "ult": "被暗茧吞没（不受控制、减伤<#ffb900ff>40%<>），波旬破茧而出：回复<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>生命，这条命攻击力<#ffb900ff>+15%<>、攻速<#ffb900ff>+15%<>、移速<#ffb900ff>+5%<>、双抗<#ffb900ff>+10<>。再放是灼（扯下左臂化大剑劈下）：一线的敌人受到<#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>145%<>加最大生命<#ff9028ff>6%<>的<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<>。"
+      },
+      "ragnarok_hades": {
+        "name": "哈迪斯",
+        "attack": "双叉枪直刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>伊科尔<>：放完技能后<#ffb900ff>3秒<>内，下一次普攻额外造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。",
+        "skill": "冥府的铁锤：跳起来往下刺，落枪处地面炸开，周围的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速25%<>（<#ffb900ff>1秒<>）；甩出的风刃再让前方一条线上的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<><#ff9028ff>物理伤害<>。",
+        "skill2": "大地崩碎者：滑着枪杆往下劈，砸进身前的地面，那一圈的敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.5秒<>。",
+        "ult": "挖开胸口用神血把双叉枪锻成宿命之四血枪（伊科尔·德斯莫斯；不受控制、减伤<#ffb900ff>30%<>），血之引导曙光：朝目标直线突刺，穿过的敌人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>加最大生命<#ff9028ff>8%<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。"
+      },
+      "ragnarok_qin": {
+        "name": "秦始皇",
+        "attack": "金指爪抓击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>星<>：被他的技能打中的敌人露出破绽，<#ffb900ff>3秒<>内受到的伤害<#ffb900ff>+10%<>。",
+        "skill": "对着目标的「星」吹一口看不见的气：造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，<#ef5350ff>打断0.4秒<>，<#ffb900ff>3秒<>内攻击力和法强降低<#ffb900ff>25%<>。",
+        "skill2": "举起神罗铠袖（<#ffb900ff>1秒<>内减伤<#ffb900ff>40%<>、不受控制），身边的友方英雄获得<#e8d44dff>护盾80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>；接着把力推回去，前方的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.67秒<>。",
+        "ult": "拔出始皇勾践剑（不受控制、减伤<#ffb900ff>40%<>），把这时挨的打存进剑里，斩中时还回去（最多<#ffb900ff>25%<>最大生命）：前方大扇形的敌人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.83秒<>。"
+      },
+      "ragnarok_beelzebub": {
+        "name": "别西卜",
+        "attack": "振动掌，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>加<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>。<#ff9028ff>恶魔的振翅<>：被他的技能打中的敌人<#ffb900ff>4秒<>内魔抗<#ffb900ff>-20%<>。",
+        "skill": "骸骨杖放出振动波，一条线上的敌人受到<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "展开振动屏障：<#e8d44dff>护盾80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制；随后屏障震开，身边的敌人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。",
+        "ult": "压缩出虚神的黑核（不受控制、减伤<#ffb900ff>30%<>），把身边的敌人往里拉，再爆发：周围的敌人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<><#a974ffff>魔法伤害<>并<#ef5350ff>眩晕0.83秒<>；他自己也被反噬，失去<#ffb900ff>6%<>最大生命。"
+      },
+      "ragnarok_tesla": {
+        "name": "尼古拉·特斯拉",
+        "attack": "机甲重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>等离子脉冲<>：每一拳额外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。",
+        "skill": "特斯拉步冲向目标，撞上的敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速30%<>；众神的监狱还在时改为特斯拉跃迁（瞬移到目标身上），造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.5秒<>。",
+        "skill2": "在目标那里展开众神的监狱（格玛特利亚领域），里面的敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速35%<>（<#ffb900ff>3秒<>）；这段时间特斯拉步变成瞬移。",
+        "ult": "等离子脉冲拳·交叉（不受控制、减伤<#ffb900ff>30%<>）：第一拳造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.5秒<>；右臂跃迁到对手身后，第二拳打出一道电光，线上的敌人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.75秒<>。"
+      },
+      "ragnarok_leonidas": {
+        "name": "列奥尼达斯",
+        "attack": "盾击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>方阵<>：每放一个技能，身边的友方英雄（含自己）<#ffb900ff>3秒<>内护甲和魔抗<#e8d44dff>+15<>。",
+        "skill": "方阵·恩科斯：连着钢链把盾远远甩出去砸向目标，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>、<#ef5350ff>减速30%<>。",
+        "skill2": "举盾<#ffb900ff>2.5秒<>：身边的友方英雄受到的伤害降低<#e8d44dff>20%<>，他自己再降低<#e8d44dff>15%<>，攻击他的敌人受到<#ffb900ff>25%<>反伤，身边的敌人被<#ef5350ff>嘲讽1秒<>。",
+        "ult": "外壳剥落成刻着Λ的真实之盾，盾在前直线冲锋（不受控制、减伤<#ffb900ff>40%<>），撞上时身边的敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.83秒<>。"
+      },
+      "ragnarok_apollo": {
+        "name": "阿波罗",
+        "attack": "光丝化作拳套出拳（光辉竖琴），造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>白夜的拥抱<>：「我这颗太阳不会落下」，身边每有一个英雄（敌我都算，最多<#ffb900ff>5个<>），他的伤害提高<#ffb900ff>8%<>。",
+        "skill": "阿尔忒弥斯之丝绑住目标的手臂，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并<#ef5350ff>定身1秒<>。",
+        "skill2": "影子里升起阿尔忒弥斯，光丝变成金弓，光速的箭追着目标飞去，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>。",
+        "ult": "女神像把弓变成两手间的绳，他像弹弓一样把自己当作银矢射向目标（不受控制、减伤<#ffb900ff>30%<>），撞上的敌人受到<#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.5秒<>。"
+      },
+      "ragnarok_okita": {
+        "name": "冲田总司",
+        "attack": "一刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>剑之刻<>：刀把他一生的剑技压进一刻，每放一个技能，<#ffb900ff>3秒<>内攻速提高<#ffb900ff>30%<>。",
+        "skill": "神速三刺，每刺对前方敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，第三刺再加<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。",
+        "skill2": "变成鬼子：<#ffb900ff>5秒<>内攻击力提高<#ffb900ff>25%<>、攻速提高<#ffb900ff>40%<>、移速提高<#ffb900ff>20%<>。",
+        "ult": "极快地突进（不受控制），连刺三下，每刺一道真空刃飞出、刺到刀够不到的地方：一条线上的敌人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>，第三刺再加目标<#ffb900ff>8%<>最大生命。"
+      },
+      "ragnarok_susanoo": {
+        "name": "须佐之男",
+        "attack": "一刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>天魔反·无间<>：每第三刀不蓄力地带出一道真空刃，一条线上的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>。",
+        "skill": "摆出天魔反的架势挥刀，月牙真空刃飞出，一条线上的敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>，身前的敌人再受<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>（越远越弱）。",
+        "skill2": "摆出正眼构：普攻打不疼他、技能伤害降低<#ffb900ff>40%<>；随后回敬一刀，前方敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>。",
+        "ult": "空手挥出看不见的剑（不受控制），只砍骨头：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>加目标<#ffb900ff>8%<>最大生命的<#ffffffff>真实伤害<>，<#ef5350ff>3秒<>内减速、攻击力降低；每挥一次自损<#ffb900ff>5%<>最大生命。"
+      },
+      "ragnarok_simo": {
+        "name": "西蒙·海耶",
+        "attack": "莫辛-纳甘一枪，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>死神的契约<>：技能射出的是器官换来的弑神弹，每发先付<#ffb900ff>3%<>最大生命（不会因此阵亡）。",
+        "skill": "对神狙击术，三发轮流：万花缭乱半空炸开，扇形内<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>；天穿白鸟穿透一列，<#ff9028ff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>；精灵的气息神速一枪，<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>。",
+        "skill2": "扬起雪幕往后一跃，<#ffb900ff>隐身1.25秒<>，移速提高<#ffb900ff>30%<>（落雪盖住脚印）。",
+        "ult": "最快最强的一发，造成<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>230%<>加目标<#ffb900ff>10%<>最大生命的<#ff9028ff>物理伤害<>。"
+      },
+      "ragnarok_loki": {
+        "name": "洛基",
+        "attack": "弹出幻刃，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>虚伪之神影<>：满力的分身照着他出招，锁链钩打中的敌人再挨分身一钩，<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。",
+        "skill": "掌心开门甩出钩刃，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>140%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。",
+        "skill2": "黑雾里造出复制体留在原地，自己和远处的复制体换位，<#ffb900ff>隐身1.5秒<>，移速提高<#ffb900ff>25%<>。",
+        "ult": "目标周围冒出复制来的神兵大军（不受控制），<#ffb900ff>4轮<>各造成<#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。"
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "横扫",
+        "skill2": "压戟突刺",
+        "ult": "天喰"
+      },
+      "ragnarok_thor": {
+        "skill1": "斗神之雷槌",
+        "skill2": "铁手套",
+        "ult": "觉醒雷槌"
+      },
+      "ragnarok_zeus": {
+        "skill1": "黄昏流星群",
+        "skill2": "超越时间之拳",
+        "ult": "阿陀磨须"
+      },
+      "ragnarok_adam": {
+        "skill1": "神虚视",
+        "skill2": "复刻·黄昏流星群",
+        "ult": "超越时间之拳"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "怒涛·安菲特里忒",
+        "skill2": "降临荒海的神雷",
+        "ult": "四十昼夜的大洪水"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "燕返",
+        "skill2": "万手无双",
+        "ult": "双燕斩虎万刃撩乱"
+      },
+      "ragnarok_heracles": {
+        "skill1": "涅墨亚之狮",
+        "skill2": "克里特公牛",
+        "ult": "刻耳柏洛斯"
+      },
+      "ragnarok_jack": {
+        "skill1": "飞刀扇",
+        "skill2": "神器之伞",
+        "ult": "亲爱的神"
+      },
+      "ragnarok_raiden": {
+        "skill1": "连掌",
+        "skill2": "狮子舞",
+        "ult": "八咫乌"
+      },
+      "ragnarok_shiva": {
+        "skill1": "四臂连击",
+        "skill2": "虎爪炎舞",
+        "ult": "轮回舞踊·灰烬"
+      },
+      "ragnarok_buddha": {
+        "skill1": "十二天斧",
+        "skill2": "七难即灭之盾",
+        "ult": "大圆寂刀·零"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "斧爻／魔廻天衝",
+        "skill2": "斧爻岚阵／魔刃碎击",
+        "ult": "破茧／灼"
+      },
+      "ragnarok_hades": {
+        "skill1": "冥府的铁锤",
+        "skill2": "大地崩碎者",
+        "ult": "血之引导曙光"
+      },
+      "ragnarok_qin": {
+        "skill1": "蚩尤弩式·波流龟",
+        "skill2": "神罗铠袖·承力天凤",
+        "ult": "始皇承力燕斩"
+      },
+      "ragnarok_beelzebub": {
+        "skill1": "暴食的堕天使",
+        "skill2": "地狱之门扉",
+        "ult": "虚神（卡俄斯）"
+      },
+      "ragnarok_tesla": {
+        "skill1": "特斯拉步",
+        "skill2": "众神的监狱",
+        "ult": "等离子脉冲拳·交叉"
+      },
+      "ragnarok_leonidas": {
+        "skill1": "方阵·恩科斯",
+        "skill2": "举盾",
+        "ult": "方阵·兰布达"
+      },
+      "ragnarok_apollo": {
+        "skill1": "光辉的支配",
+        "skill2": "阿尔忒弥斯的月影",
+        "ult": "射穿灵魂的银矢"
+      },
+      "ragnarok_okita": {
+        "skill1": "三段突",
+        "skill2": "鬼子",
+        "ult": "天翔散段突"
+      },
+      "ragnarok_susanoo": {
+        "skill1": "天魔反",
+        "skill2": "神罗八百万",
+        "ult": "无装剑"
+      },
+      "ragnarok_simo": {
+        "skill1": "对神狙击术",
+        "skill2": "雪中隐踪",
+        "ult": "天空的残光"
+      },
+      "ragnarok_loki": {
+        "skill1": "锁链钩",
+        "skill2": "欺瞒之种·回生之门",
+        "ult": "道化师之环"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "呂布奉先",
+        "attack": "方天畫戟重擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>盾牌破壞者<>：無視<#ffb900ff>15%<>護甲；對護盾的傷害提高<#ffb900ff>100%<>，擊碎護盾時再造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害。",
+        "skill": "方天畫戟橫掃前方扇形，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，並緩速<#ffb900ff>40%<>，持續<#ffb900ff>1.5秒<>。",
+        "skill2": "用戟壓住對手的兵器順勢突刺，穿過路上的敵人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>定身0.6秒<>。",
+        "ult": "騎上赤兔馬衝向目標（不受控制，受到的傷害降低<#ffb900ff>30%<>），在馬上握戟尾揮出天喰：直線上的敵人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.8秒<>。"
+      },
+      "ragnarok_thor": {
+        "name": "索爾",
+        "attack": "雷槌重擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>雷槌覺醒<>：每施放<#ffb900ff>3次<>技能，雷槌覺醒<#ffb900ff>6秒<>：普攻再造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法傷害<>，雷神之錘改為<#ef5350ff>暈眩1.1秒<>。",
+        "skill": "左臂蓄雷、雙手舉錘往後仰再砸下，<#ffb900ff>0.43秒<>後雷電在前方炸開：敵人受到<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<><#ff9028ff>物理傷害<>並被衝擊波<#ef5350ff>擊飛0.7秒<>（覺醒時<#ef5350ff>1.1秒<>）。",
+        "skill2": "雙臂的鐵手套「雅恩格利佩爾」（天界最強的防禦）頂在身前<#ffb900ff>0.3秒<>：普攻全部擋住，受到的技能傷害降低<#ffb900ff>70%<>；舉起時獲得<#e8d44dff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>90%<><#e8d44dff>護盾<><#ffb900ff>2.5秒<>。",
+        "ult": "雷槌覺醒<#ffb900ff>8秒<>並擲出，像迴旋鏢一樣飛回：來回穿過的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<><#ff9028ff>物理傷害<>、緩速<#ffb900ff>40%<>；接住後把速度和離心力化作一擊砸向前方：<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛1.5秒<>。期間不受控制，傷害降低<#ffb900ff>45%<>。"
+      },
+      "ragnarok_zeus": {
+        "name": "宙斯",
+        "attack": "快拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>肌肉膨脹<>：老人狀態打出<#ffb900ff>3拳<>後，下一拳改為膨脹（<#ffb900ff>1.02秒<>，不受控制），完成時震傷周圍敵人<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>、緩速<#ffb900ff>30%<>；膨脹後攻擊力+<#ffb900ff>25%<>、護甲和魔抗+<#ffb900ff>35%<>。",
+        "skill": "越打越快的刺拳連打七拳，每拳<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>19%<><#ff9028ff>物理傷害<>；膨脹、阿陀磨須時是兩記重拳各<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>，第二拳膨脹時緩速<#ffb900ff>40%<>（<#ffb900ff>1秒<>），阿陀磨須時<#ef5350ff>暈眩0.6秒<>。",
+        "skill2": "拳頭快過時間，出拳之前傷害就已打到：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.5秒<>（阿陀磨須時<#ef5350ff>0.9秒<>）。",
+        "ult": "把膨脹的肌肉壓縮<#ffb900ff>1.03秒<>（老人狀態先膨脹；不受控制，受到的傷害降低<#ffb900ff>50%<>），隨後震飛周圍敵人：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.7秒<>，以阿陀磨須作戰<#ffb900ff>10秒<>：攻擊力+<#ffb900ff>45%<>、雙抗+<#ffb900ff>60%<>、攻速+<#ffb900ff>30%<>、吸血<#ffb900ff>25%<>。結束後變回老人。"
+      },
+      "ragnarok_adam": {
+        "name": "亞當",
+        "attack": "快拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>神虛視<>讀過一招就記下來（<#ffb900ff>5秒<>），有記錄時<#ff9028ff>模仿反擊<>會複刻那一招。",
+        "skill": "睜開神虛視讀出對手的動作，閃身躲開：<#ffb900ff>2.5秒<>內普攻全部落空，受到的技能傷害降低<#ffb900ff>50%<>，並記下一招。",
+        "skill2": "照著宙斯的黃昏流星群反擊，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。有記錄時複刻那一招：再加<#ff9028ff>60<>和目標<#ffb900ff>8%<>最大生命值的物理傷害，並<#ef5350ff>暈眩1秒<>，用掉記錄。",
+        "ult": "從宙斯那裡學來的拳：蓄勢<#ffb900ff>0.43秒<>（不受控制，受到的傷害降低<#ffb900ff>50%<>），然後朝目標打出一道拳勁，路上的敵人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.8秒<>。"
+      },
+      "ragnarok_poseidon": {
+        "name": "波塞頓",
+        "attack": "三叉戟水平突刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>神無須依賴<>：身邊沒有友方英雄時，攻擊力<#ffb900ff>+15%<>，受到的傷害降低<#ffb900ff>10%<>。",
+        "skill": "原地螺旋連刺、追著目標：朝前方連刺<#ffb900ff>4次<>，每次對前方扇形裡的敵人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>。",
+        "skill2": "跳起來往前，從上方像雷雨一樣往下連刺三陣，目標腳下的敵人每陣受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>78%<><#ff9028ff>物理傷害<>，第三陣<#ef5350ff>暈眩0.7秒<>。",
+        "ult": "蓄勢<#ffb900ff>0.38秒<>（受到的傷害降低<#ffb900ff>30%<>），戟影如洪水般圍住目標連刺<#ffb900ff>6輪<>，每輪對周圍的敵人造成<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理傷害<>，第一輪<#ef5350ff>定身0.75秒<>。"
+      },
+      "ragnarok_kojiro": {
+        "name": "佐佐木小次郎",
+        "attack": "長刀一斬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>千手無雙<>：每打中一個敵方英雄一次就記下他一招（每人最多<#ffb900ff>8招<>），之後對他的傷害每招<#ffb900ff>+3%<>；死後重新記。",
+        "skill": "往前斬下，前方扇形裡的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>；隨即反刃上撩，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速35%<>。",
+        "skill2": "讀出空氣的流動和地面的震動，連神的出招也預判得到，側身讓開：<#ffb900ff>2.5秒<>內受到的傷害降低<#ffb900ff>30%<>，攻速<#ffb900ff>+50%<>。",
+        "ult": "斷掉的物干竿重煉成一長一短兩把刀，雙刀斬下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，再交錯一刀造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.6秒<>；之後<#ffb900ff>8秒<>二天岩流：攻速<#ffb900ff>+30%<>，普攻多一刀<#ffb900ff>40%<>。"
+      },
+      "ragnarok_heracles": {
+        "name": "赫拉克勒斯",
+        "attack": "巨棒一擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>十二御業的刻印<>：每放一個技能刻印爬一格（大招兩格，最多<#ffb900ff>12格<>），每格攻擊力<#ffb900ff>+1%<>、護甲和魔抗<#ffb900ff>+2<>；死後消退。",
+        "skill": "巨棒前頂，獅頭衝出：前方扇形裡的敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>。刻耳柏洛斯形態：一拳砸地，身前的敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。",
+        "skill2": "巨棒砸地，身前的敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。刻耳柏洛斯形態：一下貼到對手面前，留下三道巨大的爪痕：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>。",
+        "ult": "與冥府的看門犬訂約，變成刻耳柏洛斯形態<#ffb900ff>8秒<>：攻擊力<#ffb900ff>+40%<>、攻速<#ffb900ff>+50%<>、移速<#ffb900ff>+15%<>、受到的傷害降低<#ffb900ff>20%<>、吸血<#ffb900ff>15%<>；結束時右臂變大，一記大英雄之拳砸地，身邊的敵人受到<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。"
+      },
+      "ragnarok_jack": {
+        "name": "開膛手傑克",
+        "attack": "擲出飛刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>心之色<>：他看得見人心的顏色，恐懼藏不住：對生命低於<#ffb900ff>50%<>的敵方英雄，傷害<#ffb900ff>+30%<>。",
+        "skill": "擲出一扇飛刀，前方扇形裡的敵人受到<#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速25%<>。",
+        "skill2": "撐開被手套變成神器的傘轉著擋：傘轉著時普攻打不疼他、其餘傷害降低<#ffb900ff>40%<>，隨後往後跳開。",
+        "ult": "按住傷口讓血浸透手套（失去<#ffb900ff>5%<>最大生命），血也成了神器；裝作倒下，再撲向對方，雙手插進胸口：造成<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>260%<><#ff9028ff>物理傷害<>。"
+      },
+      "ragnarok_raiden": {
+        "name": "雷電為右衛門",
+        "attack": "一掌推出，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>百閉解放<>：每條命第一次放八咫烏前先破開「百閉」，放開壓了一輩子的肌肉（<#ffb900ff>0.92秒<>，不受控制、受到的傷害降低<#ffb900ff>50%<>），之後攻擊力<#ffb900ff>+20%<>、護甲和魔抗<#ffb900ff>+20<>、攻速<#ffb900ff>+20%<>。",
+        "skill": "連出兩掌：第一掌造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>，第二掌造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>，打得人<#ef5350ff>踉蹌0.67秒<>並<#ef5350ff>減速30%<>。",
+        "skill2": "雙手撐地倒立，往前倒下用兩隻腳掌跺地：身前的敵人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.67秒<>；餘震讓更大一圈的敵人<#ef5350ff>減速30%<>。",
+        "ult": "肌肉挪到腿上一下貼近（不受控制、受到的傷害降低<#ffb900ff>40%<>）後一掌推出：前方扇形的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>並被<#ef5350ff>衝擊波震飛0.75秒<>。"
+      },
+      "ragnarok_shiva": {
+        "name": "濕婆",
+        "attack": "四臂一掃，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>；灰燼裡是火鞭，<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>。<#ff9028ff>輪迴舞踊<>：每放一個技能記一拍（最多<#ffb900ff>4拍<>），每拍攻擊力<#ffb900ff>+4%<>、攻速<#ffb900ff>+6%<>；<#ffb900ff>4秒<>沒再放技能就散。",
+        "skill": "四臂連擊兩下：前方扇形的敵人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<><#ff9028ff>物理傷害<>，第二下<#ef5350ff>減速25%<>；灰燼裡傷害<#ffb900ff>130%<>。",
+        "skill2": "跳起來帶著火往目標身上踢下去，落地時身邊的敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>102%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>；灰燼裡傷害<#ffb900ff>130%<>。",
+        "ult": "手指插進胸口壓心臟、全身燃燒（不受控制、受到的傷害降低<#ffb900ff>40%<>），<#ffb900ff>8秒<>輪迴舞踊·灰燼：攻擊力<#ffb900ff>+35%<>、攻速<#ffb900ff>+40%<>、移速<#ffb900ff>+15%<>；結束時一記大切炎舞（旋身帶火的腳跟踢），前方扇形的敵人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。"
+      },
+      "ragnarok_buddha": {
+        "name": "釋迦",
+        "attack": "六道棍一擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>未來視<>：普攻和槍刃時看穿接下來的招（每<#ffb900ff>8秒<>一次），<#ffb900ff>1.5秒<>裡普攻打不疼他。",
+        "skill": "六道棍化作十二天斧（長戟）橫掃：前方扇形的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理傷害<>，<#ef5350ff>護甲降低25%<>，持續<#ffb900ff>4秒<>。",
+        "skill2": "看見要挨的打，六道棍化作七難即滅之盾：<#e8d44dff>護盾100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制。盾收起時蓮光綻開，身邊的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>。",
+        "ult": "與零福的靈魂煉出大圓寂刀·零，天眼妙覺大涅槃斬（斬中前不受控制、受到的傷害降低<#ffb900ff>40%<>）一刀斬下：前方扇形的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>加目標最大生命<#ff9028ff>8%<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.83秒<>。"
+      },
+      "ragnarok_zerofuku": {
+        "name": "零福",
+        "attack": "零福斧爻橫砍、波旬臂刃橫斬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>不幸<>：零福打中的敵人<#ffb900ff>4秒<>裡受到的傷害<#ffb900ff>+8%<>。<#ff9028ff>吞噬<>：波旬<#ffb900ff>吸血8%<>。",
+        "skill": "零福：斧爻吸了不幸變大後落下，前方的敵人受到<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>，掛上不幸。波旬（魔廻天衝）：右臂擰成黑鑽頭射出去，一條線上的敵人受到<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。",
+        "skill2": "零福（斧爻嵐陣）：斧爻炸成<#ffb900ff>3把<>追人的黑刃，各追一個敵人：每把<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，掛上不幸。波旬：單臂化刃從上砸下，前方的敵人受到<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。",
+        "ult": "被暗繭吞沒（不受控制、減傷<#ffb900ff>40%<>），波旬破繭而出：回復<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>生命，這條命攻擊力<#ffb900ff>+15%<>、攻速<#ffb900ff>+15%<>、移速<#ffb900ff>+5%<>、雙抗<#ffb900ff>+10<>。再放是灼（扯下左臂化大劍劈下）：一線的敵人受到<#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>145%<>加最大生命<#ff9028ff>6%<>的<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<>。"
+      },
+      "ragnarok_hades": {
+        "name": "黑帝斯",
+        "attack": "雙叉槍直刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>伊柯爾<>：放完技能後<#ffb900ff>3秒<>內，下一次普攻額外造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。",
+        "skill": "冥府的鐵錘：跳起來往下刺，落槍處地面炸開，周圍的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速25%<>（<#ffb900ff>1秒<>）；甩出的風刃再讓前方一條線上的敵人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<><#ff9028ff>物理傷害<>。",
+        "skill2": "大地崩碎者：滑著槍桿往下劈，砸進身前的地面，那一圈的敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.5秒<>。",
+        "ult": "挖開胸口用神血把雙叉槍鍛成宿命之四血槍（伊柯爾·德斯莫斯；不受控制、減傷<#ffb900ff>30%<>），血之引導曙光：朝目標直線突刺，穿過的敵人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>加最大生命<#ff9028ff>8%<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。"
+      },
+      "ragnarok_qin": {
+        "name": "秦始皇",
+        "attack": "金指爪抓擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>星<>：被他的技能打中的敵人露出破綻，<#ffb900ff>3秒<>內受到的傷害<#ffb900ff>+10%<>。",
+        "skill": "對著目標的「星」吹一口看不見的氣：造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，<#ef5350ff>打斷0.4秒<>，<#ffb900ff>3秒<>內攻擊力和法強降低<#ffb900ff>25%<>。",
+        "skill2": "舉起神羅鎧袖（<#ffb900ff>1秒<>內減傷<#ffb900ff>40%<>、不受控制），身邊的友方英雄獲得<#e8d44dff>護盾80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>；接著把力推回去，前方的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.67秒<>。",
+        "ult": "拔出始皇勾踐劍（不受控制、減傷<#ffb900ff>40%<>），把這時挨的打存進劍裡，斬中時還回去（最多<#ffb900ff>25%<>最大生命）：前方大扇形的敵人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.83秒<>。"
+      },
+      "ragnarok_beelzebub": {
+        "name": "別西卜",
+        "attack": "振動掌，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>加<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>。<#ff9028ff>惡魔的振翅<>：被他的技能打中的敵人<#ffb900ff>4秒<>內魔抗<#ffb900ff>-20%<>。",
+        "skill": "骸骨杖放出振動波，一條線上的敵人受到<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>並<#ef5350ff>減速30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "展開振動屏障：<#e8d44dff>護盾80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>（<#ffb900ff>2.5秒<>），<#ffb900ff>1秒<>不受控制；隨後屏障震開，身邊的敵人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>減速30%<>。",
+        "ult": "壓縮出虛神的黑核（不受控制、減傷<#ffb900ff>30%<>），把身邊的敵人往裡拉，再爆發：周圍的敵人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩0.83秒<>；他自己也被反噬，失去<#ffb900ff>6%<>最大生命。"
+      },
+      "ragnarok_tesla": {
+        "name": "尼古拉·特斯拉",
+        "attack": "機甲重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>等離子脈衝<>：每一拳額外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。",
+        "skill": "特斯拉步衝向目標，撞上的敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速30%<>；眾神的監獄還在時改為特斯拉躍遷（瞬移到目標身上），造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.5秒<>。",
+        "skill2": "在目標那裡展開眾神的監獄（格瑪特利亞領域），裡面的敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>減速35%<>（<#ffb900ff>3秒<>）；這段時間特斯拉步變成瞬移。",
+        "ult": "等離子脈衝拳·交叉（不受控制、減傷<#ffb900ff>30%<>）：第一拳造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.5秒<>；右臂躍遷到對手身後，第二拳打出一道電光，線上的敵人受到<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.75秒<>。"
+      },
+      "ragnarok_leonidas": {
+        "name": "列奧尼達斯",
+        "attack": "盾擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>方陣<>：每放一個技能，身邊的友方英雄（含自己）<#ffb900ff>3秒<>內護甲和魔抗<#e8d44dff>+15<>。",
+        "skill": "方陣·恩科斯：連著鋼鏈把盾遠遠甩出去砸向目標，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>、<#ef5350ff>減速30%<>。",
+        "skill2": "舉盾<#ffb900ff>2.5秒<>：身邊的友方英雄受到的傷害降低<#e8d44dff>20%<>，他自己再降低<#e8d44dff>15%<>，攻擊他的敵人受到<#ffb900ff>25%<>反傷，身邊的敵人被<#ef5350ff>嘲諷1秒<>。",
+        "ult": "外殼剝落成刻著Λ的真實之盾，盾在前直線衝鋒（不受控制、減傷<#ffb900ff>40%<>），撞上時身邊的敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.83秒<>。"
+      },
+      "ragnarok_apollo": {
+        "name": "阿波羅",
+        "attack": "光絲化作拳套出拳（光輝豎琴），造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>白夜的擁抱<>：「我這顆太陽不會落下」，身邊每有一個英雄（敵我都算，最多<#ffb900ff>5個<>），他的傷害提高<#ffb900ff>8%<>。",
+        "skill": "阿耳忒彌斯之絲綁住目標的手臂，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並<#ef5350ff>定身1秒<>。",
+        "skill2": "影子裡升起阿耳忒彌斯，光絲變成金弓，光速的箭追著目標飛去，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>。",
+        "ult": "女神像把弓變成兩手間的繩，他像彈弓一樣把自己當作銀矢射向目標（不受控制、減傷<#ffb900ff>30%<>），撞上的敵人受到<#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.5秒<>。"
+      },
+      "ragnarok_okita": {
+        "name": "沖田總司",
+        "attack": "一刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>劍之刻<>：刀把他一生的劍技壓進一刻，每放一個技能，<#ffb900ff>3秒<>內攻速提高<#ffb900ff>30%<>。",
+        "skill": "神速三刺，每刺對前方敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，第三刺再加<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。",
+        "skill2": "變成鬼子：<#ffb900ff>5秒<>內攻擊力提高<#ffb900ff>25%<>、攻速提高<#ffb900ff>40%<>、移速提高<#ffb900ff>20%<>。",
+        "ult": "極快地突進（不受控制），連刺三下，每刺一道真空刃飛出、刺到刀夠不到的地方：一條線上的敵人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>，第三刺再加目標<#ffb900ff>8%<>最大生命。"
+      },
+      "ragnarok_susanoo": {
+        "name": "須佐之男",
+        "attack": "一刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>天魔反·無間<>：每第三刀不蓄力地帶出一道真空刃，一條線上的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>。",
+        "skill": "擺出天魔反的架勢揮刀，月牙真空刃飛出，一條線上的敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>，身前的敵人再受<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>（越遠越弱）。",
+        "skill2": "擺出正眼構：普攻打不疼他、技能傷害降低<#ffb900ff>40%<>；隨後回敬一刀，前方敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>。",
+        "ult": "空手揮出看不見的劍（不受控制），只砍骨頭：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>加目標<#ffb900ff>8%<>最大生命的<#ffffffff>真實傷害<>，<#ef5350ff>3秒<>內緩速、攻擊力降低；每揮一次自損<#ffb900ff>5%<>最大生命。"
+      },
+      "ragnarok_simo": {
+        "name": "西蒙·海耶",
+        "attack": "莫辛-納干一槍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>死神的契約<>：技能射出的是器官換來的弒神彈，每發先付<#ffb900ff>3%<>最大生命（不會因此陣亡）。",
+        "skill": "對神狙擊術，三發輪流：萬花繚亂半空炸開，扇形內<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>；天穿白鳥貫穿一列，<#ff9028ff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>；精靈的氣息神速一槍，<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>。",
+        "skill2": "揚起雪幕往後一躍，<#ffb900ff>隱身1.25秒<>，移速提高<#ffb900ff>30%<>（落雪蓋住腳印）。",
+        "ult": "最快最強的一發，造成<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>230%<>加目標<#ffb900ff>10%<>最大生命的<#ff9028ff>物理傷害<>。"
+      },
+      "ragnarok_loki": {
+        "name": "洛基",
+        "attack": "彈出幻刃，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>虛偽之神影<>：滿力的分身照著他出招，鎖鏈鉤打中的敵人再挨分身一鉤，<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。",
+        "skill": "掌心開門甩出鉤刃，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>140%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。",
+        "skill2": "黑霧裡造出複製體留在原地，自己和遠處的複製體換位，<#ffb900ff>隱身1.5秒<>，移速提高<#ffb900ff>25%<>。",
+        "ult": "目標周圍冒出複製來的神兵大軍（不受控制），<#ffb900ff>4輪<>各造成<#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。"
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "橫掃",
+        "skill2": "壓戟突刺",
+        "ult": "天喰"
+      },
+      "ragnarok_thor": {
+        "skill1": "鬥神之雷槌",
+        "skill2": "鐵手套",
+        "ult": "覺醒雷槌"
+      },
+      "ragnarok_zeus": {
+        "skill1": "黃昏流星群",
+        "skill2": "超越時間之拳",
+        "ult": "阿陀磨須"
+      },
+      "ragnarok_adam": {
+        "skill1": "神虛視",
+        "skill2": "復刻·黃昏流星群",
+        "ult": "超越時間之拳"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "怒濤·安菲特里忒",
+        "skill2": "降臨荒海的神雷",
+        "ult": "四十晝夜的大洪水"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "燕返",
+        "skill2": "萬手無雙",
+        "ult": "雙燕斬虎萬刃撩亂"
+      },
+      "ragnarok_heracles": {
+        "skill1": "涅墨亞之獅",
+        "skill2": "克里特公牛",
+        "ult": "刻耳柏洛斯"
+      },
+      "ragnarok_jack": {
+        "skill1": "飛刀扇",
+        "skill2": "神器之傘",
+        "ult": "親愛的神"
+      },
+      "ragnarok_raiden": {
+        "skill1": "連掌",
+        "skill2": "獅子舞",
+        "ult": "八咫烏"
+      },
+      "ragnarok_shiva": {
+        "skill1": "四臂連擊",
+        "skill2": "虎爪炎舞",
+        "ult": "輪迴舞踊·灰燼"
+      },
+      "ragnarok_buddha": {
+        "skill1": "十二天斧",
+        "skill2": "七難即滅之盾",
+        "ult": "大圓寂刀·零"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "斧爻／魔廻天衝",
+        "skill2": "斧爻嵐陣／魔刃碎擊",
+        "ult": "破繭／灼"
+      },
+      "ragnarok_hades": {
+        "skill1": "冥府的鐵錘",
+        "skill2": "大地崩碎者",
+        "ult": "血之引導曙光"
+      },
+      "ragnarok_qin": {
+        "skill1": "蚩尤弩式·波流龜",
+        "skill2": "神羅鎧袖·承力天鳳",
+        "ult": "始皇承力燕斬"
+      },
+      "ragnarok_beelzebub": {
+        "skill1": "暴食的墮天使",
+        "skill2": "地獄之門扉",
+        "ult": "虛神（卡俄斯）"
+      },
+      "ragnarok_tesla": {
+        "skill1": "特斯拉步",
+        "skill2": "眾神的監獄",
+        "ult": "等離子脈衝拳·交叉"
+      },
+      "ragnarok_leonidas": {
+        "skill1": "方陣·恩科斯",
+        "skill2": "舉盾",
+        "ult": "方陣·蘭布達"
+      },
+      "ragnarok_apollo": {
+        "skill1": "光輝的支配",
+        "skill2": "阿耳忒彌斯的月影",
+        "ult": "射穿靈魂的銀矢"
+      },
+      "ragnarok_okita": {
+        "skill1": "三段突",
+        "skill2": "鬼子",
+        "ult": "天翔散段突"
+      },
+      "ragnarok_susanoo": {
+        "skill1": "天魔反",
+        "skill2": "神羅八百萬",
+        "ult": "無裝劍"
+      },
+      "ragnarok_simo": {
+        "skill1": "對神狙擊術",
+        "skill2": "雪中隱蹤",
+        "ult": "天空的殘光"
+      },
+      "ragnarok_loki": {
+        "skill1": "鎖鏈鉤",
+        "skill2": "欺瞞之種·回生之門",
+        "ult": "道化師之環"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "Lu Bu",
+        "attack": "Swings the Sky Piercer for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Shield Breaker<>: ignores <#ffb900ff>15%<> armor; deals <#ffb900ff>100%<> more damage to shields, and breaking a shield deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> more physical damage.",
+        "skill": "Sweeps the halberd through a cone in front, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<> and slowing by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Pins the foe's weapon with the halberd and thrusts on through: enemies in his path take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>rooted for 0.6s<>.",
+        "ult": "Rides Red Hare at the target (unstoppable, taking <#ffb900ff>30%<> less damage) and, gripping the halberd's end, cuts the sky from horseback: enemies on the line take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.8s<>."
+      },
+      "ragnarok_thor": {
+        "name": "Thor",
+        "attack": "Strikes with Mjolnir for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Mjolnir Awakening<>: every <#ffb900ff>third<> skill cast awakens Mjolnir for <#ffb900ff>6s<>: his attacks add <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<> <#a974ffff>magic damage<> and Thor's Hammer <#ef5350ff>stuns for 1.1s<>.",
+        "skill": "Lightning in his left arm, both hands raise the hammer and bring it down: after <#ffb900ff>0.43s<> lightning bursts through the ground ahead, dealing <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>physical damage<> and the shockwave <#ef5350ff>knocks them up for 0.7s<> (<#ef5350ff>1.1s<> awakened).",
+        "skill2": "Raises Járngreipr, his iron gauntlets (heaven's strongest defence), for <#ffb900ff>0.3s<>: every basic attack is blocked and skill damage is reduced by <#ffb900ff>70%<>; raising them grants a <#e8d44dff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>90%<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
+        "ult": "Mjolnir awakens for <#ffb900ff>8s<> and is hurled at the target, returning like a boomerang: enemies passed both ways take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> <#ff9028ff>physical damage<> and are slowed by <#ffb900ff>40%<>. The catch turns its speed and spin into one blow ahead: <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<> <#ff9028ff>physical damage<> and <#ef5350ff>knocked up for 1.5s<>. Unstoppable, taking <#ffb900ff>45%<> less damage."
+      },
+      "ragnarok_zeus": {
+        "name": "Zeus",
+        "attack": "A quick jab for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Muscle Expansion<>: after <#ffb900ff>3 punches<> as the old man, his next one swells him up instead (<#ffb900ff>1.02s<>, unstoppable), shaking nearby enemies for <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and slowing by <#ffb900ff>30%<>; swollen, he gains <#ffb900ff>25%<> attack and <#ffb900ff>35%<> armor and magic resistance.",
+        "skill": "Seven jabs that speed up with every punch, each <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>19%<> <#ff9028ff>physical damage<>; swollen or as Adamas, two heavy punches of <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>, the second <#ef5350ff>slowing 40%<> for <#ffb900ff>1s<> (swollen) or <#ef5350ff>stunning for 0.6s<> (Adamas).",
+        "skill2": "A punch faster than time: the blow lands before he throws it, <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> and a <#ef5350ff>0.5s stun<> (<#ef5350ff>0.9s<> as Adamas).",
+        "ult": "Presses his swollen muscles down for <#ffb900ff>1.03s<> (the old man swells first; unstoppable, taking <#ffb900ff>50%<> less damage), then blasts nearby enemies for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking them up for 0.7s<>, and fights as Adamas for <#ffb900ff>10s<>: +<#ffb900ff>45%<> attack, +<#ffb900ff>60%<> armor and magic resistance, +<#ffb900ff>30%<> attack speed, <#ffb900ff>25%<> lifesteal. Then he is old again."
+      },
+      "ragnarok_adam": {
+        "name": "Adam",
+        "attack": "A quick jab for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>God Reader<> remembers a move it has read (<#ffb900ff>5s<>); with one remembered, <#ff9028ff>Mimic Counter<> copies it.",
+        "skill": "Opens his God Reader eyes and slips aside: for <#ffb900ff>2.5s<> basic attacks miss him and skills deal <#ffb900ff>50%<> less damage; he remembers a move.",
+        "skill2": "A counter with Zeus's own Meteor Jab for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. With a remembered move he copies it: <#ff9028ff>60<> more plus <#ffb900ff>8%<> of the target's max health and a <#ef5350ff>1s stun<>, using the move up.",
+        "ult": "The punch he copied from Zeus: winds up for <#ffb900ff>0.43s<> (unstoppable, taking <#ffb900ff>50%<> less damage), then drives a blast at the target that deals <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<> to enemies in its path and <#ef5350ff>knocks them up for 0.8s<>."
+      },
+      "ragnarok_poseidon": {
+        "name": "Poseidon",
+        "attack": "A level trident thrust for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>A God Needs No One<>: with no allied champion near him he gains <#ffb900ff>15%<> attack and takes <#ffb900ff>10%<> less damage.",
+        "skill": "Wrathful waves of spiralling thrusts that track the target: <#ffb900ff>4 times<>, each dealing <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> to enemies in a cone ahead.",
+        "skill2": "Leaps forward and thrusts rain down like a thunderstorm, three times: enemies at the target's feet take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>78%<> <#ff9028ff>physical damage<> each time, the third <#ef5350ff>stunning for 0.7s<>.",
+        "ult": "Gathers himself for <#ffb900ff>0.38s<> (taking <#ffb900ff>30%<> less damage), then a flood of trident images rings the target for <#ffb900ff>6 rounds<> of thrusts, each dealing <#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>physical damage<> around it; the first <#ef5350ff>roots for 0.75s<>."
+      },
+      "ragnarok_kojiro": {
+        "name": "Sasaki Kojiro",
+        "attack": "A long-sword cut for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Senju Muso<>: each hit on an enemy champion learns one of his moves (up to <#ffb900ff>8<> a foe); every move learned adds <#ffb900ff>3%<> to Kojiro's damage against him. Forgotten when Kojiro dies.",
+        "skill": "Cuts down through a cone ahead for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, then turns the blade back up for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and a <#ef5350ff>35% slow<>.",
+        "skill2": "Reads the flow of the air and the shaking of the ground, even a god's moves, and steps aside: for <#ffb900ff>2.5s<> he takes <#ffb900ff>30%<> less damage and attacks <#ffb900ff>50%<> faster.",
+        "ult": "His broken blade reforged as a long and a short sword: a double cut for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, then a cross for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<> that <#ef5350ff>stuns for 0.6s<>. For <#ffb900ff>8s<> after, Niten Ganryu: <#ffb900ff>30%<> attack speed and a second cut of <#ffb900ff>40%<> on every attack."
+      },
+      "ragnarok_heracles": {
+        "name": "Heracles",
+        "attack": "A blow of the club for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Brand of the Twelve Labors<>: every skill spreads the brand one step (the ultimate two, up to <#ffb900ff>12<>), each step <#ffb900ff>+1%<> attack and <#ffb900ff>+2<> armour and magic resistance. It fades when he dies.",
+        "skill": "Thrusts the club and a lion's head charges out: enemies in a cone take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>. Cerberus form: a fist into the ground ahead for <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking up<>.",
+        "skill2": "Slams the club down: enemies before him take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.75s<>. Cerberus form: he is on the target in an instant and leaves three huge claw marks: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and <#ef5350ff>30% slow<>.",
+        "ult": "Makes his pact with the hound of Hades, Cerberus form for <#ffb900ff>8s<>: <#ffb900ff>+40%<> attack, <#ffb900ff>+50%<> attack speed, <#ffb900ff>+15%<> move speed, <#ffb900ff>20%<> less damage taken, <#ffb900ff>15%<> life steal. At its end Apheris Heros, the Great Hero's Fist, into the ground: <#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<> around him, <#ef5350ff>knocking up<>."
+      },
+      "ragnarok_jack": {
+        "name": "Jack the Ripper",
+        "attack": "Throws a knife for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Colours of the Heart<>: he sees the colour of every heart, and fear does not hide - <#ffb900ff>+30%<> damage to enemy champions below <#ffb900ff>50%<> health.",
+        "skill": "Throws a fan of knives: enemies in a cone take <#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 25%<>.",
+        "skill2": "Spins an umbrella his gloves made divine to parry: while it spins basic attacks cannot hurt him and the rest deals <#ffb900ff>40%<> less; then he hops back.",
+        "ult": "Presses his wound until the blood soaks his gloves (losing <#ffb900ff>5%<> max health) - the blood turns divine too. Feigning a fall, he lunges at the target and drives both hands into its chest for <#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>260%<> <#ff9028ff>physical damage<>."
+      },
+      "ragnarok_raiden": {
+        "name": "Raiden Tameemon",
+        "attack": "An open-hand thrust for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Hundred Seals Broken<>: the first Yatagarasu of each life begins by breaking his Hundred Seals, unbinding the muscles he held back all his life (<#ffb900ff>0.92s<>, unstoppable, <#ffb900ff>50%<> less damage); for the rest of the life <#ffb900ff>+20%<> attack, <#ffb900ff>+20<> armour and magic resistance, <#ffb900ff>+20%<> attack speed.",
+        "skill": "Two palm thrusts: the first for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, the second for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> that <#ef5350ff>staggers for 0.67s<> and <#ef5350ff>slows 30%<>.",
+        "skill2": "Handstand, then he falls forward and stamps down with both soles: enemies in front take <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.67s<>; the aftershock <#ef5350ff>slows 30%<> a wider ring.",
+        "ult": "Shifts his muscle into his legs and closes in at once (unstoppable, <#ffb900ff>40%<> less damage) and thrusts one palm: enemies in a cone take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.75s<> by the shockwave."
+      },
+      "ragnarok_shiva": {
+        "name": "Shiva",
+        "attack": "A four-armed sweep for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; in Tandava Karma a whip of fire for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>. <#ff9028ff>Tandava<>: every skill is a beat (up to <#ffb900ff>4<>), each <#ffb900ff>+4%<> attack and <#ffb900ff>+6%<> attack speed; the beats fade after <#ffb900ff>4s<> without a skill.",
+        "skill": "Two strikes of his four arms: enemies in a cone take <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> and <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> <#ff9028ff>physical damage<>, the second <#ef5350ff>slowing 25%<>; in Tandava Karma <#ffb900ff>130%<> damage.",
+        "skill2": "Krittivasa: leaps onto the target in a flaming downward kick; where he lands, enemies around him take <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>102%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>; in Tandava Karma <#ffb900ff>130%<> damage.",
+        "ult": "Digs his fingers into his chest to pump his heart and burns (unstoppable, <#ffb900ff>40%<> less damage): Tandava Karma for <#ffb900ff>8s<>, <#ffb900ff>+35%<> attack, <#ffb900ff>+40%<> attack speed, <#ffb900ff>+15%<> move speed; at its end Deva Loka, a spinning flaming heel kick, for <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<> in a cone, <#ef5350ff>knocking up<>."
+      },
+      "ragnarok_buddha": {
+        "name": "Buddha",
+        "attack": "A blow of the Six Realms Staff for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Future Sight<>: on an attack or Spear Blade he reads the blows to come (once every <#ffb900ff>8s<>): for <#ffb900ff>1.5s<> basic attacks cannot hurt him.",
+        "skill": "The staff becomes the Twelve Devas Axe, a long halberd, for one sweep: enemies in a cone take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>physical damage<> and lose <#ef5350ff>25% armour<> for <#ffb900ff>4s<>.",
+        "skill2": "He sees the blow coming and the staff becomes the Shield of Ahimsa: a <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>, unstoppable for <#ffb900ff>1s<>. When it is lowered a lotus blooms: enemies around him take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>.",
+        "ult": "Forges the Great Nirvana Sword Zero with Zerofuku's soul and cuts the Mahabali Nirvana (unstoppable and <#ffb900ff>40%<> less damage until it lands) and cuts: enemies in a cone take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> plus <#ff9028ff>8%<> of their maximum health as <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.83s<>."
+      },
+      "ragnarok_zerofuku": {
+        "name": "Zerofuku",
+        "attack": "Zerofuku hews with the Misery Cleaver, Hajun with his arm blade: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Misfortune<>: enemies Zerofuku hits take <#ffb900ff>8%<> more damage for <#ffb900ff>4s<>. <#ff9028ff>Devour<>: Hajun has <#ffb900ff>8% life steal<>.",
+        "skill": "Zerofuku: the cleaver drinks misfortune, grows and falls: enemies in front take <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>, are <#ef5350ff>slowed 30%<> and gain Misfortune. Hajun (Heaven-Piercing Demon Drill): his right arm twists into a black drill he fires: enemies on the line take <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>.",
+        "skill2": "Zerofuku (Misery Cleaver Storm): the cleaver bursts into <#ffb900ff>3<> black blades that each hunt an enemy for <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and Misfortune. Hajun: an arm becomes a heavy blade and crushes down: enemies in front take <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.75s<>.",
+        "ult": "Zerofuku is swallowed by a cocoon (unstoppable, <#ffb900ff>40%<> less damage) and Hajun breaks out: heals <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, and for this life <#ffb900ff>+15%<> attack, <#ffb900ff>+15%<> attack speed, <#ffb900ff>+5%<> speed, <#ffb900ff>+10<> armour and magic resist. Again: Arataka, his torn-off arm as a greatsword: a line takes <#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>145%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<>."
+      },
+      "ragnarok_hades": {
+        "name": "Hades",
+        "attack": "A thrust of the bident: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Ichor<>: for <#ffb900ff>3s<> after a skill, his next attack deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> more <#ff9028ff>physical damage<>.",
+        "skill": "Persephone Kallichore: he leaps and drives the bident down; the ground bursts: enemies around take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 25%<> for <#ffb900ff>1s<>, and the flung wind blade deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ff9028ff>physical damage<> along a line ahead.",
+        "skill2": "Persephone Titan: sliding his grip down the shaft he smashes the ground before him: enemies in the circle take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.5s<>.",
+        "ult": "He tears open his chest and forges the bident into the Ichor Desmos with his own blood (unstoppable, <#ffb900ff>30%<> less damage); Ichor Eos thrusts straight through his target: enemies on the way take <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + <#ff9028ff>8%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.75s<>."
+      },
+      "ragnarok_qin": {
+        "name": "Qin Shi Huang",
+        "attack": "A strike of his golden claws: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Stars<>: enemies his skills hit show their weak points and take <#ffb900ff>10%<> more damage for <#ffb900ff>3s<>.",
+        "skill": "An unseen puff of breath at the target's star: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, a <#ef5350ff>0.4s stun<> and <#ffb900ff>25%<> less attack and ability power for <#ffb900ff>3s<>.",
+        "skill2": "He raises the Shinra Armor Sleeves (<#ffb900ff>40%<> less damage and unstoppable for <#ffb900ff>1s<>); allied champions around him gain a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#e8d44dff>shield<>. Then he turns the force back: enemies in front take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned for 0.67s<>.",
+        "ult": "He draws the Goujian sword (unstoppable, <#ffb900ff>40%<> less damage), stores the blows he takes in it (up to <#ffb900ff>25%<> max health) and returns them in the cut: enemies in a wide cone take <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.83s<>."
+      },
+      "ragnarok_beelzebub": {
+        "name": "Beelzebub",
+        "attack": "A vibrating palm: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> plus <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>. <#ff9028ff>Palmyra, Devil's Beating Wings<>: enemies his skills hit lose <#ffb900ff>20%<> magic resist for <#ffb900ff>4s<>.",
+        "skill": "His bone staff sends out a vibration wave: enemies on a line take <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed 30%<> for <#ffb900ff>1s<>.",
+        "skill2": "He raises a vibrating barrier: a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>, unstoppable for <#ffb900ff>1s<>. Then it shakes apart: enemies around him take <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed 30%<>.",
+        "ult": "He compresses the black core of the False God (unstoppable, <#ffb900ff>30%<> less damage), pulls nearby enemies in and bursts: enemies around him take <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> <#a974ffff>magic damage<> and are <#ef5350ff>stunned for 0.83s<>; it tears into him too, <#ffb900ff>6%<> of his max health."
+      },
+      "ragnarok_tesla": {
+        "name": "Nikola Tesla",
+        "attack": "A mech punch: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Plasma Pulse<>: every punch deals <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> more <#a974ffff>magic damage<>.",
+        "skill": "Tesla Step dashes at the target: enemies he hits take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 30%<>. While the Prison of the Gods stands, Tesla Warp puts him on the target instead: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> and a <#ef5350ff>0.5s stun<>.",
+        "skill2": "He raises the Prison of the Gods, the Gematria Zone, where the target stands: enemies inside take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and are <#ef5350ff>slowed 35%<> for <#ffb900ff>3s<>; meanwhile Tesla Step is Tesla Warp.",
+        "ult": "Plasma Pulse Punch Cross (unstoppable, <#ffb900ff>30%<> less damage): the first deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a <#ef5350ff>0.5s stun<>; his right arm warps behind the foe and the second fires a bolt: enemies on its line take <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.75s<>."
+      },
+      "ragnarok_leonidas": {
+        "name": "Leonidas",
+        "attack": "A shield bash: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Phalanx<>: each skill he casts gives allied champions near him (himself too) <#e8d44dff>+15<> armor and magic resist for <#ffb900ff>3s<>.",
+        "skill": "Phalanx Enchos: he hurls his shield far on its chain at the target: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, a <#ef5350ff>0.75s stun<> and a <#ef5350ff>30% slow<>.",
+        "skill2": "He raises his shield for <#ffb900ff>2.5s<>: allied champions near him take <#e8d44dff>20%<> less damage, he himself <#e8d44dff>15%<> less again, enemies hitting him take <#ffb900ff>25%<> back and enemies near him are <#ef5350ff>taunted for 1s<>.",
+        "ult": "Its casing falls away to Aletheia Sparta, the lambda-marked Shield of Truth, and he charges shield first (unstoppable, <#ffb900ff>40%<> less damage): on impact enemies around him take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.83s<>."
+      },
+      "ragnarok_apollo": {
+        "name": "Apollo",
+        "attack": "Phoebus Lyre, threads of light as boxing bracers: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>The Sun That Is Me Never Sets<>: every champion near him, friend or foe (up to <#ffb900ff>5<>), adds <#ffb900ff>8%<> to his damage.",
+        "skill": "He casts Artemis's Thread round the target: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and a <#ef5350ff>1s root<>.",
+        "skill2": "A bow of light forms and looses a homing arrow: <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<>.",
+        "ult": "Artemis's statue draws the cords of light and shoots him at the target as a silver arrow (unstoppable, <#ffb900ff>30%<> less damage): the enemy he strikes takes <#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<> <#ff9028ff>physical damage<> and a <#ef5350ff>0.5s stun<>."
+      },
+      "ragnarok_okita": {
+        "name": "Okita Soji",
+        "attack": "A cut: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Sword Time<>: his blade packs a life's swordsmanship into one moment; after each skill he attacks <#ffb900ff>30%<> faster for <#ffb900ff>3s<>.",
+        "skill": "Sandanzuki, three godspeed thrusts, each dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> in front of him, the third <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> more.",
+        "skill2": "Demon Child: for <#ffb900ff>5s<> he gains <#ffb900ff>25%<> attack, <#ffb900ff>40%<> attack speed and <#ffb900ff>20%<> move speed.",
+        "ult": "Tensho Sandanzuki: he lunges at blinding speed (unstoppable) and thrusts three times; each thrust sends a vacuum blade past the sword's reach, dealing <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> along a line, the third plus <#ffb900ff>8%<> of the target's max health."
+      },
+      "ragnarok_susanoo": {
+        "name": "Susanoo",
+        "attack": "A cut: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Ama no Magaeshi: Mugen<>: every third cut throws an uncharged vacuum blade, <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> along a line.",
+        "skill": "Ama no Magaeshi: from his strange stance he cuts the air into a crescent vacuum blade: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> along a line and <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more to enemies close in front, <#ff9028ff>physical damage<> (weaker with distance).",
+        "skill2": "Shinra Yaoyorozu: in a plain seigan stance basic attacks cannot hurt him and skills deal <#ffb900ff>40%<> less; then he answers: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> in front and a <#ef5350ff>0.75s stun<>.",
+        "ult": "Musoken: an unseen sword swung with empty hands (unstoppable) cuts only the bones: <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> plus <#ffb900ff>8%<> of max health as <#ffffffff>true damage<>, slowed and weakened for <#ef5350ff>3s<>; each swing costs him <#ffb900ff>5%<> max health."
+      },
+      "ragnarok_simo": {
+        "name": "Simo Häyhä",
+        "attack": "A Mosin-Nagant shot: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Reaper's Contract<>: his skills fire his organs as god-killing rounds, each costing <#ffb900ff>3%<> of his max health (never fatal).",
+        "skill": "Sniping Against the Gods, three rounds in turn: Ilmatar bursts mid-air over a wide cone for <#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>; Lemminkäinen pierces a line for <#ff9028ff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>; Mielikki, a 0.5 s shot, deals <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<>.",
+        "skill2": "He raises a veil of snow and leaps back, <#ffb900ff>invisible for 1.25s<> with <#ffb900ff>30%<> more move speed: the snow covers his tracks.",
+        "ult": "His fastest, strongest round: <#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>230%<> plus <#ffb900ff>10%<> of the target's max health as <#ff9028ff>physical damage<>."
+      },
+      "ragnarok_loki": {
+        "name": "Loki",
+        "attack": "A flicked phantom blade: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Hveðrung<>: his full-power double copies his moves; an enemy hit by his chained hook is hooked again for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>.",
+        "skill": "A hook lashes from the gate in his palm: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>140%<> <#a974ffff>magic damage<> and a <#ef5350ff>30% slow<>.",
+        "skill2": "Seed of Trickery: a copy rises from black mist where he stood, and Endurlífa swaps him with a copy further back: <#ffb900ff>invisible for 1.5s<>, <#ffb900ff>25%<> more move speed.",
+        "ult": "Heimskringla: an army of copied gods' weapons rises round the target (unstoppable while he casts), <#ffb900ff>4 waves<> of <#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<> <#a974ffff>magic damage<> and a <#ef5350ff>30% slow<>."
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "Sweep",
+        "skill2": "Pinning Thrust",
+        "ult": "Sky Eater"
+      },
+      "ragnarok_thor": {
+        "skill1": "Thor's Hammer",
+        "skill2": "Járngreipr",
+        "ult": "Geirröd Thor Hammer"
+      },
+      "ragnarok_zeus": {
+        "skill1": "Meteor Jab",
+        "skill2": "Fist That Transcends Time",
+        "ult": "Adamas"
+      },
+      "ragnarok_adam": {
+        "skill1": "Eyes of the Lord",
+        "skill2": "Copied Meteor Jab",
+        "ult": "Fist That Transcends Time"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "Amphitrite",
+        "skill2": "Chione Tyro Demeter",
+        "ult": "Flood of Forty Days and Nights"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "Swallow Return",
+        "skill2": "Manju Muso",
+        "ult": "Soen Zanko Manjin Ryoran"
+      },
+      "ragnarok_heracles": {
+        "skill1": "Nemean Lion",
+        "skill2": "Cretan Bull",
+        "ult": "Cerberus"
+      },
+      "ragnarok_jack": {
+        "skill1": "Knife Fan",
+        "skill2": "Divine Umbrella",
+        "ult": "Dear GOD"
+      },
+      "ragnarok_raiden": {
+        "skill1": "Tsuppari",
+        "skill2": "Shishimai",
+        "ult": "Yatagarasu"
+      },
+      "ragnarok_shiva": {
+        "skill1": "Four-Armed Flurry",
+        "skill2": "Krittivasa",
+        "ult": "Tandava Karma"
+      },
+      "ragnarok_buddha": {
+        "skill1": "Twelve Devas Axe",
+        "skill2": "Shield of Ahimsa",
+        "ult": "Great Nirvana Sword Zero"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "Misery Cleaver / Demon Drill",
+        "skill2": "Cleaver Storm / Demon Crush",
+        "ult": "Cocoon / Arataka"
+      },
+      "ragnarok_hades": {
+        "skill1": "Persephone Kallichore",
+        "skill2": "Persephone Titan",
+        "ult": "Ichor Eos"
+      },
+      "ragnarok_qin": {
+        "skill1": "Chiyou Crossbow: Drifting Tortoise",
+        "skill2": "Shinra Sleeves: Phoenix Reversal",
+        "ult": "First Emperor's Swallow Cut"
+      },
+      "ragnarok_beelzebub": {
+        "skill1": "Fallen Angel of Gluttony",
+        "skill2": "Gates of Hell",
+        "ult": "False God: Chaos"
+      },
+      "ragnarok_tesla": {
+        "skill1": "Tesla Step",
+        "skill2": "Prison of the Gods",
+        "ult": "Plasma Pulse Punch Cross"
+      },
+      "ragnarok_leonidas": {
+        "skill1": "Phalanx Enchos",
+        "skill2": "Raise Shield",
+        "ult": "Phalanx Lambda"
+      },
+      "ragnarok_apollo": {
+        "skill1": "Artemis Elenchos",
+        "skill2": "Moonlight of Artemis",
+        "ult": "Argyrotoxos"
+      },
+      "ragnarok_okita": {
+        "skill1": "Sandanzuki",
+        "skill2": "Demon Child",
+        "ult": "Tensho Sandanzuki"
+      },
+      "ragnarok_susanoo": {
+        "skill1": "Ama no Magaeshi",
+        "skill2": "Shinra Yaoyorozu",
+        "ult": "Musoken"
+      },
+      "ragnarok_simo": {
+        "skill1": "Sniping Against the Gods",
+        "skill2": "Snow Stealth",
+        "ult": "Ukonvasara"
+      },
+      "ragnarok_loki": {
+        "skill1": "Chained Hook",
+        "skill2": "Seed of Trickery",
+        "ult": "Heimskringla"
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "여포 봉선",
+        "attack": "방천화극으로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>방패 파괴자<>: 방어력 <#ffb900ff>15%<> 무시; 보호막에 주는 피해 <#ffb900ff>100%<> 증가, 보호막을 깨면 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해 추가.",
+        "skill": "방천화극으로 전방 부채꼴을 휩쓸어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>1.5초<> 동안 <#ffb900ff>40%<> 둔화.",
+        "skill2": "방천극으로 상대의 무기를 누르며 찔러 들어가: 경로의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.6초 속박<>.",
+        "ult": "적토마를 타고 대상에게 돌진해(군중 제어 면역, 받는 피해 <#ffb900ff>30%<> 감소) 말 위에서 하늘을 베는 천식: 직선 위의 적에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.8초 기절<>."
+      },
+      "ragnarok_thor": {
+        "name": "토르",
+        "attack": "묠니르로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>묠니르 각성<>: 스킬을 <#ffb900ff>3번<> 쓸 때마다 묠니르가 <#ffb900ff>6초<> 각성: 기본 공격에 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<> <#a974ffff>마법 피해<> 추가, 토르 해머 <#ef5350ff>기절 1.1초<>.",
+        "skill": "왼팔에 번개를 모아 두 손으로 망치를 내리쳐 <#ffb900ff>0.43초<> 뒤 번개가 앞쪽 땅에서 터진다: 적에게 <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<> <#ff9028ff>물리 피해<>와 충격파로 <#ef5350ff>0.7초 에어본<>(각성 시 <#ef5350ff>1.1초<>).",
+        "skill2": "강철 장갑 야른그레이프르(천계 최강의 방어)를 <#ffb900ff>0.3초<> 동안 앞으로 세운다: 기본 공격을 모두 막고 받는 스킬 피해 <#ffb900ff>70%<> 감소, 들어 올릴 때 <#e8d44dff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>90%<> <#e8d44dff>보호막<>(<#ffb900ff>2.5초<>).",
+        "ult": "묠니르가 즉시 <#ffb900ff>8초<> 각성하고 대상에게 던져져 부메랑처럼 돌아온다: 오가며 지나친 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>40%<> 둔화. 받아낸 속도와 원심력을 일격으로 바꿔 앞쪽을 내리친다: <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>1.5초 에어본<>. 그동안 군중 제어 면역, 받는 피해 <#ffb900ff>45%<> 감소."
+      },
+      "ragnarok_zeus": {
+        "name": "제우스",
+        "attack": "빠른 잽으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>근육 팽창<>: 노인 상태로 <#ffb900ff>3번<> 때리면 다음 주먹 대신 팽창(<#ffb900ff>1.02초<>, 군중 제어 면역)하고, 끝날 때 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>30%<> 둔화; 팽창 후 공격력 +<#ffb900ff>25%<>, 방어력·마법 저항력 +<#ffb900ff>35%<>.",
+        "skill": "점점 빨라지는 잽 일곱 번, 각 <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>19%<> <#ff9028ff>물리 피해<>; 팽창·아다마스 상태면 강타 두 번 각 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>, 두 번째가 팽창이면 <#ffb900ff>1초<> <#ffb900ff>40%<> 둔화, 아다마스면 <#ef5350ff>0.6초 기절<>.",
+        "skill2": "시간보다 빠른 주먹: 주먹을 뻗기 전에 이미 맞는다. <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 기절<>(아다마스 <#ef5350ff>0.9초<>).",
+        "ult": "팽창한 근육을 <#ffb900ff>1.03초<> 동안 압축(노인 상태면 먼저 팽창; 군중 제어 면역, 받는 피해 <#ffb900ff>50%<> 감소)한 뒤 주변 적을 날린다: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.7초 에어본<>, <#ffb900ff>10초<> 동안 아다마스: 공격력 +<#ffb900ff>45%<>, 방어·마저 +<#ffb900ff>60%<>, 공격 속도 +<#ffb900ff>30%<>, 생명력 흡수 <#ffb900ff>25%<>. 끝나면 노인으로 돌아온다."
+      },
+      "ragnarok_adam": {
+        "name": "아담",
+        "attack": "빠른 잽으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>신허시<>로 읽은 기술은 <#ffb900ff>5초<> 동안 기억하며, 기억이 있으면 <#ff9028ff>모방 반격<>이 그 기술을 따라 한다.",
+        "skill": "신허시로 상대의 움직임을 읽고 피한다: <#ffb900ff>2.5초<> 동안 기본 공격이 모두 빗나가고 받는 스킬 피해 <#ffb900ff>50%<> 감소, 기술 하나를 기억한다.",
+        "skill2": "제우스의 황혼유성군을 따라 반격해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. 기억한 기술이 있으면 따라 해서 <#ff9028ff>60<>와 대상 최대 체력의 <#ffb900ff>8%<> 피해를 더하고 <#ef5350ff>1초 기절<>시키며 기억을 쓴다.",
+        "ult": "제우스에게서 배운 주먹: <#ffb900ff>0.43초<> 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 <#ffb900ff>50%<> 감소) 대상을 향해 주먹 기운을 날려 경로의 적에게 <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.8초 에어본<>."
+      },
+      "ragnarok_poseidon": {
+        "name": "포세이돈",
+        "attack": "삼지창 수평 찌르기로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>신은 기대지 않는다<>: 주변에 아군 챔피언이 없으면 공격력 <#ffb900ff>+15%<>, 받는 피해 <#ffb900ff>10%<> 감소.",
+        "skill": "대상을 쫓는 나선 연속 찌르기로 앞쪽으로 <#ffb900ff>4번<> 연속으로 찔러, 매번 앞쪽 부채꼴의 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "앞으로 뛰어올라 뇌우처럼 위에서 세 번 내리찔러, 대상 발밑의 적에게 매번 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>78%<> <#ff9028ff>물리 피해<>, 세 번째는 <#ef5350ff>0.7초 기절<>.",
+        "ult": "<#ffb900ff>0.38초<> 동안 힘을 모은 뒤(받는 피해 <#ffb900ff>30%<> 감소) 삼지창의 그림자가 홍수처럼 대상을 에워싸 <#ffb900ff>6번<> 찌르며, 매번 주변의 적에게 <#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>물리 피해<>, 첫 번째는 <#ef5350ff>0.75초 속박<>."
+      },
+      "ragnarok_kojiro": {
+        "name": "사사키 코지로",
+        "attack": "장검으로 베어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>센주무소<>: 적 챔피언을 맞힐 때마다 그 수를 하나 익혀(한 명당 최대 <#ffb900ff>8수<>) 그 적에게 주는 피해가 수마다 <#ffb900ff>+3%<>. 죽으면 처음부터.",
+        "skill": "앞쪽 부채꼴을 내려베어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 곧바로 칼날을 되돌려 올려베어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>35% 둔화<>.",
+        "skill2": "공기의 흐름과 땅의 떨림으로 신의 수까지 읽고 몸을 비켜 <#ffb900ff>2.5초<> 동안 받는 피해 <#ffb900ff>30%<> 감소, 공격 속도 <#ffb900ff>+50%<>.",
+        "ult": "부러진 장검을 장단 두 자루로 다시 벼려 쌍검으로 베어 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 엇갈려 베어 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.6초 기절<>. 이후 <#ffb900ff>8초<> 니텐간류: 공격 속도 <#ffb900ff>+30%<>, 평타마다 <#ffb900ff>40%<> 추가 베기."
+      },
+      "ragnarok_heracles": {
+        "name": "헤라클레스",
+        "attack": "곤봉으로 내려쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>열두 과업의 각인<>: 스킬을 쓸 때마다 각인이 한 칸 번진다(궁극기는 두 칸, 최대 <#ffb900ff>12칸<>). 칸마다 공격력 <#ffb900ff>+1%<>, 방어력과 마법 저항력 <#ffb900ff>+2<>. 죽으면 사라짐.",
+        "skill": "곤봉을 내지르자 사자 머리가 뛰쳐나가 앞쪽 부채꼴의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>. 케르베로스 형태: 땅을 내리찍는 주먹으로 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>에어본<>.",
+        "skill2": "곤봉으로 땅을 내리쳐 앞의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>. 케르베로스 형태: 순식간에 대상 앞으로 파고들어 거대한 발톱 자국 세 줄: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>.",
+        "ult": "명계의 문지기 개와 계약해 <#ffb900ff>8초<> 동안 케르베로스 형태: 공격력 <#ffb900ff>+40%<>, 공격 속도 <#ffb900ff>+50%<>, 이동 속도 <#ffb900ff>+15%<>, 받는 피해 <#ffb900ff>20%<> 감소, 흡혈 <#ffb900ff>15%<>. 끝날 때 대영웅의 주먹으로 땅을 내리찍어 주변에 <#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>에어본<>."
+      },
+      "ragnarok_jack": {
+        "name": "잭 더 리퍼",
+        "attack": "단검을 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>마음의 색<>: 사람의 마음이 색으로 보인다. 체력이 <#ffb900ff>50%<> 아래인 적 챔피언에게 피해 <#ffb900ff>+30%<>.",
+        "skill": "단검을 부채꼴로 던져 앞쪽 적에게 <#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>25% 둔화<>.",
+        "skill2": "장갑으로 신기가 된 우산을 돌려 막음: 도는 동안 기본 공격 피해를 받지 않고 나머지 피해 <#ffb900ff>40%<> 감소, 이어서 뒤로 뛰어 물러남.",
+        "ult": "상처를 눌러 장갑을 피로 적신다(최대 체력 <#ffb900ff>5%<> 소모): 피도 신기가 된다. 쓰러지는 척하다 대상에게 달려들어 두 손을 가슴에 꽂는다: <#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>260%<> <#ff9028ff>물리 피해<>."
+      },
+      "ragnarok_raiden": {
+        "name": "라이덴 타메에몬",
+        "attack": "손바닥으로 밀어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>백폐 해방<>: 목숨마다 첫 야타가라스 전에 백폐를 깨고 평생 억눌러 온 근육을 풀고(<#ffb900ff>0.92초<>, 저지 불가, 받는 피해 <#ffb900ff>50%<> 감소) 그 뒤로 공격력 <#ffb900ff>+20%<>, 방어력과 마법 저항력 <#ffb900ff>+20<>, 공격 속도 <#ffb900ff>+20%<>.",
+        "skill": "두 번 밀어치기: 첫 번째 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, 두 번째 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.67초 기절<>과 <#ef5350ff>30% 둔화<>.",
+        "skill2": "물구나무선 뒤 앞으로 넘어지며 두 발바닥으로 내리찍어 앞쪽 적에게 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.67초 기절<>, 여진이 더 넓은 범위를 <#ef5350ff>30% 둔화<>.",
+        "ult": "근육을 다리로 옮겨 단숨에 파고든 뒤(저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) 손바닥을 내질러 앞쪽 부채꼴의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 에어본<>."
+      },
+      "ragnarok_shiva": {
+        "name": "시바",
+        "attack": "네 팔로 휩쓸어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 회신 중에는 불의 채찍으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>. <#ff9028ff>윤회무용<>: 스킬마다 한 박자(최대 <#ffb900ff>4박<>), 박자마다 공격력 <#ffb900ff>+4%<>, 공격 속도 <#ffb900ff>+6%<>. <#ffb900ff>4초<> 동안 스킬이 없으면 흩어짐.",
+        "skill": "네 팔 연타 두 번: 앞쪽 부채꼴의 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>, <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> <#ff9028ff>물리 피해<>, 두 번째는 <#ef5350ff>25% 둔화<>. 회신 중 피해 <#ffb900ff>130%<>.",
+        "skill2": "불꽃 내려차기로 대상에게 뛰어들어 착지할 때 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>102%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>. 회신 중 피해 <#ffb900ff>130%<>.",
+        "ult": "가슴에 손가락을 찔러 심장을 태워(저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) <#ffb900ff>8초<> 동안 윤회무용·회신: 공격력 <#ffb900ff>+35%<>, 공격 속도 <#ffb900ff>+40%<>, 이동 속도 <#ffb900ff>+15%<>. 끝날 때 대절염무(불꽃 돌려차기)로 앞쪽 부채꼴에 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>에어본<>."
+      },
+      "ragnarok_buddha": {
+        "name": "석가",
+        "attack": "육도곤으로 쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>미래시<>: 기본 공격이나 창날 때 다음 수를 꿰뚫어 보고(<#ffb900ff>8초<>마다 한 번) <#ffb900ff>1.5초<> 동안 기본 공격에 피해를 받지 않음.",
+        "skill": "육도곤이 십이천부(긴 창도끼)로 변해 휩쓸어 앞쪽 부채꼴의 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>물리 피해<>, <#ffb900ff>4초<> 동안 <#ef5350ff>방어력 25% 감소<>.",
+        "skill2": "맞을 공격을 보고 육도곤이 칠난즉멸의 방패로 변함: <#e8d44dff>보호막 100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>(<#ffb900ff>2.5초<>), <#ffb900ff>1초<> 저지 불가. 방패를 거둘 때 연꽃이 피어 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>.",
+        "ult": "영복의 혼과 함께 대원적도·영을 벼려 천안묘각대열반참(베기 전까지 저지 불가, 받는 피해 <#ffb900ff>40%<> 감소) 내리벰: 앞쪽 부채꼴의 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> + 최대 체력 <#ff9028ff>8%<>의 <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 기절<>."
+      },
+      "ragnarok_zerofuku": {
+        "name": "제로후쿠",
+        "attack": "제로후쿠는 부효로, 파순은 팔날로 베어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>불행<>: 제로후쿠에게 맞은 적은 <#ffb900ff>4초<> 동안 받는 피해 <#ffb900ff>+8%<>. <#ff9028ff>탐식<>: 파순은 <#ffb900ff>생명력 흡수 8%<>.",
+        "skill": "제로후쿠: 불행을 빨아 커진 부효를 내려쳐 앞쪽 적에게 <#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>, <#ef5350ff>30% 둔화<>, 불행. 파순(마회천충): 오른팔을 검은 드릴로 꼬아 쏘아 일직선의 적에게 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>.",
+        "skill2": "제로후쿠(부효남진): 부효가 검은 칼날 <#ffb900ff>3개<>로 터져 각각 적을 쫓아 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 불행. 파순: 팔날로 내리찍어 앞쪽 적에게 <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>.",
+        "ult": "검은 고치에 삼켜진 뒤(저지 불가, 피해 <#ffb900ff>40%<> 감소) 파순이 깨어남: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 회복, 이번 목숨 동안 공격력 <#ffb900ff>+15%<>, 공속 <#ffb900ff>+15%<>, 이속 <#ffb900ff>+5%<>, 방어·마저 <#ffb900ff>+10<>. 파순이 다시 쓰면 작: 왼팔을 뜯어 대검으로 내리쳐 일직선의 적에게 <#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>145%<> + 최대 체력 <#ff9028ff>6%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>띄워 올림<>."
+      },
+      "ragnarok_hades": {
+        "name": "하데스",
+        "attack": "쌍지창으로 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>이코르<>: 스킬을 쓴 뒤 <#ffb900ff>3초<> 안에 다음 기본 공격이 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>를 더 줌.",
+        "skill": "명부의 철퇴: 뛰어올라 창을 내리꽂아 땅이 터지며 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>25% 둔화<>(<#ffb900ff>1초<>), 날아간 바람 칼날이 앞쪽 일직선의 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "대지를 부순 자: 창대를 미끄러뜨리며 앞쪽 땅을 내리찍어 그 원 안의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 띄워 올림<>.",
+        "ult": "가슴을 갈라 신의 피로 쌍지창을 이코르 데스모스로 벼려(저지 불가, 피해 <#ffb900ff>30%<> 감소) 피가 이끈 서광: 대상을 향해 일직선으로 찔러 지나간 적에게 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 최대 체력 <#ff9028ff>8%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>."
+      },
+      "ragnarok_qin": {
+        "name": "진시황",
+        "attack": "금빛 손톱으로 할퀴어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>별<>: 그의 스킬에 맞은 적은 약점이 드러나 <#ffb900ff>3초<> 동안 받는 피해 <#ffb900ff>+10%<>.",
+        "skill": "대상의 「별」에 보이지 않는 숨을 불어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.4초 기절<>, <#ffb900ff>3초<> 동안 공격력·주문력 <#ffb900ff>25%<> 감소.",
+        "skill2": "신라개수를 들어(<#ffb900ff>1초<> 동안 피해 <#ffb900ff>40%<> 감소, 저지 불가) 주변 아군 챔피언에게 <#e8d44dff>보호막 80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>. 이어 힘을 되돌려 앞쪽 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.67초 기절<>.",
+        "ult": "시황 구천검을 뽑아(저지 불가, 피해 <#ffb900ff>40%<> 감소) 받은 공격을 검에 담아(최대 체력 <#ffb900ff>25%<>까지) 벨 때 돌려줌: 넓은 부채꼴의 적에게 <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 띄워 올림<>."
+      },
+      "ragnarok_beelzebub": {
+        "name": "벨제붑",
+        "attack": "진동 장타로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<> + <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>. <#ff9028ff>악마의 날갯짓<>: 그의 스킬에 맞은 적은 <#ffb900ff>4초<> 동안 마법 저항력 <#ffb900ff>-20%<>.",
+        "skill": "해골 지팡이로 진동파를 쏘아 일직선의 적에게 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>와 <#ef5350ff>30% 둔화<>(<#ffb900ff>1초<>).",
+        "skill2": "진동 장벽을 펼쳐 <#e8d44dff>보호막 80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>(<#ffb900ff>2.5초<>), <#ffb900ff>1초<> 저지 불가. 이어 장벽이 흔들려 주변 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 <#ef5350ff>30% 둔화<>.",
+        "ult": "허신의 검은 핵을 압축해(저지 불가, 피해 <#ffb900ff>30%<> 감소) 주변 적을 끌어당긴 뒤 폭발: 주변 적에게 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.83초 기절<>. 자신도 반동으로 최대 체력 <#ffb900ff>6%<> 잃음."
+      },
+      "ragnarok_tesla": {
+        "name": "니콜라 테슬라",
+        "attack": "기갑 주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>플라스마 펄스<>: 주먹마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<> 추가.",
+        "skill": "테슬라 스텝으로 대상에게 돌진해 부딪힌 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>30% 둔화<>. 신들의 감옥이 있는 동안에는 테슬라 워프로 대상에게 순간이동해 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 기절<>.",
+        "skill2": "대상 위치에 신들의 감옥(게마트리아 존)을 펼쳐 안의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>35% 둔화<>(<#ffb900ff>3초<>). 그동안 테슬라 스텝이 순간이동이 됨.",
+        "ult": "플라스마 펄스 펀치 크로스(저지 불가, 피해 <#ffb900ff>30%<> 감소): 첫 주먹은 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 기절<>, 오른팔을 적 뒤로 워프시켜 둘째 주먹이 전광을 쏘아 일직선의 적에게 <#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 띄워 올림<>."
+      },
+      "ragnarok_leonidas": {
+        "name": "레오니다스",
+        "attack": "방패 강타로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>팔랑크스<>: 스킬을 쓸 때마다 주변 아군 챔피언(자신 포함)의 방어력과 마법 저항력 <#e8d44dff>+15<>(<#ffb900ff>3초<>).",
+        "skill": "사슬 달린 방패를 던져 대상에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 기절<>, <#ef5350ff>30% 둔화<>.",
+        "skill2": "방패를 <#ffb900ff>2.5초<> 들어 주변 아군 챔피언이 받는 피해 <#e8d44dff>20%<> 감소, 자신은 <#e8d44dff>15%<> 더 감소, 자신을 공격한 적은 <#ffb900ff>25%<> 반사 피해, 주변 적은 <#ef5350ff>1초 도발<>.",
+        "ult": "껍데기가 벗겨진 Λ의 진실의 방패를 앞세워 일직선으로 돌진(저지 불가, 피해 <#ffb900ff>40%<> 감소)해 부딪힐 때 주변 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 띄워 올림<>."
+      },
+      "ragnarok_apollo": {
+        "name": "아폴론",
+        "attack": "빛의 실로 만든 권갑(포이보스 라이어)으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>백야의 포옹<>: 주변 챔피언(아군·적군, 최대 <#ffb900ff>5명<>)마다 피해 <#ffb900ff>8%<> 증가.",
+        "skill": "아르테미스의 실로 대상을 묶어 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>1초 속박<>.",
+        "skill2": "빛의 활을 만들어 대상을 쫓는 빛의 화살을 쏴 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>.",
+        "ult": "여신상이 빛의 줄을 당겨 자신을 은빛 화살로 쏘아 보냄(저지 불가, 피해 <#ffb900ff>30%<> 감소). 부딪힌 적에게 <#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.5초 기절<>."
+      },
+      "ragnarok_okita": {
+        "name": "오키타 소지",
+        "attack": "한 칼에 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>검의 시간<>: 칼이 평생의 검술을 한순간에 담아, 스킬을 쓸 때마다 <#ffb900ff>3초<> 동안 공격 속도 <#ffb900ff>30%<> 증가.",
+        "skill": "신속의 세 번 찌르기, 찌를 때마다 앞의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 세 번째는 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가.",
+        "skill2": "귀자: <#ffb900ff>5초<> 동안 공격력 <#ffb900ff>25%<>, 공격 속도 <#ffb900ff>40%<>, 이동 속도 <#ffb900ff>20%<> 증가.",
+        "ult": "번개같이 돌진해(저지 불가) 세 번 찌른다. 찌를 때마다 진공의 칼날이 칼끝 너머로 날아가 일직선의 적에게 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>물리 피해<>, 세 번째는 대상 최대 체력의 <#ffb900ff>8%<> 추가."
+      },
+      "ragnarok_susanoo": {
+        "name": "스사노오",
+        "attack": "한 칼에 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>천마반·무간<>: 세 번째 칼마다 모으지 않은 진공 칼날이 날아가 한 줄의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>물리 피해<>.",
+        "skill": "천마반의 자세로 베어 초승달 진공 칼날을 날림: 한 줄의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>, 앞의 가까운 적은 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 <#ff9028ff>물리 피해<>(멀수록 약함).",
+        "skill2": "정안 자세: 기본 공격 피해를 받지 않고 스킬 피해 <#ffb900ff>40%<> 감소, 이어서 앞의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>.",
+        "ult": "빈손으로 보이지 않는 검을 휘둘러(저지 불가) 뼈만 벰: <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + 최대 체력 <#ffb900ff>8%<> <#ffffffff>고정 피해<>, <#ef5350ff>3초<> 둔화와 공격력 감소. 휘두를 때마다 최대 체력 <#ffb900ff>5%<> 소모."
+      },
+      "ragnarok_simo": {
+        "name": "시모 해위해",
+        "attack": "모신나강 사격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>사신의 계약<>: 스킬은 장기를 바꾼 신살의 탄환, 한 발마다 최대 체력의 <#ffb900ff>3%<>를 치름(죽지는 않음).",
+        "skill": "대신 저격술, 세 발을 차례로: 만화요란은 공중에서 터져 부채꼴에 <#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>, 천천백조는 한 줄을 꿰뚫어 <#ff9028ff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>, 정령의 숨결은 신속의 한 발로 <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "눈의 장막을 일으키며 뒤로 뛰어 <#ffb900ff>1.25초 은신<>, 이동 속도 <#ffb900ff>30%<> 증가(눈이 발자국을 덮음).",
+        "ult": "가장 빠르고 강한 한 발: <#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>230%<> + 대상 최대 체력의 <#ffb900ff>10%<> <#ff9028ff>물리 피해<>."
+      },
+      "ragnarok_loki": {
+        "name": "로키",
+        "attack": "환영 칼날을 튕겨 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>거짓된 신영<>: 전력의 분신이 따라 하여, 사슬 갈고리에 맞은 적에게 한 번 더 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>.",
+        "skill": "손바닥의 문에서 갈고리를 휘둘러 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>140%<> <#a974ffff>마법 피해<>와 <#ef5350ff>30% 둔화<>.",
+        "skill2": "검은 안개로 복제체를 남기고 먼 복제체와 자리를 바꿈: <#ffb900ff>1.5초 은신<>, 이동 속도 <#ffb900ff>25%<> 증가.",
+        "ult": "대상 주위에 복제한 신들의 무기 군세가 솟아(저지 불가) <#ffb900ff>4번<> 각 <#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<> <#a974ffff>마법 피해<>와 <#ef5350ff>30% 둔화<>."
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "휩쓸기",
+        "skill2": "누르기 찌르기",
+        "ult": "천식"
+      },
+      "ragnarok_thor": {
+        "skill1": "토르 해머",
+        "skill2": "야른그레이프르",
+        "ult": "게이르뢰드 토르 해머"
+      },
+      "ragnarok_zeus": {
+        "skill1": "황혼유성군",
+        "skill2": "시간을 넘어선 주먹",
+        "ult": "아다마스"
+      },
+      "ragnarok_adam": {
+        "skill1": "신허시",
+        "skill2": "복제·황혼유성군",
+        "ult": "시간을 넘어선 주먹"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "암피트리테",
+        "skill2": "거친 바다의 신뢰",
+        "ult": "사십 주야의 대홍수"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "츠바메가에시",
+        "skill2": "만주무소",
+        "ult": "쌍연참호만인요란"
+      },
+      "ragnarok_heracles": {
+        "skill1": "네메아의 사자",
+        "skill2": "크레타의 황소",
+        "ult": "케르베로스"
+      },
+      "ragnarok_jack": {
+        "skill1": "칼날 부채",
+        "skill2": "신기의 우산",
+        "ult": "디어 갓"
+      },
+      "ragnarok_raiden": {
+        "skill1": "연속 장타",
+        "skill2": "시시마이",
+        "ult": "야타가라스"
+      },
+      "ragnarok_shiva": {
+        "skill1": "네 팔 연타",
+        "skill2": "크리티바사",
+        "ult": "윤회무용·회신"
+      },
+      "ragnarok_buddha": {
+        "skill1": "십이천부",
+        "skill2": "칠난즉멸의 방패",
+        "ult": "대원적도·영"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "부효 / 마회천충",
+        "skill2": "부효남진 / 마인 쇄격",
+        "ult": "파견 / 작"
+      },
+      "ragnarok_hades": {
+        "skill1": "명부의 철퇴",
+        "skill2": "대지를 부순 자",
+        "ult": "피가 이끈 서광"
+      },
+      "ragnarok_qin": {
+        "skill1": "치우노식·파류귀",
+        "skill2": "신라개수·승력천봉",
+        "ult": "시황 승력연참"
+      },
+      "ragnarok_beelzebub": {
+        "skill1": "폭식의 타천사",
+        "skill2": "지옥의 문",
+        "ult": "허신(카오스)"
+      },
+      "ragnarok_tesla": {
+        "skill1": "테슬라 스텝",
+        "skill2": "신들의 감옥",
+        "ult": "플라스마 펄스 펀치 크로스"
+      },
+      "ragnarok_leonidas": {
+        "skill1": "팔랑크스 엔코스",
+        "skill2": "방패 들기",
+        "ult": "팔랑크스 람다"
+      },
+      "ragnarok_apollo": {
+        "skill1": "아르테미스 엘렌코스",
+        "skill2": "아르테미스의 월영",
+        "ult": "아르기로톡소스"
+      },
+      "ragnarok_okita": {
+        "skill1": "삼단 찌르기",
+        "skill2": "귀자",
+        "ult": "천상산단돌"
+      },
+      "ragnarok_susanoo": {
+        "skill1": "천마반",
+        "skill2": "신라팔백만",
+        "ult": "무장검"
+      },
+      "ragnarok_simo": {
+        "skill1": "대신 저격술",
+        "skill2": "설중 잠행",
+        "ult": "천공의 잔광"
+      },
+      "ragnarok_loki": {
+        "skill1": "사슬 갈고리",
+        "skill2": "기만의 씨앗",
+        "ult": "광대의 고리"
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "ragnarok_lubu": {
+        "name": "呂布奉先",
+        "attack": "方天画戟の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>シールドブレイカー<>：物理防御の<#ffb900ff>15%<>を無視、シールドへのダメージ+<#ffb900ff>100%<>、シールドを砕くと<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージを追加。",
+        "skill": "方天画戟で前方の扇状範囲を薙ぎ払い、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1.5秒<>間<#ffb900ff>40%<>のスロウ。",
+        "skill2": "方天戟で相手の武器を押さえて突き抜ける：通り道の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.6秒スネア<>。",
+        "ult": "赤兎馬に乗って目標へ駆け（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）、馬上から天喰を放つ：直線上の敵に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.8秒のスタン<>。"
+      },
+      "ragnarok_thor": {
+        "name": "トール",
+        "attack": "雷槌の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ミョルニル覚醒<>：スキルを<#ffb900ff>3回<>使うごとにミョルニルが<#ffb900ff>6秒<>覚醒：通常攻撃に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<>の<#a974ffff>魔法ダメージ<>を追加、トールハンマーは<#ef5350ff>1.1秒のスタン<>。",
+        "skill": "左腕に雷を溜め両手で槌を振り下ろし、<#ffb900ff>0.43秒<>後に前方で雷が炸裂：敵に<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>の<#ff9028ff>物理ダメージ<>と衝撃波で<#ef5350ff>0.7秒のノックアップ<>（覚醒時<#ef5350ff>1.1秒<>）。",
+        "skill2": "鉄手袋ヤールングレイプル（天界最強の防御）を<#ffb900ff>0.3秒<>身の前に構える：通常攻撃を全て防ぎ、スキルの被ダメージ<#ffb900ff>70%<>軽減。構えた時に<#e8d44dff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>90%<>の<#e8d44dff>シールド<>（<#ffb900ff>2.5秒<>）。",
+        "ult": "ミョルニルが<#ffb900ff>8秒<>覚醒、投げるとブーメランのように戻る：往復で敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>40%<>スロウ。受け止めた勢いを一撃に変え前を叩く：<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1.5秒ノックアップ<>。その間行動妨害無効、被ダメージ<#ffb900ff>45%<>軽減。"
+      },
+      "ragnarok_zeus": {
+        "name": "ゼウス",
+        "attack": "素早いジャブで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>筋肉膨張<>：老人の姿で<#ffb900ff>3発<>打つと次の一発の代わりに膨張（<#ffb900ff>1.02秒<>、行動妨害無効）、完了時に周囲の敵へ<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>30%<>のスロウ。膨張後は攻撃力+<#ffb900ff>25%<>、防御と魔法防御+<#ffb900ff>35%<>。",
+        "skill": "どんどん速くなるジャブの七連打、各<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>19%<>の<#ff9028ff>物理ダメージ<>。膨張・阿陀磨須では重い二連打（各<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>）、二発目は膨張なら<#ffb900ff>40%<>スロウ、阿陀磨須なら<#ef5350ff>0.6秒スタン<>。",
+        "skill2": "時を超える拳：拳を振るより先に当たっている。<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒のスタン<>（阿陀磨須なら<#ef5350ff>0.9秒<>）。",
+        "ult": "膨張した筋肉を<#ffb900ff>1.03秒<>圧縮（老人なら先に膨張、行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）し、周囲の敵を吹き飛ばす：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.7秒のノックアップ<>、<#ffb900ff>10秒<>阿陀磨須で戦う：攻撃力+<#ffb900ff>45%<>、両防御+<#ffb900ff>60%<>、攻撃速度+<#ffb900ff>30%<>、吸血<#ffb900ff>25%<>。終わると老人に戻る。"
+      },
+      "ragnarok_adam": {
+        "name": "アダム",
+        "attack": "素早いジャブで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>神虚視<>で読んだ技を<#ffb900ff>5秒<>覚え、覚えていれば<#ff9028ff>模倣カウンター<>がその技を写す。",
+        "skill": "神虚視で相手の動きを読みかわす：<#ffb900ff>2.5秒<>間通常攻撃はすべて外れ、受けるスキルダメージ<#ffb900ff>50%<>軽減、技をひとつ覚える。",
+        "skill2": "ゼウスの黄昏流星群を写したカウンターで<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。覚えた技があれば写して<#ff9028ff>60<>と対象の最大体力<#ffb900ff>8%<>を上乗せし<#ef5350ff>1秒スタン<>、記憶を使う。",
+        "ult": "ゼウスから写した拳：<#ffb900ff>0.43秒<>溜め（行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）、標的へ拳圧を放ち、通り道の敵に<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.8秒のノックアップ<>。"
+      },
+      "ragnarok_poseidon": {
+        "name": "ポセイドン",
+        "attack": "三叉槍の水平突きで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>神は何者にも頼らず<>：近くに味方チャンピオンがいないと攻撃力<#ffb900ff>+15%<>、被ダメージ<#ffb900ff>10%<>軽減。",
+        "skill": "対象を追う螺旋の連続突きで前方へ<#ffb900ff>4回<>連続で突き、毎回前方扇形の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "前へ跳び、雷雨のように上から三度突き下ろす：対象の足元の敵に毎回<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>78%<>の<#ff9028ff>物理ダメージ<>、三度目は<#ef5350ff>0.7秒スタン<>。",
+        "ult": "<#ffb900ff>0.38秒<>溜め（被ダメージ<#ffb900ff>30%<>軽減）、槍影が洪水のように対象を囲み<#ffb900ff>6回<>突く。毎回周囲の敵に<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の<#ff9028ff>物理ダメージ<>、初撃で<#ef5350ff>0.75秒拘束<>。"
+      },
+      "ragnarok_kojiro": {
+        "name": "佐々木小次郎",
+        "attack": "長刀の一太刀で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>千手無双<>：敵チャンピオンに当てるたびにその技を一つ覚え（一人<#ffb900ff>8つ<>まで）、以後その敵へのダメージが一つごとに<#ffb900ff>+3%<>。倒れると覚え直し。",
+        "skill": "前方扇形に斬り下ろし<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、返す刃で斬り上げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>。",
+        "skill2": "空気の流れと地の震えで神の技まで読み身をかわす：<#ffb900ff>2.5秒<>間被ダメージ<#ffb900ff>30%<>軽減、攻撃速度<#ffb900ff>+50%<>。",
+        "ult": "折れた物干し竿を長短二本に打ち直し、二刀で斬り<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、交差の一太刀で<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.6秒スタン<>。以後<#ffb900ff>8秒<>二天岩流：攻撃速度<#ffb900ff>+30%<>、通常攻撃に<#ffb900ff>40%<>の追い太刀。"
+      },
+      "ragnarok_heracles": {
+        "name": "ヘラクレス",
+        "attack": "棍棒の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>十二の御業の刻印<>：スキルのたびに刻印が一つ広がり（奥義は二つ、最大<#ffb900ff>12<>）、一つごとに攻撃力<#ffb900ff>+1%<>、物理・魔法防御<#ffb900ff>+2<>。倒れると消える。",
+        "skill": "棍棒を突き出し獅子の頭が飛び出す：前方扇形の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。ケルベロス形態：地面への拳で<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。",
+        "skill2": "棍棒を叩きつけ前方の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。ケルベロス形態：一瞬で相手の目の前に迫り、三本の巨大な爪痕：<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。",
+        "ult": "冥府の番犬と契約し<#ffb900ff>8秒<>ケルベロス形態：攻撃力<#ffb900ff>+40%<>、攻撃速度<#ffb900ff>+50%<>、移動速度<#ffb900ff>+15%<>、被ダメージ<#ffb900ff>20%<>軽減、吸血<#ffb900ff>15%<>。終わりに大英雄の拳を地面へ：周囲に<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。"
+      },
+      "ragnarok_jack": {
+        "name": "切り裂きジャック",
+        "attack": "ナイフを投げ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>心の色<>：人の心が色で見える。体力<#ffb900ff>50%<>未満の敵チャンピオンへのダメージ<#ffb900ff>+30%<>。",
+        "skill": "ナイフを扇状に投げ、前方の敵に<#ff9028ff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>25%スロウ<>。",
+        "skill2": "手袋で神器となった傘を回して受け流す：回っている間は通常攻撃が効かず、他の被ダメージ<#ffb900ff>40%<>軽減、続けて後ろへ跳ぶ。",
+        "ult": "傷口を押さえ血で手袋を染める（最大体力の<#ffb900ff>5%<>を失う）：血も神器となる。倒れたふりから相手に飛びかかり、両手を胸に突き立てる：<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>260%<>の<#ff9028ff>物理ダメージ<>。"
+      },
+      "ragnarok_raiden": {
+        "name": "雷電為右衛門",
+        "attack": "張り手で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>百閉解放<>：命ごとに最初の八咫烏の前に百閉を破り、一生抑えてきた筋肉を解き放つ（<#ffb900ff>0.92秒<>、行動妨害無効、被ダメージ<#ffb900ff>50%<>軽減）。以後攻撃力<#ffb900ff>+20%<>、物防・魔防<#ffb900ff>+20<>、攻撃速度<#ffb900ff>+20%<>。",
+        "skill": "二連の突っ張り：一発目<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、二発目<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>、よろめかせ<#ef5350ff>0.67秒スタン<>と<#ef5350ff>30%スロウ<>。",
+        "skill2": "逆立ちから前へ倒れ込み、両足の裏で踏み下ろす：前方の敵に<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.67秒スタン<>。余震でより広い範囲に<#ef5350ff>30%スロウ<>。",
+        "ult": "筋肉を脚へ移し一瞬で間合いを詰め（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）掌を突き出す：前方扇形の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>衝撃波で0.75秒打ち上げ<>。"
+      },
+      "ragnarok_shiva": {
+        "name": "シヴァ",
+        "attack": "四本の腕で薙ぎ払い<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、灰燼中は炎の鞭で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>。<#ff9028ff>輪廻舞踊<>：スキルごとに一拍（最大<#ffb900ff>4拍<>）、一拍ごとに攻撃力<#ffb900ff>+4%<>・攻撃速度<#ffb900ff>+6%<>。<#ffb900ff>4秒<>スキルがないと消える。",
+        "skill": "四臂の二連撃：前方扇形の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>の<#ff9028ff>物理ダメージ<>、二撃目は<#ef5350ff>25%スロウ<>。灰燼中はダメージ<#ffb900ff>130%<>。",
+        "skill2": "炎の跳び蹴りで対象に飛び込み、着地で周囲の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>102%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。灰燼中はダメージ<#ffb900ff>130%<>。",
+        "ult": "胸に指を突き立て心臓を燃やす（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）。<#ffb900ff>8秒<>輪廻舞踊・灰燼：攻撃力<#ffb900ff>+35%<>、攻撃速度<#ffb900ff>+40%<>、移動速度<#ffb900ff>+15%<>。終わりに大切炎舞（炎の回し蹴り）で前方扇形に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。"
+      },
+      "ragnarok_buddha": {
+        "name": "釈迦",
+        "attack": "六道棍の一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>未来視<>：通常攻撃や槍刃の時に次の手を見切り（<#ffb900ff>8秒<>に一度）、<#ffb900ff>1.5秒<>の間、通常攻撃のダメージを受けない。",
+        "skill": "六道棍を十二天斧（長柄の斧）に変えて薙ぐ：前方扇形の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>4秒<>の間<#ef5350ff>物防25%低下<>。",
+        "skill2": "受ける攻撃を見て六道棍が七難即滅の楯に変わる：<#e8d44dff>シールド100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>（<#ffb900ff>2.5秒<>）、<#ffb900ff>1秒<>行動妨害無効。盾を収める時に蓮華が咲き、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。",
+        "ult": "零福の魂と大円寂刀・零を鍛え、天眼妙覚大涅槃斬（斬るまで行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）斬り下ろす：前方扇形の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>＋最大体力<#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒スタン<>。"
+      },
+      "ragnarok_zerofuku": {
+        "name": "零福",
+        "attack": "零福は斧爻、波旬は腕刃で斬り<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>不幸<>：零福が当てた敵は<#ffb900ff>4秒<>被ダメージ<#ffb900ff>+8%<>。<#ff9028ff>呑噬<>：波旬は<#ffb900ff>吸血8%<>。",
+        "skill": "零福：不幸を吸って大きくなった斧爻を振り下ろし、前方の敵に<#ff9028ff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>、不幸を付与。波旬（魔廻天衝）：右腕を黒い螺旋の錐に変えて撃ち出し、一直線の敵に<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。",
+        "skill2": "零福（斧爻嵐陣）：斧爻が<#ffb900ff>3本<>の追尾する黒刃に砕け、それぞれ敵を追い<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と不幸。波旬：腕刃で叩き斬り、前方の敵に<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。",
+        "ult": "闇の繭に呑まれ（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）波旬が羽化：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>回復、この命の間攻撃<#ffb900ff>+15%<>・攻速<#ffb900ff>+15%<>・移速<#ffb900ff>+5%<>・両防御<#ffb900ff>+10<>。再使用で灼：左腕を引きちぎり大剣にして振り下ろし、直線の敵に<#ff9028ff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>145%<>＋最大体力<#ff9028ff>6%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>打ち上げ<>。"
+      },
+      "ragnarok_hades": {
+        "name": "ハデス",
+        "attack": "二叉槍で突き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>イコル<>：スキル使用後<#ffb900ff>3秒<>以内の次の通常攻撃が<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>を追加。",
+        "skill": "冥府の鉄槌：跳んで槍を突き下ろし地面を爆ぜさせる：周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>25%スロウ<>（<#ffb900ff>1秒<>）、飛ばした風の刃が前方一直線に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "大地を砕きし者：柄を滑らせて振り下ろし前方の地面を叩き割り、円内の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒打ち上げ<>。",
+        "ult": "胸を裂き神の血で二叉槍を宿命の四血槍に鍛え（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）、血が導きし曙光：対象へ一直線に突き抜け、通った敵に<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>＋最大体力<#ff9028ff>8%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。"
+      },
+      "ragnarok_qin": {
+        "name": "始皇帝",
+        "attack": "金の指爪で裂き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>星<>：スキルが当たった敵は急所が露わになり<#ffb900ff>3秒<>被ダメージ<#ffb900ff>+10%<>。",
+        "skill": "対象の「星」へ見えない息を吹き、<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.4秒スタン<>、<#ffb900ff>3秒<>攻撃力と魔力<#ffb900ff>25%<>低下。",
+        "skill2": "神羅鎧袖を構え（<#ffb900ff>1秒<>被ダメージ<#ffb900ff>40%<>軽減・行動妨害無効）周りの味方に<#e8d44dff>シールド80<>＋<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>。続けて力を押し返し、前方の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.67秒スタン<>。",
+        "ult": "始皇勾践剣を抜き（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）受けた力を剣に溜め（最大体力<#ffb900ff>25%<>まで）斬って返す：広い扇形の敵に<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒打ち上げ<>。"
+      },
+      "ragnarok_beelzebub": {
+        "name": "ベルゼブブ",
+        "attack": "振動の掌で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>＋<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>悪魔の羽ばたき<>：スキルが当たった敵は<#ffb900ff>4秒<>魔法防御<#ffb900ff>-20%<>。",
+        "skill": "骸骨の杖から振動波を放ち、一直線の敵に<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>（<#ffb900ff>1秒<>）。",
+        "skill2": "振動の障壁を張り<#e8d44dff>シールド80<>＋<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60%<>（<#ffb900ff>2.5秒<>）、<#ffb900ff>1秒<>行動妨害無効。続けて障壁が弾け、周りの敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。",
+        "ult": "虚神の黒核を圧縮し（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）周りの敵を引き寄せて炸裂：周囲の敵に<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.83秒スタン<>。自身も反動で最大体力の<#ffb900ff>6%<>を失う。"
+      },
+      "ragnarok_tesla": {
+        "name": "ニコラ・テスラ",
+        "attack": "機甲の拳で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>プラズマ・パルス<>：拳ごとに<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>を追加。",
+        "skill": "テスラ・ステップで対象へ突進し、ぶつかった敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>30%スロウ<>。神々の監獄がある間はテスラ・ワープで対象へ瞬間移動し<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒スタン<>。",
+        "skill2": "対象の位置に神々の監獄（ゲマトリア・ゾーン）を展開し、中の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>（<#ffb900ff>3秒<>）。その間テスラ・ステップは瞬間移動になる。",
+        "ult": "プラズマパルスパンチ・クロス（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）：一撃目は<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒スタン<>、右腕を背後へワープさせた二撃目が電光を放ち一直線の敵に<#ff9028ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒打ち上げ<>。"
+      },
+      "ragnarok_leonidas": {
+        "name": "レオニダス",
+        "attack": "盾打ちで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ファランクス<>：スキルを使うたび、周りの味方チャンピオン（自分も）の物理防御と魔法防御<#e8d44dff>+15<>（<#ffb900ff>3秒<>）。",
+        "skill": "鎖付きの盾を投げつけ、対象に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>0.75秒スタン<>、<#ef5350ff>30%スロウ<>。",
+        "skill2": "盾を<#ffb900ff>2.5秒<>構え、周りの味方チャンピオンの被ダメージを<#e8d44dff>20%<>軽減、自分はさらに<#e8d44dff>15%<>軽減し、自分を攻撃した敵に<#ffb900ff>25%<>反射、周りの敵を<#ef5350ff>1秒挑発<>。",
+        "ult": "外殻が剥がれたΛの真実の盾を前に一直線に突撃（行動妨害無効、被ダメージ<#ffb900ff>40%<>軽減）。ぶつかると周りの敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒打ち上げ<>。"
+      },
+      "ragnarok_apollo": {
+        "name": "アポロン",
+        "attack": "光の糸の拳（ポイボス・ライアー）で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>白夜の抱擁<>：周りのチャンピオン（敵味方、最大<#ffb900ff>5人<>）一人ごとにダメージ<#ffb900ff>8%<>上昇。",
+        "skill": "アルテミスの糸で対象を縛り、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1秒スネア<>。",
+        "skill2": "光の弓を作り、対象を追う光の矢を放って<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>。",
+        "ult": "女神像が光の綱を引き、自分を銀の矢として対象へ放つ（行動妨害無効、被ダメージ<#ffb900ff>30%<>軽減）。当たった敵に<#ff9028ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>200%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.5秒スタン<>。"
+      },
+      "ragnarok_okita": {
+        "name": "沖田総司",
+        "attack": "一太刀で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>剣の刻<>：刀が一生の剣技を一瞬に凝縮し、スキルを使うたび<#ffb900ff>3秒<>攻撃速度<#ffb900ff>30%<>上昇。",
+        "skill": "神速の三連突き、一突きごとに前方の敵へ<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、三突き目は<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加。",
+        "skill2": "鬼子：<#ffb900ff>5秒<>攻撃力<#ffb900ff>25%<>、攻撃速度<#ffb900ff>40%<>、移動速度<#ffb900ff>20%<>上昇。",
+        "ult": "神速で踏み込み（行動妨害無効）三度突く。突くたびに真空の刃が刀の届かない先まで飛び、一直線の敵に<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>、三突き目は対象の最大体力の<#ffb900ff>8%<>追加。"
+      },
+      "ragnarok_susanoo": {
+        "name": "スサノヲ",
+        "attack": "一太刀で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>天魔反・無間<>：三太刀ごとに溜めなしの真空刃が飛び、一列の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill": "天魔反の構えから斬り、三日月の真空刃を放つ：一列に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、目の前の敵には<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>追加の<#ff9028ff>物理ダメージ<>（遠いほど弱い）。",
+        "skill2": "正眼の構え：通常攻撃が効かず、スキル被ダメージ<#ffb900ff>40%<>軽減。続いて前方へ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>。",
+        "ult": "素手で見えない剣を振るい（行動妨害無効）骨だけを斬る：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>＋最大体力の<#ffb900ff>8%<>の<#ffffffff>確定ダメージ<>、<#ef5350ff>3秒<>鈍足と攻撃力低下。振るうたび最大体力<#ffb900ff>5%<>を失う。"
+      },
+      "ragnarok_simo": {
+        "name": "シモ・ヘイヘ",
+        "attack": "モシン・ナガンの一撃で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>死神の契り<>：スキルは臓器を変えた神殺しの弾、一発ごとに最大体力の<#ffb900ff>3%<>を払う（死にはしない）。",
+        "skill": "対神狙撃術、三発を順に：万花繚乱は空中で炸裂し扇状に<#ff9028ff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>、天穿つ白鳥は一列を貫き<#ff9028ff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>、精霊の息吹は神速の一発で<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "雪の幕を上げて後ろへ跳び、<#ffb900ff>1.25秒透明<>、移動速度<#ffb900ff>30%<>上昇（雪が足跡を消す）。",
+        "ult": "最速最強の一発で<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>230%<>＋対象の最大体力の<#ffb900ff>10%<>の<#ff9028ff>物理ダメージ<>。"
+      },
+      "ragnarok_loki": {
+        "name": "ロキ",
+        "attack": "幻の刃を弾き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>偽りの神影<>：全力の分身が真似をし、鎖鉤に当たった敵へもう一撃<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill": "掌の門から鉤刃を振るい<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>140%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。",
+        "skill2": "黒い霧から複製体を残し、遠くの複製体と入れ替わる：<#ffb900ff>1.5秒透明<>、移動速度<#ffb900ff>25%<>上昇。",
+        "ult": "対象の周りに複製した神々の武器の軍勢が湧き（行動妨害無効）、<#ffb900ff>4回<>各<#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。"
+      }
+    },
+    "skill_name": {
+      "ragnarok_lubu": {
+        "skill1": "薙ぎ払い",
+        "skill2": "押さえ突き",
+        "ult": "天喰"
+      },
+      "ragnarok_thor": {
+        "skill1": "闘神の雷槌",
+        "skill2": "ヤールングレイプル",
+        "ult": "覚醒雷槌"
+      },
+      "ragnarok_zeus": {
+        "skill1": "黄昏流星群",
+        "skill2": "時を超える拳",
+        "ult": "阿陀磨須"
+      },
+      "ragnarok_adam": {
+        "skill1": "神虚視",
+        "skill2": "模倣・黄昏流星群",
+        "ult": "時を超える拳"
+      },
+      "ragnarok_poseidon": {
+        "skill1": "怒れる波濤",
+        "skill2": "荒海に降る神雷",
+        "ult": "四十昼夜の大洪水"
+      },
+      "ragnarok_kojiro": {
+        "skill1": "燕返し",
+        "skill2": "萬手無双",
+        "ult": "双燕斬虎万刃撩乱"
+      },
+      "ragnarok_heracles": {
+        "skill1": "ネメアの獅子",
+        "skill2": "クレタの雄牛",
+        "ult": "ケルベロス"
+      },
+      "ragnarok_jack": {
+        "skill1": "ナイフの扇",
+        "skill2": "神器の傘",
+        "ult": "ディア・ゴッド"
+      },
+      "ragnarok_raiden": {
+        "skill1": "突っ張り",
+        "skill2": "獅子舞",
+        "ult": "八咫烏"
+      },
+      "ragnarok_shiva": {
+        "skill1": "四臂連撃",
+        "skill2": "虎爪炎舞",
+        "ult": "輪廻舞踊・灰燼"
+      },
+      "ragnarok_buddha": {
+        "skill1": "十二天斧",
+        "skill2": "七難即滅の楯",
+        "ult": "大円寂刀・零"
+      },
+      "ragnarok_zerofuku": {
+        "skill1": "斧爻／魔廻天衝",
+        "skill2": "斧爻嵐陣／魔刃砕撃",
+        "ult": "破繭／灼"
+      },
+      "ragnarok_hades": {
+        "skill1": "冥府の鉄槌",
+        "skill2": "大地を砕きし者",
+        "ult": "血が導きし曙光"
+      },
+      "ragnarok_qin": {
+        "skill1": "蚩尤弩式・波流亀",
+        "skill2": "神羅鎧袖・承力天鳳",
+        "ult": "始皇承力燕斬"
+      },
+      "ragnarok_beelzebub": {
+        "skill1": "暴食の堕天使",
+        "skill2": "地獄の門扉",
+        "ult": "虚神（カオス）"
+      },
+      "ragnarok_tesla": {
+        "skill1": "テスラ・ステップ",
+        "skill2": "神々の監獄",
+        "ult": "プラズマパルスパンチ・クロス"
+      },
+      "ragnarok_leonidas": {
+        "skill1": "ファランクス・エンコス",
+        "skill2": "盾構え",
+        "ult": "ファランクス・ラムダ"
+      },
+      "ragnarok_apollo": {
+        "skill1": "光り輝く支配",
+        "skill2": "アルテミスの月影",
+        "ult": "魂を射抜し銀矢"
+      },
+      "ragnarok_okita": {
+        "skill1": "三段突き",
+        "skill2": "鬼子",
+        "ult": "天翔散段突"
+      },
+      "ragnarok_susanoo": {
+        "skill1": "天魔反",
+        "skill2": "神羅八百万",
+        "ult": "無装剣"
+      },
+      "ragnarok_simo": {
+        "skill1": "対神狙撃術",
+        "skill2": "雪中潜伏",
+        "ult": "天空の残光"
+      },
+      "ragnarok_loki": {
+        "skill1": "鎖鉤",
+        "skill2": "誑かしの種",
+        "ult": "道化師の環"
+      }
+    }
+  }
+}

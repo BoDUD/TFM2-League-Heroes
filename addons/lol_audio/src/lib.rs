@@ -45,6 +45,16 @@
 //! 播报、第一遍结束时还没轮到的播报算进 dropped（0.2.1 哪里都没算：SET 行 queued 比 played + dropped 多 1–2 条），各记一行
 //! `DROPPED`。
 //!
+//! 0.2.3（用户 2026-11-19：「兰博红温的时候 警告警告那个语音要补进去」）：兰博过热（主包的 buff `league_rumble_oh`，
+//! 热量满 100 时挂上，`league_rumble` 附加包按它把整身换成红温）挂上的那一 tick，在他身上放英雄联盟里他过热时那句
+//! 「警告，警告」（`build_audio.py` 从 Rumble.zh_CN 的语音包取：`Play_vo_Rumble_Spell3DPCast`）。英雄自己的话不排队、不等
+//! 播报员。第一次看到这一局时已经在过热的不补放。日志一行 `RUMBLE`。
+//!
+//! 0.3.1（用户 2026-11-26：「还有EZ的语音一直在重复 炸飞他们这个语音」）：0.3.0 每个英雄的击杀、阵亡、复活各只有一句，
+//! 一局里拿几个人头就把同一句说几遍（那一局伊泽瑞尔的击杀那句放了 6 次）。现在 `build_audio.py` 每种最多取三句（同一个
+//! 语音事件里不同的几句，不够再往后面的事件找），这个 DLL 轮着放：同一个英雄同一种话一句接一句换，起点按这一局的种子错开，
+//! 三句说完才回到第一句。几句写在 `src/variants.rs`；第一句还是原来那句，后面的叫 `lol_audio_ch_<英雄>_<事件>_2`、`_3`。
+//!
 //! 播报排队放：一条放完（`GAP` tick）才放下一条，等了 `EXPIRE` tick 还没轮到的扔掉（胜负那句插到最前面、清掉别的）。
 //!
 //! 只在看得见、听得见的比赛里放（观看、观战、回放）；后台预演的比赛（`ServerPresim`）和别的队伍在后台打的比赛
@@ -65,6 +75,9 @@ use std::sync::{LazyLock, Mutex};
 use std::time::{Duration, Instant};
 
 use mod_api_stable::*;
+
+mod rift;
+mod variants;
 
 const ID: &str = "lol_audio";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -104,6 +117,22 @@ pub const SERPEN_BUFF: &str = "serpen_";
 pub const EPIC_BUFF: &str = "epic_";
 /// Team 0 is the blue side (the classic map's blue nexus is team 0's).
 pub const BLUE: usize = 0;
+/// Rumble's Overheat (the main pack's buff, on at 100 heat).
+pub const OVERHEAT_BUFF: &str = "league_rumble_oh";
+/// His line the moment it comes on (sound/sfx/lol_audio_rumble_overheat.sound_info).
+pub const RUMBLE_OVERHEAT: &str = "lol_audio_rumble_overheat";
+/// Minimum gap (ticks) between any two League champion lifecycle voice lines (7 s).
+pub const CHAMP_VOICE_GAP: usize = 7 * 60;
+/// Yield (ticks) after an announcer line so champion lifecycle lines do not talk over the announcer (3 s).
+pub const ANNOUNCER_DEFER: usize = 3 * 60;
+/// Staggered start-of-match ticks for one Blue and one Red League champion opening quote (4 s, 12 s).
+pub const START_TICKS: [usize; 2] = [4 * 60, 12 * 60];
+/// Latest tick at which a match is still considered freshly started for opening quotes (20 s).
+pub const START_WINDOW: usize = 20 * 60;
+/// Per-champion cooldowns (ticks) for lifecycle cues: kill 25 s, dead 30 s, respawn 45 s.
+pub const COOLDOWN_KILL: usize = 25 * 60;
+pub const COOLDOWN_DEAD: usize = 30 * 60;
+pub const COOLDOWN_RESPAWN: usize = 45 * 60;
 
 // ===================== 日志 =====================
 
@@ -508,9 +537,310 @@ pub struct Watch {
     pub tally: Tally,
     /// The SET line was written.
     summed: bool,
+    /// The champions overheated on the last tick (Rumble: `OVERHEAT_BUFF`), and whether a tick was read yet.
+    heat: Vec<usize>,
+    heat_seen: bool,
+    /// Last tick the announcer actually spoke, so champion lifecycle VO yields to it.
+    last_announcer: Option<usize>,
+    /// Lifecycle voice controller for all `league_*` champions (start / kill / dead / respawn).
+    pub champ_voice: ChampVoice,
+    /// Rin 峡谷的巢虫和先锋（[`rift`]）。
+    pub rift: rift::Monsters,
+}
+
+/// Lifecycle voice cue for a League champion (`sound/sfx/lol_audio_ch_<slug>_<cue>.sound_info`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ChampCue {
+    Start,
+    Kill,
+    Dead,
+    Respawn,
+}
+
+impl ChampCue {
+    pub fn tag(self) -> &'static str {
+        match self {
+            ChampCue::Start => "start",
+            ChampCue::Kill => "kill",
+            ChampCue::Dead => "dead",
+            ChampCue::Respawn => "respawn",
+        }
+    }
+
+    pub fn cooldown(self) -> usize {
+        match self {
+            ChampCue::Start => usize::MAX,
+            ChampCue::Kill => COOLDOWN_KILL,
+            ChampCue::Dead => COOLDOWN_DEAD,
+            ChampCue::Respawn => COOLDOWN_RESPAWN,
+        }
+    }
+
+    /// 在 `variants::VARIANTS` 那一行里是第几个数（开局那句只有一句，不在表里）。
+    fn slot(self) -> Option<usize> {
+        match self {
+            ChampCue::Start => None,
+            ChampCue::Kill => Some(0),
+            ChampCue::Dead => Some(1),
+            ChampCue::Respawn => Some(2),
+        }
+    }
+}
+
+/// 这个英雄这种话有几句（`src/variants.rs`；表里没有的、开局那句：一句）。
+pub fn lines_of(slug: &str, cue: ChampCue) -> usize {
+    let Some(i) = cue.slot() else { return 1 };
+    variants::VARIANTS
+        .binary_search_by_key(&slug, |v| v.0)
+        .map_or(1, |k| variants::VARIANTS[k].1[i].max(1) as usize)
+}
+
+/// 第 `n` 次（从 0 起）说这种话时用第几句（从 0 起）：一句一句轮着来，起点按这一局的种子和座位错开。
+pub fn line_at(n: usize, seed: u64, player: usize, lines: usize) -> usize {
+    if lines <= 1 {
+        return 0;
+    }
+    (seed as usize).wrapping_add(player.wrapping_mul(7)).wrapping_add(n) % lines
+}
+
+/// Snapshot of one player's champion for lifecycle voice tracking.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ChampSnap {
+    pub player: usize,
+    pub entity: usize,
+    pub team: usize,
+    pub lane: u32,
+    pub alive: bool,
+    pub pos: (u64, u64),
+    pub name: String,
+}
+
+/// One champion lifecycle voice line chosen for this tick.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ChampLine {
+    pub slug: String,
+    pub cue: ChampCue,
+    pub event: String,
+    pub on: Option<usize>,
+    pub at: (u64, u64),
+}
+
+/// Per-match lifecycle voice scheduler for all `league_*` champions (start / kill / dead / respawn).
+/// Non-League champions (`abysspact_*`, `ragnarok_*`, `tft_*`, base game) are ignored because they manage their own VOs.
+#[derive(Debug, Default)]
+pub struct ChampVoice {
+    seen: bool,
+    /// Last known alive state, entity, pos, and champion id per player.
+    prev: HashMap<usize, (bool, usize, (u64, u64), String)>,
+    /// Players that have died at least once (so their next alive tick fires `Respawn`).
+    was_dead: HashMap<usize, bool>,
+    /// Which teams have already delivered their opening line (`[blue, red]`).
+    started: [bool; 2],
+    /// Global last tick any champion lifecycle line played.
+    last_any: Option<usize>,
+    /// Per-(player, cue) last played tick.
+    last_cue: HashMap<(usize, ChampCue), usize>,
+    /// 每个 (座位, 哪种话) 这一局说过几次：下一次用哪一句（[`line_at`]）。
+    said: HashMap<(usize, ChampCue), usize>,
+    /// 这一局的种子（轮换的起点）。
+    seed: u64,
+    /// Total champion lifecycle lines played in this match.
+    pub played: usize,
+}
+
+impl ChampVoice {
+    pub fn league_slug(name: &str) -> Option<&str> {
+        let slug = name.strip_prefix("league_")?;
+        if slug.is_empty() || !slug.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_') {
+            return None;
+        }
+        Some(slug)
+    }
+
+    fn can_play(&self, now: usize, player: usize, cue: ChampCue, announcer_busy: bool) -> bool {
+        if announcer_busy {
+            return false;
+        }
+        if let Some(prev) = self.last_any {
+            if now.saturating_sub(prev) < CHAMP_VOICE_GAP {
+                return false;
+            }
+        }
+        if let Some(&prev) = self.last_cue.get(&(player, cue)) {
+            if now.saturating_sub(prev) < cue.cooldown() {
+                return false;
+            }
+        }
+        true
+    }
+
+    fn commit(&mut self, now: usize, player: usize, slug: &str, cue: ChampCue, on: Option<usize>, at: (u64, u64)) -> ChampLine {
+        self.last_any = Some(now);
+        self.last_cue.insert((player, cue), now);
+        self.played += 1;
+        let n = self.said.entry((player, cue)).or_insert(0);
+        let k = line_at(*n, self.seed, player, lines_of(slug, cue));
+        *n += 1;
+        let first = format!("lol_audio_ch_{slug}_{}", cue.tag());
+        ChampLine {
+            slug: slug.to_string(),
+            cue,
+            event: if k == 0 { first } else { format!("{first}_{}", k + 1) },
+            on,
+            at,
+        }
+    }
+
+    /// Advance one live tick and pick at most one `league_*` champion lifecycle line to play.
+    pub fn step(
+        &mut self,
+        now: usize,
+        snaps: &[ChampSnap],
+        new_kills: &[KillLogV1],
+        over: bool,
+        jumped: bool,
+        announcer_busy: bool,
+        seed: u64,
+    ) -> Option<ChampLine> {
+        let first_tick = !self.seen;
+        self.seen = true;
+        self.seed = seed;
+
+        // Collect transitions before updating `prev`.
+        let mut died_now: Vec<(usize, usize, (u64, u64), String)> = Vec::new();
+        let mut respawned_now: Vec<&ChampSnap> = Vec::new();
+
+        if !first_tick && !jumped && !over {
+            for s in snaps {
+                if let Some((was_alive, prev_e, prev_pos, prev_name)) = self.prev.get(&s.player) {
+                    if *was_alive && !s.alive {
+                        self.was_dead.insert(s.player, true);
+                        let name = if s.name.is_empty() { prev_name.clone() } else { s.name.clone() };
+                        died_now.push((s.player, *prev_e, *prev_pos, name));
+                    } else if !*was_alive && s.alive && self.was_dead.remove(&s.player).unwrap_or(false) {
+                        respawned_now.push(s);
+                    }
+                }
+            }
+        }
+
+        // Update state cache (keep last known non-empty champion name across death).
+        for s in snaps {
+            let keep_name = if !s.name.is_empty() {
+                s.name.clone()
+            } else {
+                self.prev.get(&s.player).map(|p| p.3.clone()).unwrap_or_default()
+            };
+            self.prev.insert(s.player, (s.alive, s.entity, s.pos, keep_name));
+        }
+
+        if over || jumped {
+            return None;
+        }
+
+        // 1. Kill line (highest excitement, priority over dead/respawn/start).
+        for k in new_kills {
+            if now.saturating_sub(k.tick) > FRESH {
+                continue;
+            }
+            if let Some(killer) = snaps.iter().find(|s| s.team == k.killer_team && s.lane == k.killer_position && s.alive) {
+                let name = self.prev.get(&killer.player).map(|p| p.3.as_str()).unwrap_or(&killer.name);
+                if let Some(slug) = Self::league_slug(name) {
+                    if self.can_play(now, killer.player, ChampCue::Kill, announcer_busy) {
+                        let slug = slug.to_string();
+                        return Some(self.commit(
+                            now,
+                            killer.player,
+                            &slug,
+                            ChampCue::Kill,
+                            (killer.entity != usize::MAX).then_some(killer.entity),
+                            killer.pos,
+                        ));
+                    }
+                }
+            }
+        }
+
+        // 2. Opening quote (1 Blue at 4s, 1 Red at 12s; only in matches watched from the start).
+        if now <= START_WINDOW {
+            for team in 0..2 {
+                if !self.started[team] && now >= START_TICKS[team] {
+                    let candidates: Vec<&ChampSnap> = snaps
+                        .iter()
+                        .filter(|s| s.team == team && s.alive && Self::league_slug(&s.name).is_some())
+                        .collect();
+                    if candidates.is_empty() {
+                        continue;
+                    }
+                    let pick = candidates[((seed as usize).wrapping_add(team * 3)) % candidates.len()];
+                    if self.can_play(now, pick.player, ChampCue::Start, announcer_busy) {
+                        self.started[team] = true;
+                        let slug = Self::league_slug(&pick.name).unwrap().to_string();
+                        return Some(self.commit(
+                            now,
+                            pick.player,
+                            &slug,
+                            ChampCue::Start,
+                            (pick.entity != usize::MAX).then_some(pick.entity),
+                            pick.pos,
+                        ));
+                    }
+                }
+            }
+        } else {
+            // Opened mid-match (spectate / replay): suppress opening quotes.
+            self.started = [true, true];
+        }
+
+        // 3. Death line (skip Kog'Maw who already plays passive death VO via league_kogmaw).
+        for (player, prev_e, prev_pos, name) in died_now {
+            let Some(slug) = Self::league_slug(&name) else { continue };
+            if slug == "kogmaw" {
+                continue;
+            }
+            if self.can_play(now, player, ChampCue::Dead, announcer_busy) {
+                let slug = slug.to_string();
+                return Some(self.commit(
+                    now,
+                    player,
+                    &slug,
+                    ChampCue::Dead,
+                    (prev_e != usize::MAX).then_some(prev_e),
+                    prev_pos,
+                ));
+            }
+        }
+
+        // 4. Respawn line.
+        for s in respawned_now {
+            let name = self.prev.get(&s.player).map(|p| p.3.as_str()).unwrap_or(&s.name);
+            let Some(slug) = Self::league_slug(name) else { continue };
+            if self.can_play(now, s.player, ChampCue::Respawn, announcer_busy) {
+                let slug = slug.to_string();
+                return Some(self.commit(
+                    now,
+                    s.player,
+                    &slug,
+                    ChampCue::Respawn,
+                    (s.entity != usize::MAX).then_some(s.entity),
+                    s.pos,
+                ));
+            }
+        }
+
+        None
+    }
 }
 
 impl Watch {
+    /// The champions whose Overheat came on since the last tick (none on the first tick read: already hot then).
+    pub fn overheat_starts(&mut self, hot: Vec<usize>) -> Vec<usize> {
+        let started = if self.heat_seen { hot.iter().copied().filter(|e| !self.heat.contains(e)).collect() } else { Vec::new() };
+        self.heat = hot;
+        self.heat_seen = true;
+        started
+    }
+
     /// The run filter: `Live` while the ticks never go down, `Again` from the first tick below the top on (for good:
     /// the second run's ticks pass the first run's top too, and stay ignored).
     pub fn pass(&mut self, tick: usize) -> Pass {
@@ -853,19 +1183,46 @@ impl StableExtension for Sides {
 
 // ===================== 比赛钩子 =====================
 
-/// Every player with a lane, this tick. Dead: the player (waiting to respawn) or his champion entity (the tick it
-/// falls); a champion entity is made anew each life, and a player with none for a tick is no death.
-fn champs(sim: &StableSim<'_>) -> Vec<Champ> {
-    (0..sim.player_count())
-        .filter_map(|i| sim.player_at(i))
-        .filter_map(|p| {
-            let lane = p.lane()?.code();
-            let e = p.champion();
-            let alive = p.is_alive() && e.as_ref().is_none_or(|e| e.is_alive());
-            let (id, pos) = e.map_or((usize::MAX, (0, 0)), |e| (e.id(), e.pos()));
-            Some(Champ { player: p.id(), id, team: p.team(), lane, alive, pos })
-        })
-        .collect()
+/// Every player with a lane, this tick, plus their champion id (`name`) for League lifecycle voice cues.
+fn champs_with_names(sim: &StableSim<'_>) -> (Vec<Champ>, Vec<ChampSnap>) {
+    let mut out = Vec::new();
+    let mut snaps = Vec::new();
+    for i in 0..sim.player_count() {
+        let Some(p) = sim.player_at(i) else { continue };
+        let Some(lane) = p.lane().map(|l| l.code()) else { continue };
+        let e = p.champion();
+        let alive = p.is_alive() && e.as_ref().is_none_or(|e| e.is_alive());
+        let (id, pos, name) = match e {
+            Some(e) => (e.id(), e.pos(), e.name().unwrap_or_default()),
+            None => (usize::MAX, (0, 0), String::new()),
+        };
+        out.push(Champ { player: p.id(), id, team: p.team(), lane, alive, pos });
+        snaps.push(ChampSnap { player: p.id(), entity: id, team: p.team(), lane, alive, pos, name });
+    }
+    (out, snaps)
+}
+
+/// 游戏自己的小龙 / 莫甘德才播「拿下小龙 / 大龙」：名字里带 serpen、带 epic 或 morgard（读不到名字的照旧算）。地图 mod 自己的
+/// 史诗野怪（Rin 峡谷 0.1.65 的虚空巢虫 rift_voidgrub_L / R、峡谷先锋 tfm2_rift_herald）可能也是这两种实体，打死它们不是拿龙。
+pub fn own_monster(kind: EntityKindV1, name: Option<&str>) -> bool {
+    name.is_none_or(|n| match kind {
+        EntityKindV1::Serpen => n.contains("serpen"),
+        _ => n.contains("epic") || n.contains("morgard"),
+    })
+}
+
+/// Rin 峡谷的巢虫和先锋（按名字认；小兵、塔、水晶不看名字，省得每 tick 读一百多个名字）。中立的算野的。
+fn rift_units(sim: &StableSim<'_>) -> Vec<rift::Unit> {
+    let mut out = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        if matches!(e.kind(), Some(EntityKindV1::Minion | EntityKindV1::Tower | EntityKindV1::Nexus)) {
+            continue;
+        }
+        let Some(who) = e.name().as_deref().and_then(rift::who) else { continue };
+        out.push(rift::Unit { id: e.id(), who, wild: e.team() >= 2, alive: e.is_alive(), at: e.pos() });
+    }
+    out
 }
 
 /// The towers, nexuses (with hit points, fallen ones at 0) and live epic monsters.
@@ -881,7 +1238,7 @@ fn world(sim: &StableSim<'_>) -> (Vec<Building>, Vec<Monster>) {
                 let hp = if alive { (hp * 1000 / max.max(1)).max(1) } else { 0 };
                 buildings.push(Building { id: e.id(), team: e.team(), nexus: k == EntityKindV1::Nexus, pos: e.pos(), hp });
             }
-            Some(k @ (EntityKindV1::Epic | EntityKindV1::Serpen)) if alive => {
+            Some(k @ (EntityKindV1::Epic | EntityKindV1::Serpen)) if alive && own_monster(k, e.name().as_deref()) => {
                 monsters.push(Monster { id: e.id(), epic: k == EntityKindV1::Epic, pos: e.pos() });
             }
             _ => {}
@@ -926,6 +1283,21 @@ fn evidence(sim: &StableSim<'_>) -> Evidence {
         }
     }
     ev
+}
+
+/// The live champions carrying `OVERHEAT_BUFF`, and where they stand.
+fn overheated(sim: &StableSim<'_>) -> Vec<(usize, (u64, u64))> {
+    let mut out = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        if !matches!(e.kind(), Some(EntityKindV1::Champion)) || !e.is_alive() {
+            continue;
+        }
+        if (0..e.buff_count()).filter_map(|j| e.buff_at(j)).any(|b| b.name() == OVERHEAT_BUFF) {
+            out.push((e.id(), e.pos()));
+        }
+    }
+    out
 }
 
 /// Squared distance between two map points.
@@ -1028,7 +1400,7 @@ impl StableMatchHook for Announcer {
             }
             Pass::Again { first: false } => return,
         }
-        let champs = champs(sim);
+        let (champs, snaps) = champs_with_names(sim);
         let living: Vec<(usize, (u64, u64))> =
             champs.iter().filter(|c| c.alive && c.id != usize::MAX).map(|c| (c.id, c.pos)).collect();
         let n = sim.kill_log_count();
@@ -1036,12 +1408,13 @@ impl StableMatchHook for Announcer {
         w.read = n;
         let new_kills: Vec<KillLogV1> = (from..n).filter_map(|i| sim.kill_log_at(i)).collect();
         let over = sim.is_end();
+        let jumped = w.last.as_ref().is_some_and(|(then, _)| now > then + JUMP);
         let (buildings, monsters) = world(sim);
         // the reward evidence, every tick a monster stands or waits for who took it: a monster's `before` is the tick
         // before its death (0.2.1 read it on the tick it was seen gone - the dragon's buff was on by then)
         let stood = w.monsters.as_ref().is_some_and(|m| !m.is_empty());
         let ev = (!monsters.is_empty() || stood || !w.objectives.is_empty()).then(|| evidence(sim));
-        let step = w.step(now, Frame { champs, new_kills, over, buildings, monsters });
+        let step = w.step(now, Frame { champs, new_kills: new_kills.clone(), over, buildings, monsters });
         let mut logs = Vec::new();
 
         // epic monsters: the evidence of the tick before they fell, then each tick until their reward shows
@@ -1110,13 +1483,44 @@ impl StableMatchHook for Announcer {
         }
         if line.is_some() {
             w.tally.played += 1;
+            w.last_announcer = Some(now);
         }
+        let announcer_busy = line.is_some()
+            || w.last_announcer.is_some_and(|t| now.saturating_sub(t) < ANNOUNCER_DEFER);
+        let champ_line = w.champ_voice.step(now, &snaps, &new_kills, over, jumped, announcer_busy, sim.seed());
         let mut set = None;
         if over && !w.summed && w.queue.lines.is_empty() {
             w.summed = true;
             set = Some(set_line(&o, w, "match over"));
         }
+        // Rumble's Overheat: his own line, not queued behind the announcer
+        let hot = overheated(sim);
+        let started = w.overheat_starts(hot.iter().map(|&(e, _)| e).collect());
+        // Rin 峡谷的巢虫、先锋：每 3 tick 看一次，当时就放；画面跳着走（快进）时只记下不放
+        let rift_cues = if now % 3 == 0 { w.rift.step(now, &rift_units(sim)) } else { Vec::new() };
+        let rift_cues = if jumped { Vec::new() } else { rift_cues };
         drop(book);
+        for e in started {
+            let at = hot.iter().find(|&&(x, _)| x == e).map_or((0, 0), |&(_, p)| p);
+            let how = play(sim, RUMBLE_OVERHEAT, Some(e), at, &living);
+            logs.push(format!("RUMBLE {} t={} #{e} overheated -> {RUMBLE_OVERHEAT} {how}", head(&o), clock(now)));
+        }
+        for (cue, at, on) in rift_cues {
+            let ev = cue.event();
+            let how = play(sim, &ev, on, at, &living);
+            logs.push(format!("RIFT {} t={} {cue:?} at {at:?} -> {ev} {how}", head(&o), clock(now)));
+        }
+        if let Some(cl) = champ_line {
+            let how = play(sim, &cl.event, cl.on, cl.at, &living);
+            logs.push(format!(
+                "CHAMPVO {} t={} league_{} ({}) -> {} {how}",
+                head(&o),
+                clock(now),
+                cl.slug,
+                cl.cue.tag(),
+                cl.event
+            ));
+        }
 
         if let Some(l) = line {
             let side = *SIDE.lock().unwrap_or_else(|e| e.into_inner());
@@ -1640,5 +2044,190 @@ mod tests {
         assert_eq!(b.keys.len(), KEEP);
         assert_eq!(b.watch((2, 0, 1, 0)).pass(0), Pass::Live);
         assert_eq!(b.watch((2, 2, 1, 0)).pass(0), Pass::Again { first: true });
+    }
+}
+
+
+#[cfg(test)]
+mod overheat_tests {
+    use super::*;
+
+    #[test]
+    fn overheat_comes_on_once() {
+        let mut w = Watch::default();
+        // already hot on the first tick read: no line
+        assert!(w.overheat_starts(vec![7]).is_empty());
+        assert!(w.overheat_starts(vec![7]).is_empty());
+        // cooled, then hot again: one line; a second Rumble at the same time: his own line
+        assert!(w.overheat_starts(vec![]).is_empty());
+        assert_eq!(w.overheat_starts(vec![7, 9]), vec![7, 9]);
+        assert!(w.overheat_starts(vec![7, 9]).is_empty());
+    }
+}
+
+#[cfg(test)]
+mod champ_voice_tests {
+    use super::*;
+
+    fn snap(player: usize, entity: usize, team: usize, lane: u32, alive: bool, name: &str) -> ChampSnap {
+        ChampSnap { player, entity, team, lane, alive, pos: (100, 100), name: name.to_string() }
+    }
+
+    /// 一句话的事件去掉第几句的尾巴（`lol_audio_ch_garen_kill_2` -> `lol_audio_ch_garen_kill`）。
+    fn family(event: &str) -> &str {
+        match event.rsplit_once('_') {
+            Some((head, k)) if k.len() == 1 && k.bytes().all(|b| b.is_ascii_digit()) => head,
+            _ => event,
+        }
+    }
+
+    /// 0.3.1（用户：「还有EZ的语音一直在重复 炸飞他们这个语音」）：同一个英雄一局里连着拿人头，击杀那句一句一句换着说，
+    /// 几句都说过才回到第一句；只有一句的、表里没有的英雄照旧是那一句。
+    #[test]
+    fn a_champion_rotates_through_his_lines_instead_of_repeating_one() {
+        let n = lines_of("ezreal", ChampCue::Kill);
+        assert!(n >= 2, "Ezreal has more than one kill line ({n})");
+        let mut cv = ChampVoice::default();
+        let alive = vec![snap(3, 30, 0, 3, true, "league_ezreal"), snap(6, 60, 1, 1, true, "league_vi")];
+        assert!(cv.step(2000, &alive, &[], false, false, false, 5).is_none());
+        let mut said = Vec::new();
+        let mut t = 2100;
+        for _ in 0..2 * n {
+            let kill = KillLogV1 { tick: t, killer_team: 0, killer_position: 3, killed_position: 1, ..Default::default() };
+            let l = cv.step(t, &alive, &[kill], false, false, false, 5).expect("a kill line");
+            assert_eq!(family(&l.event), "lol_audio_ch_ezreal_kill");
+            said.push(l.event);
+            t += COOLDOWN_KILL;
+        }
+        for w in said.windows(2) {
+            assert_ne!(w[0], w[1], "the same line twice in a row: {said:?}");
+        }
+        let mut distinct = said.clone();
+        distinct.sort();
+        distinct.dedup();
+        assert_eq!(distinct.len(), n, "every line is said: {said:?}");
+        assert_eq!(said[..n], said[n..], "then around again");
+        // the rotation
+        assert_eq!((0..6).map(|i| line_at(i, 1, 0, 3)).collect::<Vec<_>>(), vec![1, 2, 0, 1, 2, 0]);
+        assert_eq!(line_at(4, 9, 2, 1), 0);
+        assert_eq!(lines_of("no_such_champion", ChampCue::Kill), 1);
+        assert_eq!(lines_of("ezreal", ChampCue::Start), 1);
+    }
+
+    /// 表里的每一句都有自己的声音事件，`mod.override_info` 里事件和声音两条都改到了本包（不然放出来是哑的）。
+    #[test]
+    fn every_line_in_the_table_has_its_event() {
+        let root = env!("CARGO_MANIFEST_DIR");
+        let info = std::fs::read_to_string(format!("{root}/mod.override_info")).expect("mod.override_info");
+        let mut names = variants::VARIANTS.iter().map(|v| v.0).collect::<Vec<_>>();
+        let sorted = {
+            let mut s = names.clone();
+            s.sort();
+            s
+        };
+        assert_eq!(names, sorted, "sorted for the binary search");
+        names.dedup();
+        assert_eq!(names.len(), variants::VARIANTS.len(), "each champion once");
+        for (slug, counts) in variants::VARIANTS {
+            for (i, cue) in ["kill", "dead", "respawn"].iter().enumerate() {
+                assert!((1..=3).contains(&counts[i]), "{slug} {cue}: {}", counts[i]);
+                for k in 1..=counts[i] as usize {
+                    let suffix = if k == 1 { String::new() } else { format!("_{k}") };
+                    let event = format!("lol_audio_ch_{slug}_{cue}{suffix}");
+                    let clip = format!("lol_ch_{slug}_{cue}{suffix}");
+                    let si = format!("{root}/sound/sfx/{event}.sound_info");
+                    let body = std::fs::read_to_string(&si).unwrap_or_else(|e| panic!("{si}: {e}"));
+                    assert!(body.contains(&format!("\"clip\":\"{clip}\"")), "{si}: {body}");
+                    assert!(info.contains(&format!("\"asset/base/sound/sfx/{event}\"")), "{event} not remapped");
+                    assert!(info.contains(&format!("\"remapping\": \"asset/lol_audio/sound/bgm/{clip}\"")), "{clip} not remapped");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn start_stagger_blue_then_red_and_only_league_heroes() {
+        let mut cv = ChampVoice::default();
+        let snaps = vec![
+            snap(1, 10, 0, 1, true, "league_yasuo"),
+            snap(2, 20, 1, 1, true, "league_ahri"),
+            snap(3, 30, 0, 2, true, "abysspact_oathbreaker"),
+        ];
+        // tick 0: too early for start quote
+        assert!(cv.step(0, &snaps, &[], false, false, false, 0).is_none());
+        // tick 4s: blue team speaks
+        let blue = cv.step(START_TICKS[0], &snaps, &[], false, false, false, 0).unwrap();
+        assert_eq!(blue.event, "lol_audio_ch_yasuo_start");
+        assert_eq!(blue.cue, ChampCue::Start);
+        // tick 12s: red team speaks (>= 7s global gap after 4s)
+        let red = cv.step(START_TICKS[1], &snaps, &[], false, false, false, 0).unwrap();
+        assert_eq!(red.event, "lol_audio_ch_ahri_start");
+        // never repeats
+        assert!(cv.step(START_TICKS[1] + CHAMP_VOICE_GAP, &snaps, &[], false, false, false, 0).is_none());
+    }
+
+    #[test]
+    fn kill_dead_respawn_and_kogmaw_dedup_and_announcer_defer() {
+        let mut cv = ChampVoice::default();
+        let alive = vec![
+            snap(1, 10, 0, 1, true, "league_garen"),
+            snap(2, 20, 1, 1, true, "league_kogmaw"),
+            snap(3, 30, 1, 2, true, "league_ashe"),
+            snap(4, 40, 0, 2, true, "ragnarok_lubu"),
+        ];
+        // Opened mid-match (> START_WINDOW): suppresses start lines
+        assert!(cv.step(2000, &alive, &[], false, false, false, 1).is_none());
+
+        // Announcer busy -> yields
+        let kill = KillLogV1 { tick: 2100, killer_team: 0, killer_position: 1, killed_position: 1, ..Default::default() };
+        assert!(cv.step(2100, &alive, &[kill], false, false, true, 1).is_none());
+
+        // Announcer free -> Garen kill line plays
+        let kill2 = KillLogV1 { tick: 2105, killer_team: 0, killer_position: 1, killed_position: 2, ..Default::default() };
+        let cl = cv.step(2105, &alive, &[kill2], false, false, false, 1).unwrap();
+        assert_eq!(family(&cl.event), "lol_audio_ch_garen_kill");
+
+        // Kog'Maw dies after gap: skipped (Kog'Maw has passive death VO)
+        let kog_dead = vec![
+            snap(1, 10, 0, 1, true, "league_garen"),
+            snap(2, usize::MAX, 1, 1, false, ""),
+            snap(3, 30, 1, 2, true, "league_ashe"),
+            snap(4, 40, 0, 2, true, "ragnarok_lubu"),
+        ];
+        let t_dead = 2105 + CHAMP_VOICE_GAP;
+        assert!(cv.step(t_dead, &kog_dead, &[], false, false, false, 1).is_none());
+
+        // Ashe dies -> Ashe dead line plays (using cached name across death!)
+        let ashe_dead = vec![
+            snap(1, 10, 0, 1, true, "league_garen"),
+            snap(2, usize::MAX, 1, 1, false, ""),
+            snap(3, usize::MAX, 1, 2, false, ""),
+            snap(4, 40, 0, 2, true, "ragnarok_lubu"),
+        ];
+        let dl = cv.step(t_dead + 1, &ashe_dead, &[], false, false, false, 1).unwrap();
+        assert_eq!(family(&dl.event), "lol_audio_ch_ashe_dead");
+
+        // Ashe respawns after gap -> Ashe respawn line plays
+        let t_resp = t_dead + 1 + CHAMP_VOICE_GAP;
+        let back = vec![
+            snap(1, 10, 0, 1, true, "league_garen"),
+            snap(2, usize::MAX, 1, 1, false, ""),
+            snap(3, 33, 1, 2, true, "league_ashe"),
+            snap(4, 40, 0, 2, true, "ragnarok_lubu"),
+        ];
+        let rl = cv.step(t_resp, &back, &[], false, false, false, 1).unwrap();
+        assert_eq!(family(&rl.event), "lol_audio_ch_ashe_respawn");
+    }
+
+    #[test]
+    fn the_maps_own_grubs_and_herald_are_no_objective() {
+        for (k, n) in [(EntityKindV1::Serpen, "serpen_monster"), (EntityKindV1::Serpen, "serpen_jungle"),
+                       (EntityKindV1::Epic, "epic_monster"), (EntityKindV1::Epic, "epic_jungle")] {
+            assert!(own_monster(k, Some(n)), "{n}");
+        }
+        for n in ["rift_voidgrub_L", "rift_voidgrub_R", "tfm2_rift_herald"] {
+            assert!(!own_monster(EntityKindV1::Epic, Some(n)) && !own_monster(EntityKindV1::Serpen, Some(n)), "{n}");
+        }
+        assert!(own_monster(EntityKindV1::Epic, None));
     }
 }

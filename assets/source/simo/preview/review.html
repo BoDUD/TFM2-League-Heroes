@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>西蒙·海耶 · Q 版素材预览</title>
+<style>
+:root{color-scheme:dark;font:16px/1.55 system-ui,"Microsoft YaHei",sans-serif;background:#151e29;color:#f1ece6}
+main{width:min(1000px,calc(100% - 32px));margin:30px auto 60px}
+h1{margin:0 0 14px;font-size:27px}h2{margin:24px 0 9px;font-size:19px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:10px}
+button,select{font:inherit;color:inherit;background:#263a51;border:1px solid #68829b;border-radius:5px;padding:5px 10px}
+button,select,label,summary{cursor:pointer}a{color:#bdeaff}
+output{color:#ffdb9a;font-variant-numeric:tabular-nums}
+canvas{box-sizing:border-box;width:100%;height:clamp(290px,49vh,500px);display:block;border:1px solid #68829b;border-radius:8px;image-rendering:pixelated}
+details{margin-top:14px}.board{display:block;width:100%;image-rendering:pixelated;margin-top:8px}
+.art{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-top:8px}
+.card{width:min(340px,100%);border-radius:6px}.icons{display:grid;grid-template-columns:repeat(2,minmax(0,105px));gap:9px}
+.icons img{width:100%;display:block;border-radius:5px}
+.sounds{display:grid;gap:7px;grid-template-columns:repeat(auto-fill,minmax(154px,1fr))}
+.sounds button{text-align:left}
+</style>
+</head>
+<body>
+<main>
+<h1>西蒙·海耶</h1>
+<div class="controls">
+  <select id="action" aria-label="动作或特效"></select>
+  <button id="play" type="button">暂停</button>
+  <button id="prev" type="button">上一帧</button>
+  <button id="next" type="button">下一帧</button>
+  <label><input id="showFx" type="checkbox" checked> 招式特效</label>
+  <label><input id="flip" type="checkbox"> 朝左</label>
+  <label><input id="light" type="checkbox"> 浅底</label>
+  <output id="status"></output>
+</div>
+<canvas id="stage" aria-label="动作播放预览"></canvas>
+<details><summary>全部动作帧</summary><img class="board" src="actor_frames.png" alt="64 张角色动作帧"></details>
+<details><summary>全部特效帧</summary><img class="board" src="fx_frames.png" alt="64 张技能特效帧"></details>
+<details open><summary>选人插画与技能图标</summary>
+  <div class="art">
+    <img class="card" src="../card.png" alt="西蒙·海耶选人插画">
+    <div class="icons">
+      <img src="../icons/passive.png" alt="被动">
+      <img src="../icons/skill.png" alt="精确一击">
+      <img src="../icons/skill2.png" alt="雪幕步">
+      <img src="../icons/ult.png" alt="白色死神">
+    </div>
+  </div>
+</details>
+<h2>音频试听</h2>
+<p id="voiceStatus" hidden>这一版附有战斗音效。角色日语对白待取得可核对的录音片段后补录。</p>
+<div class="sounds" id="sounds"></div>
+</main>
+<script src="frames.js"></script>
+<script>
+const node = id => document.getElementById(id);
+const data = window.RAGNAROK_ASSET;
+const args = new URLSearchParams(location.search);
+const stage = node("stage"), ctx = stage.getContext("2d"), select = node("action");
+const segments = Object.fromEntries(Object.entries({...data.actor, ...data.fx}).map(([name, clip]) => {
+  let time = 0;
+  const starts = clip.frames.map(frame => {const start = time; time += frame.duration; return start;});
+  return [name, {...clip, starts, time}];
+}));
+for (const [name, clip] of Object.entries(segments)) select.add(new Option(clip.name, name));
+select.value = Object.hasOwn(segments, args.get("action")) ? args.get("action") : "idle";
+let index = Math.max(0, Math.min(7, (Number(args.get("frame")) || 1) - 1));
+let playing = !args.has("frame"), origin = performance.now();
+const images = Object.fromEntries(["actor", "fx"].map(key => {
+  const image = new Image();
+  image.src = "../atlases/" + data.atlas_prefix + "_" + key + ".png";
+  return [key, image];
+}));
+const audio = new Audio();
+const clips = window.RAGNAROK_AUDIO;
+const hasOfficialVoice = clips.some(clip => clip.kind === "native_anime_ja");
+const hasOriginalVoice = clips.some(clip => clip.kind === "original_ja_performance");
+node("voiceStatus").hidden = hasOfficialVoice && !hasOriginalVoice;
+if (hasOriginalVoice) node("voiceStatus").textContent = "日语角色台词为本 Mod 原创演绎。";
+for (const clip of clips) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = clip.title;
+  button.onclick = () => {
+    audio.src = "../audio/mp3/" + clip.id + ".mp3";
+    audio.play().catch(() => {button.textContent = clip.title + "（播放失败）";});
+  };
+  node("sounds").append(button);
+}
+function setPlaying(value) {
+  playing = value;
+  origin = performance.now() - 1000 * segments[select.value].starts[index];
+  node("play").textContent = value ? "暂停" : "播放";
+}
+function move(step) {
+  const count = segments[select.value].frames.length;
+  index = (index + step + count) % count;
+  setPlaying(false);
+}
+node("play").onclick = () => setPlaying(!playing);
+node("prev").onclick = () => move(-1);
+node("next").onclick = () => move(1);
+select.onchange = () => {index = 0; setPlaying(playing);};
+setPlaying(playing);
+function frameIndex(clip, elapsed) {
+  return clip.starts.findLastIndex(start => start <= elapsed);
+}
+function draw(key, f, x, y, scale) {
+  ctx.drawImage(images[key], f.x, f.y, f.w, f.h, x, y, f.w*scale, f.h*scale);
+}
+function render(now) {
+  requestAnimationFrame(render);
+  if (!Object.values(images).every(image => image.complete && image.naturalWidth)) return;
+  const name = select.value, clip = segments[name];
+  const elapsed = playing ? Math.max(0, (now - origin) / 1000) % clip.time : clip.starts[index];
+  if (playing) index = frameIndex(clip, elapsed);
+  const rect = stage.getBoundingClientRect();
+  const w = Math.round((rect.width - 2)*devicePixelRatio);
+  const h = Math.round((rect.height - 2)*devicePixelRatio);
+  if (stage.width !== w || stage.height !== h) {stage.width = w; stage.height = h;}
+  const [cellW, cellH] = data.cell;
+  const [ax, ay] = data.ground;
+  const [fxX, fxY] = data.fx_cell_anchor;
+  const scale = Math.max(1, Math.floor(Math.min(w/(cellW+36), h/(cellH+17))));
+  const gx = Math.round(w*.43), gy = Math.round(h*.84);
+  const isActor = Object.hasOwn(data.actor, name);
+  const light = node("light").checked;
+  ctx.fillStyle = light ? "#a7b5bc" : "#293c51";
+  ctx.fillRect(0, 0, w, h);
+  if (isActor) {
+    ctx.fillStyle = light ? "#8392a0" : "#4a647e";
+    ctx.fillRect(0, gy, w, 1);
+  }
+  ctx.save();
+  ctx.imageSmoothingEnabled = false;
+  if (node("flip").checked) {ctx.translate(w, 0); ctx.scale(-1, 1);}
+  if (isActor) {
+    const cues = [...(data.cues[name] || []), ...(data.preview_events[name] || []).map(cue =>
+      ({...cue, time_s: clip.starts[cue.frame-1]}))];
+    const aura = data.preview_loop_events[name];
+    const start = name === "skill2" ? clip.starts[4] : 0;
+    function fx(event, offset, loop) {
+      const effect = data.fx_events[event];
+      if (!effect || offset < 0) return;
+      const fxClip = segments[effect.fx];
+      const time = loop ? offset % fxClip.time : offset;
+      if (time >= fxClip.time) return;
+      const [dx, dy] = effect.shift;
+      draw("fx", fxClip.frames[frameIndex(fxClip, time)], gx+(dx-fxX)*scale, gy+(dy-fxY)*scale, scale);
+    }
+    if (node("showFx").checked && aura) fx(aura, elapsed-start, true);
+    draw("actor", clip.frames[index], gx-ax*scale, gy-ay*scale, scale);
+    if (node("showFx").checked) for (const cue of cues) fx(cue.event, elapsed-cue.time_s, false);
+  } else {
+    draw("fx", clip.frames[index], Math.round((w-cellW*scale)/2), Math.round((h-cellH*scale)/2), scale);
+  }
+  ctx.restore();
+  node("status").value = (index+1) + " / " + clip.frames.length;
+  stage.dataset.frame = String(index+1);
+  document.body.dataset.ready = "true";
+}
+requestAnimationFrame(render);
+</script>
+</body>
+</html>

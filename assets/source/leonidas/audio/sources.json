@@ -1,0 +1,237 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/chara/kingleonidas.html",
+  "method": "Dialogue performed by Hiroshi Shirokuma from official Japanese clips. Original background music and effects remain in several cuts.",
+  "clips": [
+    {
+      "id": "voice_sparta",
+      "title": "选人 · 以斯巴达之名",
+      "range_seconds": [
+        47.11,
+        49.9
+      ],
+      "speaker": "白熊 寛嗣",
+      "cast_credit": "https://ragnarok-official.com/chara/kingleonidas.html",
+      "source": "https://www.youtube.com/watch?v=Cl5afD9sHXw",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.79,
+      "wav_sha256": "cfa1a38e585087d24e57abff5c16b3a3ec19b77ac8ca9664fb545923df993770",
+      "mp3_sha256": "6f35f39ca7fec60fa984f0c86eea6146e3ce594889b746de222ffe57b760b32b"
+    },
+    {
+      "id": "voice_challenge",
+      "title": "入场 · 接受挑战",
+      "range_seconds": [
+        43.88,
+        46.1
+      ],
+      "speaker": "白熊 寛嗣",
+      "cast_credit": "https://ragnarok-official.com/chara/kingleonidas.html",
+      "source": "https://www.youtube.com/watch?v=Cl5afD9sHXw",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.22,
+      "wav_sha256": "2c092b32fce6484a70d37ccbcc1c817340743ac318815cedff13296fd18077b6",
+      "mp3_sha256": "43766bf4bf019412ff4a12c3b0223946c1bffb263f730810afb01dea0ea0808b"
+    },
+    {
+      "id": "voice_apollo",
+      "title": "挑衅 · 对阿波罗宣战",
+      "range_seconds": [
+        34.88,
+        38.21
+      ],
+      "speaker": "白熊 寛嗣",
+      "cast_credit": "https://ragnarok-official.com/chara/kingleonidas.html",
+      "source": "https://www.youtube.com/watch?v=o5GRIchY2M4",
+      "source_kind": "official_anime_pv",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.33,
+      "wav_sha256": "ec5c8d7b09cd9bc490d09671919ff0d9518d9dbefb142e99cc41d7c31a4f2661",
+      "mp3_sha256": "803a1909df9d2d2a3ae26cb908cefafbc7f6a79eb036153d74e50284a6a74b31"
+    },
+    {
+      "id": "voice_taunt",
+      "title": "战斗 · 别挡在斯巴达面前",
+      "range_seconds": [
+        35.12,
+        39.74
+      ],
+      "speaker": "白熊 寛嗣",
+      "cast_credit": "https://ragnarok-official.com/chara/kingleonidas.html",
+      "source": "https://www.youtube.com/watch?v=5xCVIiyC99M",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.62,
+      "wav_sha256": "238566b92a3e1304183cb7b67db5fc50aeef7a29678e19d0e9518abd82fe355b",
+      "mp3_sha256": "44cf6d2710825e0ed8aa505013139ca6dbb06a015d66afb98ec4cf1e4449d059"
+    },
+    {
+      "id": "voice_chain",
+      "title": "链盾 · 投掷招式喊声",
+      "range_seconds": [
+        56.25,
+        60.29
+      ],
+      "speaker": "白熊 寛嗣",
+      "cast_credit": "https://ragnarok-official.com/chara/kingleonidas.html",
+      "source": "https://www.youtube.com/watch?v=5xCVIiyC99M",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.04,
+      "wav_sha256": "e2f8a7f16bb9008a0258c4170f44fcdb61bd3d5028b669f9ac595d9554a3b42f",
+      "mp3_sha256": "0758bfc82ee40f06e3157b88fc28e4fd438482be492377abde3743d582d43d77"
+    },
+    {
+      "id": "voice_charge",
+      "title": "冲锋 · 斯巴达王的警告",
+      "range_seconds": [
+        31.65,
+        34.77
+      ],
+      "speaker": "白熊 寛嗣",
+      "cast_credit": "https://ragnarok-official.com/chara/kingleonidas.html",
+      "source": "https://www.youtube.com/watch?v=5xCVIiyC99M",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.12,
+      "wav_sha256": "bc0d8273b551ea7098ae81821d44af88f7beb2aa8081c837d7b21c34e4adf5fe",
+      "mp3_sha256": "c705ed6788ebe05903b8515082c6a4897d59173f43f95c2fd3366e537d789b68"
+    },
+    {
+      "id": "sfx_bash_windup",
+      "kind": "original_foley",
+      "title": "盾击 · 前臂蓄力",
+      "duration_seconds": 0.24,
+      "wav_sha256": "8df239f969c424cab1905685395b24b3b9278c02c91de088e9033ed78e45efff",
+      "mp3_sha256": "d72d0e5f8222418c5a1e53f6a4f73cb47f9eb52342a8a3666727a9ce0cb3d75b"
+    },
+    {
+      "id": "sfx_bash",
+      "kind": "original_foley",
+      "title": "盾击 · 挥盾",
+      "duration_seconds": 0.25,
+      "wav_sha256": "0db99c9a0b57194205fb131027d18b85e6392d85b6e86572f9b7c694533102dc",
+      "mp3_sha256": "e8b4fac252daa31108ae83788c392ed775ffbc1dd0b18048dc8ba022e571fc54"
+    },
+    {
+      "id": "sfx_bash_hit",
+      "kind": "original_foley",
+      "title": "盾击 · 命中",
+      "duration_seconds": 0.25,
+      "wav_sha256": "a811030cd325cdd7f459a419d74dd3c3057958a00239ae380745432d8b75a86f",
+      "mp3_sha256": "e6749722a21548d27eaaff154bdb8d1fc424a0304e435b301cbb514adfc2b353"
+    },
+    {
+      "id": "sfx_chain_windup",
+      "kind": "original_foley",
+      "title": "链盾 · 起手",
+      "duration_seconds": 0.3,
+      "wav_sha256": "dcb9ac997e7d3c03ead4983df680a2182d346354ae55ab0a21fbba41de779f66",
+      "mp3_sha256": "d225bede2adddc8116218700d57824cbedb624cb0a1f48a08f7fc9f3be7121f0"
+    },
+    {
+      "id": "sfx_chain_throw",
+      "kind": "original_foley",
+      "title": "链盾 · 放出",
+      "duration_seconds": 0.39,
+      "wav_sha256": "64117e1e43b833487e783a24c8ede7a0cc21ea01943e56fdd02a3cfc55ed0593",
+      "mp3_sha256": "93a8bdf18007b641b9de85eb34ebb873bb07128af22b59fffdbe9502f92a6035"
+    },
+    {
+      "id": "sfx_disc_hit",
+      "kind": "original_foley",
+      "title": "链盾 · 命中",
+      "duration_seconds": 0.31,
+      "wav_sha256": "737c0f925e9d3055239bc47bf3eb5954b104cde2e42f162ec7f82aae931edf5b",
+      "mp3_sha256": "bad0a730f8eb56a1d3fc54b7534424c721dcd9f4615c5e9baab4f5ef02f562a9"
+    },
+    {
+      "id": "sfx_chain_retract",
+      "kind": "original_foley",
+      "title": "链盾 · 回卷",
+      "duration_seconds": 0.34,
+      "wav_sha256": "a3f94f95433863a0179ff827e0bee4fbeb11931500eef6c61ff5fee60f61faa2",
+      "mp3_sha256": "84d9aba73cb017f7251b1cdd61f2bb591190a773516fab0ba1c4a36e9cc8935c"
+    },
+    {
+      "id": "sfx_disc_catch",
+      "kind": "original_foley",
+      "title": "链盾 · 接盾",
+      "duration_seconds": 0.24,
+      "wav_sha256": "cba8f543db4da096f7422b296f1129aa109c82e7956701c90d2b2dc0c854b667",
+      "mp3_sha256": "27dd1ec74cc47c79b9886a3fc081aa8d234a6fc8e8f6e92dce477344b3202668"
+    },
+    {
+      "id": "sfx_guard_raise",
+      "kind": "original_foley",
+      "title": "举盾 · 架势",
+      "duration_seconds": 0.29,
+      "wav_sha256": "5ef5491413523787b84b987d9d4301ec2b15c95dc6f0014e9678e1f7a6e2f298",
+      "mp3_sha256": "3e8d21e6e4ab1e0a4c80b70ff0c4c5fb611934a6653b2a46332cfd840576a2ab"
+    },
+    {
+      "id": "sfx_arrow_reflect",
+      "kind": "original_foley",
+      "title": "举盾 · 反弹光箭",
+      "duration_seconds": 0.34,
+      "wav_sha256": "0f61e09f2a1a8c835bbb48a4052792003483680d32e39cc5892d36729a61a42b",
+      "mp3_sha256": "627d22f5bb0b9c75397d613bc0b5a8b9e02376cebc2426aa52655421bb5cc503"
+    },
+    {
+      "id": "sfx_guard_fade",
+      "kind": "original_foley",
+      "title": "举盾 · 收盾",
+      "duration_seconds": 0.23,
+      "wav_sha256": "3270453bf9f2d41e3f4cd8d78ed921f001e0914568bce2e3e652322c027aae5f",
+      "mp3_sha256": "69b3b39de3dc24b55d8caca2370036e6cc67d5a6b5bf5d294ad9235edaf31fc0"
+    },
+    {
+      "id": "sfx_truth_shield",
+      "kind": "original_foley",
+      "title": "真理之盾 · 切换",
+      "duration_seconds": 0.47,
+      "wav_sha256": "be46b5a66cbe14d07ce13ba50260698d433bb831cdea9fb1bb825cdcca833135",
+      "mp3_sha256": "b65d249c16ea5d2de0e7661966b4c13438649cf8fd04c0f712c422b668ff7091"
+    },
+    {
+      "id": "sfx_phalanx_dash",
+      "kind": "original_foley",
+      "title": "方阵冲锋 · 脚步与推盾",
+      "duration_seconds": 0.48,
+      "wav_sha256": "0f96606da7eecf1b6402e6777257686c26cfdb166750b29c08a48b02d9b02a9a",
+      "mp3_sha256": "567773a415bcab834d4f27ee4eb256854ad05dc8afc8f10225cac74135e50d8d"
+    },
+    {
+      "id": "sfx_phalanx_hit",
+      "kind": "original_foley",
+      "title": "方阵冲锋 · 命中",
+      "duration_seconds": 0.38,
+      "wav_sha256": "92e853ff1a2ce198052cf11c887c633f3a17a104ebd0afcdbf997443d7682862",
+      "mp3_sha256": "80ac0c6a0afd6ca46616578fb353f7abf0d1eab841e1dda1825ef5434eed83d5"
+    },
+    {
+      "id": "sfx_shield_land",
+      "kind": "original_foley",
+      "title": "圆盾 · 落地",
+      "duration_seconds": 0.32,
+      "wav_sha256": "a23135a77fd4e5b0b4ac68770d967c689d60b344fb70b5c168b318e09b86a929",
+      "mp3_sha256": "1bf6c78f741700ca6cfb8a9531d5c3e171863acbf2d275eb3055d27dca20c39f"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "人物 · 接地",
+      "duration_seconds": 0.26,
+      "wav_sha256": "877d09b67d2fdb23253e967c85304f5978b7178fc8aaee5d6d58040277cb43b0",
+      "mp3_sha256": "4107a4b545918db0c1ebe9fca19026ac26d58d1568931c6b09745bac8173467c"
+    }
+  ]
+}

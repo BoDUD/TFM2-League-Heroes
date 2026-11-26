@@ -1525,13 +1525,6 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ViewEffect",
-                              "name": "league_ivern_r_drop"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
                               "name": "league_ivern_r_dust"
                             }
                           },

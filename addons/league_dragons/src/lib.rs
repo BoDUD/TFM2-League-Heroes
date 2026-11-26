@@ -46,6 +46,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, Map};
 use mod_api_stable::*;
 
 pub mod feed;
@@ -64,6 +65,7 @@ pub mod screen;
 pub mod words;
 // 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子），本包自己登记的高清帧
 pub mod skin;
+pub mod portrait;
 pub mod hd;
 // 玩家可调的持续时间（settings.ini）
 pub mod settings;
@@ -103,6 +105,9 @@ const REFRESH: usize = 120;
 const KEEP_EVERY: usize = 6;
 /// 创意工坊那个 mod 的记录：开局 `CONFLICT_EARLY` tick 里每 30 tick 看一次水晶，之后每 600 tick。
 const CONFLICT_EARLY: usize = 1_800;
+/// Rin 峡谷 0.1.65 的时间表（mod 里的 herald.json / 发布清单.json）：8:00 上河道大龙坑三只虚空巢虫，14:45 退场；15:00 峡谷先锋，
+/// 19:45 退场；20:00 莫甘德（我们的纳什男爵）。小龙照游戏数据库的时间在下河道的小龙坑，和它们不在一个坑。
+const RIFT_BARON_T: usize = 20 * 3_600;
 /// 龙魂触发的日志一份模拟前这么多行、之后每这么多行一行。
 const PROC_FIRST: usize = 30;
 const PROC_EVERY: usize = 25;
@@ -146,6 +151,18 @@ const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 100;
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 这次启动见过的地图 mod 自己的野怪名字（每个名字记一行日志）。
+static OTHERS: LazyLock<Mutex<Vec<String>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+
+fn remember_other(name: &str) -> bool {
+    let mut seen = OTHERS.lock().unwrap_or_else(|e| e.into_inner());
+    if seen.iter().any(|n| n == name) || seen.len() >= 16 {
+        return false;
+    }
+    seen.push(name.to_string());
+    true
+}
 
 pub(crate) fn counted(kind: &'static str) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
@@ -206,6 +223,24 @@ fn champ_of(sim: &StableSim<'_>, player: usize) -> Option<(usize, bool)> {
 fn show(screen: Option<(u64, u64)>, tick: usize, kind: fx::Kind, at: (u64, u64), to: Vec<(u64, u64)>) {
     if let Some((m, s)) = screen {
         feed::fx(fx::Fx { m, s, tick, kind, at, to });
+    }
+}
+
+/// Rin 的地图上，地形的每一处（[`rift::Layout::ground_points`]）拿这一局读到的墙再对一遍：位置是按 Rin 0.1.68 离线挑的，
+/// 他以后改了墙，日志的 RIFT 行会写出哪几处进了墙。原版地图：空的。
+fn walls_check(map: Map, layout: &rift::Layout) -> String {
+    if map != Map::Rift {
+        return String::new();
+    }
+    let Some(walls) = game_places::terrain::rift_walls() else {
+        return " (the map's walls file did not read: the places are not checked)".to_string();
+    };
+    let pts = layout.ground_points();
+    let bad: Vec<(u64, u64)> = pts.iter().copied().filter(|p| walls.is_wall(p.0 as f64, p.1 as f64)).collect();
+    if bad.is_empty() {
+        format!(" (all {} places off this map's walls)", pts.len())
+    } else {
+        format!(" - WARN {} of {} places in a wall of this map version, the first {:?}", bad.len(), pts.len(), &bad[..bad.len().min(4)])
     }
 }
 
@@ -480,6 +515,16 @@ enum Camp {
 }
 
 impl Camp {
+    /// 这只野怪是不是游戏自己的小龙 / 莫甘德：名字里带 serpen（小龙），带 epic 或 morgard（莫甘德）；读不到名字的照旧算。
+    /// 地图 mod 自己加的史诗野怪也可能是这两种实体（Rin 峡谷 0.1.65 的 rift_voidgrub_L / R、tfm2_rift_herald），
+    /// 不能当成小龙、更不能当成纳什男爵（用户 11-26：「增加了虚空潮虫的话 我们大小龙也要调一下进行适配了吧」）。
+    fn own(self, name: Option<&str>) -> bool {
+        name.is_none_or(|n| match self {
+            Camp::Serpen => n.contains("serpen"),
+            Camp::Epic => n.contains("epic") || n.contains("morgard"),
+        })
+    }
+
     fn index(self) -> usize {
         self as usize
     }
@@ -622,6 +667,8 @@ struct Sim {
     /// 小龙坑在哪（第一次看见小龙时记下：认地图用）；元素峡谷的地形（第二条元素亚龙被拿下后）。
     pit: Option<(u64, u64)>,
     terrain: rift::Terrain,
+    /// 这一场的地图（读阵容那一 tick 认的：塔和水晶在原版地图外就是峡谷）。
+    map: Map,
 }
 
 impl Sim {
@@ -672,6 +719,7 @@ impl Sim {
             rebuilt: false,
             pit: None,
             terrain: rift::Terrain::default(),
+            map: Map::Native,
         }
     }
 
@@ -728,6 +776,15 @@ impl Sim {
         }
         self.pls = vec![Pl::default(); seats.len()];
         self.seats = seats;
+        self.map = map_of_sim(sim);
+        if self.map == Map::Rift {
+            say(screen.is_some(), "rift", format!("{} MAP sim #{} Rin's Summoner's Rift: the map's own void grubs (8:00-14:45) and Rift Herald (15:00-19:45) hold the top pit before Baron Nashor (20:00); our drakes are the game's serpent in the bottom pit, on the database's timer - the grubs and the Herald are left alone; the drakes there are drawn turned to the pit's opening (league_drake_<element>_rift)",
+                                                 head(sim), self.no));
+            // 小龙坑只朝右上方开口：画面换转身朝坑口的那一套（skin.rs）
+            if let Some((m, s)) = screen {
+                feed::on_rift(m, s);
+            }
+        }
         let order: Vec<&str> = self.order.iter().map(|e| e.key()).collect();
         say(screen.is_some(), "match", format!("{} MATCH sim #{} drakes in this order: {}, {}, then the rift's {} until the soul{}",
                                                head(sim), self.no, order[0], order[1], order[2],
@@ -771,8 +828,10 @@ impl Sim {
         }
         self.ver = [self.ver[0] + 1, self.ver[1] + 1];
         // the rift had turned already (two drakes taken): its terrain again, rising from now
-        if self.drakes >= 2 && !self.conflict && settings::terrain_on() && rift::is_base_map(&self.nexus_at(sim), None) {
-            self.terrain.start(self.order[2], now);
+        if self.drakes >= 2 && !self.conflict && settings::terrain_on() {
+            if let Some(layout) = rift::layout_for(self.map, &self.nexus_at(sim), None) {
+                self.terrain.start(self.order[2], now, layout);
+            }
         }
         say(screen.is_some(), "rebuilt", format!("{} REBUILT sim #{} from the nexus record: blue {:?} red {:?} soul {:?}{}",
                                                  head(sim), self.no, r.stacks[0], r.stacks[1], self.soul,
@@ -868,13 +927,24 @@ impl Sim {
                     _ => continue,
                 },
             };
+            let name = e.name();
+            if !camp.own(name.as_deref()) {
+                // 地图 mod 的巢虫、先锋：不碰，一次启动每个名字记一行（好知道它们在游戏里算哪种实体）
+                let name = name.unwrap_or_default();
+                if remember_other(&name) {
+                    say(screen.is_some(), "other", format!("{} OTHER sim #{} #{} '{name}' kind {:?} at {:?}: the map's own monster, not a drake / Baron - left alone",
+                                                           head(sim), self.no, e.id(), e.kind(), e.pos()));
+                }
+                continue;
+            }
             if e.is_alive() {
-                found.push((camp, e.id(), e.pos(), e.name().unwrap_or_default()));
+                found.push((camp, e.id(), e.pos(), name.unwrap_or_default()));
             }
         }
         for (camp, ent, pos, name) in found {
             match camp {
                 Camp::Serpen if self.serpen.is_none() => {
+                    self.rebase(sim, camp);
                     let element = rules::next_element(&self.order, self.drakes, self.soul.is_some());
                     sim.add_buff(ent, &BuffV1::named(&rules::marker(element)));
                     self.serpen = Some(Alive { ent, element: Some(element), pos, born: now });
@@ -896,12 +966,26 @@ impl Sim {
                     }
                 }
                 Camp::Epic if self.epic.is_none() => {
+                    self.rebase(sim, camp);
                     self.epic = Some(Alive { ent, element: None, pos, born: now });
                     self.dirty = true;
                     say(screen.is_some(), "spawn", format!("{} SPAWN sim #{} Baron Nashor #{ent} '{name}'", head(sim), self.no));
+                    // 峡谷上大龙坑前面是巢虫和先锋，地图自己把莫甘德压到 20:00；早出来说明地图没压住，记下来
+                    if self.map == Map::Rift && now < RIFT_BARON_T {
+                        say(screen.is_some(), "rift_early", format!("{} WARN sim #{} Baron Nashor up at {}:{:02} on the Rift, before the map's 20:00 (the void grubs 8:00-14:45 and the Rift Herald 15:00-19:45 share his pit)",
+                                                                    head(sim), self.no, now / 3600, now / 60 % 60));
+                    }
                 }
                 _ => {}
             }
+        }
+    }
+
+    /// 自己的龙刚刷出来：统计的底数重取一次。地图 mod 的巢虫、先锋被打死时游戏可能也记进 epic_secure / serpen_secure，
+    /// 不重取的话下一次拿龙两队都涨，认不出是谁拿的。原版地图上两次拿龙之间没有别的，重取的数和原来一样。
+    fn rebase(&mut self, sim: &StableSim<'_>, camp: Camp) {
+        if let Some(sums) = self.secure_sums(sim, camp.stat()) {
+            self.secure[camp.index()] = sums;
         }
     }
 
@@ -1101,7 +1185,9 @@ impl Sim {
         self.nexus.iter().filter_map(|&n| sim.get_entity(n).map(|e| e.pos())).collect()
     }
 
-    /// 第二条元素亚龙被拿下：峡谷变成第三种元素。游戏自带的 5v5 地图上地形跟着变（[`rift`]），别的地图没有。
+    /// 第二条元素亚龙被拿下：峡谷变成第三种元素。游戏自带的 5v5 地图、Rin 的召唤师峡谷（0.5.12，用户：「小龙的地形特效是不是也要
+    /// 兼容大地图啊」）上地形跟着变（[`rift`]，
+    /// 两张地图各一套位置），别的地图没有。
     fn rift_turns(&mut self, sim: &mut StableSim<'_>, now: usize, screen: Option<(u64, u64)>) {
         let element = self.order[2];
         if !settings::terrain_on() {
@@ -1110,23 +1196,23 @@ impl Sim {
             return;
         }
         let nexus = self.nexus_at(sim);
-        if !rift::is_base_map(&nexus, self.pit) {
+        let Some(layout) = rift::layout_for(self.map, &nexus, self.pit) else {
             say(screen.is_some(), "rift", format!(
-                "{} RIFT sim #{} the rift turns {} - no terrain here: not the game's own 5v5 map (nexuses at {nexus:?}, the dragon pit at {:?})",
+                "{} RIFT sim #{} the rift turns {} - no terrain here: neither the game's own 5v5 map nor Rin's Summoner's Rift (nexuses at {nexus:?}, the dragon pit at {:?})",
                 head(sim), self.no, element.key(), self.pit));
             return;
-        }
-        self.terrain.start(element, now);
+        };
+        self.terrain.start(element, now, layout);
         let what = match element {
-            Element::Cloud => format!("{} wind currents, +{}% move speed in them", rift::CURRENTS.len(), rift::WIND_MS),
-            Element::Hextech => format!("{} pairs of hex-gates", rift::GATES.len()),
-            Element::Ocean => format!("{} patches of brush, {} honeyfruit", rift::OCEAN_BRUSH.len(), rift::FRUITS.len()),
-            Element::Chemtech => format!("{} patches of chem-fog", rift::CHEM_BRUSH.len()),
-            Element::Mountain => format!("{} rubble piles, {}% move speed on them", rift::ROCKS.len(), rift::RUBBLE_MS),
+            Element::Cloud => format!("{} wind currents, +{}% move speed in them", layout.currents.len(), rift::WIND_MS),
+            Element::Hextech => format!("{} pairs of hex-gates", layout.gates.len()),
+            Element::Ocean => format!("{} patches of brush, {} honeyfruit", layout.ocean_brush.len(), layout.fruits.len()),
+            Element::Chemtech => format!("{} patches of chem-fog", layout.chem_brush.len()),
+            Element::Mountain => format!("{} rubble piles, {}% move speed on them", layout.rocks.len(), rift::RUBBLE_MS),
             _ => "burning walls on screen only".to_string(),
         };
-        say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {}: {what}, live from t={}", head(sim), self.no,
-                                              element.key(), now + rift::RISE_T));
+        say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {} on {}: {what}, live from t={}{}", head(sim), self.no,
+                                              element.key(), layout.name, now + rift::RISE_T, walls_check(self.map, layout)));
         self.emit(sim, now, Ev::Rift { element }, feed::What::Rift { element }, screen);
     }
 
@@ -1148,7 +1234,7 @@ impl Sim {
                 rift::Happening::Fruit { seat, fruit, heal } => {
                     say(screen.is_some(), "fruit", format!("{} FRUIT sim #{} {} eats honeyfruit {fruit}: {heal} health (the next there at t={})",
                                                            head(sim), self.no, self.who(seat), now + rift::FRUIT_RESPAWN));
-                    show(screen, now, fx::Kind::Fruit(fruit as u8), rift::FRUITS[fruit], Vec::new());
+                    show(screen, now, fx::Kind::Fruit(fruit as u8), self.terrain.layout().fruits[fruit], Vec::new());
                 }
                 rift::Happening::Hidden { seat, brush } => {
                     say(screen.is_some(), "brush", format!("{} BRUSH sim #{} {} is hidden in patch {brush} (hide {})", head(sim),
@@ -1799,6 +1885,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    // 显示钩子晚挂（2026-11-21）：龙的外观（和当主时的战场缩放）先登记，第一帧（screen::Overlay）再换槽；编进合集时由合集管
+    #[cfg(not(league_bundle))]
+    game_places::hook::defer();
     // its own dense frames since 0.3.5 (the user: 「不行 你要改成不依赖主包的」「就是用原版英雄也能用这个大小龙」): the 8 sheets
     // to the engine league.dll and tft.dll share - it hooks the game from here, or hands the table to the pack DLL that did -
     // before the display hook below swaps the slot (src/hd.rs)

@@ -2,9 +2,13 @@
 //! 辛吉德换成 `override/` 里的副本（`make_override.py` 用 tools/kit/build_singed.py 的 `native=1` 生成：技能、时机一字不改，只有
 //! 过肩摔的「拉过去 + 胶在地上就禁锢」换成本包的原生效果 `league_singed:fling`），按英雄联盟的规则做：
 //!
-//! - **真的过肩摔**：目标击飞 `E_FLY` tick，从他头顶飞过、落到他身后 `E_BEHIND` 远的地方（路上碰到墙就落在墙边，地图墙格同
-//!   波比附加包）。击飞期间每 tick 由本包把它往落点挪一段（`entity_set_pos`：数据里击飞和拉扯同时上会被定在原地，2026-10-23 的
-//!   模拟查出 0/33 移动）。主包：没有击飞，`Pull` 把目标从他身上拉过去。
+//! - **真的过肩摔**：目标从他身上过去、落到他身后 `E_BEHIND` 远的地方，`E_FLY` tick 飞完（路上碰到墙就落在墙边，地图墙格同
+//!   波比附加包；峡谷地图上是峡谷的墙格，`game_places::terrain`，没有墙体文件时只有地图四边外算墙）。0.1.5（用户 2026-11-21：
+//!   「炼金不能把人背回来」）：以前是击飞 + 本包每 tick 改坐标（`entity_set_pos`），游戏 0.7.x 的画面不跟 set_pos（奎因的后空翻
+//!   同一天查出来的），被摔的人在画面上原地飞起、原地落下，下次走动才闪到他身后。现在摔出去那一 tick 给它一段强制位移
+//!   （`CcKindV1::ForceMove`），宿主每 tick 挪、画面连着动。不再击飞：引擎里被击飞的单位不吃强制位移（数据里击飞和拉扯同时上，
+//!   2026-10-23 的模拟 0/33 移动）。强制位移没了（被别的控制顶掉、没生效）又还差得远，本包才自己走一步。主包：`Pull` 把目标从
+//!   他身上拉过去。
 //! - **落进胶里才禁锢**：落地后 `LAND_AT` 这几个 tick 看它身上有没有强力粘胶的减速（`league_singed_w_slow`，粘胶每
 //!   `W_P` tick 给站在胶里的敌人挂一次）：有就是落在胶里——禁锢 `E_ROOT` tick。飞的途中每 tick 都摘掉这个减速，所以起飞前、
 //!   空中经过的胶不算。主包：数据读不到单位站在哪，只要地上有他的胶（`league_singed_w_out`），被摔的就禁锢。
@@ -18,8 +22,9 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::{LazyLock, Mutex};
+use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -126,19 +131,23 @@ fn unit(v: Pt) -> Option<Pt> {
     (l > 1.0).then_some((v.0 / l, v.1 / l))
 }
 
-/// 墙格的边长（世界单位）和查墙的步长。
+/// 墙格的边长（世界单位，游戏自己的地图）和查墙的步长。
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 
-/// 地图的墙格（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它）；5v5 地图另加四边。
+/// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图
+/// 另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
+    pub cell: f64,
+    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -150,7 +159,19 @@ impl Grid {
         ]
     }
 
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
+    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
+    /// 算墙（整张图一格空地）——过肩摔在峡谷上不会停在墙边，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
+    pub fn rift(walls: Option<&Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
+            None => {
+                let e = terrain::RIFT_EXTENT;
+                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
+            }
+        }
+    }
+
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -160,8 +181,11 @@ impl Grid {
                 return true;
             }
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
+            return true;
+        }
+        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -208,12 +232,34 @@ pub fn fly_step(cur: Pt, end: Pt, step: f64) -> Pt {
     }
 }
 
+/// 摔出去的强制位移 (dx, dy, 每 tick 多远, 几 tick)：`E_FLY` tick 从 `from` 走到 `to`。强制位移走的是 速度 x tick 那么远，
+/// dx / dy 只管方向，所以速度按 tick 数算（向上取整，最多多走不到 `E_FLY`）。不到 1 就不挪。
+pub fn fling_push(from: Pt, to: Pt) -> Option<(i64, i64, u64, u64)> {
+    let d = dist(from, to);
+    if d < 1.0 {
+        return None;
+    }
+    let ticks = E_FLY as u64;
+    Some(((to.0 - from.0).round() as i64, (to.1 - from.1).round() as i64, (d / ticks as f64).ceil() as u64, ticks))
+}
+
+/// 强制位移没在挪它的这一 tick 要不要自己走一步：离落点还超过两步才走。差一两步多半是强制位移的头尾（哪一 tick 开始挪、
+/// 取整），自己补那一下画面上是一闪，不补。
+pub fn own_step_needed(cur: Pt, end: Pt, step: f64) -> bool {
+    dist(cur, end) > 2.0 * step
+}
+
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
 fn cc_immune(sim: &StableSim<'_>, id: usize) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.cc_immune))
+}
+
+/// 身上有没有强制位移（宿主正在挪它）。
+fn force_moved(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| c.kind == CcKindV1::ForceMove.code()))
 }
 
 fn pos(sim: &StableSim<'_>, id: usize) -> Option<Pt> {
@@ -239,10 +285,22 @@ fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
         .collect()
 }
 
-fn grid_now(sim: &StableSim<'_>) -> Option<Grid> {
-    let grids = Grid::builtin();
-    let i = current(&grids, &unit_points(sim))?;
-    grids.into_iter().nth(i)
+/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
+static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+/// 这次启动第一次碰到峡谷时在日志里记一行。
+static RIFT_SEEN: Once = Once::new();
+
+/// 当前对局的墙格：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；游戏自己的地图照旧在三张内置图
+/// 里挑单位站进墙里最少的那张。
+fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            RIFT_SEEN.call_once(|| wlog(format!("== Rift: Fling lands at the Rift's walls; {} ==", terrain::rift_status())));
+            Some(&*RIFT)
+        }
+        Map::Native => current(&*BUILTIN, &unit_points(sim)).map(|i| &BUILTIN[i]),
+    }
 }
 
 fn queue(sim: &mut StableSim<'_>, stage: &str, caster: usize, input: InputTargetV1, delay: usize) {
@@ -258,7 +316,7 @@ fn clamp_u(v: f64) -> u64 {
 
 // ===================== 原生效果 =====================
 
-/// 过肩摔抓住目标（主包 E 的 `e_grab` 那一 tick）：击飞，排好每 tick 的飞行和落地后的查看。
+/// 过肩摔抓住目标（主包 E 的 `e_grab` 那一 tick）：一段强制位移把它从他身上带到身后，排好每 tick 的飞行和落地后的查看。
 fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let Some(target) = target_of(&input) else { return };
     let Some(body) = sim.get_entity(target).filter(|e| e.is_alive() && e.is_targetable()).map(|e| e.radius() as f64) else {
@@ -272,11 +330,19 @@ fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     let (Some(him), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let (dir, reach) = throw_line(him, at, E_BEHIND as f64, (1.0, 0.0));
-    let wall = grid_now(sim).and_then(|g| wall_travel(&g, at, dir, reach, body));
+    let wall = grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body));
     let len = wall.unwrap_or(reach);
     let end = (at.0 + dir.0 * len, at.1 + dir.1 * len);
     sim.entity_remove_buff(target, &n("w_slow"));
-    sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, E_FLY as u64));
+    // 强制位移：宿主每 tick 挪它一段，画面上是连着的。不能再上击飞，被击飞的单位不吃强制位移
+    let push = fling_push(at, end);
+    if let Some((dx, dy, speed, ticks)) = push {
+        let mut mv = CcV1::of_kind(CcKindV1::ForceMove, ticks);
+        mv.dx = dx;
+        mv.dy = dy;
+        mv.speed = speed;
+        sim.apply_cc(target, &mv);
+    }
     sim.entity_remove_buff(target, &n("e_air"));
     sim.add_buff(target, &BuffV1::timed(&n("e_air"), LAND_AT[LAND_AT.len() - 1] + 2));
     // each step carries the landing (x, y) and the take-off (dir_x, dir_y): the step length is the whole flight / E_FLY
@@ -298,11 +364,14 @@ fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     if let Some(k) = counted("fling") {
         let why = if wall.is_some() { format!("a wall after {len:.0}") } else { format!("{len:.0}, no wall") };
-        wlog(format!("{} FLING #{target} from {} over him at {} to {} ({why}) #{k}", head(sim, me), pt(at), pt(him), pt(end)));
+        let how = push.map_or("no move".to_string(), |(_, _, sp, t)| format!("forced move {t} ticks x {sp}"));
+        wlog(format!("{} FLING #{target} from {} over him at {} to {} ({why}), {how} #{k}", head(sim, me), pt(at), pt(him),
+                     pt(end)));
     }
 }
 
-/// 飞行中的一 tick：往落点挪一段；空中经过的胶不算（摘掉减速）。
+/// 飞行中的一 tick：空中经过的胶不算（摘掉减速）。宿主在用强制位移挪它就不管；强制位移没了（被别的控制顶掉、没生效）又离
+/// 落点还远，本包自己往落点走一步（位置是对的，这一步画面上不显示）。
 fn fly(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let target = input.target_id;
     if !has_buff(sim, target, &n("e_air")) {
@@ -313,11 +382,21 @@ fn fly(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         return;
     };
     sim.entity_remove_buff(target, &n("w_slow"));
+    if force_moved(sim, target) {
+        return;
+    }
     let start = (input.dir_x as f64, input.dir_y as f64);
     let end = (input.x as f64, input.y as f64);
-    let to = fly_step(cur, end, dist(start, end) / E_FLY as f64);
+    let step = dist(start, end) / E_FLY as f64;
+    if !own_step_needed(cur, end, step) {
+        return;
+    }
+    let to = fly_step(cur, end, step);
     sim.entity_set_pos(target, clamp_u(to.0), clamp_u(to.1));
-    let _ = me;
+    if let Some(k) = counted("own_step") {
+        wlog(format!("{} FLY #{target}: no forced move on it at {}, {:.0} short - stepped to {} itself #{k}", head(sim, me),
+                     pt(cur), dist(cur, end), pt(to)));
+    }
 }
 
 /// 落地后看一眼：身上有粘胶的减速就是落在胶里——禁锢。
@@ -362,7 +441,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Singed: Fling knocks up over him, roots in the glue) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Singed: Fling carries the target over him by a forced move, roots in the glue) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -418,6 +497,27 @@ mod tests {
     }
 
     #[test]
+    fn the_fling_is_one_forced_move() {
+        // 64000 in E_FLY ticks: aimed the whole way, speed x ticks covers it (at most E_FLY too far from rounding up)
+        let (dx, dy, speed, ticks) = fling_push((0.0, 0.0), (64_000.0, 0.0)).expect("a move");
+        assert_eq!((dx, dy, ticks), (64_000, 0, E_FLY as u64));
+        assert_eq!(speed, 4_000);
+        let (_, _, speed, ticks) = fling_push((10.0, 20.0), (40_011.0, -30_000.0)).expect("a move");
+        let d = dist((10.0, 20.0), (40_011.0, -30_000.0));
+        assert!((speed * ticks) as f64 >= d && ((speed * ticks) as f64) < d + E_FLY as f64, "{speed} x {ticks} for {d}");
+        // nothing to go: no move
+        assert_eq!(fling_push((5.0, 5.0), (5.4, 5.0)), None);
+    }
+
+    #[test]
+    fn steps_of_its_own_only_when_far_behind() {
+        let step = 4_000.0;
+        assert!(!own_step_needed((60_000.0, 0.0), (64_000.0, 0.0), step), "one step short: the forced move's tail");
+        assert!(!own_step_needed((56_000.0, 0.0), (64_000.0, 0.0), step), "two steps short: still left alone");
+        assert!(own_step_needed((40_000.0, 0.0), (64_000.0, 0.0), step), "the forced move stopped halfway");
+    }
+
+    #[test]
     fn the_looks_cover_a_glue_period() {
         assert!(LAND_AT[0] > E_FLY);
         assert!(LAND_AT[LAND_AT.len() - 1] - LAND_AT[0] >= W_P);
@@ -430,6 +530,43 @@ mod tests {
         let to = wall_travel(g, (40_000.0, 480_000.0), (-1.0, 0.0), 60_000.0, 6_000.0).expect("the edge is a wall");
         assert!((to - (40_000.0 - MOBA_BOUNDS.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
         assert_eq!(wall_travel(g, (480_000.0, 480_000.0), (0.0, 1.0), 30_000.0, 6_000.0), None);
+    }
+
+    /// 峡谷大小的假墙格：355 x 356 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
+    fn rift_walls(walls: &[(usize, usize)]) -> Walls {
+        let rows: Vec<String> = (0..356).map(|y| (0..355).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
+    fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
+        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
+        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
+        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
+    }
+
+    #[test]
+    fn the_rifts_walls_stop_the_flight() {
+        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
+        let g = Grid::rift(Some(&rift_walls(&block)));
+        // thrown over him (15000 off) toward a wall of the Rift past 1000000, 40000 behind the target: lands at it
+        let at = (left - 40_000.0, 1_300_000.0);
+        let (dir, reach) = throw_line((left - 25_000.0, 1_300_000.0), at, E_BEHIND as f64, (1.0, 0.0));
+        let to = wall_travel(&g, at, dir, reach, 6_000.0).expect("the Rift's wall");
+        assert!((to - (40_000.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
+        // past 960000 is open ground on the Rift (the game's own grid called it all wall): the whole flight
+        let far = (1_100_000.0, 1_100_000.0);
+        assert!(!g.is_wall(far.0, far.1) && Grid::builtin()[0].is_wall(far.0, far.1));
+        assert_eq!(wall_travel(&g, far, (1.0, 0.0), 60_000.0, 6_000.0), None);
+        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none
+        let cell = (15.5 * CELL, 3.5 * CELL + 20_000.0);
+        assert!(wall_travel(&Grid::builtin()[0], cell, (0.0, -1.0), 60_000.0, 6_000.0).is_some());
+        assert_eq!(wall_travel(&g, cell, (0.0, -1.0), 60_000.0, 6_000.0), None);
+        // no walls file: no wall known inside, only the map's edges
+        let open = Grid::rift(None);
+        assert_eq!(wall_travel(&open, at, dir, reach, 6_000.0), None);
+        assert!(wall_travel(&open, (terrain::RIFT_EXTENT - 20_000.0, 800_000.0), (1.0, 0.0), 60_000.0, 6_000.0).is_some());
     }
 
     #[test]

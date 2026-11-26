@@ -160,7 +160,11 @@ pub fn parse_params(json: &str) -> Params {
 
 /// 身上的怒气：阶梯上现在是第几阶（0 = 没有）。
 pub fn rung_of(names: &[String], f_n: usize) -> usize {
-    (1..=f_n).rev().find(|k| names.iter().any(|b| *b == rk(&format!("f{k}")))).unwrap_or(0)
+    // 每一阶的名字先拼好一次（名字先拼好一次：原来比每个名字都拼一次，2026-11-22 过日采样）
+    (1..=f_n).rev().find(|k| {
+        let want = rk(&format!("f{k}"));
+        names.iter().any(|b| *b == want)
+    }).unwrap_or(0)
 }
 
 /// 一个 tick 的结算：上一 tick 的阶数 `was`、现在的阶数 `now`、生命比例 `hp`（%）、已经攒下的低血积攒 `bank`。

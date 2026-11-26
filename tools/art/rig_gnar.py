@@ -444,11 +444,25 @@ def mega(C, theta=0.0, arm=None, dx=0, lift=0, tail_dy=0, legs=None, flash=False
     def fore_limb(k):
         # the forearm stepped: its top KNEE_BAND rows laid on every square between the arm and where it steps, so a
         # forearm planted on the ground while the body bobs up never leaves a gap at the elbow (the knee's way)
-        lx, ly = fore[k]
+        lx, ly = fore[k][:2]
         band = cut[k] & rows_mask(f, FORE_ROW[k], FORE_ROW[k] + KNEE_BAND - 1)
-        steps = max(abs(lx), abs(ly))
+        # 上半身绕髋转了 theta（跑步时前后摇）：上臂的下端跟着转走了，膝那几行从转过去的肘一路接到前臂落下的地方
+        sx = sy = 0
+        if theta:
+            ys, xs = np.nonzero(band)
+            top = (float(xs.mean()), float(ys.min()))
+            moved = turn_pt(top, HIP, theta)
+            sx, sy = int(round(moved[0] - top[0])), int(round(moved[1] - top[1]))
+        if len(fore[k]) > 2 and fore[k][2]:
+            # 相对着转过去的肘挪（远侧的拳头）：膝那几行只接两三格，拉不出梳齿。转过去的上臂是从原画重画的，下沿和
+            # 这里算的肘差一两格，中间会漏一条底色（11-22 第四版）：膝那几行从肘上面两格接起，多的被随后画的身子盖住
+            lx, ly = sx + lx, sy + ly
+            for up_ in (2, 1):
+                C.stamp(can, f, f.layer(mask=band), dx + sx, up + sy - up_)
+        steps = max(abs(lx - sx), abs(ly - sy))
         for t in range(steps):
-            C.stamp(can, f, f.layer(mask=band), dx + int(round(lx * t / steps)), up + int(round(ly * t / steps)))
+            C.stamp(can, f, f.layer(mask=band), dx + sx + int(round((lx - sx) * t / steps)),
+                    up + sy + int(round((ly - sy) * t / steps)))
         C.stamp(can, f, f.layer(mask=cut[k]), dx + lx, up + ly)
 
     hind(C, can, f, "far_hind", legs, dx, up)
@@ -663,12 +677,22 @@ M_TAIL = [0, 0, -1, -1, 0, 0, -1, -1]
 # squares, no bob) read stiff in game (the user: 「大纳尔的后腿走路有点问题吧 和僵尸一样」「走路的时候 僵硬无比」): twice
 # as long, the body bobbing G_BOB squares (two bounces a cycle, up as the pairs push off) over legs that stay on the
 # ground while planted (each limb's lift minus the bob)
-G_STRIDE = [4, 2, -2, -6, -4, 0, 4, 6]
-G_LIFT = [0, 0, 0, 0, 3, 5, 4, 2]
-G_SURGE = [0, 0, 1, 1, 0, 0, 1, 1]
-H_STRIDE = [2, 2, 0, -2, -4, -2, 0, 2]
-H_LIFT = [0, 0, 0, 0, 2, 4, 3, 1]
-G_BOB = [0, 1, 2, 1, 0, 1, 2, 1]
+#
+# 11-22 用户：「纳尔变大后没有动画效果」「像一张图在平移」。上面那样只把肚子底下的四肢挪几格、身子平着不动，游戏里看就是
+# 一张图在地上滑。英雄联盟的 GnarBig_Run 是撑着拳头往前蹦：两只拳头一起落地，身子往前压过拳头，后腿从肚子底下收上来；
+# 后爪落地，前半身离开拳头抬起来，拳头在空中往前够。所以现在：上半身绕髋前后摇（B_THETA，和攻击里起身用的是同一种转法，
+# 从原画重画，不拉伸），蹬地时整个身子抬高（B_BOB），两只拳头一起走（远的那只晚一帧，有前后），前臂挂在转过去的肘上，
+# 尾巴跟着身子摇。着地的拳和爪照旧减掉起伏，贴着地面不动。
+B_THETA = [-3, -5, -3, 1, 5, 6, 3, 0]
+B_BOB = [0, 0, 1, 1, 2, 3, 2, 1]
+B_SURGE = [0, 0, 1, 1, 1, 0, 0, 0]
+B_TAIL = [0] * 8                  # 尾巴单独上下挪会和身体断开（11-22 第二版第 2 帧），只跟着摇
+F_STRIDE = [5, 1, -3, -6, -4, 1, 6, 8]
+F_LIFT = [0, 0, 0, 1, 4, 5, 3, 1]
+H_STEP = [-4, -1, 2, 5, 3, 0, -3, -5]
+H_RAISE = [3, 4, 3, 0, 0, 0, 0, 1]
+FAR_DX = [2, 1, -1, -2, -2, 0, 2, 3]
+FAR_UP = [0, 0, 0, 1, 2, 2, 1, 0]
 
 
 def frames_all(C):
@@ -704,13 +728,21 @@ def frames_all(C):
     out["m_idle"] = [m34(C, sink=s) for s in SINK]
     mrun = []
     for i in range(8):
-        j = (i + 4) % 8
-        bob = G_BOB[i]
-        a, b = (G_STRIDE[i], bob - G_LIFT[i]), (G_STRIDE[j], bob - G_LIFT[j])
-        ha, hb = (H_STRIDE[i], bob - H_LIFT[i]), (H_STRIDE[j], bob - H_LIFT[j])
-        mrun.append(mega(C, dx=G_SURGE[i], lift=bob,
-                         legs={"near_hind": ha, "far_fore": a, "far_hind": hb, "near_fore": b}))
+        j = (i - 1) % 8                       # 远侧的拳和腿晚一帧
+        bob = B_BOB[i]
+        near_f = (F_STRIDE[i], bob - F_LIFT[i])
+        near_h, far_h = (H_STEP[i], bob - H_RAISE[i]), (H_STEP[j], bob - H_RAISE[j])
+        # 远侧的拳头也迈（用户 11-22：「纳尔变大后右上腿不动了？」）：挂在跟着身子转过去的肘上，再相对着前后挪 FAR_DX、
+        # 抬 FAR_UP。它大半在头和近侧手臂后面，照近侧那样从原位迈过去时，膝那几行拉成一排梳齿（11-22 的第一、三版）
+        far_f = (FAR_DX[j], -FAR_UP[j], True)
+        mrun.append(mega(C, theta=B_THETA[i], dx=B_SURGE[i], lift=bob, tail_dy=B_TAIL[i],
+                         legs={"near_hind": near_h, "far_fore": far_f, "far_hind": far_h, "near_fore": near_f}))
     out["m_run"] = mrun
+    # Codex 重画的跑步（用户 11-22：「不然你让codex帮忙 这个大纳尔」）：tools/art/read_gnar_mega_run.py 读回、放好在这张画布上的
+    # 8 帧，在就用它们（上面绑出来的那版留着，读回时拿它对齐）
+    codex = [os.path.join(SRC, "codex_mega_run", "frames", f"m_run_{k}.png") for k in range(1, 9)]
+    if all(os.path.isfile(f) for f in codex) and not os.environ.get("GNAR_RIG_RUN"):
+        out["m_run"] = [np.array(Image.open(f).convert("RGBA")) for f in codex]
     out["m_hit"] = [m34(C, dx=-2, flash=True), m34(C, dx=-1)]
     out["m_dead"] = [mega(C, theta=-6), mega(C, theta=-8, flash=True), mini(C, flash=True)] + out["dead"][2:]
     # theta turns the whole upper body - torso, crests and both front arms as Codex drew them - counter-clockwise about

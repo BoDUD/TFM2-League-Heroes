@@ -1,0 +1,210 @@
+{
+  "language": "ja",
+  "official_voice_actor": "代永翼",
+  "cast_credit": "https://ragnarok-official.com/chara/sojiokita.html",
+  "voice_status": "original_mod_performance",
+  "clips": [
+    {
+      "id": "slash_release",
+      "title": "普攻出刀",
+      "kind": "original_foley",
+      "duration_seconds": 0.26,
+      "wav_sha256": "997369e316810e0d9228a3d0b58d63561de63d928e773b5a19fa8c4194ecfdd0",
+      "mp3_sha256": "2e7044065111840f88431b1416030d3c9d9e460a2a9bb7e5df4e9e83571c166b"
+    },
+    {
+      "id": "sword_hit",
+      "title": "刀刃命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.21,
+      "wav_sha256": "221e3494042c39a579be919967d8d5058de64e1ab5ce2f80caaa8c39988a67a0",
+      "mp3_sha256": "a8a73358d10eb0c945a21462fdd83bd82de961bbf8a0aa14dcbc3516057c2c0c"
+    },
+    {
+      "id": "thrust_1",
+      "title": "三连刺 · 第一刺",
+      "kind": "original_foley",
+      "duration_seconds": 0.15,
+      "wav_sha256": "b3af646419ed4df57683d06ece0945c2361b36e1e2993729449f845c705a159d",
+      "mp3_sha256": "59d43be21678de9bb16ffe82d1b6b9fe08dcbca3922e657c5a2f73d908ba88cf"
+    },
+    {
+      "id": "thrust_2",
+      "title": "三连刺 · 第二刺",
+      "kind": "original_foley",
+      "duration_seconds": 0.16,
+      "wav_sha256": "46611261d344e5c2e2f5f88c725e2bfd76dd7a47dcb7a8d9f1a43a42d3a89c83",
+      "mp3_sha256": "a49fbc165bb56bc41c1f199f3443c2a6bce694f2b979f12e605ea696fbbdef35"
+    },
+    {
+      "id": "thrust_3",
+      "title": "三连刺 · 第三刺",
+      "kind": "original_foley",
+      "duration_seconds": 0.2,
+      "wav_sha256": "188cd462bf7758dc16025d8b78c2a82eda8927f9098616499adf2a30c6f47ba1",
+      "mp3_sha256": "3768cdaf7f081042aa0dbb3df0fbdcee31caabc5389bd16954ed59068c2b5da7"
+    },
+    {
+      "id": "oni_charge",
+      "title": "鬼子 · 蓄势",
+      "kind": "original_foley",
+      "duration_seconds": 0.35,
+      "wav_sha256": "2cd6b3d07ac0acbb16cca58badbcbb9e071e0261bddb2d19c09f08f4a824cbba",
+      "mp3_sha256": "c7744d792da7ff63eaf6900b1e114eced2b8d91a5b35a982a01fd665280b4726"
+    },
+    {
+      "id": "oni_ignite",
+      "title": "鬼子 · 启动",
+      "kind": "original_foley",
+      "duration_seconds": 0.43,
+      "wav_sha256": "01d5a087eb6ad8e546502bc32c146dded6dcf574201f108405b4c67eecb621eb",
+      "mp3_sha256": "78d7e4db18e3b73ea7f7bc04d49ac048b872a1b1b7d00a499828982b28766ba6"
+    },
+    {
+      "id": "ult_charge",
+      "title": "终结突刺 · 蓄势",
+      "kind": "original_foley",
+      "duration_seconds": 0.28,
+      "wav_sha256": "0b7576cd57deb892d3598ed076307c68238713536ad19cc490a7dabe56615904",
+      "mp3_sha256": "da9ac6a2b2bc90fa5327e941252e10d97a8775ff3c0af958d296c01126003fdc"
+    },
+    {
+      "id": "ult_release",
+      "title": "终结突刺 · 出刀",
+      "kind": "original_foley",
+      "duration_seconds": 0.35,
+      "wav_sha256": "137df57cdfa65e5fca152ea90271ca53bbd148cc5884780aaea8e9e7a147fb7e",
+      "mp3_sha256": "cdc4329f81fd4e061352804a6c43f56e0ed809792246210d0384a94d6674d969"
+    },
+    {
+      "id": "finisher_hit",
+      "title": "终结突刺 · 命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.42,
+      "wav_sha256": "75f6f9e30a45800c1f1b271faddf42eb93552fc98f69a9e46298dfe1d5a8d79d",
+      "mp3_sha256": "4f8dbd6af88425894c9504299f50b2a6cc1a87d5b3c509bb4d822a64ad3a10a4"
+    },
+    {
+      "id": "fall",
+      "title": "倒地接地",
+      "kind": "original_foley",
+      "duration_seconds": 0.24,
+      "wav_sha256": "e90e8dc3df2e82cf77b48d7190ac75c50fc2e83771063ecb89f81e121648fa8b",
+      "mp3_sha256": "e97c9336fa39cf39c9cb80b683313f9dcde1ac6a2e72c584421ac546434eabc3"
+    },
+    {
+      "id": "voice_select",
+      "kind": "original_ja_performance",
+      "title": "日语 · 选人",
+      "text_ja": "僕の出番ですね。",
+      "range_seconds": [
+        0,
+        1.1701814058956916
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "+5%",
+      "pitch": "+11Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.17,
+      "wav_sha256": "c10ee5a9297c268213870c50c653adc92b548f5c13003e7668afc25e416e0b20",
+      "mp3_sha256": "a0e5a70377cf6a1cc1ddac7dfd16f7cd72b522cf10370e4f9e2b907de3b816c8"
+    },
+    {
+      "id": "voice_start",
+      "kind": "original_ja_performance",
+      "title": "日语 · 开战",
+      "text_ja": "さあ、始めましょう。",
+      "range_seconds": [
+        0,
+        1.5212698412698413
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "+6%",
+      "pitch": "+9Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.521,
+      "wav_sha256": "0389a19263574de2a56390c6a874077a9d87ceaa880c4f952ebf907895b647c4",
+      "mp3_sha256": "4139149f1e277e2c718b77cccae98afeeecdfe48e9bb158c0c5a04f9b6e29beb"
+    },
+    {
+      "id": "voice_challenge",
+      "kind": "original_ja_performance",
+      "title": "日语 · 挑战",
+      "text_ja": "次は、僕と勝負です。",
+      "range_seconds": [
+        0,
+        1.7656462585034014
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "+8%",
+      "pitch": "+10Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.766,
+      "wav_sha256": "e5beaec7138b85cbd919581bda05cd3523706ac048c6e8e2f5428ad8a6907b76",
+      "mp3_sha256": "b3089492238d53022490da4af91eaefd482dae4d592046655c22a553217da1c2"
+    },
+    {
+      "id": "voice_q",
+      "kind": "original_ja_performance",
+      "title": "日语 · 三连刺",
+      "text_ja": "そこです！",
+      "range_seconds": [
+        0,
+        0.6277777777777778
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "+13%",
+      "pitch": "+13Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 0.628,
+      "wav_sha256": "fe9cfbf95b3c9cb0e9ca4197b432f2101627c73dd5b964cac8353ef2c524a6ff",
+      "mp3_sha256": "481a48aacfadcd679f5302f74a1b17e62d7ad1ace4248d23de13ab56cf66d74a"
+    },
+    {
+      "id": "voice_e",
+      "kind": "original_ja_performance",
+      "title": "日语 · 鬼子",
+      "text_ja": "少しだけ、本気を出します。",
+      "range_seconds": [
+        0,
+        2.1524489795918367
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "+2%",
+      "pitch": "+5Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 2.152,
+      "wav_sha256": "c44626ab868d086bfbaaf25e213ccb8389230c072c8590bb36aa15cce4336fae",
+      "mp3_sha256": "1584acad82b7d5b6e9cd8d1d9211a29b0bbb3b20124855245ac27e129b14b63a"
+    },
+    {
+      "id": "voice_r",
+      "kind": "original_ja_performance",
+      "title": "日语 · 终结突刺",
+      "text_ja": "いざ、勝負！",
+      "range_seconds": [
+        0,
+        1.0992290249433108
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "+9%",
+      "pitch": "+10Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.099,
+      "wav_sha256": "c0141ea3d6b64962c73ac6cf491f5718aa495a09dea61f72349356306f788f69",
+      "mp3_sha256": "a81d8fac6d56ebe8949be66704be6e9fe1ede402becb98a5dc023ec6a0f5c768"
+    }
+  ]
+}

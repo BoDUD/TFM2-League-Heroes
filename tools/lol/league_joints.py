@@ -34,6 +34,11 @@ JOINTS = {
                   r_hip="R_Thigh", r_knee="R_Knee", r_foot="R_Foot", l_shoulder="L_UpArm", l_elbow="L_ForeArm",
                   l_hand="L_Hand", r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand", weapon="WEAPON",
                   weapon_tip="BUFFBONE_CSTM_WEAPONTIP"),
+    # 炼金：没有 chest 关节，躯干上端用 neck；盾挂在远侧手（R）的 R_weapon 上
+    "singed": dict(pelvis="pelvis", chest="neck", head="head", l_hip="L_thigh", l_knee="L_calf", l_foot="L_foot",
+                   r_hip="R_thigh", r_knee="R_calf", r_foot="R_foot", l_shoulder="L_arm", l_elbow="L_forarm",
+                   l_hand="L_hand", r_shoulder="R_arm", r_elbow="R_forarm", r_hand="R_hand", weapon="R_weapon",
+                   l_toe="L_toe", r_toe="R_toe"),
     "caitlyn": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
                     r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                     l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", weapon="Rifle_Root",

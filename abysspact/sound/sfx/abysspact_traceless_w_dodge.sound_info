@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_traceless_sfx_dodge",
+      "volume": 0.58
+    },
+    {
+      "delay": 0.05,
+      "clip": "abysspact_traceless_sfx_afterimage",
+      "volume": 0.48
+    }
+  ]
+}

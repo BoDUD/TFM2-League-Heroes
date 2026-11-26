@@ -141,11 +141,10 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 pub fn install_once() {
     HOOK.call_once(|| {
         #[cfg(windows)]
-        match game_places::hook::add("league_kogmaw", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "VOID DRAW on: display slot {slot:#x} calls this add-on, then {} ({prev:#x}) - the walking form shows run, the \
+        match game_places::hook::add("league_kogmaw", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!(
+                "VOID DRAW on: {p} - the walking form shows run, the \
                  standing one idle",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("VOID DRAW off ({e}): the form shows what the engine plays")),
         }

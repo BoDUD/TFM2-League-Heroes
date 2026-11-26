@@ -1,0 +1,230 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/chara/qinshihuang.html",
+  "method": "Dialogue performed by Kaito Ishikawa from two Netflix Japan clips. Original background music and effects remain in several cuts.",
+  "clips": [
+    {
+      "id": "voice_taunt",
+      "title": "互动 · 头抬得太高了",
+      "range_seconds": [
+        30.98,
+        33.41
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=fAgeLsSIvZA",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.43,
+      "wav_sha256": "4ca304d69cd91de391e78b5647a301c23e741750bb22bb549c861b7e2d5bd2b3",
+      "mp3_sha256": "9c39bc7c7e4787e9480be25bd1c4b2cb333f6b862e3d5f87cf924a411207df61"
+    },
+    {
+      "id": "voice_entrance",
+      "title": "入场 · 朕所至之处",
+      "range_seconds": [
+        35.8,
+        44.49
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=fAgeLsSIvZA",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 8.69,
+      "wav_sha256": "5c8f0442c7d0bb6e4ff2ce58ac807198e95b2cb343c0fe4eb77a609e0a0e62f1",
+      "mp3_sha256": "55a7f5d0dda07ec3eb959a736106a8067c8086402e98ffb12263c1ab17e20bf0"
+    },
+    {
+      "id": "voice_big_one",
+      "title": "互动 · 你还挺有精神",
+      "range_seconds": [
+        67.65,
+        70.18
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=fAgeLsSIvZA",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.53,
+      "wav_sha256": "3a314998c439d88a1962f09f1f4221b2ec86b813d35458fa5c21a03dc7beb82a",
+      "mp3_sha256": "ed321ea2653d86399149e6319d34a1c2c8c6ec22302a06242f90e2a8e7636fc5"
+    },
+    {
+      "id": "voice_armor",
+      "title": "承力天凤 · 蚩尤铠式",
+      "range_seconds": [
+        55.67,
+        58.45
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.78,
+      "wav_sha256": "945d0a4f12d4eabb95a2f1cbfb03ceef7c2f4ede198284d8f5c9f070a4dab7bc",
+      "mp3_sha256": "ef24ed05cc173e2ac1ba494ca7318b2d3682b7b207570d36db47043a95d8de71"
+    },
+    {
+      "id": "voice_counter",
+      "title": "承力天凤 · 技名",
+      "range_seconds": [
+        60.53,
+        64.05
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.52,
+      "wav_sha256": "fa972b76c11d6c1ef8b1759844e33faf28496b4ae0206c430bb3e9253f3177b2",
+      "mp3_sha256": "769a706e1c7d77bc57cce4b2517f460e898931e72326f3939448882618fbbd88"
+    },
+    {
+      "id": "voice_hades",
+      "title": "互动 · 冥界之王",
+      "range_seconds": [
+        72.73,
+        75.88
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.15,
+      "wav_sha256": "3fac408ed72b3fd011c1cd4832f2be9643a49c5315b570317f7a8cad630952fd",
+      "mp3_sha256": "79e9e7bfd98869de600781b0beb50865af8b7899e30489761cefb873957053f0"
+    },
+    {
+      "id": "voice_one_king",
+      "title": "宣言 · 天下只此一王",
+      "range_seconds": [
+        80.65,
+        85.59
+      ],
+      "speaker": "石川界人",
+      "cast_credit": "https://ragnarok-official.com/chara/qinshihuang.html",
+      "source": "https://www.youtube.com/watch?v=Kaeo8gE_3SM",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.94,
+      "wav_sha256": "5b978265ba591094f76903a73656804dcc8d82e7fc8b258f1377750e7cdd18b1",
+      "mp3_sha256": "e65e12d130fe748d110efd5cdc9d8c43bd0729593b49442286826bee4396f81c"
+    },
+    {
+      "id": "sfx_claw",
+      "kind": "original_foley",
+      "title": "指爪 · 划出",
+      "duration_seconds": 0.23,
+      "wav_sha256": "9832997292869ea0bfd9766208f6273209b6bf88dc2e60912fd4834954f5642c",
+      "mp3_sha256": "cfb8940af5dc48c2e09d861eb56ca7dc0f9ac24df3b603b6ae1c54a77c854283"
+    },
+    {
+      "id": "sfx_claw_hit",
+      "kind": "original_foley",
+      "title": "指爪 · 命中",
+      "duration_seconds": 0.21,
+      "wav_sha256": "41293493ef7bc2d11837528b2358e46ce1d64973ce967c0650a3b0689fe5075b",
+      "mp3_sha256": "1d51f48456ea6502f1a4e091105a9f4b22203dd178d54efd68687499f6a68d34"
+    },
+    {
+      "id": "sfx_breath",
+      "kind": "original_foley",
+      "title": "波流龟 · 吸气",
+      "duration_seconds": 0.24,
+      "wav_sha256": "85f497c6399fce61d5ea42120112ca19f83b98898461cc2575ae0adc01204299",
+      "mp3_sha256": "cd129379ce697fa2b7fc1c5100bf3bec257b154886444eff34ef81f10e7c0b8d"
+    },
+    {
+      "id": "sfx_bubble",
+      "kind": "original_foley",
+      "title": "波流龟 · 送出",
+      "duration_seconds": 0.27,
+      "wav_sha256": "59d7f9bd972f96b95a43b79ef9f21bc2eeca83056e21be6684d00429147e6453",
+      "mp3_sha256": "57f1697de61c54953483033455ff50a981ae59f6801e13d359597ccb77caf092"
+    },
+    {
+      "id": "sfx_pop",
+      "kind": "original_foley",
+      "title": "波流龟 · 破裂",
+      "duration_seconds": 0.19,
+      "wav_sha256": "08f4c94ac601a622dcc24ea98a82471adc1efd14002e8a459ef47513badb5bf6",
+      "mp3_sha256": "e32ef1697980bc9ea6a47dbfe16be6176109b219cf7ba2e26e1b11c03f05c773"
+    },
+    {
+      "id": "sfx_guard",
+      "kind": "original_foley",
+      "title": "神罗铠袖 · 护势",
+      "duration_seconds": 0.32,
+      "wav_sha256": "0722a9ef373b2aa5442d4d9b0d04671456e155379f54d0faa10f41ec5e72ed2e",
+      "mp3_sha256": "9b3120ac3b9b89fff495e1854736a84134218b85634e1df5fe39ee46ef452a63"
+    },
+    {
+      "id": "sfx_receive",
+      "kind": "original_foley",
+      "title": "承力天凤 · 承力",
+      "duration_seconds": 0.27,
+      "wav_sha256": "e0dc9a487fa377ffcc8884ab4e6f43302d18301714305e64bce9ce2f3efe9632",
+      "mp3_sha256": "2c1a20ea657c1b3f1a672a5f274ad6d3aaab3cafd94d5845853f9e19069fda1e"
+    },
+    {
+      "id": "sfx_counter",
+      "kind": "original_foley",
+      "title": "承力天凤 · 推回",
+      "duration_seconds": 0.36,
+      "wav_sha256": "895d0319bc6797256a4e4907280ac47504c56adfe614035e781f1e0eb3f14cd0",
+      "mp3_sha256": "3d0b2550a713fa9a4997808163f6734370f06775ef2c2bf0905cb951a66d1aff"
+    },
+    {
+      "id": "sfx_counter_hit",
+      "kind": "original_foley",
+      "title": "承力天凤 · 命中",
+      "duration_seconds": 0.29,
+      "wav_sha256": "c8f505698649cd2420239e137205014e8d00dccfc9802437e50179f21203b53a",
+      "mp3_sha256": "47e5ee759cb34eb33cdfac87283861393ef5d78de364f8175c45327374720f0d"
+    },
+    {
+      "id": "sfx_jian_reveal",
+      "kind": "original_foley",
+      "title": "勾践剑 · 显形",
+      "duration_seconds": 0.39,
+      "wav_sha256": "4032c186eba6c1152fecc3660e8e93d75e9ad8c24f485c8d96cc0f10b8902d30",
+      "mp3_sha256": "c3ddf87d38bd2cdd0861e8da9e85b3be47d79308c557ce83be074fb7a1313b20"
+    },
+    {
+      "id": "sfx_jian_cut",
+      "kind": "original_foley",
+      "title": "勾践剑 · 斩出",
+      "duration_seconds": 0.3,
+      "wav_sha256": "b985643ff1bb6a617ca103c41bed26735763cf0fdd171682af88286556a170ba",
+      "mp3_sha256": "442af453609703320fb59ff8a31f09d1c206bb03709f9c77c16af567416d6382"
+    },
+    {
+      "id": "sfx_jian_hit",
+      "kind": "original_foley",
+      "title": "勾践剑 · 命中",
+      "duration_seconds": 0.31,
+      "wav_sha256": "a4f4913684831115deb11f04bc14fa9541c5cf20db77bd8e4a03114e618efaa7",
+      "mp3_sha256": "0786ba865ad78877285ab032300fd7401da0111c4d7a6c23e657e607b2537213"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.25,
+      "wav_sha256": "c936b90b929f70e985dd704d89366adbc2093f11593ffeff90a14ec965f72951",
+      "mp3_sha256": "f80f9469295a748a18ca57823173284f06e8ac50b98fc71990412809371b48a3"
+    }
+  ]
+}

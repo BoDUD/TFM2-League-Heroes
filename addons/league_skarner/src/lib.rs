@@ -11,6 +11,7 @@
 //!   地图的四边）：拖 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙就拖到墙边，到的那一刻（被动看它身上的 `league_skarner_ed_<他>` 到期）
 //!   受到 `E_WALL_DMG` + `E_RATIO`% 攻击力 + 它最大生命 `E_WALL_HP`% 的物理伤害并眩晕 `E_STUN` 拍；没碰到墙就照常拖走、不晕
 //!   （英雄联盟）。主包：每次拖完都砸一下、晕一下。冲锋时他穿过地形（两边一样：`league_skarner_e_ghost`，ignore_wall）。
+//!   峡谷地图（Rin 的召唤师峡谷 α，`game_places::terrain`）上查峡谷的墙格（没有墙体文件时只有地图四边外算墙）。
 //! - **毒刺贯体只压前 `R_N` 个英雄，并拖在身后**（原生效果 `league_skarner:impale`，尾巴打中英雄时）：一次施法数到第 `R_N`
 //!   个为止（他身上的 `league_skarner_rc_<他>`），每个受到 `R_DMG` + `R_RATIO`% 攻击力的**魔法伤害**、压制 `R_SUP` 拍并立刻战栗；
 //!   压制期间被动每拍把它们放在他身边、保持被打中时的方向，离他最多 `R_GAP`（他走到哪拖到哪）。主包：线上所有英雄都中，物理
@@ -20,19 +21,29 @@
 //!   被动每拍看它走了多远：走起来以后一拍走不到 `STALL` 成（或者 `STALL_T` 拍都没走起来）就是半路撞上了墙，当场砸、晕
 //!   （同撞地图的墙）。被别人定身、眩晕时不算，免疫控制的不砸。英雄联盟里英雄造的墙也是地形，拖到上面一样晕。
 //!
+//! 0.2.0（2026-11-20，用户：「按照你的建议改吧」）：主包照英雄联盟改了两处，副本跟着主包一起变，本包只加了日志：
+//! W 震地壁垒成了自己的技能（自己的冷却，从普攻那一下命中里放，不再跟着 E 拖人结束出），副本放 W 时调
+//! `league_skarner:bastion` 记一行 `BASTION`；举着巨石时 Q 的目标在普攻够不着的地方就马上扔，副本在这一支调
+//! `league_skarner:upheaval` 记一行 `UPHEAVAL`。另外查了毒刺贯体的压制吃不吃韧性：英雄联盟的压制不吃。本包用 `apply_cc` 上的眩晕，读 0.7.2 的
+//! exe（宿主的 apply_cc 0x3493a60 -> 0x348fea0 -> 实体加控制 0x148df30 -> 眩晕 0x148e480）一路没有乘 (100 - 韧性)%，
+//! 也不看免疫控制（所以下面自己看）；数据里的 Stun（StunEffect 的 apply 0x171b660）才在调用前乘。和 2026-11-13 量到的
+//! 「强制位移不吃韧性」是同一回事，所以本包的压制本来就是满的，不用每拍补。主包的 R 是数据的 Stun，照样被韧性缩短。
+//!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。计数在目标身上（按斯卡纳的编号起名）
 //! 和被动自己身上，不用全局变量，服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_skarner.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`、`QUAKE`（叠层 / 战栗）、`IMPACT`（撞墙 / 没墙）、`WALL`（撞墙眩晕；半路撞上英雄造的墙是 `slammed into a wall the map
-//! does not show`）、`IMPALE`（压制 / 超过 R_N 个）、`DRAG`，限了条数。
+//! does not show`）、`IMPALE`（压制 / 超过 R_N 个；0.2.0 起带上加完眩晕读回来的拍数和目标的韧性）、`DRAG`、`BASTION`（W）、
+//! `UPHEAVAL`（够不着就扔的擎天），限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::{LazyLock, Mutex};
+use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -75,7 +86,7 @@ pub const R_COUNT_T: usize = 30;
 pub const WALL_GAP: f64 = 1_000.0;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
-/// 墙格的边长（世界单位）和查墙的步长。
+/// 墙格的边长（世界单位，游戏自己的地图）和查墙的步长。
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 
@@ -183,15 +194,19 @@ fn unit(v: Pt) -> Option<Pt> {
     (l > 1.0).then_some((v.0 / l, v.1 / l))
 }
 
-/// 地图的墙格（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它）；5v5 地图另加四边。
+/// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图
+/// 另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
+    pub cell: f64,
+    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -203,7 +218,19 @@ impl Grid {
         ]
     }
 
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
+    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
+    /// 算墙（整张图一格空地）——以绪塔尔冲击在峡谷上找不到墙，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
+    pub fn rift(walls: Option<&Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
+            None => {
+                let e = terrain::RIFT_EXTENT;
+                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
+            }
+        }
+    }
+
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -213,8 +240,11 @@ impl Grid {
                 return true;
             }
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
+            return true;
+        }
+        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -338,10 +368,25 @@ fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
         .collect()
 }
 
-fn grid_now(sim: &StableSim<'_>) -> Option<Grid> {
-    let grids = Grid::builtin();
-    let i = current(&grids, &unit_points(sim))?;
-    grids.into_iter().nth(i)
+/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
+static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+/// 这次启动第一次碰到峡谷时在日志里记一行。
+static RIFT_SEEN: Once = Once::new();
+
+/// 当前对局的墙格：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；游戏自己的地图照旧在三张内置图
+/// 里挑单位站进墙里最少的那张。
+fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            RIFT_SEEN.call_once(|| {
+                wlog(format!("== Rift: Ixtal's Impact stuns on the Rift's walls, Impale drags no one into them; {} ==",
+                             terrain::rift_status()))
+            });
+            Some(&*RIFT)
+        }
+        Map::Native => current(&*BUILTIN, &unit_points(sim)).map(|i| &BUILTIN[i]),
+    }
 }
 
 fn retimed(sim: &mut StableSim<'_>, id: usize, name: &str, ticks: usize) {
@@ -446,7 +491,7 @@ fn impact(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let (Some(him), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let dir = unit((at.0 - him.0, at.1 - him.1)).unwrap_or((1.0, 0.0));
     let reach = (E_KB_SPEED * E_KB_T) as f64;
-    match grid_now(sim).and_then(|g| wall_travel(&g, at, dir, reach, body)) {
+    match grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body)) {
         Some(len) => {
             let ticks = if len >= 1.0 { shove(sim, target, dir, len, E_KB_SPEED) } else { 0 };
             retimed(sim, target, &wall_due_name(me), ticks.max(1));
@@ -485,11 +530,41 @@ fn impale(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     if !sim.get_entity(target).is_some_and(|e| e.is_alive()) || cc_immune(sim, target) {
         return;
     }
+    // apply_cc 加的控制引擎不按韧性缩短（见文件开头），压制满 R_SUP 拍，和英雄联盟一样
     sim.apply_cc(target, &CcV1::stun(R_SUP as u64));
     retimed(sim, target, &n("r_held"), R_SUP);
     retimed(sim, target, &dragged_name(me), R_SUP);
     if let Some(k) = counted("impale") {
-        wlog(format!("{} IMPALE #{target}: champion {c}/{R_N}, {} magic, suppressed {R_SUP} ticks #{k}", head(sim, me), impale_damage(ad)));
+        // 加完眩晕马上读回来，连同目标的韧性记进日志：游戏里看压制有没有被韧性缩短
+        let (stun, tough) = sim.get_entity(target).map_or((0, 0), |e| (stun_left(&e), push_rules::toughness(&e)));
+        wlog(format!("{} IMPALE #{target}: champion {c}/{R_N}, {} magic, suppressed {R_SUP} ticks (stun read back {stun}, \
+                      toughness {tough}) #{k}", head(sim, me), impale_damage(ad)));
+    }
+}
+
+/// 身上眩晕还剩多少拍（读回来的，几个眩晕取最长的）。
+fn stun_left(e: &StableEntity<'_, '_>) -> u64 {
+    (0..e.cc_count()).filter_map(|i| e.cc_at(i)).filter(|c| c.kind == CcKindV1::Stun.code()).map(|c| c.tick).max().unwrap_or(0)
+}
+
+/// 副本的 W 放出来了（普攻那一下命中，身边有敌方英雄）：只记一行。
+fn bastion(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    if let Some(k) = counted("bastion") {
+        let on = target_of(&input).map_or_else(|| "-".to_string(), |t| format!("#{t}"));
+        wlog(format!("{} BASTION: W from his attack on {on} (an enemy champion within reach): shield now, the quake on the slam \
+                      frame #{k}", head(sim, me)));
+    }
+}
+
+/// 副本的 Q 栏举着巨石、目标在普攻够不着的地方，马上扔擎天：只记一行（离目标多远）。
+fn upheaval(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    let Some(t) = target_of(&input) else { return };
+    if let Some(k) = counted("upheaval") {
+        let away = match (pos(sim, me), pos(sim, t)) {
+            (Some(a), Some(b)) => format!("{:.0}", dist(a, b)),
+            _ => "-".to_string(),
+        };
+        wlog(format!("{} UPHEAVAL #{t}: {away} away, out of his reach: the boulder thrown at once #{k}", head(sim, me)));
     }
 }
 
@@ -691,6 +766,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:burn"), Step(burn));
     module.add_native_effect(format!("{ID}:impact"), Step(impact));
     module.add_native_effect(format!("{ID}:impale"), Step(impale));
+    module.add_native_effect(format!("{ID}:bastion"), Step(bastion));
+    module.add_native_effect(format!("{ID}:upheaval"), Step(upheaval));
     module.add_native_passive(format!("{ID}:sovereign"), Sovereign::default());
     host.log(LogLevel::Info, "league_skarner loaded (Quaking per champion, wall stun, Impale drags the first three).");
 }
@@ -719,6 +796,43 @@ mod tests {
         assert!((to - (40_000.0 - MOBA_BOUNDS.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
         // open ground in the middle of the map, along the river: nothing within reach
         assert_eq!(wall_travel(g, (480_000.0, 480_000.0), (0.0, 1.0), 30_000.0, 6_000.0), None);
+    }
+
+    /// 峡谷大小的假墙格：355 x 356 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
+    fn rift_walls(walls: &[(usize, usize)]) -> Walls {
+        let rows: Vec<String> = (0..356).map(|y| (0..355).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
+    fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
+        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
+        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
+        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
+    }
+
+    #[test]
+    fn the_rifts_walls_stop_the_carry() {
+        let reach = (E_KB_SPEED * E_KB_T) as f64;
+        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
+        let g = Grid::rift(Some(&rift_walls(&block)));
+        // dragged toward a wall of the Rift past 1000000: up to it, the stun
+        let to = wall_travel(&g, (left - 30_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0).expect("the Rift's wall");
+        assert!((to - (30_000.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
+        // past 960000 is open ground on the Rift (the game's own grid called it all wall): no stun, the drag goes on
+        let far = (1_100_000.0, 1_100_000.0);
+        assert!(!g.is_wall(far.0, far.1) && Grid::builtin()[0].is_wall(far.0, far.1));
+        assert_eq!(wall_travel(&g, far, (1.0, 0.0), reach, 6_000.0), None);
+        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none
+        let at = (15.5 * CELL, 3.5 * CELL + 20_000.0);
+        assert!(wall_travel(&Grid::builtin()[0], at, (0.0, -1.0), reach, 6_000.0).is_some());
+        assert_eq!(wall_travel(&g, at, (0.0, -1.0), reach, 6_000.0), None);
+        // no walls file: no wall known inside, only the map's edges
+        let open = Grid::rift(None);
+        assert_eq!(wall_travel(&open, (left - 30_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0), None);
+        assert!(!open.is_wall(at.0, at.1) && !open.is_wall(far.0, far.1));
+        assert!(open.is_wall(terrain::RIFT_EXTENT + 1.0, 800_000.0) && open.is_wall(800_000.0, -1.0));
     }
 
     #[test]
@@ -775,7 +889,7 @@ mod tests {
     fn the_copy_uses_the_natives_and_the_numbers() {
         let copy = include_str!("../override/league_skarner.data_champion");
         for r in ["league_skarner:quake", "league_skarner:impact", "league_skarner:impale",
-                  "league_skarner:sovereign"] {
+                  "league_skarner:sovereign", "league_skarner:bastion", "league_skarner:upheaval"] {
             assert!(copy.contains(r), "the copy never uses {r}");
         }
         for (k, v) in [("p_n", P_N), ("p_t", P_T), ("p_p", P_P), ("p_pct", P_PCT), ("e_kb_speed", E_KB_SPEED),
@@ -785,6 +899,24 @@ mod tests {
         }
         assert!(!copy.contains("\"type\": \"Knockback\""), "the copy still drags in data");
         assert!(!copy.contains("\"type\": \"Grab\""), "the copy still pulls in data");
+    }
+
+    /// 0.2.0：副本里 W 是普攻放的（自己的冷却），E 拖完不再出护盾；举着巨石时 Q 先打探针看够不够得着。
+    #[test]
+    fn the_copy_casts_w_from_the_attack() {
+        let copy = include_str!("../override/league_skarner.data_champion");
+        // 顶层的键缩进两格，往下的更深：从这个键到下一个顶层键就是这一栏
+        let slot = |k: &str| {
+            let start = copy.find(&format!("\n  \"{k}\": ")).unwrap_or_else(|| panic!("no {k} in the copy")) + 1;
+            let rest = &copy[start..];
+            let end = rest[1..].find("\n  \"").map_or(rest.len(), |e| e + 1);
+            rest[..end].to_string()
+        };
+        assert!(slot("attack").contains("league_skarner_w_cd"), "W is not cast from the attack");
+        assert!(slot("attack").contains("\"Shield\""), "the attack has no W shield");
+        assert!(!slot("skill2").contains("\"Shield\""), "E's carry still gives W's shield");
+        assert!(!slot("skill2").contains("league_skarner_w_on"), "E's carry still shows W's shield");
+        assert!(slot("skill").contains("league_skarner_q_probe"), "Q does not look whether its target is in reach");
     }
 
     /// 2026-11-13: the map wall's slam needs him at the wall - one stopped short by another's crowd control stands in open

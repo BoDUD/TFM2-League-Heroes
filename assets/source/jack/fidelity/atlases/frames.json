@@ -1,0 +1,750 @@
+{
+  "hero": "jack",
+  "name": "开膛手杰克",
+  "actor_id": "ragnarok_jack",
+  "cell": [
+    216,
+    168
+  ],
+  "ground": [
+    98,
+    148
+  ],
+  "hd_multiplier": 2,
+  "right_facing": true,
+  "fx_cell": [
+    304,
+    192
+  ],
+  "actor": {
+    "ult": {
+      "name": "Dear GOD",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.13
+        },
+        {
+          "x": 216,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.12
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.12
+        },
+        {
+          "x": 648,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.071
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.066
+        },
+        {
+          "x": 1080,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.072
+        },
+        {
+          "x": 1296,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.105
+        },
+        {
+          "x": 1512,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.14
+        }
+      ],
+      "source_animation": "hd_ult",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": -4,
+          "lift": 0
+        },
+        {
+          "dx": 4,
+          "lift": 0
+        },
+        {
+          "dx": 14,
+          "lift": 0
+        },
+        {
+          "dx": 20,
+          "lift": 0
+        },
+        {
+          "dx": 10,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    },
+    "skill2": {
+      "name": "神器之伞",
+      "source_animation": "hd_skill2",
+      "frames": [
+        {
+          "x": 0,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.105
+        },
+        {
+          "x": 216,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.09
+        },
+        {
+          "x": 432,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.073
+        },
+        {
+          "x": 648,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.071
+        },
+        {
+          "x": 864,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.071
+        },
+        {
+          "x": 1080,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.085
+        },
+        {
+          "x": 1296,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.12
+        },
+        {
+          "x": 1512,
+          "y": 168,
+          "w": 216,
+          "h": 168,
+          "duration": 0.125
+        }
+      ],
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": -4,
+          "lift": 0
+        },
+        {
+          "dx": -20,
+          "lift": 16
+        },
+        {
+          "dx": -24,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "glove_aura": {
+      "name": "染红手套光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.07
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        18,
+        -30
+      ]
+    },
+    "dear_god_hit": {
+      "name": "命中红光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1216,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1520,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1824,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 2128,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "umbrella_spin": {
+      "name": "旋伞残影",
+      "frames": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 304,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 608,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 912,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 1216,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 1520,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 1824,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        },
+        {
+          "x": 2128,
+          "y": 384,
+          "w": 304,
+          "h": 192,
+          "duration": 0.043
+        }
+      ],
+      "anchor": [
+        148,
+        92
+      ],
+      "placement": "actor_front",
+      "offset": [
+        22,
+        -22
+      ],
+      "active_frames": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "frame_offsets": {
+        "3": [
+          22,
+          -22
+        ],
+        "4": [
+          18,
+          -20
+        ],
+        "5": [
+          12,
+          -18
+        ],
+        "6": [
+          18,
+          -18
+        ]
+      }
+    },
+    "umbrella_guard_spark": {
+      "name": "格挡火花",
+      "frames": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 304,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 608,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 912,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 1216,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 1520,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 1824,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        },
+        {
+          "x": 2128,
+          "y": 576,
+          "w": 304,
+          "h": 192,
+          "duration": 0.04
+        }
+      ],
+      "anchor": [
+        148,
+        92
+      ],
+      "placement": "actor_front",
+      "offset": [
+        24,
+        -22
+      ],
+      "active_frames": [
+        4
+      ]
+    }
+  },
+  "cues": {
+    "ult": [
+      {
+        "frame": 2,
+        "event": "glove_aura",
+        "time_s": 0.13
+      },
+      {
+        "frame": 4,
+        "event": "rush_start",
+        "time_s": 0.37
+      },
+      {
+        "frame": 6,
+        "event": "contact",
+        "time_s": 0.507
+      },
+      {
+        "frame": 7,
+        "event": "rush_end",
+        "time_s": 0.579
+      }
+    ],
+    "skill2": [
+      {
+        "frame": 2,
+        "event": "umbrella_open",
+        "time_s": 0.105
+      },
+      {
+        "frame": 3,
+        "event": "umbrella_spin",
+        "time_s": 0.195
+      },
+      {
+        "frame": 4,
+        "event": "umbrella_guard_spark",
+        "time_s": 0.268
+      },
+      {
+        "frame": 7,
+        "event": "back_hop",
+        "time_s": 0.495
+      },
+      {
+        "frame": 8,
+        "event": "umbrella_close",
+        "time_s": 0.615
+      }
+    ]
+  },
+  "fx_events": {
+    "glove_aura": {
+      "track": "glove_aura",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        18,
+        -30
+      ]
+    },
+    "dear_god_hit": {
+      "track": "dear_god_hit",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "umbrella_spin": {
+      "track": "umbrella_spin",
+      "anchor": [
+        148,
+        92
+      ],
+      "placement": "actor_front",
+      "offset": [
+        22,
+        -22
+      ],
+      "active_frames": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "frame_offsets": {
+        "3": [
+          22,
+          -22
+        ],
+        "4": [
+          18,
+          -20
+        ],
+        "5": [
+          12,
+          -18
+        ],
+        "6": [
+          18,
+          -18
+        ]
+      }
+    },
+    "umbrella_guard_spark": {
+      "track": "umbrella_guard_spark",
+      "anchor": [
+        148,
+        92
+      ],
+      "placement": "actor_front",
+      "offset": [
+        24,
+        -22
+      ],
+      "active_frames": [
+        4
+      ]
+    }
+  },
+  "baseline": {
+    "ult": {
+      "source": "jack",
+      "action": "ult",
+      "identity": "idle",
+      "idle_ink_heights": [
+        102,
+        112,
+        112,
+        112,
+        112,
+        112,
+        102
+      ],
+      "target_hd_ink_height": 112,
+      "source_track_frames": 16,
+      "source_track_canvas_max": [
+        267,
+        217
+      ],
+      "source_track_durations": [
+        0.14,
+        0.106,
+        0.1,
+        0.053,
+        0.022,
+        0.031,
+        0.026,
+        0.027,
+        0.042,
+        0.011,
+        0.053,
+        0.035,
+        0.018,
+        0.053,
+        0.053,
+        0.022
+      ]
+    },
+    "skill2": {
+      "source": "jack",
+      "action": "skill2",
+      "identity": "idle",
+      "idle_ink_heights": [
+        102,
+        112,
+        112,
+        112,
+        112,
+        112,
+        102
+      ],
+      "target_hd_ink_height": 112,
+      "source_track_frames": 23,
+      "source_track_canvas_max": [
+        228,
+        195
+      ],
+      "source_track_durations": [
+        0.108,
+        0.086,
+        0.055,
+        0.018,
+        0.037,
+        0.021,
+        0.008,
+        0.026,
+        0.024,
+        0.018,
+        0.013,
+        0.027,
+        0.028,
+        0.015,
+        0.015,
+        0.025,
+        0.033,
+        0.022,
+        0.01,
+        0.026,
+        0.019,
+        0.039,
+        0.046
+      ]
+    }
+  },
+  "art_sources": {
+    "ult": {
+      "source_atlas_entry": "jack",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "84354d57d13d9137538e5f170c20ce97aae0c69d08ae114900323a7bb481cc53",
+      "native_head_sha256": "3d2afbb288cd7ea0dfd7830aff888abef85e48e061f77ec9e439e4d054b13577"
+    },
+    "skill2": {
+      "source_atlas_entry": "jack",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "516f4f5364b89d3bcb1d7ad9d4b88b54707fb1a04366470bd76c10482ab4fc1c",
+      "native_head_sha256": "3d2afbb288cd7ea0dfd7830aff888abef85e48e061f77ec9e439e4d054b13577"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

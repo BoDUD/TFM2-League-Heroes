@@ -236,6 +236,14 @@ impl Hero {
     pub fn ui_for(&self, sized: bool) -> f32 {
         if sized { self.ui } else { UI_PPU }
     }
+
+    /// [`Hero::ui_for`] for a UI idle sheet that holds the hd_ idle instead of the lo_ one (tools/package_mod.py marks it
+    /// with a `ui_hd` tag; the user, 2026-11-19: 「都要PPU高清帧的」 for the pick slot's 「熟练度加成」 card): the hero at the
+    /// very size the lo_ frames gave - an hd_ frame is PPU / size squares a game pixel where a lo_ one is UI_PPU - so
+    /// `sized` takes shown x ui / UI_PPU, the face crops shown.
+    pub fn ui_hd_for(&self, sized: bool) -> f32 {
+        if sized { self.shown() * self.ui / UI_PPU } else { self.shown() }
+    }
 }
 
 /// A name kept for the process: a snapshot's heroes outlive the table (a guest's text) they came from.
@@ -540,6 +548,21 @@ pub mod checks {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+
+    #[test]
+    fn the_hd_idle_is_drawn_as_large_as_the_lo_idle_was() {
+        // a lo_ frame holds UI_PPU x size / PPU as many pixels a side as its hd_ frame (tools/art/ppu_hd.py add_lo); the
+        // UI idle drawn from the hd_ idle (`ui_hd`) must come out the size the lo_ idle did, whole-body and face crops
+        for (ppu, size, ui_size) in [(2.0f32, 1.0f32, 1.0f32), (1.65, 1.1, 0.9), (1.2, 1.0, 1.15), (2.84, 0.85, 1.0)] {
+            let h = Hero { id: "league_x", ppu, size, tags: vec![], lo: true, ui: UI_PPU / ui_size };
+            let hd_px = 120.0f32;
+            let lo_px = hd_px * UI_PPU * size / ppu;
+            for sized in [true, false] {
+                let (a, b) = (hd_px / h.ui_hd_for(sized), lo_px / h.ui_for(sized));
+                assert!((a - b).abs() < 1e-3, "ppu {ppu} size {size} ui {ui_size} sized {sized}: {a} vs {b}");
+            }
+        }
+    }
 
     /// A .fanim with idle / hd_idle (PPU `ppu`) and, with `lo`, lo_idle - the least a dense sheet holds.
     pub(crate) fn fanim(ppu: f32, lo: bool) -> String {

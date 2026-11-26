@@ -45,6 +45,7 @@ skill2, R Devour as the ult, E Thick Skin folded into the passive; R saves an al
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -389,7 +390,7 @@ def build(p):
     views_b = [B_("t_pip1", FX, 3), B_("t_pip2", FX, 3), B_("t_pip3", FX, 3), B_("q_slow", FX, -1),
                B_("r_full", FX, 3), B_("r_ally", FX, 3, "r_bubble"), B_("r_enemy", FX, 3, "r_bubble")]
     kit = {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],
@@ -407,6 +408,10 @@ def build(p):
                                      "r_sh_ap": p["r_sh_ap"], "r_sh_t": p["r_sh_t"], "q_stun": p["q_stun"],
                                      "e_near": p["e_near"], "e_cd": p["e_cd"], "store": p["e_store"]}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

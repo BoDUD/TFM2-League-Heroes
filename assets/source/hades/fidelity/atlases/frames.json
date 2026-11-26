@@ -1,0 +1,361 @@
+{
+  "hero": "hades",
+  "name": "哈迪斯",
+  "actor_id": "ragnarok_hades",
+  "cell": [
+    216,
+    168
+  ],
+  "ground": [
+    98,
+    148
+  ],
+  "hd_multiplier": 2,
+  "right_facing": true,
+  "fx_cell": [
+    304,
+    192
+  ],
+  "actor": {
+    "skill": {
+      "name": "冥府铁槌",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.11
+        },
+        {
+          "x": 216,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.1
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.081
+        },
+        {
+          "x": 648,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.089
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.063
+        },
+        {
+          "x": 1080,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.084
+        },
+        {
+          "x": 1296,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.115
+        },
+        {
+          "x": 1512,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.139
+        }
+      ],
+      "source_animation": "hd_skill",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": 2,
+          "lift": 18
+        },
+        {
+          "dx": 6,
+          "lift": 30
+        },
+        {
+          "dx": 14,
+          "lift": 0
+        },
+        {
+          "dx": 10,
+          "lift": 0
+        },
+        {
+          "dx": 4,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "ground_break": {
+      "name": "落枪爆地",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        }
+      ],
+      "anchor": [
+        144,
+        102
+      ],
+      "placement": "actor_ground",
+      "offset": [
+        42,
+        0
+      ]
+    },
+    "air_edge": {
+      "name": "向前风刃",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 1216,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 1520,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 1824,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        },
+        {
+          "x": 2128,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.049
+        }
+      ],
+      "anchor": [
+        48,
+        94
+      ],
+      "placement": "projectile",
+      "offset": [
+        48,
+        -20
+      ]
+    }
+  },
+  "cues": {
+    "skill": [
+      {
+        "frame": 3,
+        "event": "jump_start",
+        "time_s": 0.21
+      },
+      {
+        "frame": 5,
+        "event": "ground_break",
+        "time_s": 0.38
+      },
+      {
+        "frame": 5,
+        "event": "air_edge",
+        "time_s": 0.38
+      },
+      {
+        "frame": 5,
+        "event": "contact",
+        "time_s": 0.38
+      },
+      {
+        "frame": 6,
+        "event": "recover",
+        "time_s": 0.443
+      }
+    ]
+  },
+  "fx_events": {
+    "ground_break": {
+      "track": "ground_break",
+      "anchor": [
+        144,
+        102
+      ],
+      "placement": "actor_ground",
+      "offset": [
+        42,
+        0
+      ]
+    },
+    "air_edge": {
+      "track": "air_edge",
+      "anchor": [
+        48,
+        94
+      ],
+      "placement": "projectile",
+      "offset": [
+        48,
+        -20
+      ]
+    }
+  },
+  "baseline": {
+    "skill": {
+      "source": "hades",
+      "action": "skill",
+      "identity": "idle",
+      "idle_ink_heights": [
+        136,
+        140,
+        136,
+        140,
+        136,
+        126,
+        136
+      ],
+      "target_hd_ink_height": 136,
+      "source_track_frames": 14,
+      "source_track_canvas_max": [
+        261,
+        283
+      ],
+      "source_track_durations": [
+        0.098,
+        0.078,
+        0.061,
+        0.048,
+        0.004,
+        0.047,
+        0.005,
+        0.05,
+        0.002,
+        0.052,
+        0.028,
+        0.024,
+        0.052,
+        0.034
+      ]
+    }
+  },
+  "art_sources": {
+    "skill": {
+      "source_atlas_entry": "hades",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "8e0d101e0181ba160b9a526308b20a7e849889ca694a2bec173fa84d2250e158",
+      "native_head_sha256": "fcb4b7cee19018734f59f056aeaf9bd51966241edfea46c29440c9e98d2199cd"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

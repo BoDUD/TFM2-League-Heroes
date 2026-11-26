@@ -418,10 +418,15 @@ RUN_HIPS = {"near": (19.5, 43.0), "far": (23.0, 43.5)}
 
 # ms per frame; the kit's ticks (tools/kit/build_quinn.py) come from these
 MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
-      "skill": [90, 80, 100, 90, 110], "skill2": [60, 60], "e_flip": [50, 50, 50, 60, 90],
+      "skill": [90, 80, 100, 90, 110], "skill2": [60, 60], "e_flip": [60, 70, 80, 70, 70, 120, 130],
       "ult": [80, 100, 120, 200], "ult_ride": [50] * 8, "ult_land": [70, 70, 70, 70, 100, 100],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500],
       "r_idle": [160] * 4, "r_run": [90] * 4, "r_hit": [100, 100], "r_beat": [120] * 8}
+# 后空翻每帧另有一个单帧标签 e_flip_0 … e_flip_6（frames() 里抄 e_flip 的帧）：附加包把她往后挪的那 20 tick，
+# 游戏看来不往下播强制动作，画面停在第一帧（用户 2026-11-20：「奎因E往后拉距离为什么还是没动画」），league_quinn 按 tick
+# 逐帧把正在播的动画换成这几个标签。单帧标签的时长给长一点，播到哪儿都是这一帧。
+FLIP_ONE = [f"e_flip_{k}" for k in range(len(MS["e_flip"]))]
+MS.update({t: [1000] for t in FLIP_ONE})
 # Valor's wing tips in the ride's loops, rows up a frame (the downstroke while the group rises): ult_ride rises 6 to 9
 # and sinks to 7, r_run rises 6 9 and sinks 8 5 (2026-11-14: both were one picture moved up and down; ult_ride's four
 # 100-ms frames are eight of 50 now, r_run keeps its four)
@@ -466,9 +471,14 @@ def frames_all(F):
     out["skill2"] = [dr(j, air=True, lunge=0.5, lean=1.5, cape=(-3, -3)) for j in T["skill2"]]
     # Quinn_spell3_flip: she kicks off and somersaults back (the kick-off frame turned whole a quarter at a time,
     # counter-clockwise), lands (League's landing frame), stands
+    # 后空翻补帧（用户 2026-11-20：「旧模型你只要把E后空翻的问题解决了」）：原来只有转 90°、180°、270° 三张就直接落地，
+    # 没有蹬离那一下，也没有翻满一圈回正。现在 7 帧：蹬离（不转，离地 4 行）、转 90°、180°（最高）、270°、
+    # 转满一圈回正（还离地 5 行）、落地、站起。用户在游戏里看：「翻了，但一闪而过」——0.3 秒太快，现在 600 毫秒
+    # （转圈每帧 70–80 毫秒，落地、站起各留一百多毫秒），技能数据的 e_flip 跟着改成 36 tick。
     kick_off = dr(T["e_flip"][0])
     tumble = lambda k, dx, up: shift(R.lie(rig, kick_off, k, dx=dx, sink=0), 0, -up)
-    out["e_flip"] = [tumble(1, 0, 12), tumble(2, -2, 21), tumble(3, -3, 14), dr(T["e_flip"][4], shift=(-3, 0)), p()]
+    out["e_flip"] = [shift(kick_off, 0, -4), tumble(1, 0, 12), tumble(2, -2, 21), tumble(3, -3, 14), tumble(4, -3, 5),
+                     dr(T["e_flip"][4], shift=(-3, 0)), p()]
     # R Behind Enemy Lines (Quinn_Spell4_Channel: aimed, the crossbow let down to her hip, standing tall aiming again,
     # down on one knee with the crossbow raised as Valor comes down; she is on his back from ult_ride on)
     out["ult"] = [dr(T["ult"][0]), dr(T["ult"][1], hold=LOW_HOLD), dr(T["ult"][2], air=True), dr(T["ult"][3], **UP)]
@@ -527,6 +537,7 @@ def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
     a = {"idle": a["idle"], "run": a["run"], **{k: v for k, v in a.items() if k not in ("idle", "run")}}
+    a.update({t: [c] for t, c in zip(FLIP_ONE, a["e_flip"])})
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]

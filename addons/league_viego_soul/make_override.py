@@ -12,7 +12,8 @@ league/champion/league_viego.data_champion byte for byte (so the copy never drif
   * src/souls.rs: champion id -> (soul category, the animation tags of its sheet) for every base champion (the game's
     champion sheet asset/base/setting/champion_info and each sprite's #anim, bundle.game_data), every hero of this
     pack (league/champion + league/champions/*#anim.fanim) and of the repo's tft pack (tft/champion + tft/champions:
-    the user, 2026-10-26: 「让佛耶戈和妮蔻也能变成 tft 英雄」). The view hook draws only champions in this table;
+    the user, 2026-10-26: 「让佛耶戈和妮蔻也能变成 tft 英雄」) and of the ragnarok pack (ragnarok/champion + ragnarok/champions:
+    2026-11-21 「佛耶戈妮蔻之类的也要真正的能变身成这些角色」). The view hook draws only champions in this table;
     league_neeko reads the same file for the allies she can disguise as.
 Run it again whenever the main pack's Viego or his text changes, or when the pack gains heroes.
 """
@@ -36,6 +37,10 @@ HERO = "league_viego"
 # 0.7.3 added the Tank role (the base game's eight tanks and 28 of ours, formerly Melee): a tank's soul fights with
 # the melee kit, as it did before
 CATS = {"Melee": "melee", "Range": "range", "Magician": "mage", "Util": "util", "Assassin": "assassin", "Tank": "melee"}
+# Nine of ours moved Util -> Tank afterwards (the League supports that are tanks, as on the official site's Tank
+# filter; the user 2026-11-18): their souls, Neeko's copies and Sylas's stolen ults keep the support kit
+KIT = {f"league_{h}": "util" for h in ("alistar", "blitzcrank", "braum", "leona", "maokai", "nautilus", "poppy", "rell",
+                                        "tahmkench")}
 O, A, R, E = setup.O, setup.A, setup.R, setup.E
 TEXT = {
     "zh-hans": O + "君命已决" + E + "（附加包）：他伤过的敌方英雄{p_win}秒内阵亡，尸体处留下灵魂{soul_t}秒，靠近即附身" + A + "{p_t}秒" + E +
@@ -95,13 +100,13 @@ def souls(game):
         tags = b.anim_tags(sprite)
         if tags and v.get("category") in CATS:
             out[cid] = (CATS[v["category"]], sorted(tags))
-    for pack in ("league", "tft"):
+    for pack in ("league", "tft", "ragnarok", "abysspact"):
         for path in sorted(glob.glob(os.path.join(ROOT, pack, "champion", "*.data_champion"))):
             c = load(path)
             anim = os.path.join(ROOT, pack, "champions", os.path.basename(c["sprite"]) + "#anim.fanim")
             if not os.path.exists(lp(anim)) or c.get("category") not in CATS:
                 continue
-            out[c["id"]] = (CATS[c["category"]], sorted(load(anim).get("anims", {}).keys()))
+            out[c["id"]] = (KIT.get(c["id"], CATS[c["category"]]), sorted(load(anim).get("anims", {}).keys()))
     return dict(sorted(out.items()))
 
 

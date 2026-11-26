@@ -1,0 +1,715 @@
+{
+  "id": "ragnarok_susanoo",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_susanoo:musou",
+    "params": {
+      "r_cost": 5
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_susanoo",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_susanoo_skill",
+    "asset/ragnarok/icons/ragnarok_susanoo_skill2",
+    "asset/ragnarok/icons/ragnarok_susanoo_ult"
+  ],
+  "stat": {
+    "attack": 92,
+    "magic_power": 0,
+    "hp": 1150,
+    "defence": 38,
+    "magic_resistance": 32,
+    "move_speed": 1060,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 105,
+    "defence": 6,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_susanoo.attack",
+    "duration": 36,
+    "cooltime": 60,
+    "start_timing": 14,
+    "cancelable": true,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_susanoo_a2",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "LineRangeProjectile",
+                "name": "ragnarok_susanoo_p_mugen",
+                "width": 6000,
+                "length": 45000,
+                "delay": 2,
+                "apply": 1,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 40,
+                      "attack_ratio": 50,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "ragnarok_susanoo_a_hit"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Sfx",
+                "name": "ragnarok_susanoo_p"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "ragnarok_susanoo_a1"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "ragnarok_susanoo_a2"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "ragnarok_susanoo_a1",
+            "effect_buff": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "ragnarok_susanoo_a2",
+                "duration": "Permanent"
+              },
+              "only_to_enemy": false
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "ragnarok_susanoo_a1",
+                "duration": "Permanent"
+              },
+              "only_to_enemy": false
+            }
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_susanoo_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_susanoo_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_susanoo_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_susanoo.skill",
+    "duration": 42,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 48000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "ragnarok_susanoo_q_load"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_susanoo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_susanoo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "LineRangeProjectile",
+                            "name": "ragnarok_susanoo_q_wave",
+                            "width": 9000,
+                            "length": 70000,
+                            "delay": 2,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 80,
+                                  "attack_ratio": 90,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_susanoo_a_hit"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "DirDot": {
+                                "radius": 32000,
+                                "range": 820
+                              }
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": {
+                              "Forward": {
+                                "offset": 1000
+                              }
+                            },
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 50,
+                                "attack_ratio": 60,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_susanoo_q"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_susanoo_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "LineRangeProjectile",
+                            "name": "ragnarok_susanoo_q_wave",
+                            "width": 9000,
+                            "length": 70000,
+                            "delay": 2,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 80,
+                                  "attack_ratio": 90,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_susanoo_a_hit"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "DirDot": {
+                                "radius": 32000,
+                                "range": 820
+                              }
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": {
+                              "Forward": {
+                                "offset": 1000
+                              }
+                            },
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 50,
+                                "attack_ratio": 60,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_susanoo_q"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_susanoo_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_susanoo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_susanoo.skill2",
+    "duration": 49,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_susanoo_e"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "ragnarok_susanoo_e_guard",
+                "duration": {
+                  "Time": {
+                    "tick": 18
+                  }
+                },
+                "base_attack_damaged_reduce": 100,
+                "damaged_reduce": 40
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_susanoo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_susanoo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_susanoo_e_go"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 36000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 70,
+                            "attack_ratio": 80,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_susanoo_a_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_susanoo_e_hit"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_susanoo_e_go"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 36000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 70,
+                            "attack_ratio": 80,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_susanoo_a_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_susanoo_e_hit"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_susanoo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_susanoo.ult",
+    "duration": 47,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_susanoo_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 18
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_susanoo_r_load"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_susanoo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_susanoo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_susanoo_r"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "FixedAttack",
+                            "damage": 150,
+                            "attack_ratio": 110,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 8,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_susanoo_r_bone",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30,
+                              "attack_mult": -20
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_susanoo_r_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_susanoo_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_susanoo_r"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "FixedAttack",
+                            "damage": 150,
+                            "attack_ratio": 110,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 8,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_susanoo_r_bone",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30,
+                              "attack_mult": -20
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_susanoo_r_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "ragnarok_susanoo_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_susanoo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_susanoo_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_susanoo_fx",
+      "tag": "hit_spark",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_susanoo_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_susanoo_fx",
+      "tag": "hit_spark",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

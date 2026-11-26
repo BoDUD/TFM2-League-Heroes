@@ -65,8 +65,8 @@ SLOTS = [("attack", "普攻 / 被动"), ("skill", "技能1"), ("skill2", "技能
 SLOT_NAME = {"skill": "skill1", "skill2": "skill2", "ult": "ult"}
 TICKS = 60  # ticks a second
 # add-ons that are no hero's (the DLL, the bundle, shared code, diagnostics)
-NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "hd_engine", "vendor", "league_recall_log", "league_macro_log", "league_macro",
-                   "league_fight_log", "league_peel", "league_lane", "league_focus", "league_kite", "league_unlock_guard"}
+NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "hd_engine", "vendor", "league_recall_log", "league_macro_log",
+                   "league_fight_log", "league_unlock_guard"}
 
 
 # ---------------------------------------------------------------- reading the repo (working tree, else git HEAD)
@@ -256,6 +256,8 @@ def first_para(md):
     paras = [p.strip() for p in re.split(r"\n\s*\n", md)]
     for i, p in enumerate(paras[1:], 1):
         if not p or p.startswith(("#", "|", "```", "!")) or p.startswith("用户"):
+            continue
+        if re.match(r"\d+\.\d+\.\d+[\uff08(]", p):   # a version note (0.1.9（date）：...), not what the add-on does
             continue
         if p.endswith(("：", ":")) and i + 1 < len(paras) and paras[i + 1].startswith("- "):
             p += "\n\n" + paras[i + 1]

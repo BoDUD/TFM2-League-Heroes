@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "abysspact_bloodmoon_vo_dead",
+      "volume": 0.85
+    },
+    {
+      "delay": 0.1,
+      "clip": "abysspact_bloodmoon_sfx_death",
+      "volume": 0.67
+    }
+  ]
+}

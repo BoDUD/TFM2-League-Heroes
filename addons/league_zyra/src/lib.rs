@@ -785,7 +785,7 @@ impl Garden {
                 continue;
             }
             for (name, k) in &tags {
-                if (0..e.buff_count()).filter_map(|j| e.buff_at(j)).any(|b| b.name() == name.as_str()) {
+                if (0..e.buff_count()).filter_map(|j| e.buff_at(j)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()) {
                     now.push((e.id(), *k, fpos(e.pos())));
                 }
             }

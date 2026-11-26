@@ -1,0 +1,600 @@
+{
+  "hero": "hajun",
+  "name": "波旬",
+  "actor_id": "ragnarok_zerofuku",
+  "cell": [
+    144,
+    112
+  ],
+  "ground": [
+    65,
+    99
+  ],
+  "hd_multiplier": 3,
+  "right_facing": true,
+  "fx_cell": [
+    203,
+    128
+  ],
+  "actor": {
+    "h_skill": {
+      "name": "魔廻天衝",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.115
+        },
+        {
+          "x": 144,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.105
+        },
+        {
+          "x": 288,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.095
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.061
+        },
+        {
+          "x": 576,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.075
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.084
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.11
+        },
+        {
+          "x": 1008,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.135
+        }
+      ],
+      "source_animation": "hd_h_skill",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    },
+    "h_ult": {
+      "name": "灼",
+      "frames": [
+        {
+          "x": 0,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.125
+        },
+        {
+          "x": 144,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.12
+        },
+        {
+          "x": 288,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.095
+        },
+        {
+          "x": 432,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.1
+        },
+        {
+          "x": 576,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.065
+        },
+        {
+          "x": 720,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.083
+        },
+        {
+          "x": 864,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.11
+        },
+        {
+          "x": 1008,
+          "y": 112,
+          "w": 144,
+          "h": 112,
+          "duration": 0.15
+        }
+      ],
+      "source_animation": "hd_h_ult",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -1,
+          "lift": 0
+        },
+        {
+          "dx": -1,
+          "lift": 0
+        },
+        {
+          "dx": 4,
+          "lift": 0
+        },
+        {
+          "dx": 4,
+          "lift": 0
+        },
+        {
+          "dx": 1,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "drill_launch": {
+      "name": "黑钻头",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 203,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 406,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 609,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 812,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 1015,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 1218,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        },
+        {
+          "x": 1421,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.052
+        }
+      ],
+      "anchor": [
+        36,
+        63
+      ],
+      "placement": "projectile",
+      "offset": [
+        32,
+        -23
+      ],
+      "loop_frames": [
+        4,
+        5,
+        6
+      ]
+    },
+    "sword_drop": {
+      "name": "大剑竖劈",
+      "frames": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 203,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 406,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 609,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 812,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 1015,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 1218,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        },
+        {
+          "x": 1421,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.058
+        }
+      ],
+      "anchor": [
+        93,
+        63
+      ],
+      "placement": "actor_front",
+      "offset": [
+        28,
+        -19
+      ]
+    },
+    "sword_hit": {
+      "name": "重斩接触光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 203,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 406,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 609,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 812,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 1015,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 1218,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        },
+        {
+          "x": 1421,
+          "y": 256,
+          "w": 203,
+          "h": 128,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        93,
+        63
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "cues": {
+    "h_skill": [
+      {
+        "frame": 2,
+        "event": "transfigure",
+        "time_s": 0.115
+      },
+      {
+        "frame": 4,
+        "event": "drill_launch",
+        "time_s": 0.315
+      },
+      {
+        "frame": 7,
+        "event": "recovery",
+        "time_s": 0.535
+      }
+    ],
+    "h_ult": [
+      {
+        "frame": 2,
+        "event": "sword_form",
+        "time_s": 0.125
+      },
+      {
+        "frame": 5,
+        "event": "sword_drop",
+        "time_s": 0.44
+      },
+      {
+        "frame": 5,
+        "event": "contact",
+        "time_s": 0.44
+      }
+    ]
+  },
+  "fx_events": {
+    "drill_launch": {
+      "track": "drill_launch",
+      "anchor": [
+        36,
+        63
+      ],
+      "placement": "projectile",
+      "offset": [
+        32,
+        -23
+      ],
+      "loop_frames": [
+        4,
+        5,
+        6
+      ]
+    },
+    "sword_drop": {
+      "track": "sword_drop",
+      "anchor": [
+        93,
+        63
+      ],
+      "placement": "actor_front",
+      "offset": [
+        28,
+        -19
+      ]
+    },
+    "sword_hit": {
+      "track": "sword_hit",
+      "anchor": [
+        93,
+        63
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "baseline": {
+    "h_skill": {
+      "source": "zerofuku",
+      "action": "h_skill",
+      "identity": "h_idle",
+      "idle_ink_heights": [
+        126,
+        132,
+        132,
+        129,
+        132,
+        132,
+        126
+      ],
+      "target_hd_ink_height": 132,
+      "source_track_frames": 14,
+      "source_track_canvas_max": [
+        256,
+        206
+      ],
+      "source_track_durations": [
+        0.098,
+        0.08,
+        0.058,
+        0.049,
+        0.046,
+        0.008,
+        0.038,
+        0.018,
+        0.028,
+        0.046,
+        0.008,
+        0.038,
+        0.046,
+        0.022
+      ]
+    },
+    "h_ult": {
+      "source": "zerofuku",
+      "action": "h_ult",
+      "identity": "h_idle",
+      "idle_ink_heights": [
+        126,
+        132,
+        132,
+        129,
+        132,
+        132,
+        126
+      ],
+      "target_hd_ink_height": 132,
+      "source_track_frames": 16,
+      "source_track_canvas_max": [
+        289,
+        234
+      ],
+      "source_track_durations": [
+        0.145,
+        0.113,
+        0.094,
+        0.071,
+        0.049,
+        0.012,
+        0.037,
+        0.032,
+        0.017,
+        0.049,
+        0.033,
+        0.016,
+        0.049,
+        0.049,
+        0.049,
+        0.115
+      ]
+    }
+  },
+  "art_sources": {
+    "h_skill": {
+      "source_atlas_entry": "zerofuku",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "7726bf243b4771b94be9756a0a53a5f9ab5f8da4b16cc98db401e548e67496fa",
+      "native_head_sha256": "87bfbf91380565c49c4bb4b1c74a470517392b20e428275bf3f85e273b441278"
+    },
+    "h_ult": {
+      "source_atlas_entry": "zerofuku",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "7a7166159659c2f269bb73ff72bfead2ddb22706a6babc9b7cd1417ec1619b16",
+      "native_head_sha256": "87bfbf91380565c49c4bb4b1c74a470517392b20e428275bf3f85e273b441278"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

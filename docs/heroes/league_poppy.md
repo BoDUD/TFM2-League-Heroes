@@ -9,7 +9,7 @@
 | id | `league_poppy` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AD / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.2（画成 85%） |
 | 附加包 | [波比附加包](#附加包)（`league_poppy`） |
 
@@ -55,7 +55,7 @@
 
 ### 波比附加包
 
-[波比附加包](../../addons/league_poppy/README.md)：`league_poppy` v0.1.6
+[波比附加包](../../addons/league_poppy/README.md)：`league_poppy` v0.1.8
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

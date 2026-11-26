@@ -1,17 +1,20 @@
 """Aurora's text (5 languages), sound_info files and her keys in the shared files, numbers from build_aurora.P.
 
-    python tools/kit/setup_aurora.py [--params final.json] [--check] [--face X,Y] [--banpick Y]
+    python tools/kit/setup_aurora.py [--params final.json] [--check] [--text] [--face X,Y] [--banpick Y]
 
 Writes (in league/): text/champion.i18n (league_aurora in every language, description + skill_name),
 sound/sfx/league_aurora_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre),
 mod.mod_info (VERSION, Aurora named). Only her keys change in the shared files. JSON: indent 2, CRLF, UTF-8. --check
-only prints each text's shown length against lint_mod's TOOLTIP_MAX.
+only prints each text's shown length against lint_mod's TOOLTIP_MAX. --text writes the text alone (2026-11-26: the sounds
+and their override keys were changed after this script by tools/lol/extract_missing_spell_vo.py - her W's voice line -
+so a full run would take that back).
 Names: Data Dragon 16.20.1 - zh_CN 阿萝拉 (双界灵兔): 驱灵奇术; 飞去来咒, 灵纱洞开, 怪奇喷涌, 双界合一; zh_TW 歐羅拉 (跨界靈使):
 精靈附體; 二重靈咒, 跨越兩界, 靈異逆躍, 雙界合一; ja オーロラ: 精霊の解放; 折れ重なる魔法, ベールを越えて, ウィアーディング,
 世界の狭間; ko 오로라: 영혼 방호술; 이중 저주, 장막 너머로, 마법의 문, 세계의 경계.
 Slots: skill = Twofold Hex, skill2 = The Weirding, ult = Between Worlds; the passive (Across the Veil folded in) in the
 attack's text - the main pack's stand-in (an enemy champion on top of her); the add-on's text (addons/league_aurora
-make_override.py) says the low-health one it reads. The ult (League's Between Worlds, 2026-11-04): the main pack's rift
+make_override.py) says the low-health one it reads. 2026-11-26 (V26.22): the spirit heals over p_heal_t and no longer
+hastens, The Weirding's slow fades over e_slow_t. The ult (League's Between Worlds, 2026-11-04): the main pack's rift
 slows the enemies in it while she is inside; the add-on's text says League's border it keeps. No combo sentence in any
 text (the user's rule); the README says them.
 """
@@ -66,11 +69,11 @@ TEXT = {
     "zh-hans": {
         "name": "阿萝拉",
         "attack": "魔杖点出灵光。" + n("驱灵奇术") + "：命中英雄叠层，第三层抽出灵物，造成" + mag("p_dmg", "p_ratio") + "+{p_hp}%最大生命值的伤害，" +
-                  hl("回复") + mag("p_heal", "p_heal_r") + "生命并加速。" + n("灵纱洞开") + "：被敌方英雄贴身时后跳，隐身" + t("{w_inv}秒") + "、加速{w_ms}%（" +
-                  t("{w_cd}秒") + "一次）。",
+                  t("{p_heal_t}秒") + "内每秒" + hl("回复") + mag("p_heal", "p_heal_r") + "生命。" + n("灵纱洞开") + "：被敌方英雄贴身时后跳，隐身" + t("{w_inv}秒") +
+                  "、加速{w_ms}%（" + t("{w_cd}秒") + "一次）。",
         "skill": "放出咒弹穿过敌人，造成" + mag("q_dmg", "q_ratio") + "魔法伤害并留下诅咒；" + t("{q_hold}秒") + "后把诅咒抽回，回程再造成" +
                  mag("q2_dmg", "q2_ratio") + "魔法伤害。",
-        "skill2": "向前喷出灵魂冲击，造成" + mag("e_dmg", "e_ratio") + "魔法伤害并" + cc("减速") + "{e_slow1}%（逐渐减弱），随后向后跳开。",
+        "skill2": "向前喷出灵魂冲击，造成" + mag("e_dmg", "e_ratio") + "魔法伤害并" + cc("减速") + "{e_slow}%（" + t("{e_slow_t}秒") + "内减弱），随后向后跳开。",
         "ult": "朝敌方英雄跃出一小段，加速{r_ms}%；前方的冲击波造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + cc("减速") + "{r_slow1}%，留下领域" +
                t("{r_t}秒") + "：她在里面时" + cc("减速") + "其中敌人{r_slow}%，她离开或阵亡就关闭。",
         "names": ("飞去来咒", "怪奇喷涌", "双界合一"),
@@ -78,11 +81,11 @@ TEXT = {
     "zh-hant": {
         "name": "歐羅拉",
         "attack": "魔杖點出靈光。" + n("精靈附體") + "：命中英雄疊層，第三層抽出精靈，造成" + mag("p_dmg", "p_ratio") + "+{p_hp}%最大生命值的傷害，" +
-                  hl("回復") + mag("p_heal", "p_heal_r") + "生命並加速。" + n("跨越兩界") + "：被敵方英雄貼身時後跳，隱形" + t("{w_inv}秒") + "、加速{w_ms}%（" +
-                  t("{w_cd}秒") + "一次）。",
+                  t("{p_heal_t}秒") + "內每秒" + hl("回復") + mag("p_heal", "p_heal_r") + "生命。" + n("跨越兩界") + "：被敵方英雄貼身時後跳，隱形" + t("{w_inv}秒") +
+                  "、加速{w_ms}%（" + t("{w_cd}秒") + "一次）。",
         "skill": "放出咒彈穿過敵人，造成" + mag("q_dmg", "q_ratio") + "魔法傷害並留下詛咒；" + t("{q_hold}秒") + "後把詛咒抽回，回程再造成" +
                  mag("q2_dmg", "q2_ratio") + "魔法傷害。",
-        "skill2": "向前噴出靈魂衝擊，造成" + mag("e_dmg", "e_ratio") + "魔法傷害並" + cc("緩速") + "{e_slow1}%（逐漸減弱），隨後向後跳開。",
+        "skill2": "向前噴出靈魂衝擊，造成" + mag("e_dmg", "e_ratio") + "魔法傷害並" + cc("緩速") + "{e_slow}%（" + t("{e_slow_t}秒") + "內減弱），隨後向後跳開。",
         "ult": "朝敵方英雄躍出一小段，加速{r_ms}%；前方的衝擊波造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + cc("緩速") + "{r_slow1}%，留下領域" +
                t("{r_t}秒") + "：她在裡面時" + cc("緩速") + "其中敵人{r_slow}%，她離開或陣亡就關閉。",
         "names": ("二重靈咒", "靈異逆躍", "雙界合一"),
@@ -91,13 +94,13 @@ TEXT = {
         "name": "Aurora",
         "attack": "A spirit bolt off her wand. " + n("Spirit Abjuration") + ": her hits on champions add up; the third exorcises a "
                   "spirit for " + mag("p_dmg", "p_ratio") + " + {p_hp}% of the target's max health, and it " + hl("heals") + " her " +
-                  mag("p_heal", "p_heal_r") + " and speeds her up. " + n("Across the Veil") + ": with an enemy champion on top of her, "
+                  mag("p_heal", "p_heal_r") + " a second for " + t("{p_heal_t}s") + ". " + n("Across the Veil") + ": with an enemy champion on top of her, "
                   "she hops back, " + "invisible for " + t("{w_inv}s") + " and {w_ms}% faster (once every " + t("{w_cd}s") + ").",
         "skill": "A hex flies through her enemies for " + mag("q_dmg", "q_ratio") + " magic damage, cursing them; " +
                  t("{q_hold}s") + " later the curses are drawn back, dealing " + mag("q2_dmg", "q2_ratio") + " magic damage on the "
                  "way home.",
         "skill2": "A blast of spirit magic before her: " + mag("e_dmg", "e_ratio") + " magic damage and a " + cc("slow") +
-                  " of {e_slow1}% that fades; then she hops back.",
+                  " of {e_slow}% that fades over " + t("{e_slow_t}s") + "; then she hops back.",
         "ult": "Leaps a short way toward an enemy champion, {r_ms}% faster; a shockwave in front of her deals " +
                mag("r_dmg", "r_ratio") + " magic damage and " + cc("slows") + " {r_slow1}%, leaving a rift for " + t("{r_t}s") +
                " that " + cc("slows") + " the enemies in it {r_slow}% while she is inside. It closes if she leaves it or dies.",
@@ -106,11 +109,11 @@ TEXT = {
     "ko": {
         "name": "오로라",
         "attack": "지팡이로 영혼 빛을 쏜다. " + n("영혼 방호술") + ": 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 " + mag("p_dmg", "p_ratio") +
-                  " + 최대 체력의 {p_hp}% 피해, " + mag("p_heal", "p_heal_r") + " " + hl("회복") + "과 이동 속도 증가. " + n("장막 너머로") +
+                  " + 최대 체력의 {p_hp}% 피해, " + t("{p_heal_t}초") + " 동안 매초 " + mag("p_heal", "p_heal_r") + " " + hl("회복") + ". " + n("장막 너머로") +
                   ": 적 챔피언이 붙으면 뒤로 뛰어 " + t("{w_inv}초") + " 투명, 이동 속도 +{w_ms}% (" + t("{w_cd}초") + "마다).",
         "skill": "주문 탄이 적을 꿰뚫어 " + mag("q_dmg", "q_ratio") + " 마법 피해와 저주; " + t("{q_hold}초") + " 뒤 저주를 끌어당겨 돌아오는 길에 " +
                  mag("q2_dmg", "q2_ratio") + " 마법 피해.",
-        "skill2": "앞으로 영혼 충격파를 뿜어 " + mag("e_dmg", "e_ratio") + " 마법 피해와 점점 약해지는 {e_slow1}% " + cc("둔화") +
+        "skill2": "앞으로 영혼 충격파를 뿜어 " + mag("e_dmg", "e_ratio") + " 마법 피해와 " + t("{e_slow_t}초") + " 동안 약해지는 {e_slow}% " + cc("둔화") +
                   ", 이후 뒤로 뛴다.",
         "ult": "적 챔피언 쪽으로 짧게 도약하며 이동 속도 +{r_ms}%; 앞쪽 충격파가 " + mag("r_dmg", "r_ratio") + " 마법 피해와 {r_slow1}% " +
                cc("둔화") + ", " + t("{r_t}초") + " 동안 영역을 남겨 그녀가 안에 있는 동안 안의 적을 {r_slow}% " + cc("둔화") +
@@ -120,11 +123,11 @@ TEXT = {
     "ja": {
         "name": "オーロラ",
         "attack": "杖から霊光を放つ。" + n("精霊の解放") + "：英雄への命中が重なり、3回目で精霊を引き出し" + mag("p_dmg", "p_ratio") +
-                  "＋最大体力の{p_hp}%のダメージ、" + mag("p_heal", "p_heal_r") + hl("回復") + "し加速。" + n("ベールを越えて") +
+                  "＋最大体力の{p_hp}%のダメージ、" + t("{p_heal_t}秒") + "間毎秒" + mag("p_heal", "p_heal_r") + hl("回復") + "。" + n("ベールを越えて") +
                   "：敵英雄に詰められると後ろへ跳び" + t("{w_inv}秒") + "透明、移動速度+{w_ms}%（" + t("{w_cd}秒") + "ごと）。",
         "skill": "呪弾が敵を貫き" + mag("q_dmg", "q_ratio") + "の魔法ダメージと呪い、" + t("{q_hold}秒") + "後に呪いを引き戻し帰り道で" +
                  mag("q2_dmg", "q2_ratio") + "の魔法ダメージ。",
-        "skill2": "前方へ霊の衝撃を放ち" + mag("e_dmg", "e_ratio") + "の魔法ダメージと弱まっていく{e_slow1}%" + cc("スロウ") + "、その後後ろへ跳ぶ。",
+        "skill2": "前方へ霊の衝撃を放ち" + mag("e_dmg", "e_ratio") + "の魔法ダメージと" + t("{e_slow_t}秒") + "で弱まる{e_slow}%" + cc("スロウ") + "、その後後ろへ跳ぶ。",
         "ult": "敵英雄の方へ短く跳び移動速度+{r_ms}%。前方の衝撃波で" + mag("r_dmg", "r_ratio") + "の魔法ダメージと{r_slow1}%" + cc("スロウ") +
                "、" + t("{r_t}秒") + "間領域を残し、彼女が中にいる間は中の敵を{r_slow}%" + cc("スロウ") + "。彼女が出るか倒れると閉じる。",
         "names": ("折れ重なる魔法", "ウィアーディング", "世界の狭間"),
@@ -147,10 +150,12 @@ def secs(tk):
 
 def values(p):
     v = {k: p[k] for k in ("p_dmg", "p_ratio", "p_hp", "p_heal", "p_heal_r", "w_ms", "q_dmg", "q_ratio", "q2_dmg",
-                           "q2_ratio", "e_dmg", "e_ratio", "e_slow1", "r_dmg", "r_ratio", "r_slow1", "r_slow", "r_ms",
-                           "r_edge")}
-    for k in ("w_inv", "w_cd", "q_hold", "r_t"):
+                           "q2_ratio", "e_dmg", "e_ratio", "e_slow", "r_dmg", "r_ratio", "r_slow1", "r_slow", "r_ms",
+                           "r_edge", "q2_miss", "q2_minion", "q2_monster", "sp0", "sp1", "sp_ap", "sp_max", "w_low")}
+    for k in ("w_inv", "w_cd", "q_hold", "r_t", "p_heal_t", "sp_t", "r_grow", "r_t1", "r_t2", "r_t3", "e_slow_t"):
         v[k] = secs(p[k])
+    v["p_hp_pct"] = f"{p['p_hp_pm'] / 10:g}"
+    v["p_hp_ap_pct"] = f"{p['p_hp_ap_pm'] / 10:g}"
     return v
 
 
@@ -185,6 +190,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--params")
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--text", action="store_true", help="write text/champion.i18n only")
     ap.add_argument("--face", help="X,Y from tfm2_ase.py face")
     ap.add_argument("--banpick", type=int, help="banpick_center y (-39 + the idle's top over the frame centre)")
     a = ap.parse_args()
@@ -211,6 +217,9 @@ def main():
         i18n[lang]["description"][ID] = d
         i18n[lang]["skill_name"][ID] = names
     save(os.path.join(MOD, "text", "champion.i18n"), i18n)
+    if a.text:
+        print("written (text)")
+        return
 
     for name, plays in SOUNDS.items():
         save(os.path.join(MOD, "sound", "sfx", name + ".sound_info"),

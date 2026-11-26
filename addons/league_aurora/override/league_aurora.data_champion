@@ -5,10 +5,38 @@
     "passive_ref": "league_aurora:veil",
     "params": {
       "w_low": 35,
-      "r_t": 195,
+      "r_grow": 45,
+      "r_t1": 135,
+      "r_t2": 165,
+      "r_t3": 195,
+      "r_lv2": 8,
+      "r_lv3": 11,
       "r_edge": 50,
-      "r_edge_t": 105,
-      "r_wrap_t": 24
+      "r_edge_t1": 90,
+      "r_edge_t2": 105,
+      "r_edge_t3": 120,
+      "r_wrap_t": 24,
+      "r_ms": 30,
+      "r_ms_t1": 195,
+      "r_ms_t2": 225,
+      "r_ms_t3": 255,
+      "r_leap_t": 14,
+      "r_recast": 60,
+      "p_t": 240,
+      "p_hp_pm": 10,
+      "p_hp_ap_pm": 27,
+      "sp0": 3,
+      "sp1": 20,
+      "sp_ap": 2,
+      "sp_t": 240,
+      "sp_max": 4,
+      "q2_dmg": 100,
+      "q2_ratio": 55,
+      "q2_miss": 50,
+      "q2_minion": 40,
+      "q2_monster": 50,
+      "q2_again": 20,
+      "q2_again_t": 60
     }
   },
   "tags": [
@@ -196,7 +224,7 @@
                             "name": "league_aurora_w_haste",
                             "duration": {
                               "Time": {
-                                "tick": 120
+                                "tick": 240
                               }
                             },
                             "move_speed_mult": 30
@@ -296,196 +324,8 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_aurora_lk_a",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_aurora_lk_a",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 2
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_aurora_p_mark",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 240
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_aurora_s_2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "ApAttack",
-                                          "damage": 40,
-                                          "attack_ratio": 30,
-                                          "hp_ratio": 0,
-                                          "can_crit": false
-                                        },
-                                        {
-                                          "type": "FixedAttack",
-                                          "damage": 0,
-                                          "attack_ratio": 0,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 2
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_aurora_p_spirit"
-                                        },
-                                        {
-                                          "type": "TargetSfx",
-                                          "name": "league_aurora_p_spirit"
-                                        },
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "Heal",
-                                              "amount": 45,
-                                              "attack_ratio": 0,
-                                              "ap_ratio": 15,
-                                              "heal_type": "Caster"
-                                            },
-                                            {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_aurora_p_heal"
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurora_p_haste"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurora_p_haste",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 90
-                                                      }
-                                                    },
-                                                    "move_speed_mult": 15
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_aurora_s_1"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_aurora_s_2"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_aurora_s_1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_aurora_s_1"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_aurora_s_1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 240
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_aurora_s_2"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_aurora_s_2",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 240
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_aurora_s_1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_aurora_s_1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 240
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
+                              "type": "Native",
+                              "effect_ref": "league_aurora:mark_a"
                             }
                           }
                         ]
@@ -738,11 +578,8 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "ApAttack",
-                                            "damage": 100,
-                                            "attack_ratio": 55,
-                                            "hp_ratio": 0,
-                                            "can_crit": false
+                                            "type": "Native",
+                                            "effect_ref": "league_aurora:hex_back"
                                           }
                                         },
                                         {
@@ -778,196 +615,8 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_aurora_lk_q2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurora_lk_q2",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 2
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurora_p_mark",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 240
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_aurora_s_2",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "ApAttack",
-                                                        "damage": 40,
-                                                        "attack_ratio": 30,
-                                                        "hp_ratio": 0,
-                                                        "can_crit": false
-                                                      },
-                                                      {
-                                                        "type": "FixedAttack",
-                                                        "damage": 0,
-                                                        "attack_ratio": 0,
-                                                        "hp_ratio": 0,
-                                                        "target_hp_ratio": 2
-                                                      },
-                                                      {
-                                                        "type": "ViewEffect",
-                                                        "name": "league_aurora_p_spirit"
-                                                      },
-                                                      {
-                                                        "type": "TargetSfx",
-                                                        "name": "league_aurora_p_spirit"
-                                                      },
-                                                      {
-                                                        "type": "RangeEffect",
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 1000
-                                                          }
-                                                        },
-                                                        "target": "AllyOnlySelf",
-                                                        "apply_type": "AroundCaster",
-                                                        "effects": [
-                                                          {
-                                                            "type": "Heal",
-                                                            "amount": 45,
-                                                            "attack_ratio": 0,
-                                                            "ap_ratio": 15,
-                                                            "heal_type": "Caster"
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_aurora_p_heal"
-                                                          },
-                                                          {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_aurora_p_haste"
-                                                              },
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_aurora_p_haste",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 90
-                                                                    }
-                                                                  },
-                                                                  "move_speed_mult": 15
-                                                                },
-                                                                "only_to_enemy": false
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_aurora_s_1"
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_aurora_s_2"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_aurora_s_1",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "RemoveCasterBuff",
-                                                              "name": "league_aurora_s_1"
-                                                            },
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_aurora_s_1",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 240
-                                                                  }
-                                                                }
-                                                              },
-                                                              "only_to_enemy": false
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "RemoveCasterBuff",
-                                                              "name": "league_aurora_s_2"
-                                                            },
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_aurora_s_2",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 240
-                                                                  }
-                                                                }
-                                                              },
-                                                              "only_to_enemy": false
-                                                            }
-                                                          ]
-                                                        }
-                                                      ]
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_aurora_s_1"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_aurora_s_1",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 240
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  }
-                                                }
-                                              ]
-                                            }
+                                            "type": "Native",
+                                            "effect_ref": "league_aurora:mark_q2"
                                           }
                                         }
                                       ],
@@ -994,196 +643,8 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_aurora_lk_q",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_aurora_lk_q",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_aurora_p_mark",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 240
-                                              }
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_aurora_s_2",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "ApAttack",
-                                                "damage": 40,
-                                                "attack_ratio": 30,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              },
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 2
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_aurora_p_spirit"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_aurora_p_spirit"
-                                              },
-                                              {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
-                                                "effects": [
-                                                  {
-                                                    "type": "Heal",
-                                                    "amount": 45,
-                                                    "attack_ratio": 0,
-                                                    "ap_ratio": 15,
-                                                    "heal_type": "Caster"
-                                                  },
-                                                  {
-                                                    "type": "CasterViewEffect",
-                                                    "name": "league_aurora_p_heal"
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_aurora_p_haste"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_aurora_p_haste",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 90
-                                                            }
-                                                          },
-                                                          "move_speed_mult": 15
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_aurora_s_1"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_aurora_s_2"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_aurora_s_1",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_aurora_s_1"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_aurora_s_1",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 240
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_aurora_s_2"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_aurora_s_2",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 240
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurora_s_1"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurora_s_1",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 240
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    }
+                                    "type": "Native",
+                                    "effect_ref": "league_aurora:mark_q"
                                   }
                                 }
                               ],
@@ -1359,7 +820,7 @@
                             "name": "league_aurora_w_haste",
                             "duration": {
                               "Time": {
-                                "tick": 120
+                                "tick": 240
                               }
                             },
                             "move_speed_mult": 30
@@ -1526,10 +987,22 @@
                                         "name": "league_aurora_e_slow",
                                         "duration": {
                                           "Time": {
-                                            "tick": 30
+                                            "tick": 60
                                           }
                                         },
-                                        "move_speed_mult": -60
+                                        "move_speed_mult": -20
+                                      }
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_aurora_e_slow3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 45
+                                          }
+                                        },
+                                        "move_speed_mult": -20
                                       }
                                     },
                                     {
@@ -1538,10 +1011,22 @@
                                         "name": "league_aurora_e_slow2",
                                         "duration": {
                                           "Time": {
-                                            "tick": 60
+                                            "tick": 30
                                           }
                                         },
-                                        "move_speed_mult": -25
+                                        "move_speed_mult": -20
+                                      }
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_aurora_e_slow1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 15
+                                          }
+                                        },
+                                        "move_speed_mult": -20
                                       }
                                     },
                                     {
@@ -1570,196 +1055,8 @@
                                   },
                                   "effects": [
                                     {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_aurora_lk_e",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_aurora_lk_e",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 2
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          },
-                                          {
-                                            "type": "AddBuff",
-                                            "buff_state": {
-                                              "name": "league_aurora_p_mark",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 240
-                                                }
-                                              }
-                                            }
-                                          },
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_aurora_s_2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "ApAttack",
-                                                  "damage": 40,
-                                                  "attack_ratio": 30,
-                                                  "hp_ratio": 0,
-                                                  "can_crit": false
-                                                },
-                                                {
-                                                  "type": "FixedAttack",
-                                                  "damage": 0,
-                                                  "attack_ratio": 0,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 2
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_aurora_p_spirit"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_aurora_p_spirit"
-                                                },
-                                                {
-                                                  "type": "RangeEffect",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
-                                                    }
-                                                  },
-                                                  "target": "AllyOnlySelf",
-                                                  "apply_type": "AroundCaster",
-                                                  "effects": [
-                                                    {
-                                                      "type": "Heal",
-                                                      "amount": 45,
-                                                      "attack_ratio": 0,
-                                                      "ap_ratio": 15,
-                                                      "heal_type": "Caster"
-                                                    },
-                                                    {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_aurora_p_heal"
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_aurora_p_haste"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_aurora_p_haste",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 90
-                                                              }
-                                                            },
-                                                            "move_speed_mult": 15
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurora_s_1"
-                                                },
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurora_s_2"
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_aurora_s_1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_aurora_s_1"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_aurora_s_1",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 240
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_aurora_s_2"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_aurora_s_2",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 240
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_aurora_s_1"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_aurora_s_1",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 240
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      }
+                                      "type": "Native",
+                                      "effect_ref": "league_aurora:mark_e"
                                     },
                                     {
                                       "type": "Delayed",
@@ -1848,196 +1145,8 @@
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_aurora_lk_q",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": []
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_aurora_lk_q",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 2
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "AddBuff",
-                                                            "buff_state": {
-                                                              "name": "league_aurora_p_mark",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 240
-                                                                }
-                                                              }
-                                                            }
-                                                          },
-                                                          {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_aurora_s_2",
-                                                            "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "ApAttack",
-                                                                  "damage": 40,
-                                                                  "attack_ratio": 30,
-                                                                  "hp_ratio": 0,
-                                                                  "can_crit": false
-                                                                },
-                                                                {
-                                                                  "type": "FixedAttack",
-                                                                  "damage": 0,
-                                                                  "attack_ratio": 0,
-                                                                  "hp_ratio": 0,
-                                                                  "target_hp_ratio": 2
-                                                                },
-                                                                {
-                                                                  "type": "ViewEffect",
-                                                                  "name": "league_aurora_p_spirit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetSfx",
-                                                                  "name": "league_aurora_p_spirit"
-                                                                },
-                                                                {
-                                                                  "type": "RangeEffect",
-                                                                  "shape": {
-                                                                    "Circle": {
-                                                                      "radius": 1000
-                                                                    }
-                                                                  },
-                                                                  "target": "AllyOnlySelf",
-                                                                  "apply_type": "AroundCaster",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "Heal",
-                                                                      "amount": 45,
-                                                                      "attack_ratio": 0,
-                                                                      "ap_ratio": 15,
-                                                                      "heal_type": "Caster"
-                                                                    },
-                                                                    {
-                                                                      "type": "CasterViewEffect",
-                                                                      "name": "league_aurora_p_heal"
-                                                                    },
-                                                                    {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_aurora_p_haste"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_aurora_p_haste",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 90
-                                                                              }
-                                                                            },
-                                                                            "move_speed_mult": 15
-                                                                          },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
-                                                                    }
-                                                                  ]
-                                                                },
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_aurora_s_1"
-                                                                },
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_aurora_s_2"
-                                                                }
-                                                              ]
-                                                            },
-                                                            "effect_none": {
-                                                              "type": "SwitchByBuff",
-                                                              "buff_name": "league_aurora_s_1",
-                                                              "effect_buff": {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_aurora_s_1"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_aurora_s_1",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 240
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_aurora_s_2"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_aurora_s_2",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 240
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              },
-                                                              "effect_none": {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "RemoveCasterBuff",
-                                                                    "name": "league_aurora_s_1"
-                                                                  },
-                                                                  {
-                                                                    "type": "AddCasterBuff",
-                                                                    "buff_state": {
-                                                                      "name": "league_aurora_s_1",
-                                                                      "duration": {
-                                                                        "Time": {
-                                                                          "tick": 240
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    "only_to_enemy": false
-                                                                  }
-                                                                ]
-                                                              }
-                                                            }
-                                                          }
-                                                        ]
-                                                      }
+                                                      "type": "Native",
+                                                      "effect_ref": "league_aurora:mark_q"
                                                     }
                                                   },
                                                   {
@@ -2055,203 +1164,12 @@
                                                           "name": "league_aurora_q_back_hit"
                                                         },
                                                         {
-                                                          "type": "ApAttack",
-                                                          "damage": 100,
-                                                          "attack_ratio": 55,
-                                                          "hp_ratio": 0,
-                                                          "can_crit": false
+                                                          "type": "Native",
+                                                          "effect_ref": "league_aurora:hex_back"
                                                         },
                                                         {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_aurora_lk_q2",
-                                                          "effect_buff": {
-                                                            "type": "Combine",
-                                                            "effects": []
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_aurora_lk_q2",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 2
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "only_to_enemy": false
-                                                              },
-                                                              {
-                                                                "type": "AddBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_aurora_p_mark",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 240
-                                                                    }
-                                                                  }
-                                                                }
-                                                              },
-                                                              {
-                                                                "type": "SwitchByBuff",
-                                                                "buff_name": "league_aurora_s_2",
-                                                                "effect_buff": {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "ApAttack",
-                                                                      "damage": 40,
-                                                                      "attack_ratio": 30,
-                                                                      "hp_ratio": 0,
-                                                                      "can_crit": false
-                                                                    },
-                                                                    {
-                                                                      "type": "FixedAttack",
-                                                                      "damage": 0,
-                                                                      "attack_ratio": 0,
-                                                                      "hp_ratio": 0,
-                                                                      "target_hp_ratio": 2
-                                                                    },
-                                                                    {
-                                                                      "type": "ViewEffect",
-                                                                      "name": "league_aurora_p_spirit"
-                                                                    },
-                                                                    {
-                                                                      "type": "TargetSfx",
-                                                                      "name": "league_aurora_p_spirit"
-                                                                    },
-                                                                    {
-                                                                      "type": "RangeEffect",
-                                                                      "shape": {
-                                                                        "Circle": {
-                                                                          "radius": 1000
-                                                                        }
-                                                                      },
-                                                                      "target": "AllyOnlySelf",
-                                                                      "apply_type": "AroundCaster",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "Heal",
-                                                                          "amount": 45,
-                                                                          "attack_ratio": 0,
-                                                                          "ap_ratio": 15,
-                                                                          "heal_type": "Caster"
-                                                                        },
-                                                                        {
-                                                                          "type": "CasterViewEffect",
-                                                                          "name": "league_aurora_p_heal"
-                                                                        },
-                                                                        {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_aurora_p_haste"
-                                                                            },
-                                                                            {
-                                                                              "type": "AddCasterBuff",
-                                                                              "buff_state": {
-                                                                                "name": "league_aurora_p_haste",
-                                                                                "duration": {
-                                                                                  "Time": {
-                                                                                    "tick": 90
-                                                                                  }
-                                                                                },
-                                                                                "move_speed_mult": 15
-                                                                              },
-                                                                              "only_to_enemy": false
-                                                                            }
-                                                                          ]
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_aurora_s_1"
-                                                                    },
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_aurora_s_2"
-                                                                    }
-                                                                  ]
-                                                                },
-                                                                "effect_none": {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_aurora_s_1",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_aurora_s_1"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_aurora_s_1",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 240
-                                                                                }
-                                                                              }
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_aurora_s_2"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_aurora_s_2",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 240
-                                                                                }
-                                                                              }
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_aurora_s_1"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_aurora_s_1",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 240
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                }
-                                                              }
-                                                            ]
-                                                          }
+                                                          "type": "Native",
+                                                          "effect_ref": "league_aurora:mark_q2"
                                                         }
                                                       ]
                                                     }
@@ -2282,7 +1200,7 @@
                                             "name": "league_aurora_own_hop",
                                             "duration": {
                                               "Time": {
-                                                "tick": 10
+                                                "tick": 7
                                               }
                                             }
                                           },
@@ -2293,7 +1211,7 @@
                                     {
                                       "type": "MoveBack",
                                       "speed": 3000,
-                                      "tick": 8
+                                      "tick": 5
                                     }
                                   ]
                                 }
@@ -2457,7 +1375,7 @@
                                   "name": "league_aurora_r_hop",
                                   "duration": {
                                     "Time": {
-                                      "tick": 270
+                                      "tick": 225
                                     }
                                   },
                                   "move_speed_mult": 30
@@ -2612,196 +1530,8 @@
                             },
                             "effects": [
                               {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_aurora_lk_r",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_aurora_lk_r",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 2
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_aurora_p_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 240
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_aurora_s_2",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "ApAttack",
-                                            "damage": 40,
-                                            "attack_ratio": 30,
-                                            "hp_ratio": 0,
-                                            "can_crit": false
-                                          },
-                                          {
-                                            "type": "FixedAttack",
-                                            "damage": 0,
-                                            "attack_ratio": 0,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 2
-                                          },
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_aurora_p_spirit"
-                                          },
-                                          {
-                                            "type": "TargetSfx",
-                                            "name": "league_aurora_p_spirit"
-                                          },
-                                          {
-                                            "type": "RangeEffect",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 1000
-                                              }
-                                            },
-                                            "target": "AllyOnlySelf",
-                                            "apply_type": "AroundCaster",
-                                            "effects": [
-                                              {
-                                                "type": "Heal",
-                                                "amount": 45,
-                                                "attack_ratio": 0,
-                                                "ap_ratio": 15,
-                                                "heal_type": "Caster"
-                                              },
-                                              {
-                                                "type": "CasterViewEffect",
-                                                "name": "league_aurora_p_heal"
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_aurora_p_haste"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_aurora_p_haste",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 90
-                                                        }
-                                                      },
-                                                      "move_speed_mult": 15
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_aurora_s_1"
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_aurora_s_2"
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_aurora_s_1",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurora_s_1"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurora_s_1",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 240
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurora_s_2"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurora_s_2",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 240
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_aurora_s_1"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_aurora_s_1",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 240
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
+                                "type": "Native",
+                                "effect_ref": "league_aurora:mark_r"
                               }
                             ]
                           },
@@ -2823,14 +1553,6 @@
                               {
                                 "type": "ViewEffect",
                                 "name": "league_aurora_r_shock"
-                              },
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_aurora_r_zone"
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_aurora_r_zone"
                               },
                               {
                                 "type": "Native",
@@ -2954,10 +1676,22 @@
                                                       "name": "league_aurora_e_slow",
                                                       "duration": {
                                                         "Time": {
-                                                          "tick": 30
+                                                          "tick": 60
                                                         }
                                                       },
-                                                      "move_speed_mult": -60
+                                                      "move_speed_mult": -20
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_aurora_e_slow3",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 45
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -20
                                                     }
                                                   },
                                                   {
@@ -2966,10 +1700,22 @@
                                                       "name": "league_aurora_e_slow2",
                                                       "duration": {
                                                         "Time": {
-                                                          "tick": 60
+                                                          "tick": 30
                                                         }
                                                       },
-                                                      "move_speed_mult": -25
+                                                      "move_speed_mult": -20
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_aurora_e_slow1",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 15
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -20
                                                     }
                                                   },
                                                   {
@@ -2998,196 +1744,131 @@
                                                 },
                                                 "effects": [
                                                   {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_aurora_lk_e",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": []
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_aurora_lk_e",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 2
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
+                                                    "type": "Native",
+                                                    "effect_ref": "league_aurora:mark_e"
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 6,
+                                                    "effects": [
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_aurora_q_cd",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
                                                         },
-                                                        {
-                                                          "type": "AddBuff",
-                                                          "buff_state": {
-                                                            "name": "league_aurora_p_mark",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 240
-                                                              }
-                                                            }
-                                                          }
-                                                        },
-                                                        {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_aurora_s_2",
-                                                          "effect_buff": {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "ApAttack",
-                                                                "damage": 40,
-                                                                "attack_ratio": 30,
-                                                                "hp_ratio": 0,
-                                                                "can_crit": false
-                                                              },
-                                                              {
-                                                                "type": "FixedAttack",
-                                                                "damage": 0,
-                                                                "attack_ratio": 0,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 2
-                                                              },
-                                                              {
-                                                                "type": "ViewEffect",
-                                                                "name": "league_aurora_p_spirit"
-                                                              },
-                                                              {
-                                                                "type": "TargetSfx",
-                                                                "name": "league_aurora_p_spirit"
-                                                              },
-                                                              {
-                                                                "type": "RangeEffect",
-                                                                "shape": {
-                                                                  "Circle": {
-                                                                    "radius": 1000
-                                                                  }
-                                                                },
-                                                                "target": "AllyOnlySelf",
-                                                                "apply_type": "AroundCaster",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Heal",
-                                                                    "amount": 45,
-                                                                    "attack_ratio": 0,
-                                                                    "ap_ratio": 15,
-                                                                    "heal_type": "Caster"
-                                                                  },
-                                                                  {
-                                                                    "type": "CasterViewEffect",
-                                                                    "name": "league_aurora_p_heal"
-                                                                  },
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_aurora_p_haste"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_aurora_p_haste",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 90
-                                                                            }
-                                                                          },
-                                                                          "move_speed_mult": 15
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_aurora_s_1"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_aurora_s_2"
-                                                              }
-                                                            ]
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_aurora_s_1",
-                                                            "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_aurora_s_1"
-                                                                    },
-                                                                    {
-                                                                      "type": "AddCasterBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_aurora_s_1",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 240
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      "only_to_enemy": false
-                                                                    }
-                                                                  ]
-                                                                },
-                                                                {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_aurora_s_2"
-                                                                    },
-                                                                    {
-                                                                      "type": "AddCasterBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_aurora_s_2",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 240
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      "only_to_enemy": false
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
-                                                            },
-                                                            "effect_none": {
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
                                                                   "type": "RemoveCasterBuff",
-                                                                  "name": "league_aurora_s_1"
+                                                                  "name": "league_aurora_q_cd"
                                                                 },
                                                                 {
                                                                   "type": "AddCasterBuff",
                                                                   "buff_state": {
-                                                                    "name": "league_aurora_s_1",
+                                                                    "name": "league_aurora_q_cd",
                                                                     "duration": {
                                                                       "Time": {
-                                                                        "tick": 240
+                                                                        "tick": 450
                                                                       }
                                                                     }
                                                                   },
                                                                   "only_to_enemy": false
                                                                 }
                                                               ]
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_aurora_q"
+                                                            },
+                                                            {
+                                                              "type": "TargetProjectile",
+                                                              "name": "league_aurora_q_ball",
+                                                              "speed": 4500,
+                                                              "y_offset": -4000,
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "ApAttack",
+                                                                    "damage": 100,
+                                                                    "attack_ratio": 55,
+                                                                    "hp_ratio": 0,
+                                                                    "can_crit": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_aurora_q_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "TargetSfx",
+                                                                    "name": "league_aurora_q_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_aurora_q_curse",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 70
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "Native",
+                                                                    "effect_ref": "league_aurora:mark_q"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "Delayed",
+                                                                    "tick": 40,
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "ViewEffect",
+                                                                        "name": "league_aurora_q_back_hit"
+                                                                      },
+                                                                      {
+                                                                        "type": "TargetSfx",
+                                                                        "name": "league_aurora_q_back_hit"
+                                                                      },
+                                                                      {
+                                                                        "type": "Native",
+                                                                        "effect_ref": "league_aurora:hex_back"
+                                                                      },
+                                                                      {
+                                                                        "type": "Native",
+                                                                        "effect_ref": "league_aurora:mark_q2"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              ]
                                                             }
-                                                          }
+                                                          ]
                                                         }
-                                                      ]
-                                                    }
+                                                      }
+                                                    ]
                                                   }
                                                 ]
                                               }
@@ -3367,6 +2048,22 @@
       "tag": "r_blink",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_aurora_r_zone_in",
+      "anim": "asset/league/effects/league_aurora_big",
+      "tag": "r_zone_in",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_aurora_r_zone_loop",
+      "anim": "asset/league/effects/league_aurora_big",
+      "tag": "r_zone_loop",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
@@ -3426,5 +2123,6 @@
       "repeat": true,
       "z": -1
     }
-  ]
+  ],
+  "stack_skill_index": 0
 }

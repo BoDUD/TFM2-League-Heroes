@@ -1,0 +1,1175 @@
+{
+  "id": "ragnarok_shiva",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_shiva:rhythm",
+    "params": {
+      "p_atk": 4,
+      "p_as": 6,
+      "p_max": 4,
+      "p_t": 240
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_shiva",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_shiva_skill",
+    "asset/ragnarok/icons/ragnarok_shiva_skill2",
+    "asset/ragnarok/icons/ragnarok_shiva_ult"
+  ],
+  "stat": {
+    "attack": 105,
+    "magic_power": 0,
+    "hp": 1050,
+    "defence": 32,
+    "magic_resistance": 28,
+    "move_speed": 1080,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 6,
+    "magic_resistance": 3,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_shiva.attack",
+    "duration": 36,
+    "cooltime": 60,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "ragnarok_shiva_tandava",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Sfx",
+            "name": "ragnarok_shiva_ha"
+          },
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 130,
+            "hp_ratio": 0,
+            "target_hp_ratio": 0,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "ragnarok_shiva_h_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "ragnarok_shiva_ha_hit"
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Sfx",
+            "name": "ragnarok_shiva_a"
+          },
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100,
+            "hp_ratio": 0,
+            "target_hp_ratio": 0,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "ragnarok_shiva_a_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "ragnarok_shiva_a_hit"
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_shiva.skill",
+    "duration": 35,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "ragnarok_shiva_tandava",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_shiva_q1"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 34000,
+                        "range": 700
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 84,
+                        "attack_ratio": 104,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_shiva_h_hit"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_shiva_q1"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 34000,
+                        "range": 700
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 65,
+                        "attack_ratio": 80,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_shiva_a_hit"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 19,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_shiva_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_shiva_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "ragnarok_shiva_tandava",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_shiva_hq2"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 34000,
+                                  "range": 700
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 97,
+                                  "attack_ratio": 123,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_shiva_h_hit"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_shiva_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_shiva_ha_hit"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_shiva_q2"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 34000,
+                                  "range": 700
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 75,
+                                  "attack_ratio": 95,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_shiva_a_hit"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_shiva_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_shiva_a_hit"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "ragnarok_shiva_tandava",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_shiva_hq2"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 34000,
+                                  "range": 700
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 97,
+                                  "attack_ratio": 123,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_shiva_h_hit"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_shiva_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_shiva_ha_hit"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_shiva_q2"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 34000,
+                                  "range": 700
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 75,
+                                  "attack_ratio": 95,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "ragnarok_shiva_a_hit"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_shiva_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_shiva_a_hit"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_shiva_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_shiva.skill2",
+    "duration": 46,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_shiva_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_shiva_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 5000,
+                        "range": 45000,
+                        "end_effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "ragnarok_shiva_tandava",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "ragnarok_shiva_he"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 30000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 117,
+                                      "attack_ratio": 132,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "ragnarok_shiva_e_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "ragnarok_shiva_h_hit"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "ragnarok_shiva_e"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 30000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 90,
+                                      "attack_ratio": 102,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "ragnarok_shiva_e_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "ragnarok_shiva_a_hit"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_shiva_e_flame"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 5000,
+                        "range": 45000,
+                        "end_effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "ragnarok_shiva_tandava",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "ragnarok_shiva_he"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 30000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 117,
+                                      "attack_ratio": 132,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "ragnarok_shiva_e_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "ragnarok_shiva_h_hit"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "ragnarok_shiva_e"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 30000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 90,
+                                      "attack_ratio": 102,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "ragnarok_shiva_e_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "ragnarok_shiva_a_hit"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_shiva_e_flame"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_shiva_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_shiva.ult",
+    "duration": 56,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_shiva_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 32
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 40
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_shiva_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_shiva_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r1"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r1"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_shiva_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 30,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_shiva_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_shiva_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_shiva_tandava",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "attack_mult": 35,
+                          "attack_speed_mult": 40,
+                          "move_speed_mult": 15
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_shiva_tandava",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          },
+                          "attack_mult": 35,
+                          "attack_speed_mult": 40,
+                          "move_speed_mult": 15
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_shiva_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 510,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_shiva_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_shiva_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "h_ult",
+                        "tick": 48
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r_end"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "h_ult",
+                        "tick": 48
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r_end"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_shiva_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 534,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_shiva_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_shiva_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 40000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 150,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Airborne",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_shiva_h_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r_end_hit"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 40000,
+                            "range": 600
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 150,
+                            "attack_ratio": 150,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Airborne",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_shiva_h_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_shiva_r_end_hit"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_shiva_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_shiva_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_shiva_fx",
+      "tag": "silver_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_shiva_h_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_shiva_fx",
+      "tag": "final_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_shiva_e_flame",
+      "anim": "asset/ragnarok/effects/ragnarok_shiva_fx",
+      "tag": "flame_hit",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

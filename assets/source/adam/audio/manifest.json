@@ -1,0 +1,279 @@
+{
+  "format": {
+    "sha": "sha256",
+    "master": "PCM16 mono 44100 Hz",
+    "runtime": "MP3 mono 160 kb/s"
+  },
+  "sources": {
+    "countdown": {
+      "url": "https://twitter.com/ragnarok_PR/status/1404272382970368003",
+      "evidence": "https://ragnarok-official.com/1st/news/127/",
+      "background": "quiet official character countdown recording"
+    },
+    "duel": {
+      "url": "https://www.youtube.com/watch?v=wsi8Lwjb--s",
+      "evidence": "https://ragnarok-official.com/1st/news/185/",
+      "background": "official Adam vs Zeus PV; background music remains"
+    }
+  },
+  "sfx": [
+    {
+      "id": "sfx_jab_wind_1",
+      "wav": "audio/sfx/ragnarok_adam_sfx_jab_wind_1.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_jab_wind_1.mp3",
+      "ms": 135,
+      "wav_sha256": "d2c7d90e32f7548f1cc0913451f40348753387716c2f1a7b86fe3b6e0a40d33d",
+      "mp3_sha256": "9dc4122bf561ddf8a4acdae6fb92a0fe279e65c308eb5b370b15f99603aa687e",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_jab_hit_1",
+      "wav": "audio/sfx/ragnarok_adam_sfx_jab_hit_1.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_jab_hit_1.mp3",
+      "ms": 205,
+      "wav_sha256": "82e19f5c28e0270af1f94106a99f21ea813ae48f0df11f3a1045753bb4dfaf44",
+      "mp3_sha256": "89ab75a948a9dbdaef88f5519ae20db9ff357a346a5e9bf832161df25881f83e",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_jab_wind_2",
+      "wav": "audio/sfx/ragnarok_adam_sfx_jab_wind_2.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_jab_wind_2.mp3",
+      "ms": 153,
+      "wav_sha256": "0dd6aefa9175a0351b06bc32980988e736984b88d449fb8896550d6c606cf070",
+      "mp3_sha256": "1d6301bb41b3c135c724c185c4afd73c5ccaea02b92fd4e8e53bc2d030a60bce",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_jab_hit_2",
+      "wav": "audio/sfx/ragnarok_adam_sfx_jab_hit_2.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_jab_hit_2.mp3",
+      "ms": 223,
+      "wav_sha256": "2494290839a718c026359e94012ae9576d3194f4c7d5453907af5b4265d1740e",
+      "mp3_sha256": "88dde23980a908d37990d2be1e64ac3ad2ff8d9da9e52da37fe6ba875fb78737",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_jab_wind_3",
+      "wav": "audio/sfx/ragnarok_adam_sfx_jab_wind_3.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_jab_wind_3.mp3",
+      "ms": 171,
+      "wav_sha256": "539fdb5de7a1964d4c11e47da5f1f7c8b91516b036d0bfa7b8997e78496e30db",
+      "mp3_sha256": "8eb095049d0f935435d80f8d046737c46627768f105297b3c22935650066f182",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_jab_hit_3",
+      "wav": "audio/sfx/ragnarok_adam_sfx_jab_hit_3.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_jab_hit_3.mp3",
+      "ms": 241,
+      "wav_sha256": "c639ef31b9450a711b480a05f73b8625dd6468d94fe6d525aadb9cf2c8cee77f",
+      "mp3_sha256": "4418ebbd1bd61237ee6e264cc5719d6d1599be6d1f8259e86d4dc98e0dbdedcb",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_eyes_on",
+      "wav": "audio/sfx/ragnarok_adam_sfx_eyes_on.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_eyes_on.mp3",
+      "ms": 270,
+      "wav_sha256": "22e7d7e005cf98fa93fad6f32cdc3fb389cf5aa48e1bea65680904a888ca4bae",
+      "mp3_sha256": "47e55c878b9108992cbaf96ffb6f79d692afbd5fd0b18875189ec244e756e4ef",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_dodge",
+      "wav": "audio/sfx/ragnarok_adam_sfx_dodge.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_dodge.mp3",
+      "ms": 220,
+      "wav_sha256": "73e321aedade75fddd479189cc06ed0225e939d890968a3ad74904d7471ec3b5",
+      "mp3_sha256": "9d3537156ccda75482e51527220d6ce61bfcf10517ca4089c7c959934d3a45ea",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_copy_ready",
+      "wav": "audio/sfx/ragnarok_adam_sfx_copy_ready.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_copy_ready.mp3",
+      "ms": 260,
+      "wav_sha256": "5186f4e86fe80b8c12a7c761c51e6101733934ed4d884d1151a0202817d891af",
+      "mp3_sha256": "bc5844a050b180dbe13e5c8a94ebd8c01a0e13442c87e5992bdcacce7050e88d",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_counter_wind",
+      "wav": "audio/sfx/ragnarok_adam_sfx_counter_wind.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_counter_wind.mp3",
+      "ms": 190,
+      "wav_sha256": "b075f28c05c22202a0eeaa0a172d65714dfcb61c99d1ed3fb01ddef551185c5c",
+      "mp3_sha256": "13feae6abbd179a5af8756a55f849936046909bb0dfb86fb49a68907fe6a61ea",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_counter_hit",
+      "wav": "audio/sfx/ragnarok_adam_sfx_counter_hit.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_counter_hit.mp3",
+      "ms": 290,
+      "wav_sha256": "e391c43f4008151784a98f37afa7ec0dacbb3a88c89b2954d4fc84373fdea038",
+      "mp3_sha256": "0f4a5e165a5f73a2ec19ad8b692a5589a18e2723e802cac53a21fcb2d0c45747",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_time_charge",
+      "wav": "audio/sfx/ragnarok_adam_sfx_time_charge.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_time_charge.mp3",
+      "ms": 380,
+      "wav_sha256": "36f88dc94f41ba26e2c00fcb1a1244f43d9f85106be6e56f9bd9de7495adff12",
+      "mp3_sha256": "1b93ec49a361972dc656e262477936f614632212cfb1fa50e5cce9f9a839306b",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_time_release",
+      "wav": "audio/sfx/ragnarok_adam_sfx_time_release.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_time_release.mp3",
+      "ms": 260,
+      "wav_sha256": "271e2544af82f403b82f86efb6c37ea12040ae61b24f102fcbb3a88cea500af0",
+      "mp3_sha256": "fc3115011b3451c57fb80b4e045328cdf5ac59c0ba575f13182854a8ee79476f",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_time_hit",
+      "wav": "audio/sfx/ragnarok_adam_sfx_time_hit.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_time_hit.mp3",
+      "ms": 370,
+      "wav_sha256": "3314750327ad6a9f87925051ad8bbcc39cf3d486936a5cafa40d93359e273771",
+      "mp3_sha256": "ffea28643f0120d04f7dd93ce551571ba8fb8211efa0da628146e5da39ff0a41",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_eye_strain",
+      "wav": "audio/sfx/ragnarok_adam_sfx_eye_strain.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_eye_strain.mp3",
+      "ms": 330,
+      "wav_sha256": "031a20e3c9d5302601ef2677dabcea25361031b8f854f83a7822076754c2eb12",
+      "mp3_sha256": "fafaf1d5e85f16eb66abc45f1ec4dfad018475d8d4a521a443984c1396cb9d9f",
+      "origin": "original Foley"
+    },
+    {
+      "id": "sfx_body_fall",
+      "wav": "audio/sfx/ragnarok_adam_sfx_body_fall.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_sfx_body_fall.mp3",
+      "ms": 230,
+      "wav_sha256": "9e94dcc70c8cf137fe4c450c0565aa8382db2d0fb8ebdd96785da7aa8b0e1260",
+      "mp3_sha256": "2fcdeff6fc71b375211c8ec496ef2ad9af9304a66fc90fed1fa37533124d5531",
+      "origin": "original Foley"
+    }
+  ],
+  "voice": [
+    {
+      "id": "vo_introduce",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_introduce.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_introduce.mp3",
+      "ms": 1650,
+      "wav_sha256": "144f3e263108b0d72bc6cbf0fd7c91f6530a6ceb9b39fb79249c9d327de3963e",
+      "mp3_sha256": "731f694460abc5c812bd5e43706b5086d992d8aff6dc58279fb837400be57cc2",
+      "source": "countdown",
+      "start": 15.07,
+      "end": 16.72,
+      "label": "自报姓名",
+      "event": "pick",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "a3696a95094e4c64b6fc093fd674b015734a398364adc28203b073a0a44f2fa0"
+    },
+    {
+      "id": "vo_recognized",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_recognized.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_recognized.mp3",
+      "ms": 1490,
+      "wav_sha256": "9d8e871b00d4fc04d75bc776b7c4ff425744de8e7efe4ca4453917fc91aa07d8",
+      "mp3_sha256": "a064c9fff532193fec37e4e64354d6ca547165e019e9632cc7fdd51aec326aad",
+      "source": "countdown",
+      "start": 17.66,
+      "end": 19.15,
+      "label": "大家认得我吗",
+      "event": "lobby",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "a3696a95094e4c64b6fc093fd674b015734a398364adc28203b073a0a44f2fa0"
+    },
+    {
+      "id": "vo_first_human",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_first_human.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_first_human.mp3",
+      "ms": 3080,
+      "wav_sha256": "9f2ed38af84e2d5955fb611f53fede509421d0159eb1db8c36d2ddbf9a587792",
+      "mp3_sha256": "07156dfe51b56d205132bf97654323f70620c160d349bbc2d9a806b3eb8010ac",
+      "source": "countdown",
+      "start": 20.1,
+      "end": 23.18,
+      "label": "最早的人类",
+      "event": "lobby",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "a3696a95094e4c64b6fc093fd674b015734a398364adc28203b073a0a44f2fa0"
+    },
+    {
+      "id": "vo_duel_resolve",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_duel_resolve.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_duel_resolve.mp3",
+      "ms": 5270,
+      "wav_sha256": "7bf70d8fa685d34718bf1992a5457fe2b78715557b1fdd79da16d66a04555a1e",
+      "mp3_sha256": "f3ee0ea6c6508a4705355425f5f7edd08d4e3d4c35a2870bd9fa03682e68aa58",
+      "source": "countdown",
+      "start": 33.65,
+      "end": 38.92,
+      "label": "与神交手",
+      "event": "intro",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "a3696a95094e4c64b6fc093fd674b015734a398364adc28203b073a0a44f2fa0"
+    },
+    {
+      "id": "vo_unfazed",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_unfazed.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_unfazed.mp3",
+      "ms": 2130,
+      "wav_sha256": "de0e96f68e98bcc3d668d56dee988f7f171eff9fd829f944b39178dd5f2d5691",
+      "mp3_sha256": "ce6fc07e4c12cb48f84bf3da033cc3502530b014160369ae036581837b9db743",
+      "source": "countdown",
+      "start": 50.63,
+      "end": 52.76,
+      "label": "对手是神也无所谓",
+      "event": "taunt",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "a3696a95094e4c64b6fc093fd674b015734a398364adc28203b073a0a44f2fa0"
+    },
+    {
+      "id": "vo_full_force",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_full_force.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_full_force.mp3",
+      "ms": 2050,
+      "wav_sha256": "08fd26dc3727ec97d2f137e01f2c3d2ca804a0171d6389e7c40ea9f4dab2f1d9",
+      "mp3_sha256": "d0a238771cd0c7d4446ec679973910f9a4a3b4a3e22f19ca000df69254b6ca84",
+      "source": "countdown",
+      "start": 53.86,
+      "end": 55.91,
+      "label": "全力出拳",
+      "event": "signature_windup_rare",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "a3696a95094e4c64b6fc093fd674b015734a398364adc28203b073a0a44f2fa0"
+    },
+    {
+      "id": "vo_protect",
+      "wav": "audio/voice_ja/ragnarok_adam_vo_protect.wav",
+      "mp3": "runtime/sound/sfx/ragnarok_adam_vo_protect.mp3",
+      "ms": 5200,
+      "wav_sha256": "3a1499bfffee5c5f4f07f948d951a5c188348f63f38e4a94eea2dbddcab4fca7",
+      "mp3_sha256": "7d43cf8c25ff038a2a31e6377a49a540fec839009dcaab586a69283cb303f038",
+      "source": "duel",
+      "start": 9.48,
+      "end": 14.68,
+      "label": "保护孩子",
+      "event": "intro_rare",
+      "language": "ja",
+      "speaker": "Adam / Soma Saito",
+      "source_sha256": "6be9ba52428828e45cf8f2f1988265d3455ce11ee423ac40369bca0279f262b8"
+    }
+  ]
+}

@@ -632,10 +632,11 @@ mod tests {
     use super::*;
 
     /// The repo's heroes: the main pack's (league/champion/*.data_champion) and the tft pack's (tft/champion, 2026-10-26:
-    /// 「让佛耶戈和妮蔻也能变成 tft 英雄」).
+    /// 「让佛耶戈和妮蔻也能变成 tft 英雄」) and the ragnarok pack's
+    /// (ragnarok/champion，2026-11-21：「佛耶戈妮蔻之类的也要真正的能变身成这些角色」).
     fn pack_heroes() -> Vec<String> {
         let mut v = Vec::new();
-        for pack in ["league", "tft"] {
+        for pack in ["league", "tft", "ragnarok", "abysspact"] {
             let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(format!("../../{pack}/champion"));
             v.extend(std::fs::read_dir(&dir).expect("the pack's champion folder").filter_map(|e| {
                 e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string)
@@ -691,7 +692,15 @@ mod tests {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let mut wrong = Vec::new();
         for id in pack_heroes() {
-            let pack = if id.starts_with("tft_") { "tft" } else { "league" };
+            let pack = if id.starts_with("tft_") {
+                "tft"
+            } else if id.starts_with("ragnarok_") {
+                "ragnarok"
+            } else if id.starts_with("abysspact_") {
+                "abysspact"
+            } else {
+                "league"
+            };
             let data = std::fs::read_to_string(root.join(format!("{pack}/champion/{id}.data_champion"))).unwrap();
             let sprite = data
                 .lines()

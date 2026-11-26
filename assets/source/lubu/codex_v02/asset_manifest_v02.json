@@ -1,0 +1,224 @@
+{
+  "champion_id": "ragnarok_lubu",
+  "version": "0.2.1-assets",
+  "status": "asset_pack_ready_gameplay_by_claude",
+  "style": "native-like compact pixel art, hard alpha, integer-nearest HD export",
+  "actor_sheet": "art/pixel_v02/runtime/ragnarok_lubu#sheet.png",
+  "actor_anim": "art/pixel_v02/runtime/ragnarok_lubu#anim.fanim",
+  "effect_sheet": "art/pixel_v02/runtime/ragnarok_lubu_fx#sheet.png",
+  "effect_anim": "art/pixel_v02/runtime/ragnarok_lubu_fx#anim.fanim",
+  "logical_cell": 128,
+  "hd_factor": 4,
+  "cell_size": 512,
+  "baseline": 464,
+  "actor_frames": 64,
+  "effect_frames": 64,
+  "actor_actions": [
+    "idle",
+    "run",
+    "attack",
+    "skill",
+    "skill2",
+    "ult",
+    "hit",
+    "dead"
+  ],
+  "effect_actions": [
+    "attack_swipe",
+    "hit_spark",
+    "sweep",
+    "thrust",
+    "ult_charge",
+    "ult_release",
+    "ult_impact",
+    "shield_break"
+  ],
+  "actor_durations": {
+    "idle": [
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15
+    ],
+    "run": [
+      0.08,
+      0.08,
+      0.08,
+      0.08,
+      0.08,
+      0.08,
+      0.08,
+      0.08
+    ],
+    "attack": [
+      0.08,
+      0.08,
+      0.1,
+      0.06,
+      0.06,
+      0.08,
+      0.08,
+      0.08
+    ],
+    "skill": [
+      0.1,
+      0.1,
+      0.12,
+      0.1,
+      0.07,
+      0.08,
+      0.1,
+      0.1
+    ],
+    "skill2": [
+      0.08,
+      0.08,
+      0.1,
+      0.08,
+      0.07,
+      0.08,
+      0.09,
+      0.1
+    ],
+    "ult": [
+      0.18,
+      0.18,
+      0.25,
+      0.45,
+      0.12,
+      0.08,
+      0.15,
+      0.18
+    ],
+    "hit": [
+      0.05,
+      0.05,
+      0.07,
+      0.08,
+      0.06,
+      0.06,
+      0.06,
+      0.07
+    ],
+    "dead": [
+      0.1,
+      0.12,
+      0.12,
+      0.14,
+      0.14,
+      0.16,
+      0.2,
+      0.6
+    ]
+  },
+  "effect_durations": {
+    "attack_swipe": 0.045,
+    "hit_spark": 0.05,
+    "sweep": 0.06,
+    "thrust": 0.045,
+    "ult_charge": 0.12,
+    "ult_release": 0.06,
+    "ult_impact": 0.075,
+    "shield_break": 0.06
+  },
+  "presentation_events": {
+    "attack": {
+      "swing_frame": 3,
+      "hit_frame": 4,
+      "swing_seconds": 0.26,
+      "hit_seconds": 0.32,
+      "effect": "attack_swipe",
+      "hit_effect": "hit_spark"
+    },
+    "skill": {
+      "release_frame": 4,
+      "release_seconds": 0.42,
+      "effect": "sweep"
+    },
+    "skill2": {
+      "release_frame": 4,
+      "release_seconds": 0.34,
+      "effect": "thrust"
+    },
+    "ult": {
+      "charge_frame": 0,
+      "charge_seconds": 0,
+      "release_frame": 5,
+      "release_seconds": 1.18,
+      "effect": "ult_release",
+      "charge_effect": "ult_charge",
+      "hit_effect": "ult_impact"
+    },
+    "shield_break": {
+      "effect": "shield_break",
+      "only_on_confirmed_break": true
+    }
+  },
+  "icons": {
+    "passive": "art/pixel_v02/runtime/ragnarok_lubu_passive.png",
+    "skill": "art/pixel_v02/runtime/ragnarok_lubu_skill.png",
+    "skill2": "art/pixel_v02/runtime/ragnarok_lubu_skill2.png",
+    "ult": "art/pixel_v02/runtime/ragnarok_lubu_ult.png"
+  },
+  "icons_user_approved_unchanged": true,
+  "approved_icon_hashes": {
+    "passive": "0a4c260b3d72c5bd47a95152e06c570435eef162a7129f260af1871c4804e7e5",
+    "skill": "58735d36bf2a02b564683f6df53d7fe5a593f57b66d2ad77d60f3c3b29d2201b",
+    "skill2": "92bf945c94d38b6d0099579a3a558c2e82345fb0f7d7e8f745c1fcdfe26aee25",
+    "ult": "9a1be636679cd083fd40447078b2173d4a7f6a2149c1227a290d673b554fb9a9"
+  },
+  "voice_manifest": "audio/original_voice_manifest.json",
+  "voice_count": 10,
+  "sfx_manifest": "audio/sfx_v02_manifest.json",
+  "sfx_count": 15,
+  "effect_anchors_logical": {
+    "attack_swipe": [
+      32,
+      -30
+    ],
+    "hit_spark": [
+      45,
+      -28
+    ],
+    "sweep": [
+      28,
+      -24
+    ],
+    "thrust": [
+      40,
+      -28
+    ],
+    "ult_charge": [
+      12,
+      -76
+    ],
+    "ult_release": [
+      35,
+      -43
+    ],
+    "ult_impact": [
+      38,
+      0
+    ],
+    "shield_break": [
+      42,
+      -28
+    ]
+  },
+  "ppu": {
+    "native_api_verified": false,
+    "source_scale": 4,
+    "requirement": "When switching logical PNG to HD PNG, multiply PPU by four to retain the same world size; actual game field must be verified by Claude."
+  },
+  "gameplay_implemented": false,
+  "live_game_tested": false,
+  "notes": [
+    "Gameplay logic remains assigned to Claude by explicit user instruction.",
+    "PV-sourced voice clips retain some music; six countdown excerpts have lower background.",
+    "No official hit/death grunt was fabricated. Use SFX until a verified suitable source exists."
+  ]
+}

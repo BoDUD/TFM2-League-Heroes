@@ -1,0 +1,16 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    }
+  ],
+  "description": "Hextech Mayhem, the League of Legends mode, in every match: each champion picks four augments - at the start and at levels 6, 9 and 12 (the game's champions stop at 12; by minute 10 everyone has all four) - one of three cards, each card rerollable once within its tier; the tier (Silver, Gold, Prismatic) is drawn per pick and the same for all ten, the first two never both Silver, nobody gets one twice. You pick for your own team on the pick screen: an Augments button in its header (or F7) opens a panel over the champion grid - your champions in a row, four picks of three cards each, a reroll on every card, the AI's choice preselected for whatever you leave alone (it swaps out the cards that do not fit first, without using up your rerolls), a Confirm button for each champion and Confirm all; it locks when the match starts, and the match plays exactly what you picked (saved for replays). The AI picks for every other team, from the champion's class and tags (marksmen take attack damage, speed and crit, tanks health and resists, mages ability power and cooldowns), rerolling weak cards first. 140 augments, as in League's ARAM: Mayhem of patch 26.23 (45 Silver, 54 Gold, 41 Prismatic; the older ones follow its current effects and tiers): stat ones, ones that trigger in the match (on hit, on cast, on takedowns, at low health, on immobilizing an enemy, on dashes, on gaining a shield, on a timer: burns, chain lightning, an orbital laser, a giant snowball, a comet, fox-fires, a boomerang, beehives, slime, a spinning axe, meteors, shields, heals, a revive, a bigger body), gold, stat anvils, random augments (Transmute, Pandora's Box), quests, the Dragon Souls and the Hand of Baron (working without League Dragons, never doubling its souls), and skill augments that work on the ability you choose for them on the pick screen (Skill, Skill 2 or Ult; the AI takes Skill), each with its own effect on the battlefield. Everything runs inside the simulation, the same in the server's pre-simulations and on screen; only stats and effects (damage, shields, heals, slows, knock-ups), the champions' AI is not touched. On screen: a note for every pick after the first on the left, under the time controls (the three cards, the rerolled ones, yours marked; the opening panel with the ten first picks only with show_opening = 1 in settings.ini), a coloured square per augment beside each portrait of the side bars, and the champion's augments next to the game's champion panel when it is open. Works with the game's own champions and every hero pack. In Simplified and Traditional Chinese, English, Korean and Japanese. settings.ini: the levels, the catch-up minute, the tiers' weights, the opening panel, how the battlefield effects are drawn. Writes a log for testing.",
+  "last_updated": "2026-11-26",
+  "mod_id": "league_hextech",
+  "mod_type": "native",
+  "name": "League Heroes: Hextech Mayhem / 海克斯大乱斗",
+  "version": "0.5.0"
+}

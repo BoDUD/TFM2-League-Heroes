@@ -1,0 +1,13 @@
+{
+  "character_reference": "https://ragnarok-official.com/chara/sojiokita.html",
+  "state_reference": "https://www.coamix.co.jp/topics/ragnarok202407",
+  "generation_tool": "OpenAI ImageGen",
+  "card": {
+    "prompt": "Full-body Okita in original moonlit Kyoto street art, anime costume reference, two hands on one katana, blade-only refinement to smooth the profile and shorten the tip.",
+    "source_sha256": "4ef590611ffd8bbb93932fb35aacdd978899c685c4f257c266a004eef90f7d7c"
+  },
+  "icons": {
+    "prompt": "Square 2x2 skill icon sheet with red eye, cyan triple thrust, red-eyed awakening and an isolated steel katana in crossing red and ice-blue light.",
+    "source_sha256": "ee1d58c7322eb07381220624e24b31c82089c80453599de35c76252101763c7c"
+  }
+}

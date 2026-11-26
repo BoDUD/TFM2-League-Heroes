@@ -15381,5 +15381,6 @@
       "z": 1
     }
   ],
-  "view_buffs": []
+  "view_buffs": [],
+  "stack_skill_index": 2
 }

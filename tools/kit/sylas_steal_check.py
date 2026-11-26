@@ -69,8 +69,10 @@ def check(sim, base, hero, seed=3):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(test_copy(base, hero), f)
     # a League champion by its name without league_ (jinx), a TFT hero by its id (tft_powder, 2026-10-26)
-    src = (os.path.join(ROOT, "tft", "champion", f"{hero}.data_champion") if hero.startswith("tft_")
-           else os.path.join(ROOT, "league", "champion", f"league_{hero}.data_champion"))
+    if hero.startswith(("tft_", "ragnarok_", "abysspact_")):     # 云顶、终末的女武神、渊契的英雄按 id 放在各自的包里
+        src = os.path.join(ROOT, hero.split("_", 1)[0], "champion", f"{hero}.data_champion")
+    else:
+        src = os.path.join(ROOT, "league", "champion", f"league_{hero}.data_champion")
     own = json.load(open(src, encoding="utf-8-sig"))
     tree = own["ult"]["effect"]
     if own["id"] in STOLEN:          # a TFT hero whose own ult is tft.dll's: the plain version the copy carries

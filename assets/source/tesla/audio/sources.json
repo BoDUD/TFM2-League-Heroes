@@ -1,0 +1,271 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/chara/nikolatesla.html",
+  "method": "Dialogue performed by Makoto Furukawa from official Netflix Japan clips. Original background music and effects remain in several cuts.",
+  "clips": [
+    {
+      "id": "voice_open",
+      "title": "入场 · 由我来展示",
+      "range_seconds": [
+        0.04,
+        1.87
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=qF3T_NiQ62I",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 1.83,
+      "wav_sha256": "e89fcd02eeeec5bfc2618a7dfae5564cbdb5ba43f0e5610821250d49246e4c3e",
+      "mp3_sha256": "e3e532e64d8db6479f3e935b941eb4bebc0ff2e21b6fc9ef9141e1211b8a1bb1"
+    },
+    {
+      "id": "voice_evolution",
+      "title": "宣言 · 人类的进化",
+      "range_seconds": [
+        5.19,
+        9.72
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=qF3T_NiQ62I",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.53,
+      "wav_sha256": "0bd334adb94163e79183a451a1f9b27b2433a755d95f6c194635d8b7395a78db",
+      "mp3_sha256": "8aefa337415edcb707a91f977e5a56b8c3eca358b5965b367d17d4e7a4ab5b1e"
+    },
+    {
+      "id": "voice_punch",
+      "title": "战斗 · 等离子脉冲拳",
+      "range_seconds": [
+        20.06,
+        23.68
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=Yv7wxDqS6vI",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.62,
+      "wav_sha256": "e0a89e9594c7557fd4ad59788a2994df18d1c109d2e5db72b2122523fb03c09d",
+      "mp3_sha256": "7ff52b72a90975c1cda775a5f66e21a20057bad3abec61895a9d0b5a5529cb5c"
+    },
+    {
+      "id": "voice_twin",
+      "title": "绝招 · 双拳短喝",
+      "range_seconds": [
+        23.97,
+        26.32
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=Yv7wxDqS6vI",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 2.35,
+      "wav_sha256": "785f4463084beb8c0c6dba6a09630c51255278c12d6b22ac768afe688949304d",
+      "mp3_sha256": "7c581a45cbdacea0528dfbf04d657e3709072300b025b471fd551e1e3b264b16"
+    },
+    {
+      "id": "voice_zone",
+      "title": "领域 · 神之监狱",
+      "range_seconds": [
+        23.97,
+        29.47
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=qF3T_NiQ62I",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 5.5,
+      "wav_sha256": "e08be7c552d436d0c14b769f69692f7f734f5c6716d0d7b4b39a6e19c24ccc8b",
+      "mp3_sha256": "b1401dede5807e3a8503bc0579f5cfe7fef2a4efda1fb56d488a69bd115d1531"
+    },
+    {
+      "id": "voice_god",
+      "title": "挑衅 · 在这座领域里",
+      "range_seconds": [
+        79.9,
+        85.52
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=qF3T_NiQ62I",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 5.62,
+      "wav_sha256": "f5db4bddcc6c3d87f675e110bfdabe048020ad139170cb6636c362a284d34600",
+      "mp3_sha256": "fde06046f553781c0f757271d17cdd60f8d9462cb5aed3920a56348bb7e59f2a"
+    },
+    {
+      "id": "voice_rally",
+      "title": "鼓舞 · 抬起头",
+      "range_seconds": [
+        2.08,
+        6.55
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=-nwMDDgSp_Q",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 4.47,
+      "wav_sha256": "309dc3586519b03df56bfad79abfbd6a308eba1fe1685ead01becdc4c126d411",
+      "mp3_sha256": "13701081fc9448c161d016d94dd3e4ce9357be64a1349c1f12c78c444f9a628d"
+    },
+    {
+      "id": "voice_keep_going",
+      "title": "退场 · 人类别停下",
+      "range_seconds": [
+        47.21,
+        50.71
+      ],
+      "speaker": "古川 慎",
+      "cast_credit": "https://ragnarok-official.com/chara/nikolatesla.html",
+      "source": "https://www.youtube.com/watch?v=-nwMDDgSp_Q",
+      "source_kind": "official_netflix_japan_clip",
+      "contains_original_mix": true,
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.5,
+      "wav_sha256": "efbb8357535bdecbc2299c5309ceeb56bdc2d83259e08d18ed761edce35e4b62",
+      "mp3_sha256": "de530b891b8e74b623c8cca66bccea5e0c11209fb008a51567471804af27cde5"
+    },
+    {
+      "id": "sfx_coil",
+      "kind": "original_foley",
+      "title": "拳甲 · 线圈充电",
+      "duration_seconds": 0.25,
+      "wav_sha256": "7f3a3fa6791176b8e9a1d052d588fb06c69ab4c46e406697729b86e91ee3756a",
+      "mp3_sha256": "19eb846f3aa99505a1a395ac9772e7f68dd5e294c0b0bc8908a10017dfc8ddb3"
+    },
+    {
+      "id": "sfx_punch",
+      "kind": "original_foley",
+      "title": "等离子脉冲拳 · 出拳",
+      "duration_seconds": 0.24,
+      "wav_sha256": "ab17f93e732ddfb43a79f943dcbde58f4b5dc6de2fd279721019631fe86b60b5",
+      "mp3_sha256": "b71763fd3281ca65a98276eec811e3418fb7bb25374c3805666a709100e9e846"
+    },
+    {
+      "id": "sfx_punch_hit",
+      "kind": "original_foley",
+      "title": "等离子脉冲拳 · 命中",
+      "duration_seconds": 0.23,
+      "wav_sha256": "237a590916b7029006bbb0bdc681216524dcce53a081ffbaf057c893b30ce3b1",
+      "mp3_sha256": "4a0496297875697c2a7b3b4c48cf19eb7589934bdbb0e6db3a33d7703ed1e847"
+    },
+    {
+      "id": "sfx_step_lift",
+      "kind": "original_foley",
+      "title": "特斯拉步 · 反重力启动",
+      "duration_seconds": 0.27,
+      "wav_sha256": "4a71b2d68507f4f237c47c5f743d4568fae2e601018484022b8acf6bbd9e8ec4",
+      "mp3_sha256": "cc52984c9c919b65242c8572ffe8ac43a175e42d40cf69c9b78fca503709892e"
+    },
+    {
+      "id": "sfx_step_slide",
+      "kind": "original_foley",
+      "title": "特斯拉步 · 掠行",
+      "duration_seconds": 0.34,
+      "wav_sha256": "6bd46e43862ee5fe8873657f0dbc72683fb3e779da226fd35d830846b99a6b36",
+      "mp3_sha256": "c4692791f220e85546b590355d0a9fb98698a0ee98f2012b0d71bde0046ccee3"
+    },
+    {
+      "id": "sfx_warp_depart",
+      "kind": "original_foley",
+      "title": "特斯拉瞬移 · 离场",
+      "duration_seconds": 0.26,
+      "wav_sha256": "26d142157e6c8e635590f36f70f21fcf44c968326b79636f65c6da8bbb7f3449",
+      "mp3_sha256": "fd50613c377479ee65139deb7bdae82330db3c233f307e3979c4837b863d1a90"
+    },
+    {
+      "id": "sfx_warp_arrive",
+      "kind": "original_foley",
+      "title": "特斯拉瞬移 · 到达",
+      "duration_seconds": 0.34,
+      "wav_sha256": "142c3c24c85d633af78620c86f8b26edae5252f066f8ba82fba22d239c0384b1",
+      "mp3_sha256": "d1fd8143c3ce5a2b4b6b78b9a6cd739b49259b24ef41e0e62f49b96d8fc485f9"
+    },
+    {
+      "id": "sfx_step_land",
+      "kind": "original_foley",
+      "title": "特斯拉步 · 落地",
+      "duration_seconds": 0.2,
+      "wav_sha256": "b8729b0a2e68f756495e29e3eeb39c0c029343b27486bacdbf76d1a5e1b9e280",
+      "mp3_sha256": "46e1a39c0d7e8e371c2975312186bffa5b43feb3c694d776c833976e7fdb5b84"
+    },
+    {
+      "id": "sfx_zone_charge",
+      "kind": "original_foley",
+      "title": "神之监狱 · 蓄能",
+      "duration_seconds": 0.48,
+      "wav_sha256": "3456af4c538b2697cd439796a0acc9a7ce17add85f2ac832718019f0b47e2641",
+      "mp3_sha256": "7d88c783f3beb2b0b5211ca9dffdba9c589d0198d2eeb705dc4dd34dcf127ef5"
+    },
+    {
+      "id": "sfx_zone_deploy",
+      "kind": "original_foley",
+      "title": "神之监狱 · 晶格展开",
+      "duration_seconds": 0.58,
+      "wav_sha256": "1b6040df6462fcdc557ed37dc1a8566a60052376b0d80b6048383de82c141608",
+      "mp3_sha256": "64f44843ca942b71d2253df96fb374edba1dc11f94fe328c559503af1dbc814d"
+    },
+    {
+      "id": "sfx_zone_loop",
+      "kind": "original_foley",
+      "title": "神之监狱 · 领域运行",
+      "duration_seconds": 0.67,
+      "wav_sha256": "49919577118af134a073b62e25605cdded649d90b3d7d6b478888f025eec220d",
+      "mp3_sha256": "080f79b5bc353d4949cb1013d7fb7f1b540b074f4200a7f13690994cc2a36aa2"
+    },
+    {
+      "id": "sfx_twin_charge",
+      "kind": "original_foley",
+      "title": "双电光拳 · 双线圈充能",
+      "duration_seconds": 0.44,
+      "wav_sha256": "dab7c641d1f0abbf8e4a1146648d478a5fdbfe5195e302a98d6d490c787d3b48",
+      "mp3_sha256": "06011732cec0d04ff8fe44bf1a9900fb51d699b55735502cd88a4dfe863e157e"
+    },
+    {
+      "id": "sfx_twin_first",
+      "kind": "original_foley",
+      "title": "双电光拳 · 第一拳",
+      "duration_seconds": 0.27,
+      "wav_sha256": "9a4125107eabdf622e020c79241a4bbe4569d186068d2238b0784061cbe30405",
+      "mp3_sha256": "3d1f7ea7a3aab0ff8c672c99e3a5a902a84b167800fb6d6d8a94920051dbe5e3"
+    },
+    {
+      "id": "sfx_twin_second",
+      "kind": "original_foley",
+      "title": "双电光拳 · 第二拳",
+      "duration_seconds": 0.35,
+      "wav_sha256": "75a4cc23c92f34d42135629a25678fa745cbecac06f676df07706f844ad580ef",
+      "mp3_sha256": "6fd4125e7652a1d6115f0ccb538fab1d8478d58aa895202903e33579dca4e5b9"
+    },
+    {
+      "id": "sfx_twin_hit",
+      "kind": "original_foley",
+      "title": "双电光拳 · 双重命中",
+      "duration_seconds": 0.4,
+      "wav_sha256": "e382f46c24cdd2f1af5cf0b4e273b80c5970c4f8931ac991daf3e1b4bc65973b",
+      "mp3_sha256": "b00d832dd5759dd4cd0ee509231fca6fd2deac2e614398854d745766df8545bc"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 机甲接地",
+      "duration_seconds": 0.34,
+      "wav_sha256": "1be0890abd6457312901ce6b52a9b8d38ac6c6cff7745988a73c1ca3127ad88d",
+      "mp3_sha256": "8dd9f9141ccac4f2f39309a2c68cd442b81227fba8557717025e3334adf8f4e0"
+    }
+  ]
+}

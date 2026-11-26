@@ -1,0 +1,124 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 237,
+    "event": "release",
+    "fx": "knife_flight",
+    "anchor": [
+      169,
+      146
+    ],
+    "sound": "sfx_knife_release"
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 287,
+    "event": "confirmed_hit",
+    "fx": "knife_hit",
+    "anchor": [
+      207,
+      146
+    ],
+    "sound": "sfx_knife_hit"
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 286,
+    "event": "release",
+    "fx": "knife_fan",
+    "anchor": [
+      164,
+      149
+    ],
+    "sound": "sfx_fan_release"
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 392,
+    "event": "confirmed_hit",
+    "fx": "knife_hit",
+    "anchor": [
+      204,
+      143
+    ],
+    "sound": "sfx_fan_hit"
+  },
+  {
+    "action": "skill2",
+    "frame": 3,
+    "ms": 194,
+    "event": "umbrella_open",
+    "fx": "umbrella_guard",
+    "anchor": [
+      146,
+      147
+    ],
+    "sound": "sfx_umbrella"
+  },
+  {
+    "action": "skill2",
+    "frame": 4,
+    "ms": 267,
+    "event": "retreat",
+    "fx": "veil_fog",
+    "anchor": [
+      128,
+      180
+    ],
+    "sound": "sfx_cloak"
+  },
+  {
+    "action": "skill2",
+    "frame": 7,
+    "ms": 484,
+    "event": "umbrella_close",
+    "sound": "sfx_close"
+  },
+  {
+    "action": "ult",
+    "frame": 2,
+    "ms": 140,
+    "event": "emotion_eye",
+    "fx": "emotion_glint",
+    "anchor": [
+      132,
+      134
+    ],
+    "sound": "sfx_glint"
+  },
+  {
+    "action": "ult",
+    "frame": 4,
+    "ms": 346,
+    "event": "artifact_touch",
+    "fx": "artifact_touch",
+    "anchor": [
+      160,
+      184
+    ],
+    "sound": "sfx_artifact"
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 421,
+    "event": "confirmed_hit",
+    "fx": "dear_god",
+    "anchor": [
+      189,
+      153
+    ],
+    "sound": "sfx_ult_hit"
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 827,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]

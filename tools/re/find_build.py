@@ -52,6 +52,10 @@ for the encyclopedia (0x31946cb, game-view/src/view/entity/dual_blader.rs), so t
 --drawer 1=0x212bc95`. Step 6 looks for a sink the newest listed build does without (0.7.2 had no image node's setter) by
 the head of the newest older build that lists one (0.7.1's 0x2729d90).
 
+0.7.3 -> 0.7.4 (2026-11-25), the same compiler: every place found from 0.7.3's table as it stands, no --drawer (all five
+UI drawers at 0.7.3's spacing exactly, score 0, nothing close), the image node's setter by 0.7.3's head (0x2e89360 ->
+0x296b740). game_places with the signatures generated from 0.7.3 finds the same places at run time.
+
 Then a match in game confirms it: league.log `game build: <name>`, the "lookup anim from rva" / "texture width
 asked from rva" lines of every screen. The structures (display world table, entity value fields, draw command
 layout) are NOT re-derived here: check them as build.rs's header describes when the code around them changes.

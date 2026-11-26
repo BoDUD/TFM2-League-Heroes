@@ -1,0 +1,440 @@
+{
+  "id": "ragnarok_adam",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_adam:voice",
+    "params": {}
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_adam",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_adam_skill",
+    "asset/ragnarok/icons/ragnarok_adam_skill2",
+    "asset/ragnarok/icons/ragnarok_adam_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 1400,
+    "defence": 46,
+    "magic_resistance": 30,
+    "move_speed": 1040,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 110,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_adam.attack",
+    "duration": 35,
+    "cooltime": 58,
+    "start_timing": 14,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_adam_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_adam_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_adam_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_adam.skill",
+    "duration": 36,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_adam_eye",
+            "duration": {
+              "Time": {
+                "tick": 150
+              }
+            },
+            "base_attack_damaged_reduce": 100,
+            "skill_damaged_reduce": 50
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_adam_rec",
+            "duration": {
+              "Time": {
+                "tick": 300
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_adam_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_adam_q_dodge"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 150,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_adam_q_strain"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_adam.skill2",
+    "duration": 37,
+    "cooltime": 300,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 27000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 5,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_adam_e_mark"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "ragnarok_adam_rec",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "ragnarok_adam_rec"
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 130,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 8,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Stun",
+                    "duration": 60
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_adam_e"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_adam_e_hit"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 70,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_adam_e"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_adam_e_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_adam.ult",
+    "duration": 47,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_adam_guard",
+            "duration": {
+              "Time": {
+                "tick": 28
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 50
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 2,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_adam_r_charge"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 25,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_adam_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_adam_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_adam_r"
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_adam_r_line",
+                        "width": 14000,
+                        "length": 50000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 220,
+                              "attack_ratio": 150,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Airborne",
+                              "duration": 48
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_adam_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_adam_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_adam_r"
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_adam_r_line",
+                        "width": 14000,
+                        "length": 50000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 220,
+                              "attack_ratio": 150,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Airborne",
+                              "duration": 48
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_adam_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_adam_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_adam_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_adam_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_adam_fx",
+      "tag": "jab_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_adam_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_adam_fx",
+      "tag": "jab_hit",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}
