@@ -88,15 +88,22 @@ pub fn note_end(m: u64, s: u64, id: usize, tick: usize) {
     }
 }
 
+/// 无面 `id` 在 (m, s) 的第 `t` tick 戴着谁的脸：最后一张在 `t` 以前戴上、还没结束的。
+/// 结束要在开始**之后**才算这一张的：换脸那一 tick 记下的结束是上一张的（以前用 `>=`，连杀换上的第二张脸当场就被关掉）。
 pub fn wearing(all: &[Stolen], ends: &[(u64, u64, usize, usize)], m: u64, s: u64, id: usize, t: usize) -> Option<String> {
     let start = all.iter().filter(|e| e.m == m && e.s == s && e.id == id && e.tick <= t).max_by_key(|e| e.tick)?;
     let end = ends
         .iter()
-        .filter(|e| e.0 == m && e.1 == s && e.2 == id && e.3 >= start.tick)
+        .filter(|e| e.0 == m && e.1 == s && e.2 == id && e.3 > start.tick)
         .map(|e| e.3)
         .min()
         .unwrap_or(start.tick + MASK_TICKS);
     (t < end).then(|| start.name.clone())
+}
+
+/// 画成受害者用的资源名：他的显示单位还在就用它的（抄一份），不在就用英雄 id。
+pub fn victim_resource(live: Option<&[u8]>, id: &[u8]) -> Vec<u8> {
+    live.unwrap_or(id).to_vec()
 }
 
 pub fn observe_clock(ctx: &StableClient<'_>) {
@@ -222,21 +229,22 @@ mod win {
 
             if let Some(vid) = victim_id {
                 if let Some(tags) = tags_of(&vid) {
-                    // Copy the victim's live resource string from their entity in this display world
-                    let victim_res = recs.iter().find_map(|&(_, vv, vn)| {
-                        (vn == vid.as_slice()).then(|| string_at(vv + RES_CAP, 96)).flatten()
-                    });
-                    if let Some(vres) = victim_res {
-                        if res != vres {
-                            let _ = put_string(v + RES_CAP, vres);
-                        }
-                        if let Some(cur_anim) = string_at(v + ANIM_CAP, 48).and_then(|b| std::str::from_utf8(b).ok()) {
-                            if let Some(fb) = anim_for(cur_anim, tags) {
-                                let _ = put_string(v + ANIM_CAP, fb.as_bytes());
-                            }
-                        }
-                        continue;
+                    // 受害者在这个显示世界里还有单位就抄他的资源名；尸体已经没了（阵亡的英雄很快就从显示世界里拿掉）
+                    // 就用英雄 id 本身——每个显示单位的资源名就是它的 id（佛耶戈附加包 view.rs 同样的退路）
+                    let live = recs
+                        .iter()
+                        .find(|r| r.2 == vid.as_slice() && r.0 != key)
+                        .and_then(|r| string_at(r.1 + RES_CAP, 96));
+                    let vres = victim_resource(live, &vid);
+                    if res != vres.as_slice() {
+                        let _ = put_string(v + RES_CAP, &vres);
                     }
+                    if let Some(cur_anim) = string_at(v + ANIM_CAP, 48).and_then(|b| std::str::from_utf8(b).ok()) {
+                        if let Some(fb) = anim_for(cur_anim, tags) {
+                            let _ = put_string(v + ANIM_CAP, fb.as_bytes());
+                        }
+                    }
+                    continue;
                 }
             }
 
@@ -269,6 +277,24 @@ mod tests {
         assert_eq!(wearing(&s, &e, 1, 0, 7, 100).as_deref(), Some("league_jinx"));
         assert_eq!(wearing(&s, &e, 1, 0, 7, 449).as_deref(), Some("league_jinx"));
         assert_eq!(wearing(&s, &e, 1, 0, 7, 450), None);
+    }
+
+    #[test]
+    fn a_face_put_on_as_the_last_one_ends_is_drawn() {
+        // 连杀：300 tick 换上第二张脸，同一 tick 记下了第一张的结束
+        let st = |tick, name: &str| Stolen { m: 1, s: 0, id: 7, tick, name: name.into() };
+        let s = vec![st(100, "league_jinx"), st(300, "league_lux")];
+        let e = vec![(1, 0, 7, 300)];
+        assert_eq!(wearing(&s, &e, 1, 0, 7, 299).as_deref(), Some("league_jinx"));
+        assert_eq!(wearing(&s, &e, 1, 0, 7, 300).as_deref(), Some("league_lux"));
+        assert_eq!(wearing(&s, &e, 1, 0, 7, 899).as_deref(), Some("league_lux"));
+        assert_eq!(wearing(&s, &e, 1, 0, 7, 900), None);
+    }
+
+    #[test]
+    fn a_corpse_gone_from_the_screen_still_lends_its_face() {
+        assert_eq!(victim_resource(Some(b"league_jinx_hd".as_slice()), b"league_jinx"), b"league_jinx_hd".to_vec());
+        assert_eq!(victim_resource(None, b"league_jinx"), b"league_jinx".to_vec());
     }
 
     #[test]

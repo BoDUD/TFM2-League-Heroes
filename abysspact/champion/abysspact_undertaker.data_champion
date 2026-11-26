@@ -630,37 +630,8 @@
                         "name": "abysspact_undertaker_close"
                       },
                       {
-                        "type": "Grab",
-                        "speed": 3000,
-                        "tick": 12
-                      },
-                      {
                         "type": "Stun",
                         "duration": 60
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_undertaker_in_coffin",
-                          "duration": {
-                            "Time": {
-                              "tick": 120
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "abysspact_undertaker_carrying",
-                          "duration": {
-                            "Time": {
-                              "tick": 120
-                            }
-                          },
-                          "move_speed_mult": 20
-                        },
-                        "only_to_enemy": false
                       },
                       {
                         "type": "AddBuff",
@@ -681,92 +652,126 @@
                           "effects": []
                         },
                         "effect_none": {
-                          "type": "Delayed",
-                          "tick": 60,
+                          "type": "Combine",
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RandomTarget",
-                                  "range": 1,
-                                  "casting_target": "AllyOnlySelf",
-                                  "from_projectile": false,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "abysspact_undertaker_live",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 1
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "abysspact_undertaker_live",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Attack",
-                                        "damage": 150,
-                                        "attack_ratio": 0,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 8,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "Stun",
-                                        "duration": 60
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_undertaker_drop"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_undertaker_coffin_drop"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "Attack",
-                                        "damage": 150,
-                                        "attack_ratio": 0,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 8,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "Stun",
-                                        "duration": 60
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_undertaker_drop"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_undertaker_coffin_drop"
-                                      }
-                                    ]
+                              "type": "Grab",
+                              "speed": 3000,
+                              "tick": 12
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_undertaker_in_coffin",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "abysspact_undertaker_carrying",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
                                   }
                                 },
+                                "move_speed_mult": 20
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 60,
+                              "effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "abysspact_undertaker_live"
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_undertaker_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_undertaker_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 150,
+                                            "attack_ratio": 0,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 8,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 60
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_undertaker_drop"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_undertaker_coffin_drop"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 150,
+                                            "attack_ratio": 0,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 8,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 60
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_undertaker_drop"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_undertaker_coffin_drop"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_undertaker_live"
+                                    }
+                                  ]
                                 }
                               ]
                             }
@@ -786,37 +791,8 @@
                         "name": "abysspact_undertaker_close"
                       },
                       {
-                        "type": "Grab",
-                        "speed": 3000,
-                        "tick": 12
-                      },
-                      {
                         "type": "Stun",
                         "duration": 60
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_undertaker_in_coffin",
-                          "duration": {
-                            "Time": {
-                              "tick": 120
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "abysspact_undertaker_carrying",
-                          "duration": {
-                            "Time": {
-                              "tick": 120
-                            }
-                          },
-                          "move_speed_mult": 20
-                        },
-                        "only_to_enemy": false
                       },
                       {
                         "type": "AddBuff",
@@ -837,92 +813,126 @@
                           "effects": []
                         },
                         "effect_none": {
-                          "type": "Delayed",
-                          "tick": 60,
+                          "type": "Combine",
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RandomTarget",
-                                  "range": 1,
-                                  "casting_target": "AllyOnlySelf",
-                                  "from_projectile": false,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "abysspact_undertaker_live",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 1
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "abysspact_undertaker_live",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Attack",
-                                        "damage": 150,
-                                        "attack_ratio": 0,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 8,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "Stun",
-                                        "duration": 60
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_undertaker_drop"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_undertaker_coffin_drop"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "Attack",
-                                        "damage": 150,
-                                        "attack_ratio": 0,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 8,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "Stun",
-                                        "duration": 60
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "abysspact_undertaker_drop"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "abysspact_undertaker_coffin_drop"
-                                      }
-                                    ]
+                              "type": "Grab",
+                              "speed": 3000,
+                              "tick": 12
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_undertaker_in_coffin",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "abysspact_undertaker_carrying",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
                                   }
                                 },
+                                "move_speed_mult": 20
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 60,
+                              "effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "abysspact_undertaker_live"
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "abysspact_undertaker_live",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "abysspact_undertaker_live",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 150,
+                                            "attack_ratio": 0,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 8,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 60
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_undertaker_drop"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_undertaker_coffin_drop"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 150,
+                                            "attack_ratio": 0,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 8,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 60
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_undertaker_drop"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "abysspact_undertaker_coffin_drop"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_undertaker_live"
+                                    }
+                                  ]
                                 }
                               ]
                             }
@@ -1007,6 +1017,14 @@
     {
       "type": "Animated",
       "name": "abysspact_undertaker_in_coffin",
+      "anim": "asset/abysspact/effects/abysspact_undertaker_fx",
+      "tag": "struggle",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_undertaker_carrying",
       "anim": "asset/abysspact/effects/abysspact_undertaker_fx",
       "tag": "struggle",
       "repeat": true,

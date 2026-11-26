@@ -16,6 +16,7 @@ pub mod knell;
 pub mod leech;
 pub mod noctua;
 pub mod oathbreaker;
+pub mod press;
 pub mod reprieve;
 pub mod sevenfold;
 pub mod starfall;
@@ -94,6 +95,149 @@ pub(crate) fn consume_buff(sim: &mut StableSim<'_>, id: usize, want: &str) -> bo
     sim.entity_remove_buff(id, want) > 0
 }
 
+/// 活着的敌方英雄：(单位号, 位置)。只走英雄表（十个人），不走全部单位——每 tick 走一遍全部单位（小兵、野怪上百个，
+/// 每个都把 buff 一个个拷出来）在预模拟里很费。
+pub(crate) fn foe_champions(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (u64, u64))> {
+    (0..sim.champion_count())
+        .map(|i| sim.champion_id_at(i))
+        .filter_map(|id| sim.get_entity(id).filter(|e| e.is_alive() && e.team() != team).map(|e| (id, e.pos())))
+        .collect()
+}
+
+/// 一次走完单位的 buff 表，看 `names` 里每个在不在（按 `names` 的顺序）。
+pub(crate) fn buffs_present<const N: usize>(sim: &StableSim<'_>, id: usize, names: [&str; N]) -> [bool; N] {
+    let mut out = [false; N];
+    let Some(e) = sim.get_entity(id) else { return out };
+    for i in 0..e.buff_count() {
+        let Some(b) = e.buff_at(i) else { continue };
+        let name = b.name();
+        for (k, want) in names.iter().enumerate() {
+            if name == *want {
+                out[k] = true;
+            }
+        }
+    }
+    out
+}
+
+// ---- 下面几个小工具给第三、四批的千蛾、沉锚、返照、缓刑、赊命、无痕、陨夜、丧钟共用 ----
+
+/// 技能数据 `passive.params` 里的一个整数（生成脚本把参数表 PARAMS 的数写进去，引擎按键名排好序传进来，
+/// 形如 `{"r_t":210,"r_p":30}`）。没有这个键就是 None，调用处用自己的默认值。
+pub(crate) fn kit_param(json: &str, key: &str) -> Option<usize> {
+    let body = json.trim().trim_start_matches('{').trim_end_matches('}');
+    body.split(',').find_map(|pair| {
+        let (k, v) = pair.split_once(':')?;
+        (k.trim().trim_matches('"') == key).then(|| v.trim().parse().ok()).flatten()
+    })
+}
+
+/// 地图上能站的范围：场上所有单位（塔、水晶、泉水都在里面）围出来的框，再夹在地图边线以内
+/// （30 格 × 32000 = 960000，四边各留一个身位，和 league_urgot 一样）。墙在里面看不到。
+pub(crate) fn map_box(sim: &StableSim<'_>) -> ((u64, u64), (u64, u64)) {
+    const LO: u64 = 12_000;
+    const HI: u64 = 948_000;
+    let mut b: Option<((u64, u64), (u64, u64))> = None;
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        let p = e.pos();
+        b = Some(match b {
+            None => (p, p),
+            Some((lo, hi)) => ((lo.0.min(p.0), lo.1.min(p.1)), (hi.0.max(p.0), hi.1.max(p.1))),
+        });
+    }
+    let ((lx, ly), (hx, hy)) = b.unwrap_or(((LO, LO), (HI, HI)));
+    let (lx, ly) = (lx.clamp(LO, HI), ly.clamp(LO, HI));
+    ((lx, ly), (hx.clamp(LO, HI).max(lx), hy.clamp(LO, HI).max(ly)))
+}
+
+/// 把一个算出来的落点（可能出了地图）夹回 [`map_box`] 里。
+pub(crate) fn onto_map(bx: ((u64, u64), (u64, u64)), x: f64, y: f64) -> (u64, u64) {
+    let ((lx, ly), (hx, hy)) = bx;
+    let fx = if x.is_finite() { x } else { lx as f64 };
+    let fy = if y.is_finite() { y } else { ly as f64 };
+    (fx.round().clamp(lx as f64, hx as f64) as u64, fy.round().clamp(ly as f64, hy as f64) as u64)
+}
+
+/// 放一个动作（和数据里的 CasterAnimation 一样：带名字的 Animation 控制，放完之前不能干别的）。
+pub(crate) fn animate(sim: &mut StableSim<'_>, id: usize, tag: &str, ticks: usize) {
+    let mut cc = CcV1::of_kind(CcKindV1::Animation, ticks.max(1) as u64);
+    cc.set_name(tag);
+    sim.apply_cc(id, &cc);
+}
+
+/// 这会儿能不能出招：被控（眩晕、击飞、恐惧、魅惑、嘲讽、沉默、被强制位移）、正在放别的动作，或者被放逐着
+/// （关在别人的钟里、莫德凯撒的死亡之国里：选不中的人也不能替他出招），就不能。
+pub(crate) fn can_cast(sim: &StableSim<'_>, id: usize) -> bool {
+    const NO: [CcKindV1; 8] = [
+        CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Taunt, CcKindV1::Fear,
+        CcKindV1::Charm, CcKindV1::BlockSkill, CcKindV1::ForceMove, CcKindV1::Animation,
+    ];
+    sim.get_entity(id).is_some_and(|e| {
+        e.is_alive()
+            && e.is_targetable()
+            && (0..e.cc_count()).filter_map(|i| e.cc_at(i)).all(|c| NO.iter().all(|k| k.code() != c.kind))
+    })
+}
+
+/// 放逐刚结束的那一 tick 挪人可能被吞（被放逐的单位挪不动）：等他选得中了再挪，最多等这么多 tick。
+pub(crate) const LAND_GRACE: usize = 6;
+
+/// 冷却要等动作放完才开始走：在动作里面退冷却等于没退。记下要退的，每 tick 看一次，冷却开始走了再退
+/// （league_hecarim 的轮询）。`keep` 是退完剩多少；`until` 过了还没开始走就算了。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) struct LateRefund {
+    pub slot: SkillSlotV1,
+    pub keep: usize,
+    pub until: usize,
+}
+
+impl LateRefund {
+    /// 这一 tick 办完了（退了，或者过期）就返回 true。
+    pub fn poll(&self, sim: &mut StableSim<'_>, id: usize, tick: usize) -> bool {
+        let left = sim.get_entity(id).and_then(|e| e.cooldown(self.slot)).map_or(0, |c| c.remaining);
+        if left > 0 {
+            if left > self.keep {
+                sim.entity_reduce_cooldown(id, self.slot, left - self.keep);
+            }
+            return true;
+        }
+        tick > self.until
+    }
+}
+
+/// 待命没用上：把这个技能格子剩下的冷却退到只剩 `keep` tick，AI 过一会儿会再按一次待命。
+pub(crate) fn refund_cooldown(sim: &mut StableSim<'_>, id: usize, slot: SkillSlotV1, keep: usize) {
+    let left = sim.get_entity(id).and_then(|e| e.cooldown(slot)).map_or(0, |c| c.remaining);
+    if left > keep {
+        sim.entity_reduce_cooldown(id, slot, left - keep);
+    }
+}
+
+/// 挨打前（`on_damaged` 在这一下扣血之前调）先把 `back` 点血加回去，扣完正好少挨这么多：
+/// 返回 (现在把生命设成多少, 这一下扣完以后还要再加回的)。生命最多设到上限，超出的那截等扣完再加
+/// （league_braum 0.1.3 的 refund）。这一下本来会把人打死、加回之后本该活着：要先挂一下不死，
+/// 扣完剩 1 血，再补上差的，所以 `lethal` 为真时第二个数已经减掉了那 1 血。
+pub(crate) fn refund_hit(now: usize, max: usize, back: usize, damage: usize) -> (usize, usize, bool) {
+    let want = now.saturating_add(back);
+    let set = want.min(max);
+    let over = want - set;
+    if set <= damage && want > damage {
+        (set, want - damage - 1, true)
+    } else {
+        (set, over, false)
+    }
+}
+
+/// 测试用：从生成好的 `.data_champion` 里抠出 `passive.params` 那一段（去掉空白），就是引擎传给 configure 的样子。
+#[cfg(test)]
+pub(crate) fn kit_params_of(kit: &str) -> String {
+    let at = kit.find("\"params\"").expect("passive.params");
+    let rest = &kit[at..];
+    let (a, b) = (rest.find('{').expect("{"), rest.find('}').expect("}"));
+    rest[a..=b].chars().filter(|c| !c.is_whitespace()).collect()
+}
+
 fn init(host: &StableHost) -> StableMod {
     close_log();
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
@@ -142,6 +286,8 @@ fn init(host: &StableHost) -> StableMod {
     traceless::register(host, &mut module);
     starfall::register(host, &mut module);
     knell::register(host, &mut module);
+    // 替 AI 按几位英雄的待命格子（游戏的 AI 几乎不按 3 tick 的待命动作）
+    press::register(host, &mut module);
     view_forms::install();
 
     #[cfg(windows)]
@@ -161,3 +307,35 @@ impl StableExtension for Frame {
 }
 
 declare_stable_mod!(init, requires = 9);
+
+/// 一张图（`#anim.fanim`）里某个动画一共几 tick（各帧秒数加起来 × 60，四舍五入）；没有这个动画给 None。
+#[cfg(test)]
+pub(crate) fn fanim_ticks(json: &str, tag: &str) -> Option<usize> {
+    let key = format!("\"{tag}\"");
+    let at = json.find(&key)? + key.len();
+    let open = at + json[at..].find('[')?;
+    let close = open + json[open..].find(']')?;
+    let frames = &json[open..close];
+    let mut secs = 0.0f64;
+    let mut rest = frames;
+    while let Some(k) = rest.find("\"duration\"") {
+        rest = &rest[k + "\"duration\"".len()..];
+        let rest_num = rest.trim_start().trim_start_matches(':').trim_start();
+        let num: String = rest_num.chars().take_while(|c| c.is_ascii_digit() || *c == '.').collect();
+        secs += num.parse::<f64>().ok()?;
+    }
+    Some((secs * 60.0).round() as usize)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fanim_ticks_reads_one_tags_frames() {
+        let json = r#"{"anims":{"hd_ult":{"frames":[{"duration":0.5,"data":{"x":0.0}}]},"ult":{"frames":[{"duration":0.1,"data":{"x":0.0}},{"duration":0.2,"data":{"x":1.0}}]}}}"#;
+        assert_eq!(fanim_ticks(json, "ult"), Some(18));
+        assert_eq!(fanim_ticks(json, "hd_ult"), Some(30));
+        assert_eq!(fanim_ticks(json, "run"), None);
+    }
+}

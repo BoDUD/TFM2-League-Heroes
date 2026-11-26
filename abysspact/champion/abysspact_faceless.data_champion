@@ -118,12 +118,43 @@
               ]
             },
             "effect_none": {
-              "type": "Attack",
-              "damage": 0,
-              "attack_ratio": 100,
-              "hp_ratio": 0,
-              "target_hp_ratio": 0,
-              "attack_effect_type": "Target"
+              "type": "SwitchByBuff",
+              "buff_name": "abysspact_faceless_cls_util",
+              "effect_buff": {
+                "type": "TargetProjectile",
+                "name": "abysspact_faceless_p_bolt",
+                "speed": 8500,
+                "y_offset": -9000,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "abysspact_faceless_a_hit"
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
             }
           }
         },
@@ -167,6 +198,10 @@
         {
           "type": "TargetSfx",
           "name": "abysspact_faceless_a_hit"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_faceless:reach"
         }
       ]
     }
@@ -231,85 +266,81 @@
                         "name": "abysspact_faceless_dash"
                       },
                       {
-                        "type": "RushTime",
+                        "type": "RushMoveToBack",
                         "speed": 5600,
-                        "tick": 10,
-                        "range": 13000,
-                        "casting_target": "EnemyWithoutTower",
-                        "penetrate": true,
                         "applied_effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 90,
-                              "attack_ratio": 115,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "abysspact_faceless_q_slow",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 60
-                                  }
-                                },
-                                "move_speed_mult": -30
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 18000
                               }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "abysspact_faceless_w_ambush",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "Attack",
-                                    "damage": 55,
-                                    "attack_ratio": 50,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "Fear",
-                                    "tick": 54
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "abysspact_faceless_w_ambush"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_faceless_fear"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "abysspact_faceless_w_fear"
-                                  }
-                                ]
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 90,
+                                "attack_ratio": 115,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
                               },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
+                              {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "abysspact_faceless_q_slow",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 60
+                                    }
+                                  },
+                                  "move_speed_mult": -30
+                                }
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_faceless_w_ambush",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 55,
+                                      "attack_ratio": 50,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "Fear",
+                                      "tick": 54
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_faceless_w_ambush"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "abysspact_faceless_fear"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "abysspact_faceless_w_fear"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_faceless_q_pass"
                               }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "abysspact_faceless_q_pass"
-                            }
+                            ]
                           }
                         ]
                       }
@@ -330,85 +361,81 @@
                         "name": "abysspact_faceless_dash"
                       },
                       {
-                        "type": "RushTime",
+                        "type": "RushMoveToBack",
                         "speed": 5600,
-                        "tick": 10,
-                        "range": 13000,
-                        "casting_target": "EnemyWithoutTower",
-                        "penetrate": true,
                         "applied_effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 90,
-                              "attack_ratio": 115,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "abysspact_faceless_q_slow",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 60
-                                  }
-                                },
-                                "move_speed_mult": -30
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 18000
                               }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "abysspact_faceless_w_ambush",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "Attack",
-                                    "damage": 55,
-                                    "attack_ratio": 50,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "Fear",
-                                    "tick": 54
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "abysspact_faceless_w_ambush"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "abysspact_faceless_fear"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "abysspact_faceless_w_fear"
-                                  }
-                                ]
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 90,
+                                "attack_ratio": 115,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
                               },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
+                              {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "abysspact_faceless_q_slow",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 60
+                                    }
+                                  },
+                                  "move_speed_mult": -30
+                                }
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_faceless_w_ambush",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 55,
+                                      "attack_ratio": 50,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "Fear",
+                                      "tick": 54
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "abysspact_faceless_w_ambush"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "abysspact_faceless_fear"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "abysspact_faceless_w_fear"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "abysspact_faceless_q_pass"
                               }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "abysspact_faceless_q_pass"
-                            }
+                            ]
                           }
                         ]
                       }
@@ -446,7 +473,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 11,
           "effects": [
             {
               "type": "Combine",
@@ -519,7 +546,7 @@
                               "name": "abysspact_faceless_w_ambush",
                               "duration": {
                                 "Time": {
-                                  "tick": 180
+                                  "tick": 107
                                 }
                               }
                             },
@@ -577,7 +604,7 @@
                               "name": "abysspact_faceless_w_ambush",
                               "duration": {
                                 "Time": {
-                                  "tick": 180
+                                  "tick": 107
                                 }
                               }
                             },
@@ -608,7 +635,7 @@
     "cancelable": false,
     "range": 45000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyChampionRecentlyAttacked",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -631,7 +658,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 14,
+          "tick": 16,
           "effects": [
             {
               "type": "Combine",
@@ -663,67 +690,11 @@
                     "type": "Combine",
                     "effects": [
                       {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 290,
-                            "attack_ratio": 165,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "AddBuff",
-                            "buff_state": {
-                              "name": "abysspact_faceless_r_exec_ask",
-                              "duration": {
-                                "Time": {
-                                  "tick": 4
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_faceless_grasp"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "abysspact_faceless_r_grasp"
-                          },
-                          {
-                            "type": "TargetProjectile",
-                            "name": "abysspact_faceless_r_mask",
-                            "speed": 7500,
-                            "y_offset": -9000,
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "abysspact_faceless_r_return"
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
                         "type": "SwitchByBuff",
                         "buff_name": "abysspact_faceless_r_stolen",
                         "effect_buff": {
                           "type": "Combine",
                           "effects": [
-                            {
-                              "type": "Attack",
-                              "damage": 100,
-                              "attack_ratio": 75,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            },
                             {
                               "type": "RemoveCasterBuff",
                               "name": "abysspact_faceless_r_stolen"
@@ -735,12 +706,348 @@
                             {
                               "type": "Sfx",
                               "name": "abysspact_faceless_mask_crack"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "abysspact_faceless_cls_melee",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_faceless_dash"
+                                  },
+                                  {
+                                    "type": "MoveToTarget",
+                                    "speed": 6000,
+                                    "range": 100000,
+                                    "end_effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_faceless_shards"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "abysspact_faceless_r_grasp"
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 24000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 160,
+                                            "attack_ratio": 70,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 60
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_faceless_grasp"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_faceless_cls_range",
+                                "effect_buff": {
+                                  "type": "LinearProjectile",
+                                  "name": "abysspact_faceless_r_lance",
+                                  "speed": 7000,
+                                  "range": 90000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 9000
+                                    }
+                                  },
+                                  "penetrate": true,
+                                  "y_offset": -9000,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 180,
+                                        "attack_ratio": 80,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "abysspact_faceless_s_slow",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 90
+                                            }
+                                          },
+                                          "move_speed_mult": -40
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_faceless_grasp"
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "abysspact_faceless_cls_mage",
+                                  "effect_buff": {
+                                    "type": "ParabolicProjectile",
+                                    "name": "abysspact_faceless_r_burst",
+                                    "travel_time": 1,
+                                    "range": 400000,
+                                    "range_effect_name": "",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1
+                                      }
+                                    },
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_faceless_shards"
+                                      },
+                                      {
+                                        "type": "RangeProjectile",
+                                        "name": "abysspact_faceless_r_burst_z",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 25000
+                                          }
+                                        },
+                                        "delay": 1,
+                                        "apply": 1,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Attack",
+                                              "damage": 200,
+                                              "attack_ratio": 80,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Airborne",
+                                              "duration": 45
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "abysspact_faceless_grasp"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "abysspact_faceless_cls_util",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "abysspact_faceless_mist"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 45000
+                                            }
+                                          },
+                                          "target": "AllyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Heal",
+                                              "amount": 120,
+                                              "attack_ratio": 30,
+                                              "ap_ratio": 0,
+                                              "heal_type": "Ally"
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 100,
+                                              "attack_ratio": 30,
+                                              "ap_ratio": 0,
+                                              "tick": 180
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 45000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Attack",
+                                              "damage": 100,
+                                              "attack_ratio": 40,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "AddBuff",
+                                              "buff_state": {
+                                                "name": "abysspact_faceless_s_slow",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 90
+                                                  }
+                                                },
+                                                "move_speed_mult": -40
+                                              }
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "abysspact_faceless_grasp"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "Teleport"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "abysspact_faceless_dash"
+                                        },
+                                        {
+                                          "type": "Attack",
+                                          "damage": 250,
+                                          "attack_ratio": 100,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "abysspact_faceless_grasp"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "abysspact_faceless_r_grasp"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "CasterInvisible",
+                                              "tick": 60
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
                             }
                           ]
                         },
                         "effect_none": {
                           "type": "Combine",
-                          "effects": []
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 290,
+                              "attack_ratio": 165,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_faceless_r_exec_ask",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_faceless_grasp"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "abysspact_faceless_r_grasp"
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "abysspact_faceless_r_mask",
+                              "speed": 7500,
+                              "y_offset": -9000,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_faceless_r_return"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
                         }
                       }
                     ]
@@ -752,67 +1059,11 @@
                     "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 290,
-                            "attack_ratio": 165,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "AddBuff",
-                            "buff_state": {
-                              "name": "abysspact_faceless_r_exec_ask",
-                              "duration": {
-                                "Time": {
-                                  "tick": 4
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "abysspact_faceless_grasp"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "abysspact_faceless_r_grasp"
-                          },
-                          {
-                            "type": "TargetProjectile",
-                            "name": "abysspact_faceless_r_mask",
-                            "speed": 7500,
-                            "y_offset": -9000,
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "abysspact_faceless_r_return"
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
                         "type": "SwitchByBuff",
                         "buff_name": "abysspact_faceless_r_stolen",
                         "effect_buff": {
                           "type": "Combine",
                           "effects": [
-                            {
-                              "type": "Attack",
-                              "damage": 100,
-                              "attack_ratio": 75,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            },
                             {
                               "type": "RemoveCasterBuff",
                               "name": "abysspact_faceless_r_stolen"
@@ -824,12 +1075,348 @@
                             {
                               "type": "Sfx",
                               "name": "abysspact_faceless_mask_crack"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "abysspact_faceless_cls_melee",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_faceless_dash"
+                                  },
+                                  {
+                                    "type": "MoveToTarget",
+                                    "speed": 6000,
+                                    "range": 100000,
+                                    "end_effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_faceless_shards"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "abysspact_faceless_r_grasp"
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 24000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 160,
+                                            "attack_ratio": 70,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 60
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "abysspact_faceless_grasp"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_faceless_cls_range",
+                                "effect_buff": {
+                                  "type": "LinearProjectile",
+                                  "name": "abysspact_faceless_r_lance",
+                                  "speed": 7000,
+                                  "range": 90000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 9000
+                                    }
+                                  },
+                                  "penetrate": true,
+                                  "y_offset": -9000,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 180,
+                                        "attack_ratio": 80,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "abysspact_faceless_s_slow",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 90
+                                            }
+                                          },
+                                          "move_speed_mult": -40
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_faceless_grasp"
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "abysspact_faceless_cls_mage",
+                                  "effect_buff": {
+                                    "type": "ParabolicProjectile",
+                                    "name": "abysspact_faceless_r_burst",
+                                    "travel_time": 1,
+                                    "range": 400000,
+                                    "range_effect_name": "",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1
+                                      }
+                                    },
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "abysspact_faceless_shards"
+                                      },
+                                      {
+                                        "type": "RangeProjectile",
+                                        "name": "abysspact_faceless_r_burst_z",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 25000
+                                          }
+                                        },
+                                        "delay": 1,
+                                        "apply": 1,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Attack",
+                                              "damage": 200,
+                                              "attack_ratio": 80,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Airborne",
+                                              "duration": 45
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "abysspact_faceless_grasp"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "abysspact_faceless_cls_util",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "abysspact_faceless_mist"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 45000
+                                            }
+                                          },
+                                          "target": "AllyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Heal",
+                                              "amount": 120,
+                                              "attack_ratio": 30,
+                                              "ap_ratio": 0,
+                                              "heal_type": "Ally"
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 100,
+                                              "attack_ratio": 30,
+                                              "ap_ratio": 0,
+                                              "tick": 180
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 45000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Attack",
+                                              "damage": 100,
+                                              "attack_ratio": 40,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "AddBuff",
+                                              "buff_state": {
+                                                "name": "abysspact_faceless_s_slow",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 90
+                                                  }
+                                                },
+                                                "move_speed_mult": -40
+                                              }
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "abysspact_faceless_grasp"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "Teleport"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "abysspact_faceless_dash"
+                                        },
+                                        {
+                                          "type": "Attack",
+                                          "damage": 250,
+                                          "attack_ratio": 100,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "abysspact_faceless_grasp"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "abysspact_faceless_r_grasp"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "CasterInvisible",
+                                              "tick": 60
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
                             }
                           ]
                         },
                         "effect_none": {
                           "type": "Combine",
-                          "effects": []
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 290,
+                              "attack_ratio": 165,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_faceless_r_exec_ask",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_faceless_grasp"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "abysspact_faceless_r_grasp"
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "abysspact_faceless_r_mask",
+                              "speed": 7500,
+                              "y_offset": -9000,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_faceless_r_return"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
                         }
                       }
                     ]
@@ -858,6 +1445,14 @@
     {
       "type": "Animated",
       "name": "abysspact_faceless_p_bolt",
+      "anim": "asset/abysspact/effects/abysspact_faceless_proj",
+      "tag": "mask_return",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_faceless_r_lance",
       "anim": "asset/abysspact/effects/abysspact_faceless_proj",
       "tag": "mask_return",
       "repeat": true,

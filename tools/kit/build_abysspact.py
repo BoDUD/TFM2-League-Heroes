@@ -46,10 +46,10 @@ PARAMS = {
         "q_r": 38000, "q_cone": 350, "q_dmg": 72, "q_ad": 112,
         "q_slow": 30, "q_slow_t": 90, "q_heal": 44, "q_heal_r": 30,
         "q_combo_dmg": 20, "q_combo_ad": 20,
-        "w_cd": 720, "w_range": 50000, "w_dur": 40, "w_go": 15,
+        "w_cd": 720, "w_range": 50000, "w_dur": 40, "w_go": 16,
         "w_speed": 7500, "w_w": 11000, "w_dmg": 60, "w_ad": 80,
-        "w_grab_speed": 3200, "w_grab_t": 12, "w_bind": 30,
-        "r_cd": 4200, "r_range": 35000, "r_dur": 42, "r_go": 16,
+        "w_grab_speed": 3200, "w_grab_t": 13, "w_bind": 30,
+        "r_cd": 4200, "r_range": 35000, "r_dur": 42, "r_go": 16, "r_arm": 600,
         "r_t": 360, "r_vamp": 40, "r_as": 15, "r_burst_r": 28000,
         "r_burst_dmg": 48, "r_burst_ad": 42,
         "r_onhit_ap": 40, "r_onhit_ad": 30,
@@ -60,13 +60,16 @@ PARAMS = {
         "def": 32, "def_g": 6, "mr": 30, "mr_g": 4, "ms": 1090, "ms_g": 11,
         "atk_range": 26000, "atk_dur": 34, "atk_cd": 56, "atk_st": 17,
         "q_cd": 390, "q_range": 40000, "q_dur": 34, "q_go": 10,
-        "q_speed": 5600, "q_t": 10, "q_rad": 13000,
+        "q_speed": 5600, "q_rad": 18000,
         "q_dmg": 90, "q_ad": 115, "q_slow": 30, "q_slow_t": 60,
-        "w_cd": 660, "w_range": 45000, "w_dur": 28, "w_go": 10,
-        "w_inv": 90, "w_ms": 20, "w_ambush_t": 180,
+        "w_cd": 660, "w_range": 45000, "w_dur": 28, "w_go": 12,
+        "w_inv": 90, "w_ms": 20,
         "w_fear": 54, "w_bonus_dmg": 55, "w_bonus_ad": 50,
-        "r_cd": 3300, "r_range": 45000, "r_dur": 42, "r_go": 15,
+        "r_cd": 3300, "r_range": 45000, "r_dur": 42, "r_go": 17,
         "r_dmg": 290, "r_ad": 165, "r_plain_thp": 14,
+        "s_melee_dmg": 160, "s_melee_ad": 70, "s_range_dmg": 180, "s_range_ad": 80,
+        "s_mage_dmg": 200, "s_mage_ad": 80, "s_util_heal": 120, "s_util_dmg": 100, "s_util_ad": 40,
+        "s_sin_dmg": 250, "s_sin_ad": 100,
         "plain_shroud_ad": 14, "plain_shroud_as": 18, "plain_shroud_t": 240,
     },
     "whisperer": {
@@ -74,11 +77,11 @@ PARAMS = {
         "def": 24, "def_g": 5, "mr": 30, "mr_g": 4, "ms": 950, "ms_g": 9,
         "atk_range": 52000, "atk_dur": 34, "atk_cd": 84, "atk_st": 16,
         "a_speed": 7500, "a_y": -10000,
-        "q_cd": 360, "q_range": 60000, "q_dur": 36, "q_go": 14,
+        "q_cd": 360, "q_range": 60000, "q_dur": 36, "q_go": 15,
         "q_speed": 6800, "q_w": 11000, "q_dmg": 80, "q_ap": 70,
         "w_cd": 660, "w_range": 55000, "w_dur": 38, "w_go": 15,
         "w_r": 22000, "w_t": 180, "w_p": 60, "w_dmg": 28, "w_ap": 22,
-        "w_slow": 22, "w_slow_t": 70,
+        "w_slow": 22, "w_slow_t": 60,
         "r_cd": 3600, "r_range": 60000, "r_dur": 44, "r_go": 18,
         "r_r": 40000, "r_dmg": 215, "r_ap": 108, "r_fear": 66,
         "plain_burst_dmg": 85, "plain_burst_ap": 62, "plain_burst_r": 16000,
@@ -86,15 +89,15 @@ PARAMS = {
     "bonebow": {
         "hp": 900, "hp_g": 88, "atk": 98, "atk_g": 18, "apw": 0, "apw_g": 0,
         "def": 22, "def_g": 6, "mr": 18, "mr_g": 3, "ms": 930, "ms_g": 9,
-        "atk_range": 62500, "atk_dur": 24, "atk_cd": 58, "atk_st": 10,
+        "atk_range": 62500, "atk_dur": 36, "atk_cd": 58, "atk_st": 17,
         "a_speed": 9500, "a_y": -9500,
-        "q_cd": 470, "q_range": 70000, "q_dur": 36, "q_go": 15,
+        "q_cd": 470, "q_range": 70000, "q_dur": 36, "q_go": 19,
         "q_speed": 9000, "q_w": 10000, "q_dmg": 75, "q_ad": 105,
-        "w_cd": 600, "w_range": 65000, "w_dur": 32, "w_go": 12,
+        "w_cd": 600, "w_range": 65000, "w_dur": 32, "w_go": 13,
         "w_r": 16000, "w_base_dmg": 40, "w_base_ad": 38,
         "w_plain_dmg": 102, "w_plain_ad": 120,
         "w_slow": 30, "w_slow_t": 60,
-        "r_cd": 3900, "r_range": 70000, "r_dur": 44, "r_go": 16,
+        "r_cd": 3900, "r_range": 70000, "r_dur": 44, "r_go": 23,
         "r_travel": 12, "r_r": 35000, "r_dmg": 132, "r_ad": 88,
         "r_slow": 25, "r_slow_t": 90,
         "r_plain_tick_dmg": 47, "r_plain_tick_ad": 47, "r_plain_t": 240, "r_plain_p": 60,
@@ -105,31 +108,33 @@ PARAMS = {
         "def": 30, "def_g": 6, "mr": 32, "mr_g": 5, "ms": 990, "ms_g": 10,
         "atk_range": 50000, "atk_dur": 36, "atk_cd": 84, "atk_st": 17,
         "a_speed": 7000, "a_y": -10000,
-        "q_cd": 480, "q_range": 55000, "q_dur": 38, "q_go": 14,
+        "q_cd": 480, "q_range": 55000, "q_dur": 38, "q_go": 15,
         "q_travel": 14, "q_r": 20000, "q_dmg": 52, "q_ap": 42,
         "q_slow": 30, "q_slow_t": 90,
         "q_plain_dot": 28, "q_plain_dot_ap": 15, "q_plain_heal": 24,
-        "w_cd": 700, "w_range": 55000, "w_dur": 36, "w_go": 14,
+        "w_cd": 700, "w_range": 55000, "w_dur": 36, "w_go": 15, "w_ally_r": 45000,
         "w_speed": 6500, "w_sh": 85, "w_sh_ap": 60, "w_t": 240,
         "w_plain_dmg": 48, "w_plain_ap": 30, "w_plain_r": 28000,
-        "r_cd": 4200, "r_range": 50000, "r_dur": 44, "r_go": 16,
+        "r_cd": 4200, "r_range": 50000, "r_dur": 44, "r_go": 18,
         "r_r": 40000, "r_t": 300, "r_p": 60,
         "r_init_dmg": 92, "r_init_ap": 65, "r_stun": 40,
-        "r_tick_dmg": 35, "r_tick_ap": 25, "r_slow": 40, "r_slow_t": 70,
+        "r_tick_dmg": 35, "r_tick_ap": 25, "r_slow": 40, "r_slow_t": 60,
         "r_heal": 55, "r_heal_ap": 25,
     },
     # --- Batch 2 ---
     "bloodmoon": {
         "hp": 1188, "hp_g": 111, "atk": 95, "atk_g": 17, "apw": 0, "apw_g": 0,
         "def": 37, "def_g": 6, "mr": 30, "mr_g": 5, "ms": 1062, "ms_g": 10,
-        "atk_range": 45000, "atk_dur": 36, "atk_cd": 60, "atk_st": 17,
+        # 普攻射程按狼形的近战算，人形的 1.9 万由 bloodmoon.rs 的 human_range 加（--plain 没有原生代码，直接加上）
+        "atk_range": 26000, "human_range": 19000, "atk_dur": 36, "atk_cd": 60, "atk_st": 17,
         "a_speed": 9000, "a_y": -9500,
         "wolf_as": 30, "wolf_vamp": 10,
         "q_cd": 412, "q_range": 60000, "q_dur": 38, "q_go": 12,
         "q_speed": 9200, "q_w": 9500, "q_h_dmg": 34, "q_h_ad": 54,
         "q_h_slow": 20, "q_h_slow_t": 90,
         "q_w_dmg": 90, "q_w_ad": 116, "q_w_heal": 20, "q_w_heal_ad": 24,
-        "w_cd": 360, "w_range": 45000, "w_dur": 26, "w_go": 10,
+        # 变身在出招最后一 tick 才换形态：整段变身动画按出手时的形态播完，不会播到一半换成另一个方向的变身
+        "w_cd": 360, "w_range": 45000, "w_dur": 26, "w_go": 25,
         "w_slow_r": 30000, "w_slow": 30, "w_slow_t": 60,
         "w_back_spd": 2500, "w_back_t": 6,
         "r_cd": 4120, "r_range": 35000, "r_dur": 40, "r_go": 14,
@@ -186,7 +191,8 @@ PARAMS = {
         "q_sh": 62, "q_sh_ap": 46, "q_sh_t": 180,
         "w_cd": 660, "w_range": 50000, "w_dur": 36, "w_go": 14,
         "w_speed": 6800, "w_w": 12000, "w_dmg": 50, "w_ap": 46, "w_fear": 49,
-        "r_cd": 5100, "r_range": 60000, "r_dur": 44, "r_go": 16,
+        # 原生版的 R 是 3 tick 的「备好」（敌方英雄 6 万内按），真正的回魂 / 护盾由 vesper.rs 在合适的时候放
+        "r_cd": 5100, "r_range": 60000, "r_dur": 44, "r_go": 16, "r_arm_dur": 3,
         "r_r": 50000, "r_sh": 142, "r_sh_ap": 72, "r_sh_t": 300,
         "r_heal": 102, "r_heal_ap": 48, "r_dr": 28, "r_dr_t": 260,
     },
@@ -200,7 +206,10 @@ PARAMS = {
         "q_slow": 30, "q_slow_t": 60,
         "w_cd": 430, "w_range": 22000, "w_dur": 34, "w_go": 13,
         "w_r": 21000, "w_dmg": 83, "w_ad": 93, "w_heal": 56, "w_heal_ad": 39,
-        "r_cd": 3950, "r_range": 45000, "r_dur": 40, "r_go": 14,
+        # w_vamp：甲鸣按打出伤害的这么多 % 治疗自己（carapace.rs 在 on_attack 里算）
+        "w_vamp": 30,
+        # 蜕壳 R 的射程 3 万（旧壳在身边炸开，半径 3 万）；第三形态飞扑另加 3 万（carapace.rs 的 r_range）= 6 万
+        "r_cd": 3950, "r_range": 30000, "r_dur": 40, "r_go": 14,
         "r_r": 30000, "r_dmg": 195, "r_ad": 127, "r_air": 45, "r_as": 40, "r_as_t": 240,
         "plain_def": 22, "plain_as": 23, "plain_hp_mult": 31,
     },
@@ -225,8 +234,11 @@ PARAMS = {
         "q_dmg": 30, "q_ap": 26, "q_slow": 17, "q_slow_t": 180,
         "w_cd": 756, "w_range": 60000, "w_dur": 36, "w_go": 13,
         "w_dmg": 40, "w_ap": 31, "w_stun": 67, "w_heal": 59, "w_heal_ap": 20,
-        "r_cd": 4680, "r_range": 55000, "r_dur": 44, "r_go": 14,
+        "r_cd": 4680, "r_range": 55000, "r_dur": 44, "r_go": 36,
         "r_r": 28000, "r_t": 210, "r_p": 30, "r_tick_dmg": 39, "r_tick_ap": 16, "r_sil": 75,
+        # 原生：散身（1 秒掉血 %、冷却、散开多久、聚回来多远、聚身禁技能）、鳞粉（每层减速 %、持续）、风暴找人的范围
+        "p_pct": 12, "p_cd": 720, "p_t": 36, "p_dist": 25000, "p_reform": 75,
+        "scale_slow": 10, "scale_t": 240, "r_seek": 70000,
     },
     "anchor": {
         "hp": 878, "hp_g": 86, "atk": 96, "atk_g": 18, "apw": 0, "apw_g": 0,
@@ -239,6 +251,9 @@ PARAMS = {
         "r_cd": 4280, "r_range": 95000, "r_dur": 48, "r_go": 14,
         "r_r": 21000, "r_dmg": 95, "r_ad": 58, "r_air": 24,
         "plain_splash_ad": 40,
+        # 原生：炮弹溅射（% 攻击力、半径）、下锚 / 起锚各多少 tick、W 不该切时冷却退到只剩多少、自动下锚的几个距离
+        "a_splash": 60, "a_splash_r": 15000, "w_plant": 30, "w_raise": 36, "w_keep": 300,
+        "engage": 90000, "safe": 35000, "danger": 30000, "no_target": 120, "toggle_cd": 120,
     },
     "hourglass": {
         "hp": 996, "hp_g": 92, "atk": 54, "atk_g": 7, "apw": 56, "apw_g": 18,
@@ -251,6 +266,8 @@ PARAMS = {
         "w_r": 21000, "w_dmg": 80, "w_ap": 56, "w_stun": 66,
         "r_cd": 4820, "r_range": 80000, "r_dur": 44, "r_go": 16,
         "r_r": 75000, "r_plain_heal": 264, "r_plain_ap": 95, "r_plain_sh": 160, "r_plain_sh_ap": 65,
+        # 原生：Q / R 待命多久、3 秒内掉血到多少才出手（Q 单人 %、R 全队合计 %）、倒流的范围、待命没用上冷却退到只剩多少
+        "q_arm": 300, "q_trig": 15, "r_arm": 900, "r_trig": 60, "r_reach": 100000, "rewind_t": 180, "keep": 60,
     },
     # --- Batch 4 ---
     "reprieve": {
@@ -276,6 +293,8 @@ PARAMS = {
         "w_r": 25000, "w_dmg": 84, "w_ad": 95, "w_heal": 75, "w_heal_ad": 36,
         "r_cd": 3900, "r_range": 60000, "r_dur": 40, "r_go": 14,
         "r_plain_dmg": 210, "r_plain_thp": 20, "r_plain_heal": 300, "r_plain_ad": 95,
+        # 原生：R 待命多久、自己血量 % 以下 / 对方 % 以上才换、找欠条的范围；Q 斩杀线和加成 %
+        "r_arm": 600, "r_hp_max": 35, "r_foe_min": 60, "r_reach": 65000, "q_exec": 30, "q_exec_bonus": 50, "keep": 60,
     },
     "traceless": {
         "hp": 968, "hp_g": 95, "atk": 93, "atk_g": 17, "apw": 0, "apw_g": 0,
@@ -286,9 +305,13 @@ PARAMS = {
         "w_cd": 680, "w_range": 44000, "w_dur": 26, "w_go": 8,
         "w_banish": 45, "w_inv": 60, "w_ms": 26, "w_ambush_t": 150,
         "w_ambush_dmg": 65, "w_ambush_ad": 67,
-        "r_cd": 3560, "r_range": 55000, "r_dur": 40, "r_go": 12,
+        "r_cd": 3560, "r_range": 55000, "r_dur": 40, "r_go": 26,
         "r_vanish": 90, "r_r": 55000, "r_dmg": 138, "r_ad": 104,
         "plain_edge_ad": 26,
+        # 原生：锋（每层 %、上限）、隐身后第一剑加 %、多久没出手没挨打就隐身；W 待命多久、几层锋以上 / 血 % 以下才躲；
+        # R 第一剑在第几 tick、停在身后多远
+        "edge_pct": 7, "edge_cap": 8, "ambush": 50, "ooc": 90, "w_arm": 300, "w_edge": 2, "w_low": 35,
+        "r_first": 18, "r_behind": 9000, "keep": 60,
     },
     "starfall": {
         "hp": 840, "hp_g": 80, "atk": 62, "atk_g": 9, "apw": 48, "apw_g": 15,
@@ -302,6 +325,10 @@ PARAMS = {
         "w_dmg": 45, "w_ap": 32, "w_kb_spd": 2500, "w_kb_t": 6,
         "r_cd": 5100, "r_range": 100000, "r_dur": 42, "r_go": 14,
         "r_r": 40000, "r_t": 240, "r_p": 30, "r_dmg": 38, "r_ap": 28,
+        # 原生：普攻主目标 % 攻击力（另加 a_ap% 法强）、旁边吃几成、最小射程；Q 几颗、间隔、先后、下落；
+        # R 每几 tick 一颗、下落、每颗半径、每人每秒最多几颗；贴脸后退一步多远、几 tick、多久一次
+        "a_main_ad": 100, "a_splash": 60, "a_min": 30000, "q_n": 5, "q_step": 13000, "q_gap": 8, "q_fall": 30,
+        "r_every": 12, "r_fall": 30, "r_star_r": 15000, "r_cap": 2, "step_dist": 12000, "step_t": 12, "step_cd": 45,
     },
     "knell": {
         "hp": 1335, "hp_g": 120, "atk": 65, "atk_g": 10, "apw": 0, "apw_g": 0,
@@ -315,6 +342,8 @@ PARAMS = {
         "r_speed": 6200, "r_r": 25000, "r_t": 150, "r_p": 30,
         "r_tick_dmg": 53, "r_tick_hp": 4, "r_air": 50,
         "plain_dr": 18,
+        # 原生：钟壳减伤 %；R 待命多久、扣得住几个人以上、自己血量 % 以上才放、跳多少 tick；W 身边多近有敌方英雄才放
+        "shell_dr": 15, "r_arm": 600, "r_min_foes": 2, "r_min_hp": 50, "r_leap": 8, "keep": 60, "w_fight_r": 45000,
     },
 }
 
@@ -553,9 +582,11 @@ def build_oathbreaker(p, is_native=True):
     )
 
     # W: 誓链 — 锁链直飞勾中首个敌方英雄拽回身前 + 定身 0.5s + 挂连招标记
+    # 拽不给 tick：拉到他身前为止（给了 tick 近处的人会被拽过头）；定身从勾中算起，盖住拉过来的 w_grab_t（5 万拉到身前
+    # 约 13 tick），到了身前还剩 w_bind（以前定身和拽同时开始，拽完只剩 0.3 秒）
     w_hit = [H["attack"](p["w_dmg"], p["w_ad"]),
-             H["grab"](p["w_grab_speed"], p["w_grab_t"]),
-             H["bind"](p["w_bind"]),
+             {"type": "Grab", "speed": p["w_grab_speed"]},
+             H["bind"](p["w_grab_t"] + p["w_bind"]),
              H["flag"]("w_chained", 150),
              H["view"]("impact"), H["tsfx"]("w_pull")]
     w_chain = H["linear"]("w_chain", p["w_speed"], p["w_range"] + 6000, p["w_w"],
@@ -572,15 +603,29 @@ def build_oathbreaker(p, is_native=True):
     r_buff = H["flag"]("r_undying", p["r_t"], undying=True, vamp=p["r_vamp"], attack_speed_mult=p["r_as"])
     r_burst = H["around"](p["r_burst_r"], [H["attack"](p["r_burst_dmg"], p["r_burst_ad"]),
                                            H["view"]("impact"), H["tsfx"]("q_hit")])
-    ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-        H["combine"](
-            burn_ask,
-            H["sfx"]("r_plant"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](
-                r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
-        ),
-    )
+    if is_native:
+        # 蛮王的做法：AI 一见敌方英雄就按 R，满血开掉 6 秒不死太浪费。他身上有本包被动挂的 p_self 时，R 只待命 r_arm tick
+        # （3 tick 的 idle 动作，看不出放了），oathbreaker.rs 看到生命掉下去才断誓（插剑仰头的大招动作、不死、黑火）；
+        # 没有 p_self 的（塞拉斯偷去的 R）当场断誓。待命不烧血：烧 6% 挪到真正断誓那一刻（oathbreaker.rs），
+        # 不然每次待命过期、过一会儿再待命都要白烧一次。
+        ult = H["action"](
+            "ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+            H["combine"](
+                H["when"]("p_self", H["flag"]("r_armed", p["r_arm"]),
+                          H["combine"](r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
+            ),
+        )
+        ult["action_name"] = "idle"
+    else:
+        ult = H["action"](
+            "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+            H["combine"](
+                burn_ask,
+                H["sfx"]("r_plant"),
+                H["delayed"](p["r_go"] - 1, H["alive_only"](
+                    r_buff, H["sfx"]("r_erupt"), H["view"]("footfire"), r_burst)),
+            ),
+        )
 
     views_p = [H["V_proj"]("w_chain", "chain")]
     views_e = [
@@ -615,11 +660,13 @@ def build_faceless(p, is_native=True):
         H["tsfx"]("w_fear"),
     )
 
-    # Borrowed face auto-attack adaptation (when Face-Steal copied a ranged/mage hero, fire phantom bolt!)
+    # 夺面后的普攻：射手、法师、辅助类的脸变成飞出去的面具弹，射程由 faceless.rs 的原生效果 `reach`（range_adjust，
+    # AI 的射程判断也读它）按类别加长，挂在普攻最后（CombineEffect 取各效果里最大的那个）；攻速由 faceless.rs 调成受害者的快慢
     ranged_bolt = H["homing"]("p_bolt", 8500, [H["attack"](0, 100), H["tsfx"]("a_hit")], target="Enemy", y=-9000)
     cls_auto = H["when"](
         "cls_range", ranged_bolt,
-        H["when"]("cls_mage", ranged_bolt, H["attack"](0, 100)))
+        H["when"]("cls_mage", ranged_bolt,
+                  H["when"]("cls_util", ranged_bolt, H["attack"](0, 100))))
     base_hit = cls_auto if is_native else H["attack"](0, 100)
 
     attack_a = H["action"](
@@ -628,22 +675,20 @@ def build_faceless(p, is_native=True):
             base_hit,
             H["when"]("w_ambush", ambush_proc),
             H["sfx"]("a"), H["tsfx"]("a_hit"),
+            H["native_fx"](f"{cid}:reach") if is_native else None,
         ),
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 割影 — 穿透目标冲到身后 + 减速 + 隐身突袭连招可触发恐惧
+    # Q: 割影 — 化成黑影穿过目标冲到他身后（RushMoveToBack：冲到目标身后 1.5 万），碰到目标那一下身边 q_rad 内的
+    # 敌人都挨刀、减速（以前是固定冲 10 tick × 5600 = 5.6 万，贴脸放会冲出去 4 万多）；隐身突袭连招可触发恐惧
     q_hit = [
         H["attack"](p["q_dmg"], p["q_ad"]),
         H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
         H["when"]("w_ambush", ambush_proc),
         H["tsfx"]("q_pass"),
     ]
-    q_rush = {
-        "type": "RushTime", "speed": p["q_speed"], "tick": p["q_t"], "range": p["q_rad"],
-        "casting_target": "EnemyWithoutTower", "penetrate": True,
-        "applied_effects": [H["T"](e) for e in q_hit if e is not None],
-    }
+    q_rush = {"type": "RushMoveToBack", "speed": p["q_speed"], "applied_effects": [H["around"](p["q_rad"], q_hit)]}
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
@@ -652,12 +697,13 @@ def build_faceless(p, is_native=True):
     )
 
     # W: 无相 — 隐身 1.5s + 移速提升 + 武装下一次出手恐惧 0.75s
+    # 武装只到隐身结束（加一次普攻出手的 atk_st：隐身里起手的那一下也算），不再拖到现身 1.5 秒以后
     w_cast = H["combine"](
         H["sfx"]("w_hide"),
         H["view"]("mist"),
         H["search_self"]({"type": "CasterInvisible", "tick": p["w_inv"]}),
         H["flag"]("w_haste", p["w_inv"], move_speed_mult=p["w_ms"]),
-        H["flag"]("w_ambush", p["w_ambush_t"]),
+        H["flag"]("w_ambush", p["w_inv"] + p["atk_st"]),
     )
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
@@ -667,6 +713,7 @@ def build_faceless(p, is_native=True):
     )
 
     # R: 撕面 — 大黑手按住撕面：高额爆发 + <=25%直接真伤撕死并立刻夺面!
+    # 只对己方最近打过的敌方英雄放（EnemyChampionRecentlyAttacked：斩杀不该开在满血的人身上）
     r_exec_ask = H["buff"]("r_exec_ask", 4) if is_native else None
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     plain_shroud = None if is_native else H["flag"](
@@ -680,27 +727,56 @@ def build_faceless(p, is_native=True):
         H["tsfx"]("r_grasp"),
         r_return,
     )
-    # If wearing a stolen face (r_stolen), casting R unleashes a bonus borrowed-ult surge & consumes charge
-    stolen_bonus = H["combine"](
-        H["attack"](100, 75),
-        H["unflag"]("r_stolen"),
-        H["view"]("shards"),
-        H["sfx"]("mask_crack"),
-    )
+    r_main = r_strike
+    if is_native:
+        # 借来的大招（照塞拉斯附加包按类别偷大招的五套，伤害换成攻击力）：夺面时 faceless.rs 刷新 R 的冷却、挂上受害者的
+        # 类别和 r_stolen，这 10 秒里放 R 就是那一类的大招，放过一次 r_stolen 拿掉，下一次回到撕面
+        s_slow = H["buff"]("s_slow", 90, move_speed_mult=-40)
+        melee_ult = H["combine"](   # 近战：跃到目标身上重砸，一圈眩晕
+            H["view"]("dash"),
+            H["move_to_target"](6000, 100000, [
+                H["view"]("shards"), H["sfx"]("r_grasp"),
+                H["around"](24000, [H["attack"](p["s_melee_dmg"], p["s_melee_ad"]), H["stun"](60), H["view"]("grasp")]),
+            ]))
+        range_ult = H["linear"]("r_lance", 7000, 90000, 9000,   # 射手：一道贯穿的长射，减速
+                                [H["attack"](p["s_range_dmg"], p["s_range_ad"]), s_slow, H["view"]("grasp")],
+                                target="EnemyWithoutTower", penetrate=True, y=-9000)
+        mage_ult = H["lob"]("r_burst", 1, [   # 法师：目标处炸开，击飞
+            H["view"]("shards"),
+            H["zone"]("r_burst_z", 25000, [H["attack"](p["s_mage_dmg"], p["s_mage_ad"]), H["airborne"](45),
+                                           H["view"]("grasp")]),
+        ], target="EnemyChampion")
+        util_ult = H["combine"](   # 辅助：身边友方英雄回血加盾，敌人挨打减速
+            H["view"]("mist"),
+            H["around"](45000, [H["heal"](p["s_util_heal"], ad_ratio=30, kind="Ally"),
+                                H["shield"](100, ad_ratio=30, tick=180)], target="AllyChampion"),
+            H["around"](45000, [H["attack"](p["s_util_dmg"], p["s_util_ad"]), s_slow, H["view"]("grasp")]),
+        )
+        assassin_ult = H["combine"](   # 刺客：闪到目标身上重击，隐身
+            {"type": "Teleport"}, H["view"]("dash"),
+            H["attack"](p["s_sin_dmg"], p["s_sin_ad"]), H["view"]("grasp"), H["sfx"]("r_grasp"),
+            H["around"](1000, [{"type": "CasterInvisible", "tick": 60}], target="AllyOnlySelf"),
+        )
+        borrowed = H["when"]("cls_melee", melee_ult,
+                             H["when"]("cls_range", range_ult,
+                                       H["when"]("cls_mage", mage_ult,
+                                                 H["when"]("cls_util", util_ult, assassin_ult))))
+        r_main = H["when"]("r_stolen",
+                           H["combine"](H["unflag"]("r_stolen"), H["view"]("shards"), H["sfx"]("mask_crack"), borrowed),
+                           r_strike)
     ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
         H["combine"](
             r_voice,
             H["sfx"]("r_grasp"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](
-                r_strike,
-                H["when"]("r_stolen", stolen_bonus) if is_native else None)),
+            H["delayed"](p["r_go"] - 1, H["alive_only"](r_main)),
         ),
     )
 
     views_p = [
         H["V_proj"]("r_mask", "mask_return"),
         H["V_proj"]("p_bolt", "mask_return"),
+        H["V_proj"]("r_lance", "mask_return"),
     ]
     views_e = [
         H["V_eff"]("dash", "dash", 2),
@@ -850,9 +926,10 @@ def build_bonebow(p, is_native=True):
                   H["when"]("s1", H["flag"]("s2", 600), H["flag"]("s1", 600))),
     )
 
-    # Auto: 骨箭
+    # Auto: 骨箭（打中时给她挂 a_shot：bonebow.rs 按箭数，第 4 支拉起骷髅兵）
     a_proj = H["homing"]("a_arrow", p["a_speed"],
-                         [H["attack"](0, 100), plain_4th, H["view"]("soul"), H["tsfx"]("a_hit")],
+                         [H["attack"](0, 100), plain_4th, H["view"]("soul"), H["tsfx"]("a_hit"),
+                          H["flag"]("a_shot", 2) if is_native else None],
                          target="Enemy", y=p["a_y"])
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
@@ -873,7 +950,8 @@ def build_bonebow(p, is_native=True):
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
             H["sfx"]("q_draw"),
-            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_release"), q_line)),
+            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_release"), q_line,
+                                                        H["flag"]("q_arrow", 3) if is_native else None)),
         ),
     )
 
@@ -889,8 +967,9 @@ def build_bonebow(p, is_native=True):
             H["view"]("soul"),
         ], target="EnemyWithoutTower"),
     ], target="EnemyWithoutTower")
+    # 只对敌方英雄放：骷髅兵是攒来炸人的，不该冲去炸一线小兵
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
         H["combine"](
             H["buff"]("w_mark", 18) if is_native else None,
             H["delayed"](p["w_go"] - 1, H["alive_only"](
@@ -901,13 +980,14 @@ def build_bonebow(p, is_native=True):
 
     # R: 亡军 — 朝天射箭，落下一片3.5万半径骨箭雨 + 地里爬出5个骷髅兵活8秒!
     # Also spawns a 4-tick follow-up arrow barrage in data when --plain or stolen by Sylas
-    r_ask_enemy = H["buff"]("r_ask", 6) if is_native else None
+    # 一次大招一批：放的时候给目标挂 r_aim（记下落点），箭射出去时给她挂 r_ask，bonebow.rs 在箭雨落地那一 tick
+    # 在目标处拉起 5 个（以前箭雨打中的每个敌人身上也挂 r_ask，每个都拉一批）
+    r_aim = H["buff"]("r_aim", 40) if is_native else None
     r_ask_self = H["flag"]("r_ask", 6) if is_native else None
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     r_rain_hit = [
         H["attack"](p["r_dmg"], p["r_ad"]),
         H["buff"]("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]),
-        r_ask_enemy,
         H["view"]("soul"),
         H["tsfx"]("a_hit"),
     ]
@@ -926,6 +1006,7 @@ def build_bonebow(p, is_native=True):
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
         H["combine"](
             r_voice,
+            r_aim,
             H["sfx"]("r_launch"),
             H["delayed"](p["r_go"] - 1, H["alive_only"](r_ask_self, r_lob)),
         ),
@@ -991,7 +1072,9 @@ def build_corvus(p, is_native=True):
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
-            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_cast"), q_lob)),
+            # scan：瓶子飞的这段再加 20 tick，corvus.rs 只在它挂着时找疫病请求（冷却要等动作结束才走，看冷却认不出）
+            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_cast"), q_lob,
+                                                        H["flag"]("scan", p["q_travel"] + 20) if is_native else None)),
         ),
     )
 
@@ -1010,10 +1093,24 @@ def build_corvus(p, is_native=True):
         w_plain_peel,
     ]
     w_raven = H["homing"]("w_raven", p["w_speed"], w_land, target="AllyChampion", y=-12000)
+    # 珍娜 E 的做法：护盾放在友方身上，AI 冷却一好就放（多半放给自己、满血、身边没人）。现在等敌方英雄进到 w_range 才放
+    # （None + EnemyChampion），乌鸦飞向他身边 w_ally_r 内随便一名友方英雄；身边没有队友才停在自己肩上
+    w_self = H["around"](1000, [
+        H["shield"](p["w_sh"], ap_ratio=p["w_sh_ap"], tick=p["w_t"]),
+        H["buff"]("raven_perch", p["w_t"]),
+        H["view"]("shield"),
+        H["tsfx"]("w_wing"),
+        w_plain_peel,
+    ], target="AllyOnlySelf")
+    w_cast = H["combine"](
+        H["sfx"]("w_cast"),
+        H["rand_target"](p["w_ally_r"], "AllyNotSelf", H["flag"]("w_lock", 3), w_raven),
+        H["delayed"](1, H["when"]("w_lock", H["unflag"]("w_lock"), w_self)),
+    )
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "AllyChampion",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "None", "EnemyChampion",
         H["combine"](
-            H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_cast"), w_raven)),
+            H["delayed"](p["w_go"] - 1, H["alive_only"](w_cast)),
         ),
     )
 
@@ -1045,7 +1142,7 @@ def build_corvus(p, is_native=True):
         H["combine"](
             r_voice,
             H["sfx"]("r_cane"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](r_lob)),
+            H["delayed"](p["r_go"] - 1, H["alive_only"](r_lob, H["flag"]("scan", p["r_t"] + 20) if is_native else None)),
         ),
     )
 
@@ -1095,9 +1192,15 @@ def build_bloodmoon(p, is_native=True):
         H["view"]("pounce"),
         H["tsfx"]("pounce_hit"),
     )
+    # 射程按狼形近战算；人形的银弩由 human_range（官方 range_adjust，放在最外层 Combine 的最后）再加 1.9 万。
+    # --plain 跑不了原生代码，射程直接按人形算。
+    atk_range = p["atk_range"] if is_native else p["atk_range"] + p["human_range"]
     attack_a = H["action"](
-        "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
-        H["when"]("wolf", wolf_auto, H["when"]("giant", wolf_auto, human_auto)),
+        "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], atk_range, "Targeting", "Enemy",
+        H["combine"](
+            H["when"]("wolf", wolf_auto, H["when"]("giant", wolf_auto, human_auto)),
+            H["native_fx"](f"{cid}:human_range") if is_native else None,
+        ),
         atype="BaseAttack", cancel=True,
     )
 
@@ -1147,9 +1250,20 @@ def build_bloodmoon(p, is_native=True):
         H["sfx"]("w_rollback"),
         H["move_back"](p["w_back_spd"], p["w_back_t"]),
     )
+    # 巨狼期间不变身：身体还是巨狼，播一声狼嚎（狼形的大招动作）、照样把身边的人吓慢，不切形态。
+    # 动作要在出手那一刻就换（变身动作会被显示钩子换成狼形的「变回人」），所以分支放在最前面。
+    giant_howl = H["combine"](
+        H["view"]("howl"),
+        H["sfx"]("r_howl"),
+        H["around"](p["w_slow_r"], [H["buff"]("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"])]),
+    )
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
-        H["delayed"](p["w_go"] - 1, H["alive_only"](H["when"]("wolf", to_human, to_wolf))),
+        H["combine"](
+            H["when"]("giant", {"type": "CasterAnimation", "name": "wf_ult", "tick": p["w_dur"]}),
+            H["delayed"](p["w_go"] - 1, H["alive_only"](
+                H["when"]("giant", giant_howl, H["when"]("wolf", to_human, to_wolf)))),
+        ),
     )
 
     # R: 「血月」血月升起化身1.3倍巨狼8秒 (减伤25% + 狼形攻速吸血 + 3万群体恐惧1s + 顺劈)
@@ -1166,7 +1280,9 @@ def build_bloodmoon(p, is_native=True):
             r_voice,
             H["sfx"]("r_moon"),
             H["delayed"](p["r_go"] - 1, H["alive_only"](
-                H["flag"]("wolf", None, attack_speed_mult=p["wolf_as"], vamp=p["wolf_vamp"]),
+                # 已经是狼形就不再挂一层（同名的 buff 会叠，攻速、吸血翻倍）
+                H["when"]("wolf", None,
+                          H["flag"]("wolf", None, attack_speed_mult=p["wolf_as"], vamp=p["wolf_vamp"])),
                 H["flag"]("giant", p["r_t"], damaged_reduce=p["r_dr"]),
                 H["view"]("transform"),
                 H["view"]("howl"),
@@ -1256,16 +1372,23 @@ def build_undertaker(p, is_native=True):
     )
 
     # R: 入殓 — 把敌方英雄塞进棺材扛走2秒(+20%移速)，再摔出 150 + 8%目标最大生命 + 眩晕1秒!
-    # Native 走 undertaker.rs 实时扛着走2秒再摔; 塞拉斯偷大 / --plain(无 coffin_shield) 自动走数据版关棺拽回+摔棺爆发!
+    # 原生版（他身上有 coffin_shield）：数据只关棺、定住、挂 coffin_ask；undertaker.rs 把人放逐进棺材（看不见、选不中），
+    # 给他自己挂 carrying（+20% 移速，棺缝里挣扎的影子画在他身上），扛着往自己人那边走，2 秒后摔到他身前。
+    # 塞拉斯偷大 / --plain（没有 coffin_shield）：数据版拽过来、挂 carrying、1 秒后摔。
     r_coffin_ask = H["buff"]("coffin_ask", 4) if is_native else None
-    r_fallback_slam = H["when"](
+    r_fallback = H["when"](
         "coffin_shield", H["combine"](),
-        H["delayed"](60, H["alive_only"](
-            H["attack"](p["r_slam_dmg"], 0, thp=p["r_slam_thp"]),
-            H["stun"](p["r_stun"]),
-            H["view"]("drop"),
-            H["tsfx"]("coffin_drop"),
-        )),
+        H["combine"](
+            H["grab"](3000, 12),
+            H["buff"]("in_coffin", p["r_carry_t"]),
+            H["flag"]("carrying", p["r_carry_t"], move_speed_mult=p["r_ms"]),
+            H["delayed"](60, H["alive_only"](
+                H["attack"](p["r_slam_dmg"], 0, thp=p["r_slam_thp"]),
+                H["stun"](p["r_stun"]),
+                H["view"]("drop"),
+                H["tsfx"]("coffin_drop"),
+            )),
+        ),
     )
     ult = H["action"](
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -1274,12 +1397,9 @@ def build_undertaker(p, is_native=True):
             H["sfx"]("r_open"),
             H["delayed"](p["r_go"] - 1, H["alive_only"](
                 H["view"]("close"),
-                H["grab"](3000, 12),
                 H["stun"](p["r_stun"]),
-                H["buff"]("in_coffin", p["r_carry_t"]),
-                H["flag"]("carrying", p["r_carry_t"], move_speed_mult=p["r_ms"]),
                 r_coffin_ask,
-                r_fallback_slam,
+                r_fallback,
             )),
         ),
     )
@@ -1288,6 +1408,7 @@ def build_undertaker(p, is_native=True):
     views_e = [
         H["V_eff"]("dust", "dust", -1, follow=False),
         H["V_eff"]("cracks", "cracks", -1, follow=False),
+        # 棺材立 3 秒：图集里最后一帧（立着的棺材）停到 3 秒（abysspact_undertaker_fx#anim.fanim）
         H["V_eff"]("coffin", "coffin", 1, follow=False),
         H["V_eff"]("close", "close", 3),
         H["V_eff"]("drop", "drop", 3),
@@ -1295,6 +1416,7 @@ def build_undertaker(p, is_native=True):
     ]
     views_b = [
         H["V_buf"]("in_coffin", "struggle", 3),
+        H["V_buf"]("carrying", "struggle", 3),
     ]
     # Note: sim3.exe 0.5.1 (--plain) does not recognize "Tank"; native uses "Tank"!
     cat = "Tank" if is_native else "Melee"
@@ -1357,13 +1479,14 @@ def build_effigy(p, is_native=True):
             H["stun"](p["w_plain_stun"]),
         ], target="EnemyChampion"),
     ], target="EnemyChampion")
+    # 原生版的线团只在真连上两个人时由 effigy.rs 挂（一边一个），数据不再先挂一个
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
         H["delayed"](p["w_go"] - 1, H["alive_only"](
             H["sfx"]("w_throw"),
             H["view"]("line"),
             H["ap_atk"](p["w_dmg"], p["w_ap"]),
-            H["buff"]("knot", p["w_t"]),
+            None if is_native else H["buff"]("knot", p["w_t"]),
             needle_ask,
             link_ask,
             H["tsfx"]("w_taut"),
@@ -1372,9 +1495,10 @@ def build_effigy(p, is_native=True):
     )
 
     # R: 拆线 — 扯出7万内所有敌人身上的银针!
-    # Native 走 effigy.rs 全图拔针每根 90+45%AP; 塞拉斯偷大 / --plain(无 native 标记) 触发大范围拆线爆发+减速50%!
-    r_return_proj = H["homing"]("r_return", 7800, [H["view"]("return"), H["tsfx"]("unpick_return")],
-                                target="EnemyChampion", y=p["a_y"])
+    # Native 走 effigy.rs 全图拔针每根 90+45%AP（针从每个人身上拖着红线飞回她手里）; 塞拉斯偷大 / --plain(无 native 标记)
+    # 触发大范围拆线爆发+减速50%! 只对最近被己方打过的敌方英雄按（身上多半插着针）。
+    r_return_proj = None if is_native else H["homing"](
+        "r_return", 7800, [H["view"]("return"), H["tsfx"]("unpick_return")], target="EnemyChampion", y=p["a_y"])
     r_non_native = H["when"](
         "native", H["combine"](),
         H["lob"]("r_lob", 1, [
@@ -1388,7 +1512,7 @@ def build_effigy(p, is_native=True):
         ], target="EnemyChampion"),
     )
     ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
         H["combine"](
             r_voice,
             H["sfx"]("r_unpick"),
@@ -1404,6 +1528,9 @@ def build_effigy(p, is_native=True):
         H["V_proj"]("a_needle", "needle"),
         H["V_proj"]("q_needle", "needle"),
         H["V_proj"]("r_return", "return"),
+        # 同命线的红线：特效图集里的红绳，effigy.rs 每 tick 在两人中间放一段（弹道图跟着方向转）
+        {"type": "Animated", "name": H["n"]("thread"), "anim": f"asset/{MOD_ID}/effects/{cid}_fx",
+         "tag": "line", "repeat": True, "z": 2},
     ]
     views_e = [
         H["V_eff"]("fan", "fan", 2),
@@ -1434,11 +1561,11 @@ def build_sevenfold(p, is_native=True):
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     q_shots_ask = H["flag"]("q_shots", 4) if is_native else None
     w_load_ask = H["flag"]("w_load", 4) if is_native else None
-    r_curse_ask = H["flag"]("r_curse", 4) if is_native else None
 
-    # Data-only 7th Abyss Bullet (used by --plain counter AND Sylas stolen ult!)
+    # 第七颗深渊魔弹（普攻的第七发、R 的最后一发、--plain 的计数、塞拉斯偷大都走这一份）：
+    # 身后睁开深渊之眼，9 万内随机一个敌方英雄，追踪弹拐着弯飞过去，真实伤害。
     curse_shot_data = H["combine"](
-        H["view"]("abyss_eye"),
+        {"type": "CasterViewEffect", "name": H["n"]("abyss_eye")},
         H["sfx"]("abyss_eye"),
         H["sfx"]("r_curse_launch"),
         H["rand_target"](p["p_range"], "EnemyChampion",
@@ -1467,10 +1594,24 @@ def build_sevenfold(p, is_native=True):
     # Auto: 魔弹枪
     a_proj = H["homing"]("a_round", p["a_speed"], [H["attack"](0, 100), H["tsfx"]("a_hit")],
                          target="Enemy", y=p["a_y"])
+    normal_shot = H["combine"](H["sfx"]("a"), H["view"]("recoil"), a_proj, plain_step)
+    if is_native:
+        # 原生版：sevenfold.rs 数普攻，轮到第七发时给他挂 seventh。这一发不打瞄的人，换成深渊魔弹，
+        # 挂 fired7 让 sevenfold.rs 扣 8% 当前生命、装弹 1.2 秒。
+        # 魔弹的伤害在随机目标的弹道里，AI 读不到；先放一个它读得到、出手时跳过的伤害（gangplank 的 decoy），
+        # 不然 AI 的对战计划按普攻伤害做除法会除以零。
+        decoy = H["combine"](
+            H["flag"]("x7", 1),
+            H["when"]("x7", H["unflag"]("x7"), H["attack"](p["p_true_dmg"], p["p_true_ad"])),
+            H["unflag"]("x7"),
+        )
+        seventh_shot = H["combine"](H["unflag"]("seventh"), H["flag"]("fired7", 4), decoy, curse_shot_data)
+        attack_eff = H["when"]("seventh", seventh_shot, normal_shot)
+    else:
+        attack_eff = normal_shot
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
-        H["combine"](H["sfx"]("a"), H["view"]("recoil"), a_proj, plain_step),
-        atype="BaseAttack", cancel=True,
+        attack_eff, atype="BaseAttack", cancel=True,
     )
 
     # Q: 连发 — 一口气连开三枪 (算3颗子弹加快轮到第七颗)
@@ -1500,16 +1641,13 @@ def build_sevenfold(p, is_native=True):
     )
 
     # R: 七发齐射 — 前6发各自找敌人射击 + 第7发必为深渊拐弯真伤魔弹!
-    # Native 第7发由 sevenfold.rs 发射并扣8%当前血; 塞拉斯偷大 / --plain 自动发射完整第7颗魔弹!
+    # 第七发和普攻的第七发同一份数据；原生版另挂 r_fired7 让 sevenfold.rs 扣 8% 当前生命（R 不装弹、不动弹仓计数）。
     r_single = H["rand_target"](p["r_range"], "EnemyWithoutTower",
                                 H["homing"]("r_round", p["a_speed"], [
                                     H["attack"](p["r_dmg"], p["r_ad"]),
                                     H["tsfx"]("a_hit"),
                                 ], target="EnemyWithoutTower", y=p["a_y"]))
-    r_seventh_visual = H["rand_target"](p["p_range"], "EnemyChampion",
-                                        H["homing"]("r_curse", 8800, [], target="EnemyChampion", y=p["a_y"]))
-    r_seventh = H["when"]("native", H["combine"](r_curse_ask, H["sfx"]("r_curse_launch"), r_seventh_visual),
-                          curse_shot_data)
+    r_seventh = H["combine"](H["flag"]("r_fired7", 4) if is_native else None, curse_shot_data)
     ult = H["action"](
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
         H["combine"](
@@ -1552,7 +1690,6 @@ def build_vesper(p, is_native=True):
     H = mk_helpers(cid)
 
     r_ask = H["flag"]("r_ask", 4) if is_native else None
-    r_voice = H["flag"]("r_voice", 4) if is_native else None
 
     # Auto: 鬼火
     a_proj = H["homing"]("a_wisp", p["a_speed"], [H["attack"](0, 100), H["tsfx"]("a_hit")],
@@ -1575,9 +1712,10 @@ def build_vesper(p, is_native=True):
         H["delayed"](120, q_tick_heal),
         H["delayed"](p["q_t"], q_end_shield),
     ]
-    q_wisp = H["homing"]("q_wisp", 8000, q_land, target="AllyChampion", y=p["a_y"])
+    # 设计是「连到一个队友身上」：不给自己放（AllyNotSelf）
+    q_wisp = H["homing"]("q_wisp", 8000, q_land, target="AllyNotSelf", y=p["a_y"])
     skill = H["action"](
-        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "AllyChampion",
+        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "AllyNotSelf",
         H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_link"), q_wisp)),
     )
 
@@ -1596,29 +1734,43 @@ def build_vesper(p, is_native=True):
     )
 
     # R: 回魂 — 唤回10秒内阵亡队友化魂再战8秒(拿人头真复活)，无阵亡队友则全体加盾!
-    # Native 走 vesper.rs 安全复活/魂体/兜底群盾; 塞拉斯偷大 / --plain(无 native) 降下回魂光柱为5万内友军群盾+回血+25%减伤!
-    r_non_native = H["when"](
-        "native", H["combine"](),
-        H["lob"]("r_lob", 1, [
-            H["view"]("pillar"),
+    # 原生版：R 只是 3 tick 的「备好」（敌方英雄 6 万内就按，和联盟包阿利斯塔、布里茨的大招一样），挂 r_ask；
+    # vesper.rs 在备好的 6 秒里等：队友倒下就回魂（放大招动作、光柱、魂体），有队友残血就给身边加盾，
+    # 都没有就把冷却退回来，下次打起来再备。以前 R 一好就被 AI 放掉，几乎从来等不到阵亡的队友。
+    # 塞拉斯偷大 / --plain(无 native) 降下回魂光柱为5万内友军群盾+回血+25%减伤!
+    r_zone_effects = [
+        H["shield"](p["r_sh"], ap_ratio=p["r_sh_ap"], tick=p["r_sh_t"]),
+        H["heal"](p["r_heal"], ap_ratio=p["r_heal_ap"], kind="Ally"),
+        H["buff"]("spirit", p["r_dr_t"], damaged_reduce=p["r_dr"], move_speed_mult=15),
+        H["view"]("rebirth"),
+        H["tsfx"]("warm_shield"),
+    ]
+    if is_native:
+        sylas_shield = H["when"]("native", H["combine"](), H["combine"](
+            {"type": "CasterViewEffect", "name": H["n"]("pillar")},
             H["sfx"]("return_pillar"),
-            H["zone"]("r_zone", p["r_r"], [
-                H["shield"](p["r_sh"], ap_ratio=p["r_sh_ap"], tick=p["r_sh_t"]),
-                H["heal"](p["r_heal"], ap_ratio=p["r_heal_ap"], kind="Ally"),
-                H["buff"]("spirit", p["r_dr_t"], damaged_reduce=p["r_dr"], move_speed_mult=15),
-                H["view"]("rebirth"),
-                H["tsfx"]("warm_shield"),
-            ], target="AllyChampion"),
-        ], target="AllyChampion"),
-    )
-    ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "AllyChampion",
-        H["combine"](
-            r_voice,
-            H["sfx"]("r_pointer"),
-            H["delayed"](p["r_go"] - 1, H["alive_only"](r_ask, r_non_native)),
-        ),
-    )
+            H["around"](p["r_r"], r_zone_effects, "AllyChampion"),
+        ))
+        ult = H["action"](
+            "idle", p["r_arm_dur"], p["r_cd"], 1, p["r_range"], "None", "EnemyChampion",
+            H["combine"](r_ask, sylas_shield),
+        )
+        # 动作名是 idle，说明文字还是指向大招这一格（文字表里只有 .ult）
+        ult["description"] = f"#asset/base/text/champion?description.{cid}.ult"
+    else:
+        ult = H["action"](
+            "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "AllyChampion",
+            H["combine"](
+                H["sfx"]("r_pointer"),
+                H["delayed"](p["r_go"] - 1, H["alive_only"](
+                    H["lob"]("r_lob", 1, [
+                        H["view"]("pillar"),
+                        H["sfx"]("return_pillar"),
+                        H["zone"]("r_zone", p["r_r"], r_zone_effects, target="AllyChampion"),
+                    ], target="AllyChampion"),
+                )),
+            ),
+        )
 
     views_p = [
         H["V_proj"]("a_wisp", "wisp"),
@@ -1636,9 +1788,13 @@ def build_vesper(p, is_native=True):
         H["V_buf"]("guide", "guide", 2),
         H["V_buf"]("spirit", "spirit", 2),
     ] + [H["V_buf"](f"candle_{k}", f"candle_{k}", 3) for k in range(1, 6)]
-    return wrap_kit(cid, "Util", ["AP", "Magic", "Heal", "Shield", "CC"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:vigil")
+    kit = wrap_kit(cid, "Util", ["AP", "Magic", "Heal", "Shield", "CC"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:vigil")
+    if is_native:
+        # 烛冠每支让引路的回血和护盾 +10%：vesper.rs 照这几个数补上那一截
+        kit["passive"]["params"] = {k: p[k] for k in ("q_heal", "q_heal_ap", "q_sh", "q_sh_ap", "q_sh_t")}
+    return kit
 
 
 # ===========================================================================
@@ -1682,23 +1838,30 @@ def build_carapace(p, is_native=True):
         ]),
     )
     q_normal = H["combine"](H["sfx"]("q_thrust"), H["view"]("thrust"), q_rush)
+    # 射程的原生效果放在最外层 Combine 的最后（游戏的平衡补丁读第一个效果）
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
-            H["native_fx"](f"{cid}:q_range") if is_native else None,
             H["delayed"](p["q_go"] - 1, H["alive_only"](H["when"]("form3", q_dive, q_normal))),
+            H["native_fx"](f"{cid}:q_range") if is_native else None,
         ),
     )
 
-    # W: 甲鸣 — 敲甲震波2万: 伤害 + 回复自身
+    # W: 甲鸣 — 敲甲震波2万: 伤害 + 按打出伤害的 30% 治疗自己
+    # 原生版先挂 3 tick 的 w_heal，carapace.rs 在 on_attack 里按每一下的伤害回血（小兵、野怪也算）；
+    # --plain 跑不了原生代码，按打中的英雄个数回一笔固定的血。
     w_hit = [H["attack"](p["w_dmg"], p["w_ad"]), H["tsfx"]("a_hit")]
+    w_heal = H["flag"]("w_heal", 3) if is_native else None
+    w_heal_plain = None if is_native else H["around"](
+        p["w_r"], [H["heal"](p["w_heal"], ad_ratio=p["w_heal_ad"], kind="Caster")], "EnemyChampion")
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
         H["delayed"](p["w_go"] - 1, H["alive_only"](
             H["sfx"]("w_resonate"),
             H["view"]("resonate"),
+            w_heal,
             H["around"](p["w_r"], w_hit, "EnemyWithoutTower"),
-            H["around"](p["w_r"], [H["heal"](p["w_heal"], ad_ratio=p["w_heal_ad"], kind="Caster")], "EnemyChampion"),
+            w_heal_plain,
         )),
     )
 
@@ -1726,6 +1889,7 @@ def build_carapace(p, is_native=True):
             H["taunt"](36) if not is_native else None,
         ], "EnemyWithoutTower"),
     )
+    # 第三形态的飞扑：射程另加 3 万（carapace.rs 的 r_range）= 6 万
     ult = H["action"](
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
         H["combine"](
@@ -1734,6 +1898,7 @@ def build_carapace(p, is_native=True):
                 H["when"]("form3", r_f3_dive,
                           H["when"]("native", r_molt_ask, r_burst_data)),
             )),
+            H["native_fx"](f"{cid}:r_range") if is_native else None,
         ),
     )
 
@@ -1787,13 +1952,14 @@ def build_leech(p, is_native=True):
         H["heal"](p["q_plain_heal"], ap_ratio=25, kind="Caster"),
         H["view"]("drain"),
     )
+    # 宿主 -30% 移速：原生版由 leech.rs 的 host_mark 给（附着多久就慢多久），数据只在 --plain 里给，免得叠成 -60%
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
         H["delayed"](p["q_go"] - 1, H["alive_only"](
             H["sfx"]("q_lunge"),
             H["move_to_target"](6500, p["q_range"], [
                 H["ap_atk"](p["q_dmg"], p["q_ap"]),
-                H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
+                None if is_native else H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
                 attach_ask,
                 q_plain_drain,
                 H["view"]("jump"),
@@ -1809,21 +1975,24 @@ def build_leech(p, is_native=True):
         H["view"]("venom"),
         H["tsfx"]("w_venom"),
     )
+    # 原生版出手时先挂 w_cast（整个动作那么长）：附着时 leech.rs 在他出招期间不推他（强制位移会打断出招）
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
         H["combine"](
-            H["native_fx"](f"{cid}:w_range") if is_native else None,
+            H["flag"]("w_cast", p["w_dur"]) if is_native else None,
             H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_bite"), w_hit)),
+            H["native_fx"](f"{cid}:w_range") if is_native else None,
         ),
     )
 
     # R: 万蛭 — 裂成5只小水蛭扑向敌方英雄各附3秒群吸!
-    # 5只可见小水蛭弹道飞向敌军; Native 走 leech.rs 完整3秒群吸+聚回回血+10%分摊; 塞拉斯偷大 / --plain 触发水蛭群吸法伤+回血!
-    r_mini_vis = H["rand_target"](p["r_range"], "EnemyChampion",
-                                  H["homing"]("r_mini", 8200, [
-                                      H["view"]("drain"),
-                                      H["tsfx"]("r_cling"),
-                                  ], target="EnemyChampion", y=-9000))
+    # 原生版：leech.rs 把他放逐 3 秒（不在场上、选不中），给每只真正扑出去的小水蛭放一发弹道到它的宿主，3 秒后从每个宿主
+    # 飞回来聚成他；塞拉斯偷大 / --plain 触发水蛭群吸法伤+回血（数据的三发小水蛭弹道只在这时放）!
+    r_mini_vis = None if is_native else H["rand_target"](p["r_range"], "EnemyChampion",
+                                                         H["homing"]("r_mini", 8200, [
+                                                             H["view"]("drain"),
+                                                             H["tsfx"]("r_cling"),
+                                                         ], target="EnemyChampion", y=-9000))
     r_non_native = H["when"](
         "native", H["combine"](),
         H["lob"]("r_lob", 1, [
@@ -1846,8 +2015,8 @@ def build_leech(p, is_native=True):
             H["delayed"](p["r_go"] - 1, H["alive_only"](
                 r_split_ask,
                 r_mini_vis,
-                H["delayed"](3, H["alive_only"](r_mini_vis)),
-                H["delayed"](6, H["alive_only"](r_mini_vis)),
+                None if is_native else H["delayed"](3, H["alive_only"](r_mini_vis)),
+                None if is_native else H["delayed"](6, H["alive_only"](r_mini_vis)),
                 r_non_native,
             )),
         ),
@@ -1876,6 +2045,14 @@ def build_leech(p, is_native=True):
                     is_native, f"{cid}:parasite")
 
 
+def arm_action(H, cid, slot, cd, rng, target, effect):
+    """待命用的 3 tick idle 动作：AI 按下去只挂一个标记，什么时候真正出招由原生决定（Kayle R 的写法）。
+    说明文字仍指向这一格（skill / skill2 / ult），不是 idle。"""
+    a = H["action"]("idle", 3, cd, 1, rng, "Targeting", target, effect)
+    a["description"] = f"#asset/base/text/champion?description.{cid}.{slot}"
+    return a
+
+
 # ===========================================================================
 # 13. 千蛾 (abysspact_noctua) · 中路法师 · 散身蛾群与万蛾风暴
 # ===========================================================================
@@ -1885,6 +2062,7 @@ def build_noctua(p, is_native=True):
 
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     scale_ask = H["buff"]("scale_ask", 4) if is_native else None
+    q_live = H["flag"]("q_live", 90) if is_native else None
     r_storm_ask = H["flag"]("r_storm", 4) if is_native else None
 
     # Auto: 扑火 (4帧扑扇飞蛾弹道)
@@ -1896,20 +2074,20 @@ def build_noctua(p, is_native=True):
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 蛾群 — 放出6只飞蛾自动寻敌，造成法伤并叠加鳞粉减速!
+    # Q: 蛾群 — 6 只飞蛾只找 6 万内的敌方英雄（原生按打中的人叠鳞粉；飞蛾在路上时她身上挂 q_live）
     q_plain_slow = None if is_native else H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"])
-    q_one = H["rand_target"](p["q_range"], "EnemyWithoutTower",
+    q_one = H["rand_target"](p["q_range"], "EnemyChampion",
                              H["homing"]("q_moth", 8400, [
                                  H["ap_atk"](p["q_dmg"], p["q_ap"]),
                                  scale_ask,
                                  q_plain_slow,
                                  H["view"]("scales"),
                                  H["tsfx"]("scale_mark"),
-                             ], target="EnemyWithoutTower", y=p["a_y"]))
+                             ], target="EnemyChampion", y=p["a_y"]))
     skill = H["action"](
-        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyChampion",
         H["combine"](
-            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_swarm"), q_one, q_one)),
+            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_swarm"), q_live, q_one, q_one)),
             H["delayed"](p["q_go"] + 4, H["alive_only"](q_one, q_one)),
             H["delayed"](p["q_go"] + 9, H["alive_only"](q_one, q_one)),
         ),
@@ -1932,8 +2110,8 @@ def build_noctua(p, is_native=True):
         H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("a"), w_proj)),
     )
 
-    # R: 万蛾 — 化作3.5秒不可选中蛾群风暴持续灼烧叠鳞粉，聚身爆开鳞粉沉默3万内敌人1.25秒!
-    # Native 走 noctua.rs 真实移动风暴+聚身沉默; 塞拉斯偷大 / --plain 展开3.5秒蛾群风暴+终点鳞粉群体沉默!
+    # R: 万蛾 — 施法动作碎完（r_go）才化成风暴：原生放逐她 3.5 秒、往敌人堆里扫、每 r_p 打一圈加鳞粉、收尾沉默；
+    # 塞拉斯偷大 / --plain 在目标处展开 3.5 秒的蛾群风暴 + 终点鳞粉群体沉默
     r_non_native = H["when"](
         "native", H["combine"](),
         H["lob"]("r_lob", 1, [
@@ -1974,6 +2152,8 @@ def build_noctua(p, is_native=True):
         H["V_eff"]("cocoon", "cocoon", 3),
         H["V_eff"]("cocoon_break", "cocoon_break", 3),
         H["V_eff"]("dust_shock", "dust_shock", 3, follow=False),
+        # 风暴里她被放逐、身上的东西看不见：原生每 20 tick 在她的位置补一朵
+        H["V_eff"]("storm_cloud", "storm", 3, follow=False),
     ]
     views_b = [
         H["V_buf"]("storm", "storm", 2),
@@ -1981,9 +2161,14 @@ def build_noctua(p, is_native=True):
         H["V_buf"]("scales_2", "scales_2", 3),
         H["V_buf"]("scales_3", "scales_3", 3),
     ]
-    return wrap_kit(cid, "Magician", ["AP", "Magic", "Range", "CC"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:scatter")
+    kit = wrap_kit(cid, "Magician", ["AP", "Magic", "Range", "CC"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:scatter")
+    if is_native:
+        keys = ("p_pct", "p_cd", "p_t", "p_dist", "p_reform", "scale_slow", "scale_t",
+                "r_t", "r_p", "r_r", "r_tick_dmg", "r_tick_ap", "r_sil", "r_seek")
+        kit["passive"]["params"] = {**{k: p[k] for k in keys}, "r_shock": p["r_r"] + 4000}
+    return kit
 
 
 # ===========================================================================
@@ -1994,10 +2179,10 @@ def build_anchor(p, is_native=True):
     H = mk_helpers(cid)
 
     r_voice = H["flag"]("r_voice", 4) if is_native else None
-    toggle_ask = H["flag"]("toggle", 4) if is_native else None
     r_siege_ask = H["flag"]("r_siege", 4) if is_native else None
 
-    # Auto: 拖锚锚链弹 / 下锚深海炮弹 (Native 借 siege_range 6万->9万 + anchor.rs 1.5万 60%溅射!)
+    # Auto: 拖锚锚链弹 / 下锚深海炮弹。下锚的射程由 siege_range 加到 9 万；溅射只来自炮弹本身：
+    # 原生在炮弹命中时调 abysspact_anchor:splash，--plain 用落点小圈近似
     drag_shot = H["combine"](
         H["sfx"]("a_chain"),
         H["homing"]("a_chain", p["a_speed"], [H["attack"](0, 100), H["tsfx"]("a_water")],
@@ -2007,21 +2192,23 @@ def build_anchor(p, is_native=True):
         H["view"]("splash"),
         H["zone"]("a_sp_z", 15000, [H["attack"](0, p["plain_splash_ad"])], target="EnemyWithoutTower"),
     ], target="Enemy")
+    splash_fx = H["native_fx"](f"{cid}:splash") if is_native else None
     siege_shot = H["combine"](
         H["sfx"]("a_siege"),
-        H["homing"]("a_shell", p["a_speed"], [H["attack"](0, 100), plain_splash, H["tsfx"]("a_water")],
+        H["homing"]("a_shell", p["a_speed"], [H["attack"](0, 100), splash_fx, plain_splash, H["tsfx"]("a_water")],
                     target="Enemy", y=p["a_y"]),
     )
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
         H["combine"](
-            H["native_fx"](f"{cid}:siege_range") if is_native else None,
             H["when"]("siege", siege_shot, drag_shot),
+            # 射程的 Native 放最后：游戏的平衡补丁读第一个效果
+            H["native_fx"](f"{cid}:siege_range") if is_native else None,
         ),
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 横扫 — 抡锚链扫2.5万击退2万 + 65+82%AD 物理伤害!
+    # Q: 横扫 — 抡锚链扫2.5万击退2万 + 物理伤害（下锚时也能放，锚不动）
     q_hit = [
         H["attack"](p["q_dmg"], p["q_ad"]),
         H["knockback"](p["q_kb_spd"], p["q_kb_t"]),
@@ -2036,23 +2223,23 @@ def build_anchor(p, is_native=True):
         )),
     )
 
-    # W: 下锚/起锚 — 在拖锚(+10%移速)与下锚炮台(9万射程+溅射+压舱免疫位移)之间切换!
-    w_plain_toggle = None if is_native else H["when"](
-        "siege",
-        H["combine"](H["unflag"]("siege"), H["sfx"]("raise")),
-        H["combine"](H["flag"]("siege", 360, attack_speed_mult=-15), H["view"]("crack"),
-                     H["view"]("stamp"), H["sfx"]("plant")),
-    )
-    skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
-        H["delayed"](p["w_go"] - 1, H["alive_only"](
-            H["view"]("taut"),
-            toggle_ask,
-            w_plain_toggle,
-        )),
-    )
+    # W: 下锚 / 起锚。原生只有一个决定：AI 按 W 只是让被动马上判断一次（3 tick 的 idle 动作挂个标记），
+    # 下锚 0.5 秒、起锚 0.6 秒的动作和锁定都由被动放；--plain 照旧直接切换
+    if is_native:
+        skill2 = arm_action(H, cid, "skill2", p["w_cd"], p["w_range"], "EnemyChampion", H["flag"]("toggle", 4))
+    else:
+        w_plain_toggle = H["when"](
+            "siege",
+            H["combine"](H["unflag"]("siege"), H["sfx"]("raise")),
+            H["combine"](H["flag"]("siege", 360, attack_speed_mult=-15), H["view"]("crack"),
+                         H["view"]("stamp"), H["sfx"]("plant")),
+        )
+        skill2 = H["action"](
+            "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
+            H["delayed"](p["w_go"] - 1, H["alive_only"](H["view"]("taut"), w_plain_toggle)),
+        )
 
-    # R: 沉船炮 — 2.4秒内往12万内连轰6发巨炮，每发2万范围高伤+0.4秒击飞! (塞拉斯偷大也能完整轰出6发沉船巨炮!)
+    # R: 沉船炮 — 2.4秒内往12万内连轰6发巨炮，每发2万范围高伤+0.4秒击飞（没下锚就先下锚）
     r_shell_drop = H["lob"]("r_salvo", 14, [
         H["view"]("salvo_blast"),
         H["view"]("foam"),
@@ -2095,9 +2282,13 @@ def build_anchor(p, is_native=True):
         H["V_eff"]("foam", "foam", 2, follow=False),
     ]
     views_b = []
-    return wrap_kit(cid, "Range", ["AD", "Range", "CC"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:siege")
+    kit = wrap_kit(cid, "Range", ["AD", "Range", "CC"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:siege")
+    if is_native:
+        kit["passive"]["params"] = {k: p[k] for k in ("a_splash", "a_splash_r", "w_plant", "w_raise", "w_keep",
+                                                       "engage", "safe", "danger", "no_target", "toggle_cd")}
+    return kit
 
 
 # ===========================================================================
@@ -2106,10 +2297,6 @@ def build_anchor(p, is_native=True):
 def build_hourglass(p, is_native=True):
     cid = "abysspact_hourglass"
     H = mk_helpers(cid)
-
-    r_voice = H["flag"]("r_voice", 4) if is_native else None
-    q_mark_ask = H["buff"]("q_ask", 4) if is_native else None
-    r_rewind_ask = H["flag"]("r_ask", 4) if is_native else None
 
     # Auto: 流沙
     a_spark = H["homing"]("a_spark", p["a_speed"], [H["attack"](0, 100), H["tsfx"]("a_hit")],
@@ -2120,24 +2307,23 @@ def build_hourglass(p, is_native=True):
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 回光 — 给友军打上3秒回光表盘印记(濒死免死倒回血量，3秒后倒回满血差)，老去+1层!
-    q_plain_save = None if is_native else H["combine"](
-        H["buff"]("clock", p["q_t"], undying=True),
-        H["delayed"](90, H["alive_only"](
-            H["heal"](p["q_plain_heal"], ap_ratio=p["q_plain_ap"], kind="Ally"),
-            H["view"]("rewind"),
-            H["tsfx"]("rewind_snap"),
-        )),
-    )
-    skill = H["action"](
-        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "AllyChampion",
-        H["delayed"](p["q_go"] - 1, H["alive_only"](
-            H["sfx"]("q_mark"),
-            H["view"]("sand_rise"),
-            q_mark_ask,
-            q_plain_save,
-        )),
-    )
+    # Q: 回光。原生：AI 按 Q 只是待命（3 tick 的 idle 动作挂 q_arm），被动挑 3 秒内掉血最多的队友、掉够了才放；
+    # --plain 照旧：3 秒印记（不死）+ 1.5 秒后回血
+    if is_native:
+        skill = arm_action(H, cid, "skill", p["q_cd"], p["q_range"], "AllyChampion", H["flag"]("q_arm", 4))
+    else:
+        q_plain_save = H["combine"](
+            H["buff"]("clock", p["q_t"], undying=True),
+            H["delayed"](90, H["alive_only"](
+                H["heal"](p["q_plain_heal"], ap_ratio=p["q_plain_ap"], kind="Ally"),
+                H["view"]("rewind"),
+                H["tsfx"]("rewind_snap"),
+            )),
+        )
+        skill = H["action"](
+            "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "AllyChampion",
+            H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_mark"), H["view"]("sand_rise"), q_plain_save)),
+        )
 
     # W: 停摆 — 2万范围静止齿轮眩晕1秒 + 法伤!
     w_zone = H["lob"]("w_lob", 1, [
@@ -2154,29 +2340,24 @@ def build_hourglass(p, is_native=True):
         H["delayed"](p["w_go"] - 1, H["alive_only"](w_zone)),
     )
 
-    # R: 倒流 — 翻转沙漏让10万内所有存活友军倒回3秒前的位置与血量(老去+3层)!
-    # Native 走 hourglass.rs 真实3秒历史位置+血量倒流; 塞拉斯偷大 / --plain 翻转沙漏全队高额回血+护盾+残影特效!
-    r_non_native = H["when"](
-        "native", H["combine"](),
-        H["lob"]("r_lob", 1, [
-            H["view"]("hourglass"),
-            H["sfx"]("flip"),
-            H["zone"]("r_zone", p["r_r"], [
-                H["heal"](p["r_plain_heal"], ap_ratio=p["r_plain_ap"], kind="Ally"),
-                H["shield"](p["r_plain_sh"], ap_ratio=p["r_plain_sh_ap"], tick=180),
-                H["view"]("echo"),
-                H["view"]("rewind"),
-                H["tsfx"]("rewind_snap"),
-            ], target="AllyChampion"),
+    # R: 倒流。原生：AI 按 R 只是待命（挂 r_arm），10 万内队友 3 秒内掉的血加起来够了，被动才翻沙漏倒回 3 秒前；
+    # 塞拉斯偷大 / --plain 翻转沙漏全队回血 + 护盾 + 残影
+    r_plain = H["delayed"](p["r_go"] - 1, H["alive_only"](H["lob"]("r_lob", 1, [
+        H["view"]("hourglass"),
+        H["sfx"]("flip"),
+        H["zone"]("r_zone", p["r_r"], [
+            H["heal"](p["r_plain_heal"], ap_ratio=p["r_plain_ap"], kind="Ally"),
+            H["shield"](p["r_plain_sh"], ap_ratio=p["r_plain_sh_ap"], tick=180),
+            H["view"]("echo"),
+            H["view"]("rewind"),
+            H["tsfx"]("rewind_snap"),
         ], target="AllyChampion"),
-    )
-    ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "AllyChampion",
-        H["combine"](
-            r_voice,
-            H["delayed"](p["r_go"] - 1, H["alive_only"](r_rewind_ask, r_non_native)),
-        ),
-    )
+    ], target="AllyChampion")))
+    if is_native:
+        ult = arm_action(H, cid, "ult", p["r_cd"], p["r_range"], "AllyChampion",
+                         H["when"]("native", H["flag"]("r_arm", 4), r_plain))
+    else:
+        ult = H["action"]("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "AllyChampion", r_plain)
 
     views_p = [H["V_proj"]("a_spark", "sand_spark")]
     views_e = [
@@ -2190,9 +2371,16 @@ def build_hourglass(p, is_native=True):
     views_b = [
         H["V_buf"]("clock", "clock", -1),
     ]
-    return wrap_kit(cid, "Util", ["AP", "Magic", "Heal", "Shield", "CC"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:sands")
+    kit = wrap_kit(cid, "Util", ["AP", "Magic", "Heal", "Shield", "CC"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:sands")
+    if is_native:
+        kit["passive"]["params"] = {
+            **{k: p[k] for k in ("rewind_t", "q_trig", "q_arm", "q_range", "q_go", "q_dur",
+                                 "r_trig", "r_arm", "r_go", "r_dur", "keep")},
+            "r_range": p["r_reach"],
+        }
+    return kit
 
 
 # ===========================================================================
@@ -2215,7 +2403,7 @@ def build_reprieve(p, is_native=True):
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 掷球 — 把大铁球甩向敌方英雄: 80 + 6% 目标最大生命物理伤害 + 眩晕 0.75s + 铁链拽回!
+    # Q: 掷球 — 只甩敌方英雄（铁球穿过小兵）：80 + 6% 目标最大生命物理伤害 + 眩晕 0.75s + 铁链拽回!
     q_hit = [
         H["attack"](p["q_dmg"], 0, thp=p["q_thp"]),
         H["stun"](p["q_stun"]),
@@ -2223,26 +2411,27 @@ def build_reprieve(p, is_native=True):
         H["tsfx"]("q_pull"),
     ]
     q_proj = H["linear"]("q_chain", p["q_speed"], p["q_range"] + 8000, p["q_w"], q_hit,
-                         target="EnemyWithoutTower", penetrate=False, y=-8000)
+                         target="EnemyChampion", penetrate=False, y=-8000)
     skill = H["action"](
-        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+        "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyChampion",
         H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_throw"), q_proj)),
     )
 
-    # W: 认罪 — 仰头大吼: 3万内敌人被嘲讽 1.25s，期间缓刑记账比例从 50% 提到 70%!
+    # W: 认罪 — 3万内的敌方英雄被嘲讽 1.25s，期间缓刑记账比例从 50% 提到 70%（只在敌方英雄近身时吼）
     w_guilt = H["flag"]("guilt", p["w_taunt"],
                         **(dict() if is_native else {"base_attack_damaged_reduce": p["w_plain_dr"],
                                                      "skill_damaged_reduce": p["w_plain_dr"]}))
-    w_aoe = H["around"](p["w_r"], [H["taunt"](p["w_taunt"])], target="EnemyWithoutTower")
+    w_aoe = H["around"](p["w_r"], [H["taunt"](p["w_taunt"])], target="EnemyChampion")
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
         H["delayed"](p["w_go"] - 1, H["alive_only"](
             H["sfx"]("w_roar"), H["view"]("roar"), w_guilt, w_aoe,
         )),
     )
 
-    # R: 枷 — 前方扇形甩出三副巨枷，扣住 5万内敌方英雄: 眩晕 1.5s + 150 + 8% 目标最大生命物理伤害!
-    r_hit = [
+    # R: 枷 — 前方扇形里最多扣住三个敌方英雄：眩晕 1.5s + 150 + 8% 目标最大生命物理伤害。
+    # 数三个：每扣一个挂一个 3 tick 的计数标记（同一个范围效果里后一个人看得到前一个人挂的），满三个就不再扣
+    r_hit = H["combine"](
         H["attack"](p["r_dmg"], 0, thp=p["r_thp"]),
         H["stun"](p["r_stun"]),
         H["view"]("cangue_drop"),
@@ -2250,13 +2439,15 @@ def build_reprieve(p, is_native=True):
         H["buff"]("cangue_hold", p["r_stun"]),
         H["tsfx"]("r_hold"),
         H["delayed"](p["r_stun"], H["view"]("cangue_break"), H["tsfx"]("r_break")),
-    ]
-    r_cone = H["cone"](p["r_r"], p["r_cone"], r_hit, target="EnemyWithoutTower")
+        H["when"]("r_n2", H["flag"]("r_n3", 3), H["when"]("r_n1", H["flag"]("r_n2", 3), H["flag"]("r_n1", 3))),
+    )
+    r_cone = H["cone"](p["r_r"], p["r_cone"], [H["when"]("r_n3", H["combine"](), r_hit)], target="EnemyChampion")
     ult = H["action"](
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
         H["combine"](
             r_voice,
-            H["delayed"](p["r_go"] - 1, H["alive_only"](H["sfx"]("r_drop"), r_cone)),
+            H["delayed"](p["r_go"] - 1, H["alive_only"](
+                H["sfx"]("r_drop"), H["unflag"]("r_n1"), H["unflag"]("r_n2"), H["unflag"]("r_n3"), r_cone)),
         ),
     )
 
@@ -2285,9 +2476,8 @@ def build_reprieve(p, is_native=True):
 def build_debtor(p, is_native=True):
     cid = "abysspact_debtor"
     H = mk_helpers(cid)
-    r_voice = H["flag"]("r_voice", 4) if is_native else None
+    # Q 的斩杀加成由 debtor.rs 在这一下伤害里加：标记要在伤害之前挂上
     q_hit_ask = H["buff"]("q_hit", 3) if is_native else None
-    r_ask = H["buff"]("r_ask", 4) if is_native else None
 
     # Auto: 弯剑
     attack_a = H["action"](
@@ -2296,11 +2486,11 @@ def build_debtor(p, is_native=True):
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 讨债 — 突刺冲向敌方英雄: 70 + 100% AD + 6秒欠条 (+30%以下+50%斩杀伤害由 debtor.rs 追加)
+    # Q: 讨债 — 突刺冲向敌方单位: 70 + 100% AD + 6秒欠条（30% 血以下 +50% 由 debtor.rs 加在这一下上）
     q_land = [
+        q_hit_ask,
         H["attack"](p["q_dmg"], p["q_ad"]),
         H["buff"]("debt_note", p["q_note_t"]),
-        q_hit_ask,
         H["view"]("thrust"),
         H["tsfx"]("q_note"),
     ]
@@ -2310,37 +2500,32 @@ def build_debtor(p, is_native=True):
         H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_thrust"), q_dash)),
     )
 
-    # W: 利息 — 原地横扫 2.5万: 50 + 70% AD + 每命中一个英雄回复生命并留欠条
-    w_hit = [
-        H["attack"](p["w_dmg"], p["w_ad"]),
+    # W: 利息 — 原地横扫 2.5万：打所有敌人；只有敌方英雄留欠条、回血（每个英雄一次）
+    w_aoe = H["around"](p["w_r"], [H["attack"](p["w_dmg"], p["w_ad"])], target="EnemyWithoutTower")
+    w_champ = H["around"](p["w_r"], [
         H["buff"]("debt_note", p["q_note_t"]),
         H["heal"](p["w_heal"], ad_ratio=p["w_heal_ad"], kind="Caster"),
         H["tsfx"]("q_note"),
-    ]
-    w_aoe = H["around"](p["w_r"], w_hit, target="EnemyWithoutTower")
+    ], target="EnemyChampion")
     skill2 = H["action"](
         "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
-        H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_sweep"), H["view"]("sweep"), w_aoe)),
+        H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_sweep"), H["view"]("sweep"), w_aoe, w_champ)),
     )
 
-    # R: 换命 — Native 走 debtor.rs 真实对调血量比例 + 6秒到期换回/击杀吞并; 塞拉斯偷大/--plain 走高额吸命爆发!
-    r_non_native = H["when"](
-        "native", H["combine"](),
-        H["combine"](
-            H["attack"](p["r_plain_dmg"], 0, thp=p["r_plain_thp"]),
-            H["heal"](p["r_plain_heal"], ad_ratio=p["r_plain_ad"], kind="Caster"),
-            H["view"]("swap"),
-            H["view"]("life_flame"),
-            H["sfx"]("swap"),
-        ),
-    )
-    ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-        H["combine"](
-            r_voice,
-            H["delayed"](p["r_go"] - 1, H["alive_only"](r_ask, r_non_native)),
-        ),
-    )
+    # R: 换命。原生：AI 按 R 只是待命（3 tick 的 idle 动作挂 r_arm），debtor.rs 等到自己够残、身边有张够满的欠条才换；
+    # 塞拉斯偷大 / --plain 走高额吸命爆发
+    r_plain = H["delayed"](p["r_go"] - 1, H["alive_only"](
+        H["attack"](p["r_plain_dmg"], 0, thp=p["r_plain_thp"]),
+        H["heal"](p["r_plain_heal"], ad_ratio=p["r_plain_ad"], kind="Caster"),
+        H["view"]("swap"),
+        H["view"]("life_flame"),
+        H["sfx"]("swap"),
+    ))
+    if is_native:
+        ult = arm_action(H, cid, "ult", p["r_cd"], p["r_range"], "EnemyChampion",
+                         H["when"]("native", H["flag"]("r_arm", 4), r_plain))
+    else:
+        ult = H["action"]("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", r_plain)
 
     views_p = []
     views_e = [
@@ -2358,9 +2543,15 @@ def build_debtor(p, is_native=True):
         H["V_buf"]("flame_50", "flame_50", 2),
         H["V_buf"]("flame_25", "flame_25", 2),
     ]
-    return wrap_kit(cid, "Melee", ["AD", "Melee", "Heal"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:ledger")
+    kit = wrap_kit(cid, "Melee", ["AD", "Melee", "Heal"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:ledger")
+    if is_native:
+        kit["passive"]["params"] = {
+            **{k: p[k] for k in ("r_hp_max", "r_foe_min", "r_arm", "r_go", "r_dur", "q_exec", "q_exec_bonus", "keep")},
+            "swap_t": p["q_note_t"], "r_range": p["r_reach"],
+        }
+    return kit
 
 
 # ===========================================================================
@@ -2371,31 +2562,29 @@ def build_traceless(p, is_native=True):
     H = mk_helpers(cid)
     r_voice = H["flag"]("r_voice", 4) if is_native else None
     q_cast_ask = H["flag"]("q_cast", 4) if is_native else None
-    w_ask = H["flag"]("w_ask", 4) if is_native else None
-    hit_ask = H["flag"]("hit_ask", 3) if is_native else None
     plain_edge = None if is_native else H["when"](
         "p_on", H["combine"](),
         H["combine"](H["flag"]("p_on", None), H["flag"]("p_edge", None, attack_mult=p["plain_edge_ad"])))
 
-    ambush_proc = H["combine"](
+    # 伏击加成只算一份：原生在 traceless.rs 里加（隐身后第一剑 +50%），--plain 才用 W 之后的额外一击
+    ambush = None if is_native else H["when"]("w_ambush", H["combine"](
         H["attack"](p["w_ambush_dmg"], p["w_ambush_ad"]),
         H["unflag"]("w_ambush"),
         H["view"]("stab"),
-    )
+    ))
 
     # Auto: 刺剑 (0.8s fast rapier thrust)
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
-        H["combine"](plain_edge, H["attack"](0, 100), H["when"]("w_ambush", ambush_proc),
+        H["combine"](plain_edge, H["attack"](0, 100), ambush,
                      H["sfx"]("a"), H["view"]("stab"), H["tsfx"]("a_hit")),
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 一线 — 穿刺敌方英雄: 80 + 90% AD (击杀立刻刷新CD由 traceless.rs 实现)
+    # Q: 一线 — 穿刺: 80 + 90% AD（锋由 on_attack 按打中的敌方英雄叠；击杀立刻刷新由 traceless.rs 做）
     q_hit = [
         H["attack"](p["q_dmg"], p["q_ad"]),
-        H["when"]("w_ambush", ambush_proc),
-        hit_ask,
+        ambush,
         H["view"]("line"),
         H["tsfx"]("a_hit"),
     ]
@@ -2411,36 +2600,40 @@ def build_traceless(p, is_native=True):
         )),
     )
 
-    # W: 残影 — 原地留淡白残影，0.75s 不可选中 (Banish) 接 1.0s 隐身 + 移速，保住全部锋层!
-    w_cast = H["combine"](
-        w_ask,
-        H["sfx"]("w_dodge"),
-        H["view"]("afterimage"),
-        H["search_self"]({"type": "Banish", "duration": p["w_banish"]}),
-        H["delayed"](p["w_banish"],
-                     H["search_self"]({"type": "CasterInvisible", "tick": p["w_inv"]}),
-                     H["flag"]("w_haste", p["w_inv"], move_speed_mult=p["w_ms"]),
-                     H["flag"]("w_ambush", p["w_ambush_t"])),
-    )
-    skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
-        H["delayed"](p["w_go"] - 1, H["alive_only"](w_cast)),
-    )
+    # W: 残影。原生：AI 按 W 只是待命（3 tick 的 idle 动作挂 w_arm），traceless.rs 在她快挨敌方英雄的打时躲开那一下、
+    # 留残影、放逐 0.75s，再隐身 1s；--plain 照旧直接放
+    if is_native:
+        skill2 = arm_action(H, cid, "skill2", p["w_cd"], p["w_range"], "EnemyChampion", H["flag"]("w_arm", 4))
+    else:
+        w_cast = H["combine"](
+            H["sfx"]("w_dodge"),
+            H["view"]("afterimage"),
+            H["search_self"]({"type": "Banish", "duration": p["w_banish"]}),
+            H["delayed"](p["w_banish"],
+                         H["search_self"]({"type": "CasterInvisible", "tick": p["w_inv"]}),
+                         H["flag"]("w_haste", p["w_inv"], move_speed_mult=p["w_ms"]),
+                         H["flag"]("w_ambush", p["w_ambush_t"])),
+        )
+        skill2 = H["action"](
+            "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
+            H["delayed"](p["w_go"] - 1, H["alive_only"](w_cast)),
+        )
 
-    # R: 无影 — 消失 1.5s (不可选中)，在 5万内每个敌方英雄身上依次各划一剑 + 最终全亮爆发 + 停在目标身后!
-    r_slash = H["around"](p["r_r"], [
-        H["attack"](p["r_dmg"], p["r_ad"]),
-        hit_ask,
-        H["view"]("cut"),
-        H["tsfx"]("r_cut"),
-    ], target="EnemyChampion")
-    r_finish = H["combine"](
-        {"type": "Teleport"},
-        H["around"](p["r_r"], [
-            H["attack"](p["r_dmg"] // 2, p["r_ad"] // 2),
-            H["view"]("cut_final"),
-        ], target="EnemyChampion"),
-        H["sfx"]("r_final"),
+    # R: 无影 — 低头一顿后消失（r_go）。原生只挂 r_go，traceless.rs 放逐她 1.5s、5万内每个敌方英雄各挨一剑、
+    # 停在血最少的人身后（放逐中的人自己的范围搜索找不到人，伤害不能交给 RangeEffect）；
+    # 塞拉斯偷大 / --plain：隐身 + 免伤免控代替放逐，每个敌方英雄各一剑，最后瞬到目标身上
+    r_plain = H["combine"](
+        H["search_self"]({"type": "CasterInvisible", "tick": p["r_vanish"]}),
+        H["flag"]("r_veil", p["r_vanish"], damaged_reduce=100, cc_immune=True),
+        H["delayed"](18, H["around"](p["r_r"], [
+            H["attack"](p["r_dmg"], p["r_ad"]),
+            H["view"]("cut"),
+            H["tsfx"]("r_cut"),
+        ], target="EnemyChampion")),
+        H["delayed"](p["r_vanish"],
+                     {"type": "Teleport"},
+                     H["around"](p["r_r"], [H["view"]("cut_final")], target="EnemyChampion"),
+                     H["sfx"]("r_final")),
     )
     ult = H["action"](
         "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -2449,10 +2642,7 @@ def build_traceless(p, is_native=True):
             H["delayed"](p["r_go"] - 1, H["alive_only"](
                 H["sfx"]("r_vanish"),
                 H["view"]("vanish"),
-                H["search_self"]({"type": "Banish", "duration": p["r_vanish"]}),
-                H["delayed"](18, r_slash),
-                H["delayed"](50, r_slash),
-                H["delayed"](p["r_vanish"], r_finish),
+                H["when"]("native", H["flag"]("r_go", 4), r_plain),
             )),
         ),
     )
@@ -2472,9 +2662,16 @@ def build_traceless(p, is_native=True):
         H["V_buf"]("blade_glow", "blade_glow", 2),
         *[H["V_buf"](f"edge_{k}", f"edge_{k}", 3) for k in range(1, 9)],
     ]
-    return wrap_kit(cid, "Assassin", ["AD", "Melee"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:spotless")
+    kit = wrap_kit(cid, "Assassin", ["AD", "Melee"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:spotless")
+    if is_native:
+        kit["passive"]["params"] = {
+            **{k: p[k] for k in ("edge_pct", "edge_cap", "ambush", "ooc", "w_arm", "w_edge", "w_low", "w_banish",
+                                 "w_inv", "w_ms", "r_dmg", "r_ad", "r_vanish", "r_first", "r_behind", "keep")},
+            "r_range": p["r_r"],
+        }
+    return kit
 
 
 # ===========================================================================
@@ -2485,61 +2682,54 @@ def build_starfall(p, is_native=True):
     H = mk_helpers(cid)
     r_voice = H["flag"]("r_voice", 4) if is_native else None
 
-    # Auto: 黑星 — 0.5秒(30 ticks)延迟从天而降砸中 1.5万范围 (100% AD + 25% AP 魔法/混合伤害，旁边 60% 溅射!)
-    # 3万内最小射程代价由 starfall.rs 在 on_attack 中执行!
-    a_drop = H["lob"]("a_star", p["a_delay"], [
-        H["view"]("star_impact"),
-        H["sfx"]("a_hit"),
-        H["zone"]("a_zone", p["a_r"], [
-            H["attack"](0, p["a_splash_ad"]),
-            H["ap_atk"](0, p["a_splash_ap"]),
-        ], target="Enemy"),
-    ], target="Enemy")
+    # Auto: 黑星。原生：出手时调 abysspact_starfall:aim 记下打谁，starfall.rs 按目标走向预判落点，0.5 秒后落地
+    # （主目标 100%、旁边 60%，离她 3 万内的砸不到）；--plain 用落在目标脚下的小圈近似
+    if is_native:
+        a_star = H["native_fx"](f"{cid}:aim")
+    else:
+        a_star = H["combine"](H["view"]("warning"), H["lob"]("a_star", p["a_delay"], [
+            H["view"]("star_impact"),
+            H["sfx"]("a_hit"),
+            H["zone"]("a_zone", p["a_r"], [
+                H["attack"](0, p["a_main_ad"]),
+                H["ap_atk"](0, p["a_ap"]),
+            ], target="Enemy"),
+        ], target="Enemy"))
     attack_a = H["action"](
         "attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
-        H["combine"](
-            H["sfx"]("a"),
-            H["view"]("warning"),
-            H["attack"](0, 40),
-            H["ap_atk"](0, p["a_ap"] - p["a_splash_ap"]),
-            H["delayed"](12, H["sfx"]("a_fall")),
-            a_drop,
-        ),
+        H["combine"](H["sfx"]("a"), a_star, H["delayed"](12, H["sfx"]("a_fall"))),
         atype="BaseAttack", cancel=True,
     )
 
-    # Q: 星轨 — 依次落下 5 颗黑星 (间隔 6 ticks)，每颗 60 + 45% AP 魔法伤害，命中减速 30% 1.5s!
-    def q_star_drop(delay_t):
-        return H["delayed"](delay_t, H["lob"]("q_star", 18, [
-            H["view"]("star_impact"),
-            H["sfx"]("a_hit"),
-            H["zone"]("q_z", p["q_r"], [
-                H["ap_atk"](p["q_dmg"], p["q_ap"]),
-                H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
-            ], target="EnemyWithoutTower"),
-        ], target="EnemyWithoutTower"))
-
+    # Q: 星轨。原生：abysspact_starfall:q_line 沿她到目标的线由近到远落 5 颗（挨两颗起才减速）；
+    # --plain 5 颗依次落在目标身上
+    if is_native:
+        q_cast = H["combine"](H["sfx"]("q_track"), H["native_fx"](f"{cid}:q_line"))
+    else:
+        def q_star_drop(delay_t):
+            return H["delayed"](delay_t, H["lob"]("q_star", 18, [
+                H["view"]("star_impact"),
+                H["sfx"]("a_hit"),
+                H["zone"]("q_z", p["q_r"], [
+                    H["ap_atk"](p["q_dmg"], p["q_ap"]),
+                    H["buff"]("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
+                ], target="EnemyWithoutTower"),
+            ], target="EnemyWithoutTower"))
+        q_cast = H["alive_only"](H["sfx"]("q_track"), H["view"]("warning"),
+                                 *[q_star_drop(k * p["q_gap"]) for k in range(p["q_n"])])
     skill = H["action"](
         "skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-        H["delayed"](p["q_go"] - 1, H["alive_only"](
-            H["sfx"]("q_track"),
-            H["view"]("warning"),
-            q_star_drop(0),
-            q_star_drop(8),
-            q_star_drop(16),
-            q_star_drop(24),
-            q_star_drop(32),
-        )),
+        H["delayed"](p["q_go"] - 1, q_cast),
     )
 
-    # W: 遁星 — 敌人逼近 3.2万时立刻化作星光向后闪 4万，原地落下黑星把近身敌人击退 1.5万!
+    # W: 遁星 — 敌方英雄贴近时化作星光向后闪 4万，原地落下黑星把近身敌人击退 1.5万
     w_blast = H["around"](p["w_r"], [
         H["ap_atk"](p["w_dmg"], p["w_ap"]),
         H["knockback"](p["w_kb_spd"], p["w_kb_t"]),
         H["view"]("push"),
     ], target="EnemyWithoutTower")
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
         H["delayed"](p["w_go"] - 1, H["alive_only"](
             H["sfx"]("w_dash"),
             H["sfx"]("w_push"),
@@ -2550,8 +2740,9 @@ def build_starfall(p, is_native=True):
         )),
     )
 
-    # R: 陨夜 — 抬杖指天裂开星空，4秒内持续在半径 4万倾泻黑星雨 (8轮高密度魔法打击，期间可自由移动)!
-    r_rain = H["lob"]("r_lob", 1, [
+    # R: 陨夜。原生：挂 r_rain、在目标身上挂 r_center，starfall.rs 在那一片随机落星（每 0.2 秒一颗，每人每秒最多 2 颗）；
+    # 塞拉斯偷大 / --plain 走一片固定的星雨
+    r_plain = H["lob"]("r_lob", 1, [
         H["view"]("sky_rift"),
         H["sfx"]("r_rift"),
         H["field"]("r_field", p["r_r"], p["r_t"], p["r_p"], [
@@ -2561,10 +2752,11 @@ def build_starfall(p, is_native=True):
         ], first=12, target="EnemyWithoutTower"),
     ], target="EnemyWithoutTower")
     ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyWithoutTower",
+        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
         H["combine"](
             r_voice,
-            H["delayed"](p["r_go"] - 1, H["alive_only"](r_rain)),
+            H["delayed"](p["r_go"] - 1, H["alive_only"](
+                H["when"]("native", H["combine"](H["flag"]("r_rain", 4), H["buff"]("r_center", 4)), r_plain))),
         ),
     )
 
@@ -2578,13 +2770,22 @@ def build_starfall(p, is_native=True):
         H["V_eff"]("dash", "dash", 2),
         H["V_eff"]("push", "push", 2),
         H["V_eff"]("sky_rift", "sky_rift", 3, follow=False),
+        # 原生落的星：落点上一颗黑星下落 0.5 秒
+        H["V_eff"]("star_fall", "black_star", 3, follow=False),
     ]
     views_b = [
         H["V_buf"]("star_ring", "star_ring", 2),
     ]
-    return wrap_kit(cid, "Range", ["AP", "Magic", "Range", "CC"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:starfall")
+    kit = wrap_kit(cid, "Range", ["AP", "Magic", "Range", "CC"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:starfall")
+    if is_native:
+        kit["passive"]["params"] = {k: p[k] for k in (
+            "a_delay", "a_r", "a_main_ad", "a_ap", "a_splash", "a_min",
+            "q_n", "q_step", "q_gap", "q_fall", "q_r", "q_dmg", "q_ap", "q_slow", "q_slow_t",
+            "r_r", "r_t", "r_every", "r_fall", "r_star_r", "r_dmg", "r_ap", "r_cap",
+            "step_dist", "step_t", "step_cd")}
+    return kit
 
 
 # ===========================================================================
@@ -2593,8 +2794,6 @@ def build_starfall(p, is_native=True):
 def build_knell(p, is_native=True):
     cid = "abysspact_knell"
     H = mk_helpers(cid)
-    r_voice = H["flag"]("r_voice", 4) if is_native else None
-    r_ask = H["flag"]("r_ask", 4) if is_native else None
     plain_dr = None if is_native else H["when"](
         "p_on", H["combine"](),
         H["combine"](H["flag"]("p_on", None),
@@ -2619,57 +2818,49 @@ def build_knell(p, is_native=True):
         H["delayed"](p["q_go"] - 1, H["alive_only"](H["sfx"]("q_strike"), q_cone)),
     )
 
-    # W: 回响 — 给 6万内友军加护盾(3s) + 20% 移速(1.5s)
+    # W: 回响 — 给 6万内友军加护盾(3s) + 20% 移速(1.5s)。护盾在 AI 眼里给谁都值满额、好了就放，所以照 league_janna E：
+    # 身边 w_fight_r 内有敌方英雄（在打架）才放（None + EnemyChampion，夜曲 W 的接法）
     w_aoe = H["around"](p["w_r"], [
         H["shield"](p["w_sh"], tick=p["w_sh_t"]),
         H["buff"]("w_ms", p["w_ms_t"], move_speed_mult=p["w_ms"]),
         H["view"]("echo_shield"),
     ], target="AllyChampion")
     skill2 = H["action"](
-        "skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "AllyChampion",
+        "skill2", p["w_dur"], p["w_cd"], 1, p["w_fight_r"], "None", "EnemyChampion",
         H["delayed"](p["w_go"] - 1, H["alive_only"](H["sfx"]("w_shield"), w_aoe)),
     )
 
-    # R: 丧钟 — 跳至敌阵扣下黑铁巨钟 2.5s!
-    # Native 走 knell.rs 真实多目标放逐钟域 (钟里钟外互相打不着，每 0.5s 响钟法伤，2.5s 掀钟击飞)!
-    # 塞拉斯偷大 / --plain 走巨钟落顶 2.5s 沉默持续震响 + 掀钟击飞!
-    r_non_native = H["when"](
-        "native", H["combine"](),
-        H["lob"]("r_lob", 1, [
-            H["view"]("bell_drop"),
-            H["view"]("bell_dust"),
-            H["sfx"]("giant_drop"),
-            H["field"]("r_chimes", p["r_r"], p["r_t"], p["r_p"], [
-                H["ap_atk"](p["r_tick_dmg"], 0, hp_ratio=p["r_tick_hp"]),
-                H["silence"](p["r_p"] + 6),
-                H["view"]("bell_chime"),
-                H["tsfx"]("giant_chime"),
-            ], first=p["r_p"], target="EnemyWithoutTower"),
-            H["delayed"](p["r_t"],
-                         H["view"]("bell_lift"),
-                         H["view"]("bell_open_wave"),
-                         H["sfx"]("lift"),
-                         H["sfx"]("open_wave"),
-                         H["zone"]("r_lift_z", p["r_r"], [
-                             H["airborne"](p["r_air"]),
-                         ], target="EnemyWithoutTower")),
-        ], target="EnemyWithoutTower"),
-    )
-    r_leap = H["move_to_target"](p["r_speed"], p["r_range"] + 15000, [
-        r_ask,
-        r_non_native,
-    ])
-    ult = H["action"](
-        "ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-        H["combine"](
-            r_voice,
-            H["delayed"](p["r_go"] - 1, H["alive_only"](
-                H["sfx"]("r_shadow"),
-                H["view"]("bell_shadow"),
-                r_leap,
-            )),
-        ),
-    )
+    # R: 丧钟。原生：AI 按 R 只是待命（3 tick 的 idle 动作挂 r_arm），knell.rs 等到扣得住 2 个以上敌方英雄、自己血量
+    # 50% 以上才甩钟、起跳、扣钟（钟里钟外互相打不着）；塞拉斯偷大 / --plain 跳过去扣一口沉默的钟
+    r_bell = H["lob"]("r_lob", 1, [
+        H["view"]("bell_drop"),
+        H["view"]("bell_dust"),
+        H["sfx"]("giant_drop"),
+        H["field"]("r_chimes", p["r_r"], p["r_t"], p["r_p"], [
+            H["ap_atk"](p["r_tick_dmg"], 0, hp_ratio=p["r_tick_hp"]),
+            H["silence"](p["r_p"] + 6),
+            H["view"]("bell_chime"),
+            H["tsfx"]("giant_chime"),
+        ], first=p["r_p"], target="EnemyWithoutTower"),
+        H["delayed"](p["r_t"],
+                     H["view"]("bell_lift"),
+                     H["view"]("bell_open_wave"),
+                     H["sfx"]("lift"),
+                     H["sfx"]("open_wave"),
+                     H["zone"]("r_lift_z", p["r_r"], [
+                         H["airborne"](p["r_air"]),
+                     ], target="EnemyWithoutTower")),
+    ], target="EnemyWithoutTower")
+    r_plain = H["delayed"](p["r_go"] - 1, H["alive_only"](
+        H["sfx"]("r_shadow"),
+        H["view"]("bell_shadow"),
+        H["move_to_target"](p["r_speed"], p["r_range"] + 15000, [r_bell]),
+    ))
+    if is_native:
+        ult = arm_action(H, cid, "ult", p["r_cd"], p["r_range"], "EnemyChampion",
+                         H["when"]("native", H["flag"]("r_arm", 4), r_plain))
+    else:
+        ult = H["action"]("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", r_plain)
 
     views_p = []
     views_e = [
@@ -2684,9 +2875,14 @@ def build_knell(p, is_native=True):
     ]
     views_b = []
     cat = "Tank" if is_native else "Melee"
-    return wrap_kit(cid, cat, ["Tank", "Melee", "CC", "Shield", "Magic"], p,
-                    attack_a, skill, skill2, ult, views_p, views_e, views_b,
-                    is_native, f"{cid}:bell_shell")
+    kit = wrap_kit(cid, cat, ["Tank", "Melee", "CC", "Shield", "Magic"], p,
+                   attack_a, skill, skill2, ult, views_p, views_e, views_b,
+                   is_native, f"{cid}:bell_shell")
+    if is_native:
+        kit["passive"]["params"] = {k: p[k] for k in (
+            "shell_dr", "r_r", "r_t", "r_p", "r_tick_dmg", "r_tick_hp", "r_air", "r_min_foes", "r_min_hp",
+            "r_arm", "r_range", "r_go", "r_dur", "r_leap", "keep")}
+    return kit
 
 
 BUILDERS = {
@@ -2721,6 +2917,61 @@ def nodes(o):
     return 0
 
 
+SFX_DIR = os.path.join(REPO, MOD_ID, "sound", "sfx")
+
+
+def _front_sfx(effect):
+    """动作最外层一开头就会响的 Sfx。"""
+    if effect.get("type") == "Sfx":
+        return [effect]
+    if effect.get("type") == "Combine":
+        return [e for e in effect["effects"] if e.get("type") == "Sfx"]
+    return []
+
+
+def _sure_sfx(effect):
+    """不管走哪个分支都一定会响的 Sfx。"""
+    kind = effect.get("type")
+    if kind == "Sfx":
+        return [effect["name"]]
+    if kind == "Combine":
+        return [n for e in effect["effects"] for n in _sure_sfx(e)]
+    if kind == "SwitchByBuff":
+        a, b = _sure_sfx(effect["effect_buff"]), _sure_sfx(effect["effect_none"])
+        return sorted(set(a + b)) if a and b else []
+    return []
+
+
+def add_foley(kit):
+    """出招音效：2026-11-24 那一轮直接改了生成好的技能文件（每个动作开头一定有一声，没有的补
+    <id>_foley_q/w/r，已有的挪到最前面），这里照原样做一遍，免得重新生成时丢掉。
+    只补 abysspact/sound/sfx 里已经有 .sound_info 的那几个。"""
+    cid = kit["id"]
+    for action, key in (("attack", "a"), ("skill", "q"), ("skill2", "w"), ("ult", "r")):
+        a = kit[action]
+        # 待命用的 3 tick idle 动作（返照、赊命、丧钟、沉锚、无痕的原生模式）按下去什么都不演，不响；
+        # 真正出招时由原生代码放同一个出招音效 <id>_foley_<键>
+        if a.get("action_name") == "idle":
+            continue
+        eff = a["effect"]
+        front = _front_sfx(eff)
+        if front:
+            if eff["type"] == "Combine":
+                eff["effects"] = [*front, *(e for e in eff["effects"] if e.get("type") != "Sfx")]
+            continue
+        if action == "attack" and _sure_sfx(eff):
+            continue
+        event = f"{cid}_foley_{key}"
+        if not os.path.exists(os.path.join(SFX_DIR, event + ".sound_info")):
+            continue
+        sfx = {"type": "Sfx", "name": event}
+        if eff["type"] == "Combine":
+            eff["effects"].insert(0, sfx)
+        else:
+            a["effect"] = {"type": "Combine", "effects": [sfx, eff]}
+    return kit
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--hero", choices=list(BUILDERS.keys()), help="Build one hero (default: all 5)")
@@ -2740,7 +2991,7 @@ def main():
                 if k not in p:
                     sys.exit(f"unknown parameter {k} for {key}")
                 p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-        kit = fn(p, is_native=not args.plain)
+        kit = add_foley(fn(p, is_native=not args.plain))
         if args.nodes:
             print(cid, " ".join(f"{s}:{nodes(kit[s]['effect'])}" for s in ("attack", "skill", "skill2", "ult")))
         out_path = args.out if (args.hero and args.out) else os.path.join(OUT_DIR, f"{cid}.data_champion")

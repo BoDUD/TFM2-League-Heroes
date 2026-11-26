@@ -5,7 +5,6 @@ pub const STEALABLE: &[&str] = &[
     "abysspact_anchor",
     "abysspact_bloodmoon",
     "abysspact_bonebow",
-    "abysspact_carapace",
     "abysspact_corvus",
     "abysspact_debtor",
     "abysspact_effigy",
