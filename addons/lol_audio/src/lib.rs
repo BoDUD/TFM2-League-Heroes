@@ -55,6 +55,11 @@
 //! 语音事件里不同的几句，不够再往后面的事件找），这个 DLL 轮着放：同一个英雄同一种话一句接一句换，起点按这一局的种子错开，
 //! 三句说完才回到第一句。几句写在 `src/variants.rs`；第一句还是原来那句，后面的叫 `lol_audio_ch_<英雄>_<事件>_2`、`_3`。
 //!
+//! 0.3.3（用户 2026-11-26：「因为地图变大了 语音也要兼容吧 不然自动导播的时候会没有声音」）：那一次没声音不是地图大——游戏的
+//! 声音不按离镜头多远减弱——是同一场比赛读档后又看了一遍：游戏换了种子重新模拟（小龙顺序、输赢都不一样），0.3.2 只认
+//! 来历 + 比赛 + 第几局，把它当成游戏自己的第二遍，整场一句不放（日志 `AGAIN … second run from t=1: ignored`）。现在认的时候
+//! 带上模拟的种子：种子不同就是新的一遍，从头播；游戏自己的第二遍种子一样，照旧不播。
+//!
 //! 播报排队放：一条放完（`GAP` tick）才放下一条，等了 `EXPIRE` tick 还没轮到的扔掉（胜负那句插到最前面、清掉别的）。
 //!
 //! 只在看得见、听得见的比赛里放（观看、观战、回放）；后台预演的比赛（`ServerPresim`）和别的队伍在后台打的比赛
@@ -275,8 +280,10 @@ impl Queue {
 
 // ===================== 哪一遍 =====================
 
-/// One match as the view sees it: origin kind, match id, set index, replay id.
-pub type Key = (u32, u64, u64, u64);
+/// One match as the view sees it: origin kind, match id, set index, replay id, and the simulation's seed. 0.3.3: the
+/// same match simulated again with another seed (a save loaded and the match watched again) is a run of its own,
+/// announced from its start; the game's own second run of a match has the same seed and stays ignored.
+pub type Key = (u32, u64, u64, u64, u64);
 
 /// Which run of a match a tick belongs to.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -1376,7 +1383,7 @@ impl StableMatchHook for Announcer {
         }
         let now = sim.tick();
         let mut book = BOOK.lock().unwrap_or_else(|e| e.into_inner());
-        let w = book.watch((o.kind, o.match_id, o.set_index, o.replay_id));
+        let w = book.watch((o.kind, o.match_id, o.set_index, o.replay_id, sim.seed()));
         match w.pass(now) {
             Pass::Live => {}
             Pass::Again { first: true } => {
@@ -2028,7 +2035,7 @@ mod tests {
     #[test]
     fn matches_are_apart() {
         let mut b = Book::default();
-        let (set1, set2) = ((2, 7, 1, u64::MAX), (2, 7, 2, u64::MAX));
+        let (set1, set2) = ((2, 7, 1, u64::MAX, 9), (2, 7, 2, u64::MAX, 9));
         assert_eq!(b.watch(set1).pass(5000), Pass::Live);
         assert_eq!(b.watch(set2).pass(0), Pass::Live);
         assert_eq!(b.watch(set1).pass(0), Pass::Again { first: true });
@@ -2039,11 +2046,28 @@ mod tests {
     fn the_book_forgets_the_oldest_match() {
         let mut b = Book::default();
         for m in 0..=KEEP as u64 {
-            b.watch((2, m, 1, 0)).pass(1000);
+            b.watch((2, m, 1, 0, 5)).pass(1000);
         }
         assert_eq!(b.keys.len(), KEEP);
-        assert_eq!(b.watch((2, 0, 1, 0)).pass(0), Pass::Live);
-        assert_eq!(b.watch((2, 2, 1, 0)).pass(0), Pass::Again { first: true });
+        assert_eq!(b.watch((2, 0, 1, 0, 5)).pass(0), Pass::Live);
+        assert_eq!(b.watch((2, 2, 1, 0, 5)).pass(0), Pass::Again { first: true });
+    }
+
+    /// 0.3.3（用户 2026-11-26：「不然自动导播的时候会没有声音」——那一次是同一场比赛读档后再看一遍，游戏换了种子重新模拟，
+    /// 0.3.2 当成游戏自己的第二遍整场不播，日志 `AGAIN … second run from t=1: ignored`）：种子不同的那一遍从头播，种子相同的
+    /// 第二遍照旧不播。
+    #[test]
+    fn the_same_match_simulated_again_with_another_seed_is_announced() {
+        let mut b = Book::default();
+        let first = (2, 101, 1, u64::MAX, 1111);
+        assert_eq!(b.watch(first).pass(101_270), Pass::Live);
+        // the game's own second run: the same seed, from tick 1 - ignored as before
+        assert_eq!(b.watch(first).pass(1), Pass::Again { first: true });
+        // the match watched again after loading a save: another seed - its own run, live from its start
+        let again = (2, 101, 1, u64::MAX, 2222);
+        for t in [1, 2, 600, 85_631] {
+            assert_eq!(b.watch(again).pass(t), Pass::Live);
+        }
     }
 }
 

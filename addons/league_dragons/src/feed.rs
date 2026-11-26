@@ -64,6 +64,57 @@ static RIFT: Mutex<Vec<(u64, u64)>> = Mutex::new(Vec::new());
 static FXS: Mutex<Vec<Fx>> = Mutex::new(Vec::new());
 /// 特效最多留这么多条（很长的一局）：满了丢掉最早的四分之一。
 const FX_MOST: usize = 16_384;
+/// (比赛, 局, 种子)：画面记录记的是这一场的哪一遍（模拟的种子，[`this_run`]）。
+static RUN: Mutex<Vec<(u64, u64, u64)>> = Mutex::new(Vec::new());
+/// 换了种子的那一遍要从开局这么多 tick 以内跑起来，才算新开的一遍（不然是旧的那一遍还没停）。
+pub const FRESH_RUN: usize = 600;
+
+/// 屏幕那一场的这份模拟（种子 `seed`，跑到 `tick`）是不是画面记录跟着的那一遍。0.5.12（用户 2026-11-26 在大地图上的截图：
+/// 横幅说「红色方击杀了化学科技亚龙」，坑里画的和左上的小框却是蓝色方拿了山脉亚龙——「第一条是土龙吧」）：同一场读档后又看
+/// 一遍，游戏换了种子重新模拟，小龙顺序和谁拿的都不一样；以前只按（比赛, 局）合并，两遍的事混在一起，横幅放的是上一遍的。现在：
+/// - 这一场还没记过种子：记下这一遍；
+/// - 种子一样：同一遍（游戏自己快跑的第二遍也是这个种子，事照旧只记一次）；
+/// - 种子不一样、从开局 [`FRESH_RUN`] tick 以内：新的一遍，这一场的记录清空、跟它；
+/// - 种子不一样、已经跑到后面：旧的那一遍还没停，不算屏幕上的（它的事不进画面记录）。
+pub fn this_run(m: u64, s: u64, seed: u64, tick: usize) -> bool {
+    let Ok(mut runs) = RUN.lock() else { return true };
+    match runs.iter().position(|r| (r.0, r.1) == (m, s)) {
+        None => {
+            runs.push((m, s, seed));
+            true
+        }
+        Some(i) if runs[i].2 == seed => true,
+        Some(i) if tick <= FRESH_RUN => {
+            runs[i].2 = seed;
+            drop(runs);
+            forget(m, s);
+            true
+        }
+        Some(_) => false,
+    }
+}
+
+/// 这一场画面记录里的一切（事、状态记录、小龙编号、结束、峡谷、特效）都扔掉。
+fn forget(m: u64, s: u64) {
+    if let Ok(mut e) = EVENTS.lock() {
+        e.retain(|x| (x.m, x.s) != (m, s));
+    }
+    if let Ok(mut r) = RECORDS.lock() {
+        r.retain(|x| (x.0, x.1) != (m, s));
+    }
+    if let Ok(mut d) = DRAKES.lock() {
+        d.retain(|x| (x.0, x.1) != (m, s));
+    }
+    if let Ok(mut d) = ENDED.lock() {
+        d.retain(|x| (x.0, x.1) != (m, s));
+    }
+    if let Ok(mut d) = RIFT.lock() {
+        d.retain(|x| (x.0, x.1) != (m, s));
+    }
+    if let Ok(mut f) = FXS.lock() {
+        f.retain(|x| (x.m, x.s) != (m, s));
+    }
+}
 
 /// 屏幕在放这一场（比赛钩子在每个屏幕模拟里每 tick 记）：换了一场就只留这一场的。-> 是不是换了一场。
 pub fn view(m: u64, s: u64) -> bool {
@@ -86,6 +137,9 @@ pub fn view(m: u64, s: u64) -> bool {
         d.retain(|x| (x.0, x.1) == (m, s));
     }
     if let Ok(mut d) = RIFT.lock() {
+        d.retain(|x| (x.0, x.1) == (m, s));
+    }
+    if let Ok(mut d) = RUN.lock() {
         d.retain(|x| (x.0, x.1) == (m, s));
     }
     if let Ok(mut f) = FXS.lock() {
@@ -210,6 +264,7 @@ pub(crate) fn clear() {
     DRAKES.lock().unwrap().clear();
     ENDED.lock().unwrap().clear();
     RIFT.lock().unwrap().clear();
+    RUN.lock().unwrap().clear();
     FXS.lock().unwrap().clear();
     *VIEW.lock().unwrap() = None;
 }
@@ -217,6 +272,34 @@ pub(crate) fn clear() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 0.5.12: the same match simulated again with another seed (a save loaded, the match watched again) is a run of its
+    /// own - the screen's record follows it, and the old run, still ticking on, no longer writes into it.
+    #[test]
+    fn a_match_watched_again_with_another_seed_starts_its_record_over() {
+        let _g = super::super::tests::GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+        clear();
+        assert!(this_run(101, 1, 1111, 1));
+        assert!(view(101, 1));
+        push(Event { m: 101, s: 1, tick: 20_972, what: What::Drake { team: 1, element: Element::Chemtech, total: 1 } });
+        drake_born(101, 1, 436, Element::Chemtech);
+        ended(101, 1, 101_270);
+        on_rift(101, 1);
+        // the game's own second run: the same seed, from tick 1 - the same record
+        assert!(this_run(101, 1, 1111, 1) && this_run(101, 1, 1111, 50_000));
+        assert_eq!(events(101, 1).len(), 1);
+        // watched again: another seed from its start - the record starts over (the map's own state too: it is read again)
+        assert!(this_run(101, 1, 2222, 1));
+        assert!(events(101, 1).is_empty() && drake_of(101, 1, 436).is_none() && ended_at(101, 1).is_none() && !is_rift(101, 1));
+        push(Event { m: 101, s: 1, tick: 21_236, what: What::Drake { team: 0, element: Element::Mountain, total: 1 } });
+        // the old run still ticking on is not the screen's any more
+        assert!(!this_run(101, 1, 1111, 30_000));
+        assert!(this_run(101, 1, 2222, 30_000));
+        assert_eq!(events(101, 1).iter().map(|e| e.tick).collect::<Vec<_>>(), vec![21_236]);
+        // another match on screen: its own record
+        assert!(this_run(102, 1, 1111, 1) && view(102, 1));
+        clear();
+    }
 
     /// One test touches the globals (the screen's match), the hook's own test reads them through lib.rs's (one lock).
     #[test]
