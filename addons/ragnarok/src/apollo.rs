@@ -1,9 +1,12 @@
-//! 阿波罗（`ragnarok_apollo`）数据做不到的部分：只有声音。数据（tools/kit/build_apollo.py）的 `passive` 是这里的
-//! `ragnarok_apollo:voice`，没有参数；日轮（被动）、阿尔忒弥斯之丝、光之矢、银箭突进全在数据里。
+//! 阿波罗（`ragnarok_apollo`）数据做不到的部分：被动「白夜的拥抱」和配音。数据（tools/kit/build_apollo.py）的 `passive` 是这里的
+//! `ragnarok_apollo:voice`，参数 p_r / p_per / p_max 从数据的 params 读；光辉的支配、阿尔忒弥斯的月影、射穿灵魂的银矢全在数据里。
+//!
+//! 白夜的拥抱（终末的女武神第九回合：「我这颗太阳不会落下」——身边的人，敌我都算，对他的期待越多他就越强，爆出光）：他打出的每一下
+//! （普攻、技能都算，`on_attack`），看他身边 p_r 以内活着的英雄有几个（敌我都算、不算他自己，最多数 p_max 个），每个 +p_per% 伤害。
 //!
 //! 配音（鈴村健一的官方原声，Codex 截的三句）：一局第一次和敌方英雄交手说选人那句（「你喜欢我吧」），第一次和列奥尼达斯交手
-//! （对面有他的话）说「觉得太耀眼吗」那句挑衅；放银箭突进时喊；杀了英雄（「觉得太耀眼吗」）；复活时（「你喜欢我吧」）。每类有
-//! 自己的冷却，任意两句之间至少隔一会儿。倒地：死的时候放 Codex 的着地声（延迟在 sound_info 里，对上死亡动作第 7 帧着地）。
+//! （对面有他的话）说「觉得太耀眼吗」那句挑衅；放银箭（射穿灵魂的银矢）时喊；杀了英雄（「觉得太耀眼吗」）；复活时（「你喜欢我吧」）。
+//! 每类有自己的冷却，任意两句之间至少隔一会儿。倒地：死的时候放 Codex 的着地声（延迟在 sound_info 里，对上死亡动作第 7 帧着地）。
 //!
 //! 日志写在本包的 ragnarok.log 里（行首 `apollo`）。
 
@@ -121,11 +124,72 @@ impl Voice {
     }
 }
 
+// ===================== 白夜的拥抱（单元测试用） =====================
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Params {
+    /// 数多远以内的英雄（游戏单位，1 个游戏像素 1000）
+    pub p_r: usize,
+    /// 每个英雄加百分之几的伤害
+    pub p_per: usize,
+    /// 最多数几个
+    pub p_max: usize,
+}
+
+impl Default for Params {
+    fn default() -> Self {
+        Self { p_r: 50000, p_per: 6, p_max: 5 }
+    }
+}
+
+pub fn parse_params(json: &str) -> Params {
+    let mut p = Params::default();
+    for part in json.trim().trim_start_matches('{').trim_end_matches('}').split(',') {
+        let mut kv = part.splitn(2, ':');
+        let (Some(k), Some(v)) = (kv.next(), kv.next()) else { continue };
+        let k = k.trim().trim_matches('"');
+        let Ok(v) = v.trim().parse::<i64>() else { continue };
+        let u = v.max(0) as usize;
+        match k {
+            "p_r" => p.p_r = u.min(200000),
+            "p_per" => p.p_per = u.min(50),
+            "p_max" => p.p_max = u.min(9),
+            _ => {}
+        }
+    }
+    p
+}
+
+/// 身边有 n 个英雄时这一下的伤害。
+pub fn embraced(damage: usize, n: usize, p: &Params) -> usize {
+    damage * (100 + n.min(p.p_max) * p.p_per) / 100
+}
+
+/// 他身边 p_r 以内活着的英雄（敌我都算，不算他自己）有几个。
+fn watchers(sim: &StableSim<'_>, me: usize, p: &Params) -> usize {
+    let Some((mx, my)) = sim.get_entity(me).map(|e| e.pos()) else { return 0 };
+    let r2 = (p.p_r as f64) * (p.p_r as f64);
+    let mut n = 0;
+    for i in 0..sim.entity_count() {
+        let Some(u) = sim.entity_at(i) else { continue };
+        if u.id() == me || !u.is_alive() || !u.is_champion() {
+            continue;
+        }
+        let (x, y) = u.pos();
+        let (dx, dy) = (x as f64 - mx as f64, y as f64 - my as f64);
+        if dx * dx + dy * dy <= r2 {
+            n += 1;
+        }
+    }
+    n
+}
+
 // ===================== 游戏里 =====================
 
 #[derive(Clone, Default)]
 struct ApolloVoice {
     me: usize,
+    p: Params,
     was_alive: bool,
     lives: usize,
     /// 银箭突进的冷却上一拍是多少，用来认出这一拍刚放了
@@ -146,6 +210,10 @@ impl ApolloVoice {
 impl StablePassive for ApolloVoice {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
+    }
+
+    fn configure(&mut self, params_json: &str) {
+        self.p = parse_params(params_json);
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
@@ -178,11 +246,19 @@ impl StablePassive for ApolloVoice {
         }
     }
 
-    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, _damage: &mut usize) {
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, damage: &mut usize) {
         self.me = me;
         let Some(my_team) = sim.get_entity(me).map(|e| e.team()) else { return };
         let Some(t) = sim.get_entity(target) else { return };
-        if t.team() == my_team || !t.is_champion() {
+        if t.team() == my_team {
+            return;
+        }
+        // 白夜的拥抱：身边的英雄越多越强
+        let n = watchers(sim, me, &self.p);
+        if n > 0 {
+            *damage = embraced(*damage, n, &self.p);
+        }
+        if !t.is_champion() {
             return;
         }
         if t.name().as_deref() == Some(RIVAL) {
@@ -273,5 +349,15 @@ mod tests {
         let mut all = three.to_vec();
         all.sort();
         assert_eq!(used, all);
+    }
+
+    #[test]
+    fn the_more_who_watch_the_brighter_he_burns() {
+        let p = Params::default();
+        assert_eq!(parse_params(r#"{"p_max": 5, "p_per": 6, "p_r": 50000}"#), p);
+        assert_eq!(embraced(1000, 0, &p), 1000);
+        assert_eq!(embraced(1000, 2, &p), 1120);
+        // 最多数 5 个
+        assert_eq!(embraced(1000, 9, &p), 1300);
     }
 }

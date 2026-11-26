@@ -10,14 +10,14 @@
   被动    方阵：他每放一个技能，身边 p_r 里的友方英雄（连他自己）护甲和魔抗 +p_res，p_t 拍。写在普攻说明里（游戏只有三个技能图标位），
           全在数据里。
   attack  盾击 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 5 帧，0.287 秒）砸到。
-  skill   链盾：`Targeting` EnemyWithoutTower（q_range）：q_wind 拍抡盾，q_go 拍（第 4 帧，0.237 秒）连着钢链甩出去，q_hit 拍
+  skill   方阵·恩科斯（链盾）：`Targeting` EnemyWithoutTower（q_range）：q_wind 拍抡盾，q_go 拍（第 4 帧，0.237 秒）连着钢链甩出去，q_hit 拍
           （0.285 秒）砸中：q_dmg + q_ad% 攻击力物理伤害、眩晕 q_stun 拍、减速 q_slow% q_slow_t 拍；q_back 拍（第 6 帧，0.336 秒）
-          收链，把人往回拽（Pull，每拍 q_pull，q_pull_t 拍），q_catch 拍接回盾。
+          收链（原作的方阵·恩科斯不拽人），q_catch 拍接回盾。
   skill2  举盾：`Targeting` EnemyWithoutTower（e_range，有人在身边）：e_go 拍（第 3 帧，0.217 秒）举盾，e_t 拍里身边 e_ar 里的友方
           英雄（连他自己）受到的伤害降低 e_adr%，他自己再降低 e_self%、打他的人挨 e_ref% 反伤（引擎的反伤每一下都算），身边 e_tr
           里的敌人被嘲讽 e_taunt 拍（过来打他的盾）；e_reflect 拍
           （第 5 帧，0.354 秒）光箭从盾上弹开（画在他自己的帧里），e_fade 拍收盾。
-  ult     方阵冲锋：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到撞上为止），r_show 拍（第 3 帧，
+  ult     方阵·兰布达（真实之盾）：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到撞上为止），r_show 拍（第 3 帧，
           0.305 秒）圆盾换成真理之盾，r_go 拍（第 4 帧，0.423 秒）顶着盾冲过去（RushTime，每拍 r_speed、r_t 拍，碰到人就停），
           r_hit 拍（第 5 帧，0.510 秒）撞上：身边 r_r 里的敌人 r_dmg + r_ad% 攻击力物理伤害、被击飞 r_up 拍（原地）。冲出去之前被
           打死就什么都不发生。
@@ -163,8 +163,8 @@ def build(p, is_native=False):
                    combine(phalanx, delayed(p["q_wind"] - 1, sfx("q_wind")),
                            delayed(p["q_go"] - 1, alive_only(sfx("q"))),
                            delayed(p["q_hit"] - 1, alive_only(struck)),
-                           delayed(p["q_back"] - 1, alive_only(sfx("q_back"),
-                                                               {"type": "Pull", "speed": p["q_pull"], "tick": p["q_pull_t"]})),
+                           # 原作（第九回合）的方阵·恩科斯是连着链子把（锯形的）盾甩出去砸人，不把人拽回来（2026-11-26 照原作去掉拽人）
+                           delayed(p["q_back"] - 1, alive_only(sfx("q_back"))),
                            delayed(p["q_catch"] - 1, alive_only(sfx("q_catch")))))
 
     # ------------------------------------------------------------------ E：举盾（身边的队友一起减伤，他自己再减一点、反伤）

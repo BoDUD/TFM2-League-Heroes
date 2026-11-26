@@ -2,8 +2,8 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "ragnarok_zerofuku_sfx_ground_hit",
-      "volume": 0.5
+      "clip": "ragnarok_zerofuku_sfx_chop_hit",
+      "volume": 0.45
     }
   ]
 }

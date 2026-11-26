@@ -1,0 +1,22 @@
+{
+  "actor_frames": {
+    "idle": 8,
+    "run": 8,
+    "attack": 8,
+    "skill": 8,
+    "skill2": 8,
+    "ult": 8,
+    "hit": 8,
+    "dead": 8
+  },
+  "fx_frames": {
+    "slash": 8,
+    "hit_spark": 8,
+    "windup": 8,
+    "wave": 8,
+    "stance_aura": 8,
+    "stance_flash": 8,
+    "last_windup": 8,
+    "last_cut": 8
+  }
+}

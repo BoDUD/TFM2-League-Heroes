@@ -41,11 +41,11 @@ TEXT = {
                  E + "。刻耳柏洛斯形态：一拳砸地，身前的敌人受到" + phys("cq_dmg", "cq_ad") + O + "物理伤害" + E + "并被" + R + "击飞" +
                  E + "。",
         "skill2": "巨棒砸地，身前的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R + "眩晕{e_stun}秒" + E +
-                  "。刻耳柏洛斯形态：护势，" + A + "{ce_t}秒" + E + "内受到的伤害降低" + A + "{ce_dr}%" + E + "并反弹" + A + "{ce_ref}%" +
-                  E + "，" + R + "嘲讽" + E + "身边的敌人" + R + "{ce_taunt}秒" + E + "。",
+                  "。刻耳柏洛斯形态：一下贴到对手面前，留下三道巨大的爪痕：" + phys("ce_dmg", "ce_ad") + O + "物理伤害" + E + "并" + R +
+                  "减速{ce_slow}%" + E + "。",
         "ult": "与冥府的看门犬订约，变成刻耳柏洛斯形态" + A + "{r_t}秒" + E + "：攻击力" + A + "+{r_atk}%" + E + "、攻速" + A + "+{r_as}%" +
                E + "、移速" + A + "+{r_ms}%" + E + "、受到的伤害降低" + A + "{r_dr}%" + E + "、吸血" + A + "{r_vamp}%" + E +
-               "；结束时一拳砸地，身边的敌人受到" + phys("r_end_dmg", "r_end_ad") + O + "物理伤害" + E + "并被" + R + "击飞" + E + "。",
+               "；结束时右臂变大，一记大英雄之拳砸地，身边的敌人受到" + phys("r_end_dmg", "r_end_ad") + O + "物理伤害" + E + "并被" + R + "击飞" + E + "。",
         "names": ("涅墨亚之狮", "克里特公牛", "刻耳柏洛斯"),
     },
     "zh-hant": {
@@ -56,11 +56,11 @@ TEXT = {
                  E + "。刻耳柏洛斯形態：一拳砸地，身前的敵人受到" + phys("cq_dmg", "cq_ad") + O + "物理傷害" + E + "並被" + R + "擊飛" +
                  E + "。",
         "skill2": "巨棒砸地，身前的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R + "暈眩{e_stun}秒" + E +
-                  "。刻耳柏洛斯形態：護勢，" + A + "{ce_t}秒" + E + "內受到的傷害降低" + A + "{ce_dr}%" + E + "並反彈" + A + "{ce_ref}%" +
-                  E + "，" + R + "嘲諷" + E + "身邊的敵人" + R + "{ce_taunt}秒" + E + "。",
+                  "。刻耳柏洛斯形態：一下貼到對手面前，留下三道巨大的爪痕：" + phys("ce_dmg", "ce_ad") + O + "物理傷害" + E + "並" + R +
+                  "減速{ce_slow}%" + E + "。",
         "ult": "與冥府的看門犬訂約，變成刻耳柏洛斯形態" + A + "{r_t}秒" + E + "：攻擊力" + A + "+{r_atk}%" + E + "、攻速" + A + "+{r_as}%" +
                E + "、移速" + A + "+{r_ms}%" + E + "、受到的傷害降低" + A + "{r_dr}%" + E + "、吸血" + A + "{r_vamp}%" + E +
-               "；結束時一拳砸地，身邊的敵人受到" + phys("r_end_dmg", "r_end_ad") + O + "物理傷害" + E + "並被" + R + "擊飛" + E + "。",
+               "；結束時右臂變大，一記大英雄之拳砸地，身邊的敵人受到" + phys("r_end_dmg", "r_end_ad") + O + "物理傷害" + E + "並被" + R + "擊飛" + E + "。",
         "names": ("涅墨亞之獅", "克里特公牛", "刻耳柏洛斯"),
     },
     "en": {
@@ -72,12 +72,12 @@ TEXT = {
                  "physical damage" + E + " and are " + R + "slowed {q_slow}%" + E + ". Cerberus form: a fist into the ground "
                  "ahead for " + phys("cq_dmg", "cq_ad") + " " + O + "physical damage" + E + ", " + R + "knocking up" + E + ".",
         "skill2": "Slams the club down: enemies before him take " + phys("e_dmg", "e_ad") + " " + O + "physical damage" + E +
-                  " and are " + R + "stunned for {e_stun}s" + E + ". Cerberus form: a guard - for " + A + "{ce_t}s" + E +
-                  " he takes " + A + "{ce_dr}%" + E + " less damage, reflects " + A + "{ce_ref}%" + E + " and " + R + "taunts" +
-                  E + " enemies around him for " + R + "{ce_taunt}s" + E + ".",
+                  " and are " + R + "stunned for {e_stun}s" + E + ". Cerberus form: he is on the target in an instant and leaves "
+                  "three huge claw marks: " + phys("ce_dmg", "ce_ad") + " " + O + "physical damage" + E + " and " + R +
+                  "{ce_slow}% slow" + E + ".",
         "ult": "Makes his pact with the hound of Hades, Cerberus form for " + A + "{r_t}s" + E + ": " + A + "+{r_atk}%" + E +
                " attack, " + A + "+{r_as}%" + E + " attack speed, " + A + "+{r_ms}%" + E + " move speed, " + A + "{r_dr}%" + E +
-               " less damage taken, " + A + "{r_vamp}%" + E + " life steal. At its end a fist into the ground: " +
+               " less damage taken, " + A + "{r_vamp}%" + E + " life steal. At its end Apheris Heros, the Great Hero's Fist, into the ground: " +
                phys("r_end_dmg", "r_end_ad") + " " + O + "physical damage" + E + " around him, " + R + "knocking up" + E + ".",
         "names": ("Nemean Lion", "Cretan Bull", "Cerberus"),
     },
@@ -90,11 +90,11 @@ TEXT = {
                  "와 " + R + "{q_slow}% 둔화" + E + ". 케르베로스 형태: 땅을 내리찍는 주먹으로 " + phys("cq_dmg", "cq_ad") + " " + O +
                  "물리 피해" + E + "와 " + R + "에어본" + E + ".",
         "skill2": "곤봉으로 땅을 내리쳐 앞의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R + "{e_stun}초 기절" +
-                  E + ". 케르베로스 형태: 방어 자세로 " + A + "{ce_t}초" + E + " 동안 받는 피해 " + A + "{ce_dr}%" + E + " 감소, " + A +
-                  "{ce_ref}%" + E + " 반사, 주변의 적 " + R + "{ce_taunt}초 도발" + E + ".",
+                  E + ". 케르베로스 형태: 순식간에 대상 앞으로 파고들어 거대한 발톱 자국 세 줄: " + phys("ce_dmg", "ce_ad") + " " + O +
+                  "물리 피해" + E + "와 " + R + "{ce_slow}% 둔화" + E + ".",
         "ult": "명계의 문지기 개와 계약해 " + A + "{r_t}초" + E + " 동안 케르베로스 형태: 공격력 " + A + "+{r_atk}%" + E + ", 공격 속도 " +
                A + "+{r_as}%" + E + ", 이동 속도 " + A + "+{r_ms}%" + E + ", 받는 피해 " + A + "{r_dr}%" + E + " 감소, 흡혈 " + A +
-               "{r_vamp}%" + E + ". 끝날 때 땅을 내리찍어 주변에 " + phys("r_end_dmg", "r_end_ad") + " " + O + "물리 피해" + E + "와 " +
+               "{r_vamp}%" + E + ". 끝날 때 대영웅의 주먹으로 땅을 내리찍어 주변에 " + phys("r_end_dmg", "r_end_ad") + " " + O + "물리 피해" + E + "와 " +
                R + "에어본" + E + ".",
         "names": ("네메아의 사자", "크레타의 황소", "케르베로스"),
     },
@@ -107,11 +107,11 @@ TEXT = {
                  "{q_slow}%スロウ" + E + "。ケルベロス形態：地面への拳で" + phys("cq_dmg", "cq_ad") + "の" + O + "物理ダメージ" + E +
                  "と" + R + "打ち上げ" + E + "。",
         "skill2": "棍棒を叩きつけ前方の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{e_stun}秒スタン" + E +
-                  "。ケルベロス形態：構え、" + A + "{ce_t}秒" + E + "間被ダメージ" + A + "{ce_dr}%" + E + "軽減・" + A + "{ce_ref}%" + E +
-                  "反射、周囲の敵を" + R + "{ce_taunt}秒挑発" + E + "。",
+                  "。ケルベロス形態：一瞬で相手の目の前に迫り、三本の巨大な爪痕：" + phys("ce_dmg", "ce_ad") + "の" + O + "物理ダメージ" +
+                  E + "と" + R + "{ce_slow}%スロウ" + E + "。",
         "ult": "冥府の番犬と契約し" + A + "{r_t}秒" + E + "ケルベロス形態：攻撃力" + A + "+{r_atk}%" + E + "、攻撃速度" + A + "+{r_as}%" +
                E + "、移動速度" + A + "+{r_ms}%" + E + "、被ダメージ" + A + "{r_dr}%" + E + "軽減、吸血" + A + "{r_vamp}%" + E +
-               "。終わりに地面へ拳：周囲に" + phys("r_end_dmg", "r_end_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "打ち上げ" +
+               "。終わりに大英雄の拳を地面へ：周囲に" + phys("r_end_dmg", "r_end_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "打ち上げ" +
                E + "。",
         "names": ("ネメアの獅子", "クレタの雄牛", "ケルベロス"),
     },
@@ -141,8 +141,8 @@ SOUNDS = {
 
 def values(p):
     v = {k: p[k] for k in ("p_max", "p_atk", "p_res", "q_dmg", "q_ad", "q_slow", "cq_dmg", "cq_ad", "e_dmg", "e_ad",
-                           "ce_dr", "ce_ref", "r_atk", "r_as", "r_ms", "r_dr", "r_vamp", "r_end_dmg", "r_end_ad")}
-    for k in ("e_stun", "ce_t", "ce_taunt", "r_t"):
+                           "ce_dmg", "ce_ad", "ce_slow", "r_atk", "r_as", "r_ms", "r_dr", "r_vamp", "r_end_dmg", "r_end_ad")}
+    for k in ("e_stun", "r_t"):
         v[k] = secs(p[k])
     return v
 

@@ -63,6 +63,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 阿波罗（ragnarok_apollo）：Codex 直接按两倍密度画的，站直 116 格，PPU 2.75，42 个游戏像素；光弓和女神像在
     // tools/art/apollo_fix.py 一律按满的大小重贴过
     ("ragnarok_apollo", 2.75, include_str!("../../../ragnarok/champions/ragnarok_apollo#anim.fanim")),
+    // 冲田总司、须佐之男、西蒙·海耶、洛基：Codex 交的是逻辑像素图集（Q 版像素画，人站直 56 格），tools/art/ragnarok_atlas.py 按两倍最近邻
+    // 读进来（像素画只按整数倍放大），站直 112 格；PPU 8/3，42 个游戏像素，和别的终末英雄一样高
+    ("ragnarok_okita", 2.667, include_str!("../../../ragnarok/champions/ragnarok_okita#anim.fanim")),
+    ("ragnarok_susanoo", 2.667, include_str!("../../../ragnarok/champions/ragnarok_susanoo#anim.fanim")),
+    ("ragnarok_simo", 2.667, include_str!("../../../ragnarok/champions/ragnarok_simo#anim.fanim")),
+    ("ragnarok_loki", 2.667, include_str!("../../../ragnarok/champions/ragnarok_loki#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -116,6 +122,12 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // 阿波罗日轮拳和光箭的命中、光丝的收束（拳光、光丝投出、光弓成形和离弦的光、女神像显现的光、银箭的箭影画在他自己的帧里；
     // 飞出去的光箭是弹道画面，1 倍，不在这里）
     ("ragnarok_apollo_fx", 3.3, include_str!("../../../ragnarok/effects/ragnarok_apollo_fx#anim.fanim")),
+    // 冲田、须佐之男、海耶、洛基：特效和人一个比例（Codex 按人画的大小），PPU 同人 8/3。挂在目标身上的命中、挂在自己身上的循环
+    // （鬼子的气息、雪幕）在这里；出招的刀光、枪口焰、光迹画在他们自己的帧里
+    ("ragnarok_okita_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_okita_fx#anim.fanim")),
+    ("ragnarok_susanoo_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_susanoo_fx#anim.fanim")),
+    ("ragnarok_simo_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_simo_fx#anim.fanim")),
+    ("ragnarok_loki_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_loki_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
@@ -125,7 +137,8 @@ pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ra
                                          "ragnarok_raiden_fx", "ragnarok_shiva_fx", "ragnarok_buddha_fx",
                                          "ragnarok_zerofuku_fx", "ragnarok_hades_fx", "ragnarok_qin_fx",
                                          "ragnarok_beelzebub_fx", "ragnarok_tesla_fx", "ragnarok_leonidas_fx",
-                                         "ragnarok_apollo_fx"];
+                                         "ragnarok_apollo_fx", "ragnarok_okita_fx", "ragnarok_susanoo_fx",
+                                         "ragnarok_simo_fx", "ragnarok_loki_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[

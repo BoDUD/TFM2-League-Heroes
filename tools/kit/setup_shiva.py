@@ -32,77 +32,77 @@ VIEW = {"face": {"x": 1, "y": -37}, "center": {"x": 0, "y": -13}, "banpick_cente
 TEXT = {
     "zh-hans": {
         "name": "湿婆",
-        "attack": "四臂一扫，造成" + AD + O + "物理伤害" + E + "；轮回舞踊里是火鞭，" + ADi + O + "{h_atk_all}%" + E + "。" + O + "节奏" + E +
+        "attack": "四臂一扫，造成" + AD + O + "物理伤害" + E + "；灰烬里是火鞭，" + ADi + O + "{h_atk_all}%" + E + "。" + O + "轮回舞踊" + E +
                   "：每放一个技能记一拍（最多" + A + "{p_max}拍" + E + "），每拍攻击力" + A + "+{p_atk}%" + E + "、攻速" + A + "+{p_as}%" +
                   E + "；" + A + "{p_t}秒" + E + "没再放技能就散。",
         "skill": "四臂连击两下：前方扇形的敌人受到" + phys("q1_dmg", "q1_ad") + "、" + phys("q2_dmg", "q2_ad") + O + "物理伤害" + E +
-                 "，第二下" + R + "减速{q_slow}%" + E + "；轮回舞踊里伤害" + A + "{h_mul}%" + E + "。",
-        "skill2": "踏着舞步冲到目标身上，落脚时身边的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R + "减速{e_slow}%" +
-                  E + "；轮回舞踊里是火步，伤害" + A + "{h_mul}%" + E + "。",
-        "ult": "点燃心脏（不受控制、受到的伤害降低" + A + "{r_dr}%" + E + "），" + A + "{r_t}秒" + E + "轮回舞踊：攻击力" + A + "+{r_atk}%" +
-               E + "、攻速" + A + "+{r_as}%" + E + "、移速" + A + "+{r_ms}%" + E + "；结束时一记高踢，前方扇形的敌人受到" +
+                 "，第二下" + R + "减速{q_slow}%" + E + "；灰烬里伤害" + A + "{h_mul}%" + E + "。",
+        "skill2": "跳起来带着火往目标身上踢下去，落地时身边的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R + "减速{e_slow}%" +
+                  E + "；灰烬里伤害" + A + "{h_mul}%" + E + "。",
+        "ult": "手指插进胸口压心脏、全身燃烧（不受控制、受到的伤害降低" + A + "{r_dr}%" + E + "），" + A + "{r_t}秒" + E + "轮回舞踊·灰烬：攻击力" + A + "+{r_atk}%" +
+               E + "、攻速" + A + "+{r_as}%" + E + "、移速" + A + "+{r_ms}%" + E + "；结束时一记大切炎舞（旋身带火的脚跟踢），前方扇形的敌人受到" +
                phys("r_end_dmg", "r_end_ad") + O + "物理伤害" + E + "并被" + R + "击飞" + E + "。",
-        "names": ("四臂连击", "舞步", "轮回舞踊"),
+        "names": ("四臂连击", "虎爪炎舞", "轮回舞踊·灰烬"),
     },
     "zh-hant": {
         "name": "濕婆",
-        "attack": "四臂一掃，造成" + AD + O + "物理傷害" + E + "；輪迴舞踊裡是火鞭，" + ADi + O + "{h_atk_all}%" + E + "。" + O + "節奏" + E +
+        "attack": "四臂一掃，造成" + AD + O + "物理傷害" + E + "；灰燼裡是火鞭，" + ADi + O + "{h_atk_all}%" + E + "。" + O + "輪迴舞踊" + E +
                   "：每放一個技能記一拍（最多" + A + "{p_max}拍" + E + "），每拍攻擊力" + A + "+{p_atk}%" + E + "、攻速" + A + "+{p_as}%" +
                   E + "；" + A + "{p_t}秒" + E + "沒再放技能就散。",
         "skill": "四臂連擊兩下：前方扇形的敵人受到" + phys("q1_dmg", "q1_ad") + "、" + phys("q2_dmg", "q2_ad") + O + "物理傷害" + E +
-                 "，第二下" + R + "減速{q_slow}%" + E + "；輪迴舞踊裡傷害" + A + "{h_mul}%" + E + "。",
-        "skill2": "踏著舞步衝到目標身上，落腳時身邊的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R + "減速{e_slow}%" +
-                  E + "；輪迴舞踊裡是火步，傷害" + A + "{h_mul}%" + E + "。",
-        "ult": "點燃心臟（不受控制、受到的傷害降低" + A + "{r_dr}%" + E + "），" + A + "{r_t}秒" + E + "輪迴舞踊：攻擊力" + A + "+{r_atk}%" +
-               E + "、攻速" + A + "+{r_as}%" + E + "、移速" + A + "+{r_ms}%" + E + "；結束時一記高踢，前方扇形的敵人受到" +
+                 "，第二下" + R + "減速{q_slow}%" + E + "；灰燼裡傷害" + A + "{h_mul}%" + E + "。",
+        "skill2": "跳起來帶著火往目標身上踢下去，落地時身邊的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R + "減速{e_slow}%" +
+                  E + "；灰燼裡傷害" + A + "{h_mul}%" + E + "。",
+        "ult": "手指插進胸口壓心臟、全身燃燒（不受控制、受到的傷害降低" + A + "{r_dr}%" + E + "），" + A + "{r_t}秒" + E + "輪迴舞踊·灰燼：攻擊力" + A + "+{r_atk}%" +
+               E + "、攻速" + A + "+{r_as}%" + E + "、移速" + A + "+{r_ms}%" + E + "；結束時一記大切炎舞（旋身帶火的腳跟踢），前方扇形的敵人受到" +
                phys("r_end_dmg", "r_end_ad") + O + "物理傷害" + E + "並被" + R + "擊飛" + E + "。",
-        "names": ("四臂連擊", "舞步", "輪迴舞踊"),
+        "names": ("四臂連擊", "虎爪炎舞", "輪迴舞踊·灰燼"),
     },
     "en": {
         "name": "Shiva",
         "attack": "A four-armed sweep for " + AD + " " + O + "physical damage" + E + "; in Tandava Karma a whip of fire for " + ADi + O +
-                  "{h_atk_all}%" + E + ". " + O + "Rhythm" + E + ": every skill is a beat (up to " + A + "{p_max}" + E + "), each " + A +
+                  "{h_atk_all}%" + E + ". " + O + "Tandava" + E + ": every skill is a beat (up to " + A + "{p_max}" + E + "), each " + A +
                   "+{p_atk}%" + E + " attack and " + A + "+{p_as}%" + E + " attack speed; the beats fade after " + A + "{p_t}s" + E +
                   " without a skill.",
         "skill": "Two strikes of his four arms: enemies in a cone take " + phys("q1_dmg", "q1_ad") + " and " + phys("q2_dmg", "q2_ad") +
                  " " + O + "physical damage" + E + ", the second " + R + "slowing {q_slow}%" + E + "; in Tandava Karma " + A +
                  "{h_mul}%" + E + " damage.",
-        "skill2": "Dances onto the target; where he lands, enemies around him take " + phys("e_dmg", "e_ad") + " " + O +
-                  "physical damage" + E + " and are " + R + "slowed {e_slow}%" + E + "; in Tandava Karma a step of fire for " + A +
+        "skill2": "Krittivasa: leaps onto the target in a flaming downward kick; where he lands, enemies around him take " + phys("e_dmg", "e_ad") + " " + O +
+                  "physical damage" + E + " and are " + R + "slowed {e_slow}%" + E + "; in Tandava Karma " + A +
                   "{h_mul}%" + E + " damage.",
-        "ult": "Sets his heart alight (unstoppable, " + A + "{r_dr}%" + E + " less damage): Tandava Karma for " + A + "{r_t}s" + E +
+        "ult": "Digs his fingers into his chest to pump his heart and burns (unstoppable, " + A + "{r_dr}%" + E + " less damage): Tandava Karma for " + A + "{r_t}s" + E +
                ", " + A + "+{r_atk}%" + E + " attack, " + A + "+{r_as}%" + E + " attack speed, " + A + "+{r_ms}%" + E +
-               " move speed; at its end a high kick for " + phys("r_end_dmg", "r_end_ad") + " " + O + "physical damage" + E +
+               " move speed; at its end Deva Loka, a spinning flaming heel kick, for " + phys("r_end_dmg", "r_end_ad") + " " + O + "physical damage" + E +
                " in a cone, " + R + "knocking up" + E + ".",
-        "names": ("Four-Armed Flurry", "Dance Step", "Tandava Karma"),
+        "names": ("Four-Armed Flurry", "Krittivasa", "Tandava Karma"),
     },
     "ko": {
         "name": "시바",
-        "attack": "네 팔로 휩쓸어 " + AD + " " + O + "물리 피해" + E + ", 윤회무용 중에는 불의 채찍으로 " + ADi + O + "{h_atk_all}%" + E +
-                  ". " + O + "리듬" + E + ": 스킬마다 한 박자(최대 " + A + "{p_max}박" + E + "), 박자마다 공격력 " + A + "+{p_atk}%" + E +
+        "attack": "네 팔로 휩쓸어 " + AD + " " + O + "물리 피해" + E + ", 회신 중에는 불의 채찍으로 " + ADi + O + "{h_atk_all}%" + E +
+                  ". " + O + "윤회무용" + E + ": 스킬마다 한 박자(최대 " + A + "{p_max}박" + E + "), 박자마다 공격력 " + A + "+{p_atk}%" + E +
                   ", 공격 속도 " + A + "+{p_as}%" + E + ". " + A + "{p_t}초" + E + " 동안 스킬이 없으면 흩어짐.",
         "skill": "네 팔 연타 두 번: 앞쪽 부채꼴의 적에게 " + phys("q1_dmg", "q1_ad") + ", " + phys("q2_dmg", "q2_ad") + " " + O +
-                 "물리 피해" + E + ", 두 번째는 " + R + "{q_slow}% 둔화" + E + ". 윤회무용 중 피해 " + A + "{h_mul}%" + E + ".",
-        "skill2": "춤사위로 대상에게 돌진해 착지할 때 주변 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
-                  "{e_slow}% 둔화" + E + ". 윤회무용 중에는 불꽃 걸음, 피해 " + A + "{h_mul}%" + E + ".",
-        "ult": "심장에 불을 붙여(저지 불가, 받는 피해 " + A + "{r_dr}%" + E + " 감소) " + A + "{r_t}초" + E + " 동안 윤회무용: 공격력 " + A +
-               "+{r_atk}%" + E + ", 공격 속도 " + A + "+{r_as}%" + E + ", 이동 속도 " + A + "+{r_ms}%" + E + ". 끝날 때 하이킥으로 앞쪽 "
+                 "물리 피해" + E + ", 두 번째는 " + R + "{q_slow}% 둔화" + E + ". 회신 중 피해 " + A + "{h_mul}%" + E + ".",
+        "skill2": "불꽃 내려차기로 대상에게 뛰어들어 착지할 때 주변 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
+                  "{e_slow}% 둔화" + E + ". 회신 중 피해 " + A + "{h_mul}%" + E + ".",
+        "ult": "가슴에 손가락을 찔러 심장을 태워(저지 불가, 받는 피해 " + A + "{r_dr}%" + E + " 감소) " + A + "{r_t}초" + E + " 동안 윤회무용·회신: 공격력 " + A +
+               "+{r_atk}%" + E + ", 공격 속도 " + A + "+{r_as}%" + E + ", 이동 속도 " + A + "+{r_ms}%" + E + ". 끝날 때 대절염무(불꽃 돌려차기)로 앞쪽 "
                "부채꼴에 " + phys("r_end_dmg", "r_end_ad") + " " + O + "물리 피해" + E + "와 " + R + "에어본" + E + ".",
-        "names": ("네 팔 연타", "춤사위", "윤회무용"),
+        "names": ("네 팔 연타", "크리티바사", "윤회무용·회신"),
     },
     "ja": {
         "name": "シヴァ",
-        "attack": "四本の腕で薙ぎ払い" + AD + "の" + O + "物理ダメージ" + E + "、輪廻舞踊中は炎の鞭で" + ADi + O + "{h_atk_all}%" + E + "。" +
-                  O + "リズム" + E + "：スキルごとに一拍（最大" + A + "{p_max}拍" + E + "）、一拍ごとに攻撃力" + A + "+{p_atk}%" + E +
+        "attack": "四本の腕で薙ぎ払い" + AD + "の" + O + "物理ダメージ" + E + "、灰燼中は炎の鞭で" + ADi + O + "{h_atk_all}%" + E + "。" +
+                  O + "輪廻舞踊" + E + "：スキルごとに一拍（最大" + A + "{p_max}拍" + E + "）、一拍ごとに攻撃力" + A + "+{p_atk}%" + E +
                   "・攻撃速度" + A + "+{p_as}%" + E + "。" + A + "{p_t}秒" + E + "スキルがないと消える。",
         "skill": "四臂の二連撃：前方扇形の敵に" + phys("q1_dmg", "q1_ad") + "、" + phys("q2_dmg", "q2_ad") + "の" + O + "物理ダメージ" + E +
-                 "、二撃目は" + R + "{q_slow}%スロウ" + E + "。輪廻舞踊中はダメージ" + A + "{h_mul}%" + E + "。",
-        "skill2": "舞いながら対象に飛び込み、着地で周囲の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
-                  "{e_slow}%スロウ" + E + "。輪廻舞踊中は炎の舞、ダメージ" + A + "{h_mul}%" + E + "。",
-        "ult": "心臓に火を灯す（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）。" + A + "{r_t}秒" + E + "輪廻舞踊：攻撃力" + A +
-               "+{r_atk}%" + E + "、攻撃速度" + A + "+{r_as}%" + E + "、移動速度" + A + "+{r_ms}%" + E + "。終わりに上段蹴りで前方扇形に" +
+                 "、二撃目は" + R + "{q_slow}%スロウ" + E + "。灰燼中はダメージ" + A + "{h_mul}%" + E + "。",
+        "skill2": "炎の跳び蹴りで対象に飛び込み、着地で周囲の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
+                  "{e_slow}%スロウ" + E + "。灰燼中はダメージ" + A + "{h_mul}%" + E + "。",
+        "ult": "胸に指を突き立て心臓を燃やす（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）。" + A + "{r_t}秒" + E + "輪廻舞踊・灰燼：攻撃力" + A +
+               "+{r_atk}%" + E + "、攻撃速度" + A + "+{r_as}%" + E + "、移動速度" + A + "+{r_ms}%" + E + "。終わりに大切炎舞（炎の回し蹴り）で前方扇形に" +
                phys("r_end_dmg", "r_end_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "打ち上げ" + E + "。",
-        "names": ("四臂連撃", "舞踏", "輪廻舞踊"),
+        "names": ("四臂連撃", "虎爪炎舞", "輪廻舞踊・灰燼"),
     },
 }
 

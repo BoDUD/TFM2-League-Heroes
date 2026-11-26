@@ -47,30 +47,32 @@ TEXT = {
         "attack": "雷槌重击，造成" + AD + O + "物理伤害" + E + "。" + O + "雷槌觉醒" + E + "：每放" + A + "{p_n}次" + E +
                   "技能，雷槌觉醒" + A + "{p_t}秒" + E + "：普攻再造成" + M + "{p_dmg}" + E + hp("p_hp", M) + M + "魔法伤害" +
                   E + "，雷神之锤改为" + R + "眩晕{q_stun}秒" + E + "。",
-        "skill": "举锤砸地，" + A + "{q_hit}秒" + E + "后雷电在前方炸开：敌人受到" + phys("q_dmg", "q_ad") + hp("q_hp") + O +
-                 "物理伤害" + E + "并" + R + "眩晕{q_stun0}秒" + E + "（觉醒时" + R + "{q_stun}秒" + E + "）。",
-        "skill2": "朝目标方向掷出雷槌，雷槌飞回手中，来回穿过的敌人受到" + phys("e_dmg", "e_ad") + hp("e_hp") + O + "物理伤害" + E +
-                  "并减速" + A + "{e_slow}%" + E + "，持续" + A + "{e_slow_t}秒" + E + "。雷槌回手前原地等待，接住时获得" + S + "{e_sh}" + E +
-                  " + " + ADi + S + "{e_sh_ad}%" + E + S + "护盾" + E + A + "{e_sh_t}秒" + E + "。",
-        "ult": "雷槌立即觉醒" + A + "{r_awake}秒" + E + "，蓄力" + A + "{r_go}秒" + E + "（不受控制，受到的伤害降低" + A + "{r_dr}%" + E +
-               "）后砸下：前方的敌人受到" + phys("r_dmg", "r_ad") + hp("r_hp") + O + "物理伤害" + E + "并" + R + "击飞{r_up}秒" + E +
-               "。",
-        "names": ("雷神之锤", "回旋雷槌", "觉醒雷槌"),
+        "skill": "左臂蓄雷、双手举锤往后仰再砸下，" + A + "{q_hit}秒" + E + "后雷电在前方炸开：敌人受到" + phys("q_dmg", "q_ad") + hp("q_hp") + O +
+                 "物理伤害" + E + "并被冲击波" + R + "击飞{q_stun0}秒" + E + "（觉醒时" + R + "{q_stun}秒" + E + "）。",
+        "skill2": "双臂的铁手套「雅恩格利佩尔」（天界最强的防御）顶在身前" + A + "{e_win}秒" + E + "：普攻全部挡住，受到的技能伤害降低" +
+                  A + "{e_dr}%" + E + "；举起时获得" + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E + S + "护盾" + E + A +
+                  "{e_sh_t}秒" + E + "。",
+        "ult": "雷槌觉醒" + A + "{r_awake}秒" + E + "并掷出，像回旋镖一样飞回：来回穿过的敌人受到" +
+               phys("r_pdmg", "r_pad") + hp("r_php") + O + "物理伤害" + E + "、减速" + A + "{r_slow}%" + E + "；接住后把速度和离心力化作"
+               "一击砸向前方：" + phys("r_dmg", "r_ad") + hp("r_hp") + O + "物理伤害" + E + "并" + R + "击飞{r_up}秒" + E +
+               "。期间不受控制，伤害降低" + A + "{r_dr}%" + E + "。",
+        "names": ("斗神之雷槌", "铁手套", "觉醒雷槌"),
     },
     "zh-hant": {
         "name": "索爾",
         "attack": "雷槌重擊，造成" + AD + O + "物理傷害" + E + "。" + O + "雷槌覺醒" + E + "：每施放" + A + "{p_n}次" + E +
                   "技能，雷槌覺醒" + A + "{p_t}秒" + E + "：普攻再造成" + M + "{p_dmg}" + E + hp("p_hp", M) + M + "魔法傷害" +
                   E + "，雷神之錘改為" + R + "暈眩{q_stun}秒" + E + "。",
-        "skill": "舉錘砸地，" + A + "{q_hit}秒" + E + "後雷電在前方炸開：敵人受到" + phys("q_dmg", "q_ad") + hp("q_hp") + O +
-                 "物理傷害" + E + "並" + R + "暈眩{q_stun0}秒" + E + "（覺醒時" + R + "{q_stun}秒" + E + "）。",
-        "skill2": "朝目標方向擲出雷槌，雷槌飛回手中，來回穿過的敵人受到" + phys("e_dmg", "e_ad") + hp("e_hp") + O + "物理傷害" + E +
-                  "並緩速" + A + "{e_slow}%" + E + "，持續" + A + "{e_slow_t}秒" + E + "。雷槌回手前原地等待，接住時獲得" + S + "{e_sh}" + E +
-                  " + " + ADi + S + "{e_sh_ad}%" + E + S + "護盾" + E + A + "{e_sh_t}秒" + E + "。",
-        "ult": "雷槌立即覺醒" + A + "{r_awake}秒" + E + "，蓄力" + A + "{r_go}秒" + E + "（不受控制，受到的傷害降低" + A + "{r_dr}%" + E +
-               "）後砸下：前方的敵人受到" + phys("r_dmg", "r_ad") + hp("r_hp") + O + "物理傷害" + E + "並" + R + "擊飛{r_up}秒" + E +
-               "。",
-        "names": ("雷神之錘", "迴旋雷槌", "覺醒雷槌"),
+        "skill": "左臂蓄雷、雙手舉錘往後仰再砸下，" + A + "{q_hit}秒" + E + "後雷電在前方炸開：敵人受到" + phys("q_dmg", "q_ad") + hp("q_hp") + O +
+                 "物理傷害" + E + "並被衝擊波" + R + "擊飛{q_stun0}秒" + E + "（覺醒時" + R + "{q_stun}秒" + E + "）。",
+        "skill2": "雙臂的鐵手套「雅恩格利佩爾」（天界最強的防禦）頂在身前" + A + "{e_win}秒" + E + "：普攻全部擋住，受到的技能傷害降低" +
+                  A + "{e_dr}%" + E + "；舉起時獲得" + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E + S + "護盾" + E + A +
+                  "{e_sh_t}秒" + E + "。",
+        "ult": "雷槌覺醒" + A + "{r_awake}秒" + E + "並擲出，像迴旋鏢一樣飛回：來回穿過的敵人受到" +
+               phys("r_pdmg", "r_pad") + hp("r_php") + O + "物理傷害" + E + "、緩速" + A + "{r_slow}%" + E + "；接住後把速度和離心力化作"
+               "一擊砸向前方：" + phys("r_dmg", "r_ad") + hp("r_hp") + O + "物理傷害" + E + "並" + R + "擊飛{r_up}秒" + E +
+               "。期間不受控制，傷害降低" + A + "{r_dr}%" + E + "。",
+        "names": ("鬥神之雷槌", "鐵手套", "覺醒雷槌"),
     },
     "en": {
         "name": "Thor",
@@ -78,51 +80,50 @@ TEXT = {
                   ": every " + A + "{p_nth}" + E + " skill cast awakens Mjolnir for " + A + "{p_t}s" + E + ": his attacks add " +
                   M + "{p_dmg}" + E + hp("p_hp", M) + " " + M + "magic damage" + E + " and Thor's Hammer " + R +
                   "stuns for {q_stun}s" + E + ".",
-        "skill": "Brings the hammer down: after " + A + "{q_hit}s" + E + " lightning bursts through the ground ahead, dealing " +
-                 phys("q_dmg", "q_ad") + hp("q_hp") + " " + O + "physical damage" + E + " and " + R + "stunning for {q_stun0}s" +
+        "skill": "Lightning in his left arm, both hands raise the hammer and bring it down: after " + A + "{q_hit}s" + E + " lightning bursts through the ground ahead, dealing " +
+                 phys("q_dmg", "q_ad") + hp("q_hp") + " " + O + "physical damage" + E + " and the shockwave " + R + "knocks them up for {q_stun0}s" +
                  E + " (" + R + "{q_stun}s" + E + " awakened).",
-        "skill2": "Throws Mjolnir toward the target and it flies back to his hand, hitting every enemy it passes both ways "
-                  "for " + phys("e_dmg", "e_ad") + hp("e_hp") + " " + O + "physical damage" + E + " and slowing by " + A +
-                  "{e_slow}%" + E + " for " + A + "{e_slow_t}s" + E + ". He waits empty-handed until it returns; the catch "
-                  "grants a " + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E + " " + S + "shield" + E + " for " + A +
-                  "{e_sh_t}s" + E + ".",
-        "ult": "Awakens Mjolnir at once for " + A + "{r_awake}s" + E + ", gathers himself for " + A + "{r_go}s" + E +
-               " (unstoppable, taking " + A + "{r_dr}%" + E + " less damage), then smashes the ground ahead: enemies take " +
-               phys("r_dmg", "r_ad") + hp("r_hp") + " " + O + "physical damage" + E + " and are " + R +
-               "knocked up for {r_up}s" + E + ".",
-        "names": ("Thor's Hammer", "Returning Mjolnir", "Awakened Thunder Hammer"),
+        "skill2": "Raises Járngreipr, his iron gauntlets (heaven's strongest defence), for " + A + "{e_win}s" + E + ": "
+                  "every basic attack is blocked and skill damage is reduced by " + A + "{e_dr}%" + E + "; raising them grants a " +
+                  S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E + " " + S + "shield" + E + " for " + A + "{e_sh_t}s" + E + ".",
+        "ult": "Mjolnir awakens for " + A + "{r_awake}s" + E + " and is hurled at the target, returning like a "
+               "boomerang: enemies passed both ways take " + phys("r_pdmg", "r_pad") + hp("r_php") + " " + O + "physical damage" +
+               E + " and are slowed by " + A + "{r_slow}%" + E + ". The catch turns its speed and spin into one blow ahead: " +
+               phys("r_dmg", "r_ad") + hp("r_hp") + " " + O + "physical damage" + E + " and " + R + "knocked up for {r_up}s" + E +
+               ". Unstoppable, taking " + A + "{r_dr}%" + E + " less damage.",
+        "names": ("Thor's Hammer", "Járngreipr", "Geirröd Thor Hammer"),
     },
     "ko": {
         "name": "토르",
         "attack": "묠니르로 내리쳐 " + AD + " " + O + "물리 피해" + E + ". " + O + "묠니르 각성" + E + ": 스킬을 " + A + "{p_n}번" + E +
                   " 쓸 때마다 묠니르가 " + A + "{p_t}초" + E + " 각성: 기본 공격에 " + M + "{p_dmg}" + E + hp("p_hp", M) + " " + M +
                   "마법 피해" + E + " 추가, 토르 해머 " + R + "기절 {q_stun}초" + E + ".",
-        "skill": "망치를 내리쳐 " + A + "{q_hit}초" + E + " 뒤 번개가 앞쪽 땅에서 터진다: 적에게 " + phys("q_dmg", "q_ad") + hp("q_hp") +
-                 " " + O + "물리 피해" + E + "와 " + R + "{q_stun0}초 기절" + E + "(각성 시 " + R + "{q_stun}초" + E + ").",
-        "skill2": "대상 방향으로 묠니르를 던지면 손으로 돌아온다: 오가며 지나친 적에게 " + phys("e_dmg", "e_ad") + hp("e_hp") + " " + O +
-                  "물리 피해" + E + "와 " + A + "{e_slow_t}초" + E + " 동안 " + A + "{e_slow}%" + E + " 둔화. 돌아올 때까지 제자리에서 "
-                  "기다리고, 받아내면 " + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E + " " + S + "보호막" + E + "(" + A +
-                  "{e_sh_t}초" + E + ").",
-        "ult": "묠니르가 즉시 " + A + "{r_awake}초" + E + " 각성하고 " + A + "{r_go}초" + E + " 동안 힘을 모은 뒤(군중 제어 면역, 받는 "
-               "피해 " + A + "{r_dr}%" + E + " 감소) 앞쪽을 내리친다: 적에게 " + phys("r_dmg", "r_ad") + hp("r_hp") + " " + O +
-               "물리 피해" + E + "와 " + R + "{r_up}초 에어본" + E + ".",
-        "names": ("토르 해머", "돌아오는 묠니르", "각성 묠니르"),
+        "skill": "왼팔에 번개를 모아 두 손으로 망치를 내리쳐 " + A + "{q_hit}초" + E + " 뒤 번개가 앞쪽 땅에서 터진다: 적에게 " + phys("q_dmg", "q_ad") + hp("q_hp") +
+                 " " + O + "물리 피해" + E + "와 충격파로 " + R + "{q_stun0}초 에어본" + E + "(각성 시 " + R + "{q_stun}초" + E + ").",
+        "skill2": "강철 장갑 야른그레이프르(천계 최강의 방어)를 " + A + "{e_win}초" + E + " 동안 앞으로 세운다: 기본 공격을 모두 막고 "
+                  "받는 스킬 피해 " + A + "{e_dr}%" + E + " 감소, 들어 올릴 때 " + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E +
+                  " " + S + "보호막" + E + "(" + A + "{e_sh_t}초" + E + ").",
+        "ult": "묠니르가 즉시 " + A + "{r_awake}초" + E + " 각성하고 대상에게 던져져 부메랑처럼 돌아온다: 오가며 지나친 적에게 " +
+               phys("r_pdmg", "r_pad") + hp("r_php") + " " + O + "물리 피해" + E + "와 " + A + "{r_slow}%" + E + " 둔화. 받아낸 속도와 "
+               "원심력을 일격으로 바꿔 앞쪽을 내리친다: " + phys("r_dmg", "r_ad") + hp("r_hp") + " " + O + "물리 피해" + E + "와 " + R +
+               "{r_up}초 에어본" + E + ". 그동안 군중 제어 면역, 받는 피해 " + A + "{r_dr}%" + E + " 감소.",
+        "names": ("토르 해머", "야른그레이프르", "게이르뢰드 토르 해머"),
     },
     "ja": {
         "name": "トール",
         "attack": "雷槌の一撃で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "ミョルニル覚醒" + E + "：スキルを" + A + "{p_n}回" + E +
                   "使うごとにミョルニルが" + A + "{p_t}秒" + E + "覚醒：通常攻撃に" + M + "{p_dmg}" + E + hp("p_hp", M) + "の" + M +
                   "魔法ダメージ" + E + "を追加、トールハンマーは" + R + "{q_stun}秒のスタン" + E + "。",
-        "skill": "槌を振り下ろし、" + A + "{q_hit}秒" + E + "後に前方で雷が炸裂：敵に" + phys("q_dmg", "q_ad") + hp("q_hp") + "の" + O +
-                 "物理ダメージ" + E + "と" + R + "{q_stun0}秒のスタン" + E + "（覚醒時" + R + "{q_stun}秒" + E + "）。",
-        "skill2": "目標の方向へミョルニルを投げ、手元へ戻ってくる：往復で通った敵に" + phys("e_dmg", "e_ad") + hp("e_hp") + "の" + O +
-                  "物理ダメージ" + E + "と" + A + "{e_slow_t}秒" + E + "間" + A + "{e_slow}%" + E + "のスロウ。戻るまでその場で待ち、"
-                  "受け止めると" + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E + "の" + S + "シールド" + E + "（" + A +
-                  "{e_sh_t}秒" + E + "）。",
-        "ult": "ミョルニルが即座に" + A + "{r_awake}秒" + E + "覚醒、" + A + "{r_go}秒" + E + "力を溜め（行動妨害無効、被ダメージ" + A +
-               "{r_dr}%" + E + "軽減）、前方を叩き潰す：敵に" + phys("r_dmg", "r_ad") + hp("r_hp") + "の" + O + "物理ダメージ" + E +
-               "と" + R + "{r_up}秒のノックアップ" + E + "。",
-        "names": ("トールハンマー", "回旋雷槌", "覚醒雷槌"),
+        "skill": "左腕に雷を溜め両手で槌を振り下ろし、" + A + "{q_hit}秒" + E + "後に前方で雷が炸裂：敵に" + phys("q_dmg", "q_ad") + hp("q_hp") + "の" + O +
+                 "物理ダメージ" + E + "と衝撃波で" + R + "{q_stun0}秒のノックアップ" + E + "（覚醒時" + R + "{q_stun}秒" + E + "）。",
+        "skill2": "鉄手袋ヤールングレイプル（天界最強の防御）を" + A + "{e_win}秒" + E + "身の前に構える：通常攻撃を全て防ぎ、"
+                  "スキルの被ダメージ" + A + "{e_dr}%" + E + "軽減。構えた時に" + S + "{e_sh}" + E + " + " + ADi + S + "{e_sh_ad}%" + E +
+                  "の" + S + "シールド" + E + "（" + A + "{e_sh_t}秒" + E + "）。",
+        "ult": "ミョルニルが" + A + "{r_awake}秒" + E + "覚醒、投げるとブーメランのように戻る：往復で敵に" +
+               phys("r_pdmg", "r_pad") + hp("r_php") + "の" + O + "物理ダメージ" + E + "と" + A + "{r_slow}%" + E + "スロウ。受け止めた"
+               "勢いを一撃に変え前を叩く：" + phys("r_dmg", "r_ad") + hp("r_hp") + "の" + O + "物理ダメージ" + E + "と" +
+               R + "{r_up}秒ノックアップ" + E + "。その間行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減。",
+        "names": ("闘神の雷槌", "ヤールングレイプル", "覚醒雷槌"),
     },
 }
 
@@ -133,10 +134,14 @@ SOUNDS = {
     f"{ID}_q": [(SFX + "skill_charge", 0.5, 0.0)],
     f"{ID}_q_slam": [(SFX + "skill_slam", 0.6, 0.0)],
     f"{ID}_q_hit": [(SFX + "attack_hit_3", 0.45, 0.0)],
-    f"{ID}_e": [(SFX + "skill2_throw", 0.55, 0.0)],
-    f"{ID}_e_hit": [(SFX + "attack_hit_2", 0.4, 0.0)],
-    f"{ID}_e_turn": [(SFX + "skill2_return", 0.5, 0.0)],
-    f"{ID}_e_catch": [(SFX + "skill2_catch", 0.55, 0.0)],
+    # 铁手套格挡：举起来挥一下，第 4 帧手套顶住时金属的一声（接锤那一声）
+    f"{ID}_e": [(SFX + "attack_swing_2", 0.4, 0.0)],
+    f"{ID}_e_block": [(SFX + "skill2_catch", 0.55, 0.0)],
+    # 觉醒雷槌：扔出、折返、来回砸中、接住（原来 E 的那几声）
+    f"{ID}_r_throw": [(SFX + "skill2_throw", 0.55, 0.0)],
+    f"{ID}_r_pass": [(SFX + "attack_hit_2", 0.4, 0.0)],
+    f"{ID}_r_turn": [(SFX + "skill2_return", 0.5, 0.0)],
+    f"{ID}_r_catch": [(SFX + "skill2_catch", 0.55, 0.0)],
     f"{ID}_p_awake": [(SFX + "awakening", 0.6, 0.0)],
     f"{ID}_r": [(SFX + "ult_charge", 0.55, 0.0)],
     f"{ID}_r_vo": [(VO + "one_strike", 0.8, 0.0)],
@@ -155,11 +160,12 @@ NTH = {2: "second", 3: "third", 4: "fourth"}
 def values(p):
     if not 0 < p["q_stun0"] < p["q_stun"]:
         sys.exit("the texts are for a slam that stuns, longer when awakened (0 < q_stun0 < q_stun)")
-    v = {k: p[k] for k in ("p_n", "p_dmg", "p_hp", "q_dmg", "q_ad", "q_hp", "e_dmg", "e_ad", "e_hp", "e_slow", "e_sh",
-                           "e_sh_ad", "r_dmg", "r_ad", "r_hp", "r_dr")}
+    v = {k: p[k] for k in ("p_n", "p_dmg", "p_hp", "q_dmg", "q_ad", "q_hp", "e_dr", "e_sh", "e_sh_ad", "r_pdmg", "r_pad",
+                           "r_php", "r_slow", "r_dmg", "r_ad", "r_hp", "r_dr")}
     v["p_nth"] = NTH[p["p_n"]]
-    for k in ("p_t", "q_hit", "q_stun", "q_stun0", "e_slow_t", "e_sh_t", "r_awake", "r_go", "r_up"):
+    for k in ("p_t", "q_hit", "q_stun", "q_stun0", "e_sh_t", "r_awake", "r_up"):
         v[k] = secs(p[k])
+    v["e_win"] = secs(p["e_off"] - p["e_on"])
     return v
 
 

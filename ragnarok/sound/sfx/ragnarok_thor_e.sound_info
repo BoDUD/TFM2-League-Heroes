@@ -2,8 +2,8 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "ragnarok_thor_sfx_skill2_throw",
-      "volume": 0.55
+      "clip": "ragnarok_thor_sfx_attack_swing_2",
+      "volume": 0.4
     }
   ]
 }

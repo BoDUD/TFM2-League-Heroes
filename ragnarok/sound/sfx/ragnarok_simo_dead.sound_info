@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.875,
+      "clip": "ragnarok_simo_sfx_fall",
+      "volume": 0.5
+    }
+  ]
+}

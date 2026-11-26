@@ -13,9 +13,9 @@
   skill   燕返：`Targeting` EnemyWithoutTower（q_range）：q_hit1 拍（第 4 帧）往前斩下，前方扇形（半径 q_r，左右各
           acos(q_cone/1000)）里的敌人 q1_dmg + q1_ad% 攻击力物理伤害；q_hit2 拍（第 6 帧）反刃上撩，同一个扇形
           q2_dmg + q2_ad%，减速 q_slow% q_slow_t 拍（燕子躲不开第二刀）。
-  skill2  千手无双：`Targeting` 敌方英雄（e_range）：e_go 拍（第 3 帧）预判，之后 e_t 拍里受到的伤害降低 e_dr%、攻速 +e_as%
+  skill2  万手无双：`Targeting` 敌方英雄（e_range）：e_go 拍（第 3 帧）预判，之后 e_t 拍里受到的伤害降低 e_dr%、攻速 +e_as%
           （一千种走法都看过了，侧身让开、出刀更快）。
-  ult     二天岩流：`Targeting` 敌方英雄（r_range）：起手到第一刀（r_hit1 拍）受到的伤害降低 r_dr%、不受控制，r_hit1 拍
+  ult     双燕斩虎万刃撩乱（之后是二天岩流的双刀）：`Targeting` 敌方英雄（r_range）：起手到第一刀（r_hit1 拍）受到的伤害降低 r_dr%、不受控制，r_hit1 拍
           双刀斩下，前方扇形 r1_dmg + r1_ad%；r_hit2 拍双刀交错，r2_dmg + r2_ad%、眩晕 r_stun 拍；然后 r_form 拍拿着两把刀
           （ragnarok_kojiro_niten：攻速 +r_as%，普攻变双刀）。出刀前被打死就什么都不发生。
 

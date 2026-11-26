@@ -12,11 +12,11 @@
           - 平时朝目标冲过去（RushTime，每拍 q_speed、q_t 拍，碰到就停）：碰到的敌人 q_dmg + q_ad% 攻击力物理伤害、减速
             q_slow% q_slow_t 拍；
           - 神之监狱还在的时候（他身上的 prison，e_t 拍）直接瞬移到目标身上（Teleport）：q2_dmg + q2_ad% 物理伤害、眩晕 q2_stun 拍。
-  skill2  神之监狱：`Targeting` EnemyWithoutTower（e_range）：e_charge 拍蓄能，e_go 拍（0.292 秒）牢笼落在目标那里（RangeProjectile，
+  skill2  众神的监狱（格玛特利亚领域）：`Targeting` EnemyWithoutTower（e_range）：e_charge 拍蓄能，e_go 拍（0.292 秒）牢笼落在目标那里（RangeProjectile，
           半径 e_r）：里面的敌人 e_dmg + e_ad% 攻击力物理伤害、减速 e_slow% e_t 拍，身上套着牢笼（先展开 e_deploy_t 拍，再每
           e_loop_t 拍接着放一次循环，放到 e_t 拍为止（只放装得下的整圈）：都是跟着人的特效画面，走高清，不用 buff 的画面——那个游戏只画 1 倍，用户：
           「这个弄高清点」）；特斯拉身上挂 prison e_t 拍，这段时间特斯拉步变成瞬移。
-  ult     双向电光拳：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到第二拳为止）；r_charge 拍双线圈充能，
+  ult     等离子脉冲拳·交叉（PPPX）：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到第二拳为止）；r_charge 拍双线圈充能，
           r_hit1 拍（0.423 秒）第一拳：前方扇形（半径 r1_r，左右各 acos(r1_cone/1000)）里的敌人 r1_dmg + r1_ad% 物理伤害、眩晕 r1_stun
           拍；r_hit2 拍（0.510 秒）第二拳打出一道电光（LineRangeProjectile，长 r_len、半宽 r_w）：线上的敌人 r2_dmg + r2_ad%
           物理伤害、原地击飞 r_up 拍。第一拳前被打死就什么都不发生。

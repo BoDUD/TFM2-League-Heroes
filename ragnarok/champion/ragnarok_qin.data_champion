@@ -10,7 +10,11 @@
   ],
   "passive": {
     "passive_ref": "ragnarok_qin:voice",
-    "params": {}
+    "params": {
+      "r_hit": 35,
+      "r_store": 100,
+      "r_cap": 25
+    }
   },
   "sprite": "asset/ragnarok/champions/ragnarok_qin",
   "anim_prefix": "",
@@ -161,7 +165,20 @@
                                 },
                                 {
                                   "type": "Stun",
-                                  "duration": 45
+                                  "duration": 24
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_qin_q_weak",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    },
+                                    "attack_mult": -25,
+                                    "magic_power_mult": -25
+                                  }
                                 },
                                 {
                                   "type": "AddBuff",
@@ -222,7 +239,20 @@
                                 },
                                 {
                                   "type": "Stun",
-                                  "duration": 45
+                                  "duration": 24
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "ragnarok_qin_q_weak",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    },
+                                    "attack_mult": -25,
+                                    "magic_power_mult": -25
+                                  }
                                 },
                                 {
                                   "type": "AddBuff",

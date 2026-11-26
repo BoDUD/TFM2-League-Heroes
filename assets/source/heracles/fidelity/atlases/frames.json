@@ -1,0 +1,363 @@
+{
+  "hero": "heracles",
+  "name": "赫拉克勒斯",
+  "actor_id": "ragnarok_heracles",
+  "cell": [
+    216,
+    168
+  ],
+  "ground": [
+    98,
+    148
+  ],
+  "hd_multiplier": 2,
+  "right_facing": true,
+  "fx_cell": [
+    304,
+    192
+  ],
+  "actor": {
+    "c_skill2": {
+      "name": "刻耳柏洛斯突爪",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.11
+        },
+        {
+          "x": 216,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.1
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.067
+        },
+        {
+          "x": 648,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.058
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.066
+        },
+        {
+          "x": 1080,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.082
+        },
+        {
+          "x": 1296,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.108
+        },
+        {
+          "x": 1512,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.132
+        }
+      ],
+      "source_animation": "hd_c_skill2",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": 8,
+          "lift": 6
+        },
+        {
+          "dx": 18,
+          "lift": 6
+        },
+        {
+          "dx": 30,
+          "lift": 0
+        },
+        {
+          "dx": 24,
+          "lift": 0
+        },
+        {
+          "dx": 14,
+          "lift": 0
+        },
+        {
+          "dx": 10,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "dash_echo": {
+      "name": "贴地冲刺残影",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        160,
+        100
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        -20,
+        -18
+      ]
+    },
+    "triple_claw": {
+      "name": "三道爪痕",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 1216,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 1520,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 1824,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        },
+        {
+          "x": 2128,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.054
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_front",
+      "offset": [
+        48,
+        -34
+      ]
+    }
+  },
+  "cues": {
+    "c_skill2": [
+      {
+        "frame": 3,
+        "event": "dash_echo",
+        "time_s": 0.21
+      },
+      {
+        "frame": 3,
+        "event": "rush_start",
+        "time_s": 0.21
+      },
+      {
+        "frame": 5,
+        "event": "triple_claw",
+        "time_s": 0.335
+      },
+      {
+        "frame": 5,
+        "event": "contact",
+        "time_s": 0.335
+      },
+      {
+        "frame": 6,
+        "event": "rush_end",
+        "time_s": 0.401
+      }
+    ]
+  },
+  "fx_events": {
+    "dash_echo": {
+      "track": "dash_echo",
+      "anchor": [
+        160,
+        100
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        -20,
+        -18
+      ]
+    },
+    "triple_claw": {
+      "track": "triple_claw",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_front",
+      "offset": [
+        48,
+        -34
+      ]
+    }
+  },
+  "baseline": {
+    "c_skill2": {
+      "source": "heracles",
+      "action": "c_skill2",
+      "identity": "c_idle",
+      "idle_ink_heights": [
+        124,
+        112,
+        122,
+        112,
+        124,
+        120,
+        120
+      ],
+      "target_hd_ink_height": 120,
+      "source_track_frames": 16,
+      "source_track_canvas_max": [
+        212,
+        217
+      ],
+      "source_track_durations": [
+        0.115,
+        0.103,
+        0.058,
+        0.03,
+        0.028,
+        0.037,
+        0.021,
+        0.039,
+        0.019,
+        0.058,
+        0.003,
+        0.055,
+        0.047,
+        0.011,
+        0.058,
+        0.056
+      ]
+    }
+  },
+  "art_sources": {
+    "c_skill2": {
+      "source_atlas_entry": "heracles",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "8a175e9e3e2ba92f01ea39bfceda5174f3068c590050e89483038e7ad065412b",
+      "native_head_sha256": "8b7be1b9ded93e79cff2b4fbc28a9cea125ce4458ea6816da1516f61209ef8ca"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

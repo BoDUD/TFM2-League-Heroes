@@ -1,0 +1,391 @@
+{
+  "hero": "shiva",
+  "name": "湿婆",
+  "actor_id": "ragnarok_shiva",
+  "cell": [
+    216,
+    168
+  ],
+  "ground": [
+    98,
+    148
+  ],
+  "hd_multiplier": 2,
+  "right_facing": true,
+  "fx_cell": [
+    304,
+    192
+  ],
+  "actor": {
+    "skill2": {
+      "name": "虎爪炎舞",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.112
+        },
+        {
+          "x": 216,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.098
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.078
+        },
+        {
+          "x": 648,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.067
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.067
+        },
+        {
+          "x": 1080,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.091
+        },
+        {
+          "x": 1296,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.11
+        },
+        {
+          "x": 1512,
+          "y": 0,
+          "w": 216,
+          "h": 168,
+          "duration": 0.141
+        }
+      ],
+      "source_animation": "hd_skill2",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -2,
+          "lift": 0
+        },
+        {
+          "dx": 4,
+          "lift": 16
+        },
+        {
+          "dx": 12,
+          "lift": 26
+        },
+        {
+          "dx": 20,
+          "lift": 16
+        },
+        {
+          "dx": 24,
+          "lift": 0
+        },
+        {
+          "dx": 20,
+          "lift": 0
+        },
+        {
+          "dx": 16,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "kick_flame": {
+      "name": "脚踝炎轨",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 304,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 608,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 912,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 1520,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 1824,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        },
+        {
+          "x": 2128,
+          "y": 0,
+          "w": 304,
+          "h": 192,
+          "duration": 0.056
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        10,
+        -30
+      ],
+      "active_frames": [
+        4,
+        5
+      ],
+      "frame_offsets": {
+        "4": [
+          10,
+          -30
+        ],
+        "5": [
+          18,
+          -24
+        ]
+      }
+    },
+    "flame_hit": {
+      "name": "踢中火光",
+      "frames": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 304,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 608,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 912,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1216,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1520,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 1824,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        },
+        {
+          "x": 2128,
+          "y": 192,
+          "w": 304,
+          "h": 192,
+          "duration": 0.045
+        }
+      ],
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "cues": {
+    "skill2": [
+      {
+        "frame": 3,
+        "event": "jump_start",
+        "time_s": 0.21
+      },
+      {
+        "frame": 4,
+        "event": "kick_flame",
+        "time_s": 0.288
+      },
+      {
+        "frame": 5,
+        "event": "contact",
+        "time_s": 0.355
+      },
+      {
+        "frame": 6,
+        "event": "land",
+        "time_s": 0.422
+      }
+    ]
+  },
+  "fx_events": {
+    "kick_flame": {
+      "track": "kick_flame",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        10,
+        -30
+      ],
+      "active_frames": [
+        4,
+        5
+      ],
+      "frame_offsets": {
+        "4": [
+          10,
+          -30
+        ],
+        "5": [
+          18,
+          -24
+        ]
+      }
+    },
+    "flame_hit": {
+      "track": "flame_hit",
+      "anchor": [
+        140,
+        94
+      ],
+      "placement": "target_contact",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "baseline": {
+    "skill2": {
+      "source": "shiva",
+      "action": "skill2",
+      "identity": "idle",
+      "idle_ink_heights": [
+        102,
+        110,
+        116,
+        110,
+        102,
+        106,
+        108
+      ],
+      "target_hd_ink_height": 108,
+      "source_track_frames": 16,
+      "source_track_canvas_max": [
+        201,
+        173
+      ],
+      "source_track_durations": [
+        0.122,
+        0.095,
+        0.075,
+        0.049,
+        0.013,
+        0.036,
+        0.035,
+        0.014,
+        0.049,
+        0.014,
+        0.035,
+        0.049,
+        0.01,
+        0.039,
+        0.049,
+        0.033
+      ]
+    }
+  },
+  "art_sources": {
+    "skill2": {
+      "source_atlas_entry": "shiva",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "2ea333385d18a7c9331c0c88b29c5a2b076218e6437ca8cd342dbff14026ea91",
+      "corrected_cels": [
+        4,
+        5
+      ],
+      "correction_sha256": "a86bb55a41402c852fea0022e5863501593ccd16df3b9af0903f069ef348af81",
+      "native_head_sha256": "39382801e982592e78c209bcdafa832c99b8aca6cfce557a45fbc3f6bf1ce7d0"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

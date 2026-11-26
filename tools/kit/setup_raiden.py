@@ -7,7 +7,8 @@ text/champion.i18n 里每种语言的 ragnarok_raiden（说明和技能名）、
 style/champion_view（头像点、百科中心、选人卡中心）。--check 只打印每段说明的显示长度和全文。
 
 名字：雷电为右卫门 / 雷電為右衛門 / Raiden Tameemon / 雷電為右衛門 / 라이덴 타메에몬；技能名照相扑和终末的女武神：连掌（张手连出）、
-四股、八咫乌，被动「肌肉解放」写在普攻说明里；图标照 Codex 的交付（assets/source/raiden/runtime/icons：palm、shiko、yatagarasu；
+狮子舞（2026-11-26 照原作改：原来叫四股，原作没有这个招式名；画是 Codex 补画的，assets/source/raiden/fidelity）、八咫乌，
+被动「肌肉解放」写在普攻说明里；图标照 Codex 的交付（assets/source/raiden/runtime/icons：palm、shiko、yatagarasu；
 volund 那张是被动，不装）。
 声音：Codex 的交付（raiden_packs/outputs/raiden_assets_done.zip）：13 条原创音效（掌风、命中、连掌两下和命中、四股起足、
 落脚、余震、八咫乌的蓄劲、出掌、命中、肌肉解放、倒地）和六句官方日语原声（木村昴）。音频不进仓库，
@@ -34,72 +35,72 @@ VIEW = {"face": {"x": 5, "y": -37}, "center": {"x": 0, "y": -15}, "banpick_cente
 TEXT = {
     "zh-hans": {
         "name": "雷电为右卫门",
-        "attack": "一掌推出，造成" + AD + O + "物理伤害" + E + "。" + O + "肌肉解放" + E + "：每条命第一次放八咫乌前先放开压了一辈子的肌肉"
+        "attack": "一掌推出，造成" + AD + O + "物理伤害" + E + "。" + O + "百闭解放" + E + "：每条命第一次放八咫乌前先破开「百闭」，放开压了一辈子的肌肉"
                   "（" + A + "{rel_t}秒" + E + "，不受控制、受到的伤害降低" + A + "{rel_dr}%" + E + "），之后攻击力" + A + "+{p_atk}%" + E +
                   "、护甲和魔抗" + A + "+{p_res}" + E + "、攻速" + A + "+{p_as}%" + E + "。",
         "skill": "连出两掌：第一掌造成" + phys("q1_dmg", "q1_ad") + O + "物理伤害" + E + "，第二掌造成" + phys("q2_dmg", "q2_ad") + O +
                  "物理伤害" + E + "，打得人" + R + "踉跄{q_stun}秒" + E + "并" + R + "减速{q_slow}%" + E + "。",
-        "skill2": "抬脚跺地：身边的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R + "眩晕{e_stun}秒" + E +
-                  "；地面余震让更大一圈的敌人" + R + "减速{e_slow}%" + E + "。",
-        "ult": "蓄劲（不受控制、受到的伤害降低" + A + "{r_dr}%" + E + "）后一掌推出：前方扇形的敌人受到" + phys("r_dmg", "r_ad") + O +
+        "skill2": "双手撑地倒立，往前倒下用两只脚掌跺地：身前的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R +
+                  "眩晕{e_stun}秒" + E + "；余震让更大一圈的敌人" + R + "减速{e_slow}%" + E + "。",
+        "ult": "肌肉挪到腿上一下贴近（不受控制、受到的伤害降低" + A + "{r_dr}%" + E + "）后一掌推出：前方扇形的敌人受到" + phys("r_dmg", "r_ad") + O +
                "物理伤害" + E + "并被" + R + "冲击波震飞{r_up}秒" + E + "。",
-        "names": ("连掌", "四股", "八咫乌"),
+        "names": ("连掌", "狮子舞", "八咫乌"),
     },
     "zh-hant": {
         "name": "雷電為右衛門",
-        "attack": "一掌推出，造成" + AD + O + "物理傷害" + E + "。" + O + "肌肉解放" + E + "：每條命第一次放八咫烏前先放開壓了一輩子的肌肉"
+        "attack": "一掌推出，造成" + AD + O + "物理傷害" + E + "。" + O + "百閉解放" + E + "：每條命第一次放八咫烏前先破開「百閉」，放開壓了一輩子的肌肉"
                   "（" + A + "{rel_t}秒" + E + "，不受控制、受到的傷害降低" + A + "{rel_dr}%" + E + "），之後攻擊力" + A + "+{p_atk}%" + E +
                   "、護甲和魔抗" + A + "+{p_res}" + E + "、攻速" + A + "+{p_as}%" + E + "。",
         "skill": "連出兩掌：第一掌造成" + phys("q1_dmg", "q1_ad") + O + "物理傷害" + E + "，第二掌造成" + phys("q2_dmg", "q2_ad") + O +
                  "物理傷害" + E + "，打得人" + R + "踉蹌{q_stun}秒" + E + "並" + R + "減速{q_slow}%" + E + "。",
-        "skill2": "抬腳跺地：身邊的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R + "暈眩{e_stun}秒" + E +
-                  "；地面餘震讓更大一圈的敵人" + R + "減速{e_slow}%" + E + "。",
-        "ult": "蓄勁（不受控制、受到的傷害降低" + A + "{r_dr}%" + E + "）後一掌推出：前方扇形的敵人受到" + phys("r_dmg", "r_ad") + O +
+        "skill2": "雙手撐地倒立，往前倒下用兩隻腳掌跺地：身前的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R +
+                  "暈眩{e_stun}秒" + E + "；餘震讓更大一圈的敵人" + R + "減速{e_slow}%" + E + "。",
+        "ult": "肌肉挪到腿上一下貼近（不受控制、受到的傷害降低" + A + "{r_dr}%" + E + "）後一掌推出：前方扇形的敵人受到" + phys("r_dmg", "r_ad") + O +
                "物理傷害" + E + "並被" + R + "衝擊波震飛{r_up}秒" + E + "。",
-        "names": ("連掌", "四股", "八咫烏"),
+        "names": ("連掌", "獅子舞", "八咫烏"),
     },
     "en": {
         "name": "Raiden Tameemon",
-        "attack": "An open-hand thrust for " + AD + " " + O + "physical damage" + E + ". " + O + "Muscle Release" + E + ": the first "
-                  "Yatagarasu of each life begins by unbinding the muscles he held back all his life (" + A + "{rel_t}s" + E +
+        "attack": "An open-hand thrust for " + AD + " " + O + "physical damage" + E + ". " + O + "Hundred Seals Broken" + E + ": the first "
+                  "Yatagarasu of each life begins by breaking his Hundred Seals, unbinding the muscles he held back all his life (" + A + "{rel_t}s" + E +
                   ", unstoppable, " + A + "{rel_dr}%" + E + " less damage); for the rest of the life " + A + "+{p_atk}%" + E +
                   " attack, " + A + "+{p_res}" + E + " armour and magic resistance, " + A + "+{p_as}%" + E + " attack speed.",
         "skill": "Two palm thrusts: the first for " + phys("q1_dmg", "q1_ad") + " " + O + "physical damage" + E + ", the second for " +
                  phys("q2_dmg", "q2_ad") + " " + O + "physical damage" + E + " that " + R + "staggers for {q_stun}s" + E +
                  " and " + R + "slows {q_slow}%" + E + ".",
-        "skill2": "Lifts a leg and stamps: enemies around him take " + phys("e_dmg", "e_ad") + " " + O + "physical damage" + E +
-                  " and are " + R + "stunned for {e_stun}s" + E + "; the aftershock " + R + "slows {e_slow}%" + E +
-                  " a wider ring.",
-        "ult": "Gathers his strength (unstoppable, " + A + "{r_dr}%" + E + " less damage) and thrusts one palm: enemies in a cone "
+        "skill2": "Handstand, then he falls forward and stamps down with both soles: enemies in front take " +
+                  phys("e_dmg", "e_ad") + " " + O + "physical damage" + E + " and are " + R + "stunned for {e_stun}s" + E +
+                  "; the aftershock " + R + "slows {e_slow}%" + E + " a wider ring.",
+        "ult": "Shifts his muscle into his legs and closes in at once (unstoppable, " + A + "{r_dr}%" + E + " less damage) and thrusts one palm: enemies in a cone "
                "take " + phys("r_dmg", "r_ad") + " " + O + "physical damage" + E + " and are " + R + "knocked up for {r_up}s" + E +
                " by the shockwave.",
-        "names": ("Tsuppari", "Shiko", "Yatagarasu"),
+        "names": ("Tsuppari", "Shishimai", "Yatagarasu"),
     },
     "ko": {
         "name": "라이덴 타메에몬",
-        "attack": "손바닥으로 밀어 " + AD + " " + O + "물리 피해" + E + ". " + O + "근육 해방" + E + ": 목숨마다 첫 야타가라스 전에 평생 "
+        "attack": "손바닥으로 밀어 " + AD + " " + O + "물리 피해" + E + ". " + O + "백폐 해방" + E + ": 목숨마다 첫 야타가라스 전에 백폐를 깨고 평생 "
                   "억눌러 온 근육을 풀고(" + A + "{rel_t}초" + E + ", 저지 불가, 받는 피해 " + A + "{rel_dr}%" + E + " 감소) 그 뒤로 "
                   "공격력 " + A + "+{p_atk}%" + E + ", 방어력과 마법 저항력 " + A + "+{p_res}" + E + ", 공격 속도 " + A + "+{p_as}%" + E + ".",
         "skill": "두 번 밀어치기: 첫 번째 " + phys("q1_dmg", "q1_ad") + " " + O + "물리 피해" + E + ", 두 번째 " + phys("q2_dmg", "q2_ad") +
                  " " + O + "물리 피해" + E + ", " + R + "{q_stun}초 기절" + E + "과 " + R + "{q_slow}% 둔화" + E + ".",
-        "skill2": "다리를 들어 내리찍어 주변 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R + "{e_stun}초 기절" +
-                  E + ", 여진이 더 넓은 범위를 " + R + "{e_slow}% 둔화" + E + ".",
-        "ult": "힘을 모은 뒤(저지 불가, 받는 피해 " + A + "{r_dr}%" + E + " 감소) 손바닥을 내질러 앞쪽 부채꼴의 적에게 " +
+        "skill2": "물구나무선 뒤 앞으로 넘어지며 두 발바닥으로 내리찍어 앞쪽 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E +
+                  "와 " + R + "{e_stun}초 기절" + E + ", 여진이 더 넓은 범위를 " + R + "{e_slow}% 둔화" + E + ".",
+        "ult": "근육을 다리로 옮겨 단숨에 파고든 뒤(저지 불가, 받는 피해 " + A + "{r_dr}%" + E + " 감소) 손바닥을 내질러 앞쪽 부채꼴의 적에게 " +
                phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + "와 " + R + "{r_up}초 에어본" + E + ".",
-        "names": ("연속 장타", "시코", "야타가라스"),
+        "names": ("연속 장타", "시시마이", "야타가라스"),
     },
     "ja": {
         "name": "雷電為右衛門",
-        "attack": "張り手で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "筋肉解放" + E + "：命ごとに最初の八咫烏の前に、一生抑えてきた"
+        "attack": "張り手で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "百閉解放" + E + "：命ごとに最初の八咫烏の前に百閉を破り、一生抑えてきた"
                   "筋肉を解き放つ（" + A + "{rel_t}秒" + E + "、行動妨害無効、被ダメージ" + A + "{rel_dr}%" + E + "軽減）。以後攻撃力" + A +
                   "+{p_atk}%" + E + "、物防・魔防" + A + "+{p_res}" + E + "、攻撃速度" + A + "+{p_as}%" + E + "。",
         "skill": "二連の突っ張り：一発目" + phys("q1_dmg", "q1_ad") + "、二発目" + phys("q2_dmg", "q2_ad") + "の" + O + "物理ダメージ" + E +
                  "、よろめかせ" + R + "{q_stun}秒スタン" + E + "と" + R + "{q_slow}%スロウ" + E + "。",
-        "skill2": "足を上げて四股を踏み、周囲の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{e_stun}秒スタン" +
-                  E + "。余震でより広い範囲に" + R + "{e_slow}%スロウ" + E + "。",
-        "ult": "力を溜め（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）掌を突き出す：前方扇形の敵に" + phys("r_dmg", "r_ad") + "の" +
+        "skill2": "逆立ちから前へ倒れ込み、両足の裏で踏み下ろす：前方の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" +
+                  R + "{e_stun}秒スタン" + E + "。余震でより広い範囲に" + R + "{e_slow}%スロウ" + E + "。",
+        "ult": "筋肉を脚へ移し一瞬で間合いを詰め（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）掌を突き出す：前方扇形の敵に" + phys("r_dmg", "r_ad") + "の" +
                O + "物理ダメージ" + E + "と" + R + "衝撃波で{r_up}秒打ち上げ" + E + "。",
-        "names": ("突っ張り", "四股", "八咫烏"),
+        "names": ("突っ張り", "獅子舞", "八咫烏"),
     },
 }
 

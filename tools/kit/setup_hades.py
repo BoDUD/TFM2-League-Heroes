@@ -34,67 +34,73 @@ TEXT = {
         "name": "哈迪斯",
         "attack": "双叉枪直刺，造成" + AD + O + "物理伤害" + E + "。" + O + "伊科尔" + E + "：放完技能后" + A + "{p_t}秒" + E +
                   "内，下一次普攻额外造成" + phys("p_dmg", "p_ad") + O + "物理伤害" + E + "。",
-        "skill": "挥枪掀起珀耳塞福涅的风压，前方扇形内的敌人受到" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R +
-                 "减速{q_slow}%" + E + "（" + A + "{q_slow_t}秒" + E + "）。",
-        "skill2": "双叉枪砸向身前的地面，那一圈的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并被" + R +
+        "skill": "冥府的铁锤：跳起来往下刺，落枪处地面炸开，周围的敌人受到" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R +
+                 "减速{q_slow}%" + E + "（" + A + "{q_slow_t}秒" + E + "）；甩出的风刃再让前方一条线上的敌人受到" + phys("q2_dmg", "q2_ad") +
+                 O + "物理伤害" + E + "。",
+        "skill2": "大地崩碎者：滑着枪杆往下劈，砸进身前的地面，那一圈的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并被" + R +
                   "击飞{e_air}秒" + E + "。",
-        "ult": "用神血把枪头锻成德斯莫斯（不受控制、减伤" + A + "{r_dr}%" + E + "），朝目标直线突刺，穿过的敌人受到" +
+        "ult": "挖开胸口用神血把双叉枪锻成宿命之四血枪（伊科尔·德斯莫斯；不受控制、减伤" + A + "{r_dr}%" + E + "），血之引导曙光：朝目标直线突刺，穿过的敌人受到" +
                phys("r_dmg", "r_ad") + "加最大生命" + O + "{r_thp}%" + E + "的" + O + "物理伤害" + E + "并" + R + "眩晕{r_stun}秒" +
                E + "。",
-        "names": ("珀耳塞福涅·风压斩", "冥府重砸", "伊科尔·德斯莫斯"),
+        "names": ("冥府的铁锤", "大地崩碎者", "血之引导曙光"),
     },
     "zh-hant": {
         "name": "黑帝斯",
         "attack": "雙叉槍直刺，造成" + AD + O + "物理傷害" + E + "。" + O + "伊柯爾" + E + "：放完技能後" + A + "{p_t}秒" + E +
                   "內，下一次普攻額外造成" + phys("p_dmg", "p_ad") + O + "物理傷害" + E + "。",
-        "skill": "揮槍掀起波瑟芬妮的風壓，前方扇形內的敵人受到" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R +
-                 "減速{q_slow}%" + E + "（" + A + "{q_slow_t}秒" + E + "）。",
-        "skill2": "雙叉槍砸向身前的地面，那一圈的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並被" + R +
+        "skill": "冥府的鐵錘：跳起來往下刺，落槍處地面炸開，周圍的敵人受到" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R +
+                 "減速{q_slow}%" + E + "（" + A + "{q_slow_t}秒" + E + "）；甩出的風刃再讓前方一條線上的敵人受到" + phys("q2_dmg", "q2_ad") +
+                 O + "物理傷害" + E + "。",
+        "skill2": "大地崩碎者：滑著槍桿往下劈，砸進身前的地面，那一圈的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並被" + R +
                   "擊飛{e_air}秒" + E + "。",
-        "ult": "用神血把槍頭鍛成德斯莫斯（不受控制、減傷" + A + "{r_dr}%" + E + "），朝目標直線突刺，穿過的敵人受到" +
+        "ult": "挖開胸口用神血把雙叉槍鍛成宿命之四血槍（伊柯爾·德斯莫斯；不受控制、減傷" + A + "{r_dr}%" + E + "），血之引導曙光：朝目標直線突刺，穿過的敵人受到" +
                phys("r_dmg", "r_ad") + "加最大生命" + O + "{r_thp}%" + E + "的" + O + "物理傷害" + E + "並" + R + "暈眩{r_stun}秒" +
                E + "。",
-        "names": ("波瑟芬妮·風壓斬", "冥府重砸", "伊柯爾·德斯莫斯"),
+        "names": ("冥府的鐵錘", "大地崩碎者", "血之引導曙光"),
     },
     "en": {
         "name": "Hades",
         "attack": "A thrust of the bident: " + AD + " " + O + "physical damage" + E + ". " + O + "Ichor" + E + ": for " + A +
                   "{p_t}s" + E + " after a skill, his next attack deals " + phys("p_dmg", "p_ad") + " more " + O +
                   "physical damage" + E + ".",
-        "skill": "He sweeps the wind of Persephone with his bident: enemies in a cone take " + phys("q_dmg", "q_ad") + " " + O +
-                 "physical damage" + E + " and are " + R + "slowed {q_slow}%" + E + " for " + A + "{q_slow_t}s" + E + ".",
-        "skill2": "He smashes the bident into the ground before him: enemies in the circle take " + phys("e_dmg", "e_ad") + " " +
+        "skill": "Persephone Kallichore: he leaps and drives the bident down; the ground bursts: enemies around take " +
+                 phys("q_dmg", "q_ad") + " " + O + "physical damage" + E + " and are " + R + "slowed {q_slow}%" + E + " for " + A +
+                 "{q_slow_t}s" + E + ", and the flung wind blade deals " + phys("q2_dmg", "q2_ad") + " " + O + "physical damage" + E +
+                 " along a line ahead.",
+        "skill2": "Persephone Titan: sliding his grip down the shaft he smashes the ground before him: enemies in the circle take " + phys("e_dmg", "e_ad") + " " +
                   O + "physical damage" + E + " and are " + R + "knocked up for {e_air}s" + E + ".",
-        "ult": "He forges the Desmos spearhead with his own divine blood (unstoppable, " + A + "{r_dr}%" + E + " less damage) and "
+        "ult": "He tears open his chest and forges the bident into the Ichor Desmos with his own blood (unstoppable, " + A + "{r_dr}%" + E + " less damage); Ichor Eos "
                "thrusts straight through his target: enemies on the way take " + phys("r_dmg", "r_ad") + " + " + O + "{r_thp}%" +
                E + " max health " + O + "physical damage" + E + " and are " + R + "stunned for {r_stun}s" + E + ".",
-        "names": ("Persephone Rhoai", "Hammer of the Underworld", "Ichor Desmos"),
+        "names": ("Persephone Kallichore", "Persephone Titan", "Ichor Eos"),
     },
     "ko": {
         "name": "하데스",
         "attack": "쌍지창으로 찔러 " + AD + " " + O + "물리 피해" + E + ". " + O + "이코르" + E + ": 스킬을 쓴 뒤 " + A + "{p_t}초" +
                   E + " 안에 다음 기본 공격이 " + phys("p_dmg", "p_ad") + " " + O + "물리 피해" + E + "를 더 줌.",
-        "skill": "창을 휘둘러 페르세포네의 풍압을 일으켜 부채꼴 안의 적에게 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E +
-                 "와 " + R + "{q_slow}% 둔화" + E + "(" + A + "{q_slow_t}초" + E + ").",
-        "skill2": "쌍지창으로 앞쪽 땅을 내리찍어 그 원 안의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
+        "skill": "명부의 철퇴: 뛰어올라 창을 내리꽂아 땅이 터지며 주변 적에게 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E +
+                 "와 " + R + "{q_slow}% 둔화" + E + "(" + A + "{q_slow_t}초" + E + "), 날아간 바람 칼날이 앞쪽 일직선의 적에게 " +
+                 phys("q2_dmg", "q2_ad") + " " + O + "물리 피해" + E + ".",
+        "skill2": "대지를 부순 자: 창대를 미끄러뜨리며 앞쪽 땅을 내리찍어 그 원 안의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
                   "{e_air}초 띄워 올림" + E + ".",
-        "ult": "신의 피로 창끝을 데스모스로 벼려(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소) 대상을 향해 일직선으로 찔러 지나간 적에게 " +
+        "ult": "가슴을 갈라 신의 피로 쌍지창을 이코르 데스모스로 벼려(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소) 피가 이끈 서광: 대상을 향해 일직선으로 찔러 지나간 적에게 " +
                phys("r_dmg", "r_ad") + " + 최대 체력 " + O + "{r_thp}%" + E + " " + O + "물리 피해" + E + "와 " + R +
                "{r_stun}초 기절" + E + ".",
-        "names": ("페르세포네 로아이", "명부의 철퇴", "이코르 데스모스"),
+        "names": ("명부의 철퇴", "대지를 부순 자", "피가 이끈 서광"),
     },
     "ja": {
         "name": "ハデス",
         "attack": "二叉槍で突き" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "イコル" + E + "：スキル使用後" + A + "{p_t}秒" + E +
                   "以内の次の通常攻撃が" + phys("p_dmg", "p_ad") + "の" + O + "物理ダメージ" + E + "を追加。",
-        "skill": "槍を振ってペルセポネの風圧を起こし、扇形の敵に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
-                 "{q_slow}%スロウ" + E + "（" + A + "{q_slow_t}秒" + E + "）。",
-        "skill2": "二叉槍で前方の地面を叩き割り、円内の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
+        "skill": "冥府の鉄槌：跳んで槍を突き下ろし地面を爆ぜさせる：周囲の敵に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" +
+                 R + "{q_slow}%スロウ" + E + "（" + A + "{q_slow_t}秒" + E + "）、飛ばした風の刃が前方一直線に" + phys("q2_dmg", "q2_ad") +
+                 "の" + O + "物理ダメージ" + E + "。",
+        "skill2": "大地を砕きし者：柄を滑らせて振り下ろし前方の地面を叩き割り、円内の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
                   "{e_air}秒打ち上げ" + E + "。",
-        "ult": "神の血で槍頭をデスモスに鍛え（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）対象へ一直線に突き抜け、通った敵に" +
+        "ult": "胸を裂き神の血で二叉槍を宿命の四血槍に鍛え（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）、血が導きし曙光：対象へ一直線に突き抜け、通った敵に" +
                phys("r_dmg", "r_ad") + "＋最大体力" + O + "{r_thp}%" + E + "の" + O + "物理ダメージ" + E + "と" + R + "{r_stun}秒スタン" +
                E + "。",
-        "names": ("ペルセポネ・ロアイ", "冥府の鉄槌", "イコル・デスモス"),
+        "names": ("冥府の鉄槌", "大地を砕きし者", "血が導きし曙光"),
     },
 }
 
@@ -120,7 +126,7 @@ SOUNDS = {
 
 
 def values(p):
-    v = {k: p[k] for k in ("p_dmg", "p_ad", "q_dmg", "q_ad", "q_slow", "e_dmg", "e_ad", "r_dr", "r_dmg", "r_ad", "r_thp")}
+    v = {k: p[k] for k in ("p_dmg", "p_ad", "q_dmg", "q_ad", "q2_dmg", "q2_ad", "q_slow", "e_dmg", "e_ad", "r_dr", "r_dmg", "r_ad", "r_thp")}
     for k in ("p_t", "q_slow_t", "e_air", "r_stun"):
         v[k] = secs(p[k])
     return v

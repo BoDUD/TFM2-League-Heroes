@@ -13,22 +13,27 @@
   skill   零福·不幸斧爻：`Targeting` EnemyWithoutTower（q_range）：q_load 拍（第 3 帧）斧爻吸聚不幸、斧刃变大，q_hit 拍（第 5 帧）
           落斧：前方扇形（半径 q_r，左右各 acos(q_cone/1000)）里的敌人 q_dmg + q_ad% 攻击力物理伤害、减速 q_slow% q_slow_t 拍，
           挂不幸。
-          波旬·魔钻：前臂化成螺旋魔钻，q_hit 拍朝目标直线冲过去（RushTime，穿过去，吕布破阵的做法，速度 q2_speed、q2_t 拍）：
-          路上 q2_r 里的敌人 q2_dmg + q2_ad% 物理伤害、击飞 q2_air 拍。
-  skill2  零福·怨气冲击：`Targeting` EnemyWithoutTower（e_range）：低姿架斧，e_go 拍（第 4 帧）怨气从脚下往前涌，e_hit 拍（第 5 帧）
-          打到：朝目标一条（长 e_len、半宽 e_w）里的敌人 e_dmg + e_ad% 物理伤害、击飞 e_air 拍。
+          波旬·魔廻天衝（2026-11-26 照原作改：右臂化成鞭刃拧成巨大的黑钻头射出去，刺穿释迦的盾、打掉他的左眼；Codex 补画的
+          动作 assets/source/zerofuku/fidelity_hajun）：hq_hit 拍（第 4 帧）黑钻头朝目标直线射出（LinearProjectile，穿过去，
+          速度 q2_speed、射程 q2_len、半径 q2_r）：路上的敌人 q2_dmg + q2_ad% 物理伤害、击飞 q2_air 拍。
+  skill2  零福·斧爻岚阵（2026-11-26 照原作改：「怨气冲击」原作没有；原作第六回合斧爻炸成无数追着人飞的黑刃；Codex 补画的
+          动作 assets/source/zerofuku/fidelity）：`Targeting` EnemyWithoutTower（e_range）：e_burst 拍（第 5 帧）斧爻在头顶炸开，
+          e_go 拍黑刃飞出：一把追动作的目标，另外 e_n - 1 把各追 e_r 以内随便一个敌人（TargetProjectile，可以是同一个），
+          打到的 e_dmg + e_ad% 物理伤害、挂不幸。
           波旬·魔刃碎击：单臂化成厚刃从上往下砸，e_hit 拍：前方扇形（半径 e2_r，左右各 acos(e2_cone/1000)）里的敌人
           e2_dmg + e2_ad% 物理伤害、眩晕 e2_stun 拍。
   ult     零福·破茧：`Targeting` 敌方英雄（r_range）：被暗茧吞没，整个动作不受控制、受到的伤害降低 r_dr%；r_shell 拍茧合上，
           r_open 拍（第 6 帧，0.58 秒）波旬破茧而出：回复 r_heal + r_heal_ad% 攻击力的生命，这条命一直是波旬：攻击力 +h_atk%、
           攻速 +h_as%、移速 +h_ms%、护甲和魔抗 +h_res、吸血 h_vamp%。破茧前被打死就什么都不发生。
-          波旬·魔臂横断（形态里再放）：起手到斩中不受控制、受到的伤害降低 r_dr%，重臂刃蓄势，r2_hit 拍（第 5 帧，0.423 秒）横断：
-          前方扇形（半径 r2_r，左右各 acos(r2_cone/1000)）里的敌人 r2_dmg + r2_ad% 攻击力、加目标最大生命 r2_thp% 的物理伤害，
-          击飞 r2_air 拍。斩中前被打死就什么都不发生。动作是 h_ult（CasterAnimation；显示钩子不换 ult，破茧那段照放）。
+          波旬·灼（形态里再放；2026-11-26 照原作改：扯下左臂变成大剑全力往下劈，砍断镰刃、打碎六道棍；原来是横斩；Codex 补画
+          的动作）：起手到劈中不受控制、受到的伤害降低 r_dr%，r2_hit 拍（第 5 帧，0.44 秒）劈下：朝目标一条（长 r2_len、半宽 r2_w）
+          里的敌人 r2_dmg + r2_ad% 攻击力、加目标最大生命 r2_thp% 的物理伤害，击飞 r2_air 拍。劈中前被打死就什么都不发生。
+          动作是 h_ult（CasterAnimation；显示钩子不换 ult，破茧那段照放）。
 
 时间按 Codex 的 cues.json 和动画表（一秒 60 拍）：普攻 0.236 秒挥出、0.287 秒打到，不幸斧爻 0.176 秒吸聚、0.285 秒落斧，
-怨气冲击 0.292 秒涌出、0.354 秒打到，破茧 0.305 秒合茧、0.58 秒破茧，魔臂横断 0.423 秒斩中；动作长度普攻 36 拍、Q 35 拍、
-E 43 拍、大招 56 拍（波旬的 h_attack / h_skill / h_ult 在 tools/art/import_zerofuku.py 里按这些长度重排过）。
+破茧 0.305 秒合茧、0.58 秒破茧；补画的三个按 frames.json：斧爻岚阵 0.312 秒炸开、0.377 秒出刃，魔廻天衝 0.315 秒射出，灼
+0.44 秒劈下。动作长度普攻 36 拍、Q 35 拍、E 43 拍、大招 56 拍（波旬的 h_attack / h_skill / h_ult 和补画的斧爻岚阵在
+tools/art/import_zerofuku.py 里按这些长度重排过）。
 
 ragnarok.dll（addons/ragnarok/src/zerofuku.rs）：配音、倒地声和波旬形态的显示（被动 ragnarok_zerofuku:voice，没有参数）。
 """
@@ -42,6 +47,7 @@ MOD_ID = "ragnarok"
 ID = "ragnarok_zerofuku"
 OUT = os.path.join(REPO, MOD_ID, "champion", f"{ID}.data_champion")
 FX = f"asset/{MOD_ID}/effects/{ID}_fx"
+PROJ = f"asset/{MOD_ID}/effects/{ID}_proj"
 
 # 单位：近战射程 25000；范围按单位的碰撞半径（约 15000）另算。一秒 60 拍。
 # 数值：经典 SDK 模拟（C:/t/lb_sim，上路 lane 0，600 秒，对手和吕布、小次郎同一套：基础战士和另外五个原版上单，每批种子
@@ -51,6 +57,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # （32 个种子 +1.06）；技能伤害取中间 +1.74 / +1.13（+1.44）；形态 +20% 加伤害取中间 +2.02 / +1.75（+1.89）。这份（形态
 # 攻击、攻速 +15%，技能伤害取中间，零福的血、攻击、双抗小降：零福自己不算强，破茧以后明显变强）+1.41 / +1.56（+1.49，
 # K/D/A 2.2 / 1.3 / 4.1，一局普攻 128、Q 39、E 28、大招 6 次）。
+# 2026-11-26 照原作改了以后：初版 +0.53；E 加到 45 + 60%、波旬的 E 75 + 105%、
+# 波旬的 R 190 + 145%（这份 P）+1.42，改之前 +1.49。
 P = {
     # 属性（上路战士）：零福瘦，斧子长
     "hp": 1100, "hp_g": 108, "atk": 93, "atk_g": 17, "apw": 0, "apw_g": 0, "def": 34, "def_g": 7, "mr": 27,
@@ -61,15 +69,16 @@ P = {
     # 不幸斧爻 / 魔钻
     "q_cd": 480, "q_range": 40000, "q_dur": 35, "q_load": 11, "q_hit": 17, "q_r": 42000, "q_cone": 600,
     "q_dmg": 62, "q_ad": 110, "q_slow": 30, "q_slow_t": 90,
-    "q2_speed": 3200, "q2_t": 11, "q2_r": 15000, "q2_dmg": 55, "q2_ad": 100, "q2_air": 30,
-    # 怨气冲击 / 魔刃碎击
-    "e_cd": 600, "e_range": 32000, "e_dur": 43, "e_go": 18, "e_hit": 21, "e_len": 48000, "e_w": 9000,
-    "e_dmg": 55, "e_ad": 72, "e_air": 36,
-    "e2_r": 38000, "e2_cone": 500, "e2_dmg": 62, "e2_ad": 90, "e2_stun": 45,
+    "hq_hit": 19, "q2_speed": 6000, "q2_len": 60000, "q2_r": 10000, "q2_y": -8500, "q2_dmg": 55, "q2_ad": 100,
+    "q2_air": 30,
+    # 斧爻岚阵 / 魔刃碎击
+    "e_cd": 600, "e_range": 45000, "e_dur": 43, "e_burst": 19, "e_go": 23, "e_n": 3, "e_r": 50000, "e_speed": 6000,
+    "e_y": -8500, "e_dmg": 45, "e_ad": 60, "e_hit": 21,
+    "e2_r": 38000, "e2_cone": 500, "e2_dmg": 75, "e2_ad": 105, "e2_stun": 45,
     # 破茧 / 魔臂横断
     "r_cd": 2400, "r_range": 40000, "r_dur": 56, "r_shell": 18, "r_open": 35, "r_dr": 40,
     "r_heal": 100, "r_heal_ad": 50, "h_atk": 15, "h_as": 15, "h_ms": 5, "h_res": 10, "h_vamp": 8,
-    "r2_hit": 25, "r2_r": 54000, "r2_cone": 600, "r2_dmg": 165, "r2_ad": 125, "r2_thp": 6, "r2_air": 40,
+    "r2_hit": 26, "r2_len": 56000, "r2_w": 11000, "r2_dmg": 190, "r2_ad": 145, "r2_thp": 6, "r2_air": 40,
 }
 
 
@@ -176,17 +185,25 @@ def build(p, is_native=False):
     passed = [{"casting_type": "Targeting", "effect": e} for e in
               (attack(p["q2_dmg"], p["q2_ad"]), {"type": "Airborne", "duration": p["q2_air"]}, view("hq_hit"),
                tsfx("hq_hit"))]
-    rush = {"type": "RushTime", "speed": p["q2_speed"], "tick": p["q2_t"], "range": p["q2_r"],
-            "casting_target": "EnemyWithoutTower", "penetrate": True, "applied_effects": passed}
-    drill = combine(delayed(p["q_load"] - 1, sfx("hq_load")), delayed(p["q_hit"] - 1, sfx("hq"), rush))
+    # 魔廻天衝：黑钻头射出去，路上的人都穿过去（速度不超过半径两倍，每拍都量得到）
+    shot = {"type": "LinearProjectile", "name": n("hq_drill"), "penetrate": True, "applied_target": "EnemyWithoutTower",
+            "applied_effects": passed, "end_effects": [], "speed": p["q2_speed"], "range": p["q2_len"],
+            "shape": {"Circle": {"radius": p["q2_r"]}}, "y_offset": p["q2_y"]}
+    drill = combine(delayed(p["q_load"] - 1, sfx("hq_load")), delayed(p["hq_hit"] - 1, alive_only(sfx("hq"), shot)))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    when("hajun", drill, cleaver))
 
-    # ------------------------------------------------------------------ E：怨气冲击 / 魔刃碎击
-    surge = line("e_line", p["e_len"], p["e_w"], [attack(p["e_dmg"], p["e_ad"]),
-                                                  {"type": "Airborne", "duration": p["e_air"]},
-                                                  view("e_hit"), tsfx("e_hit")])
-    grudge = combine(delayed(p["e_go"] - 1, alive_only(sfx("e"))), delayed(p["e_hit"] - 1, alive_only(surge)))
+    # ------------------------------------------------------------------ E：斧爻岚阵 / 魔刃碎击
+    # 斧爻炸成追着人飞的黑刃：一把追动作的目标，另外几把各追身边随便一个敌人
+    def blade():
+        return {"type": "TargetProjectile", "name": n("e_blade"), "speed": p["e_speed"], "y_offset": p["e_y"],
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [{"casting_type": "Targeting",
+                                     "effect": combine(attack(p["e_dmg"], p["e_ad"]), mark, view("e_hit"), tsfx("e_hit"))}]}
+    swarm = [blade()] + [{"type": "RandomTarget", "range": p["e_r"], "casting_target": "EnemyWithoutTower",
+                          "from_projectile": False, "effects": [blade()]} for _ in range(p["e_n"] - 1)]
+    grudge = combine(delayed(p["e_burst"] - 1, alive_only(sfx("e"))),
+                     delayed(p["e_go"] - 1, alive_only(sfx("e2"), *swarm)))
     crush_hit = cone(p["e2_r"], p["e2_cone"], [attack(p["e2_dmg"], p["e2_ad"]), {"type": "Stun", "duration": p["e2_stun"]},
                                               view("he_hit"), tsfx("he_hit")])
     crush = combine(delayed(p["e_hit"] - 1, alive_only(sfx("he"), crush_hit)))
@@ -200,8 +217,10 @@ def build(p, is_native=False):
     cocoon = combine(flag("r_guard", p["r_dur"], cc_immune=True, damaged_reduce=p["r_dr"]),
                      delayed(p["r_shell"] - 1, alive_only(sfx("r_shell"))),
                      delayed(p["r_open"] - 1, alive_only(sfx("r_open"), heal, hajun)))
-    cut = cone(p["r2_r"], p["r2_cone"], [attack(p["r2_dmg"], p["r2_ad"], p["r2_thp"]),
-                                        {"type": "Airborne", "duration": p["r2_air"]}, view("r2_hit"), tsfx("r2_hit")])
+    # 灼：大剑往下劈，朝目标一条
+    cut = line("r2_line", p["r2_len"], p["r2_w"], [attack(p["r2_dmg"], p["r2_ad"], p["r2_thp"]),
+                                                  {"type": "Airborne", "duration": p["r2_air"]}, view("r2_hit"),
+                                                  tsfx("r2_hit")])
     sever = combine(anim("h_ult", p["r_dur"]),
                     flag("r_guard", p["r2_hit"] + 1, cc_immune=True, damaged_reduce=p["r_dr"]),
                     delayed(p["r2_hit"] - 1, alive_only(sfx("r2"), cut)))
@@ -209,11 +228,14 @@ def build(p, is_native=False):
                  when("hajun", sever, cocoon))
 
     # ------------------------------------------------------------------ 画面
-    # 斧爻和臂刃的斩痕、Q 吸聚的不幸、魔钻的螺旋、怨气、破茧的碎壳画在他自己的帧里（tools/art/import_zerofuku.py）
+    # 斧爻和臂刃的斩痕、Q 吸聚的不幸、斧爻炸开的黑气、灼的竖光、破茧的碎壳画在他自己的帧里（tools/art/import_zerofuku.py）；
+    # 追人的黑刃、射出去的黑钻头是弹道（ragnarok_zerofuku_proj，跟着飞行方向转）
     E = lambda name, tag, z=2: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z, "is_follow": True}
     views_e = [E("a_hit", "cleaver_impact"), E("q_hit", "cleaver_impact"), E("e_hit", "cleaver_impact"),
                E("ha_hit", "demon_impact"), E("hq_hit", "demon_impact"), E("he_hit", "demon_impact"),
-               E("r2_hit", "demon_impact", 3)]
+               E("r2_hit", "sword_hit", 3)]
+    Pj = lambda name, tag: {"type": "Animated", "name": n(name), "anim": PROJ, "tag": tag, "repeat": True, "z": 2}
+    views_p = [Pj("e_blade", "blade_flight"), Pj("hq_drill", "drill_flight")]
     # 挂着不幸的敌人身上绕着不幸的黑气（buff 在就一直放）
     views_b = [{"type": "Animated", "name": n("mark"), "anim": FX, "tag": "misfortune", "repeat": True, "z": 1}]
     kit = {
@@ -227,7 +249,7 @@ def build(p, is_native=False):
                    "magic_resistance": p["mr_g"], "move_speed": p["ms_g"], "hp_regen": 0, "stack": 0,
                    "crit_chance": 0},
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
-        "view_projectiles": [], "view_effects": views_e, "view_buffs": views_b,
+        "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
     if is_native:   # ragnarok.dll（addons/ragnarok/src/zerofuku.rs）：配音、倒地声、波旬形态的显示
         kit = {"id": ID, "category": kit["category"], "tags": kit["tags"],

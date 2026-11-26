@@ -16,6 +16,11 @@ Codex 2026-11-22 画的（raiden_packs/outputs/raiden_assets_done.zip，交接�
 （"behind"，用户说过盖住脸不行）：普攻的掌风 0.257 秒、连掌两下的掌风 0.269 / 0.371 秒、八咫乌蓄劲的气 0.282 秒和推出去的冲击波
 0.474 秒、肌肉解放迸出来的红纹 0.391 秒（一圈光环罩着身子）；四股落地的尘土 0.398 秒和地面震环 0.464 秒在脚下，画在前面。
 放在目标身上的：掌的命中 palm_contact、八咫乌的命中 yatagarasu_impact。
+
+2026-11-26 照原作改（用户：「我需要的是完美的还原度」）：「四股」在原作不是招式名，skill2 换成 Codex 补画的狮子舞
+（assets/source/raiden/fidelity，逻辑像素图集；原作第五回合：双手撑地倒立，整个人往前倒，用两只脚掌跺下去）：第 6 帧 0.432 秒
+双脚落地的冲击画在脚下（前面）。往前倒的那段是技能自己往前挪（RushTime），画里的前移扣掉（SHIFT），人画在原地。原来四股的
+尘土和震环去掉。
 """
 import os
 import sys
@@ -24,6 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ragnarok_art as A  # noqa: E402
+import ragnarok_atlas as RA  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "raiden", "snapped")
 ID = "ragnarok_raiden"
@@ -49,13 +55,19 @@ def at(x, y):
     return (x - SOLE[0], y - SOLE[1])
 
 
+FID = os.path.join(ROOT, "assets", "source", "raiden", "fidelity")
+REDRAW = [(FID, "raiden", {"skill2": "skill2"}, None)]
+REDRAW_FX = [(FID, "raiden", {"stomp_wave": "stomp_wave"}, None)]
+# 往前倒是技能自己的位移：画里的前移扣掉
+SHIFT = {"skill2": RA.redraw_shift(FID, "skill2")}
+
 # (动作, 特效, 开始秒, 离脚底的锚点, 每帧秒数（None 用特效自己的）, 特效格的中心[, "behind"])
 BAKE = [
     ("attack", "palm_sweep", 0.257, at(160, 157), None, FX_ORIGIN, "behind"),
     ("skill", "palm_sweep", 0.269, at(157, 150), None, FX_ORIGIN, "behind"),
     ("skill", "palm_sweep", 0.371, at(161, 157), None, FX_ORIGIN, "behind"),
-    ("skill2", "shiko_dust", 0.398, at(134, 212), None, FX_ORIGIN),
-    ("skill2", "shiko_ring", 0.464, at(134, 221), None, FX_ORIGIN),
+    # 狮子舞：第 6 帧双脚落地的冲击（Codex 的 frames.json：脚底前方 (10, 0)）
+    ("skill2", "stomp_wave", 0.432, RA.redraw_offset(FID, "stomp_wave"), None, RA.redraw_point(FID, "fx", "stomp_wave")),
     ("ult", "compress_air", 0.282, at(131, 150), None, FX_ORIGIN, "behind"),
     ("ult", "yatagarasu_wave", 0.474, at(170, 148), None, FX_ORIGIN, "behind"),
     ("muscle_release", "release_seams", 0.391, at(128, 156), None, FX_ORIGIN, "behind"),
@@ -63,7 +75,8 @@ BAKE = [
 TARGET_FX = {"palm_contact": FX_ORIGIN, "yatagarasu_impact": FX_ORIGIN}
 
 RAIDEN = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": {},
-          "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS}
+          "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS, "REDRAW": REDRAW,
+          "REDRAW_FX": REDRAW_FX, "SHIFT": SHIFT}
 
 if __name__ == "__main__":
     A.main(RAIDEN, __doc__)

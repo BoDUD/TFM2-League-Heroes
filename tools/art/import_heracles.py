@@ -20,6 +20,12 @@ buff 时把待机、跑、普攻、两个技能、挨打、倒下换成 c_*；�
 画在身后（"behind"，小次郎、索尔那次用户说过盖住脸不行）：巨棒挥出的弧光 0.272 秒、狮子御业的狮头 0.317 秒、变身的
 光环 0.32 秒和觉醒 0.59 秒、拳风（c_attack 0.219 秒、c_ult 0.329 秒）、刻耳柏洛斯护势的光环 0.218 秒；砸在他前面地上的
 冲击（skill2 0.371 秒、c_ult 0.401 秒）画在前面。放在目标身上的：巨棒命中 club_hit、拳头命中 cerberus_hit。
+
+2026-11-26 照原作改（用户：「我需要的是完美的还原度」）：刻耳柏洛斯形态的 c_skill2 换成 Codex 补画的突爪（assets/source/heracles/
+fidelity，逻辑像素图集，按他 Q 版的像素格 2x2；原作第四回合：和刻耳柏洛斯合体以后一下就贴到对手面前，留下三道巨大的爪痕）：
+第 3 帧 0.21 秒贴地冲刺的残影（身后），第 5 帧 0.335 秒三道爪痕（前面；照 Codex 的位置第 5 帧扑出去时整个盖在头上，往前挪
+34 个逻辑像素，落在他前方爪子打中的地方）。冲过去是技能自己的位移（RushTime），画里的前移扣掉；Codex 第 1 帧的脚比 c_idle
+偏左 12 个逻辑像素，整条再往右挪 24 格（一换动作就不跳）。原来护势的 cerberus_ring 去掉。
 """
 import os
 import sys
@@ -28,6 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ragnarok_art as A  # noqa: E402
+import ragnarok_atlas as RA  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "heracles", "snapped")
 ID = "ragnarok_heracles"
@@ -38,7 +45,7 @@ PPU = 2.75                  # 放大前 3.3；和 tools/art/ppu_hd.py 的 PPU、
 FX_PPU = 3.3                # 特效图不放大（hd.rs 的 EFFECTS）
 SOLE = (128, 232)
 FX_ORIGIN = (128, 128)      # 特效格的中心
-CANVAS = (576, 448, (288, 352))
+CANVAS = (840, 520, (300, 420))   # 2026-11-26 补画的特效往前甩得远（原来 (576, 448, (288, 352))）
 
 ACTS = ("idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead")
 C_ACTS = tuple(f"c_{t}" for t in ACTS)
@@ -57,6 +64,9 @@ def at(x, y):
 
 
 # (动作, 特效, 开始秒, 离脚底的锚点, 每帧秒数（None 用特效自己的）, 特效格的中心[, "behind"])
+FID = os.path.join(ROOT, "assets", "source", "heracles", "fidelity")
+REDRAW = [(FID, "heracles", {"c_skill2": "c_skill2"}, None)]
+REDRAW_FX = [(FID, "heracles", {"dash_echo": "dash_echo", "triple_claw": "triple_claw"}, None)]
 BAKE = [
     ("attack", "club_swing", 0.272, at(160, 154), None, FX_ORIGIN, "behind"),
     ("skill", "lion_wave", 0.317, at(165, 155), None, FX_ORIGIN, "behind"),
@@ -64,14 +74,19 @@ BAKE = [
     ("ult", "cerberus_ring", 0.320, at(128, 161), None, FX_ORIGIN, "behind"),
     ("ult", "cerberus_awaken", 0.590, at(128, 150), None, FX_ORIGIN, "behind"),
     ("c_attack", "fist_trail", 0.270, at(166, 156), None, FX_ORIGIN, "behind"),
-    ("c_skill2", "cerberus_ring", 0.218, at(128, 162), None, FX_ORIGIN, "behind"),
+    # 刻耳柏洛斯突爪：冲刺残影（身后）、三道爪痕（前面，往前挪 34 个逻辑像素不压脸）
+    ("c_skill2", "dash_echo", 0.21, RA.redraw_offset(FID, "dash_echo"), None, RA.redraw_point(FID, "fx", "dash_echo"), "behind"),
+    ("c_skill2", "triple_claw", 0.335, RA.redraw_offset(FID, "triple_claw", nudge=(68, 0)), None,
+     RA.redraw_point(FID, "fx", "triple_claw")),
     ("c_ult", "fist_trail", 0.329, at(164, 144), None, FX_ORIGIN, "behind"),
     ("c_ult", "ground_impact", 0.401, at(181, 202), None, FX_ORIGIN),
 ]
 TARGET_FX = {"club_hit": FX_ORIGIN, "cerberus_hit": FX_ORIGIN}
 
 HERACLES = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
-            "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS}
+            "TARGET_FX": TARGET_FX, "BANKS": BANKS, "TAGS": TAGS, "CANVAS": CANVAS,
+            "REDRAW": REDRAW, "REDRAW_FX": REDRAW_FX,
+            "SHIFT": {"c_skill2": [d + 24 for d in RA.redraw_shift(FID, "c_skill2")]}}
 
 if __name__ == "__main__":
     A.main(HERACLES, __doc__)

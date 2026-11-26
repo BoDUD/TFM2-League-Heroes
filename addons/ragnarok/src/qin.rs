@@ -1,5 +1,10 @@
-//! 秦始皇（`ragnarok_qin`）数据做不到的部分：只有声音。数据（tools/kit/build_qin.py）的 `passive` 是这里的
-//! `ragnarok_qin:voice`，没有参数；星（被动）、波流龟气弹、神罗铠袖·承力天凤、始皇勾践剑全在数据里。
+//! 秦始皇（`ragnarok_qin`）数据做不到的部分：配音和大招的「承力」。数据（tools/kit/build_qin.py）的 `passive` 是这里的
+//! `ragnarok_qin:voice`，参数 r_hit / r_store / r_cap 从数据的 params 读；星（被动）、蚩尤弩式·波流龟、神罗铠袖·承力天凤和大招
+//! 的伤害、控制在数据里。
+//!
+//! 始皇承力燕斩（终末的女武神第七回合的终结技「蚩尤剑铠式·始皇承力燕斩」：剑尖抵住哈迪斯的枪尖，把对方的力存进剑里，再一口气
+//! 还回去，打碎血枪、刺穿哈迪斯）：大招放出（冷却从 0 跳上去）到斩中（r_hit 拍）之间他挨的伤害记下来，最多他最大生命的 r_cap%；
+//! 斩中那一刻（前后几拍）他打出的每一下加上记下的 r_store%。
 //!
 //! 配音（石川界人的官方原声，Codex 截的七句）：一局第一次和敌方英雄交手说一句（「头抬得太高了」，五次里一次是长的入场
 //! 「朕所至之处」），第一次和哈迪斯交手（对面有他的话）说「冥界之王」那句；放神罗铠袖时一半的时候喊（蚩尤铠式、承力天凤
@@ -133,13 +138,66 @@ impl Voice {
 
 // ===================== 游戏里 =====================
 
+// ===================== 承力（单元测试用） =====================
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Params {
+    /// 大招从放出到斩中几拍
+    pub r_hit: usize,
+    /// 记下的伤害还回去百分之几
+    pub r_store: usize,
+    /// 最多记他最大生命的百分之几
+    pub r_cap: usize,
+}
+
+impl Default for Params {
+    fn default() -> Self {
+        Self { r_hit: 35, r_store: 100, r_cap: 25 }
+    }
+}
+
+pub fn parse_params(json: &str) -> Params {
+    let mut p = Params::default();
+    for part in json.trim().trim_start_matches('{').trim_end_matches('}').split(',') {
+        let mut kv = part.splitn(2, ':');
+        let (Some(k), Some(v)) = (kv.next(), kv.next()) else { continue };
+        let k = k.trim().trim_matches('"');
+        let Ok(v) = v.trim().parse::<i64>() else { continue };
+        let u = v.max(0) as usize;
+        match k {
+            "r_hit" => p.r_hit = u.min(600),
+            "r_store" => p.r_store = u.min(300),
+            "r_cap" => p.r_cap = u.min(100),
+            _ => {}
+        }
+    }
+    p
+}
+
+/// 这一下加多少：记下的伤害 stored、他的最大生命 max。
+pub fn returned(stored: usize, max: usize, p: &Params) -> usize {
+    stored.min(max * p.r_cap / 100) * p.r_store / 100
+}
+
+/// 斩中的那几拍（放出后 r_hit 拍前后各 3 拍）里才还。
+pub fn in_cut(cast: usize, tick: usize, p: &Params) -> bool {
+    let hit = cast + p.r_hit;
+    tick + 3 >= hit && tick <= hit + 3
+}
+
+// ===================== 游戏里 =====================
+
 #[derive(Clone, Default)]
 struct QinVoice {
     me: usize,
+    p: Params,
     was_alive: bool,
     lives: usize,
     /// 神罗铠袖、勾践剑的冷却上一拍是多少，用来认出这一拍刚放了哪个
     cds: (usize, usize),
+    /// 这次大招放出的那一拍（没放就是 None）和到现在挨了多少
+    cast: Option<usize>,
+    stored: usize,
     voice: Voice,
 }
 
@@ -156,6 +214,10 @@ impl QinVoice {
 impl StablePassive for QinVoice {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
+    }
+
+    fn configure(&mut self, params_json: &str) {
+        self.p = parse_params(params_json);
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
@@ -184,17 +246,43 @@ impl StablePassive for QinVoice {
         let (e0, r0) = self.cds;
         self.cds = (e, r);
         if r > r0 + 30 {
+            self.cast = Some(sim.tick());
+            self.stored = 0;
             self.say(sim, Cue::Ult);
         } else if e > e0 + 30 && (rng % 100) < SKILL_CHANCE {
             self.say(sim, Cue::Guard);
         }
     }
 
-    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, _damage: &mut usize) {
+    fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _me: usize, _attacker: usize, damage: usize) {
+        // 承力：大招放出到斩中之间挨的打记下来
+        let Some(cast) = self.cast else { return };
+        if sim.tick() < cast + self.p.r_hit {
+            self.stored = self.stored.saturating_add(damage);
+        }
+    }
+
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, damage: &mut usize) {
         self.me = me;
         let Some(my_team) = sim.get_entity(me).map(|e| e.team()) else { return };
         let Some(t) = sim.get_entity(target) else { return };
-        if t.team() == my_team || !t.is_champion() {
+        if t.team() == my_team {
+            return;
+        }
+        // 承力燕斩：斩中的那几拍把记下的力还回去（这一刀打到的每个人都加）
+        if let Some(cast) = self.cast {
+            let tick = sim.tick();
+            if in_cut(cast, tick, &self.p) && self.stored > 0 {
+                let max = sim.get_entity(me).map_or(0, |e| e.hp().1);
+                let add = returned(self.stored, max, &self.p);
+                *damage = damage.saturating_add(add);
+                log(sim, format!("RETURN #{me} -> #{target}: +{add} (stored {})", self.stored));
+            } else if tick > cast + self.p.r_hit + 3 {
+                self.cast = None;
+                self.stored = 0;
+            }
+        }
+        if !t.is_champion() {
             return;
         }
         if t.name().as_deref() == Some(RIVAL) {
@@ -285,5 +373,20 @@ mod tests {
         let mut all = seven.to_vec();
         all.sort();
         assert_eq!(used, all);
+    }
+
+    #[test]
+    fn the_force_comes_back_in_the_cut() {
+        let p = Params::default();
+        assert_eq!(parse_params(r#"{"r_cap": 25, "r_hit": 35, "r_store": 100}"#), p);
+        // 挨了 300，最大生命 2000：上限 500，全还
+        assert_eq!(returned(300, 2000, &p), 300);
+        // 挨了 900：只还到上限 500
+        assert_eq!(returned(900, 2000, &p), 500);
+        // 放出在 1000 拍：1032..1038 拍里还
+        assert!(!in_cut(1000, 1031, &p));
+        assert!(in_cut(1000, 1032, &p));
+        assert!(in_cut(1000, 1038, &p));
+        assert!(!in_cut(1000, 1039, &p));
     }
 }

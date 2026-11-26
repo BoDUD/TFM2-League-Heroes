@@ -5,15 +5,18 @@
 终末的女武神第五回合的人类方选手，和湿婆打的那个：史上最强的力士，肌肉强到撕裂自己的身体，一辈子都在压着力气相扑，
 直到瓦尔基里的神器（肌肉拘束）让他能控制全身的肌肉。美术、图标、音频是 Codex 的（assets/source/raiden/，交接说明
 assets/source/raiden/HANDOFF.md），技能照 Codex 的四个动作和肌肉解放的过渡做：
-  被动    肌肉解放：每条命第一次放八咫乌之前，先把压了一辈子的肌肉放开（muscle_release，rel_dur 拍，不受控制、受到的
+  被动    百闭解放：每条命第一次放八咫乌之前，先扭开胸肌破开「百闭」（小时候长出来压住肌肉、免得撑断骨头的那层肌肉壳），把压了一辈子的肌肉放开（muscle_release，rel_dur 拍，不受控制、受到的
           伤害降低 rel_dr%），之后这条命一直是放开的：攻击力 +p_atk%、护甲和魔抗 +p_res、攻速 +p_as%；以后的八咫乌直接出。
           写在普攻说明里（游戏只有三个技能图标位），全在数据里。
   attack  一掌打 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 5 帧，0.314 秒）打到。
   skill   连掌（张手）：`Targeting` EnemyWithoutTower（q_range）：q_hit1 拍（第 4 帧）第一掌 q1_dmg + q1_ad% 攻击力物理伤害，
           q_hit2 拍（第 6 帧）第二掌 q2_dmg + q2_ad%，打得人一个踉跄（眩晕 q_stun 拍）、减速 q_slow% q_slow_t 拍。
           不推开：辅助把人推走，队友就够不着了（初稿推开，模拟里比联盟辅助差得多）。
-  skill2  四股：`Targeting` EnemyWithoutTower（e_range，有人在身边）：抬脚，e_land 拍（第 5 帧）跺地，身边 e_r 里的敌人
-          e_dmg + e_ad% 物理伤害、眩晕 e_stun 拍；e_pulse 拍（第 6 帧）地面余震，更大一圈 e_r2 里的敌人减速 e_slow% e_slow_t 拍。
+  skill2  狮子舞（2026-11-26 照原作改：「四股」在原作不是招式名。原作第五回合：双手撑地倒立，整个人往前倒，用两只脚掌跺下去）：
+          `Targeting` EnemyWithoutTower（e_range，有人在身边）。Codex 补画的动作（assets/source/raiden/fidelity，0.75 秒）：
+          e_plant 拍（第 2 帧）双手撑地，e_flip 拍（第 5 帧）往前倒（RushTime，e_step 速度 e_step_t 拍，碰到就停），e_land 拍
+          （第 6 帧）双脚跺下：身前 e_off 处 e_r 里的敌人 e_dmg + e_ad% 物理伤害、眩晕 e_stun 拍；e_pulse 拍余震，更大一圈 e_r2
+          里的敌人减速 e_slow% e_slow_t 拍。
   ult     八咫乌：`Targeting` 敌方英雄（r_range）：r_go 拍（第 3 帧）蓄劲，到出掌前不受控制、受到的伤害降低 r_dr%；r_hit 拍
           （第 5 帧）一掌推出，前方扇形（半径 r_r，左右各 acos(r_cone/1000)）里的敌人 r_dmg + r_ad% 物理伤害，被冲击波震飞
           在原地（击飞 r_up 拍，不推远，队友跟得上）。这条命第一次放时先播肌肉解放（见被动）。出掌前被打死就什么都不发生。
@@ -40,6 +43,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # 洛 +1.21、锤石 +0.58、布隆 -0.07、蕾欧娜 -0.29、阿利斯塔 -0.60，中位数约 +0.25）。初稿 -3.00：连掌和八咫乌把人推远，队友
 # 够不着；改成踉跄和原地震飞 -1.12，加技能伤害 -0.29 / -0.92（两批种子），伤害再加也不更好（-0.82），更耐打 +0.25、够得更远
 # +0.22，控制更长（这份：连掌踉跄 0.67 秒、四股眩晕 1 秒）+0.42（16 个种子，K/D/A 1.3 / 1.8 / 4.1）。
+# 2026-11-26 照原作改了以后：初版 +1.03 偏强；E 眩晕缩到 40 拍、伤害 55 + 55%（这份 P）
+# +0.48，改之前 +0.42。
 P = {
     # 属性（辅助坦克）：力士，最耐打
     "hp": 1300, "hp_g": 120, "atk": 72, "atk_g": 11, "apw": 0, "apw_g": 0, "def": 50, "def_g": 9, "mr": 40,
@@ -51,10 +56,12 @@ P = {
     "q_cd": 480, "q_range": 28000, "q_dur": 38, "q_hit1": 16, "q_hit2": 22,
     "q1_dmg": 55, "q1_ad": 80, "q2_dmg": 80, "q2_ad": 105, "q_stun": 40, "q_slow": 30, "q_slow_t": 60,
     # 四股
-    "e_cd": 780, "e_range": 24000, "e_dur": 47, "e_lift": 14, "e_land": 24, "e_pulse": 28, "e_r": 34000, "e_r2": 44000,
-    "e_dmg": 65, "e_ad": 65, "e_stun": 60, "e_slow": 30, "e_slow_t": 90,
+    "e_cd": 780, "e_range": 24000, "e_dur": 45, "e_plant": 7, "e_flip": 22, "e_step": 4000, "e_step_t": 4, "e_land": 26,
+    "e_pulse": 30, "e_off": 6000, "e_r": 34000, "e_r2": 44000, "e_dmg": 55, "e_ad": 55, "e_stun": 40, "e_slow": 30,
+    "e_slow_t": 90,
     # 八咫乌
-    "r_cd": 3000, "r_range": 30000, "r_dur": 51, "r_go": 17, "r_hit": 28, "r_dr": 40, "r_r": 48000, "r_cone": 700,
+    "r_cd": 3000, "r_range": 45000, "r_dur": 51, "r_go": 17, "r_hit": 28, "r_dr": 40, "r_r": 48000, "r_cone": 700,
+    "r_speed": 8000, "r_t": 4,
     "r_dmg": 200, "r_ad": 160, "r_up": 45,
 }
 
@@ -133,6 +140,12 @@ def cone(radius, cos, effects):
             "apply_type": {"Forward": {"offset": 1000}}, "effects": [e for e in effects if e is not None]}
 
 
+def ahead(radius, offset, effects):
+    """他身前 offset 处一圈（半径 radius）里的敌人（朝动作的目标）。"""
+    return {"type": "RangeEffect", "shape": {"Circle": {"radius": radius}}, "target": "EnemyWithoutTower",
+            "apply_type": {"Forward": {"offset": offset}}, "effects": [e for e in effects if e is not None]}
+
+
 def around(radius, effects):
     """他身边一圈（半径 radius）里的敌人。"""
     return {"type": "RangeEffect", "shape": {"Circle": {"radius": radius}}, "target": "EnemyWithoutTower",
@@ -157,11 +170,14 @@ def build(p, is_native=False):
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(delayed(p["q_hit1"] - 1, first), delayed(p["q_hit2"] - 1, alive_only(second))))
 
-    # ------------------------------------------------------------------ E：四股
-    land = around(p["e_r"], [attack(p["e_dmg"], p["e_ad"]), {"type": "Stun", "duration": p["e_stun"]}])
-    pulse = around(p["e_r2"], [slow("e_slow", p["e_slow"], p["e_slow_t"])])
+    # ------------------------------------------------------------------ E：狮子舞（倒立、往前倒、双脚跺下）
+    flip = {"type": "RushTime", "speed": p["e_step"], "tick": p["e_step_t"], "range": 15000,
+            "casting_target": "EnemyWithoutTower", "penetrate": False, "applied_effects": []}
+    land = ahead(p["e_r"], p["e_off"], [attack(p["e_dmg"], p["e_ad"]), {"type": "Stun", "duration": p["e_stun"]}])
+    pulse = ahead(p["e_r2"], p["e_off"], [slow("e_slow", p["e_slow"], p["e_slow_t"])])
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                    combine(delayed(p["e_lift"] - 1, sfx("e_lift")),
+                    combine(delayed(p["e_plant"] - 1, sfx("e_lift")),
+                            delayed(p["e_flip"] - 1, alive_only(flip)),
                             delayed(p["e_land"] - 1, alive_only(sfx("e"), land)),
                             delayed(p["e_pulse"] - 1, alive_only(sfx("e2"), pulse))))
 
@@ -171,11 +187,15 @@ def build(p, is_native=False):
     released = flag("released", None, attack_mult=p["p_atk"], defence=p["p_res"], magic_resistance=p["p_res"],
                     attack_speed_mult=p["p_as"])
 
+    # 原作（第五回合）：八咫乌是铁炮掌的极致——肌肉先挪到腿上一下贴近，再挪到出掌的手上。蓄劲那一拍朝目标冲过去（碰到就停）
+    close_in = {"type": "RushTime", "speed": p["r_speed"], "tick": p["r_t"], "range": 15000,
+                "casting_target": "EnemyWithoutTower", "penetrate": False, "applied_effects": []}
+
     def yatagarasu(go):
-        """go 拍以后出八咫乌：蓄劲到出掌不受控制、减伤，出掌那一刻震飞前方扇形。"""
+        """go 拍以后出八咫乌：蓄劲到出掌不受控制、减伤，蓄劲时一下贴近，出掌那一刻震飞前方扇形。"""
         return combine(delayed(go, flag("r_guard", p["r_hit"] + 1, cc_immune=True, damaged_reduce=p["r_dr"])) if go
                        else flag("r_guard", p["r_hit"] + 1, cc_immune=True, damaged_reduce=p["r_dr"]),
-                       delayed(go + p["r_go"] - 1, alive_only(sfx("r1"))),
+                       delayed(go + p["r_go"] - 1, alive_only(sfx("r1"), close_in)),
                        delayed(go + p["r_hit"] - 1, alive_only(sfx("r2"), strike, tsfx("r_hit"))))
 
     release_first = combine(anim("muscle_release", p["rel_dur"]),

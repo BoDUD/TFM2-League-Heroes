@@ -41,7 +41,7 @@ VIEW = {"face": {"x": 2, "y": -37}, "center": {"x": 0, "y": -12}, "banpick_cente
 TEXT = {
     "zh-hans": {
         "name": "别西卜",
-        "attack": "振动掌，造成" + AD + O + "物理伤害" + E + "加" + mag("a_dmg", "a_ap") + M + "魔法伤害" + E + "。" + O + "振动" + E +
+        "attack": "振动掌，造成" + AD + O + "物理伤害" + E + "加" + mag("a_dmg", "a_ap") + M + "魔法伤害" + E + "。" + O + "恶魔的振翅" + E +
                   "：被他的技能打中的敌人" + A + "{p_t}秒" + E + "内魔抗" + A + "-{p_mr}%" + E + "。",
         "skill": "骸骨杖放出振动波，一条线上的敌人受到" + mag("q_dmg", "q_ap") + M + "魔法伤害" + E + "并" + R + "减速{q_slow}%" + E +
                  "（" + A + "{q_slow_t}秒" + E + "）。",
@@ -49,12 +49,12 @@ TEXT = {
                   "{e_cc}秒" + E + "不受控制；随后屏障震开，身边的敌人受到" + mag("e_dmg", "e_ap") + M + "魔法伤害" + E + "并" + R +
                   "减速{e_slow}%" + E + "。",
         "ult": "压缩出虚神的黑核（不受控制、减伤" + A + "{r_dr}%" + E + "），把身边的敌人往里拉，再爆发：周围的敌人受到" +
-               mag("r_dmg", "r_ap") + M + "魔法伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "。",
-        "names": ("暴食的堕天使", "地狱之门", "虚神〈混沌〉"),
+               mag("r_dmg", "r_ap") + M + "魔法伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "；他自己也被反噬，失去" + A + "{r_cost}%" + E + "最大生命。",
+        "names": ("暴食的堕天使", "地狱之门扉", "虚神（卡俄斯）"),
     },
     "zh-hant": {
         "name": "別西卜",
-        "attack": "振動掌，造成" + AD + O + "物理傷害" + E + "加" + mag("a_dmg", "a_ap") + M + "魔法傷害" + E + "。" + O + "振動" + E +
+        "attack": "振動掌，造成" + AD + O + "物理傷害" + E + "加" + mag("a_dmg", "a_ap") + M + "魔法傷害" + E + "。" + O + "惡魔的振翅" + E +
                   "：被他的技能打中的敵人" + A + "{p_t}秒" + E + "內魔抗" + A + "-{p_mr}%" + E + "。",
         "skill": "骸骨杖放出振動波，一條線上的敵人受到" + mag("q_dmg", "q_ap") + M + "魔法傷害" + E + "並" + R + "減速{q_slow}%" + E +
                  "（" + A + "{q_slow_t}秒" + E + "）。",
@@ -62,13 +62,13 @@ TEXT = {
                   "{e_cc}秒" + E + "不受控制；隨後屏障震開，身邊的敵人受到" + mag("e_dmg", "e_ap") + M + "魔法傷害" + E + "並" + R +
                   "減速{e_slow}%" + E + "。",
         "ult": "壓縮出虛神的黑核（不受控制、減傷" + A + "{r_dr}%" + E + "），把身邊的敵人往裡拉，再爆發：周圍的敵人受到" +
-               mag("r_dmg", "r_ap") + M + "魔法傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "。",
-        "names": ("暴食的墮天使", "地獄之門", "虛神〈混沌〉"),
+               mag("r_dmg", "r_ap") + M + "魔法傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "；他自己也被反噬，失去" + A + "{r_cost}%" + E + "最大生命。",
+        "names": ("暴食的墮天使", "地獄之門扉", "虛神（卡俄斯）"),
     },
     "en": {
         "name": "Beelzebub",
         "attack": "A vibrating palm: " + AD + " " + O + "physical damage" + E + " plus " + mag("a_dmg", "a_ap") + " " + M +
-                  "magic damage" + E + ". " + O + "Vibration" + E + ": enemies his skills hit lose " + A + "{p_mr}%" + E +
+                  "magic damage" + E + ". " + O + "Palmyra, Devil's Beating Wings" + E + ": enemies his skills hit lose " + A + "{p_mr}%" + E +
                   " magic resist for " + A + "{p_t}s" + E + ".",
         "skill": "His bone staff sends out a vibration wave: enemies on a line take " + mag("q_dmg", "q_ap") + " " + M +
                  "magic damage" + E + " and are " + R + "slowed {q_slow}%" + E + " for " + A + "{q_slow_t}s" + E + ".",
@@ -77,34 +77,34 @@ TEXT = {
                   "him take " + mag("e_dmg", "e_ap") + " " + M + "magic damage" + E + " and are " + R + "slowed {e_slow}%" + E + ".",
         "ult": "He compresses the black core of the False God (unstoppable, " + A + "{r_dr}%" + E + " less damage), pulls nearby "
                "enemies in and bursts: enemies around him take " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E +
-               " and are " + R + "stunned for {r_stun}s" + E + ".",
-        "names": ("Fallen Angel of Gluttony", "Gate of Hell", "False God: Chaos"),
+               " and are " + R + "stunned for {r_stun}s" + E + "; it tears into him too, " + A + "{r_cost}%" + E + " of his max health.",
+        "names": ("Fallen Angel of Gluttony", "Gates of Hell", "False God: Chaos"),
     },
     "ko": {
         "name": "벨제붑",
         "attack": "진동 장타로 " + AD + " " + O + "물리 피해" + E + " + " + mag("a_dmg", "a_ap") + " " + M + "마법 피해" + E + ". " + O +
-                  "진동" + E + ": 그의 스킬에 맞은 적은 " + A + "{p_t}초" + E + " 동안 마법 저항력 " + A + "-{p_mr}%" + E + ".",
+                  "악마의 날갯짓" + E + ": 그의 스킬에 맞은 적은 " + A + "{p_t}초" + E + " 동안 마법 저항력 " + A + "-{p_mr}%" + E + ".",
         "skill": "해골 지팡이로 진동파를 쏘아 일직선의 적에게 " + mag("q_dmg", "q_ap") + " " + M + "마법 피해" + E + "와 " + R +
                  "{q_slow}% 둔화" + E + "(" + A + "{q_slow_t}초" + E + ").",
         "skill2": "진동 장벽을 펼쳐 " + S + "보호막 {e_sh}" + E + " + " + APi + S + "{e_sh_ap}%" + E + "(" + A + "{e_t}초" + E + "), " +
                   A + "{e_cc}초" + E + " 저지 불가. 이어 장벽이 흔들려 주변 적에게 " + mag("e_dmg", "e_ap") + " " + M + "마법 피해" + E +
                   "와 " + R + "{e_slow}% 둔화" + E + ".",
         "ult": "허신의 검은 핵을 압축해(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소) 주변 적을 끌어당긴 뒤 폭발: 주변 적에게 " +
-               mag("r_dmg", "r_ap") + " " + M + "마법 피해" + E + "와 " + R + "{r_stun}초 기절" + E + ".",
-        "names": ("폭식의 타천사", "지옥문", "허신〈카오스〉"),
+               mag("r_dmg", "r_ap") + " " + M + "마법 피해" + E + "와 " + R + "{r_stun}초 기절" + E + ". 자신도 반동으로 최대 체력 " + A + "{r_cost}%" + E + " 잃음.",
+        "names": ("폭식의 타천사", "지옥의 문", "허신(카오스)"),
     },
     "ja": {
         "name": "ベルゼブブ",
         "attack": "振動の掌で" + AD + "の" + O + "物理ダメージ" + E + "＋" + mag("a_dmg", "a_ap") + "の" + M + "魔法ダメージ" + E + "。" + O +
-                  "振動" + E + "：スキルが当たった敵は" + A + "{p_t}秒" + E + "魔法防御" + A + "-{p_mr}%" + E + "。",
+                  "悪魔の羽ばたき" + E + "：スキルが当たった敵は" + A + "{p_t}秒" + E + "魔法防御" + A + "-{p_mr}%" + E + "。",
         "skill": "骸骨の杖から振動波を放ち、一直線の敵に" + mag("q_dmg", "q_ap") + "の" + M + "魔法ダメージ" + E + "と" + R +
                  "{q_slow}%スロウ" + E + "（" + A + "{q_slow_t}秒" + E + "）。",
         "skill2": "振動の障壁を張り" + S + "シールド{e_sh}" + E + "＋" + APi + S + "{e_sh_ap}%" + E + "（" + A + "{e_t}秒" + E + "）、" + A +
                   "{e_cc}秒" + E + "行動妨害無効。続けて障壁が弾け、周りの敵に" + mag("e_dmg", "e_ap") + "の" + M + "魔法ダメージ" + E +
                   "と" + R + "{e_slow}%スロウ" + E + "。",
         "ult": "虚神の黒核を圧縮し（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）周りの敵を引き寄せて炸裂：周囲の敵に" +
-               mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "と" + R + "{r_stun}秒スタン" + E + "。",
-        "names": ("暴食の堕天使", "地獄の門", "虚神〈カオス〉"),
+               mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "と" + R + "{r_stun}秒スタン" + E + "。自身も反動で最大体力の" + A + "{r_cost}%" + E + "を失う。",
+        "names": ("暴食の堕天使", "地獄の門扉", "虚神（カオス）"),
     },
 }
 
@@ -131,7 +131,7 @@ SOUNDS = {
 
 def values(p):
     v = {k: p[k] for k in ("a_dmg", "a_ap", "p_mr", "q_dmg", "q_ap", "q_slow", "e_sh", "e_sh_ap", "e_dmg", "e_ap",
-                           "e_slow", "r_dr", "r_dmg", "r_ap")}
+                           "e_slow", "r_dr", "r_dmg", "r_ap", "r_cost")}
     for k in ("p_t", "q_slow_t", "e_t", "e_cc", "r_stun"):
         v[k] = secs(p[k])
     return v

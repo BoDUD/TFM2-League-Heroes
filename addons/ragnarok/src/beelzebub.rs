@@ -1,5 +1,9 @@
-//! 别西卜（`ragnarok_beelzebub`）数据做不到的部分：只有声音。数据（tools/kit/build_beelzebub.py）的 `passive` 是这里的
-//! `ragnarok_beelzebub:voice`，没有参数；振动（被动）、暴食的堕天使、地狱之门、虚神〈混沌〉全在数据里。
+//! 别西卜（`ragnarok_beelzebub`）数据做不到的部分：配音和虚神的反噬。数据（tools/kit/build_beelzebub.py）的 `passive` 是这里的
+//! `ragnarok_beelzebub:voice`，参数 r_cost 从数据的 params 读；恶魔的振翅（被动）、暴食的堕天使、地狱之门扉、虚神（卡俄斯）的
+//! 伤害和控制全在数据里。
+//!
+//! 虚神的反噬（终末的女武神第八回合：「冥界的原罪·零号：虚神」对敌人致命，他自己也重伤，哈迪斯禁止他用）：大招放的那一拍
+//! （冷却从 0 跳上去）扣他 r_cost% 最大生命，最多扣到 1 点（不会自己打死自己）。
 //!
 //! 配音（浪川大辅的官方原声，Codex 截的五句）：一局第一次和敌方英雄交手说一句（「这倒有意思」，五次里一次是长的迎战宣言），
 //! 第一次和特斯拉交手（对面有他的话）说催促对手那句；放地狱之门时一半的时候喊招式；杀了英雄（结局的独白）；复活时（迎战宣言）。
@@ -126,15 +130,53 @@ impl Voice {
     }
 }
 
+// ===================== 虚神的反噬（单元测试用） =====================
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Params {
+    /// 放一次虚神扣最大生命的百分之几
+    pub r_cost: usize,
+}
+
+impl Default for Params {
+    fn default() -> Self {
+        Self { r_cost: 6 }
+    }
+}
+
+pub fn parse_params(json: &str) -> Params {
+    let mut p = Params::default();
+    for part in json.trim().trim_start_matches('{').trim_end_matches('}').split(',') {
+        let mut kv = part.splitn(2, ':');
+        let (Some(k), Some(v)) = (kv.next(), kv.next()) else { continue };
+        let k = k.trim().trim_matches('"');
+        let Ok(v) = v.trim().parse::<i64>() else { continue };
+        if k == "r_cost" {
+            p.r_cost = (v.max(0) as usize).min(50);
+        }
+    }
+    p
+}
+
+/// 扣完以后的生命：现在 hp、最多 max，扣 cost% 最大生命，最多扣到 1 点（已经只剩 1 点就不扣）。
+pub fn after_cost(hp: usize, max: usize, cost: usize) -> usize {
+    if hp <= 1 {
+        return hp;
+    }
+    hp.saturating_sub(max * cost / 100).max(1)
+}
+
 // ===================== 游戏里 =====================
 
 #[derive(Clone, Default)]
 struct BeelzebubVoice {
     me: usize,
+    p: Params,
     was_alive: bool,
     lives: usize,
-    /// 地狱之门的冷却上一拍是多少，用来认出这一拍刚放了
+    /// 地狱之门扉、虚神的冷却上一拍是多少，用来认出这一拍刚放了
     e_cd: usize,
+    r_cd: usize,
     voice: Voice,
 }
 
@@ -151,6 +193,10 @@ impl BeelzebubVoice {
 impl StablePassive for BeelzebubVoice {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
+    }
+
+    fn configure(&mut self, params_json: &str) {
+        self.p = parse_params(params_json);
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
@@ -175,11 +221,21 @@ impl StablePassive for BeelzebubVoice {
             return;
         }
         // 冷却从 0 跳上去就是刚放了
-        let e = sim.get_player(player).and_then(|p| p.cooldowns()).map_or(0, |c| c.2);
+        let (_, _, e, r) = sim.get_player(player).and_then(|p| p.cooldowns()).unwrap_or((0, 0, 0, 0));
         let e0 = self.e_cd;
         self.e_cd = e;
         if e > e0 + 30 && (rng % 100) < SKILL_CHANCE {
             self.say(sim, Cue::Guard);
+        }
+        let r0 = self.r_cd;
+        self.r_cd = r;
+        if r > r0 + 30 {
+            // 虚神的反噬
+            let Some((hp, max)) = sim.get_entity(me).map(|x| x.hp()) else { return };
+            let after = after_cost(hp, max, self.p.r_cost);
+            if after < hp && sim.entity_set_hp(me, after) {
+                log(sim, format!("COST #{me}: Chaos {hp} -> {after} of {max}"));
+            }
         }
     }
 
@@ -277,5 +333,13 @@ mod tests {
         let mut all = five.to_vec();
         all.sort();
         assert_eq!(used, all);
+    }
+
+    #[test]
+    fn chaos_hurts_him_but_never_kills() {
+        assert_eq!(after_cost(1000, 1000, 6), 940);
+        assert_eq!(after_cost(40, 1000, 6), 1);
+        assert_eq!(after_cost(1, 1000, 6), 1);
+        assert_eq!(parse_params(r#"{"r_cost": 6}"#), Params::default());
     }
 }

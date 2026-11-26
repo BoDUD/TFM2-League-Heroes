@@ -15,11 +15,15 @@ pub mod heracles;
 pub mod jack;
 pub mod kojiro;
 pub mod leonidas;
+pub mod loki;
 pub mod lubu;
+pub mod okita;
 pub mod poseidon;
 pub mod qin;
 pub mod raiden;
 pub mod shiva;
+pub mod simo;
+pub mod susanoo;
 pub mod tesla;
 pub mod buddha;
 pub mod thor;
@@ -116,6 +120,10 @@ fn init(host: &StableHost) -> StableMod {
     tesla::register(host, &mut module);
     leonidas::register(host, &mut module);
     apollo::register(host, &mut module);
+    okita::register(host, &mut module);
+    susanoo::register(host, &mut module);
+    simo::register(host, &mut module);
+    loki::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

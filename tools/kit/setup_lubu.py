@@ -42,11 +42,11 @@ TEXT = {
                   "护甲；对护盾的伤害提高" + A + "{p_shield}%" + E + "，打碎护盾时再造成" + ratio("p_break") + "物理伤害。",
         "skill": "方天画戟横扫前方扇形，造成" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "，并减速" + A + "{q_slow}%" + E +
                  "，持续" + A + "{q_slow_t}秒" + E + "。",
-        "skill2": "朝目标突刺冲阵，穿过路上的敌人，造成" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R +
-                  "击飞{e_air}秒" + E + "。",
-        "ult": "举戟蓄力" + A + "{r_go}秒" + E + "（不受控制，受到的伤害降低" + A + "{r_dr}%" + E + "），随后朝目标斩出天喰：直线上的敌人受到" +
+        "skill2": "用戟压住对手的兵器顺势突刺，穿过路上的敌人，造成" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R +
+                  "定身{e_root}秒" + E + "。",
+        "ult": "骑上赤兔马冲向目标（不受控制，受到的伤害降低" + A + "{r_dr}%" + E + "），在马上握戟尾挥出天喰：直线上的敌人受到" +
                phys("r_dmg", "r_ad") + O + "物理伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "。",
-        "names": ("横扫", "破阵", "天喰"),
+        "names": ("横扫", "压戟突刺", "天喰"),
     },
     "zh-hant": {
         "name": "呂布奉先",
@@ -54,11 +54,11 @@ TEXT = {
                   "護甲；對護盾的傷害提高" + A + "{p_shield}%" + E + "，擊碎護盾時再造成" + ratio("p_break") + "物理傷害。",
         "skill": "方天畫戟橫掃前方扇形，造成" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "，並緩速" + A + "{q_slow}%" + E +
                  "，持續" + A + "{q_slow_t}秒" + E + "。",
-        "skill2": "朝目標突刺衝陣，穿過路上的敵人，造成" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R +
-                  "擊飛{e_air}秒" + E + "。",
-        "ult": "舉戟蓄力" + A + "{r_go}秒" + E + "（不受控制，受到的傷害降低" + A + "{r_dr}%" + E + "），隨後朝目標斬出天喰：直線上的敵人受到" +
+        "skill2": "用戟壓住對手的兵器順勢突刺，穿過路上的敵人，造成" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R +
+                  "定身{e_root}秒" + E + "。",
+        "ult": "騎上赤兔馬衝向目標（不受控制，受到的傷害降低" + A + "{r_dr}%" + E + "），在馬上握戟尾揮出天喰：直線上的敵人受到" +
                phys("r_dmg", "r_ad") + O + "物理傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "。",
-        "names": ("橫掃", "破陣", "天喰"),
+        "names": ("橫掃", "壓戟突刺", "天喰"),
     },
     "en": {
         "name": "Lu Bu",
@@ -67,12 +67,12 @@ TEXT = {
                   "breaking a shield deals " + ratio("p_break") + " more physical damage.",
         "skill": "Sweeps the halberd through a cone in front, dealing " + phys("q_dmg", "q_ad") + " " + O +
                  "physical damage" + E + " and slowing by " + A + "{q_slow}%" + E + " for " + A + "{q_slow_t}s" + E + ".",
-        "skill2": "Charges through the enemy line toward the target: enemies in his path take " + phys("e_dmg", "e_ad") +
-                  " " + O + "physical damage" + E + " and are " + R + "knocked up for {e_air}s" + E + ".",
-        "ult": "Gathers himself for " + A + "{r_go}s" + E + " (unstoppable, taking " + A + "{r_dr}%" + E + " less damage), then "
-               "cuts the sky toward the target: enemies on the line take " + phys("r_dmg", "r_ad") + " " + O +
+        "skill2": "Pins the foe's weapon with the halberd and thrusts on through: enemies in his path take " + phys("e_dmg", "e_ad") +
+                  " " + O + "physical damage" + E + " and are " + R + "rooted for {e_root}s" + E + ".",
+        "ult": "Rides Red Hare at the target (unstoppable, taking " + A + "{r_dr}%" + E + " less damage) and, gripping the "
+               "halberd's end, cuts the sky from horseback: enemies on the line take " + phys("r_dmg", "r_ad") + " " + O +
                "physical damage" + E + " and are " + R + "stunned for {r_stun}s" + E + ".",
-        "names": ("Sweep", "Formation Breaker", "Sky Eater"),
+        "names": ("Sweep", "Pinning Thrust", "Sky Eater"),
     },
     "ko": {
         "name": "여포 봉선",
@@ -81,12 +81,12 @@ TEXT = {
                   " 물리 피해 추가.",
         "skill": "방천화극으로 전방 부채꼴을 휩쓸어 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + "와 " + A +
                  "{q_slow_t}초" + E + " 동안 " + A + "{q_slow}%" + E + " 둔화.",
-        "skill2": "대상을 향해 적진을 꿰뚫고 돌격: 경로의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
-                  "{e_air}초 에어본" + E + ".",
-        "ult": A + "{r_go}초" + E + " 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 " + A + "{r_dr}%" + E + " 감소) 대상 쪽으로 하늘을 "
+        "skill2": "방천극으로 상대의 무기를 누르며 찔러 들어가: 경로의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
+                  "{e_root}초 속박" + E + ".",
+        "ult": "적토마를 타고 대상에게 돌진해(군중 제어 면역, 받는 피해 " + A + "{r_dr}%" + E + " 감소) 말 위에서 하늘을 "
                "베는 천식: 직선 위의 적에게 " + phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + "와 " + R + "{r_stun}초 기절" +
                E + ".",
-        "names": ("휩쓸기", "파진", "천식"),
+        "names": ("휩쓸기", "누르기 찌르기", "천식"),
     },
     "ja": {
         "name": "呂布奉先",
@@ -95,11 +95,11 @@ TEXT = {
                   ratio("p_break") + "の物理ダメージを追加。",
         "skill": "方天画戟で前方の扇状範囲を薙ぎ払い、" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" + A +
                  "{q_slow_t}秒" + E + "間" + A + "{q_slow}%" + E + "のスロウ。",
-        "skill2": "目標へ敵陣を突き破って突進：通り道の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
-                  "{e_air}秒のノックアップ" + E + "。",
-        "ult": A + "{r_go}秒" + E + "力を溜め（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）、目標の方向へ天喰を放つ：" +
+        "skill2": "方天戟で相手の武器を押さえて突き抜ける：通り道の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
+                  "{e_root}秒スネア" + E + "。",
+        "ult": "赤兎馬に乗って目標へ駆け（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）、馬上から天喰を放つ：" +
                "直線上の敵に" + phys("r_dmg", "r_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{r_stun}秒のスタン" + E + "。",
-        "names": ("薙ぎ払い", "破陣", "天喰"),
+        "names": ("薙ぎ払い", "押さえ突き", "天喰"),
     },
 }
 
@@ -125,7 +125,7 @@ SOUNDS = {
 def values(p):
     v = {k: p[k] for k in ("p_pen", "p_shield", "p_break", "q_dmg", "q_ad", "q_slow", "e_dmg", "e_ad", "r_dmg", "r_ad",
                            "r_dr")}
-    for k in ("q_slow_t", "e_air", "r_go", "r_stun"):
+    for k in ("q_slow_t", "e_root", "r_go", "r_stun"):
         v[k] = secs(p[k])
     return v
 

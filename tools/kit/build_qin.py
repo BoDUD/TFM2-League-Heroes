@@ -10,13 +10,13 @@
   被动    星：他的技能打中的敌人露出「星」：p_t 拍里受到的伤害 +p_amp%（所有人打都算）。写在普攻说明里（游戏只有三个技能图标位），
           全在数据里。
   attack  指爪 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 5 帧，0.287 秒）抓到。
-  skill   波流龟气弹：`Targeting` EnemyWithoutTower（q_range）：q_load 拍吸一口气，q_go 拍（0.237 秒）吐出气弹（TargetProjectile，
+  skill   蚩尤弩式·波流龟：`Targeting` EnemyWithoutTower（q_range）：q_load 拍吸一口气，q_go 拍（0.237 秒）吐出气弹（TargetProjectile，
           速度 q_speed，追着目标飞）：打到时炸开，目标 q_dmg + q_ad% 攻击力物理伤害、眩晕 q_stun 拍，露出星。
   skill2  神罗铠袖·承力天凤：`Targeting` EnemyWithoutTower（e_range，有人在身边）：e_go 拍（第 4 帧，0.217 秒）举起神罗铠袖：
           e_t 拍里受到的伤害降低 e_dr%、不受控制，身边 e_ar 里的友方英雄（连他自己）得到护盾 e_sh + e_sh_ad% 攻击力，e_sh_t 拍；
           e_block 拍承力，e_hit 拍（第 6 帧，0.354 秒）把力推回去：前方扇形（半径 e_r，左右各 acos(e_cone/1000)）里的敌人
           e_dmg + e_ad% 攻击力物理伤害、眩晕 e_stun 拍，露出星。中间被打死就不推。
-  ult     始皇勾践剑：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到斩中为止），r_go 拍（0.305 秒）
+  ult     始皇承力燕斩（始皇勾践剑）：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到斩中为止），r_go 拍（0.305 秒）
           剑显形，r_cut 拍（0.510 秒）斩出，r_hit 拍（0.580 秒）斩中：前方大扇形（半径 r_r，左右各 acos(r_cone/1000)）里的敌人
           r_dmg + r_ad% 攻击力物理伤害、被击飞 r_up 拍（原地），露出星。斩出前被打死就什么都不发生。
 
@@ -54,14 +54,14 @@ P = {
     "p_amp": 10, "p_t": 180,
     # 波流龟气弹
     "q_cd": 540, "q_range": 50000, "q_dur": 35, "q_load": 11, "q_go": 14, "q_speed": 3800, "q_y": -15900,
-    "q_dmg": 60, "q_ad": 60, "q_stun": 45,
+    "q_dmg": 60, "q_ad": 60, "q_stun": 24, "q_weak": 25, "q_weak_t": 180,
     # 神罗铠袖·承力天凤
     "e_cd": 720, "e_range": 30000, "e_dur": 43, "e_go": 13, "e_block": 18, "e_hit": 21, "e_t": 60, "e_dr": 40,
     "e_ar": 40000, "e_sh": 80, "e_sh_ad": 50, "e_sh_t": 150, "e_r": 40000, "e_cone": 600, "e_dmg": 60, "e_ad": 60,
     "e_stun": 40,
     # 始皇勾践剑
     "r_cd": 3000, "r_range": 36000, "r_dur": 56, "r_go": 18, "r_cut": 31, "r_hit": 35, "r_dr": 40, "r_r": 56000,
-    "r_cone": 500, "r_dmg": 180, "r_ad": 120, "r_up": 50,
+    "r_cone": 500, "r_dmg": 180, "r_ad": 120, "r_up": 50, "r_store": 100, "r_cap": 25,
 }
 
 
@@ -155,11 +155,13 @@ def build(p, is_native=False):
                       combine(attack(0, 100), sfx("a"), view("a_hit"), tsfx("a_hit")),
                       atype="BaseAttack", cancel=True)
 
-    # ------------------------------------------------------------------ Q：波流龟气弹
+    # ------------------------------------------------------------------ Q：蚩尤弩式·波流龟（对着「星」吹一口看不见的气：打断一下、
+    # 削弱对方的招，原作第七回合用它削弱、偏转哈迪斯的招式）
     bubble = {"type": "TargetProjectile", "name": n("q_bubble"), "speed": p["q_speed"], "y_offset": p["q_y"],
               "applied_target": "Enemy",
               "applied_effects": [{"casting_type": "Targeting", "effect": combine(
-                  attack(p["q_dmg"], p["q_ad"]), {"type": "Stun", "duration": p["q_stun"]}, star, view("q_hit"),
+                  attack(p["q_dmg"], p["q_ad"]), {"type": "Stun", "duration": p["q_stun"]},
+                  debuff("q_weak", p["q_weak_t"], attack_mult=-p["q_weak"], magic_power_mult=-p["q_weak"]), star, view("q_hit"),
                   tsfx("q_hit"))}]}
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(delayed(p["q_load"] - 1, sfx("q_load")), delayed(p["q_go"] - 1, alive_only(sfx("q"), bubble))))
@@ -175,7 +177,8 @@ def build(p, is_native=False):
                             delayed(p["e_block"] - 1, alive_only(sfx("e_block"))),
                             delayed(p["e_hit"] - 1, alive_only(sfx("e_push"), push))))
 
-    # ------------------------------------------------------------------ R：始皇勾践剑
+    # ------------------------------------------------------------------ R：始皇承力燕斩（始皇勾践剑；把挨的打存进剑里再还回去：
+    # ragnarok.dll 的 qin.rs）
     slash = cone(p["r_r"], p["r_cone"], [attack(p["r_dmg"], p["r_ad"]), {"type": "Airborne", "duration": p["r_up"]}, star,
                                         view("r_hit"), tsfx("r_hit")])
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -206,7 +209,8 @@ def build(p, is_native=False):
     }
     if is_native:   # ragnarok.dll（addons/ragnarok/src/qin.rs）：配音、倒地声
         kit = {"id": ID, "category": kit["category"], "tags": kit["tags"],
-               "passive": {"passive_ref": f"{ID}:voice", "params": {}},
+               "passive": {"passive_ref": f"{ID}:voice", "params": {"r_hit": p["r_hit"], "r_store": p["r_store"],
+                                                                        "r_cap": p["r_cap"]}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
 

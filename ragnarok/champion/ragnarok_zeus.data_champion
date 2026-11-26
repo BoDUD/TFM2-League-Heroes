@@ -394,77 +394,144 @@
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "Delayed",
-          "tick": 10,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "Attack",
-                  "damage": 30,
-                  "attack_ratio": 65,
-                  "hp_ratio": 0,
-                  "target_hp_ratio": 0,
-                  "attack_effect_type": "Target"
-                },
-                {
-                  "type": "Sfx",
-                  "name": "ragnarok_zeus_q"
-                },
-                {
-                  "type": "ViewEffect",
-                  "name": "ragnarok_zeus_q_hit"
-                },
-                {
-                  "type": "TargetSfx",
-                  "name": "ragnarok_zeus_q_hit"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 18,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "Attack",
-                  "damage": 30,
-                  "attack_ratio": 65,
-                  "hp_ratio": 0,
-                  "target_hp_ratio": 0,
-                  "attack_effect_type": "Target"
-                },
-                {
-                  "type": "Sfx",
-                  "name": "ragnarok_zeus_q"
-                },
-                {
-                  "type": "ViewEffect",
-                  "name": "ragnarok_zeus_q_hit"
-                },
-                {
-                  "type": "TargetSfx",
-                  "name": "ragnarok_zeus_q_hit"
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "ragnarok_zeus_ad",
-                  "effect_buff": {
+      "type": "SwitchByBuff",
+      "buff_name": "ragnarok_zeus_ad",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Delayed",
+            "tick": 10,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 30,
+                    "attack_ratio": 65,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_zeus_q"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "ragnarok_zeus_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_zeus_q_hit"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 18,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 30,
+                    "attack_ratio": 65,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "ragnarok_zeus_q"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "ragnarok_zeus_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_zeus_q_hit"
+                  },
+                  {
                     "type": "Stun",
                     "duration": 36
-                  },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "ragnarok_zeus_mu",
-                    "effect_buff": {
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "SwitchByBuff",
+        "buff_name": "ragnarok_zeus_mu",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 10,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 30,
+                      "attack_ratio": 65,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "ragnarok_zeus_q"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "ragnarok_zeus_q_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "ragnarok_zeus_q_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 18,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 30,
+                      "attack_ratio": 65,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "ragnarok_zeus_q"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "ragnarok_zeus_q_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "ragnarok_zeus_q_hit"
+                    },
+                    {
                       "type": "AddBuff",
                       "buff_state": {
                         "name": "ragnarok_zeus_q_slow",
@@ -475,18 +542,685 @@
                         },
                         "move_speed_mult": -40
                       }
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
                     }
-                  }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 6,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 12,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 17,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 22,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 25,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 28,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 31,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "ragnarok_zeus_live",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "ragnarok_zeus_live",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 9,
+                                "attack_ratio": 19,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zeus_q_hit"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_zeus_q"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zeus_q_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "ragnarok_zeus_live"
+                    }
+                  ]
                 }
               ]
             }
           ]
         }
-      ]
+      }
     }
   },
   "skill2": {

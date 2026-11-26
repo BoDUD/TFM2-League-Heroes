@@ -25,6 +25,11 @@ runtime/sprites：脚底点 (64, 116)，人站直约 58 格，PPU 1.65 是 35 �
 128 格那版一样，浪头在头的右上方，坠刺从戟头往右下。
 放在目标身上的：普攻和斜刺的命中水花 thrust_hit、连刺和大洪水每一轮的 flurry_hit、大洪水围住目标的环形戟影
 flood_barrage（都是对称的，不怕不翻）。特效格都以中心对齐。
+
+2026-11-26 照原作改（用户：「我需要的是完美的还原度」）：skill2 换成 Codex 补画的荒海に降る神雷（assets/source/poseidon/fidelity，
+逻辑像素图集，按他 Q 版的像素格 2x2；原作第三回合：跳起来从上面像雷雨一样往下连刺，边刺边移动）：第 4、5、6 帧
+0.289 / 0.352 / 0.413 秒各一阵雷雨下刺。往前跳是技能自己的位移（RushTime），画里的前移扣掉（SHIFT）。雷雨照 Codex 的位置会从
+脸上过，往前挪 11 个逻辑像素（不碰脸）。原来抬戟斜压的 rain_rise / rain_fall 去掉。
 """
 import os
 import sys
@@ -33,6 +38,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ragnarok_art as A  # noqa: E402
+import ragnarok_atlas as RA  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "poseidon", "rebuild")
 ID = "ragnarok_poseidon"
@@ -51,25 +57,30 @@ def up(p):
 
 SOLE = up((64, 116))
 FX_ORIGIN = up((64, 64))    # 特效格的中心
-CANVAS = (round(288 * UP), round(224 * UP), up((144, 176)))
+CANVAS = (800, 560, (300, 440))   # 荒海神雷跳起来往前下刺，雷雨出了原来的画布
+CANVAS_OLD = (round(288 * UP), round(224 * UP), up((144, 176)))   # 原来的动作照这个裁（普攻的风压原来就切掉了一角）
 
 # (动作, 特效, 开始秒, 离脚底的锚点, 每帧秒数（None 用特效自己的）, 特效格的中心)
+FID = os.path.join(ROOT, "assets", "source", "poseidon", "fidelity")
+REDRAW = [(FID, "poseidon", {"skill2": "skill2"}, None)]
+REDRAW_FX = [(FID, "poseidon", {"rain_thrust": "rain_thrust"}, None)]
 BAKE = [
     ("attack", "thrust_wind", 0.225, (87, -64), None, FX_ORIGIN),     # 普攻第 4 帧戟尖 (232, 168)，往回 18
     ("skill", "flurry_wind", 0.225, (90, -48), None, FX_ORIGIN),      # 连刺第 4 帧戟尖 (242, 184)，往回 24
-    ("skill2", "rain_rise", 0.18, (48, -102), None, FX_ORIGIN),       # cues (84, 63) 乘 2，跟着身子往右 8、往下 4
-    ("skill2", "rain_fall", 0.285, (100, -38), None, FX_ORIGIN),      # cues (105, 97) 乘 2，跟着身子往右 18（按戟尖放会盖住脸）
+    # 荒海神雷：三阵雷雨下刺（Codex 的偏移往前挪 11 个逻辑像素，不碰脸）
+    *[("skill2", "rain_thrust", t, RA.redraw_offset(FID, "rain_thrust", nudge=(22, -8)), None,
+       RA.redraw_point(FID, "fx", "rain_thrust")) for t in (0.289, 0.352, 0.413)],
     ("ult", "flood_charge", 0.0, (14, -53), None, FX_ORIGIN),         # cues (70, 89) 乘 2，身子往右下各 1、2 格
 ]
 RETIME = {}
 TARGET_FX = {"thrust_hit": FX_ORIGIN, "flurry_hit": FX_ORIGIN, "flood_barrage": FX_ORIGIN}
 SHIFT = {
     "run": [-4, 3, 4, -1, -23, -4, 6, 17],
-    "attack": -10, "skill": -8, "skill2": -8, "ult": -10, "dead": -6,
+    "attack": -10, "skill": -8, "skill2": RA.redraw_shift(FID, "skill2"), "ult": -10, "dead": -6,
 }
 
 POSEIDON = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": RETIME,
-            "TARGET_FX": TARGET_FX, "CANVAS": CANVAS, "SHIFT": SHIFT}
+            "TARGET_FX": TARGET_FX, "CANVAS": CANVAS, "SHIFT": SHIFT, "REDRAW": REDRAW, "REDRAW_FX": REDRAW_FX, "CANVAS_OLD": CANVAS_OLD}
 
 if __name__ == "__main__":
     A.main(POSEIDON, __doc__)
