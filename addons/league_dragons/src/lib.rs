@@ -447,7 +447,8 @@ fn evict(book: &mut Book) {
 fn run(sim: &mut StableSim<'_>) {
     let o = sim.sim_origin().unwrap_or_default();
     let origin: Origin = (o.kind, o.match_id, o.set_index, o.replay_id, sim.seed());
-    let screen = screen_of(&o);
+    // 同一场换了种子重新模拟（读档后又看一遍）时画面只跟新开的那一遍，旧的那一遍不再算屏幕上的（feed::this_run）
+    let screen = screen_of(&o).filter(|&(m, s)| feed::this_run(m, s, sim.seed(), sim.tick()));
     if let Some((m, s)) = screen {
         if feed::view(m, s) {
             if let Some(k) = counted("view") {
