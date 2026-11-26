@@ -108,7 +108,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 14,
           "effects": [
             {
               "type": "Combine",
@@ -383,7 +383,7 @@
                                     "name": "abysspact_whisperer_w_slow",
                                     "duration": {
                                       "Time": {
-                                        "tick": 70
+                                        "tick": 60
                                       }
                                     },
                                     "move_speed_mult": -22
@@ -477,7 +477,7 @@
                                     "name": "abysspact_whisperer_w_slow",
                                     "duration": {
                                       "Time": {
-                                        "tick": 70
+                                        "tick": 60
                                       }
                                     },
                                     "move_speed_mult": -22

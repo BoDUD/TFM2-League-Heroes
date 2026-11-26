@@ -105,6 +105,8 @@ BY_CLASS = {
     "wukong": "R arms a spin his attacks fire", "zilean": "R arms a rewind his watcher fires",
     "gnar": "R only in Mega form", "orianna": "R needs her ball", "mel": "R strikes only her own Overwhelm stacks",
     "velkoz": "R casts only while his passive researches a champion",
+    # 渊契：蜕甲第三形态的飞扑距离是 abysspact.dll 的原生 range_adjust，塞拉斯手里没有这段代码
+    "abysspact_carapace": "R's form-3 dive range is abysspact.dll's own code (a native range_adjust)",
     # the TFT heroes (tft/champion): their code is tft.dll's, not the add-on bundle's
     "tft_alune": "R's moon reads her phases and her passive's code splits it",
     "tft_norra": "R's rift is tft.dll's own code (a native the tft mod registers)",

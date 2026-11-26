@@ -1,10 +1,14 @@
 //! 七弹 (`abysspact_sevenfold`) · 魔弹射手 · 下路射手
 //!
-//! 招牌机制「第七颗」魔弹契约:
-//! - 一轮 7 发子弹，头顶实时显示 `count_0..7` 计数；普攻消耗 1 发，Q「连发」消耗 3 发，W「装弹」翻滚直接将下一发换成第 7 颗。
-//! - 每轮第 7 颗（以及 R「七发齐射」的最后一发）听深渊的：在 9 万内随机挑一名敌方英雄拐弯必中，
-//!   造成 `160 + 140% AD` 真实伤害（`DamageTypeV1::Fixed`），同时七弹自己失去 8% 当前生命（保底 1 血），
-//!   并进入 1.2 秒（72 ticks）装弹停火，随后装满 7 发开启下一轮。
+//! 招牌机制「第七颗」：一轮 7 发，头顶 `count_0..7` 显示这一轮还剩几发。
+//! - 只数真正的普攻（`on_base_attack`，一下普攻来一次）；Q「连发」看数据挂的 `q_shots` 算 3 发；R 的齐射不算。
+//!   以前在 `on_attack` 里数，Q 的三枪、R 的六枪、魔弹自己、装备附加的伤害每一下都算一发：Q 一次算 6 发，
+//!   R 打到一半还会多冒出一颗魔弹、多扣一次血。
+//! - 只剩最后一发时给他挂 `seventh`。数据的普攻看到它，这一发不打瞄的人，换成深渊魔弹：身后睁开深渊之眼，
+//!   9 万内随机一个敌方英雄，追踪弹拐着弯飞过去，真实伤害；同时挂 `fired7`。本包看到 `fired7`：9 万内有敌方英雄
+//!   （魔弹真的出膛了）就扣他自己 8% 当前生命（不致死），然后装弹 1.2 秒（不能普攻），装完 7 发。
+//! - W「装弹」：数据挂 `w_load`，下一发直接换成第七颗。
+//! - R「七发齐射」：最后一发走同一份魔弹数据，挂 `r_fired7`：扣 8% 当前生命，不装弹，不动这一轮的计数。
 
 use mod_api_stable::*;
 
@@ -16,18 +20,21 @@ pub const HERO: &str = "abysspact_sevenfold";
 pub const NATIVE_MARK: &str = "abysspact_sevenfold_native";
 pub const Q_SHOTS_ASK: &str = "abysspact_sevenfold_q_shots";
 pub const W_LOAD_ASK: &str = "abysspact_sevenfold_w_load";
-pub const R_CURSE_ASK: &str = "abysspact_sevenfold_r_curse";
 pub const R_CAST_VOICE: &str = "abysspact_sevenfold_r_voice";
 pub const RELOADING_BUFF: &str = "abysspact_sevenfold_reloading";
+/// 下一发是第七颗（本包挂，数据的普攻看它、出膛时摘掉）。
+pub const SEVENTH: &str = "abysspact_sevenfold_seventh";
+/// 普攻的第七颗出膛了（数据挂）。
+pub const FIRED7: &str = "abysspact_sevenfold_fired7";
+/// R 的第七发出膛了（数据挂）。
+pub const R_FIRED7: &str = "abysspact_sevenfold_r_fired7";
 
 pub const CLIP_SIZE: u8 = 7;
 pub const CURSE_RANGE: u64 = 90_000; // 9.0万
-pub const RELOAD_TICKS: usize = 72;  // 1.2s reload
+pub const RELOAD_TICKS: usize = 72; // 1.2s reload
 pub const SELF_BURN_PCT: usize = 8;
-
-pub fn seventh_true_damage(ad: usize) -> usize {
-    135 + ad.saturating_mul(120) / 100
-}
+/// Q「连发」算几发。
+pub const Q_SHOTS: u8 = 3;
 
 pub fn count_buff_name(n: u8) -> &'static str {
     match n {
@@ -42,92 +49,79 @@ pub fn count_buff_name(n: u8) -> &'static str {
     }
 }
 
+/// 打出 `shots` 发以后这一轮还剩几发：最后一发留给第七颗，所以最少剩 1。
+pub fn after_shots(left: u8, shots: u8) -> u8 {
+    left.saturating_sub(shots).max(1)
+}
+
 #[derive(Clone)]
 struct SevenfoldPassive {
     voice: Voice,
-    remaining: u8,
+    /// 这一轮还剩几发（7..=1，1 = 下一发是第七颗；装弹时是 0）。
+    left: u8,
     reload_until: usize,
     shown_count: Option<u8>,
 }
 
 impl Default for SevenfoldPassive {
     fn default() -> Self {
-        Self {
-            voice: Voice::default(),
-            remaining: CLIP_SIZE,
-            reload_until: 0,
-            shown_count: None,
-        }
+        Self { voice: Voice::default(), left: CLIP_SIZE, reload_until: 0, shown_count: None }
     }
 }
 
 impl SevenfoldPassive {
     fn sync_count(&mut self, sim: &mut StableSim<'_>, entity: usize) {
-        if self.shown_count == Some(self.remaining) {
+        if self.shown_count == Some(self.left) {
             return;
         }
         for k in 0..=CLIP_SIZE {
             sim.entity_remove_buff(entity, count_buff_name(k));
         }
-        sim.add_buff(entity, &BuffV1::named(count_buff_name(self.remaining)));
-        self.shown_count = Some(self.remaining);
+        sim.add_buff(entity, &BuffV1::named(count_buff_name(self.left)));
+        self.shown_count = Some(self.left);
     }
 
-    fn fire_seventh(&mut self, sim: &mut StableSim<'_>, entity: usize, rng: u64, enter_reload: bool) {
-        let Some((my_team, my_pos, ad, cur_hp)) = sim
-            .get_entity(entity)
-            .map(|e| (e.team(), e.pos(), e.stat().attack, e.hp().0))
+    /// 打掉几发；剩最后一发就把第七颗装上。
+    fn spend(&mut self, sim: &mut StableSim<'_>, entity: usize, shots: u8) {
+        self.left = after_shots(self.left, shots);
+        if self.left == 1 && !has_buff(sim, entity, SEVENTH) {
+            sim.add_buff(entity, &BuffV1::named(SEVENTH));
+            sim.play_sfx("abysspact_sevenfold_charge_ping", entity, &InputTargetV1::target(entity));
+        }
+        self.sync_count(sim, entity);
+    }
+
+    /// 魔弹出膛的代价：9 万内有敌方英雄（真的打出去了）就扣 8% 当前生命；普攻的第七颗还要装弹 1.2 秒。
+    fn pay(&mut self, sim: &mut StableSim<'_>, entity: usize, reload: bool) {
+        let Some((team, at, my_r, cur_hp)) =
+            sim.get_entity(entity).map(|e| (e.team(), e.pos(), e.radius() as u64, e.hp().0))
         else {
             return;
         };
-
-        // Pick a RANDOM living enemy champion within 9万 (the Abyss chooses!)
-        let r2 = CURSE_RANGE * CURSE_RANGE;
-        let mut cands = Vec::new();
-        let n = sim.entity_count();
-        for i in 0..n {
+        let mut fired = false;
+        for i in 0..sim.entity_count() {
             let Some(e) = sim.entity_at(i) else { continue };
-            if e.is_alive() && e.is_champion() && e.team() != my_team && dist_sq(my_pos, e.pos()) <= r2 {
-                cands.push(e.id());
+            if !e.is_alive() || !e.is_champion() || e.team() == team {
+                continue;
+            }
+            let reach = CURSE_RANGE + my_r + e.radius() as u64;
+            if dist_sq(at, e.pos()) <= reach.saturating_mul(reach) {
+                fired = true;
+                break;
             }
         }
-
-        if !cands.is_empty() {
-            let idx = (rng.wrapping_add(sim.tick() as u64) as usize) % cands.len();
-            let victim = cands[idx];
-            sim.play_view_effect("abysspact_sevenfold_abyss_eye", entity, &InputTargetV1::target(entity), 0, 0, 0);
-            sim.play_view_effect("abysspact_sevenfold_curse_hit", entity, &InputTargetV1::target(victim), 0, 0, 0);
-            sim.play_sfx("abysspact_sevenfold_abyss_eye", entity, &InputTargetV1::target(entity));
-            sim.play_sfx("abysspact_sevenfold_curse_burst", entity, &InputTargetV1::target(victim));
-            sim.deal_damage_typed(entity, victim, seventh_true_damage(ad), DamageTypeV1::Fixed, AttackTypeV1::Skill);
-
-            // Pay the Abyss's price: lose 8% current HP (never lethal)
+        if fired {
             let next_hp = hp_after_burn(cur_hp, SELF_BURN_PCT);
             if next_hp < cur_hp {
                 sim.entity_set_hp(entity, next_hp);
             }
         }
-
-        if enter_reload {
-            self.remaining = 0;
+        if reload {
+            sim.entity_remove_buff(entity, SEVENTH);
+            self.left = 0;
             self.reload_until = sim.tick() + RELOAD_TICKS;
             sim.add_buff(entity, &BuffV1::timed(RELOADING_BUFF, RELOAD_TICKS));
             sim.apply_cc(entity, &CcV1::of_kind(CcKindV1::BlockAttack, RELOAD_TICKS as u64));
-            self.sync_count(sim, entity);
-        }
-    }
-
-    fn spend(&mut self, sim: &mut StableSim<'_>, entity: usize, shots: u8, rng: u64) {
-        if self.reload_until > sim.tick() || self.remaining == 0 {
-            return;
-        }
-        if shots >= self.remaining {
-            self.fire_seventh(sim, entity, rng, true);
-        } else {
-            self.remaining -= shots;
-            if self.remaining == 1 {
-                sim.play_sfx("abysspact_sevenfold_charge_ping", entity, &InputTargetV1::target(entity));
-            }
             self.sync_count(sim, entity);
         }
     }
@@ -139,10 +133,21 @@ impl StablePassive for SevenfoldPassive {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
-        self.remaining = CLIP_SIZE;
+        self.left = CLIP_SIZE;
         self.reload_until = 0;
         self.shown_count = None;
         self.voice.on_spawn(sim, HERO, entity);
+    }
+
+    fn on_base_attack(&mut self, sim: &mut StableSim<'_>, _rng: u64, _player: usize, entity: usize) {
+        if self.reload_until > sim.tick() {
+            return;
+        }
+        // 第七颗自己出膛的这一下（数据摘 seventh、挂 fired7，两边谁先到都认得出）不再算一发
+        if has_buff(sim, entity, SEVENTH) || has_buff(sim, entity, FIRED7) {
+            return;
+        }
+        self.spend(sim, entity, 1);
     }
 
     fn on_attack(
@@ -156,8 +161,6 @@ impl StablePassive for SevenfoldPassive {
         if sim.get_entity(target).is_some_and(|e| e.is_champion()) {
             self.voice.play(sim, HERO, entity, Cue::Start);
         }
-        let seed = sim.seed().wrapping_add(target as u64);
-        self.spend(sim, entity, 1, seed);
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize, victim: usize) {
@@ -167,13 +170,13 @@ impl StablePassive for SevenfoldPassive {
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
-        self.remaining = CLIP_SIZE;
+        self.left = CLIP_SIZE;
         self.reload_until = 0;
         self.shown_count = None;
         self.voice.on_dead(sim, HERO, player);
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, rng: u64, _player: usize, entity: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _rng: u64, _player: usize, entity: usize) {
         let alive = sim.get_entity(entity).is_some_and(|e| e.is_alive());
         if !alive {
             return;
@@ -190,31 +193,37 @@ impl StablePassive for SevenfoldPassive {
             self.voice.play(sim, HERO, entity, Cue::Ult);
         }
 
-        // Finish 1.2s reload -> refill clip to 7
+        // 第七颗出膛了：付代价
+        if consume_buff(sim, entity, FIRED7) {
+            self.pay(sim, entity, true);
+        }
+        if consume_buff(sim, entity, R_FIRED7) {
+            self.pay(sim, entity, false);
+        }
+
+        // 装弹 1.2 秒到：装满 7 发
         if self.reload_until > 0 && tick >= self.reload_until {
             self.reload_until = 0;
-            self.remaining = CLIP_SIZE;
+            self.left = CLIP_SIZE;
             sim.entity_remove_buff(entity, RELOADING_BUFF);
             self.sync_count(sim, entity);
         }
 
-        // Q「连发」: counts as 3 bullets toward the 7th!
-        if consume_buff(sim, entity, Q_SHOTS_ASK) {
-            self.spend(sim, entity, 3, rng);
+        // Q「连发」：算 3 发
+        if consume_buff(sim, entity, Q_SHOTS_ASK) && self.reload_until == 0 {
+            self.spend(sim, entity, Q_SHOTS);
         }
 
-        // W「装弹」: immediately loads the 7th Abyss bullet as the very next shot!
+        // W「装弹」：下一发直接是第七颗
         if consume_buff(sim, entity, W_LOAD_ASK) {
             self.reload_until = 0;
             sim.entity_remove_buff(entity, RELOADING_BUFF);
-            self.remaining = 1;
+            self.left = 1;
+            if !has_buff(sim, entity, SEVENTH) {
+                sim.add_buff(entity, &BuffV1::named(SEVENTH));
+            }
             self.sync_count(sim, entity);
             sim.play_sfx("abysspact_sevenfold_charge_ping", entity, &InputTargetV1::target(entity));
-        }
-
-        // R「七发齐射」: the 7th round of the salvo is also a guaranteed Abyss bullet!
-        if consume_buff(sim, entity, R_CURSE_ASK) {
-            self.fire_seventh(sim, entity, rng, false);
         }
     }
 }
@@ -228,9 +237,27 @@ mod tests {
     use super::*;
 
     #[test]
-    fn seventh_bullet_true_damage_and_count_names() {
-        assert_eq!(seventh_true_damage(100), 255);
-        assert_eq!(seventh_true_damage(200), 375);
+    fn six_shots_bring_the_seventh() {
+        let mut left = CLIP_SIZE;
+        for _ in 0..6 {
+            left = after_shots(left, 1);
+        }
+        assert_eq!(left, 1, "第七发");
+        // 再打也停在最后一发上（第七颗由数据打出，不在这里数）
+        assert_eq!(after_shots(left, 1), 1);
+    }
+
+    #[test]
+    fn the_volley_counts_three_and_never_skips_the_seventh() {
+        assert_eq!(after_shots(CLIP_SIZE, Q_SHOTS), 4);
+        assert_eq!(after_shots(4, Q_SHOTS), 1);
+        assert_eq!(after_shots(2, Q_SHOTS), 1);
+        // 一轮：两次 Q 加一下普攻 = 7 发里的前 6 发
+        assert_eq!(after_shots(after_shots(after_shots(CLIP_SIZE, Q_SHOTS), Q_SHOTS), 1), 1);
+    }
+
+    #[test]
+    fn count_names() {
         assert_eq!(count_buff_name(0), "abysspact_sevenfold_count_0");
         assert_eq!(count_buff_name(7), "abysspact_sevenfold_count_7");
     }

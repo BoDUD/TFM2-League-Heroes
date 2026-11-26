@@ -92,10 +92,6 @@
           "name": "abysspact_carapace_foley_q"
         },
         {
-          "type": "Native",
-          "effect_ref": "abysspact_carapace:q_range"
-        },
-        {
           "type": "Delayed",
           "tick": 11,
           "effects": [
@@ -362,6 +358,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_carapace:q_range"
         }
       ]
     }
@@ -426,6 +426,18 @@
                         "name": "abysspact_carapace_resonate"
                       },
                       {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_carapace_w_heal",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
@@ -446,25 +458,6 @@
                           {
                             "type": "TargetSfx",
                             "name": "abysspact_carapace_a_hit"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 21000
-                          }
-                        },
-                        "target": "EnemyChampion",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Heal",
-                            "amount": 56,
-                            "attack_ratio": 39,
-                            "ap_ratio": 0,
-                            "heal_type": "Caster"
                           }
                         ]
                       }
@@ -485,6 +478,18 @@
                         "name": "abysspact_carapace_resonate"
                       },
                       {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_carapace_w_heal",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
@@ -505,25 +510,6 @@
                           {
                             "type": "TargetSfx",
                             "name": "abysspact_carapace_a_hit"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 21000
-                          }
-                        },
-                        "target": "EnemyChampion",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Heal",
-                            "amount": 56,
-                            "attack_ratio": 39,
-                            "ap_ratio": 0,
-                            "heal_type": "Caster"
                           }
                         ]
                       }
@@ -548,7 +534,7 @@
     "cooltime": 3950,
     "start_timing": 1,
     "cancelable": false,
-    "range": 45000,
+    "range": 30000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -866,6 +852,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_carapace:r_range"
         }
       ]
     }

@@ -2,15 +2,16 @@
 //!
 //! 招牌机制「疯狂」连锁发狂:
 //! - 技能命中敌人时由数据层挂上 `abysspact_whisperer_mad_ask1`（+1 层）或 `abysspact_whisperer_mad_ask3`（大招直接叠满 3 层）。
-//! - 每个敌人独立追踪 1–2 层疯狂（持续 4 秒 = 240 ticks），头顶同步显示 `madness_1` / `madness_2` / `madness_3` 紫色漩涡。
-//! - 叠满 3 层时当场「发狂」：恐惧乱跑 1.5 秒（90 ticks），并以自己为中心向周围 1.5 万内的敌方队友炸开 `80 + 60% AP` 魔法伤害；
-//!   每个被炸到的敌人再叠 +1 层疯狂，人挤在一起时会触发多米诺连锁发狂！
+//! - 只有敌方英雄会疯：每人独立记 1–2 层疯狂（持续 4 秒 = 240 ticks），头顶同步显示 `madness_1` / `madness_2` / `madness_3`
+//!   紫色漩涡。小兵、野怪身上的请求标记不理（以前小兵也叠层、也发狂，一个 W 砸在兵线上整线一起炸，旁边的英雄吃好几下）。
+//! - 叠满 3 层时当场「发狂」：恐惧乱跑 1.5 秒（90 ticks），并以自己为中心向周围 1.5 万内的他的队友炸开 `80 + 60% AP` 魔法伤害
+//!   （小兵、野怪也挨炸，但不叠层）；每个被炸到的英雄再叠 +1 层疯狂，人挤在一起时会一个传一个地连锁发狂。
 
 use std::collections::{HashMap, HashSet, VecDeque};
 use mod_api_stable::*;
 
 use crate::voice::{Cue, Voice};
-use crate::{consume_buff, dist_sq, has_buff};
+use crate::{buffs_present, consume_buff, dist_sq, foe_champions};
 
 pub const HERO: &str = "abysspact_whisperer";
 pub const ASK_1: &str = "abysspact_whisperer_mad_ask1";
@@ -54,10 +55,15 @@ pub fn add_madness_stack(
     }
 }
 
+/// 一次发狂炸到的人里，哪些要再叠一层（只有英雄，已经在这一 tick 发过狂的不算）。
+pub fn spread_to(neighbors: &[(usize, bool)], erupted: &HashSet<usize>) -> Vec<usize> {
+    neighbors.iter().filter(|(id, champ)| *champ && !erupted.contains(id)).map(|(id, _)| *id).collect()
+}
+
 #[derive(Clone, Default)]
 struct WhispererPassive {
     voice: Voice,
-    /// Enemy entity id -> (stacks in 1..=2, expire_tick).
+    /// Enemy champion entity id -> (stacks in 1..=2, expire_tick).
     stacks: HashMap<usize, (u8, usize)>,
 }
 
@@ -108,6 +114,7 @@ impl WhispererPassive {
                 erupted_this_tick.insert(victim);
                 // 1. Visuals & 1.5s Fear running away from Whisperer
                 Self::sync_visual(sim, victim, 3, FEAR_TICKS as usize);
+                sim.entity_remove_buff(victim, VIS_RUNES);
                 sim.add_buff(victim, &BuffV1::timed(VIS_RUNES, FEAR_TICKS as usize));
                 let mut fear = CcV1::of_kind(CcKindV1::Fear, FEAR_TICKS);
                 fear.dx = (vpos.0 as i64).saturating_sub(caster_pos.0 as i64);
@@ -120,7 +127,7 @@ impl WhispererPassive {
                 sim.play_view_effect("abysspact_whisperer_burst", caster, &InputTargetV1::target(victim), 0, 0, 0);
                 sim.play_sfx("abysspact_whisperer_madness_burst", caster, &InputTargetV1::target(victim));
 
-                // 2. Collect enemy teammates within 1.5万 for chain explosion
+                // 2. 身边 1.5 万内他的队友（发狂一次才走一遍全部单位）
                 let mut neighbors = Vec::new();
                 let n_ent = sim.entity_count();
                 for i in 0..n_ent {
@@ -134,12 +141,12 @@ impl WhispererPassive {
                     }
                 }
 
-                // 3. Deal burst magic damage and spread +1 Madness (triggers chain reactions!)
-                for (nid, is_champ) in neighbors {
+                // 3. 都挨炸；英雄再叠一层（连锁）
+                for &(nid, _) in &neighbors {
                     sim.deal_damage_typed(caster, nid, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
-                    if is_champ && !erupted_this_tick.contains(&nid) {
-                        queue.push_back((nid, 1));
-                    }
+                }
+                for nid in spread_to(&neighbors, &erupted_this_tick) {
+                    queue.push_back((nid, 1));
                 }
             } else if let Some(&(cnt, exp)) = self.stacks.get(&victim) {
                 Self::sync_visual(sim, victim, cnt, exp.saturating_sub(tick).max(1));
@@ -184,6 +191,7 @@ impl StablePassive for WhispererPassive {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _rng: u64, _player: usize, entity: usize) {
+        self.voice.observe(entity);
         let Some((alive, my_team, my_pos, ap)) = sim
             .get_entity(entity)
             .map(|e| (e.is_alive(), e.team(), e.pos(), e.stat().magic_power))
@@ -205,17 +213,10 @@ impl StablePassive for WhispererPassive {
             self.voice.play(sim, HERO, entity, Cue::Ult);
         }
 
-        // Scan enemies for data-layer madness trigger markers
+        // 只看敌方英雄身上的请求标记（小兵、野怪的四 tick 后自己没了）
         let mut triggers: Vec<(usize, u8)> = Vec::new();
-        let n_ent = sim.entity_count();
-        for i in 0..n_ent {
-            let Some(e) = sim.entity_at(i) else { continue };
-            if !e.is_alive() || e.team() == my_team || e.is_tower() {
-                continue;
-            }
-            let eid = e.id();
-            let ask3 = has_buff(sim, eid, ASK_3);
-            let ask1 = has_buff(sim, eid, ASK_1);
+        for (eid, _) in foe_champions(sim, my_team) {
+            let [ask3, ask1] = buffs_present(sim, eid, [ASK_3, ASK_1]);
             if ask3 {
                 triggers.push((eid, 3));
             } else if ask1 {
@@ -262,5 +263,24 @@ mod tests {
         assert_eq!(burst_damage(0), 80);
         assert_eq!(burst_damage(100), 140);
         assert_eq!(burst_damage(250), 230);
+    }
+
+    #[test]
+    fn only_champions_catch_the_madness_from_a_burst() {
+        let erupted: HashSet<usize> = [5].into_iter().collect();
+        // 7、9 是英雄，8 是小兵，5 这一 tick 已经发过狂
+        let near = [(7, true), (8, false), (9, true), (5, true)];
+        assert_eq!(spread_to(&near, &erupted), vec![7, 9]);
+    }
+
+    #[test]
+    fn the_eyes_slow_does_not_double_up() {
+        // 睁眼每 60 tick 叠一次减速，减速要正好 60 tick，不然重叠的那几 tick 减速翻倍
+        let kit = include_str!("../../../abysspact/champion/abysspact_whisperer.data_champion");
+        let at = kit.find("\"abysspact_whisperer_w_slow\"").expect("the eye's slow");
+        let rest = &kit[at..];
+        let t = rest.find("\"tick\":").expect("the slow's ticks") + "\"tick\":".len();
+        let ticks: String = rest[t..].trim_start().chars().take_while(|c| c.is_ascii_digit()).collect();
+        assert_eq!(ticks, "60", "the eye's slow lasts its 60-tick period");
     }
 }

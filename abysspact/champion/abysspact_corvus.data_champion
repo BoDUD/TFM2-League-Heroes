@@ -117,7 +117,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 14,
           "effects": [
             {
               "type": "Combine",
@@ -235,6 +235,18 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 34
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   },
@@ -331,6 +343,18 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 34
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   }
@@ -354,8 +378,8 @@
     "start_timing": 1,
     "cancelable": false,
     "range": 55000,
-    "casting_type": "Targeting",
-    "casting_target": "AllyChampion",
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -366,7 +390,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 14,
           "effects": [
             {
               "type": "Combine",
@@ -398,53 +422,130 @@
                     "type": "Combine",
                     "effects": [
                       {
-                        "type": "Sfx",
-                        "name": "abysspact_corvus_w_cast"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "abysspact_corvus_w_raven",
-                        "speed": 6500,
-                        "y_offset": -12000,
-                        "applied_target": "AllyChampion",
-                        "applied_effects": [
+                        "type": "Combine",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Shield",
-                              "amount": 85,
-                              "attack_ratio": 0,
-                              "ap_ratio": 60,
-                              "tick": 240
-                            }
+                            "type": "Sfx",
+                            "name": "abysspact_corvus_w_cast"
                           },
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "abysspact_corvus_raven_perch",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 240
+                            "type": "RandomTarget",
+                            "range": 45000,
+                            "casting_target": "AllyNotSelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_corvus_w_lock",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
                                   }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "TargetProjectile",
+                                "name": "abysspact_corvus_w_raven",
+                                "speed": 6500,
+                                "y_offset": -12000,
+                                "applied_target": "AllyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Shield",
+                                      "amount": 85,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 60,
+                                      "tick": 240
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_corvus_raven_perch",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "abysspact_corvus_shield"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "abysspact_corvus_w_wing"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_corvus_w_lock",
+                                "effect_buff": {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "abysspact_corvus_w_lock"
+                                },
+                                "effect_none": {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Shield",
+                                      "amount": 85,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 60,
+                                      "tick": 240
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_corvus_raven_perch",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "abysspact_corvus_shield"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "abysspact_corvus_w_wing"
+                                    }
+                                  ]
                                 }
                               }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "abysspact_corvus_shield"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "abysspact_corvus_w_wing"
-                            }
+                            ]
                           }
                         ]
                       }
@@ -457,53 +558,130 @@
                     "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Sfx",
-                        "name": "abysspact_corvus_w_cast"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "abysspact_corvus_w_raven",
-                        "speed": 6500,
-                        "y_offset": -12000,
-                        "applied_target": "AllyChampion",
-                        "applied_effects": [
+                        "type": "Combine",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Shield",
-                              "amount": 85,
-                              "attack_ratio": 0,
-                              "ap_ratio": 60,
-                              "tick": 240
-                            }
+                            "type": "Sfx",
+                            "name": "abysspact_corvus_w_cast"
                           },
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "abysspact_corvus_raven_perch",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 240
+                            "type": "RandomTarget",
+                            "range": 45000,
+                            "casting_target": "AllyNotSelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "abysspact_corvus_w_lock",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
                                   }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "TargetProjectile",
+                                "name": "abysspact_corvus_w_raven",
+                                "speed": 6500,
+                                "y_offset": -12000,
+                                "applied_target": "AllyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Shield",
+                                      "amount": 85,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 60,
+                                      "tick": 240
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_corvus_raven_perch",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "abysspact_corvus_shield"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "abysspact_corvus_w_wing"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "abysspact_corvus_w_lock",
+                                "effect_buff": {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "abysspact_corvus_w_lock"
+                                },
+                                "effect_none": {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Shield",
+                                      "amount": 85,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 60,
+                                      "tick": 240
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "abysspact_corvus_raven_perch",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "abysspact_corvus_shield"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "abysspact_corvus_w_wing"
+                                    }
+                                  ]
                                 }
                               }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "abysspact_corvus_shield"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "abysspact_corvus_w_wing"
-                            }
+                            ]
                           }
                         ]
                       }
@@ -553,7 +731,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 15,
+          "tick": 17,
           "effects": [
             {
               "type": "Combine",
@@ -689,7 +867,7 @@
                                     "name": "abysspact_corvus_r_slow",
                                     "duration": {
                                       "Time": {
-                                        "tick": 70
+                                        "tick": 60
                                       }
                                     },
                                     "move_speed_mult": -40
@@ -747,6 +925,18 @@
                             "end_effects": []
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 320
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   },
@@ -861,7 +1051,7 @@
                                     "name": "abysspact_corvus_r_slow",
                                     "duration": {
                                       "Time": {
-                                        "tick": 70
+                                        "tick": 60
                                       }
                                     },
                                     "move_speed_mult": -40
@@ -919,6 +1109,18 @@
                             "end_effects": []
                           }
                         ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "abysspact_corvus_scan",
+                          "duration": {
+                            "Time": {
+                              "tick": 320
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   }

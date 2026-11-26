@@ -452,17 +452,6 @@
                       {
                         "type": "AddBuff",
                         "buff_state": {
-                          "name": "abysspact_effigy_knot",
-                          "duration": {
-                            "Time": {
-                              "tick": 240
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
                           "name": "abysspact_effigy_needle_ask",
                           "duration": {
                             "Time": {
@@ -508,17 +497,6 @@
                         "attack_ratio": 31,
                         "hp_ratio": 0,
                         "can_crit": false
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "abysspact_effigy_knot",
-                          "duration": {
-                            "Time": {
-                              "tick": 240
-                            }
-                          }
-                        }
                       },
                       {
                         "type": "AddBuff",
@@ -569,7 +547,7 @@
     "cancelable": false,
     "range": 70000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyChampionRecentlyAttacked",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -634,29 +612,6 @@
                           }
                         },
                         "only_to_enemy": false
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "abysspact_effigy_r_return",
-                        "speed": 7800,
-                        "y_offset": -9500,
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "abysspact_effigy_return"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "abysspact_effigy_unpick_return"
-                            }
-                          }
-                        ]
                       },
                       {
                         "type": "SwitchByBuff",
@@ -758,29 +713,6 @@
                           }
                         },
                         "only_to_enemy": false
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "abysspact_effigy_r_return",
-                        "speed": 7800,
-                        "y_offset": -9500,
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "abysspact_effigy_return"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "abysspact_effigy_unpick_return"
-                            }
-                          }
-                        ]
                       },
                       {
                         "type": "SwitchByBuff",
@@ -899,6 +831,14 @@
       "name": "abysspact_effigy_r_return",
       "anim": "asset/abysspact/effects/abysspact_effigy_proj",
       "tag": "return",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_effigy_thread",
+      "anim": "asset/abysspact/effects/abysspact_effigy_fx",
+      "tag": "line",
       "repeat": true,
       "z": 2
     }
