@@ -64,6 +64,62 @@ static VIEW: Mutex<Option<(u64, u64)>> = Mutex::new(None);
 static ENDED: Mutex<Vec<(u64, u64, usize)>> = Mutex::new(Vec::new());
 /// 屏幕那一场 4 次的档位。
 static TIERS: Mutex<Vec<(u64, u64, [Tier; 4])>> = Mutex::new(Vec::new());
+/// 屏幕上每一局现在放的是哪一份：(比赛, 局, 签名)。
+static RUNS: Mutex<Vec<(u64, u64, u64)>> = Mutex::new(Vec::new());
+
+/// 开局这么多 tick 以内排好座位的、签名不一样的，才算屏幕上换了一份（大小龙 0.5.13 `this_run` 的数）。
+pub const NEW_RUN_BEFORE: usize = 600;
+
+/// 屏幕上这一局排好了座位（0.5.1），`sig` 是这一份的签名（种子、档位、十个座位，lib.rs 的 `run_sig`），`tick` 是这时模拟的
+/// tick。游戏的场次编号会重复（用户 2026-11-26 的截图：两场不同的比赛都是 m=101 第 1 局，第二场的说明框把第一场的海克斯也列了
+/// 进去，看着像没到 6 级就选了第二次：「怎么没6级就显示了？」「这个在大地图上是有问题的」）。所以：
+/// - 这一局第一次见：记下；同一份再跑一遍（游戏自己的第二遍、看回放）：不动，照旧同样的一条只记一次；
+/// - 换了一份、是从开局跑起来的：新的一遍，把这一局记着的扔掉，跟新的；
+/// - 换了一份、已经跑到后面了（丢过状态又排一次座位的旧那一遍）：不算，屏幕上的还是原来那份（[`is_current`] 为假，它的事不记）。
+///
+/// -> 扔了没有
+pub fn run(m: u64, s: u64, sig: u64, tick: usize) -> bool {
+    let Ok(mut r) = RUNS.lock() else { return false };
+    let dropped = match r.iter_mut().find(|x| (x.0, x.1) == (m, s)) {
+        Some(x) if x.2 == sig => return false,
+        Some(_) if tick > NEW_RUN_BEFORE => return false,
+        Some(x) => {
+            x.2 = sig;
+            true
+        }
+        None => {
+            r.push((m, s, sig));
+            false
+        }
+    };
+    drop(r);
+    drop_set(m, s);
+    dropped
+}
+
+/// 这一份是不是屏幕上这一局现在放的那份（不是：它的选择、特效、结束都不记）。这一局还没登记过：是。
+pub fn is_current(m: u64, s: u64, sig: u64) -> bool {
+    RUNS.lock().map(|r| r.iter().find(|x| (x.0, x.1) == (m, s)).is_none_or(|x| x.2 == sig)).unwrap_or(true)
+}
+
+/// 扔掉这一局记着的：选择、特效、结束的 tick、档位。
+fn drop_set(m: u64, s: u64) {
+    if let Ok(mut e) = EVENTS.lock() {
+        e.retain(|x| (x.m, x.s) != (m, s));
+    }
+    if let Ok(mut f) = FXS.lock() {
+        f.retain(|x| (x.m, x.s) != (m, s));
+    }
+    if let Ok(mut seen) = FX_SEEN.lock() {
+        seen.retain(|x| (x.m, x.s) != (m, s));
+    }
+    if let Ok(mut d) = ENDED.lock() {
+        d.retain(|x| (x.0, x.1) != (m, s));
+    }
+    if let Ok(mut t) = TIERS.lock() {
+        t.retain(|x| (x.0, x.1) != (m, s));
+    }
+}
 
 /// 屏幕在放这一场（比赛钩子在每个屏幕模拟里记）：换了一场就只留这一场的。-> 是不是换了一场
 pub fn view(m: u64, s: u64) -> bool {
@@ -171,6 +227,7 @@ pub(crate) fn clear() {
     FX_SEEN.lock().unwrap().clear();
     ENDED.lock().unwrap().clear();
     TIERS.lock().unwrap().clear();
+    RUNS.lock().unwrap().clear();
     *VIEW.lock().unwrap() = None;
 }
 
