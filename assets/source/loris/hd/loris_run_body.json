@@ -1,0 +1,33 @@
+{
+  "hero": "loris",
+  "tag": "run",
+  "drawn": "assets/source/loris/hd/loris_run_drawn",
+  "from": 3,
+  "outline": [3, 2, 2],
+  "waist": [-6, -9, -6, -3, -6, -9, -6, -3],
+  "below": "match",
+  "bob": [-2, -6, -2, 4, -2, -6, -2, 4],
+  "pad": [2, 0],
+  "frame_shift": [[-1, 0], [-2, 0], [-1, 0], [0, 0], [-1, 0], [-2, 0], [-1, 0], [0, 0]],
+  "parts": [
+    {"name": "shield", "poly": [[24, 6], [24, 8], [25, 8], [25, 10], [26, 10], [26, 11], [27, 11], [27, 12], [31, 12], [31, 16], [32, 16], [32, 17], [43, 17], [43, 18], [44, 18], [44, 17], [47, 17], [47, 16], [49, 16], [49, 15], [61, 15], [61, 16], [76, 16], [76, 15], [77, 15], [77, 14], [79, 14], [79, 13], [81, 13], [81, 12], [82, 12], [82, 9], [83, 9], [83, 6], [82, 6], [82, 4], [81, 4], [81, 3], [79, 3], [79, 2], [74, 2], [74, 1], [46, 1], [46, 0], [40, 0], [40, 1], [31, 1], [31, 2], [30, 2], [30, 3], [26, 3], [26, 4], [25, 4], [25, 6]], "behind": true, "rows": [0, 0, -2, -2, 0, 0, -2, -2]},
+    {"name": "head", "poly": [[0, 10], [0, 40], [19, 40], [19, 36], [23, 36], [23, 28], [22, 28], [22, 24], [19, 24], [19, 20], [18, 20], [18, 10]], "late": true, "rows": [0, 0, 1, 1, 0, 0, 1, 1]}
+  ],
+  "chains": [
+    {"name": "mane", "poly": [[0, 8], [0, 20], [19, 20], [19, 8]], "root": 20, "side": "left", "rows": [0, 19], "lag": 0, "whip": 0.0, "tip": [2, 2, -2, -2, 2, 2, -2, -2], "with": "head"}
+  ],
+  "bare_ground": true,
+  "part_gaps": true,
+  "keep_one": "assets/source/loris/hd/loris_run_one",
+  "variants": {"nolift": {"bob": [-1, -4, -1, 4, -1, -4, -1, 4], "pad": [0, 0], "frame_shift": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], "waist": [-5, -7, -5, -3, -5, -7, -5, -3], "parts": {"shield": {"poly": [[24, 6], [24, 8], [25, 8], [25, 10], [26, 10], [26, 11], [27, 11], [27, 12], [31, 12], [31, 16], [32, 16], [32, 17], [43, 17], [43, 18], [44, 18], [44, 17], [47, 17], [47, 16], [49, 16], [49, 15], [61, 15], [61, 16], [76, 16], [76, 15], [77, 15], [77, 14], [79, 14], [79, 13], [81, 13], [81, 12], [82, 12], [82, 9], [83, 9], [83, 6], [82, 6], [82, 4], [81, 4], [81, 3], [79, 3], [79, 2], [74, 2], [74, 1], [46, 1], [46, 0], [40, 0], [40, 1], [31, 1], [31, 2], [30, 2], [30, 3], [26, 3], [26, 4], [25, 4], [25, 6]], "behind": true, "rows": [0, 0, -2, -2, 0, 0, -2, -2]}, "head": {"poly": [[0, 10], [0, 40], [19, 40], [19, 36], [23, 36], [23, 28], [22, 28], [22, 24], [19, 24], [19, 20], [18, 20], [18, 10]], "late": true, "rows": [0, 0, 1, 1, 0, 0, 1, 1]}}, "chains": {"mane": {"poly": [[0, 8], [0, 20], [19, 20], [19, 8]], "root": 20, "side": "left", "rows": [0, 19], "lag": 0, "whip": 0.0, "tip": [2, 2, -2, -2, 2, 2, -2, -2], "with": "head"}}}, "lift": {"bob": [-1, -6, -1, 4, -1, -6, -1, 4], "pad": [3, 0], "frame_shift": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], "waist": [-5, -7, -5, -3, -5, -7, -5, -3], "parts": {"shield": {"poly": [[24, 6], [24, 8], [25, 8], [25, 10], [26, 10], [26, 11], [27, 11], [27, 12], [31, 12], [31, 16], [32, 16], [32, 17], [43, 17], [43, 18], [44, 18], [44, 17], [47, 17], [47, 16], [49, 16], [49, 15], [61, 15], [61, 16], [76, 16], [76, 15], [77, 15], [77, 14], [79, 14], [79, 13], [81, 13], [81, 12], [82, 12], [82, 9], [83, 9], [83, 6], [82, 6], [82, 4], [81, 4], [81, 3], [79, 3], [79, 2], [74, 2], [74, 1], [46, 1], [46, 0], [40, 0], [40, 1], [31, 1], [31, 2], [30, 2], [30, 3], [26, 3], [26, 4], [25, 4], [25, 6]], "behind": true, "rows": [0, 0, -2, -2, 0, 0, -2, -2]}, "head": {"poly": [[0, 10], [0, 40], [19, 40], [19, 36], [23, 36], [23, 28], [22, 28], [22, 24], [19, 24], [19, 20], [18, 20], [18, 10]], "late": true, "rows": [0, 0, 1, 1, 0, 0, 1, 1]}}, "chains": {"mane": {"poly": [[0, 8], [0, 20], [19, 20], [19, 8]], "root": 20, "side": "left", "rows": [0, 19], "lag": 0, "whip": 0.0, "tip": [2, 2, -2, -2, 2, 2, -2, -2], "with": "head"}}}},
+  "notes": {
+    "why": "the user, 11-17, on round 7's pack 2: 「洛里斯也是太僵硬」 - A7's version moved one rigid drawing (body, head, shield, fist) 1 0 1 3 rows down over the rig's stepping legs: nothing on him moved against anything else",
+    "body": "frame 3's upper body laid on every frame's own legs (below: match - the rig lays the one design body in all eight frames); the rig's rise 2 4 2 0 made 3 6 3 0 (frame_shift: the whole drawn frame 0-2 / 4-6 - legs, body, shield - 1 / 2 / 1 rows up, nothing changed in it; pad 2) and each landing (3, 7) 4 rows deeper over his legs: the head 11 rows from low to high (TFT16_Loris_Run: 11 at his 86 rows; installed 4, A7 7)",
+    "shield": "its own part (frame 3's shield stone with its outline), laid behind the body so the pauldron stays over its top; trailing 2 rows above the body as he comes down (frames 2-3, 6-7), never under its drawn place (a gap would open under the pauldron); its bottom stays 2 rows over the soles",
+    "head": "a `late` part (crown to beard, between the pauldrons): 1 row down on frames 2-3 / 6-7 as he comes down",
+    "mane": "the back of the mane (left of column 20: the ear and the face stay the head's) a chain on the head, its end 2 rows below the head as he rises (0-1, 4-5) and 2 above as he comes down",
+    "one": "the 1x run stays the installed 1x drawings (keep_one: loris_run_one); the lo_ run is made from the dense frames",
+    "variants": "nolift: the rig's own rise (2 4 2 0, no frame_shift, no pad - the fanim stays), the same landing / shield / head / mane: head range 9; lift: the body 2 rows over the legs at the top of each step instead of the bigger rise - 79 / 88 squares at the waist painted from the legs' colours on frames 1 / 5",
+    "made": "C:/t/par_work/run_tft7/_r8_work/lo/build.py"
+  }
+}

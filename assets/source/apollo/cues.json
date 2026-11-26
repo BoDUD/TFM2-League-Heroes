@@ -1,0 +1,211 @@
+[
+  {
+    "action": "attack",
+    "frame": 3,
+    "ms": 170,
+    "event": "jab_windup",
+    "sound": "sfx_jab_windup"
+  },
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 236,
+    "event": "release",
+    "sound": "sfx_jab",
+    "fx": "sun_jab",
+    "anchor": [
+      175,
+      153
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 287,
+    "event": "confirmed_hit",
+    "sound": "sfx_jab_hit",
+    "fx": "punch_hit",
+    "anchor": [
+      206,
+      153
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 3,
+    "ms": 176,
+    "event": "thread_charge",
+    "sound": "sfx_thread_charge"
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 237,
+    "event": "thread_release",
+    "sound": "sfx_thread_cast",
+    "fx": "thread_cast",
+    "anchor": [
+      173,
+      159
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 5,
+    "ms": 285,
+    "event": "confirmed_bind",
+    "sound": "sfx_thread_bind",
+    "fx": "thread_bind",
+    "anchor": [
+      211,
+      165
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 7,
+    "ms": 391,
+    "event": "thread_fade",
+    "sound": "sfx_thread_fade"
+  },
+  {
+    "action": "skill2",
+    "frame": 3,
+    "ms": 217,
+    "event": "bow_form",
+    "sound": "sfx_bow_form",
+    "fx": "summon",
+    "anchor": [
+      159,
+      160
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 4,
+    "ms": 292,
+    "event": "bow_draw",
+    "sound": "sfx_bow_draw"
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 354,
+    "event": "arrow_fire",
+    "sound": "sfx_arrow_fire",
+    "fx": "bow_release",
+    "anchor": [
+      182,
+      151
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 6,
+    "ms": 425,
+    "event": "confirmed_hit",
+    "sound": "sfx_arrow_hit",
+    "fx": "punch_hit",
+    "anchor": [
+      226,
+      156
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 305,
+    "event": "artemis_manifest",
+    "sound": "sfx_artemis_manifest",
+    "fx": "summon",
+    "anchor": [
+      88,
+      148
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 4,
+    "ms": 423,
+    "event": "artemis_tension",
+    "sound": "sfx_artemis_tension"
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 510,
+    "event": "solar_release",
+    "sound": "sfx_sun_dash",
+    "fx": "sun_dash",
+    "anchor": [
+      199,
+      154
+    ],
+    "voice": "voice_silver_arrow",
+    "follow": {
+      "anchors": [
+        [
+          199,
+          154
+        ],
+        [
+          193,
+          139
+        ]
+      ],
+      "effect_tips": [
+        [
+          133,
+          127.5
+        ],
+        [
+          149,
+          128.0
+        ],
+        [
+          174,
+          130.0
+        ],
+        [
+          183,
+          127.0
+        ],
+        [
+          189,
+          127.0
+        ],
+        [
+          180,
+          129.0
+        ],
+        [
+          165,
+          127.0
+        ],
+        [
+          143,
+          128.0
+        ]
+      ]
+    }
+  },
+  {
+    "action": "ult",
+    "frame": 6,
+    "ms": 580,
+    "event": "confirmed_hit",
+    "sound": "sfx_sun_hit",
+    "fx": "punch_hit",
+    "anchor": [
+      214,
+      161
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 846,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]

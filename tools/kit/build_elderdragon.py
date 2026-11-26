@@ -225,7 +225,7 @@ def build(p, is_native=False):
     else:
         views_e += [E("q_hit_v", FX, 3, True, "q_hit")]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Dot", "CC", "Tank"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Dot", "CC", "Tank"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],

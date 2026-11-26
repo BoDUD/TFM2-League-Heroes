@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.5,
+      "clip": "ragnarok_thor_sfx_body_fall",
+      "volume": 0.5
+    }
+  ]
+}

@@ -1132,7 +1132,7 @@
                     },
                     {
                       "type": "RangePeriodProjectile",
-                      "name": "league_camille_r_floor",
+                      "name": "league_camille_wall_r_vis",
                       "shape": {
                         "Circle": {
                           "radius": 2000000
@@ -1472,9 +1472,49 @@
     },
     {
       "type": "Animated",
-      "name": "league_camille_r_floor",
+      "name": "league_camille_r_floor_0",
       "anim": "asset/league/effects/league_camille_big",
-      "tag": "r_zone",
+      "tag": "r_zone_0",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_r_floor_1",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_zone_1",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_r_floor_2",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_zone_2",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_r_floor_3",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_zone_3",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_r_floor_4",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_zone_4",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_r_floor_5",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_zone_5",
       "repeat": true,
       "z": -1
     }

@@ -1,0 +1,2081 @@
+{
+ "about": "Scenes for tools/lol/vfx_render.py: which League VFX systems play where and when for one of our effect tags. Times are League seconds from the scene's start; `frames` gives our tag's frame starts (seconds) and `warp` maps them to League time (pairs [ours, League], linear between); positions are League units in our world (X right / the flight, Y up, Z toward the viewer); camera s = game px per League unit (see vfx_render.py).",
+ "scenes": {
+  "lux_e_zone": {
+   "champ": "Lux",
+   "about": "Lucent Singularity's field where the orb lands, then the detonation. Ours: league_lux_fx:e_zone (z -1) plays on the landing point; the zone detonates 60 ticks (1.0 s) after landing (league_lux_e_zone first_delay 60), so the field is removed at 1.0 s and the nova starts. Both systems stand 100 units above the ground (their ground layers sit at -100).",
+   "tag": [
+    "league_lux_fx",
+    "e_zone"
+   ],
+   "camera": {
+    "s": 0.0855,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     96,
+     112
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lux_Base_E_tar_aoe_green",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "kill": 5.0,
+     "speed": 5.0,
+     "about": "the field runs 5x faster: League's 5 s field (it brightens and grows over its life, the flares collapse at its end) in our 1 s"
+    },
+    {
+     "system": "Lux_Base_E_tar_nova",
+     "t": 1.0,
+     "origin": [
+      0,
+      100,
+      0
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "effects/luxskill2.aseprite",
+    "tag": "loop"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 14
+   },
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ],
+     "prism": [
+      "#FFFFFF",
+      "#E6F2FF",
+      "#9FD8FF",
+      "#B48CFF",
+      "#7A4AD2",
+      "#2A1A5A"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#D45AB4",
+      "#8A2A78",
+      "#2E0A24"
+     ]
+    },
+    "keep": {
+     "teamring_circle1": {
+      "kind": "ring",
+      "ramp": "gold",
+      "px": 4,
+      "layer": 0
+     },
+     "Glow1": {
+      "kind": "ring",
+      "ramp": "gold",
+      "px": 3,
+      "layer": 0
+     },
+     "Glow_Center": {
+      "kind": "ring",
+      "ramp": "prism",
+      "px": 2,
+      "layer": 0,
+      "cut": 0.15
+     },
+     "LaunchFlash": {
+      "kind": "star",
+      "ramp": "gold",
+      "size": 2.6,
+      "layer": 3
+     },
+     "LaunchFlash2": {
+      "kind": "ring",
+      "ramp": "prism",
+      "px": 2
+     },
+     "Core_Glow": {
+      "kind": "dot",
+      "ramp": "gold",
+      "size": 2.2,
+      "layer": 3
+     },
+     "Temp_GroundGlow1": {
+      "kind": "dot",
+      "ramp": "gold",
+      "size": 0.9
+     },
+     "sparks": {
+      "kind": "spark",
+      "ramp": "gold"
+     },
+     "WaveRight": {
+      "kind": "spark",
+      "ramp": "gold",
+      "max_len": 6
+     },
+     "rays1": {
+      "kind": "streak",
+      "ramp": "prism",
+      "max_len": 10,
+      "cut": 0.3
+     },
+     "CenterFlare": {
+      "kind": "burst",
+      "ramp": "gold",
+      "size": 1.5,
+      "layer": 3
+     },
+     "CenterFlare3": {
+      "kind": "dot",
+      "ramp": "gold",
+      "size": 1.0
+     },
+     "Flame_Shockwave": {
+      "kind": "ring",
+      "ramp": "gold",
+      "px": 4,
+      "size": 1.2
+     },
+     "motes_RAINBOW": {
+      "kind": "spark",
+      "ramp": "prism",
+      "max_len": 8
+     },
+     "motes1": {
+      "kind": "spark",
+      "ramp": "gold",
+      "max_len": 6
+     },
+     "Bokeh": {
+      "kind": "dot",
+      "ramp": "prism",
+      "size": 0.5
+     },
+     "flash": {
+      "kind": "star",
+      "ramp": "gold",
+      "size": 0.8
+     }
+    }
+   }
+  },
+  "lux_q_orb": {
+   "champ": "Lux",
+   "about": "Light Binding in flight. Ours: league_lux_fx:q_orb, a LinearProjectile picture the game turns to the flight (drawn pointing right, centred on the head), 4 frames x 70 ms looped. Seen from straight above at sprite scale (0.2 px a unit, as our heroes are drawn; at the kit's 0.1 League's orb is a 3-px dot); the missile flies 300 units/s here instead of 1200 so its 0.5 s trails stay as long as our picture's (a projectile's picture never moves by itself). Frames from 0.55 s into the flight. The arch-shaped ground glows are left out: the picture turns with the projectile, a glow on the ground would turn too. Its sparkles (rays, hoop1 / hoop2 bokeh, Sparks_, Left / Left1 motes) are left out too: at 2 px a game px they turned the orb into confetti (tried: dev/q_orb_lod.png).",
+   "tag": [
+    "league_lux_fx",
+    "q_orb"
+   ],
+   "camera": {
+    "s": 0.2,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     72,
+     28
+    ],
+    "center": [
+     48.5,
+     14.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.55
+    ],
+    [
+     1,
+     1.55
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lux_Base_Q_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      300,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Temp_GroundGlow",
+      "Temp_GroundGlow2",
+      "Temp_GroundGlow3"
+     ],
+     "pixel_skip": [
+      "Trail_dark"
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "fx/luxskill.aseprite",
+    "tag": "skill"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 12
+   },
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ],
+     "prism": [
+      "#FFFFFF",
+      "#E6F2FF",
+      "#9FD8FF",
+      "#B48CFF",
+      "#7A4AD2",
+      "#2A1A5A"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#D45AB4",
+      "#8A2A78",
+      "#2E0A24"
+     ]
+    },
+    "keep": {
+     "Core3": {
+      "kind": "dot",
+      "ramp": "gold",
+      "size": 0.75,
+      "shift": -1,
+      "layer": 3
+     },
+     "END_Beam_ROTATING": {
+      "kind": "star",
+      "ramp": "gold",
+      "size": 0.7,
+      "layer": 3
+     },
+     "Trail5": {
+      "kind": "trail",
+      "ramp": "prism",
+      "size": 0.55
+     },
+     "Trail_small": {
+      "kind": "trail",
+      "ramp": "gold",
+      "size": 1.1
+     },
+     "Trail_small1": {
+      "kind": "trail",
+      "ramp": "gold",
+      "size": 1.4
+     },
+     "Sparks_": {
+      "kind": "spark",
+      "ramp": "gold"
+     }
+    }
+   }
+  },
+  "lux_q_bind": {
+   "champ": "Lux",
+   "about": "Light Binding on the unit it roots. Ours: league_lux_fx:q_bind (z 1, is_follow) for the 90-tick root, 12 frames 1.38 s; League's lasts 2.5 s (rings fade in over 0.25 s, out after 2 s), played 1.8x faster. Its system stands on the unit's feet (rings at 0 and 230 units, rune bars round 130).",
+   "tag": [
+    "league_lux_fx",
+    "q_bind"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     80
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lux_Base_Q_tar",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.8
+    }
+   ],
+   "oppi": {
+    "path": "buffs/skill_buff",
+    "tag": "skill_binding"
+   },
+   "pixel": {
+    "gain": 1.5,
+    "maxmix": 0.3,
+    "k": 12
+   },
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ],
+     "prism": [
+      "#FFFFFF",
+      "#E6F2FF",
+      "#9FD8FF",
+      "#B48CFF",
+      "#7A4AD2",
+      "#2A1A5A"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#D45AB4",
+      "#8A2A78",
+      "#2E0A24"
+     ]
+    },
+    "keep": {
+     "fireCircleTimer": {
+      "kind": "ring",
+      "ramp": "gold",
+      "px": 3,
+      "layer": 0
+     },
+     "fireCircleTimer1": {
+      "kind": "ring",
+      "ramp": "gold",
+      "px": 3
+     },
+     "Constelations": {
+      "kind": "ring",
+      "ramp": "prism",
+      "px": 2,
+      "layer": 0
+     },
+     "Constelations1": {
+      "kind": "ring",
+      "ramp": "prism",
+      "px": 2
+     },
+     "up_glow": {
+      "kind": "pillar",
+      "ramp": "gold",
+      "cut": 0.35
+     },
+     "up_glow1": {
+      "kind": "pillar",
+      "ramp": "gold",
+      "cut": 0.35
+     },
+     "bars": {
+      "kind": "spark",
+      "ramp": "gold",
+      "max_len": 5
+     },
+     "energy_Float": {
+      "kind": "spark",
+      "ramp": "prism",
+      "max_len": 4
+     },
+     "blastring": {
+      "kind": "star",
+      "ramp": "gold",
+      "size": 0.6
+     }
+    }
+   }
+  },
+  "lux_r_beam": {
+   "champ": "Lux",
+   "about": "Final Spark. Ours: league_lux_r:beam, the picture of a LineRangeProjectile 340 px long (turned to the cast, drawn centred on the line's middle: the caster 170 px left of the frame's centre), 6 frames over 55 ticks; the damage lands at tick 29 (0.48 s). League charges 1 s (the warning beams) and fires at 1 s: our first 0.467 s show League's first 1.0 s, the rest runs at League's pace. Seen from above, 0.1 px a unit (3400 units = 340 px); the system's origin (League's wand) 10 px in front of the caster.",
+   "tag": [
+    "league_lux_r",
+    "beam"
+   ],
+   "camera": {
+    "s": 0.1,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     344,
+     44
+    ],
+    "center": [
+     12.5,
+     22.5
+    ]
+   },
+   "warp": [
+    [
+     0,
+     0
+    ],
+    [
+     0.467,
+     1.0
+    ],
+    [
+     0.934,
+     1.467
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lux_Base_R_mis_beam",
+     "origin": [
+      0,
+      150,
+      0
+     ],
+     "target": [
+      3400,
+      150,
+      0
+     ],
+     "pixel_skip": [
+      "Burnt",
+      "Burnt1",
+      "Beam_DARK_FLASH1"
+     ]
+    }
+   ],
+   "anchor": [
+    172.5,
+    22.5
+   ],
+   "oppi": {
+    "path": "effects/luxult.aseprite",
+    "tag": "ult"
+   },
+   "pixel": {
+    "gain": 1.5,
+    "maxmix": 0.3,
+    "k": 12
+   },
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ],
+     "prism": [
+      "#FFFFFF",
+      "#E6F2FF",
+      "#9FD8FF",
+      "#B48CFF",
+      "#7A4AD2",
+      "#2A1A5A"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#D45AB4",
+      "#8A2A78",
+      "#2E0A24"
+     ],
+     "warn": [
+      "#FFFFFF",
+      "#FFE0A0",
+      "#FF9A3A",
+      "#E2402A",
+      "#9A1E1E",
+      "#3A0A0A"
+     ]
+    },
+    "keep": {
+     "warning_beam_1": {
+      "kind": "beam",
+      "ramp": "warn",
+      "size": 0.5
+     },
+     "warning_beam_2": {
+      "kind": "beam",
+      "ramp": "warn",
+      "size": 0.5
+     },
+     "Beam_Core1": {
+      "kind": "beam",
+      "ramp": "gold"
+     },
+     "Beam_Core2": {
+      "kind": "beam",
+      "ramp": "gold"
+     },
+     "Beam_Core_Glow": {
+      "kind": "beam",
+      "ramp": "gold"
+     },
+     "Beam_Core_Glow1": {
+      "kind": "beam",
+      "ramp": "gold"
+     },
+     "Beam_Post_Prettiness": {
+      "kind": "beam",
+      "ramp": "prism",
+      "size": 0.8
+     },
+     "Streaks_Linger": {
+      "kind": "spark",
+      "ramp": "gold",
+      "max_len": 10
+     },
+     "Bokeh": {
+      "kind": "dot",
+      "ramp": "prism",
+      "size": 0.35,
+      "cut": 0.25
+     },
+     "END_Beam_1": {
+      "kind": "star",
+      "ramp": "gold",
+      "size": 0.5
+     }
+    }
+   }
+  },
+  "jinx_zap": {
+   "champ": "Jinx",
+   "about": "Zap! in flight. Ours: league_jinx_fx:zap, a LinearProjectile picture (turned to the flight), 4 frames x 50 ms looped, the head at the frame's centre and 28 px of trail behind it. Seen from above at 0.15 px a unit; the bolt flies 1300 units/s here (League: 3300) so its trails stay about our picture's length. Frames from 0.2 s into the flight.",
+   "tag": [
+    "league_jinx_fx",
+    "zap"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     80,
+     24
+    ],
+    "center": [
+     50.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.2
+    ],
+    [
+     1,
+     1.2
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Jinx_Base_W_Mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      1300,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Temp_GroundGlow",
+      "Temp_GroundGlow1",
+      "Ground_Light"
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "fx/jinx_skill2_proj",
+    "tag": "zap_proj"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 12
+   },
+   "pixelfx": {
+    "ramps": {
+     "bolt": [
+      "#FFFFFF",
+      "#D8F4FF",
+      "#6EC8FF",
+      "#4A6EF2",
+      "#4A2AB4",
+      "#1A0E4A"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFD8F4",
+      "#FF7AD8",
+      "#D23CA8",
+      "#7A1E6A",
+      "#2E0A24"
+     ]
+    },
+    "keep": {
+     "Bullet": {
+      "kind": "streak",
+      "ramp": "bolt",
+      "max_len": 22,
+      "layer": 2
+     },
+     "Flash": {
+      "kind": "dot",
+      "ramp": "pink",
+      "size": 0.3
+     },
+     "Flash1": {
+      "kind": "dot",
+      "ramp": "bolt",
+      "size": 0.25,
+      "shift": -1,
+      "layer": 3
+     },
+     "ORA_TRAILYUS": {
+      "kind": "trail",
+      "ramp": "bolt",
+      "size": 1.0
+     },
+     "GLOWTRAIL": {
+      "kind": "trail",
+      "ramp": "pink",
+      "size": 0.7
+     },
+     "LIghtningJayce": {
+      "kind": "spark",
+      "ramp": "bolt",
+      "max_len": 5
+     }
+    }
+   }
+  },
+  "jinx_zap_hit": {
+   "champ": "Jinx",
+   "about": "Zap! hitting a unit. Ours: league_jinx_fx:zap_hit (z 1, is_follow), 6 frames x 60 ms. League's hit system stands on the unit (its flashes 100 units up).",
+   "tag": [
+    "league_jinx_fx",
+    "zap_hit"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     64
+    ]
+   },
+   "plays": [
+    {
+     "system": "Jinx_Base_W_Tar",
+     "origin": [
+      0,
+      100,
+      0
+     ]
+    }
+   ],
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 12
+   },
+   "pixelfx": {
+    "ramps": {
+     "bolt": [
+      "#FFFFFF",
+      "#D8F4FF",
+      "#6EC8FF",
+      "#4A6EF2",
+      "#4A2AB4",
+      "#1A0E4A"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFD8F4",
+      "#FF7AD8",
+      "#D23CA8",
+      "#7A1E6A",
+      "#2E0A24"
+     ]
+    },
+    "keep": {
+     "Flash": {
+      "kind": "star",
+      "ramp": "bolt",
+      "size": 1.0
+     },
+     "Hit_Flash": {
+      "kind": "burst",
+      "ramp": "pink",
+      "size": 0.6
+     },
+     "SPARKS_SIDES": {
+      "kind": "spark",
+      "ramp": "bolt",
+      "max_len": 8
+     }
+    }
+   }
+  },
+  "jinx_r_rocket": {
+   "champ": "Jinx",
+   "about": "Super Mega Death Rocket! in flight. Ours: league_jinx_big:r_rocket, a LinearProjectile picture (turned to the flight), 4 frames x 60 ms looped, 4.5 px a tick. League's rocket (a mesh) with its trail (child Jinx_Base_R_Rocket_Child) and booster, ~2000 units/s; frames 0.4 s into the flight; 0.15 px a unit. Its ground glow, shadow and ground smoke are left out (they would turn with the picture).",
+   "tag": [
+    "league_jinx_big",
+    "r_rocket"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     150,
+     40
+    ],
+    "center": [
+     110.5,
+     20.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.4
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Jinx_Base_R_Mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      2000,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Temp_GroundGlow1",
+      "Projected",
+      "FakeShadow",
+      "GoodOne",
+      "GoodOne1"
+     ]
+    },
+    {
+     "system": "Jinx_Base_R_Booster",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      2000,
+      0,
+      0
+     ],
+     "frame": "missile",
+     "skip": [
+      "Projected"
+     ]
+    }
+   ],
+   "oppi": {
+    "path": "fx/jinxult.aseprite",
+    "tag": "ult"
+   },
+   "pixel": {
+    "gain": 1.5,
+    "maxmix": 0.3,
+    "k": 16
+   },
+   "pixelfx": {
+    "ramps": {
+     "fire": [
+      "#FFFFFF",
+      "#FFF4A0",
+      "#FFC23A",
+      "#F2781C",
+      "#B8361E",
+      "#4A1414"
+     ],
+     "smoke": "#6E5E66"
+    },
+    "keep": {
+     "Missle": {
+      "kind": "model"
+     },
+     "Rocket_Thrust": {
+      "kind": "dot",
+      "ramp": "fire",
+      "size": 0.35
+     },
+     "Flash": {
+      "kind": "dot",
+      "ramp": "fire",
+      "size": 0.3
+     },
+     "Embers": {
+      "kind": "spark",
+      "ramp": "fire"
+     },
+     "TrailBig": {
+      "kind": "trail",
+      "ramp": "fire",
+      "size": 0.8
+     },
+     "Trail_Blend": {
+      "kind": "trail",
+      "ramp": "smoke",
+      "size": 0.7
+     },
+     "Trail_Blend1": {
+      "kind": "trail",
+      "ramp": "fire",
+      "size": 0.5
+     }
+    }
+   }
+  },
+  "jinx_r_blast": {
+   "champ": "Jinx",
+   "about": "Super Mega Death Rocket! exploding. Ours: league_jinx_big:r_blast (z 2) on the point hit, 8 frames x 70 ms; the kit's blast is 62 px round (League's 225 + bodies): 0.15 px a unit keeps League's fire cloud about our blast's width. The system stands on the ground.",
+   "tag": [
+    "league_jinx_big",
+    "r_blast"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     128,
+     128
+    ]
+   },
+   "plays": [
+    {
+     "system": "Jinx_Base_R_Tar",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "oppi": {
+    "path": "effects/jinxultexplosion.aseprite",
+    "tag": "explode"
+   },
+   "pixel": {
+    "gain": 2.5,
+    "maxmix": 0.4,
+    "k": 14
+   },
+   "pixelfx": {
+    "ramps": {
+     "fire": [
+      "#FFFFFF",
+      "#FFF4A0",
+      "#FFC23A",
+      "#F2781C",
+      "#B8361E",
+      "#4A1414"
+     ],
+     "flash": [
+      "#FFFFFF",
+      "#FFF8D0",
+      "#FFD84A",
+      "#FF9A2A",
+      "#D2481E",
+      "#4A1414"
+     ],
+     "pink": [
+      "#FFFFFF",
+      "#FFD2F0",
+      "#FF7AD2",
+      "#D23C9A",
+      "#7A1E5A",
+      "#2E0A24"
+     ],
+     "smoke": "#6E5E66"
+    },
+    "keep": {
+     "CenterFlare": {
+      "kind": "burst",
+      "ramp": "flash",
+      "size": 1.15,
+      "layer": 2
+     },
+     "prestige_prestigeflash": {
+      "kind": "dot",
+      "ramp": "flash",
+      "size": 0.8
+     },
+     "FireCloud": {
+      "kind": "fireball",
+      "ramp": "fire",
+      "size": 1.7,
+      "smoke_at": 0.5
+     },
+     "hagaSphere": {
+      "kind": "fireball",
+      "ramp": "fire",
+      "size": 1.9,
+      "smoke_at": 0.65,
+      "cut": 0.2
+     },
+     "CloudFace": {
+      "kind": "decal",
+      "ramp": "smoke",
+      "layer": 3,
+      "size": 1.0
+     },
+     "CloudFaceBackGlow": {
+      "kind": "dot",
+      "ramp": "fire",
+      "size": 0.8
+     },
+     "Ring_A2": {
+      "kind": "ring",
+      "ramp": "fire",
+      "px": 4,
+      "layer": 0
+     },
+     "shockwaves_in1": {
+      "kind": "ring",
+      "ramp": "flash",
+      "px": 3,
+      "layer": 0,
+      "cut": 0.25
+     },
+     "Sparks1": {
+      "kind": "star",
+      "ramp": "flash",
+      "size": 0.8
+     },
+     "prestige_Sparks": {
+      "kind": "spark",
+      "ramp": "flash"
+     },
+     "fast": {
+      "kind": "chunk",
+      "size": 0.8
+     },
+     "prestige_fast": {
+      "kind": "chunk",
+      "size": 0.8
+     },
+     "vortex": {
+      "kind": "mark",
+      "cut": 0.6,
+      "layer": 0,
+      "size": 0.7
+     }
+    }
+   }
+  },
+  "lulu_a_bolt": {
+   "champ": "Lulu",
+   "about": "Lulu's attack bolt (projectile, looped)",
+   "tag": [
+    "league_lulu_fx",
+    "a_bolt"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     64,
+     24
+    ],
+    "center": [
+     44.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.25
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lulu_Base_BA_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      900,
+      0,
+      0
+     ],
+     "frame": "missile"
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_p_bolt": {
+   "champ": "Lulu",
+   "about": "Pix's attack bolt (projectile, looped)",
+   "tag": [
+    "league_lulu_fx",
+    "p_bolt"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     64,
+     24
+    ],
+    "center": [
+     44.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.25
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lulu_Base_Pix_BA_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      900,
+      0,
+      0
+     ],
+     "frame": "missile"
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_q_lance": {
+   "champ": "Lulu",
+   "about": "Glitterlance from Lulu (projectile)",
+   "tag": [
+    "league_lulu_fx",
+    "q_lance"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     64,
+     24
+    ],
+    "center": [
+     44.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.25
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lulu_Base_Q_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      900,
+      0,
+      0
+     ],
+     "frame": "missile"
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_q_pix": {
+   "champ": "Lulu",
+   "about": "Glitterlance from Pix (the same League missile)",
+   "tag": [
+    "league_lulu_fx",
+    "q_pix"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     64,
+     24
+    ],
+    "center": [
+     44.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.25
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lulu_Base_Q_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      900,
+      0,
+      0
+     ],
+     "frame": "missile"
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_w_bolt": {
+   "champ": "Lulu",
+   "about": "Whimsy's bolt (projectile)",
+   "tag": [
+    "league_lulu_fx",
+    "w_bolt"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     64,
+     24
+    ],
+    "center": [
+     44.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.25
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lulu_Base_W_mis",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      900,
+      0,
+      0
+     ],
+     "frame": "missile"
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_e_pix": {
+   "champ": "Lulu",
+   "about": "Help, Pix! - Pix flying to the unit",
+   "tag": [
+    "league_lulu_fx",
+    "e_pix"
+   ],
+   "camera": {
+    "s": 0.15,
+    "pitch": 90,
+    "ground_px": 0,
+    "size": [
+     64,
+     24
+    ],
+    "center": [
+     44.5,
+     12.5
+    ]
+   },
+   "follow": 0,
+   "warp": [
+    [
+     0,
+     0.25
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "plays": [
+    {
+     "system": "Lulu_Base_Pix_E_teleport",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "velocity": [
+      700,
+      0,
+      0
+     ],
+     "frame": "missile"
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ]
+    }
+   }
+  },
+  "lulu_a_hit": {
+   "champ": "Lulu",
+   "about": "Lulu's attack hitting a unit",
+   "tag": [
+    "league_lulu_fx",
+    "a_hit"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_BA_tar",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_p_hit": {
+   "champ": "Lulu",
+   "about": "Pix's attack hitting a unit",
+   "tag": [
+    "league_lulu_fx",
+    "p_hit"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_Pix_BA_tar",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_q_hit": {
+   "champ": "Lulu",
+   "about": "Glitterlance hitting a unit",
+   "tag": [
+    "league_lulu_fx",
+    "q_hit"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_Q_tar",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   }
+  },
+  "lulu_q_slow2": {
+   "champ": "Lulu",
+   "about": "Glitterlance's slow on a unit (a looping buff picture)",
+   "tag": [
+    "league_lulu_fx",
+    "q_slow2"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_Q_tar_slow",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     0.4
+    ],
+    [
+     1,
+     1.4
+    ]
+   ]
+  },
+  "lulu_e_land": {
+   "champ": "Lulu",
+   "about": "Help, Pix! landing on an enemy",
+   "tag": [
+    "league_lulu_fx",
+    "e_land"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_E_tar_enemy",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ]
+    }
+   }
+  },
+  "lulu_e_on": {
+   "champ": "Lulu",
+   "about": "Help, Pix!'s shield on an ally (a looping buff picture)",
+   "tag": [
+    "league_lulu_fx",
+    "e_on"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     96
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_E_tar_ally",
+     "origin": [
+      0,
+      100,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "gold": [
+      "#FFFFFF",
+      "#FFF6CF",
+      "#FFD866",
+      "#F2A62E",
+      "#C8641E",
+      "#5A2A14"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     0.5
+    ],
+    [
+     1,
+     1.5
+    ]
+   ]
+  },
+  "lulu_w_haste": {
+   "champ": "Lulu",
+   "about": "Whimsy's haste on an ally (a looping buff picture)",
+   "tag": [
+    "league_lulu_fx",
+    "w_haste"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_W_buf_ally",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "violet": [
+      "#FFFFFF",
+      "#F2E0FF",
+      "#C88CFF",
+      "#8A4AE2",
+      "#5A2AA0",
+      "#22104A"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     0.5
+    ],
+    [
+     1,
+     1.5
+    ]
+   ],
+   "oppi": {
+    "path": "effects/luluskill2.aseprite",
+    "tag": "skill2"
+   }
+  },
+  "lulu_w_poly_in": {
+   "champ": "Lulu",
+   "about": "Whimsy's polymorph: the change (League's first 0.22 s)",
+   "tag": [
+    "league_lulu_fx",
+    "w_poly_in"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_W_tar_enemy",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#E05AB4",
+      "#9A2A7A",
+      "#3A0A2E"
+     ]
+    }
+   }
+  },
+  "lulu_w_poly": {
+   "champ": "Lulu",
+   "about": "Whimsy's polymorph: while it holds (a loop from 0.6 s)",
+   "tag": [
+    "league_lulu_fx",
+    "w_poly"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_W_tar_enemy",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#E05AB4",
+      "#9A2A7A",
+      "#3A0A2E"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     0.6
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "oppi": {
+    "path": "effects/luluskill2.aseprite",
+    "tag": "skill2enemy"
+   }
+  },
+  "lulu_w_poly_out": {
+   "champ": "Lulu",
+   "about": "Whimsy's polymorph ending (the system removed at 1.2 s)",
+   "tag": [
+    "league_lulu_fx",
+    "w_poly_out"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     64,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_W_tar_enemy",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0,
+     "kill": 1.2
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "pink": [
+      "#FFFFFF",
+      "#FFE0F4",
+      "#FF9AD8",
+      "#E05AB4",
+      "#9A2A7A",
+      "#3A0A2E"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     1.2
+    ],
+    [
+     1,
+     2.2
+    ]
+   ]
+  },
+  "lulu_r_on_in": {
+   "champ": "Lulu",
+   "about": "Wild Growth on an ally: growing in (z -1, under the unit)",
+   "tag": [
+    "league_lulu_big",
+    "r_on_in"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     80,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_R_tar_buf",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "green": [
+      "#FFFFFF",
+      "#E8FFD0",
+      "#9AF27A",
+      "#4AC25A",
+      "#2A7A4A",
+      "#0E2E1E"
+     ]
+    }
+   }
+  },
+  "lulu_r_on": {
+   "champ": "Lulu",
+   "about": "Wild Growth while it holds (a loop from 0.8 s)",
+   "tag": [
+    "league_lulu_big",
+    "r_on"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     80,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_R_tar_buf",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "green": [
+      "#FFFFFF",
+      "#E8FFD0",
+      "#9AF27A",
+      "#4AC25A",
+      "#2A7A4A",
+      "#0E2E1E"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     0.8
+    ],
+    [
+     1,
+     1.8
+    ]
+   ],
+   "oppi": {
+    "path": "buffs/luluult.aseprite",
+    "tag": "ult"
+   }
+  },
+  "lulu_r_on_out": {
+   "champ": "Lulu",
+   "about": "Wild Growth ending (removed at 1.5 s)",
+   "tag": [
+    "league_lulu_big",
+    "r_on_out"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     80,
+     72
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_R_tar_buf",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0,
+     "kill": 1.5
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "green": [
+      "#FFFFFF",
+      "#E8FFD0",
+      "#9AF27A",
+      "#4AC25A",
+      "#2A7A4A",
+      "#0E2E1E"
+     ]
+    }
+   },
+   "warp": [
+    [
+     0,
+     1.5
+    ],
+    [
+     1,
+     2.5
+    ]
+   ]
+  },
+  "lulu_r_burst": {
+   "champ": "Lulu",
+   "about": "Wild Growth's knock-up burst round the ally",
+   "tag": [
+    "league_lulu_big",
+    "r_burst"
+   ],
+   "camera": {
+    "s": 0.13,
+    "pitch": 35,
+    "ground_px": 11.5,
+    "size": [
+     96,
+     96
+    ]
+   },
+   "plays": [
+    {
+     "system": "Lulu_Base_R_tar_knockup",
+     "origin": [
+      0,
+      0,
+      0
+     ],
+     "speed": 1.0
+    }
+   ],
+   "pixelfx": {
+    "ramps": {
+     "green": [
+      "#FFFFFF",
+      "#E8FFD0",
+      "#9AF27A",
+      "#4AC25A",
+      "#2A7A4A",
+      "#0E2E1E"
+     ]
+    }
+   },
+   "oppi": {
+    "path": "effects/luluskill2.aseprite",
+    "tag": "skill2"
+   }
+  }
+ },
+ "spells": {
+  "lux_q": [
+   "lux_q_orb",
+   "lux_q_bind"
+  ],
+  "lux_e": [
+   "lux_e_zone"
+  ],
+  "lux_r": [
+   "lux_r_beam"
+  ],
+  "jinx_w": [
+   "jinx_zap",
+   "jinx_zap_hit"
+  ],
+  "jinx_r": [
+   "jinx_r_rocket",
+   "jinx_r_blast"
+  ],
+  "lulu_attacks": [
+   "lulu_a_bolt",
+   "lulu_a_hit",
+   "lulu_p_bolt",
+   "lulu_p_hit"
+  ],
+  "lulu_q": [
+   "lulu_q_lance",
+   "lulu_q_pix",
+   "lulu_q_hit",
+   "lulu_q_slow2"
+  ],
+  "lulu_w": [
+   "lulu_w_bolt",
+   "lulu_w_poly_in",
+   "lulu_w_poly",
+   "lulu_w_poly_out",
+   "lulu_w_haste"
+  ],
+  "lulu_e": [
+   "lulu_e_pix",
+   "lulu_e_on",
+   "lulu_e_land"
+  ],
+  "lulu_r": [
+   "lulu_r_on_in",
+   "lulu_r_on",
+   "lulu_r_on_out",
+   "lulu_r_burst"
+  ]
+ }
+}

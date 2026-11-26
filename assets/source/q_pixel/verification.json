@@ -1,0 +1,351 @@
+{
+  "heroes": {
+    "adam": {
+      "battle": {
+        "actions": 30,
+        "frames": 351,
+        "dimensions": [
+          2045,
+          2270
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 5,
+        "dimensions": [
+          507,
+          206
+        ]
+      },
+      "unique_poses": 117
+    },
+    "apollo": {
+      "battle": {
+        "actions": 30,
+        "frames": 336,
+        "dimensions": [
+          2035,
+          2681
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 7,
+        "dimensions": [
+          850,
+          217
+        ]
+      },
+      "unique_poses": 112
+    },
+    "beelzebub": {
+      "battle": {
+        "actions": 30,
+        "frames": 354,
+        "dimensions": [
+          2037,
+          2783
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 6,
+        "dimensions": [
+          759,
+          223
+        ]
+      },
+      "unique_poses": 118
+    },
+    "buddha": {
+      "battle": {
+        "actions": 30,
+        "frames": 357,
+        "dimensions": [
+          2034,
+          2762
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 4,
+        "dimensions": [
+          492,
+          212
+        ]
+      },
+      "unique_poses": 119
+    },
+    "hades": {
+      "battle": {
+        "actions": 30,
+        "frames": 315,
+        "dimensions": [
+          2040,
+          4155
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 4,
+        "dimensions": [
+          232,
+          825
+        ]
+      },
+      "unique_poses": 105
+    },
+    "heracles": {
+      "battle": {
+        "actions": 57,
+        "frames": 585,
+        "dimensions": [
+          2047,
+          5857
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 5,
+        "dimensions": [
+          556,
+          234
+        ]
+      },
+      "unique_poses": 195
+    },
+    "jack": {
+      "battle": {
+        "actions": 30,
+        "frames": 285,
+        "dimensions": [
+          2048,
+          2215
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 8,
+        "dimensions": [
+          986,
+          212
+        ]
+      },
+      "unique_poses": 95
+    },
+    "kojiro": {
+      "battle": {
+        "actions": 39,
+        "frames": 318,
+        "dimensions": [
+          2045,
+          3326
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 7,
+        "dimensions": [
+          173,
+          1604
+        ]
+      },
+      "unique_poses": 106
+    },
+    "leonidas": {
+      "battle": {
+        "actions": 30,
+        "frames": 330,
+        "dimensions": [
+          2040,
+          2533
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 7,
+        "dimensions": [
+          1200,
+          219
+        ]
+      },
+      "unique_poses": 110
+    },
+    "lubu": {
+      "battle": {
+        "actions": 30,
+        "frames": 282,
+        "dimensions": [
+          2047,
+          3291
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 7,
+        "dimensions": [
+          1678,
+          288
+        ]
+      },
+      "unique_poses": 94
+    },
+    "poseidon": {
+      "battle": {
+        "actions": 30,
+        "frames": 306,
+        "dimensions": [
+          2027,
+          4151
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 6,
+        "dimensions": [
+          286,
+          1149
+        ]
+      },
+      "unique_poses": 102
+    },
+    "qin": {
+      "battle": {
+        "actions": 30,
+        "frames": 306,
+        "dimensions": [
+          2042,
+          2337
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 8,
+        "dimensions": [
+          1018,
+          219
+        ]
+      },
+      "unique_poses": 102
+    },
+    "raiden": {
+      "battle": {
+        "actions": 33,
+        "frames": 387,
+        "dimensions": [
+          2041,
+          3433
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 6,
+        "dimensions": [
+          390,
+          458
+        ]
+      },
+      "unique_poses": 129
+    },
+    "shiva": {
+      "battle": {
+        "actions": 57,
+        "frames": 582,
+        "dimensions": [
+          2047,
+          5117
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 6,
+        "dimensions": [
+          698,
+          217
+        ]
+      },
+      "unique_poses": 194
+    },
+    "tesla": {
+      "battle": {
+        "actions": 30,
+        "frames": 312,
+        "dimensions": [
+          2034,
+          1934
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 6,
+        "dimensions": [
+          406,
+          419
+        ]
+      },
+      "unique_poses": 104
+    },
+    "thor": {
+      "battle": {
+        "actions": 36,
+        "frames": 279,
+        "dimensions": [
+          2031,
+          3213
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 7,
+        "dimensions": [
+          1131,
+          265
+        ]
+      },
+      "unique_poses": 93
+    },
+    "zerofuku": {
+      "battle": {
+        "actions": 57,
+        "frames": 573,
+        "dimensions": [
+          2047,
+          5376
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 4,
+        "dimensions": [
+          197,
+          880
+        ]
+      },
+      "unique_poses": 191
+    },
+    "zeus": {
+      "battle": {
+        "actions": 84,
+        "frames": 897,
+        "dimensions": [
+          2045,
+          8872
+        ]
+      },
+      "ui": {
+        "actions": 2,
+        "frames": 6,
+        "dimensions": [
+          380,
+          384
+        ]
+      },
+      "unique_poses": 299
+    }
+  },
+  "totals": {
+    "battle_atlas_frames": 7155,
+    "ui_atlas_frames": 109,
+    "unique_poses": 2385
+  }
+}

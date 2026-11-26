@@ -7445,5 +7445,6 @@
       "w_slot": 20,
       "w_period": 60
     }
-  }
+  },
+  "stack_skill_index": 0
 }

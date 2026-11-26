@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_camille_sfx_q2_cast",
       "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_camille_sfx_vo_q",
+      "volume": 0.9
     }
   ]
 }

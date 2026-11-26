@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "league_khazix_sfx_w_throw",
       "volume": 0.5
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_khazix_sfx_vo_w",
+      "volume": 0.85
     }
   ]
 }

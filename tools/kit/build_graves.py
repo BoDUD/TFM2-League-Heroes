@@ -36,6 +36,7 @@ r_at 10).
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -319,6 +320,10 @@ def build(p, native=False):
                                                             "r_ratio", "q_dmg", "q_ratio", "q2_dmg", "q2_ratio",
                                                             "q_range", "q_speed", "q_w", "q_r", "q_fuse", "q_wall")}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

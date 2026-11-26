@@ -41,6 +41,7 @@ Timings are placeholders until the strips exist (a_hit1 / a_hit2 from League's A
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -379,6 +380,10 @@ def build(p, native=False):
                           "params": {"r_dmg": int(p["r_dmg"]), "r_ratio": int(p["r_ratio"]), "r_max": int(p["r_max"]),
                                      "r_full": int(p["r_full"]), "p_t": int(p["p_t"])}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

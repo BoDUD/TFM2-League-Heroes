@@ -135,7 +135,12 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| name_of(&b) == name.as_bytes())
+}
+
+/// buff 名的字节（比的都是非空 ASCII 常量：不用每个 buff 都做一遍 UTF-8 检查，2026-11-22 过日采样）。
+fn name_of(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
 }
 
 /// Enemies of `team` alive with `name` on them.
@@ -248,19 +253,39 @@ pub fn kaisa_hits(
 /// (target, which of `marks`) for every mark on a living enemy of `team` (twice when it carries two).
 fn gather(sim: &StableSim<'_>, team: usize, marks: &[&str]) -> Vec<(usize, usize)> {
     let mut out = Vec::new();
+    // 每个单位的 buff 只看一遍（原来每种标记各扫一遍：凯莎的被动每 tick 对场上每个敌方单位扫 4 遍，2026-11-22 过日采样）
+    let mut counts = vec![0usize; marks.len()];
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
         if e.team() == team || !e.is_alive() {
             continue;
         }
+        tally_marks((0..e.buff_count()).filter_map(|j| e.buff_at(j)), marks, &mut counts);
+        push_marks(&mut out, e.id(), &counts);
+    }
+    out
+}
+
+/// 这些 buff 里每种标记各几层（`counts[k]` 对 `marks[k]`；同一个名字在 marks 里出现两次就两处都数）。
+fn tally_marks(buffs: impl Iterator<Item = BuffV1>, marks: &[&str], counts: &mut [usize]) {
+    counts.iter_mut().for_each(|c| *c = 0);
+    for b in buffs {
+        let n = name_of(&b);
         for (k, m) in marks.iter().enumerate() {
-            let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| b.name() == *m).count();
-            for _ in 0..n {
-                out.push((e.id(), k));
+            if n == m.as_bytes() {
+                counts[k] += 1;
             }
         }
     }
-    out
+}
+
+/// 照原来的顺序放进去：先按标记，同一种标记有几层放几个。
+fn push_marks(out: &mut Vec<(usize, usize)>, id: usize, counts: &[usize]) {
+    for (k, &n) in counts.iter().enumerate() {
+        for _ in 0..n {
+            out.push((id, k));
+        }
+    }
 }
 
 fn view(sim: &mut StableSim<'_>, me: usize, target: usize, name: &str, sound: bool) {
@@ -331,11 +356,44 @@ impl StablePassive for Kennen {
     }
 }
 
+/// 面板上的电浆数：league.dll 的技能栏层数格读 `league_kaisa_pn_<n>`（tools/kit/stack_nums.py 的梯子规则，0.1.10）。
+pub fn kaisa_panel_name(n: usize) -> String {
+    format!("league_kaisa_pn_{n}")
+}
+
+/// 还没过期、人还活着的那些里，电浆最多的有几层（英雄联盟在那个敌人头上显示的数）。
+pub fn kaisa_most(stacks: &[Stack], now: usize, alive: impl Fn(usize) -> bool) -> usize {
+    stacks.iter().filter(|s| now <= s.at + KAISA_LIFE && alive(s.id)).map(|s| s.n).max().unwrap_or(0)
+}
+
 #[derive(Clone, Default)]
 struct Kaisa {
     p: Vec<(String, usize)>,
     stacks: Vec<Stack>,
     pops: usize,
+    /// 面板上挂着的数和挂在哪个身子上（复活是新的实体，buff 都没了）。
+    body: Option<usize>,
+    panel: Option<usize>,
+}
+
+impl Kaisa {
+    /// 面板上的数跟着敌人身上最多的电浆换：只在数变了、或者换了身子时动 buff。
+    fn show(&mut self, sim: &mut StableSim<'_>, me: usize, n: usize) {
+        if self.body != Some(me) {
+            self.body = Some(me);
+            self.panel = None;
+        }
+        if self.panel == Some(n) {
+            return;
+        }
+        if let Some(old) = self.panel {
+            sim.entity_remove_buff(me, &kaisa_panel_name(old));
+        }
+        if n > 0 {
+            sim.add_buff(me, &BuffV1::named(&kaisa_panel_name(n)));
+        }
+        self.panel = Some(n);
+    }
 }
 
 impl StablePassive for Kaisa {
@@ -393,6 +451,10 @@ impl StablePassive for Kaisa {
             } else {
                 view(sim, me, target, &format!("league_kaisa_pl_{after}"), false);
             }
+        }
+        if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
+            let most = kaisa_most(&self.stacks, now, |id| sim.get_entity(id).is_some_and(|e| e.is_alive()));
+            self.show(sim, me, most);
         }
     }
 }
@@ -521,6 +583,32 @@ mod tests {
     use super::*;
 
     #[test]
+    fn gather_order_is_the_old_per_mark_scans() {
+        // 原来：每种标记各扫一遍 b.name() == m，数到几层放几个 (id, k)。一遍数完、照同样的顺序放，结果一样
+        let marks = ["league_kaisa_a", "league_kaisa_cc", "league_kaisa_w2", "league_kaisa_a"];
+        let mut garbled = BuffV1::named("league_kaisa_cc");
+        garbled.name_buf[3] = 0xFF;
+        let sets: Vec<Vec<BuffV1>> = vec![
+            vec![],
+            vec![BuffV1::named("x")],
+            vec![BuffV1::named(marks[1]), BuffV1::named(marks[0]), BuffV1::named(marks[1]), garbled],
+            vec![BuffV1::named(marks[2]), BuffV1::named(marks[0]), BuffV1::named(""), BuffV1::named(marks[2])],
+        ];
+        for bs in &sets {
+            let mut old = Vec::new();
+            for (k, m) in marks.iter().enumerate() {
+                for _ in 0..bs.iter().filter(|b| b.name() == *m).count() {
+                    old.push((7, k));
+                }
+            }
+            let (mut new, mut counts) = (Vec::new(), vec![0; marks.len()]);
+            tally_marks(bs.iter().copied(), &marks, &mut counts);
+            push_marks(&mut new, 7, &counts);
+            assert_eq!(new, old);
+        }
+    }
+
+    #[test]
     fn kennen_stuns_on_the_third_mark_of_one_target() {
         assert_eq!(kennen_mark(0), (1, false));
         assert_eq!(kennen_mark(1), (2, false));
@@ -538,6 +626,22 @@ mod tests {
         assert_eq!(kaisa_hit(4, 1, true), (0, Some(4), true));
         assert_eq!(kaisa_hit(2, 3, false), (0, None, true));
         assert_eq!(kaisa_hit(1, 2, false), (3, None, false));
+    }
+
+    /// 0.1.10：面板上是活着的敌人里电浆最多的那个（league.dll 读 `league_kaisa_pn_<n>`，tools/kit/stack_nums.py）。
+    #[test]
+    fn kaisa_panel_shows_the_most_plasma() {
+        assert_eq!(kaisa_panel_name(4), "league_kaisa_pn_4");
+        let mut s = Vec::new();
+        set(&mut s, 7, 2, 100);
+        set(&mut s, 8, 4, 100);
+        set(&mut s, 9, 3, 300);
+        let alive = |id: usize| id != 8;
+        assert_eq!(kaisa_most(&s, 200, |_| true), 4);
+        assert_eq!(kaisa_most(&s, 200, alive), 3, "the one who died does not count");
+        assert_eq!(kaisa_most(&s, 100 + KAISA_LIFE + 1, |_| true), 3, "7 and 8 ran out");
+        assert_eq!(kaisa_most(&s, 300 + KAISA_LIFE + 1, |_| true), 0);
+        assert_eq!(kaisa_most(&[], 0, |_| true), 0);
     }
 
     #[test]

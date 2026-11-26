@@ -55,7 +55,7 @@
 
 ### 厄斐琉斯附加包
 
-[厄斐琉斯附加包](../../addons/league_aphelios/README.md)：`league_aphelios` v0.2.3
+[厄斐琉斯附加包](../../addons/league_aphelios/README.md)：`league_aphelios` v0.2.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -65,7 +65,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.5（通用附加包，下面只列和厄斐琉斯有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.7（通用附加包，下面只列和厄斐琉斯有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

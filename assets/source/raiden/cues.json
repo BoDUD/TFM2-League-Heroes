@@ -1,0 +1,160 @@
+[
+  {
+    "action": "attack",
+    "frame": 4,
+    "ms": 257,
+    "event": "release",
+    "sound": "sfx_palm_sweep",
+    "fx": "palm_sweep",
+    "anchor": [
+      160,
+      157
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "ms": 314,
+    "event": "confirmed_hit",
+    "sound": "sfx_palm_hit",
+    "fx": "palm_contact",
+    "anchor": [
+      180,
+      157
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 269,
+    "event": "release",
+    "sound": "sfx_chain_first",
+    "fx": "palm_sweep",
+    "anchor": [
+      157,
+      150
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 4,
+    "ms": 269,
+    "event": "confirmed_hit",
+    "sound": "sfx_palm_hit",
+    "fx": "palm_contact",
+    "anchor": [
+      179,
+      148
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 371,
+    "event": "release",
+    "sound": "sfx_chain_second",
+    "fx": "palm_sweep",
+    "anchor": [
+      161,
+      157
+    ]
+  },
+  {
+    "action": "skill",
+    "frame": 6,
+    "ms": 371,
+    "event": "confirmed_hit",
+    "sound": "sfx_chain_hit",
+    "fx": "palm_contact",
+    "anchor": [
+      185,
+      155
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 3,
+    "ms": 229,
+    "event": "lift",
+    "sound": "sfx_foot_lift"
+  },
+  {
+    "action": "skill2",
+    "frame": 5,
+    "ms": 398,
+    "event": "land",
+    "sound": "sfx_shiko",
+    "fx": "shiko_dust",
+    "anchor": [
+      134,
+      212
+    ]
+  },
+  {
+    "action": "skill2",
+    "frame": 6,
+    "ms": 464,
+    "event": "ground_pulse",
+    "sound": "sfx_ground",
+    "fx": "shiko_ring",
+    "anchor": [
+      134,
+      221
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 3,
+    "ms": 282,
+    "event": "windup",
+    "sound": "sfx_tension",
+    "fx": "compress_air",
+    "anchor": [
+      131,
+      150
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 474,
+    "event": "release",
+    "sound": "sfx_yatagarasu",
+    "fx": "yatagarasu_wave",
+    "anchor": [
+      170,
+      148
+    ]
+  },
+  {
+    "action": "ult",
+    "frame": 5,
+    "ms": 474,
+    "event": "confirmed_hit",
+    "sound": "sfx_yatagarasu_hit",
+    "fx": "yatagarasu_impact",
+    "anchor": [
+      193,
+      147
+    ]
+  },
+  {
+    "action": "muscle_release",
+    "frame": 4,
+    "ms": 391,
+    "event": "activate",
+    "sound": "sfx_release",
+    "fx": "release_seams",
+    "anchor": [
+      128,
+      156
+    ]
+  },
+  {
+    "action": "dead",
+    "frame": 7,
+    "ms": 893,
+    "event": "land",
+    "sound": "sfx_fall"
+  }
+]

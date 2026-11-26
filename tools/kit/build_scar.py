@@ -244,7 +244,7 @@ def build(p, is_native=False):
         views_e.append(E("p_heal", FX, 3))
     views_b = [B_("q_stun", FX, 3), B_("r_guard", FX, 3)]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AP", "Melee", "Tank", "CC", "Heal"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Melee", "Tank", "CC", "Heal"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],

@@ -25,6 +25,7 @@ import sys
 
 import numpy as np
 from PIL import Image
+from skimage.draw import disk, polygon
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -331,12 +332,19 @@ def elder_execute():
 
 # ---- the elemental rift's terrain (league_dragons 0.5.0) ------------------------------------------------------------------
 
-LEAF = {
-    # outline, deep, base, light, highlight
-    "ocean": [(8, 52, 50), (18, 104, 88), (36, 152, 112), (98, 204, 140), (186, 240, 186)],
-    # outline, deep purple, light purple, toxic green, pale green
-    "chemtech": [(40, 16, 62), (88, 44, 132), (140, 84, 180), (150, 210, 60), (226, 250, 150)],
+# the new brush / fog, in the six tones of the game's own bushes (asset/base/aseprite_resources/ingame/5v5/bush_5v5: darkest
+# rim, deep, dark, body, light, highlight) tinted per element, and their accents
+BRUSH = {
+    "ocean": {"tones": [(5, 19, 25), (10, 34, 42), (14, 47, 56), (20, 62, 71), (31, 87, 94), (56, 126, 126)],
+              "glint": (128, 206, 206), "glint2": (214, 250, 246)},
+    # purple-black shadows, olive leaves, a toxic lime on the lit edges: the Chemtech drake's green and purple
+    "chemtech": {"tones": [(14, 9, 20), (31, 20, 42), (41, 35, 47), (48, 60, 35), (74, 98, 36), (146, 194, 50)],
+                 "pod": (108, 56, 140), "pod_hi": (172, 112, 206), "glow": (184, 236, 66), "glow2": (232, 252, 156)},
 }
+BRUSH_R = 38            # rift::BRUSH_R / 1000: the patch is as big as the place that hides
+BRUSH_WH = 96
+BRUSH_ANCHOR = (48, 48)
+LIGHT = (-0.70, -0.72)  # from the top left, like the game's bushes
 
 
 # a leaf the Cloud rift's wind carries: outline, deep, base, light; four turns of it tumbling (dx, dy, colour) round
@@ -481,43 +489,145 @@ def gate_flash():
     return w, h, anchor, 4, out
 
 
-def brush(kind):
-    """a patch of the rift's new brush (Ocean) / chem-fog (Chemtech), 38 squares round its middle: a ring of clumps with
-    tufts inside, open enough to see who stands in it; 4 frames swaying. From above, like the map: no squash"""
-    w, h, anchor = 96, 92, (48, 48)
-    pal = [np.array(c, np.uint8) for c in LEAF[kind]]
-    rng = np.random.default_rng(1500 if kind == "ocean" else 1600)
-    n = 16
-    clumps = []
-    for k in range(n):
-        a = (k + rng.uniform(-0.25, 0.25)) / n * 2 * math.pi
-        rad = 33 + rng.uniform(-3, 3)
-        clumps.append((anchor[0] + math.cos(a) * rad, anchor[1] + math.sin(a) * rad, rng.uniform(5.5, 8.0),
-                       rng.uniform(0, 2 * math.pi)))
-    tufts = [(anchor[0] + rng.uniform(-22, 22), anchor[1] + rng.uniform(-20, 24), rng.uniform(0, 2 * math.pi)) for _ in range(13)]
-    bubbles = [(anchor[0] + rng.uniform(-30, 30), anchor[1] + rng.uniform(-26, 30), rng.uniform(1.8, 3.0), int(rng.integers(0, 4)))
-               for _ in range(9)]
+def lit(ang):
+    """how much a direction faces the light: -1 away .. 1 towards it"""
+    return math.cos(ang) * LIGHT[0] + math.sin(ang) * LIGHT[1]
+
+
+def leaf_halves(cx, cy, ang, length, width, tip_dx=0.0):
+    """a pointed leaf from (cx, cy) along `ang`, split along its axis: (rows, cols) of the half turned to the light and of
+    the other half"""
+    ux, uy = math.cos(ang), math.sin(ang)
+    px, py = -uy, ux
+    tip = (cx + ux * length + tip_dx, cy + uy * length)
+
+    def mid(side):
+        return cx + ux * length * 0.45 + px * width * 0.5 * side, cy + uy * length * 0.45 + py * width * 0.5 * side
+
+    def foot(side):
+        return cx + px * width * 0.32 * side, cy + py * width * 0.32 * side
+
+    one, other = [(cx, cy), foot(1), mid(1), tip], [(cx, cy), foot(-1), mid(-1), tip]
+    lit_half, dark_half = (one, other) if px * LIGHT[0] + py * LIGHT[1] > 0 else (other, one)
+    return ([q[1] for q in lit_half], [q[0] for q in lit_half]), ([q[1] for q in dark_half], [q[0] for q in dark_half])
+
+
+def tuft(cx, cy, rot, n, size, sway):
+    """one star tuft as the game draws its bushes: tone index per square (-1 empty). A round body, `n` pointed leaves
+    from the back (pointing up) to the front (pointing down), each a lit and a shaded half, a highlight along the lit edge
+    of the leaves turned to the light, the darkest tone round its lower-right side"""
+    s = BRUSH_WH
+    idx = np.full((s, s), -1, np.int16)
+    rr, cc = disk((cy, cx), 4.2 * size, shape=idx.shape)
+    idx[rr, cc] = 2
+    leaves = sorted(((rot + k / n * 2 * math.pi) % (2 * math.pi) for k in range(n)), key=math.sin)
+    for k, ang in enumerate(leaves):
+        length, width = (9.0 + ((k * 7) % 3) * 0.9) * size, 5.2 * size
+        (lr, lc), (dr, dc) = leaf_halves(cx, cy, ang, length, width, sway * 0.8)
+        l = lit(ang)
+        hi = 4 if l > 0.35 else (3 if l > -0.35 else 2)
+        rr, cc = polygon(dr, dc, shape=idx.shape)
+        idx[rr, cc] = max(1, hi - 1)
+        rr, cc = polygon(lr, lc, shape=idx.shape)
+        idx[rr, cc] = hi
+        if l > 0.35:
+            sx, sy = -math.sin(ang), math.cos(ang)
+            if sx * LIGHT[0] + sy * LIGHT[1] < 0:
+                sx, sy = -sx, -sy
+            for t in (0.35, 0.55, 0.75):
+                xi = int(round(cx + math.cos(ang) * length * t + sx * width * 0.22))
+                yi = int(round(cy + math.sin(ang) * length * t + sy * width * 0.22))
+                if 0 <= yi < s and 0 <= xi < s and idx[yi, xi] >= 0:
+                    idx[yi, xi] = 5
+    m = idx >= 0
+    rim = np.zeros_like(m)
+    rim[1:, :] |= m[:-1, :]
+    rim[:, 1:] |= m[:, :-1]
+    rim[1:, 1:] |= m[:-1, :-1]
+    idx[rim & ~m] = 0
+    return idx
+
+
+def tufts(seed):
+    """tuft centres: staggered rows (8 squares apart, 12 along a row) inside a slightly ragged circle, then a fringe of 18
+    smaller tufts round the edge for a round outline; top first (each lower tuft is drawn over the ones above it)"""
+    rng = np.random.default_rng(seed)
+    ph = [rng.uniform(0, 2 * math.pi) for _ in range(2)]
+    ax, ay = BRUSH_ANCHOR
     out = []
-    for i in range(4):
-        f = blank(w, h)
-        turn = i / 4 * 2 * math.pi
-        for x, y, ph in tufts:
-            lean = math.sin(ph + turn) * 1.6
-            for dx, ln in ((-2, 4), (0, 6), (2, 4)):
-                fx.stroke(f, [(x + dx, y), (x + dx + lean, y - ln)], pal[3 if dx == 0 else 2], 1)
-        f = fx.outline_layer(f, pal[0])
-        for x, y, r, ph in sorted(clumps, key=lambda c: c[1]):
-            ox = math.sin(ph + turn) * 1.0
-            fx.disc(f, x + ox, y, r, pal[1], pal[0])
-            fx.disc(f, x + ox - r * 0.2, y - r * 0.25, r * 0.62, pal[2])
-            fx.disc(f, x + ox - r * 0.36, y - r * 0.42, r * 0.3, pal[3])
-        if kind == "chemtech":
-            for x, y, r, ph in bubbles:
-                rise = ((i + ph) % 4) * 3
-                fx.ring_dot(f, x, y - rise, r, pal[0], pal[4])
-                fx.disc(f, x + 1, y - rise + 1, max(0.8, r * 0.35), pal[3])
-        out.append(f)
-    return w, h, anchor, 15, out
+    for r, y in enumerate(np.arange(-BRUSH_R + 4, BRUSH_R - 3, 8.0)):
+        for x in np.arange(-BRUSH_R - (6.0 if r % 2 else 0.0), BRUSH_R + 1, 12.0):
+            jx, jy = x + rng.uniform(-1.8, 1.8), y + rng.uniform(-1.2, 1.2)
+            a = math.atan2(jy, jx)
+            if math.hypot(jx, jy) <= BRUSH_R - 11.0 + 1.2 * math.sin(5 * a + ph[0]) + 0.8 * math.sin(7 * a + ph[1]):
+                out.append((ax + jx, ay + jy, rng.uniform(0, 2 * math.pi), int(rng.integers(7, 9)), rng.uniform(0.92, 1.08)))
+    for i in range(18):
+        a = (i + rng.uniform(-0.2, 0.2)) / 18 * 2 * math.pi
+        rad = BRUSH_R - 7.5 + rng.uniform(-1.0, 1.0)
+        out.append((ax + math.cos(a) * rad, ay + math.sin(a) * rad, rng.uniform(0, 2 * math.pi), int(rng.integers(6, 8)),
+                    rng.uniform(0.66, 0.78)))
+    return sorted(out, key=lambda t: t[1])
+
+
+def brush(kind):
+    """a patch of the rift's new brush (Ocean) / chem-fog (Chemtech), drawn like the game's own 5v5 bushes (0.5.4; the
+    user, 2026-11-18: 「小龙的两个草丛的特效能帮我改改吗 现在有点丑」 - the old ring of round element-coloured discs looked
+    nothing like them): star tufts packed over the whole round patch (radius BRUSH_R; it lies on the walls' layer, under
+    the champions, so nothing needs to stay open), each tuft's leaf tips swaying a square over 4 frames. Ocean: a few drops
+    of water catching the light; Chemtech: purple pods whose green heart glows on two frames of four, a spore drifting up
+    off every other one. From above, like the map: no squash"""
+    pal = BRUSH[kind]
+    tones = [np.array(c, np.uint8) for c in pal["tones"]]
+    size = BRUSH_WH
+    ts = tufts(1500 if kind == "ocean" else 1600)
+    rng = np.random.default_rng(1700 if kind == "ocean" else 1800)
+    inner = [i for i, t in enumerate(ts) if t[4] > 0.85]
+    picks = rng.choice(inner, size=min(len(inner), 7 if kind == "ocean" else 6), replace=False)
+    accents = [(ts[i][0] + rng.uniform(-3, 3), ts[i][1] + rng.uniform(-4, 1), int(k % 4)) for k, i in enumerate(picks)]
+    out = []
+    for f in range(4):
+        idx = np.full((size, size), -1, np.int16)
+        for cx, cy, rot, n, scale in ts:
+            one = tuft(cx, cy, rot, n, scale, round(math.sin(f / 4 * 2 * math.pi + cx * 0.21)))
+            idx[one >= 0] = one[one >= 0]
+        frame = blank(size, size)
+        for k, c in enumerate(tones):
+            frame[idx == k, :3] = c
+        frame[idx >= 0, 3] = 255
+        on = idx >= 0
+        for cx, cy, phase in accents:
+            x, y = int(round(cx)), int(round(cy))
+            step = (f + phase) % 4
+            if kind == "ocean":
+                if step == 0:
+                    for dx, dy, c in ((0, 0, pal["glint2"]), (1, 0, pal["glint"]), (0, 1, pal["glint"])):
+                        if on[y + dy, x + dx]:
+                            frame[y + dy, x + dx, :3] = c
+                elif step == 1 and on[y, x]:
+                    frame[y, x, :3] = pal["glint"]
+            else:
+                rr, cc = disk((y, x), 3.2, shape=(size, size))
+                frame[rr, cc, :3] = tones[0]
+                frame[rr, cc, 3] = 255
+                rr, cc = disk((y, x), 2.3, shape=(size, size))
+                frame[rr, cc, :3] = pal["pod"]
+                frame[y - 1, x - 1, :3] = pal["pod_hi"]
+                frame[y - 1, x, :3] = pal["pod_hi"]
+                if step in (0, 1):
+                    for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1)):
+                        frame[y + dy, x + dx, :3] = pal["glow"]
+                    frame[y, x, :3] = pal["glow2"]
+                else:
+                    frame[y + 1, x, :3] = pal["glow"]
+                if phase % 2 == 0:
+                    sy = y - 5 - step * 3
+                    for yy, xx, c in ((sy, x, pal["glow2"] if step < 2 else pal["glow"]), (sy + 1, x, pal["glow"]),
+                                      (sy, x + 1, pal["glow"])):
+                        if 0 <= yy < size:
+                            frame[yy, xx, :3] = c
+                            frame[yy, xx, 3] = 255
+        out.append(frame)
+    return size, size, BRUSH_ANCHOR, 15, out
 
 
 def fruit():
@@ -664,6 +774,21 @@ def pack(anims):
     return sheet, rows
 
 
+# the brushes' runs in two tones: their six-tone tufts are about 2100 runs a frame, six patches on the map at once - over
+# 12000 rectangles a frame when the sheet cannot be drawn (the fx test allows 1400 a frame); the rim and the two darker
+# tones become the deep one, the lit ones the light one (about 1000 runs, the old ring's count). The sheet keeps all six.
+RUNS_TWO_TONE = {"brush_ocean": "ocean", "brush_chem": "chemtech"}
+
+
+def two_tone(frame, kind):
+    t = BRUSH[kind]["tones"]
+    out = frame.copy()
+    for a, b in ((0, 1), (2, 1), (3, 4), (5, 4)):
+        m = (out[..., 3] == 255) & (out[..., 0] == t[a][0]) & (out[..., 1] == t[a][1]) & (out[..., 2] == t[a][2])
+        out[m, :3] = t[b]
+    return out
+
+
 def runs_of(anims):
     """the frames as runs of equal pixels: b"DFXR", u16 colours, the colours (RGBA), u16 animations, then per animation
     u8 frames and per frame u16 runs and the runs (x, y, width, colour: a byte each, from the frame's top-left)"""
@@ -672,6 +797,8 @@ def runs_of(anims):
         assert w <= 255 and h <= 255 and len(frames) <= 255, name
         body.append(len(frames))
         for f in frames:
+            if name in RUNS_TWO_TONE:
+                f = two_tone(f, RUNS_TWO_TONE[name])
             runs = bytearray()
             n = 0
             for y in range(h):
@@ -755,7 +882,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--preview")
+    ap.add_argument("--procedural", action="store_true",
+                    help="overwrite the sheet with this script's drawing (it is Codex's art since 0.5.9)")
     args = ap.parse_args()
+    # 0.5.9（2026-11-26，用户：「小龙的特效也借这次机会重做怎么样 让codex 一起重新再整理一下」）起图集是 Codex 重画的，
+    # 源头是图集本身（tools/art/fx_frames.py dump 拆成一帧一张、改完 build 拼回去）；这个脚本画的是 0.5.8 以前的那版
+    if not args.preview and not args.procedural:
+        sys.exit("the sheet is Codex's art since 0.5.9: edit it with tools/art/fx_frames.py (dump / build); "
+                 "--procedural overwrites it with this script's old drawing")
     anims = animations()
     sheet, rows = pack(anims)
     text = table(rows, (sheet.shape[1], sheet.shape[0]))

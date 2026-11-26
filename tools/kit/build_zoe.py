@@ -13,11 +13,13 @@ Spell Thief (W) has no slot - its missiles fly with every R (her "summoner spell
           reads no distance, so the flight is timed: `q_n1` / `q_n2` caster flags laid at the release last q_d1 / q_d2
           worth of flight, and the hit deals the near (100%), middle (q_mid%) or far (q_far%) share of q_dmg +
           q_ratio% AP by which of them is still on. Its picture is a round star (symmetric every way).
-  skill2  E Sleepy Trouble Bubble (催眠气泡), `Targeting` on `EnemyChampion` (e_range): a bubble flies at the target
-          (champions only, non-penetrating): e_dmg + e_ratio% AP, drowsy (e_slow% for e_drowsy ticks), then asleep:
-          a `Stun` of e_sleep ticks with the Zz picture (`e_zz`) on the champion hit, wherever he walked meanwhile. A
-          bubble that reaches its end without a hit stays there as a trap for e_trap ticks (League's bubble lands and
-          waits): the first enemy champion stepping in gets the same.
+  skill2  E Sleepy Trouble Bubble (催眠气泡), `Targeting` on `EnemyChampion` (e_range): a bubble flies at the target and
+          stops on the first enemy unit in its way (`EnemyWithoutTower`: minions and monsters block it and fall asleep
+          too, as in League - 2026-11-20, it passed them before): e_dmg + e_ratio% AP, drowsy (e_slow% for e_drowsy
+          ticks), then asleep: a `Stun` of e_sleep ticks with the Zz picture (`e_zz`) on the unit hit, wherever he walked
+          meanwhile. A bubble that reaches its end without a hit stays there as a trap for e_trap ticks (League's bubble
+          lands and waits): the first enemy champion stepping in gets the same (League's trap "bursts upon contact with
+          an enemy" and says no more: ours stays champions only).
           Not the game's own Sleep (0.7.0-0.7.1, 2026-11-05, the user: 「佐伊问题很大 好像不能催眠别人？」 - it never
           slept anyone): only the base Hypnotist's natives lay it, as an area round a POINT - the EXE's
           hypnotist_skill2 (0x19f8726 in 0.7.1) takes its centre from the input target: a Position (the Hypnotist's
@@ -34,9 +36,15 @@ Spell Thief (W) has no slot - its missiles fly with every R (her "summoner spell
           and the anchor pulls her back (`ult_back`; death cancels it).
 The add-on copy (--native, addons/league_zoe): the same sleep for e_sleep_n ticks, and the passive league_zoe:sparkles
 shows the Zz while it holds and wakes him on any damage (that hit again as true damage, up to e_cap + e_cap_ratio%
-AP: League's doubled first hit); Paddle Star scales with the real distance flown, and Spell Thief's shards: an enemy
-champion's ult drops one where he stood; when she walks over it she fires the three missiles. The copy's ult fires no
-missiles of its own: the add-on flies them all, out behind her and over her head, then after the foe (league_zoe 0.7.0).
+AP: League's doubled first hit), whatever unit the bubble put to sleep (its release lights `e_go`). Paddle Star
+(league_zoe 0.8.0, 2026-11-20, the user: 「按照你的建议改吧」): the copy throws no data star - the cast marks the target
+(`q_aim`) and the release lights `q_go`; the add-on throws the star out q_out (behind her, or to a side when minions
+block that way) and redirects it at the target, like League's recast, the first enemy unit on either leg taking
+q_dmg + q_ratio% AP times x1 at q_n0 to q_far% at q_n1d of the whole distance flown. Spell Thief only from the shards:
+an enemy champion's ult drops one where he stood; when she walks over it she casts a summoner spell and fires the
+three missiles (out behind her and over her head, then after the foe, league_zoe 0.7.0). League's Portal Jump does not
+trigger Spell Thief, so the copy's ult throws only the portal's star (no toss, no missiles, no haste); the main pack
+has no shards and keeps them on its ult, its only Spell Thief.
 """
 import argparse
 import json
@@ -69,7 +77,11 @@ SPELLS = ["flash", "ignite", "exhaust", "heal", "barrier", "ghost", "cleanse"]
 # +0.67; + hp 920, R every 30 s, W 45 +0.36; + Q x1.7 / 2.5, P 40 + 50% +1.07 / +1.18 (seeds 9-16); Q 105 +1.41 /
 # +1.47 (sleep 2 s with hp 960 the same, +1.48 / +1.44). Timed to the strips (the portal's star on Q's throw frame,
 # W's toss after it, the exit leap: she is away 1.2 s) +1.30 / +0.16; sleep 2 s + hp 960 +0.99 / +0.88, + Q 115
-# +0.66 / +1.71, + the portal's star 200 + 90% +1.17 / +1.47 (about +1.3, league_volibear +1.39) = P.
+# +0.66 / +1.71, + the portal's star 200 + 90% +1.17 / +1.47 (about +1.3, league_volibear +1.39).
+# 2026-11-20 (League parity, 720 games a batch = 5 opponents x 3 lineups x 2 sides x 24 seeds): P before +1.67 / +1.65
+# (seeds 1-24 / 25-48); the bubble stopped by the first enemy unit (minions, monsters) +0.27; + E every 10 s +0.99; on
+# seeds 1-12 (360 games) with sleep 2.25 s (League's) and the bubble 5000 wide (League's 100 width): E every 10 s +2.35,
+# 12 s +1.24, 15 s +0.21; seeds 1-24: E every 11 s +1.23, every 10 s +1.69 / +1.61 (seeds 25-48) = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Zoe:
     # 630 +106 hp, 21 armour, 30 mr, 340 move, 550 range, attack speed 0.658
@@ -82,9 +94,10 @@ P = {
     "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 13, "q_speed": 4000, "q_len": 95000, "q_w": 6000,
     "q_d1": 30000, "q_d2": 60000, "q_dmg": 105, "q_ratio": 60, "q_mid": 170, "q_far": 250,
     # E Sleepy Trouble Bubble (League: 800 range, 70-270 +45% AP, drowsy 1.4 s (slow 10-35%), sleep 2.25 s, trap
-    # 5 s, cd 18-14)
-    "e_cd": 900, "e_range": 75000, "e_dur": 27, "e_rel": 13, "e_speed": 3500, "e_len": 85000, "e_w": 7000,
-    "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 120, "e_trap": 300, "e_trap_r": 12000,
+    # 5 s, cd 18-14 with 16-30% back on a champion hit, missile 1850 a second and 100 wide); every 10 s here since the
+    # first minion in the way stops it and the AI cannot throw round them
+    "e_cd": 600, "e_range": 75000, "e_dur": 27, "e_rel": 13, "e_speed": 3500, "e_len": 85000, "e_w": 5000,
+    "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 135, "e_trap": 300, "e_trap_r": 12000,
     "e_show": 15,
     # R Portal Jump (League: blink 575 for 1 s, cd 11-5) + the portal's Paddle Star (far share) + W Spell Thief's
     # missiles (League: 3 x 25-95 +33% AP, move speed 30-80% for 2-3.25 s)
@@ -100,6 +113,16 @@ P = {
     # picks it up within s_r and throws w_n missiles at the nearest enemy champion within w_r
     "q_n0": 20000, "q_n1d": 85000, "e_sleep_n": 135, "e_cap": 100, "e_cap_ratio": 60, "w_r": 70000, "s_t": 1200,
     "s_r": 18000,
+    # 附加包的飞星先往外飞 q_out（每 tick q_out_v：英雄联盟第一下 1200 码/秒，拐回来的第二下 2500，约一半）再拐向目标
+    "q_out": 30000, "q_out_v": 2000,
+    # 气泡的线上有墙时副本踢长 e_wall 的那颗（英雄联盟穿墙那段不算射程；5v5 的墙一段多半 27000～44000，取中间）
+    "e_wall": 35000,
+    # 副本的大招不再带窃法巧手（不射那 3 颗飞弹、不加速、不放召唤师技能），门口那颗飞星把这份强度接过来。经典 SDK 模拟（附加包
+    # 的飞星和去掉大招的窃法巧手都在 C:/t/zoq_sim 的 sim3zo 里跑；碎片、召唤师技能、打醒不在里面），种子 1-24 / 25-48：0.7.1 的
+    # 副本 +1.99 / +1.74；0.8.0 的副本飞星 335 + 135% +1.51（1-24），380 + 150% +2.57 / +2.14，420 + 165% +2.34（1-24）；
+    # 0.7.1 的大招还放一个召唤师技能（模拟里没有），取 350 + 140%。缩短大招冷却试过（20 秒 +0.97、15 秒 +0.78），AI 一局只多放
+    # 两三次，补不回来
+    "r_dmg_n": 350, "r_ratio_n": 140,
     "native": 0,
 }
 
@@ -251,16 +274,17 @@ def build(p):
         return sw("q_n1", on_hit(*share(100)), sw("q_n2", on_hit(*share(p["q_mid"])), on_hit(*share(p["q_far"]))))
 
     hit_q = by_distance(lambda d, r: combine(ap(d, r), view("q_hit"), tsfx("q_hit")))
-    if native:          # the near share; the add-on adds the rest by the distance from her throw (q_go) to the hit (q_hit)
-        hit_q = combine(ap(*share(100)), buff("q_hit", 2), view("q_hit"), tsfx("q_hit"))
     star = line("q_star", p["q_speed"], p["q_len"], p["q_w"], "EnemyWithoutTower", [hit_q])
     throw_q = combine(flag("q_n1", max(1, p["q_d1"] // p["q_speed"])), flag("q_n2", max(1, p["q_d2"] // p["q_speed"])),
                       star)
-    if native:
-        throw_q = combine(refresh("q_go", 2), star)
+    aim_q = []
+    if native:          # 副本不放数据的直线飞星：出手时她身上亮 q_go，附加包自己扔一颗（先往外飞 q_out，再拐回来砸 q_aim 标着的
+        # 目标，英雄联盟 Q 的再按一次），伤害按一共飞了多远；q_aim 从开始施法挂到出手后（他出手前死了，附加包就找最近的英雄）
+        throw_q = refresh("q_go", 2)
+        aim_q = [buff("q_aim", p["q_rel"] + 2)]
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(decoy(p["q_dmg"], p["q_ratio"], ap), spark, sfx("q"), voice("vo_q", p), delayed(p["q_rel"] - 1, alive(*rm("q_n1", "q_n2"),
-                                                                                            throw_q, sfx("q_fly")))))
+                   combine(decoy(p["q_dmg"], p["q_ratio"], ap), *aim_q, spark, sfx("q"), voice("vo_q", p),
+                           delayed(p["q_rel"] - 1, alive(*rm("q_n1", "q_n2"), throw_q, sfx("q_fly")))))
 
     # ------------------------------------------------------------------ skill2: E Sleepy Trouble Bubble
     slow = buff("e_drowsy", p["e_drowsy"], move_speed_mult=-p["e_slow"])
@@ -278,25 +302,36 @@ def build(p):
     caught = [sw("e_tdone", NONE, alive(flag("e_tdone", p["e_trap"]), *bubble_hit, sfx("e_pop")))]
     lying = [delayed(k, sw("e_tdone", NONE, view("e_trap"))) for k in range(0, p["e_trap"], p["e_show"])]
     left = sw("e_got", combine(*rm("e_got")), combine(trap("e_field", p["e_trap_r"], p["e_trap"], caught), *lying))
-    bubble = line("e_bubble", p["e_speed"], p["e_len"], p["e_w"], "EnemyChampion", bubble_hit, end=[left])
+    # 2026-11-20 照英雄联盟：飞着的气泡碰到第一个敌方单位就停（小兵、野怪也挡），以前只认英雄、穿过小兵；落地的陷阱还是
+    # 只等英雄（英雄联盟的说明只写了「碰到敌人」，没说小兵算不算，照旧）
+    bubble = line("e_bubble", p["e_speed"], p["e_len"], p["e_w"], "EnemyWithoutTower", bubble_hit, end=[left])
+    # 副本：踢出去时她身上亮 e_go，附加包在气泡飞着的这一阵看所有敌方单位身上的 e_mark（打中的可能是小兵、野怪）
+    kick = [refresh("e_go", 2)] if native else []
+    aim_e = []
+    if native:          # 英雄联盟的气泡穿过一次地形，穿墙那段不算射程：开始踢时目标身上挂 e_aim，附加包看她到他这条线上有墙
+        # 就给她挂 e_far，出手时踢长 e_wall 的那颗（数据的射程是死的，只能放两颗）
+        aim_e = [buff("e_aim", p["e_rel"] + 2)]
+        far = line("e_bubble", p["e_speed"], p["e_len"] + p["e_wall"], p["e_w"], "EnemyWithoutTower", bubble_hit, end=[left])
+        bubble = sw("e_far", combine(*rm("e_far"), far), bubble)
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
-                    combine(decoy(p["e_dmg"], p["e_ratio"], ap), spark, sfx("e"), voice("vo_e", p),
-                            delayed(p["e_rel"] - 1, alive(*rm("e_got", "e_tdone"), bubble, sfx("e_fly")))))
+                    combine(decoy(p["e_dmg"], p["e_ratio"], ap), *aim_e, spark, sfx("e"), voice("vo_e", p),
+                            delayed(p["e_rel"] - 1, alive(*rm("e_got", "e_tdone"), *kick, bubble, sfx("e_fly")))))
 
     # ------------------------------------------------------------------ ult: R Portal Jump + the portal's star + W
+    r_dmg, r_ratio = (p["r_dmg_n"], p["r_ratio_n"]) if native else (p["r_dmg"], p["r_ratio"])
     star_r = line("r_star", p["r_speed"], p["r_len"], p["q_w"], "EnemyChampion",
-                  [ap(p["r_dmg"], p["r_ratio"]), view("q_hit"), tsfx("q_hit")])
+                  [ap(r_dmg, r_ratio), view("q_hit"), tsfx("q_hit")])
     if p["r_throw"] + p["r_w"] + p["w_dur"] > p["r_back"] - p["r_exit"]:
         raise SystemExit("the W toss must end before the exit leap")
     missiles = [delayed(p["w_rel"] - 1 + p["w_gap"] * k, alive(sfx("w_shot"), homing(
         "w_missile", "EnemyWithoutTower", [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")], p["w_speed"])))
         for k in range(p["w_n"])]
-    if native:          # the add-on flies them: out behind her, over her head, then after the foe (league_zoe 0.7.0, the
-        missiles = []   # user 2026-11-09: 「佐伊的飞弹做的要像英雄联盟那样啊 从背后过来的」); it starts them as w_haste goes on
     # the portal's star leaves on Paddle Star's throw frame; Spell Thief's toss (`skill_w`) follows the throw
-    throw_r = combine(anim("skill", p["q_dur"]), sfx("q"), delayed(p["q_rel"] - 1, alive(star_r, sfx("q_fly"))),
-                      delayed(p["r_w"], alive(anim("skill_w", p["w_dur"]), *missiles,
-                                              refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"]))))
+    thief = [delayed(p["r_w"], alive(anim("skill_w", p["w_dur"]), *missiles,
+                                     refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"])))]
+    if native:          # 2026-11-20 照英雄联盟：折返跃迁不触发窃法巧手（只有她放召唤师技能才触发），副本的大招不甩手、不射飞弹、
+        thief = []      # 不加速；窃法巧手只从附加包的碎片来。主包没有碎片，大招照旧带着它（主包唯一的窃法巧手）
+    throw_r = combine(anim("skill", p["q_dur"]), sfx("q"), delayed(p["q_rel"] - 1, alive(star_r, sfx("q_fly"))), *thief)
     jump = line("r_jump", p["r_jspeed"], p["r_jump"], p["r_stop"], "EnemyChampion", [],
                 end=[{"type": "Teleport"}, cview("r_portal_out")], y=5000)
     back = sw("r_on", combine(*rm("r_on"), cview("r_portal_back"), {"type": "Teleport"}, cview("r_portal_out"),
@@ -305,7 +340,7 @@ def build(p):
     anchor = line("r_anchor", 1, 1, 1000, "EnemyChampion", [], end=[delayed(p["r_back"] - 1 - p["r_exit"], alive(leave)),
                                                                      delayed(p["r_back"] - 1, alive(back))], y=5000)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(decoy(p["r_dmg"], p["r_ratio"], ap), spark, sfx("r"), voice("vo_r", p), refresh("r_on", p["r_rel"] + p["r_back"] + 10),
+                 combine(decoy(r_dmg, r_ratio, ap), spark, sfx("r"), voice("vo_r", p), refresh("r_on", p["r_rel"] + p["r_back"] + 10),
                          delayed(p["r_rel"] - 1, alive(cview("r_portal_in"), anchor, jump)),
                          delayed(p["r_rel"] - 1 + p["r_throw"], alive(throw_r))))
 
@@ -338,9 +373,10 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_zoe:sparkles", "params": {
-            k: p[k] for k in ("q_dmg", "q_ratio", "q_far", "q_n0", "q_n1d", "e_drowsy", "e_sleep_n", "e_cap",
-                              "e_cap_ratio", "w_dmg", "w_ratio", "w_ms", "w_ms_t", "w_n", "w_gap", "w_r", "w_rel", "w_speed",
-                              "s_t", "s_r")}}
+            k: p[k] for k in ("q_dmg", "q_ratio", "q_far", "q_n0", "q_n1d", "q_out", "q_out_v", "q_speed", "q_len", "q_w",
+                              "e_drowsy", "e_sleep_n", "e_cap", "e_cap_ratio", "e_len", "e_wall", "e_rel", "w_dmg", "w_ratio",
+                              "w_ms", "w_ms_t", "w_n",
+                              "w_gap", "w_r", "w_rel", "w_speed", "s_t", "s_r")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

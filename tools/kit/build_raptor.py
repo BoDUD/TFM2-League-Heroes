@@ -29,6 +29,7 @@ import argparse
 import json
 import math
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -213,6 +214,10 @@ def build(p, is_native=False):
 
 # Sylas's copy: the flock comes for SY_WAVES waves SY_GAP ticks apart (the flag r_flock on him as long), each wave the
 # r_n pecks at his target
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 SY_WAVES, SY_GAP = 3, 24
 
 

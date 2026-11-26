@@ -1,0 +1,1098 @@
+{
+  "source": "runtime/props",
+  "axis_y": {
+    "bident": 107.0,
+    "desmos": 109.0
+  },
+  "pose_cell": 256,
+  "frames": {
+    "idle": [
+      {
+        "grip": [
+          140,
+          173
+        ],
+        "angle": -83,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            140,
+            173,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          142,
+          173
+        ],
+        "angle": -81,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            142,
+            173,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          144,
+          175
+        ],
+        "angle": -85,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            144,
+            175,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          143,
+          174
+        ],
+        "angle": -82,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            143,
+            174,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          143,
+          175
+        ],
+        "angle": -85,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            143,
+            175,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          141,
+          175
+        ],
+        "angle": -83,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            141,
+            175,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          142,
+          173
+        ],
+        "angle": -82,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            142,
+            173,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          141,
+          173
+        ],
+        "angle": -83,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            141,
+            173,
+            6
+          ]
+        ]
+      }
+    ],
+    "attack": [
+      {
+        "grip": [
+          122,
+          170
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            122,
+            170,
+            6
+          ],
+          [
+            159,
+            155,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          117,
+          171
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            117,
+            171,
+            6
+          ],
+          [
+            143,
+            161,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          119,
+          176
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            119,
+            176,
+            6
+          ],
+          [
+            157,
+            166,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          132,
+          175
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            132,
+            175,
+            6
+          ],
+          [
+            192,
+            160,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          132,
+          178
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            132,
+            178,
+            6
+          ],
+          [
+            192,
+            167,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          126,
+          175
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            126,
+            175,
+            6
+          ],
+          [
+            166,
+            164,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          120,
+          171
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            120,
+            171,
+            6
+          ],
+          [
+            147,
+            161,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          122,
+          170
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.28,
+        "form": "bident",
+        "hands": [
+          [
+            122,
+            170,
+            6
+          ],
+          [
+            157,
+            155,
+            6
+          ]
+        ]
+      }
+    ],
+    "skill": [
+      {
+        "grip": [
+          126,
+          155
+        ],
+        "angle": -38,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            126,
+            155,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          124,
+          154
+        ],
+        "angle": -33,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            124,
+            154,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          104,
+          137
+        ],
+        "angle": -132,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            104,
+            137,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          159,
+          155
+        ],
+        "angle": -6,
+        "shaft_fraction": 0.51,
+        "form": "bident",
+        "hands": [
+          [
+            159,
+            155,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          176,
+          150
+        ],
+        "angle": 3,
+        "shaft_fraction": 0.56,
+        "form": "bident",
+        "hands": [
+          [
+            176,
+            150,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          134,
+          176
+        ],
+        "angle": 13,
+        "shaft_fraction": 0.38,
+        "form": "bident",
+        "hands": [
+          [
+            134,
+            176,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          126,
+          162
+        ],
+        "angle": -23,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            126,
+            162,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          126,
+          156
+        ],
+        "angle": -34,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            126,
+            156,
+            6
+          ]
+        ]
+      }
+    ],
+    "skill2": [
+      {
+        "grip": [
+          125,
+          156
+        ],
+        "angle": -44,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            125,
+            156,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          126,
+          152
+        ],
+        "angle": -54,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            126,
+            152,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          106,
+          134
+        ],
+        "angle": -124,
+        "shaft_fraction": 0.34,
+        "form": "bident",
+        "hands": [
+          [
+            106,
+            134,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          109,
+          117
+        ],
+        "angle": -127,
+        "shaft_fraction": 0.36,
+        "form": "bident",
+        "hands": [
+          [
+            109,
+            117,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          141,
+          169
+        ],
+        "angle": 34,
+        "shaft_fraction": 0.44,
+        "form": "bident",
+        "hands": [
+          [
+            141,
+            169,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          157,
+          179
+        ],
+        "angle": 27,
+        "shaft_fraction": 0.42,
+        "form": "bident",
+        "hands": [
+          [
+            157,
+            179,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          151,
+          170
+        ],
+        "angle": 15,
+        "shaft_fraction": 0.45,
+        "form": "bident",
+        "hands": [
+          [
+            151,
+            170,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          125,
+          154
+        ],
+        "angle": -45,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            125,
+            154,
+            6
+          ]
+        ]
+      }
+    ],
+    "hit": [
+      {
+        "grip": [
+          126,
+          155
+        ],
+        "angle": -42,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            126,
+            155,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          123,
+          153
+        ],
+        "angle": -36,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            123,
+            153,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          125,
+          154
+        ],
+        "angle": -30,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            125,
+            154,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          118,
+          162
+        ],
+        "angle": -25,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            118,
+            162,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          122,
+          162
+        ],
+        "angle": -21,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            122,
+            162,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          122,
+          155
+        ],
+        "angle": -32,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            122,
+            155,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          123,
+          153
+        ],
+        "angle": -38,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            123,
+            153,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          125,
+          155
+        ],
+        "angle": -43,
+        "shaft_fraction": 0.37,
+        "form": "bident",
+        "hands": [
+          [
+            125,
+            155,
+            6
+          ]
+        ]
+      }
+    ],
+    "dead": [
+      {
+        "grip": [
+          123,
+          170
+        ],
+        "angle": -45,
+        "shaft_fraction": 0.34,
+        "form": "bident",
+        "hands": [
+          [
+            123,
+            170,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          121,
+          183
+        ],
+        "angle": -28,
+        "shaft_fraction": 0.36,
+        "form": "bident",
+        "hands": [
+          [
+            121,
+            183,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          118,
+          208
+        ],
+        "angle": 8,
+        "shaft_fraction": 0.38,
+        "form": "bident",
+        "hands": []
+      },
+      {
+        "grip": [
+          141,
+          219
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.43,
+        "form": "bident",
+        "hands": [],
+        "ground": true
+      },
+      {
+        "grip": [
+          141,
+          219
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.43,
+        "form": "bident",
+        "hands": [],
+        "ground": true
+      },
+      {
+        "grip": [
+          141,
+          219
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.43,
+        "form": "bident",
+        "hands": [],
+        "ground": true
+      },
+      {
+        "grip": [
+          141,
+          219
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.43,
+        "form": "bident",
+        "hands": [],
+        "ground": true
+      },
+      {
+        "grip": [
+          141,
+          219
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.43,
+        "form": "bident",
+        "hands": [],
+        "ground": true
+      }
+    ],
+    "run": [
+      {
+        "grip": [
+          170,
+          167
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            170,
+            167,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          168,
+          165
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            168,
+            165,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          168,
+          164
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            168,
+            164,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          167,
+          166
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            167,
+            166,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          157,
+          167
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            157,
+            167,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          161,
+          165
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            161,
+            165,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          162,
+          164
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            162,
+            164,
+            6
+          ]
+        ],
+        "behind": true
+      },
+      {
+        "grip": [
+          163,
+          166
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.55,
+        "form": "bident",
+        "hands": [
+          [
+            163,
+            166,
+            6
+          ]
+        ],
+        "behind": true
+      }
+    ],
+    "ult": [
+      {
+        "grip": [
+          144,
+          170
+        ],
+        "angle": -82,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            144,
+            170,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          109,
+          176
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.31,
+        "form": "bident",
+        "hands": [
+          [
+            109,
+            176,
+            6
+          ],
+          [
+            146,
+            164,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          114,
+          171
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.31,
+        "form": "desmos",
+        "hands": [
+          [
+            114,
+            171,
+            6
+          ],
+          [
+            143,
+            168,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          118,
+          174
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.3,
+        "form": "desmos",
+        "hands": [
+          [
+            118,
+            174,
+            6
+          ],
+          [
+            149,
+            154,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          133,
+          162
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.34,
+        "form": "desmos",
+        "hands": [
+          [
+            133,
+            162,
+            6
+          ],
+          [
+            180,
+            162,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          135,
+          164
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.34,
+        "form": "desmos",
+        "hands": [
+          [
+            135,
+            164,
+            6
+          ],
+          [
+            181,
+            162,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          122,
+          174
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.31,
+        "form": "desmos",
+        "hands": [
+          [
+            122,
+            174,
+            6
+          ],
+          [
+            160,
+            156,
+            6
+          ]
+        ]
+      },
+      {
+        "grip": [
+          145,
+          170
+        ],
+        "angle": -82,
+        "shaft_fraction": 0.35,
+        "form": "bident",
+        "hands": [
+          [
+            145,
+            170,
+            6
+          ]
+        ]
+      }
+    ]
+  }
+}

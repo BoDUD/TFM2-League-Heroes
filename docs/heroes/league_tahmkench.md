@@ -9,7 +9,7 @@
 | id | `league_tahmkench` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
-| 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.2 |
 | 附加包 | [塔姆附加包](#附加包)（`league_tahmkench`） |
 
@@ -55,7 +55,7 @@
 
 ### 塔姆附加包
 
-[塔姆附加包](../../addons/league_tahmkench/README.md)：`league_tahmkench` v0.1.9
+[塔姆附加包](../../addons/league_tahmkench/README.md)：`league_tahmkench` v0.1.10
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

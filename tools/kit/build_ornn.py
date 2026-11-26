@@ -332,7 +332,7 @@ def build(p):
             k: p[k] for k in ("q_life", "br_hp", "br_up", "br_kb_speed", "br_kb_t", "e_quake_r", "e_anim", "p_item",
                               "p_step", "p_master", "p_master_lv")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

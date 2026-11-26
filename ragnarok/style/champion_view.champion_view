@@ -1,0 +1,256 @@
+{
+  "entries": {
+    "ragnarok_lubu": {
+      "face": {
+        "x": 4,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -17
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_thor": {
+      "face": {
+        "x": 7,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -20
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -14
+      }
+    },
+    "ragnarok_zeus": {
+      "face": {
+        "x": 6,
+        "y": -29
+      },
+      "center": {
+        "x": 0,
+        "y": -6
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "ragnarok_adam": {
+      "face": {
+        "x": 2,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -9
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "ragnarok_poseidon": {
+      "face": {
+        "x": 2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -19
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_kojiro": {
+      "face": {
+        "x": 2,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_heracles": {
+      "face": {
+        "x": 1,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "ragnarok_jack": {
+      "face": {
+        "x": 2,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_raiden": {
+      "face": {
+        "x": 5,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_shiva": {
+      "face": {
+        "x": 1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "ragnarok_buddha": {
+      "face": {
+        "x": 4,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_zerofuku": {
+      "face": {
+        "x": 6,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "ragnarok_hades": {
+      "face": {
+        "x": 2,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_qin": {
+      "face": {
+        "x": 2,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "ragnarok_beelzebub": {
+      "face": {
+        "x": 2,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "ragnarok_tesla": {
+      "face": {
+        "x": 4,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "ragnarok_leonidas": {
+      "face": {
+        "x": 3,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "ragnarok_apollo": {
+      "face": {
+        "x": 3,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "hero": "taliyah",
+  "tag": "run",
+  "drawn": "assets/source/taliyah/hd/taliyah_run_drawn",
+  "from": 0,
+  "outline": [10, 1, 13],
+  "lock": "head",
+  "head": [[0, 47], [0, 84], [22, 84], [22, 47]],
+  "clear_poly": [[0, 47], [0, 84], [22, 84], [22, 47]],
+  "chin": 22,
+  "clear_grow": 1,
+  "shift_fill": "waist",
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [4, 4, 4, 4],
+  "below": [
+    [[null, 58, 0, 46]],
+    [],
+    [[null, 58, 0, 41]],
+    []
+  ],
+  "shift": [0, 0, 0, 0, 0, 0, 0, 0],
+  "steps": 2,
+  "keep_one": "assets/source/taliyah/hd/taliyah_run_one",
+  "keep_lo": "assets/source/taliyah/hd/taliyah_run_lo",
+  "variants": {"t600a3": {"shift": [2, 3, 0, 0, 2, 3, 0, 0], "cycle_ms": 600}, "t600a4": {"shift": [3, 4, 0, 0, 3, 4, 0, 0], "cycle_ms": 600}, "t500a3": {"shift": [2, 3, 0, 0, 2, 3, 0, 0]}, "t600": {"cycle_ms": 600}},
+  "use": "t600a3",
+  "notes": {
+    "made": "B6 round 6 (the user: 「我让你改不是让你改原本的走路的腿部的姿势 只是身体有点动画效果 看起来不要那么僵硬」): 4 drawn frames, 2 steps; her head is one drawing in all 4 (only moved: 0 -2 1 -2), her torso, arms, shawl and legs redrawn - so `lock` head (the front of frame 0's head: identical in every frame, the lock changes no square) and `shift`, each drawn frame shown twice (`steps` 2) so the body moves every 75 ms",
+    "timing": "drawn 4 x 125 ms = 500 ms; League's Taliyah_Run1 is 2.0 s for 2 strides (1.0 s, 2 steps). 600 ms = the most 4 drawings take before reading choppy (150 ms a drawing); the planted foot then moves 12.5 / 21.5 squares a drawing against the ground's 14",
+    "shift": "on the two mid-stance drawings (0, 2: the planted leg under her) her whole upper body (head, torso, both arms, the shawl, the free leg swung behind her) sinks 2 then 3 rows over the planted leg - lowest at mid-stance, as League's pelvis (10 squares at her height, two beats); the stride drawings keep their drawn place (they are drawn 2 rows higher). Head path 2 3 -2 -2 3 4 -2 -2 (drawn 0 0 -2 -2 1 1 -2 -2)",
+    "waist": "row +4 from the centre (under the tunic's front hem): the planted leg's thigh over it moves with the body over the shin (a straight leg, its columns stay); the free leg behind and the shawl's tip hang under it (`below` rects)",
+    "keep": "her 1x and lo_ runs are drawings of their own (keep_one / keep_lo, each frame twice)"
+  }
+}

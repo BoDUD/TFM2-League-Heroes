@@ -1,0 +1,1694 @@
+{
+  "id": "abysspact_anchor",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_anchor:siege",
+    "params": {
+      "a_splash": 60,
+      "a_splash_r": 15000,
+      "w_plant": 30,
+      "w_raise": 36,
+      "w_keep": 300,
+      "engage": 90000,
+      "safe": 35000,
+      "danger": 30000,
+      "no_target": 120,
+      "toggle_cd": 120
+    }
+  },
+  "sprite": "asset/abysspact/champions/abysspact_anchor",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_anchor_skill",
+    "asset/abysspact/icons/abysspact_anchor_skill2",
+    "asset/abysspact/icons/abysspact_anchor_ult"
+  ],
+  "stat": {
+    "attack": 96,
+    "magic_power": 0,
+    "hp": 878,
+    "defence": 22,
+    "magic_resistance": 18,
+    "move_speed": 950,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 86,
+    "defence": 6,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_anchor.attack",
+    "duration": 30,
+    "cooltime": 58,
+    "start_timing": 18,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "abysspact_anchor_siege",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "abysspact_anchor_a_siege"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "abysspact_anchor_a_shell",
+                "speed": 9600,
+                "y_offset": -9500,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Native",
+                      "effect_ref": "abysspact_anchor:splash"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "abysspact_anchor_a_water"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "abysspact_anchor_a_chain"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "abysspact_anchor_a_chain",
+                "speed": 9600,
+                "y_offset": -9500,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "abysspact_anchor_a_water"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_anchor:siege_range"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_anchor.skill",
+    "duration": 36,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_anchor_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_anchor_q_sweep"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_anchor_chain_sweep"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 64,
+                            "attack_ratio": 81,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 8
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_anchor_a_water"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_anchor_q_sweep"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_anchor_chain_sweep"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 64,
+                            "attack_ratio": 81,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 8
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "abysspact_anchor_a_water"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.abysspact_anchor.skill2",
+    "duration": 3,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "AddCasterBuff",
+      "buff_state": {
+        "name": "abysspact_anchor_toggle",
+        "duration": {
+          "Time": {
+            "tick": 4
+          }
+        }
+      },
+      "only_to_enemy": false
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_anchor.ult",
+    "duration": 48,
+    "cooltime": 4280,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 95000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_anchor_foley_r"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_anchor_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_anchor_r_siege",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 37,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 61,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 85,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 109,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 133,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_anchor_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_anchor_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "abysspact_anchor_r_fire"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 95000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "abysspact_anchor_r_salvo",
+                                "travel_time": 14,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_salvo_blast"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_anchor_foam"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "abysspact_anchor_r_impact"
+                                  },
+                                  {
+                                    "type": "RangeProjectile",
+                                    "name": "abysspact_anchor_r_blast_z",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 21000
+                                      }
+                                    },
+                                    "delay": 1,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 95,
+                                          "attack_ratio": 58,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 24
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_anchor_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_anchor_a_chain",
+      "anim": "asset/abysspact/effects/abysspact_anchor_proj",
+      "tag": "chain",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_anchor_a_shell",
+      "anim": "asset/abysspact/effects/abysspact_anchor_proj",
+      "tag": "shell",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_anchor_r_salvo",
+      "anim": "asset/abysspact/effects/abysspact_anchor_proj",
+      "tag": "salvo_arc",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_splash",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "splash",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_crack",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "crack",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_taut",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "taut",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_stamp",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "stamp",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_chain_sweep",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "chain_sweep",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_salvo_blast",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "salvo_blast",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_anchor_foam",
+      "anim": "asset/abysspact/effects/abysspact_anchor_fx",
+      "tag": "foam",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

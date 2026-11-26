@@ -45,6 +45,17 @@ sheets (the BP screen lagged again). Lesson: a drawer is confirmed by the game's
 rva …` / `texture … asked from rva …` on the screens it draws), not by having a sink. Step 5 takes a drawer's size
 asks as the first four indirect calls after its first sheet lookup.
 
+0.7.2 -> 0.7.3 (2026-11-18), the same compiler: the encyclopedia / face icons and the pick slot are 0.7.1's code again
+(0x21309f0 / 0x212bbd0: the sheet lookup right after the anim lookup, the four size asks at 0.7.1's spacing exactly, the
+name handed to the image node's setter 0x2e89360). Step 5, scoring against 0.7.2's spacing, put a battlefield drawer first
+for the encyclopedia (0x31946cb, game-view/src/view/entity/dual_blader.rs), so they are given: `--drawer 0=0x2130abc
+--drawer 1=0x212bc95`. Step 6 looks for a sink the newest listed build does without (0.7.2 had no image node's setter) by
+the head of the newest older build that lists one (0.7.1's 0x2729d90).
+
+0.7.3 -> 0.7.4 (2026-11-25), the same compiler: every place found from 0.7.3's table as it stands, no --drawer (all five
+UI drawers at 0.7.3's spacing exactly, score 0, nothing close), the image node's setter by 0.7.3's head (0x2e89360 ->
+0x296b740). game_places with the signatures generated from 0.7.3 finds the same places at run time.
+
 Then a match in game confirms it: league.log `game build: <name>`, the "lookup anim from rva" / "texture width
 asked from rva" lines of every screen. The structures (display world table, entity value fields, draw command
 layout) are NOT re-derived here: check them as build.rs's header describes when the code around them changes.
@@ -106,6 +117,21 @@ def old_build(path=BUILD_RS):
     b.update({k: nums(k) for k in ("battle_anim_ret", "battle_size_ret", "ui_anim_ret", "ui_size_ret")})
     b["name"] = re.search(r'name: "([^"]*)"', body).group(1)
     b["sigs"] = dict(sigs)
+    # a sink the newest build does without - 0.7.2 inlined the image node's setter into the encyclopedia and the pick
+    # slot, 0.7.3 calls it again (0x2e89360): its head from the newest older build that lists one, for step 6
+    b["older"] = {}
+    rest = src[src.index("pub static BUILDS"):]
+    rest = rest[:rest.index("}];")].split("}, Build {")[1:]
+    for field in ("node_image", "cmd_uv"):
+        if b[field]:
+            continue
+        for chunk in rest:
+            m = re.search(rf"\b{field}: (0x[0-9a-f]+),", chunk)
+            h = m and re.search(rf"\({m.group(1)},\s*&\[([^\]]*)\]\)", chunk[chunk.index("sigs: &["):])
+            if h:
+                head = bytes(int(x, 16) for x in re.findall(r"0x([0-9a-f]{2})", h.group(1)))
+                b["older"][field] = (int(m.group(1), 16), head, re.search(r'name: "([^"]*)"', chunk).group(1))
+                break
     return b
 
 
@@ -459,9 +485,14 @@ def search(e, b, forced=None):
                                sorted(t for t in after[2] & after[4] if mark in (e.read(t, 0x60) or b"")))
 
     def by_head(field):
-        if not b[field] or b[field] not in sig:
+        if b[field] and b[field] in sig:
+            rva, head = b[field], sig[b[field]]
+        elif field in b["older"]:
+            rva, head, name = b["older"][field]
+            notes.append(f"{field}: the listed build has none - looked for by the head of {name}'s {rva:#x}")
+        else:
             return []
-        return sorted((after[0] | after[1]) & set(e.find(wildcard(sig[b[field]], b[field]))))
+        return sorted((after[0] | after[1]) & set(e.find(wildcard(head, rva))))
 
     node = by_head("node_image")
     found["node_image"] = one("the image node's setter", node) if node else 0

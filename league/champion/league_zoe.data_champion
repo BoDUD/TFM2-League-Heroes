@@ -545,7 +545,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_zoe.skill2",
     "duration": 27,
-    "cooltime": 900,
+    "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
     "range": 75000,
@@ -700,10 +700,10 @@
                         "penetrate": false,
                         "shape": {
                           "Circle": {
-                            "radius": 7000
+                            "radius": 5000
                           }
                         },
-                        "applied_target": "EnemyChampion",
+                        "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
@@ -762,7 +762,7 @@
                               "effects": [
                                 {
                                   "type": "Stun",
-                                  "duration": 120
+                                  "duration": 135
                                 },
                                 {
                                   "type": "AddBuff",
@@ -770,7 +770,7 @@
                                     "name": "league_zoe_e_zz",
                                     "duration": {
                                       "Time": {
-                                        "tick": 120
+                                        "tick": 135
                                       }
                                     }
                                   }
@@ -922,7 +922,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "Stun",
-                                                        "duration": 120
+                                                        "duration": 135
                                                       },
                                                       {
                                                         "type": "AddBuff",
@@ -930,7 +930,7 @@
                                                           "name": "league_zoe_e_zz",
                                                           "duration": {
                                                             "Time": {
-                                                              "tick": 120
+                                                              "tick": 135
                                                             }
                                                           }
                                                         }

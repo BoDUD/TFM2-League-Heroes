@@ -1,0 +1,27 @@
+[package]
+name = "abysspact"
+version = "0.4.2"
+edition = "2021"
+publish = false
+
+# Abyss Pact (渊契) standalone native DLL (abysspact.dll):
+# - HD PPU frames (src/hd.rs) shared via hd_engine
+# - Batch 1:
+#   - Oathbreaker blood-oath scaling, HP burn & ult judgment (src/oathbreaker.rs)
+#   - Faceless <25% HP execute & full-body Face-Steal transformation (src/faceless.rs, src/faceless_view.rs)
+#   - Whisperer 3-stack Madness fear & chain-reaction explosions (src/whisperer.rs)
+#   - Bonebow real spawn_unit Skeleton Army & W Funeral rush-detonate (src/bonebow.rs)
+#   - Corvus Plague contagion, sick-enemy ally healing & shoulder Raven pecks (src/corvus.rs)
+# - Batch 2:
+#   - Bloodmoon Human<->Wolf dual-body animation hook & 1.3x Giant Wolf cleave (src/bloodmoon.rs)
+#   - Undertaker Coffin Shield & 2.0s real carry-and-slam R abduct (src/undertaker.rs)
+#   - Effigy 1-3 Needle pins, W 40% Fate Link damage sharing/snap & R global Unpick (src/effigy.rs)
+#   - Sevenfold 7-round Abyss Bullet clip, true-damage curved 7th shot & reload (src/sevenfold.rs)
+#   - Vesper 0-5 Candle Crown amp & R Spirit Form respawn/true-revive (src/vesper.rs)
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }
+hd_engine = { path = "../hd_engine" }
+game_places = { path = "../game_places" }

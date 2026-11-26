@@ -144,6 +144,9 @@ fn pos(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
     })
 }
 
+/// 三张图的墙格（[`Grid::builtin`]）：只建一次。
+static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+
 /// 每个凯隐一份（在被动里）：正在穿往哪里。
 #[derive(Clone, Debug, Default)]
 pub struct Walker {
@@ -154,6 +157,11 @@ pub struct Walker {
 impl Walker {
     /// 每 tick：掠影步期间隔墙追人。返回这一 tick 他是否站在墙格里（给完整变身的「墙里的暗影」用）。
     pub fn update(&mut self, sim: &mut StableSim<'_>, me: usize, ghost: bool, log: &dyn Fn(&StableSim<'_>, String)) -> bool {
+        // 不在掠影步、也没有正在走的路：往下算完也只是把两样本来就空的记录清掉、返回 false，直接回（2026-11-22 过日采样：
+        // 原来每 tick 都先把三张图的墙格重建一遍、把场上的人收一遍）
+        if !ghost && self.goal.is_none() && self.last.is_none() {
+            return false;
+        }
         let Some(here) = pos(sim, me) else { return false };
         let Some(k) = sim.get_entity(me) else { return false };
         let team = k.team();
@@ -171,7 +179,6 @@ impl Walker {
             }
         }
         // the Rift (towers past 1000000): its walls, converted once - never the game's own grids
-        let grids;
         let grid: &Grid = if map_of_sim(sim) == Map::Rift {
             if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
                 super::wlog(format!("== Rift: Kayn's Shadow Step cuts through the Rift's walls (none known without the walls \
@@ -179,8 +186,8 @@ impl Walker {
             }
             &RIFT_GRID
         } else {
-            grids = Grid::builtin();
-            let Some(gi) = current(&grids, &unit_points(sim, me)) else { return false };
+            let grids = &*GRIDS;
+            let Some(gi) = current(grids, &unit_points(sim, me)) else { return false };
             &grids[gi]
         };
         // only during the Shadow Step: walking by the jungle his spot often falls on a wall cell (the cells are coarse),

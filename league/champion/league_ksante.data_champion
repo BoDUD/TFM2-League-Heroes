@@ -1,6 +1,6 @@
 {
   "id": "league_ksante",
-  "category": "Melee",
+  "category": "Tank",
   "tags": [
     "AD",
     "Melee",
@@ -2028,5 +2028,6 @@
       "repeat": true,
       "z": -1
     }
-  ]
+  ],
+  "stack_skill_index": 0
 }

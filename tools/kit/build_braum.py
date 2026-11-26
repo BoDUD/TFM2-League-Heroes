@@ -38,6 +38,7 @@ skill2, R Glacial Fissure, the passive in the main pack plus a native add-on add
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -301,7 +302,7 @@ def build(p):
                B_("e_ally", FX, 3), B_("w_guard", FX, 3), B_("w_self", FX, 3, "w_guard"),
                B_("r_slow", FX, -1, "q_slow")]   # his own guard and the fissure's slow: the same pictures
     kit = {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],
@@ -317,6 +318,10 @@ def build(p):
                                      "lock": p["p_lock"], "extra": p["p_extra"], "extra_ap": p["p_extra_ap"],
                                      "e_red": p["e_red"], "e_ally": p["e_ally_red"], "e_ally_r": p["e_ally_r"]}}
     return kit
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

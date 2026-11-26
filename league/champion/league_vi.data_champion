@@ -1790,5 +1790,6 @@
       "is_follow": false
     }
   ],
-  "view_buffs": []
+  "view_buffs": [],
+  "stack_skill_index": 0
 }

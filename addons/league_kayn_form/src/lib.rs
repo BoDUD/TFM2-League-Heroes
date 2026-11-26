@@ -54,6 +54,18 @@ pub const RANGED_FROM: u32 = 35_000;
 pub const NEAR_UNKNOWN: f64 = 30_000.0;
 /// 参数缺了时的门槛（附加包的凯隐副本里写的是 14 / 14）。
 pub const NEED: u32 = 14;
+/// 大招（裂舍影）钻在别人身上：数据给凯隐挂 `R_IN`、给那个人挂 `R_MARKS` 里的一个，之后每 10 tick 冲向他一次、第 120 tick
+/// 冲过去出体。0.3.12：那个人被搬走了（死歌化成灵体时身体回到泉水里等着，league_karthus 0.5.7 起；回城传送）或者没了，
+/// 本包给凯隐挂 `R_FREE`，副本里后面的冲刺都不冲，出体在原地出（不打伤害），凯隐也钉在原地，不再跟到对面泉水去送死。
+pub const R_IN: &str = "league_kayn_r_in";
+pub const R_FREE: &str = "league_kayn_r_free";
+pub const R_MARKS: [&str; 3] = ["league_kayn_r_mark", "league_kayn_r_mark_d", "league_kayn_r_mark_s"];
+/// 一 tick 里被挪这么远就是被搬走的（闪现一类的位移约 40000，还冲得过去）。
+pub const R_JUMP: f64 = 80_000.0;
+/// `R_FREE` 挂多久（钻在里面最多 120 tick，副本出体时自己摘掉）。
+pub const R_FREE_T: usize = 150;
+/// 松开以后凯隐被挪开这么远就钉回去（正冲着的那一下）。
+pub const R_PIN_SLACK: f64 = 3_000.0;
 
 // ===================== 日志 =====================
 
@@ -234,12 +246,22 @@ fn decide(match_id: u64, seed: u64, me: usize, f: Form, tick: usize) {
 
 // ===================== 被动 =====================
 
-fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
-    sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect())
+/// buff 的名字（字节；比的都是 ASCII 常量，不用每个都做 UTF-8 检查）。
+fn name_of(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
 }
 
+/// 身上有没有这个 buff：一个个看，找到就停（2026-11-22 过日采样：原来先把身上所有 buff 收进一个 Vec 再找，
+/// 每 tick 好几次）。
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    buffs(sim, id).iter().any(|b| b.name() == name)
+    has_any(sim, id, &[name])
+}
+
+/// 身上有没有这几个 buff 里的任何一个：扫一遍。
+fn has_any(sim: &StableSim<'_>, id: usize, names: &[&str]) -> bool {
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| names.iter().any(|n| name_of(&b) == n.as_bytes()))
+    })
 }
 
 /// 从被动参数（排好序的整数 JSON，如 `{"darkin_need":14,"shadow_need":14}`）读一个值。
@@ -248,6 +270,29 @@ pub fn param(json: &str, key: &str) -> Option<u32> {
     let rest = json[at + key.len() + 2..].trim_start().strip_prefix(':')?.trim_start();
     let end = rest.find(|c: char| !c.is_ascii_digit()).unwrap_or(rest.len());
     rest[..end].parse().ok()
+}
+
+/// Distance between two points.
+pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 0.3.12：大招钻着的那个人这一 tick 该不该松开——没了（死了，游戏里死人没有实体），或者一 tick 里被挪出 `R_JUMP`。
+pub fn r_release(last: (f64, f64), now: Option<(f64, f64)>) -> Option<&'static str> {
+    match now {
+        None => Some("is gone (dead)"),
+        Some(p) if dist(last, p) > R_JUMP => Some("was moved away in one tick"),
+        _ => None,
+    }
+}
+
+/// 大招钻着的那个人：实体、上一 tick 他在哪、凯隐上一 tick 在哪（松开时凯隐留在这里）、松开了没有。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct RHost {
+    pub id: usize,
+    pub at: (f64, f64),
+    pub kayn_at: (f64, f64),
+    pub freed: bool,
 }
 
 /// 每个凯隐一份（在玩家身上，死了不丢）：两边的命中数、门槛、定下的形态。
@@ -262,11 +307,14 @@ pub struct Orbs {
     pub walker: wall::Walker,
     /// 上一 tick 站在墙格里吗（进墙、出墙各播一次暗影溅开）
     pub was_in_wall: bool,
+    /// 大招钻着的那个人（0.3.12）
+    pub r_host: Option<RHost>,
 }
 
 impl Default for Orbs {
     fn default() -> Self {
-        Orbs { darkin: 0, shadow: 0, need_d: NEED, need_s: NEED, form: None, walker: wall::Walker::default(), was_in_wall: false }
+        Orbs { darkin: 0, shadow: 0, need_d: NEED, need_s: NEED, form: None, walker: wall::Walker::default(), was_in_wall: false,
+               r_host: None }
     }
 }
 
@@ -291,7 +339,8 @@ impl Orbs {
     /// 身上没有形态 buff、也没有准备标记时补上永久的形态 buff（复活后、或主包的变身没播成）。
     fn keep_form(&self, sim: &mut StableSim<'_>, me: usize, why: &str) {
         let Some(f) = self.form else { return };
-        if has_buff(sim, me, f.buff()) || has_buff(sim, me, f.ready()) {
+        // 形态 buff 和准备标记一遍看完（原来各扫一遍）
+        if has_any(sim, me, &[f.buff(), f.ready()]) {
             return;
         }
         sim.add_buff(me, &BuffV1::named(f.buff()));
@@ -299,33 +348,99 @@ impl Orbs {
     }
 }
 
+/// 穿墙的暗影雾、进出墙的溅开：没有形态、暗裔（`_d`）、影流（`_s`）三种（wall_fx 按下标取）。
+const WALL_AURA: [&str; 3] = ["league_kayn_in_wall", "league_kayn_in_wall_d", "league_kayn_in_wall_s"];
+const WALL_BURST: [&str; 3] = ["league_kayn_wall_burst", "league_kayn_wall_burst_d", "league_kayn_wall_burst_s"];
+
 impl Orbs {
     /// 穿墙的画面（Codex 画的，PROMPTS_WALL.md）：在墙格里时身上挂这个形态的暗影雾（`league_kayn_in_wall{,_d,_s}`，
     /// 进墙时挂一次、出墙时去掉，动画连着循环），进墙、出墙那一刻各播一次暗影溅开（`league_kayn_wall_burst{,_d,_s}`）。
     /// 两个画面只登记在本包的凯隐副本里（make_override.py）。
-    fn wall_fx(&mut self, sim: &mut StableSim<'_>, me: usize, in_wall: bool) {
-        let suf = if has_buff(sim, me, FORM_D) {
-            "_d"
-        } else if has_buff(sim, me, FORM_S) {
-            "_s"
-        } else {
-            ""
+    /// 0.3.12：大招钻在别人身上时跟着他；他被搬走或者没了就松开（`R_FREE`），凯隐留在原地。
+    fn update_r(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, kayn: (f64, f64)) {
+        if !has_buff(sim, me, R_IN) {
+            self.r_host = None;
+            return;
+        }
+        let mut h = match self.r_host {
+            Some(h) => h,
+            None => {
+                // 钻进去的那个：身上挂着大招标记、离他最近的敌方英雄
+                let mut best: Option<(usize, (f64, f64), f64)> = None;
+                for i in 0..sim.entity_count() {
+                    let Some(e) = sim.entity_at(i) else { continue };
+                    if !e.is_champion() || e.team() == team || !e.is_alive() || !has_any(sim, e.id(), &R_MARKS) {
+                        continue;
+                    }
+                    let p = (e.pos().0 as f64, e.pos().1 as f64);
+                    let d = dist(p, kayn);
+                    if best.is_none_or(|b| d < b.2) {
+                        best = Some((e.id(), p, d));
+                    }
+                }
+                let Some((id, at, _)) = best else { return };
+                RHost { id, at, kayn_at: kayn, freed: false }
+            }
         };
-        let aura = format!("league_kayn_in_wall{suf}");
+        if h.freed {
+            // 松开时正冲着的那一下也不算：钉回原地，直到大招结束
+            if dist(kayn, h.kayn_at) > R_PIN_SLACK {
+                sim.entity_set_pos(me, h.kayn_at.0.round() as u64, h.kayn_at.1.round() as u64);
+            }
+            self.r_host = Some(h);
+            return;
+        }
+        let now = sim.get_entity(h.id).filter(|e| e.is_alive()).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
+        if let Some(why) = r_release(h.at, now) {
+            h.freed = true;
+            sim.entity_remove_buff(me, R_FREE);
+            sim.add_buff(me, &BuffV1::timed(R_FREE, R_FREE_T));
+            let pinned = dist(kayn, h.kayn_at) <= R_PIN_SLACK
+                || sim.entity_set_pos(me, h.kayn_at.0.round() as u64, h.kayn_at.1.round() as u64);
+            wlog(format!("{} R FREE: {} {why}{} - he comes out where he was{}", head(sim, me), who(sim, h.id),
+                now.map_or_else(String::new, |p| format!(" ({:.0} from where he was)", dist(h.at, p))),
+                if pinned { "" } else { " (entity_set_pos refused: he may have moved)" }));
+            self.r_host = Some(h);
+            return;
+        }
+        if let Some(p) = now {
+            h.at = p;
+        }
+        h.kayn_at = kayn;
+        self.r_host = Some(h);
+    }
+
+    fn wall_fx(&mut self, sim: &mut StableSim<'_>, me: usize, in_wall: bool) {
+        // 不在墙里、上一 tick 也不在：下面不播、不挂、不摘，不用看形态（多数 tick 都是这样）
+        if !in_wall && !self.was_in_wall {
+            return;
+        }
+        // 两种形态 buff 一遍看完（原来扫两遍）；画面的名字是常量（原来每 tick 拼两个字符串）
+        let (mut d, mut s) = (false, false);
+        if let Some(e) = sim.get_entity(me) {
+            for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
+                let n = name_of(&b);
+                d |= n == FORM_D.as_bytes();
+                s |= n == FORM_S.as_bytes();
+            }
+        }
+        let k = if d { 1 } else if s { 2 } else { 0 };
+        let aura = WALL_AURA[k];
         if in_wall != self.was_in_wall {
-            let burst = format!("league_kayn_wall_burst{suf}");
-            sim.play_view_effect(&burst, me, &InputTargetV1::target(me), 0, 0, 0);
+            sim.play_view_effect(WALL_BURST[k], me, &InputTargetV1::target(me), 0, 0, 0);
         }
         if in_wall {
-            for other in ["", "_d", "_s"].iter().filter(|o| **o != suf) {
-                sim.entity_remove_buff(me, &format!("league_kayn_in_wall{other}"));
+            for (j, other) in WALL_AURA.iter().enumerate() {
+                if j != k {
+                    sim.entity_remove_buff(me, other);
+                }
             }
-            if !has_buff(sim, me, &aura) {
-                sim.add_buff(me, &BuffV1::timed(&aura, 600));
+            if !has_buff(sim, me, aura) {
+                sim.add_buff(me, &BuffV1::timed(aura, 600));
             }
         } else if self.was_in_wall {
-            for other in ["", "_d", "_s"] {
-                sim.entity_remove_buff(me, &format!("league_kayn_in_wall{other}"));
+            for other in WALL_AURA {
+                sim.entity_remove_buff(me, other);
             }
         }
         self.was_in_wall = in_wall;
@@ -353,6 +468,7 @@ impl StablePassive for Orbs {
         }
         let team = k.team();
         let (kx, ky) = k.pos();
+        self.update_r(sim, me, team, (kx as f64, ky as f64));
         // 敌方英雄身上的标记：每一层是凯隐的一次命中
         let mut hits: Vec<(usize, String, f64, usize)> = Vec::new();
         for i in 0..sim.entity_count() {
@@ -360,7 +476,7 @@ impl StablePassive for Orbs {
             if !e.is_champion() || e.team() == team {
                 continue;
             }
-            let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| b.name() == TAG).count();
+            let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| name_of(b) == TAG.as_bytes()).count();
             if n == 0 {
                 continue;
             }
@@ -455,6 +571,54 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn r_lets_go_of_a_host_moved_away_or_gone() {
+        // 死歌化成灵体：身体一 tick 里回到泉水（几十万远），凯隐不跟过去
+        assert_eq!(r_release((300_000.0, 400_000.0), Some((40_000.0, 40_000.0))), Some("was moved away in one tick"));
+        // 死了：游戏里死人没有实体
+        assert_eq!(r_release((300_000.0, 400_000.0), None), Some("is gone (dead)"));
+        // 自己走、冲、闪现（约 40000）都照样跟着
+        assert_eq!(r_release((300_000.0, 400_000.0), Some((300_500.0, 400_000.0))), None);
+        assert_eq!(r_release((300_000.0, 400_000.0), Some((340_000.0, 400_000.0))), None);
+        assert_eq!(r_release((300_000.0, 400_000.0), Some((300_000.0, 400_000.0 + R_JUMP))), None, "exactly R_JUMP still follows");
+        assert!((dist((0.0, 0.0), (3.0, 4.0)) - 5.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_copy_waits_on_r_free() {
+        let copy = include_str!("../override/league_kayn.data_champion");
+        let ult = &copy[copy.find("\"ult\": {").expect("no ult in the copy")..];
+        // 11 re-dashes and the exit gated, the flag cleared as he goes in and by the plain exit
+        assert_eq!(ult.matches(&format!("\"buff_name\": \"{R_FREE}\"")).count(), 12, "every re-dash and the exit wait on R_FREE");
+        assert!(ult.matches(&format!("\"name\": \"{R_FREE}\"")).count() >= 2, "R_FREE is cleared at the start and by the plain exit");
+        for m in R_MARKS {
+            assert!(ult.contains(&format!("\"{m}\"")), "{m} is not in the copy's ult");
+        }
+        assert!(ult.contains(&format!("\"{R_IN}\"")));
+    }
+
+    #[test]
+    fn wall_names_are_the_old_formats() {
+        // 原来每 tick 拼的 format!("league_kayn_in_wall{suf}") / format!("league_kayn_wall_burst{suf}")
+        for (k, suf) in ["", "_d", "_s"].iter().enumerate() {
+            assert_eq!(WALL_AURA[k], format!("league_kayn_in_wall{suf}"));
+            assert_eq!(WALL_BURST[k], format!("league_kayn_wall_burst{suf}"));
+        }
+    }
+
+    #[test]
+    fn buff_names_compare_as_before() {
+        // 原来用 b.name() == 常量；按字节比给同样的答案（常量都是非空 ASCII；不是 UTF-8 的名字 name() 给 ""）
+        let mut garbled = BuffV1::named(FORM_D);
+        garbled.name_buf[2] = 0xFF;
+        let buffs = [BuffV1::named(TAG), BuffV1::named(FORM_D), BuffV1::named(FORM_S), BuffV1::named(""), garbled];
+        for b in &buffs {
+            for want in [TAG, FORM_D, FORM_S, wall::GHOST, WALL_AURA[1]] {
+                assert_eq!(name_of(b) == want.as_bytes(), b.name() == want, "{:?} vs {want}", b.name());
+            }
+        }
+    }
 
     #[test]
     fn each_set_follows_its_own_presim() {

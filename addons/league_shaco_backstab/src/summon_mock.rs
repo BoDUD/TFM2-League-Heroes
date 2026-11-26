@@ -47,6 +47,8 @@ pub struct MUnit {
     pub invisible: usize,
     /// A spawned unit reads unsettled before this tick (`World::settle`).
     pub settles: usize,
+    /// Its level (read only when `World::levels_on`: the host's getter is 1 without the slot).
+    pub level: usize,
 }
 
 pub fn champion(name: &str, team: usize, x: f64, y: f64) -> MUnit {
@@ -72,6 +74,7 @@ pub fn champion(name: &str, team: usize, x: f64, y: f64) -> MUnit {
         banished: 0,
         invisible: 0,
         settles: 0,
+        level: 1,
     }
 }
 
@@ -138,6 +141,14 @@ pub struct World {
     /// lost when it settles (game 0.7.2's presims, 2026-11-14: read on its spawn tick and the next as `hp 1851/1 attack
     /// 1 def 1 mr 1 speed 1`, its health set to 1 then back at 1851/1851 a tick later). 0: settled at once.
     pub settle: usize,
+    /// 约里克附加包 0.3.0 加的三个槽，默认不开（别的附加包的测试照旧）：`heal`（记下来、加生命）、`spawn_projectile`
+    /// （记下来，按距离 / 速度到点把它的原生效果排进队列，输入是目标）、`entity_level`（单位的 `level`）。
+    pub heal_on: bool,
+    pub heals: Vec<(usize, usize, usize, usize)>,
+    pub shots_on: bool,
+    /// (tick, projectile name, effect name, spec)
+    pub shots: Vec<(usize, String, String, ProjectileSpawnV1)>,
+    pub levels_on: bool,
 }
 
 impl Default for World {
@@ -145,7 +156,8 @@ impl Default for World {
         World { tick: 1000, units: vec![], players: vec![], queue: vec![], views: vec![], sounds: vec![], damage: vec![],
                 fears: vec![], spawns: vec![], kill_log: 0, has_spawn: true, spawn_ok: true, spawn_late: false, spawn_never: false, queue_ok: true,
                 body_ticks: 0, spawn_kind: EntityKindV1::Summon, origin: SimOriginKindV1::ClientMatchView, spawn_left: None,
-                moves: vec![], banishes: vec![], invisibles: vec![], settle: 0 }
+                moves: vec![], banishes: vec![], invisibles: vec![], settle: 0, heal_on: false, heals: vec![], shots_on: false,
+                shots: vec![], levels_on: false }
     }
 }
 
@@ -303,6 +315,30 @@ unsafe extern "C" fn sfx(s: *mut c_void, n: *const u8, len: usize, _: usize, _: 
     let tick = world.tick;
     world.sounds.push((tick, text(n, len).into()));
     true
+}
+unsafe extern "C" fn heal(s: *mut c_void, caster: usize, target: usize, amount: usize) {
+    let world = w(s);
+    let tick = world.tick;
+    world.heals.push((tick, caster, target, amount));
+    if let Some(e) = world.units.get_mut(target).filter(|e| e.valid && e.died.is_none()) {
+        e.hp = (e.hp + amount).min(e.max);
+    }
+}
+unsafe extern "C" fn spawn_projectile(s: *mut c_void, n: *const u8, len: usize, fx: *const u8, fx_len: usize,
+                                      spec: *const ProjectileSpawnV1) -> bool {
+    let world = w(s);
+    let tick = world.tick;
+    let spec = *spec;
+    let (name, effect) = (text(n, len).to_string(), text(fx, fx_len).to_string());
+    world.shots.push((tick, name, effect.clone(), spec));
+    let Some(t) = world.units.get(spec.target_id).filter(|e| e.valid) else { return true };
+    let d = far((spec.x as f64, spec.y as f64), (t.x, t.y));
+    let arrive = tick + (d / spec.speed.max(1) as f64).ceil() as usize;
+    world.queue.push((arrive.max(tick + 1), effect, spec.caster_id, InputTargetV1::target(spec.target_id)));
+    true
+}
+unsafe extern "C" fn level(s: *const c_void, h: EntityHandleV1) -> usize {
+    u(s, h).map_or(1, |e| e.level)
 }
 unsafe extern "C" fn set_hp(s: *mut c_void, h: EntityHandleV1, hp: usize) -> bool {
     let Some(e) = u(s, h) else { return false };
@@ -469,6 +505,15 @@ fn vtable(world: &World) -> SimVtableV1 {
     vt.player_kills = Some(player_kills);
     vt.kill_log_count = Some(kill_log_count);
     vt.player_statistics_json = Some(statistics);
+    if world.heal_on {
+        vt.heal = Some(heal);
+    }
+    if world.shots_on {
+        vt.spawn_projectile = Some(spawn_projectile);
+    }
+    if world.levels_on {
+        vt.entity_level = Some(level);
+    }
     vt
 }
 
@@ -536,6 +581,10 @@ impl World {
                 continue;
             }
             if me.banished > 0 {
+                continue;
+            }
+            // 动画定身（召唤物落地那几帧）：站着播，不走也不打
+            if me.ccs.iter().any(|c| CcKindV1::from_code(c.0.kind) == Some(CcKindV1::Animation)) {
                 continue;
             }
             let foe = self.units.iter().enumerate()

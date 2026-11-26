@@ -1,0 +1,32 @@
+{
+  "hero": "yasuo",
+  "tag": "run",
+  "drawn": "assets/source/yasuo/hd/yasuo_run_drawn",
+  "from": 0,
+  "outline": [19, 10, 17],
+  "lock": "head",
+  "head": [[19, 46], [19, 58], [20, 61], [22, 63], [25, 66], [40, 66], [42, 63], [42, 49], [34, 49], [30, 49], [26, 49], [23, 45]],
+  "chin": 42,
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "x": 0,
+  "waist": [-23, -23, -23, -23, -23, -23, -23, -23],
+  "below": [
+    [[null, 53, 15, 27]],
+    [[null, 53, 18, 32]],
+    [],
+    [],
+    [[null, 44, 52, 63]],
+    [],
+    [[null, 59, 16, 36]],
+    []
+  ],
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[229, 168, 111], [199, 136, 86], [217, 201, 181]], "clear_all": true, "skin": [[229, 168, 111], [199, 136, 86]], "keep_colours": [[183, 196, 198], [166, 187, 194], [160, 172, 170], [127, 131, 127], [17, 23, 46], [78, 104, 126], [95, 119, 137], [77, 84, 87], [36, 49, 85], [82, 139, 189], [48, 73, 105], [30, 36, 51], [21, 28, 53], [26, 35, 60], [38, 55, 91], [30, 42, 74], [215, 229, 228]], "clear_grow": 4, "beside_head": "ground", "head_align": "chin", "head_carry": [[-10, -40], [-10, 52], [17, 52], [18, 45], [25, 45], [25, 44], [31, 44], [31, 37], [28, 37], [28, -40]], "carry_colours": [[42, 21, 24], [71, 37, 43], [85, 46, 48], [51, 26, 29], [59, 30, 35], [100, 57, 36], [63, 34, 32], [76, 45, 40], [31, 18, 22], [52, 30, 28], [146, 89, 46], [173, 112, 51], [128, 74, 40], [199, 136, 86], [229, 168, 111]]}},
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand: lock head - his drawn run (run_fix's) redraws the upper body every frame (the head colour-IoU against frame 0's 0.53-0.68), so only the head is one drawing; the arms, the sword, the scarf, the pads and the legs stay each frame's own",
+    "head": "frame 0's face and hair cap (the closest to his idle's: colour-IoU 0.835 against hd_idle_base[0]; the smallest of the drawn heads, so it never covers a pad or the scarf); its columns on the frame's own eyes and face (head_match_colours), its chin on the frame's own chin (head_align)",
+    "head_carry": "his ponytail, its tie and the hair under it, as each frame draws them, moved with the laid head by the rows its chin puts it under the frame's own head (0 0 2 0 1 1 1 2) so the tie stays on the head; behind the pads and the sword",
+    "clear_grow": "4: the last squares of the frames' own (bigger) heads at the nape go too (3 left 1-2 a frame)",
+    "undecided": []
+  }
+}

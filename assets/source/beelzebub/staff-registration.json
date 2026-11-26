@@ -1,0 +1,664 @@
+{
+  "source": "runtime/props/apomyius.png",
+  "logical_length": 103,
+  "source_axis_y": 115.0,
+  "source_centerline_spread_in_logical_px": 0.1301,
+  "frames": {
+    "idle": [
+      {
+        "grip": [
+          117.7,
+          171.1
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "945d962af30261436738763417c0072815b8c550aff85ad0d9fbd5459ddb9c6b"
+      },
+      {
+        "grip": [
+          117.3,
+          171.9
+        ],
+        "angle": -118,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "3528f2017a397004257640730115bcbf2ea0a5ba518741f25faed5c58570e930"
+      },
+      {
+        "grip": [
+          116.5,
+          170.7
+        ],
+        "angle": -118,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "c68b33a44ae461a3315baa271f1dbef2bd24b9de74e8bb1c2751bd2dd801fddb"
+      },
+      {
+        "grip": [
+          116.6,
+          170.1
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "247ea7582bab60ff93ca2f1e71d3570950e44b55b1e065f66eb62fe1a923627d"
+      },
+      {
+        "grip": [
+          117.3,
+          170.9
+        ],
+        "angle": -116,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "7b03566f1990e3c5654f077ba4334eb1b6747ff0965183fbe137ce0de37034d4"
+      },
+      {
+        "grip": [
+          116.7,
+          171.0
+        ],
+        "angle": -115,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "20bad3b7dac5cf0bdf291c9bd4dfede44f7d944d8cdce3be6f1cc89b80231d41"
+      },
+      {
+        "grip": [
+          116.4,
+          171.2
+        ],
+        "angle": -116,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "8b6e30c2d9d608d5cc52b3e463c73142a1ce2884d8826519e4a37298e9a1ec58"
+      },
+      {
+        "grip": [
+          117.1,
+          171.5
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "24d6766469f43b3dc265a757e9eda2b8a058ee71910e6486950dcaf6d3395dd3"
+      }
+    ],
+    "run": [
+      {
+        "grip": [
+          114.2,
+          175.5
+        ],
+        "angle": -132,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "1eec9a4dcf3eb30401042ed1e46b9ca5f0e54bd035827eba982770a7c23f60bf"
+      },
+      {
+        "grip": [
+          123.3,
+          174.0
+        ],
+        "angle": -135,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "c56bc5459e16051bd483ed8632e283f5cd0a55d0430dc309dd18d836bc234195"
+      },
+      {
+        "grip": [
+          119.2,
+          173.5
+        ],
+        "angle": -133,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "b9bc5a420fb3456bfca8dffe0d9f5443f38c724c3dac131b1677756cd13287fe"
+      },
+      {
+        "grip": [
+          114.1,
+          174.0
+        ],
+        "angle": -129,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "6f13562e151108252b01e46f46f35a5faa05be827da4b413712b6ce3b8e0d6b7"
+      },
+      {
+        "grip": [
+          115.0,
+          175.2
+        ],
+        "angle": -130,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "b2fb7816e3b4afd8d44c7c28d3782c3d686dc63c9c9ebf5c57b2692ce3a71001"
+      },
+      {
+        "grip": [
+          114.1,
+          174.3
+        ],
+        "angle": -132,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "e1a2d6dc907148938673b59ecfab77677f875d2c0a6596a4ddeb9176af4c8be8"
+      },
+      {
+        "grip": [
+          114.7,
+          172.5
+        ],
+        "angle": -135,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "208f639ef50670843dc1a25de15c54232141f072c535e62ce6f43b27d9f672d4"
+      },
+      {
+        "grip": [
+          115.9,
+          175.1
+        ],
+        "angle": -132,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "dcdd4c24138b489ead2a5591da561d46206f6c43ab22ee948b17703fe6b7d404"
+      }
+    ],
+    "attack": [
+      {
+        "grip": [
+          123.2,
+          170.0
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "e74a6bbf922c6df9b0d6e9bd12358120d33fd9c07bacd4915a28065ce4496b14"
+      },
+      {
+        "grip": [
+          119.9,
+          169.3
+        ],
+        "angle": -119,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "b1d05d3b80695627b37a7aa70b167f8b96049b1866ca87fcde2183f0be3f17c6"
+      },
+      {
+        "grip": [
+          117.0,
+          169.1
+        ],
+        "angle": -121,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "5880aae72590e83601e0c95baf3854e182168eafadba9170b428e231fb8b1e5f"
+      },
+      {
+        "grip": [
+          122.5,
+          169.3
+        ],
+        "angle": -116,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "27569c0488de22ee492c45795721486e043907b4c67acc09712b3616d7ed976e"
+      },
+      {
+        "grip": [
+          133.8,
+          168.3
+        ],
+        "angle": -112,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "f14666c106fa8a7f1a13c1ef9023c42cee4866aee7488607507f5afb8416cd6b"
+      },
+      {
+        "grip": [
+          131.8,
+          168.7
+        ],
+        "angle": -114,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "09a88b85fe7f8c2f0e7a43247e60515702f76294f75ac391a6c5ed7747a04639"
+      },
+      {
+        "grip": [
+          122.2,
+          169.1
+        ],
+        "angle": -116,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "b8c95fdcfac9a67ec84eab82b5a161a9dea47973d0762083c5c95fde14a97090"
+      },
+      {
+        "grip": [
+          119.4,
+          170.1
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "fc8b6241405642c63d29f77032b001428f9b0a4919200208f03e3aa70a0eefde"
+      }
+    ],
+    "skill": [
+      {
+        "grip": [
+          115.0,
+          175.1
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "f269c929c97729b2b6a14ea5d19ec4b56269a8f29b162d851d5914f8c48343f8"
+      },
+      {
+        "grip": [
+          116.7,
+          156.0
+        ],
+        "angle": -126,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "994bd6aa30cc2995dd2737bc1d1b84083f3ca402369e5f1fbe62bc60d2b22ee7"
+      },
+      {
+        "grip": [
+          100.3,
+          161.8
+        ],
+        "angle": -104,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "565f5854102878e5059fe03b6c3e30e497881a6630b2ec80b69a7f6e886f7f39"
+      },
+      {
+        "grip": [
+          172.8,
+          156.0
+        ],
+        "angle": -8,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "654fc91b92134091242199c20c5bf805717d5d1adcb04effec3748e7ba955ace"
+      },
+      {
+        "grip": [
+          170.2,
+          162.8
+        ],
+        "angle": -7,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "f9ff6db49cecb5e76a172f727bf9df883f4d14e5210fd74452d03fac9a2bc8ce"
+      },
+      {
+        "grip": [
+          129.9,
+          159.7
+        ],
+        "angle": -145,
+        "shaft_fraction": 0.47,
+        "ground": false,
+        "weapon_rgba_sha256": "614bf64d82dc464e788b4cb4477a5d508164746b955f6649beebfa86dffe8642"
+      },
+      {
+        "grip": [
+          117.9,
+          170.2
+        ],
+        "angle": -124,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "0996e32392b3c947a348d6acba56e399196d1fd51e3f85037bdd8250f15d6d56"
+      },
+      {
+        "grip": [
+          114.2,
+          174.4
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "3d66fc2226459a0656bb8d7cd677a1dbe12ca8af8b6d497eed62e03233dabd22"
+      }
+    ],
+    "skill2": [
+      {
+        "grip": [
+          114.5,
+          173.0
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "37fa72d09cce6ff54c5b3a0de539dbec4a0f442e38d45ee31b6660783b5143c2"
+      },
+      {
+        "grip": [
+          112.4,
+          174.0
+        ],
+        "angle": -105,
+        "shaft_fraction": 0.53,
+        "ground": false,
+        "weapon_rgba_sha256": "530f3c95b7f5a2989340e3878387b2336e81f471f7cb35b756366ad8c15de0da"
+      },
+      {
+        "grip": [
+          107.7,
+          172.5
+        ],
+        "angle": -98,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "9317b38485be4e71692c845652241e017b61cbf7d8398c3c4221c2dc7e077d90"
+      },
+      {
+        "grip": [
+          129.9,
+          157.0
+        ],
+        "angle": -108,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "ff590dec6451ad32a9d8be3ab91197d9443d01d6cbdd5bb21d5d57136ac1734e"
+      },
+      {
+        "grip": [
+          127.0,
+          157.9
+        ],
+        "angle": -110,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "dea5d0088e83f584d27595e534b113302400c77ccafa3a63ae2b78ca544a0272"
+      },
+      {
+        "grip": [
+          126.1,
+          159.1
+        ],
+        "angle": -111,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "c54ea71f2aed1d2d418f69acf009f037fadcba5a3e8a89097023b828529db701"
+      },
+      {
+        "grip": [
+          123.3,
+          162.8
+        ],
+        "angle": -112,
+        "shaft_fraction": 0.53,
+        "ground": false,
+        "weapon_rgba_sha256": "561f8d1eb4a7c50613f9fa1e4d07b704b6b331e3045b404972a2ff0e3210b55c"
+      },
+      {
+        "grip": [
+          114.8,
+          173.0
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "cfc24fa4b9030e15d4be61d7457d6229936b24685f7e96e18ecde128a27ef048"
+      }
+    ],
+    "hit": [
+      {
+        "grip": [
+          119.1,
+          170.4
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "abb615230722300a59968df0216e9a022d11631731d3835f1777861a390ab48a"
+      },
+      {
+        "grip": [
+          115.3,
+          171.2
+        ],
+        "angle": -124,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "7ce664fcdc4c1299f10e377c73804be4e798ce472641cb6f08c8c8d566a454c0"
+      },
+      {
+        "grip": [
+          107.6,
+          172.7
+        ],
+        "angle": -130,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "5133750ba924f5fa901b8b3b9040f841de6f022ccc71536f12ac18913a1abc74"
+      },
+      {
+        "grip": [
+          105.3,
+          177.0
+        ],
+        "angle": -122,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "ac82e6314a1335147e8fea201e2d594701552a097ba9682bf0ffbd14c3ac328c"
+      },
+      {
+        "grip": [
+          103.2,
+          176.7
+        ],
+        "angle": -118,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "7bc26562e29f5d19f79dc0c8fde424d7ac62178e8850155fa55f230e812d6f35"
+      },
+      {
+        "grip": [
+          110.0,
+          172.5
+        ],
+        "angle": -114,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "c6d8783e69010c2340d6e09693e1122d4195058809a7ee5e4d6b3ebdf646d48f"
+      },
+      {
+        "grip": [
+          112.0,
+          171.0
+        ],
+        "angle": -116,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "5b4932bbefbf54427ecac67dd07e6cc5112dfd0d1809ef2cfc8a0db22e286028"
+      },
+      {
+        "grip": [
+          114.8,
+          171.0
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "447e5d2e40a264168e07be75950ab0e6d241143c97cae5d0ab741608762a619f"
+      }
+    ],
+    "dead": [
+      {
+        "grip": [
+          114.9,
+          173.2
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "ac0526056cdb2fb695bb80bf11ad92b724355336fbc9f2ec9a77c79361fc16be"
+      },
+      {
+        "grip": [
+          117.3,
+          178.0
+        ],
+        "angle": -120,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "12586a3fbf2a9e45a4bf9f9910f375908199bd119c5b47a251cdadd92a289841"
+      },
+      {
+        "grip": [
+          109.4,
+          184.2
+        ],
+        "angle": -123.23,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "4badc54567df9f398f547ae966160e4b47f7a6554fdc70f9e66312d8dce9df33"
+      },
+      {
+        "grip": [
+          98.5,
+          193.0
+        ],
+        "angle": -24,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "8a3f70eeedb5833120b2631cc38a56ff43539ffca78105d841047b062e4c0da2"
+      },
+      {
+        "grip": [
+          110,
+          226
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.5,
+        "ground": true,
+        "weapon_rgba_sha256": "ee772c63c1acd37aeb96be0b16ca215c91395d608a4da3e30276fad9acab10b9"
+      },
+      {
+        "grip": [
+          110,
+          226
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.5,
+        "ground": true,
+        "weapon_rgba_sha256": "ee772c63c1acd37aeb96be0b16ca215c91395d608a4da3e30276fad9acab10b9"
+      },
+      {
+        "grip": [
+          110,
+          226
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.5,
+        "ground": true,
+        "weapon_rgba_sha256": "ee772c63c1acd37aeb96be0b16ca215c91395d608a4da3e30276fad9acab10b9"
+      },
+      {
+        "grip": [
+          110,
+          226
+        ],
+        "angle": 0,
+        "shaft_fraction": 0.5,
+        "ground": true,
+        "weapon_rgba_sha256": "ee772c63c1acd37aeb96be0b16ca215c91395d608a4da3e30276fad9acab10b9"
+      }
+    ],
+    "ult": [
+      {
+        "grip": [
+          116.1,
+          173.9
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "d4a30509ae76a4356e22b94431061465226cf84737edbacfef27c7d42c750b1b"
+      },
+      {
+        "grip": [
+          121.2,
+          161.9
+        ],
+        "angle": -119,
+        "shaft_fraction": 0.54,
+        "ground": false,
+        "weapon_rgba_sha256": "380ba4d9de153819414c785ea7b238886e4e413fe1a110084f62ed5ab723576d"
+      },
+      {
+        "grip": [
+          126.1,
+          160.0
+        ],
+        "angle": -125,
+        "shaft_fraction": 0.55,
+        "ground": false,
+        "weapon_rgba_sha256": "de1dfcb6743b9bf882a66e5d1c384abe003b2a0fc90f0e7aae773d888327c072"
+      },
+      {
+        "grip": [
+          137.8,
+          147.4
+        ],
+        "angle": -125,
+        "shaft_fraction": 0.55,
+        "ground": false,
+        "weapon_rgba_sha256": "241e904367d2249eb828f30311cfc5f8c3ab4711f4fae0a0238cb37fd7a43c6c"
+      },
+      {
+        "grip": [
+          129.0,
+          156.8
+        ],
+        "angle": -120,
+        "shaft_fraction": 0.53,
+        "ground": false,
+        "weapon_rgba_sha256": "931112cca055c5ebc6e87594f233232f3395d3aad46cfb0e0810d934a88ba8a9"
+      },
+      {
+        "grip": [
+          137.0,
+          160.6
+        ],
+        "angle": -116,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "b5c6745baa6bc757db591b6b276092e8d5643dc45554ab94cac6fc19cbaccc80"
+      },
+      {
+        "grip": [
+          124.0,
+          166.8
+        ],
+        "angle": -115,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "ea486380a2435334b0006fd3f20c9accc451294ddcd6a49d740eefc0ca1b6c05"
+      },
+      {
+        "grip": [
+          115.7,
+          173.8
+        ],
+        "angle": -117,
+        "shaft_fraction": 0.52,
+        "ground": false,
+        "weapon_rgba_sha256": "77477e7966bf8175b27cb6282f655621af8c42af02fe1acc70e60c92dfdeef29"
+      }
+    ]
+  }
+}

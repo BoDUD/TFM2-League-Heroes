@@ -55,7 +55,7 @@
 
 ### 斩杀附加包：伊芙琳、阿卡丽、锐雯
 
-[斩杀附加包：伊芙琳、阿卡丽、锐雯](../../addons/league_executes/README.md)：`league_executes` v0.2.3
+[斩杀附加包：伊芙琳、阿卡丽、锐雯](../../addons/league_executes/README.md)：`league_executes` v0.2.4
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -91,6 +91,7 @@
 | 图标 | 官方技能图标（Q 折翼之舞 / E 勇往直前 / R 放逐之锋），64×64 |
 | 音频 | 从本地客户端提取的 15 条技能音效和 4 条中文语音（Q 第三段、W、R 开启、疾风斩；Q 前两段每几秒一次，配语音会太吵，不用）。不提交到仓库，按下面的命令在本地生成 |
 | 大招期间站着、跑着也拿重铸剑（`league.dll` 0.9.38 / 主包 0.347.0，2026-11-14） | 用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟里放逐之刃的 15 秒剑一直是重铸的；这里出招的动作（`*_r`）数据自己会换成重铸剑，可站着、跑着、挨打是游戏按名字自动播的，还是断剑，只有脚下一圈符文光环。现在图里多了三套帧 `rf_idle` / `rf_run` / `rf_hit`（[`tools/art/rig_riven_hd.py`](../../tools/art/rig_riven_hd.py) 的 `R_STAND`：和原来的待机、跑、受击是同样的帧，断剑换成 Codex 画的重铸剑，她的身体帧本来就不带剑，所以逐格没动），`league.dll` 新加的一张表（`addons/league_main/src/looks.rs` 的 `LOOKS`）在她身上有 `league_riven_r` 时把正在播的 `idle` / `run` / `hit` 换过去，大招结束或阵亡换回来——以前这样的英雄都要单独带一个附加包来换，这张表只开主包也生效。待机照别的英雄不上下摆动：`rf_idle` 是站姿停住（`hero_reels.json`）。原有的 84 个动作逐帧没变。顺带修了 `rig_riven_hd.py` 重新生成时读到待机小动作表（`idle_base` / `bp`）就停的问题。游戏里还没看过：下一局看她开大后站着、跑着手里是不是绿色的重铸剑，`league.log` 里有 `LOOK` 开头的行 |
+| 跑步重画（2026-11-17） | 用户：「锐雯这个跑步姿势不太对吧 不然让codex补一补动作？」→「只做跑步」。原来的跑步是拆部件拼的：剑每一圈从身前低处甩到肩膀后面再甩回来，小碎步，半蹲、直着身子；英雄联盟的 `riven_run` 剑一直平举在身前、剑尖朝前，大步跑、后腿高踢、身体前倾。Codex 按定稿逐帧重画了跑步的 8 帧（提示词 [`RUN_PROMPT_PPU.md`](../../assets/source/riven/RUN_PROMPT_PPU.md)，模板照平A那一包的几何，白底、不画剑；原图在 `assets/source/riven/hd/run_raw/`）。读回（[`tools/art/actions_riven_hd.py`](../../tools/art/actions_riven_hd.py) `--run`，写 `assets/source/riven/hd/run/`）：8 帧同一个格子大小（原图 8.5 px 一格——Codex 每帧的头在原图里一样大，这样身体从脖子到脚底和设计图一样高，手脚 3 格粗）；头换成设计图自己的头（和待机逐格相同，头发 23 × 20 格）——Codex 画的头小 15%（20 × 17 格），头发一块平涂，脸（窄的侧眼）每帧都不一样；站位点是模板格子的中间、按头量（头每帧都在同一列），最低的脚底踩在地面线上（每帧都有一只脚着地）；黑色杂点按 `black_strays.py` 的规则清掉（设计图的头不动）。第一版把剑放在前面那只手里、整条胳膊伸直，用户：「锐雯拿剑的姿势有点怪 联盟里不是这样拿的吧」——英雄联盟是后面那只手（远侧）握剑，手肘弯着，拳头收在下巴下面、锁骨前，剑身从下巴底下往前平伸。Codex 只重画了两只手臂（提示词 [`RUN_ARMS_FIX_PROMPT_PPU.md`](../../assets/source/riven/RUN_ARMS_FIX_PROMPT_PPU.md)；腿、身体、头照上一版，不是逐格锁住的）：远侧的空拳每帧收在下巴下面，近侧空拳跟着跑步前后摆。Codex 画的远侧拳头只有 3 × 3 格（第 1–3 帧 2 × 3），游戏里约 2 个像素，用户：「感觉右手和没了一样」；现在每帧换成她 E 冲刺时握剑的那只拳头（Codex 重画的 `hd/actions/skill2_2.png`，左右镜像，5 × 4 格、远侧手的棕色调，和近侧拳头一样大），放在离设计图下巴同样的位置，下巴压在拳头上沿（`FAR_HANDS` / `RUN_HAND`，另有加一段前臂的 B 版和原来的 v2 留作对照，`--hand` 切换）。剑（[`tools/art/rig_riven_hd.py`](../../tools/art/rig_riven_hd.py) 的 `run_frame`）握在这只拳头里，平举朝前，`run` 断剑、开大的 `rf_run` 重铸剑，每帧同一张（−7° / −11°：英雄联盟这一圈剑的平均方向 −2° 最近的那张；跟着每帧的方向会在两张图之间来回换）；照英雄联盟的渲染画在她身后：剑从下巴底下伸出来，拳头盖住剑柄，往前摆的近侧手臂在剑前面，拳头后面的剑柄尾不画。头、拳头、剑连成一块，跟着身体一起起伏。时长照英雄联盟 8 × 121 ms。只重做 `run` / `rf_run`（`rig_riven_hd.py --only run,rf_run`：别的动作照图里现在的样子原样写回，逐帧没变；不加 `--only` 全量重跑会把 Q、E 等烘进去的特效换成 11-10 / 11-14 改过的特效帧）。`league.dll` 要重新编译（`hd.rs` 嵌着这个 `.fanim`）。游戏里还没看过 |
 
 ```bash
 python tools/lol/extract_riven.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -110,10 +111,13 @@ python tools/art/swords_riven_hd.py   # 剑的原图读回（assets/source/riven
 python tools/lol/league_joints.py assets/source/riven/poses.json --out <关节文件夹>   # 英雄联盟每帧的关节位置
 python tools/art/pack_riven_actions.py --out <文件夹>   # 平A三套、Q 三段、E 逐帧重画：给 Codex 的包
 python tools/art/actions_riven_hd.py   # 重画帧从原图读回（assets/source/riven/hd/actions/）
+python tools/art/actions_riven_hd.py --run   # 跑步的重画从原图读回（assets/source/riven/hd/run/）；--review <文件夹> 先看
 python tools/fix/riven_attack_chain.py   # 平A三套轮流（数据）
 python tools/art/rig_riven_hd.py --joints assets/source/riven/hd/riven_joints.json   # 高清帧，写 assets/source/ppu/orig/；--review <文件夹> 先看
+python tools/art/rig_riven_hd.py --joints assets/source/riven/hd/riven_joints.json --only run,rf_run   # 只重做跑步，其他动作照图里现在的原样写回
 python tools/art/ppu_restyle.py --hero riven
 python tools/art/ppu_hd.py --hero riven
+python tools/art/hero_reels.py --hero league_riven
 python tools/art/preview_riven.py
 ```
 

@@ -1,0 +1,225 @@
+{
+  "coordinate_space": "256x256 logical",
+  "layers": {
+    "skill2": [
+      null,
+      null,
+      {
+        "form": "artemis_bow",
+        "grip": [
+          171.5,
+          148.5
+        ],
+        "bounds": [
+          153.05,
+          115.62,
+          21,
+          65
+        ],
+        "tips": [
+          [
+            157.58,
+            117.0
+          ],
+          [
+            157.41,
+            179.24
+          ]
+        ],
+        "nock": [
+          157.5,
+          147.5
+        ],
+        "drawn": false,
+        "fire_origin": [
+          175.5,
+          147.5
+        ],
+        "attachment_sha256": "b4441ac17fcd3bad62943161d7b3615d8970264342dcee2d0f7ebcf208064859"
+      },
+      {
+        "form": "artemis_bow",
+        "grip": [
+          176.8,
+          151.0
+        ],
+        "bounds": [
+          153.08,
+          108.5,
+          27,
+          84
+        ],
+        "tips": [
+          [
+            158.91,
+            110.29
+          ],
+          [
+            158.68,
+            190.72
+          ]
+        ],
+        "nock": [
+          115.3,
+          147.0
+        ],
+        "drawn": true,
+        "fire_origin": [
+          180.8,
+          147.0
+        ],
+        "attachment_sha256": "447fd2ea5382b4eef41403734a50beebe2fff34e33713a714cf741bc789905f4"
+      },
+      {
+        "form": "artemis_bow",
+        "grip": [
+          178.0,
+          151.0
+        ],
+        "bounds": [
+          154.28,
+          108.5,
+          27,
+          84
+        ],
+        "tips": [
+          [
+            160.11,
+            110.29
+          ],
+          [
+            159.88,
+            190.72
+          ]
+        ],
+        "nock": [
+          160.0,
+          150.0
+        ],
+        "drawn": false,
+        "fire_origin": [
+          182.0,
+          150.0
+        ],
+        "attachment_sha256": "bede0fbc5a9d14a6af88b9402150e189b86f52277814dbbb4297519e47ccadc0"
+      },
+      {
+        "form": "artemis_bow",
+        "grip": [
+          176.7,
+          151.5
+        ],
+        "bounds": [
+          155.61,
+          113.05,
+          24,
+          76
+        ],
+        "tips": [
+          [
+            160.8,
+            114.67
+          ],
+          [
+            160.6,
+            187.44
+          ]
+        ],
+        "nock": [
+          160.7,
+          150.5
+        ],
+        "drawn": false,
+        "fire_origin": [
+          180.7,
+          150.5
+        ],
+        "attachment_sha256": "3abb661a554ac1196fe1ead6a93be46638347645244ec3420c2b521bec5b1393"
+      },
+      null,
+      null
+    ],
+    "ult": [
+      null,
+      null,
+      {
+        "form": "artemis_statue",
+        "bounds": [
+          37,
+          91,
+          95,
+          141
+        ],
+        "tips": [
+          [
+            42.13,
+            138.94
+          ],
+          [
+            126.87,
+            141.76
+          ]
+        ],
+        "nock": [
+          111,
+          156
+        ],
+        "drawn": false,
+        "attachment_sha256": "32411a8ab09e1b5ef60fd912abdd211e8c1101c2c30a105c91f137021f368c14"
+      },
+      {
+        "form": "artemis_statue",
+        "bounds": [
+          30,
+          69,
+          103,
+          163
+        ],
+        "tips": [
+          [
+            35.56,
+            124.42
+          ],
+          [
+            127.44,
+            127.68
+          ]
+        ],
+        "nock": [
+          122,
+          164
+        ],
+        "drawn": true,
+        "attachment_sha256": "457745903d8f41d15a3ec8ea698be30dcdca157174f80eb6f437b3f9388bcb68"
+      },
+      {
+        "form": "artemis_statue",
+        "bounds": [
+          30,
+          69,
+          103,
+          163
+        ],
+        "tips": [
+          [
+            35.56,
+            124.42
+          ],
+          [
+            127.44,
+            127.68
+          ]
+        ],
+        "nock": [
+          111,
+          156
+        ],
+        "drawn": false,
+        "attachment_sha256": "98d279ffb97600df7eb35f23a208458441a1cb96da75fbe9cf9c37a7b80b0fa6"
+      },
+      null,
+      null,
+      null
+    ]
+  }
+}

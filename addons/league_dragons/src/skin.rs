@@ -31,7 +31,7 @@ const SERPEN: &str = "serpen";
 const EPIC: &str = "epic";
 const SERPEN_MONSTER: &str = "serpen_monster";
 const EPIC_MONSTER: &str = "epic_monster";
-const DRAKE_PREFIX: &str = "league_drake_";
+pub(crate) const DRAKE_PREFIX: &str = "league_drake_";
 pub const BARON: &str = "league_baron";
 
 /// What a resource name is the body of.
@@ -98,7 +98,7 @@ pub fn drake_at(events: &[feed::Event], t: usize) -> Option<String> {
 /// Sim ticks the drake's display entity can show up before this add-on records its spawn (2026-11-10's log: the entity
 /// drawn at screen tick 16953, its spawn event at 16981, so it was the previous drake's element for half a second). The
 /// next drake spawns two minutes after a kill, so looking a second ahead never picks it early.
-const SPAWN_LEAD: usize = 60;
+pub(crate) const SPAWN_LEAD: usize = 60;
 
 /// Our sheet for an element (the Elder's too).
 pub fn sheet_of(element: super::rules::Element) -> String {
@@ -270,11 +270,8 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 
 /// 加载时挂上显示钩子（一个 DLL 只挂一次）。
 pub fn install_once() {
-    HOOK.call_once(|| match game_places::hook::add("league_dragons", dress) {
-        Ok((slot, prev)) => wlog(format!(
-            "SKIN on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x}): drakes by element, Baron Nashor",
-            if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
-        )),
+    HOOK.call_once(|| match game_places::hook::add("league_dragons", dress, |m: &str| wlog(m)) {
+        Ok(p) => wlog(format!("SKIN on: {p}: drakes by element, Baron Nashor")),
         Err(e) => wlog(format!("SKIN off ({e}): the drakes and Baron keep the game's look")),
     });
 }

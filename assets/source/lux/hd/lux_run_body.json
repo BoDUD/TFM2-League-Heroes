@@ -1,0 +1,33 @@
+{
+  "hero": "lux",
+  "tag": "run",
+  "drawn": "assets/source/lux/hd/lux_run_drawn",
+  "from": 3,
+  "outline": [13, 3, 20],
+  "waist": [2, 2, 2, 2, 2, 2, 2, 2],
+  "bob": [3, 5, 3, 1, 3, 5, 3, 1],
+  "below": [
+    [[null, 75, 1, 44]],
+    [[null, 70, 1, 17], [null, 71, 22, 35]],
+    [[null, 70, 1, 17], [null, 75, 29, 41]],
+    [[null, 70, 1, 17], [null, 62, 27, 33], [null, 78, 36, 47]],
+    [[null, 74, 1, 44]],
+    [[null, 70, 1, 17], [null, 70, 19, 39]],
+    [[null, 70, 1, 17], [null, 63, 32, 39]],
+    [[null, 70, 1, 17], [null, 77, 30, 41]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (the installed run, b35590cef), then by hand (2026-11-16, the character method: 「根据英雄特性做」)",
+    "char": "lux_run (League: 0.8 s of clip a stride, six in the 4.8 s file): the upper body is frame 3's in every frame, laid where each frame draws it (bob 2 0 0 0 2 0 0 0 = her drawn hips; x 0); the back hair a chain cut by its corners left of column 25 (behind her headband), its tip on League's hair_b against the chest at our frames (frame 0 = the pelvis low after a contact, sample 9 of 48): -4 2 2 -2 -3 1 3 0 rows; the staff locked (it crosses her body in both hands: a square's move bares 20-30 squares under it); the staff's lower end (under the waist) its own locked part so it is laid with the body; clear: the frames' own staff end under the waist (frames 0 / 4 drew it a row higher)",
+    "contacts": "frames [0, 3] (feet's band spread [42, 38, 40, 48, 48, 11, 14, 16])",
+    "waist": "the bottom of her skirt (frame 3's row 58 = +2), in each frame where its drawn upper body sits (+4 in frames 0 / 4)",
+    "from": "frame 3: closest to hd_idle_base[0] (alike share per frame [0.782, 0.82, 0.824, 0.828, 0.782, 0.82, 0.824, 0.828]); frames 1-7 but 4 draw it square for square (98-100 %)",
+    "below": "base: rects per frame [1, 2, 2, 3, 1, 2, 2, 2]; char: match",
+    "bob": "base (--init): 4 squares, two beats; char: her drawn place",
+    "undecided": []
+  },
+  "use": "char",
+  "variants": {"char": {"steps": 1, "keep_gaps": true, "from": 3, "bob": [2, 0, 0, 0, 2, 0, 0, 0], "x": [0, 0, 0, 0, 0, 0, 0, 0], "waist": [4, 2, 2, 2, 4, 2, 2, 2], "below": "match", "clear": [[2, 18, -34, -16]], "parts": {"staff": {"poly": [[55, 0], [55, 22], [57, 26], [60, 26], [62, 17], [75, 17], [75, 0]], "path": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]}}, "chains": {"hair": {"poly": [[0, 8], [0, 25], [51, 25], [51, 8]], "root": 25, "side": "left", "rows": [0, 51], "lag": 0, "whip": 0.0, "tip": [-4, 2, 2, -2, -3, 1, 3, 0]}}}}
+}

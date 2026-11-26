@@ -48,7 +48,7 @@ pub const SHEET_FILE: &str = "league_dragons_fx#sheet.png";
 
 // ---- 宿主的帧（游戏 0.7.2）
 /// 宿主状态 -> 正在攒的这一帧（渲染钩子之外是 0）。
-const STATE_FRAME: usize = 0x80;
+pub(crate) const STATE_FRAME: usize = 0x80;
 /// 帧 -> `HashMap<String, Vec<命令>>`（hashbrown：控制字节指针、掩码、还能放几个、元素数）。
 const FRAME_LISTS: usize = 0x78;
 /// 一格：名字 String {容量, 指针, 长度}、命令表 Vec {容量, 指针, 长度}。
@@ -64,8 +64,8 @@ pub const TAG_POP: u64 = 0x8000_0000_0000_0013;
 const AT_XY: usize = 0x08;
 const AT_WH: usize = 0x10;
 const AT_PUSH_SCALE: usize = 0x24;
-const AT_SPRITE_NAME: usize = 0x08;
-const AT_SPRITE_UV: usize = 0x68;
+pub(crate) const AT_SPRITE_NAME: usize = 0x08;
+pub(crate) const AT_SPRITE_UV: usize = 0x68;
 const AT_SPRITE_XY: usize = 0x78;
 /// 第一个字不带最高位的命令是「文字」（它的第一个字段是 String，别的种类的标记占着 String 容量取不到的值）：算第 7 种。
 pub const KIND_TEXT: u8 = 0x07;
@@ -161,11 +161,11 @@ impl Peek for Process {
     }
 }
 
-fn plausible(p: usize) -> bool {
+pub(crate) fn plausible(p: usize) -> bool {
     (0x10000..0x7fff_ffff_ffff).contains(&p)
 }
 
-fn bytes(p: &dyn Peek, addr: usize, n: usize) -> Option<Vec<u8>> {
+pub(crate) fn bytes(p: &dyn Peek, addr: usize, n: usize) -> Option<Vec<u8>> {
     if !plausible(addr) || n > 64 << 20 {
         return None;
     }
@@ -173,11 +173,11 @@ fn bytes(p: &dyn Peek, addr: usize, n: usize) -> Option<Vec<u8>> {
     p.read(addr, &mut v).then_some(v)
 }
 
-fn u64_in(b: &[u8], at: usize) -> u64 {
+pub(crate) fn u64_in(b: &[u8], at: usize) -> u64 {
     u64::from_le_bytes(b[at..at + 8].try_into().unwrap())
 }
 
-fn f32_in(b: &[u8], at: usize) -> f32 {
+pub(crate) fn f32_in(b: &[u8], at: usize) -> f32 {
     f32::from_le_bytes(b[at..at + 4].try_into().unwrap())
 }
 
@@ -191,6 +191,11 @@ fn sane(v: f32, most: f32) -> bool {
 
 /// 帧里 `"Game"` 那张命令表：(第一条的地址, 条数)。认不出来：卡在哪。
 pub fn game_list(p: &dyn Peek, frame: usize) -> Result<(usize, usize), String> {
+    map_list(p, frame, GAME)
+}
+
+/// 帧里名字是 `want` 的那张渲染层的命令表（`"Game"`、界面的 `"UI"`……）：(第一条的地址, 条数)。认不出来：卡在哪。
+pub fn map_list(p: &dyn Peek, frame: usize, want: &str) -> Result<(usize, usize), String> {
     let head = bytes(p, frame + FRAME_LISTS, 0x20).ok_or("the frame's table of render maps cannot be read")?;
     let (ctrl, mask, items) = (u64_in(&head, 0) as usize, u64_in(&head, 8) as usize, u64_in(&head, 0x18) as usize);
     if !plausible(ctrl) || mask >= 1 << 12 || (mask + 1) & mask != 0 || items == 0 || items > mask + 1 {
@@ -206,15 +211,15 @@ pub fn game_list(p: &dyn Peek, frame: usize) -> Result<(usize, usize), String> {
         let (key, key_len) = (u64_in(&b, 8) as usize, u64_in(&b, 0x10) as usize);
         let (cap, list, n) = (u64_in(&b, 0x18) as usize, u64_in(&b, 0x20) as usize, u64_in(&b, 0x28) as usize);
         let Some(name) = (key_len <= 32).then(|| bytes(p, key, key_len)).flatten() else { continue };
-        if name == GAME.as_bytes() {
+        if name == want.as_bytes() {
             if n > cap || n > MOST || (n > 0 && !plausible(list)) {
-                return Err(format!("the \"Game\" map's command list looks wrong ({n} of {cap} at {list:#x})"));
+                return Err(format!("the \"{want}\" map's command list looks wrong ({n} of {cap} at {list:#x})"));
             }
             return Ok((list, n));
         }
         names.push(String::from_utf8_lossy(&name).into_owned());
     }
-    Err(format!("no \"Game\" map among this frame's {} render maps {names:?}", names.len()))
+    Err(format!("no \"{want}\" map among this frame's {} render maps {names:?}", names.len()))
 }
 
 /// 游戏这一帧的世界：平移那条命令在第几条、它的缩放和平移（世界像素 × 缩放 + 平移 = `"Game"` 里的坐标）、镜头的矩形
@@ -562,7 +567,7 @@ static SEEN: Mutex<Seen> = Mutex::new(Seen { told: String::new(), dumped: None, 
                                              sprites: None });
 
 /// 宿主的状态（每个接口函数的第一个参数）：`StableClient` 里就一个指向 `ClientCtxV1` 的指针。
-fn host_state(ctx: &StableClient<'_>) -> Option<usize> {
+pub(crate) fn host_state(ctx: &StableClient<'_>) -> Option<usize> {
     const _: () = assert!(std::mem::size_of::<StableClient<'static>>() == std::mem::size_of::<usize>());
     let raw = unsafe { *(ctx as *const StableClient<'_> as *const *const ClientCtxV1) };
     if raw.is_null() {

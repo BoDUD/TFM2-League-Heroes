@@ -421,7 +421,7 @@ def build(p):
     # the shield and the zombie's fire round him over him (their middles bare), the charge's glow under him
     views_b = [B_("w_sh", BIG, 3), B_("r_go", BIG, -1), B_("e_shred", FX, 3), B_("p_zombie", BIG, 3)]
     kit = {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

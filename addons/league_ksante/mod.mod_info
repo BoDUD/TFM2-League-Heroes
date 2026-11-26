@@ -11,10 +11,10 @@
       "version": ">=0.191.0"
     }
   ],
-  "description": "Test build of K'Sante's All Out body (needs League of Legends Heroes): while he is All Out he also stands, walks and gets hit in the All Out stance (the main pack shows it only in his casts), and, as in League, his health is held at 65% of his maximum (cut on entering All Out, never exceeded; the data cannot read health). The main pack's K'Sante is not changed. Writes a log for testing.",
-  "last_updated": "2026-11-14",
+  "description": "Test build of K'Sante's All Out body (needs League of Legends Heroes): while he is All Out he also stands, walks and gets hit in the All Out stance (the main pack shows it only in his casts), and, as in League, his health is held at 65% of his maximum (cut on entering All Out, never exceeded; the data cannot read health), and the game AI's ult waits for a reason as a good K'Sante's does (his health down to 70%, a low target, a diver on a weakened ally, or a long fight) instead of opening every fight. The main pack's K'Sante is not changed. Writes a log for testing.",
+  "last_updated": "2026-11-18",
   "mod_id": "league_ksante",
   "mod_type": "native",
   "name": "League Heroes: K'Sante's All Out body (test)",
-  "version": "0.1.1"
+  "version": "0.1.3"
 }

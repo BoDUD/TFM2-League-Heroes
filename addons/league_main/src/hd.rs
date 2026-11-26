@@ -104,8 +104,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // ground: 「44 ppu1.3 A」), so no SIZES row
     ("league_cassiopeia", 1.2, include_str!("../../../league/champions/league_cassiopeia#anim.fanim")),
     // Akshan: posed by tools/art/rig_akshan.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
-    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row
-    ("league_akshan", 1.2, include_str!("../../../league/champions/league_akshan#anim.fanim")),
+    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row;
+    // Codex's actions (rig_frames_1018.py, 1.61) brought to 1.2 on 2026-10-18, back to 1.61 as drawn on 2026-11-14 (「阿克尚
+    // 的眼睛也调清晰一点」「现在看起来和两个黑洞一样」: at 1.2 each eye's square and the brow over it were one dark block)
+    ("league_akshan", 1.61, include_str!("../../../league/champions/league_akshan#anim.fanim")),
     // Poppy: posed by tools/art/rig_poppy.py at the user's 1.3 squares a game pixel (36 game rows pigtails to soles, the
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」); 85 % (SIZES, the user: 「波比在游戏里体型也太大 需要缩小」 - 44 px
     // with the standing hammer against the yordles' 32-40), her frames lowered 2 squares by the restyle (RESTYLE poppy lift_sq)
@@ -215,6 +217,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Units, not heroes: no .data_champion
     ("league_malzahar_voidling", 2.0, include_str!("../../../league/champions/league_malzahar_voidling#anim.fanim")),
     ("league_elise_spiderling", 2.0, include_str!("../../../league/champions/league_elise_spiderling#anim.fanim")),
+    // Kog'Maw's void form (Icathian Surprise) as a unit of its own (league_kogmaw 0.1.0 spawns `league_kogmaw_void`,
+    // 2026-11-14; the user: 「大嘴死了还是看不到炸人啊」 then 「按英雄联盟改」): his own frames - idle_base, run, attack,
+    // hit and their hd_ twins - recoloured by code into a void creature (tools/art/unit_kogmaw_void.py), so his PPU and
+    // his size exactly. A unit, not a hero: no .data_champion
+    ("league_kogmaw_void", 1.794, include_str!("../../../league/champions/league_kogmaw_void#anim.fanim")),
     // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
@@ -233,7 +240,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_azir", 1.5, include_str!("../../../league/champions/league_azir#anim.fanim")),
     // Zac: posed by tools/art/rig_zac.py on Codex's step-1 take A-1 and its key poses after League's clips (the design's
     // head and tendril put back on the eyes; the add-on's puddle in the split_* tags) at the user's 1.5 squares a game
-    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES)
+    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES); slimmer since 2026-11-17
+    // (tools/art/slim_zac.py: the design and every key pose 16 columns narrower part by part, the head as drawn)
     ("league_zac", 1.5, include_str!("../../../league/champions/league_zac#anim.fanim")),
     // Singed: posed by tools/art/rig_singed.py on Codex's step-1 take A-2 as drawn and its key poses after League's clips
     // (the design's head put back, the bodies brought to the design's size) at the user's 1.39 squares a game pixel (its
@@ -565,10 +573,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_aatrox", 2.275, include_str!("../../../league/champions/league_aatrox#anim.fanim")),
     // Lissandra (the same release): Codex's lissandra-A read on its own ~15-px squares (47 x 76,
     // tools/art/design_lissandra_hd.py: 76 rows / 42 = 1.810); every action Codex's whole-frame redraw of her old frame
-    // read onto it at the zoom her crown's width gives (the user: 「丽桑卓有模型一大一小的问题」 - her old glide and death sink,
-    // so their heights shrank those frames; death 3-6 by her height, her hands reach the crown) (tools/art/casts_lissandra_hd.py,
-    // rig_lissandra_hd.py; Q drawn from its native body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2
-    // copies baked on again by lissandra_bake.json); 42 game px as her 1x sprite, so no SIZES row
+    // read onto it 76 rows tall in every frame, the crown's width choosing among the zooms that give that (2026-11-17,
+    // the user: 「丽桑卓还有模型一大一小的问题 不光是失去了像素」 - read by the crown alone, the glide's 7-8 came out 73 rows);
+    // the glide one head in all eight frames (Codex's black blot round the face in 7-8 had been eaten into specks by the
+    // thin outline: 「丽桑卓头那里失去像素了」) and a whole-figure float of up to 3 squares a cycle, the frames grown at
+    // their bottoms (rig_lissandra_hd.py --float); death 5-8 and R on herself without the black under the crown
+    // (「感觉你说的丽桑卓那几个问题还是得修」) (tools/art/casts_lissandra_hd.py, rig_lissandra_hd.py; Q drawn from its native
+    // body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2 copies baked on again by lissandra_bake.json);
+    // 42 game px as her 1x sprite, so no SIZES row
     ("league_lissandra", 1.810, include_str!("../../../league/champions/league_lissandra#anim.fanim")),
     // Alistar (2026-11-04, 「接下来重做牛头 蛮王 派克 布兰德」, 「全部粗」): Codex's alistar-A read on its own ~15-px squares
     // (71 x 76, tools/art/design_alistar_hd.py: 76 rows / 44 = 1.727); every action Codex's whole-frame redraw of his old
@@ -581,7 +593,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read onto it at the median of the zooms his height, chest and area give (tools/art/casts_tryndamere_hd.py,
     // rig_tryndamere_hd.py; his death's thrown sword moved to where the old frames have it; R drawn from its native body
     // cells, its fire and the skill_fx1 / skill_q_fx1 copies' spin and heal baked on again by tryndamere_bake.json); 37
-    // game px as his 1x sprite, so no SIZES row
+    // game px as his 1x sprite. 2026-11-21 起局内画成 115%（SIZES，见那里）
     ("league_tryndamere", 1.811, include_str!("../../../league/champions/league_tryndamere#anim.fanim")),
     // Pyke (the same release): Codex's pyke-A read on its own ~16-px squares (68 x 73, tools/art/design_pyke_hd.py: 73
     // rows / 41 = 1.780); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
@@ -748,6 +760,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 2026-10-13 after the restyle 「酒桶可以稍微放大点吧 现在也太小了」 -> 90% from a size sheet, then 「还是太小啊」 -> 100% - judged on a preview GIF that
 /// drew him at 80% - then 「感觉又太大了？」 from a true-scale sheet -> 90% (40 game px, Darius 42); his frames
 /// lifted by the restyle (RESTYLE gragas lift_sq).
+/// 2026-11-23：11-19 GPT 重画的新模型比旧的矮、瘦（90% 时高 38 游戏像素、实心 885 格，旧模型 40 / 957），用户：「酒桶模型有点小
+/// 新模型」-> 100%（高 43，瑟提 43、德莱厄斯 44）。新帧的脚底本来就画在 100% 踩地的位置（中心下 17 格 = 11.7 游戏像素，
+/// 90% 时反而浮起 1 格），帧不用挪。
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py); kept
 /// through the batch 8 redo (2026-11-09, PPU 2.081), her frames a square higher by the restyle (RESTYLE zeri lift_sq).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); after the restyle
@@ -813,7 +828,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// club, his body 1601 solid game px, the heaviest with Ornn's 1583, against Garen's 42 x 48 / 1051; 85 % = 37 x 45,
 /// 1157), his dense frames 4 squares lower (RESTYLE trundle lift_sq: 12 x 2.0 x (1 / 0.85 - 1) = 4.2, his feet 12 game
 /// px under his centre), written by the restyle itself (it reproduces his committed strips bit for bit).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
+/// 泰达米尔：115%（用户 2026-11-21：「蛮王新模型在局内感觉有点小了」，看了对比图「放大到 1.15」）。GPT 重画的腥红之月
+/// 造型站得直、身子瘦：待机第一帧脚到头顶 38 游戏像素（连发髻），比旧模型的 37 还高一点，可实打实只有 639 平方游戏像素
+/// （旧模型 914，盖伦 1022，赵信 864，亚索 702）；115% = 44 高、845。高清帧往上挪 3 格（脚底在中心下 20.5 格：
+/// 20.5 × (1 - 1 / 1.15) = 2.7），他的原帧早不是 restyle 出的了，由 tools/art/lift_hd_strips.py 直接挪原帧，再
+/// ppu_hd.py、hero_reels.py。
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 1.00), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
@@ -822,7 +842,8 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
                                     ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85),
-                                    ("league_belveth", 0.85), ("league_trundle", 0.85)];
+                                    ("league_belveth", 0.85), ("league_trundle", 0.85),
+                                    ("league_tryndamere", 1.15)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent

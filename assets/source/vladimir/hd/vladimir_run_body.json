@@ -1,0 +1,33 @@
+{
+  "hero": "vladimir",
+  "tag": "run",
+  "drawn": "assets/source/vladimir/hd/vladimir_run_drawn",
+  "from": 2,
+  "outline": [23, 0, 8],
+  "waist": [-7, -7, -7, -7, -7, -7, -7, -7],
+  "bob": [4, 6, 5, 3, 4, 6, 5, 3],
+  "below": [
+    [],
+    [[null, 53, 30, 40]],
+    [[null, 55, 31, 41]],
+    [],
+    [],
+    [],
+    [],
+    [[null, 53, 30, 40]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (the installed run, b35590cef), then by hand (2026-11-16): one drawing of the upper body (shape constancy: 「模型不要变大变小」, drift = 变形), not a livelier run",
+    "char": "the installed upper body is four drawings a hair apart (frames 1 = 7, 3 = 5, 0 ~ 4, 2 = 6 = the idle's): his eye glows red in 0 1 3 4 5 7 and is a dark line in 2 / 6 (it flickers off twice a cycle), and bands of 2-3 rows (hair, collar, shoulder spikes, chest) sit a row off and back - the size is the same in all (hair top to buckle 32 rows): now frame 1's drawing (the red eye) in every frame, laid by whole squares where each frame draws it (bob 2 0 -1 0 2 0 -1 0 rows, x 0 0 -1 -1 0 -1 -1 0 = each frame's own drawn place, found square for square), the coat skirt and legs under the belt as drawn; nothing moves on its own: his coat panels, claws, cuffs and collar are drawn into the coat - a square's move fills 4-10 squares",
+    "contacts": "frames [0, 4] (feet's band spread [33, 33, 33, 33, 34, 33, 33, 33])",
+    "waist": "the top of his belt (frame 1's row 47 = -6), in each frame where its drawn upper body sits",
+    "from": "char: frame 1 (= frame 7: the red-eyed drawing six of the eight frames show); base: frame 2, closest to hd_idle_base[0] (alike share per frame [0.863, 0.92, 0.967, 0.879, 0.848, 0.879, 0.945, 0.92])",
+    "below": "base: rects per frame [0, 1, 1, 0, 0, 0, 0, 1]; char: match",
+    "bob": "base (--init): 3 squares, two beats; char: his drawn place",
+    "undecided": []
+  },
+  "use": "char",
+  "variants": {"char": {"steps": 1, "keep_gaps": true, "from": 1, "bob": [2, 0, -1, 0, 2, 0, -1, 0], "x": [0, 0, -1, -1, 0, -1, -1, 0], "waist": [-4, -6, -7, -6, -4, -6, -7, -6], "below": "match", "parts": {}, "chains": {}}}
+}

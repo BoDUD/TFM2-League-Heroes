@@ -9,7 +9,7 @@
 | id | `league_chogath` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC |
 | 高清帧 | PPU 1.2 |
 | 附加包 | [科加斯附加包](#附加包)（`league_chogath`） |
 
@@ -55,7 +55,7 @@
 
 ### 科加斯附加包
 
-[科加斯附加包](../../addons/league_chogath/README.md)：`league_chogath` v0.1.7
+[科加斯附加包](../../addons/league_chogath/README.md)：`league_chogath` v0.1.8
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

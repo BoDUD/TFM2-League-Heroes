@@ -1,0 +1,162 @@
+{
+ "hero": "murkwolf",
+ "tag": "run",
+ "drawn": "assets/source/murkwolf/hd/murkwolf_run_drawn",
+ "from": 0,
+ "outline": [
+  20,
+  2,
+  18
+ ],
+ "waist": [
+  -2,
+  -2,
+  -2,
+  -2,
+  -2,
+  -2,
+  -2,
+  -2
+ ],
+ "bob": [
+  0,
+  2,
+  3,
+  1,
+  0,
+  2,
+  3,
+  1
+ ],
+ "below": "match",
+ "parts": [
+  {
+   "name": "front",
+   "poly": [
+    [
+     40,
+     39
+    ],
+    [
+     40,
+     96
+    ],
+    [
+     53,
+     96
+    ],
+    [
+     53,
+     92
+    ],
+    [
+     48,
+     92
+    ],
+    [
+     48,
+     72
+    ],
+    [
+     53,
+     72
+    ],
+    [
+     53,
+     62
+    ],
+    [
+     45,
+     62
+    ],
+    [
+     45,
+     39
+    ]
+   ],
+   "lag": 0,
+   "range": [
+    0,
+    0
+   ]
+  }
+ ],
+ "chains": [
+  {
+   "name": "tail",
+   "colours": [
+    [
+     47,
+     49,
+     73
+    ],
+    [
+     104,
+     55,
+     101
+    ]
+   ],
+   "side": "left",
+   "root": 36,
+   "rows": [
+    0,
+    31
+   ],
+   "tip": [
+    1,
+    -1,
+    -3,
+    -1,
+    3,
+    3,
+    2,
+    3
+   ],
+   "ink_depth": 2
+  }
+ ],
+ "bare_ground": true,
+ "keep_gaps": true,
+ "sink_edge": true,
+ "part_gaps": true,
+ "close_edges": true,
+ "keep_one": "assets/source/murkwolf/hd/murkwolf_run_one",
+ "keep_lo": "assets/source/murkwolf/hd/murkwolf_run_lo",
+ "variants": {
+  "bob5": {
+   "bob": [
+    0,
+    3,
+    5,
+    2,
+    0,
+    3,
+    5,
+    2
+   ],
+   "chains": {
+    "tail": {
+     "tip": [
+      1,
+      -2,
+      -5,
+      -2,
+      3,
+      3,
+      2,
+      3
+     ]
+    }
+   },
+   "notes": "TFT's full 5 rows: the heads sink over the front legs until little of the near one shows"
+  }
+ },
+ "notes": {
+  "made": "--init (the installed run, 419c6031d's tft/), then by hand (round 7, the TFT heroes: 「继续处理云顶的英雄吧」; R6: a static body bobs as one drawing over its drawn legs on the unit's own run clip)",
+  "drawn": "rig_murkwolf's trot: the design (idle) the same drawing in every frame, not moving at all; its three legs (hind, near front, far front) sheared about their tops, the near one half a cycle against the others, feet landing on frames 2 / 6",
+  "bob": "TFT's Murk Wolf gallop (TFTSet18 tft18_murkwolf run, 0.8 s, the same cycle as ours): Spine1 +2.6 -0.6 -2.6 +0.6 +2.7 -0.6 -2.7 +0.6 rows up at our 60-row height (5 rows, two beats); ours lowest after the feet land (2 / 6), at its drawn place mid-swing (0 / 4), never above it: 0 2 3 1 rows down - capped at 3: at 5 the two heads sink over the front legs until little of the near one shows (variant bob5)",
+  "below": "match: the body is one drawing in every frame; under the waist (design row 40, the hind leg's top) the chest and both heads' jaws over the front legs go with it (part `front`, lag 0, its corners round the rig's leg boxes)",
+  "chains": "the raised tail (its slate and purple left of column -12, 2 deep outline with it) on TFT's Tail4 path against the chest (+1.9 -4.7 -12 -4.6 +5.7 +5.2 +3.3 +5.1 rows down), scaled to what the frames hold above it: 1 -1 -3 -1 3 3 2 3",
+  "keep_lo": "the installed lo_ frames are not add_lo's from the dense ones (159-180 squares a frame off): kept"
+ }
+}

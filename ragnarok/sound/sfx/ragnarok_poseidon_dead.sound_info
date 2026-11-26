@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.33,
+      "clip": "ragnarok_poseidon_sfx_trident_drop",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.785,
+      "clip": "ragnarok_poseidon_sfx_body_fall",
+      "volume": 0.5
+    }
+  ]
+}

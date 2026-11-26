@@ -54,7 +54,8 @@ PROJECTILE_EFFECTS = {"TargetProjectile", "AutoTargetProjectile", "TargetSplashP
 # zones on the ground: their view_projectiles picture is turned with their direction like any projectile's - (1, 0) or
 # (-1, 0) on a Position cast, so upside down when cast leftward (league_leona R, league_missfortune E, 2026-10-05)
 ZONE_EFFECTS = {"RangeProjectile", "RangePeriodProjectile", "ApplyInProjectile"}
-CATEGORIES = {"Melee", "Range", "Magician", "Util", "Assassin"}
+# Tank: game 0.7.3 (2026-11-18; ChampionCategoryV1::Tank, ABI 11) - a pack using it needs base >= 0.7.3
+CATEGORIES = {"Melee", "Range", "Magician", "Util", "Assassin", "Tank"}
 CASTING_TYPES = {"Targeting", "Direction", "Position", "None"}
 # the game's own CastingTarget variants (serde's list in TeamfightManager2.exe 0.6.2): Both is every unit of both sides,
 # towers and monsters too (league_camille E picks its holds with it)

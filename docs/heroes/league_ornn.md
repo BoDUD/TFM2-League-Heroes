@@ -9,7 +9,7 @@
 | id | `league_ornn` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC / Shield |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / CC / Shield |
 | 高清帧 | PPU 1.5 |
 | 附加包 | [奥恩附加包](#附加包)（`league_ornn`） |
 
@@ -55,7 +55,7 @@
 
 ### 奥恩附加包
 
-[奥恩附加包](../../addons/league_ornn/README.md)：`league_ornn` v0.4.5
+[奥恩附加包](../../addons/league_ornn/README.md)：`league_ornn` v0.4.6
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

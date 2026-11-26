@@ -32,15 +32,19 @@
 //! 1000）人早走远了，只好挂在墙上不动；贴身的目标也会去钩 36000 外的墙再扑回来；v4 收紧了钩点、
 //! 预判走位，E2 总会扑出去，加了地图四边。
 //!
-//! 她的 R 跃起中不出 E，E 进行中 R 开始了就停掉（会把半空的她拉走，大招落空）。R 的场地里只在要逃时出 E（v4.2）：
-//! 主包的场地不再把她拉回中心，她走出去场地就结束，钩出去等于放掉正在打的目标，所以场地里不突进。
+//! 她的 R 跃起中不出 E，E 进行中 R 开始了就停掉（会把半空的她拉走，大招落空）。R 的场地里不出 E：主包的场地不再把她
+//! 拉回中心，她走出去场地就结束，钩出去等于放掉正在打的目标，所以场地里不突进（v4.2）；0.4.14 起残血也不钩出去逃
+//! （用户 2026-11-17：「还是有bug啊」——看的那场她落地 4 tick 就钩到地图边，场地 38 tick 就没了，被锁的卡莎还在里面）。
 //!
 //! 位移用引擎自己的强制位移（`ForceMove`，冲刺技能走的就是它，撞墙会停）；之后每 tick
 //! 看一次，她身上没有强制位移却还没到时改为逐 tick 直接设位置，保证一定能到。
 //!
-//! 大招场地里谁也不出去（v4.3，[`arena`]）：场地开着时 AI 要她走出场地或回城，改成普攻被锁的目标、打不了就走回中心——
-//! 她一走出去场地就结束；被锁的目标每 tick 看一次，出了场地边就放回去（用户 2026-10-26：「卡密尔的R三秒有点太短了 而且现在
-//! 有时候都没3秒」「你要确保英雄走不出去」）。
+//! 大招场地里谁也不出去（v4.3，[`arena`]）：场地开着时 AI 要她走出场地或回城，改成普攻被锁的目标（0.4.9 起场地里没人可打
+//! 就不管）——她一走出去场地就结束；被锁的目标每 tick 看一次，出了场地边就放回去（用户 2026-10-26：「卡密尔的R三秒有点太短了
+//! 而且现在有时候都没3秒」「你要确保英雄走不出去」）。0.4.12（用户 2026-11-17：「卡密尔离开磁场后 磁场也不消失？」）：
+//! 场地站着的地面由被动在场地开着时一段段放（主包那个 240 tick 的地面在副本里去掉画面），场地一结束地面就没了；AI 让她打
+//! 场地外够不着的人也算走出去；每个场地记一行 `ARENA END`。0.4.13（「青钢影的bug没修好啊」）：被锁的目标被吞下（塔姆，
+//! 放逐）场地当场结束，英雄联盟也是这样。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_camille_wall.log`
 //! （游戏自己的 log.log 旁边），找不到时写在游戏目录。每次启动游戏重写，上一次的留在 .prev.log。
@@ -229,6 +233,12 @@ fn origin_label(sim: &StableSim<'_>) -> String {
 /// 一行日志的开头：哪场模拟、第几 tick、哪个卡密尔。
 fn head(sim: &StableSim<'_>, caster: usize) -> String {
     format!("[{}] t={} camille#{caster}", origin_label(sim), sim.tick())
+}
+
+/// A simulation someone watches (the match on screen, a spectate, a replay): everything of the R arena is logged there
+/// (0.4.12); the server's presims log less ([`arena`]).
+fn watched(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)) != Some(SimOriginKindV1::ServerPresim)
 }
 
 // ===================== 墙格子 =====================
@@ -1060,6 +1070,20 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
 
 // ===================== E 的各段 =====================
 
+/// The last tick an escape held back by her arena was logged (the watched match, a line a second at most; 0.4.14).
+static HELD_AT: AtomicUsize = AtomicUsize::new(usize::MAX);
+
+/// 0.4.14: she wants out (low health, an enemy close) but her R arena is up - she stays; the watched match says so.
+fn held_escape(sim: &StableSim<'_>, caster: usize) {
+    let tick = sim.tick();
+    let last = HELD_AT.load(Ordering::Relaxed);
+    if watched(sim) && (last == usize::MAX || tick < last || tick >= last + 60) {
+        HELD_AT.store(tick, Ordering::Relaxed);
+        wlog(format!("{} ESCAPE held: her R arena is up (0.4.14: no E inside it, not even at low health)",
+                     head(sim, caster)));
+    }
+}
+
 /// 没找到钩点的次数（日志里每 200 次报一次）。
 static MISSES: AtomicUsize = AtomicUsize::new(0);
 
@@ -1079,7 +1103,12 @@ fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities
     let hp = hp_share(sim, caster);
     let low = !escape && hp <= LOW_HP && nearest(here, &foes) <= LOW_HP_NEAR;
     let escape = escape || low;
-    if !escape && in_arena(sim, caster) {
+    // her R arena up: no E at all (0.4.14) - an escape hooked her out of her own arena and ended it with the target alive
+    // inside (the user 2026-11-17: 「还是有bug啊」)
+    if in_arena(sim, caster) {
+        if escape {
+            held_escape(sim, caster);
+        }
         return;
     }
     let hits = hook_points(&grid, here, my_radius(sim, caster), &posts_of(&us, team));
@@ -1385,8 +1414,8 @@ const MAX_WALK: f64 = 2_500.0;
 #[derive(Clone, Default)]
 struct AutoE {
     seen: HashMap<usize, (f64, f64, usize)>,
-    /// the R arena's centre while it is up ([`arena::hold`])
-    arena: arena::Slot,
+    /// the R arena while it is up: its centre, the hold on the marked target, the floor ([`arena::update`])
+    arena: arena::Field,
 }
 
 impl StablePassive for AutoE {
@@ -1394,8 +1423,12 @@ impl StablePassive for AutoE {
         Box::new(self.clone())
     }
 
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
+        arena::died(sim, &mut self.arena);
+    }
+
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, entity: usize) {
-        arena::hold(sim, entity, &mut self.arena);
+        arena::update(sim, entity, &mut self.arena);
         let tick = sim.tick();
         if tick % AUTO_EVERY != 0 {
             return;
@@ -1513,7 +1546,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (wall + map edge + tower Hookshot, R arena kept on its picture) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (wall + map edge + tower Hookshot, R arena kept on its picture, its floor only while it lasts) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

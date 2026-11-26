@@ -1209,5 +1209,6 @@
       "reach": 32000,
       "dr": 10
     }
-  }
+  },
+  "stack_skill_index": 2
 }

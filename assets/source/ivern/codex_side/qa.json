@@ -1,0 +1,578 @@
+{
+  "palette_opaque_colours": 40,
+  "frames": [
+    {
+      "index": 0,
+      "file": "daisy-side-0_design.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        156,
+        288,
+        1008,
+        1200
+      ],
+      "visible_height_cells": 76,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "01a54708aee2f6f573508fae37af888467e76e9056e31046baa4728fd23b1394",
+      "final_sha256": "77753504a923de929636737c166c21d11324c4547883fda7996bf1ae6a641afd",
+      "raw_opaque_bbox": [
+        100,
+        189,
+        1055,
+        1205
+      ],
+      "uniform_resample_factor": 0.07480314960629922,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 1,
+      "file": "daisy-side-1_walk1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        72,
+        300,
+        1164,
+        1200
+      ],
+      "visible_height_cells": 75,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "5debf24296b03e4ef84898ceefa1e31b55ceb9ddfe1c3e925bca9e1ceb362930",
+      "final_sha256": "b3f017970de17ed6e1ac489c0dc8f75e7f620472dc1fc0d99ce4c38b13a55d8f",
+      "raw_opaque_bbox": [
+        38,
+        228,
+        1219,
+        1198
+      ],
+      "uniform_resample_factor": 0.07731958762886598,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 2,
+      "file": "daisy-side-2_walk2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        108,
+        276,
+        1128,
+        1200
+      ],
+      "visible_height_cells": 77,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "4ef14ed21236cab70c66aad3c6b915f7765e3f0ea343f911dfde13f3511b4d08",
+      "final_sha256": "79b954f0cc03a5a870a9974a45fa9f345ca7205781d00e9f834e16a8bb14c42a",
+      "raw_opaque_bbox": [
+        58,
+        189,
+        1173,
+        1203
+      ],
+      "uniform_resample_factor": 0.07593688362919132,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 3,
+      "file": "daisy-side-3_walk3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        72,
+        300,
+        1164,
+        1200
+      ],
+      "visible_height_cells": 75,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "d5de3cb5391125f7bc5eb76ad13acb01560b5d2bb2ac71f8bbfe3b4e9f758f45",
+      "final_sha256": "94f86e34c656629cfb5aceb3f43629433e10bda17281fd365ae427242b6186b2",
+      "raw_opaque_bbox": [
+        36,
+        225,
+        1206,
+        1193
+      ],
+      "uniform_resample_factor": 0.07747933884297521,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 4,
+      "file": "daisy-side-4_walk4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        120,
+        276,
+        1116,
+        1200
+      ],
+      "visible_height_cells": 77,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "5e7f0827a9c5366d9ef35d23787862ecb3a3a96018dca2bbb43506b55949913e",
+      "final_sha256": "60e0e4be9446ab1fafacd6fc85469f2e94407eb2ef88456a88b8dab32bcd9035",
+      "raw_opaque_bbox": [
+        78,
+        187,
+        1173,
+        1203
+      ],
+      "uniform_resample_factor": 0.07578740157480315,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 5,
+      "file": "daisy-side-5_punch_up.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        156,
+        180,
+        1080,
+        1200
+      ],
+      "visible_height_cells": 85,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "a49abb76b1c7f16debba32b32a86b1f133bf065a1b64e2f20757faa3f00d8c25",
+      "final_sha256": "b36413e75ea04b108cb61b321e327e3fe87e3066cece0f1ff90f6bd9a156b98a",
+      "raw_opaque_bbox": [
+        102,
+        82,
+        1132,
+        1219
+      ],
+      "uniform_resample_factor": 0.07475813544415127,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 6,
+      "file": "daisy-side-6_punch_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        120,
+        240,
+        1092,
+        1200
+      ],
+      "visible_height_cells": 80,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "ae7dc16ee5dfb6f4149b79874d70618c1b52dee03bce0eeb347ba6f5a0cad24c",
+      "final_sha256": "3e693fc13954f123245454eba27eb6691d1da42a8c3d74d881a90452f3beb40e",
+      "raw_opaque_bbox": [
+        65,
+        156,
+        1149,
+        1232
+      ],
+      "uniform_resample_factor": 0.07434944237918216,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": true
+    },
+    {
+      "index": 7,
+      "file": "daisy-side-7_slam_up.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        192,
+        180,
+        1044,
+        1200
+      ],
+      "visible_height_cells": 85,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "942fa9a80ba40f5e1110107e3fa4369a8f8a3befb885151be9eb5f67ad01ea88",
+      "final_sha256": "f141666ca87020e189e84c97034d0f58310ea4a04adf319af2cb6cfa79cac836",
+      "raw_opaque_bbox": [
+        149,
+        64,
+        1108,
+        1206
+      ],
+      "uniform_resample_factor": 0.07443082311733801,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 8,
+      "file": "daisy-side-8_slam.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        204,
+        420,
+        1080,
+        1200
+      ],
+      "visible_height_cells": 65,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "37dbe158a031c540b7a72bb4dbaed0cd3528d0c6492b3d9b7f95c428fec4d975",
+      "final_sha256": "1f307e383335b2a51fb40ed9900264910d41d3263384ee41ee1e1c55ac0ccf94",
+      "raw_opaque_bbox": [
+        152,
+        336,
+        1135,
+        1208
+      ],
+      "uniform_resample_factor": 0.07454128440366972,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 9,
+      "file": "daisy-side-9_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        144,
+        336,
+        876,
+        1200
+      ],
+      "visible_height_cells": 72,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "ab75fb80e6688b45eedef0c0d00317958dec18f7422b83ab051083245ace9088",
+      "final_sha256": "9fd5ce18ea6c97d47811206775956307c754938cd897660ca79aefeaa93b5ac5",
+      "raw_opaque_bbox": [
+        125,
+        294,
+        889,
+        1200
+      ],
+      "uniform_resample_factor": 0.07947019867549669,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 10,
+      "file": "daisy-side-10_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        204,
+        60,
+        1092,
+        960
+      ],
+      "visible_height_cells": 75,
+      "sole_baseline_px": 960,
+      "raw_sha256": "830a12072c0acf1fc15a5b4760d345d5c5b4ebc15a83ed40dfad15c97d346261",
+      "final_sha256": "3e8b4b703e48ef6a91fd297988f4168d2d92347c0e016eb028c38f373de052de",
+      "raw_opaque_bbox": [
+        164,
+        72,
+        1150,
+        1071
+      ],
+      "uniform_resample_factor": 0.07507507507507508,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 11,
+      "file": "daisy-side-11_land.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        144,
+        456,
+        1116,
+        1200
+      ],
+      "visible_height_cells": 62,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "2a58581cd2b56e4af399a68ffa16b6baf6f331df736951efc34025d328d1559a",
+      "final_sha256": "b322055d523eaae674094454c87a2f4c3784a8502c3956267886e9244c0ce68c",
+      "raw_opaque_bbox": [
+        93,
+        384,
+        1172,
+        1212
+      ],
+      "uniform_resample_factor": 0.0748792270531401,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 12,
+      "file": "daisy-side-12_wave.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        120,
+        360,
+        1152,
+        1200
+      ],
+      "visible_height_cells": 70,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "fd81d9e1f8d6fe7d431198523814425182b18913f1a3d67b49c348e23005b7d0",
+      "final_sha256": "94e9e176ccbf4f9f07fc6c94df612bb9bab6a8ede528ed1be974155218a71bb9",
+      "raw_opaque_bbox": [
+        67,
+        263,
+        1215,
+        1202
+      ],
+      "uniform_resample_factor": 0.07454739084132056,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 13,
+      "file": "daisy-side-13_slump.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        144,
+        552,
+        1092,
+        1200
+      ],
+      "visible_height_cells": 54,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "053b16662350baa7ed24ba314e2d4268d0ab472f57bac43b70679cbfc3a05e44",
+      "final_sha256": "0f1fe2898c7fea0590d0ef3042f8c53e157c386d79c7e94aa5d72614e65baef7",
+      "raw_opaque_bbox": [
+        103,
+        494,
+        1143,
+        1209
+      ],
+      "uniform_resample_factor": 0.07552447552447553,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    },
+    {
+      "index": 14,
+      "file": "daisy-side-14_crumble.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "logical_size": [
+        104,
+        104
+      ],
+      "grid_px": 12,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_bbox_px": [
+        96,
+        804,
+        1140,
+        1200
+      ],
+      "visible_height_cells": 33,
+      "sole_baseline_px": 1200,
+      "raw_sha256": "5ed87876d7c78b0e8e76a3e3b4ea1c940136bfe3c8196f2c427ac56eec3d6a50",
+      "final_sha256": "25d4907c6e5fb1f178ae599e039559f6461e7c434be334fb379db7d759681cee",
+      "raw_opaque_bbox": [
+        37,
+        783,
+        1220,
+        1230
+      ],
+      "uniform_resample_factor": 0.0738255033557047,
+      "anatomy_review": "two arms / two hands; two legs, occlusion allowed",
+      "source_route": "native image_gen; no code-drawn anatomy",
+      "replaced_rejected_three_hand_frame": false
+    }
+  ],
+  "checks": {
+    "all_15_present": true,
+    "1254_square": true,
+    "exact_12px_grid": true,
+    "binary_alpha": true,
+    "transparent_rgb_zero": true,
+    "original_palette_only": true,
+    "stand_76_cells": true,
+    "grounded_bottom_1200": true,
+    "fall_bottom_960": true,
+    "manual_anatomy_review": true
+  },
+  "notes": [
+    "1254 is not divisible by 12: final 6 right/bottom pixels remain transparent.",
+    "Frame 6 initial three-hand generation was rejected; only the repaired two-hand source is shipped.",
+    "Frame 12 uses a flat source cut at the knees; frame 14 limbs are partly occluded in collapse.",
+    "No game install/runtime test is claimed by this art pack."
+  ]
+}

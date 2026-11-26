@@ -115,5 +115,83 @@
       "graph_blue_serpen": "Blue Team Elemental Drake Kill",
       "graph_red_serpen": "Red Team Elemental Drake Kill"
     }
+  },
+  "ko": {
+    "database_edit": {
+      "number_field": {
+        "epic_jungle": "내셔 남작",
+        "serpen_jungle": "원소 드래곤",
+        "epic_minion_buff_duration": "내셔 남작 미니언 버프 지속시간",
+        "epic_minion_buff_range": "내셔 남작 미니언 버프 범위"
+      },
+      "number_morgard_buff_section": "내셔 남작 미니언 버프",
+      "number_morgard_buff_increase_section": "내셔 남작 버프 성장",
+      "number_serpen_buff_section": "원소 드래곤 챔피언 버프"
+    },
+    "training": {
+      "comp_test": {
+        "history_objects": "내셔 남작 {Morgard} / 드래곤 {Serpen} / 타워 {BlueTower}/{RedTower}",
+        "summary_objects": "내셔 남작 {Morgard} / 드래곤 {Serpen}\n파괴 타워 블루 {BlueTower} / 레드 {RedTower}"
+      }
+    },
+    "match": {
+      "log": {
+        "red_epic": "<#f7b1b8ff>레드 팀<>이 내셔 남작을 처치했습니다!",
+        "blue_epic": "<#adb9ffff>블루 팀<>이 내셔 남작을 처치했습니다!",
+        "red_serpen": "<#f7b1b8ff>레드 팀<>이 원소 드래곤을 처치했습니다!",
+        "blue_serpen": "<#adb9ffff>블루 팀<>이 원소 드래곤을 처치했습니다!"
+      }
+    },
+    "ingame": {
+      "epic": "내셔 남작 처치",
+      "serpen": "원소 드래곤 처치"
+    },
+    "set_result": {
+      "epic": "내셔 남작",
+      "serpen": "원소 드래곤",
+      "graph_blue_epic": "블루 팀 내셔 남작 처치",
+      "graph_red_epic": "레드 팀 내셔 남작 처치",
+      "graph_blue_serpen": "블루 팀 원소 드래곤 처치",
+      "graph_red_serpen": "레드 팀 원소 드래곤 처치"
+    }
+  },
+  "ja": {
+    "database_edit": {
+      "number_field": {
+        "epic_jungle": "バロンナッシャー",
+        "serpen_jungle": "エレメンタルドラゴン",
+        "epic_minion_buff_duration": "バロンナッシャー ミニオンバフ持続時間",
+        "epic_minion_buff_range": "バロンナッシャー ミニオンバフ範囲"
+      },
+      "number_morgard_buff_section": "バロンナッシャーのミニオンバフ",
+      "number_morgard_buff_increase_section": "バロンナッシャーバフ成長",
+      "number_serpen_buff_section": "エレメンタルドラゴンのチャンピオンバフ"
+    },
+    "training": {
+      "comp_test": {
+        "history_objects": "バロン {Morgard} / ドラゴン {Serpen} / タワー {BlueTower}/{RedTower}",
+        "summary_objects": "バロン {Morgard} / ドラゴン {Serpen}\n破壊タワー ブルー {BlueTower} / レッド {RedTower}"
+      }
+    },
+    "match": {
+      "log": {
+        "red_epic": "<#f7b1b8ff>レッドチーム<>がバロンナッシャーを倒しました！",
+        "blue_epic": "<#adb9ffff>ブルーチーム<>がバロンナッシャーを倒しました！",
+        "red_serpen": "<#f7b1b8ff>レッドチーム<>がエレメンタルドラゴンを倒しました！",
+        "blue_serpen": "<#adb9ffff>ブルーチーム<>がエレメンタルドラゴンを倒しました！"
+      }
+    },
+    "ingame": {
+      "epic": "バロンナッシャー撃破",
+      "serpen": "エレメンタルドラゴン撃破"
+    },
+    "set_result": {
+      "epic": "バロンナッシャー",
+      "serpen": "エレメンタルドラゴン",
+      "graph_blue_epic": "ブルーチーム バロンナッシャー討伐",
+      "graph_red_epic": "レッドチーム バロンナッシャー討伐",
+      "graph_blue_serpen": "ブルーチーム エレメンタルドラゴン討伐",
+      "graph_red_serpen": "レッドチーム エレメンタルドラゴン討伐"
+    }
   }
 }

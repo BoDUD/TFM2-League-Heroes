@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee |
-| 高清帧 | PPU 1.81 |
+| 高清帧 | PPU 1.81（画成 115%） |
 | 附加包 | [蛮王残血开大附加包](#附加包)（`league_tryndamere_rage`） |
 
 ![泰达米尔演示](../preview/league_tryndamere_showcase.gif)
@@ -55,9 +55,25 @@
 
 ### 蛮王残血开大附加包
 
-[蛮王残血开大附加包](../../addons/league_tryndamere_rage/README.md)：`league_tryndamere_rage` v0.3.2
+[蛮王残血开大附加包](../../addons/league_tryndamere_rage/README.md)：`league_tryndamere_rage` v0.3.3
 
-0.2.2（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_tryndamere.py`，主包和副本的 JSON 由 `tools/fix/arm_refund_read.py` 改（蛮王的烘焙表在 assets/ 里，这里重建不了）），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
+主包 `league` 保持纯数据。数据读不到当前生命，主包里蛮王的 R 由 AI 在敌方英雄 60000 内时放出、**待命** 900 tick
+（没用上就退还冷却）；待命期间他每次普攻查一次：被**两名以上**敌方英雄贴身、或**连续 5 次**检查都挨了打，才爆发「无尽怒火」。
+SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生在大招待命却没认出危险的时候。用户：「大招快没血的时候设置开也行」——
+这个附加包用原生代码读生命，做成 League 玩家的按法：
+
+- **快没血才开**：普攻里那段检查去掉，改由被动 `league_tryndamere_rage:guard`（挂在 `passive` 上，每 tick 运行，挨打时当场再看一次）决定：
+  R 待命、没被控住、**身边 50000 内有敌方英雄**，而且**生命低于 15%**，或 **1 秒（60 tick）内被打掉 35% 以上、只剩 40% 以下**——
+  爆发：怒气加满，5 秒内生命不会降到 1 以下，播主包 R 的动作、画面和声音；第 290 tick 喝嗜血杀戮，按怒气回血。
+- **残血才按 R**（v0.2.0，用户：「再检查一下蛮王总是满血开大的问题」）：主包的 R 一看到敌方英雄就放出、待命 15 秒，
+  游戏里每次放出都显示成「开大」，满血时一次次放（没用上退还冷却，过一会儿又放）。本包的 AI 钩子 `league_tryndamere_rage:ult`
+  拦下 AI 的 R，改成普攻（打不到就走过去）；到了上面的残血条件、R 冷却好、身边有敌方英雄时由它按下 R，下一 tick 被动就爆发——
+  显示的「开大」就是爆发那一刻。
+- **大招没好时喝 Q**：R 在冷却（或 5 级以前）、身上有怒气、身边有敌方英雄、生命低于 30% 时喝嗜血杀戮（12 秒一次）；
+  R 冷却好时留给 R，不喝。
+  主包只在 R 结束时喝（数据版按「危险」喝会在满血时喝掉）。
+- 数字都写在英雄数据的 `passive.params` 里，由 `make_override.py` 从 `tools/kit/build_tryndamere.py` 的参数表 `P` 写入（`n_*` 是本包的阈值），
+  本包不另记一份。
 
 ## 相关脚本和素材
 
@@ -91,6 +107,7 @@
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_tryndamere.py`）：普攻挥剑、命中，E、W、Q、R；E、W、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（E / W / R），从本地客户端提取，缩到 64×64 |
 | 嗜血杀戮的被动：越残攻击力越高（附加包 0.3.2，2026-11-14） | 用户看了「和英雄联盟不一样的地方」清单后说「全改吧」。英雄联盟的嗜血杀戮（wiki V26.06）被动：攻击力随已损失的生命增长，损失 90% 时到顶（按技能等级最多 +20–80）。主包读不到生命，这一份并在基础攻击力里，没有变。附加包现在由原生代码读生命：副本的基础攻击力和成长低 6%（86 +17 → 81 +16），被动按已损失的生命加攻击力，损失 90% 时 +20%（`league_tryndamere_q_ad`，`attack_mult`，整数百分点变了才换）——满血时比主包低 6%，损失 27% 时持平，损失 90% 以上高 13%。普攻说明后面加一句【附加包】嗜血杀戮。原生代码经典引擎模拟跑不了，数字是按「平均持平」定的，没有量过；单元测试 12 个通过。游戏里还没看过（日志 `BLOODLUST: hp N% -> attack +M%`，每变 10 个百分点一行） |
+| 局内大小（2026-11-21） | 用户：「蛮王新模型在局内感觉有点小了 还有刀是放大后的吗 你查一查」，看了对比图后「放大到 1.15」。GPT 重画的腥红之月造型（#784）站得直、身子瘦：待机第一帧脚到头顶 38 游戏像素（连发髻），旧模型 37；可实打实只有 639 平方游戏像素，旧模型 914，盖伦 1022、德莱厄斯 1220、奥拉夫 1190、亚索 702、贾克斯 957、赵信 864。刀查过：游戏里的就是放大 1.25 倍、每帧放大自己那把的版本（和 main 逐帧一样）。`league.dll` 的 `SIZES` 把他画成 115%（44 高、845）。游戏按帧的中心放大，脚底在中心下 20.5 格，会陷下去 1.7 游戏像素：[`tools/art/raise_hd_frames.py`](../../tools/art/raise_hd_frames.py) 给 150 个高清帧的框底下加 5 行空行（画面高 2.5 格，像素不变），脚底在中心下 11.4 游戏像素，原来 11.3。选人卡片的帧一起加（`hero_reels.py` 的待机和卡片是从同一批帧剪的），卡片里人高 1.4 游戏像素，他没有 `banpick_center`，不裁边。悠米骑他时的头顶高度 25 → 29（`league_yuumi` 0.2.21）；俄洛伊的灵魂图跟着重出（他那 6 帧）。`league.dll` 0.9.118、主包 0.445.0 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -114,6 +131,9 @@ python tools/art/rig_tryndamere_hd.py                         # 读回 -> 原始
 python tools/art/ppu_restyle.py --hero tryndamere && python tools/art/ppu_hd.py --hero tryndamere
 python tools/art/ppu_one.py --hero tryndamere && python tools/art/rig_tryndamere_hd.py --one-ground && python tools/art/hero_reels.py --hero tryndamere
 python tools/art/review_tryndamere_actions.py --out <文件夹>    # 旧版 / 新版对照动图
+# 局内 115%（2026-11-21，hd.rs SIZES）：脚底回到地面，只跑一次，之后再剪待机和卡片
+python tools/art/raise_hd_frames.py league/champions/league_tryndamere --rows 5 && python tools/art/hero_reels.py --hero tryndamere
+python tools/art/illaoi_souls.py && python tools/art/yuumi_ride_lifts.py
 ```
 
 美术（原画的提示词见 [`assets/source/tryndamere/PICTURE_PROMPT.md`](../../assets/source/tryndamere/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/tryndamere/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/tryndamere/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/tryndamere/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](../../assets/source/tryndamere/codex_picture)、[`codex_model/`](../../assets/source/tryndamere/codex_model)、[`codex_strips/`](../../assets/source/tryndamere/codex_strips)、[`codex_fx/`](../../assets/source/tryndamere/codex_fx)）：

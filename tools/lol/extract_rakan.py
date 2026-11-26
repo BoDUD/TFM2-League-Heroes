@@ -14,7 +14,8 @@ RakanQ_hit_champ, RakanQMark_buffactivate_healcharge (the heal armed) and RakanQ
 RakanW_OnCast (Grand Entrance's dash), RakanWCast_hit (the spiral's knock-up); RakanECast_OnCast (Battle Dance's
 flight), RakanEShield_OnBuffActivate (the shield on the ally); RakanPassiveReady_shield (Fey Feathers' shield);
 RakanR_OnCast (The Quickness), RakanRDebuff_hit_champ (a charm). Voice: the Q / W / E / R cast3D lines. The icons:
-Rakan_Q = Q, Rakan_W = W (E rides on it), Rakan_R = R.
+Rakan_E = skill (Battle Dance), Rakan_W = skill2 (Grand Entrance), Rakan_R = R; Gleaming Quill rides on the
+attack since 2026-11-19 (tools/fix/rakan_we_split.py), so Rakan_Q has no slot.
 """
 import argparse
 import io
@@ -55,7 +56,7 @@ CLIPS = {
     "league_rakan_vo_e_xayah": ("Play_vo_Rakan_RakanE_hit3DXayah", 1636478794, 1.1, -3),  # the Xayah duo
 }
 ICONS = {  # TFM2 slot -> Riot icon
-    "league_rakan_skill": "ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_Q.dds",
+    "league_rakan_skill": "ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_E.dds",
     "league_rakan_skill2": "ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_W.dds",
     "league_rakan_ult": "ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_R.dds",
 }

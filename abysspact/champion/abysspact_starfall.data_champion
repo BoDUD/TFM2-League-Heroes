@@ -1,0 +1,671 @@
+{
+  "id": "abysspact_starfall",
+  "category": "Range",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_starfall:starfall",
+    "params": {
+      "a_delay": 30,
+      "a_r": 15000,
+      "a_main_ad": 100,
+      "a_ap": 20,
+      "a_splash": 60,
+      "a_min": 30000,
+      "q_n": 5,
+      "q_step": 13000,
+      "q_gap": 8,
+      "q_fall": 30,
+      "q_r": 15000,
+      "q_dmg": 38,
+      "q_ap": 28,
+      "q_slow": 30,
+      "q_slow_t": 90,
+      "r_r": 40000,
+      "r_t": 240,
+      "r_every": 12,
+      "r_fall": 30,
+      "r_star_r": 15000,
+      "r_dmg": 38,
+      "r_ap": 28,
+      "r_cap": 2,
+      "step_dist": 12000,
+      "step_t": 12,
+      "step_cd": 45
+    }
+  },
+  "sprite": "asset/abysspact/champions/abysspact_starfall",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_starfall_skill",
+    "asset/abysspact/icons/abysspact_starfall_skill2",
+    "asset/abysspact/icons/abysspact_starfall_ult"
+  ],
+  "stat": {
+    "attack": 62,
+    "magic_power": 48,
+    "hp": 840,
+    "defence": 20,
+    "magic_resistance": 26,
+    "move_speed": 930,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 9,
+    "magic_power": 15,
+    "hp": 80,
+    "defence": 4,
+    "magic_resistance": 4,
+    "move_speed": 8,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_starfall.attack",
+    "duration": 34,
+    "cooltime": 68,
+    "start_timing": 21,
+    "cancelable": true,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_starfall_a"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "abysspact_starfall:aim"
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "abysspact_starfall_a_fall"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_starfall.skill",
+    "duration": 36,
+    "cooltime": 560,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_starfall_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "abysspact_starfall_q_track"
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "abysspact_starfall:q_line"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_starfall.skill2",
+    "duration": 30,
+    "cooltime": 780,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_starfall_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_starfall_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_starfall_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_dash"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_push"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_dash"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_star_impact"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 22000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 45,
+                            "attack_ratio": 32,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 6
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_starfall_push"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "MoveBack",
+                        "speed": 4000,
+                        "tick": 10
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_dash"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_starfall_w_push"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_dash"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "abysspact_starfall_star_impact"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 22000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 45,
+                            "attack_ratio": 32,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "Knockback",
+                            "speed": 2500,
+                            "tick": 6
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_starfall_push"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "MoveBack",
+                        "speed": 4000,
+                        "tick": 10
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_starfall_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.abysspact_starfall.ult",
+    "duration": 42,
+    "cooltime": 5100,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 100000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_starfall_foley_r"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "abysspact_starfall_r_voice",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_starfall_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_starfall_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_starfall_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "abysspact_starfall_r_rain",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_starfall_r_center",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_starfall_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_starfall_sky_rift"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_starfall_r_rift"
+                            },
+                            {
+                              "type": "RangePeriodProjectile",
+                              "name": "abysspact_starfall_r_field",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 40000
+                                }
+                              },
+                              "tick": 240,
+                              "period": 30,
+                              "first_delay": 12,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 38,
+                                    "attack_ratio": 28,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_starfall_star_impact"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_starfall_r_rain"
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "abysspact_starfall_native",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "abysspact_starfall_r_rain",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "abysspact_starfall_r_center",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_starfall_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_starfall_sky_rift"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_starfall_r_rift"
+                            },
+                            {
+                              "type": "RangePeriodProjectile",
+                              "name": "abysspact_starfall_r_field",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 40000
+                                }
+                              },
+                              "tick": 240,
+                              "period": 30,
+                              "first_delay": 12,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 38,
+                                    "attack_ratio": 28,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_starfall_star_impact"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_starfall_r_rain"
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_starfall_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "abysspact_starfall_a_star",
+      "anim": "asset/abysspact/effects/abysspact_starfall_proj",
+      "tag": "black_star",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "abysspact_starfall_q_star",
+      "anim": "asset/abysspact/effects/abysspact_starfall_proj",
+      "tag": "black_star",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_starfall_warning",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "warning",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_starfall_star_impact",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "star_impact",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_starfall_dash",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "dash",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_starfall_push",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "push",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_starfall_sky_rift",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "sky_rift",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_starfall_star_fall",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "black_star",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "abysspact_starfall_star_ring",
+      "anim": "asset/abysspact/effects/abysspact_starfall_fx",
+      "tag": "star_ring",
+      "repeat": true,
+      "z": 2
+    }
+  ]
+}

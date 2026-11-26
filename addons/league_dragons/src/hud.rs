@@ -385,7 +385,7 @@ mod tests {
         let worst = Hud { element: Element::Chemtech, alive: false, baron_alive: true, rows: [full(0), full(1)], conflict: false,
                           soul_next: Some(Element::Chemtech) };
         let m = metrics(ui.1);
-        for lang in [Lang::Hans, Lang::Hant, Lang::En] {
+        for lang in Lang::ALL {
             for h in [worst.clone(), Hud { conflict: true, ..worst.clone() }] {
                 let at = place(ui, Some(header), Some(time_ctrl), size(&h, lang, &m));
                 for (what, r) in [("header", header), ("time controls", time_ctrl), ("match clock", game_time),

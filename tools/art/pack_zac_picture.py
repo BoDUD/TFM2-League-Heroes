@@ -2,6 +2,7 @@
 style pictures.
 
     python tools/art/pack_zac_picture.py --out C:/t/za_work/zac_pack0 [--lol D:/WeGameApps/lol]
+    python tools/art/pack_zac_picture.py --out C:/t/za_work/zac_slim_pack0 --slim   # the slim redo (2026-11-16)
 
 Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..8 (League renders of Zac, the loading-screen art) and <out>/refs/9a..9b
 (layout guides: Riot's, kept local, never committed) and <out>/style/10..13 (this pack's Cho'Gath, Dr. Mundo, Gragas and
@@ -61,6 +62,15 @@ CUT = {  # style pictures cut from a sheet: name -> (hero, tag)
     "11_style_drmundo.png": ("drmundo", "hd_idle"),
     "12_style_gragas.png": ("gragas", "hd_idle"),
     "13_style_volibear.png": ("volibear", "hd_idle"),
+}
+# --slim (the user, 2026-11-16: 「感觉扎克模型有点问题？有点胖？扎克身体应该是瘦的」「重画瘦的扎克」): League's Zac is lean and
+# lanky, so the redo shows Codex slim characters for the style and the old picture only for its colours, face and tendril
+CUT_SLIM = {
+    "10_style_fiddlesticks.png": ("fiddlesticks", "hd_idle"),
+    "11_style_kayn.png": ("kayn", "hd_idle"),
+    "12_style_warwick.png": ("warwick", "hd_idle"),
+    "13_style_ekko.png": ("ekko", "hd_idle"),
+    "14_old_zac.png": ("zac", "hd_idle"),
 }
 FIT, GROUND = 0.5, 0.84
 
@@ -129,6 +139,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
     ap.add_argument("--no-render", action="store_true", help="reuse the renders already in <out>/refs")
+    ap.add_argument("--slim", action="store_true", help="the slim redo: PICTURE_PROMPT_SLIM.md and CUT_SLIM")
     a = ap.parse_args()
     refs, style, work = os.path.join(a.out, "refs"), os.path.join(a.out, "style"), a.out + "_measure"
     for d in (refs, style, work):
@@ -142,9 +153,10 @@ def main():
         splash.resize((splash.width * 3, splash.height * 3), Image.LANCZOS).save(os.path.join(refs, "5_zac_splash.png"))
     for name, (src, squares, label) in GUIDES.items():
         guide(os.path.join(work, src + ".png"), os.path.join(refs, name), squares, label)
-    for name, (hero, tag) in CUT.items():
+    for name, (hero, tag) in (CUT_SLIM if a.slim else CUT).items():
         cut(hero, tag, os.path.join(style, name))
-    shutil.copyfile(os.path.join(SRC, "zac", "PICTURE_PROMPT.md"), os.path.join(a.out, "PICTURE_PROMPT.md"))
+    prompt = "PICTURE_PROMPT_SLIM.md" if a.slim else "PICTURE_PROMPT.md"
+    shutil.copyfile(os.path.join(SRC, "zac", prompt), os.path.join(a.out, "PICTURE_PROMPT.md"))
     zp = shutil.make_archive(a.out, "zip", a.out)
     print("written", zp)
 

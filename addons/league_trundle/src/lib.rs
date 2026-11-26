@@ -5,9 +5,10 @@
 //!
 //! - **国王的贡品照英雄联盟回血**：主包只能在他自己打死的单位上回一口（击杀检测），回固定的数。本包每拍记下他身边 `p_r` 内的敌方
 //!   单位，谁倒下了（不管是谁打死的）就回它最大生命 `p_pct`% 的血，站在冰面上时翻倍。
-//! - **冰封领域留在地上**：主包的冰面跟着他走（一个加攻速、移速、回血的 buff）。副本只给他挂一个不带属性的 `league_trundle_w_on`
-//!   当记号；本包在记号出现（或被刷新）时记下他脚下的位置，他站在那一圈（`w_r`）里时每拍挂 2 拍的 `league_trundle_w_in`（攻速、
-//!   移速、回血），并且他每拍多回的血放大 `w_amp`%（英雄联盟：受到的所有治疗加成）。
+//! - **冰封领域跟着他走**（0.2.0，用户 2026-11-20：「你W看隔壁OPPI怎么做的 我们做的明显不对」）：副本的 `league_trundle_w_on`
+//!   自己带攻速、移速、回血，冰面画在它上面、他走到哪跟到哪（和主包、隔壁 OPPI 一样）。本包只在它挂着时把他每拍多回的血放大
+//!   `w_amp`%（英雄联盟：受到的所有治疗加成），贡品回血翻倍。以前（0.1.x）冰面钉在冻住的地方、站进去才有加成，他一走开地上
+//!   还留着一块冰，看着像放了两个 W。
 //! - **寒冰之柱是地形**：主包的冰柱只减速（副本连定身也不要）。副本给冰柱旁的英雄挂 3 拍 `league_trundle_e_at`；本包看到它，就在
 //!   那个英雄身后（背对特朗德尔的一侧，紧贴着它）立一根半径 `e_wall` 的冰柱、在那里播冰柱的画面，立 `e_t` 拍。冰柱立着时每拍看
 //!   每个单位（两边的英雄、小兵、野怪、召唤物，特朗德尔自己也算：英雄联盟里冰柱谁都挡），中心进了柱子（`e_wall` + 单位半径）就
@@ -41,10 +42,8 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_trundle") {
     Some(v) => v,
     None => env!("CARGO_PKG_VERSION"),
 };
-/// On him while the domain lasts (the data's W; no stats in the add-on's copy).
+/// 冰封领域：冻地后挂在他身上（数据的 W，带攻速、移速、回血，冰面画在它上面）。
 const W_ON: &str = "league_trundle_w_on";
-/// On him while he stands in the domain (2 ticks, renewed): its attack speed, move speed and regeneration.
-const W_IN: &str = "league_trundle_w_in";
 /// On the champions at a pillar the tick it rises (3 ticks).
 const E_AT: &str = "league_trundle_e_at";
 /// On a unit Chomp bit (3 ticks).
@@ -62,11 +61,9 @@ const BODY: f64 = 6000.0;
 /// A pillar stands this far behind its champion beyond its own radius: the champion's body and a little, so the pillar
 /// rises at its back and cuts off its way out (not on it).
 const PILLAR_GAP: u64 = 7000;
-/// The pictures this add-on plays where the data cannot: the frozen field (a second long, again every FIELD_EVERY ticks
-/// while the domain lasts) and the pillar (its rise, the standing frame held, its fall: the kit's e_t).
-const W_FIELD: &str = "league_trundle_w_field";
+/// The picture this add-on plays where the data cannot: the pillar (its rise, the standing frame held, its fall: the
+/// kit's e_t).
 const E_PILLAR: &str = "league_trundle_e_pillar";
-const FIELD_EVERY: usize = 60;
 
 // ===================== 日志 =====================
 
@@ -314,15 +311,17 @@ struct Queued {
     stole: Option<(i32, i32)>,
 }
 
+/// 冰封领域刚挂上（这一拍有、上一拍没有）：一次 W 只算一次。
+pub fn domain_started(was_on: bool, on: bool) -> bool {
+    on && !was_on
+}
+
 /// 每个特朗德尔一份：参数、冰面、冰柱、吸取，和日志计数。
 #[derive(Clone, Default)]
 struct Troll {
     p: Params,
-    /// The domain's centre while `w_on` lasts, and `w_on`'s remaining ticks last tick (a renewal = a new domain).
-    domain: Option<(u64, u64)>,
-    w_left: usize,
-    /// The tick the frozen field's picture plays again.
-    field_at: usize,
+    /// 上一拍他身上有没有冰封领域（日志只在刚挂上时写一行）。
+    domain_on: bool,
     /// His health at the end of last tick (the domain's heal amplifier reads the rise).
     last_hp: usize,
     /// Enemy units near him last tick: (id, max health).
@@ -345,9 +344,9 @@ struct Troll {
 }
 
 impl Troll {
+    /// 冰面跟着他走：身上挂着 w_on 就算在冰面上。
     fn on_domain(&self, sim: &StableSim<'_>, me: usize) -> bool {
-        let (Some(c), Some(e)) = (self.domain, sim.get_entity(me)) else { return false };
-        dist2(c, e.pos()) <= self.p.w_r.saturating_mul(self.p.w_r)
+        sim.get_entity(me).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == W_ON))
     }
 
     /// A heal on him (amplified on the domain), counted into last_hp so the amplifier does not take it twice.
@@ -359,48 +358,21 @@ impl Troll {
         h
     }
 
-    /// Frozen Domain: where `w_on` appeared (or was renewed) it stays; inside it the stats and the heal amplifier.
+    /// 冰封领域：攻速、移速、回血在数据的 w_on 上，这里只记日志、回答他在不在冰面上（回血放大、贡品翻倍用）。
     fn domain(&mut self, sim: &mut StableSim<'_>, me: usize) -> bool {
-        let Some(e) = sim.get_entity(me) else { return false };
-        let left = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == W_ON).map(|b| b.duration_tick);
-        let pos = e.pos();
-        match left {
-            None => {
-                self.domain = None;
-                self.w_left = 0;
-            }
-            Some(l) => {
-                if self.domain.is_none() || l > self.w_left {
-                    self.domain = Some(pos);
-                    self.field_at = sim.tick();
-                    self.n_domain += 1;
-                    if often(self.n_domain) {
-                        wlog(format!("{} DOMAIN frozen at ({}, {}) for {l} ticks ({} in all)", head(sim, me), pos.0, pos.1,
-                                     self.n_domain));
-                    }
-                }
-                self.w_left = l;
+        let on = self.on_domain(sim, me);
+        if domain_started(self.domain_on, on) {
+            self.n_domain += 1;
+            if often(self.n_domain) {
+                let left = sim.get_entity(me).and_then(|e| {
+                    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == W_ON).map(|b| b.duration_tick)
+                });
+                wlog(format!("{} DOMAIN on him for {} ticks ({} in all), the ice moving with him", head(sim, me),
+                             left.unwrap_or(0), self.n_domain));
             }
         }
-        // the frozen field where it froze, a second at a time while it lasts
-        if let Some((x, y)) = self.domain {
-            let tick = sim.tick();
-            if tick >= self.field_at {
-                sim.play_view_effect(W_FIELD, me, &InputTargetV1::pos(x, y), 0, 0, 0);
-                self.field_at = tick + FIELD_EVERY;
-            }
-        }
-        let inside = self.on_domain(sim, me);
-        if inside {
-            let (a, m, r) = (self.p.w_as as i32, self.p.w_ms as i32, self.p.w_regen as i32);
-            sim.entity_remove_buff(me, W_IN);
-            sim.add_buff(me, &stat_buff(W_IN, 2, |b| {
-                b.attack_speed_mult = a;
-                b.move_speed_mult = m;
-                b.hp_regen = r;
-            }));
-        }
-        inside
+        self.domain_on = on;
+        on
     }
 
     /// The enemy units around him: King's Tribute for those that fell since last tick, Chomp's steal on the bitten.
@@ -619,8 +591,7 @@ impl StablePassive for Troll {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        self.domain = None;
-        self.w_left = 0;
+        self.domain_on = false;
         self.near.clear();
         self.drains.clear();
         self.queued.clear();
@@ -633,8 +604,7 @@ impl StablePassive for Troll {
         // the pillars stand on while he is dead (terrain)
         self.pillars(sim, me, tick);
         if !sim.get_entity(me).is_some_and(|e| e.is_alive()) {
-            self.domain = None;
-            self.w_left = 0;
+            self.domain_on = false;
             self.near.clear();
             self.queued.clear(); // he fell before his last drain landed: no heal for it
             self.last_hp = 0;
@@ -691,6 +661,19 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn one_w_counts_once_while_it_lasts() {
+        // 一次 W：挂上的那一拍算一次，挂着的时候不再算，掉了再挂才是下一次
+        let ticks = [false, true, true, true, false, false, true, true];
+        let mut was = false;
+        let starts: Vec<usize> = ticks.iter().enumerate().filter_map(|(i, &on)| {
+            let s = domain_started(was, on);
+            was = on;
+            s.then_some(i)
+        }).collect();
+        assert_eq!(starts, [1, 6]);
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {
@@ -796,7 +779,7 @@ mod tests {
 
     #[test]
     fn names_are_the_data_s() {
-        for n in [W_ON, W_IN, E_AT, Q_MARK, Q_TAKE, Q_LOSE, R_DRAIN, R_TAKE, R_LOSE] {
+        for n in [W_ON, E_AT, Q_MARK, Q_TAKE, Q_LOSE, R_DRAIN, R_TAKE, R_LOSE] {
             assert!(n.starts_with("league_trundle_"), "{n}");
         }
     }

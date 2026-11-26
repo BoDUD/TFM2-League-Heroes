@@ -51,6 +51,7 @@ W -> Q -> Q3), so only R -> W got a refund (r_cdr); with it +1.90, then Q 35, W 
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -322,7 +323,7 @@ def build(p):
                E("w_hit"), E("r_hit"), E("r_slam", BIG), E("ao_on", BIG, 3)]
     views_b = [B_("mark", FX, 3, "p_mark"), B_("q_slow", FX, 3), B_("ao", BIG, -1, "ao_aura")]
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "Shield", "CC"],
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "Shield", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
@@ -332,6 +333,10 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):

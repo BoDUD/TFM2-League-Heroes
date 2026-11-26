@@ -423,7 +423,8 @@ impl Element {
 pub(crate) fn held(sim: &StableSim<'_>, me: usize) -> Option<Element> {
     let e = sim.get_entity(me)?;
     let names: Vec<String> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect();
-    if !names.iter().any(|n| *n == qy("el_on")) {
+    let el_on = qy("el_on"); // （名字先拼好一次：原来比每个名字都拼一次，2026-11-22 过日采样）
+    if !names.iter().any(|n| *n == el_on) {
         return None;
     }
     [Element::Grass, Element::River, Element::Rock].into_iter().find(|el| names.iter().any(|n| *n == qy(el.flag())))

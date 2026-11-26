@@ -1,7 +1,7 @@
 """Every hero's idle and ban/pick card reel cut from the frames the sheet already has (the user, 2026-10-22:
 「BP页面的动图可以随便切动画帧里面的动作来做吧 包括待机的时候」, then 「待机时候那个上下摆动也可以换成这个BP界面的思路了吧」).
 
-    python tools/art/hero_reels.py                      # write every hero's idle / bp tags (league/ and tft/)
+    python tools/art/hero_reels.py                      # write every hero's idle / bp tags (league/, tft/, ragnarok/)
     python tools/art/hero_reels.py --hero garen,jinx    # only these
     python tools/art/hero_reels.py --check              # exit 1 when a .fanim is not what this would write
     python tools/art/hero_reels.py --list               # each hero's picks (snippets, card actions, held frames)
@@ -36,7 +36,11 @@ Dense heroes get the same lists in hd_ and lo_ (the frames' own rects there; eve
 three). tools/art/hero_reels.json holds the picks made by eye where the rules pick badly:
 `{"league_x": {"idle": [["skill", [0, 1]], ...], "c_idle": [...], "bp": ["attack", "ult"], "bp_cut": {"ult": [3, 4]}}}`
 - a list of [action, frames] snippets for an idle ([action, frames, "fwd"]: played forward only; [] keeps frame 0 alone), the card's actions in order, and
-action frames held on the card besides the spilling ones. A form idle can name another idle instead (`"r_idle": "idle"`):
+action frames held on the card besides the spilling ones. `"hold": "idle_loop"` (the user, 2026-11-19: 「发带能动吗」 for
+league_xinzhao's ribbons, 「待机也是」 for league_galio's wings): every hold of frame 0 longer than LOOP_MIN_S plays that tag's
+frames round and round instead (their own durations, the turn carried on from hold to hold, the idle's and the card's), so
+a part that hangs or stands - a ribbon, wings - moves while the hero stands; the tag (and its hd_ / lo_ copies) is drawn
+by tools/fix/xinzhao_galio_1119/ (ribbon.py, wings.py), its frame 0 the idle's frame 0 or the same picture moved. A form idle can name another idle instead (`"r_idle": "idle"`):
 a form that is that idle's frames in other colours (league_volibear's storm twins, tools/art/volibear_storm.py) gets
 that idle's reel frame for frame from its own tags, so an add-on can swap the two in mid-play.
 """
@@ -53,7 +57,7 @@ from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
-PACKS = ("league", "tft")
+PACKS = ("league", "tft", "ragnarok")
 PICKS = os.path.join(HERE, "hero_reels.json")
 PREFIXES = ("", "hd_", "lo_")
 CORE = ("attack", "skill", "skill2", "ult")
@@ -70,6 +74,7 @@ FIRST_S = 0.1                     # frame 0 before the first snippet / card acti
 IDLE_TURNS = 5                    # snippets in one idle cycle (holds of 0.8-3.2 s before each)
 HOLD_S = 0.45                     # a snippet's last frame held
 MIN_DUR = 0.12                    # a snippet frame at least this long (the idle is calm)
+LOOP_MIN_S = 0.5                  # a hold this long or longer plays the hero's "hold" loop (hero_reels.json), if it has one
 # tags never cut into an idle: they move the hero away, are effects, or are not the hero standing
 NOT_SNIPPET = re.compile(r"(^|_)(run|hit|dead|idle|walk|fly|transform|revert|hatch|egg|land|dash|leap|hop|blink|exit|"
                          r"back|passive|possess|base|bp|roll|flip|pounce|ride|arrive|gate|charge)($|_)|fx\d|^tf_|^t_")
@@ -82,13 +87,14 @@ def lp(path):
 
 
 def hd_rs():
-    """The dense heroes {id: PPU} and UI_SIZES {id: size} of both dense-frame tables: league.dll's
-    (addons/league_main/src/hd.rs) and tft.dll's (addons/tft/src/hd.rs), drawn by addons/hd_engine."""
+    """The dense heroes {id: PPU} and UI_SIZES {id: size} of the dense-frame tables: league.dll's
+    (addons/league_main/src/hd.rs), tft.dll's (addons/tft/src/hd.rs) and ragnarok.dll's (addons/ragnarok/src/hd.rs),
+    drawn by addons/hd_engine."""
     ppu, sizes = {}, {}
-    for crate in ("league_main", "tft"):
+    for crate in ("league_main", "tft", "ragnarok"):
         src = open(lp(os.path.join(REPO, "addons", crate, "src", "hd.rs")), encoding="utf-8").read()
         ppu.update({h: float(p) for h, p in
-                    re.findall(r'\("((?:league|tft)_\w+)", ([0-9.]+), include_str!\("[^"]*/champions/', src)})
+                    re.findall(r'\("((?:league|tft|ragnarok)_\w+)", ([0-9.]+), include_str!\("[^"]*/champions/', src)})
         body = src[src.index("pub const UI_SIZES"):]
         body = body[:body.index("];")]
         sizes.update({h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)})
@@ -263,8 +269,21 @@ def card_actions(h, picks, k):
 
 
 def still(h, idle, secs=None):
-    """The idle's first frame held (STILL_S unless given): no breathing (the user, 2026-10-22: 「上下摆动全不要了啊」)."""
-    return [(h.base(idle), 0, STILL_S if secs is None else secs)]
+    """The idle's first frame held (STILL_S unless given): no breathing (the user, 2026-10-22: 「上下摆动全不要了啊」). A hero
+    with a "hold" loop (hero_reels.json) plays it through a hold of LOOP_MIN_S or more instead, its turn carried on."""
+    secs = STILL_S if secs is None else secs
+    loop = getattr(h, "loop", None)
+    if idle != "idle" or not loop or secs < LOOP_MIN_S:
+        return [(h.base(idle), 0, secs)]
+    fr = h.frames(loop)
+    out, t = [], 0.0
+    while secs - t > 1e-6:
+        j = h.loop_turn % len(fr)
+        d = min(fr[j]["duration"], secs - t)
+        out.append((loop, j, d))
+        t += d
+        h.loop_turn += 1
+    return out
 
 
 def schedule(hid, idle, n):
@@ -307,6 +326,10 @@ def plan(h, picks):
     at the last idle snippet played in the cycle (card_turn for a hero with none), so cards do not strike in step."""
     out = {}
     turn = None
+    h.loop = picks.get("hold")
+    if h.loop and h.loop not in h.anims:
+        raise SystemExit(f"{h.id}: hold loop {h.loop} is not in the sheet")
+    h.loop_turn = 0
     idles = ["idle"] + [f + "idle" for f in h.forms]
     snips = {}
     for idle in idles:
@@ -327,6 +350,7 @@ def plan(h, picks):
             turn = k
         out[idle] = seq or still(h, idle)
     acts = card_actions(h, picks, card_turn(h.id) if turn is None else turn)
+    h.loop_turn = 0
     bp = []
     sn = snips["idle"]
     for j, (t, shown) in enumerate(acts):

@@ -73,3 +73,7 @@
 
 开发：`cd addons && set CARGO_TARGET_DIR=C:\t\rn_target && cargo test --release -p league_renata && cargo build --release -p league_renata`（工作区路径太深，
 链接器要短的目标目录）。
+
+## 0.2.1：过日更快（2026-11-22）
+
+玩法不变。狂暴的 AI 钩子挂在每个选手身上，每 tick 都把自己的 buff 扫一遍找狂暴，没有雷娜塔的比赛也扫（过日采样里占附加包合集的一成）。狂暴 buff 只有雷娜塔的大招挂（主包、本包的副本；塞拉斯偷的是挂着他 R 标记的在场敌人的大招，佛耶戈附身也得她在场），所以这份模拟的英雄里没有她就不扫（每条线程记最近 16 份模拟的答案，600 tick 再看一次名单，读不到名字的照旧扫）；看 buff 名按字节比。测试 `only_renatas_ult_and_sylass_copy_carry_berserk` 守着这个前提：别的英雄的数据里也出现狂暴 buff 就会失败。

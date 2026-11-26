@@ -54,9 +54,10 @@ fn layers(sim: &StableSim<'_>, id: usize) -> (usize, usize) {
     let Some(e) = sim.get_entity(id) else { return (0, 0) };
     let (mut sun, mut shades) = (0, 0);
     for b in (0..e.buff_count()).filter_map(|j| e.buff_at(j)) {
-        if b.name() == SUNLIGHT {
+        let n = super::name_of(&b);
+        if n == SUNLIGHT.as_bytes() {
             sun += 1;
-        } else if b.name() == SHADES {
+        } else if n == SHADES.as_bytes() {
             shades += 1;
         }
     }
@@ -157,7 +158,7 @@ impl Shark {
                 continue;
             }
             self.seen.push(id);
-            let marked = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).any(|b| b.name() == EAT);
+            let marked = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).any(|b| super::name_of(&b) == EAT.as_bytes());
             if e.name().is_some_and(|n| swallows(&n, false, marked)) {
                 self.due.push((id, tick + GULP_AFTER));
             }

@@ -12,3 +12,8 @@ tft/sound/sfx/*.ogg
 dist/
 outputs/
 addons/lol_audio/sound/**/*.mp3
+# Record of Ragnarok pack audio: Codex's delivery (original SFX + the official Japanese voice lines), copied in locally by
+# tools/kit/seed_lubu_audio.py, never committed
+ragnarok/sound/sfx/*.wav
+ragnarok/sound/sfx/*.mp3
+ragnarok/sound/sfx/*.ogg

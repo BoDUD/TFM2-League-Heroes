@@ -199,11 +199,8 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match game_places::hook::add("league_yuumi", dress) {
-            Ok((slot, prev)) => wlog(format!(
-                "FORM riding body on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
-            )),
+        match game_places::hook::add("league_yuumi", dress, |m: &str| wlog(m)) {
+            Ok(p) => wlog(format!("FORM riding body on: {p}")),
             Err(e) => wlog(format!("FORM riding body off ({e}): while she casts from the ally she is drawn at his feet")),
         }
     });

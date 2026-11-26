@@ -815,7 +815,7 @@
     {
       "type": "Animated",
       "name": "league_thresh_w_lantern",
-      "anim": "asset/league/effects/league_thresh_fx",
+      "anim": "asset/league/effects/league_thresh_lantern",
       "tag": "w_lantern",
       "repeat": true,
       "z": 1

@@ -1,0 +1,30 @@
+{
+  "hero": "braum",
+  "tag": "run",
+  "drawn": "assets/source/braum/hd/braum_run_drawn",
+  "from": 3,
+  "outline": [6, 5, 5],
+  "waist": [-18, -18, -18, -18, -18, -18, -18, -18],
+  "bob": [-1, 1, 0, -2, -1, 1, 0, -2],
+  "below": [
+    [[null, 60, 45, 58], [null, 55, 89, 99]],
+    [[null, 60, 45, 58], [null, 55, 90, 98]],
+    [[null, 60, 45, 58], [null, 55, 89, 99]],
+    [[null, 60, 43, 58], [null, 55, 89, 99]],
+    [[null, 60, 45, 58], [null, 55, 89, 99]],
+    [[null, 60, 45, 58], [null, 55, 90, 98]],
+    [[null, 60, 45, 58], [null, 55, 89, 99]],
+    [[null, 60, 43, 58], [null, 55, 89, 99]]
+  ],
+  "parts": [],
+  "chains": [],
+  "notes": {
+    "made": "--init (the installed run, 33c4a229b), then by hand (character runs round 3, 11-16)",
+    "char": "the installed upper body is three drawings of one picture (C = frames 3 / 7 = hd_idle_base[0]'s square for square; A = 0 / 2 / 4 / 6 and B = 1 / 5: C with bands of 2-4 rows a row off every 10-11 rows, through the moustache, the buckle's ring and the shield's top edge - 85 % / 79 % alike): C in every frame at each frame's own drawn place (bob -2 -4 -2 0 -2 -4 -2 0 from the centres = the same own rows in every frame; x 0), the waist row -7 from frame 3's centre (rows -8 / -7 are 96 % alike in all three drawings: no step at the seam); under it all as drawn - the legs, the skirt's last rows, the shield's lower half (its two 1-row bands do not show at game size)",
+    "not moved": "League's Braum_Run_02 (1.067 s) lifts the shield with both hands +-4..8 squares against the chest each step; ours stands on the ground with the far arm gripping its top - moving it moves that arm (a join a dozen rows thick); the near fist is drawn into its forearm and elbow guard; the moustache has no joint in League",
+    "keep_one": "his 1x run carries a thicker outline than ppu_one makes from the dense frames (frames 3 / 7, unchanged, would change 124-129 squares): it stays as installed (assets/source/braum/hd/braum_run_one.png), only hd_run and lo_run are made",
+    "undecided": []
+  },
+  "variants": {"char": {"steps": 1, "keep_gaps": true, "from": 3, "bob": [-2, -4, -2, 0, -2, -4, -2, 0], "x": [0, 0, 0, 0, 0, 0, 0, 0], "waist": [-9, -11, -9, -7, -9, -11, -9, -7], "below": "match", "parts": {}, "chains": {}, "keep_one": "assets/source/braum/hd/braum_run_one"}},
+  "use": "char"
+}

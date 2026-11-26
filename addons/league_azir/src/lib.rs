@@ -76,6 +76,30 @@
 //!   带韧性的人被推过头，韧性高的推出去两三倍远。落点短一截的那三成（韧性 0 的也有）是别的原因（被控住、被顶掉），补推照旧
 //!   管它。另外：大招的目标在墙出来之前没了（死了），原来本包直接不记这道墙（没有立着的墙、不带人、没有禁军的画面）；现在
 //!   朝反推冲刺时看到他的位置出墙（`LAST_TARGET`，日志 `the target is gone`）。
+//! - 0.3.0（用户 2026-11-17：「我们的沙皇是不是不能移动沙兵？」「感觉有些机制还能和英雄联盟里面不一样 没完全还原」，选了三条）：
+//!   1. **狂沙猛攻：沙兵真的冲过去**（「Q 沙兵真的冲过去」）。英雄联盟的 Q 是所有沙兵冲到目标点，沿途每个沙兵打中路过的敌人
+//!      （魔法伤害、25% 减速 1 秒，每个敌人一次施放只吃一次）。数据只能「换一代」：旧的沙兵在下一个检查点消失、新的在目标处
+//!      从沙里升起（像瞬移），而且只在目标是英雄时才动（控制器认不出 Q 打的是谁）。现在副本的技能调本包的
+//!      `league_azir:q_go`（有沙兵可动：不放沙浪）/ `q_wave`（没有沙兵、或这条命还没有控制器：照旧放沙浪），记下 Q 打的单位；
+//!      控制器把 Q 射程内的每个敌人交给 `league_azir:q_pick`，它在 Q 打的那个（死了就是离它原来位置 `ANCHOR_R` 内最近的敌人）
+//!      身上那一次给他挂 1 tick 的 `league_azir_qt`，数据就朝它扔那颗看不见的抛射物——**不管 Q 打的是英雄、小兵还是野怪**。
+//!      抛射物出手时 `league_azir:q_fly` 看他身上的 `m<槽>`（这次挪哪几个；`qn`：一个都没有，就在那里召一个），每个要挪的沙兵
+//!      `q_travel` tick 内从原地**滑到**落点（`dash_<槽>` 每 `ss_dash` tick 盖一张冲刺的图 `ss_dash_<r|l>`，朝它去的方向），
+//!      路上 `q_w`（加单位身体）内的敌人吃 `q_dmg` + `q_ap`% 法强的魔法伤害和 `q_slow`% 减速 `q_slow_t` tick（`q_hit` 画面和声音），
+//!      一次施放每个敌人只吃一次，几条路都穿过他也一样。落地时数据的新沙兵调 `rise_<槽>`：冲过来的那个**站着到**（不从沙里升起），
+//!      没挪过的新兵（`qn`）照旧升起。落地马上刺（Q → 刺，用户选的连招）只在挪向英雄时（`q_pick` 给他挂 `league_azir_qc` 到落地，
+//!      连招照旧；挪向小兵、野怪的不白送一轮刺，英雄联盟的沙兵也只在他普攻时刺）。冲的时候不画旧沙兵、不连线、不算老化和
+//!      够不着。不放沙浪的那一下 `AIM_FRESH` tick 内没挪成（控制器没跑、没有能落的单位），被动把 Q 的伤害和减速补在 Q 打的
+//!      那个身上（`Q OWED`），Q 不会白放。
+//!   2. **刺击刺穿一条线**（「沙兵刺击穿透一条线」）。数据的刺击还是刺它挑的那一个（先英雄）；`stab_<槽>` 拿到被刺的单位后，
+//!      本包从沙兵画的位置穿过它拉一条 `s_r` 长（至少到它）的线，线上 `s_line`（加身体）内的**其他**敌人也吃一下 `s_dmg` +
+//!      `s_ap`% 法强的魔法伤害（技能类型的伤害：一条线的人不各吃一次普攻的附带效果），每人身上放一个 `s_stab`。被刺的那个只吃数据那一下。
+//!   3. 召兵位置和时长（数据，主包一起改）：沙兵在目标附近升起、站 10 秒（`build_azir.py`）。
+//!   0.3.0 以前的副本（存档里留着的旧定义，没有 `s_line`）：不穿透、不冲（`lined`）。
+//! - 0.3.1（用户 2026-11-20：「改成联盟的」）：**Q 挪过去的沙兵不再重新算 10 秒。** 联盟的沙兵从召出来起就是 10 秒，挪到哪都
+//!   不续；以前数据每挪一次就换一代新兵，又是整整 10 秒。现在数据挪的时候不续槽位的 `b<槽>`，挪过去的那个只活到原来的 10 秒
+//!   （`build_azir.py` 的 `lives`），快到头、不够冲一次的不挪。本包让冲到的兵接着原来的出生时刻和年龄算（塔下老得快照旧算），
+//!   画面也只画到那时候（`life_end`）。日志：`ARRIVES` 写出还剩几 tick，画面到头时记 `ENDS`。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -249,16 +273,37 @@ pub struct Params {
     pub s_tie: usize,
     /// 0.2.0：太阳圆盘的冷却（英雄联盟 90 秒），升起后这么多 tick 才能再立一个（原来一局一次）。
     pub d_cd: usize,
+    /// 0.3.0：沙兵刺一下的伤害（固定 + 法强百分比，和数据的刺击一样）、够多远（数据刺击区的半径 `s_r`）、刺穿的那条线的
+    /// 半宽（`s_line`，再加被刺的单位的身体）。
+    pub s_dmg: usize,
+    pub s_ap: usize,
+    pub s_r: usize,
+    pub s_line: usize,
+    /// 0.3.0：狂沙猛攻：伤害（固定 + 法强百分比）、沙兵冲过去的路径半宽（`q_w`，再加单位的身体）、减速（百分比、tick）、
+    /// 冲过去要多少 tick（数据那颗看不见的抛射物飞多久）。
+    pub q_dmg: usize,
+    pub q_ap: usize,
+    pub q_w: usize,
+    pub q_slow: usize,
+    pub q_slow_t: usize,
+    pub q_travel: usize,
+    /// 0.3.0：冲刺的一张图多少 tick（`league_azir_soldier_side` 的 `dash`）：每这么多 tick 盖一张。
+    pub ss_dash: usize,
     /// 0.2.0：英雄数据里有没有 `s_tie`。没有就是 0.2.0 以前的数据（生涯存档里留着的旧副本：存档不刷新英雄定义），它的刺击
     /// 不问半径、也不认塌掉的标记：本包就不让沙兵塌（不然看不见的沙兵还在刺），只照半径连线。
     pub tied: bool,
+    /// 0.3.0：英雄数据里有没有 `s_line`。没有就是 0.3.0 以前的副本：刺击不穿透（它的平衡是按刺一个人定的），它的狂沙猛攻
+    /// 也不调本包（照旧沙浪）。
+    pub lined: bool,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
                r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
-               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 480, s_tie: 56000, d_cd: 5400, tied: false }
+               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 600, s_tie: 56000, d_cd: 5400, s_dmg: 52, s_ap: 65,
+               s_r: 42000, s_line: 5000, q_dmg: 80, q_ap: 44, q_w: 9000, q_slow: 25, q_slow_t: 60, q_travel: 18,
+               ss_dash: 2, tied: false, lined: false }
     }
 }
 
@@ -295,6 +340,20 @@ pub fn parse_params(json: &str) -> Params {
                 p.tied = true;
             }
             "d_cd" => p.d_cd = v,
+            "s_dmg" => p.s_dmg = v,
+            "s_ap" => p.s_ap = v,
+            "s_r" => p.s_r = v,
+            "s_line" => {
+                p.s_line = v;
+                p.lined = true;
+            }
+            "q_dmg" => p.q_dmg = v,
+            "q_ap" => p.q_ap = v,
+            "q_w" => p.q_w = v,
+            "q_slow" => p.q_slow = v,
+            "q_slow_t" => p.q_slow_t = v,
+            "q_travel" => p.q_travel = v.max(1),
+            "ss_dash" => p.ss_dash = v.max(1),
             _ => {}
         }
     }
@@ -537,6 +596,7 @@ impl StablePassive for Disc {
         let ap = e.stat().magic_power;
         let reach = reach_of(&self.p, e.radius());
         walls_tick(sim, me, team, tick, &self.p);
+        q_owed(sim, me, team, tick);
         if alive {
             // 0.2.0: soldiers out of his reach stop (no line; the data's stab asks the same distance) and crumble, and
             // age twice as fast by an enemy tower - only with data that knows (`tied`: an older copy would go on stabbing
@@ -1462,12 +1522,435 @@ struct Soldier {
     /// 0.2.3: the out-of-reach mark `league_azir_o<slot>` hangs on him for it now - rising or standing (`away` follows the
     /// standing soldier only, for the log and the crumble).
     marked: bool,
+    /// 0.3.0 (the user, 2026-11-17: 「Q 沙兵真的冲过去」): Conquering Sands is moving it - no stamps of its own, no line, no
+    /// ageing: the dash's chain (`dash_<slot>`) draws it on its way, the data's soldier rising where it lands takes over.
+    slide: Option<Slide>,
+    /// 0.3.1：被 Q 挪过（出生时刻、年龄是挪之前那个兵的），画面到头时记一行 `ENDS`
+    moved: bool,
 }
 
 impl Soldier {
     fn new(at: (f64, f64), right: bool, chain: usize, until: usize, next: usize, tick: usize, up: usize) -> Self {
         Soldier { at, right, chain, stab: None, until, next, last: tick, up, born: tick, age: 0, out: 0, away: false,
-                  gone: false, flips: 0, marked: false }
+                  gone: false, flips: 0, marked: false, slide: None, moved: false }
+    }
+}
+
+/// 0.3.1：Q 挪过去的沙兵还是原来那个兵，出生时刻照旧，年龄接着算，冲的那几 tick 也算进去。-> (出生, 年龄)
+pub fn carried_life(born: usize, age: usize, left_at: usize, now: usize) -> (usize, usize) {
+    (born, age + now.saturating_sub(left_at))
+}
+
+/// 沙兵的画面最晚画到这个 tick：出生后 s_life，加一张站立图，再留 2 tick 余量。
+/// 原地站满 10 秒的兵本来就画到这里；被 Q 挪过的兵数据那边到原来的 10 秒就停了，画面也跟着停，不多站半秒多。
+pub fn life_end(born: usize, s_life: usize, ss_stand: usize) -> usize {
+    born + s_life + ss_stand + 2
+}
+
+// ===================== 0.3.0：狂沙猛攻沙兵冲过去，刺击刺穿一条线 =====================
+
+/// 0.3.0 (the user, 2026-11-17: 「Q 沙兵真的冲过去」): one soldier's dash with Conquering Sands - from its spot to where the
+/// data's hidden lob lands (both the data's spots; its picture stands SLOT_AT off them), ticks t0..t1 (the lob's
+/// q_travel), facing the way it goes, the cast it deals for (each enemy once), how much of its path has dealt so far
+/// (0..1) and its chain of stamps.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Slide {
+    pub from: Pt,
+    pub to: Pt,
+    pub t0: usize,
+    pub t1: usize,
+    pub right: bool,
+    pub cast: u64,
+    pub done: f64,
+    pub chain: usize,
+}
+
+/// A soldier rising this close to where a dash goes is the one it brought (the data's lob lands where its unit stood when
+/// it left: the dash's end, to the unit).
+pub const ARRIVE_NEAR: f64 = 3_000.0;
+
+/// How far along its path a dash is on `tick` (0 at t0, 1 from t1 on).
+pub fn slide_share(s: &Slide, tick: usize) -> f64 {
+    if s.t1 <= s.t0 {
+        return 1.0;
+    }
+    (tick.saturating_sub(s.t0) as f64 / (s.t1 - s.t0) as f64).clamp(0.0, 1.0)
+}
+
+/// The point `f` (0..1) of the way from `a` to `b`.
+pub fn lerp(a: Pt, b: Pt, f: f64) -> Pt {
+    (a.0 + (b.0 - a.0) * f, a.1 + (b.1 - a.1) * f)
+}
+
+/// The distance from `p` to the segment `a`-`b`.
+pub fn seg_dist(p: Pt, a: Pt, b: Pt) -> f64 {
+    let (vx, vy) = (b.0 - a.0, b.1 - a.1);
+    let len2 = vx * vx + vy * vy;
+    if len2 < 1.0 {
+        return dist(p, a);
+    }
+    let t = (((p.0 - a.0) * vx + (p.1 - a.1) * vy) / len2).clamp(0.0, 1.0);
+    dist(p, (a.0 + vx * t, a.1 + vy * t))
+}
+
+/// The units (id, where, body) within `half` plus their body of the segment `a`-`b`, but `skip`'s: who a stab's line or
+/// a dash's stretch of path meets.
+pub fn on_segment(units: &[(usize, Pt, f64)], a: Pt, b: Pt, half: f64, skip: &[usize]) -> Vec<usize> {
+    units.iter().filter(|(id, at, body)| !skip.contains(id) && seg_dist(*at, a, b) <= half + body).map(|u| u.0).collect()
+}
+
+/// A soldier closer than this to the unit it stabs stands on top of it (Conquering Sands' landing, E's soldier): its line
+/// takes the way from him to that unit.
+pub const LINE_MIN: f64 = 6_000.0;
+
+/// 0.3.0 (the user, 2026-11-17: 「沙兵刺击穿透一条线」): where the line of a stab ends - from the soldier at `from` through the
+/// unit stabbed at `to`, `reach` long and at least as far as that unit (League: the soldier strikes in a line). A soldier
+/// on top of the unit (within LINE_MIN) strikes the way from him (`him`) to it, on through it; None when nothing gives a way.
+pub fn stab_line(from: Pt, to: Pt, him: Pt, reach: f64) -> Option<Pt> {
+    let d = dist(from, to);
+    let u = if d >= LINE_MIN { unit((to.0 - from.0, to.1 - from.1)) } else { unit((to.0 - him.0, to.1 - him.1)) }?;
+    let len = reach.max(d);
+    Some((from.0 + u.0 * len, from.1 + u.1 * len))
+}
+
+/// A stab's or a dash's damage: base + ratio% of his ability power.
+pub fn scaled(base: usize, ratio: usize, ap: usize) -> usize {
+    base + ratio * ap / 100
+}
+
+/// Which way a soldier dashing from `from` to `to` faces: the way it goes, unless that is straight up or down (`keep`).
+pub fn dash_faces_right(from: Pt, to: Pt, keep: bool) -> bool {
+    turn_to(from, Some(to), keep)
+}
+
+/// 0.3.0: Q's aim (league_azir:q_go / q_wave in the copy's skill): the unit it was cast at, where that stood, the tick.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Aim {
+    pub target: usize,
+    pub at: Pt,
+    pub tick: usize,
+    /// the wave flew (q_wave: no soldier to move, or no controller): nothing is owed if no move comes
+    pub wave: bool,
+}
+
+/// 0.3.0: an aim with soldiers to move (no wave) that no move took within AIM_FRESH ticks owes its Q: true then.
+pub fn aim_owed(aim: &Aim, tick: usize) -> bool {
+    !aim.wave && tick > aim.tick + AIM_FRESH
+}
+
+/// An aim this old or less still moves the soldiers (the controller runs every ctl_p = 3 ticks; the flag it reads lasts 4).
+pub const AIM_FRESH: usize = 10;
+/// Q's target gone (dead, or out of reach of every pick) before the controller ran: the move goes to the nearest enemy this
+/// close to where it stood (League's Conquering Sands goes to the spot; the data's lob needs a unit there).
+pub const ANCHOR_R: f64 = 30_000.0;
+
+/// The unit Q's move goes to: Q's target while it stands (alive, targetable, an enemy, `alive` says), else the nearest of
+/// `units` within ANCHOR_R of where it stood; None when there is none.
+pub fn anchor(aim: &Aim, target_ok: bool, units: &[(usize, Pt, f64)]) -> Option<usize> {
+    if target_ok {
+        return Some(aim.target);
+    }
+    units.iter().filter(|(id, at, _)| *id != aim.target && dist(*at, aim.at) <= ANCHOR_R)
+        .min_by(|a, b| dist(a.1, aim.at).total_cmp(&dist(b.1, aim.at)))
+        .map(|u| u.0)
+}
+
+/// One Conquering Sands of an Azir: its number, the enemies its soldiers' paths have dealt to (once each), the damage and
+/// slow (his ability power when the soldiers left).
+#[derive(Clone, Debug, Default)]
+struct QCast {
+    id: u64,
+    hit: Vec<usize>,
+    dmg: usize,
+    slow: (usize, usize),
+}
+
+/// Each simulation's Azir's aim and his last cast (by `SIM_TAG`, him).
+static AIMS: LazyLock<Mutex<HashMap<(u64, usize), Aim>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static QCASTS: LazyLock<Mutex<HashMap<(u64, usize), QCast>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// The anchor picked on a tick (q_pick asks once a unit; it is found once a tick): (tick, the unit).
+static ANCHORS: LazyLock<Mutex<HashMap<(u64, usize), (usize, Option<usize>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static CASTS: AtomicU64 = AtomicU64::new(1);
+/// The maps above keep a row per (simulation, Azir): past this many the other simulations' rows go (an aim lives
+/// AIM_FRESH ticks, an anchor one tick, a cast's dashes q_travel - the server's presimulations leave thousands behind).
+pub const KEEP_ROWS: usize = 4096;
+
+/// A row for simulation `no` going in: past KEEP_ROWS rows the other simulations' go (this one's stay).
+pub fn keep_rows<V>(map: &mut HashMap<(u64, usize), V>, no: u64) {
+    if map.len() >= KEEP_ROWS {
+        map.retain(|k, _| k.0 == no);
+    }
+}
+
+/// The enemy units a stab or a dash can meet (alive, targetable; never a tower or the nexus): (id, where, body).
+fn enemy_units(sim: &StableSim<'_>, team: usize) -> Vec<(usize, Pt, f64)> {
+    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower())
+        .filter(|u| !matches!(u.kind(), Some(EntityKindV1::Nexus | EntityKindV1::Tower)))
+        .map(|u| (u.id(), at_of(&u), u.radius() as f64))
+        .collect()
+}
+
+/// Q's aim, recorded (league_azir:q_go: soldiers up to move, no wave; q_wave: none, the wave flew - a move then raises
+/// one soldier there).
+struct QGo {
+    wave: bool,
+}
+
+impl StableEffectType for QGo {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            if let Some(k) = counted("q input") {
+                wlog(format!("{} Q AIM #{k}: input kind {} (not a unit): no move", head(sim, me), input.kind));
+            }
+            return;
+        }
+        let Some(at) = sim.get_entity(input.target_id).map(|t| at_of(&t)) else { return };
+        let tick = sim.tick();
+        let key = (sim_no(sim, me), me);
+        {
+            let mut aims = AIMS.lock().unwrap_or_else(|e| e.into_inner());
+            keep_rows(&mut aims, key.0);
+            aims.insert(key, Aim { target: input.target_id, at, tick, wave: self.wave });
+        }
+        if let Some(k) = tally(sim, "q aim") {
+            let champ = sim.get_entity(input.target_id).is_some_and(|t| t.is_champion());
+            wlog(format!("{} Q AIM #{k} at #{} ({}) {}: {}", head(sim, me), input.target_id,
+                         if champ { "champion" } else { "unit" }, pt(at),
+                         if self.wave { "no soldier to move (or no controller yet): the wave" } else {
+                             "the soldiers dash there, no wave" }));
+        }
+    }
+}
+
+/// 0.3.0: Q aimed with soldiers to move skipped its wave; if no move took the aim within AIM_FRESH ticks (no controller ran,
+/// no unit to land on - `Q ANCHOR ... no move`), its damage and slow fall on the unit it was cast at, so a Q is never lost
+/// (log `Q OWED`). Every aim older than that goes (the wave's too).
+fn q_owed(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize) {
+    let key = (sim_no(sim, me), me);
+    let aim = {
+        let mut aims = AIMS.lock().unwrap_or_else(|e| e.into_inner());
+        match aims.get(&key).copied() {
+            Some(a) if tick > a.tick + AIM_FRESH || tick < a.tick => {
+                aims.remove(&key);
+                Some(a).filter(|a| aim_owed(a, tick))
+            }
+            _ => None,
+        }
+    };
+    let Some(aim) = aim else { return };
+    let p = params_of(me);
+    let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power);
+    let ok = sim.get_entity(aim.target).is_some_and(|t| t.is_alive() && t.is_targetable() && t.team() != team && !t.is_tower());
+    if ok {
+        let id = aim.target;
+        sim.deal_damage_typed(me, id, scaled(p.q_dmg, p.q_ap, ap), DamageTypeV1::Ap, AttackTypeV1::Skill);
+        let name = az("q_slow");
+        sim.entity_remove_buff(id, &name);
+        let mut b = BuffV1::timed(&name, p.q_slow_t);
+        b.move_speed_mult = -(p.q_slow as i32);
+        sim.add_buff(id, &b);
+        sim.play_view_effect(&az("q_hit"), me, &InputTargetV1::target(id), 0, 0, 0);
+        sim.play_sfx(&az("q_hit"), me, &InputTargetV1::target(id));
+    }
+    if let Some(k) = tally(sim, "q owed") {
+        wlog(format!("{} Q OWED #{k}: no move took the aim at #{} ({} ticks ago): {}", head(sim, me), aim.target,
+                     tick.saturating_sub(aim.tick), if ok { "its damage and slow on it" } else { "it is gone: nothing" }));
+    }
+}
+
+/// The controller's move offers every enemy within reach (the copy's `RangeEffect`): this flags `league_azir_qt` on him
+/// for the one Q's move goes to (`anchor`), so the data's lob flies at it.
+struct QPick;
+
+/// The flag on him that sends the move at the unit offered (1 tick: the data takes it off at once).
+pub const QT: &str = "league_azir_qt";
+/// The flag on him while the move goes to a champion: the landing's stab (Q -> stab, the combo) reads it as it lands, a
+/// lob's q_travel after (and QC_SPARE more; the data takes it off there).
+pub const QC: &str = "league_azir_qc";
+pub const QC_SPARE: usize = 6;
+
+impl StableEffectType for QPick {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let tick = sim.tick();
+        let key = (sim_no(sim, me), me);
+        let cached = ANCHORS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied().filter(|(t, _)| *t == tick);
+        let pick = match cached {
+            Some((_, pick)) => pick,
+            None => {
+                let aim = AIMS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied()
+                    .filter(|a| tick >= a.tick && tick - a.tick <= AIM_FRESH);
+                let team = sim.get_entity(me).map_or(0, |e| e.team());
+                let pick = aim.and_then(|aim| {
+                    let ok = sim.get_entity(aim.target)
+                        .is_some_and(|t| t.is_alive() && t.is_targetable() && t.team() != team && !t.is_tower());
+                    let found = anchor(&aim, ok, &enemy_units(sim, team));
+                    if let Some(k) = tally(sim, "q anchor") {
+                        wlog(format!("{} Q ANCHOR #{k}: {}", head(sim, me), match found {
+                            Some(id) if id == aim.target => format!("#{id}, the unit Q aimed at"),
+                            Some(id) => format!("#{} is gone: #{id}, the nearest to where it stood {}", aim.target, pt(aim.at)),
+                            None => format!("#{} is gone and nobody within {ANCHOR_R:.0} of {}: no move", aim.target, pt(aim.at)),
+                        }));
+                    }
+                    found
+                });
+                {
+                    let mut anchors = ANCHORS.lock().unwrap_or_else(|e| e.into_inner());
+                    keep_rows(&mut anchors, key.0);
+                    anchors.insert(key, (tick, pick));
+                }
+                pick
+            }
+        };
+        if pick == Some(input.target_id) {
+            sim.entity_remove_buff(me, QT);
+            sim.add_buff(me, &BuffV1::timed(QT, 1));
+            // Q -> stab on landing only where the move went to a champion (the combo as it was): `qc` until it lands
+            sim.entity_remove_buff(me, QC);
+            if sim.get_entity(input.target_id).is_some_and(|t| t.is_champion()) {
+                sim.add_buff(me, &BuffV1::timed(QC, params_of(me).q_travel + QC_SPARE));
+            }
+        }
+    }
+}
+
+/// The soldiers leave (the copy's move, as its hidden lob flies at the unit given): every slot the data moves (`m<slot>`
+/// on him; `qn`: none stood, one rises there) dashes from its spot to where the lob lands - the unit's spot now (a lob
+/// lands where its target stood when it left) - over q_travel ticks, its path dealing Q's damage and slow.
+struct QFly;
+
+impl StableEffectType for QFly {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        let tick = sim.tick();
+        let p = params_of(me);
+        let Some(dest) = spot_of(sim, &input) else { return };
+        let (ap, none, moving) = {
+            let Some(e) = sim.get_entity(me) else { return };
+            let has = |name: &str| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name);
+            let none = has(&az("qn"));
+            let moving: Vec<usize> = (0..SLOTS.len()).filter(|&k| !none && has(&az(&format!("m{}", SLOTS[k])))).collect();
+            (e.stat().magic_power, none, moving)
+        };
+        let no = sim_no(sim, me);
+        AIMS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(no, me));
+        let wrong = InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)
+            && ANCHORS.lock().unwrap_or_else(|e| e.into_inner()).get(&(no, me))
+                .is_some_and(|&(t, a)| t == tick && a != Some(input.target_id));
+        let id = CASTS.fetch_add(1, Ordering::Relaxed);
+        let mut slid = Vec::new();
+        {
+            let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
+            for &slot in &moving {
+                // a record its checkpoints stopped keeping (the add-on lost the soldier): it just rises there
+                let Some(s) = map.get_mut(&soldier_key(sim, me, slot)).filter(|s| !s.gone && s.until + 2 >= tick) else { continue };
+                let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
+                let right = dash_faces_right(s.at, dest, s.right);
+                s.slide = Some(Slide { from: s.at, to: dest, t0: tick, t1: tick + p.q_travel, right, cast: id, done: 0.0, chain });
+                s.stab = None;
+                slid.push((slot, s.at, chain));
+            }
+        }
+        {
+            let mut casts = QCASTS.lock().unwrap_or_else(|e| e.into_inner());
+            keep_rows(&mut casts, no);
+            casts.insert((no, me), QCast { id, hit: Vec::new(), dmg: scaled(p.q_dmg, p.q_ap, ap), slow: (p.q_slow, p.q_slow_t) });
+        }
+        for &(slot, _, chain) in &slid {
+            dash_step(sim, me, slot, chain, tick);
+        }
+        if let Some(k) = tally(sim, "q dash") {
+            let who: Vec<String> = slid.iter().map(|(slot, from, _)| format!("{} from {}", SLOTS[*slot], pt(*from))).collect();
+            wlog(format!("{} Q DASH #{k} to {}{}: {}{}", head(sim, me), pt(dest),
+                         if input.kind == InputTargetKindV1::Target.code() { format!(" (#{})", input.target_id) } else { String::new() },
+                         if none { "none stood: one rises there".to_string() } else if slid.is_empty() {
+                             format!("slots {:?} move but none is drawn (no picture of them): they rise there", moving)
+                         } else { format!("{} soldier(s) [{}] in {} ticks, each enemy on a path once", slid.len(), who.join(", "), p.q_travel) },
+                         if wrong { " - NOT the anchor q_pick chose (the move went to another unit)" } else { "" }));
+        }
+    }
+}
+
+/// One step of a soldier's dash (the chain `dash_<slot>`, every ss_dash ticks; its first on the tick the soldiers leave):
+/// its picture where it is now, facing the way it goes, and Q's damage and slow on every enemy its path has met since the
+/// last step and the next (each once a cast). Its last step ends as it lands; the data's soldier rising there takes over.
+fn dash_step(sim: &mut StableSim<'_>, me: usize, slot: usize, chain: usize, tick: usize) {
+    let p = params_of(me);
+    let key = soldier_key(sim, me, slot);
+    let Some(sl) = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).and_then(|s| s.slide)
+        .filter(|sl| sl.chain == chain) else { return };
+    let now = slide_share(&sl, tick);
+    let ahead = slide_share(&sl, tick + p.ss_dash);
+    let (ox, oy) = SLOT_AT[slot];
+    let at = lerp(sl.from, sl.to, now);
+    // the picture (an old copy without the dash tags: the standing one, every few steps)
+    let name = az(&format!("ss_dash_{}", if sl.right { "r" } else { "l" }));
+    if !sim.play_view_effect(&name, me, &pos_input((at.0 + ox, at.1 + oy)), 0, 0, 0) && tick.saturating_sub(sl.t0) % p.ss_stand.max(1) < p.ss_dash {
+        draw_soldier(sim, me, slot, at, "stand", sl.right);
+    }
+    sweep_path(sim, me, slot, &sl, ahead);
+    if tick + p.ss_dash < sl.t1 {
+        let mut input = pos_input(sl.to);
+        input.target_id = chain;
+        let q = format!("{ID}:dash_{}", SLOTS[slot]);
+        if !sim.queue_effect(&q, AttackTypeV1::Skill, me, &input, p.ss_dash) {
+            wlog(format!("{} queue_effect({q}) refused", head(sim, me)));
+        }
+    }
+}
+
+/// Q's damage and slow on the enemies the dash of `slot` met from where it had dealt to (`sl.done`) to `upto` of its path:
+/// the cast's (QCASTS) - each enemy once, however many paths cross it.
+fn sweep_path(sim: &mut StableSim<'_>, me: usize, slot: usize, sl: &Slide, upto: f64) {
+    if upto <= sl.done {
+        return;
+    }
+    let p = params_of(me);
+    let team = sim.get_entity(me).map_or(0, |e| e.team());
+    let (a, b) = (lerp(sl.from, sl.to, sl.done), lerp(sl.from, sl.to, upto));
+    let key = (sim_no(sim, me), me);
+    let (dmg, slow, met) = {
+        let mut casts = QCASTS.lock().unwrap_or_else(|e| e.into_inner());
+        let Some(c) = casts.get_mut(&key).filter(|c| c.id == sl.cast) else { return };
+        let met = on_segment(&enemy_units(sim, team), a, b, p.q_w as f64, &c.hit);
+        c.hit.extend(met.iter().copied());
+        (c.dmg, c.slow, met)
+    };
+    if let Some(s) = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&soldier_key(sim, me, slot)) {
+        if let Some(x) = s.slide.as_mut().filter(|x| x.chain == sl.chain) {
+            x.done = upto;
+        }
+    }
+    for &id in &met {
+        sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        let name = az("q_slow");
+        sim.entity_remove_buff(id, &name);
+        let mut b = BuffV1::timed(&name, slow.1);
+        b.move_speed_mult = -(slow.0 as i32);
+        sim.add_buff(id, &b);
+        sim.play_view_effect(&az("q_hit"), me, &InputTargetV1::target(id), 0, 0, 0);
+        sim.play_sfx(&az("q_hit"), me, &InputTargetV1::target(id));
+    }
+    if !met.is_empty() {
+        let k = bump("q path");
+        if sparse(k) {
+            wlog(format!("{} Q PATH #{k}: soldier {}'s dash met {:?} ({dmg} magic, {}% slow {} ticks)", head(sim, me),
+                         SLOTS[slot], met, slow.0, slow.1));
+        }
+    }
+}
+
+/// `dash_<slot>`: the next step of a dash (its chain in the input's target id).
+struct Dash {
+    slot: usize,
+}
+
+impl StableEffectType for Dash {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        let tick = sim.tick();
+        dash_step(sim, me, self.slot, input.target_id, tick);
     }
 }
 
@@ -1608,13 +2091,43 @@ impl StableEffectType for SoldierFx {
                 let rising = matches!(self.step, Step::Rise);
                 let until = tick + p.s_step + p.ss_stand;
                 let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
+                // 0.3.0: one Conquering Sands brought here (its dash drawn on the way) arrives standing, not out of the sand
+                let arrived = map.get(&key).and_then(|s| s.slide).filter(|sl| rising && dist(sl.to, at) <= ARRIVE_NEAR);
+                if let Some(sl) = arrived {
+                    // 0.3.1（用户 2026-11-20：「改成联盟的」）：冲过来的还是原来那个兵，接着原来的出生时刻和年龄算
+                    let (born, age) = map.get(&key).map_or((tick, 0), |s| carried_life(s.born, s.age, sl.t0, tick));
+                    prune_soldiers(&mut map, key.0, tick, p.s_life);
+                    let enemy = nearest(sim, team, at, FACE_R).map(|(_, _, e)| e);
+                    let right = turn_to(at, enemy, sl.right);
+                    let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
+                    let mut s = Soldier::new(at, right, chain, until.min(life_end(born, p.s_life, p.ss_stand)),
+                                             tick + p.ss_stand, tick, tick);
+                    s.born = born;
+                    s.age = age;
+                    s.moved = true;
+                    map.insert(key, s);
+                    drop(map);
+                    // what is left of its path (a step of the dash lost on the way) deals now
+                    sweep_path(sim, me, self.slot, &sl, 1.0);
+                    draw_soldier(sim, me, self.slot, at, "stand", right);
+                    queue_stamp(sim, me, self.slot, at, chain, p.ss_stand);
+                    if let Some(k) = counted("arrive") {
+                        wlog(format!("{} SOLDIER {s_} ARRIVES #{k} at {} from {} ({} ticks after it left), {} ticks of its \
+                                      {} left (risen on tick {born}), facing {}",
+                                     head(sim, me), pt(at), pt(sl.from), tick.saturating_sub(sl.t0),
+                                     (born + p.s_life).saturating_sub(tick), p.s_life,
+                                     if right { "right" } else { "left" }));
+                    }
+                    return;
+                }
                 if !rising {
                     if let Some(s) = map.get_mut(&key).filter(|s| dist(s.at, at) <= 1_000.0) {
                         if s.gone {
                             // 0.2.0: it crumbled (the data's checkpoints are latched off it; never drawn again)
                             return;
                         }
-                        s.until = until;
+                        // 0.3.1：最多画到出生后 s_life（被 Q 挪过的兵出生时刻是原来的）
+                        s.until = until.min(life_end(s.born, p.s_life, p.ss_stand));
                         if tick.saturating_sub(s.last) <= REDRAW {
                             return;
                         }
@@ -1675,12 +2188,46 @@ impl StableEffectType for SoldierFx {
                                  head(sim, me), target.map_or("?".to_string(), pt), input.kind,
                                  d.map_or("?".to_string(), |d| format!("{d:.0}"))));
                 }
+                // 0.3.0 (the user, 2026-11-17: 「沙兵刺击穿透一条线」): the stab goes on through the one stabbed - every other
+                // enemy on the line from the soldier (where it is drawn) through it takes the stab too; the data's own
+                // stab on the one it picked is unchanged (an older copy, without s_line: no line)
+                if p.lined && !gone && InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target) {
+                    let (ox, oy) = SLOT_AT[self.slot];
+                    let from = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner()).get(&key)
+                        .filter(|s| s.slide.is_none()).map(|s| (s.at.0 + ox, s.at.1 + oy));
+                    let him = sim.get_entity(me).map(|e| at_of(&e)).unwrap_or((0.0, 0.0));
+                    let end = from.zip(target).and_then(|(f, t)| stab_line(f, t, him, p.s_r as f64).map(|e| (f, e)));
+                    if let Some((f, e)) = end {
+                        let met = on_segment(&enemy_units(sim, team), f, e, p.s_line as f64, &[input.target_id]);
+                        if !met.is_empty() {
+                            let dmg = scaled(p.s_dmg, p.s_ap, sim.get_entity(me).map_or(0, |e| e.stat().magic_power));
+                            for &id in &met {
+                                sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+                                sim.play_view_effect(&az("s_stab"), me, &InputTargetV1::target(id), 0, 0, 0);
+                            }
+                            let k = bump("stab line");
+                            if sparse(k) {
+                                wlog(format!("{} SOLDIER {s_} STAB LINE #{k}: through #{} from {} to {}, {} more: {:?} ({dmg} \
+                                              magic each)", head(sim, me), input.target_id, pt(f), pt(e), met.len(), met));
+                            }
+                        }
+                    }
+                }
             }
             Step::Stamp => {
                 let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
-                let Some(s) = map.get(&key).copied().filter(|s| stamp_due(tick, s.next) && !s.gone) else { return };
+                // 0.3.0: a soldier dashing with Conquering Sands is the dash's to draw (its old chain stops here)
+                let Some(s) = map.get(&key).copied().filter(|s| stamp_due(tick, s.next) && !s.gone && s.slide.is_none())
+                    else { return };
                 if tick >= s.until {
                     map.remove(&key);
+                    drop(map);
+                    if s.moved {
+                        if let Some(k) = counted("moved ends") {
+                            wlog(format!("{} SOLDIER {s_} ENDS #{k} at {}: moved by Conquering Sands, {} ticks after it rose \
+                                          (its own {})", head(sim, me), pt(s.at), tick.saturating_sub(s.born), p.s_life));
+                        }
+                    }
                     return;
                 }
                 let (what, right, next) = match s.stab {
@@ -1862,7 +2409,8 @@ fn tethers(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: P
         (0..SLOTS.len())
             .filter_map(|slot| {
                 let s = map.get(&soldier_key(sim, me, slot))
-                    .filter(|s| !s.gone && standing_up(s.up, s.until, s.next, tick) && in_reach(here, s.at, reach))?;
+                    .filter(|s| !s.gone && s.slide.is_none() && standing_up(s.up, s.until, s.next, tick)
+                            && in_reach(here, s.at, reach))?;
                 let (ox, oy) = SLOT_AT[slot];
                 let (len, c, u) = tether_piece(a, (s.at.0 + ox, s.at.1 + oy - TETHER_LIFT), tick)?;
                 Some((slot, len, c, u))
@@ -1950,7 +2498,8 @@ fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, h
         let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
         for slot in 0..SLOTS.len() {
             let Some(s) = map.get_mut(&soldier_key(sim, me, slot)) else { continue };
-            if s.gone || tick >= s.until || tick < s.born {
+            // 0.3.0: a dashing soldier is no longer the data's (its old zones are off) - the one rising where it lands is
+            if s.gone || tick >= s.until || tick < s.born || s.slide.is_some() {
                 continue;
             }
             let standing = tick >= s.up;
@@ -2044,7 +2593,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier that outlives its tick, soldiers out of his reach stop and crumble, twice as fast by enemy towers, the wall stands 5 s, the disc every 90 s on any ruin outside the enemy base) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier that outlives its tick, soldiers out of his reach stop and crumble, twice as fast by enemy towers, the wall stands 5 s, the disc every 90 s on any ruin outside the enemy base, Conquering Sands' soldiers dash to any target and their paths deal, a soldier's stab goes through a line, a moved soldier keeps its own 10 s) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -2070,7 +2619,14 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         for (what, step) in [("rise", Step::Rise), ("sold", Step::Seen), ("stab", Step::Stab), ("ss", Step::Stamp)] {
             module.add_native_effect(format!("{ID}:{what}_{s}"), SoldierFx { slot, step });
         }
+        // 0.3.0: a soldier's dash with Conquering Sands, step by step
+        module.add_native_effect(format!("{ID}:dash_{s}"), Dash { slot });
     }
+    // 0.3.0 (the user, 2026-11-17: 「Q 沙兵真的冲过去」): Q's aim, the unit the controller's move goes to, the soldiers leaving
+    module.add_native_effect(format!("{ID}:q_go"), QGo { wave: false });
+    module.add_native_effect(format!("{ID}:q_wave"), QGo { wave: true });
+    module.add_native_effect(format!("{ID}:q_pick"), QPick);
+    module.add_native_effect(format!("{ID}:q_fly"), QFly);
     // 0.1.7: the line of sand to each soldier (the passive spawns its pieces; they hit nothing)
     module.add_native_effect(format!("{ID}:noop"), Noop);
     // 0.2.1: the disc and the standing walls run on while he is dead (his passive does not)
@@ -2358,7 +2914,7 @@ mod tests {
                 * 1000.0
         };
         let p = Params::default();
-        for (tag, ticks) in [("stand", p.ss_stand), ("rise", p.ss_rise), ("stab", p.ss_stab)] {
+        for (tag, ticks) in [("stand", p.ss_stand), ("rise", p.ss_rise), ("stab", p.ss_stab), ("dash", p.ss_dash)] {
             for side in ["r", "l"] {
                 for pre in ["", "hd_"] {
                     let got = ms(&format!("{pre}{tag}_{side}"));
@@ -2550,6 +3106,34 @@ mod tests {
         }
     }
 
+    /// 0.3.1：Q 挪过去的沙兵还是原来那条命：出生时刻不变，年龄把冲的那几 tick 也算上；画面最多画到原来的 10 秒。
+    #[test]
+    fn a_moved_soldier_keeps_its_first_life() {
+        let p = Params::default();
+        // 第 100 tick 召出来、年龄 300（塔下多老了 100），第 400 tick 起冲，第 418 tick 到
+        assert_eq!(carried_life(100, 300, 400, 418), (100, 318));
+        // 原地站满的兵：最后一个检查点在出生后 s_life - s_step，画面本来就画到它再加 s_step + ss_stand，不会被截（晚一 tick 也不会）
+        let born = 1000;
+        assert!(born + p.s_life + 1 + p.ss_stand <= life_end(born, p.s_life, p.ss_stand));
+        // 挪过的兵：到点的检查点再晚也只画到出生后 s_life 多一点
+        assert!(life_end(born, p.s_life, p.ss_stand) <= born + p.s_life + 10);
+    }
+
+    /// 0.3.1：数据里挪过去的沙兵要问槽位的 b<槽> 和 z<槽>，召兵时挂 w<槽> / z<槽>；主包和副本一样。
+    #[test]
+    fn the_moved_soldiers_ask_their_first_life() {
+        let copy = include_str!("../override/league_azir.data_champion");
+        let main = include_str!("../../../league/champion/league_azir.data_champion");
+        for (name, kit) in [("copy", copy), ("main", main)] {
+            for s in SLOTS {
+                for flag in ["z", "w"] {
+                    assert!(kit.contains(&format!("\"buff_name\": \"league_azir_{flag}{s}\"")), "{name}: asks {flag}{s}");
+                    assert!(kit.contains(&format!("\"name\": \"league_azir_{flag}{s}\"")), "{name}: hangs {flag}{s}");
+                }
+            }
+        }
+    }
+
     /// 0.2.1: the mark hangs every tick a soldier is out of reach, comes off when it is back. 0.2.3: a rising soldier too.
     #[test]
     fn the_out_of_reach_mark_follows_the_soldier() {
@@ -2705,6 +3289,137 @@ mod tests {
         assert!(fresh_target(1000, 1000 + LAST_TARGET_T));
         assert!(!fresh_target(1000, 1001 + LAST_TARGET_T));
         assert!(!fresh_target(1000, 990), "another simulation's clock");
+    }
+
+    /// 0.3.0 (the user, 2026-11-17: 「沙兵刺击穿透一条线」): a stab goes on through the one stabbed - everyone else within
+    /// s_line plus their body of the line from the soldier, s_r long (at least to the one stabbed), takes it; nobody behind
+    /// the soldier, beside the line or past its end, and the one stabbed only once (the data's own hit).
+    #[test]
+    fn a_stab_goes_through_a_line() {
+        let p = Params::default();
+        let soldier = (100_000.0, 100_000.0);
+        let stabbed = (120_000.0, 100_000.0);
+        let him = (60_000.0, 100_000.0);
+        let end = stab_line(soldier, stabbed, him, p.s_r as f64).unwrap();
+        assert!((end.0 - (100_000.0 + p.s_r as f64)).abs() < 1e-6 && (end.1 - 100_000.0).abs() < 1e-6);
+        let body = 6_000.0;
+        let units = [
+            (1, stabbed, body),                                              // the one stabbed: the data's
+            (2, (135_000.0, 108_000.0), body),                               // behind it, a little off the line
+            (3, (130_000.0, 100_000.0 + p.s_line as f64 + body + 500.0), body), // beside it, just out of reach
+            (4, (85_000.0, 100_000.0), body),                                // behind the soldier: the line starts there
+            (5, (100_000.0 + (p.s_r + p.s_line) as f64 + body + 1_000.0, 100_000.0), body), // past the line's end
+            (6, (110_000.0, 97_000.0), body),                                // between the soldier and the one stabbed
+        ];
+        assert_eq!(on_segment(&units, soldier, end, p.s_line as f64, &[1]), vec![2, 6]);
+        // the one stabbed farther than the soldier's reach (the zone counts its body): the line reaches it all the same
+        let far = (100_000.0, 150_000.0);
+        let e2 = stab_line(soldier, far, him, p.s_r as f64).unwrap();
+        assert!((dist(soldier, e2) - 50_000.0).abs() < 1e-6);
+        // on top of the one it stabs (Q's landing, E's soldier): the way from him to it, on through it
+        let on = (121_000.0, 102_000.0);
+        let e3 = stab_line(on, stabbed, (60_000.0, 100_000.0), p.s_r as f64).unwrap();
+        assert!((e3.1 - 102_000.0).abs() < 1e-6 && (e3.0 - (121_000.0 + p.s_r as f64)).abs() < 1e-6, "{e3:?}");
+        assert_eq!(stab_line(soldier, soldier, soldier, 42_000.0), None);
+        assert_eq!(scaled(75, 106, 200), 287);
+    }
+
+    /// 0.3.0 (the user, 2026-11-17: 「Q 沙兵真的冲过去」): a dash goes from the soldier's spot to the landing in q_travel
+    /// ticks; its steps (every ss_dash) reach the whole path by its last one, whose picture ends as it lands.
+    #[test]
+    fn a_dash_slides_from_its_spot_to_the_landing() {
+        let p = Params::default();
+        let sl = Slide { from: (0.0, 0.0), to: (54_000.0, -18_000.0), t0: 1000, t1: 1000 + p.q_travel, right: true, cast: 1,
+                         done: 0.0, chain: 1 };
+        assert_eq!(slide_share(&sl, 1000), 0.0);
+        assert_eq!(slide_share(&sl, 1000 + p.q_travel), 1.0);
+        assert_eq!(slide_share(&sl, 5000), 1.0);
+        assert!((slide_share(&sl, 1000 + p.q_travel / 2) - 0.5).abs() < 1e-9);
+        assert_eq!(lerp(sl.from, sl.to, 0.5), (27_000.0, -9_000.0));
+        // the chain's steps: the first as they leave, then every ss_dash while one more fits before the landing
+        let mut steps = vec![sl.t0];
+        while steps.last().unwrap() + p.ss_dash < sl.t1 {
+            steps.push(steps.last().unwrap() + p.ss_dash);
+        }
+        let last = *steps.last().unwrap();
+        assert_eq!(slide_share(&sl, last + p.ss_dash), 1.0, "the last step deals to the end of the path");
+        assert!(last < sl.t1 && last + p.ss_dash >= sl.t1, "its picture ends as it lands ({last})");
+        // League's soldiers run ~1000-1600 a second: a dash across Q's reach (75000 = 750) is about as fast
+        let speed = 75_000.0 / p.q_travel as f64 * 60.0 / 100.0;
+        assert!((1_000.0..=3_000.0).contains(&speed), "{speed} League units a second");
+        assert!(dash_faces_right((0.0, 0.0), (10_000.0, 30_000.0), false));
+        assert!(!dash_faces_right((0.0, 0.0), (-10_000.0, 30_000.0), true));
+        assert!(dash_faces_right((0.0, 0.0), (500.0, 30_000.0), true), "straight down: it keeps its way");
+    }
+
+    /// 0.3.0: the dashes of one Conquering Sands deal to each enemy once, however many paths cross it; a soldier's path
+    /// is q_w plus the body wide either side.
+    #[test]
+    fn a_cast_deals_to_each_enemy_once() {
+        let p = Params::default();
+        let units = [(7, (30_000.0, 4_000.0), 10_000.0), (8, (30_000.0, 30_000.0), 10_000.0), (9, (60_000.0, 0.0), 6_000.0)];
+        let mut hit = Vec::new();
+        // soldier a's path along y = 0 meets #7 (4000 off) and #9 at its end, not #8
+        let a = on_segment(&units, (0.0, 0.0), (60_000.0, 0.0), p.q_w as f64, &hit);
+        assert_eq!(a, vec![7, 9]);
+        hit.extend(a);
+        // soldier b's path passes #7 and #8: #7 was dealt to already
+        let b = on_segment(&units, (30_000.0, -20_000.0), (30_000.0, 40_000.0), p.q_w as f64, &hit);
+        assert_eq!(b, vec![8]);
+        assert_eq!(seg_dist((5.0, 5.0), (0.0, 0.0), (0.0, 0.0)), dist((5.0, 5.0), (0.0, 0.0)));
+    }
+
+    /// 0.3.0: Q's move goes to the unit Q aimed at while it stands, else to the nearest enemy where it stood (within
+    /// ANCHOR_R), else nowhere.
+    #[test]
+    fn q_moves_to_its_target_or_the_nearest_where_it_stood() {
+        let aim = Aim { target: 40, at: (500_000.0, 400_000.0), tick: 100, wave: false };
+        // no move took it (no controller run, nobody to land on): its Q is owed after AIM_FRESH ticks; a wave's never
+        assert!(!aim_owed(&aim, 100 + AIM_FRESH) && aim_owed(&aim, 101 + AIM_FRESH));
+        assert!(!aim_owed(&Aim { wave: true, ..aim }, 1000));
+        let units = [(41, (520_000.0, 400_000.0), 6_000.0), (42, (505_000.0, 395_000.0), 6_000.0),
+                     (43, (600_000.0, 400_000.0), 10_000.0)];
+        assert_eq!(anchor(&aim, true, &units), Some(40));
+        assert_eq!(anchor(&aim, false, &units), Some(42));
+        assert_eq!(anchor(&aim, false, &units[2..]), None, "nobody near where it stood");
+        assert!(AIM_FRESH > 4, "the controller runs every 3 ticks while q_go (4 ticks) is up");
+    }
+
+    /// 0.3.0: the per-Azir maps (aims, anchors, casts) stay bounded - past KEEP_ROWS only the simulation writing keeps its
+    /// rows.
+    #[test]
+    fn the_q_maps_stay_bounded() {
+        let mut m: HashMap<(u64, usize), u8> = HashMap::new();
+        for no in 0..KEEP_ROWS as u64 {
+            m.insert((no, 5), 0);
+        }
+        keep_rows(&mut m, 7);
+        assert_eq!(m.len(), 1);
+        assert!(m.contains_key(&(7, 5)));
+        let mut small: HashMap<(u64, usize), u8> = HashMap::from([((1, 1), 0), ((2, 2), 0)]);
+        keep_rows(&mut small, 1);
+        assert_eq!(small.len(), 2, "under the cap nothing goes");
+    }
+
+    /// 0.3.0: the copy aims Q's move with the add-on (q_go / q_wave, q_pick, q_fly) and draws the dash (ss_dash views); its
+    /// parameters carry s_line (the line stab) and are the defaults - the main pack's data has none of these.
+    #[test]
+    fn the_copy_dashes_and_pierces() {
+        let copy = include_str!("../override/league_azir.data_champion");
+        for n in ["q_go", "q_wave", "q_pick", "q_fly"] {
+            assert!(copy.contains(&format!("\"effect_ref\": \"league_azir:{n}\"")), "no league_azir:{n} in the copy");
+        }
+        for side in ["r", "l"] {
+            assert!(copy.contains(&format!("\"name\": \"league_azir_ss_dash_{side}\"")), "no ss_dash_{side} view in the copy");
+        }
+        let at = copy.find("\"params\": {").expect("the copy's passive params");
+        let params: String = copy[at + 10..].chars().take_while(|c| *c != '}').chain(std::iter::once('}')).collect();
+        let p = parse_params(&params.replace(['\r', '\n', ' '], ""));
+        assert_eq!(p, Params { tied: true, lined: true, ..Params::default() }, "the copy's numbers are the defaults");
+        assert!(copy.contains(&format!("\"buff_name\": \"{QC}\"")), "the landing's stab asks qc");
+        let main = include_str!("../../../league/champion/league_azir.data_champion");
+        assert!(!main.contains("\"Native\""));
+        assert!(!main.contains(QT) && !main.contains(QC));
     }
 
 }

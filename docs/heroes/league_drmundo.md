@@ -9,7 +9,7 @@
 | id | `league_drmundo` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / Heal |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / Heal |
 | 高清帧 | PPU 1.5 |
 | 附加包 | [蒙多附加包](#附加包)（`league_drmundo`） |
 
@@ -55,7 +55,7 @@
 
 ### 蒙多附加包
 
-[蒙多附加包](../../addons/league_drmundo/README.md)：`league_drmundo` v0.1.12
+[蒙多附加包](../../addons/league_drmundo/README.md)：`league_drmundo` v0.1.13
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

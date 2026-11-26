@@ -1,0 +1,284 @@
+{
+  "entries": {
+    "abysspact_oathbreaker": {
+      "face": {
+        "x": 3,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_faceless": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_whisperer": {
+      "face": {
+        "x": 2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_bonebow": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_corvus": {
+      "face": {
+        "x": 3,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_bloodmoon": {
+      "face": {
+        "x": 3,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_undertaker": {
+      "face": {
+        "x": 2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_effigy": {
+      "face": {
+        "x": 2,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_sevenfold": {
+      "face": {
+        "x": 3,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_vesper": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_carapace": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_leech": {
+      "face": {
+        "x": 2,
+        "y": -28
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "abysspact_noctua": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_anchor": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_hourglass": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_reprieve": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_debtor": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_traceless": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "abysspact_starfall": {
+      "face": {
+        "x": 2,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "abysspact_knell": {
+      "face": {
+        "x": 2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    }
+  }
+}

@@ -381,9 +381,9 @@
       },
       "league_rakan": {
         "name": "洛",
-        "attack": "掷出羽毛攻击。被动<#ff9028ff>异色羽裳<>：获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>，破掉<#ffb900ff>12秒<>后再生；攻击和技能每命中一名敌方英雄，再生快<#ffb900ff>1秒<>。",
-        "skill": "掷出羽毛，第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法强<>的<#a974ffff>魔法伤害<>。命中英雄后，<#ffb900ff>3秒<>后或碰到友方英雄时，为自己和身边的友方英雄<#6aff55ff>回复<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 法强<>生命值。",
-        "skill2": "<#ff9028ff>盛大登场<>：冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.8秒<>并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>；随后<#ff9028ff>轻舞成双<>：飞到最近的友方英雄身边，给他<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）。霞在附近时飞得更远。",
+        "attack": "掷出羽毛攻击，每<#ffb900ff>5.5秒<>一次附带<#ff9028ff>微光飞翎<>：第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法强<><#a974ffff>魔法伤害<>，命中英雄则<#ffb900ff>3秒<>后或碰到队友时为自己和身边队友<#6aff55ff>回复<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 法强<>生命。被动<#ff9028ff>异色羽裳<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>，破掉<#ffb900ff>12秒<>后再生，每命中一名敌方英雄快<#ffb900ff>1秒<>。",
+        "skill": "附近有敌方英雄时，飞到一名友方英雄身边（先找被控制的，再找最近的），给他<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）；身边没有友方英雄就给自己。霞在附近时飞得更远。",
+        "skill2": "冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.8秒<>并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>。",
         "ult": "<#ffb900ff>4秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭于敌人之间：碰到的每个敌人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>魅惑1.25秒<>（每个敌人一次）；碰到第一个英雄后更快。"
       },
       "league_evelynn": {
@@ -913,7 +913,7 @@
       },
       "league_rammus": {
         "name": "拉莫斯",
-        "attack": "翻身撞击。<#ff9028ff>锥刺甲壳<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>魔法伤害。<#ff9028ff>尖刺防御<>：敌方英雄靠近时蜷起来，<#ffb900ff>7秒<>内双抗+60%，反弹25%受到的伤害。",
+        "attack": "翻身撞击。<#ff9028ff>锥刺甲壳<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>魔法伤害。<#ff9028ff>尖刺防御<>：放过动力冲刺后敌方英雄靠近时蜷起来，<#ffb900ff>7秒<>内护甲+42（+40%）、魔抗+28（+40%），反弹25%受到的伤害；放动力冲刺、冲天猛撞时收起。",
         "skill": "缩成球滚向目标，撞上时对周围造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>魔法伤害，<#ef5350ff>击退<>、<#ef5350ff>眩晕<><#ffb900ff>0.4秒<>并<#ef5350ff>减速40%<><#ffb900ff>1秒<>。",
         "skill2": "<#ef5350ff>嘲讽<>一名敌方英雄<#ffb900ff>1.5秒<>。",
         "ult": "跳起砸向敌方英雄，对区域造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害并<#ef5350ff>减速40%<>，之后余震3次；刚滚完动力冲刺时，中心的敌人再受一次冲刺伤害并<#ef5350ff>击飞0.75秒<>。"
@@ -929,7 +929,7 @@
         "name": "佐伊",
         "attack": "射出一颗小星星。<#ff9028ff>烟火四射！<>：每放一个技能，下一次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害。",
         "skill": "掷出一颗飞星，打中第一个敌人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；飞得越远伤害越高，最远<#ffb900ff>250%<>。",
-        "skill2": "踢出气泡，打中敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>睡眠<><#ffb900ff>2秒<>；没打中就留在原地。",
+        "skill2": "踢出气泡，打中第一个敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>睡眠<><#ffb900ff>2.25秒<>；没打中就留在原地。",
         "ult": "跳进传送门闪向敌方英雄，掷出飞星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害；<#ff9028ff>窃法巧手<>：再射3颗飞弹，每颗<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>后跳回原地。"
       },
       "league_quinn": {
@@ -1109,7 +1109,7 @@
       },
       "league_azir": {
         "name": "阿兹尔",
-        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在身前召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），他附近的士兵代他刺击，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>魔法伤害；够不着时他自己射出沙光。",
+        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在目标附近召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>10秒<>），他附近的士兵代他刺击，造成<#a974ffff>74<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<>魔法伤害；够不着时他自己射出沙光。",
         "skill": "所有黄沙士兵冲向目标，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>减速<>25%，落地马上刺击；没有士兵时在目标处召出一个。",
         "skill2": "身边有士兵才能施放：获得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，大招就绪时冲向敌方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并召出一个士兵；被敌方英雄贴身时改为后跳。",
         "ult": "一排禁军举盾冲锋，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害并<#ef5350ff>击退<>敌人；刚用流沙移形冲到英雄身上时，先绕到他身后，再把他推回己方。"
@@ -1165,10 +1165,10 @@
       },
       "league_yorick": {
         "name": "约里克",
-        "attack": "抡铲。<#ff9028ff>牧魂人<>：临终仪式打英雄（打别的每两下）挖一座坟，满3座时下一铲唤醒3只<#ff9028ff>雾行者<>咬目标<#ffb900ff>6秒<>（每只每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>），同时<#ff9028ff>暗灵缠身<>把附近的敌方英雄<#ef5350ff>定身<><#ffb900ff>1秒<>。",
+        "attack": "抡铲。<#ff9028ff>牧魂人<>：临终仪式打英雄（打别的每两下）挖一座坟，最多4座；满3座时下一铲每座坟唤醒1只<#ff9028ff>雾行者<>咬目标<#ffb900ff>6秒<>（每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>）。<#ff9028ff>暗灵缠身<>：自动对附近敌方英雄施放，<#ffb900ff>0.75秒<>后立起一圈墙<#ffb900ff>1秒<>，圈里的敌方英雄出不去、圈外的进不来。",
         "skill": "下一铲造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害，回复30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%生命。",
-        "skill2": "扔出一团黑雾：范围内敌人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命4%，护甲-25%持续<#ffb900ff>4秒<>，<#ef5350ff>减速<>30%。",
-        "ult": "在敌方英雄身后召唤<#ff9028ff>迷雾室女<>和2只雾行者，跟着它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期间约里克普攻英雄额外造成最大生命3%真实伤害。"
+        "skill2": "扔出一团黑雾：范围内敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大生命5%物理伤害，护甲-25%持续<#ffb900ff>4秒<>，<#ef5350ff>减速<>30%；打中英雄时约里克移速+20%持续<#ffb900ff>4秒<>。",
+        "ult": "召唤<#ff9028ff>迷雾室女<>跟着约里克<#ffb900ff>10秒<>，<#ffb900ff>每秒<>向附近敌人放魂弹（<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>），打中英雄留下标记：约里克下一次普攻或黑雾打中英雄时额外造成最大生命3%真实伤害；另有2只<#ff9028ff>雾行者<>扑向目标。"
       },
       "league_ambessa": {
         "name": "安蓓萨",
@@ -1200,8 +1200,8 @@
       },
       "league_skarner": {
         "name": "斯卡纳",
-        "attack": "毒刺扎击。<#ff9028ff>战栗<>：普攻、巨石、毒刺打中英雄叠层，满3层<#ffb900ff>4秒<>内每秒掉最大生命1%。<#ff9028ff>震地壁垒<>：冲锋停下时得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>护盾<#ffb900ff>3秒<>，震伤周围<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>减速<>30%。",
-        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻溅射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>减速<>40%。举满<#ffb900ff>3秒<>就扔出<#ff9028ff>擎天<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "attack": "毒刺扎击。<#ff9028ff>战栗<>：普攻、巨石、毒刺打中英雄叠层，满3层<#ffb900ff>4秒<>内每秒掉最大生命1%。<#ff9028ff>震地壁垒<>（每<#ffb900ff>10秒<>）：身边有敌方英雄时普攻就得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>护盾<#ffb900ff>3秒<>，震伤周围<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>减速<>30%。",
+        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻溅射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>减速<>40%。目标在攻击范围外或举满<#ffb900ff>3秒<>就扔出<#ff9028ff>擎天<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
         "skill2": "冲向敌方英雄，撞上后拖着走，停下时造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>晕眩<><#ffb900ff>0.67秒<>。",
         "ult": "三根毒刺往前扎：直线上的敌方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害，被<#ef5350ff>压制<><#ffb900ff>0.75秒<>并拖到身边跟着走；扎中后移速+30%<#ffb900ff>2.5秒<>。"
       },
@@ -1485,8 +1485,8 @@
         "ult": "命运"
       },
       "league_rakan": {
-        "skill1": "微光飞翎",
-        "skill2": "盛大登场·轻舞成双",
+        "skill1": "轻舞成双",
+        "skill2": "盛大登场",
         "ult": "惊鸿过隙"
       },
       "league_evelynn": {
@@ -2463,9 +2463,9 @@
       },
       "league_rakan": {
         "name": "銳空",
-        "attack": "擲出羽毛攻擊。被動<#ff9028ff>奇異羽篷<>：獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>，破掉<#ffb900ff>12秒<>後再生；攻擊和技能每命中一名敵方英雄，再生快<#ffb900ff>1秒<>。",
-        "skill": "擲出羽毛，第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄後，<#ffb900ff>3秒<>後或碰到友方英雄時，為自身和身邊友方英雄<#6aff55ff>回復<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 魔法強度<>生命。",
-        "skill2": "<#ff9028ff>盛大登場<>：衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.8秒<>，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；隨後<#ff9028ff>戰鬥舞踊<>：飛到最近的友方英雄身邊，提供<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）。剎雅在附近時飛得更遠。",
+        "attack": "擲出羽毛攻擊，每<#ffb900ff>5.5秒<>一次附帶<#ff9028ff>癒光飛翎<>：首個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<><#a974ffff>魔法傷害<>，命中英雄<#ffb900ff>3秒<>後或碰到隊友時為自身和隊友<#6aff55ff>回復<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 魔法強度<>生命。被動<#ff9028ff>奇異羽篷<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>，破掉<#ffb900ff>12秒<>後再生，每命中一名英雄快<#ffb900ff>1秒<>。",
+        "skill": "附近有敵方英雄時，飛到一名友方英雄身邊（先找被控制的，再找最近的），提供<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）；身邊沒有友方英雄就給自己。剎雅在附近時飛得更遠。",
+        "skill2": "衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.8秒<>，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>。",
         "ult": "<#ffb900ff>4秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭於敵人之間：碰到的每個敵人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>魅惑1.25秒<>（每個敵人一次）；碰到第一名英雄後更快。"
       },
       "league_evelynn": {
@@ -2995,7 +2995,7 @@
       },
       "league_rammus": {
         "name": "拉姆斯",
-        "attack": "翻身撞擊。<#ff9028ff>錐刺甲殼<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>魔法傷害。<#ff9028ff>尖刺防禦<>：敵方英雄靠近時蜷起來，<#ffb900ff>7秒<>內雙抗+60%，反彈25%受到的傷害。",
+        "attack": "翻身撞擊。<#ff9028ff>錐刺甲殼<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>魔法傷害。<#ff9028ff>尖刺防禦<>：放過動力衝刺後敵方英雄靠近時蜷起來，<#ffb900ff>7秒<>內護甲+42（+40%）、魔抗+28（+40%），反彈25%受到的傷害；施放動力衝刺、飛天動地時收起。",
         "skill": "縮成球滾向目標，撞上時對周圍造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>魔法傷害，<#ef5350ff>擊退<>、<#ef5350ff>暈眩<><#ffb900ff>0.4秒<>並<#ef5350ff>緩速40%<><#ffb900ff>1秒<>。",
         "skill2": "<#ef5350ff>嘲諷<>一名敵方英雄<#ffb900ff>1.5秒<>。",
         "ult": "跳起砸向敵方英雄，對區域造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害並<#ef5350ff>緩速40%<>，之後餘震3次；剛滾完動力衝刺時，中心的敵人再受一次衝刺傷害並<#ef5350ff>擊飛0.75秒<>。"
@@ -3011,7 +3011,7 @@
         "name": "柔依",
         "attack": "射出一顆小星星。<#ff9028ff>閃耀星火<>：每放一個技能，下一次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害。",
         "skill": "擲出一顆飛星，打中第一個敵人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；飛得越遠傷害越高，最遠<#ffb900ff>250%<>。",
-        "skill2": "踢出泡泡，打中敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>睡眠<><#ffb900ff>2秒<>；沒打中就留在原地。",
+        "skill2": "踢出泡泡，打中第一個敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>睡眠<><#ffb900ff>2.25秒<>；沒打中就留在原地。",
         "ult": "跳進傳送門閃向敵方英雄，擲出飛星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害；<#ff9028ff>法術竊盜<>：再射3顆飛彈，每顆<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>後跳回原地。"
       },
       "league_quinn": {
@@ -3191,7 +3191,7 @@
       },
       "league_azir": {
         "name": "阿祈爾",
-        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在身前召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），他附近的砂兵代他刺擊，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>魔法傷害；搆不著時他自己射出砂光。",
+        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在目標附近召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>10秒<>），他附近的砂兵代他刺擊，造成<#a974ffff>74<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<>魔法傷害；搆不著時他自己射出砂光。",
         "skill": "所有砂兵衝向目標，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>緩速<>25%，落地立刻刺擊；沒有砂兵時在目標處召出一名。",
         "skill2": "身邊有砂兵才能施放：獲得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，大絕就緒時衝向敵方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並召出一名砂兵；被敵方英雄貼身時改為後跳。",
         "ult": "一排禁軍舉盾衝鋒，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害並<#ef5350ff>擊退<>敵人；剛用護砂瞬身衝到英雄身上時，先繞到他身後，再把他推回己方。"
@@ -3247,10 +3247,10 @@
       },
       "league_yorick": {
         "name": "約瑞科",
-        "attack": "揮鏟。<#ff9028ff>亡魂牧人<>：臨終葬儀打英雄（打其他每兩下）挖一座墳，滿3座時下一鏟喚醒3隻<#ff9028ff>霧行者<>咬目標<#ffb900ff>6秒<>（每隻每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>），同時<#ff9028ff>黯影屍陣<>把附近的敵方英雄<#ef5350ff>定身<><#ffb900ff>1秒<>。",
+        "attack": "揮鏟。<#ff9028ff>亡魂牧人<>：臨終葬儀打英雄（打其他每兩下）挖一座墳，最多4座；滿3座時下一鏟每座墳喚醒1隻<#ff9028ff>霧行者<>咬目標<#ffb900ff>6秒<>（每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>）。<#ff9028ff>黯影屍陣<>：自動對附近敵方英雄施放，<#ffb900ff>0.75秒<>後立起一圈牆<#ffb900ff>1秒<>，圈內的敵方英雄出不去、圈外的進不來。",
         "skill": "下一鏟造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害，回復30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%生命。",
-        "skill2": "丟出一團黑霧：範圍內敵人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命4%，護甲-25%持續<#ffb900ff>4秒<>，<#ef5350ff>緩速<>30%。",
-        "ult": "在敵方英雄身後召喚<#ff9028ff>迷霧少女<>和2隻霧行者，跟著它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期間約瑞科普攻英雄額外造成最大生命3%真實傷害。"
+        "skill2": "丟出一團黑霧：範圍內敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大生命5%物理傷害，護甲-25%持續<#ffb900ff>4秒<>，<#ef5350ff>緩速<>30%；打中英雄時約瑞科移速+20%持續<#ffb900ff>4秒<>。",
+        "ult": "召喚<#ff9028ff>迷霧少女<>跟著約瑞科<#ffb900ff>10秒<>，<#ffb900ff>每秒<>向附近敵人放魂彈（<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>），打中英雄留下標記：約瑞科下一次普攻或黑霧打中英雄時額外造成最大生命3%真實傷害；另有2隻<#ff9028ff>霧行者<>撲向目標。"
       },
       "league_ambessa": {
         "name": "安比薩",
@@ -3282,8 +3282,8 @@
       },
       "league_skarner": {
         "name": "史加納",
-        "attack": "毒刺扎擊。<#ff9028ff>震動餘波<>：普攻、巨石、毒刺打中英雄疊層，滿3層<#ffb900ff>4秒<>內每秒掉最大生命1%。<#ff9028ff>壁壘波動<>：衝鋒停下時得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>護盾<#ffb900ff>3秒<>，震傷周圍<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>緩速<>30%。",
-        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻濺射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>緩速<>40%。舉滿<#ffb900ff>3秒<>就扔出<#ff9028ff>尖岩飛彈<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "attack": "毒刺扎擊。<#ff9028ff>震動餘波<>：普攻、巨石、毒刺打中英雄疊層，滿3層<#ffb900ff>4秒<>內每秒掉最大生命1%。<#ff9028ff>壁壘波動<>（每<#ffb900ff>10秒<>）：身邊有敵方英雄時普攻就得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>護盾<#ffb900ff>3秒<>，震傷周圍<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>緩速<>30%。",
+        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻濺射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>緩速<>40%。目標在攻擊範圍外或舉滿<#ffb900ff>3秒<>就扔出<#ff9028ff>尖岩飛彈<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
         "skill2": "衝向敵方英雄，撞上後拖著走，停下時造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>暈眩<><#ffb900ff>0.67秒<>。",
         "ult": "三根毒刺往前扎：直線上的敵方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害，被<#ef5350ff>壓制<><#ffb900ff>0.75秒<>並拖到身邊跟著走；扎中後移速+30%<#ffb900ff>2.5秒<>。"
       },
@@ -3567,8 +3567,8 @@
         "ult": "命運"
       },
       "league_rakan": {
-        "skill1": "癒光飛翎",
-        "skill2": "盛大登場·戰鬥舞踊",
+        "skill1": "戰鬥舞踊",
+        "skill2": "盛大登場",
         "ult": "迷心迅步"
       },
       "league_evelynn": {
@@ -4545,9 +4545,9 @@
       },
       "league_rakan": {
         "name": "Rakan",
-        "attack": "Throws a feather. Passive <#ff9028ff>Fey Feathers<>: Rakan holds a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<>; <#ffb900ff>12s<> after it breaks it comes back, <#ffb900ff>1s<> sooner for every attack or ability that hits an enemy champion.",
-        "skill": "Rakan flings a feather: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>. After a champion hit he <#6aff55ff>heals<> himself and nearby allied champions for <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% AP<> after <#ffb900ff>3s<>, or as soon as he touches an ally.",
-        "skill2": "<#ff9028ff>Grand Entrance<>: Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.8s<> and dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; then <#ff9028ff>Battle Dance<>: he flies to the nearest allied champion and gives him a <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>. With Xayah near he flies farther.",
+        "attack": "Throws a feather; every <#ffb900ff>5.5s<> an attack also flings <#ff9028ff>Gleaming Quill<>: <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<> to the first enemy hit; on a champion hit he <#6aff55ff>heals<> himself and nearby allies for <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% AP<> after <#ffb900ff>3s<> or when he touches an ally. Passive <#ff9028ff>Fey Feathers<>: a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<>, back <#ffb900ff>12s<> after it breaks, <#ffb900ff>1s<> sooner per enemy champion hit.",
+        "skill": "With an enemy champion near, Rakan flies to an allied champion (one under crowd control first, else the nearest) and gives them a <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>; with no ally around, he shields himself. With Xayah near he flies farther.",
+        "skill2": "Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.8s<> and dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>.",
         "ult": "For <#ffb900ff>4s<> Rakan <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>darts<> through the enemy team: every enemy he touches takes <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<> and is <#ef5350ff>charmed for 1.25s<> (once each). The first champion he touches speeds him up."
       },
       "league_evelynn": {
@@ -5077,7 +5077,7 @@
       },
       "league_rammus": {
         "name": "Rammus",
-        "attack": "A tumbling slam. <#ff9028ff>Spiked Shell<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> <#a974ffff>magic damage<> more. <#ff9028ff>Defensive Ball Curl<>: with an enemy champion close he curls up: for <#ffb900ff>7s<> +60% armour and magic resist, and 25% of the damage he takes is returned.",
+        "attack": "A tumbling slam. <#ff9028ff>Spiked Shell<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> <#a974ffff>magic damage<> more. <#ff9028ff>Defensive Ball Curl<>: after a Powerball, with an enemy champion close he curls up: for <#ffb900ff>7s<> +42 (+40%) armour and +28 (+40%) magic resist, and 25% of the damage he takes is returned; Powerball or Soaring Slam ends it.",
         "skill": "Curls into a ball and rolls at the target; on impact nearby enemies take <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> <#a974ffff>magic damage<>, are <#ef5350ff>knocked back<>, <#ef5350ff>stunned<> for <#ffb900ff>0.4s<> and <#ef5350ff>slowed 40%<> for <#ffb900ff>1s<>.",
         "skill2": "<#ef5350ff>Taunts<> an enemy champion for <#ffb900ff>1.5s<>.",
         "ult": "Leaps onto an enemy champion: the area takes <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed 40%<>, then 3 aftershocks. Right after a Powerball the centre also takes Powerball's damage and is <#ef5350ff>knocked up 0.75s<>."
@@ -5093,7 +5093,7 @@
         "name": "Zoe",
         "attack": "Throws a little star. <#ff9028ff>More Sparkles!<>: after each spell her next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> more.",
         "skill": "Throws a star at the first enemy hit for <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>; the farther it flies the harder it hits, up to <#ffb900ff>250%<>.",
-        "skill2": "Kicks a bubble: the enemy champion hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>2s<>. A miss leaves it lying as a trap.",
+        "skill2": "Kicks a bubble: the first enemy hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>2.25s<>. A miss leaves it lying as a trap.",
         "ult": "Jumps through a portal toward an enemy champion and throws a star for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>. <#ff9028ff>Spell Thief<>: 3 missiles follow, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> each, and she gains 40% move speed. After <#ffb900ff>1.2s<> she pops back."
       },
       "league_quinn": {
@@ -5273,7 +5273,7 @@
       },
       "league_azir": {
         "name": "Azir",
-        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier before him (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); the soldiers near him stab for him, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<> magic damage. With none in reach he shoots a sand bolt himself.",
+        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier by its target (<#ffb900ff>3<> at most, <#ffb900ff>10s<>); the soldiers near him stab for him, <#a974ffff>74<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<> magic damage. With none in reach he shoots a sand bolt himself.",
         "skill": "Every soldier charges at the target, <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage on the way and a 25% <#ef5350ff>slow<>; they stab at once on arrival. With none standing, one rises there.",
         "skill2": "Only with a soldier up: a shield of <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, then, with his ultimate ready, a dash onto an enemy champion for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage and one more soldier. Dived by a champion, he hops back instead.",
         "ult": "A wall of guards charges out: <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> magic damage and <#ef5350ff>knocks back<> the enemies. Right after Shifting Sands onto a champion he steps behind it first and drives it toward his team."
@@ -5329,10 +5329,10 @@
       },
       "league_yorick": {
         "name": "Yorick",
-        "attack": "Shovel blows. <#ff9028ff>Shepherd of Souls<>: Last Rites on a champion (on anything else every second time) digs a grave; with 3 graves the next one raises 3 <#ff9028ff>Mist Walkers<> that gnaw at the target for <#ffb900ff>6s<> (<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<> a bite each), and <#ff9028ff>Dark Procession<> <#ef5350ff>roots<> the enemy champions near it for <#ffb900ff>1s<>.",
+        "attack": "Shovel blows. <#ff9028ff>Shepherd of Souls<>: Last Rites digs a grave on a champion (else every 2nd time), up to 4; with 3+ the next raises a <#ff9028ff>Mist Walker<> a grave to gnaw the target for <#ffb900ff>6s<> (<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<> a bite). <#ff9028ff>Dark Procession<> (cast by itself): after <#ffb900ff>0.75s<> a ring of spirits stands <#ffb900ff>1s<> round an enemy champion; enemy champions can't cross it.",
         "skill": "His next blow deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage and heals him 30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%.",
-        "skill2": "Throws a globule of Black Mist: enemies hit take <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 4% max health, lose 25% armour for <#ffb900ff>4s<> and are <#ef5350ff>slowed<> 30%.",
-        "ult": "Raises the <#ff9028ff>Maiden of the Mist<> and 2 walkers behind an enemy champion; she follows it for <#ffb900ff>10s<>, clawing for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ffb900ff>every second<>, and his attacks on champions deal 3% max health more as true damage meanwhile."
+        "skill2": "Throws a globule of Black Mist: enemies hit take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> + 5% max health physical damage, lose 25% armour for <#ffb900ff>4s<> and are <#ef5350ff>slowed<> 30%; on a champion he gains 20% move speed for <#ffb900ff>4s<>.",
+        "ult": "Raises the <#ff9028ff>Maiden of the Mist<> to follow him for <#ffb900ff>10s<>, firing a bolt <#ffb900ff>every second<> at an enemy near him (<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>); a champion hit is marked: his next attack or mist on a champion deals 3% max health more as true damage. 2 <#ff9028ff>Mist Walkers<> fall on the target."
       },
       "league_ambessa": {
         "name": "Ambessa",
@@ -5364,8 +5364,8 @@
       },
       "league_skarner": {
         "name": "Skarner",
-        "attack": "Stinger strikes. <#ff9028ff>Threads of Vibration<>: his attacks, the boulder and Impale stack Quaking on champions; at 3 they take 1% max health a second for <#ffb900ff>4s<>. <#ff9028ff>Seismic Bastion<>: when his charge stops he gains a <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> shield for <#ffb900ff>3s<> and quakes the ground for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>, <#ef5350ff>slowing<> 30%.",
-        "skill": "Rips up a boulder for <#ffb900ff>6s<>: +20% attack speed, his next 3 attacks splash <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>, the third 3% max health more and <#ef5350ff>slows<> 40%. Held <#ffb900ff>3s<>, it is thrown (<#ff9028ff>Upheaval<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 3% max health.",
+        "attack": "Stinger strikes. <#ff9028ff>Threads of Vibration<>: his attacks, the boulder and Impale stack Quaking on champions; at 3 they take 1% max health a second for <#ffb900ff>4s<>. <#ff9028ff>Seismic Bastion<> (every <#ffb900ff>10s<>): attacking near an enemy champion, a <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> shield for <#ffb900ff>3s<> and a quake of <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>, <#ef5350ff>slowing<> 30%.",
+        "skill": "Rips up a boulder for <#ffb900ff>6s<>: +20% attack speed, his next 3 attacks splash <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>, the third 3% max health more and <#ef5350ff>slows<> 40%. Thrown (<#ff9028ff>Upheaval<>) at a target out of reach or after <#ffb900ff>3s<>: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 3% max health.",
         "skill2": "Charges an enemy champion and carries it along; when the charge stops it takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and is <#ef5350ff>stunned<> for <#ffb900ff>0.67s<>.",
         "ult": "His three tails lash forward: enemy champions on the line take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage, are <#ef5350ff>suppressed<> for <#ffb900ff>0.75s<> and dragged along beside him; on a hit he gains 30% move speed for <#ffb900ff>2.5s<>."
       },
@@ -5649,8 +5649,8 @@
         "ult": "Destiny"
       },
       "league_rakan": {
-        "skill1": "Gleaming Quill",
-        "skill2": "Grand Entrance + Battle Dance",
+        "skill1": "Battle Dance",
+        "skill2": "Grand Entrance",
         "ult": "The Quickness"
       },
       "league_evelynn": {
@@ -6627,9 +6627,9 @@
       },
       "league_rakan": {
         "name": "라칸",
-        "attack": "깃털을 던져 공격합니다. 기본 지속 효과 <#ff9028ff>요술 망토<>: <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 얻고, 깨지면 <#ffb900ff>12초<> 뒤 다시 생깁니다. 기본 공격과 스킬이 적 챔피언에게 맞을 때마다 <#ffb900ff>1초<> 빨라집니다.",
-        "skill": "깃털을 던져 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<>의 <#a974ffff>마법 피해<>를 입힙니다. 챔피언에게 맞으면 <#ffb900ff>3초<> 뒤 또는 아군에게 닿는 즉시 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 50%<> <#6aff55ff>회복<>합니다.",
-        "skill2": "<#ff9028ff>화려한 등장<>: 적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.8초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. 이어서 <#ff9028ff>전쟁무도<>: 가장 가까운 아군 챔피언에게 날아가 <#ffb900ff>3초<> 동안 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 씌웁니다. 자야가 가까이 있으면 더 멀리 날아갑니다.",
+        "attack": "깃털로 공격하며 <#ffb900ff>5.5초<>마다 <#ff9028ff>빛나는 깃털<>도 던져 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<>의 <#a974ffff>마법 피해<>를 입힙니다. 챔피언 적중 시 <#ffb900ff>3초<> 뒤나 아군에게 닿을 때 자신과 아군을 <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 50%<> <#6aff55ff>회복<>. 지속 효과 <#ff9028ff>요술 망토<>: <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>, 깨지면 <#ffb900ff>12초<> 뒤 재생, 적 챔피언 적중마다 <#ffb900ff>1초<> 단축.",
+        "skill": "근처에 적 챔피언이 있으면 아군 챔피언에게 날아가(군중 제어에 걸린 아군 먼저, 없으면 가장 가까운 아군) <#ffb900ff>3초<> 동안 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 씌웁니다. 주변에 아군이 없으면 자신에게 씌웁니다. 자야가 가까이 있으면 더 멀리 날아갑니다.",
+        "skill2": "적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.8초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다.",
         "ult": "<#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>빠르게<> 적진을 누빕니다. 닿은 적마다 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1.25초 동안 매혹<>합니다(적마다 한 번). 처음 닿은 챔피언이 그를 더 빠르게 합니다."
       },
       "league_evelynn": {
@@ -7159,7 +7159,7 @@
       },
       "league_rammus": {
         "name": "람머스",
-        "attack": "몸통 박치기. <#ff9028ff>가시박힌 껍질<>: 기본 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> 마법 피해 추가. <#ff9028ff>몸 말아 웅크리기<>: 적 챔피언이 가까우면 웅크려 <#ffb900ff>7초<> 동안 방어력·마법 저항력 +60%, 받은 피해의 25% 반사.",
+        "attack": "몸통 박치기. <#ff9028ff>가시박힌 껍질<>: 기본 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> 마법 피해 추가. <#ff9028ff>몸 말아 웅크리기<>: 대회전 뒤 적 챔피언이 가까우면 웅크려 <#ffb900ff>7초<> 동안 방어력 +42(+40%), 마법 저항력 +28(+40%), 받은 피해의 25% 반사. 대회전·지진 폭격을 쓰면 풀림.",
         "skill": "몸을 말아 대상에게 굴러가 부딪히면 주변 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> 마법 피해, <#ef5350ff>밀쳐내기<>, <#ffb900ff>0.4초<> <#ef5350ff>기절<>, <#ffb900ff>1초<> <#ef5350ff>40% 둔화<>.",
         "skill2": "적 챔피언 하나를 <#ffb900ff>1.5초<> <#ef5350ff>도발<>.",
         "ult": "적 챔피언에게 뛰어올라 내려찍어 범위에 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해와 <#ef5350ff>40% 둔화<>, 이어서 여진 3회. 대회전 직후라면 중심의 적은 대회전 피해를 한 번 더 받고 <#ef5350ff>0.75초 에어본<>."
@@ -7175,7 +7175,7 @@
         "name": "조이",
         "attack": "작은 별을 던진다. <#ff9028ff>반짝반짝!<>: 스킬을 쓸 때마다 다음 기본 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해 추가.",
         "skill": "별을 던져 처음 맞힌 적에게 <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해. 멀리 날아갈수록 피해가 커져 최대 <#ffb900ff>250%<>.",
-        "skill2": "방울을 차서 맞힌 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>2초<> <#ef5350ff>수면<>. 빗나가면 그 자리에 남는다.",
+        "skill2": "방울을 차서 처음 맞힌 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>2.25초<> <#ef5350ff>수면<>. 빗나가면 그 자리에 남는다.",
         "ult": "차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해. <#ff9028ff>주문도둑<>: 투사체 3개, 개당 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>, 이동 속도 +40%. <#ffb900ff>1.2초<> 뒤 제자리로."
       },
       "league_quinn": {
@@ -7355,7 +7355,7 @@
       },
       "league_azir": {
         "name": "아지르",
-        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 앞쪽에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 가까운 병사가 대신 찔러 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
+        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 대상 근처에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>10초<>). 가까운 병사가 대신 찔러 <#a974ffff>74<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
         "skill": "모든 병사가 대상에게 돌진해 지나는 길에 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 25% <#ef5350ff>둔화<>, 도착하자마자 찌른다. 병사가 없으면 그곳에 하나를 세운다.",
         "skill2": "병사가 있을 때만: <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> 보호막, 궁극기가 준비되면 적 챔피언에게 돌진해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 병사 하나 추가. 챔피언이 붙으면 대신 뒤로 뛴다.",
         "ult": "근위대가 방패를 들고 돌격해 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해와 <#ef5350ff>밀쳐내기<>. 신기루로 챔피언에게 막 붙었다면 먼저 그 뒤로 돌아가 아군 쪽으로 밀어 보낸다."
@@ -7411,10 +7411,10 @@
       },
       "league_yorick": {
         "name": "요릭",
-        "attack": "삽 공격. <#ff9028ff>영혼의 길잡이<>: 최후의 의식으로 챔피언을 치면(그 외는 두 번마다) 무덤 생성, 3개가 차면 다음 일격에 <#ff9028ff>안개 망령<> 3마리가 <#ffb900ff>6초<> 동안 대상을 물어뜯음(한 번에 <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>), <#ff9028ff>망자의 진<>이 주변 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
+        "attack": "삽 공격. <#ff9028ff>영혼의 길잡이<>: 최후의 의식이 챔피언을 치면(그 외는 두 번마다) 무덤 생성(최대 4개), 3개 이상이면 다음 일격에 무덤마다 <#ff9028ff>안개 망령<>이 <#ffb900ff>6초<> 동안 물어뜯음(한 번에 <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>). <#ff9028ff>망자의 진<>: 자동 시전, <#ffb900ff>0.75초<> 후 적 챔피언 주위에 벽 <#ffb900ff>1초<>: 적 챔피언은 넘을 수 없음.",
         "skill": "다음 공격이 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 체력 30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20% 회복.",
-        "skill2": "검은 안개를 던짐: 범위 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 최대 체력 4%, 방어력 -25% <#ffb900ff>4초<>, 30% <#ef5350ff>둔화<>.",
-        "ult": "적 챔피언 뒤에 <#ff9028ff>안개 처녀<>와 망령 2마리 소환, <#ffb900ff>10초<> 동안 따라다니며 <#ffb900ff>매초<> <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>; 그동안 요릭의 챔피언 공격에 최대 체력 3% 고정 피해 추가."
+        "skill2": "검은 안개를 던짐: 범위 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> + 최대 체력 5% 물리 피해, 방어력 -25% <#ffb900ff>4초<>, 30% <#ef5350ff>둔화<>; 챔피언 적중 시 요릭 이동 속도 +20% <#ffb900ff>4초<>.",
+        "ult": "<#ff9028ff>안개 처녀<>가 <#ffb900ff>10초<> 동안 요릭을 따라다니며 <#ffb900ff>매초<> 주변 적에게 영혼탄(<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>), 맞은 챔피언에 표식: 요릭의 다음 공격이나 안개가 챔피언에 적중하면 최대 체력 3% 고정 피해 추가; <#ff9028ff>안개 망령<> 2마리가 대상을 덮침."
       },
       "league_ambessa": {
         "name": "암베사",
@@ -7446,8 +7446,8 @@
       },
       "league_skarner": {
         "name": "스카너",
-        "attack": "독침 공격. <#ff9028ff>진동의 가닥<>: 기본 공격, 바위, 꿰뚫기가 챔피언에게 진동 중첩, 3중첩이면 <#ffb900ff>4초<> 동안 매초 최대 체력 1% 피해. <#ff9028ff>대지의 수호자<>: 돌진이 멈추면 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 보호막 <#ffb900ff>3초<>, 주변에 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 피해, 30% <#ef5350ff>둔화<>.",
-        "skill": "바위를 <#ffb900ff>6초<> 들어 올림: 공격 속도 +20%, 다음 기본 공격 3회가 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 범위 피해, 3번째는 최대 체력 3% 추가와 40% <#ef5350ff>둔화<>. <#ffb900ff>3초<> 들고 있으면 던짐(<#ff9028ff>지반 돌출<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 3%.",
+        "attack": "독침 공격. <#ff9028ff>진동의 가닥<>: 기본 공격, 바위, 꿰뚫기가 챔피언에게 진동 중첩, 3중첩이면 <#ffb900ff>4초<> 동안 매초 최대 체력 1% 피해. <#ff9028ff>대지의 수호자<>(<#ffb900ff>10초<>마다): 근처에 적 챔피언이 있을 때 기본 공격하면 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 보호막 <#ffb900ff>3초<>, 주변에 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 피해, 30% <#ef5350ff>둔화<>.",
+        "skill": "바위를 <#ffb900ff>6초<> 들어 올림: 공격 속도 +20%, 다음 기본 공격 3회가 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 범위 피해, 3번째는 최대 체력 3% 추가와 40% <#ef5350ff>둔화<>. 대상이 사거리 밖이거나 <#ffb900ff>3초<> 들고 있으면 던짐(<#ff9028ff>지반 돌출<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 3%.",
         "skill2": "적 챔피언에게 돌진해 끌고 감; 돌진이 멈추면 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ffb900ff>0.67초<> <#ef5350ff>기절<>.",
         "ult": "세 꼬리로 앞을 꿰뚫음: 직선 위 적 챔피언에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해, <#ffb900ff>0.75초<> <#ef5350ff>제압<>하고 곁으로 끌고 다님; 적중하면 이동 속도 +30% <#ffb900ff>2.5초<>."
       },
@@ -7731,8 +7731,8 @@
         "ult": "운명"
       },
       "league_rakan": {
-        "skill1": "빛나는 깃털",
-        "skill2": "화려한 등장 + 전쟁무도",
+        "skill1": "전쟁무도",
+        "skill2": "화려한 등장",
         "ult": "매혹의 질주"
       },
       "league_evelynn": {
@@ -8709,9 +8709,9 @@
       },
       "league_rakan": {
         "name": "ラカン",
-        "attack": "羽根を投げて攻撃。パッシブ<#ff9028ff>神秘の翼<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>を得て、壊れると<#ffb900ff>12秒<>後に再生。通常攻撃とスキルが敵チャンピオンに当たるたび<#ffb900ff>1秒<>短縮。",
-        "skill": "羽根を投げ、最初の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>3秒<>後か味方に触れた時、自身と周囲の味方チャンピオンを<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の50%<><#6aff55ff>回復<>。",
-        "skill2": "<#ff9028ff>華麗なる登場<>：敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.8秒<><#ef5350ff>ノックアップ<>し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。続いて<#ff9028ff>バトルダンス<>：最も近い味方チャンピオンへ飛び、<#ffb900ff>3秒<>間<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>。ザヤが近くにいればより遠くへ飛ぶ。",
+        "attack": "羽根を投げて攻撃。<#ffb900ff>5.5秒<>ごとに<#ff9028ff>キラリ羽根<>も投げ、最初の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。チャンピオン命中で<#ffb900ff>3秒<>後か味方に触れた時、自身と味方を<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の50%<><#6aff55ff>回復<>。パッシブ<#ff9028ff>神秘の翼<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>、破壊後<#ffb900ff>12秒<>で再生、敵チャンピオン命中ごとに<#ffb900ff>1秒<>短縮。",
+        "skill": "近くに敵チャンピオンがいると、味方チャンピオンへ飛び（行動妨害を受けている味方を優先、いなければ最も近い味方）、<#ffb900ff>3秒<>間<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>。周りに味方がいなければ自身に。ザヤが近くにいればより遠くへ飛ぶ。",
+        "skill2": "敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.8秒<><#ef5350ff>ノックアップ<>し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>素早く<>敵陣を駆け抜け、触れた敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.25秒の魅了<>（各1回）。最初に触れたチャンピオンでさらに加速。"
       },
       "league_evelynn": {
@@ -9241,7 +9241,7 @@
       },
       "league_rammus": {
         "name": "ラムス",
-        "attack": "体当たり。<#ff9028ff>トゲトゲ<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>の魔法ダメージ追加。<#ff9028ff>かたくなる<>：敵チャンピオンが近いと丸まり、<#ffb900ff>7秒<>物防・魔防+60%、受けたダメージの25%を反射。",
+        "attack": "体当たり。<#ff9028ff>トゲトゲ<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>の魔法ダメージ追加。<#ff9028ff>かたくなる<>：ころころの後、敵チャンピオンが近いと丸まり、<#ffb900ff>7秒<>物防+42(+40%)・魔防+28(+40%)、受けたダメージの25%を反射。ころころ・どーんどーんで解除。",
         "skill": "丸まって対象へ転がり、ぶつかると周りの敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>の魔法ダメージ、<#ef5350ff>ノックバック<>、<#ffb900ff>0.4秒<><#ef5350ff>スタン<>と<#ffb900ff>1秒<>の<#ef5350ff>40%スロウ<>。",
         "skill2": "敵チャンピオン1体を<#ffb900ff>1.5秒<><#ef5350ff>挑発<>。",
         "ult": "敵チャンピオンへ跳び上がって叩きつけ、範囲に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージと<#ef5350ff>40%スロウ<>、続けて余震3回。ころころの直後なら中心の敵はころころのダメージをもう一度受け<#ef5350ff>0.75秒ノックアップ<>。"
@@ -9257,7 +9257,7 @@
         "name": "ゾーイ",
         "attack": "小さな星を投げる。<#ff9028ff>スパークル！<>：スキルを使うたび次の通常攻撃に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ追加。",
         "skill": "星を投げ、最初に当たった敵に<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ。遠くまで飛ぶほど強く、最大<#ffb900ff>250%<>。",
-        "skill2": "泡を蹴り、当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>2秒<><#ef5350ff>睡眠<>。外れるとその場に残る。",
+        "skill2": "泡を蹴り、最初に当たった敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>2.25秒<><#ef5350ff>睡眠<>。外れるとその場に残る。",
         "ult": "ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージ。<#ff9028ff>スペルシーフ<>：弾3発、1発<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>、移動速度+40%。<#ffb900ff>1.2秒<>後に元の場所へ戻る。"
       },
       "league_quinn": {
@@ -9437,7 +9437,7 @@
       },
       "league_azir": {
         "name": "アジール",
-        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに前方に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。近くの砂兵が代わりに突き<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
+        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに対象の近くに砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>10秒<>）。近くの砂兵が代わりに突き<#a974ffff>74<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
         "skill": "全砂兵が対象へ突撃し、道中<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと25%<#ef5350ff>スロウ<>、着くとすぐ突く。砂兵がいなければそこに1体呼ぶ。",
         "skill2": "砂兵がいる時だけ：<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>のシールド、アルティメット準備時は敵英雄へ突進し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと砂兵1体。詰められると後ろへ跳ぶ。",
         "ult": "近衛兵の壁が突撃し<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージと<#ef5350ff>ノックバック<>。流砂の衝撃で英雄に寄った直後なら、背後へ回り味方側へ押し返す。"
@@ -9493,10 +9493,10 @@
       },
       "league_yorick": {
         "name": "ヨリック",
-        "attack": "シャベル攻撃。<#ff9028ff>魂の導き手<>：葬送でチャンピオンを打つと（他は2回毎）墓を掘る、3つ溜まると次の一撃で<#ff9028ff>ミストウォーカー<>3体が<#ffb900ff>6秒<>噛みつく（1回<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>）、<#ff9028ff>屍の列<>が周囲の敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
+        "attack": "シャベル攻撃。<#ff9028ff>魂の導き手<>：葬送でチャンピオンを打つと（他は2回毎）墓を掘る（最大4）、3つ以上で次の一撃は墓1つに<#ff9028ff>ミストウォーカー<>1体が<#ffb900ff>6秒<>噛みつく（1回<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>）。<#ff9028ff>屍の列<>：自動で使い、<#ffb900ff>0.75秒<>後に敵チャンピオンの周りに壁の輪が<#ffb900ff>1秒<>立つ：敵チャンピオンは越えられない。",
         "skill": "次の攻撃が<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、体力30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%回復。",
-        "skill2": "黒い霧を投げる：範囲の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大体力4%、物理防御-25%（<#ffb900ff>4秒<>）、30%<#ef5350ff>スロウ<>。",
-        "ult": "敵チャンピオンの背後に<#ff9028ff>霧の乙女<>とウォーカー2体を召喚、<#ffb900ff>10秒<>追従し<#ffb900ff>毎秒<><#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；その間ヨリックのチャンピオンへの攻撃に最大体力3%の確定ダメージ。"
+        "skill2": "黒い霧を投げる：範囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>+最大体力5%の物理ダメージ、物理防御-25%（<#ffb900ff>4秒<>）、30%<#ef5350ff>スロウ<>；チャンピオンに当たるとヨリックの移動速度+20%（<#ffb900ff>4秒<>）。",
+        "ult": "<#ff9028ff>霧の乙女<>が<#ffb900ff>10秒<>ヨリックに付き従い<#ffb900ff>毎秒<>近くの敵へ魂弾（<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>）、当たったチャンピオンに印：ヨリックの次の攻撃か霧がチャンピオンに当たると最大体力3%の確定ダメージ；<#ff9028ff>ミストウォーカー<>2体が対象を襲う。"
       },
       "league_ambessa": {
         "name": "アンベッサ",
@@ -9528,8 +9528,8 @@
       },
       "league_skarner": {
         "name": "スカーナー",
-        "attack": "毒針で攻撃。<#ff9028ff>響振動<>：通常攻撃・岩・インペイルがチャンピオンに振動を付与、3スタックで<#ffb900ff>4秒<>間毎秒最大体力1%のダメージ。<#ff9028ff>激震の砦<>：突進が止まるとシールド<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>を<#ffb900ff>3秒<>得て周囲に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、30%<#ef5350ff>スロウ<>。",
-        "skill": "岩を<#ffb900ff>6秒<>掲げる：攻撃速度+20%、次の通常攻撃3回が<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の範囲ダメージ、3回目は最大体力3%追加と40%<#ef5350ff>スロウ<>。<#ffb900ff>3秒<>持つと投げる（<#ff9028ff>大地の怒り<>）：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力3%。",
+        "attack": "毒針で攻撃。<#ff9028ff>響振動<>：通常攻撃・岩・インペイルがチャンピオンに振動を付与、3スタックで<#ffb900ff>4秒<>間毎秒最大体力1%のダメージ。<#ff9028ff>激震の砦<>（<#ffb900ff>10秒<>毎）：敵チャンピオン付近で通常攻撃するとシールド<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>を<#ffb900ff>3秒<>、周囲に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、30%<#ef5350ff>スロウ<>。",
+        "skill": "岩を<#ffb900ff>6秒<>掲げる：攻撃速度+20%、次の通常攻撃3回が<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の範囲ダメージ、3回目は最大体力3%追加と40%<#ef5350ff>スロウ<>。対象が射程外か<#ffb900ff>3秒<>持つと投げる（<#ff9028ff>大地の怒り<>）：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力3%。",
         "skill2": "敵チャンピオンに突進して引きずる；止まると<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと<#ffb900ff>0.67秒<><#ef5350ff>スタン<>。",
         "ult": "三本の尾で前方を貫く：直線上の敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージ、<#ffb900ff>0.75秒<><#ef5350ff>サプレッション<>して引きずる；命中すると移動速度+30%を<#ffb900ff>2.5秒<>。"
       },
@@ -9813,8 +9813,8 @@
         "ult": "デスティニー"
       },
       "league_rakan": {
-        "skill1": "キラリ羽根",
-        "skill2": "華麗なる登場+バトルダンス",
+        "skill1": "バトルダンス",
+        "skill2": "華麗なる登場",
         "ult": "みんなオレに夢中"
       },
       "league_evelynn": {

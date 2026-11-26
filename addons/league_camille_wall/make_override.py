@@ -4,7 +4,7 @@
 
 Reads league/champion/league_camille.data_champion and writes
 addons/league_camille_wall/override/league_camille.data_champion and .../text/champion.i18n:
-the same kit with two changes -
+the same kit with these changes -
   * E's pulse keeps the main pack's choice between escaping and engaging, but both branches now
     call the add-on's native effects (league_camille_wall:escape / :engage), which hook walls,
     the 5v5 map's four edges and towers;
@@ -13,7 +13,12 @@ the same kit with two changes -
   * passive_skill2 = the add-on's passive league_camille_wall:e, which casts E by itself (every 6
     ticks once E is ready) without waiting for the AI to arm it;
   * E's tooltip points to description.league_camille_wall.skill2 (the wall-hook text, with a
-    "wall-hook test build" lead, so the tooltip in game shows whether the override took).
+    "wall-hook test build" lead, so the tooltip in game shows whether the override took);
+  * R's standing floor is drawn by the add-on (0.4.12, the user 2026-11-17: 「卡密尔离开磁场后 磁场也不消失？」): the
+    data's one 240-tick zone league_camille_r_floor loses its picture (the zone stays: it gives her r_vis, the gate of
+    the main pack's hold on the target), and league_camille_r_floor_<k> (k = 0..5) bind the pieces the add-on's passive
+    puts on the arena's centre while r_on lasts to league_camille_big's r_zone_<k> - frame k of r_zone's loop
+    (tools/fix/camille_r_zone_frames.py), so the floor ends with the arena.
 Run it again whenever the main pack's Camille changes.
 """
 import json
@@ -25,6 +30,12 @@ ADDON = os.path.join(ROOT, "addons", "league_camille_wall")
 MOD_ID = "league_camille_wall"
 TEXT_KEY = "description.league_camille_wall.skill2"
 ENGAGE_R = 85000
+# R's floor (src/arena.rs FLOOR_VIEW, FLOOR_FRAMES): the data's zone and the add-on's pieces
+FLOOR = "league_camille_r_floor"
+FLOOR_FRAMES = 6
+FLOOR_SHEET = "asset/league/effects/league_camille_big"
+# 0.4.15: the copy's floor zone is renamed to this, a name no champion file binds a picture to (src/arena.rs FLOOR_ZONE)
+FLOOR_ZONE = "league_camille_wall_r_vis"
 AD = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 AS = "<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0>"
 TEXT = {
@@ -83,6 +94,32 @@ def count(node):
     return 0
 
 
+def rename_projectile(node, old, new):
+    """Rename every projectile (a \"...Projectile\" type) called `old` in the effect tree `node`; how many were renamed."""
+    n = 0
+    if isinstance(node, dict):
+        if str(node.get("type", "")).endswith("Projectile") and node.get("name") == old:
+            node["name"] = new
+            n += 1
+        for v in node.values():
+            n += rename_projectile(v, old, new)
+    elif isinstance(node, list):
+        for v in node:
+            n += rename_projectile(v, old, new)
+    return n
+
+
+def picture_files():
+    """Every champion file the game loads from this repo: the main pack's and the add-ons' copies (this one excepted)."""
+    files = [os.path.join(ROOT, "league", "champion", f) for f in os.listdir(lp(os.path.join(ROOT, "league", "champion")))]
+    adds = os.path.join(ROOT, "addons")
+    for a in os.listdir(lp(adds)):
+        d = os.path.join(adds, a, "override")
+        if a != MOD_ID and os.path.isdir(lp(d)):
+            files += [os.path.join(d, f) for f in os.listdir(lp(d))]
+    return [f for f in files if f.endswith(".data_champion")]
+
+
 def main():
     src = os.path.join(ROOT, "league", "champion", "league_camille.data_champion")
     with open(lp(src), encoding="utf-8") as f:
@@ -111,6 +148,31 @@ def main():
     for gone in ("MoveToTarget", "league_camille_e_hook", "league_camille_e_seek", "league_camille_e_epick"):
         if gone in left:
             sys.exit("%s is still in E after the swap: update this script" % gone)
+
+    # R's floor: the data's zone without a picture, the add-on's pieces bound to r_zone's frames
+    if ('"name": "%s",' % FLOOR) not in json.dumps(champion["ult"]):
+        sys.exit("no %s zone in R: the main pack's R changed, update this script (and src/arena.rs)" % FLOOR)
+    views = champion["view_projectiles"]
+    floor = [v for v in views if v.get("name") == FLOOR]
+    if len(floor) != 1 or floor[0].get("anim") != FLOOR_SHEET or floor[0].get("tag") != "r_zone":
+        sys.exit("expected one %s view of %s r_zone: the main pack's floor changed, update this script" % (FLOOR, FLOOR_SHEET))
+    with open(lp(os.path.join(ROOT, "league", "effects", "league_camille_big#anim.fanim")), encoding="utf-8") as f:
+        tags = json.load(f)["anims"]
+    if any("r_zone_%d" % k not in tags or "hd_r_zone_%d" % k not in tags for k in range(FLOOR_FRAMES)):
+        sys.exit("league_camille_big has no r_zone_<k> / hd_r_zone_<k>: run python tools/fix/camille_r_zone_frames.py")
+    at = views.index(floor[0])
+    pieces = [dict(floor[0], name="%s_%d" % (FLOOR, k), tag="r_zone_%d" % k) for k in range(FLOOR_FRAMES)]
+    champion["view_projectiles"] = views[:at] + pieces + views[at + 1:]
+    # 0.4.15 (the user 2026-11-18: 「不行离开磁场后还会在」, 「多留几秒后消失」): the zone, though it lost its own view, kept
+    # drawing the old 240-tick floor past arenas that ended early - the game finds a projectile's picture by its name
+    # across the champion files, and the main pack's Camille and league_sylas's copy (the stolen ult) both bind
+    # league_camille_r_floor to r_zone. Renamed, nothing draws it; it still gives her r_vis.
+    renamed = rename_projectile(champion["ult"], FLOOR, FLOOR_ZONE)
+    if renamed != 1:
+        sys.exit("expected one %s zone in R, renamed %d: update this script" % (FLOOR, renamed))
+    bound = [p for p in picture_files() if ('"name": "%s"' % FLOOR_ZONE) in open(lp(p), encoding="utf-8-sig").read()]
+    if bound:
+        sys.exit("%s is a name already in use: %s" % (FLOOR_ZONE, bound))
 
     out = os.path.join(ADDON, "override", "league_camille.data_champion")
     os.makedirs(lp(os.path.dirname(out)), exist_ok=True)

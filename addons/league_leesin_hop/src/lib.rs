@@ -46,8 +46,8 @@
 //!
 //! 2026-11-08 日志审查：
 //! - 10:00 前的 W 开团 24% 白冲（10:00 后 4%）：league_lane 在对线期拦下他落地后的普攻（目标在他们塔下 80000 内、李青以少
-//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标，它会拦的就不冲。2026-11-10（0.1.16）用户把运营钩子
-//!   （league_lane 在内）删了，这条规则也删了：「删了吧 李青的」——对线期和之后一样挑。
+//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标，它会拦的就不冲。2026-11-10 用户把运营钩子（league_lane
+//!   在内）删了，这条规则也删了（「删了吧 李青的」）；那次删除没进主分支，2026-11-25（0.1.18）重新删：对线期和之后一样挑。
 //! - Q 的「预判」从来没放出去过（两次启动 0 行 `Q AIM`）：主包的 Q 是指向技能（Targeting），方向在按下那一刻朝目标站的地方
 //!   定死，方向输入引擎不收，一直悄悄退回了内置 AI 的 Q。现在只决定放不放：朝他现在的位置飞、他照现在的速度走，波飞到时
 //!   还在波的宽度里（`Q_RADIUS` + 他的半径）就放（`QPlan::Keep`），会走出波就先不放（`Skip`）。
@@ -773,8 +773,8 @@ pub fn walking_at(lee: (f64, f64), v_lee: (f64, f64), foes: &[Foe]) -> Vec<usize
 /// 突进开团的目标和落点：李青这次和上次（`before`）看都正对着他走（`walking_at`）、他离 `ENGAGE_MIN` 以外、
 /// 他站着或横着走（朝李青走过来的不用冲；跑开的是追击，只追残血的）、W 够得着（`chase_spot`：落在他身前 `CHASE_STOP`）、
 /// 不在他们自己的塔下（`ENGAGE_TOWER_R`，他残血时照冲）、他身边 `ENGAGE_CROWD_R` 内的敌方英雄不到三个
-/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。对线期（10:00 前）和之后一样挑（0.1.16：以前照
-/// 对线纪律附加包 league_lane 的规则少冲，2026-11-10 用户把运营钩子连同这条规则一起删了：「删了吧 李青的」）。
+/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。对线期（10:00 前）和之后一样挑（0.1.18：以前照
+/// 对线纪律附加包 league_lane 的规则少冲，用户把运营钩子连同这条规则一起删了：「删了吧 李青的」）。
 #[allow(clippy::too_many_arguments)]
 pub fn engage_target<'a>(
     walls: impl Into<Ground<'a>>,
@@ -1443,7 +1443,7 @@ mod tests {
         assert!(matches!(plan_q(&InputTargetV1::target(7), me, &[runner]).0, QPlan::Skip(_)));
     }
 
-    /// 0.1.16: no lane-phase rule any more (league_lane is gone): the same picks before and after 10:00.
+    /// 0.1.18: no lane-phase rule any more (league_lane is gone): the same picks before and after 10:00.
     #[test]
     fn lee_picks_the_same_targets_before_and_after_ten_minutes() {
         let lee = (480_000.0, 480_000.0);

@@ -273,11 +273,11 @@ fn on_screen(sim: &StableSim<'_>) -> Option<(u64, u64)> {
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()))
 }
 
 fn count_buff(sim: &StableSim<'_>, id: usize, name: &str) -> usize {
-    sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == name).count())
+    sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes()).count())
 }
 
 // ===================== 计算（单元测试用） =====================
@@ -1759,7 +1759,8 @@ mod tests {
 
     // TeamfightManager2.exe 0.7.1 (94,043,136 bytes, 2026-11-04): player_respawn_time 0x143498fe0, player_is_alive
     // 0x143497240 - 0.6.5's code and fields again (the 0.7.0 compiler's build of the same getters). 0.7.2 (94,603,776
-    // bytes, 2026-11-11): these bytes again, at 0x143555970 / 0x143553a90
+    // bytes, 2026-11-11): these bytes again, at 0x143555970 / 0x143553a90; 0.7.3 (94,547,968 bytes, 2026-11-18): again,
+    // at 0x1435192a0 / 0x1435173c0 (each found once in .text)
     const RESPAWN_TIME_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742348ffca488b014c8b41084889c141ff9058010000904885c0740980b8b808000000740831c04883c4305dc3488b80c00800004883c4305dc3";
     const IS_ALIVE_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680b80800004883c4305dc331c04883c4305dc3";
 

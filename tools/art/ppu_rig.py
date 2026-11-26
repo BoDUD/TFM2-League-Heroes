@@ -597,6 +597,9 @@ class Rig:
     fill_rows = None                                    # (row0, row1) design rows where cracks a step opens are closed
     CRACK = 40
     CRACK_W = None                                      # squares from a crack's middle to its edge at most (None: any)
+    # 动作 -> (hw, hh)：export 把这个动作的每帧至少切成 2hw+1 x 2hh+1 的 1x 帧。帧按中心对准站的点画，高密度帧的宽高
+    # 有单有双、切的时候差半格；一个动作的帧切成一样大，每帧对准的方式就一样（league_rammus 的滚球：球心不晃）
+    least = {}
 
     def finish(self, can):
         """tidy() and, for a hero that walks (fill_rows), the cracks a step opens between the legs and the skirt closed
@@ -631,16 +634,20 @@ class Rig:
         """Design square -> canvas square (standing)."""
         return self.ox + x, self.oy + y
 
-    def export(self, frames, review_dir=None, hero=None):
+    def export(self, frames, review_dir=None, hero=None, keep=None):
         """frames: {tag: [(canvas or {"body", "over", "under"}, ms)]} in the sheet's tag order -> orig strips + json
         (+ .over / .under strips for the effects a bake laid on: ppu_restyle RESTYLE fx puts them on after the
-        outline), the 1x sheet (body and effects together)."""
+        outline), the 1x sheet (body and effects together). keep: {tag: [(1x frame, ms)]} for the tags frames holds
+        None for - those go into the sheet as they are and their strips stay as they are."""
         D = self.D
         hero = hero or D.hero
         ppu = D.ppu
         os.makedirs(lp(ORIG), exist_ok=True)
         sheet = {}
         for tag, fr in frames.items():
+            if fr is None:
+                sheet[tag] = keep[tag]
+                continue
             ones, hds, overs, unders = [], [], [], []
             for can, ms in fr:
                 lay = can if isinstance(can, dict) else {"body": can}
@@ -659,6 +666,8 @@ class Rig:
                 hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / ppu - 0.5))
                 hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / ppu - 0.5))
                 hh = max(hh, int(np.ceil(FEET)) + 1)
+                if tag in self.least:
+                    hw, hh = max(hw, self.least[tag][0]), max(hh, self.least[tag][1])
                 one = G.complete_outline(one_of(body, px, py, hw, hh, ppu), color=D.outline)[0]
                 for fx_, top in ((under, False), (over, True)):
                     if fx_ is not None and fx_[..., 3].any():

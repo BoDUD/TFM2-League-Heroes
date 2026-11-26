@@ -9,7 +9,7 @@
 | id | `league_ksante` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
-| 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / Shield / CC |
+| 分类 / 标签 | 坦克（Tank） · AD / Melee / Tank / Shield / CC |
 | 高清帧 | PPU 1.2（画成 90%） |
 | 附加包 | [奎桑提附加包](#附加包)（`league_ksante`） |
 
@@ -55,7 +55,7 @@
 
 ### 奎桑提附加包
 
-[奎桑提附加包](../../addons/league_ksante/README.md)：`league_ksante` v0.1.1
+[奎桑提附加包](../../addons/league_ksante/README.md)：`league_ksante` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -113,3 +113,5 @@ python tools/art/preview_ksante.py                  # 预览和演示 GIF
 美术提示词见 [`assets/source/ksante/`](../../assets/source/ksante) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`POSE_PROMPTS.md`、`RUN_REDO_PROMPTS.md`、`PROMPTS_FX.md`。
 
 逐帧预览：[`docs/preview/league_ksante_frames.png`](../preview/league_ksante_frames.png?v=1022a)，特效：[`docs/preview/league_ksante_effects.png`](../preview/league_ksante_effects.png?v=1022a)
+
+**2026-11-18 开大的时机（附加包 0.1.2）**（用户：「奎桑提为什么总是喜欢大招起手 很奇怪啊 高手的奎桑提不会这样打啊」）：游戏的 AI 敌人一进射程就放 R，满血开团第一下就进全盛，白丢三成多的血。附加包加了 AI 钩子：他自己掉到最大生命的 70% 以下、目标残血（35% 以下）、目标扑在残血队友身上，或者这一波 AI 连着要了 4 秒才放，别的时候改成普攻那个目标，Q、W 先上。

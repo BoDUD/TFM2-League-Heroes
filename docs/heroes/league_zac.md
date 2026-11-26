@@ -9,7 +9,7 @@
 | id | `league_zac` |
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
-| 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC |
+| 分类 / 标签 | 坦克（Tank） · AP / Magic / Melee / Tank / CC |
 | 高清帧 | PPU 1.5（画成 85%） |
 | 附加包 | [扎克附加包](#附加包)（`league_zac`） |
 
@@ -55,7 +55,7 @@
 
 ### 扎克附加包
 
-[扎克附加包](../../addons/league_zac/README.md)：`league_zac` v0.1.4
+[扎克附加包](../../addons/league_zac/README.md)：`league_zac` v0.1.5
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

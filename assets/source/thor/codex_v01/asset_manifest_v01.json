@@ -1,0 +1,234 @@
+{
+  "champion_id": "ragnarok_thor",
+  "version": "0.1.2-assets",
+  "status": "asset_pack_ready_gameplay_by_claude",
+  "style": "native-like compact pixel art, hard alpha, integer-nearest HD export",
+  "actor_sheet": "art/pixel_v01/runtime/ragnarok_thor#sheet.png",
+  "actor_anim": "art/pixel_v01/runtime/ragnarok_thor#anim.fanim",
+  "effect_sheet": "art/pixel_v01/runtime/ragnarok_thor_fx#sheet.png",
+  "effect_anim": "art/pixel_v01/runtime/ragnarok_thor_fx#anim.fanim",
+  "logical_cell": 128,
+  "hd_factor": 4,
+  "cell_size": 512,
+  "baseline": 464,
+  "actor_frames": 64,
+  "effect_frames": 64,
+  "actor_actions": [
+    "idle",
+    "run",
+    "attack",
+    "skill",
+    "skill2",
+    "ult",
+    "hit",
+    "dead"
+  ],
+  "effect_actions": [
+    "hammer_swing",
+    "thunder_hit",
+    "ground_lightning",
+    "hammer_flight",
+    "hammer_awakening",
+    "ult_charge",
+    "ult_slam",
+    "ult_impact"
+  ],
+  "actor_durations": {
+    "idle": [
+      0.18,
+      0.18,
+      0.18,
+      0.18,
+      0.18,
+      0.18,
+      0.18,
+      0.18
+    ],
+    "run": [
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "attack": [
+      0.12,
+      0.1,
+      0.12,
+      0.08,
+      0.08,
+      0.1,
+      0.1,
+      0.12
+    ],
+    "skill": [
+      0.14,
+      0.14,
+      0.18,
+      0.16,
+      0.1,
+      0.12,
+      0.12,
+      0.14
+    ],
+    "skill2": [
+      0.1,
+      0.12,
+      0.14,
+      0.1,
+      0.16,
+      0.12,
+      0.12,
+      0.12
+    ],
+    "ult": [
+      0.18,
+      0.2,
+      0.28,
+      0.4,
+      0.18,
+      0.12,
+      0.2,
+      0.24
+    ],
+    "hit": [
+      0.06,
+      0.06,
+      0.08,
+      0.1,
+      0.07,
+      0.07,
+      0.07,
+      0.09
+    ],
+    "dead": [
+      0.12,
+      0.14,
+      0.16,
+      0.18,
+      0.18,
+      0.2,
+      0.24,
+      0.7
+    ]
+  },
+  "effect_durations": {
+    "hammer_swing": 0.07,
+    "thunder_hit": 0.065,
+    "ground_lightning": 0.09,
+    "hammer_flight": 0.055,
+    "hammer_awakening": 0.12,
+    "ult_charge": 0.15,
+    "ult_slam": 0.07,
+    "ult_impact": 0.09
+  },
+  "presentation_events": {
+    "attack": {
+      "swing_frame": 3,
+      "hit_frame": 4,
+      "swing_seconds": 0.34,
+      "hit_seconds": 0.42,
+      "effect": "hammer_swing",
+      "hit_effect": "thunder_hit"
+    },
+    "skill": {
+      "release_frame": 4,
+      "release_seconds": 0.62,
+      "effect": "ground_lightning",
+      "hit_effect": "thunder_hit"
+    },
+    "skill2": {
+      "release_frame": 3,
+      "release_seconds": 0.36,
+      "catch_frame": 7,
+      "catch_seconds": 0.86,
+      "effect": "hammer_flight",
+      "empty_hand_frames": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "runtime_requirement": "pause unarmed frames while projectile is away; catch only on actual return, not fixed timer"
+    },
+    "ult": {
+      "charge_frame": 0,
+      "charge_seconds": 0,
+      "release_frame": 5,
+      "release_seconds": 1.24,
+      "effect": "ult_slam",
+      "charge_effect": "ult_charge",
+      "hit_effect": "ult_impact"
+    },
+    "passive": {
+      "effect": "hammer_awakening",
+      "only_on_verified_awakening_state": true
+    }
+  },
+  "icons": {
+    "passive": "art/pixel_v01/runtime/ragnarok_thor_passive.png",
+    "skill": "art/pixel_v01/runtime/ragnarok_thor_skill.png",
+    "skill2": "art/pixel_v01/runtime/ragnarok_thor_skill2.png",
+    "ult": "art/pixel_v01/runtime/ragnarok_thor_ult.png"
+  },
+  "icons_review_status": "new_thor_draft",
+  "icon_hashes": {
+    "passive": "1946ddf36680caf98fbe795d163115b1b82e597435637de057e35b6281a206d2",
+    "skill": "e5041a9877421c43b013bb44e2a4d71a3018ed63f1560863241a8ba0537705b5",
+    "skill2": "887661e86b0ff64291d967fbf6cebf984f8b72b3bd079f411f603c9aaecf23db",
+    "ult": "538b92db3e59f8227ac4cd086e51c1eef75ccf00d1c5c7c9502526cba04e7ae6"
+  },
+  "voice_manifest": "audio/original_voice_manifest.json",
+  "voice_count": 10,
+  "sfx_manifest": "audio/sfx_v01_manifest.json",
+  "sfx_count": 16,
+  "effect_anchors_logical": {
+    "hammer_swing": [
+      24,
+      -40
+    ],
+    "thunder_hit": [
+      45,
+      -14
+    ],
+    "ground_lightning": [
+      35,
+      0
+    ],
+    "hammer_flight": [
+      0,
+      -45
+    ],
+    "hammer_awakening": [
+      -15,
+      -72
+    ],
+    "ult_charge": [
+      -15,
+      -72
+    ],
+    "ult_slam": [
+      32,
+      -38
+    ],
+    "ult_impact": [
+      40,
+      0
+    ]
+  },
+  "ppu": {
+    "native_api_verified": false,
+    "source_scale": 4,
+    "requirement": "When switching logical PNG to HD PNG, multiply PPU by four to retain the same world size; actual game field must be verified by Claude."
+  },
+  "gameplay_implemented": false,
+  "live_game_tested": false,
+  "notes": [
+    "Gameplay logic remains assigned to Claude by explicit user instruction.",
+    "PV-sourced voice clips retain some music; six countdown excerpts have lower background.",
+    "No official hit/death grunt was fabricated. Use SFX until a verified suitable source exists."
+  ]
+}

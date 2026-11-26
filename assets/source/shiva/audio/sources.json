@@ -1,0 +1,203 @@
+{
+  "language": "ja",
+  "announcement": "https://ragnarok-official.com/2nd/special/countdown1/",
+  "method": "Short cuts from the credited single-character announcement. Original ambience retained.",
+  "clips": [
+    {
+      "id": "voice_entry",
+      "kind": "official_ja",
+      "title": "入场 · 终于轮到我了",
+      "speaker": "鈴木達央",
+      "range_seconds": [
+        0.25,
+        4.56
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646358798976843777",
+      "duration_seconds": 4.31,
+      "wav_sha256": "e4e04376764d496f9689087a109cf5e1452c6ac0a5a3558d0667853f0ee757d4",
+      "mp3_sha256": "c30d2ac2006e9539d6a0ac50c34f47887a92d9cd07df52b398421c63119ce360"
+    },
+    {
+      "id": "voice_excite",
+      "kind": "official_ja",
+      "title": "展示 · 久违地热血沸腾",
+      "speaker": "鈴木達央",
+      "range_seconds": [
+        5.24,
+        8.74
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646358798976843777",
+      "duration_seconds": 3.5,
+      "wav_sha256": "51a1f09177cfd3ae1858bc012190aa4d7d1bec0b6f1ca183fab3184c20a143fb",
+      "mp3_sha256": "c28de61caecd14b2b6120b867ae0065e1725ac172fb0fbf1df6b40860094ef2e"
+    },
+    {
+      "id": "voice_challenge",
+      "kind": "official_ja",
+      "title": "挑衅 · 别再得意了",
+      "speaker": "鈴木達央",
+      "range_seconds": [
+        9.42,
+        14.2
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646358798976843777",
+      "duration_seconds": 4.78,
+      "wav_sha256": "2bfb1cb890f9f07e44ecf6e01c34f6f9f698742d2754695742d39580396b7a6d",
+      "mp3_sha256": "1713cf0e399b5ec20e08e8ef5757b32b68bfa5a3eae79bb7c788f07f7df97d0e"
+    },
+    {
+      "id": "voice_rally",
+      "kind": "official_ja",
+      "title": "展示 · 打起精神",
+      "speaker": "鈴木達央",
+      "range_seconds": [
+        14.91,
+        20.06
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646358798976843777",
+      "duration_seconds": 5.15,
+      "wav_sha256": "ef079c96cfb14558d85eae860c9464b6b3735a9e1f1559f54c169230c526157c",
+      "mp3_sha256": "98f7542dbcad26740ffa172aabd133c3050c27e862bbb5f7ca2d46c6ac218014"
+    },
+    {
+      "id": "voice_festival",
+      "kind": "official_ja",
+      "title": "展示 · 别错过这场热闹",
+      "speaker": "鈴木達央",
+      "range_seconds": [
+        20.53,
+        25.41
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646358798976843777",
+      "duration_seconds": 4.88,
+      "wav_sha256": "d5ff2c484b45033e91347257eeb1032ff2046e2bd5110180872cdee67a1d8d84",
+      "mp3_sha256": "a421cbcaf10c005e2b5233d00ac36196c42d892f450728928d877dd8e918709f"
+    },
+    {
+      "id": "voice_dance",
+      "kind": "official_ja",
+      "title": "释放 · 在终末跳到天亮",
+      "speaker": "鈴木達央",
+      "range_seconds": [
+        34.56,
+        37.88
+      ],
+      "source": "https://twitter.com/ragnarok_PR/status/1646358798976843777",
+      "duration_seconds": 3.32,
+      "wav_sha256": "ac03ae1c9984005eb9d8894006d009966f745737318e15cbebe6c94607757173",
+      "mp3_sha256": "81f583f7e3d7cd5e7af4b4feec4a3e9c93557adb4229365981126a39c0b9e363"
+    },
+    {
+      "id": "sfx_arm",
+      "kind": "original_foley",
+      "title": "普攻 · 拳风",
+      "duration_seconds": 0.2,
+      "wav_sha256": "c3b074f0468f28e874689fa9b158be88ee88d8e2209f51df77d802c6564d0961",
+      "mp3_sha256": "9efdc08282fdbcf8fa3e3a4c16f450c01a0feb3a652b40126de28cff48751c8c"
+    },
+    {
+      "id": "sfx_arm_hit",
+      "kind": "original_foley",
+      "title": "普攻 · 命中",
+      "duration_seconds": 0.21,
+      "wav_sha256": "fd13f9839aa2650a3b24e9b998f79164d4d6ff1699004e5bb6b9c887a02c76ae",
+      "mp3_sha256": "30507bcf44c92577d7eafde466536451b206acee4c446ffe6c76c6643188c03a"
+    },
+    {
+      "id": "sfx_combo_up",
+      "kind": "original_foley",
+      "title": "连击 · 上段",
+      "duration_seconds": 0.22,
+      "wav_sha256": "ebc39e9344c5f304fd808d3171948f4756943669d25603a24d0be402d0ee3ef5",
+      "mp3_sha256": "285a8d638953ecbc171e16a503c572c317460dab47dc206a8c0a5e69c28a3432"
+    },
+    {
+      "id": "sfx_combo_low",
+      "kind": "original_foley",
+      "title": "连击 · 下段",
+      "duration_seconds": 0.21,
+      "wav_sha256": "d5208254287b45145075ff4b30de005b1449f8534a3534e5338974e017a531dd",
+      "mp3_sha256": "9dfb9cdef89532fed866d8ee41d137802593c2e3b5fe5718361556e5885efd81"
+    },
+    {
+      "id": "sfx_step",
+      "kind": "original_foley",
+      "title": "舞步 · 落脚",
+      "duration_seconds": 0.23,
+      "wav_sha256": "a1859a2dd1aed7eef74d7e0b5a7d691b6a8627467761ca37fded0f4ac811dd64",
+      "mp3_sha256": "09472fd410abbd0c2004e7b7bcaf0354bd4f79d5a52ff2b5439e284de78a968d"
+    },
+    {
+      "id": "sfx_ignite_prep",
+      "kind": "original_foley",
+      "title": "燃烧 · 起势",
+      "duration_seconds": 0.41,
+      "wav_sha256": "f02a286a1e7a787ed8a3a2652fceba3a3d7220917dc1dc2959ba4407fe455b04",
+      "mp3_sha256": "aecea05e105bd9054ca29931af0e3dd89f5e19eaaecac413b8a05fbedfea07c2"
+    },
+    {
+      "id": "sfx_ignite",
+      "kind": "original_foley",
+      "title": "燃烧 · 点燃",
+      "duration_seconds": 0.49,
+      "wav_sha256": "f9c773ee00ad0894f1e14deeb57db0b7a7c46503e42ff891f2f9089937432935",
+      "mp3_sha256": "9365ac543141ec81780740ee07f7835a943f7627417ade8e6a5f4be677024369"
+    },
+    {
+      "id": "sfx_fire_punch",
+      "kind": "original_foley",
+      "title": "燃烧 · 拳风",
+      "duration_seconds": 0.29,
+      "wav_sha256": "b08adc6b239fe1f08a400c45d31a12a0fe228036ff81828213baa6d356be9f77",
+      "mp3_sha256": "493cbfec205570de93ec3b7fb1f1a9b81386ef33a16d2b709d321b44cf10db88"
+    },
+    {
+      "id": "sfx_fire_hit",
+      "kind": "original_foley",
+      "title": "燃烧 · 命中",
+      "duration_seconds": 0.28,
+      "wav_sha256": "043da9f7b8ff14225272e2de4f4d56e5783766c9ee32bb08873c60bc153c787b",
+      "mp3_sha256": "ce88847eb7aefca8c92dfb4d934f667f7617073abd42c64fa10c801cfbaf0348"
+    },
+    {
+      "id": "sfx_firestep",
+      "kind": "original_foley",
+      "title": "燃烧 · 火步",
+      "duration_seconds": 0.26,
+      "wav_sha256": "17857ef3afa40d5609b0eaaebfb14b6cb209c2f99bb539fb9ca0b91f6f90bf11",
+      "mp3_sha256": "ba402ec28e27b2025bf732b896cfc4a2be5ece6bbb4d6f757339f9b76e9a2ff3"
+    },
+    {
+      "id": "sfx_kick_load",
+      "kind": "original_foley",
+      "title": "回旋踢 · 抬腿",
+      "duration_seconds": 0.24,
+      "wav_sha256": "f7d5c4bf8115667914a992029dffa3fce83ffd1d57ebb911154d1bdf02cd3b0c",
+      "mp3_sha256": "b8350e65b1bd12ce52e7c97658cd1e5c3a3e6c6219c6e37fb96109cf0800432b"
+    },
+    {
+      "id": "sfx_kick",
+      "kind": "original_foley",
+      "title": "回旋踢 · 出招",
+      "duration_seconds": 0.31,
+      "wav_sha256": "809b53750aab6b38a69497914b15f8df9af58c33eb30ea4eb100bb3958d52e7d",
+      "mp3_sha256": "3c7d1148bec89bca2db3d328c4cdfbfbd6576ee469a5f4986bb89ed9a2637404"
+    },
+    {
+      "id": "sfx_finish",
+      "kind": "original_foley",
+      "title": "回旋踢 · 命中",
+      "duration_seconds": 0.33,
+      "wav_sha256": "1bbfd099d0b4b84b939bfebfcd03d1788310ec6a47d35c03193dc14b5701625d",
+      "mp3_sha256": "92c6104c11d9f9d52f22510f4de7a876eac43e0b6331b53fd6d8f8edf06ef167"
+    },
+    {
+      "id": "sfx_fall",
+      "kind": "original_foley",
+      "title": "倒地 · 接地",
+      "duration_seconds": 0.28,
+      "wav_sha256": "46ac5cc6572ce55732cafaacd1ea154ddf8561c28c688e7ac40a669a2b40c57a",
+      "mp3_sha256": "b95687ae253f1fc0ffac23e1c6fc87c5fab431396656e613071dedca4fd002e5"
+    }
+  ]
+}

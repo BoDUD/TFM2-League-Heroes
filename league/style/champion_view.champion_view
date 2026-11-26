@@ -806,7 +806,7 @@
     },
     "league_tryndamere": {
       "face": {
-        "x": 11,
+        "x": 5,
         "y": -32
       },
       "center": {
@@ -1598,7 +1598,7 @@
     },
     "league_nasus": {
       "face": {
-        "x": 7,
+        "x": 4,
         "y": -39
       },
       "center": {
@@ -1706,8 +1706,8 @@
     },
     "league_akshan": {
       "face": {
-        "x": -1,
-        "y": -37
+        "x": 1,
+        "y": -35
       },
       "center": {
         "x": 0,
@@ -2108,7 +2108,7 @@
     },
     "league_zac": {
       "face": {
-        "x": 9,
+        "x": 8,
         "y": -24
       },
       "center": {
@@ -2220,8 +2220,8 @@
     },
     "league_ambessa": {
       "face": {
-        "x": 2,
-        "y": -35
+        "x": 3,
+        "y": -36
       },
       "center": {
         "x": 0,

@@ -311,7 +311,51 @@ fn any_buff(sim: &StableSim<'_>, id: usize, f: impl Fn(&BuffV1) -> bool) -> bool
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    any_buff(sim, id, |b| b.name() == name)
+    // 按字节比（比的都是非空 ASCII 常量）：不用每个 buff 都做一遍 UTF-8 检查（2026-11-22 过日采样）
+    any_buff(sim, id, |b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes())
+}
+
+/// 雷娜塔这位英雄的 id（实体的名字就是英雄 id）。
+const RENATA: &str = "league_renata";
+
+/// 一份模拟：来历 + 种子（league_eggs 的 Origin，同一份比赛的预演、画面里的两遍阵容都一样）。
+type SimKey = (u32, u64, u64, u64, u64);
+
+fn sim_key(sim: &StableSim<'_>) -> SimKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (o.kind, o.match_id, o.set_index, o.replay_id, sim.seed())
+}
+
+/// 这份模拟里有没有人可能被狂暴：狂暴 buff 只有雷娜塔的大招挂（主包和本包的副本；塞拉斯偷的是挂着他 R 标记的在场敌人的大招，
+/// 佛耶戈附身也得她在场），所以英雄里没有雷娜塔就不会有。2026-11-22 过日采样：Frenzy 每个选手每 tick 都把自己的 buff 扫一遍找
+/// 狂暴，没有她的比赛也扫，占附加包合集的一成。阵容一局里不变（league_ksante 的 has_ksante 一样的记法）：每条线程记最近 16 份
+/// 模拟的答案，同一份每 600 tick（或 tick 倒回去了，说明是另一份）再看一次名单；读不到名字的英雄当作可能是她（照旧扫）。
+fn could_berserk(sim: &StableSim<'_>) -> bool {
+    use std::cell::RefCell;
+    thread_local! {
+        static SEEN: RefCell<Vec<(SimKey, usize, bool)>> = const { RefCell::new(Vec::new()) };
+    }
+    let (key, now) = (sim_key(sim), sim.tick());
+    let fresh = |sim: &StableSim<'_>| {
+        (0..sim.champion_count()).any(|i| {
+            sim.get_entity(sim.champion_id_at(i)).and_then(|e| e.name()).is_none_or(|n| n == RENATA)
+        })
+    };
+    SEEN.with(|s| {
+        let mut s = s.borrow_mut();
+        if let Some(e) = s.iter_mut().find(|e| e.0 == key) {
+            if now < e.1 || now - e.1 >= 600 {
+                *e = (key, now, fresh(sim));
+            }
+            return e.2;
+        }
+        let v = fresh(sim);
+        if s.len() >= 16 {
+            s.remove(0);
+        }
+        s.push((key, now, v));
+        v
+    })
 }
 
 /// 基兰的时光符文（league_zilean_rewind）：它等别人的「不死」，本包不等它（0.2.0：两个真救命的不互相等；救难先回满，符文留着，
@@ -966,7 +1010,8 @@ impl StablePlayerAi for Frenzy {
         let player = ctx.player_id();
         let sim = ctx.sim()?;
         let me = sim.get_player(player)?.champion()?;
-        if !me.is_alive() || !has_buff(&sim, me.id(), BERSERK) {
+        // 这份模拟里没有雷娜塔就不会有狂暴，不用扫（could_berserk）
+        if !me.is_alive() || !could_berserk(&sim) || !has_buff(&sim, me.id(), BERSERK) {
             return None;
         }
         let at = fpos(me.pos());
@@ -1021,6 +1066,33 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn only_renatas_ult_and_sylass_copy_carry_berserk() {
+        // could_berserk 的前提：狂暴 buff 只在雷娜塔的大招里（主包、本包的副本）和塞拉斯偷大招的副本里。别的英雄也挂了就要改它
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let mut dirs = vec![root.join("league/champion"), root.join("tft/champion"), root.join("ragnarok/champion"), root.join("abysspact/champion")];
+        for a in std::fs::read_dir(root.join("addons")).unwrap().flatten() {
+            dirs.push(a.path().join("override"));
+        }
+        let mut found = Vec::new();
+        for d in dirs {
+            let Ok(rd) = std::fs::read_dir(&d) else { continue };
+            for f in rd.flatten() {
+                let p = f.path();
+                if p.extension().is_some_and(|x| x == "data_champion")
+                    && std::fs::read_to_string(&p).is_ok_and(|t| t.contains(BERSERK))
+                {
+                    let rel = p.strip_prefix(&root).unwrap().to_string_lossy().replace(std::path::MAIN_SEPARATOR, "/");
+                    found.push(rel);
+                }
+            }
+        }
+        found.sort();
+        assert_eq!(found, ["addons/league_renata/override/league_renata.data_champion",
+                           "addons/league_sylas/override/league_sylas.data_champion",
+                           "league/champion/league_renata.data_champion"]);
+    }
 
     #[test]
     fn params_from_the_main_pack() {

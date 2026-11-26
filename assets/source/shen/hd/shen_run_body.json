@@ -1,0 +1,33 @@
+{
+  "hero": "shen",
+  "tag": "run",
+  "drawn": "assets/source/shen/hd/shen_run_drawn",
+  "from": 2,
+  "outline": [14, 3, 18],
+  "waist": [-12, -12, -12, -12, -12, -12, -12, -12],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 48, 16, 22], [null, 46, 52, 69]],
+    [[null, 49, 10, 15], [null, 47, 50, 65]],
+    [[null, 47, 17, 29], [null, 42, 50, 60]],
+    [[null, 49, 22, 27], [null, 44, 33, 48], [null, 42, 55, 65]],
+    [[null, 42, 55, 64]],
+    [],
+    [[null, 50, 16, 20], [null, 43, 51, 60]],
+    [[null, 49, 19, 24], [null, 48, 26, 48], [null, 43, 55, 65]]
+  ],
+  "notes": {
+    "contacts": "frames [3, 7] (feet's band spread [18, 41, 31, 54, 32, 34, 25, 53])",
+    "waist": "row -12 from the centre in every frame: per-row differing share passes 0.64 there (figure rows -52..21)",
+    "from": "frame 1: closest to hd_idle_base[0] (alike share per frame [0.292, 0.335, 0.218, 0.121, 0.14, 0.154, 0.31, 0.157]; fits every frame: [1, 2, 6])",
+    "below": "rects per frame [2, 2, 2, 3, 1, 0, 2, 3] (her squares under the waist her feet do not reach)",
+    "bob": "3 squares low to high (1.66 game px), low the frame after the contacts [3, 7], moved by 1 so the head stays in every rect: [4, 3, 1, 2, 4, 3, 1, 2]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 1) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "lock": "head",
+  "head": [[8, 40], [8, 52], [11, 54], [13, 58], [16, 60], [19, 60], [23, 59], [26, 57], [28, 55], [29, 53], [30, 52], [30, 47], [29, 44], [26, 43], [25, 36.5], [18, 36.5], [18, 39.5], [11, 39.5]],
+  "chin": 30,
+  "x": 0,
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[247, 131, 53], [250, 244, 248], [173, 102, 70], [224, 223, 237], [168, 168, 190], [213, 213, 229]], "clear_all": true, "skin": [[173, 102, 70], [162, 94, 66]], "chin_rows": [29, 30, 29, 29, 29, 28, 28, 28], "keep_colours": [[72, 38, 32], [101, 57, 43], [54, 28, 26], [130, 201, 246], [82, 150, 206], [185, 227, 251], [251, 168, 114], [199, 122, 82]], "clear_poly": [[5, 38], [5, 54], [8, 57], [11, 61], [16, 63], [22, 62], [24, 60], [26, 57], [28, 55], [29, 54], [30, 53], [30, 47], [29, 44], [26, 43], [25, 35], [18, 35], [18, 38.5], [9, 38.5]], "clear_grow": 3, "beside_head": "outline"}}
+}

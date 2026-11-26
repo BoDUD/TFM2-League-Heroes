@@ -426,7 +426,12 @@ RESTYLE = {
     # 像素高，PPU 1.5」: Codex's step-1 round-2 take A-1 cut to 57 rows hair to soles) by tools/art/rig_akshan.py, the
     # forward gun arm from Codex's pose and the walk from Codex's skin swap read on the same grid, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "akshan": dict(ppu=1.2, edge=1, face_to=(-1, -37)),   # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py)
+    # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py) at 1.61, brought to 1.2 with Wukong (「船长猴子
+    # 阿克尚波比蛇女像素太高需要降低」); 2026-11-14 「还有阿克尚的眼睛也调清晰一点」「现在看起来和两个黑洞一样」: his frames
+    # as drawn (ORIG_PPU 1.61, no coarser grid - Wukong's 1.53 of 2026-10-29): on the 1.2 grid each eye's square and the
+    # brow over it became one dark block. The face point (-1, -37) -> (1, -35): the eye squares, 17.7 game px over the
+    # pivot at x 0.3 and 2.8, were on the portrait box's row 7 and the far one on its edge column; now rows 4-5, centred
+    "akshan": dict(ppu=1.61, edge=1, face_to=(1, -35)),
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes
@@ -597,7 +602,9 @@ RESTYLE = {
     # standing point - his head sits forward between the shoulders - 28 over the ground)
     # 2026-10-26: 85 % in game (「扎克的体型在这游戏里异常的大」, hd.rs SIZES): 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0 -> 3
     # squares lower; the face point x 0.85 about the soles
-    "zac": dict(ppu=1.5, edge=1, lift_sq=-3, face_to=(9, -24)),
+    # 2026-11-17: slimmer (tools/art/slim_zac.py, 「扎克选B」): his eyes 14 squares ahead of the standing point, not 17
+    # (9.3 game px x 0.85 = 7.9)
+    "zac": dict(ppu=1.5, edge=1, lift_sq=-3, face_to=(8, -24)),
     # league_singed (group I top): the design (Codex's step-1 A-2 as drawn: 45 x 62, 36 game px head top to soles at the
     # user's pick, PPU 1.39 = its own squares, 3/4 only) with Codex's key poses after League's clips (the design's head put
     # back, the bodies brought to the design's size), posed by tools/art/rig_singed.py, so no proportion or density change
@@ -827,6 +834,8 @@ RESTYLE = {
     # idle_base his old idle pose as Codex drew it, rig_pyke_hd.IDLE_FROM); fx: their <hero>_bake.json pictures baked on
     # again (rig_<hero>_hd, Rig.bake); the outline grown by 2 squares
     "alistar": dict(ppu=76 / 44, edge=2, fx=True),
+    # 蛮王 2026-11-21 起局内 115%（hd.rs SIZES，「放大到 1.15」）：GPT 重画以后他的帧不是这里出的（再跑会把 GPT 的描边
+    # 又加粗），脚底回到地面靠 raise_hd_frames.py 把战场帧的框往下加 5 行（画面高 2.5 格），没用 lift_sq
     "tryndamere": dict(ppu=67 / 37, edge=2, fx=True),
     "pyke": dict(ppu=73 / 41, edge=2, fx=True),
     "brand": dict(ppu=77 / 43, edge=2, fx=True),

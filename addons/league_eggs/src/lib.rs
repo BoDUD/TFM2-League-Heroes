@@ -189,9 +189,19 @@ pub fn parse_tag(buff: &str) -> Option<u64> {
     buff.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())
 }
 
+/// buff 名的字节（比的都是 ASCII 常量：不用每个 buff 都做一遍 UTF-8 检查，2026-11-22 过日采样）。
+pub(crate) fn name_of(b: &BuffV1) -> &[u8] {
+    &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)]
+}
+
+/// [`parse_tag`] 直接看字节：前缀对上了才把后面的数字转成字符串（前缀是 ASCII，结果和原来一样）。
+fn parse_tag_bytes(name: &[u8]) -> Option<u64> {
+    std::str::from_utf8(name.strip_prefix(SIM_TAG.as_bytes())?).ok()?.parse().ok()
+}
+
 fn tag_on(sim: &StableSim<'_>, id: usize) -> Option<u64> {
     let e = sim.get_entity(id)?;
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| parse_tag(b.name()))
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| parse_tag_bytes(name_of(&b)))
 }
 
 /// 挂编号的地方：两边的水晶（整局都在）；(水晶, 防御塔)，水晶不收 buff 时才挂到塔上。
@@ -433,7 +443,7 @@ fn run(sim: &mut StableSim<'_>) {
 fn worn(sim: &StableSim<'_>, player: usize, name: &str) -> Option<(usize, BuffV1)> {
     let e = sim.get_player(player)?.champion()?;
     let id = e.id();
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == name).map(|b| (id, b))
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| name_of(b) == name.as_bytes()).map(|b| (id, b))
 }
 
 /// 一份模拟里的彩蛋。
@@ -928,7 +938,7 @@ impl Sim {
             let level = p.level();
             let Some(me) = p.champion() else { continue };
             let id = me.id();
-            let cougar = (0..me.buff_count()).filter_map(|i| me.buff_at(i)).any(|b| b.name() == COUGAR);
+            let cougar = (0..me.buff_count()).filter_map(|i| me.buff_at(i)).any(|b| name_of(&b) == COUGAR.as_bytes());
             if !cougar {
                 continue;
             }
@@ -1136,6 +1146,25 @@ mod mock;
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn tags_parse_from_bytes_as_before() {
+        // 原来：parse_tag(b.name())（不是 UTF-8 的名字 name() 给 ""）
+        let mut names: Vec<BuffV1> = [tag(0), tag(7), tag(123_456), tag(u64::MAX), SIM_TAG.to_string(), format!("{SIM_TAG}12x"),
+            format!("{SIM_TAG}-3"), format!("{SIM_TAG} 5"), "league_eggs_sim".to_string(), COUGAR.to_string(), String::new()]
+            .iter()
+            .map(|n| BuffV1::named(n))
+            .collect();
+        let mut after = BuffV1::named(&tag(42)); // 前缀后面坏了
+        after.name_buf[SIM_TAG.len()] = 0xFF;
+        let mut inside = BuffV1::named(&tag(42)); // 前缀里坏了
+        inside.name_buf[3] = 0xFF;
+        names.extend([after, inside]);
+        for b in &names {
+            assert_eq!(parse_tag_bytes(name_of(b)), parse_tag(b.name()), "{:?}", &b.name_buf[..b.name_len]);
+        }
+        assert_eq!(parse_tag_bytes(name_of(&BuffV1::named(&tag(99)))), Some(99));
+    }
     use mock::World;
 
     fn tick(w: &mut World) {

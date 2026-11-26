@@ -140,12 +140,26 @@ fn pt(p: Pt) -> String {
 /// The first `n` of each kind of line are logged, then every 100th (a long game repeats the same event); every one of the
 /// match on screen (`shown`: 2026-11-02, a watched set kept 2 lines, the presims had used the count up).
 fn counted(kind: &str, shown: bool) -> Option<usize> {
-    static COUNTS: LazyLock<Mutex<HashMap<String, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
-    let k = c.entry(kind.to_string()).or_insert(0);
-    *k += 1;
-    (shown || *k <= 40 || *k % 100 == 0).then_some(*k)
+    let k = match KINDS.iter().position(|&x| x == kind) {
+        Some(i) => COUNTS[i].fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1,
+        None => {
+            // 不在列表里的（以后加了新的一种行）：照旧用锁
+            static OTHER: LazyLock<Mutex<HashMap<String, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+            let mut c = OTHER.lock().unwrap_or_else(|e| e.into_inner());
+            let n = c.entry(kind.to_string()).or_insert(0);
+            *n += 1;
+            *n
+        }
+    };
+    (shown || k <= 40 || k % 100 == 0).then_some(k)
 }
+
+/// 记的那几种行：每种一个原子计数，不抢锁、不再每次新建一个 String（2026-11-22 过日采样：原来一把全局锁 + 每次
+/// `kind.to_string()`，几条模拟线程挤在这里，占附加包合集的 5%）。
+const KINDS: [&str; 15] = ["breath", "breath_cut", "breath_end", "execute", "execute held", "fly", "fly_ai", "fly_ai_refused",
+                           "fly_ai_steer", "keep", "land", "life", "refund", "spawn", "stack"];
+static COUNTS: [std::sync::atomic::AtomicUsize; KINDS.len()] =
+    [const { std::sync::atomic::AtomicUsize::new(0) }; KINDS.len()];
 
 /// The match on screen (the client's view, spectating, a replay), not a server presim.
 fn on_screen(sim: &StableSim<'_>) -> bool {
@@ -286,7 +300,7 @@ fn stacks_on(sim: &StableSim<'_>, me: usize, d_max: usize) -> Vec<BuffV1> {
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == name.as_bytes())
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -804,6 +818,29 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn every_counted_kind_is_listed() {
+        // 源码里每处计数用的种类都在 KINDS 里（不在的会退回到锁，照样对，只是慢）
+        let pat = concat!("counted", "(\"");
+        for src in [include_str!("lib.rs"), include_str!("flight_ai.rs"), include_str!("flight.rs")] {
+            for part in src.split(pat).skip(1) {
+                let kind = &part[..part.find('"').unwrap()];
+                assert!(KINDS.contains(&kind), "{kind} is not in KINDS");
+            }
+        }
+    }
+
+    #[test]
+    fn counts_go_up_one_by_one() {
+        let first = counted("keep", true).unwrap();
+        for _ in 0..200 {
+            counted("keep", false);
+        }
+        let n = COUNTS[KINDS.iter().position(|&k| k == "keep").unwrap()].load(std::sync::atomic::Ordering::Relaxed);
+        assert!(n >= first + 200);
+        assert_eq!(counted("keep", true).map(|k| k > n), Some(true));
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

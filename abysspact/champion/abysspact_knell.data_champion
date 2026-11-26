@@ -1,0 +1,803 @@
+{
+  "id": "abysspact_knell",
+  "category": "Tank",
+  "tags": [
+    "Tank",
+    "Melee",
+    "CC",
+    "Shield",
+    "Magic"
+  ],
+  "passive": {
+    "passive_ref": "abysspact_knell:bell_shell",
+    "params": {
+      "shell_dr": 15,
+      "r_r": 25000,
+      "r_t": 150,
+      "r_p": 30,
+      "r_tick_dmg": 53,
+      "r_tick_hp": 4,
+      "r_air": 50,
+      "r_min_foes": 2,
+      "r_min_hp": 50,
+      "r_arm": 600,
+      "r_range": 50000,
+      "r_go": 14,
+      "r_dur": 42,
+      "r_leap": 8,
+      "keep": 60
+    }
+  },
+  "sprite": "asset/abysspact/champions/abysspact_knell",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/abysspact/icons/abysspact_knell_skill",
+    "asset/abysspact/icons/abysspact_knell_skill2",
+    "asset/abysspact/icons/abysspact_knell_ult"
+  ],
+  "stat": {
+    "attack": 65,
+    "magic_power": 0,
+    "hp": 1335,
+    "defence": 43,
+    "magic_resistance": 37,
+    "move_speed": 995,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 10,
+    "magic_power": 0,
+    "hp": 120,
+    "defence": 7,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.abysspact_knell.attack",
+    "duration": 40,
+    "cooltime": 64,
+    "start_timing": 24,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_knell_a"
+        },
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "abysspact_knell_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.abysspact_knell.skill",
+    "duration": 38,
+    "cooltime": 560,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_knell_foley_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_knell_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_knell_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_knell_q_strike"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 40000,
+                            "range": 420
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 86,
+                            "attack_ratio": 0,
+                            "hp_ratio": 7,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 52
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_knell_cone"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_knell_q_strike"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "DirDot": {
+                            "radius": 40000,
+                            "range": 420
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 1000
+                          }
+                        },
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 86,
+                            "attack_ratio": 0,
+                            "hp_ratio": 7,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 52
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_knell_cone"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_knell_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.abysspact_knell.skill2",
+    "duration": 34,
+    "cooltime": 690,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "abysspact_knell_foley_w"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "abysspact_knell_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "abysspact_knell_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_knell_w_shield"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 60000
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 180,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 200
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_knell_w_ms",
+                              "duration": {
+                                "Time": {
+                                  "tick": 100
+                                }
+                              },
+                              "move_speed_mult": 24
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_knell_echo_shield"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "abysspact_knell_w_shield"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 60000
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 180,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 200
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "abysspact_knell_w_ms",
+                              "duration": {
+                                "Time": {
+                                  "tick": 100
+                                }
+                              },
+                              "move_speed_mult": 24
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "abysspact_knell_echo_shield"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "abysspact_knell_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.abysspact_knell.ult",
+    "duration": 3,
+    "cooltime": 4680,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "abysspact_knell_native",
+      "effect_buff": {
+        "type": "AddCasterBuff",
+        "buff_state": {
+          "name": "abysspact_knell_r_arm",
+          "duration": {
+            "Time": {
+              "tick": 4
+            }
+          }
+        },
+        "only_to_enemy": false
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 13,
+        "effects": [
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "abysspact_knell_live",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "abysspact_knell_live",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "abysspact_knell_r_shadow"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "abysspact_knell_bell_shadow"
+                    },
+                    {
+                      "type": "MoveToTarget",
+                      "speed": 6200,
+                      "range": 65000,
+                      "end_effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_knell_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_knell_bell_drop"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_knell_bell_dust"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_knell_giant_drop"
+                            },
+                            {
+                              "type": "RangePeriodProjectile",
+                              "name": "abysspact_knell_r_chimes",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 25000
+                                }
+                              },
+                              "tick": 150,
+                              "period": 30,
+                              "first_delay": 30,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 53,
+                                    "attack_ratio": 0,
+                                    "hp_ratio": 4,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "BlockSkill",
+                                    "tick": 36
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_knell_bell_chime"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_knell_giant_chime"
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 150,
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_knell_bell_lift"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_knell_bell_open_wave"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "abysspact_knell_lift"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "abysspact_knell_open_wave"
+                                },
+                                {
+                                  "type": "RangeProjectile",
+                                  "name": "abysspact_knell_r_lift_z",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 25000
+                                    }
+                                  },
+                                  "delay": 1,
+                                  "apply": 1,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Airborne",
+                                        "duration": 50
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "abysspact_knell_r_shadow"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "abysspact_knell_bell_shadow"
+                    },
+                    {
+                      "type": "MoveToTarget",
+                      "speed": 6200,
+                      "range": 65000,
+                      "end_effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "abysspact_knell_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_knell_bell_drop"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "abysspact_knell_bell_dust"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "abysspact_knell_giant_drop"
+                            },
+                            {
+                              "type": "RangePeriodProjectile",
+                              "name": "abysspact_knell_r_chimes",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 25000
+                                }
+                              },
+                              "tick": 150,
+                              "period": 30,
+                              "first_delay": 30,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 53,
+                                    "attack_ratio": 0,
+                                    "hp_ratio": 4,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "BlockSkill",
+                                    "tick": 36
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "abysspact_knell_bell_chime"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "abysspact_knell_giant_chime"
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 150,
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_knell_bell_lift"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "abysspact_knell_bell_open_wave"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "abysspact_knell_lift"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "abysspact_knell_open_wave"
+                                },
+                                {
+                                  "type": "RangeProjectile",
+                                  "name": "abysspact_knell_r_lift_z",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 25000
+                                    }
+                                  },
+                                  "delay": 1,
+                                  "apply": 1,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Airborne",
+                                        "duration": 50
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "abysspact_knell_live"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_cone",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "cone",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_echo_shield",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "echo_shield",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_bell_shadow",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "bell_shadow",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_bell_drop",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "bell_drop",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_bell_dust",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "bell_dust",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_bell_chime",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "bell_chime",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_bell_lift",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "bell_lift",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "abysspact_knell_bell_open_wave",
+      "anim": "asset/abysspact/effects/abysspact_knell_fx",
+      "tag": "bell_open_wave",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": []
+}

@@ -1,0 +1,33 @@
+{
+  "hero": "fizz",
+  "tag": "run",
+  "drawn": "assets/source/fizz/hd/fizz_run_drawn",
+  "from": 6,
+  "outline": [16, 15, 31],
+  "waist": [-2, -2, -2, -2, -2, -2, -2, -2],
+  "bob": [0, 0, 0, 0, 0, 0, 0, 0],
+  "below": [
+    [[null, 42, 21, 27], [null, 39, 31, 45], [null, 41, 49, 79]],
+    [[null, 41, 54, 77]],
+    [[null, 44, 27, 34], [null, 53, 36, 72]],
+    [[null, 57, 27, 52], [null, 50, 56, 74]],
+    [[null, 55, 10, 32], [null, 47, 55, 65]],
+    [[null, 59, 31, 84]],
+    [[null, 59, 36, 70]],
+    [[null, 43, 35, 56], [null, 39, 62, 70], [null, 41, 76, 81]]
+  ],
+  "notes": {
+    "contacts": "frames [1, 5] (feet's band spread [20, 70, 40, 56, 41, 45, 38, 53])",
+    "waist": "row -2 from the centre in every frame: per-row differing share passes 0.788 there (figure rows -42..21)",
+    "from": "frame 2: closest to hd_idle_base[0] (alike share per frame [0.187, 0.199, 0.162, 0.118, 0.111, 0.14, 0.115, 0.175]; fits every frame: [2, 3, 6])",
+    "below": "rects per frame [3, 1, 2, 2, 2, 1, 1, 3] (her squares under the waist her feet do not reach)",
+    "bob": "3 squares low to high (1.66 game px), low the frame after the contacts [1, 5], moved by 2 so the head stays in every rect: [2, 3, 5, 4, 2, 3, 5, 4]",
+    "undecided": ["a knee or a foot raised over the waist row goes under the laid body: check the review's frames", "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 2) where the hero holds something by the body", "a cape or a tail: not looked for - add a chain by hand"]
+  },
+  "lock": "head",
+  "head": [[3, 40], [3, 66], [6, 70], [10, 73], [16, 76], [20, 78], [35, 78], [35, 55], [32, 55], [32, 42], [33, 42], [33, 30], [31, 27.5], [28, 30], [26, 28.5], [22, 27], [18, 25], [14, 28], [10, 32], [6, 35]],
+  "chin": 34,
+  "x": 0,
+  "use": "char",
+  "variants": {"char": {"steps": 1, "bob": [0, 0, 0, 0, 0, 0, 0, 0], "head_match_colours": [[246, 240, 213], [200, 191, 165], [53, 200, 92], [39, 167, 90], [40, 178, 81]], "clear_all": true, "skin": [[76, 182, 219], [50, 130, 196], [58, 150, 206], [37, 77, 152], [44, 103, 178]], "chin_rows": [31, 31, 31, 32, 34, 39, 33, 31], "keep_colours": [[153, 40, 57], [114, 29, 45], [185, 56, 67], [148, 45, 44], [88, 33, 36], [231, 178, 79], [220, 160, 68], [191, 133, 59], [151, 97, 45], [251, 216, 120], [126, 80, 39], [136, 130, 57], [114, 122, 54], [83, 106, 59], [162, 154, 136], [67, 43, 34], [10, 124, 107], [15, 71, 62], [25, 87, 66], [10, 142, 121], [24, 102, 67], [23, 178, 151], [40, 177, 163], [38, 86, 104], [14, 40, 39], [200, 191, 165], [246, 240, 213]], "keep_above": 4, "clear_grow": 3, "beside_head": "outline", "head_align": "chin", "clear_poly": [[-1, 38], [-1, 68], [3, 73], [8, 77], [14, 80], [19, 82], [35, 82], [35, 55], [32, 55], [32, 42], [33, 42], [33, 30], [31, 26], [28, 27], [24, 25], [20, 22], [15, 23], [10, 27], [5, 32], [1, 35]]}}
+}

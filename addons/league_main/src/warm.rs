@@ -94,11 +94,22 @@ pub fn warm(dir: &Path) -> (usize, usize) {
     (files.len(), bytes)
 }
 
-/// Starts the warm-up once, from the first client frame: by then the title is up and the game has read its files.
+/// league.dll 的客户端扩展：每帧喂屏幕时钟、显示钩子第一帧挂上、被跳过就接回来（game_places::hook::tick）、大面板上叠层数
+/// （stacks::tip）；第一帧还开始
+/// 预读：by then the title is up and the game has read its files.
 pub struct Warm;
 
 impl StableExtension for Warm {
-    fn post_update(&self, _ctx: &mut StableClient<'_>, _dt_micros: u64) {
+    fn post_update(&self, ctx: &mut StableClient<'_>, _dt_micros: u64) {
+        #[cfg(windows)]
+        {
+            game_places::clock::feed(ctx.is_in_game(), |p| ctx.ui_visible(p), |p| ctx.ui_text(p));
+            game_places::hook::tick();
+            // 比赛里点开英雄的大面板：层数叠在层数格那个技能的图标上（stacks.rs 的 tip）
+            crate::stacks::tip(ctx);
+        }
+        #[cfg(not(windows))]
+        let _ = ctx;
         if STARTED.swap(true, Ordering::Relaxed) {
             return;
         }

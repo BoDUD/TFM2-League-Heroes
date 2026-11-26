@@ -7,7 +7,7 @@ The game reads every mod file except background music into memory when it starts
 
 - WAV clips -> MP3 (VBR, LAME quality V0; mono 44.1 kHz stays), the format of the base game's own sound
   effects. The clip name does not change, so no .sound_info needs an edit. Clips that no .sound_info plays
-  are left out. MP3 clips are copied as they are.
+  are left out. MP3 clips are copied as they are, apart from Ragnarok voices that need a level adjustment.
 - Clips go to sound/bgm/ instead of sound/sfx/, and each clip's mod.override_info entry
   (asset/base/sound/sfx/<clip>) points there. The game reads every mod file into memory at start except the
   .mp3/.wav under /sound/bgm/, which it opens when they play; a clip there plays as a sound effect like before
@@ -25,7 +25,8 @@ The game reads every mod file except background music into memory when it starts
   .fanim change.
 - Every hero's two UI sheets written next to the package's sheets, ui_sheets/<kind>/<hero>#sheet.png + #anim.fanim:
   only the frames the screens that show many heroes at once draw, pixel for pixel - ui_sheets/idle: `idle` (the
-  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's lo_idle); ui_sheets/bp: `bp`
+  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's hd_idle, marked `ui_hd`, where
+  it is denser than its lo_idle - else the lo_idle); ui_sheets/bp: `bp`
   (the ban/pick grid's reel: hd_bp) and `dead` (a banned hero in the grid: hd_dead). league.dll draws those screens
   from them (addons/hd_engine/src/lookup.rs): they drew every hero from its whole battle sheet, 589 MiB of RGBA for
   167 heroes against the game's 256 MiB image cache, so every frame decoded them again (2026-10-24, the user:
@@ -84,6 +85,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites
 import attack_self  # noqa: E402  what an attack does to its caster goes under a hidden projectile's hit
+from audio_level import limiter  # noqa: E402
 GAME_DIRS = [
     r"C:\Program Files (x86)\Steam\steamapps\common\Teamfight Manager2",
     r"C:\Program Files\Steam\steamapps\common\Teamfight Manager2",
@@ -94,15 +96,20 @@ GAME_DIRS = [
 ]
 JSON_EXT = (".data_champion", ".fanim", ".i18n", ".champion_view", ".override_info", ".sound_info")
 SHARED = ("text/champion.i18n", "style/champion_view.champion_view", "mod.override_info")
-HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx", "sound/bgm")   # bgm: a packed source
+# banpick_illustrations: 选人 / 英雄交换界面的立绘，游戏按 <英雄id>.png 自己读（tools/ci/bp_illustrations.py）
+HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx", "sound/bgm",   # bgm: a packed source
+             "banpick_illustrations")
 AUDIO_EXT = (".wav", ".mp3")
 SFX_DIR = "sound/sfx"      # where the sources keep the clips, next to their .sound_info
 STREAM_DIR = "sound/bgm"   # where the package puts them: opened when played, not read at start
 MP3_QUALITY = 0.0          # libsndfile compression level for VBR MP3: 0.0 = LAME V0 (best), 1.0 = V9
+RAGNAROK_VOICE_RMS = -19.0  # dBFS with the event volume applied, from the League pack's in-match voices
+RAGNAROK_VOICE_PEAK = -1.5  # dBFS before event volume, with room for MP3 overshoot
 MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the sheets the mod ships today
 GAP = 1                    # transparent pixels between packed frames
 IDLE_PAD = 8               # clear pixels round every idle frame (the cards draw past its rect)
 UI_DIR = "ui_sheets"       # each hero's UI sheets (ui_sheets): addons/hd_engine/src/ui.rs looks them up by this path
+UI_HD_MARK = "ui_hd"       # a UI idle sheet holding the hd_ idle carries this one-frame tag (src/ui.rs HD_MARK)
 # ui_sheets/<kind>/<hero>: idle for the encyclopedia, faces, pick slots, pick moment and scoreboard; bp (the reel and
 # dead) for the ban/pick grid alone - a screen showing every hero keeps only the one it draws
 UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
@@ -110,8 +117,10 @@ UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
 
 # each native pack's own code, next to its mod.mod_info: mod_id -> (the DLL, its crate in addons/) - the main pack's
 # league.dll (addons/league_main), the tft pack's tft.dll (addons/tft: its heroes' rules the data cannot play and,
-# since 0.42.0, their dense frames); both carry the dense-frame engine (addons/hd_engine)
-DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft")}
+# since 0.42.0, their dense frames), the ragnarok pack's ragnarok.dll (addons/ragnarok: Record of Ragnarok's
+# fighters, 2026-11-20); all carry the dense-frame engine (addons/hd_engine)
+DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft"), "ragnarok": ("ragnarok.dll", "ragnarok"),
+        "abysspact": ("abysspact.dll", "abysspact")}
 
 
 def build_dll(explicit, mod_id="league"):
@@ -185,16 +194,53 @@ def dump_min(obj):
 
 # ---------------------------------------------------------------- audio
 
-def wav_to_mp3(raw, where):
+def active_voice_rms(x, sr):
+    """Measure 50 ms blocks above the noise floor, without counting long pauses as quiet dialogue."""
+    if not len(x):
+        return 0.0
+    starts = np.arange(0, len(x), max(1, round(sr * 0.05)))
+    power = np.add.reduceat(np.square(x).mean(axis=1), starts) / np.diff(np.r_[starts, len(x)])
+    audible = power >= max(10 ** (-50 / 10), power.max() * 10 ** (-24 / 10))
+    return math.sqrt(power[audible].mean()) if audible.any() else 0.0
+
+
+def level_ragnarok_voice(x, sr, volume):
+    """Bring quiet lines up to League's level while keeping their timing and the existing in-game mix."""
+    rms = active_voice_rms(x, sr)
+    if not rms or volume <= 0:
+        return x
+    target = 10 ** (RAGNAROK_VOICE_RMS / 20) / volume
+    minimum = target * 10 ** (-0.25 / 20)
+    if rms >= minimum:
+        return x
+    ceiling = 10 ** (RAGNAROK_VOICE_PEAK / 20)
+    max_gain = 10 ** (18 / 20)
+    gain = min(target / rms, max_gain)
+    for _ in range(8):
+        boosted = limiter(x * gain, ceiling, block=max(1, round(sr * 0.006)))
+        measured = active_voice_rms(boosted, sr)
+        if measured >= target * 10 ** (-0.05 / 20) or gain >= max_gain:
+            break
+        # A few sharp peaks can use up the headroom. Apply any extra gain to the original samples.
+        gain = min(gain * target / measured, max_gain)
+    return boosted
+
+
+def audio_to_mp3(raw, where, voice_volume):
     import soundfile as sf
-    x, sr = sf.read(io.BytesIO(raw), dtype="float32")
+    x, sr = sf.read(io.BytesIO(raw), dtype="float32", always_2d=True)
+    if voice_volume is not None:
+        boosted = level_ragnarok_voice(x, sr, voice_volume)
+        if boosted is x and where.endswith(".mp3"):
+            return raw, 0.0
+        x = boosted
     buf = io.BytesIO()
     sf.write(buf, x, sr, format="MP3", subtype="MPEG_LAYER_III", bitrate_mode="VARIABLE",
              compression_level=MP3_QUALITY)
     mp3 = buf.getvalue()
     y, sr2 = sf.read(io.BytesIO(mp3), dtype="float32")
     if sr2 != sr or len(y) != len(x):
-        raise ValueError(f"{where}: MP3 decodes to {len(y)} samples at {sr2} Hz, the WAV has {len(x)} at {sr} Hz")
+        raise ValueError(f"{where}: MP3 decodes to {len(y)} samples at {sr2} Hz, the source has {len(x)} at {sr} Hz")
     return mp3, len(x) / sr
 
 
@@ -361,13 +407,25 @@ def strip_frames(a):
     return {k: v for k, v in a.items() if k != "frames"}
 
 
-def ui_sources(anim):
-    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- lo_idle (else hd_idle), bp <- hd_bp (else
-    hd_idle), dead <- hd_dead; a 1x hero idle, bp (else idle), dead. Empty without an idle."""
+def denser_than_lo(px, anim):
+    """The hd_ idle draws its hero with more squares a game pixel than the lo_ idle (the lo_ one is UI_PPU = 1.5): its
+    figure (frame 0's opaque rows in the sheet's pixels `px`) taller than the lo_ one's by 3 % or more. A hero drawn
+    coarser (league_nasus at PPU 1.2: his lo_ frames are grown to 1.5) or as dense (league_galio, 1.65 / 1.1) keeps the
+    lo_ idle - the hd_ one would only show bigger squares."""
+    lo = figure_rows(px, anim, "lo_idle")
+    return lo > 0 and figure_rows(px, anim, "hd_idle") >= 1.03 * lo
+
+
+def ui_sources(anim, hd_idle=False):
+    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- hd_idle when `hd_idle` (denser_than_lo; the
+    user, 2026-11-19: 「都要PPU高清帧的」 - the pick slot's 「熟练度加成」 card drew the lo_ idle, 1.5 squares a game
+    pixel), else lo_idle (else hd_idle), bp <- hd_bp (else hd_idle), dead <- hd_dead; a 1x hero idle, bp (else idle),
+    dead. Empty without an idle."""
     anims = anim.get("anims", {})
     first = lambda *tags: next((t for t in tags if anims.get(t, {}).get("frames")), None)
     if any(t.startswith("hd_") for t in anims):
-        src = {"idle": first("lo_idle", "hd_idle"), "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
+        idle = first("hd_idle", "lo_idle") if hd_idle else first("lo_idle", "hd_idle")
+        src = {"idle": idle, "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
     else:
         src = {"idle": first("idle"), "bp": first("bp", "idle"), "dead": first("dead")}
     return {k: t for k, t in src.items() if t} if src["idle"] else {}
@@ -390,16 +448,29 @@ def ui_pads(anim, src):
     return out
 
 
+def figure_rows(px, anim, tag):
+    """The opaque rows of frame 0 of `tag` (0: no such tag or frame, or a rect that is not whole pixels)."""
+    fr = anim.get("anims", {}).get(tag, {}).get("frames")
+    if not fr:
+        return 0
+    r = tuple(fr[0].get("data", {}).get(c) for c in ("x", "y", "w", "h"))
+    if any(not isinstance(v, (int, float)) or v != int(v) for v in r):
+        return 0
+    x, y, w, h = (int(v) for v in r)
+    rows = np.nonzero((px[y:y + h, x:x + w, 3] > 0).any(1))[0]
+    return int(rows.max() - rows.min() + 1) if len(rows) else 0
+
+
 def ui_sheets(png_raw, anim, where):
     """-> [(kind, png bytes, fanim object)]: a hero's UI sheets (UI_KINDS) - the frames of ui_sources at the sheet's own
     pixels and nothing else - or [] (no idle, or a frame rect that is not whole pixels). Identical frames share one rect,
     each with the clear pixels of ui_pads round it."""
-    src = ui_sources(anim)
+    px = np.asarray(Image.open(io.BytesIO(png_raw)).convert("RGBA"))
+    src = ui_sources(anim, denser_than_lo(px, anim))
     if not src:
         return []
     anims = anim["anims"]
     pads = ui_pads(anim, src)
-    px = np.asarray(Image.open(io.BytesIO(png_raw)).convert("RGBA"))
     out = []
     for kind, tags in UI_KINDS.items():
         part = {k: src[k] for k in tags if k in src}
@@ -450,6 +521,9 @@ def ui_sheets(png_raw, anim, where):
                 d["x"] = float(nx) if isinstance(d["x"], float) else nx
                 d["y"] = float(ny) if isinstance(d["y"], float) else ny
             ui["anims"][k] = a
+        if part.get("idle") == "hd_idle":
+            # the mark league.dll's src/ui.rs reads: this idle is the hd_ one (its divisors), not the lo_ one
+            ui["anims"][UI_HD_MARK] = {"frames": [copy.deepcopy(ui["anims"]["idle"]["frames"][0])]}
         buf = io.BytesIO()
         Image.fromarray(sheet, "RGBA").save(buf, "PNG", optimize=True)
         png = buf.getvalue()
@@ -462,8 +536,10 @@ def check_ui(pa, anim_a, png_b, ui, kind, where):
     """The UI sheet of `kind` holds its tags' source frames: same count, timing and size, the same pixels, and nothing
     opaque within its pads outside them."""
     pb = np.asarray(Image.open(io.BytesIO(png_b)).convert("RGBA"))
-    src = {k: t for k, t in ui_sources(anim_a).items() if k in UI_KINDS[kind]}
-    if set(src) != set(ui["anims"]):
+    every = ui_sources(anim_a, denser_than_lo(pa, anim_a))
+    src = {k: t for k, t in every.items() if k in UI_KINDS[kind]}
+    mark = {UI_HD_MARK} if src.get("idle") == "hd_idle" else set()
+    if set(src) | mark != set(ui["anims"]):
         raise ValueError(f"{where}: UI sheet {kind} has tags {sorted(ui['anims'])}, want {sorted(src)}")
     for k, t in src.items():
         fa, fb = anim_a["anims"][t]["frames"], ui["anims"][k]["frames"]
@@ -477,7 +553,7 @@ def check_ui(pa, anim_a, png_b, ui, kind, where):
             if not np.array_equal(pa[ya:ya + h, xa:xa + w], pb[yb:yb + h, xb:xb + w]):
                 raise ValueError(f"{where}: UI frame {k}[{i}] pixels differ from {t}[{i}]")
     op = pb[..., 3] > 0
-    for k, (l, r, t, b) in ui_pads(anim_a, ui_sources(anim_a)).items():
+    for k, (l, r, t, b) in ui_pads(anim_a, every).items():
         for i, fr in enumerate(ui["anims"].get(k, {}).get("frames", [])):
             x, y, w, h = (int(fr["data"][c]) for c in ("x", "y", "w", "h"))
             y0, x0 = max(0, y - t), max(0, x - l)
@@ -525,20 +601,23 @@ def select_files(src, heroes, everything):
 
 
 def played_clips(src, files):
-    clips = set()
+    """Return the loudest event volume for each used clip."""
+    clips = {}
     for rel in files:
         if rel.endswith(".sound_info"):
             name = os.path.basename(rel)[:-len(".sound_info")]
             for p in parse_json(read(os.path.join(src, rel)), rel).get("plays", []):
-                if p.get("clip") == name:        # the game then finds no sound by that name (2026-10-07 log)
+                clip = p.get("clip")
+                if clip == name:        # the game then finds no sound by that name (2026-10-07 log)
                     sys.exit(f"{rel}: plays a clip of its own name; give the clip another name (league_<id>_sfx_...)")
-                clips.add(p.get("clip"))
+                clips[clip] = max(clips.get(clip, 0.0), p.get("volume", 1.0))
     return clips
 
 
 def build(src, heroes, everything, workers):
     """-> dict rel -> bytes, plus a report."""
     files = select_files(src, heroes, everything)
+    mod_id = parse_json(read(os.path.join(src, "mod.mod_info")), "mod.mod_info")["mod_id"]
     clips = played_clips(src, files)
     champs = set(hero_ids(src))                  # the UI sheets are for these (not Kayn's forms, Yuumi's ride, ...)
     out, report = {}, {"before": {}, "after": {}, "dropped": [], "sheets": [], "audio_s": 0.0}
@@ -599,9 +678,13 @@ def build(src, heroes, everything, workers):
         if kind == "audio":
             raw = read(path)
             dst = streamed(rel)
-            if rel.endswith(".mp3"):
+            clip = os.path.splitext(os.path.basename(rel))[0]
+            voice_volume = None
+            if mod_id == "ragnarok" and clip.startswith("ragnarok_") and "_vo_" in clip:
+                voice_volume = clips[clip]
+            if rel.endswith(".mp3") and voice_volume is None:
                 return [(dst, raw)], None
-            mp3, secs = wav_to_mp3(raw, rel)
+            mp3, secs = audio_to_mp3(raw, rel, voice_volume)
             return [(dst[:-4] + ".mp3", mp3)], ("audio", secs)
         base = rel[:-len("#sheet.png")]
         png, fanim_raw = read(path), read(os.path.join(src, base + "#anim.fanim"))
@@ -638,7 +721,6 @@ def build(src, heroes, everything, workers):
     report["heroes_px"] = sum(png_size(data)[0] * png_size(data)[1] for rel, data in out.items()
                               if rel.startswith("champions/") and rel.endswith("#sheet.png"))
     if "mod.override_info" in out:
-        mod_id = parse_json(read(os.path.join(src, "mod.mod_info")), "mod.mod_info")["mod_id"]
         out["mod.override_info"], report["streamed"] = stream_overrides(out, mod_id)
     return out, report
 
@@ -693,7 +775,7 @@ def print_report(report, seconds):
         print(f"UI sheets: {len(report['ui'])}, once decoded " + ", ".join(f"{k} {4 * v / 2 ** 20:.0f} MiB"
               for k, v in kinds.items()) + f" (the heroes' whole sheets: {4 * report['heroes_px'] / 2 ** 20:.0f} MiB)")
     if report["audio_s"]:
-        print(f"audio encoded: {report['audio_s']:.0f} s of WAV -> MP3")
+        print(f"audio encoded: {report['audio_s']:.0f} s -> MP3")
     if report.get("nodes"):
         print(f"skill + skill2 effect nodes (copied every tick in game): {report['nodes'][0]} -> {report['nodes'][1]}")
     if report.get("streamed"):

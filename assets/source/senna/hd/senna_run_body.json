@@ -1,0 +1,345 @@
+{
+  "hero": "senna",
+  "tag": "run",
+  "drawn": "assets/source/senna/hd/senna_run_drawn",
+  "from": 0,
+  "outline": [
+    23,
+    12,
+    29
+  ],
+  "lock": "head",
+  "head": [
+    [
+      4,
+      45
+    ],
+    [
+      4,
+      60
+    ],
+    [
+      7,
+      63
+    ],
+    [
+      12,
+      65
+    ],
+    [
+      22,
+      65
+    ],
+    [
+      25,
+      62
+    ],
+    [
+      28,
+      57
+    ],
+    [
+      28,
+      47
+    ],
+    [
+      25,
+      44
+    ],
+    [
+      10,
+      43
+    ]
+  ],
+  "chin": 28,
+  "bob": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "x": 0,
+  "waist": [
+    -12,
+    -12,
+    -12,
+    -12,
+    -12,
+    -12,
+    -12,
+    -12
+  ],
+  "below": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "use": "char",
+  "variants": {
+    "char": {
+      "steps": 1,
+      "bob": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "head_match_colours": [
+        [
+          177,
+          99,
+          67
+        ],
+        [
+          173,
+          95,
+          66
+        ],
+        [
+          127,
+          61,
+          50
+        ],
+        [
+          141,
+          70,
+          55
+        ],
+        [
+          30,
+          240,
+          193
+        ],
+        [
+          0,
+          158,
+          136
+        ],
+        [
+          1,
+          155,
+          121
+        ],
+        [
+          137,
+          9,
+          44
+        ]
+      ],
+      "skin": [
+        [
+          177,
+          99,
+          67
+        ],
+        [
+          173,
+          95,
+          66
+        ],
+        [
+          127,
+          61,
+          50
+        ],
+        [
+          141,
+          70,
+          55
+        ]
+      ],
+      "head_colours": [
+        [
+          177,
+          99,
+          67
+        ],
+        [
+          173,
+          95,
+          66
+        ],
+        [
+          127,
+          61,
+          50
+        ],
+        [
+          141,
+          70,
+          55
+        ],
+        [
+          174,
+          91,
+          45
+        ],
+        [
+          136,
+          51,
+          48
+        ],
+        [
+          30,
+          240,
+          193
+        ],
+        [
+          0,
+          158,
+          136
+        ],
+        [
+          1,
+          155,
+          121
+        ],
+        [
+          1,
+          136,
+          119
+        ],
+        [
+          137,
+          9,
+          44
+        ],
+        [
+          112,
+          3,
+          38
+        ]
+      ],
+      "clear_grow": 2,
+      "fill_skip": [
+        [
+          177,
+          99,
+          67
+        ],
+        [
+          173,
+          95,
+          66
+        ],
+        [
+          127,
+          61,
+          50
+        ],
+        [
+          141,
+          70,
+          55
+        ],
+        [
+          174,
+          91,
+          45
+        ],
+        [
+          136,
+          51,
+          48
+        ],
+        [
+          30,
+          240,
+          193
+        ],
+        [
+          0,
+          158,
+          136
+        ],
+        [
+          1,
+          155,
+          121
+        ],
+        [
+          1,
+          136,
+          119
+        ],
+        [
+          137,
+          9,
+          44
+        ],
+        [
+          112,
+          3,
+          38
+        ],
+        [
+          245,
+          252,
+          244
+        ],
+        [
+          205,
+          229,
+          231
+        ],
+        [
+          182,
+          211,
+          220
+        ],
+        [
+          159,
+          194,
+          206
+        ],
+        [
+          129,
+          162,
+          179
+        ],
+        [
+          250,
+          251,
+          205
+        ]
+      ]
+    }
+  },
+  "notes": {
+    "made": "--init (frames, waist, below), then by hand (round 3: 「后面的英雄都按这个思路来 先去联盟客户端找英雄的特色是什么 再做run的动画」): lock head - her drawn run (Codex's whole-frame redraw) redraws the upper body every frame, so only the head is one drawing (Ezreal v2's way); the hood, the long curly hair round the face with its gold motes, the relic cannon, the arms and the legs stay each frame's own drawing",
+    "head": "frame 0's face (teal eyes, red lips; the closest to her idle: colour-IoU 0.32 against hd_idle_base[0]) with the hair over and beside it, 2-5 squares round the skin; the drawn faces are 8 drawings (IoU 0.25-0.58: the eyes, the lips and the face's outline redrawn every frame), all 3/4 to the right",
+    "chin": "frame 0's first row under the jaw's outline",
+    "bob": "the drawn one (the head where each frame drew its own face: matched on the skin, the eyes and the lips)",
+    "waist": "--init's (not used by the head lock)",
+    "keep_one": "her 1x run is a drawing of its own (ppu_one's from the dense frames differs in 60 squares even in the untouched frame 0, and the lo_ frames are made from it): it stays as installed (assets/source/senna/hd/senna_run_one.png, from 33c4a229b), only hd_run and lo_run are made",
+    "variants": "char: no clear_all - only the face's own colours (head_colours: the skin, the eyes, the lips) are cleared round the laid head: her hair round it is the same purple as the laid one's, so it stays each frame's own and nothing has to be filled; fill_skip = the face's and the hood's colours: where a drawn face reached a square past frame 0's, the gap is closed with outline or her hair, never skin or the hood's white",
+    "init": {
+      "contacts": "frames [3, 7] (feet's band spread [54, 87, 65, 92, 60, 86, 64, 90])",
+      "waist": "row -12 from the centre in every frame: per-row differing share passes 0.8 there (figure rows -53..23)",
+      "from": "frame 6: closest to hd_idle_base[0] (alike share per frame [0.1, 0.093, 0.098, 0.094, 0.088, 0.091, 0.107, 0.092])",
+      "below": "rects per frame [0, 0, 0, 0, 0, 0, 0, 0] (her squares under the waist her feet do not reach)",
+      "chains": "none: the hair behind the face is 1 squares",
+      "bob": "3 squares low to high (1.60 game px), low the frame after the contacts [3, 7], moved by 0 so the head stays in every rect: [3, 2, 0, 1, 3, 2, 0, 1]",
+      "undecided": [
+        "a knee or a foot raised over the waist row goes under the laid body: check the review's frames",
+        "parts that lag the body (fists, a held weapon): none set - add `parts` (a polygon each in frame 6) where the hero holds something by the body",
+        "a cape or a tail: not looked for - add a chain by hand"
+      ]
+    },
+    "undecided": []
+  },
+  "keep_one": "assets/source/senna/hd/senna_run_one"
+}

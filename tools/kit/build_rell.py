@@ -378,7 +378,7 @@ def build(p):
                B_("e_ms2", FX, -1, "e_ms"), B_("e_ready", FX, 3), B_("w_shield", FX, 3), B_("foot", FX, 2),
                B_("r_on", BIG, -1)]
     kit = {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

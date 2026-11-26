@@ -5,6 +5,8 @@
 Kit (the user's picks, 2026-10-26: JUNGLE, layout A - Q / E / R, Seismic Bastion (W) folded into the passive; combos all
 four: R with the boulder up throws Upheaval first, E's carry ending -> Q ready, R's suppression -> Quaking at full
 stacks, Q's third hit (or the throw) on a champion -> E back within e_cut ticks; League's differences in the add-on).
+2026-11-20 照英雄联盟改（用户：「按照你的建议改吧」）：W 成了自己的技能、自己的冷却，从普攻里放，不再跟着 E 拖人结束；
+举着巨石时，Q 的目标在普攻够不着的地方就马上扔。
 TFM2 has three active slots for League's four buttons: Shattered Earth (Q) is `skill`, Ixtal's Impact (E) `skill2`,
 Impale (R) the `ult`. Q and E keep their cooldowns in flags (`q_cd`, `e_cd`; league_trundle's) so the combos can ready
 them; a slot cast while its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Skarner has both.
@@ -13,16 +15,21 @@ them; a slot cast while its flag is up does nothing (a 3-tick idle). Flags die w
           ticks, refreshed by every hit, a 3-tick lock so one swing counts once); a champion hit on qk2 sets it quaking
           (an AddCasted Fire: p_pct% of its maximum health as true damage every p_p ticks for p_t ticks; nothing magic
           reads max health) and the ladder clears.
-          Seismic Bastion (震地壁垒, W) folded in: when E's carry ends he gains a w_sh + w_sh_r% AD shield for w_sh_t ticks
-          and the ground quakes round him (w_r): w_dmg + w_ratio% AD, w_slow% slower for w_slow_t ticks.
+          震地壁垒（W）：2026-11-20 起是他自己的技能（英雄联盟里 W 有自己的键，想放就放）。三个技能栏都占了，所以从普攻
+          里放：普攻打中东西（什么都行）时身上没有 `w_cd`、w_r 内有敌方英雄（`RandomTarget`，同阿兹尔的普攻召兵）就放：
+          挂 w_cd 拍的 `w_cd`，当场得 w_sh + w_sh_r% 攻击力的护盾 w_sh_t 拍，摆起身砸地的 `w` 动作（盖掉普攻的收招），
+          到 w_rel 那一帧周围（w_r）震地：w_dmg + w_ratio% 攻击力，减速 w_slow% w_slow_t 拍。放在普攻那一下隐形命中里，
+          不放在普攻出手的那一刻：出手时对自己放范围效果，游戏的 AI 就不太让他打英雄（tools/kit/attack_self.py）。
   attack  A pincer blow (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit; its champion-only twin climbs
-          Quaking. Holding the boulder (`rock`, below) the blow also splashes.
+          Quaking. Holding the boulder (`rock`, below) the blow also splashes. 这一下也放 W（见上）。
   skill   Q Shattered Earth / Upheaval (撼地 / 擎天), `Targeting` on `EnemyWithoutTower` within q_range (`q_cd`): he rips a
           boulder out of the ground (`rock` for q_t ticks: q_as% attack speed); his next three attacks on the unit and
           every enemy within q_r of it deal q_dmg + q_ratio% AD (a 1-tick lob on the unit hit), the third q_hp% of their
           maximum health more and q_slow% slower for q_slow_t ticks, and the boulder is spent (League: three charges;
           counted rk1 -> rk2). After q_hold ticks still holding it, the slot throws it instead (Upheaval, League's
-          recast): a lob onto the unit, the same third-hit damage round where it lands.
+          recast): a lob onto the unit, the same third-hit damage round where it lands. 2026-11-20 起举着巨石时 Q 的目标
+          在普攻够不着的地方就马上扔（英雄联盟的再按一下，够不着时用）：先往目标打一发隐形的探针，命中时问他在不在
+          它 atk_range 以内（`RandomTarget AllyOnlySelf from_projectile`，两边身体都算，跟普攻的够不够得着一个量法）。
   skill2  E Ixtal's Impact (以绪塔尔冲击), `Targeting` on `EnemyChampion` (e_range): he charges (MoveToTarget e_speed);
           on contact he carries the champion (Knockback e_kb_speed x e_kb_t, his dash after it). The data cannot see
           walls: the main pack slams it at the end of every carry - e_dmg + e_ratio% AD and a e_stun-tick stun; the
@@ -32,7 +39,8 @@ them; a slot cast while its flag is up does nothing (a 3-tick idle). Flags die w
           for r_sup ticks (`Stun`) and dragged after him (a `Grab` toward him every r_drag ticks while it lasts); he gains
           r_ms% move speed for r_ms_t ticks.
   combos  R -> Upheaval: R cast holding the boulder throws it at the target first (League). E -> Q: the carry's end
-          takes `q_cd` off (the boulder at once, its three hits on the stunned champion). R -> Quaking: every champion
+          takes `q_cd` off (the boulder at once, its three hits on the stunned champion); 拖完照旧摆 `w` 砸一下，但
+          2026-11-20 起不再出 W 的护盾和震地. R -> Quaking: every champion
           impaled starts quaking at once. Q -> E: the boulder's last hit (or the throw) on a champion brings E back
           within e_cut ticks (E sets `e_far` for e_cd - e_cut ticks with `e_cd`; the hit swaps a running `e_far` for an
           e_cut-tick `e_cd`, so a cooldown already under e_cut is left alone).
@@ -49,10 +57,14 @@ league_warwick --native the control: +0.57 on seeds 1-8): the draft (hp 1150, at
 +4.99 (1-8); no single cut moved it more than 0.7 (E off +2.40), every cut together +0.31; P = those cuts with hp 1100,
 attack 76 and a 40-tick E stun +0.75 (1-16; Quaking 2% and a 45-tick stun on top +1.33). The add-on's rules cannot run in
 that engine (Native effects dropped).
+2026-11-20（W 单独放、擎天够不着就扔）：C:/t/skq_sim 的 kds.py（kd.py 加上数他的音效；经典引擎没有 Tank，类别按 Melee
+跑），种子 1-24：改前 +0.27；W 范围 16000 是 -0.28（W 一局 5.9 次，原来跟着 E 9.9 次），20000 是 +0.33，25000 是 +0.20，
+定 20000。种子 25-48：改前 +0.77，改后 +0.06。
 """
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll 的技能栏层数格：tools/kit/stack_nums.py)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -74,8 +86,11 @@ P = {
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 80, "a_hit": 12,
     # passive: Quaking
     "p_t": 240, "p_p": 60, "p_pct": 1,
-    # passive: W Seismic Bastion (on E's carry end)
-    "w_dur": 16, "w_rel": 7, "w_sh": 40, "w_sh_r": 20, "w_sh_t": 180, "w_r": 16000, "w_dmg": 20, "w_ratio": 30, "w_slow": 30, "w_slow_t": 90,
+    # W 震地壁垒：2026-11-20 起自己一个技能，从普攻里放，冷却 w_cd（英雄联盟 10-6 秒）。震地范围 w_r 16000 -> 20000：
+    # 英雄联盟 W 的范围 600-700，按这套数值里 Q 的换算（溅射 300 = q_r 9000，擎天 1050 = q_range 30000）是 20000 上下；
+    # 16000 时 W 单独放只有 5.9 次一局、-0.28（改前 +0.27），20000 是 +0.33
+    "w_dur": 16, "w_rel": 7, "w_cd": 600, "w_sh": 40, "w_sh_r": 20, "w_sh_t": 180, "w_r": 20000, "w_dmg": 20,
+    "w_ratio": 30, "w_slow": 30, "w_slow_t": 90,
     # skill: Q Shattered Earth / Upheaval
     "q_cd": 420, "q_range": 30000, "q_dur": 30, "q_t": 360, "q_hold": 180, "q_as": 20, "q_r": 9000, "q_dmg": 10,
     "q_ratio": 20, "q_hp": 3, "q_slow": 40, "q_slow_t": 60, "q_toss": 24, "q_toss_rel": 9, "q_travel": 16, "q_toss_dmg": 50,
@@ -190,8 +205,8 @@ def on_me(*effects):
     return around(1000, "AllyOnlySelf", *effects)
 
 
-def pick(rng, target, *effects):
-    return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": False,
+def pick(rng, target, *effects, from_projectile=False):
+    return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": from_projectile,
             "effects": [e for e in effects if e is not None]}
 
 
@@ -295,19 +310,39 @@ def build(p):
                        voice("vo_q", p), shown)
 
     # the slot: holding the boulder past q_hold -> throw it; else the pickup when Q is ready
-    q_slot = sw("rock", sw("q_toss", NONE, combine(anim("skill_toss", p["q_toss"]), toss(p["q_toss_rel"]))),
-                sw("q_cd", NONE, q_pickup()))
+    # 2026-11-20：还没举满 q_hold 时，目标在普攻够不着的地方也马上扔（英雄联盟的再按一下）。往目标打一发隐形探针，
+    # 命中时问他在不在它 atk_range 以内，跟普攻一个量法（两边身体都算），3 拍后看结果。举满了的照旧扔，也等这 3 拍：
+    # 扔的那一段只写一份（技能树每拍都要复制一遍）。旗子挂 6 拍，看完就摘
+    probe = homing("q_probe", "EnemyWithoutTower",
+                   [combine(flag("q_seen", 6), pick(p["atk_range"], "AllyOnlySelf", flag("q_near", 6),
+                                                    from_projectile=True))], speed=60000)
+    # 附加包的副本在「够不着就扔」这一支多调一个只记日志的原生效果（league_skarner:upheaval）
+    far_go = combine(flag("q_go", 6), native("upheaval")) if nat else flag("q_go", 6)
+    decide = combine(sw("q_seen", combine(*rm("q_seen"), sw("q_near", NONE, far_go))), *rm("q_near"),
+                     sw("q_go", combine(*rm("q_go"), anim("skill_toss", p["q_toss"]), toss(p["q_toss_rel"]))))
+    holding = combine(*rm("q_seen", "q_near", "q_go"), sw("q_toss", probe, flag("q_go", 6)),
+                      delayed(3, alive(sw("rock", decide, combine(*rm("q_seen", "q_near", "q_go"))))))
+    q_slot = sw("rock", holding, sw("q_cd", NONE, q_pickup()))
 
-    # ------------------------------------------------------------------ W Seismic Bastion (E's carry end)
-    bastion = on_me({"type": "Shield", "amount": p["w_sh"], "attack_ratio": p["w_sh_r"], "ap_ratio": 0,
-                     "tick": p["w_sh_t"]}, flag("w_on", p["w_sh_t"]), view("w_quake"), sfx("w"))
+    # ------------------------------------------------------------------ W Seismic Bastion（自己的技能）
+    # 2026-11-20：W 不再跟着 E 拖人结束出，是自己的技能、自己的冷却 w_cd。技能栏没有空的，从普攻那一下命中里放：
+    # 身上没有 w_cd、w_r 内有敌方英雄就放。护盾当场给，摆起身砸地的 w 动作，到 w_rel 那一帧才震地
+    shield = on_me({"type": "Shield", "amount": p["w_sh"], "attack_ratio": p["w_sh_r"], "ap_ratio": 0,
+                    "tick": p["w_sh_t"]}, flag("w_on", p["w_sh_t"]))
     quake_ring = around(p["w_r"], "EnemyWithoutTower", attack(p["w_dmg"], p["w_ratio"]),
                         buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]), view("w_hit"))
+    # 震地那一下挂在他自己身上等（on_me 里的 Delayed）：挂在普攻打中的那个单位上的话，它被这一下打死，后面的就可能
+    # 不来了（卡莎 E 的教训，champion-data.md）
+    # 附加包的副本放 W 时多调一个只记日志的原生效果（league_skarner:bastion），游戏里看它放没放
+    w_cast = combine(refresh("w_cd", p["w_cd"]), anim("w", p["w_dur"]), shield, native("bastion") if nat else None,
+                     on_me(delayed(p["w_rel"] - 1, alive(view("w_quake"), sfx("w"), quake_ring))))
+    w_try = sw("w_cd", NONE, combine(*rm("w_go"), pick(p["w_r"], "EnemyChampion", flag("w_go", 1)),
+                                     sw("w_go", combine(*rm("w_go"), w_cast))))
 
     # ------------------------------------------------------------------ E Ixtal's Impact
     # the carry's end (the main pack's slam, the add-on's wall check): E -> Q (q_cd off), the bounce and slam (tag `w`)
-    # with W's shield + quake on the slam frame (w_rel)
-    carry_end = combine(anim("w", p["w_dur"]), *rm("q_cd"), delayed(p["w_rel"] - 1, alive(bastion, quake_ring)))
+    # 2026-11-20 起这里不再出 W 的护盾和震地（W 自己放了），E -> Q 照旧
+    carry_end = combine(anim("w", p["w_dur"]), *rm("q_cd"))
     if nat:
         slam = [native("impact")]
     else:
@@ -340,7 +375,7 @@ def build(p):
 
     # ------------------------------------------------------------------ attack
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit"),
-                                                        sw("rock", rock_hit())]),
+                                                        sw("rock", rock_hit()), w_try]),
                    homing("a_tw", "EnemyChampion", [quake()]))
     # holding the boulder the tails keep it up and the claw strikes (League's BaseAttack1_Rock): attack_rock swapped in
     # at the first tick (the attack tag opens on the idle, so no tail stab shows before it)
@@ -372,7 +407,7 @@ def build(p):
     if nat:   # addons/league_skarner: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_skarner:sovereign", "params": {k: p[k] for k in NATIVE_KEYS}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC"], **extra,
+        "id": ID, "category": "Tank", "tags": ["AD", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
@@ -384,6 +419,10 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+
+
+# 技能栏层数格的图标（stack_skill_index）：重新生成也带着（tools/kit/stack_nums.py，2026-11-22）
+build = stack_nums.wrap(build)
 
 
 def nodes(o):
