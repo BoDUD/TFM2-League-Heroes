@@ -112,6 +112,8 @@ jobs:
         run: python -I tools/art/fx_ppu_table.py --check
       - name: The effects redrawn by our own code - every stored tag is in its sheet as stored (assets/source/*/fx_handmade)
         run: python -I tools/art/fx_handmade.py --check
+      - name: "Ban/pick cards - no banpick_center of {0, 0} (the game draws it like none) and none with a positive y"
+        run: python -I tools/art/bp_card_audit.py --check
       - name: Stack counts in the champion panel - the heroes' stack_skill_index and league.dll's table agree
         run: |
           python -I tools/kit/stack_nums.py --check

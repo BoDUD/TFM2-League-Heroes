@@ -115,7 +115,11 @@ class Hero:
         self.dense = hid in PPU
         view = views(pack).get(hid, {})
         bc = view.get("banpick_center")
-        self.by, self.clip = (bc["y"], True) if bc else (-12, False)
+        # 游戏把 {0, 0} 当成没设：按 -12 摆、不裁（2026-11-26 蕾欧娜、凯尔的卡片就这样冒出了格子），这里照它算
+        if bc and (bc.get("x", 0), bc.get("y", 0)) != (0, 0):
+            self.by, self.clip = bc["y"], True
+        else:
+            self.by, self.clip = -12, False
         self.card = S * UI_SIZES.get(hid, 1.0)       # 1x frames' pixels -> card pixels
         # longest first (a form's prefix may begin with a shorter one's); forms as long as each other in the order
         # their idles stand in the sheet - a set's order is random per run, and a fresh sheet's _base tags were

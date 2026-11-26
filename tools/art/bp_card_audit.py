@@ -4,11 +4,16 @@
     python tools/art/bp_card_audit.py --mock out.png janna=-2,-3 galio=n,0 ...   # cards side by side (n = no value)
     python tools/art/bp_card_audit.py --legs                   # how much of each hero hides under the canvas (1x px)
     python tools/art/bp_card_audit.py --centers [tft]          # the encyclopedia card: each hero's center, the rule's
+    python tools/art/bp_card_audit.py --check                  # CI: exit 1 on a banpick_center of {0, 0} or a positive y
 
 The grid card's top 131 x 88 px is a canvas: the idle frame's CENTRE goes to the canvas's bottom middle
 + 2.2 * banpick_center (game px, up negative), drawn 2.2x its size; HD heroes (lo_ frames) draw lo_idle at 2.2 / 1.5.
 With a value the picture is clipped to the canvas; without one the hero stands like -12 and is not clipped (a tall one
-sticks out over the card's top edge). Base's rule for tall heroes: y = -39 - top, top = the highest opaque row over the
+sticks out over the card's top edge). `{x: 0, y: 0}` counts as WITHOUT one: the game draws it like no value (2026-11-26,
+the user's screenshot of league_leona's card - her crown on the card's top edge, her sword over it - matched -12 unclipped,
+not 0 clipped; league_kayle's wings the same), so 0 is never a value to write; `--check` (CI) fails on {0, 0} and on
+any positive y. When the rule below comes out at 0 or more (the highest row is a weapon's or a wing's tip), measure the
+head, or take -1. Base's rule for tall heroes: y = -39 - top, top = the highest opaque row over the
 frame centre on the highest-reaching idle frame (1x px), so the head sits 1 game px under the canvas top; a hero whose
 top is at or above -28 needs a value (league_talon). Never a positive value (league_masteryi's +5 drew his card at 1x).
 Measure the head, not a thin prop over it: the table's rule takes the highest row of anything, so a spear or sword tip
@@ -149,6 +154,34 @@ def card(fr, div, y):
     return img
 
 
+def card_y(v):
+    """The card's banpick_center y as the game uses it: None when there is none or it is {0, 0} (drawn like none)."""
+    bc = v.get("banpick_center")
+    if not bc or (bc.get("x", 0), bc.get("y", 0)) == (0, 0):
+        return None
+    return bc.get("y")
+
+
+def check(packs=(LEAGUE, TFT, os.path.normpath(os.path.join(HERE, "..", "..", "ragnarok")))):
+    """Every pack's champion_view: no banpick_center of {0, 0} (the game takes it for none) and none with a positive y
+    (league_masteryi's +5 drew his card at 1x). -> the bad ones as lines (empty: all fine)."""
+    bad = []
+    for pack in packs:
+        path = os.path.join(pack, "style", "champion_view.champion_view")
+        if not os.path.exists(lp(path)):
+            continue
+        for hid, v in sorted(json.load(open(lp(path), encoding="utf-8-sig"))["entries"].items()):
+            bc = v.get("banpick_center")
+            if bc is None:
+                continue
+            if (bc.get("x", 0), bc.get("y", 0)) == (0, 0):
+                bad.append(f"{hid}: banpick_center {{0, 0}} - the game draws it like none (-12, not clipped); "
+                           f"set the rule's value (python tools/art/bp_card_audit.py)")
+            elif bc.get("y", 0) > 0:
+                bad.append(f"{hid}: banpick_center y {bc['y']} > 0 - never positive (the card drew at 1x)")
+    return bad
+
+
 def heroes(league):
     view = json.load(open(lp(os.path.join(league, "style", "champion_view.champion_view")), encoding="utf-8-sig"))
     # 终末包（--league ragnarok）的英雄也查：两个包的选人卡是同一个格子
@@ -162,10 +195,15 @@ def table(league):
         if not frs:
             continue
         top = min(reach(f, div)[0] for f in frs)
-        now = v.get("banpick_center", {}).get("y")
-        rule = None if top > -28 else round(-39 - top)
+        now = card_y(v)
+        rule = None if top > -28 else min(-1, round(-39 - top))
         gap = CH + S * (-12 if now is None else now) + S * top      # the highest row's distance under the canvas top
         flag = []
+        raw = v.get("banpick_center")
+        if raw is not None and (raw.get("x", 0), raw.get("y", 0)) == (0, 0):
+            flag.append("ZERO=NONE")
+        elif now is not None and now > 0:
+            flag.append("POSITIVE")
         if gap < 0:
             flag.append("CLIPPED" if now is not None else "STICKS OUT")
         if now is not None and gap > 2.5 * S:
@@ -183,7 +221,7 @@ def legs(league, least=0.0):
             continue
         top = min(reach(f, div)[0] for f in frs)
         bot = max(reach(f, div)[1] for f in frs)
-        now = v.get("banpick_center", {}).get("y")
+        now = card_y(v)
         hidden = bot + (-12 if now is None else now)
         if hidden >= least:
             print("%-14s %5s %6s %7.1f %7.1f %7.1f" % (hid[7:], now, sizes.get(hid, ""), top, bot, hidden))
@@ -213,8 +251,15 @@ def main():
     ap.add_argument("--mock", help="write before/after cards for hero=y1,y2 ... (n = no value)")
     ap.add_argument("--legs", nargs="?", type=float, const=0.0, help="rows hidden under the canvas (only those >= N)")
     ap.add_argument("--centers", nargs="?", const=TFT, help="the encyclopedia card's center, rule vs now (a pack folder)")
+    ap.add_argument("--check", action="store_true", help="exit 1 on a banpick_center of {0, 0} or a positive y (CI)")
     ap.add_argument("specs", nargs="*")
     a = ap.parse_args()
+    if a.check:
+        bad = check()
+        for line in bad:
+            print(line)
+        print(f"ban/pick card values: {len(bad)} bad" if bad else "ban/pick card values: none {0, 0}, none positive")
+        raise SystemExit(1 if bad else 0)
     if a.mock:
         mock(a.league, a.mock, a.specs)
     elif a.legs is not None:
