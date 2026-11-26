@@ -176,7 +176,8 @@ fn match_screen_now(ctx: &StableClient<'_>) -> bool {
 
 /// 提示排队：按发生的 tick，`TOAST_SLOTS` 条道，一条道上前一条放完下一条才上。-> (开始的 tick, 在 `ev` 里第几条)
 pub fn schedule(ev: &[Event]) -> Vec<(usize, usize)> {
-    let mut idx: Vec<usize> = (0..ev.len()).filter(|&i| ev[i].pick.screen > 0).collect();
+    // 换掉的那条（0.5.0 潘朵拉）不提示
+    let mut idx: Vec<usize> = (0..ev.len()).filter(|&i| ev[i].pick.screen > 0 && ev[i].pick.by != 4).collect();
     idx.sort_by_key(|&i| ev[i].tick);
     let mut free = [0usize; TOAST_SLOTS];
     idx.into_iter()
@@ -202,7 +203,7 @@ pub fn toasts_at(ev: &[Event], t: usize) -> Vec<(usize, usize)> {
 
 /// 开局面板：(开局的那几条, 放了几 tick)，没有或放完了：None。
 pub fn opening_at(ev: &[Event], t: usize) -> Option<(Vec<usize>, usize)> {
-    let picks: Vec<usize> = (0..ev.len()).filter(|&i| ev[i].pick.screen == 0).collect();
+    let picks: Vec<usize> = (0..ev.len()).filter(|&i| ev[i].pick.screen == 0 && ev[i].pick.by < 3).collect();
     let start = picks.iter().map(|&i| ev[i].tick).min()?;
     (start <= t && t < start + OPEN_T).then(|| (picks, t - start))
 }
@@ -249,8 +250,26 @@ pub fn badge_rect(icon: Rect, bar: Rect, k: usize) -> Rect {
     let sq = (h * 0.2).max(4.0);
     let gap = (h * 0.05).max(1.0);
     let right = icon.0 + icon.2 / 2.0 <= bar.0 + bar.2 / 2.0;
-    let bx = if right { x + w + gap } else { x - gap - sq };
-    (bx, y + k as f32 * (sq + gap), sq, sq)
+    // 0.5.0：质变、潘朵拉多给的，满 4 个往外再排一列
+    let (col, row) = (k / 4, k % 4);
+    let off = col as f32 * (sq + gap);
+    let bx = if right { x + w + gap + off } else { x - gap - sq - off };
+    (bx, y + row as f32 * (sq + gap), sq, sq)
+}
+
+/// 一个英雄现在的海克斯（0.5.0）：按顺序，被潘朵拉换掉的（by 4 那条记着换掉了哪个）去掉，那条本身也不算。
+pub fn live<'a>(got: &[&'a Event]) -> Vec<&'a Event> {
+    let mut out: Vec<&Event> = Vec::new();
+    for &e in got {
+        if e.pick.by == 4 {
+            if let Some(i) = out.iter().rposition(|x| x.pick.chosen == e.pick.chosen) {
+                out.remove(i);
+            }
+        } else {
+            out.push(e);
+        }
+    }
+    out
 }
 
 /// 说明框贴在游戏的英雄大面板旁边：左边放得下放左边，不然放右边；上沿和它对齐，不出画面，也不压到它。
@@ -397,7 +416,8 @@ fn toast(ctx: &mut StableClient<'_>, e: &Event, k: usize, age: usize, lang: Lang
     ctx.draw_rect(UI, r.0 + r.2 - 5.0, r.1 + 3.0, 5.0, r.3 - 6.0, 921, 2.0, edge | a);
     let inner = (r.0 + 12.0, r.2 - 24.0);
     let hero = hero_name(ctx, &p.hero);
-    let title = format!("{}{}", words::toast_title(lang, p.team, &hero, p.level, p.chosen as usize), words::by_note(lang, p.by));
+    let title = format!("{}{}{}", words::toast_title(lang, p.team, &hero, p.level, p.chosen as usize), words::slot_note(lang, p.slot),
+                        words::by_note(lang, p.by));
     let ts = fit(&title, inner.1, sz.line, sz.line * 0.55);
     shadowed(ctx, &title, BOLD, (inner.0, r.1 + 3.0, inner.1, sz.line * 1.45), 922, ts, a, edge, TextAlignXV1::Left);
     let d = words::brief(lang, p.chosen as usize);
@@ -443,8 +463,9 @@ fn badges(ctx: &mut StableClient<'_>, ev: &[Event], t: usize, lang: Lang, ui: (f
         }
         for (lane, row) in ctx.ui_child_names(bars).iter().enumerate().take(8) {
             for (sidename, team) in SIDES {
-                let got: Vec<&Event> =
+                let all: Vec<&Event> =
                     ev.iter().filter(|e| e.tick <= t && e.pick.team == team && e.pick.lane as usize == lane).collect();
+                let got = live(&all);
                 let Some(first) = got.first() else { continue };
                 let button = format!("{bars}.{row}.{sidename}");
                 let (Some(bar), Some(icon)) = (rect_of(ctx, &button), rect_of(ctx, &format!("{button}.icon"))) else { continue };
@@ -455,7 +476,7 @@ fn badges(ctx: &mut StableClient<'_>, ev: &[Event], t: usize, lang: Lang, ui: (f
                                      icon.0, icon.1, icon.2, icon.3, bar.0, bar.1, bar.2, bar.3, ui.0, ui.1));
                     }
                 }
-                for (k, e) in got.iter().take(4).enumerate() {
+                for (k, e) in got.iter().take(8).enumerate() {
                     let b = badge_rect(icon, bar, k);
                     ctx.draw_rect(UI, b.0 - 1.0, b.1 - 1.0, b.2 + 2.0, b.3 + 2.0, 930, 1.5, 0x08_0a_10_e6);
                     ctx.draw_rect(UI, b.0, b.1, b.2, b.3, 931, 1.0, aug_colour(e.pick.chosen) | 0xf0);
@@ -495,14 +516,18 @@ fn tooltip(ctx: &mut StableClient<'_>, got: &[&Event], place: impl Fn((f32, f32)
     let Some(first) = got.first() else { return };
     let sz = sizes(ui.1);
     let hero = hero_name(ctx, &first.pick.hero);
-    let pending: Vec<usize> = (got.len()..4).filter_map(|k| set.levels.get(k - 1).copied()).collect();
+    // 还没到的几次按选过几次算（质变、潘朵拉给的不算一次）；列出来的是他现在有的
+    let done = got.iter().filter(|e| e.pick.by < 3).count();
+    let pending: Vec<usize> = (done..4).filter_map(|k| set.levels.get(k - 1).copied()).collect();
+    let got: &[&Event] = &live(got);
     let title = words::tip_title(lang, &hero);
     let pad = (sz.small * 0.8).max(8.0);
     // 宽：最长的那一行（标题、每个海克斯的名字和效果、还没到的几次）
     let mut widest = em(&title) * sz.line;
     for e in got {
         let p = &e.pick;
-        widest = widest.max(em(&format!("{}{}", words::tagged(lang, p.chosen as usize), words::by_note(lang, p.by))) * sz.line);
+        widest = widest.max(em(&format!("{}{}{}", words::tagged(lang, p.chosen as usize), words::slot_note(lang, p.slot),
+                                        words::by_note(lang, p.by))) * sz.line);
         widest = widest.max(em(words::desc(lang, p.chosen as usize)) * sz.small);
     }
     let w = (widest + 2.0 * pad).clamp(200.0, (ui.0 * 0.32).max(200.0));
@@ -522,7 +547,7 @@ fn tooltip(ctx: &mut StableClient<'_>, got: &[&Event], place: impl Fn((f32, f32)
     let mut yy = y + pad * 0.5 + sz.line * 1.5;
     for (e, lines) in got.iter().zip(&descs) {
         let p = &e.pick;
-        let line = format!("{}{}", words::tagged(lang, p.chosen as usize), words::by_note(lang, p.by));
+        let line = format!("{}{}{}", words::tagged(lang, p.chosen as usize), words::slot_note(lang, p.slot), words::by_note(lang, p.by));
         shadowed(ctx, &line, BOLD, (x + pad, yy, w - 2.0 * pad, sz.line * 1.3), 942, fit(&line, w - 2.0 * pad, sz.line, 9.0), 0xff,
                  aug_colour(p.chosen), TextAlignXV1::Left);
         for (i, d) in lines.iter().enumerate() {
@@ -689,11 +714,28 @@ fn save_sync(ctx: &mut StableClient<'_>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 0.5.0：潘朵拉换掉的那个从列表里去掉（那条本身也不算），随机得到的接在后面；小色块满 4 个往外排第二列。
+    #[test]
+    fn swapped_out_augments_leave_the_list() {
+        let e = |chosen: u16, by: u8| Event { m: 1, s: 1, tick: 0, pick: Pick { team: 0, lane: 0, hero: "league_jinx".into(),
+                                                                         screen: 0, level: 1, tier: Tier::Gold,
+                                                                         cards: [chosen; 3], first: [chosen; 3], chosen, by,
+                                                                         slot: 0 } };
+        let all = [e(1, 0), e(2, 0), e(3, 3), e(1, 4), e(4, 3)];
+        let refs: Vec<&Event> = all.iter().collect();
+        let kept: Vec<u16> = live(&refs).iter().map(|x| x.pick.chosen).collect();
+        assert_eq!(kept, vec![2, 3, 4]);
+        let (icon, bar) = ((20.0, 100.0, 40.0, 40.0), (10.0, 95.0, 300.0, 50.0));
+        let (a, b) = (badge_rect(icon, bar, 0), badge_rect(icon, bar, 4));
+        assert_eq!(a.1, b.1, "the fifth starts the second column at the top");
+        assert!(b.0 > a.0 + a.2, "further out");
+    }
     use crate::feed::Pick;
 
     fn ev(tick: usize, screen: u8, team: usize, lane: u8) -> Event {
         Event { m: 1, s: 1, tick, pick: Pick { team, lane, hero: "league_jinx".into(), screen, level: 6, tier: Tier::Gold,
-                                                cards: [0, 1, 2], first: [0, 1, 2], chosen: 1, by: 0 } }
+                                                cards: [0, 1, 2], first: [0, 1, 2], chosen: 1, by: 0, slot: 0 } }
     }
 
     #[test]
@@ -812,6 +854,6 @@ mod tests {
         // the tier colours differ and carry no alpha
         let c: Vec<u32> = Tier::ALL.iter().map(|&t| tier_colour(t)).collect();
         assert!(c[0] != c[1] && c[1] != c[2] && c.iter().all(|x| x & 0xff == 0));
-        assert_eq!(AUGS.len(), 47);
+        assert_eq!(AUGS.len(), 140);
     }
 }

@@ -67,6 +67,10 @@ pub struct World {
     pub shields: Vec<(usize, usize, usize)>,
     pub ccs: Vec<(usize, CcV1)>,
     pub reduced: Vec<(usize, u32, usize)>,
+    /// 隐身：(实体, tick)（0.4.0 暗夜潜行）
+    pub invisible: Vec<(usize, usize)>,
+    /// 给的金币：(玩家, 多少)
+    pub golds: Vec<(usize, i64)>,
 }
 
 impl World {
@@ -97,6 +101,14 @@ impl World {
     pub fn champ_mut(&mut self, player: usize) -> &mut Unit {
         let c = self.players[player].champ;
         &mut self.units[c]
+    }
+
+    /// 放一个小兵（0.5.0 男爵之手）：实体编号。
+    pub fn minion(&mut self, team: usize, pos: (u64, u64)) -> usize {
+        let mut u = Unit::new(EntityKindV1::Minion, team, "minion");
+        u.pos = pos;
+        self.units.push(u);
+        self.units.len() - 1
     }
 
     /// 这个玩家英雄的实体编号。
@@ -204,6 +216,9 @@ unsafe extern "C" fn valid(s: *const c_void, h: EntityHandleV1) -> bool {
 }
 unsafe extern "C" fn kind(s: *const c_void, h: EntityHandleV1) -> u32 {
     u(s, h).map_or(u32::MAX, |e| e.kind.code())
+}
+unsafe extern "C" fn team(s: *const c_void, h: EntityHandleV1) -> usize {
+    u(s, h).map_or(0, |e| e.team)
 }
 unsafe extern "C" fn alive(s: *const c_void, h: EntityHandleV1) -> bool {
     u(s, h).is_some_and(|e| e.alive)
@@ -324,6 +339,16 @@ unsafe extern "C" fn reduce_cd(s: *mut c_void, h: EntityHandleV1, slot: u32, tic
     w(s).reduced.push((id, slot, ticks));
     true
 }
+unsafe extern "C" fn add_gold(s: *mut c_void, h: PlayerHandleV1, delta: i64) -> bool {
+    let Some(id) = h.id() else { return false };
+    w(s).golds.push((id, delta));
+    true
+}
+unsafe extern "C" fn set_invisible(s: *mut c_void, h: EntityHandleV1, ticks: usize) -> bool {
+    let Some(id) = h.id() else { return false };
+    w(s).invisible.push((id, ticks));
+    true
+}
 unsafe extern "C" fn towers(s: *const c_void) -> usize {
     w(s).units.iter().filter(|e| e.kind == EntityKindV1::Tower).count()
 }
@@ -421,6 +446,9 @@ pub fn with_sim<R>(world: &mut World, f: impl FnOnce(&mut StableSim<'_>) -> R) -
     vt.entity_add_shield = Some(add_shield);
     vt.apply_cc = Some(apply_cc);
     vt.entity_reduce_cooldown = Some(reduce_cd);
+    vt.entity_set_invisible = Some(set_invisible);
+    vt.player_add_gold = Some(add_gold);
+    vt.entity_team = Some(team);
     vt.tower_count = Some(towers);
     vt.tower_id_at = Some(tower_at);
     vt.player_count = Some(players);
