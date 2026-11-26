@@ -187,6 +187,31 @@ fn the_screens_match_feeds_the_picks() {
     let t = w.tick + 1;
     run_to(&mut w, t);
     assert_eq!(feed::ended_at(9005, 2), Some(t));
+    // 0.5.1：另一场比赛用了同一个编号（游戏的场次编号会重复，用户 2026-11-26 两场不同的比赛都是 m=101 第 1 局）：上一场
+    // 记着的选择、结束的 tick、档位都扔掉，只有这一场的
+    let mut next = world(9999, SimOriginKindV1::ClientMatchView, 9005);
+    start(&mut next);
+    run_to(&mut next, 100);
+    let fresh = feed::events(9005, 2);
+    assert_eq!(fresh.len(), 10, "only the new match's opening picks: {fresh:?}");
+    assert_eq!(feed::ended_at(9005, 2), None, "the old match's end dropped too");
+    let tiers = feed::tiers_of(9005, 2).expect("the new match's tiers");
+    for e in &fresh {
+        let p = e.pick.team * 5 + e.pick.lane as usize;
+        assert_eq!(next.augs(p), vec![augments::buff_name(e.pick.chosen as usize)]);
+        assert_eq!(e.pick.tier, tiers[0]);
+    }
+    // and its second run (the same seed, the same heroes) keeps them
+    let mut twice = world(9999, SimOriginKindV1::ClientMatchView, 9005);
+    start(&mut twice);
+    run_to(&mut twice, 100);
+    assert_eq!(feed::events(9005, 2), fresh);
+    // the old match's simulation still running on: its picks no longer go on the screen
+    again.players[3].level = 9;
+    let t = again.tick + 100;
+    run_to(&mut again, t);
+    assert!(again.augs(3).len() > 1, "it still picks for itself");
+    assert_eq!(feed::events(9005, 2), fresh, "but nothing of it on the screen");
     feed::clear();
 }
 

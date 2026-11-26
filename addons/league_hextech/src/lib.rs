@@ -411,6 +411,8 @@ struct Sim {
     names: Vec<String>,
     held: Vec<augments::EvSet>,
     procs: procs::Procs,
+    /// 这一份的签名（[`run_sig`]，0.5.1）：屏幕上的这一局现在放的不是这一份时，它不往屏幕上记东西
+    sig: u64,
 }
 
 impl Sim {
@@ -418,7 +420,7 @@ impl Sim {
         Sim { no, origin, stamp: 0, seed, late, anchors: Vec::new(), hint: None,
               tiers: rules::tiers(seed, settings::get().weights), seats: Vec::new(), pls: Vec::new(), keep_at: 0,
               ended: false, user: None, whos: Vec::new(), names: Vec::new(), held: Vec::new(),
-              procs: procs::Procs::default() }
+              procs: procs::Procs::default(), sig: 0 }
     }
 
     /// 玩家给这个座位第 `k` 次选的，和这个英雄按没按「确定」（不是玩家那边、记录里没有这个英雄、拿过了：None，AI 选）。
@@ -478,7 +480,11 @@ impl Sim {
         if self.late {
             self.restore(sim);
         }
+        self.sig = run_sig(self.seed, &self.tiers, &self.seats);
         if let Some((m, s)) = screen {
+            if feed::run(m, s, self.sig, sim.tick()) {
+                say(true, "run", format!("{} RUN sim #{} m={m} s={s}: another match under the same match / set number - the                                           screen's notes of the old one dropped", head(sim), self.no));
+            }
             feed::tiers(m, s, self.tiers);
         }
         let tiers: Vec<&str> = self.tiers.iter().map(|t| t.key()).collect();
@@ -517,6 +523,8 @@ impl Sim {
         if self.seats.is_empty() && !self.seat(sim, screen) {
             return;
         }
+        // 屏幕上这一局放的已经是别的一份（编号重复的另一场、读档重打）：这一份当预演跑，不往屏幕上记
+        let screen = screen.filter(|&(m, s)| feed::is_current(m, s, self.sig));
         // 选海克斯、对 buff：每 STEP tick 一次（和 0.2 一样的时刻）
         if now.is_multiple_of(STEP) {
             let s = settings::get();
@@ -755,6 +763,23 @@ fn melee(t: &augments::Traits) -> bool {
 }
 
 /// 这个海克斯是不是触发类：是的话它那一种的位（[`Ev::bit`]），不是 0。
+/// 屏幕上这一局是哪一份（[`feed::run`]，0.5.1）：种子、4 次的档位、每个座位的队伍 / 分路 / 英雄。游戏自己把同一局再跑一遍、
+/// 回放：一样；读档重打、编号重复的另一场比赛：不一样。
+fn run_sig(seed: u64, tiers: &[Tier; SCREENS], seats: &[Seat]) -> u64 {
+    let mut h = rules::splitmix(seed ^ RUN_SALT);
+    for t in tiers {
+        h = rules::splitmix(h ^ t.code() as u64);
+    }
+    for s in seats {
+        h = rules::splitmix(h ^ ((s.team as u64) << 8) ^ s.lane as u64);
+        for b in s.name.bytes() {
+            h = rules::splitmix(h ^ b as u64);
+        }
+    }
+    h
+}
+const RUN_SALT: u64 = 0x7275_6e73_6967_0051;
+
 /// 质变、潘朵拉随机给海克斯的种子。
 const TRANSMUTE_SALT: u64 = 0x7472_616e_736d_0005;
 
