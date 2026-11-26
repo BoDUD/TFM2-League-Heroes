@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>素盏鸣尊 · Q 版动作预览</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,"Microsoft YaHei",sans-serif;background:#141e2c;color:#f6eee4}
+main{width:min(960px,calc(100% - 32px));margin:30px auto}
+h1{font-size:25px;margin:0 0 18px}
+.controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+button,select{padding:6px 10px;border:1px solid #718092;border-radius:5px;background:#293b51;color:inherit;font:inherit}
+button,label,summary,select{cursor:pointer}output{font-variant-numeric:tabular-nums;color:#f6d298}
+canvas{width:100%;height:clamp(250px,48vh,470px);display:block;image-rendering:pixelated;border:1px solid #63788d;border-radius:8px}
+details{margin-top:18px}img{display:block;width:100%;border-radius:8px;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+<h1>素盏鸣尊 · Q 版动作预览</h1>
+<div class="controls">
+  <select id="action" aria-label="动作或特效"></select>
+  <button id="play">暂停</button><button id="prev">上一帧</button><button id="next">下一帧</button>
+  <label><input type="checkbox" id="light">浅色背景</label>
+  <label><input type="checkbox" id="flip">朝左</label>
+  <output id="status"></output>
+</div>
+<canvas id="stage" aria-label="像素动画"></canvas>
+<details><summary>八组动作关键帧</summary><img src="actions.png" alt="8 组动作预览"></details>
+<details><summary>角色插画</summary><img src="../card.png" alt="素盏鸣尊选人插画"></details>
+<details><summary>战斗音效</summary><div class="controls" id="sound"></div><audio id="audio" controls preload="none"></audio></details>
+</main>
+<script src="frames.js"></script>
+<script src="audio.js"></script>
+<script>
+const node=id=>document.getElementById(id);
+const data=window.SUSANOO;
+const action=node("action"),status=node("status"),stage=node("stage"),ctx=stage.getContext("2d");
+const args=new URLSearchParams(location.search);
+const all={...data.actor,...data.fx};
+const audio=node("audio");
+const soundLabels={slash_release:"刀锋挥出",sword_hit:"确认命中",tenma_charge:"天魔反蓄势",tenma_release:"天魔反释放",stance_set:"架势切换",muso_release:"无装剑释放"};
+for(const id of window.SUSANOO_SFX??[]){
+  const button=document.createElement("button");
+  button.textContent=soundLabels[id];
+  button.onclick=()=>{audio.src="../sound/"+id+".mp3";audio.play()};
+  node("sound").append(button);
+}
+for(const [name, clip] of Object.entries(all))action.add(new Option(clip.name,name));
+action.value=Object.hasOwn(all,args.get("action"))?args.get("action"):"idle";
+let index=Math.max(0,Math.min(7,(Number(args.get("frame"))||1)-1));
+let playing=!args.has("frame"),started=performance.now();
+const load=path=>{const image=new Image();image.src=path;return image};
+const images={actor:load("../atlases/susanoo_actor.png"),fx:load("../atlases/susanoo_fx.png")};
+function setPlay(on){playing=on;node("play").textContent=on?"暂停":"播放";started=performance.now()}
+setPlay(playing);
+node("play").onclick=()=>setPlay(!playing);
+action.onchange=()=>{index=0;started=performance.now()};
+function move(step){index=(index+step+8)%8;setPlay(false)}
+node("prev").onclick=()=>move(-1);node("next").onclick=()=>move(1);
+function render(now){
+  requestAnimationFrame(render);
+  const isActor=Object.hasOwn(data.actor,action.value);
+  const art=isActor?images.actor:images.fx;
+  if(!art.complete||!art.naturalWidth)return;
+  const frames=all[action.value].frames;
+  if(playing && now-started>=frames[index].duration*1000){index=(index+1)%frames.length;started=now}
+  const f=frames[index],rect=stage.getBoundingClientRect();
+  const w=Math.round(rect.width*devicePixelRatio),h=Math.round(rect.height*devicePixelRatio);
+  if(stage.width!==w||stage.height!==h){stage.width=w;stage.height=h}
+  const light=node("light").checked;
+  ctx.fillStyle=light?"#a4afb5":"#293c51";ctx.fillRect(0,0,w,h);
+  const scale=Math.max(1,Math.floor(Math.min(w/(f.w+32),h/(f.h+14))));
+  const floor=Math.round(h*.85);
+  if(isActor){ctx.fillStyle=light?"#82909c":"#4a647e";ctx.fillRect(0,floor,w,1)}
+  const x=Math.round((w-f.w*scale)/2),y=isActor?floor-data.ground[1]*scale:Math.round((h-f.h*scale)/2);
+  ctx.save();ctx.imageSmoothingEnabled=false;
+  if(node("flip").checked){ctx.translate(w,0);ctx.scale(-1,1)}
+  ctx.drawImage(art,f.x,f.y,f.w,f.h,x,y,f.w*scale,f.h*scale);
+  ctx.restore();
+  status.value=(index+1)+" / "+frames.length;
+  document.body.dataset.ready="true";
+}
+requestAnimationFrame(render);
+</script>
+</body>
+</html>
+

@@ -1,0 +1,210 @@
+{
+  "language": "ja",
+  "official_voice_actor": null,
+  "cast_credit": null,
+  "voice_status": "original_mod_performance",
+  "clips": [
+    {
+      "id": "shot_release",
+      "title": "普攻 · 枪口音",
+      "kind": "original_foley",
+      "duration_seconds": 0.24,
+      "wav_sha256": "db1f9bfccbad411ba58c0c67592cc4830cf3307d04839d95f694a4bbeca92c30",
+      "mp3_sha256": "62e7b4a791bf0ec023867ff47aac888da7793689bcb74ec21f9d1463776722f8"
+    },
+    {
+      "id": "shot_hit",
+      "title": "普攻 · 命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.22,
+      "wav_sha256": "7fd31dc791f47228c4a29907378db16bec412555cc514a41698e6b0daa621773",
+      "mp3_sha256": "42f0e2db9195a769ba32989136ae76ebfed6c9439f50ba156bc8907ceab49584"
+    },
+    {
+      "id": "precision_charge",
+      "title": "精确一击 · 蓄势",
+      "kind": "original_foley",
+      "duration_seconds": 0.29,
+      "wav_sha256": "77a09355eb81b0787f3f958f1e1179251b24f08a99cd8dede8de407a6d7e4290",
+      "mp3_sha256": "5bde996d816512669ace61e85cc22b054d42c6523936845ea5b8d0c0a2b6ff3c"
+    },
+    {
+      "id": "precision_release",
+      "title": "精确一击 · 释放",
+      "kind": "original_foley",
+      "duration_seconds": 0.29,
+      "wav_sha256": "92e09059822744f2b43cf3182a8599726109e08377d3a36b9bab7a15cf2fd293",
+      "mp3_sha256": "6c4ed7709e40ecf142a7c96df8e5f779df8717d4880f88fe26f1112c8701d634"
+    },
+    {
+      "id": "snow_step",
+      "title": "雪幕 · 踏雪",
+      "kind": "original_foley",
+      "duration_seconds": 0.18,
+      "wav_sha256": "78d613838190fc24911249af062abd8554a5fb2409e735f6920fa691fb8fd7a6",
+      "mp3_sha256": "90155d9481f26a7392b056dded7587f45d22eb2723e8d61c7dfd6384a511ba88"
+    },
+    {
+      "id": "snow_veil",
+      "title": "雪幕 · 旋雪",
+      "kind": "original_foley",
+      "duration_seconds": 0.4,
+      "wav_sha256": "6af5dd75354df549ebf5ae0dac577751c9c01efb7a764df3af9ba2548abdad27",
+      "mp3_sha256": "c5103f6724b0a489d4213daa74b015e8a4db5bdcb2b33c62772661ae2b4eca9f"
+    },
+    {
+      "id": "white_charge",
+      "title": "白色死神 · 蓄势",
+      "kind": "original_foley",
+      "duration_seconds": 0.43,
+      "wav_sha256": "b04fe1f1502492ff656308883dba701882a4d5fcbbb6250712062a8cab50a322",
+      "mp3_sha256": "1004a2397cd0d054f3c395599816edff16a61faf3a60026c93d1f7cb9eb8b267"
+    },
+    {
+      "id": "white_release",
+      "title": "白色死神 · 释放",
+      "kind": "original_foley",
+      "duration_seconds": 0.4,
+      "wav_sha256": "830e0fe3345ba69c7d659bf5b7a12684e970b7198ebf056587c89c339da34059",
+      "mp3_sha256": "989aa0f471b9158fc01d07eb5b895aa1c0572bec68c21716d1358c650633407e"
+    },
+    {
+      "id": "white_hit",
+      "title": "白色死神 · 命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.37,
+      "wav_sha256": "a4ba91f052df31aaa2d95903232aa4ba5ac6193b664f6d506ac422bbcd7e1c4f",
+      "mp3_sha256": "a7de81457e20d65609b0de293d5076767c3a48ed47efe0cd97bddc147ecaa4b7"
+    },
+    {
+      "id": "quick_breath",
+      "title": "冷息 · 环境",
+      "kind": "original_foley",
+      "duration_seconds": 0.24,
+      "wav_sha256": "a90116736f25ae4092a6de9a18c88749564ebc61cdd147af2d6c7afaf1c43e86",
+      "mp3_sha256": "1914b0aeec496f85faa0cb6c301ec0961179d0b25d4a66879fe2bc1cee096d6a"
+    },
+    {
+      "id": "fall",
+      "title": "倒地 · 触雪",
+      "kind": "original_foley",
+      "duration_seconds": 0.27,
+      "wav_sha256": "96e051a58f9e4ecd88a17096a78bc45827361aa4a4ad49d8168754c2ba07bc4a",
+      "mp3_sha256": "e3439eb741716180c35127a619685a26bd57e6a82c0f2e43e6ddb673bbdd3601"
+    },
+    {
+      "id": "voice_select",
+      "kind": "original_ja_performance",
+      "title": "日语 · 选人",
+      "text_ja": "準備はできている。",
+      "range_seconds": [
+        0,
+        1.2373015873015873
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "-8%",
+      "pitch": "-17Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.237,
+      "wav_sha256": "2afa8326ca0f88a19af696cb42c9ed93e1beb030236d6c0a85003f51869f8b17",
+      "mp3_sha256": "1a9fbe90378ce94da0a4968de0f8ab909774d24fc68370966abbcf0e027915d6"
+    },
+    {
+      "id": "voice_start",
+      "kind": "original_ja_performance",
+      "title": "日语 · 开战",
+      "text_ja": "静かな森だ。",
+      "range_seconds": [
+        0,
+        1.0682312925170068
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "-10%",
+      "pitch": "-19Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.068,
+      "wav_sha256": "39c1d161923db6cee2134a95661c964db1eb4418d262173fa5c3bbcf40967564",
+      "mp3_sha256": "a27ed4e0531de78201f5e230f8204ea7ef01fc71f248722ab843c197367c4abb"
+    },
+    {
+      "id": "voice_challenge",
+      "kind": "original_ja_performance",
+      "title": "日语 · 挑战",
+      "text_ja": "ここは、任せてくれ。",
+      "range_seconds": [
+        0,
+        1.6551700680272108
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "-6%",
+      "pitch": "-17Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.655,
+      "wav_sha256": "09aebbc007f095472494b0a2d3242eb154ab82e7174fb070fd08315b4efc3439",
+      "mp3_sha256": "c12609dd97e1869751522c0e3c1495a754f39a528f1611c2d9a824cd2b879609"
+    },
+    {
+      "id": "voice_q",
+      "kind": "original_ja_performance",
+      "title": "日语 · 精确一击",
+      "text_ja": "見つけた。",
+      "range_seconds": [
+        0,
+        0.636734693877551
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "-3%",
+      "pitch": "-16Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 0.637,
+      "wav_sha256": "770f9ff0d936ffa21d26d3b50c3aef07ddc8c5fb60a2b58a163953cf0088db3f",
+      "mp3_sha256": "e61cd2ac5f36b4565071d9ff402bdd2bb5bd063d284619d87a2406d7ed060872"
+    },
+    {
+      "id": "voice_e",
+      "kind": "original_ja_performance",
+      "title": "日语 · 雪幕",
+      "text_ja": "雪が降ってきたな。",
+      "range_seconds": [
+        0,
+        1.2355555555555555
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "-9%",
+      "pitch": "-17Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.236,
+      "wav_sha256": "0ed3f10d319f119f76985fc5127c23176d9c163f9fa7046bff6f782e178ca3ff",
+      "mp3_sha256": "41a3c442649e77e2246993908d5387869e2c0e54e4dc2a7e9b7e6a6b3ba3c982"
+    },
+    {
+      "id": "voice_r",
+      "kind": "original_ja_performance",
+      "title": "日语 · 白色死神",
+      "text_ja": "これで、終わりだ。",
+      "range_seconds": [
+        0,
+        1.3720861678004534
+      ],
+      "voice_model": "ja-JP-KeitaNeural",
+      "rate": "-6%",
+      "pitch": "-18Hz",
+      "source": "Original mod dialogue generated using Microsoft Japanese neural speech.",
+      "actor_credit": null,
+      "contains_original_mix": false,
+      "duration_seconds": 1.372,
+      "wav_sha256": "bbd4a751d506f4b2d2f17005b9b73966ac3bcc285e6257a0e59af4841833a227",
+      "mp3_sha256": "5215950484f56a1ce7460878d9128eca50a44f929761fb5d02bcefd2bb7aaee1"
+    }
+  ]
+}

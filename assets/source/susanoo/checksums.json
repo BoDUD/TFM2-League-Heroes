@@ -1,0 +1,18 @@
+{
+  "atlases/frames.json": "69a8a9efce5e602d45a7a16aa3e5c417b72b5202c08672d6b2351ecdb294474d",
+  "atlases/susanoo_actor.png": "3665cc1137767d724836f36254442f385837c1031a70b5e4605c595ce11d3a39",
+  "atlases/susanoo_actor_4x.png": "c814262f67be94b2e310acb43d30b41f2759edc84b1d2b2a019e91c9272cedb1",
+  "atlases/susanoo_fx.png": "b54c92b1d8e0b952cc3c1ff2df7daaf6d4302db04ecad6a637ba6f97e936d6ff",
+  "atlases/susanoo_fx_4x.png": "2157987a5ff96f3c35b7aab708afa9d2e8e0526a8a1ab78052d30fec390a18df",
+  "card.png": "0bbbce24c213826c69ab3b5c26687f5778e45938eb97dd265446bfd03de874e3",
+  "icons/passive.png": "5e465290151310c28a6fd8413c88c75443acf1e03298172ab8ee0dcfcc93bfec",
+  "icons/skill.png": "bafbe7eb0c9a37ede2e403a0e45758a276170303583f3dcb34fee279e0e7fd76",
+  "icons/skill2.png": "d60c2a4e53283a164601907073694cc1246e8b280221ee917cd739ee90eb2b85",
+  "icons/ult.png": "6f4bff23e88d2d52f83b3ebec5f4a141f0324825dea4f9d37ef433606a11d617",
+  "sound/slash_release.mp3": "ebef14f9726e4dc51720adac8ca8b6b6b4d8fab716e19233db58825c1b9766a6",
+  "sound/sword_hit.mp3": "4bd3b17e73da4f88b1b221a2c1f8f6d7ffaf83963a5d5f7c06831bd088e27d13",
+  "sound/tenma_charge.mp3": "fbdb6c4b3a49b7cd675d0fbcd9cb3a607fe12ae953b714475bb3cd84879018c5",
+  "sound/tenma_release.mp3": "55ab76c2944cef32f2880721c7cad4bddc5570b42254c1fde00077bf8c18d73f",
+  "sound/stance_set.mp3": "5566880a6b50109aa90e0c40702b485d930e17f3baaa08137038c8af7f6b87f5",
+  "sound/muso_release.mp3": "625a12dd3c64820b97c14b618a1ca3fbc26192ee9f0aca1ddbd6e8cd596bf855"
+}

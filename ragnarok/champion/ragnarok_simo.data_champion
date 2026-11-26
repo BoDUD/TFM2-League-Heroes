@@ -1,0 +1,777 @@
+{
+  "id": "ragnarok_simo",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_simo:contract",
+    "params": {
+      "p_cost": 3
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_simo",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_simo_skill",
+    "asset/ragnarok/icons/ragnarok_simo_skill2",
+    "asset/ragnarok/icons/ragnarok_simo_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 880,
+    "defence": 20,
+    "magic_resistance": 15,
+    "move_speed": 930,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 20,
+    "magic_power": 0,
+    "hp": 88,
+    "defence": 6,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_simo.attack",
+    "duration": 22,
+    "cooltime": 60,
+    "start_timing": 9,
+    "cancelable": true,
+    "range": 68000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_simo_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_simo_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_simo_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_simo.skill",
+    "duration": 48,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 62000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_simo_q_load"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 26,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_simo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_simo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "ragnarok_simo_q3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 110,
+                              "attack_ratio": 140,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_simo_q_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_simo_q_hit"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_simo_q3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "ragnarok_simo_q3"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "ragnarok_simo_q2",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "LineRangeProjectile",
+                                "name": "ragnarok_simo_q_swan",
+                                "width": 7000,
+                                "length": 90000,
+                                "delay": 2,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 90,
+                                      "attack_ratio": 105,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "ragnarok_simo_q_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "ragnarok_simo_q_hit"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "MoveBack",
+                                "speed": 3000,
+                                "tick": 6
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_simo_q2"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "ragnarok_simo_q2"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "ragnarok_simo_q3",
+                                  "duration": "Permanent"
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 70000,
+                                    "range": 900
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 70,
+                                    "attack_ratio": 80,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "ragnarok_simo_q_hit"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "ragnarok_simo_q_hit"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_simo_q1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "ragnarok_simo_q2",
+                                  "duration": "Permanent"
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "ragnarok_simo_q3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 110,
+                              "attack_ratio": 140,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_simo_q_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_simo_q_hit"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "ragnarok_simo_q3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "ragnarok_simo_q3"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "ragnarok_simo_q2",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "LineRangeProjectile",
+                                "name": "ragnarok_simo_q_swan",
+                                "width": 7000,
+                                "length": 90000,
+                                "delay": 2,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 90,
+                                      "attack_ratio": 105,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "ragnarok_simo_q_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "ragnarok_simo_q_hit"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "MoveBack",
+                                "speed": 3000,
+                                "tick": 6
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_simo_q2"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "ragnarok_simo_q2"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "ragnarok_simo_q3",
+                                  "duration": "Permanent"
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 70000,
+                                    "range": 900
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 70,
+                                    "attack_ratio": 80,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "ragnarok_simo_q_hit"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "ragnarok_simo_q_hit"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "ragnarok_simo_q1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "ragnarok_simo_q2",
+                                  "duration": "Permanent"
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_simo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_simo.skill2",
+    "duration": 42,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_simo_e"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_simo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_simo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "MoveBack",
+                            "speed": 3500,
+                            "tick": 10
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 75
+                              }
+                            ]
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_simo_e_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 120
+                                }
+                              },
+                              "move_speed_mult": 30
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_simo_e_step"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_simo_e_step"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "MoveBack",
+                            "speed": 3500,
+                            "tick": 10
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 75
+                              }
+                            ]
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_simo_e_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 120
+                                }
+                              },
+                              "move_speed_mult": 30
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_simo_e_step"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_simo_e_step"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_simo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_simo.ult",
+    "duration": 54,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 100000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "ragnarok_simo_r_load"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 30,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_simo_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_simo_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_simo_r"
+                      },
+                      {
+                        "type": "Attack",
+                        "damage": 250,
+                        "attack_ratio": 200,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 10,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_simo_r_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_simo_r_hit"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_simo_r"
+                      },
+                      {
+                        "type": "Attack",
+                        "damage": 250,
+                        "attack_ratio": 200,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 10,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_simo_r_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_simo_r_hit"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_simo_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_simo_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_simo_fx",
+      "tag": "impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_simo_q_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_simo_fx",
+      "tag": "impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_simo_r_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_simo_fx",
+      "tag": "finisher_impact",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_simo_e_step",
+      "anim": "asset/ragnarok/effects/ragnarok_simo_fx",
+      "tag": "snow_step",
+      "z": -1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

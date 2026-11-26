@@ -1,0 +1,198 @@
+{
+  "language": "ja",
+  "official_voice_actor": "松岡禎丞",
+  "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+  "voice_status": "verified_source_cuts",
+  "clips": [
+    {
+      "id": "flick",
+      "title": "普攻 · 幻刃释放",
+      "kind": "original_foley",
+      "duration_seconds": 0.22,
+      "wav_sha256": "075711663ca316b6b61c52ffa603ff904609661d307a296a16cbe59b08502a1b",
+      "mp3_sha256": "7d801b9fcd75d5b03e7f30abf18ba657d78438577757d28e697cf3d4380845f8"
+    },
+    {
+      "id": "flick_hit",
+      "title": "普攻 · 命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.18,
+      "wav_sha256": "d24b47afabfdc4b59c2652ea9c1798617fc0d584842d029367c41cf2a45b21ff",
+      "mp3_sha256": "0d36400873302e45a49463c5d3508ea0237b36c94d79246693354845a71e864d"
+    },
+    {
+      "id": "hook_windup",
+      "title": "锁链 · 垂链",
+      "kind": "original_foley",
+      "duration_seconds": 0.23,
+      "wav_sha256": "a142554557a69e466dd3b2256b40f36204ef272ce7e4ab24be77a9a6aed0d2bb",
+      "mp3_sha256": "baaa991f759499e1b62ed2956e8fb15c494b9d2da7fd0084147d6034b5e7cdd2"
+    },
+    {
+      "id": "hook",
+      "title": "锁链 · 甩钩",
+      "kind": "original_foley",
+      "duration_seconds": 0.29,
+      "wav_sha256": "7b844f539d7a8ac42ca57c9ee001d8d692eb3f1c0dadd9aad949dfce57dab11e",
+      "mp3_sha256": "9a873b512de7de50062cea51550b36571189cf91c85b2be1084cc569632fda18"
+    },
+    {
+      "id": "hook_hit",
+      "title": "锁链 · 命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.25,
+      "wav_sha256": "e55f24d3c57ad9275d2500ebba60c47df7188cd1bf2dfe918d515041cce5aa87",
+      "mp3_sha256": "68a7eedfa6fb7991d87e3be006bb50a50ef5fdadf131eb6b211cc5d9110bbe97"
+    },
+    {
+      "id": "shadow_veil",
+      "title": "黑雾 · 展开",
+      "kind": "original_foley",
+      "duration_seconds": 0.42,
+      "wav_sha256": "37979a414068222a5d90a70cd33654114cbc4b1c01d216fb48ec42a8194bb50f",
+      "mp3_sha256": "6bdbd36749e7991ddaea19bb5f236bb7b6c7947021c42bcf9ddf1609029fb356"
+    },
+    {
+      "id": "decoy",
+      "title": "诱饵 · 显形",
+      "kind": "original_foley",
+      "duration_seconds": 0.36,
+      "wav_sha256": "043d08f254dfacc49fd5c597322c16eaf5f4b3888eb705b61642862a7c357f62",
+      "mp3_sha256": "576ccd14fcd7539b9d2b8f47d3a95be504e2bdea4eecacf10fedfffd15d0445e"
+    },
+    {
+      "id": "phantom_charge",
+      "title": "幻影军势 · 蓄势",
+      "kind": "original_foley",
+      "duration_seconds": 0.35,
+      "wav_sha256": "d5f6a2d20650d35a8147ac29e58b1b21a851d8286668b37fad6bb5be63100c00",
+      "mp3_sha256": "a5af307e1e6313c8d42de136aca6929193b33ee6e26d22e1987fb62400604805"
+    },
+    {
+      "id": "phantom_field",
+      "title": "幻影军势 · 释放",
+      "kind": "original_foley",
+      "duration_seconds": 0.53,
+      "wav_sha256": "06d0d656f130b6e3a592182415aa5d4bc5ecf3f6592cb1a634e023ac9097ff81",
+      "mp3_sha256": "7d41744208833d871b0f99550b1bd09c5becccca286e243528946122086b030e"
+    },
+    {
+      "id": "phantom_hit",
+      "title": "幻影军势 · 命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.38,
+      "wav_sha256": "2ef6e5f5300da85cb65af334f3f009efeb31595b84c96ff647cdae1e13ea7611",
+      "mp3_sha256": "dad9603ececfd19cac3410e5511a82951d0033913b4959b38a3b39569dae9aeb"
+    },
+    {
+      "id": "fall",
+      "title": "倒地 · 接地",
+      "kind": "original_foley",
+      "duration_seconds": 0.25,
+      "wav_sha256": "fb9f5e5e109e2c9c374f9d20ad31a0413042bb9bdd8a484990c2823dac65a6b2",
+      "mp3_sha256": "7cf69416f8b0b8f49fe79185f2724f1016c512113eebe64a0e26bec737cf4ac0"
+    },
+    {
+      "id": "voice_select",
+      "kind": "native_anime_ja",
+      "title": "日语原声 · 初见",
+      "range_seconds": [
+        0.15,
+        6.14
+      ],
+      "source": "https://x.com/ragnarok_PR/status/1714597200729096412",
+      "source_kind": "官方洛基单人倒计时",
+      "speaker": "松岡禎丞",
+      "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+      "contains_original_mix": true,
+      "duration_seconds": 5.99,
+      "wav_sha256": "9e3b97cbefa451c7a4d79203a3c55baa6a999b6aca08a5041312ff213dee642e",
+      "mp3_sha256": "3c50c981fc235b5233e871051862036ab1e493f69087782ffe80a201f1a1747a"
+    },
+    {
+      "id": "voice_delight",
+      "kind": "native_anime_ja",
+      "title": "日语原声 · 有意思",
+      "range_seconds": [
+        13.18,
+        16.98
+      ],
+      "source": "https://x.com/ragnarok_PR/status/1714597200729096412",
+      "source_kind": "官方洛基单人倒计时",
+      "speaker": "松岡禎丞",
+      "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+      "contains_original_mix": true,
+      "duration_seconds": 3.8,
+      "wav_sha256": "054689488584e785e09c857127af053f3c9cffafeb05faec574b4ac4448eb7fa",
+      "mp3_sha256": "a1d1dbef79f94b05008051c17eccbc05cc0881b1ec88b186d70e7465a3e69b50"
+    },
+    {
+      "id": "voice_laugh",
+      "kind": "native_anime_ja",
+      "title": "日语原声 · 得意笑",
+      "range_seconds": [
+        17.82,
+        20.53
+      ],
+      "source": "https://x.com/ragnarok_PR/status/1714597200729096412",
+      "source_kind": "官方洛基单人倒计时",
+      "speaker": "松岡禎丞",
+      "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+      "contains_original_mix": true,
+      "duration_seconds": 2.71,
+      "wav_sha256": "fc333d30964c68e9f0be67f3023f65bcbfe7c0e5c28c398bf0a600b6bc7fe3aa",
+      "mp3_sha256": "1e076ae8d010a59195e48fe68149e50536a1fca738c8db890794d41c06c1d238"
+    },
+    {
+      "id": "voice_taunt",
+      "kind": "native_anime_ja",
+      "title": "日语原声 · 挑战",
+      "range_seconds": [
+        22.1,
+        29.63
+      ],
+      "source": "https://x.com/ragnarok_PR/status/1714597200729096412",
+      "source_kind": "官方洛基单人倒计时",
+      "speaker": "松岡禎丞",
+      "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+      "contains_original_mix": true,
+      "duration_seconds": 7.53,
+      "wav_sha256": "495687ef57f722838471d918fd22a3857f129d46d5696a4a76cd7b9845e0add7",
+      "mp3_sha256": "86de5d6c138443fa3ba88885a0a01df917673564b272fb43f39aa56dc078fd68"
+    },
+    {
+      "id": "voice_reaction",
+      "kind": "native_anime_ja",
+      "title": "日语原声 · 惊讶",
+      "range_seconds": [
+        33.3,
+        34.73
+      ],
+      "source": "https://x.com/ragnarok_PR/status/1669268516913156096",
+      "source_kind": "动画官方回顾，洛基说话时为绿字字幕",
+      "speaker": "松岡禎丞",
+      "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+      "contains_original_mix": true,
+      "duration_seconds": 1.43,
+      "wav_sha256": "bd8bdf84a2f6fee3dcdc12d77ca5ed29fcb59fa9effd543679d7dcfc9ff7cfca",
+      "mp3_sha256": "a10005a2fdf87809aa01a10cafe3242d3292ce798c46d03c4675456f8c9485f6"
+    },
+    {
+      "id": "voice_buddha_rival",
+      "kind": "native_anime_ja",
+      "title": "日语原声 · 挑衅释迦",
+      "range_seconds": [
+        45.28,
+        48.03
+      ],
+      "source": "https://www.youtube.com/watch?v=QYAqOcH-tvA",
+      "source_kind": "第二季官方 PV，洛基特写接释迦应答",
+      "speaker": "松岡禎丞",
+      "cast_credit": "https://ragnarok-official.com/chara/loki.html",
+      "contains_original_mix": true,
+      "duration_seconds": 2.75,
+      "wav_sha256": "04973cfa622c623be84f651107f312b87867f45d07a074e270292de856b25956",
+      "mp3_sha256": "57cacc873beea6b3b231c8c8ea33ce892daea1180a9d2ed2dbbad418a4517515"
+    }
+  ]
+}

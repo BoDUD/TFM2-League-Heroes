@@ -1,0 +1,16 @@
+{
+  "character_reference": "https://ragnarok-official.com/chara/loki.html",
+  "round_reference": "https://www.coamix.co.jp/topics/comiczenon_2505",
+  "generation_tool": "OpenAI ImageGen",
+  "sources": {
+    "attack.png": "46645630b147ebde74ad173b3eb5b17bad95ea4ad3d227e1323a37c4250cbe3c",
+    "card.png": "3c3aa9951f53244b48023680d6b5c17aa9ca32e49d234a2b9d3d8a1e4b162059",
+    "icons.png": "c3361b48378ad3c22131a9a994b11d25dac9c8c364ff17aaed094349902092bc",
+    "impact.png": "87afa22eda1f0c561763d698e79490029d1bbbd3eaec799f905b27cd09f43e6a",
+    "locomotion.png": "9093b86dc6f6bed4c7722f11edfd3c35c2d23bae0af1a86d4f9cd9e2fd7c24ce",
+    "phantom_field.png": "210d0f583824cc49f182c05edf9e892f7a305ac5dac380bf66275f2f1ca31608",
+    "run.png": "3590800e1250b2077b67643bfff0dc6e36b03c7f428191c227ca404d66efce4d",
+    "skills.png": "dd116f9ce87a7c8bb930aa5e07569b99f8e78d828e9500661f0ab71a562b7974"
+  },
+  "prompt_summary": "Official forest-green hair, violet plates and silver seams in 3-head chibi pixels. 4 single-character action banks, moonlit chain-hook anime card, and 4 dark jade-violet icons."
+}

@@ -35,14 +35,18 @@ ACTIONS = ("idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead")
 SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = FX_PPU = SOLE = None
 BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT = [], {}, {}, {}, {}, [], {}
 TAGS, BANKS = ACTIONS, None
+READ = None
 
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
     global CW, CH, CS
     global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT
-    global TAGS, BANKS
+    global TAGS, BANKS, READ
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
+    # READ：交付不是 #sheet.png / #anim.fanim 那种时自己读（冲田、须佐之男是一张逻辑像素图集加 frames.json，
+    # tools/art/ragnarok_atlas.py），给它图名（<ID>_native、<ID>_fx_native），回来的和 read() 一样
+    READ = cfg.get("READ")
     # CANVAS：合成用的画布（宽、高、脚底点），格子比 128 大时跟着放大（亚当、宙斯按两倍重出，一格 256）
     CW, CH, CS = cfg.get("CANVAS", (288, 224, (144, 176)))
     # FX_PPU: the effect sheets' own density (the pictures on units and the projectile pictures keep their size when
@@ -94,6 +98,11 @@ def read(stem):
             fr.append((px[y:y + h, x:x + w].copy(), float(f_["duration"])))
         out[tag] = fr
     return out
+
+
+def load(stem):
+    """Codex 的一张图（SRC 里的图名）：{标签: [(帧, 秒)]}。"""
+    return READ(stem) if READ else read(os.path.join(SRC, stem))
 
 
 def over(dst, src, x, y):
@@ -334,11 +343,11 @@ def main(cfg, doc=None):
     if BANKS:
         body = {}
         for stem, names in BANKS:
-            got = read(os.path.join(SRC, stem))
+            got = load(stem)
             body.update({names[t]: got[t] for t in names})
     else:
-        body = read(os.path.join(SRC, f"{ID}_native"))
-    fx = read(os.path.join(SRC, f"{ID}_fx_native"))
+        body = load(f"{ID}_native")
+    fx = load(f"{ID}_fx_native")
     own = {}
     for stem in EXTRA_FX:
         # 也可以给（路径, 倍数）：按最近邻放大整数倍再用（吕布的斩波：身体和特效是两倍的，它没重画）；

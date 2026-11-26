@@ -16,9 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.12.1"
+VERSION = "0.13.0"
 NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang", "Beelzebub", "Nikola Tesla", "Leonidas", "Apollo"]
+HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang", "Beelzebub", "Nikola Tesla", "Leonidas", "Apollo", "Okita Soji", "Susanoo", "Simo Häyhä", "Loki"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
         "fights: Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
         "own code, ragnarok.dll); Thor's Mjolnir flies out and back to his hand and awakens on every third skill; Zeus swells into his muscle "
@@ -48,10 +48,16 @@ DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits 
         "of Sparta, guards the allies around him like a phalanx, hurls his chained shield to drag a foe in, raises "
         "it to send back what hits him and charges with the Shield of Truth; Apollo, god of the sun, binds his foes "
         "with Artemis's Thread, looses arrows from a bow of light and has her statue shoot him at them as a silver "
-        "arrow. "
+        "arrow; Okita Soji packs a life's swordsmanship into one moment, thrusts three times at godspeed, turns Demon "
+        "Child and lunges with Tensho Sandanzuki; Susanoo answers every blade from his seigan stance, cuts the air into "
+        "the crescent of Ama no Magaeshi and, empty-handed, swings the unseen Musoken that cuts only bones and wears down "
+        "his own life; Simo Häyhä pays with his own organs for god-killing rounds, fires Ilmatar, Lemminkäinen and Mielikki "
+        "in turn, vanishes into the snow and ends it with Ukonvasara; Loki's full-power double copies his chained hook, "
+        "he leaves a copy in black mist and swaps places with another, and Heimskringla raises an army of copied gods' "
+        "weapons. "
         "Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes and Teamfight Tactics "
         "Heroes packs. Chibi (Q-version) pixel art for every hero, effects, icons and sound effects made for this pack; Japanese voice lines from the "
-        "official promotional recordings. Non-commercial fan project; Record of Ragnarok (c) its creators and "
+        "official promotional recordings (Okita's and Simo's are synthesized: neither has an official recording yet). Non-commercial fan project; Record of Ragnarok (c) its creators and "
         "publishers.")
 
 # the game's tooltip box (lint_mod's TOOLTIP_MAX, the tft pack's numbers)
