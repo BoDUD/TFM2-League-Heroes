@@ -19,6 +19,11 @@
 //! 那一份），绝不改它，换成进程堆上新分配的一份（游戏用 HeapFree(GetProcessHeap()) 释放命令的名字，System 分配器就是这个
 //! 堆），这条命令丢掉时游戏把它释放。认不出来（读不到帧、没有 `"UI"`、UV 落不进炼狱亚龙的任何一帧——比如
 //! `mod.override_info` 没生效、UV 还是原版小龙图上的）就不改，日志 `PORTRAIT` 写明。
+//!
+//! 0.5.8（用户 2026-11-26：「小龙击杀后小龙显示的头像不对 错位的 头部都看不到 只能看到一点翅膀」）：0.5.6 装上以后的日志说明
+//! 界面画小龙走的是「单位的图」（种类 4），不是贴图，所以一条都没改成；游戏截头像的那块是照原版小龙（头在帧的最上面）算的，
+//! 落到我们的亚龙身上是翅膀。现在两种都认，截脸的那块对准这条龙的头（[`head_remap`]），静态的炼狱亚龙也挪；远古巨龙在场时
+//! 界面文字里的「元素亚龙」换成「远古巨龙」（[`elder_names`]）。
 
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::sync::{LazyLock, Mutex};
@@ -53,8 +58,18 @@ const CYCLE_MS: u64 = 2000;
 /// 名字的容量是这个数：借来的（`Cow::Borrowed`，游戏数据里共用的那一份）。
 pub const BORROWED: u64 = 0x8000_0000_0000_0000;
 const KIND_SPRITE: u8 = 0x03;
-/// 名字也在 +8 的别的种类（矢量图、单位的图……）：画原版小龙的只记日志（看头像是不是走了别的种类）。
-const OTHER_NAMED: [u8; 3] = [0x02, 0x04, 0x06];
+/// 单位的图：0.5.6 装上以后的日志里，比赛中的击杀记录、点选面板、百科画小龙走的都是这一种（`kind 0x4 … ingame/serpen#sheet`），
+/// 贴图那种一条都没有，所以 0.5.6 什么都没改成。
+const KIND_UNIT: u8 = 0x04;
+/// 名字也在 +8 的别的种类（矢量图……）：画原版小龙的只记日志。
+const OTHER_NAMED: [u8; 2] = [0x02, 0x06];
+/// 单位的图比贴图长 8 个字节（z 在 0x88，贴图在 0x80，src/world.rs 的 `z_at`），UV 可能还在 0x68，也可能往后挪到了 0x70：
+/// 两处都试，落得进炼狱亚龙某一帧的那处才算；都不像就不改，把整条命令的字节写进日志。
+const UNIT_UV_AT: [usize; 2] = [world::AT_SPRITE_UV, world::AT_SPRITE_UV + 8];
+/// 头在帧里的位置（帧宽、帧高的比例）：六种元素亚龙和远古巨龙都是正面，头在正中偏下，上面是两只翅膀。
+const HEAD: (f32, f32) = (0.5, 0.63);
+/// 块的宽、高都有帧的这么多就当是画整帧；小一些的是游戏截的脸，挪到头上。
+const WHOLE: f32 = 0.9;
 /// 原版小龙的图名有多长：`asset/base/aseprite_resources/ingame/serpen`，带不带 `#sheet`。只读这两种长度的名字。
 const NAME_LENS: [usize; 2] = [43, 49];
 /// 一次读多少条命令。
@@ -243,6 +258,40 @@ pub fn remap(from: &Geom, to: &Geom, uv: [f32; 4]) -> Option<[f32; 4]> {
     None
 }
 
+/// 截脸（0.5.7，用户 2026-11-26：「小龙击杀后小龙显示的头像不对 错位的 头部都看不到 只能看到一点翅膀」）：游戏截头像的
+/// 那一块是照原版小龙算的——原版是条蛇，头在帧的最上面；我们的亚龙是正面，头在正中偏下、上面是翅膀，照原样截就截到了翅膀。
+/// 炼狱亚龙图（`from`）上的一块，宽高都够帧的 [`WHOLE`] 就当整帧，照 [`remap`]；小一些的当是截脸：同样大小，对准 `to`
+/// 同一帧的头（[`HEAD`]），推回帧里。比帧大一半以上的不是帧上的一块（多半是别的东西读成了 UV）：None。
+pub fn head_remap(from: &Geom, to: &Geom, uv: [f32; 4]) -> Option<[f32; 4]> {
+    let (fw, fh) = from.dims;
+    let r = [uv[0] * fw, uv[1] * fh, uv[2] * fw, uv[3] * fh];
+    if !r.iter().all(|v| v.is_finite()) || r[2] <= 0.0 || r[3] <= 0.0 {
+        return None;
+    }
+    let (cx, cy) = (r[0] + r[2] / 2.0, r[1] + r[3] / 2.0);
+    for (tag, frames) in &from.tags {
+        for (k, f) in frames.iter().enumerate() {
+            if cx < f[0] || cx > f[0] + f[2] || cy < f[1] || cy > f[1] + f[3] {
+                continue;
+            }
+            if r[2] > f[2] * 1.5 || r[3] > f[3] * 1.5 {
+                return None;
+            }
+            if r[2] >= f[2] * WHOLE && r[3] >= f[3] * WHOLE {
+                return remap(from, to, uv);
+            }
+            let t = to.tags.iter().find(|(n, _)| n == tag)?.1.get(k)?;
+            let (hx, hy) = (t[0] + t[2] * HEAD.0, t[1] + t[3] * HEAD.1);
+            // 比帧还宽（高）的那一边贴着帧的起点，免得 clamp 的上下限颠倒
+            let x = (hx - r[2] / 2.0).clamp(t[0], (t[0] + t[2] - r[2]).max(t[0]));
+            let y = (hy - r[3] / 2.0).clamp(t[1], (t[1] + t[3] - r[3]).max(t[1]));
+            let (tw, th) = to.dims;
+            return Some([x / tw, y / th, r[2] / tw, r[3] / th]);
+        }
+    }
+    None
+}
+
 /// 一条边：块的起点离帧中心 `off`、块长 `len`，放进起点 `at`、长 `size` 的帧：同样离中心，出界推回帧里，比帧长就对中。
 fn place(off: f32, len: f32, at: f32, size: f32) -> f32 {
     if len >= size {
@@ -284,6 +333,10 @@ pub struct Change {
     pub pos: usize,
     pub uv: [f32; 4],
     pub uv_new: [f32; 4],
+    /// UV 在命令里的哪儿（贴图 0x68；单位的图试出来的那处）。
+    pub uv_at: usize,
+    /// 哪一种命令。
+    pub kind: u8,
 }
 
 /// 找到的：要改的、落不进炼狱亚龙的帧没改的、别的种类画原版小龙的（只记日志）。
@@ -294,7 +347,7 @@ pub struct Found {
     pub other_kinds: Vec<String>,
 }
 
-/// 读一遍界面命令表（`list` 起 `n` 条）：画原版小龙图的贴图命令换成第 `k` 张要怎么改（只读，不写）。
+/// 读一遍界面命令表（`list` 起 `n` 条）：画原版小龙图的贴图、单位的图命令换成第 `k` 张要怎么改（只读，不写）。
 pub fn find(p: &dyn Peek, list: usize, n: usize, k: usize) -> Found {
     let mut out = Found::default();
     let (from, to) = (&GEOMS[STATIC], &GEOMS[k]);
@@ -306,10 +359,12 @@ pub fn find(p: &dyn Peek, list: usize, n: usize, k: usize) -> Found {
         for j in 0..take {
             let c = &block[j * CMD..(j + 1) * CMD];
             let kd = world::kind(world::u64_in(c, 0));
-            let sprite = kd == KIND_SPRITE;
-            if !sprite && !OTHER_NAMED.contains(&kd) {
-                continue;
-            }
+            let spots: &[usize] = match kd {
+                KIND_SPRITE => &[world::AT_SPRITE_UV],
+                KIND_UNIT => &UNIT_UV_AT,
+                _ if OTHER_NAMED.contains(&kd) => &[],
+                _ => continue,
+            };
             let (cap, ptr, len) = (world::u64_in(c, at), world::u64_in(c, at + 8) as usize, world::u64_in(c, at + 16) as usize);
             if !NAME_LENS.contains(&len) {
                 continue;
@@ -317,19 +372,31 @@ pub fn find(p: &dyn Peek, list: usize, n: usize, k: usize) -> Found {
             let Some(name) = world::bytes(p, ptr, len) else { continue };
             let Some(pos) = native_at(&name) else { continue };
             let text = String::from_utf8_lossy(&name).into_owned();
-            if !sprite {
+            if spots.is_empty() {
                 out.other_kinds.push(format!("kind {kd:#x} #{} {text:?}", i + j));
                 continue;
             }
-            let uv = std::array::from_fn(|q| world::f32_in(c, world::AT_SPRITE_UV + 4 * q));
-            match remap(from, to, uv) {
-                Some(uv_new) => out.changes.push(Change { cmd: list + (i + j) * CMD, cap, ptr, name, pos, uv, uv_new }),
-                None => out.left.push(format!("#{} {text:?} uv {uv:?}: not on a frame of the static Infernal Drake", i + j)),
+            let hit = spots.iter().find_map(|&uv_at| {
+                let uv: [f32; 4] = std::array::from_fn(|q| world::f32_in(c, uv_at + 4 * q));
+                head_remap(from, to, uv).map(|uv_new| (uv_at, uv, uv_new))
+            });
+            match hit {
+                Some((uv_at, uv, uv_new)) => {
+                    out.changes.push(Change { cmd: list + (i + j) * CMD, cap, ptr, name, pos, uv, uv_new, uv_at, kind: kd })
+                }
+                None => out.left.push(format!(
+                    "#{} kind {kd:#x} {text:?}: no UV on a frame of the static Infernal Drake at {:x?}; the command: {}",
+                    i + j, spots, hex(c))),
             }
         }
         i += take;
     }
     out
+}
+
+/// 一条命令的字节（日志用，认不出来时看它长什么样）。
+fn hex(c: &[u8]) -> String {
+    c.chunks(8).map(|w| w.iter().map(|b| format!("{b:02x}")).collect::<String>()).collect::<Vec<_>>().join(" ")
 }
 
 /// 把命令的名字（+8 的 String）里的 `serpen` 换成 `alias`（一样长）：命令自己的就地改那几个字节；借来的（容量是
@@ -361,17 +428,79 @@ pub unsafe fn rename(cmd: usize, cap: u64, ptr: usize, name: &[u8], pos: usize, 
     Some("a copy of its own")
 }
 
-/// 改一条：名字，然后 UV。
+/// 改一条：名字（`alias`；静态的炼狱亚龙不用改名，None），然后 UV。
 ///
 /// # Safety
 /// 同 [`rename`]。
-unsafe fn apply(ch: &Change, alias: &[u8]) -> Option<&'static str> {
-    let how = rename(ch.cmd, ch.cap, ch.ptr, &ch.name, ch.pos, alias)?;
-    let uv = (ch.cmd + world::AT_SPRITE_UV) as *mut f32;
+unsafe fn apply(ch: &Change, alias: Option<&[u8]>) -> Option<&'static str> {
+    let how = match alias {
+        Some(a) => rename(ch.cmd, ch.cap, ch.ptr, &ch.name, ch.pos, a)?,
+        None => "the name kept",
+    };
+    let uv = (ch.cmd + ch.uv_at) as *mut f32;
     for (q, v) in ch.uv_new.iter().enumerate() {
         uv.add(q).write_unaligned(*v);
     }
     Some(how)
+}
+
+// ---- 远古巨龙的名字
+
+/// 界面文字里小龙的名字：远古巨龙在场（屏幕上这一刻的那一条是远古巨龙）时换掉（用户 2026-11-26：「击杀完远古巨龙后还是
+/// 提示的击杀的元素亚龙」——击杀记录、点选面板这些是游戏自己的字，一直是「元素亚龙」）。换成的不比原来长：就地改。
+const ELDER_NAMES: [(&str, &str); 3] = [("元素亚龙", "远古巨龙"), ("元素亞龍", "遠古巨龍"), ("Elemental Drake", "Elder Dragon")];
+/// 只看这么长以内的文字（击杀记录一行、名字）。
+const TEXT_MAX: usize = 512;
+
+/// 一段文字里的小龙名字换成远古巨龙；没有就 None。
+pub fn elder_text(text: &[u8]) -> Option<Vec<u8>> {
+    let s = std::str::from_utf8(text).ok()?;
+    let mut out = s.to_string();
+    for (from, to) in ELDER_NAMES {
+        out = out.replace(from, to);
+    }
+    (out != s).then(|| out.into_bytes())
+}
+
+/// 文字命令（第一个字段就是 String：{容量, 指针, 长度}）里的小龙名字换成远古巨龙：就地改，短了就把长度改短。
+/// 返回改了几条。
+///
+/// # Safety
+/// `list` 起 `n` 条是这一帧界面那张渲染层的命令表。
+unsafe fn elder_names(p: &dyn Peek, list: usize, n: usize) -> usize {
+    let mut changed = 0;
+    let mut i = 0;
+    while i < n {
+        let take = BLOCK.min(n - i);
+        let Some(block) = world::bytes(p, list + i * CMD, take * CMD) else { break };
+        for j in 0..take {
+            let c = &block[j * CMD..(j + 1) * CMD];
+            let cap = world::u64_in(c, 0);
+            if world::kind(cap) != world::KIND_TEXT {
+                continue;
+            }
+            let (ptr, len) = (world::u64_in(c, 8) as usize, world::u64_in(c, 16) as usize);
+            // 命令自己的 String：容量不小于长度（借来的那种最高位是 1，读出来就不是文字了）
+            if len == 0 || len > TEXT_MAX || (cap as usize) < len {
+                continue;
+            }
+            let Some(text) = world::bytes(p, ptr, len) else { continue };
+            let Some(new) = elder_text(&text) else { continue };
+            if new.len() > len {
+                continue;
+            }
+            std::ptr::copy_nonoverlapping(new.as_ptr(), ptr as *mut u8, new.len());
+            if new.len() < len {
+                ((list + (i + j) * CMD + 16) as *mut u64).write_unaligned(new.len() as u64);
+            }
+            changed += 1;
+            if let Some(k) = counted("portrait_name") {
+                wlog(format!("NAME the Elder Dragon: {:?} -> {:?} #{k}", String::from_utf8_lossy(&text), String::from_utf8_lossy(&new)));
+            }
+        }
+        i += take;
+    }
+    changed
 }
 
 // ---- 每帧
@@ -409,11 +538,14 @@ pub fn fix(ctx: &StableClient<'_>, on_match: bool) {
     } else {
         None
     };
-    let Some(k) = which(on_match, drake.as_deref(), START.elapsed().as_millis() as u64) else { return };
-    // 静态的就是这一张：游戏自己画的就对
-    if k == STATIC {
-        return;
-    }
+    // 比赛里还没刷出第一条：静态的炼狱亚龙（名字不改，截的位置照样要挪到头上）
+    let k = which(on_match, drake.as_deref(), START.elapsed().as_millis() as u64).unwrap_or(STATIC);
+    // 远古巨龙的名字看屏幕上这一刻（不提前）：打死以后击杀记录还挂着几秒，那一条也是远古巨龙
+    let elder_now = on_match
+        && current
+            .zip(game_places::clock::screen_tick())
+            .and_then(|((m, s), t)| super::skin::drake_at(&feed::events(m, s), t))
+            .is_some_and(|d| d == format!("{}elder", super::skin::DRAKE_PREFIX));
     let Ok(mut seen) = SEEN.lock() else { return };
     let p = Process;
     let found = world::host_state(ctx)
@@ -439,7 +571,10 @@ pub fn fix(ctx: &StableClient<'_>, on_match: bool) {
         seen.last = Some(key);
         seen.lines = LINES;
     }
-    let alias = SHEETS[k].1.as_bytes();
+    let alias = (k != STATIC).then(|| SHEETS[k].1.as_bytes());
+    if elder_now {
+        unsafe { elder_names(&p, list, n) };
+    }
     for ch in &f.changes {
         let how = unsafe { apply(ch, alias) };
         if seen.lines > 0 {
@@ -564,6 +699,109 @@ mod tests {
         assert_eq!(remap(from, ocean, far), None);
         assert_eq!(remap(from, ocean, [0.0, 0.0, 0.0, 0.1]), None);
         assert_eq!(remap(from, ocean, [f32::NAN, 0.0, 0.1, 0.1]), None);
+    }
+
+    #[test]
+    fn a_face_crop_made_for_the_native_snake_is_moved_onto_our_drakes_head() {
+        let (from, ocean, elder) = (&GEOMS[STATIC], &GEOMS[2], &GEOMS[6]);
+        // 原版小龙的头在帧的最上面：截 40 x 36 的那一块落在我们这张图帧的左上（翅膀）
+        let uv = [8.0 / from.dims.0, 2.0 / from.dims.1, 40.0 / from.dims.0, 36.0 / from.dims.1];
+        // 同一张（静态的炼狱亚龙）：对准头，(40, 47.25) 为中心
+        assert!(close(px(from, head_remap(from, from, uv).unwrap()), [20.0, 29.25, 40.0, 36.0]));
+        // 别的元素：同一帧、同样对准头
+        assert!(close(px(ocean, head_remap(from, ocean, uv).unwrap()), [20.0, 29.25, 40.0, 36.0]));
+        // 远古巨龙宽 90：头在 45
+        assert!(close(px(elder, head_remap(from, elder, uv).unwrap()), [25.0, 29.25, 40.0, 36.0]));
+        // 第三帧也是它自己那一帧的头
+        let f = from.tags[0].1[2];
+        let uv3 = [(f[0] + 2.0) / from.dims.0, (f[1] + 2.0) / from.dims.1, 30.0 / from.dims.0, 30.0 / from.dims.1];
+        let o = ocean.tags[0].1[2];
+        assert!(close(px(ocean, head_remap(from, ocean, uv3).unwrap()), [o[0] + o[2] * 0.5 - 15.0, o[1] + o[3] * 0.63 - 15.0, 30.0, 30.0]));
+    }
+
+    #[test]
+    fn a_whole_frame_stays_whole_and_what_is_no_piece_of_a_frame_is_refused() {
+        let (from, ocean) = (&GEOMS[STATIC], &GEOMS[2]);
+        let whole = [0.0, 0.0, 80.0 / from.dims.0, 75.0 / from.dims.1];
+        assert_eq!(head_remap(from, ocean, whole), remap(from, ocean, whole));
+        // 比帧大一半以上：不是帧上的一块
+        let huge = [0.0, 0.0, 200.0 / from.dims.0, 75.0 / from.dims.1];
+        assert_eq!(head_remap(from, ocean, huge), None);
+        // 读成 UV 的位置、颜色之类
+        assert_eq!(head_remap(from, ocean, [120.0, 340.0, 36.0, 36.0]), None);
+        assert_eq!(head_remap(from, ocean, [0.2, 0.2, 0.2, 1.0]), None);
+        assert_eq!(head_remap(from, ocean, [f32::NAN, 0.0, 0.01, 0.01]), None);
+    }
+
+    #[test]
+    fn the_elder_dragon_takes_the_drakes_name_in_every_language() {
+        assert_eq!(elder_text("<#f7b1b8ff>红方<>击杀了元素亚龙！".as_bytes()).unwrap(), "<#f7b1b8ff>红方<>击杀了远古巨龙！".as_bytes());
+        assert_eq!(elder_text("元素亞龍".as_bytes()).unwrap(), "遠古巨龍".as_bytes());
+        assert_eq!(elder_text(b"Red killed the Elemental Drake!").unwrap(), b"Red killed the Elder Dragon!");
+        assert_eq!(elder_text("纳什男爵".as_bytes()), None);
+        assert_eq!(elder_text(&[0xff, 0xfe]), None, "not text");
+        for (a, b) in ELDER_NAMES {
+            assert!(b.len() <= a.len(), "{a} -> {b}: changed in place, never longer");
+        }
+    }
+
+    #[test]
+    fn a_text_command_is_changed_in_place_and_made_shorter_when_it_has_to() {
+        // 真内存里的一条文字命令：{容量, 指针, 长度} 在最前
+        let mut text = b"Blue killed the Elemental Drake!".to_vec();
+        let mut cmd = vec![0u8; CMD];
+        cmd[0..8].copy_from_slice(&(text.len() as u64).to_le_bytes());
+        cmd[8..16].copy_from_slice(&(text.as_mut_ptr() as u64).to_le_bytes());
+        cmd[16..24].copy_from_slice(&(text.len() as u64).to_le_bytes());
+        let n = unsafe { elder_names(&Process, cmd.as_ptr() as usize, 1) };
+        assert_eq!(n, 1);
+        let len = world::u64_in(&cmd, 16) as usize;
+        assert_eq!(&text[..len], b"Blue killed the Elder Dragon!");
+        assert_eq!(world::u64_in(&cmd, 0) as usize, 32, "the capacity is kept");
+        // 别的文字、别的种类：不动
+        let mut other = "纳什男爵".as_bytes().to_vec();
+        let mut cmd2 = vec![0u8; CMD];
+        cmd2[0..8].copy_from_slice(&(other.len() as u64).to_le_bytes());
+        cmd2[8..16].copy_from_slice(&(other.as_mut_ptr() as u64).to_le_bytes());
+        cmd2[16..24].copy_from_slice(&(other.len() as u64).to_le_bytes());
+        assert_eq!(unsafe { elder_names(&Process, cmd2.as_ptr() as usize, 1) }, 0);
+        let mut sprite = crate::world::tests::tagged(crate::world::TAG_SPRITE);
+        sprite.resize(CMD, 0);
+        assert_eq!(unsafe { elder_names(&Process, sprite.as_ptr() as usize, 1) }, 0);
+    }
+
+    #[test]
+    fn a_units_picture_of_the_native_drake_is_found_with_its_uv_where_it_is() {
+        const N1: usize = 0x80_0000;
+        const N2: usize = 0x80_1000;
+        let native: &[u8] = b"asset/base/aseprite_resources/ingame/serpen#sheet";
+        let g = &GEOMS[STATIC];
+        let face = [8.0 / g.dims.0, 2.0 / g.dims.1, 40.0 / g.dims.0, 36.0 / g.dims.1];
+        let unit = 0x8000_0000_0000_0004u64;
+        // UV 挪到了 0x70，0x68 上是别的东西
+        let mut c1 = crate::world::tests::named(unit, N1, native.len(), 5);
+        for (q, v) in [500.0, 600.0, 1.0, 1.0].into_iter().enumerate() {
+            put32f(&mut c1, world::AT_SPRITE_UV + 4 * q, v);
+        }
+        for (q, v) in face.into_iter().enumerate() {
+            put32f(&mut c1, world::AT_SPRITE_UV + 8 + 4 * q, v);
+        }
+        // 两处都不像 UV：不改，日志里有整条命令
+        let mut c2 = crate::world::tests::named(unit, N2, native.len(), 5);
+        for (q, v) in [500.0, 600.0, 900.0, 900.0].into_iter().enumerate() {
+            put32f(&mut c2, world::AT_SPRITE_UV + 4 * q, v);
+            put32f(&mut c2, world::AT_SPRITE_UV + 8 + 4 * q, v);
+        }
+        let fake = ui(vec![c1, c2], &[(N1, native), (N2, native)]);
+        let (list, n) = world::map_list(&fake, FRAME, UI).unwrap();
+        let f = find(&fake, list, n, STATIC);
+        assert_eq!(f.changes.len(), 1, "{f:?}");
+        let ch = &f.changes[0];
+        assert_eq!((ch.kind, ch.uv_at), (KIND_UNIT, world::AT_SPRITE_UV + 8));
+        assert!(close(px(g, ch.uv_new), [20.0, 29.25, 40.0, 36.0]));
+        assert_eq!(f.left.len(), 1);
+        assert!(f.left[0].contains("the command:"), "{}", f.left[0]);
+        assert!(f.other_kinds.is_empty());
     }
 
     #[test]
