@@ -31,8 +31,12 @@
 //! - **探测**（0.0.1）：载入生涯后写一次 `league_esports_probe.json`（只读）。
 //! - 日志 `league_esports.log`：规则、公告、改日程（写之后再读一遍对照）、抽签后的核对、改了多少场局数、赛季切换。
 //!
+//! - **国际赛每年换赛制**（0.2.0，[`formats`]）：MSI、全球总决赛每年各抽一种（不连着两年一样），用游戏自带的格式
+//!   （瑞士轮 / 4 组小组赛 × 单败 / 双败），抽签前把日程里的小组赛、淘汰赛事件写成那个样子，游戏自己建。
+//! - **LPL 赛制**（0.2.0，[`lpl`]）：第一阶段单循环 → 登峰组 / 涅槃组组内双循环 → 骑士之路 → 6 队双败季后赛。
+//!
 //! 设置：本包文件夹的 `settings.ini`：`yearly_formats`（每年变赛制）、`schedule_float`（赛程浮动、洲际赛停办）、
-//! `swiss_bo1`（瑞士轮全程 BO1）、`probe`（探测），1 开 0 关。
+//! `swiss_bo1`（瑞士轮全程 BO1）、`probe`（探测）、`cup_formats`（国际赛每年换赛制）、`lpl_format`（LPL 赛制），1 开 0 关。
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs::OpenOptions;
@@ -42,6 +46,11 @@ use std::sync::{LazyLock, Mutex, OnceLock, PoisonError};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 use mod_api_stable::*;
+
+pub mod formats;
+pub mod lpl;
+
+use formats::{Format, UNSET};
 
 const ID: &str = "league_esports";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -127,11 +136,15 @@ pub struct Config {
     pub swiss_bo1: bool,
     /// the read-only probe file at each load
     pub probe: bool,
+    /// MSI / Worlds formats change every year (0.2.0)
+    pub cup_formats: bool,
+    /// LPL: phase 1 single round robin, 登峰 / 涅槃 groups, 骑士之路 (0.2.0)
+    pub lpl_format: bool,
 }
 
 impl Default for Config {
     fn default() -> Config {
-        Config { yearly_formats: true, schedule_float: true, swiss_bo1: true, probe: true }
+        Config { yearly_formats: true, schedule_float: true, swiss_bo1: true, probe: true, cup_formats: true, lpl_format: true }
     }
 }
 
@@ -147,6 +160,8 @@ pub fn parse_config(text: &str) -> Config {
             "schedule_float" => c.schedule_float = on,
             "swiss_bo1" => c.swiss_bo1 = on,
             "probe" => c.probe = on,
+            "cup_formats" => c.cup_formats = on,
+            "lpl_format" => c.lpl_format = on,
             _ => {}
         }
     }
@@ -271,10 +286,20 @@ pub struct Rules {
     pub prize: [u32; 2],
     /// set up after the year's league season started: the regular seasons and the spring stay the game's
     pub from_autumn: bool,
+    /// MSI / Worlds format codes ([`Format::code`]; [`UNSET`] = the game's own, the schedule not reshaped) (0.2.0)
+    pub format: [u8; 2],
 }
 
-/// The year's rules, rolled from the save's `salt` (and kept apart from `last` year's hosts).
-pub fn roll(year: i64, salt: u64, last: Option<&Rules>, from_autumn: bool) -> Rules {
+/// MSI / Worlds formats of a year: each from its list, never what that event played last year (`played`; None: not
+/// known, no limit). A separate stream of the salt, so the other rules of a year stay what 0.1.x rolled.
+pub fn roll_formats(year: i64, salt: u64, played: [Option<Format>; 2]) -> [u8; 2] {
+    let mut r = Rng::new(salt ^ (year as u64).wrapping_mul(0x0000_0001_0000_0193) ^ 0x5F0B_A11E_D5EE_D000);
+    [formats::pick(&mut r, &formats::MSI, played[0]).code(), formats::pick(&mut r, &formats::WORLDS, played[1]).code()]
+}
+
+/// The year's rules, rolled from the save's `salt` (and kept apart from `last` year's hosts; `played`: what MSI / Worlds
+/// played last year).
+pub fn roll(year: i64, salt: u64, last: Option<&Rules>, from_autumn: bool, played: [Option<Format>; 2]) -> Rules {
     let mut r = Rng::new(salt ^ (year as u64).wrapping_mul(0x0000_0100_0000_01B3));
     let regular: [u8; 12] = std::array::from_fn(|i| {
         let bo1 = r.chance(if i < 6 { 30 } else { 50 });
@@ -301,7 +326,11 @@ pub fn roll(year: i64, salt: u64, last: Option<&Rules>, from_autumn: bool) -> Ru
         host = [r.below(6) as usize, r.below(6) as usize];
     }
     let prize = [r.range(90, 130) as u32, r.range(90, 140) as u32];
-    let mut rules = Rules { year, regular, rivals, shift, host, prize, from_autumn };
+    let mut format = roll_formats(year, salt, played);
+    if from_autumn {
+        format[0] = UNSET;
+    }
+    let mut rules = Rules { year, regular, rivals, shift, host, prize, from_autumn, format };
     if from_autumn {
         rules.rivals[0] = true;
     }
@@ -317,7 +346,7 @@ impl Rules {
     pub fn to_text(&self) -> String {
         let b = |x: bool| if x { "1" } else { "0" };
         format!(
-            "year={};regular={};rivals={},{};shift={};host={};prize={};from_autumn={}",
+            "year={};regular={};rivals={},{};shift={};host={};prize={};from_autumn={};format={}",
             self.year,
             join(&self.regular),
             b(self.rivals[0]),
@@ -325,7 +354,8 @@ impl Rules {
             join(&self.shift),
             join(&self.host),
             join(&self.prize),
-            b(self.from_autumn)
+            b(self.from_autumn),
+            join(&self.format)
         )
     }
 
@@ -352,6 +382,8 @@ impl Rules {
             host: two("host")?.map(|x| x as usize),
             prize: two("prize")?.map(|x| x as u32),
             from_autumn: *m.get("from_autumn")? != "0",
+            // 0.1.x 存的规则没有这一项：游戏自己的赛制
+            format: two("format").map(|v| v.map(|x| x as u8)).unwrap_or([UNSET; 2]),
         })
     }
 }
@@ -672,32 +704,54 @@ pub fn swiss_words(swiss_bo1: bool) -> &'static str {
     }
 }
 
+/// LPL 的赛制（0.2.0）一句话。
+pub const LPL_WORDS: &str = "LPL：第一阶段 10 队单循环 BO3；第二阶段分登峰组（前 6）、涅槃组（后 4）组内双循环 BO3；\
+                             骑士之路 BO5（登峰 5、6 名和涅槃 1、2 名争两个季后赛名额）；季后赛 6 队双败；涅槃组后两名参加升降级赛。";
+
+/// One half's international line: host, format (or the Swiss words when the format is the game's own), days, prize.
+fn cup_line(rules: &Rules, half: usize, days: Option<(i64, i64)>, swiss_bo1: bool) -> String {
+    let when = days.map_or(String::new(), |(a, b)| format!("，{}开打、{}决赛", md(a), md(b)));
+    let how = match Format::from_code(rules.format[half]) {
+        Some(f) => format!("赛制：{}", formats::words(f, swiss_bo1)),
+        None => format!("瑞士轮{}", swiss_words(swiss_bo1)),
+    };
+    format!("{}：{}主办，{how}{when}；奖金池为原版的 {}%。", CUP[half], HOSTS[rules.host[half] % HOSTS.len()], rules.prize[half])
+}
+
 /// The year's announcement: (title, content). `days`: each half's main event, its first Swiss day and its final.
-pub fn announcement(rules: &Rules, days: [Option<(i64, i64)>; 2], swiss_bo1: bool) -> (String, String) {
+pub fn announcement(rules: &Rules, days: [Option<(i64, i64)>; 2], swiss_bo1: bool, lpl_format: bool) -> (String, String) {
     let y = rules.year;
-    let when = |d: Option<(i64, i64)>| d.map_or(String::new(), |(a, b)| format!("，{}开打、{}决赛", md(a), md(b)));
     let rivals = |held: bool| if held { "照常举办" } else { "停办，没进国际赛的队伍休整" };
     let mut lines = Vec::new();
     if !rules.from_autumn {
-        let lg: Vec<String> = (0..12).map(|i| format!("{} {}", LEAGUES[i], bo(rules.regular[i]))).collect();
+        let lg: Vec<String> = (0..12)
+            .filter(|&i| !(lpl_format && i == 1))
+            .map(|i| format!("{} {}", LEAGUES[i], bo(rules.regular[i])))
+            .collect();
         lines.push(format!("联赛常规赛：{}。季后赛、决赛、升降级赛照你的局数设置。", lg.join("、")));
+        if lpl_format {
+            lines.push(LPL_WORDS.to_string());
+        }
     }
     for half in [0, 1] {
         if half == 0 && rules.from_autumn {
             continue;
         }
-        lines.push(format!(
-            "{}：{}主办，瑞士轮{}{}；奖金池为原版的 {}%。",
-            CUP[half],
-            HOSTS[rules.host[half] % HOSTS.len()],
-            swiss_words(swiss_bo1),
-            when(days[half]),
-            rules.prize[half]
-        ));
+        lines.push(cup_line(rules, half, days[half], swiss_bo1));
         lines.push(format!("{}洲际赛：{}。", if half == 0 { "上半年" } else { "下半年" }, rivals(rules.rivals[half])));
     }
     let title = if rules.from_autumn { format!("{y} 下半年国际赛公告") } else { format!("{y} 赛季赛制公告") };
     (title, lines.join("\n"))
+}
+
+/// 0.1.x 定过的一年补上国际赛赛制（还没抽签的那几届）的公告。
+pub fn format_news(rules: &Rules, halves: &[usize], days: [Option<(i64, i64)>; 2], swiss_bo1: bool, lpl_format: bool) -> (String, String) {
+    let mut lines: Vec<String> = halves.iter().map(|&h| cup_line(rules, h, days[h], swiss_bo1)).collect();
+    lines.push(String::from("淘汰赛局数照你的设置。"));
+    if lpl_format {
+        lines.push(format!("{LPL_WORDS}（从还没开始第二阶段的那一届起）"));
+    }
+    (format!("{} 国际赛新赛制公告", rules.year), lines.join("\n"))
 }
 
 // ===================== 读写记录 =====================
@@ -761,6 +815,8 @@ fn run_state(ctx: &StableServerCtx<'_>, m: usize) -> Run {
     match ctx.record_get_json(RecordKindV1::Match, m, "running_state").map(|s| compact(&s)) {
         None => Run::Over,
         Some(s) if s == "null" => Run::Over,
+        // 打完的比赛是 {"End":{winner, loser, 比分}}（0.2.0 第二轮审查查出：0.1.x 把它当「在打」）
+        Some(s) if s.starts_with("{\"End\"") => Run::Over,
         Some(s) if s == "\"Wait\"" => Run::Wait,
         Some(_) => Run::Other,
     }
@@ -860,6 +916,10 @@ struct State {
     done: BTreeSet<usize>,
     /// (year, half) whose changed schedule was already reported as left alone
     noted: BTreeSet<(i64, usize)>,
+    /// LPL: a match finished since the last look / when it last looked
+    lpl_due: bool,
+    lpl_scanned: Option<Instant>,
+    finish_logged: bool,
 }
 
 static STATE: Mutex<Option<State>> = Mutex::new(None);
@@ -982,10 +1042,17 @@ fn settle(
     let from_autumn = first_league.is_some_and(|f| today > f);
     let salt = salt(ctx);
     let last = load_rules(ctx, year - 1);
-    let mut rules = roll(year, salt, last.as_ref(), from_autumn);
+    let played = [played_format(ctx, all, year - 1, 0), played_format(ctx, all, year - 1, 1)];
+    let mut rules = roll(year, salt, last.as_ref(), from_autumn, played);
     if !cfg.schedule_float {
         rules.shift = [0; 2];
         rules.rivals = [true; 2];
+    }
+    if !cfg.cup_formats {
+        rules.format = [UNSET; 2];
+    }
+    if cfg.lpl_format && !from_autumn {
+        rules.regular[1] = 3;
     }
     let mut list = orig.clone();
     let mut days = [None, None];
@@ -993,6 +1060,7 @@ fn settle(
         let Some(r) = room(&orig, half) else {
             rules.shift[half] = 0;
             rules.rivals[half] = true;
+            rules.format[half] = UNSET;
             continue;
         };
         if (half == 0 && from_autumn) || r.draw_day <= today {
@@ -1002,8 +1070,12 @@ fn settle(
             }
             rules.shift[half] = 0;
             rules.rivals[half] = true;
+            rules.format[half] = UNSET;
             days[half] = Some((r.first, r.last));
             continue;
+        }
+        if !convertible(&orig, half) {
+            rules.format[half] = UNSET;
         }
         match plan_a(&list, half, rules.shift[half], rules.rivals[half]) {
             Some((new, k)) => {
@@ -1015,14 +1087,24 @@ fn settle(
                 rules.rivals[half] = true;
             }
         }
-        days[half] = Some((r.first + rules.shift[half], r.last + rules.shift[half]));
+        // 决赛那天按这一届的赛制（双败改单败决赛会早一周）
+        let fin = formats::final_day(&orig, half, Format::from_code(rules.format[half])).unwrap_or(r.last);
+        days[half] = Some((r.first + rules.shift[half], fin + rules.shift[half]));
+    }
+    if cfg.cup_formats {
+        let fmts = [Format::from_code(rules.format[0]), Format::from_code(rules.format[1])];
+        let sh = [(rules.shift[0], rules.shift[0].max(0)), (rules.shift[1], rules.shift[1].max(0))];
+        let halves = [0, 1].map(|h| formats::half_of(&list, &orig, h, sh[h].0, sh[h].1));
+        let (ng, nk, in_use) = draw_state(&rules, &orig, all, Some(today));
+        list = formats::shapes(&list, &halves, fmts, sh, ng, nk, in_use);
     }
     if list != now {
         let (ok, same) = write_schedule(ctx, sched, &list);
         wlog(format!(
-            "FLOAT A {year}: moves {:?} (spring, autumn), Rift Rivals held {:?}; {} events -> {}; write {}, read back {}",
+            "FLOAT A {year}: moves {:?} (spring, autumn), Rift Rivals held {:?}, formats {:?}; {} events -> {}; write {}, read back {}",
             rules.shift,
             rules.rivals,
+            rules.format,
             now.len(),
             list.len(),
             if ok { "accepted" } else { "REFUSED" },
@@ -1036,16 +1118,121 @@ fn settle(
             for half in [0, 1] {
                 rules.shift[half] = 0;
                 rules.rivals[half] = true;
+                rules.format[half] = UNSET;
                 days[half] = room(&orig, half).map(|r| (r.first, r.last));
             }
         }
     }
     ctx.save_set_string(&rules_key(year), &rules.to_text());
+    // 新定的一年已经带了赛制：不用再补
+    ctx.save_set_string(&format!("formats_checked:{year}"), "1");
     wlog(format!("RULES {year} (today {}): {}", date_str(today), rules.to_text()));
     set_prizes(ctx, &rules);
-    let (title, content) = announcement(&rules, days, cfg.swiss_bo1);
+    let (title, content) = announcement(&rules, days, cfg.swiss_bo1, cfg.lpl_format);
     news(ctx, &title, &content);
     Some(rules)
+}
+
+/// 这半年原版日程推得出四种样子的日子（才能给它定赛制）。
+fn convertible(orig: &[Entry], half: usize) -> bool {
+    formats::half_days(orig, half).is_some_and(|d| d.group.is_some() && d.double.is_some() && d.single.is_some())
+}
+
+/// 那一年 MSI / 全球总决赛实际打的赛制：那一届建好了看它自己（小组赛 33 场是瑞士轮、淘汰赛 14 场是双败），还没有
+/// 就看本包定的，再没有看那年原版日程的样子。
+fn played_format(ctx: &StableServerCtx<'_>, all: &[Cup], year: i64, half: usize) -> Option<Format> {
+    if let Some(c) = all.iter().find(|c| c.ty == MAIN[half] && c.year == Some(year)) {
+        let ko = ids_at(ctx, RecordKindV1::TournamentCompetition, c.id, "tournament_matches").len();
+        if ko > 0 {
+            return Some(Format::of(c.group.len() > 32, ko > 7));
+        }
+    }
+    if let Some(f) = load_rules(ctx, year).and_then(|r| Format::from_code(r.format[half])) {
+        return Some(f);
+    }
+    formats::played(&load_orig(ctx, year)?, half)
+}
+
+/// 两届的小组赛、淘汰赛各自挪了几天：抽签前小组赛挪 k、淘汰赛往后挪时一起挪；抽签后核对过（`float_b`）：落在挪过的
+/// 日子上就都挪 k，没落上就都回原来的日子。
+fn half_shifts(ctx: &StableServerCtx<'_>, rules: &Rules, half: usize) -> (i64, i64) {
+    let k = rules.shift[half];
+    let y = rules.year;
+    if !ctx.save_contains_key(&format!("float_b:{y}:{half}")) {
+        return (k, k.max(0));
+    }
+    let kk = ctx.save_get_string(&format!("float_k:{y}:{half}")).and_then(|v| v.parse().ok()).unwrap_or(k);
+    if kk == k {
+        (k, k)
+    } else {
+        (0, 0)
+    }
+}
+
+/// 下一次小组赛抽签、淘汰赛抽签是哪半年（None：这一年都抽完了），两届的小组赛 / 淘汰赛是不是还在打。
+/// 一届没有主赛事、抽签日子又过了（这一年装上时上半年已经过去），当它抽完了。
+fn draw_state(rules: &Rules, orig: &[Entry], all: &[Cup], today: Option<i64>) -> (Option<usize>, Option<usize>, [(bool, bool); 2]) {
+    let year = rules.year;
+    let (mut ng, mut nk) = (None, None);
+    let mut in_use = [(false, false); 2];
+    for half in [0, 1] {
+        let main = all.iter().find(|c| c.ty == MAIN[half] && c.year == Some(year));
+        let mine: Vec<&Cup> = all.iter().filter(|c| c.year == Some(year) && c.half == half).collect();
+        let past = room(orig, half).is_some_and(|r| today.is_some_and(|t| r.draw_day < t));
+        let group_drawn = main.is_some() || past;
+        let ko_drawn = main.map_or(past, |c| c.first_knockout.is_some() || c.finalized);
+        in_use[half] = (
+            mine.iter().any(|c| !c.finalized && c.first_knockout.is_none()),
+            mine.iter().any(|c| !c.finalized && c.first_knockout.is_some()),
+        );
+        if !group_drawn && ng.is_none() {
+            ng = Some(half);
+        }
+        if !ko_drawn && nk.is_none() {
+            nk = Some(half);
+        }
+    }
+    (ng, nk, in_use)
+}
+
+/// 0.1.x 定过规则的一年：还没抽签的 MSI / 全球总决赛补上每年的赛制，发一条公告（每年只看一次）。
+fn extend_formats(ctx: &mut StableServerCtx<'_>, cfg: Config, year: i64, all: &[Cup], today: Option<i64>) {
+    let key = format!("formats_checked:{year}");
+    if ctx.save_contains_key(&key) {
+        return;
+    }
+    let Some(mut rules) = load_rules(ctx, year) else { return };
+    let Some(today) = today else { return };
+    let Some(orig) = load_orig(ctx, year) else { return };
+    ctx.save_set_string(&key, "1");
+    if rules.format != [UNSET; 2] {
+        return;
+    }
+    let played = [played_format(ctx, all, year - 1, 0), played_format(ctx, all, year - 1, 1)];
+    let rolled = roll_formats(year, salt(ctx), played);
+    let mut halves = Vec::new();
+    let mut days = [None, None];
+    for half in [0, 1] {
+        if half == 0 && rules.from_autumn {
+            continue;
+        }
+        let Some(r) = room(&orig, half) else { continue };
+        let drawn = all.iter().any(|c| c.ty == MAIN[half] && c.year == Some(year));
+        if !drawn && r.draw_day > today && convertible(&orig, half) {
+            rules.format[half] = rolled[half];
+            halves.push(half);
+            let fin = formats::final_day(&orig, half, Format::from_code(rolled[half])).unwrap_or(r.last);
+            days[half] = Some((r.first + rules.shift[half], fin + rules.shift[half]));
+        }
+    }
+    if halves.is_empty() {
+        wlog(format!("FORMATS {year}: no MSI / Worlds draw ahead (today {}) - the game's own", date_str(today)));
+        return;
+    }
+    let kept = ctx.save_set_string(&rules_key(year), &rules.to_text());
+    wlog(format!("FORMATS {year} added for halves {halves:?} (kept {kept}): {}", rules.to_text()));
+    let (title, content) = format_news(&rules, &halves, days, cfg.swiss_bo1, cfg.lpl_format);
+    news(ctx, &title, &content);
 }
 
 /// Rules kept by 0.1.0 carry the yearly Swiss format (`swiss_bo3`, all BO3 some halves) the user dropped on 11-18
@@ -1090,32 +1277,116 @@ pub fn correction(year: i64, halves: &[usize], swiss_bo1: bool) -> (String, Stri
     (format!("{year} 国际赛赛制调整"), format!("{}的瑞士轮改为{}，淘汰赛不变。", names.join("、"), swiss_words(swiss_bo1)))
 }
 
-/// Each half's checks once its draws are done (see [`plan_b`]), and before them that the floated schedule still stands.
-fn phases(ctx: &mut StableServerCtx<'_>, st: &mut State, rules: &Rules, sched: usize, all: &[Cup]) {
+/// Each half's checks once its draws are done (see [`plan_b`]), before them that the floated schedule still stands, and
+/// (0.2.0) the group / knockout events in the shapes the next draws need ([`formats::shapes`]). The float checks see the
+/// schedule in the game's own shapes (Swiss + double elimination, [`formats::canonical`]) as 0.1.x wrote it; one write at
+/// the end, read back.
+fn phases(ctx: &mut StableServerCtx<'_>, st: &mut State, cfg: Config, rules: &Rules, sched: usize, all: &[Cup], today: Option<i64>) {
+    let year = rules.year;
+    let Some(orig) = load_orig(ctx, year) else { return };
+    let Some(now) = read_schedule(ctx, sched) else { return };
+    // 还是本包认得的样子的半年（主赛事抽签那天没变、两种比赛事件都是某种样子挪 k 天）才管；游戏自己重排过的不碰。
+    // 挪过日子的半年被游戏放回原来的日子（0.1.x 的「applied again」那种）：按没挪认，下面的浮动核对会再挪一次
+    let sh0 = [half_shifts(ctx, rules, 0), half_shifts(ctx, rules, 1)];
+    let halves = [0, 1].map(|h| {
+        let x = formats::half_of(&now, &orig, h, sh0[h].0, sh0[h].1);
+        if formats::known(&x) || sh0[h] == (0, 0) {
+            return x;
+        }
+        let y = formats::half_of(&now, &orig, h, 0, 0);
+        if formats::known(&y) {
+            y
+        } else {
+            x
+        }
+    });
+    // 浮动核对：抽签那天没变，而且本包认得这半年（日子推不出来的样子照 0.1.x 在原日程上核对）
+    let managed = [0, 1].map(|h| {
+        let a = window(&now, h).and_then(|(d, _)| day_of(&now[d].date));
+        let b = window(&orig, h).and_then(|(d, _)| day_of(&orig[d].date));
+        let same_draw = a.is_some() && a == b;
+        let ours = halves[h].is_none() || formats::known(&halves[h]);
+        same_draw && ours
+    });
+    for half in [0, 1] {
+        if !managed[half] && window(&orig, half).is_some() && st.noted.insert((year, half + 10)) {
+            wlog(format!("SCHEDULE {year} half {half}: its draw day moved or its matches are not in a shape this mod wrote \
+                          (the game rebuilt the schedule?) - left as it is"));
+        }
+    }
+    let mut list = formats::canonical(&now, &halves);
+    if cfg.schedule_float {
+        float_checks(ctx, st, rules, &orig, &mut list, all, managed);
+    }
+    let sh = [half_shifts(ctx, rules, 0), half_shifts(ctx, rules, 1)];
+    // 关着 cup_formats：换回原版的样子（还在打的不动）；开着、这一届没定：照现在的样子
+    let fmts: [Option<Format>; 2] = std::array::from_fn(|h| {
+        if cfg.cup_formats {
+            Format::from_code(rules.format[h])
+        } else {
+            formats::played(&orig, h)
+        }
+    });
+    let (ng, nk, in_use) = draw_state(rules, &orig, all, today);
+    // 浮动核对以后这半年两种比赛事件（原版样子）各自实际在哪：照核对完的挪法，不行就是没挪；对不上的那一种这次不改
+    let mut placed = [(0, 0); 2];
+    let halves = [0, 1].map(|h| {
+        let mut x = halves[h].clone()?;
+        let g = [sh[h].0, 0].into_iter().find(|&k| formats::current(&list, &x.days, h, true, k).is_some());
+        let k = [sh[h].1, 0].into_iter().find(|&k| formats::current(&list, &x.days, h, false, k).is_some());
+        if g.is_none() {
+            x.now_group = None;
+        }
+        if k.is_none() {
+            x.now_ko = None;
+        }
+        placed[h] = (g.unwrap_or(0), k.unwrap_or(0));
+        Some(x)
+    });
+    list = formats::shapes(&list, &halves, fmts, placed, ng, nk, in_use);
+    if list != now {
+        let (ok, same) = write_schedule(ctx, sched, &list);
+        wlog(format!(
+            "SCHEDULE {year}: {} -> {} events (formats {:?}, shifts {:?}); write {ok}, read back the same {same}",
+            now.len(),
+            list.len(),
+            rules.format,
+            [half_shifts(ctx, rules, 0), half_shifts(ctx, rules, 1)]
+        ));
+    }
+}
+
+/// 0.1.x 的赛程浮动核对（抽签前看改过的日程还在不在，抽签后 CHECK B / CHECK C），在 `list` 上改，不写。
+fn float_checks(
+    ctx: &mut StableServerCtx<'_>,
+    st: &mut State,
+    rules: &Rules,
+    orig: &[Entry],
+    list: &mut Vec<Entry>,
+    all: &[Cup],
+    managed: [bool; 2],
+) {
     let year = rules.year;
     for half in [0, 1] {
         let (k, rivals) = (rules.shift[half], rules.rivals[half]);
-        if (half == 0 && rules.from_autumn) || (k == 0 && rivals) {
+        if (half == 0 && rules.from_autumn) || (k == 0 && rivals) || !managed[half] {
             continue;
         }
         let (b_key, c_key) = (format!("float_b:{year}:{half}"), format!("float_c:{year}:{half}"));
         if ctx.save_contains_key(&c_key) {
             continue;
         }
-        let Some(orig) = load_orig(ctx, year) else { continue };
-        let Some(r) = room(&orig, half) else { continue };
-        let Some(now) = read_schedule(ctx, sched) else { continue };
+        let Some(r) = room(orig, half) else { continue };
         let main = all.iter().find(|c| c.ty == MAIN[half] && c.year == Some(year));
         match main {
             None => {
                 // the draw still ahead: the game may have rebuilt its schedule
-                if !floated(&now, &orig, half, k, rivals) {
-                    let unmoved = room(&now, half).is_some_and(|n| n.first == r.first);
-                    match plan_a(&now, half, k, rivals) {
-                        Some((new, k2)) if unmoved && k2 == k && new != now => {
-                            let (ok, same) = write_schedule(ctx, sched, &new);
-                            wlog(format!("FLOAT A {year} half {half}: the schedule lost the changes - applied again \
-                                          (write {ok}, read back the same {same})"));
+                if !floated(list, orig, half, k, rivals) {
+                    let unmoved = room(list, half).is_some_and(|n| n.first == r.first);
+                    match plan_a(list, half, k, rivals) {
+                        Some((new, k2)) if unmoved && k2 == k && new != *list => {
+                            *list = new;
+                            wlog(format!("FLOAT A {year} half {half}: the schedule lost the changes - applied again"));
                         }
                         _ => {
                             if st.noted.insert((year, half)) {
@@ -1136,18 +1407,18 @@ fn phases(ctx: &mut StableServerCtx<'_>, st: &mut State, rules: &Rules, sched: u
                     .filter(|x| x.ty.starts_with("Challengers") && x.year == Some(year) && x.half == half)
                     .map(|x| x.ty.as_str())
                     .collect();
-                let Some(new) = plan_b(&now, &orig, half, k, moved, &drawn) else { continue };
-                let (ok, same) = if new != now { write_schedule(ctx, sched, &new) } else { (true, true) };
+                let Some(new) = plan_b(list, orig, half, k, moved, &drawn) else { continue };
                 let line = format!(
                     "CHECK B {year} half {half}: {}'s first group match on {} (the floated schedule: {}) - {}; \
-                     Challengers drawn {drawn:?} (Rift Rivals held: {rivals}); schedule {} -> {} events, write {ok}, read back the same {same}",
+                     Challengers drawn {drawn:?} (Rift Rivals held: {rivals}); schedule {} -> {} events",
                     MAIN[half],
                     c.first_group.map(date_str).unwrap_or_default(),
                     date_str(expected),
                     if moved { "MOVED" } else { "NOT MOVED (the game drew on its own days: the events go back)" },
-                    now.len(),
+                    list.len(),
                     new.len()
                 );
+                *list = new;
                 wlog(&line);
                 let mut fixes = Vec::new();
                 if !moved && k != 0 {
@@ -1191,7 +1462,16 @@ fn apply_need_win(
 ) -> (usize, usize) {
     let mut cache: BTreeMap<i64, Option<Rules>> = BTreeMap::new();
     let mut jobs: Vec<(Vec<usize>, i64)> = Vec::new();
+    // LPL 赛制那一届：第一、二阶段 BO3，骑士之路 BO5（不跟着每年的常规赛局数）
+    let lpl = if cfg.lpl_format { lpl::series(ctx) } else { None };
     for &(id, league) in leagues {
+        if let Some((lc, regular, kr)) = &lpl {
+            if *lc == id {
+                jobs.push((regular.clone(), 2));
+                jobs.push((kr.clone(), 3));
+                continue;
+            }
+        }
         let list = ids_at(ctx, RecordKindV1::LeagueCompetition, id, "matches");
         let Some(year) = list.first().and_then(|&m| match_day(ctx, m)).map(|d| civil_from_days(d).0) else { continue };
         let rules = cache.entry(year).or_insert_with(|| load_rules(ctx, year));
@@ -1248,10 +1528,14 @@ fn scan(ctx: &mut StableServerCtx<'_>, st: &mut State, cfg: Config) {
     if load_rules(ctx, year).is_none() {
         settle(ctx, st, cfg, year, sched, &leagues, &all);
     }
-    if cfg.schedule_float {
+    let today = next_match_day(ctx, st, &leagues, &all);
+    if cfg.cup_formats {
+        extend_formats(ctx, cfg, year, &all, today);
+    }
+    if cfg.schedule_float || cfg.cup_formats {
         for (&y, &id) in years.iter().rev().take(2) {
             if let Some(rules) = load_rules(ctx, y) {
-                phases(ctx, st, &rules, id, &all);
+                phases(ctx, st, cfg, &rules, id, &all, today);
             }
         }
     }
@@ -1385,6 +1669,19 @@ impl StableServerExtension for ServerExt {
                 wlog(format!("SEASON ROLLOVER #{}: {}", ev.seq, ev.payload_json));
                 st.scanned = None;
             }
+            if ev.kind == Some(ManagementEventKindV1::MatchFinished) {
+                st.lpl_due = true;
+                if !st.finish_logged {
+                    st.finish_logged = true;
+                    wlog(format!("MATCH FINISHED #{} (the first this session): {}", ev.seq, ev.payload_json));
+                }
+            }
+        }
+        // LPL：每打完一场就看一眼（第一阶段最后一场打完，下一个比赛日之前要分好组）
+        if cfg.lpl_format && (st.lpl_due || st.lpl_scanned.map_or(true, |t| t.elapsed() >= RESCAN)) {
+            st.lpl_due = false;
+            st.lpl_scanned = Some(Instant::now());
+            lpl::step(ctx);
         }
         let count = ctx.record_ids(RecordKindV1::Match).len();
         let due = st.scanned.map_or(true, |t| t.elapsed() >= RESCAN);
@@ -1401,8 +1698,8 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (League of Legends esports: League names, every year's formats, floating international stages) \
-         loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (League of Legends esports: League names, every year's formats, floating international stages, \
+         MSI / Worlds formats by year, the LPL format) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1603,32 +1900,32 @@ mod tests {
 
     #[test]
     fn rules_are_the_same_every_load_and_round_trip() {
-        let a = roll(2029, 42, None, false);
-        assert_eq!(a, roll(2029, 42, None, false));
+        let a = roll(2029, 42, None, false, [None, None]);
+        assert_eq!(a, roll(2029, 42, None, false, [None, None]));
         assert_eq!(Rules::from_text(&a.to_text()), Some(a.clone()));
         assert!(a.regular.iter().all(|&b| b == 1 || b == 3));
         assert_ne!(a.host[0], a.host[1]);
         assert!((90..=130).contains(&a.prize[0]) && (90..=140).contains(&a.prize[1]));
         assert!((-3..=0).contains(&a.shift[0]) && (-3..=2).contains(&a.shift[1]));
-        let b = roll(2030, 42, Some(&a), false);
+        let b = roll(2030, 42, Some(&a), false, [None, None]);
         assert!(b.host[0] != a.host[0] && b.host[1] != a.host[1], "a host two years running");
         // set up mid-year: the regular seasons and the spring stay the game's, the autumn always moves
         for salt in 0..50 {
-            let f = roll(2028, salt, None, true);
+            let f = roll(2028, salt, None, true, [None, None]);
             assert!(f.regular.iter().all(|&b| b == 0) && f.shift[0] == 0 && f.rivals[0]);
             assert!(f.shift[1] != 0 && (-3..=2).contains(&f.shift[1]));
         }
         // over many saves every choice shows up about as often as meant
         let n = 400;
-        let bo1 = (0..n).filter(|s| roll(2029, *s, None, false).regular[2] == 1).count();
-        let off = (0..n).filter(|s| !roll(2029, *s, None, false).rivals[1]).count();
+        let bo1 = (0..n).filter(|s| roll(2029, *s, None, false, [None, None]).regular[2] == 1).count();
+        let off = (0..n).filter(|s| !roll(2029, *s, None, false, [None, None]).rivals[1]).count();
         assert!((80..=160).contains(&bo1), "BO1 {bo1}");
         assert!((80..=160).contains(&off), "Rift Rivals off {off}");
     }
 
     #[test]
     fn need_win_follows_the_rules() {
-        let mut r = roll(2029, 7, None, false);
+        let mut r = roll(2029, 7, None, false, [None, None]);
         r.regular[0] = 1;
         r.regular[1] = 3;
         assert_eq!(target(&r, Stage::Regular(0), true), Some(1));
@@ -1666,13 +1963,15 @@ mod tests {
 
     #[test]
     fn the_announcement_says_it_all() {
-        let mut r = roll(2029, 3, None, false);
+        let mut r = roll(2029, 3, None, false, [None, None]);
         r.regular = [3, 3, 1, 1, 3, 3, 1, 3, 1, 1, 3, 3];
         r.rivals = [true, false];
         r.host = [3, 1];
         r.prize = [110, 125];
+        // 没定赛制（游戏原版）时还是 0.1.x 的说法
+        r.format = [UNSET; 2];
         let d = |a: &str, b: &str| Some((day_of(a).unwrap(), day_of(b).unwrap()));
-        let (title, text) = announcement(&r, [d("2029-05-08", "2029-06-20"), d("2029-10-30", "2029-12-12")], true);
+        let (title, text) = announcement(&r, [d("2029-05-08", "2029-06-20"), d("2029-10-30", "2029-12-12")], true, false);
         assert_eq!(title, "2029 赛季赛制公告");
         for want in [
             "LCK BO3",
@@ -1685,7 +1984,7 @@ mod tests {
             assert!(text.contains(want), "{want} in {text}");
         }
         r.from_autumn = true;
-        let (title, text) = announcement(&r, [None, d("2029-10-30", "2029-12-12")], false);
+        let (title, text) = announcement(&r, [None, d("2029-10-30", "2029-12-12")], false, false);
         assert_eq!(title, "2029 下半年国际赛公告");
         assert!(!text.contains("联赛常规赛") && !text.contains("季中冠军赛") && text.contains("全球总决赛"));
         assert!(text.contains("瑞士轮照原版（BO1，决定晋级、淘汰的场次 BO3）"));
@@ -1694,9 +1993,288 @@ mod tests {
     #[test]
     fn settings_read_their_switches() {
         assert_eq!(parse_config(""), Config::default());
-        let c = parse_config("\u{feff}; comment\nyearly_formats = 0\nschedule_float=1 ; on\nswiss_bo1 = 0\nprobe = 0\n");
-        assert_eq!(c, Config { yearly_formats: false, schedule_float: true, swiss_bo1: false, probe: false });
+        let c = parse_config("\u{feff}; comment\nyearly_formats = 0\nschedule_float=1 ; on\nswiss_bo1 = 0\nprobe = 0\ncup_formats = 0\nlpl_format=0\n");
+        assert_eq!(
+            c,
+            Config { yearly_formats: false, schedule_float: true, swiss_bo1: false, probe: false, cup_formats: false, lpl_format: false }
+        );
         assert_eq!(parse_config(include_str!("../settings.ini")), Config::default());
+    }
+
+    fn shape_of(l: &[Entry], half: usize, group: bool) -> (usize, Option<bool>) {
+        let mine = formats::events_of(l, half, group).unwrap();
+        (mine.len(), formats::reads_as(&mine, group))
+    }
+
+    /// 2029 年那样的一年：淘汰赛是游戏自己排的单败（八强 4 天，隔 6 天半决赛 2 天，再隔 7 天决赛）。
+    fn single_year() -> Vec<Entry> {
+        let mut l = Vec::new();
+        for x in year() {
+            if kind(&x.event).0 != "TournamentMatch" {
+                l.push(x);
+            }
+        }
+        for draw in ["2029-05-01", "2029-10-23"] {
+            let first = day_of(draw).unwrap() + 29;
+            for (n, (round, i)) in [(0, (0, 0)), (1, (0, 1)), (2, (0, 2)), (3, (0, 3)), (9, (1, 0)), (10, (1, 1)), (17, (2, 0))] {
+                l.push(e(&date_str(first + n), &ev("TournamentMatch", &format!("{{\"index\":{i},\"round\":{round}}}"))));
+            }
+        }
+        l.sort_by_key(|x| day_of(&x.date));
+        l
+    }
+
+    fn halves(l: &[Entry], orig: &[Entry], sh: [(i64, i64); 2]) -> [Option<formats::Half>; 2] {
+        [0, 1].map(|h| formats::half_of(l, orig, h, sh[h].0, sh[h].1))
+    }
+
+    #[test]
+    fn cup_formats_write_the_shapes_the_game_reads() {
+        use formats::*;
+        for l in [year(), single_year()] {
+            let d = half_days(&l, 0).unwrap();
+            assert_eq!(d.group.as_ref().map(|g| g.len()), Some(8));
+            assert_eq!((d.double.as_ref().map(|x| x.len()), d.single.as_ref().map(|x| x.len())), (Some(14), Some(7)));
+            // 双败 14 天里取出来的单败就是游戏自己的排法；单败推出来的双败决赛还在单败决赛那天
+            let (dd, ss) = (d.double.clone().unwrap(), d.single.clone().unwrap());
+            assert_eq!(ss.iter().map(|x| x - ss[0]).collect::<Vec<_>>(), vec![0, 1, 2, 3, 9, 10, 17]);
+            assert!(dd.last() <= ss.last() || d.orig_double == Some(true));
+            assert_eq!(dd[0], ss[0]);
+            // 原版样子按原样生成回来
+            let hv = halves(&l, &l, [(0, 0); 2]);
+            assert!(hv.iter().all(|x| x.as_ref().is_some_and(|x| x.now_group == Some(true) && x.now_ko.is_some())));
+            assert_eq!(canonical(&l, &hv), l);
+            assert_eq!(reads_as(&ko_events(false, &ss), false), Some(false));
+            assert_eq!(reads_as(&ko_events(true, &dd), false), Some(true));
+            assert_eq!(reads_as(&group_events(false, d.group.as_ref().unwrap()), true), Some(false));
+
+            // MSI 小组赛 + 双败，世界赛瑞士轮 + 单败；还没抽签
+            let fmt = [Some(GroupsDouble), Some(SwissSingle)];
+            let a = shapes(&l, &hv, fmt, [(0, 0); 2], Some(0), Some(0), [(false, false); 2]);
+            assert_eq!(shape_of(&a, 0, true), (24, Some(false)));
+            // 下半年的瑞士轮先写成分组的样子：上半年抽小组赛时整年都读成分组
+            assert_eq!(shape_of(&a, 1, true), (24, Some(false)));
+            assert_eq!(reads_as(&a, true), Some(false));
+            // 淘汰赛：上半年双败，下半年单败不冲突
+            assert_eq!(shape_of(&a, 0, false), (14, Some(true)));
+            assert_eq!(shape_of(&a, 1, false), (7, Some(false)));
+            assert_eq!(reads_as(&a, false), Some(true));
+            assert!(sorted(&a));
+            let others = |x: &[Entry]| x.iter().filter(|e| !matches!(kind(&e.event).0.as_str(), "TournamentGroupMatch" | "TournamentMatch")).count();
+            assert_eq!(others(&a), others(&l));
+            // 写过以后再认：认得出是本包的样子
+            let ha = halves(&a, &l, [(0, 0); 2]);
+            assert_eq!(ha[0].as_ref().map(|x| (x.now_group, x.now_ko)), Some((Some(false), Some(true))));
+
+            // 上半年小组赛抽完、还在打：下半年换回瑞士轮，上半年的不动
+            let b = shapes(&a, &ha, fmt, [(0, 0); 2], Some(1), Some(0), [(true, false), (false, false)]);
+            assert_eq!(shape_of(&b, 1, true), (33, Some(true)));
+            assert_eq!(shape_of(&b, 0, true), (24, Some(false)));
+            // 上半年全打完，下一次是下半年的淘汰赛抽签（单败）：上半年的双败事件换成单败的样子
+            let hb = halves(&b, &l, [(0, 0); 2]);
+            let c = shapes(&b, &hb, fmt, [(0, 0); 2], None, Some(1), [(false, false); 2]);
+            assert_eq!(shape_of(&c, 0, false), (7, Some(false)));
+            assert_eq!(reads_as(&c, false), Some(false));
+            // 上半年的淘汰赛还在打：不动
+            let c2 = shapes(&b, &hb, fmt, [(0, 0); 2], None, Some(1), [(false, true), (false, false)]);
+            assert_eq!(shape_of(&c2, 0, false), (14, Some(true)));
+        }
+    }
+
+    #[test]
+    fn a_shape_never_lands_outside_its_half_nor_on_a_rebuilt_one() {
+        use formats::*;
+        let l = single_year();
+        // 游戏把赛季补丁提前到决赛之前一天：生成的事件会出范围，这半年淘汰赛不改，再跑也不变、不变多
+        let mut moved = l.clone();
+        let sp = moved.iter().position(|x| kind(&x.event).0 == "SeasonPatch").unwrap();
+        let fin = day_of(&events_of(&l, 1, false).unwrap().last().unwrap().date).unwrap();
+        moved[sp].date = date_str(fin - 1);
+        moved.sort_by_key(|x| day_of(&x.date));
+        let hm = halves(&moved, &l, [(0, 0); 2]);
+        // 上半年照原版（瑞士轮 + 单败）不动，下半年要双败
+        let fmt = [Some(SwissSingle), Some(SwissDouble)];
+        let once = shapes(&moved, &hm, fmt, [(0, 0); 2], Some(1), Some(1), [(false, false); 2]);
+        let twice = shapes(&once, &halves(&once, &l, [(0, 0); 2]), fmt, [(0, 0); 2], Some(1), Some(1), [(false, false); 2]);
+        assert_eq!(once, twice);
+        assert_eq!(once.len(), moved.len());
+        assert_eq!(canonical(&moved, &hm).len(), moved.len());
+        // 游戏重排过（下半年淘汰赛的日子都变了）：认不得，不碰
+        let mut rebuilt = l.clone();
+        for x in rebuilt.iter_mut() {
+            if kind(&x.event).0 == "TournamentMatch" && x.date.as_str() > "2029-07-01" {
+                x.date = shift_date(&x.date, 1).unwrap();
+            }
+        }
+        rebuilt.sort_by_key(|x| day_of(&x.date));
+        let hr = halves(&rebuilt, &l, [(0, 0); 2]);
+        assert_eq!(hr[1].as_ref().map(|x| x.now_ko), Some(None));
+        let out = shapes(&rebuilt, &hr, [Some(GroupsDouble), Some(GroupsDouble)], [(0, 0); 2], Some(1), Some(1), [(false, false); 2]);
+        assert_eq!(events_of(&out, 1, false), events_of(&rebuilt, 1, false));
+        assert_eq!(canonical(&rebuilt, &hr), rebuilt);
+        // 抽签那天变了：整个半年都不认
+        let mut drawn = l.clone();
+        let i = drawn.iter().position(|x| kind(&x.event) == ("DrawingTournamentGroup".into(), Some("Champions".into()))).unwrap();
+        drawn[i].date = shift_date(&drawn[i].date, 1).unwrap();
+        drawn.sort_by_key(|x| day_of(&x.date));
+        assert!(halves(&drawn, &l, [(0, 0); 2])[1].is_none());
+    }
+
+    /// 碰不了的半年里留着瑞士轮：下一次抽签那届（MSI 定了分组）也只能写瑞士轮，整年读起来一致，不会写出游戏读不了的样子。
+    #[test]
+    fn an_untouchable_half_decides_the_shape() {
+        use formats::*;
+        let l = single_year();
+        // 游戏把下半年第一天的瑞士轮挪了一天：下半年小组赛认不得
+        let mut x = l.clone();
+        let first = events_of(&l, 1, true).unwrap()[0].date.clone();
+        for e in x.iter_mut() {
+            if kind(&e.event).0 == "TournamentGroupMatch" && e.date == first {
+                e.date = shift_date(&e.date, -1).unwrap();
+            }
+        }
+        x.sort_by_key(|e| day_of(&e.date));
+        let hv = halves(&x, &l, [(0, 0); 2]);
+        assert_eq!(hv[1].as_ref().map(|h| (h.now_group, h.now_ko.is_some())), Some((None, true)));
+        let out = shapes(&x, &hv, [Some(GroupsDouble), Some(GroupsSingle)], [(0, 0); 2], Some(0), Some(0), [(false, false); 2]);
+        assert_eq!(reads_as(&out, true), Some(true));
+        assert_eq!(shape_of(&out, 0, true), (33, Some(true)));
+        // 下半年碰不了的小组赛原样
+        assert_eq!(events_of(&out, 1, true), events_of(&x, 1, true));
+        // 淘汰赛不受影响：MSI 双败照写
+        assert_eq!(shape_of(&out, 0, false), (14, Some(true)));
+    }
+
+    /// 一整年走一遍（原版双败的一年和单败的一年）：每次抽签时游戏读到的（整年的事件）就是那一届要的赛制，打着的那一届的
+    /// 事件一直不动，同一步再来一次不变。
+    #[test]
+    fn every_draw_of_the_year_reads_its_own_format() {
+        use formats::*;
+        let all = [SwissDouble, SwissSingle, GroupsDouble, GroupsSingle];
+        for l in [year(), single_year()] {
+            for &msi in &all {
+                for &worlds in &all {
+                    let fmt = [Some(msi), Some(worlds)];
+                    let sh = [(0, 0), (2, 2)];
+                    let steps: [(Option<usize>, Option<usize>, [(bool, bool); 2], (bool, bool)); 6] = [
+                        (Some(0), Some(0), [(false, false), (false, false)], (true, false)), // 年初 -> 上半年小组赛抽签
+                        (Some(1), Some(0), [(true, false), (false, false)], (false, true)),  // 上半年小组赛 -> 上半年淘汰赛抽签
+                        (Some(1), Some(1), [(false, true), (false, false)], (false, false)), // 上半年淘汰赛
+                        (Some(1), Some(1), [(false, false), (false, false)], (true, false)), // 上半年打完 -> 下半年小组赛抽签
+                        (None, Some(1), [(false, false), (true, false)], (false, true)),     // 下半年小组赛 -> 下半年淘汰赛抽签
+                        (None, None, [(false, false), (false, true)], (false, false)),       // 下半年淘汰赛
+                    ];
+                    // 开年：下半年挪了 2 天（0.1.x 的浮动，抽签不动）
+                    let mut cur = l.clone();
+                    for x in cur.iter_mut() {
+                        let kd = kind(&x.event).0;
+                        if x.date.as_str() > "2029-10-23" && matches!(kd.as_str(), "TournamentGroupMatch" | "TournamentMatch" | "DrawingTournament") {
+                            x.date = shift_date(&x.date, 2).unwrap();
+                        }
+                    }
+                    cur.sort_by_key(|x| day_of(&x.date));
+                    let mut used: [Option<(Vec<Entry>, Vec<Entry>)>; 2] = [None, None];
+                    for (n, &(ng, nk, in_use, draw)) in steps.iter().enumerate() {
+                        let hv = halves(&cur, &l, sh);
+                        assert!(hv.iter().all(|x| x.as_ref().is_some_and(|x| x.now_group.is_some() && x.now_ko.is_some())),
+                                "{msi:?}/{worlds:?} step {n}: lost track of a half");
+                        let canon = canonical(&cur, &hv);
+                        cur = shapes(&canon, &hv, fmt, sh, ng, nk, in_use);
+                        assert!(sorted(&cur));
+                        if draw.0 {
+                            let h = ng.unwrap();
+                            assert_eq!(reads_as(&cur, true), Some(fmt[h].unwrap().swiss()), "{msi:?}/{worlds:?} step {n} group draw {h}");
+                        }
+                        if draw.1 {
+                            let h = nk.unwrap();
+                            assert_eq!(reads_as(&cur, false), Some(fmt[h].unwrap().double()), "{msi:?}/{worlds:?} step {n} knockout draw {h}");
+                        }
+                        for h in [0, 1] {
+                            let take = |group: bool| events_of(&cur, h, group).unwrap();
+                            if in_use[h].0 {
+                                assert_eq!(reads_as(&take(true), true), Some(fmt[h].unwrap().swiss()));
+                            }
+                            if in_use[h].1 {
+                                assert_eq!(reads_as(&take(false), false), Some(fmt[h].unwrap().double()));
+                            }
+                            if let Some((g, k)) = &used[h] {
+                                if in_use[h].0 {
+                                    assert_eq!(&take(true), g, "{msi:?}/{worlds:?} step {n}: group events of half {h} changed while played");
+                                }
+                                if in_use[h].1 {
+                                    assert_eq!(&take(false), k, "{msi:?}/{worlds:?} step {n}: knockout events of half {h} changed while played");
+                                }
+                            }
+                            used[h] = Some((take(true), take(false)));
+                        }
+                        // 同一步再来一次（先换回原版样子再写）：不再变
+                        let hv2 = halves(&cur, &l, sh);
+                        assert_eq!(shapes(&canonical(&cur, &hv2), &hv2, fmt, sh, ng, nk, in_use), cur, "{msi:?}/{worlds:?} step {n} not stable");
+                    }
+                }
+            }
+        }
+    }
+
+    /// 测试用：去年实际打的赛制（规则里定了的）。
+    fn played(last: Option<&Rules>) -> [Option<Format>; 2] {
+        [0, 1].map(|h| last.and_then(|l| Format::from_code(l.format[h])))
+    }
+
+    #[test]
+    fn formats_change_every_year() {
+        let mut last: Option<Rules> = None;
+        for y in 2029..2060 {
+            let r = roll(y, 99, last.as_ref(), false, played(last.as_ref()));
+            let f = [Format::from_code(r.format[0]).unwrap(), Format::from_code(r.format[1]).unwrap()];
+            assert!(formats::MSI.iter().any(|(x, _)| *x == f[0]));
+            assert!(formats::WORLDS.iter().any(|(x, _)| *x == f[1]));
+            if let Some(l) = &last {
+                assert_ne!(r.format[0], l.format[0], "MSI {y} same as last year");
+                assert_ne!(r.format[1], l.format[1], "Worlds {y} same as last year");
+            }
+            last = Some(r);
+        }
+        // 去年打的是游戏的瑞士轮 + 单败（用户的 2029 年）：今年的世界赛不再是它
+        for salt in 0..60 {
+            let f = roll_formats(2030, salt, [Some(formats::SwissSingle), Some(formats::SwissSingle)]);
+            assert_ne!(f[1], formats::SwissSingle.code());
+        }
+        assert_eq!(formats::played(&single_year(), 1), Some(formats::SwissSingle));
+        assert_eq!(formats::played(&year(), 0), Some(formats::SwissDouble));
+        // 装上那一年已经过了上半年：MSI 不定
+        assert_eq!(roll(2029, 1, None, true, [None, None]).format[0], UNSET);
+        // 0.1.x 的规则读进来没有赛制，写出去带上
+        let r = Rules::from_text("year=2029;regular=3,3,3,3,3,1,3,1,1,1,3,3;rivals=0,1;shift=0,2;host=2,1;prize=112,90;from_autumn=0").unwrap();
+        assert_eq!(r.format, [UNSET; 2]);
+        assert_eq!(Rules::from_text(&r.to_text()), Some(r));
+        // 其他规则还是 0.1.x 掷出来的那样（赛制用的是另一串随机数）：用户存档里 0.1.1 定的 2029 年
+        let r2028 = Rules::from_text("year=2028;regular=0,0,0,0,0,0,0,0,0,0,0,0;rivals=1,1;shift=0,1;host=5,4;prize=127,119;from_autumn=1").unwrap();
+        let a = roll(2029, 1794990354463708400, Some(&r2028), false, [None, None]);
+        assert_eq!(a.regular, [3, 3, 3, 3, 3, 1, 3, 1, 1, 1, 3, 3]);
+        assert_eq!((a.rivals, a.host, a.prize), ([false, true], [2, 1], [112, 90]));
+    }
+
+    #[test]
+    fn the_format_news_names_the_formats() {
+        let mut r = roll(2029, 3, None, false, [None, None]);
+        r.host = [3, 1];
+        r.prize = [110, 125];
+        r.format = [formats::GroupsDouble.code(), formats::SwissSingle.code()];
+        let d = |a: &str, b: &str| Some((day_of(a).unwrap(), day_of(b).unwrap()));
+        let (title, text) = format_news(&r, &[0, 1], [d("2029-05-10", "2029-06-22"), d("2029-11-04", "2029-12-17")], true, true);
+        assert_eq!(title, "2029 国际赛新赛制公告");
+        for want in [
+            "季中冠军赛 MSI：美国洛杉矶主办，赛制：4 组小组赛（每组 4 队单循环，前 2 名晋级）全程 BO1 + 8 队双败淘汰",
+            "全球总决赛：中国上海主办，赛制：16 队瑞士轮（5 轮，3 胜晋级、3 负出局）全程 BO1 + 8 队单败淘汰，同 2023 年起的全球总决赛",
+            "11 月 4 日开打、12 月 17 日决赛",
+            "淘汰赛局数照你的设置",
+            "登峰组",
+        ] {
+            assert!(text.contains(want), "{want} in {text}");
+        }
+        let (_, year_text) = announcement(&r, [None, None], true, true);
+        assert!(year_text.contains("骑士之路") && !year_text.contains("LPL BO"));
     }
 
     #[test]
