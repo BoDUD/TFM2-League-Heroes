@@ -4,11 +4,6 @@
       "delay": 0.0,
       "clip": "league_ahri_sfx_q_cast",
       "volume": 0.6
-    },
-    {
-      "delay": 0.0,
-      "clip": "league_ahri_sfx_vo_q",
-      "volume": 0.9
     }
   ]
 }
