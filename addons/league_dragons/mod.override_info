@@ -139,6 +139,118 @@
     "remapping": "asset/league_dragons/effects/league_baron#anim",
     "type": "override"
   },
+  "asset/base/aseprite_resources/ingame/league_drake_infernal_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_infernal_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_infernal_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_infernal_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_mountain_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_mountain_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_mountain_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_mountain_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_ocean_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_ocean_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_ocean_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_ocean_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_cloud_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_cloud_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_cloud_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_cloud_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_hextech_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_hextech_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_hextech_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_hextech_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_chemtech_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_chemtech_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_chemtech_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_chemtech_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_elder_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_elder_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_elder_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_elder_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_infernal_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_infernal_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_infernal_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_infernal_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_mountain_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_mountain_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_mountain_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_mountain_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_ocean_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_ocean_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_ocean_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_ocean_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_cloud_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_cloud_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_cloud_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_cloud_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_hextech_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_hextech_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_hextech_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_hextech_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_chemtech_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_chemtech_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_chemtech_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_chemtech_rift#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_elder_rift#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_elder_rift#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/champions/league_drake_elder_rift#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_elder_rift#anim",
+    "type": "override"
+  },
   "asset/base/aseprite_resources/ingame/epic#sheet": {
     "remapping": "asset/league_dragons/effects/league_baron#sheet",
     "type": "override"

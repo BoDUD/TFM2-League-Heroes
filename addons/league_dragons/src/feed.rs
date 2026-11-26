@@ -57,6 +57,9 @@ static DRAKES: Mutex<Vec<(u64, u64, usize, Element)>> = Mutex::new(Vec::new());
 /// (比赛, 局, tick)：屏幕那一场的模拟在哪个 tick 结束（比赛钩子的 `end`）。屏幕时钟走到这里以后本包什么都不画——结算画面上
 /// 游戏还当是在比赛里、时钟也还读得到（用户 2026-11-10：「这东西一局对战结束了 还显示啊」）。
 static ENDED: Mutex<Vec<(u64, u64, usize)>> = Mutex::new(Vec::new());
+/// (比赛, 局)：屏幕那一场是 Rin 的召唤师峡谷（`game_places::terrain::Map::Rift`，读阵容时认出来的）。那里的小龙坑只朝右上方
+/// 开口，小龙换成转身朝坑口的那一套（[`super::skin`]，0.5.12）。
+static RIFT: Mutex<Vec<(u64, u64)>> = Mutex::new(Vec::new());
 /// 屏幕那一场画在战场上的特效（[`super::fx`]）：哪个 tick、在哪、哪一种。
 static FXS: Mutex<Vec<Fx>> = Mutex::new(Vec::new());
 /// 特效最多留这么多条（很长的一局）：满了丢掉最早的四分之一。
@@ -82,10 +85,27 @@ pub fn view(m: u64, s: u64) -> bool {
     if let Ok(mut d) = ENDED.lock() {
         d.retain(|x| (x.0, x.1) == (m, s));
     }
+    if let Ok(mut d) = RIFT.lock() {
+        d.retain(|x| (x.0, x.1) == (m, s));
+    }
     if let Ok(mut f) = FXS.lock() {
         f.retain(|x| (x.m, x.s) == (m, s));
     }
     true
+}
+
+/// 屏幕那一场在 Rin 的召唤师峡谷上。
+pub fn on_rift(m: u64, s: u64) {
+    if let Ok(mut d) = RIFT.lock() {
+        if !d.contains(&(m, s)) {
+            d.push((m, s));
+        }
+    }
+}
+
+/// 这一场是不是在 Rin 的召唤师峡谷上（没记下：不是）。
+pub fn is_rift(m: u64, s: u64) -> bool {
+    RIFT.lock().map(|d| d.contains(&(m, s))).unwrap_or(false)
 }
 
 /// 屏幕模拟里放了一次特效（同一场再放一遍时同样的一条不再记）。
@@ -189,6 +209,7 @@ pub(crate) fn clear() {
     RECORDS.lock().unwrap().clear();
     DRAKES.lock().unwrap().clear();
     ENDED.lock().unwrap().clear();
+    RIFT.lock().unwrap().clear();
     FXS.lock().unwrap().clear();
     *VIEW.lock().unwrap() = None;
 }

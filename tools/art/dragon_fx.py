@@ -588,6 +588,24 @@ def charge(shape, mouth, el, seed):
     return out
 
 
+def drake_attack_aimed(frames, anchor, el, glow, mouths, land, rings, seed=5):
+    """峡谷版（背对镜头、朝右上方坑口）的 5 帧攻击：第 2 帧 `glow` 处嘴里聚起元素，第 3-5 帧从那一帧的嘴（`mouths` 三个点）喷到
+    `land`（右上方）、那里炸开，外加和正面那套一样的冲击环。嘴朝外，吐息和炸开都画在龙后面（龙压在上面），冲击环最底下"""
+    shape = frames[0].shape[:2]
+    out = []
+    for i, a in enumerate(frames):
+        if i == 1:
+            a = over(a, charge(shape, glow, el, seed))
+        if 2 <= i <= 4:
+            ph = i - 2
+            under = wave(shape, anchor, rings[ph], el, ph, seed + 10 * i)
+            under = over(burst(shape, land, 40.0, el, ph, seed + 3 * i), under)
+            under = over(breath(shape, mouths[ph], land, el, ph, seed + i), under)
+            a = over(a, under)
+        out.append(a)
+    return out
+
+
 def drake_attack(frames, anchor, el, mouth, soles, rings, glow, seed=5):
     """a drake's / the Elder's 5 attack frames (padded canvases) with the breath: 2 gathering at `glow` (the jaws of
     the raised head), 3 the breath from `mouth` reaching the ground and the first ring, 4 the blast at full size and the

@@ -16,6 +16,11 @@
 //! 小龙出生时 [`super::feed::drake_born`] 记下编号和元素，显示世界的实体是同一个编号）：倒退 / 快进回放时屏幕时钟读不到，
 //! 只按时钟找会画回原生的（用户：「倒退看回放的时候小龙的模型又恢复成原样了」）；两样都没有时用这个实体上次换成的。每个实体换了什么记一行日志
 //! （`SKIN`），第一次见到小龙 / 莫尔加德时把它原来的资源名也记下来。
+//!
+//! 0.5.12（用户 2026-11-26：「我们的小龙在大地图的龙坑站位方向应该朝着外面吧 要和原版地图不一样吧 这个得改一下吧」）：Rin 的召唤师
+//! 峡谷上小龙坑被墙围了大半圈、只朝右上方开口，正面朝着镜头的龙等于脸对着墙。那张地图上（读阵容时认出来，[`super::feed::is_rift`]）
+//! 元素亚龙和远古巨龙换成 Codex 第 3 步转身朝右上方的那一套 `league_drake_<元素>_rift`（[`on_map`]，tools/art/dragons_rift_hd.py），
+//! 游戏自带的地图照旧是正面的。纳什男爵两张地图一样。
 
 use std::sync::{Mutex, Once};
 
@@ -105,17 +110,34 @@ pub fn sheet_of(element: super::rules::Element) -> String {
     format!("{DRAKE_PREFIX}{}", element.key())
 }
 
+/// 峡谷版那一套的名字后缀：`league_drake_<元素>_rift`（tools/art/dragons_rift_hd.py）。
+pub const RIFT_SUFFIX: &str = "_rift";
+
+/// 这条龙在这张地图上画哪一套：Rin 的召唤师峡谷上小龙坑只朝右上方开口，换成转身朝坑口的那一套（0.5.12，用户 2026-11-26：
+/// 「我们的小龙在大地图的龙坑站位方向应该朝着外面吧 要和原版地图不一样吧」）；别的地图照旧是正面的。
+pub fn on_map(sheet: String, rift: bool) -> String {
+    if rift && !sheet.ends_with(RIFT_SUFFIX) {
+        format!("{sheet}{RIFT_SUFFIX}")
+    } else {
+        sheet
+    }
+}
+
 /// What the drake with entity id `key` should be drawn as: the element its spawn recorded (the display world's entities
 /// carry the simulation's ids), else the last drake / Elder spawn before the screen clock; None when neither is known.
 /// The id comes first: while a replay is wound back or forward the clock reads nothing (2026-11-10's log: the drake back
 /// on screen with `screen tick None`, drawn native - the user: 「倒退看回放的时候小龙的模型又恢复成原样了」).
+/// On Rin's Summoner's Rift the sheet is the one turned to the pit's opening ([`on_map`]).
 fn drake_for(key: u64) -> Option<String> {
     let (m, s) = feed::current()?;
-    if let Some(e) = feed::drake_of(m, s, key as usize) {
-        return Some(sheet_of(e));
-    }
-    let t = game_places::clock::screen_tick()?;
-    drake_at(&feed::events(m, s), t + SPAWN_LEAD)
+    let sheet = match feed::drake_of(m, s, key as usize) {
+        Some(e) => sheet_of(e),
+        None => {
+            let t = game_places::clock::screen_tick()?;
+            drake_at(&feed::events(m, s), t + SPAWN_LEAD)?
+        }
+    };
+    Some(on_map(sheet, feed::is_rift(m, s)))
 }
 
 static HOOK: Once = Once::new();
@@ -336,11 +358,27 @@ mod tests {
     }
 
     #[test]
+    fn on_rins_rift_the_drakes_are_the_sheets_turned_to_the_pit() {
+        assert_eq!(on_map(sheet_of(Element::Ocean), false), "league_drake_ocean");
+        assert_eq!(on_map(sheet_of(Element::Ocean), true), "league_drake_ocean_rift");
+        assert_eq!(on_map(sheet_of(Element::Elder), true), "league_drake_elder_rift");
+        // 已经是峡谷版的不会再加一次
+        assert_eq!(on_map("league_drake_cloud_rift".to_string(), true), "league_drake_cloud_rift");
+        // 峡谷版也认得出是小龙、改名照旧保留前缀
+        assert_eq!(kind_of("asset/base/aseprite_resources/ingame/league_drake_hextech_rift"), Some(Kind::Drake));
+        assert_eq!(renamed("serpen_monster", "league_drake_infernal_rift").as_deref(), Some("league_drake_infernal_rift"));
+        assert_eq!(renamed("ingame/league_drake_infernal", "league_drake_infernal_rift").as_deref(),
+                   Some("ingame/league_drake_infernal_rift"));
+    }
+
+    #[test]
     fn every_sheet_the_skin_names_ships_with_the_add_on_and_is_remapped() {
         let ov = include_str!("../mod.override_info");
-        let mut names: Vec<String> =
-            [Element::Infernal, Element::Mountain, Element::Ocean, Element::Cloud, Element::Hextech, Element::Chemtech,
-             Element::Elder].iter().map(|e| format!("{DRAKE_PREFIX}{}", e.key())).collect();
+        let elements = [Element::Infernal, Element::Mountain, Element::Ocean, Element::Cloud, Element::Hextech, Element::Chemtech,
+                        Element::Elder];
+        let mut names: Vec<String> = elements.iter().map(|e| sheet_of(*e)).collect();
+        // Rin 的召唤师峡谷上的那一套
+        names.extend(elements.iter().map(|e| on_map(sheet_of(*e), true)));
         names.push(BARON.to_string());
         // the add-on's own folder, also when league_addons compiles this file as one of its modules
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join("league_dragons").join("effects");
