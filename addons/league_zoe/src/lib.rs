@@ -928,13 +928,22 @@ impl Sparkles {
     /// 催眠气泡飞过墙（0.8.0，wall.rs）：她开始踢（目标身上刚挂上 e_aim）时看她到目标这条线，前 e_len 的空地以内有一段墙、
     /// 穿得出去，就给她挂 e_far，出手时数据踢长 e_wall 的那颗（英雄联盟：穿墙那段不算射程）。
     fn aim_bubble(&mut self, sim: &mut StableSim<'_>, me: usize, foes: &[(usize, (u64, u64))], pos: (u64, u64)) {
-        // 墙格是游戏自己那几张图的，峡谷上用它会看见峡谷没有的墙：峡谷上不踢长的那颗
-        if map_of_sim(sim) != Map::Native {
-            if !RIFT_BUBBLE_SEEN.swap(true, Ordering::Relaxed) {
-                wlog("== Rift: the bubble never takes the long kick over a wall here (the wall grid is the game's own maps') ==");
-            }
-            return;
+        // 游戏自己那几张图的墙格在峡谷上会看见峡谷没有的墙：峡谷上看作者的墙体文件，没有这个文件就不踢长的那颗
+        let rift = map_of_sim(sim) == Map::Rift;
+        if rift && !RIFT_BUBBLE_SEEN.swap(true, Ordering::Relaxed) {
+            wlog(match game_places::terrain::rift_walls() {
+                Some(w) => format!("== Rift: the bubble takes the long kick over the Rift's own walls ({} wall cells) ==", w.count()),
+                None => "== Rift: no walls file - the bubble never takes the long kick over a wall here ==".to_string(),
+            });
         }
+        let rift_walls = if rift {
+            match game_places::terrain::rift_walls() {
+                Some(w) => Some(w),
+                None => return,
+            }
+        } else {
+            None
+        };
         let mark = zo("e_aim");
         let now: Vec<usize> = foes.iter().map(|f| f.0).filter(|&id| has_buff(sim, id, &mark)).collect();
         let new: Vec<(usize, (u64, u64))> =
@@ -943,8 +952,11 @@ impl Sparkles {
         for (id, tp) in new {
             let champs: Vec<Pt> =
                 (0..sim.champion_count()).filter_map(|i| sim.get_entity(sim.champion_id_at(i))).map(|e| fpos(e.pos())).collect();
-            let rows = wall::grid_of(&champs);
-            let Some(run) = wall::crossing(rows, fpos(pos), fpos(tp), self.p.e_len as f64) else { continue };
+            let run = match rift_walls {
+                Some(w) => wall::crossing_by(|x, y| w.is_wall(x, y), Map::Rift.extent(), fpos(pos), fpos(tp), self.p.e_len as f64),
+                None => wall::crossing(wall::grid_of(&champs), fpos(pos), fpos(tp), self.p.e_len as f64),
+            };
+            let Some(run) = run else { continue };
             sim.entity_remove_buff(me, &zo("e_far"));
             sim.add_buff(me, &BuffV1::timed(&zo("e_far"), self.p.e_rel + 4));
             self.walls += 1;

@@ -5827,6 +5827,78 @@
     "remapping": "asset/lol_audio/sound/bgm/lol_ch_zyra_respawn",
     "type": "override"
   },
+  "asset/base/sound/sfx/lol_audio_grubs_spawn": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_grubs_spawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_grubs_spawn": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_grubs_spawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_grub_death": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_grub_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_grub_death": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_grub_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_grub_death_2": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_grub_death_2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_grub_death_2": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_grub_death_2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_grub_death_3": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_grub_death_3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_grub_death_3": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_grub_death_3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_grub_death_4": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_grub_death_4",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_grub_death_4": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_grub_death_4",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_grubs_leave": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_grubs_leave",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_grubs_leave": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_grubs_leave",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_herald_spawn": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_herald_spawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_herald_spawn": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_herald_spawn",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_herald_death": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_herald_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_herald_death": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_herald_death",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_herald_summon": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_herald_summon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_herald_summon": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_herald_summon",
+    "type": "override"
+  },
   "asset/base/sound/sfx/lol_audio_ch_aatrox_kill_2": {
     "remapping": "asset/lol_audio/sound/sfx/lol_audio_ch_aatrox_kill_2",
     "type": "override"
