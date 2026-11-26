@@ -18,6 +18,8 @@
 //!   `entity_set_hp`：不是治疗，不冒绿字、不受重伤影响），这一 tick 新挂上的控制也清掉（`entity_clear_cc`）。飞行物不见了（打中了
 //!   人）以后再看 `LINGER` tick、按它最后一步往前一段（伤害那一 tick 或下一 tick 才扣），每个只补一次（0.1.1：以前不见了就不再看，
 //!   2026-10-30 挡了约 450 个只补回 4 次）。塔的炮弹不挡（英雄联盟也不挡）。
+//! - **两张 5v5 地图**（2026-11-10）：墙、挡住、散开的画面摆在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的
+//!   960000 见方，Rin 的召唤师峡谷 1614545 见方；以前一律夹在 960000 里，峡谷上过了 960000 的墙画在半张图的边上）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yasuo_wall.log`。
 
@@ -25,8 +27,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_yasuo_wall";
@@ -65,6 +69,7 @@ pub const GROUND_PIC: &str = "league_yasuo_w_ground";
 pub const CAST_PIC: &str = "league_yasuo_w_cast";
 pub const BLOCK_PIC: &str = "league_yasuo_w_block";
 pub const FADE_PIC: &str = "league_yasuo_w_fade";
+/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
                                 CcKindV1::Charm, CcKindV1::ForceMove];
@@ -129,6 +134,19 @@ fn on_screen(sim: &StableSim<'_>) -> bool {
 
 fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
     noted(kind, on_screen(sim))
+}
+
+/// This launch's log has told the Rift already.
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// The map this sim plays on; the first Rift a launch, a line in the log.
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: the wall's, block's and fade's pictures are placed on the Rift's {:.0} square (not the game's \
+                      own {MAP:.0}); {} ==", map.extent(), rift_status()));
+    }
+    map
 }
 
 fn head(sim: &StableSim<'_>, me: usize) -> String {
@@ -334,8 +352,10 @@ fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HARD_CC.iter().any(|k| k.code() == c.kind)))
 }
 
-fn upos(p: Pt) -> (u64, u64) {
-    (p.0.round().clamp(0.0, MAP - 1.0) as u64, p.1.round().clamp(0.0, MAP - 1.0) as u64)
+/// A spot on `map` in whole units (a picture's place).
+fn upos(map: Map, p: Pt) -> (u64, u64) {
+    let e = map.extent();
+    (p.0.round().clamp(0.0, e - 1.0) as u64, p.1.round().clamp(0.0, e - 1.0) as u64)
 }
 
 impl WallPassive {
@@ -343,15 +363,16 @@ impl WallPassive {
         let tick = sim.tick();
         self.wall = Some(Wall { mid, dir, until: tick + LIFE });
         self.ready_at = tick + CD;
+        let map = map_here(sim);
         let (plumes, ground) = pieces(mid, dir);
         for p in ground {
-            let (x, y) = upos(p);
+            let (x, y) = upos(map, p);
             sim.play_view_effect(GROUND_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
         }
         sim.play_view_effect(CAST_PIC, me, &InputTargetV1::target(me), 0, 0, 0);
         let mut shown = 0;
         for (k, p) in plumes.iter().enumerate() {
-            let (x, y) = upos(*p);
+            let (x, y) = upos(map, *p);
             shown += sim.play_view_effect(&format!("{PIECE_PIC}{k}"), me, &InputTargetV1::pos(x, y), 0, 0, 0) as usize;
         }
         self.walls += 1;
@@ -404,16 +425,17 @@ impl StablePassive for WallPassive {
                 }
             }
             if tick >= w.until {
+                let map = map_here(sim);
                 let (plumes, _) = pieces(w.mid, w.dir);
                 for p in plumes.iter().skip(1).step_by(2) {
-                    let (x, y) = upos(*p);
+                    let (x, y) = upos(map, *p);
                     sim.play_view_effect(FADE_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
                 }
                 self.wall = None;
             }
         }
         for (c, from, now_at, p) in newly {
-            let (x, y) = upos(p);
+            let (x, y) = upos(map_here(sim), p);
             sim.play_view_effect(BLOCK_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
             self.stops += 1;
             if let Some(k) = tally(sim, "blocked") {
@@ -564,5 +586,17 @@ mod tests {
         assert!(plumes[0].1 < plumes[6].1 && plumes[3].0 > plumes[0].0); // top to bottom, bowed toward the enemy
         assert!(ground.len() > 20);
         assert!(seg_dist((0.0, 5_000.0), (-1.0, 0.0), (1.0, 0.0)) < 5_001.0);
+    }
+
+    #[test]
+    fn the_pictures_stand_where_the_wall_is_on_either_map() {
+        // a wall raised in the Rift's far half: its pieces drawn there, not at the game's own edge
+        let (plumes, _) = pieces((1_400_000.0, 1_200_000.0), (1.0, 0.0));
+        for p in &plumes {
+            let (x, y) = upos(Map::Rift, *p);
+            assert!((x as f64 - p.0).abs() <= 0.5 && (y as f64 - p.1).abs() <= 0.5, "{p:?} -> ({x}, {y})");
+            assert_eq!(upos(Map::Native, *p), (MAP as u64 - 1, MAP as u64 - 1), "the game's own map holds it at its edge");
+        }
+        assert_eq!(upos(Map::Rift, (2_000_000.0, -4.0)), (Map::Rift.extent() as u64 - 1, 0));
     }
 }

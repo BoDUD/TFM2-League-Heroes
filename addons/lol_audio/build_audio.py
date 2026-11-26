@@ -47,7 +47,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "lol"))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "kit"))
 from audio_level import limiter  # noqa: E402
-from riot import SoundBanks, Wad, parse_wpk  # noqa: E402
+from riot import SoundBanks, Wad, bnk_media, parse_wpk  # noqa: E402
 
 SR = 44100
 CS = "LeagueClient/Plugins/rcp-fe-lol-champ-select/assets.wad"
@@ -171,6 +171,23 @@ def trim_tail(x, floor_db=-60.0, fade=0.05):
 CHAMP = {"lol_rumble_overheat": ("Rumble", "Play_vo_Rumble_Spell3DPCast", 0)}
 CHAMPS = "Game/DATA/FINAL/Champions/"
 
+# 0.3.2（用户 2026-11-26：「巢虫、先锋应该报相应的吧 可以做到吧」）：Rin 峡谷（第三方地图 mod）的虚空巢虫、峡谷先锋。英雄联盟的
+# 播报员没有它们的台词（播报包 164 条事件里野怪只有小龙、大龙），放它们自己在英雄联盟里的声音（Map11.wad.client 的
+# NPC_Map11_Horde_SFX / NPC_Map11_RiftHerald_SFX，媒体在 audio.bnk 里）。clip -> (声音包, 叠在一起的 [(事件, 第几个媒体)], 最长几秒)；
+# lol_audio.dll 什么时候放见 src/rift.rs。
+MONSTER_BANK = "assets/sounds/wwise2016/sfx/shared/npc_map11_{}_sfx_"
+MONSTER = {
+    "lol_grubs_spawn": ("horde", [("Play_sfx_SRU_Horde_Boss_SpawnIn_cast", 0)], 3.6),
+    **{("lol_grub_death" if k == 0 else f"lol_grub_death_{k + 1}"): ("horde", [("Play_sfx_SRU_Horde_Boss_Death_vox_cast", k)], 2.4)
+       for k in range(4)},
+    "lol_grubs_leave": ("horde", [("Play_sfx_SRU_Horde_Boss_SpawnOut_cast_vox", 0), ("Play_sfx_SRU_Horde_Boss_SpawnOut_cast", 0)], 3.0),
+    "lol_herald_spawn": ("riftherald", [("Play_sfx_SRU_RiftHerald_spawn_vox", 0), ("Play_sfx_SRU_RiftHerald_spawn_void", 0)], 3.4),
+    "lol_herald_death": ("riftherald", [("Play_sfx_SRU_RiftHerald_death", 0), ("Play_sfx_SRU_RiftHerald_death_reverb", 0)], 4.0),
+    "lol_herald_summon": ("riftherald", [("Play_sfx_SRU_RiftHerald_ItemVoidCrusher_cast", 0)], 3.2),
+}
+# 比播报员（-15）轻一点，压得过打架的声音
+MONSTER_RMS, MONSTER_PEAK = -17.0, -2.0
+
 
 def champ_vo(lol, champion):
     name = champion.lower()
@@ -258,7 +275,7 @@ def write_events(root=HERE):
         info = json.load(f)
     sfx_dir = os.path.join(root, "sound", "sfx")
     os.makedirs(sfx_dir, exist_ok=True)
-    for clip in list(VOICE) + list(CHAMP):
+    for clip in list(VOICE) + list(CHAMP) + list(MONSTER):
         if clip in OWN:
             continue
         event = "lol_audio_" + clip[len("lol_"):]
@@ -520,10 +537,11 @@ def main():
         write_events()
         return
     only = set(a.only or ())
-    unknown = sorted(c for c in only if c not in DRAFT and c not in VOICE and c not in CHAMP and not RIFT.fullmatch(c))
+    unknown = sorted(c for c in only if c not in DRAFT and c not in VOICE and c not in CHAMP and c not in MONSTER
+                     and not RIFT.fullmatch(c))
     if unknown:
         ap.error(f"unknown clip {', '.join(unknown)}; the clips: {', '.join(DRAFT)}, lol_rift_music1..3, "
-                 f"{', '.join(VOICE)}, {', '.join(CHAMP)}")
+                 f"{', '.join(VOICE)}, {', '.join(CHAMP)}, {', '.join(MONSTER)}")
 
     def want(clip):
         return not only or clip in only
@@ -577,6 +595,27 @@ def main():
             sys.exit(f"{event}: {len(ids)} media, no variant {k}")
         x = trim_tail(wem(media[ids[k]], a.vgmstream)).mean(1, keepdims=True)
         write(os.path.join(a.out, "sfx", clip + ".mp3"), level(x, VOICE_RMS, VOICE_PEAK, limit=True))
+        write_events()
+    if any(want(c) for c in MONSTER):
+        map11 = Wad(os.path.join(a.lol, MAPS, "Map11.wad.client"))
+        banks = {}
+        for clip, (bank, layers, max_s) in MONSTER.items():
+            if not want(clip):
+                continue
+            if bank not in banks:
+                prefix = MONSTER_BANK.format(bank)
+                audio = map11.read_path(prefix + "audio.bnk")
+                media = bnk_media(audio)
+                banks[bank] = (SoundBanks([map11.read_path(prefix + "events.bnk"), audio], media), media)
+            sb, media = banks[bank]
+            tracks = []
+            for event, k in layers:
+                ids = sb.event_media(event)
+                if len(ids) <= k:
+                    sys.exit(f"{event}: {len(ids)} media, no variant {k}")
+                tracks.append(wem(media[ids[k]], a.vgmstream))
+            x = trim_both(mix(*tracks), max_s=max_s, fade=0.25).mean(1, keepdims=True)  # mono, like the game's own
+            write(os.path.join(a.out, "sfx", clip + ".mp3"), level(x, MONSTER_RMS, MONSTER_PEAK, limit=True))
         write_events()
     if not only:
         build_champion_voices(a.lol, a.vgmstream, a.out)

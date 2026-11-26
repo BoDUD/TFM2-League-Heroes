@@ -76,6 +76,7 @@ use std::time::{Duration, Instant};
 
 use mod_api_stable::*;
 
+mod rift;
 mod variants;
 
 const ID: &str = "lol_audio";
@@ -543,6 +544,8 @@ pub struct Watch {
     last_announcer: Option<usize>,
     /// Lifecycle voice controller for all `league_*` champions (start / kill / dead / respawn).
     pub champ_voice: ChampVoice,
+    /// Rin 峡谷的巢虫和先锋（[`rift`]）。
+    pub rift: rift::Monsters,
 }
 
 /// Lifecycle voice cue for a League champion (`sound/sfx/lol_audio_ch_<slug>_<cue>.sound_info`).
@@ -1199,6 +1202,29 @@ fn champs_with_names(sim: &StableSim<'_>) -> (Vec<Champ>, Vec<ChampSnap>) {
     (out, snaps)
 }
 
+/// 游戏自己的小龙 / 莫甘德才播「拿下小龙 / 大龙」：名字里带 serpen、带 epic 或 morgard（读不到名字的照旧算）。地图 mod 自己的
+/// 史诗野怪（Rin 峡谷 0.1.65 的虚空巢虫 rift_voidgrub_L / R、峡谷先锋 tfm2_rift_herald）可能也是这两种实体，打死它们不是拿龙。
+pub fn own_monster(kind: EntityKindV1, name: Option<&str>) -> bool {
+    name.is_none_or(|n| match kind {
+        EntityKindV1::Serpen => n.contains("serpen"),
+        _ => n.contains("epic") || n.contains("morgard"),
+    })
+}
+
+/// Rin 峡谷的巢虫和先锋（按名字认；小兵、塔、水晶不看名字，省得每 tick 读一百多个名字）。中立的算野的。
+fn rift_units(sim: &StableSim<'_>) -> Vec<rift::Unit> {
+    let mut out = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        if matches!(e.kind(), Some(EntityKindV1::Minion | EntityKindV1::Tower | EntityKindV1::Nexus)) {
+            continue;
+        }
+        let Some(who) = e.name().as_deref().and_then(rift::who) else { continue };
+        out.push(rift::Unit { id: e.id(), who, wild: e.team() >= 2, alive: e.is_alive(), at: e.pos() });
+    }
+    out
+}
+
 /// The towers, nexuses (with hit points, fallen ones at 0) and live epic monsters.
 fn world(sim: &StableSim<'_>) -> (Vec<Building>, Vec<Monster>) {
     let (mut buildings, mut monsters) = (Vec::new(), Vec::new());
@@ -1212,7 +1238,7 @@ fn world(sim: &StableSim<'_>) -> (Vec<Building>, Vec<Monster>) {
                 let hp = if alive { (hp * 1000 / max.max(1)).max(1) } else { 0 };
                 buildings.push(Building { id: e.id(), team: e.team(), nexus: k == EntityKindV1::Nexus, pos: e.pos(), hp });
             }
-            Some(k @ (EntityKindV1::Epic | EntityKindV1::Serpen)) if alive => {
+            Some(k @ (EntityKindV1::Epic | EntityKindV1::Serpen)) if alive && own_monster(k, e.name().as_deref()) => {
                 monsters.push(Monster { id: e.id(), epic: k == EntityKindV1::Epic, pos: e.pos() });
             }
             _ => {}
@@ -1470,11 +1496,19 @@ impl StableMatchHook for Announcer {
         // Rumble's Overheat: his own line, not queued behind the announcer
         let hot = overheated(sim);
         let started = w.overheat_starts(hot.iter().map(|&(e, _)| e).collect());
+        // Rin 峡谷的巢虫、先锋：每 3 tick 看一次，当时就放；画面跳着走（快进）时只记下不放
+        let rift_cues = if now % 3 == 0 { w.rift.step(now, &rift_units(sim)) } else { Vec::new() };
+        let rift_cues = if jumped { Vec::new() } else { rift_cues };
         drop(book);
         for e in started {
             let at = hot.iter().find(|&&(x, _)| x == e).map_or((0, 0), |&(_, p)| p);
             let how = play(sim, RUMBLE_OVERHEAT, Some(e), at, &living);
             logs.push(format!("RUMBLE {} t={} #{e} overheated -> {RUMBLE_OVERHEAT} {how}", head(&o), clock(now)));
+        }
+        for (cue, at, on) in rift_cues {
+            let ev = cue.event();
+            let how = play(sim, &ev, on, at, &living);
+            logs.push(format!("RIFT {} t={} {cue:?} at {at:?} -> {ev} {how}", head(&o), clock(now)));
         }
         if let Some(cl) = champ_line {
             let how = play(sim, &cl.event, cl.on, cl.at, &living);
@@ -2183,5 +2217,17 @@ mod champ_voice_tests {
         ];
         let rl = cv.step(t_resp, &back, &[], false, false, false, 1).unwrap();
         assert_eq!(family(&rl.event), "lol_audio_ch_ashe_respawn");
+    }
+
+    #[test]
+    fn the_maps_own_grubs_and_herald_are_no_objective() {
+        for (k, n) in [(EntityKindV1::Serpen, "serpen_monster"), (EntityKindV1::Serpen, "serpen_jungle"),
+                       (EntityKindV1::Epic, "epic_monster"), (EntityKindV1::Epic, "epic_jungle")] {
+            assert!(own_monster(k, Some(n)), "{n}");
+        }
+        for n in ["rift_voidgrub_L", "rift_voidgrub_R", "tfm2_rift_herald"] {
+            assert!(!own_monster(EntityKindV1::Epic, Some(n)) && !own_monster(EntityKindV1::Serpen, Some(n)), "{n}");
+        }
+        assert!(own_monster(EntityKindV1::Epic, None));
     }
 }

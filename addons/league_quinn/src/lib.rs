@@ -21,6 +21,10 @@
 //! - **什么时候骑**（0.4.0，`ride_ai.rs`）：游戏的 AI 从来不按这一招，钩子照英雄联盟高手的用法替它按——走远路（回线、游走、
 //!   支援）且不在交战中就骑，远处有残血、她血量健康就骑过去追。
 //! - **骑乘的样子**（`view.rs`，游戏 0.6.4 起的 Windows 版）：骑着的时候站着、走着、挨打都是骑在华洛背上的 `r_idle` / `r_run` / `r_hit`。
+//! - **两张 5v5 地图**（2026-11-10）：翻回去夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//!   Rin 的召唤师峡谷 1614545 见方）；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边。峡谷上翻的每一步还要落在
+//!   能站的地方（`game_places::terrain::stand_ok`：峡谷的墙往外长一格，和作者的寻路一致）：下一步站不住就翻到这里为止，
+//!   停在上一个能站的地方，从不挪进墙里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_quinn.log`，每次启动游戏重写，上一次的留在 .prev.log：`RIDE`（骑上、
 //! 出招落地 / 到时落地、骑了多久多远）、`E`（出 E、冲了几 tick）、`VAULT`（为什么翻、往哪翻、给了多长的强制位移、挪了多远、自己走了
@@ -31,8 +35,10 @@ use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
 
 pub mod ride_ai;
@@ -68,6 +74,7 @@ pub const STILL_T: usize = 10;
 pub const TRAIL: usize = 40;
 /// 离踢中的地方至少这么远的旧位置才算「从那边冲过来」。
 pub const CAME_MIN: f64 = 3000.0;
+/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 /// 后空翻每帧多少毫秒（tools/art/rig_quinn.py 的 MS["e_flip"]，单元测试核对），合计 600 毫秒 = 技能数据的 e_flip 36 tick。
 pub const FLIP_MS: [usize; 7] = [60, 70, 80, 70, 70, 120, 130];
@@ -158,6 +165,20 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: the vault back after Harrier's kick is kept on the Rift's {:.0} square (not the game's own \
+                      {MAP:.0}) and stops at the last spot off the Rift's walls (stand_ok); {} ==", map.extent(),
+                     rift_status()));
+    }
+    map
+}
+
 // ===================== 规则（单元测试用） =====================
 
 pub type Pt = (f64, f64);
@@ -178,14 +199,30 @@ pub fn vault_dir(at: Pt, trail: &[Pt], foe: Option<Pt>) -> Option<Pt> {
     came.and_then(unit).or_else(|| foe.and_then(|f| unit(f).map(|d| (-d.0, -d.1))))
 }
 
-pub fn clamp(p: Pt) -> Pt {
-    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+/// 夹在 `map` 上（坐标 0..边长-1）。
+pub fn clamp(map: Map, p: Pt) -> Pt {
+    let e = map.extent();
+    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
 }
 
-/// 翻回去的落点：从踢中的地方朝 `d` 退 E_BACK x E_BACK_T，夹在地图里。
-pub fn vault_to(at: Pt, d: Pt) -> Pt {
-    let far = E_BACK * E_BACK_T as f64;
-    clamp((at.0 + d.0 * far, at.1 + d.1 * far))
+/// 翻回去的一步：从 `at` 朝 `d` 挪 E_BACK，夹在 `map` 上；落点站不住（`ok` 说不行：运行时是 `stand_ok`，峡谷的墙往外长一格；
+/// 游戏自己的地图上总是行）就不挪（None：翻到这里为止，她停在上一个能站的地方）。
+pub fn vault_step(map: Map, at: Pt, d: Pt, ok: impl Fn(Pt) -> bool) -> Option<Pt> {
+    let next = clamp(map, (at.0 + d.0 * E_BACK, at.1 + d.1 * E_BACK));
+    ok(next).then_some(next)
+}
+
+/// 翻回去的落点：从踢中的地方朝 `d` 一步 E_BACK 地退，最多 E_BACK_T 步，每一步夹在 `map` 上；哪一步站不住（`ok`：运行时是
+/// `stand_ok`，峡谷的墙往外长一格；游戏自己的地图上总是行）就停在上一步，不进墙。
+pub fn vault_to(map: Map, at: Pt, d: Pt, ok: impl Fn(Pt) -> bool) -> Pt {
+    let mut p = at;
+    for _ in 0..E_BACK_T {
+        match vault_step(map, p, d, &ok) {
+            Some(next) => p = next,
+            None => break,
+        }
+    }
+    p
 }
 
 /// 从 `from` 到 `to` 的强制位移 (dx, dy, 每 tick 多远, 几 tick)：每 tick 一样长、不超过 E_BACK，走满正好到；不到 1 就不挪。
@@ -370,7 +407,9 @@ impl Ride {
             let trail: Vec<Pt> = self.trail.iter().copied().collect();
             match vault_dir(at, &trail, nearest_foe(sim, me, at)) {
                 Some(d) => {
-                    let to = vault_to(at, d);
+                    // 峡谷上落点停在墙前（stand_ok），强制位移只走到那里；游戏自己的地图上就是退满 E_BACK x E_BACK_T
+                    let map = map_here(sim);
+                    let to = vault_to(map, at, d, |q| stand_ok(map, q));
                     // 强制位移：宿主每 tick 挪她一段，画面上是连着的一段位移。以前逐 tick 直接改坐标，画面不跟：11-21 那局
                     // 13 次里 11 次她在画面上整个后空翻都钉在原地，翻完才一下被拉到落点（「往后拉距离…没动画」）
                     let push = vault_push(at, to);
@@ -549,6 +588,7 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+    use game_places::terrain::Walls;
 
     #[test]
     fn the_landing_signal_comes_once_before_the_ride_runs_out() {
@@ -567,6 +607,45 @@ mod tests {
         let d = vault_dir((0.0, 0.0), &[(0.0, 0.0)], Some((0.0, 5000.0))).unwrap();
         assert!(d.0.abs() < 1e-9 && (d.1 + 1.0).abs() < 1e-9);
         assert_eq!(vault_dir((0.0, 0.0), &[], None), None);
+    }
+
+    #[test]
+    fn the_vault_stays_on_the_map_it_is_played_on() {
+        // the game's own map: its edge at 960000, as before
+        assert_eq!(clamp(Map::Native, (970_000.0, -5.0)), (MAP - 1.0, 0.0));
+        // the Rift: past 960000 is its ground, its own edge at 1614545
+        assert_eq!(clamp(Map::Rift, (1_300_000.0, 1_500_000.0)), (1_300_000.0, 1_500_000.0));
+        assert_eq!(clamp(Map::Rift, (2_000_000.0, -5.0)), (Map::Rift.extent() - 1.0, 0.0));
+    }
+
+    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): the vault moved her step by step into the Rift's walls and
+    /// she stood stuck there. A piece of the Rift as `stand_ok` sees it with the walls file (`!is_wall` on `rift_ground`):
+    /// cells of 60000/11, 40 x 40 from (1100000, 1100000), columns 20 and 21 wall, grown by one cell (`padded`): no hero
+    /// stands at x 1203636..1225455.
+    #[test]
+    fn on_the_rift_the_vault_stops_at_its_walls() {
+        let e = Map::Rift.extent();
+        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
+        let g = Walls::from_rows(&vec![row.as_str(); 40], 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded();
+        let ok = |q: Pt| !g.is_wall(q.0, q.1);
+        let vault = |map: Map, from: Pt, d: Pt, ok: &dyn Fn(Pt) -> bool| {
+            let (mut at, mut steps) = (from, 0);
+            while steps < E_BACK_T {
+                let Some(next) = vault_step(map, at, d, ok) else { break };
+                (at, steps) = (next, steps + 1);
+            }
+            (at, steps)
+        };
+        let y = 1_200_000.0;
+        assert!(ok((1_150_000.0, y)) && !ok((1_206_000.0, y)), "past 960000 is ground; the wall's cell is not");
+        // flipping back toward the wall: 5 of 20 steps of 2400, on her last good spot (the 6th, 1204400, is in the grown wall)
+        assert_eq!(vault(Map::Rift, (1_190_000.0, y), (1.0, 0.0), &ok), ((1_202_000.0, y), 5));
+        // away from it: the whole vault
+        assert_eq!(vault(Map::Rift, (1_190_000.0, y), (-1.0, 0.0), &ok), ((1_142_000.0, y), E_BACK_T));
+        // the game's own map: stand_ok never stops her - every step as before
+        let native = |q: Pt| stand_ok(Map::Native, q);
+        assert_eq!(vault(Map::Native, (500_000.0, 500_000.0), (1.0, 0.0), &native), ((548_000.0, 500_000.0), E_BACK_T));
+        assert_eq!(vault_step(Map::Native, (958_000.0, 5.0), (1.0, 0.0), native), Some(clamp(Map::Native, (962_000.0, 5.0))));
     }
 
     #[test]
@@ -642,9 +721,15 @@ mod tests {
     #[test]
     fn the_vault_is_one_forced_move_to_where_she_lands() {
         // 落点：朝冲过来的方向退 E_BACK x E_BACK_T，夹在地图里
-        assert_eq!(vault_to((500_000.0, 500_000.0), (-1.0, 0.0)), (452_000.0, 500_000.0));
-        assert_eq!(vault_to((10_000.0, 500_000.0), (-1.0, 0.0)), (0.0, 500_000.0));
-        let (x, y) = vault_to((500_000.0, 500_000.0), (0.6, 0.8));
+        let free = |_: Pt| true;
+        assert_eq!(vault_to(Map::Native, (500_000.0, 500_000.0), (-1.0, 0.0), free), (452_000.0, 500_000.0));
+        assert_eq!(vault_to(Map::Native, (10_000.0, 500_000.0), (-1.0, 0.0), free), (0.0, 500_000.0));
+        // 峡谷上第 6 步站不住：停在第 5 步，强制位移只走 5 tick
+        let wall = |q: Pt| q.0 > 487_000.0;
+        let stop = vault_to(Map::Rift, (500_000.0, 500_000.0), (-1.0, 0.0), wall);
+        assert_eq!(stop, (488_000.0, 500_000.0));
+        assert_eq!(vault_push((500_000.0, 500_000.0), stop), Some((-12_000, 0, 2400, 5)));
+        let (x, y) = vault_to(Map::Native, (500_000.0, 500_000.0), (0.6, 0.8), free);
         assert!((x - 528_800.0).abs() < 1e-6 && (y - 538_400.0).abs() < 1e-6);
         // 强制位移：整段的位移、每 tick 2400、20 tick；贴着地图边只剩一小段时 tick 数跟着少，每 tick 不超过 E_BACK
         assert_eq!(vault_push((500_000.0, 500_000.0), (452_000.0, 500_000.0)), Some((-48_000, 0, 2400, 20)));

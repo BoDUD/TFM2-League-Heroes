@@ -1125,3 +1125,46 @@ fn statistics_numbers_parse() {
     assert_eq!(find_num("{\"deal\":1534.5}", "deal"), Some(1534));
     assert_eq!(find_num("{\"deal_ad\":3}", "deal"), None);
 }
+
+/// 2026-11-26（Rin 峡谷 0.1.65 加了虚空巢虫和峡谷先锋，用户：「我们大小龙也要调一下进行适配了吧 时间不要冲突」）：地图 mod 自己的
+/// 史诗野怪就算也是 Epic / Serpen 实体，也不是我们的龙：不换成小龙，拿下没有纳什男爵之手、不算小龙层数。游戏自己的莫甘德照旧是
+/// 纳什男爵。
+#[test]
+fn the_maps_own_grubs_and_herald_are_neither_baron_nor_a_drake() {
+    log_to_temp();
+    let mut w = World::new(82, SimOriginKindV1::ServerPresim, CAST);
+    start(&mut w);
+    tick(&mut w);
+    let grub = w.spawn(Unit::new(EntityKindV1::Epic, 2, mock::EPIC_AT, "rift_voidgrub_L", 1_500));
+    let herald = w.spawn(Unit::new(EntityKindV1::Epic, 2, mock::EPIC_AT, "tfm2_rift_herald", 8_000));
+    let odd = w.spawn(Unit::new(EntityKindV1::Serpen, 2, mock::SERPEN_AT, "rift_voidgrub_R", 1_500));
+    advance(&mut w, SCAN + 1);
+    state(&w, |s| assert!(s.epic.is_none() && s.serpen.is_none(), "none of them is ours"));
+    assert!(w.units[odd].buffs.is_empty(), "no element marker on the map's monster");
+    w.secure(grub, 2);
+    w.secure(herald, 7);
+    advance(&mut w, PENDING_T + KEEP_EVERY + 2);
+    assert!((0..10).all(|p| w.has(p, rules::BARON).is_none()), "no Hand of Baron for a grub or the Herald");
+    state(&w, |s| assert_eq!((s.drakes, s.baron.iter().flatten().count()), (0, 0)));
+    // the game's own Morgard beside them: Baron Nashor as ever
+    let e = spawn_epic(&mut w);
+    state(&w, |s| assert_eq!(s.epic.map(|a| a.ent), Some(e)));
+    w.secure(e, 2);
+    tick(&mut w);
+    assert!((0..5).all(|p| w.has(p, rules::BARON).is_some()));
+}
+
+#[test]
+fn a_camp_is_ours_by_its_name() {
+    for n in ["serpen_monster", "serpen_jungle"] {
+        assert!(Camp::Serpen.own(Some(n)) && !Camp::Epic.own(Some(n)), "{n}");
+    }
+    for n in ["epic_monster", "epic_jungle", "morgard"] {
+        assert!(Camp::Epic.own(Some(n)) && !Camp::Serpen.own(Some(n)), "{n}");
+    }
+    for n in ["rift_voidgrub_L", "rift_voidgrub_R", "tfm2_rift_herald"] {
+        assert!(!Camp::Epic.own(Some(n)) && !Camp::Serpen.own(Some(n)), "{n}");
+    }
+    // a host that gives no name: as before, the kind decides
+    assert!(Camp::Epic.own(None) && Camp::Serpen.own(None));
+}
