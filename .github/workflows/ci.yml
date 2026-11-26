@@ -102,6 +102,8 @@ jobs:
           python -I addons/league_kogmaw/make_override.py --check
       - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
         run: python -I tools/kit/attack_self.py --check
+      - name: Spell voice lines - at most once in 10 s per hero and spell where the spell's sound plays (each has its own sound, the rewrite settles)
+        run: python -I tools/kit/vo_gate.py --check
       - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)
         run: python -I tools/kit/check_arm_refund.py
       - name: Range buffs are league.dll's league:range markers (no `range` on a buff, the attack reads them, table up to date)

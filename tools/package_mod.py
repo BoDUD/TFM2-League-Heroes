@@ -38,6 +38,8 @@ The game reads every mod file except background music into memory when it starts
   dropped. The game copies every hero's skill and skill2 trees each tick of a match, so their node count is CPU
   (docs/perf.md section 8); the same effects still run in the same order (classic simulation, 2026-10-18: every tick's
   events of 180 ten-minute games equal with and without it).
+  Then tools/kit/attack_self.py and tools/kit/vo_gate.py: the spells' cast voice lines with a .sound_info of their own
+  are played where the spell's sound plays, at most once every 10 s per hero and spell (2026-11-26).
 - Everything else is copied as it is.
 
 Every output is checked against its source: JSON equal after parsing (a .data_champion: equal to slim.py's
@@ -85,6 +87,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites
 import attack_self  # noqa: E402  what an attack does to its caster goes under a hidden projectile's hit
+import vo_gate  # noqa: E402  the spells' cast voice lines at most once in 10 s
 from audio_level import limiter  # noqa: E402
 GAME_DIRS = [
     r"C:\Program Files (x86)\Steam\steamapps\common\Teamfight Manager2",
@@ -664,9 +667,10 @@ def build(src, heroes, everything, workers):
                 kit = parse_json(raw, rel)
                 # then tools/kit/attack_self.py: an area on the caster run when the attack is thrown keeps the game's AI
                 # from attacking champions with the hero; it goes under a hidden projectile's hit (league_ heroes)
-                lean = attack_self.settle(slim.slim_champion(kit))
+                # and tools/kit/vo_gate.py: a spell's cast voice line at most once in 10 s where its sound plays
+                lean = vo_gate.gate(attack_self.settle(slim.slim_champion(kit)))
                 small = dump_min(lean)
-                if parse_json(small, rel) != lean or attack_self.settle(slim.slim_champion(lean)) != lean:
+                if parse_json(small, rel) != lean or vo_gate.gate(attack_self.settle(slim.slim_champion(lean))) != lean:
                     raise ValueError(f"{rel}: the slimmed kit does not read back as itself")
                 copied = ("skill", "skill2")
                 return [(rel, small)], ("nodes", (sum(slim.count(kit.get(s) or {}) for s in copied),
