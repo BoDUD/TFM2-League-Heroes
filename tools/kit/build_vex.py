@@ -1,38 +1,36 @@
-"""Build league_vex.data_champion (mid, Magician) from the parameters P.
+"""按参数表 P 生成 league_vex.data_champion（中单，Magician）。
 
     python tools/kit/build_vex.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
-Kit (the user's picks, 2026-10-20: mid, layout A - Q / E / R, W in the passive - with the add-on). TFM2 has three
-active slots: Mistral Bolt (Q) is `skill`, Looming Darkness (E) `skill2`, Shadow Surge (R) the `ult`; Personal Space
-(W) rides the attack: when an enemy champion stands within w_r as she attacks and W is ready, the attack becomes W.
-  passive Doom 'n Gloom (终焉暮气): Doom is ready while the flag `p_wait` is off (at the start, and p_cd ticks after it
-          was spent); her next Q, E or W spends it and that cast also fears every enemy it hits for p_fear ticks
-          (League: the next basic ability fears and interrupts dashes, every 25-18 s). The Shadow's eyes flash on her
-          (`p_ready`) when Doom is back.
-          Gloom (暮气): Looming Darkness marks the enemies it lands on (`g_mark`, g_t ticks). League consumes the mark
-          with her next damage on that enemy (g_dmg + g_ratio% AP) and shortens Doom's wait. Data reads no buff on
-          the target, so here a champion caught by E lays the caster flag `g_win` and her first Q, W or R hit on a
-          champion inside it deals the Gloom damage (`g_pop`) and ends it; the add-on does the real thing.
-  attack  a little dark bolt (100% AD), homing on `Enemy` (towers too), released on a_rel.
-  W       Personal Space (生人勿近), in the attack: when an enemy champion is within w_r and `w_cd` is off, the attack
-          plays `skill_w`: a shield (w_sh + w_sh_ratio% AP for w_sh_t ticks) and a shock wave around her (w_dmg +
-          w_ratio% AP to every enemy within w_r; with Doom also a fear).
-  skill   Q Mistral Bolt (寒心波云), `Targeting` on `EnemyWithoutTower` (q_range): a wave flies straight at the target
-          and through it (penetrating, q_len): q_dmg + q_ratio% AP to every enemy on the line. League's bolt slows down
-          and then speeds up; one speed here.
-  skill2  E Looming Darkness (溟濛渐染), `Targeting` on `EnemyWithoutTower` (e_range): the Shadow flies (a lob of
-          e_fly ticks) to the target's spot and spreads there (radius e_r): e_dmg + e_ratio% AP, e_slow% slow for
-          e_slow_t ticks and Gloom on every enemy.
-  ult     R Shadow Surge (愁煞), `Targeting` on `EnemyChampion` (r_range): a missile flies at the champion (homing):
-          r_dmg + r_ratio% AP and the mark (`r_mark`); r_wait ticks later she surges onto it (`ult_dash`, MoveToTarget)
-          and strikes (`ult_hit`): r2_dmg + r2_ratio% AP. League resets R when the marked champion dies within 6 s:
-          the add-on's.
-The add-on copy (--native, addons/league_vex): the passive league_vex:gloom reads the hits - a real Gloom on each
-enemy (E and any enemy who dashes within p_dash_r of her), consumed by her next damage on that enemy (g_dmg + g_ratio%
-AP) and taking g_cut% off Doom's wait; Shadow Surge comes back when its marked champion dies within r_reset ticks.
+技能方案（用户 2026-10-20：中单、方案 A——Q / E / R，W 进普攻，做附加包）。团战经理只有三个主动技能位：寒心波云（Q）是 `skill`，
+溟濛渐染（E）是 `skill2`，愁煞（R）是 `ult`；生人勿近（W）在普攻里：她普攻时 w_r 内有敌方英雄、W 的冷却好了，这一下就放 W。
+2026-11-26 照英雄联盟 V26.13 核对了一遍（docs/heroes/league_vex.md 的开发记录）：
+  被动 终焉暮气  终焉：`p_wait` 不在时就绪（开局、用掉 p_cd tick 后）；下一个 Q、E 或 W 用掉它，这一下打中的敌人恐惧 p_fear tick，
+          恐惧时减速 p_fslow%（英雄联盟：恐惧都带减速，按离她的远近 60%–99%）；恐惧前先 p_down tick 的击飞（英雄联盟的击倒：
+          打断冲刺，引擎里击飞会取消冲刺）。终焉回来时她头上睁开影子的眼睛（`p_ready`）。
+          暮气：溟濛渐染打中的敌人挂 `g_mark`（g_t tick）。英雄联盟里她下一次普攻或 Q / W 打中这个人就引爆。数据读不到敌人身上的
+          buff，主包的替代做法：E 打中英雄后她身上开一个窗口 `g_win`，窗口里她第一下打中英雄的普攻、Q 或 W 补暮气伤害
+          （g_dmg + g_ratio% 法强）；附加包照英雄联盟做。
+  普攻   一团暗影弹（100% 攻击），追着 `Enemy`（防御塔也打），a_rel 出手。
+  W      生人勿近，在普攻里：护盾 w_sh + w_sh_ratio% 法强（w_sh_t tick），身边 w_r 内的敌人受 w_dmg + w_ratio% 法强。
+  skill  Q 寒心波云，`Targeting`（q_dir=0；1 是 `Direction`）施放在 `EnemyWithoutTower`（q_range）。英雄联盟的波先慢后快、
+          先宽后窄：这里是两条线，宽的 `q_wave` 以 q_s1 飞到 q_l1（半径 q_w1，看得见），窄的 `q_dart` 晚一点出手、以 q_s2 飞到
+          q_len（半径 q_w），宽的那条飞完时窄的正好在它前面 q_gap（两条线判定的边贴着），宽的飞完（它的 end_effects 给她挂
+          `q_far`）才放开窄的打人：一个人不会被两条都打到。打中 q_dmg + q_ratio% 法强。英雄联盟出手就定死方向，这里 AI 不会
+          预判，定死方向（Direction）打中英雄的比例掉一截，所以指向目标：窄的那条对准它出手时目标的位置。
+  skill2 E 溟濛渐染，`Targeting` 在 `EnemyWithoutTower`（e_range）：影子（e_fly tick 的抛物线）飞到目标脚下扩散，半径 e_r：
+          e_dmg + e_ratio% 法强，减速 e_slow% e_slow_t tick，挂暮气。
+  ult    R 愁煞，`Targeting` 在 `EnemyChampion`（r_range）：影子飞弹追着英雄打：先挂标记 `r_mark`，再 r_dmg + r_ratio% 法强；
+          r_wait tick 后她冲过去（`ult_dash`），r_into=0 停在他 r_stop 外（佐伊大招的跳），1 冲到他身上（冲刺时免控，到了再打），
+          一击 r2_dmg + r2_ratio% 法强；生人勿近好了就落地放一次（英雄联盟的 R → W）。
+附加包的副本（--native，addons/league_vex）：被动 league_vex:gloom 读打中的标记——暮气挂在每个敌人身上（E 打中的、她 p_dash_r 内
+突进 / 闪现的英雄和野怪），她的普攻、Q、W 打中就引爆（伤害按等级，对英雄和对非英雄分开，终焉等待缩短 g_cut% / g_cut_u%）；
+终焉的冷却和恐惧时长按等级；恐惧由附加包放（E 的从 E 的中心往外跑，减速按离她的远近），击倒照旧是数据的；
+E 打死人也缩短终焉；愁煞冲不冲到他身上由附加包看能不能杀（`r_in`）；被标记的英雄 r_reset tick 内阵亡就刷新愁煞。
 """
 import argparse
 import json
+import math
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -55,33 +53,49 @@ BIG = "asset/league/effects/league_vex_big"
 # +1.44 / +0.97 (about +1.2, league_zoe +1.17, league_volibear +1.39). Timed to the strips (the releases earlier, W's
 # burst on its slam frame) +0.40 / +0.87; Q 105 +1.29 / +0.48, + the surge 230 +1.85 / +1.73, 215 +0.73 / +1.02, 225
 # +0.97 / +1.17 (about +1.1) = P.
+# 2026-11-26 照英雄联盟 V26.13 改（伤害、护盾、减速按英雄联盟各技能的比例，结果见开发记录）。
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Vex:
     # 590 +104 hp, 23 armour, 28 mr, 335 move, 550 range, attack speed 0.669
     "hp": 960, "hp_g": 95, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 910, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 6, "a_speed": 4500,
-    # passive Doom 'n Gloom (League: Doom every 25-18 s, fear 0.75 s; Gloom 6 s, 30-140 +20% AP, Doom -25%)
-    "p_cd": 900, "p_fear": 45, "g_t": 360, "g_dmg": 60, "g_ratio": 30,
-    # W Personal Space (League: 475 radius, 80-200 +30% AP, shield 50-130 +75% AP for 2.5 s, cd 16-12)
-    "w_r": 40000, "w_cd": 720, "w_dur": 27, "w_rel": 9, "w_dmg": 70, "w_ratio": 40, "w_sh": 60, "w_sh_ratio": 60,
+    # 被动（英雄联盟：终焉 25/22/19/16 秒、恐惧 0.75–1.5 秒按等级，恐惧时减速 60%–99%；暮气 6 秒，40–162.94 + 25% 法强）。
+    # 主包读不到等级，用 1 级的数；附加包按等级（见下面附加包那几行）
+    "p_cd": 900, "p_fear": 45, "p_fslow": 80, "p_down": 2, "g_t": 360, "g_dmg": 66, "g_ratio": 25,
+    # W 生人勿近（英雄联盟：半径 475，80–240 + 30% 法强，护盾 50–150 + 75% 法强 2.5 秒，冷却 16–12 秒）
+    "w_r": 40000, "w_cd": 720, "w_dur": 27, "w_rel": 9, "w_dmg": 105, "w_ratio": 30, "w_sh": 66, "w_sh_ratio": 75,
     "w_sh_t": 150,
-    # Q Mistral Bolt (League: 1200 range, 60-240 +60% AP, cd 8-4)
-    "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_speed": 4000, "q_len": 95000, "q_w": 8000,
+    # Q 寒心波云（英雄联盟：射程 1200，70–250 + 70% 法强，冷却 8–4 秒；先 600 的速度、360 宽飞 500，再 3200、160 宽）。
+    # 慢的一段 q_l1，快的那条飞完时在慢的前面 q_gap = 两条的半径 + 两个身位（判定边贴着，不重叠也不漏）
+    "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_dir": 0,
+    "q_s1": 2100, "q_w1": 18000, "q_l1": 39800, "q_s2": 10750, "q_w": 8000, "q_len": 95000, "q_gap": 46000,
     "q_dmg": 105, "q_ratio": 70,
-    # E Looming Darkness (League: 800 range, 50-170 +40-60% AP, slow 30-50% for 2 s, cd 13)
-    "e_cd": 600, "e_range": 70000, "e_dur": 30, "e_rel": 6, "e_fly": 18, "e_r": 22000, "e_dmg": 80, "e_ratio": 60,
-    "e_slow": 35, "e_slow_t": 120,
-    # R Shadow Surge (League: 2000-3000 range, 75-175 +20% AP mark, 150-350 +50% AP surge, cd 140-100)
-    "r_cd": 2100, "r_range": 110000, "r_dur": 27, "r_rel": 10, "r_speed": 5000, "r_dmg": 80, "r_ratio": 20,
-    "r_wait": 8, "r_dash": 4500, "r_dash_anim": 24, "r2_dmg": 225, "r2_ratio": 70, "r_hit_dur": 24,
-    "r_surge": 1, "r_recent": 0, "r_w": 1, "r_stop": 48000, "r_jspeed": 6000,
+    # E 溟濛渐染（英雄联盟：射程 800，半径 200–300 随施放距离，50–130 + 40–60% 法强，减速 30–50% 2 秒，冷却 12 秒（V26.13 从 13 改））
+    "e_cd": 554, "e_range": 70000, "e_dur": 30, "e_rel": 6, "e_fly": 18, "e_r": 25000, "e_dmg": 59, "e_ratio": 50,
+    "e_slow": 40, "e_slow_t": 120,
+    # R 愁煞（英雄联盟：射程 2000–3000，飞弹 75–175 + 20% 法强，冲过去 150–350 + 50% 法强，冷却 140–100 秒）
+    "r_cd": 2100, "r_range": 110000, "r_dur": 27, "r_rel": 10, "r_speed": 5000, "r_dmg": 82, "r_ratio": 20,
+    # 冲到他身上时到了以后第 r_hit_at tick 打（ult_hit 第 2 帧砸下，100 ms）
+    "r_wait": 8, "r_dash": 4500, "r_dash_anim": 24, "r2_dmg": 164, "r2_ratio": 50, "r_hit_dur": 24, "r_hit_at": 6,
+    "r_surge": 1, "r_recent": 0, "r_w": 1, "r_stop": 48000, "r_jspeed": 6000, "r_into": 0,
     "vo_gap": 600,
-    # the add-on (addons/league_vex): Gloom on enemies who dash within p_dash_r, Doom's wait cut by g_cut% per Gloom
-    # consumed, R back when its mark dies within r_reset ticks
-    "p_dash_r": 60000, "g_cut": 25, "r_reset": 360,
+    # 附加包（addons/league_vex）：终焉冷却 1 级 p_cd1，按英雄联盟的比例随等级缩短（一局下来平均和主包的 p_cd 差不多），
+    # 恐惧 p_fear 到 p_fear4 按等级，恐惧减速离她
+    # 越远越大（p_fs_lo% 到 p_fs_hi%，p_fs_d 外都是 p_fs_hi%）；暮气挂在 p_dash_r 内突进 / 闪现的人身上，引爆伤害 g_lo 到 g_hi
+    # （按等级）+ g_ratio%，对非英雄打 g_u_lo% 到 g_u_hi%，缩短终焉等待 g_cut% / g_cut_u%；E 打死英雄 / 别的缩短 e_cut_c% /
+    # e_cut%；愁煞标记后 r_reset tick 内阵亡，r_free tick 后能再放
+    "p_cd1": 1200, "p_fear4": 90, "p_fs_lo": 60, "p_fs_hi": 99, "p_fs_d": 80000,
+    "p_dash_r": 160000, "g_lo": 26, "g_hi": 107, "g_u_lo": 40, "g_u_hi": 60, "g_cut": 25, "g_cut_u": 10,
+    "e_cut": 10, "e_cut_c": 25, "r_reset": 480, "r_free": 30, "r_kill": 100, "r_crowd": 1,
+    # 副本里愁煞的冷却（附加包能刷新它）
+    "r_cd_c": 2520,
     "native": 0,
 }
+# 附加包被动读的参数（passive.params，全是非负整数）
+NATIVE_PARAMS = ("p_cd1", "p_fear", "p_fear4", "p_fs_lo", "p_fs_hi", "p_fs_d", "p_dash_r", "g_t", "g_lo", "g_hi",
+                 "g_ratio", "g_u_lo", "g_u_hi", "g_cut", "g_cut_u", "e_cut", "e_cut_c", "e_r", "e_fly", "r_reset",
+                 "r_free", "r_wait", "r_kill", "r_crowd", "r2_dmg", "r2_ratio", "w_dmg", "w_ratio")
 
 
 def lp(path):
@@ -222,29 +236,50 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
+def q_timing(p):
+    """寒心波云两条线的时间：(宽的飞几 tick，窄的晚几 tick 出手，窄的飞完时宽的停在哪 / 窄的在哪)。
+    一条线从出手那 tick 起每 tick 走 speed（第 k tick 在 speed × (k + 1)），飞到 range 就停。"""
+    t1 = math.ceil(p["q_l1"] / p["q_s1"])          # 宽的第 t1 - 1 tick 到头
+    t2 = math.ceil((p["q_l1"] + p["q_gap"]) / p["q_s2"])
+    lag = t1 - t2
+    if lag < 0:
+        raise SystemExit("q_s2 too slow: the dart cannot reach q_l1 + q_gap while the wave flies")
+    return t1, lag, p["q_l1"], p["q_s2"] * t2
+
+
 def build(p):
     native = bool(p["native"])
     # Doom: spent by the cast that finds `p_wait` off; the Shadow's eyes flash on her when it is back
     spend = combine(sfx("p_fear"), flag("p_wait", p["p_cd"]), delayed(p["p_cd"], cview("p_ready"), sfx("p_ready")))
-    # the add-on's copy: her hits (but E's) mark what they strike (`v_hit`, 2 ticks) for the add-on's Gloom, and the
-    # add-on shows Doom coming back (it shortens the wait)
+    # 附加包的副本：她的普攻、Q、W 打中的单位挂 2 tick 的 `v_hit`（E 和 R 不引爆暮气），终焉回来的画面由附加包放（等待会被缩短）
     vh = [buff("v_hit", 2)] if native else []
     if native:
-        spend = combine(sfx("p_fear"), flag("p_wait", p["p_cd"]))
+        spend = combine(sfx("p_fear"), flag("p_wait", p["p_cd1"]))
 
     def doomed(plain, feared):
         """`plain` normally; with Doom ready `feared` (the same cast with a fear) and Doom spent."""
         return sw("p_wait", plain, combine(spend, feared))
 
-    # Gloom (data's stand-in): her first Q / W / R hit on a champion inside E's window deals the Gloom damage
+    def scare(kind):
+        """终焉：先击倒（2 tick 的击飞，打断冲刺），再恐惧。主包是数据的恐惧加减速；副本只挂个标记，附加包按等级放恐惧
+        （`f_e`：从 E 的中心往外跑）。"""
+        down = {"type": "Airborne", "duration": p["p_down"]}
+        if native:
+            return [down, buff("f_e" if kind == "e" else "f_q", 2)]
+        return [down, fear(p["p_fear"]), buff("p_fslow", p["p_fear"], move_speed_mult=-p["p_fslow"])]
+
+    # 暮气（主包的替代做法）：E 开的窗口里，她第一下打中英雄的普攻、Q 或 W 补暮气伤害
     pop = NONE if native else sw("g_win", combine(*rm("g_win"), ap(p["g_dmg"], p["g_ratio"]), view("g_pop"),
                                                   tsfx("g_pop")))
 
     # ------------------------------------------------------------------ attack: the dark bolt / W Personal Space
-    plain = combine(sfx("a"), homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")] + vh, p["a_speed"]))
+    bolt_a = homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")] + vh, p["a_speed"])
+    # 主包：暮气窗口里普攻打中英雄也引爆（一颗只打英雄、看不见的同路弹）
+    plain = combine(sfx("a"), bolt_a) if native else combine(
+        sfx("a"), bolt_a, sw("g_win", homing("a_twin", "EnemyChampion", [pop], p["a_speed"])))
 
     def wave(scared):
-        hit = [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")] + vh + ([fear(p["p_fear"])] if scared else [])
+        hit = [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")] + vh + (scare("w") if scared else [])
         return combine(around(p["w_r"], "EnemyWithoutTower", hit), around(p["w_r"], "EnemyChampion", [pop]))
 
     def space(*pose, at=0):
@@ -264,46 +299,75 @@ def build(p):
                       combine(decoy(0, 100), delayed(p["a_rel"] - 1, alive(near))), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Mistral Bolt
-    def bolt(scared):
-        hit = [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")] + vh + ([fear(p["p_fear"])] if scared else [])
-        out = [line("q_bolt", p["q_speed"], p["q_len"], p["q_w"], "EnemyWithoutTower", hit, penetrate=True)]
+    # 宽的慢波先出手；它飞完（end_effects）给她挂 `q_far`，窄的快波这时才打人。窄的晚 lag tick 出手，宽的飞完那 tick
+    # 它在宽的前面 q_gap：宽的判定边在 q_l1 + q_w1 + 身位，窄的从 q_l1 + q_gap - q_w - 身位 起打，正好接上
+    t1, lag, _, _ = q_timing(p)
+
+    def bolt_hits(scared):
+        return [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")] + vh + (scare("q") if scared else [])
+
+    def slow_wave(scared):
+        out = [line("q_wave", p["q_s1"], p["q_l1"], p["q_w1"], "EnemyWithoutTower", bolt_hits(scared),
+                    end=[flag("q_far", 3)], penetrate=True, y=5000)]
         if not native:      # the Gloom on a champion rides a hidden champion-only twin
-            out.append(sw("g_win", line("q_twin", p["q_speed"], p["q_len"], p["q_w"], "EnemyChampion", [pop],
+            out.append(sw("g_win", line("q_twin", p["q_s1"], p["q_l1"], p["q_w1"], "EnemyChampion", [pop],
                                         penetrate=True, y=5000)))
         return combine(*out)
 
-    skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+    def fast_dart(scared):
+        out = [line("q_dart", p["q_s2"], p["q_len"], p["q_w"], "EnemyWithoutTower",
+                    [sw("q_far", combine(*bolt_hits(scared)))], penetrate=True, y=5000)]
+        if not native:
+            out.append(sw("g_win", line("q_twin2", p["q_s2"], p["q_len"], p["q_w"], "EnemyChampion",
+                                        [sw("q_far", pop)], penetrate=True, y=5000)))
+        return combine(*out)
+
+    # 终焉在宽的出手那一下用掉，给她挂 `q_scare`；窄的出手时照它带不带恐惧
+    q_go = alive(doomed(slow_wave(False), combine(slow_wave(True), flag("q_scare", lag + 2))), sfx("q_fly"))
+    q_dart_go = alive(sw("q_scare", combine(*rm("q_scare"), fast_dart(True)), fast_dart(False)))
+    skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Direction" if p["q_dir"] else "Targeting",
+                   "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ratio"], ap), sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, alive(doomed(bolt(False), bolt(True)), sfx("q_fly")))))
+                           delayed(p["q_rel"] - 1, q_go), delayed(p["q_rel"] - 1 + lag, q_dart_go)))
 
     # ------------------------------------------------------------------ skill2: E Looming Darkness
     def darkness(scared):
         hit = [ap(p["e_dmg"], p["e_ratio"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
-               buff("g_mark", p["g_t"]), tsfx("e_hit")] + ([fear(p["p_fear"])] if scared else [])
+               buff("g_mark", p["g_t"]), tsfx("e_hit")] + (scare("e") if scared else [])
         land = [view("e_land"), sfx("e_land"), zone("e_zone", p["e_r"], hit)]
         if not native:
             land.append(zone("e_gloom", p["e_r"], [refresh("g_win", p["g_t"])], "EnemyChampion"))
-        return combine(cview("e_cast"), lob("e_fly", p["e_fly"], land))
+        # 副本：出手时给目标挂 `e_aim`，附加包记下影子落在哪（恐惧往外跑的中心、打死人缩短终焉）
+        aim = [buff("e_aim", 2)] if native else []
+        return combine(cview("e_cast"), *aim, lob("e_fly", p["e_fly"], land))
 
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"], p["e_ratio"], ap), sfx("e"), voice("vo_e", p),
                             delayed(p["e_rel"] - 1, alive(doomed(darkness(False), darkness(True))))))
 
     # ------------------------------------------------------------------ ult: R Shadow Surge
-    # she lands with Personal Space when it is ready (League's R -> W)
-    strike = [ap(p["r2_dmg"], p["r2_ratio"]), view("r_hit"), tsfx("r_hit"), pop] + vh + (
+    # 生人勿近好了就落地放一次（英雄联盟的 R → W）；愁煞自己不引爆暮气（英雄联盟只有普攻和 Q、W）
+    strike = [ap(p["r2_dmg"], p["r2_ratio"]), view("r_hit"), tsfx("r_hit")] + (
         [sw("w_cd", NONE, space())] if p["r_w"] else [])
-    surge = {"type": "MoveToTarget", "speed": p["r_dash"], "range": p["r_range"] + 30000,
-             "end_effects": [anim("ult_hit", p["r_hit_dur"])]}
-    if p["r_stop"]:
-        # she surges only to r_stop short of the first champion on the way (league_zoe R's jump: a hidden line whose
-        # end teleports her) and strikes from there
-        surge = line("r_surge", p["r_jspeed"], p["r_range"] + 30000, p["r_stop"], "EnemyChampion", [],
-                     end=[{"type": "Teleport"}, anim("ult_hit", p["r_hit_dur"])], y=5000)
-    marked = [ap(p["r_dmg"], p["r_ratio"]), buff("r_mark", p["r_wait"] + 30), tsfx("r_mark"), *vh,
-              delayed(p["r_wait"], anim("ult_dash", p["r_dash_anim"]), sfx("r_dash"), surge,
-                      delayed(p["r_dash_anim"] // 2, *strike)) if p["r_surge"] else delayed(p["r_wait"], *strike)]
-    ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting",
+    # 停在他 r_stop 外：佐伊大招的跳——一条看不见的线碰到第一个英雄就停、终点把她放过去，再从那里打
+    surge_out = combine(anim("ult_dash", p["r_dash_anim"]), sfx("r_dash"),
+                        line("r_surge", p["r_jspeed"], p["r_range"] + 30000, p["r_stop"], "EnemyChampion", [],
+                             end=[{"type": "Teleport"}, anim("ult_hit", p["r_hit_dur"])], y=5000),
+                        delayed(p["r_dash_anim"] // 2, *strike))
+    # 冲到他身上（英雄联盟）：一直追，冲刺时免控，到了才打
+    surge_in = combine(flag("r_safe", p["r_dash_anim"] + 6, cc_immune=True), anim("ult_dash", p["r_dash_anim"]),
+                       sfx("r_dash"),
+                       {"type": "MoveToTarget", "speed": p["r_dash"], "range": 400000,
+                        "end_effects": [*rm("r_safe"), anim("ult_hit", p["r_hit_dur"]),
+                                        delayed(p["r_hit_at"], *strike)]})
+    if native:
+        surge = sw("r_in", combine(*rm("r_in"), surge_in), surge_out)
+    else:
+        surge = surge_in if p["r_into"] else surge_out
+    # 标记先挂上再扣血：飞弹自己打死他也算（附加包看得到标记）
+    marked = [buff("r_mark", p["r_wait"] + 30), ap(p["r_dmg"], p["r_ratio"]), tsfx("r_mark"),
+              delayed(p["r_wait"], alive(surge)) if p["r_surge"] else delayed(p["r_wait"], *strike)]
+    ult = action("ult", p["r_dur"], p["r_cd_c"] if native else p["r_cd"], 1, p["r_range"], "Targeting",
                  "EnemyChampionRecentlyAttacked" if p["r_recent"] else "EnemyChampion",
                  combine(decoy(p["r_dmg"] + p["r2_dmg"], p["r_ratio"] + p["r2_ratio"], ap), sfx("r"), voice("vo_r", p),
                          delayed(p["r_rel"] - 1, alive(homing("r_missile", "EnemyChampion", marked, p["r_speed"]),
@@ -316,7 +380,7 @@ def build(p):
                                       "z": z}
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
-    views_p = [Pj("a_bolt"), Pj("q_bolt"), Pj("r_missile")]
+    views_p = [Pj("a_bolt"), Pj("q_wave"), Pj("q_dart"), Pj("r_missile")]
     views_e = [E("a_hit"), E("q_hit"), E("w_hit"), E("w_ring", BIG, -1), E("w_shield", FX, 3), E("e_cast", FX, 3),
                E("e_land", BIG, -1, False), E("r_hit"), E("p_ready", FX, 3)]
     if not native:
@@ -324,8 +388,7 @@ def build(p):
     views_b = [B_("e_slow", FX, -1), B_("g_mark", FX, 3), B_("r_mark", FX, 3)]
     extra = {}
     if native:
-        extra["passive"] = {"passive_ref": "league_vex:gloom", "params": {
-            k: p[k] for k in ("p_cd", "p_dash_r", "g_t", "g_dmg", "g_ratio", "g_cut", "r_reset")}}
+        extra["passive"] = {"passive_ref": "league_vex:gloom", "params": {k: p[k] for k in NATIVE_PARAMS}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
