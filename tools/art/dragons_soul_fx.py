@@ -882,7 +882,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--preview")
+    ap.add_argument("--procedural", action="store_true",
+                    help="overwrite the sheet with this script's drawing (it is Codex's art since 0.5.9)")
     args = ap.parse_args()
+    # 0.5.9（2026-11-26，用户：「小龙的特效也借这次机会重做怎么样 让codex 一起重新再整理一下」）起图集是 Codex 重画的，
+    # 源头是图集本身（tools/art/fx_frames.py dump 拆成一帧一张、改完 build 拼回去）；这个脚本画的是 0.5.8 以前的那版
+    if not args.preview and not args.procedural:
+        sys.exit("the sheet is Codex's art since 0.5.9: edit it with tools/art/fx_frames.py (dump / build); "
+                 "--procedural overwrites it with this script's old drawing")
     anims = animations()
     sheet, rows = pack(anims)
     text = table(rows, (sheet.shape[1], sheet.shape[0]))
