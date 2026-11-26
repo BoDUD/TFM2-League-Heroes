@@ -58,7 +58,7 @@ def merge(into, more, path=""):
 
 
 # add-ons that are mods of their own (see the docstring): never in the bundle
-STANDALONE = ("league_dragons", "league_hextech")
+STANDALONE = ("league_dragons", "league_hextech", "league_esports")
 
 
 def standalone(a):

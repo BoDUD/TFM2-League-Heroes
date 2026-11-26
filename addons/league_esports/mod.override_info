@@ -1,0 +1,6 @@
+{
+  "asset/base/text/ui": {
+    "remapping": "asset/league_esports/text/ui",
+    "type": "merge"
+  }
+}
