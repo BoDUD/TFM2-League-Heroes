@@ -794,3 +794,143 @@ fn forgetting_an_augment_takes_its_stacks_off() {
     assert_eq!(b.w.has(0, procs::b2::D_LICH), 0);
     assert_eq!(b.p.stacks(0), (0, 0));
 }
+
+// ===================== 全部过一遍（用户 2026-11-27：「海克斯乱斗确定全生效了吗」） =====================
+
+/// 一段把各种时机都凑齐的比赛：3 号（蓝方下路）普攻、技能、技能 2 轮流放，每 10 次放一次大招；8 号、9 号（红方）在旁边一直挨打
+/// （`far`：放到 70000 以外，「远处命中」那几个看的），3 号自己也一直挨打；中途控住 8 号、参与击杀、队友 4 号残血、8 号残血，3 号
+/// 掉到 45% / 14% / 7.5%，回满，拿到护盾，位移一下，掉到 0.5%（亡命之徒叠满时），阵亡再复活。8 号的最大生命比 3 号高（巨人杀手）。
+/// -> 留下了什么：伤害、回复、护盾、控制、减冷却、隐身、金币的次数，挂过的本包 buff 名。
+fn sweep_scenario(b: &mut Bench, far: bool) -> String {
+    use std::collections::BTreeSet;
+    let (d8, d9) = if far { (70_000, 75_000) } else { (30_000, 50_000) };
+    b.near(8, 3, d8);
+    b.near(9, 3, d9);
+    b.near(4, 3, 10_000);
+    {
+        let e = b.w.champ_mut(8);
+        e.max = 3000;
+        e.hp = 3000;
+    }
+    let mut buffs: BTreeSet<String> = BTreeSet::new();
+    let look = |b: &Bench, buffs: &mut BTreeSet<String>| {
+        for u in &b.w.units {
+            for x in &u.buffs {
+                let n = x.name();
+                if n.starts_with("league_hextech_") || n.starts_with("league_dragons_baron") {
+                    buffs.insert(n.to_string());
+                }
+            }
+        }
+    };
+    b.go(2);
+    look(b, &mut buffs);
+    for i in 0..64usize {
+        let t = b.w.tick;
+        match i % 3 {
+            0 => b.attack(3),
+            1 => b.w.players[3].cds[1] += 600,
+            _ => b.w.players[3].cds[2] += 900,
+        }
+        if i % 10 == 9 {
+            b.w.players[3].cds[3] += 3000;
+        }
+        // 刚放过技能时 8 号挂上眩晕（控住），过两次拿掉，下回又是新挂上的
+        if i % 6 == 2 {
+            b.w.champ_mut(8).cc.push(CcV1::stun(30));
+        } else if i % 6 == 4 {
+            b.w.champ_mut(8).cc.clear();
+        }
+        if matches!(i, 5 | 15 | 25 | 35) {
+            b.w.kills.push(KillLogV1 { tick: 0, killer_team: 0, killer_position: 3, killed_position: 0, assist_count: 0,
+                                       assist_positions: [0; 4] });
+        }
+        match i {
+            20 => b.w.champ_mut(4).hp = 600,
+            22 => b.w.champ_mut(8).hp = 700,
+            24 => b.w.champ_mut(4).hp = 2000,
+            30 => b.w.champ_mut(3).hp = 900,
+            32 => b.w.champ_mut(3).hp = 280,
+            34 => b.w.champ_mut(3).hp = 150,
+            36 => b.w.champ_mut(3).hp = 2000,
+            38 => b.w.champ_mut(3).shield += 300,
+            40 => {
+                let p = b.w.champ(3).pos;
+                b.w.champ_mut(3).pos = (p.0 + 20_000, p.1);
+            }
+            46 => b.w.champ_mut(3).hp = 10,
+            52 => b.w.die(3),
+            53 => b.w.respawn(3),
+            _ => {}
+        }
+        if b.w.champ(8).hp < 300 {
+            b.w.champ_mut(8).hp = 3000;
+        }
+        b.strike(3, 8, 60);
+        b.strike(3, 9, 40);
+        if !(44..=50).contains(&i) {
+            b.w.hurt(3, 20);
+        }
+        b.go(t + 24);
+        look(b, &mut buffs);
+    }
+    let w = &b.w;
+    let mut out = Vec::new();
+    for (k, n) in [("hits", w.hits.len()), ("heals", w.heals.len()), ("shields", w.shields.len()), ("cc", w.ccs.len()),
+                   ("cooldowns", w.reduced.len()), ("invisible", w.invisible.len()), ("gold", w.golds.len())] {
+        if n > 0 {
+            out.push(format!("{k} {n}"));
+        }
+    }
+    if !buffs.is_empty() {
+        out.push(format!("buffs {}", buffs.into_iter().collect::<Vec<_>>().join(",")));
+    }
+    out.join("; ")
+}
+
+/// 每个触发类海克斯单独挂在 3 号身上跑 [`sweep_scenario`]，都得留下点什么，也都得记进 `count`（0.5.2 的 END / TALLY 按它数）。
+/// 属性类（看它的 buff 上有数）、歌利亚巨人（体型由高清帧引擎按它的 buff 放大）、质变 / 潘朵拉的盒子（选的时候在 lib.rs 换
+/// 海克斯，`tests.rs` 里测）不在这里。
+#[test]
+fn every_triggered_augment_does_something() {
+    use super::augments::{buff_for, AUGS};
+    let skip = [Ev::Stat, Ev::Goliath, Ev::TransmuteChaos, Ev::TransmutePrismatic, Ev::Pandora];
+    let far = [Ev::FromDowntown, Ev::SkilledSniper];
+    let mut silent = Vec::new();
+    let mut uncounted = Vec::new();
+    for (i, a) in AUGS.iter().enumerate() {
+        if a.ev == Ev::Stat || a.ev == Ev::Goliath {
+            // 属性类：buff 上至少有一项不是 0
+            let b = buff_for(i, false);
+            assert_ne!(b, BuffV1::named(b.name()), "{}: a stat augment with no stat", a.key);
+            continue;
+        }
+        if skip.contains(&a.ev) {
+            continue;
+        }
+        let mut b = Bench::new(&[(3, &[a.ev])]);
+        let got = sweep_scenario(&mut b, far.contains(&a.ev));
+        eprintln!("SWEEP {:<26} {got}", a.key);
+        // 0.5.2：结束那一行、TALLY 按 `count` 数，起了作用就得记上
+        if b.p.count[a.ev as usize] == 0 {
+            uncounted.push(a.key);
+        }
+        if got.is_empty() {
+            silent.push(a.key);
+        }
+    }
+    assert!(silent.is_empty(), "these did nothing: {silent:?}");
+    assert!(uncounted.is_empty(), "these worked but were not counted: {uncounted:?}");
+}
+
+/// 舞会女王：冲刺时碰到（15000 以内）的敌方英雄被魅惑，每人一次（上面那段比赛里敌人在 30000 外，只看到冲刺）。
+#[test]
+fn prom_queen_charms_whoever_she_touches() {
+    let mut b = Bench::new(&[(3, &[Ev::PromQueen])]);
+    b.near(8, 3, 10_000);
+    b.go(2);
+    b.go(40);
+    let them = b.w.ent(8);
+    let charms = b.w.ccs.iter().filter(|(e, c)| *e == them && c.kind == CcKindV1::Charm.code()).count();
+    assert_eq!(charms, 1, "charmed once: {:?}", b.w.ccs);
+}

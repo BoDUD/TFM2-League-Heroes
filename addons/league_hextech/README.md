@@ -1,4 +1,4 @@
-# 海克斯大乱斗（league_hextech，v0.5.1，单独的 mod）
+# 海克斯大乱斗（league_hextech，v0.5.2，单独的 mod）
 
 用户 2026-11-26：「分析一下这个项目能做海克斯乱斗那种模式对局里选海克斯吗 如果能的话和我说怎么做 设计方案」，
 「海克斯可以让玩家自己选 AI就自动选」，「这游戏最高等级都没15级吧」，然后「开始第 1 步」。
@@ -301,6 +301,27 @@ All For You，引擎没有这个属性）；让人变小的。
 从开局 600 tick 内跑起来的是新的一遍，把这一局记着的选择、特效、结束、档位扔掉跟新的；签名不一样、已经跑到后面的是旧那一遍，
 它后面的事不再往屏幕上记（大小龙 0.5.13 同一个毛病，规则一样）。
 
+### 0.5.2：每局结束时数一数每个海克斯起没起作用
+
+用户 2026-11-27：「海克斯乱斗确定全生效了吗」，然后「做 0.5.2」。测试里 140 个都起作用（见下面的测试），游戏里却看不全：预演、后台比赛
+的 `PROC` 一次启动只记前 40 条；`END` 只列每个人拿了什么、整局每种触发了几次，也按条数限。现在：
+
+- `END` 写每个人的每个海克斯这一局怎么样：会触发的写触发了几次，属性类（和歌利亚巨人）写 buff 在不在他身上（`on` / `MISSING`，
+  人死着写 `dead`），最后一段列拿着却没起作用的；
+- 新的 `TALLY`（`src/tally.rs`）：这次启动以来结束的每份模拟都算，不限条数。每个海克斯「起作用的局数 / 拿着的局数」和一共触发了几次，
+  拿着却一次没起作用的排最前面，然后是还没人拿过的；屏幕上那一场结束时和每结束 20 份写一行。只记数，不碰比赛；
+- 14 个起了作用却没记数的补上了：巫妖之脑、家园卫士、孤勇者、收割在望、坚定之姿、还在这里、尤里卡、物理转魔法、魔法转物理（随场上变的
+  属性，每挂上一个新的档算一次）、亡命之徒（倒下那一下算一次，站起来不另算）、男爵之手（挂上加成、给身边小兵加成各算一次）、面包和黄油、
+  面包和果酱、急速追加（缩短了冷却算一次）；质变、潘朵拉的盒子给出海克斯算一次；
+- 加载那一行的数改成数出来的：0.3.0 写死的「20 个属性类、27 个触发类」，现在是 24 个属性类、116 个比赛里起作用的。
+
+测试：`every_triggered_augment_does_something`（`procs_tests.rs`）——每个触发类单独装在一个人身上，跑一局把各种时机凑齐的比赛（普攻、
+技能、大招、控住敌人、击杀、队友残血、自己掉到 45% / 14% / 7.5%、护盾、位移、阵亡复活），都得留下伤害、回复、护盾、控制、减冷却、
+隐身、金币、buff 之一，也都得记进计数；`every_augment_gets_taken_by_somebody`（`rules.rs`）——6 种分类 × 物理 / 法术 / 都有 × 带不带
+控制 × 有没有治疗 × 5 个分路各打 40 局，AI 140 个都拿过，最少的玻璃大炮 57600 次里 26 次；`the_end_books_every_augment_held_once`
+（`tests.rs`）——结束时记一笔、只记一次，buff 不在的排进「拿着却没起作用」，人死着的不算；`the_book_puts_the_quiet_ones_first`
+（`tally.rs`）。
+
 ## 四、屏幕上（`src/screen.rs`）
 
 屏幕放的那场模拟（自己的比赛、观战、回放）里每次选择记一条（`src/feed.rs`，模拟从来不读它），客户端扩展按屏幕上的比赛时钟
@@ -387,7 +408,12 @@ BP 画面（游戏的 `asset/base/ui/layout/banpick/layout`，1920x1080）：英
   （`by lane` = 表里没有、按分路猜的）；
 - `PICK leesin(p1 blue lane1) #2 at level 6 (Gold, mood +0.00): deft->lethal_precision 0.95, … -> lethal_precision`：三张卡
   （`a->b` 是刷新掉 a 换来 b）和各自的分、拿了哪张（`by the player` 玩家点的、`by the pick screen's AI default` 面板上没动的）；
-- `KEEP … put back on #219 (respawned)`：复活后补回；`END`：每个人拿到的、每种触发了几次（`procs: firebrand 12, …`）；
+- `KEEP … put back on #219 (respawned)`：复活后补回；`END sim #n (presim): jinx(p3 blue lane3): firebrand 12, stats 1,
+  celestial_body on; … | held but quiet in this match: shark_bait (jinx(p3 blue lane3))`：每个人拿到的每个海克斯这一局触发了几次
+  （属性类：`on` buff 在身上、`MISSING` 不在、`dead` 人死着），最后是拿着却没起作用的（0.5.2）；
+- `TALLY 120 simulations ended since the game started, 131 of 140 augments held at least once | held but never worked: … |
+  never held yet (9): … | worked / held (times fired): chain_lightning 24/24 x310, celestial_body 9/9, …`（0.5.2）：这次启动以来
+  结束的每份模拟都算（不限条数），屏幕上那一场结束时和每结束 20 份一行；
 - `PROC firebrand jinx(p3 blue lane3) ignites …`、`PROC chain_lightning …: 156 magic to [...]`：触发类出效果（屏幕那一场前 80 行、
   之后每 40 行一行；预演、后台比赛按条数限）；
 - `FX m=… s=… t=… on screen at …: Burn at (…) -> (…) on the "Game" map, z 1, sprites on`：每种特效第一次画出来；`WORLD on / off`、

@@ -449,4 +449,54 @@ pub(crate) mod tests {
         assert_eq!(mood(-40), -1.0);
         assert_eq!(mood(4), 0.5);
     }
+
+    /// 用户 2026-11-27：「海克斯乱斗确定全生效了吗」。AI 那几队的卡是 AI 自己在比赛里选的：游戏的六种分类 × 物理 / 法术 / 都有 ×
+    /// 带不带控制 × 有没有治疗 × 五个分路，各打 40 局（落后、持平、领先轮着来），每个海克斯都得有人拿过——谁都不拿的，AI 那几队
+    /// 里永远见不到。
+    #[test]
+    fn every_augment_gets_taken_by_somebody() {
+        use super::super::kit::{from_kit, Kit};
+        use mod_api_stable::{ChampionCategoryV1 as C, ChampionTagV1 as G, LaneV1};
+        let mut got = vec![0usize; AUGS.len()];
+        let mut n = 0u64;
+        for cat in [C::Melee, C::Range, C::Magician, C::Util, C::Assassin, C::Tank] {
+            for dmg in [&[G::Ad][..], &[G::Ap], &[G::Ad, G::Ap]] {
+                for (cc, aid) in [(false, false), (true, false), (false, true), (true, true)] {
+                    let mut tags = dmg.to_vec();
+                    if cc {
+                        tags.push(G::Cc);
+                    }
+                    if aid {
+                        tags.push(G::Heal);
+                    }
+                    let kit = Kit { category: Some(cat), tags };
+                    for lane in [LaneV1::Top, LaneV1::Jungle, LaneV1::Mid, LaneV1::Bottom, LaneV1::Support] {
+                        let t = from_kit(&kit, Some(lane));
+                        for game in 0..40u64 {
+                            n += 1;
+                            let seed = splitmix(n);
+                            let m = [-0.5f32, 0.0, 0.5][(game % 3) as usize];
+                            let mut taken = Vec::new();
+                            for (k, &tier) in tiers(seed, [35, 45, 20]).iter().enumerate() {
+                                let mut rng = Rng::new(pick_seed(seed, 3, k));
+                                if let Some(s) = choose(&t, &taken, m, &mut rng, tier) {
+                                    got[s.chosen] += 1;
+                                    taken.push(s.chosen);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        let mut order: Vec<usize> = (0..AUGS.len()).collect();
+        order.sort_by_key(|&a| got[a]);
+        let total: usize = got.iter().sum();
+        for &a in order.iter().take(25) {
+            eprintln!("TAKEN {:<26} {:?} {}", AUGS[a].key, AUGS[a].tier, got[a]);
+        }
+        eprintln!("TAKEN total {total} picks over {n} games");
+        let never: Vec<&str> = order.iter().filter(|&&a| got[a] == 0).map(|&a| AUGS[a].key).collect();
+        assert!(never.is_empty(), "nobody takes these: {never:?}");
+    }
 }

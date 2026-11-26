@@ -468,26 +468,27 @@ impl Procs {
         self.pls[h].ready[ev as usize] = until;
     }
 
-    /// 一个随场上变的属性：档变了（或者换了身体）才重挂；档是 0 就摘掉。
+    /// 一个随场上变的属性：档变了（或者换了身体）才重挂；档是 0 就摘掉。-> 这一次挂上了（不是 0 的档）没有（0.5.2：算一次触发）
     pub(super) fn dyn_set(&mut self, sim: &mut StableSim<'_>, h: usize, ent: usize, name: &'static str, key: i64,
-               build: impl FnOnce(i64) -> BuffV1) {
+               build: impl FnOnce(i64) -> BuffV1) -> bool {
         let on = &mut self.pls[h].b2.dyn_on;
         let at = on.iter().position(|x| x.0 == name);
         if let Some(i) = at {
             if on[i].1 == ent && on[i].2 == key {
-                return;
+                return false;
             }
             if on[i].1 == ent {
                 sim.entity_remove_buff(ent, name);
             }
             on.remove(i);
         } else if key == 0 {
-            return;
+            return false;
         }
         if key != 0 {
             sim.add_buff(ent, &build(key));
         }
         self.pls[h].b2.dyn_on.push((name, ent, key));
+        key != 0
     }
 
     /// 叠一层限时的（`most` 层封顶，再叠刷新时间）。
@@ -613,71 +614,89 @@ impl Procs {
         // ---------- 随场上变的属性 ----------
         if has(Ev::LichBrain) {
             let key = (me.max * LICH_PCT / 100 / 10 * 10) as i64;
-            self.dyn_set(sim, h, me.ent, D_LICH, key, |k| named(D_LICH, |b| b.magic_power = k as i32));
+            if self.dyn_set(sim, h, me.ent, D_LICH, key, |k| named(D_LICH, |b| b.magic_power = k as i32)) {
+                self.fire(Ev::LichBrain);
+            }
         }
         if has(Ev::Homeguard) {
             let on = self.pls[h].last_hurt.is_none_or(|t| now >= t + HOME_IDLE);
-            self.dyn_set(sim, h, me.ent, D_HOME, on as i64, |_| named(D_HOME, |b| b.move_speed_mult = HOME_MS));
+            if self.dyn_set(sim, h, me.ent, D_HOME, on as i64, |_| named(D_HOME, |b| b.move_speed_mult = HOME_MS)) {
+                self.fire(Ev::Homeguard);
+            }
         }
         if has(Ev::LonelyWarrior) {
             let n = enemies_near(looks, h, me.pos, LONELY_R).len().min(LONELY_MOST) as i64;
-            self.dyn_set(sim, h, me.ent, D_LONELY, n, |n| {
+            if self.dyn_set(sim, h, me.ent, D_LONELY, n, |n| {
                 named(D_LONELY, |b| {
                     b.attack_speed_mult = LONELY_AS * n as i32;
                     b.defence = LONELY_RES * n as i32;
                     b.magic_resistance = LONELY_RES * n as i32;
                 })
-            });
+            }) {
+                self.fire(Ev::LonelyWarrior);
+            }
         }
         if has(Ev::KillSecured) {
             let on = enemies_near(looks, h, me.pos, KILLSEC_R).iter().any(|&v| below(looks[v].hp, looks[v].max, KILLSEC_PCT));
-            self.dyn_set(sim, h, me.ent, D_KILLSEC, on as i64, |_| named(D_KILLSEC, |b| b.move_speed_mult = KILLSEC_MS));
+            if self.dyn_set(sim, h, me.ent, D_KILLSEC, on as i64, |_| named(D_KILLSEC, |b| b.move_speed_mult = KILLSEC_MS)) {
+                self.fire(Ev::KillSecured);
+            }
         }
         if has(Ev::Steadfast) {
             let on = below(me.hp, me.max, STEAD_PCT);
-            self.dyn_set(sim, h, me.ent, D_STEAD, on as i64, |_| {
+            if self.dyn_set(sim, h, me.ent, D_STEAD, on as i64, |_| {
                 named(D_STEAD, |b| {
                     b.toughness = 20;
                     b.defence_mult = 16;
                     b.magic_resistance_mult = 16;
                 })
-            });
+            }) {
+                self.fire(Ev::Steadfast);
+            }
         }
         if has(Ev::StillHere) && me.max > 0 {
             let tenths = (me.max.saturating_sub(me.hp) * 10 / me.max).min(9) as i64;
-            self.dyn_set(sim, h, me.ent, D_STILL, tenths, |k| {
+            if self.dyn_set(sim, h, me.ent, D_STILL, tenths, |k| {
                 named(D_STILL, |b| {
                     b.attack_speed_mult = STILL_AS * k as i32;
                     b.vamp = STILL_VAMP * k as i32;
                 })
-            });
+            }) {
+                self.fire(Ev::StillHere);
+            }
         }
         if has(Ev::Eureka) {
             let haste = (ap * EUREKA_PER_100 / 100 / 5 * 5) as i64;
-            self.dyn_set(sim, h, me.ent, D_EUREKA, haste, |k| {
+            if self.dyn_set(sim, h, me.ent, D_EUREKA, haste, |k| {
                 named(D_EUREKA, |b| {
                     b.skill_cooldown_mult = k as i32;
                     b.ult_cooldown_mult = k as i32;
                 })
-            });
+            }) {
+                self.fire(Ev::Eureka);
+            }
         }
         if has(Ev::Adapt) {
             let bonus = ad.saturating_sub(self.pls[h].b2.ad0.unwrap_or(ad)) / 5 * 5;
-            self.dyn_set(sim, h, me.ent, D_ADAPT, bonus as i64 + 1, |k| {
+            if self.dyn_set(sim, h, me.ent, D_ADAPT, bonus as i64 + 1, |k| {
                 named(D_ADAPT, |b| {
                     b.magic_power = ((k - 1) as usize * 10 / ADAPT_AD_X10) as i32;
                     b.magic_power_mult = ADAPT_AP_MULT;
                 })
-            });
+            }) {
+                self.fire(Ev::Adapt);
+            }
         }
         if has(Ev::Escapade) {
             let key = (ap / 5 * 5) as i64 + 1;
-            self.dyn_set(sim, h, me.ent, D_ESCAPADE, key, |k| {
+            if self.dyn_set(sim, h, me.ent, D_ESCAPADE, key, |k| {
                 named(D_ESCAPADE, |b| {
                     b.attack = ((k - 1) as usize * 100 / ESC_AP_X100) as i32;
                     b.attack_mult = ESC_AD_MULT;
                 })
-            });
+            }) {
+                self.fire(Ev::Escapade);
+            }
         }
         if has(Ev::HeavyCrown) {
             if takedowns > 0 && self.pls[h].b2.crown < CROWN_MOST {
@@ -1105,6 +1124,7 @@ impl Procs {
                     }));
                     sim.apply_cc(me.ent, &CcV1::stun(HELL_DOWN as u64));
                     self.own_cc.push((me.ent, now + HELL_DOWN + EVERY));
+                    self.fire(Ev::Hellbent);
                     self.later.push(Later::Revive { holder: h, hent: me.ent, at: now + HELL_DOWN });
                     self.holy(screen, h, me.ent, now, HELL_DOWN);
                     self.say(screen, || format!("PROC hellbent {}: lethal damage at full stacks - down for 4 s", names[h]));
@@ -1472,7 +1492,6 @@ impl Procs {
                         b.move_speed_mult = hell_ms(level) as i32;
                         b.vamp = hell_vamp(level) as i32;
                     }));
-                    self.fire(Ev::Hellbent);
                     self.say(screen, || format!("PROC hellbent {}: back up at {}% max health", names[holder],
                                                 hell_hp_pct(level)));
                     self.show(screen, now, Show::Dawn, me.pos, Vec::new(), 0);

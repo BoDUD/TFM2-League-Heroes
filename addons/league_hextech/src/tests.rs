@@ -8,7 +8,7 @@ use mod_api_stable::*;
 use super::augments::{self, Tier, AUGS};
 use super::kit::{self, Kit};
 use super::mock::{with_sim, World};
-use super::{feed, Hextech, KEEP_EVERY, OPEN_AT, SIM_TAG};
+use super::{feed, tally, Hextech, KEEP_EVERY, OPEN_AT, SIM_TAG};
 
 /// 动全局（模拟的表、feed、英雄特性表）的测试一个一个来。
 pub(crate) static GLOBALS: Mutex<()> = Mutex::new(());
@@ -356,4 +356,70 @@ fn the_players_pick_screen_record_drives_his_side() {
     assert_eq!(pending::take_unsaved().len(), 1);
     pending::clear();
     feed::clear();
+}
+
+/// 0.5.2（用户 2026-11-27：「海克斯乱斗确定全生效了吗」→「做 0.5.2」）：每份模拟结束时记进 [`tally`] 一笔、只记一次。开局拿的
+/// 都算「拿着」；属性类的 buff 在活着的人身上算起了作用，不在算没起作用（`TALLY` 里排最前面）；拿着它的人死着结束，这一局不算。
+#[test]
+fn the_end_books_every_augment_held_once() {
+    let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+    kit::reset_for_test(Vec::new());
+    feed::clear();
+    let index = |name: &str| (0..AUGS.len()).find(|&a| augments::buff_name(a) == name).unwrap();
+    let opening = |w: &World| -> Vec<usize> { (0..10).map(|p| index(&w.augs(p)[0])).collect() };
+    let parts = |l: &str| -> Vec<String> { l.split(" | ").map(|x| x.to_string()).collect() };
+    let listed = |part: &str, entry: &str| part.contains(&format!(" {entry}"));
+
+    // 正常结束：开局的 10 个（重复的算一个）各记「拿着」一次，属性类的都在身上；结束以后再跑也不多记
+    tally::reset_for_test();
+    let mut w = world(4321, SimOriginKindV1::ServerPresim, 0);
+    start(&mut w);
+    run_to(&mut w, 100);
+    let mut held = opening(&w);
+    held.sort();
+    held.dedup();
+    w.end = true;
+    run_to(&mut w, 101);
+    run_to(&mut w, 140);
+    let l = tally::line();
+    let p = parts(&l);
+    assert_eq!(p[0], format!("TALLY 1 simulations ended since the game started, {} of {} augments held at least once",
+                             held.len(), AUGS.len()));
+    for &a in &held {
+        let key = AUGS[a].key;
+        if tally::by_buff(AUGS[a].ev) {
+            assert!(listed(&p[3], &format!("{key} 1/1,")) || p[3].ends_with(&format!(" {key} 1/1")), "{key} on: {l}");
+        } else {
+            assert!(listed(&p[3], &format!("{key} 0/1 x0")) || listed(&p[3], &format!("{key} 1/1 x")), "{key}: {l}");
+        }
+    }
+
+    // 属性类的 buff 不在身上（像是没挂上）：拿着却没起作用；另一个拿属性类的死着结束：这一局不算他那个
+    let mut found = false;
+    for seed in 1..3000u64 {
+        let mut w = world(seed, SimOriginKindV1::ServerPresim, 0);
+        start(&mut w);
+        run_to(&mut w, 100);
+        let first = opening(&w);
+        let only = |p: usize| first.iter().filter(|&&a| a == first[p]).count() == 1;
+        if !(tally::by_buff(AUGS[first[0]].ev) && tally::by_buff(AUGS[first[1]].ev) && only(0) && only(1)) {
+            continue;
+        }
+        found = true;
+        tally::reset_for_test();
+        let name = augments::buff_name(first[0]);
+        w.champ_mut(0).buffs.retain(|b| b.name() != name);
+        w.die(1);
+        w.end = true;
+        run_to(&mut w, 101);
+        let l = tally::line();
+        let p = parts(&l);
+        let (missing, dead) = (AUGS[first[0]].key, AUGS[first[1]].key);
+        assert!(listed(&p[1], &format!("{missing} 0/1")), "{missing}'s buff gone: {l}");
+        assert!(p[2].split(' ').any(|x| x == dead), "{dead}'s holder dead at the end: not judged: {l}");
+        assert!(!listed(&p[3], &format!("{dead} ")), "{l}");
+        break;
+    }
+    assert!(found, "a seed whose first two seats open with stat augments nobody else has");
+    tally::reset_for_test();
 }

@@ -578,9 +578,11 @@ impl Procs {
         // ---------- 男爵之手 ----------
         if has(Ev::HandOfBaron) {
             let key = if ad >= ap { 1 } else { 2 };
-            self.dyn_set(sim, h, me.ent, D_BARON, key, |k| {
+            if self.dyn_set(sim, h, me.ent, D_BARON, key, |k| {
                 named(D_BARON, |b| if k == 1 { b.attack_mult = BARON_PCT } else { b.magic_power_mult = BARON_PCT })
-            });
+            }) {
+                self.fire(Ev::HandOfBaron);
+            }
             if now >= self.pls[h].b3.minions_at {
                 self.pls[h].b3.minions_at = now + MINION_EVERY;
                 let mut minions = Vec::new();
@@ -596,6 +598,9 @@ impl Procs {
                     b.damaged_reduce = MINION_REDUCE;
                     b.attack_mult = MINION_ATTACK;
                 });
+                if !minions.is_empty() {
+                    self.fire(Ev::HandOfBaron);
+                }
                 for m in minions {
                     put_timed(sim, m, &boost);
                 }
@@ -808,18 +813,24 @@ impl Procs {
                 self.show(screen, now, Show::RingPurple, me.pos, vec![(TERROR_R, 0)], 30);
             }
             // 某个技能的技能急速：放完以后再缩短它的冷却
-            let mut haste = 0;
-            if has(Ev::BreadButter) && k == 1 {
+            let butter = has(Ev::BreadButter) && k == 1;
+            let jam = has(Ev::BreadJam) && k == 2;
+            let pursuit = if chosen(self, Ev::PursuitHaste) { pursuit_haste(self.pls[h].b3.haste_hits) } else { 0 };
+            let mut haste = pursuit;
+            if butter {
                 haste += BREAD_HASTE;
             }
-            if has(Ev::BreadJam) && k == 2 {
+            if jam {
                 haste += BREAD_HASTE;
-            }
-            if chosen(self, Ev::PursuitHaste) {
-                haste += pursuit_haste(self.pls[h].b3.haste_hits);
             }
             if haste > 0 && full > 0 {
                 sim.entity_reduce_cooldown(me.ent, slot(k), haste_cut(full, haste));
+                // 0.5.2：这一下冷却缩短了，各算一次
+                for (on, ev) in [(butter, Ev::BreadButter), (jam, Ev::BreadJam), (pursuit > 0, Ev::PursuitHaste)] {
+                    if on {
+                        self.fire(ev);
+                    }
+                }
             }
             // 过载：放了别的技能，选定的那个转好
             if has(Ev::Overloaded) {

@@ -19,8 +19,10 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_hextech.log`，每次启动游戏重写，上一次的留在 .prev.log。屏幕上那一场
 //! 每行都记，预演、后台比赛每种前 40 行、之后每 100 行一行：`MATCH`（档位、每人的特性）、`PICK`、`KEEP`（复活后补回）、`PROC`
-//! （触发类海克斯出效果，屏幕那一场前 80 行、之后每 40 行一行）、`END`（每个人拿了什么、每种触发了几次）；`PERF` 每 100 份模拟
-//! 一行（钩子一共花了多少时间：过日快不快就看它）；`FX`、`WORLD`（特效第一次画出来、比赛世界认出来没有）。
+//! （触发类海克斯出效果，屏幕那一场前 80 行、之后每 40 行一行）、`END`（每个人拿了什么、这一局每个触发了几次，属性类的 buff
+//! 在不在身上）；`TALLY`（0.5.2，[`tally`]：这次启动以来每个海克斯起作用的局数 / 拿着的局数，屏幕那一场结束时和每结束
+//! [`tally::EVERY`] 份模拟一行，每份都算、不限条数）；`PERF` 每 100 份模拟一行（钩子一共花了多少时间：过日快不快就看它）；
+//! `FX`、`WORLD`（特效第一次画出来、比赛世界认出来没有）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -45,6 +47,7 @@ pub mod procs;
 pub mod rules;
 pub mod screen;
 pub mod settings;
+pub mod tally;
 pub mod words;
 pub mod world;
 
@@ -650,6 +653,9 @@ impl Sim {
             self.procs.picked(i, AUGS[a].ev, k, 0);
         }
         self.held[i] = self.pls[i].taken.iter().fold(0, |h, &a| h | ev_bit(a));
+        if !gained.is_empty() {
+            self.procs.fire(ev);
+        }
         let keys = |v: &[usize]| v.iter().map(|&a| AUGS[a].key).collect::<Vec<_>>().join(", ");
         say(screen.is_some(), "pick", format!("{} TRANSMUTE {} {}: gained [{}], lost [{}]", head(sim), self.who(i),
                                               AUGS[pick.chosen].key, keys(&gained), keys(&lost)));
@@ -741,23 +747,78 @@ impl Sim {
         }
     }
 
+    /// 比赛结束：每个人拿的每个海克斯这一局怎么样（0.5.2：会触发的这一局触发了几次，属性类的 buff 在不在身上），一行 `END`；
+    /// 这一局的记进 [`tally`]，屏幕上那一场结束时、每结束 [`tally::EVERY`] 份写一行 `TALLY`。
     fn end(&self, sim: &StableSim<'_>, screen: Option<(u64, u64)>) {
         let o = sim.sim_origin().unwrap_or_default();
-        let rows: Vec<String> = (0..self.seats.len())
-            .map(|i| {
-                let keys: Vec<&str> = self.pls[i].taken.iter().map(|&a| AUGS[a].key).collect();
-                format!("{}: {}", self.who(i), if keys.is_empty() { "-".into() } else { keys.join(" ") })
-            })
-            .collect();
-        say(screen.is_some(), "end", format!("{} END sim #{} ({}): {}; procs: {}", head(sim), self.no, kind_name(o.kind),
-                                             rows.join("; "), self.procs.summary()));
+        let (rows, seen, quiet) = self.end_rows(sim);
+        say(screen.is_some(), "end", format!("{} END sim #{} ({}): {} | held but quiet in this match: {}", head(sim), self.no,
+                                             kind_name(o.kind), rows.join("; "),
+                                             if quiet.is_empty() { "-".into() } else { quiet.join(", ") }));
+        let n = tally::add(&seen);
+        if screen.is_some() || n.is_multiple_of(tally::EVERY) {
+            wlog(format!("{} {}", head(sim), tally::line()));
+        }
         if let Some((m, s)) = screen {
             feed::ended(m, s, sim.tick());
         }
     }
+
+    /// 结束时每个座位一段（`jinx(p3 blue lane3): chain_lightning 12, celestial_body on`：会触发的写这一局的次数，属性类写 on / MISSING，
+    /// 人死着写 dead）；这一局有人拿着的每个海克斯一条记进账里的（两个人拿着同一个也只一条：次数本来就是这一局合起来的；
+    /// 属性类有一个人身上在就算在）；拿着却没起作用的（次数 0、buff 不在）。
+    fn end_rows(&self, sim: &StableSim<'_>) -> (Vec<String>, Vec<(usize, tally::Seen)>, Vec<String>) {
+        let mut seen: Vec<(usize, tally::Seen)> = Vec::new();
+        let mut quiet: Vec<String> = Vec::new();
+        let mut rows = Vec::new();
+        for i in 0..self.seats.len() {
+            // 他现在的英雄活着才看得到身上的 buff
+            let names: Option<Vec<String>> = sim
+                .get_player(self.seats[i].player)
+                .and_then(|p| p.champion())
+                .filter(|e| e.is_alive())
+                .map(|e| (0..e.buff_count()).filter_map(|j| e.buff_at(j)).map(|b| b.name().to_string()).collect());
+            let mut items = Vec::new();
+            for &a in &self.pls[i].taken {
+                let ev = AUGS[a].ev;
+                let (s, text) = if tally::by_buff(ev) {
+                    match &names {
+                        Some(n) => {
+                            let on = n.contains(&augments::buff_name(a));
+                            (Some(tally::Seen::On(on)), if on { "on" } else { "MISSING" }.to_string())
+                        }
+                        None => (None, "dead".to_string()),
+                    }
+                } else {
+                    let n = self.procs.count[ev as usize];
+                    (Some(tally::Seen::Fired(n)), n.to_string())
+                };
+                items.push(format!("{} {text}", AUGS[a].key));
+                let Some(s) = s else { continue };
+                if matches!(s, tally::Seen::Fired(0) | tally::Seen::On(false)) {
+                    quiet.push(format!("{} ({})", AUGS[a].key, self.who(i)));
+                }
+                match seen.iter_mut().find(|x| x.0 == a) {
+                    Some(x) => {
+                        if s == tally::Seen::On(true) {
+                            x.1 = s;
+                        }
+                    }
+                    None => seen.push((a, s)),
+                }
+            }
+            rows.push(format!("{}: {}", self.who(i), if items.is_empty() { "-".into() } else { items.join(", ") }));
+        }
+        (rows, seen, quiet)
+    }
 }
 
 /// 近战英雄（0.4.0：射程类海克斯给近战的那个数；玻璃大炮、事不过三按近战 / 远程）。
+/// 属性类海克斯有几个（加载那一行用）。
+fn stat_ones() -> usize {
+    AUGS.iter().filter(|a| a.ev == Ev::Stat).count()
+}
+
 fn melee(t: &augments::Traits) -> bool {
     t.melee >= t.ranged
 }
@@ -840,9 +901,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let v = host.game_version();
     wlog(format!("=== {ID} v{VERSION} (Hextech Mayhem: four augment picks a champion - the start and levels 6 / 9 / 12, one \
                   of three with a reroll each, the tier the same for everyone; picked by the AI from the champion's class and \
-                  tags, or by the player on the pick screen; {} augments: 20 stat ones and 27 that trigger, with battlefield effects) \
+                  tags, or by the player on the pick screen; {} augments: {} stat ones and {} that act in the match, with battlefield effects) \
                   loaded: game {}.{}.{} abi {} log={} ===",
-                 AUGS.len(), v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
+                 AUGS.len(), stat_ones(), AUGS.len() - stat_ones(), v.major, v.minor, v.patch, host.abi_level(),
+                 LOG_PATH.display()));
     wlog(settings::init(settings::dll_dir()));
     // 身体变大（歌利亚巨人、最终形态、坦克引擎）：高清帧引擎的通配变身行；显示钩子晚挂（第一帧再换槽）
     game_places::hook::defer();
