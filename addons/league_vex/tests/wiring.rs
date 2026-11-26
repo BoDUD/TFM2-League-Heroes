@@ -148,8 +148,11 @@ fn the_passive_does_league_s_vex_through_the_export() {
         let after = w.units[0].buffs.iter().find(|b| b.0.name() == vx("p_wait")).unwrap().0.duration_tick;
         assert_eq!(after, added * 90 / 100, "{added} -> {after}");
 
-        // ---- 突进：阿狸朝她闪现 40000（挂暮气），德莱厄斯被击退 40000（不挂）
+        // ---- 突进：阿狸朝她闪现 40000（挂暮气），盖伦自己冲 40000（强制位移带着施法动作：挂），德莱厄斯被击退 40000（不挂）
         w.units[3].x -= 40_000.0;
+        w.units[1].ccs.push((CcV1::of_kind(CcKindV1::ForceMove, 5), 5));
+        w.units[1].ccs.push((CcV1::of_kind(CcKindV1::Animation, 5), 5));
+        w.units[1].x -= 40_000.0;
         w.units[4].ccs.push((CcV1::of_kind(CcKindV1::ForceMove, 5), 5));
         w.units[4].x = 380_000.0;
         w.units[4].y = 300_000.0;
@@ -157,8 +160,9 @@ fn the_passive_does_league_s_vex_through_the_export() {
         w.units[4].x -= 40_000.0;
         tick(&mut w, &passive);
         assert!(w.has(3, &vx("g_mark")), "Ahri's blink");
+        assert!(w.has(1, &vx("g_mark")), "Garen's own dash");
         assert!(!w.has(4, &vx("g_mark")), "Darius was knocked, not dashing");
-        assert_eq!(w.heard(&vx("e_hit")), 1);
+        assert_eq!(w.heard(&vx("e_hit")), 2);
 
         // ---- 愁煞打中只剩 200 血的盖伦：冲击 164 + 50 加生人勿近 105 + 30，过了 20 魔抗也杀得死，他身边只有阿狸：冲到身上；
         //      再打满血的阿狸：停在外面
@@ -203,7 +207,7 @@ fn the_passive_does_league_s_vex_through_the_export() {
         assert!(first.starts_with(&format!("=== league_vex v{} (Vex as in League V26.13", env!("CARGO_PKG_VERSION"))), "{first}");
         for what in ["SPAWN: the add-on's Vex (player 0", "DOOM: spent at level 8, back in 912 ticks", "GLOOM #1: #1 (champion) popped for",
                      "GLOOM #2: #2 (unit) popped for", "FEAR #1: #1 75 ticks at level 8, away from her", "FEAR #2: #2 75 ticks at level 8, away from the E spot",
-                     "EKILL #1: #2 (unit) died under Looming Darkness", "DASH #1: #3 moved 40000", "SURGE #1: #1 hp 200", "-> onto him",
+                     "EKILL #1: #2 (unit) died under Looming Darkness", "DASH #1: #1 moved 40000", "DASH #2: #3 moved 40000", "SURGE #1: #1 hp 200", "-> onto him",
                      "SURGE #2: #3 hp 1000", "-> stop outside", "RESET #1: #1 died", "RESET #2: #4 died", "DOOM: back on respawn"] {
             assert!(text.contains(what), "missing {what:?} in the log:\n{text}");
         }

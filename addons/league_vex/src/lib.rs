@@ -5,8 +5,8 @@
 //! 被动 `league_vex:gloom`：
 //!
 //! - **暮气**：溟濛渐染打中的敌人挂 `league_vex_g_mark`（`g_t` tick，主包也挂）；她 `p_dash_r` 以内突进或闪现的敌方英雄和野怪
-//!   （连着两 tick 平均每 tick 走了 `DASH_STEP` 以上、也是他移速的 `DASH_X` 倍以上，一步不超过 `BLINK_MAX`；被击退、拉拽、
-//!   击飞的不算）也被挂上。副本里她的普攻、Q、W 打中的单位挂
+//!   （连着两 tick 平均每 tick 走了 `DASH_STEP` 以上、也是他移速的 `DASH_X` 倍以上，一步不超过 `BLINK_MAX`；被别人推着走的
+//!   不算：有强制位移却没在放技能，见 `displaced`）也被挂上。副本里她的普攻、Q、W 打中的单位挂
 //!   2 tick 的 `league_vex_v_hit`（E、R 不挂：英雄联盟里它们不引爆）；带暮气的单位被她打中就**引爆**：摘掉暮气，补魔法伤害
 //!   （`g_lo` 到 `g_hi` 按等级 + `g_ratio`% 法强，对非英雄只打 `g_u_lo`% 到 `g_u_hi`%），终焉的等待缩短 `g_cut`%（非英雄 `g_cut_u`%）。
 //! - **终焉**：数据用掉终焉时给她挂 `league_vex_p_wait`（`p_cd1` tick）；本包看到新挂上的就按等级改成英雄联盟的比例
@@ -276,6 +276,13 @@ pub fn is_dash(step: f64, prev: f64, ms: usize) -> bool {
     step <= BLINK_MAX && (step + prev) / 2.0 >= DASH_STEP.max(DASH_X * ms as f64)
 }
 
+/// 被别人推着走，不是自己突进：有强制位移却没在放技能。这个引擎里英雄自己的突进也是强制位移，但同时带着施法动作；
+/// 数据的击退、拉人和别的附加包的推不带（league_poppy 的 external_push 一样的分法）。击飞不算：它不挪位置，英雄自己的
+/// 跳跃有时也带着击飞。
+pub fn displaced(force_move: bool, casting: bool) -> bool {
+    force_move && !casting
+}
+
 /// 魔法伤害过了魔抗还剩多少。
 pub fn after_mr(dmg: usize, mr: usize) -> usize {
     dmg * 100 / (100 + mr)
@@ -318,7 +325,7 @@ struct Seen {
     f_e: bool,
     e_aim: bool,
     r_mark: bool,
-    /// 被击退、拉拽、击飞着（不是自己冲的）。
+    /// 被别人推着走（击退、拉人、别的附加包的推），不是自己冲的。
     displaced: bool,
     /// 身上有免控的 buff（黑盾之类）：终焉的恐惧不吃。
     immune: bool,
@@ -398,8 +405,8 @@ fn scan(sim: &StableSim<'_>, team: usize) -> Vec<Seen> {
             s.e_aim |= n == names[4];
             s.r_mark |= n == names[5];
         }
-        let moved = |c: &CcV1| c.kind == CcKindV1::ForceMove.code() || c.kind == CcKindV1::Airborne.code();
-        s.displaced = (0..e.cc_count()).filter_map(|k| e.cc_at(k)).any(|c| moved(&c));
+        let kinds: Vec<u32> = (0..e.cc_count()).filter_map(|k| e.cc_at(k)).map(|c| c.kind).collect();
+        s.displaced = displaced(kinds.contains(&CcKindV1::ForceMove.code()), kinds.contains(&CcKindV1::Animation.code()));
         out.push(s);
     }
     out
@@ -475,7 +482,7 @@ impl Gloom {
         self.hit_seen = seen.iter().filter(|s| s.hit).map(|s| s.id).collect();
     }
 
-    /// 她身边突进 / 闪现的敌方英雄和野怪挂上暮气（被别人击退、拉拽、击飞的不算）。
+    /// 她身边突进 / 闪现的敌方英雄和野怪挂上暮气（被别人击退、拉过去、推走的不算，见 `displaced`）。
     fn dashes(&mut self, sim: &mut StableSim<'_>, me: usize, seen: &[Seen], pos: (u64, u64), alive: bool) {
         let mut now = Vec::new();
         for s in seen.iter().filter(|s| s.alive && (s.champion || s.monster)) {
@@ -752,6 +759,17 @@ mod tests {
         assert!(is_dash(40_000.0, 0.0, 1000));
         // 回城、复活
         assert!(!is_dash(300_000.0, 0.0, 1000));
+    }
+
+    #[test]
+    fn only_a_push_from_someone_else_is_no_dash() {
+        // 击退、拉人：强制位移、没在放技能
+        assert!(displaced(true, false));
+        // 自己的突进：强制位移带着施法动作
+        assert!(!displaced(true, true));
+        // 走路、闪现、击飞
+        assert!(!displaced(false, false));
+        assert!(!displaced(false, true));
     }
 
     #[test]
