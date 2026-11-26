@@ -1879,7 +1879,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as Codex's models; the souls' triggers, the soul taken, the Elder's burn and execute as effects on the battlefield; the elemental rift's terrain after the second drake) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as the mod's own models; the souls' triggers, the soul taken, the Elder's burn and execute as effects on the battlefield; the elemental rift's terrain after the second drake) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
